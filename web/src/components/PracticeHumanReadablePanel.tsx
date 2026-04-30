@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { createContext, useContext, useEffect, useId, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
 import type { Method, PracticeBaseline, PracticeElementAlias } from "@/lib/types";
 import {
   asBaselineDocument,
@@ -11,6 +11,8 @@ import {
   IMPLICIT_FOCUS_NAME,
   practiceElementDescriptionForDisplay,
 } from "@/lib/ir";
+import { flattenPracticeElementTags, normalizePracticeElementTags } from "@/lib/practiceElementTags";
+import { parsePatternViewAlphaState } from "@/lib/patternView";
 import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { useTheme } from "@/lib/theme";
 import { useLanguagePack } from "@/lib/languagePack";
@@ -39,12 +41,12 @@ import {
 } from "@/lib/alphaContributesDiagram";
 import { extendsBaselineDisplayName } from "@/lib/library/classify";
 import {
-  buildPracticeElementAliasLookup,
   diagramMeasureName,
   EMPTY_PRACTICE_ELEMENT_ALIAS_LOOKUP,
   getAliasedDisplay,
   type PracticeElementAliasLookup,
 } from "@/lib/practiceElementAliasDisplay";
+import { PracticeElementAliasesProvider, AliasedName, usePracticeElementAliasLookup } from "@/components/AliasedName";
 
 const panel: React.CSSProperties = {
   background: "var(--panel)",
@@ -70,35 +72,6 @@ const BROWSE = {
   h5: "mt-3 text-base font-semibold text-[var(--text)]",
 } as const;
 
-const PracticeElementAliasLookupContext = createContext<PracticeElementAliasLookup>(
-  EMPTY_PRACTICE_ELEMENT_ALIAS_LOOKUP,
-);
-
-function usePracticeElementAliasLookup(): PracticeElementAliasLookup {
-  return useContext(PracticeElementAliasLookupContext);
-}
-
-/** Renders practice element titles: primary = alias when defined; canonical in smaller italic parentheses. */
-function AliasedName({ kind, name, browse }: { kind: string; name: string; browse: boolean }) {
-  const lookup = usePracticeElementAliasLookup();
-  const { primary, showCanonical, canonical } = getAliasedDisplay(lookup, kind, name);
-  if (!showCanonical) return <>{primary}</>;
-  if (browse) {
-    return (
-      <>
-        {primary}
-        <span className="text-sm italic font-normal text-[var(--muted)]"> ({canonical})</span>
-      </>
-    );
-  }
-  return (
-    <>
-      {primary}
-      <span style={{ fontSize: "0.88em", fontStyle: "italic", fontWeight: 400, color: "var(--muted)" }}> ({canonical})</span>
-    </>
-  );
-}
-
 /** Dedupe alpha→state links by pair (same as mergeContribs in compositePracticeFromMethod). */
 function dedupeContributesToRefs(raw: unknown): { alphaName: string; stateName: string }[] {
   if (!Array.isArray(raw) || !raw.length) return [];
@@ -115,6 +88,270 @@ function dedupeContributesToRefs(raw: unknown): { alphaName: string; stateName: 
     out.push({ alphaName, stateName });
   }
   return out;
+}
+
+/** Browse IR: structured tag buckets (domain / lifecycle / organizational) when present; omits empty buckets. */
+function IrBrowseTagsBlock({ tags, t, className = "mt-2" }: { tags: unknown; t: LanguagePack; className?: string }) {
+  const n = normalizePracticeElementTags(tags);
+  if (!n) return null;
+  const rows: { label: string; items: string[] }[] = [];
+  if (n.domainTags?.length) rows.push({ label: t.tagsDomain, items: n.domainTags });
+  if (n.lifecycleTags?.length) rows.push({ label: t.tagsLifecycle, items: n.lifecycleTags });
+  if (n.organizationalTags?.length) rows.push({ label: t.tagsOrganizational, items: n.organizationalTags });
+  if (!rows.length) return null;
+  return (
+    <div className={`${className} space-y-1`}>
+      {rows.map((row) => (
+        <div key={row.label} className="flex flex-wrap items-start gap-2">
+          <span className="min-w-[6.75rem] shrink-0 text-[11px] font-semibold uppercase tracking-wide text-[var(--muted)]">
+            {row.label}
+          </span>
+          <div className="flex flex-wrap gap-1.5">
+            {row.items.map((x) => (
+              <span key={`${row.label}-${x}`} style={tag()}>
+                {x}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Browse IR: optional checklist gate metadata from language.schema.json Checklist. */
+function IrBrowseChecklistSchemaBlock({
+  ch,
+  t,
+  workProductId,
+}: {
+  ch: any;
+  t: LanguagePack;
+  workProductId: (n: string) => string;
+}) {
+  const blockRow =
+    typeof ch.isBlocking === "boolean" ? (
+      <div key="block" className="text-[11px] text-[var(--muted)]">
+        <span className="font-semibold text-[var(--text)]">{t.checklistBlocking}: </span>
+        {ch.isBlocking ? "true" : "false"}
+      </div>
+    ) : null;
+  const vmRow =
+    typeof ch.verificationMethod === "string" && ch.verificationMethod.trim() ? (
+      <div key="vm" className="text-[11px] text-[var(--muted)]">
+        <span className="font-semibold text-[var(--text)]">{t.checklistVerificationMethod}: </span>
+        <code>{ch.verificationMethod.trim()}</code>
+      </div>
+    ) : null;
+  const erRow =
+    typeof ch.evidenceRequired === "boolean" ? (
+      <div key="er" className="text-[11px] text-[var(--muted)]">
+        <span className="font-semibold text-[var(--text)]">{t.checklistEvidenceRequired}: </span>
+        {ch.evidenceRequired ? "true" : "false"}
+      </div>
+    ) : null;
+
+  const thresholdWeight =
+    typeof ch.thresholdWeighting === "number" && Number.isFinite(ch.thresholdWeighting) ? (
+      <div key="tw" className="text-[11px] text-[var(--muted)]">
+        <span className="font-semibold text-[var(--text)]">{t.checklistThresholdWeight}: </span>
+        {ch.thresholdWeighting}
+      </div>
+    ) : null;
+
+  const metaInSchemaOrder: ReactNode[] = [];
+  if (blockRow) metaInSchemaOrder.push(blockRow);
+  if (thresholdWeight) metaInSchemaOrder.push(thresholdWeight);
+  if (vmRow) metaInSchemaOrder.push(vmRow);
+  if (erRow) metaInSchemaOrder.push(erRow);
+
+  const ev = Array.isArray(ch.evidencedBy) ? ch.evidencedBy : [];
+  const evBlock =
+    ev.length > 0 ? (
+      <div className="mt-1 text-[11px] text-[var(--muted)]">
+        <span className="font-semibold text-[var(--text)]">{t.checklistEvidencedBy}: </span>
+        {ev.map((w: any, idx: number) => (
+          <span key={`${String(w?.workProductName)}:${String(w?.levelOfDetailName)}:${idx}`}>
+            <a href={`#${workProductId(String(w?.workProductName ?? "").trim())}`} style={linkStyle()}>
+              <code>
+                <AliasedName kind="WorkProduct" name={String(w?.workProductName ?? "").trim()} browse />→
+                <AliasedName kind="LevelOfDetail" name={String(w?.levelOfDetailName ?? "").trim()} browse />
+              </code>
+            </a>
+            {idx < ev.length - 1 ? ", " : ""}
+          </span>
+        ))}
+      </div>
+    ) : null;
+
+  if (!metaInSchemaOrder.length && !evBlock) return null;
+  return (
+    <div className="mt-1.5 space-y-0.5 border-l-2 border-[var(--border)]/70 pl-2">
+      {metaInSchemaOrder}
+      {evBlock}
+    </div>
+  );
+}
+
+/** True when checklist row has tags or schema metadata worth showing behind a click. */
+function browseChecklistHasExpandableFields(ch: unknown): boolean {
+  if (normalizePracticeElementTags((ch as { tags?: unknown })?.tags)) return true;
+  const c = ch as Record<string, unknown>;
+  if (typeof c?.isBlocking === "boolean") return true;
+  if (typeof c?.verificationMethod === "string" && String(c.verificationMethod).trim() !== "") return true;
+  if (typeof c?.evidenceRequired === "boolean") return true;
+  if (typeof c?.thresholdWeighting === "number" && Number.isFinite(c.thresholdWeighting)) return true;
+  if (Array.isArray(c?.evidencedBy) && (c.evidencedBy as unknown[]).length > 0) return true;
+  return false;
+}
+
+/** Browse IR: checklist items as bullets; name bold + description visible; tags & schema in `<details>`. */
+function IrBrowseChecklistBullets({
+  checklist,
+  t,
+  workProductId,
+  listClassName,
+  itemKeyPrefix,
+}: {
+  checklist: any[];
+  t: LanguagePack;
+  workProductId: (n: string) => string;
+  listClassName: string;
+  itemKeyPrefix: string;
+}) {
+  const sorted = checklist.slice().sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0));
+  return (
+    <ul className={listClassName}>
+      {sorted.map((ch: any, chIdx: number) => {
+        const desc = practiceElementDescriptionForDisplay(ch);
+        const expandable = browseChecklistHasExpandableFields(ch);
+        const headline = (
+          <>
+            <span className="font-bold">
+              <AliasedName kind="Checklist" name={ch.name} browse />
+            </span>
+            {desc ? <span className="font-normal"> {desc}</span> : null}
+          </>
+        );
+        return (
+          <li key={`${itemKeyPrefix}-${chIdx}-${slug(String(ch.name ?? ""))}`}>
+            {expandable ? (
+              <details className="rounded-sm">
+                <summary className="cursor-pointer list-none leading-snug [&::-webkit-details-marker]:hidden">
+                  {headline}
+                </summary>
+                <div className="mt-2 space-y-2 border-l-2 border-[var(--border)]/70 pl-2.5">
+                  <IrBrowseTagsBlock tags={ch.tags} t={t} className="mt-0" />
+                  <IrBrowseChecklistSchemaBlock ch={ch} t={t} workProductId={workProductId} />
+                </div>
+              </details>
+            ) : (
+              <div className="leading-snug">{headline}</div>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function IrBrowsePatternViewsSection({
+  pattern,
+  t,
+  stateId,
+  activitySpaceId,
+  activityId,
+}: {
+  pattern: any;
+  t: LanguagePack;
+  stateId: (a: string, s: string) => string;
+  activitySpaceId: (n: string) => string;
+  activityId: (n: string) => string;
+}) {
+  const views = Array.isArray(pattern.patternViews) ? [...pattern.patternViews] : [];
+  if (!views.length) return null;
+  views.sort((a: any, b: any) => (Number(a.seq) || 0) - (Number(b.seq) || 0));
+  return (
+    <details className="mt-4 rounded-lg border border-[var(--border)]/80 bg-[var(--panel)]/40 px-3 py-2">
+      <summary className="cursor-pointer select-none text-sm font-semibold text-[var(--muted)] [&::-webkit-details-marker]:hidden">
+        {t.patternViewsHeading}
+        <span className="ml-1.5 font-normal tabular-nums">({views.length})</span>
+      </summary>
+      <ul className="mt-3 list-none space-y-4 border-t border-[var(--border)]/60 pt-3 pl-0">
+        {views.map((pv: any) => (
+          <li key={String(pv.name)}>
+            <div className="font-semibold text-[var(--text)]">
+              <AliasedName kind="PatternView" name={String(pv.name)} browse />
+            </div>
+            {practiceElementDescriptionForDisplay(pv) ? (
+              <p className={`mt-1 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(pv)}</p>
+            ) : null}
+            <IrBrowseTagsBlock tags={pv.tags} t={t} className="mt-1.5" />
+            <div className="mt-2 text-[11px] leading-snug text-[var(--muted)]">
+              <span className="font-semibold text-[var(--text)]">{t.patternViewAlphaStates}: </span>
+              {(pv.alphaStates ?? []).length ? (
+                (pv.alphaStates as unknown[]).map((raw, idx, arr) => {
+                  const parsed = parsePatternViewAlphaState(raw);
+                  const sep = idx < arr.length - 1 ? ", " : "";
+                  if (parsed) {
+                    return (
+                      <span key={`pv-${String(pv.name)}-as-${idx}`}>
+                        <a href={`#${stateId(parsed.alphaName, parsed.stateName)}`} style={linkStyle()}>
+                          <code>
+                            <AliasedName kind="Alpha" name={parsed.alphaName} browse />→
+                            <AliasedName kind="State" name={parsed.stateName} browse />
+                          </code>
+                        </a>
+                        {sep}
+                      </span>
+                    );
+                  }
+                  return (
+                    <span key={`pv-${String(pv.name)}-raw-${idx}`}>
+                      <code>{String(raw)}</code>
+                      {sep}
+                    </span>
+                  );
+                })
+              ) : (
+                <span className="italic">—</span>
+              )}
+            </div>
+            {Array.isArray(pv.activitySpaces) && pv.activitySpaces.length ? (
+              <div className="mt-1 text-[11px] text-[var(--muted)]">
+                <span className="font-semibold text-[var(--text)]">{t.patternViewActivitySpaces}: </span>
+                {pv.activitySpaces.map((nm: unknown, idx: number) => (
+                  <span key={`${String(nm)}-${idx}`}>
+                    <a href={`#${activitySpaceId(String(nm ?? "").trim())}`} style={linkStyle()}>
+                      <code>
+                        <AliasedName kind="ActivitySpace" name={String(nm ?? "").trim()} browse />
+                      </code>
+                    </a>
+                    {idx < pv.activitySpaces.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+            {Array.isArray(pv.activities) && pv.activities.length ? (
+              <div className="mt-1 text-[11px] text-[var(--muted)]">
+                <span className="font-semibold text-[var(--text)]">{t.patternViewActivities}: </span>
+                {pv.activities.map((nm: unknown, idx: number) => (
+                  <span key={`${String(nm)}-act-${idx}`}>
+                    <a href={`#${activityId(String(nm ?? "").trim())}`} style={linkStyle()}>
+                      <code>
+                        <AliasedName kind="Activity" name={String(nm ?? "").trim()} browse />
+                      </code>
+                    </a>
+                    {idx < pv.activities.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
 }
 
 type FocusGroup = { focusName: string; focus: any | null; alphas: any[]; activitySpaces: any[] };
@@ -199,18 +436,14 @@ export function PracticeHumanReadablePanel({
   const sourceDocRecord =
     effectiveDoc && typeof effectiveDoc === "object" ? (effectiveDoc as Record<string, unknown>) : null;
 
-  const aliasLookup = useMemo(
-    () =>
-      buildPracticeElementAliasLookup(
-        Array.isArray(sourceDocRecord?.practiceElementAliases)
-          ? (sourceDocRecord!.practiceElementAliases as PracticeElementAlias[])
-          : undefined,
-      ),
-    [sourceDocRecord],
-  );
-
   return (
-    <PracticeElementAliasLookupContext.Provider value={aliasLookup}>
+    <PracticeElementAliasesProvider
+      aliases={
+        Array.isArray(sourceDocRecord?.practiceElementAliases)
+          ? (sourceDocRecord.practiceElementAliases as PracticeElementAlias[])
+          : undefined
+      }
+    >
       <section style={panel}>
       <div style={{ fontWeight: 700, marginBottom: 8 }}>{t.renderedView}</div>
       {shouldResolveLibrary && libraryResolvedDoc === null && !libraryResolveNote ? (
@@ -243,13 +476,14 @@ export function PracticeHumanReadablePanel({
         </div>
       )}
     </section>
-    </PracticeElementAliasLookupContext.Provider>
+    </PracticeElementAliasesProvider>
   );
 }
 
 const BROWSE_SECTION_ALPHAS = "browse-section-alphas";
 const BROWSE_SECTION_ACTIVITIES = "browse-section-activities";
 const BROWSE_SECTION_METHOD_PRACTICES = "browse-section-composing-practices";
+const BROWSE_SECTION_ALIASES = "browse-section-aliases";
 
 function browseAlphasFocusSectionId(focusName: string) {
   return `browse-alphas-focus-${slug(focusName)}`;
@@ -346,6 +580,9 @@ function BrowseTableOfContents({
   const workProducts = Array.isArray(sourceDoc?.workProducts) ? (sourceDoc!.workProducts as any[]) : [];
   const workBreakdowns = Array.isArray(sourceDoc?.workBreakdowns) ? (sourceDoc!.workBreakdowns as any[]) : [];
   const patterns = Array.isArray(sourceDoc?.patterns) ? (sourceDoc!.patterns as any[]) : [];
+  const aliases = Array.isArray(sourceDoc?.practiceElementAliases)
+    ? (sourceDoc!.practiceElementAliases as PracticeElementAlias[])
+    : [];
 
   return (
     <nav
@@ -539,6 +776,13 @@ function BrowseTableOfContents({
             </ul>
           </li>
         ) : null}
+        {aliases.length ? (
+          <li className="border-t border-[var(--border)]/70 pt-2">
+            <a href={`#${BROWSE_SECTION_ALIASES}`} className={tocLink}>
+              {t.practiceElementAliasesHeading}
+            </a>
+          </li>
+        ) : null}
       </ul>
     </nav>
   );
@@ -573,15 +817,16 @@ function BrowsePracticeFocusSections({
         {practiceElementDescriptionForDisplay(s) ? (
           <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(s)}</p>
         ) : null}
-        {(s.tags ?? []).length ? (
-          <div className="mt-2 flex flex-wrap items-center gap-2">
-            <span className="text-xs font-semibold text-[var(--muted)]">{t.tags}:</span>
-            {(s.tags as string[]).map((x: string) => (
-              <span key={x} style={tag()}>
-                {x}
-              </span>
-            ))}
-          </div>
+        <IrBrowseTagsBlock tags={s.tags} t={t} />
+        {typeof s.activitySpaceName === "string" && s.activitySpaceName.trim() !== "" ? (
+          <p className={`mt-2 ${BROWSE.bodyMuted}`}>
+            {t.activityParentSpace}:{" "}
+            <a href={`#${activitySpaceId(s.activitySpaceName.trim())}`} style={linkStyle()}>
+              <code>
+                <AliasedName kind="ActivitySpace" name={s.activitySpaceName.trim()} browse />
+              </code>
+            </a>
+          </p>
         ) : null}
         {contributesTo.length ? (
           <p className={`mt-2 ${BROWSE.bodyMuted}`}>
@@ -660,16 +905,7 @@ function BrowsePracticeFocusSections({
       {practiceElementDescriptionForDisplay(child) ? (
         <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(child)}</p>
       ) : null}
-      {(child.tags ?? []).length ? (
-        <div className="mt-2 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-semibold text-[var(--muted)]">{t.tags}:</span>
-          {(child.tags as string[]).map((x: string) => (
-            <span key={x} style={tag()}>
-              {x}
-            </span>
-          ))}
-        </div>
-      ) : null}
+      <IrBrowseTagsBlock tags={child.tags} t={t} />
       {typeof child.contributesTo === "string" && child.contributesTo.trim() !== "" ? (
         <p className={`mt-2 ${BROWSE.bodyMuted}`}>
           {t.alphaContributesToAlpha}:{" "}
@@ -707,34 +943,15 @@ function BrowsePracticeFocusSections({
                       ) : null}
                     </summary>
                     <div className="ml-0 mt-1.5 border-l-2 border-[var(--border)] pl-2.5">
-                      {(st.tags ?? []).length ? (
-                        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                          <span className="text-[11px] font-semibold text-[var(--muted)]">{t.tags}:</span>
-                          {(st.tags as string[]).map((x: string, ti: number) => (
-                            <span key={`browse-${stIdx}-tag-${ti}-${slug(x)}`} style={tag()}>
-                              {x}
-                            </span>
-                          ))}
-                        </div>
-                      ) : null}
+                      <IrBrowseTagsBlock tags={st.tags} t={t} className="mt-1.5" />
                       {Array.isArray(st.checklist) && st.checklist.length ? (
-                        <ul className="ml-3 mt-2 list-outside list-disc space-y-1 pl-4 text-xs marker:text-[var(--muted)]">
-                          {st.checklist
-                            .slice()
-                            .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-                            .map((ch: any, chIdx: number) => (
-                              <li key={`browse-ch-${slug(alpha.name)}-${stIdx}-${String(st.seq ?? "")}-${chIdx}-${String(ch.seq ?? "")}-${slug(String(ch.name ?? ""))}`}>
-                                <span className="font-medium text-[var(--text)]">
-                                  <AliasedName kind="Checklist" name={ch.name} browse />
-                                </span>
-                                {practiceElementDescriptionForDisplay(ch) ? (
-                                  <span className="mt-0.5 block font-normal text-[var(--text)]">
-                                    {practiceElementDescriptionForDisplay(ch)}
-                                  </span>
-                                ) : null}
-                              </li>
-                            ))}
-                        </ul>
+                        <IrBrowseChecklistBullets
+                          checklist={st.checklist}
+                          t={t}
+                          workProductId={workProductId}
+                          listClassName="ml-3 mt-2 list-outside list-disc space-y-2 pl-4 text-[13px] leading-snug marker:text-[var(--muted)]"
+                          itemKeyPrefix={`browse-ch-${slug(alpha.name)}-${stIdx}-${String(st.seq ?? "")}`}
+                        />
                       ) : null}
                     </div>
                   </details>
@@ -788,6 +1005,7 @@ function BrowsePracticeFocusSections({
           {g.focus && practiceElementDescriptionForDisplay(g.focus) ? (
             <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(g.focus)}</p>
           ) : null}
+          <IrBrowseTagsBlock tags={g.focus?.tags} t={t} />
           <div className="mt-2 flex flex-col gap-8">
             {g.alphas
               .filter((a: any) => !supportingAlphaNamesGlobal.has(String(a.name)))
@@ -801,15 +1019,24 @@ function BrowsePracticeFocusSections({
                   {practiceElementDescriptionForDisplay(a) ? (
                     <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(a)}</p>
                   ) : null}
-                  {(a.tags ?? []).length ? (
-                    <div className="mt-2 flex flex-wrap items-center gap-2">
-                      <span className="text-xs font-semibold text-[var(--muted)]">{t.tags}:</span>
-                      {(a.tags as string[]).map((x: string) => (
-                        <span key={x} style={tag()}>
-                          {x}
-                        </span>
-                      ))}
-                    </div>
+                  <IrBrowseTagsBlock tags={a.tags} t={t} />
+                  {Array.isArray(a.supportingAlphas) && a.supportingAlphas.length ? (
+                    <p className={`mt-2 ${BROWSE.bodyMuted}`}>
+                      {t.alphaSupportingAlphas}:{" "}
+                      {(a.supportingAlphas as unknown[])
+                        .map((x) => String(x ?? "").trim())
+                        .filter(Boolean)
+                        .map((nm, idx, arr) => (
+                          <span key={`${a.name}-sup-${nm}`}>
+                            <a href={`#${alphaId(nm)}`} style={linkStyle()}>
+                              <code>
+                                <AliasedName kind="Alpha" name={nm} browse />
+                              </code>
+                            </a>
+                            {idx < arr.length - 1 ? ", " : ""}
+                          </span>
+                        ))}
+                    </p>
                   ) : null}
                   {typeof a.contributesTo === "string" && a.contributesTo.trim() !== "" ? (
                     <p className={`mt-2 ${BROWSE.bodyMuted}`}>
@@ -920,16 +1147,7 @@ function BrowsePracticeFocusSections({
                   {practiceElementDescriptionForDisplay(s) ? (
                     <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(s)}</p>
                   ) : null}
-                  {(s.tags ?? []).length ? (
-                    <div className="mt-2 flex flex-wrap items-center gap-2">
-                      <span className="text-xs font-semibold text-[var(--muted)]">{t.tags}:</span>
-                      {(s.tags as string[]).map((x: string) => (
-                        <span key={x} style={tag()}>
-                          {x}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
+                  <IrBrowseTagsBlock tags={s.tags} t={t} />
                   {dedupeContributesToRefs(s.contributesTo).length ? (
                     <p className={`mt-2 ${BROWSE.bodyMuted}`}>
                       {t.contributesTo}:{" "}
@@ -1034,6 +1252,9 @@ function PracticeBaselineView({
 }) {
   const { t } = useLanguagePack();
   const browse = variant === "browse";
+  const browsePracticeElementAliases: PracticeElementAlias[] = Array.isArray(sourceDoc?.practiceElementAliases)
+    ? (sourceDoc!.practiceElementAliases as PracticeElementAlias[])
+    : [];
   const aliasLookup = usePracticeElementAliasLookup();
   const displayFocusName = (nm: string) => (nm === IMPLICIT_FOCUS_NAME ? t.implicitFocusName : nm);
 
@@ -1083,13 +1304,10 @@ function PracticeBaselineView({
             {alpha.states
               .slice()
               .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-              .map((s: any, stateIdx: number) => {
-                const stateSeqVal = olItemValueFromSeq(s.seq);
-                return (
+              .map((s: any, stateIdx: number) => (
                   <li
                     key={`alpha-state-${slug(alpha.name)}-${stateIdx}-${String(s.seq ?? "")}-${slug(String(s.name ?? ""))}`}
                     id={stateId(alpha.name, s.name)}
-                    {...(stateSeqVal !== undefined ? { value: stateSeqVal } : {})}
                     style={{ marginBottom: 6 }}
                   >
                     <a href={`#${stateId(alpha.name, s.name)}`} style={{ ...linkStyle(), fontSize: 12, lineHeight: 1.45 }}>
@@ -1103,10 +1321,10 @@ function PracticeBaselineView({
                         </span>
                       ) : null}
                     </a>
-                    {(s.tags ?? []).length ? (
+                    {flattenPracticeElementTags(s.tags).length ? (
                       <div style={{ marginTop: 4, display: "flex", gap: 4, flexWrap: "wrap", alignItems: "center" }}>
                         <span style={{ fontSize: 10, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                        {(s.tags as string[]).map((x: string, ti: number) => (
+                        {flattenPracticeElementTags(s.tags).map((x: string, ti: number) => (
                           <span key={`${stateIdx}-tag-${ti}-${slug(x)}`} style={tag()}>
                             {x}
                           </span>
@@ -1120,12 +1338,9 @@ function PracticeBaselineView({
                           {s.checklist
                             .slice()
                             .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-                            .map((ch: any, chIdx: number) => {
-                              const chSeq = olItemValueFromSeq(ch.seq);
-                              return (
+                            .map((ch: any, chIdx: number) => (
                                 <li
                                   key={`chk-${slug(alpha.name)}-${stateIdx}-${String(s.seq ?? "")}-${chIdx}-${String(ch.seq ?? "")}-${slug(String(ch.name ?? ""))}`}
-                                  {...(chSeq !== undefined ? { value: chSeq } : {})}
                                   style={{ marginBottom: 3 }}
                                 >
                                   <span style={{ fontWeight: 600 }}>
@@ -1135,14 +1350,12 @@ function PracticeBaselineView({
                                     <span style={{ color: "var(--muted)" }}> — {practiceElementDescriptionForDisplay(ch)}</span>
                                   ) : null}
                                 </li>
-                              );
-                            })}
+                            ))}
                         </ol>
                       </div>
                     ) : null}
                   </li>
-                );
-              })}
+              ))}
           </ol>
         </div>
       </details>
@@ -1157,13 +1370,7 @@ function PracticeBaselineView({
               <AliasedName kind="PracticeBaseline" name={baseline.name} browse />
             </p>
             {baseline.description ? <p className={BROWSE.docSubtitle}>{baseline.description}</p> : null}
-            <div className="mt-4 flex flex-wrap gap-2">
-              {(baseline.tags ?? []).map((tagLabel) => (
-                <span key={tagLabel} style={tag()}>
-                  {tagLabel}
-                </span>
-              ))}
-            </div>
+            <IrBrowseTagsBlock tags={baseline.tags} t={t} className="mt-4" />
             <p className={BROWSE.meta}>
               Authors: {(baseline.authors ?? []).join(", ")} • Version: {baseline.version ?? ""} • Updated:{" "}
               {baseline.updatedAt ?? ""}
@@ -1201,7 +1408,7 @@ function PracticeBaselineView({
             </div>
             <div style={{ color: "var(--muted)", marginTop: 6 }}>{baseline.description}</div>
             <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {(baseline.tags ?? []).map((tagLabel) => (
+              {flattenPracticeElementTags(baseline.tags).map((tagLabel) => (
                 <span key={tagLabel} style={tag()}>
                   {tagLabel}
                 </span>
@@ -1284,10 +1491,10 @@ function PracticeBaselineView({
                     {practiceElementDescriptionForDisplay(a) ? (
                       <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(a)}</div>
                     ) : null}
-                    {(a.tags ?? []).length ? (
+                    {flattenPracticeElementTags(a.tags).length ? (
                       <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                         <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                        {(a.tags as string[]).map((x) => (
+                        {flattenPracticeElementTags(a.tags).map((x) => (
                           <span key={x} style={tag()}>
                             {x}
                           </span>
@@ -1350,12 +1557,12 @@ function PracticeBaselineView({
                                       {practiceElementDescriptionForDisplay(child)}
                                     </div>
                                   ) : null}
-                                  {child && (child.tags ?? []).length ? (
+                                  {child && flattenPracticeElementTags(child.tags).length ? (
                                     <div
                                       style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}
                                     >
                                       <span style={{ fontSize: 11, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                                      {(child.tags as string[]).map((x: string) => (
+                                      {flattenPracticeElementTags(child.tags).map((x: string) => (
                                         <span key={x} style={tag()}>
                                           {x}
                                         </span>
@@ -1446,10 +1653,10 @@ function PracticeBaselineView({
                         {practiceElementDescriptionForDisplay(s) ? (
                           <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(s)}</div>
                         ) : null}
-                        {(s.tags ?? []).length ? (
+                        {flattenPracticeElementTags(s.tags).length ? (
                           <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                             <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                            {(s.tags as string[]).map((x: string) => (
+                            {flattenPracticeElementTags(s.tags).map((x: string) => (
                               <span key={x} style={tag()}>
                                 {x}
                               </span>
@@ -1532,10 +1739,10 @@ function PracticeBaselineView({
                       {practiceElementDescriptionForDisplay(s) ? (
                         <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(s)}</div>
                       ) : null}
-                      {(s.tags ?? []).length ? (
+                      {flattenPracticeElementTags(s.tags).length ? (
                         <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                           <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                          {(s.tags as string[]).map((x: string) => (
+                          {flattenPracticeElementTags(s.tags).map((x: string) => (
                             <span key={x} style={tag()}>
                               {x}
                             </span>
@@ -1598,10 +1805,10 @@ function PracticeBaselineView({
                             {practiceElementDescriptionForDisplay(act) ? (
                               <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(act)}</div>
                             ) : null}
-                            {(act.tags ?? []).length ? (
+                            {flattenPracticeElementTags(act.tags).length ? (
                               <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                                 <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                                {(act.tags as string[]).map((x: string) => (
+                                {flattenPracticeElementTags(act.tags).map((x: string) => (
                                   <span key={x} style={tag()}>
                                     {x}
                                   </span>
@@ -1715,15 +1922,26 @@ function PracticeBaselineView({
                     <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(p)}</div>
                   )
                 ) : null}
-                {(p.tags ?? []).length ? (
+                {browse ? (
+                  <IrBrowseTagsBlock tags={p.tags} t={t} />
+                ) : flattenPracticeElementTags(p.tags).length ? (
                   <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                     <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                    {(p.tags as string[]).map((x: string) => (
+                    {flattenPracticeElementTags(p.tags).map((x: string) => (
                       <span key={x} style={tag()}>
                         {x}
                       </span>
                     ))}
                   </div>
+                ) : null}
+                {browse ? (
+                  <IrBrowsePatternViewsSection
+                    pattern={p}
+                    t={t}
+                    stateId={stateId}
+                    activitySpaceId={activitySpaceId}
+                    activityId={activityId}
+                  />
                 ) : null}
 
                 <DiagramPatternMatrix
@@ -1785,10 +2003,12 @@ function PracticeBaselineView({
                     <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(c)}</div>
                   )
                 ) : null}
-                {(c.tags ?? []).length ? (
+                {browse ? (
+                  <IrBrowseTagsBlock tags={c.tags} t={t} />
+                ) : flattenPracticeElementTags(c.tags).length ? (
                   <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                     <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                    {(c.tags as string[]).map((x: string) => (
+                    {flattenPracticeElementTags(c.tags).map((x: string) => (
                       <span key={x} style={tag()}>
                         {x}
                       </span>
@@ -1810,6 +2030,7 @@ function PracticeBaselineView({
                             {practiceElementDescriptionForDisplay(lvl) ? (
                               <span style={{ color: "var(--muted)" }}>: {practiceElementDescriptionForDisplay(lvl)}</span>
                             ) : null}
+                            {browse ? <IrBrowseTagsBlock tags={lvl.tags} t={t} className="mt-1.5" /> : null}
                           </li>
                         ))}
                     </ol>
@@ -1856,10 +2077,12 @@ function PracticeBaselineView({
                     <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(wp)}</div>
                   )
                 ) : null}
-                {(wp.tags ?? []).length ? (
+                {browse ? (
+                  <IrBrowseTagsBlock tags={wp.tags} t={t} />
+                ) : flattenPracticeElementTags(wp.tags).length ? (
                   <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                     <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                    {(wp.tags as string[]).map((x: string) => (
+                    {flattenPracticeElementTags(wp.tags).map((x: string) => (
                       <span key={x} style={tag()}>
                         {x}
                       </span>
@@ -1881,6 +2104,7 @@ function PracticeBaselineView({
                             {practiceElementDescriptionForDisplay(lod) ? (
                               <p className={`mt-1 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(lod)}</p>
                             ) : null}
+                            <IrBrowseTagsBlock tags={lod.tags} t={t} />
                             {dedupeContributesToRefs(lod.contributesTo).length ? (
                               <p className={`mt-2 ${BROWSE.bodyMuted}`}>
                                 {t.contributesTo}:{" "}
@@ -1898,23 +2122,13 @@ function PracticeBaselineView({
                               </p>
                             ) : null}
                             {Array.isArray(lod.checklist) && lod.checklist.length ? (
-                              <ul className="ml-4 mt-2 list-outside list-disc space-y-1.5 pl-5 text-[15px] marker:text-[var(--muted)]">
-                                {lod.checklist
-                                  .slice()
-                                  .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-                                  .map((ch: any) => (
-                                    <li key={`${lod.name}:${ch.name}`}>
-                              <span className="font-semibold text-[var(--text)]">
-                                      <AliasedName kind="Checklist" name={ch.name} browse />
-                                    </span>
-                                      {practiceElementDescriptionForDisplay(ch) ? (
-                                        <span className="mt-0.5 block font-normal text-[var(--text)]">
-                                          {practiceElementDescriptionForDisplay(ch)}
-                                        </span>
-                                      ) : null}
-                                    </li>
-                                  ))}
-                              </ul>
+                              <IrBrowseChecklistBullets
+                                checklist={lod.checklist}
+                                t={t}
+                                workProductId={workProductId}
+                                listClassName="ml-4 mt-2 list-outside list-disc space-y-3 pl-5 text-[15px] leading-snug marker:text-[var(--muted)]"
+                                itemKeyPrefix={`browse-wp-${slug(wp.name)}--${slug(lod.name)}`}
+                              />
                             ) : null}
                           </li>
                         ))}
@@ -1927,12 +2141,9 @@ function PracticeBaselineView({
                       {(wp.levelsOfDetail ?? [])
                         .slice()
                         .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-                        .map((lod: any) => {
-                          const lodSeqVal = olItemValueFromSeq(lod.seq);
-                          return (
+                        .map((lod: any) => (
                             <li
                               key={lod.name}
-                              {...(lodSeqVal !== undefined ? { value: lodSeqVal } : {})}
                               style={{
                                 marginBottom: 10,
                                 padding: 10,
@@ -1972,23 +2183,19 @@ function PracticeBaselineView({
                                     {lod.checklist
                                       .slice()
                                       .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-                                      .map((ch: any) => {
-                                        const lodChSeq = olItemValueFromSeq(ch.seq);
-                                        return (
-                                          <li key={`${lod.name}:${ch.name}`} {...(lodChSeq !== undefined ? { value: lodChSeq } : {})}>
+                                      .map((ch: any) => (
+                                          <li key={`${lod.name}:${ch.name}`}>
                                             <b>{ch.name}</b>
                                             {practiceElementDescriptionForDisplay(ch) ? (
                                               <span style={{ color: "var(--muted)" }}> — {practiceElementDescriptionForDisplay(ch)}</span>
                                             ) : null}
                                           </li>
-                                        );
-                                      })}
+                                      ))}
                                   </ol>
                                 </div>
                               ) : null}
                             </li>
-                          );
-                        })}
+                        ))}
                     </ol>
                   </>
                 )}
@@ -2038,15 +2245,23 @@ function PracticeBaselineView({
                     <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(wb)}</div>
                   )
                 ) : null}
-                {(wb.tags ?? []).length ? (
+                {browse ? (
+                  <IrBrowseTagsBlock tags={wb.tags} t={t} />
+                ) : flattenPracticeElementTags(wb.tags).length ? (
                   <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                     <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                    {(wb.tags as string[]).map((x: string) => (
+                    {flattenPracticeElementTags(wb.tags).map((x: string) => (
                       <span key={x} style={tag()}>
                         {x}
                       </span>
                     ))}
                   </div>
+                ) : null}
+                {browse && typeof wb.estimationUnit === "string" && wb.estimationUnit.trim() !== "" ? (
+                  <p className={`mt-2 ${BROWSE.bodyMuted}`}>
+                    <span className="font-semibold text-[var(--text)]">{t.wbEstimationUnit}: </span>
+                    <code>{wb.estimationUnit.trim()}</code>
+                  </p>
                 ) : null}
 
                 {Array.isArray(wb.prerequisiteAndAssumptions) && wb.prerequisiteAndAssumptions.length ? (
@@ -2090,10 +2305,12 @@ function PracticeBaselineView({
                       <span style={{ marginLeft: 12, fontWeight: 700 }}>{t.contractType}: </span>
                       {wb.complexity.contractType}
                     </div>
-                    {(wb.complexity.tags ?? []).length ? (
+                    {browse ? (
+                      <IrBrowseTagsBlock tags={wb.complexity.tags} t={t} className="mt-2" />
+                    ) : flattenPracticeElementTags(wb.complexity.tags).length ? (
                       <div style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                         <span style={{ fontSize: 11, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                        {(wb.complexity.tags as string[]).map((x: string) => (
+                        {flattenPracticeElementTags(wb.complexity.tags).map((x: string) => (
                           <span key={x} style={tag()}>
                             {x}
                           </span>
@@ -2190,16 +2407,7 @@ function PracticeBaselineView({
                               {practiceElementDescriptionForDisplay(task) ? (
                                 <p className={`mt-1 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(task)}</p>
                               ) : null}
-                              {(task.tags ?? []).length ? (
-                                <div className="mt-2 flex flex-wrap items-center gap-2">
-                                  <span className="text-xs font-semibold text-[var(--muted)]">{t.tags}:</span>
-                                  {(task.tags as string[]).map((x: string) => (
-                                    <span key={x} style={tag()}>
-                                      {x}
-                                    </span>
-                                  ))}
-                                </div>
-                              ) : null}
+                              <IrBrowseTagsBlock tags={task.tags} t={t} />
                               {task.implementsActivityName ? (
                                 <p className={`mt-2 ${BROWSE.bodyMuted}`}>
                                   {t.implementsActivity}:{" "}
@@ -2270,12 +2478,9 @@ function PracticeBaselineView({
                         {wb.task
                           .slice()
                           .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-                          .map((task: any) => {
-                            const taskSeq = olItemValueFromSeq(task.seq);
-                            return (
+                          .map((task: any) => (
                               <li
                                 key={`${wb.name}:${task.name}:${task.seq}`}
-                                {...(taskSeq !== undefined ? { value: taskSeq } : {})}
                                 style={{ marginBottom: 12, padding: 10, border: "1px solid var(--border)", borderRadius: 8 }}
                               >
                                 <div style={{ fontWeight: 800 }}>
@@ -2286,10 +2491,10 @@ function PracticeBaselineView({
                                     {practiceElementDescriptionForDisplay(task)}
                                   </div>
                                 ) : null}
-                                {(task.tags ?? []).length ? (
+                                {flattenPracticeElementTags(task.tags).length ? (
                                   <div style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                                     <span style={{ fontSize: 11, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                                    {(task.tags as string[]).map((x: string) => (
+                                    {flattenPracticeElementTags(task.tags).map((x: string) => (
                                       <span key={x} style={tag()}>
                                         {x}
                                       </span>
@@ -2359,8 +2564,7 @@ function PracticeBaselineView({
                                   </div>
                                 ) : null}
                               </li>
-                            );
-                          })}
+                          ))}
                       </ol>
                     )}
                   </div>
@@ -2368,6 +2572,30 @@ function PracticeBaselineView({
               </div>
             ))}
           </div>
+        </div>
+      ) : null}
+
+      {browse && browsePracticeElementAliases.length ? (
+        <div style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}>
+          <h2 id={BROWSE_SECTION_ALIASES} className={`${BROWSE.h2Global} scroll-mt-4`}>
+            {t.practiceElementAliasesHeading}
+          </h2>
+          <ul className={`mt-3 list-none space-y-2 p-0 ${BROWSE.body}`}>
+            {browsePracticeElementAliases.map((row, idx) => {
+              const pet = String(row.practiceElementType ?? "").trim();
+              const pen = String(row.practiceElementName ?? "").trim();
+              const aliasNm = String(row.aliasName ?? "").trim();
+              return (
+                <li key={`browse-alias-${idx}-${pet}-${pen}-${aliasNm}`}>
+                  <span className="font-semibold text-[var(--text)]">{pet || "—"}</span>
+                  {" · "}
+                  <code>{pen || "—"}</code>
+                  {" → "}
+                  <code>{aliasNm || "—"}</code>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       ) : null}
     </div>
@@ -2412,6 +2640,7 @@ function DiagramPatternMatrix({
   const { t } = useLanguagePack();
   const lookup = usePracticeElementAliasLookup();
   const measureName = (kind: string, name: string) => diagramMeasureName(lookup, kind, name);
+  const patternSectionHref = diagramHrefPattern(String(pattern?.name ?? ""));
   const labelColW = 200;
   const colW = 240;
   const rows = buildPatternMatrixRows(baseline, grouped);
@@ -2471,13 +2700,21 @@ function DiagramPatternMatrix({
     const labelLines = wrapLines(label, labelMaxChars);
     const labelLineH = 16;
     const labelStartY = rowY + Math.max(12, (rowH - labelLines.length * labelLineH) / 2);
+    const rowFocusHref = diagramHrefBrowseAlphasFocus(rowFocusNames[ri]);
+    const labelTexts = labelLines.map((ln, i) => (
+      <text key={i} x={12} y={labelStartY + i * labelLineH} fill="var(--text)" fontSize={14} fontWeight={800}>
+        {ln}
+      </text>
+    ));
     rowContent.push(
       <g key={`lab-${ri}`}>
-        {labelLines.map((ln, i) => (
-          <text key={i} x={12} y={labelStartY + i * labelLineH} fill="var(--text)" fontSize={14} fontWeight={800}>
-            {ln}
-          </text>
-        ))}
+        {rowFocusHref ? (
+          <a href={rowFocusHref} className="diagram-matrix-row-label-link">
+            <g>{labelTexts}</g>
+          </a>
+        ) : (
+          <g>{labelTexts}</g>
+        )}
       </g>,
     );
 
@@ -2492,7 +2729,19 @@ function DiagramPatternMatrix({
         rowContent.push(
           <g key={`cell-${ri}-${cj}-a-${k}`} transform={`translate(${x0 + 12}, ${cy})`}>
             <rect x={0} y={0} width={chipW} height={ch} rx={12} ry={12} fill="rgba(0,0,0,0.18)" stroke="var(--border)" />
-            {renderWrappedText(e.alphaName, e.stateName, chipW, 8, 8, false, "Alpha", "State", lookup)}
+            {renderWrappedText(
+              e.alphaName,
+              e.stateName,
+              chipW,
+              8,
+              8,
+              false,
+              "Alpha",
+              "State",
+              lookup,
+              diagramHrefAlpha(e.alphaName),
+              diagramHrefState(e.alphaName, e.stateName),
+            )}
           </g>,
         );
         cy += ch + 8;
@@ -2522,6 +2771,9 @@ function DiagramPatternMatrix({
               lane.kind === "activitySpace" ? "ActivitySpace" : "Activity",
               undefined,
               lookup,
+              lane.kind === "activitySpace"
+                ? diagramHrefActivitySpace(lane.laneName)
+                : diagramHrefActivity(lane.laneName),
             )}
           </g>,
         );
@@ -2567,6 +2819,7 @@ function DiagramPatternMatrix({
                 "PatternView",
                 undefined,
                 lookup,
+                patternSectionHref,
               )}
             </g>
           ))}
@@ -2681,9 +2934,19 @@ function DiagramForSingleFocusAlpha({
         </defs>
         <g>
           {headingPlain ? (
-            renderSwimlaneFocusHeading(headingPlain.nameLines, headingPlain.descLines, headingPlain.textX)
+            renderSwimlaneFocusHeading(
+              headingPlain.nameLines,
+              headingPlain.descLines,
+              headingPlain.textX,
+              diagramHrefBrowseAlphasFocus(g.focusName),
+            )
           ) : (
-            renderSwimlaneFocusHeadingAliased(headingAliased!.nameRows, headingAliased!.descLines, headingAliased!.textX)
+            renderSwimlaneFocusHeadingAliased(
+              headingAliased!.nameRows,
+              headingAliased!.descLines,
+              headingAliased!.textX,
+              diagramHrefBrowseAlphasFocus(g.focusName),
+            )
           )}
 
           {alphas.map((a: any, idx: number) => {
@@ -2712,6 +2975,7 @@ function DiagramForSingleFocusAlpha({
                   "Alpha",
                   undefined,
                   lookup,
+                  diagramHrefAlpha(a.name),
                 )}
               </g>
             );
@@ -2824,9 +3088,19 @@ function DiagramForSingleFocusActivity({
       >
         <g>
           {headingPlain ? (
-            renderSwimlaneFocusHeading(headingPlain.nameLines, headingPlain.descLines, headingPlain.textX)
+            renderSwimlaneFocusHeading(
+              headingPlain.nameLines,
+              headingPlain.descLines,
+              headingPlain.textX,
+              diagramHrefBrowseActivitiesFocus(g.focusName),
+            )
           ) : (
-            renderSwimlaneFocusHeadingAliased(headingAliased!.nameRows, headingAliased!.descLines, headingAliased!.textX)
+            renderSwimlaneFocusHeadingAliased(
+              headingAliased!.nameRows,
+              headingAliased!.descLines,
+              headingAliased!.textX,
+              diagramHrefBrowseActivitiesFocus(g.focusName),
+            )
           )}
 
           {laneSpaces.map((s: any, idx: number) => {
@@ -2858,6 +3132,7 @@ function DiagramForSingleFocusActivity({
                   "ActivitySpace",
                   undefined,
                   lookup,
+                  diagramHrefActivitySpace(s.name),
                 )}
 
                 {kids.map((a: any, k: number) => {
@@ -2902,6 +3177,7 @@ function DiagramForSingleFocusActivity({
                         "Activity",
                         undefined,
                         lookup,
+                        diagramHrefActivity(a.name),
                       )}
                     </g>
                   );
@@ -2915,16 +3191,27 @@ function DiagramForSingleFocusActivity({
   );
 }
 
-function renderSwimlaneFocusHeading(nameLines: string[], descLines: string[], textX: number) {
+function renderSwimlaneFocusHeading(nameLines: string[], descLines: string[], textX: number, nameHref?: string) {
   const H = SWIMLANE_FOCUS_HEADING;
   const yName0 = H.padTop + H.nameFirstBaselineDy;
-  return (
+  const nameBlock = (
     <g>
       {nameLines.map((ln, i) => (
         <text key={`sfh-n-${i}`} x={textX} y={yName0 + i * H.nameLineH} fill="var(--text)" fontSize="16" fontWeight="800">
           {ln}
         </text>
       ))}
+    </g>
+  );
+  return (
+    <g>
+      {nameHref ? (
+        <a href={nameHref} className="diagram-swimlane-heading-link">
+          {nameBlock}
+        </a>
+      ) : (
+        nameBlock
+      )}
       {descLines.map((ln, i) => (
         <text
           key={`sfh-d-${i}`}
@@ -2941,10 +3228,10 @@ function renderSwimlaneFocusHeading(nameLines: string[], descLines: string[], te
   );
 }
 
-function renderSwimlaneFocusHeadingAliased(nameRows: DiagramAliasedNameRow[], descLines: string[], textX: number) {
+function renderSwimlaneFocusHeadingAliased(nameRows: DiagramAliasedNameRow[], descLines: string[], textX: number, nameHref?: string) {
   const H = SWIMLANE_FOCUS_HEADING;
   const yName0 = H.padTop + H.nameFirstBaselineDy;
-  return (
+  const nameBlock = (
     <g>
       {nameRows.map((row, i) => {
         const y = yName0 + i * H.nameLineH;
@@ -2971,6 +3258,17 @@ function renderSwimlaneFocusHeadingAliased(nameRows: DiagramAliasedNameRow[], de
           </text>
         );
       })}
+    </g>
+  );
+  return (
+    <g>
+      {nameHref ? (
+        <a href={nameHref} className="diagram-swimlane-heading-link">
+          {nameBlock}
+        </a>
+      ) : (
+        nameBlock
+      )}
       {descLines.map((ln, i) => (
         <text
           key={`sfh-d-${i}`}
@@ -3016,11 +3314,50 @@ function slug(s: unknown) {
     .replace(/(^-|-$)/g, "");
 }
 
-/** When set on `<li>` inside `<ol>`, the visible marker matches JSON `seq` (after sort). */
-function olItemValueFromSeq(seq: unknown): number | undefined {
-  const n = Number(seq);
-  if (!Number.isFinite(n)) return undefined;
-  return Math.trunc(n);
+/** Fragment `#…` URLs aligned with `PracticeBaselineView` / browse TOC element ids. */
+function diagramHrefAlpha(alphaName: string): string | undefined {
+  const n = String(alphaName ?? "").trim();
+  return n ? `#alpha-${slug(n)}` : undefined;
+}
+
+function diagramHrefState(alphaName: string, stateName: string): string | undefined {
+  const a = String(alphaName ?? "").trim();
+  if (!a) return undefined;
+  return `#state-${slug(a)}--${slug(stateName)}`;
+}
+
+function diagramHrefActivitySpace(name: string): string | undefined {
+  const n = String(name ?? "").trim();
+  return n ? `#activity-space-${slug(n)}` : undefined;
+}
+
+function diagramHrefActivity(name: string): string | undefined {
+  const n = String(name ?? "").trim();
+  return n ? `#activity-${slug(n)}` : undefined;
+}
+
+function diagramHrefPattern(patternName: string): string | undefined {
+  const n = String(patternName ?? "").trim();
+  return n ? `#pattern-${slug(n)}` : undefined;
+}
+
+function diagramHrefBrowseAlphasFocus(focusName: string): string | undefined {
+  const n = String(focusName ?? "").trim();
+  return n ? `#browse-alphas-focus-${slug(n)}` : undefined;
+}
+
+function diagramHrefBrowseActivitiesFocus(focusName: string): string | undefined {
+  const n = String(focusName ?? "").trim();
+  return n ? `#browse-activities-focus-${slug(n)}` : undefined;
+}
+
+function wrapSvgResourceLink(href: string | undefined, className: string, inner: ReactNode): ReactNode {
+  if (!href) return inner;
+  return (
+    <a href={href} className={className}>
+      {inner}
+    </a>
+  );
 }
 
 function linkStyle(): React.CSSProperties {
@@ -3086,48 +3423,49 @@ function renderAliasedSvgTextBlock(
   fontWeight: string | number,
   fill: string,
   keyPrefix: string,
-): ReactNode[] {
-  if (!kind) {
-    return wrapDiagramTextLines(canonical, maxChars).map((ln, i) => (
-      <text key={`${keyPrefix}-${i}`} x={x} y={y0 + i * lineH} fill={fill} fontSize={fontSize} fontWeight={fontWeight}>
-        {ln}
-      </text>
-    ));
-  }
-  const rows = layoutDiagramAliasedNameRows(lookup, kind, canonical, maxChars);
-  return rows.map((row, i) => {
-    const y = y0 + i * lineH;
-    if (row.type === "primary") {
-      return (
-        <text key={`${keyPrefix}-${i}`} x={x} y={y} fill={fill} fontSize={fontSize} fontWeight={fontWeight}>
-          {row.text}
+  href?: string,
+): ReactNode {
+  const nodes: ReactNode[] = !kind
+    ? wrapDiagramTextLines(canonical, maxChars).map((ln, i) => (
+        <text key={`${keyPrefix}-${i}`} x={x} y={y0 + i * lineH} fill={fill} fontSize={fontSize} fontWeight={fontWeight}>
+          {ln}
         </text>
-      );
-    }
-    if (row.type === "primaryWithCanonical") {
-      return (
-        <text key={`${keyPrefix}-${i}`} x={x} y={y} fill={fill} fontSize={fontSize} fontWeight={fontWeight}>
-          {row.primary}
-          <tspan fontSize={Math.max(10, fontSize - 2)} fontStyle="italic" fontWeight={500} fill="var(--muted)">
-            {` (${row.canonical})`}
-          </tspan>
-        </text>
-      );
-    }
-    return (
-      <text
-        key={`${keyPrefix}-${i}`}
-        x={x}
-        y={y}
-        fill="var(--muted)"
-        fontSize={Math.max(10, fontSize - 2)}
-        fontStyle="italic"
-        fontWeight={500}
-      >
-        {row.text}
-      </text>
-    );
-  });
+      ))
+    : layoutDiagramAliasedNameRows(lookup, kind, canonical, maxChars).map((row, i) => {
+        const y = y0 + i * lineH;
+        if (row.type === "primary") {
+          return (
+            <text key={`${keyPrefix}-${i}`} x={x} y={y} fill={fill} fontSize={fontSize} fontWeight={fontWeight}>
+              {row.text}
+            </text>
+          );
+        }
+        if (row.type === "primaryWithCanonical") {
+          return (
+            <text key={`${keyPrefix}-${i}`} x={x} y={y} fill={fill} fontSize={fontSize} fontWeight={fontWeight}>
+              {row.primary}
+              <tspan fontSize={Math.max(10, fontSize - 2)} fontStyle="italic" fontWeight={500} fill="var(--muted)">
+                {` (${row.canonical})`}
+              </tspan>
+            </text>
+          );
+        }
+        return (
+          <text
+            key={`${keyPrefix}-${i}`}
+            x={x}
+            y={y}
+            fill="var(--muted)"
+            fontSize={Math.max(10, fontSize - 2)}
+            fontStyle="italic"
+            fontWeight={500}
+          >
+            {row.text}
+          </text>
+        );
+      });
+
+  return wrapSvgResourceLink(href, "diagram-inline-resource-link", <g>{nodes}</g>);
 }
 
 function renderWrappedText(
@@ -3140,6 +3478,8 @@ function renderWrappedText(
   nameKind?: string,
   descKind?: string,
   lookup: PracticeElementAliasLookup = EMPTY_PRACTICE_ELEMENT_ALIAS_LOOKUP,
+  nameHref?: string,
+  descHref?: string,
 ) {
   const { nameMaxChars, descMaxChars } = diagramTextCharLimits(blockW, padX, chevron);
   const nameLineH = 18;
@@ -3162,8 +3502,14 @@ function renderWrappedText(
     800,
     "var(--text)",
     "n",
+    nameHref,
   );
   const descY = y0 + nNameLines * nameLineH + gap;
+  const descPlainLines = wrapDiagramTextLines(descCanon, descMaxChars).map((ln, i) => (
+    <text key={`d-${i}`} x={x} y={descY + i * descLineH} fill="var(--muted)" fontSize={12}>
+      {ln}
+    </text>
+  ));
   const descEls = descKind
     ? renderAliasedSvgTextBlock(
         descCanon,
@@ -3177,12 +3523,9 @@ function renderWrappedText(
         400,
         "var(--muted)",
         "d",
+        descHref,
       )
-    : wrapDiagramTextLines(descCanon, descMaxChars).map((ln, i) => (
-        <text key={`d-${i}`} x={x} y={descY + i * descLineH} fill="var(--muted)" fontSize="12">
-          {ln}
-        </text>
-      ));
+    : wrapSvgResourceLink(descHref, "diagram-inline-resource-link", <g>{descPlainLines}</g>);
   return (
     <g>
       {nameEls}

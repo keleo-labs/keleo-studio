@@ -1,4 +1,5 @@
 import type { Method, Practice, PracticeBaseline } from "@/lib/types";
+import { mergePracticeElementTags } from "@/lib/practiceElementTags";
 import {
   activitySpaceIdentityKey,
   canonicalizeActivitySpaces,
@@ -15,10 +16,6 @@ function clone<T>(v: T): T {
 
 function uniqStrings(xs: string[]): string[] {
   return [...new Set(xs.map((s) => String(s).trim()).filter(Boolean))];
-}
-
-function uniqTags(a?: string[], b?: string[]): string[] {
-  return uniqStrings([...(a ?? []), ...(b ?? [])]);
 }
 
 function mergeDescriptions(a: string, b: string): string {
@@ -52,13 +49,14 @@ function mergePracticeElementAliasLists(
   return out;
 }
 
-function mergePracticeElements<T extends { name: string; description?: string; tags?: string[] }>(base: T, overlay: T): T {
+function mergePracticeElements<T extends { name: string; description?: string; tags?: unknown }>(base: T, overlay: T): T {
+  const mergedTags = mergePracticeElementTags(base.tags, overlay.tags);
   return {
     ...base,
     ...overlay,
     name: base.name,
     description: mergeDescriptions(String(base.description ?? ""), String(overlay.description ?? "")),
-    tags: uniqTags(base.tags, overlay.tags),
+    ...(mergedTags !== undefined ? { tags: mergedTags } : {}),
   };
 }
 
@@ -485,10 +483,18 @@ function mergePatterns(a: any[], b: any[]): any[] {
 export function compositePracticeFromMethod(method: Method): Record<string, unknown> {
   const baseline = clone(method.baselinePractice);
   const practices = method.practices ?? [];
+  /** Embedded baseline JSON may carry practice-only arrays (not on {@link PracticeBaseline} type); merge these before overlay practices. */
+  const baselineDoc = baseline as Record<string, unknown>;
+  const baselineWorkProducts = Array.isArray(baselineDoc.workProducts) ? (baselineDoc.workProducts as any[]) : [];
+  const baselineWorkBreakdowns = Array.isArray(baselineDoc.workBreakdowns)
+    ? (baselineDoc.workBreakdowns as any[])
+    : [];
+  const baselinePatterns = Array.isArray(baselineDoc.patterns) ? (baselineDoc.patterns as any[]) : [];
+  const mergedRootTags = mergePracticeElementTags(method.tags, baseline.tags);
   const out: Record<string, unknown> = {
     name: method.name,
     description: String(method.description ?? "").trim(),
-    tags: uniqTags(method.tags, baseline.tags),
+    ...(mergedRootTags !== undefined ? { tags: mergedRootTags } : {}),
     /** Provenance only: do not use `baselinePracticeName` here — merged docs must classify as kernel-shaped so library resolution and enrich stubs are not re-run. */
     mergesBaselinePracticeName: baseline.name,
     focuses: clone(baseline.focuses ?? []),
@@ -500,9 +506,9 @@ export function compositePracticeFromMethod(method: Method): Record<string, unkn
     version: baseline.version,
     keywords: uniqStrings([...(baseline.keywords ?? [])]),
     practiceDependencyNames: uniqStrings(((method as any).practiceDependencyNames ?? []) as string[]),
-    workProducts: [] as any[],
-    workBreakdowns: [] as any[],
-    patterns: [] as any[],
+    workProducts: mergeWorkProducts([], baselineWorkProducts),
+    workBreakdowns: mergeWorkBreakdowns([], baselineWorkBreakdowns),
+    patterns: mergePatterns([], baselinePatterns),
   };
 
   let slotMap = toSpaceSlotMap(baseline.activitySpaces ?? [], []);

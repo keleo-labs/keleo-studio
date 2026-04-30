@@ -5,6 +5,7 @@ import type { FormEvent } from "react";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { LibraryRootKind } from "@/lib/library/classify";
 import { displayNameForBody, rootKindExtension, storageKindForBody } from "@/lib/library/classify";
+import type { LibraryDocumentTags } from "@/lib/library/libraryDocumentTags";
 import { listVirtualElementFiles, type VirtualFileRow } from "@/lib/library/virtualElementFiles";
 import type { JsonDocumentMeta } from "@/lib/storage/types";
 import { useLanguagePack } from "@/lib/languagePack";
@@ -13,6 +14,7 @@ type EnrichedMeta = JsonDocumentMeta & {
   libraryRootKind: LibraryRootKind;
   displayName: string;
   virtualFileCount: number;
+  libraryTags: LibraryDocumentTags;
 };
 
 type FolderId = "all" | LibraryRootKind;
@@ -49,6 +51,21 @@ function extBadge(ext: string): string {
   return `.${ext}`;
 }
 
+function collectSortedUniqueTags(groups: string[][]): string[] {
+  const s = new Set<string>();
+  for (const g of groups) {
+    for (const raw of g) {
+      const x = String(raw ?? "").trim();
+      if (x) s.add(x);
+    }
+  }
+  return [...s].sort((a, b) => a.localeCompare(b));
+}
+
+function toggleTagSelection(current: string[], tag: string): string[] {
+  return current.includes(tag) ? current.filter((x) => x !== tag) : [...current, tag];
+}
+
 function folderLabel(id: FolderId): string {
   switch (id) {
     case "method":
@@ -62,6 +79,94 @@ function folderLabel(id: FolderId): string {
     default:
       return "All items";
   }
+}
+
+function LibraryManageRowActions(props: {
+  row: EnrichedMeta;
+  browseHref: string;
+  deleteBusyId: string | null;
+  actionsMenuLabel: string;
+  deleteLabel: string;
+  deletingLabel: string;
+  onDownload: () => void;
+  onConfirmDelete: () => void | Promise<void>;
+}) {
+  const busy = props.deleteBusyId !== null;
+  const rowBusy = props.deleteBusyId === props.row.id;
+  const detailsRef = useRef<HTMLDetailsElement>(null);
+
+  function closeMenu() {
+    const el = detailsRef.current;
+    if (el) el.open = false;
+  }
+
+  return (
+    <details ref={detailsRef} className="group/actions relative ml-auto inline-block max-w-full text-left">
+      <summary className="flex cursor-pointer list-none items-center gap-1 rounded-lg border border-[var(--border)] bg-[var(--bg)]/50 px-2 py-1 text-xs font-semibold text-[var(--text)] hover:bg-[var(--border)]/25 [&::-webkit-details-marker]:hidden">
+        <span>{props.actionsMenuLabel}</span>
+        <span
+          className="font-mono text-[var(--muted)] transition-transform duration-150 group-open/actions:rotate-180"
+          aria-hidden
+        >
+          ▾
+        </span>
+      </summary>
+      <div
+        className="absolute right-0 top-[calc(100%+0.25rem)] z-40 min-w-[12rem] rounded-lg border border-[var(--border)] bg-[var(--panel)] py-1 shadow-lg ring-1 ring-black/5 dark:ring-white/10"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          className="block w-full px-3 py-2 text-left text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)]/10"
+          onClick={() => {
+            closeMenu();
+            props.onDownload();
+          }}
+        >
+          Download
+        </button>
+        <Link
+          href={props.browseHref}
+          className="block px-3 py-2 text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)]/10"
+        >
+          Browse
+        </Link>
+        {props.row.libraryRootKind === "method" ? (
+          <Link
+            href={`/method-builder?libraryId=${encodeURIComponent(props.row.id)}`}
+            className="block px-3 py-2 text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)]/10"
+          >
+            Edit method
+          </Link>
+        ) : (
+          <Link
+            href={`/practice-author?libraryId=${encodeURIComponent(props.row.id)}&editor=json`}
+            className="block px-3 py-2 text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)]/10"
+          >
+            Edit JSON
+          </Link>
+        )}
+        <Link
+          href={`/practice-author?libraryId=${encodeURIComponent(props.row.id)}`}
+          className="block px-3 py-2 text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)]/10"
+        >
+          Author
+        </Link>
+        <div className="my-1 border-t border-[var(--border)]/80" />
+        <button
+          type="button"
+          disabled={busy}
+          className="block w-full px-3 py-2 text-left text-xs font-semibold text-[var(--bad)] hover:bg-[var(--bad)]/10 disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={() => {
+            closeMenu();
+            void props.onConfirmDelete();
+          }}
+        >
+          {rowBusy ? props.deletingLabel : props.deleteLabel}
+        </button>
+      </div>
+    </details>
+  );
 }
 
 export function LibraryBrowser() {
@@ -80,6 +185,10 @@ export function LibraryBrowser() {
   const [deleteBusyId, setDeleteBusyId] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
+  const [domainTagFilter, setDomainTagFilter] = useState<string[]>([]);
+  const [lifecycleTagFilter, setLifecycleTagFilter] = useState<string[]>([]);
+  const [orgTagFilter, setOrgTagFilter] = useState<string[]>([]);
+
   const refresh = useCallback(async () => {
     setLoading(true);
     setLoadError(null);
@@ -93,7 +202,13 @@ export function LibraryBrowser() {
         return;
       }
       const data = (await res.json()) as { documents?: EnrichedMeta[] };
-      setItems(Array.isArray(data.documents) ? data.documents : []);
+      const docs = Array.isArray(data.documents) ? data.documents : [];
+      setItems(
+        docs.map((d) => ({
+          ...d,
+          libraryTags: d.libraryTags ?? { domainTags: [], lifecycleTags: [], organizationalTags: [] },
+        })),
+      );
     } catch (e) {
       setLoadError(e instanceof Error ? e.message : "Failed to load library");
       setItems([]);
@@ -119,10 +234,38 @@ export function LibraryBrowser() {
     return c;
   }, [items]);
 
+  const domainTagOptions = useMemo(() => collectSortedUniqueTags(items.map((it) => it.libraryTags.domainTags)), [items]);
+  const lifecycleTagOptions = useMemo(
+    () => collectSortedUniqueTags(items.map((it) => it.libraryTags.lifecycleTags)),
+    [items],
+  );
+  const orgTagOptions = useMemo(
+    () => collectSortedUniqueTags(items.map((it) => it.libraryTags.organizationalTags)),
+    [items],
+  );
+
+  const tagFilterActive =
+    domainTagFilter.length > 0 || lifecycleTagFilter.length > 0 || orgTagFilter.length > 0;
+
   const filtered = useMemo(() => {
-    if (folder === "all") return items;
-    return items.filter((it) => it.libraryRootKind === folder);
-  }, [items, folder]);
+    let list = folder === "all" ? items : items.filter((it) => it.libraryRootKind === folder);
+    if (domainTagFilter.length > 0) {
+      list = list.filter((it) => domainTagFilter.some((x) => it.libraryTags.domainTags.includes(x)));
+    }
+    if (lifecycleTagFilter.length > 0) {
+      list = list.filter((it) => lifecycleTagFilter.some((x) => it.libraryTags.lifecycleTags.includes(x)));
+    }
+    if (orgTagFilter.length > 0) {
+      list = list.filter((it) => orgTagFilter.some((x) => it.libraryTags.organizationalTags.includes(x)));
+    }
+    return list;
+  }, [items, folder, domainTagFilter, lifecycleTagFilter, orgTagFilter]);
+
+  const clearTagFilters = useCallback(() => {
+    setDomainTagFilter([]);
+    setLifecycleTagFilter([]);
+    setOrgTagFilter([]);
+  }, []);
 
   async function toggleExpand(id: string) {
     if (expandedId === id) {
@@ -189,7 +332,7 @@ export function LibraryBrowser() {
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <div className="mx-auto flex max-w-content flex-col gap-0 px-4 py-10 md:flex-row md:px-10">
         {/* Sidebar — folder tree */}
-        <aside className="mb-8 w-full shrink-0 border-b border-[var(--border)] pb-8 md:mb-0 md:w-56 md:border-b-0 md:border-r md:pb-0 md:pr-6">
+        <aside className="mb-8 w-full shrink-0 border-b border-[var(--border)] pb-8 md:mb-0 md:w-64 md:border-b-0 md:border-r md:pb-0 md:pr-6">
           <p className="text-2xs font-semibold uppercase tracking-wider text-[var(--muted)]">Browse</p>
           <nav className="mt-4 flex flex-col gap-1" aria-label="Library folders">
             <FolderRow
@@ -210,6 +353,45 @@ export function LibraryBrowser() {
               />
             ))}
           </nav>
+
+          {!loading && !loadError ? (
+            <div className="mt-8 border-t border-[var(--border)] pt-6">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <p className="text-2xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+                  {t.libraryTagFiltersHeading}
+                </p>
+                {tagFilterActive ? (
+                  <button
+                    type="button"
+                    onClick={clearTagFilters}
+                    className="shrink-0 rounded-md border border-[var(--border)] bg-[var(--bg)] px-2 py-0.5 text-2xs font-semibold text-[var(--muted)] hover:border-[var(--accent)] hover:text-[var(--text)]"
+                  >
+                    {t.libraryClearTagFilters}
+                  </button>
+                ) : null}
+              </div>
+              <div className="mt-3 flex flex-col gap-2">
+                <LibraryTagTreeSection
+                  sectionLabel={t.tagsDomain}
+                  options={domainTagOptions}
+                  selected={domainTagFilter}
+                  onToggle={(tag) => setDomainTagFilter((prev) => toggleTagSelection(prev, tag))}
+                />
+                <LibraryTagTreeSection
+                  sectionLabel={t.tagsLifecycle}
+                  options={lifecycleTagOptions}
+                  selected={lifecycleTagFilter}
+                  onToggle={(tag) => setLifecycleTagFilter((prev) => toggleTagSelection(prev, tag))}
+                />
+                <LibraryTagTreeSection
+                  sectionLabel={t.tagsOrganizational}
+                  options={orgTagOptions}
+                  selected={orgTagFilter}
+                  onToggle={(tag) => setOrgTagFilter((prev) => toggleTagSelection(prev, tag))}
+                />
+              </div>
+            </div>
+          ) : null}
         </aside>
 
         {/* Main file list */}
@@ -275,8 +457,25 @@ export function LibraryBrowser() {
             <p className="mt-8 text-sm text-[var(--muted)]">
               {items.length > 0 ? (
                 <>
-                  No documents in this folder. Choose another folder in the sidebar, or use{" "}
-                  <strong className="font-semibold text-[var(--text)]">Add to library</strong>.
+                  {tagFilterActive ? (
+                    <>
+                      No documents match the selected tag filters and folder.{" "}
+                      <button
+                        type="button"
+                        onClick={clearTagFilters}
+                        className="font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
+                      >
+                        {t.libraryClearTagFilters}
+                      </button>
+                    </>
+                  ) : folder !== "all" ? (
+                    <>
+                      No documents in this folder. Choose another folder in the sidebar, or use{" "}
+                      <strong className="font-semibold text-[var(--text)]">Add to library</strong>.
+                    </>
+                  ) : (
+                    "No matching documents."
+                  )}
                 </>
               ) : (
                 <>
@@ -289,16 +488,16 @@ export function LibraryBrowser() {
               )}
             </p>
           ) : (
-            <div className="mt-4 overflow-x-auto rounded-xl border border-[var(--border)] bg-[var(--panel)]">
-              <table className="w-full min-w-[56rem] border-collapse text-left text-sm">
+            <div className="mt-4 rounded-xl border border-[var(--border)] bg-[var(--panel)]">
+              <table className="w-full border-collapse text-left text-sm">
                 <thead>
                   <tr className="border-b border-[var(--border)] text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">
                     <th className="w-10 px-3 py-2.5" aria-label="Expand" />
-                    <th className="min-w-0 max-w-[14rem] px-3 py-2.5 sm:max-w-[18rem]">Name</th>
+                    <th className="min-w-0 px-3 py-2.5">Name</th>
                     <th className="hidden whitespace-nowrap px-3 py-2.5 sm:table-cell">Type</th>
                     <th className="hidden whitespace-nowrap px-3 py-2.5 md:table-cell">Elements</th>
-                    <th className="whitespace-nowrap px-3 py-2.5">Updated</th>
-                    <th className="w-[1%] whitespace-nowrap px-3 py-2.5 text-right">Actions</th>
+                    <th className="min-w-0 whitespace-nowrap px-2 py-2.5 sm:px-3">Updated</th>
+                    <th className="w-0 whitespace-nowrap px-2 py-2.5 text-right sm:px-3">{t.libraryRowActionsMenu}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -310,7 +509,7 @@ export function LibraryBrowser() {
                     const open = expandedId === row.id;
                     return (
                       <Fragment key={row.id}>
-                        <tr className="border-b border-[var(--border)]/80 transition hover:bg-[var(--bg)]/40">
+                        <tr className="relative z-0 border-b border-[var(--border)]/80 transition hover:bg-[var(--bg)]/40 has-[details[open]]:z-20">
                           <td className="px-1 py-2 align-middle">
                             <button
                               type="button"
@@ -324,16 +523,16 @@ export function LibraryBrowser() {
                               </span>
                             </button>
                           </td>
-                          <td className="min-w-0 max-w-[14rem] truncate px-2 py-2 font-medium sm:max-w-[18rem]">
+                          <td className="min-w-0 px-2 py-2 font-medium sm:px-3">
                             <Link
                               href={browseHref}
                               title="Browse this document"
                               className="group inline-block max-w-full rounded-md px-1 py-0.5 -mx-1 -my-0.5 text-left hover:bg-[var(--accent)]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]/40"
                             >
-                              <span className="text-[var(--text)] underline-offset-4 group-hover:underline">
+                              <span className="block truncate text-[var(--text)] underline-offset-4 group-hover:underline">
                                 {row.displayName}
                               </span>
-                              <span className="ml-2 font-mono text-xs text-[var(--muted)]">{filename}</span>
+                              <span className="mt-0.5 block truncate font-mono text-xs text-[var(--muted)]">{filename}</span>
                             </Link>
                           </td>
                           <td className="hidden px-3 py-2 text-[var(--muted)] sm:table-cell">
@@ -347,56 +546,22 @@ export function LibraryBrowser() {
                           <td className="whitespace-nowrap px-3 py-2 font-mono text-xs text-[var(--muted)]">
                             {formatDate(row.updatedAt)}
                           </td>
-                          <td className="w-[1%] whitespace-nowrap px-3 py-2 text-right align-middle">
-                            <div className="flex flex-col items-end gap-1 sm:flex-row sm:flex-wrap sm:justify-end sm:gap-x-2">
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setDownloadError(null);
-                                  void downloadLibraryDocumentJson(row.id, row.displayName).catch((e: unknown) => {
-                                    setDownloadError(e instanceof Error ? e.message : "Download failed");
-                                  });
-                                }}
-                                className="whitespace-nowrap bg-transparent text-xs font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
-                              >
-                                Download
-                              </button>
-                              <Link
-                                href={browseHref}
-                                className="whitespace-nowrap text-xs font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
-                              >
-                                Browse
-                              </Link>
-                              {row.libraryRootKind === "method" ? (
-                                <Link
-                                  href={`/method-builder?libraryId=${encodeURIComponent(row.id)}`}
-                                  className="whitespace-nowrap text-xs font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
-                                >
-                                  Edit method
-                                </Link>
-                              ) : (
-                                <Link
-                                  href={`/practice-author?libraryId=${encodeURIComponent(row.id)}&editor=json`}
-                                  className="whitespace-nowrap text-xs font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
-                                >
-                                  Edit JSON
-                                </Link>
-                              )}
-                              <Link
-                                href={`/practice-author?libraryId=${encodeURIComponent(row.id)}`}
-                                className="whitespace-nowrap text-xs font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
-                              >
-                                Author
-                              </Link>
-                              <button
-                                type="button"
-                                disabled={deleteBusyId !== null}
-                                onClick={() => void confirmAndDeletePractice(row)}
-                                className="whitespace-nowrap bg-transparent text-xs font-semibold text-[var(--bad)] underline-offset-2 hover:underline disabled:cursor-not-allowed disabled:opacity-50"
-                              >
-                                {deleteBusyId === row.id ? t.libraryDeleting : t.libraryDelete}
-                              </button>
-                            </div>
+                          <td className="w-0 whitespace-nowrap px-2 py-2 text-right align-middle sm:px-3">
+                            <LibraryManageRowActions
+                              row={row}
+                              browseHref={browseHref}
+                              deleteBusyId={deleteBusyId}
+                              actionsMenuLabel={t.libraryRowActionsMenu}
+                              deleteLabel={t.libraryDelete}
+                              deletingLabel={t.libraryDeleting}
+                              onDownload={() => {
+                                setDownloadError(null);
+                                void downloadLibraryDocumentJson(row.id, row.displayName).catch((e: unknown) => {
+                                  setDownloadError(e instanceof Error ? e.message : "Download failed");
+                                });
+                              }}
+                              onConfirmDelete={() => confirmAndDeletePractice(row)}
+                            />
                           </td>
                         </tr>
                         {open ? (
@@ -757,6 +922,63 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
         </div>
       </div>
     </div>
+  );
+}
+
+function LibraryTagTreeSection(props: {
+  sectionLabel: string;
+  options: string[];
+  selected: string[];
+  onToggle: (tag: string) => void;
+}) {
+  const selectedInSection = props.selected.filter((t) => props.options.includes(t)).length;
+  return (
+    <details className="group rounded-lg border border-[var(--border)]/80 bg-[var(--panel)]/40">
+      <summary className="flex cursor-pointer list-none items-center gap-1.5 px-2 py-2 text-left [&::-webkit-details-marker]:hidden">
+        <span
+          className="inline-flex w-4 shrink-0 justify-center font-mono text-[10px] leading-none text-[var(--muted)] transition-transform duration-150 group-open:rotate-90"
+          aria-hidden
+        >
+          ▸
+        </span>
+        <span className="min-w-0 flex-1 truncate text-xs font-semibold text-[var(--text)]">{props.sectionLabel}</span>
+        <span className="shrink-0 tabular-nums text-2xs text-[var(--muted)]">
+          {selectedInSection}/{props.options.length}
+        </span>
+      </summary>
+      <div className="border-t border-[var(--border)]/60 pb-2">
+        <ul className="mt-1 ml-5 mr-1 space-y-0 border-l border-[var(--border)]/50 py-0.5 pl-2" role="group">
+          {props.options.length === 0 ? (
+            <li className="py-1 pl-1 text-2xs text-[var(--muted)]">—</li>
+          ) : (
+            props.options.map((tag) => {
+              const on = props.selected.includes(tag);
+              return (
+                <li key={tag} className="flex min-w-0 items-stretch gap-0">
+                  <span className="mt-[0.65rem] h-px w-2 shrink-0 self-start border-t border-[var(--border)]/70" aria-hidden />
+                  <button
+                    type="button"
+                    aria-pressed={on}
+                    title={tag}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      props.onToggle(tag);
+                    }}
+                    className={`min-w-0 flex-1 truncate rounded px-1.5 py-1 text-left text-2xs leading-snug transition ${
+                      on
+                        ? "bg-[var(--accent)]/18 font-semibold text-[var(--text)] ring-1 ring-[var(--accent)]/35"
+                        : "text-[var(--muted)] hover:bg-[var(--bg)]/80 hover:text-[var(--text)]"
+                    }`}
+                  >
+                    {tag}
+                  </button>
+                </li>
+              );
+            })
+          )}
+        </ul>
+      </div>
+    </details>
   );
 }
 

@@ -10,11 +10,17 @@ export type RefIssue = {
   context?: string;
 };
 
+/** Canonical tag buckets (language.schema.json); legacy documents may use `string[]` at `tags`. */
+export type PracticeElementTags = {
+  domainTags?: string[];
+  lifecycleTags?: string[];
+  organizationalTags?: string[];
+};
+
 export type PracticeElement = {
   name: string;
   description: string;
-  /** Optional (0..*); omit or [] when absent. */
-  tags?: string[];
+  tags?: PracticeElementTags | string[];
 };
 
 export type AlphaContribution = {
@@ -77,6 +83,8 @@ export type WorkItem = PracticeElement & {
 
 export type WorkBreakdown = PracticeElement & {
   prerequisiteAndAssumptions: PatternViewReference[];
+  /** Forecasting unit (language.schema.json); optional on partial/runtime JSON. */
+  estimationUnit?: "man-hours" | "story-points" | "currency" | string;
   task: WorkItem[];
   complexity: Complexity;
 };
@@ -162,6 +170,10 @@ export type Practice = PracticeElement & {
   workBreakdowns?: WorkBreakdown[];
   patterns?: Pattern[];
 };
+
+/** Enriched baseline plus practice-root overlays for alternate readable previews (business / delivery / SOW). */
+export type ReadablePracticePreviewDoc = PracticeBaseline &
+  Partial<Pick<Practice, "patterns" | "activities" | "workProducts" | "workBreakdowns" | "practiceElementAliases">>;
 
 export type Method = PracticeElement & {
   baselinePractice: PracticeBaseline;

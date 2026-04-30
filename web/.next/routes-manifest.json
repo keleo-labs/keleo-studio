@@ -1,0 +1,120 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/api/documents/[id]",
+      "regex": "^/api/documents/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/documents/(?<nxtPid>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/api/documents",
+      "regex": "^/api/documents(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/documents(?:/)?$"
+    },
+    {
+      "page": "/api/documents/resolve-for-render",
+      "regex": "^/api/documents/resolve\\-for\\-render(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/documents/resolve\\-for\\-render(?:/)?$"
+    },
+    {
+      "page": "/api/pdf",
+      "regex": "^/api/pdf(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/pdf(?:/)?$"
+    },
+    {
+      "page": "/library",
+      "regex": "^/library(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/library(?:/)?$"
+    },
+    {
+      "page": "/library/browse",
+      "regex": "^/library/browse(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/library/browse(?:/)?$"
+    },
+    {
+      "page": "/method-builder",
+      "regex": "^/method\\-builder(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/method\\-builder(?:/)?$"
+    },
+    {
+      "page": "/practice-author",
+      "regex": "^/practice\\-author(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/practice\\-author(?:/)?$"
+    },
+    {
+      "page": "/preferences",
+      "regex": "^/preferences(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/preferences(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

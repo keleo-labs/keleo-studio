@@ -4,11 +4,106 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { PracticeHumanReadablePanel } from "@/components/PracticeHumanReadablePanel";
+import { FullPracticeView } from "@/components/FullPracticeView";
+import { BusinessOutcomeView } from "@/components/business-view";
+import { PractitionerExecutionView } from "@/components/delivery-view";
+import { SalesStatementOfWorkView } from "@/components/sow-view";
 import { useLanguagePack } from "@/lib/languagePack";
+import type { LanguagePack } from "@/lib/languagePackTypes";
 import { classifyLibraryRoot } from "@/lib/library/classify";
 import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePracticeFromMethod";
+import { buildReadablePracticePreviewDoc } from "@/lib/ir";
 import type { Method } from "@/lib/types";
+
+type ReadablePreviewMode = "classic" | "browse" | "full" | "business" | "delivery" | "sow";
+
+function BrowseReadableToolbar({
+  mode,
+  onModeChange,
+  t,
+}: {
+  mode: ReadablePreviewMode;
+  onModeChange: (m: ReadablePreviewMode) => void;
+  t: LanguagePack;
+}) {
+  const chip = (m: ReadablePreviewMode, label: string) => (
+    <button
+      key={m}
+      type="button"
+      onClick={() => onModeChange(m)}
+      className={`rounded-lg px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition ${
+        mode === m
+          ? "bg-[var(--accent)]/20 text-[var(--text)] ring-1 ring-[var(--accent)]/40"
+          : "text-[var(--muted)] hover:text-[var(--text)]"
+      }`}
+    >
+      {label}
+    </button>
+  );
+  return (
+    <div className="mb-4 flex flex-wrap items-center gap-2 border-b border-[var(--border)] pb-3">
+      <span className="text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">{t.renderedView}</span>
+      <div className="flex flex-wrap gap-1.5">
+        {chip("classic", t.readablePreviewClassic)}
+        {chip("browse", t.readablePreviewBrowse)}
+        {chip("full", t.readablePreviewFullDocument)}
+        {chip("business", t.readablePreviewBusiness)}
+        {chip("delivery", t.readablePreviewDelivery)}
+        {chip("sow", t.readablePreviewSow)}
+      </div>
+    </div>
+  );
+}
+
+function LibraryBrowseReadablePane({
+  browseDoc,
+  methodComposition,
+  mode,
+  onModeChange,
+  t,
+}: {
+  browseDoc: unknown;
+  methodComposition?: Method | null;
+  mode: ReadablePreviewMode;
+  onModeChange: (m: ReadablePreviewMode) => void;
+  t: LanguagePack;
+}) {
+  const previewDoc = useMemo(() => buildReadablePracticePreviewDoc(browseDoc), [browseDoc]);
+  if (!browseDoc || typeof browseDoc !== "object") return null;
+  return (
+    <>
+      <BrowseReadableToolbar mode={mode} onModeChange={onModeChange} t={t} />
+      {mode === "full" ? (
+        <FullPracticeView doc={browseDoc} embed methodComposition={methodComposition ?? undefined} />
+      ) : mode === "business" ? (
+        previewDoc ? (
+          <BusinessOutcomeView doc={previewDoc} />
+        ) : (
+          <p className="text-sm text-[var(--muted)]">{t.nothingToRender}</p>
+        )
+      ) : mode === "delivery" ? (
+        previewDoc ? (
+          <PractitionerExecutionView doc={previewDoc} />
+        ) : (
+          <p className="text-sm text-[var(--muted)]">{t.nothingToRender}</p>
+        )
+      ) : mode === "sow" ? (
+        previewDoc ? (
+          <SalesStatementOfWorkView doc={previewDoc} />
+        ) : (
+          <p className="text-sm text-[var(--muted)]">{t.nothingToRender}</p>
+        )
+      ) : (
+        <PracticeHumanReadablePanel
+          doc={browseDoc}
+          variant={mode === "browse" ? "browse" : "default"}
+          methodComposition={methodComposition ?? undefined}
+        />
+      )}
+    </>
+  );
+}
 
 export function LibraryBrowseClient() {
   const searchParams = useSearchParams();
@@ -20,6 +115,7 @@ export function LibraryBrowseClient() {
   const [error, setError] = useState<string | null>(null);
   const [pdfBusy, setPdfBusy] = useState(false);
   const [pdfError, setPdfError] = useState<string | null>(null);
+  const [readablePreview, setReadablePreview] = useState<ReadablePreviewMode>("browse");
 
   /** Library merge for extension practices (baseline + deps from other stored docs). */
   const [practiceResolved, setPracticeResolved] = useState<{
@@ -257,9 +353,13 @@ export function LibraryBrowseClient() {
 
                 <div>
                   <h2 className="mb-3 text-sm font-semibold text-[var(--text)]">Merged practice view</h2>
-                  {browseDoc && typeof browseDoc === "object" ? (
-                    <PracticeHumanReadablePanel doc={browseDoc} variant="browse" methodComposition={body as Method} />
-                  ) : null}
+                  <LibraryBrowseReadablePane
+                    browseDoc={browseDoc}
+                    methodComposition={body as Method}
+                    mode={readablePreview}
+                    onModeChange={setReadablePreview}
+                    t={t}
+                  />
                 </div>
               </>
             ) : rootKind === "practice" && needsPracticeLibraryMerge && practiceResolved.phase === "done" && browseDoc ? (
@@ -281,10 +381,20 @@ export function LibraryBrowseClient() {
                     alphas and other merged elements.
                   </p>
                 </section>
-                <PracticeHumanReadablePanel doc={browseDoc} variant="browse" />
+                <LibraryBrowseReadablePane
+                  browseDoc={browseDoc}
+                  mode={readablePreview}
+                  onModeChange={setReadablePreview}
+                  t={t}
+                />
               </>
             ) : browseDoc && typeof browseDoc === "object" ? (
-              <PracticeHumanReadablePanel doc={browseDoc} variant="browse" />
+              <LibraryBrowseReadablePane
+                browseDoc={browseDoc}
+                mode={readablePreview}
+                onModeChange={setReadablePreview}
+                t={t}
+              />
             ) : null}
           </div>
         )}

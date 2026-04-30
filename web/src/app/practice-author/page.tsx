@@ -9,9 +9,14 @@ import {
   asBaselineDocument,
   baselineWithPracticeActivities,
   buildIndexes,
+  buildReadablePracticePreviewDoc,
   enrichBaselineWithReferencedWrappers,
 } from "@/lib/ir";
 import { PracticeHumanReadablePanel } from "@/components/PracticeHumanReadablePanel";
+import { FullPracticeView } from "@/components/FullPracticeView";
+import { BusinessOutcomeView } from "@/components/business-view";
+import { PractitionerExecutionView } from "@/components/delivery-view";
+import { SalesStatementOfWorkView } from "@/components/sow-view";
 import { inferPracticeDocKind, PracticeAuthorForm } from "@/components/PracticeAuthorForm";
 import { displayNameForBody, storageKindForBody } from "@/lib/library/classify";
 import { emptyExtensionPractice } from "@/lib/practiceFormDefaults";
@@ -70,6 +75,9 @@ function issueBox(kind: "bad" | "warn"): React.CSSProperties {
 function PracticeAuthorPageInner() {
   const [doc, setDoc] = useState<Record<string, unknown>>(() => emptyExtensionPractice());
   const [editorMode, setEditorMode] = useState<"form" | "json">("form");
+  const [readablePreview, setReadablePreview] = useState<
+    "classic" | "browse" | "full" | "business" | "delivery" | "sow"
+  >("classic");
   const [jsonDraft, setJsonDraft] = useState("");
   const [jsonDraftError, setJsonDraftError] = useState<string | null>(null);
   const [libraryDirty, setLibraryDirty] = useState(false);
@@ -285,6 +293,8 @@ function PracticeAuthorPageInner() {
     const withActivities = baselineWithPracticeActivities(doc, baseline);
     return enrichBaselineWithReferencedWrappers(doc, withActivities);
   }, [baseline, doc]);
+
+  const previewDoc = useMemo(() => buildReadablePracticePreviewDoc(doc), [doc]);
 
   async function loadExample() {
     const res = await fetch("/examples/platform-adoption-kernel.json");
@@ -555,7 +565,76 @@ function PracticeAuthorPageInner() {
         </section>
 
         <div className="no-print" style={previewViewport}>
-          <PracticeHumanReadablePanel doc={doc} />
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginBottom: 12 }}>
+            <div style={{ fontWeight: 700 }}>{t.renderedView}</div>
+            <div style={{ marginLeft: "auto", display: "flex", flexWrap: "wrap", gap: 6 }}>
+              <button
+                type="button"
+                onClick={() => setReadablePreview("classic")}
+                style={button(readablePreview === "classic" ? "solid" : "ghost")}
+              >
+                {t.readablePreviewClassic}
+              </button>
+              <button
+                type="button"
+                onClick={() => setReadablePreview("browse")}
+                style={button(readablePreview === "browse" ? "solid" : "ghost")}
+              >
+                {t.readablePreviewBrowse}
+              </button>
+              <button
+                type="button"
+                onClick={() => setReadablePreview("full")}
+                style={button(readablePreview === "full" ? "solid" : "ghost")}
+              >
+                {t.readablePreviewFullDocument}
+              </button>
+              <button
+                type="button"
+                onClick={() => setReadablePreview("business")}
+                style={button(readablePreview === "business" ? "solid" : "ghost")}
+              >
+                {t.readablePreviewBusiness}
+              </button>
+              <button
+                type="button"
+                onClick={() => setReadablePreview("delivery")}
+                style={button(readablePreview === "delivery" ? "solid" : "ghost")}
+              >
+                {t.readablePreviewDelivery}
+              </button>
+              <button
+                type="button"
+                onClick={() => setReadablePreview("sow")}
+                style={button(readablePreview === "sow" ? "solid" : "ghost")}
+              >
+                {t.readablePreviewSow}
+              </button>
+            </div>
+          </div>
+          {readablePreview === "full" ? (
+            <FullPracticeView doc={doc} embed />
+          ) : readablePreview === "business" ? (
+            previewDoc ? (
+              <BusinessOutcomeView doc={previewDoc} />
+            ) : (
+              <div style={{ color: "var(--muted)" }}>{t.nothingToRender}</div>
+            )
+          ) : readablePreview === "delivery" ? (
+            previewDoc ? (
+              <PractitionerExecutionView doc={previewDoc} />
+            ) : (
+              <div style={{ color: "var(--muted)" }}>{t.nothingToRender}</div>
+            )
+          ) : readablePreview === "sow" ? (
+            previewDoc ? (
+              <SalesStatementOfWorkView doc={previewDoc} />
+            ) : (
+              <div style={{ color: "var(--muted)" }}>{t.nothingToRender}</div>
+            )
+          ) : (
+            <PracticeHumanReadablePanel doc={doc} variant={readablePreview === "browse" ? "browse" : "default"} />
+          )}
         </div>
       </div>
 

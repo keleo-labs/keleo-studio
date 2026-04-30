@@ -212,7 +212,7 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
     alphas: d.alphas ?? [],
     activitySpaces: d.activitySpaces ?? [],
     activities: d.activities ?? [],
-  } as PracticeBaseline;
+  } as unknown as PracticeBaseline;
 
   for (const pat of d.patterns ?? []) {
     const pn = String(pat.name ?? "").trim();
@@ -761,9 +761,9 @@ export function resolvePracticeWithLibraryIndex(primary: unknown, index: Library
   const method: Method = {
     name: String(p.name ?? "Practice"),
     description: String(p.description ?? ""),
-    tags: Array.isArray(p.tags) ? (p.tags as string[]) : [],
     baselinePractice: baseline,
     practices: [...depPractices, p as Practice],
+    ...(p.tags !== undefined && p.tags !== null ? { tags: p.tags as Practice["tags"] } : {}),
   };
 
   const merged = compositePracticeFromMethod(method) as Record<string, unknown>;

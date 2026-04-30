@@ -123,6 +123,26 @@ pre {
   display: none;
 }
 
+/* Practice SVG diagrams: fragment links to in-page alpha / activity / pattern sections */
+svg a.diagram-inline-resource-link,
+svg a.diagram-swimlane-heading-link,
+svg a.diagram-matrix-row-label-link {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+svg a.diagram-inline-resource-link:hover text,
+svg a.diagram-swimlane-heading-link:hover text,
+svg a.diagram-matrix-row-label-link:hover text {
+  fill: var(--accent);
+}
+
+svg a.diagram-inline-resource-link:hover tspan,
+svg a.diagram-swimlane-heading-link:hover tspan,
+svg a.diagram-matrix-row-label-link:hover tspan {
+  fill: var(--accent);
+}
+
 @media print {
   :root {
     --bg: #ffffff;

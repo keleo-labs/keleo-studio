@@ -1,4 +1,19 @@
-import type { Method, PracticeBaseline, PracticeElement, RefIssue } from "@/lib/types";
+import type {
+  Method,
+  Pattern,
+  PracticeActivity,
+  PracticeBaseline,
+  PracticeElement,
+  PracticeElementAlias,
+  ReadablePracticePreviewDoc,
+  RefIssue,
+  WorkBreakdown,
+  WorkProduct,
+} from "@/lib/types";
+import {
+  isSynthesizedPracticeElementTags,
+  synthesizedPracticeElementTags,
+} from "@/lib/practiceElementTags";
 
 type Indexes = {
   focusByName: Map<string, PracticeElement>;
@@ -18,7 +33,7 @@ export function asBaselineDocument(doc: any): PracticeBaseline | null {
     return {
       name: doc.name,
       description: doc.description,
-      tags: Array.isArray(doc.tags) ? doc.tags : [],
+      ...(doc.tags !== undefined ? { tags: doc.tags } : {}),
       focuses: Array.isArray(doc.focuses) ? doc.focuses : [],
       alphas: Array.isArray(doc.alphas) ? doc.alphas : [],
       activitySpaces: Array.isArray(doc.activitySpaces) ? doc.activitySpaces : [],
@@ -34,6 +49,33 @@ export function asBaselineDocument(doc: any): PracticeBaseline | null {
     return doc as PracticeBaseline;
   }
   return null;
+}
+
+/** Overlay practice-root arrays onto an enriched baseline for alternate readable previews. */
+export function readablePracticePreviewFromEnriched(
+  doc: unknown,
+  enrichedBaseline: PracticeBaseline,
+): ReadablePracticePreviewDoc {
+  if (!doc || typeof doc !== "object") return enrichedBaseline as ReadablePracticePreviewDoc;
+  const d = doc as Record<string, unknown>;
+  return {
+    ...enrichedBaseline,
+    ...(Array.isArray(d.patterns) ? { patterns: d.patterns as Pattern[] } : {}),
+    ...(Array.isArray(d.activities) ? { activities: d.activities as PracticeActivity[] } : {}),
+    ...(Array.isArray(d.workProducts) ? { workProducts: d.workProducts as WorkProduct[] } : {}),
+    ...(Array.isArray(d.workBreakdowns) ? { workBreakdowns: d.workBreakdowns as WorkBreakdown[] } : {}),
+    ...(Array.isArray(d.practiceElementAliases)
+      ? { practiceElementAliases: d.practiceElementAliases as PracticeElementAlias[] }
+      : {}),
+  };
+}
+
+/** Same enrichment pipeline as readable panels; returns null when the document has no baseline slice. */
+export function buildReadablePracticePreviewDoc(doc: unknown): ReadablePracticePreviewDoc | null {
+  const baseline = asBaselineDocument(doc);
+  if (!baseline) return null;
+  const enriched = enrichBaselineWithReferencedWrappers(doc, baselineWithPracticeActivities(doc, baseline));
+  return readablePracticePreviewFromEnriched(doc, enriched);
 }
 
 /**
@@ -141,9 +183,9 @@ export function propagateAlphaFocusFromContributesToParents(doc: { alphas?: any[
   }
 }
 
-/** True when an element was auto-created for extension-practice rendering (`tags` includes `"synthesized"`). */
+/** True when an element was auto-created for extension-practice rendering (lifecycleTags / legacy array contains `"synthesized"`). */
 export function isSynthesizedPracticeElement(el: { tags?: unknown } | null | undefined): boolean {
-  return Array.isArray(el?.tags) && (el!.tags as string[]).includes("synthesized");
+  return isSynthesizedPracticeElementTags(el?.tags);
 }
 
 /**
@@ -164,6 +206,124 @@ export function practiceElementDescriptionForDisplay(
 /** True when this object is a legacy flat Activity row (Practice.activities or mixed into activitySpaces). */
 export function isPracticeActivityNode(s: any): boolean {
   return s && typeof s.activitySpaceName === "string" && String(s.activitySpaceName).trim() !== "";
+}
+
+export type DeliveryViewActivitySpaceSection = {
+  key: string;
+  /** Activity-space metadata when defined on the baseline; synthetic stub when only activities reference the space. */
+  space: PracticeBaseline["activitySpaces"][number];
+  activities: PracticeActivity[];
+};
+
+const DELIVERY_VIEW_UNSCOPED_BUCKET = "__delivery_unscoped__";
+
+/**
+ * Builds ordered sections for the practitioner delivery view: each ActivitySpace-shaped row frames its bucket;
+ * nested `activities`, practice-level `activities`, and legacy activity-shaped rows are merged by space name.
+ * Spaces referenced only from activities appear after known rows; activities without `activitySpaceName` appear last.
+ */
+export function buildDeliveryViewActivitySections(doc: ReadablePracticePreviewDoc): DeliveryViewActivitySpaceSection[] {
+  type SpaceRow = PracticeBaseline["activitySpaces"][number];
+  type Bucket = { meta: SpaceRow | null; acts: Map<string, PracticeActivity> };
+  const buckets = new Map<string, Bucket>();
+  const sk = activitySpaceIdentityKey;
+
+  const ensureBucket = (spaceName: string): Bucket => {
+    const key = sk(spaceName);
+    if (!buckets.has(key)) buckets.set(key, { meta: null, acts: new Map() });
+    return buckets.get(key)!;
+  };
+
+  const putAct = (spaceName: string | undefined, raw: PracticeActivity) => {
+    const an = String(raw?.name ?? "").trim();
+    if (!an) return;
+    const sn = String(spaceName ?? "").trim();
+    if (!sn) {
+      let b = buckets.get(DELIVERY_VIEW_UNSCOPED_BUCKET);
+      if (!b) {
+        b = { meta: null, acts: new Map() };
+        buckets.set(DELIVERY_VIEW_UNSCOPED_BUCKET, b);
+      }
+      if (!b.acts.has(sk(an))) b.acts.set(sk(an), raw);
+      return;
+    }
+    const b = ensureBucket(sn);
+    const merged = {
+      ...raw,
+      activitySpaceName: String(raw.activitySpaceName ?? "").trim() || sn,
+    } as PracticeActivity;
+    if (!b.acts.has(sk(an))) b.acts.set(sk(an), merged);
+  };
+
+  for (const row of doc.activitySpaces ?? []) {
+    if (!row || typeof row !== "object") continue;
+    if (isPracticeActivityNode(row)) continue;
+    const space = row as SpaceRow;
+    const n = String(space.name ?? "").trim();
+    if (!n) continue;
+    const b = ensureBucket(n);
+    b.meta = space;
+    for (const raw of space.activities ?? []) putAct(n, raw as PracticeActivity);
+  }
+
+  for (const row of doc.activitySpaces ?? []) {
+    if (!row || typeof row !== "object") continue;
+    if (!isPracticeActivityNode(row)) continue;
+    putAct(String((row as PracticeActivity).activitySpaceName ?? "").trim(), row as PracticeActivity);
+  }
+
+  for (const act of doc.activities ?? []) putAct(String(act.activitySpaceName ?? "").trim(), act);
+
+  const sections: DeliveryViewActivitySpaceSection[] = [];
+  let i = 0;
+  const emittedBucketKeys = new Set<string>();
+
+  for (const row of doc.activitySpaces ?? []) {
+    if (!row || typeof row !== "object") continue;
+    if (isPracticeActivityNode(row)) continue;
+    const space = row as SpaceRow;
+    const n = String(space.name ?? "").trim();
+    if (!n) continue;
+    emittedBucketKeys.add(sk(n));
+    const b = ensureBucket(n);
+    const activities = [...b.acts.values()].sort((a, x) => String(a.name).localeCompare(String(x.name)));
+    sections.push({ key: `space-${i++}`, space: b.meta ?? space, activities });
+  }
+
+  for (const [bk, b] of buckets) {
+    if (bk === DELIVERY_VIEW_UNSCOPED_BUCKET) continue;
+    if (emittedBucketKeys.has(bk)) continue;
+    if (b.acts.size === 0) continue;
+    const first = [...b.acts.values()][0];
+    const recoveredName = String(b.meta?.name ?? first?.activitySpaceName ?? "").trim();
+    const stub = (b.meta ??
+      ({
+        name: recoveredName,
+        description: "",
+        focusName: "",
+        contributesTo: [],
+        requiredCompetencies: [],
+      } as SpaceRow)) as SpaceRow;
+    const activities = [...b.acts.values()].sort((a, x) => String(a.name).localeCompare(String(x.name)));
+    sections.push({ key: `orphan-${i++}`, space: stub, activities });
+  }
+
+  const ub = buckets.get(DELIVERY_VIEW_UNSCOPED_BUCKET);
+  if (ub && ub.acts.size > 0) {
+    sections.push({
+      key: `unscoped-${i++}`,
+      space: {
+        name: "",
+        description: "",
+        focusName: "",
+        contributesTo: [],
+        requiredCompetencies: [],
+      } as SpaceRow,
+      activities: [...ub.acts.values()].sort((a, x) => String(a.name).localeCompare(String(x.name))),
+    });
+  }
+
+  return sections;
 }
 
 function buildAlphaByNameForFocus(doc: { alphas?: any[] }): Map<string, any> {
@@ -371,13 +531,13 @@ export function canonicalizeActivitySpaces(mixed: any[], flatActivities: any[] =
   });
 }
 
-function emptyPracticeElement(name: string, description: string, tags: string[] = []) {
-  return { name, description, tags };
+function stubPracticeElement(name: string, description: string, synthesized = false) {
+  return synthesized ? { name, description, tags: synthesizedPracticeElementTags() } : { name, description };
 }
 
 function stubActivitySpace(name: string, focusName: string): PracticeBaseline["activitySpaces"][number] {
   return {
-    ...emptyPracticeElement(name, "", ["synthesized"]),
+    ...stubPracticeElement(name, "", true),
     focusName,
     contributesTo: [],
     requiredCompetencies: [],
@@ -386,10 +546,10 @@ function stubActivitySpace(name: string, focusName: string): PracticeBaseline["a
 
 function stubCompetency(name: string): PracticeBaseline["competencies"][number] {
   return {
-    ...emptyPracticeElement(name, "", ["synthesized"]),
+    ...stubPracticeElement(name, "", true),
     levels: [
       {
-        ...emptyPracticeElement("Referenced", "", ["synthesized"]),
+        ...stubPracticeElement("Referenced", "", true),
         level: 1,
         competencyName: name,
       },
@@ -399,7 +559,7 @@ function stubCompetency(name: string): PracticeBaseline["competencies"][number] 
 
 function stubState(name: string, seq: number): PracticeBaseline["alphas"][number]["states"][number] {
   return {
-    ...emptyPracticeElement(name, "", ["synthesized"]),
+    ...stubPracticeElement(name, "", true),
     seq,
     checklist: [],
   };
@@ -408,7 +568,7 @@ function stubState(name: string, seq: number): PracticeBaseline["alphas"][number
 function stubAlpha(name: string, focusName: string, stateNames: string[]): PracticeBaseline["alphas"][number] {
   const names = stateNames.length ? [...new Set(stateNames)].sort((a, b) => a.localeCompare(b)) : ["Referenced"];
   return {
-    ...emptyPracticeElement(name, "", ["synthesized"]),
+    ...stubPracticeElement(name, "", true),
     focusName,
     states: names.map((nm, i) => stubState(nm, i + 1)),
   };
@@ -568,7 +728,7 @@ export function enrichBaselineWithReferencedWrappers(doc: unknown, baseline: Pra
   const ensureFocus = (fn: string) => {
     if (!fn) return;
     if (!focusByName.has(fn)) {
-      focusByName.set(fn, emptyPracticeElement(fn, "", ["synthesized"]));
+      focusByName.set(fn, stubPracticeElement(fn, "", true));
     }
   };
   for (const fn of focusNamesFromDoc) ensureFocus(fn);
