@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { classifyLibraryRoot, displayNameForBody, baselineNameForPracticeLink, practiceNameForDependencyLink } from "@/lib/library/classify";
+import { libraryDocumentTags } from "@/lib/library/libraryDocumentTags";
 import { listVirtualElementFiles } from "@/lib/library/virtualElementFiles";
 import { getJsonDocumentStore } from "@/lib/storage/getStore";
 import type { JsonDocumentCreateInput, JsonDocumentKind } from "@/lib/storage/types";
@@ -32,6 +33,7 @@ export async function GET(req: Request) {
         virtualFileCount: listVirtualElementFiles(body).length,
         baselineNameForPracticeLink: baselineNameForPracticeLink(body),
         practiceNameForDependencyLink: practiceNameForDependencyLink(body),
+        libraryTags: libraryDocumentTags(body),
       };
     }),
   );

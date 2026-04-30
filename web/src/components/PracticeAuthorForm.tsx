@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { LibraryRootKind } from "@/lib/library/classify";
 import { classifyLibraryRoot } from "@/lib/library/classify";
@@ -30,6 +30,7 @@ import {
   patternViewReference,
   workProductContribution,
 } from "@/lib/practiceFormDefaults";
+import { practiceTagsBucketLines, practiceTagsFromBucketLines } from "@/lib/practiceElementTags";
 import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { useLanguagePack } from "@/lib/languagePack";
 
@@ -67,6 +68,18 @@ const lab: CSSProperties = {
   display: "block",
   marginBottom: 4,
 };
+
+function patchPracticeElementTagsBucket(
+  prev: Record<string, unknown>,
+  buckets: { domain: string; lifecycle: string; organizational: string },
+): Record<string, unknown> {
+  const tags = practiceTagsFromBucketLines(buckets.domain, buckets.lifecycle, buckets.organizational);
+  if (tags === undefined) {
+    const { tags: _removed, ...rest } = prev;
+    return rest as Record<string, unknown>;
+  }
+  return { ...prev, tags };
+}
 
 /**
  * Names usable as symbolic focus links — aligned with preview focus grouping:
@@ -192,7 +205,7 @@ function FocusNameSelect({
   );
 }
 
-function Btn({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
+function Btn({ children, onClick }: { children: ReactNode; onClick: () => void }) {
   return (
     <button
       type="button"
@@ -253,16 +266,6 @@ export function PracticeAuthorForm({
     onKindChange(next);
     onChange(next === "extension" ? emptyExtensionPractice() : emptyBaselinePractice());
   }, [kind, onChange, onKindChange]);
-
-  const tagLines = useMemo(() => (Array.isArray(rd.tags) ? (rd.tags as string[]).join("\n") : ""), [rd.tags]);
-  const setTags = (text: string) =>
-    setRoot(
-      "tags",
-      text
-        .split("\n")
-        .map((x) => x.trim())
-        .filter(Boolean),
-    );
 
   const lineList = (key: string) => ({
     text: (Array.isArray(rd[key]) ? (rd[key] as string[]) : []).join("\n"),
@@ -459,8 +462,51 @@ export function PracticeAuthorForm({
         <input value={s("name")} onChange={(e) => setRoot("name", e.target.value)} style={{ ...inp, marginBottom: 10 }} />
         <label style={lab}>Description</label>
         <textarea value={s("description")} onChange={(e) => setRoot("description", e.target.value)} style={{ ...inp, minHeight: 80, marginBottom: 10 }} />
-        <label style={lab}>Tags (one per line)</label>
-        <textarea value={tagLines} onChange={(e) => setTags(e.target.value)} style={{ ...inp, minHeight: 56, fontFamily: "inherit" }} />
+        <label style={lab}>Tags — domain (one per line)</label>
+        <textarea
+          value={practiceTagsBucketLines(rd.tags).domain}
+          onChange={(e) => {
+            const cur = practiceTagsBucketLines(rd.tags);
+            patch((d) =>
+              patchPracticeElementTagsBucket(d, {
+                domain: e.target.value,
+                lifecycle: cur.lifecycle,
+                organizational: cur.organizational,
+              }),
+            );
+          }}
+          style={{ ...inp, minHeight: 44, fontFamily: "inherit", marginBottom: 8 }}
+        />
+        <label style={lab}>Tags — lifecycle (one per line)</label>
+        <textarea
+          value={practiceTagsBucketLines(rd.tags).lifecycle}
+          onChange={(e) => {
+            const cur = practiceTagsBucketLines(rd.tags);
+            patch((d) =>
+              patchPracticeElementTagsBucket(d, {
+                domain: cur.domain,
+                lifecycle: e.target.value,
+                organizational: cur.organizational,
+              }),
+            );
+          }}
+          style={{ ...inp, minHeight: 44, fontFamily: "inherit", marginBottom: 8 }}
+        />
+        <label style={lab}>Tags — organizational (one per line)</label>
+        <textarea
+          value={practiceTagsBucketLines(rd.tags).organizational}
+          onChange={(e) => {
+            const cur = practiceTagsBucketLines(rd.tags);
+            patch((d) =>
+              patchPracticeElementTagsBucket(d, {
+                domain: cur.domain,
+                lifecycle: cur.lifecycle,
+                organizational: e.target.value,
+              }),
+            );
+          }}
+          style={{ ...inp, minHeight: 44, fontFamily: "inherit" }}
+        />
       </fieldset>
 
       {kind === "extension" ? (
@@ -770,14 +816,27 @@ function strArrFromLines(text: string): string[] {
     .filter(Boolean);
 }
 function linesFromStrArr(a: unknown): string {
-  return Array.isArray(a) ? (a as string[]).join("\n") : "";
+  if (!Array.isArray(a)) return "";
+  const lines = a.map((item) => {
+    if (typeof item === "string") return item.trim();
+    if (item && typeof item === "object") {
+      const o = item as Record<string, unknown>;
+      const an = String(o.alphaName ?? "").trim();
+      const sn = String(o.stateName ?? "").trim();
+      if (an && sn) return `${an}→${sn}`;
+      const raw = String(o.raw ?? "").trim();
+      if (raw) return raw;
+    }
+    return String(item ?? "").trim();
+  });
+  return lines.filter(Boolean).join("\n");
 }
 
 function practiceElFields(
   el: Record<string, unknown>,
   onPatch: (fn: (e: Record<string, unknown>) => Record<string, unknown>) => void,
 ) {
-  const tagTxt = linesFromStrArr(el.tags);
+  const tb = practiceTagsBucketLines(el.tags);
   return (
     <>
       <label style={lab}>Name</label>
@@ -788,11 +847,47 @@ function practiceElFields(
         onChange={(e) => onPatch((prev) => ({ ...prev, description: e.target.value }))}
         style={{ ...inp, minHeight: 48, marginBottom: 8 }}
       />
-      <label style={lab}>Tags (one per line)</label>
+      <label style={lab}>Tags — domain (one per line)</label>
       <textarea
-        value={tagTxt}
-        onChange={(e) => onPatch((prev) => ({ ...prev, tags: strArrFromLines(e.target.value) }))}
-        style={{ ...inp, minHeight: 40, fontFamily: "inherit" }}
+        value={tb.domain}
+        onChange={(e) =>
+          onPatch((prev) =>
+            patchPracticeElementTagsBucket(prev, {
+              domain: e.target.value,
+              lifecycle: tb.lifecycle,
+              organizational: tb.organizational,
+            }),
+          )
+        }
+        style={{ ...inp, minHeight: 36, fontFamily: "inherit", marginBottom: 6 }}
+      />
+      <label style={lab}>Tags — lifecycle (one per line)</label>
+      <textarea
+        value={tb.lifecycle}
+        onChange={(e) =>
+          onPatch((prev) =>
+            patchPracticeElementTagsBucket(prev, {
+              domain: tb.domain,
+              lifecycle: e.target.value,
+              organizational: tb.organizational,
+            }),
+          )
+        }
+        style={{ ...inp, minHeight: 36, fontFamily: "inherit", marginBottom: 6 }}
+      />
+      <label style={lab}>Tags — organizational (one per line)</label>
+      <textarea
+        value={tb.organizational}
+        onChange={(e) =>
+          onPatch((prev) =>
+            patchPracticeElementTagsBucket(prev, {
+              domain: tb.domain,
+              lifecycle: tb.lifecycle,
+              organizational: e.target.value,
+            }),
+          )
+        }
+        style={{ ...inp, minHeight: 36, fontFamily: "inherit" }}
       />
     </>
   );
@@ -919,11 +1014,50 @@ function CompetencyBlock({ comp, onChange }: { comp: Record<string, unknown>; on
         onChange={(e) => patch((c) => ({ ...c, description: e.target.value }))}
         style={{ ...inp, minHeight: 48, marginBottom: 8 }}
       />
-      <label style={lab}>Tags (one per line)</label>
+      <label style={lab}>Tags — domain (one per line)</label>
       <textarea
-        value={linesFromStrArr(comp.tags)}
-        onChange={(e) => patch((c) => ({ ...c, tags: strArrFromLines(e.target.value) }))}
-        style={{ ...inp, minHeight: 40, fontFamily: "inherit" }}
+        value={practiceTagsBucketLines(comp.tags).domain}
+        onChange={(e) => {
+          const cur = practiceTagsBucketLines(comp.tags);
+          patch((c) =>
+            patchPracticeElementTagsBucket(c, {
+              domain: e.target.value,
+              lifecycle: cur.lifecycle,
+              organizational: cur.organizational,
+            }),
+          );
+        }}
+        style={{ ...inp, minHeight: 36, fontFamily: "inherit", marginBottom: 6 }}
+      />
+      <label style={lab}>Tags — lifecycle (one per line)</label>
+      <textarea
+        value={practiceTagsBucketLines(comp.tags).lifecycle}
+        onChange={(e) => {
+          const cur = practiceTagsBucketLines(comp.tags);
+          patch((c) =>
+            patchPracticeElementTagsBucket(c, {
+              domain: cur.domain,
+              lifecycle: e.target.value,
+              organizational: cur.organizational,
+            }),
+          );
+        }}
+        style={{ ...inp, minHeight: 36, fontFamily: "inherit", marginBottom: 6 }}
+      />
+      <label style={lab}>Tags — organizational (one per line)</label>
+      <textarea
+        value={practiceTagsBucketLines(comp.tags).organizational}
+        onChange={(e) => {
+          const cur = practiceTagsBucketLines(comp.tags);
+          patch((c) =>
+            patchPracticeElementTagsBucket(c, {
+              domain: cur.domain,
+              lifecycle: cur.lifecycle,
+              organizational: e.target.value,
+            }),
+          );
+        }}
+        style={{ ...inp, minHeight: 36, fontFamily: "inherit", marginBottom: 8 }}
       />
       <RepeatSection
         title="Levels"
@@ -1584,7 +1718,7 @@ function RepeatSection<T extends Record<string, unknown>>({
   title: string;
   items: T[];
   onReplace: (next: T[]) => void;
-  renderItem: (item: T, index: number, mutate: (fn: (list: T[]) => T[]) => void) => React.ReactNode;
+  renderItem: (item: T, index: number, mutate: (fn: (list: T[]) => T[]) => void) => ReactNode;
   emptyItem: () => T;
   addLabel: string;
   renumberSeq?: boolean;

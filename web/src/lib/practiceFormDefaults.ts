@@ -1,7 +1,7 @@
 /** Default subtree shapes for the practice editor (see public/language.schema.json). */
 
 export function emptyPracticeElement(name = "", description = ""): Record<string, unknown> {
-  return { name, description, tags: [] as string[] };
+  return { name, description };
 }
 
 export function emptyFocus(): Record<string, unknown> {
@@ -46,7 +46,6 @@ export function emptyAlpha(focusFallback = ""): Record<string, unknown> {
     ...emptyPracticeElement("", ""),
     focusName: focusFallback,
     states: [emptyState(1), emptyState(2), emptyState(3)],
-    contributesTo: "",
   };
 }
 
@@ -191,9 +190,5 @@ export function emptyBaselinePractice(): Record<string, unknown> {
     alphas: [] as Record<string, unknown>[],
     competencies: [] as Record<string, unknown>[],
     activitySpaces: [] as Record<string, unknown>[],
-    activities: [] as Record<string, unknown>[],
-    workProducts: [] as Record<string, unknown>[],
-    workBreakdowns: [] as Record<string, unknown>[],
-    patterns: [] as Record<string, unknown>[],
   };
 }

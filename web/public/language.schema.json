@@ -6,15 +6,41 @@
   "$defs": {
     "PracticeElement": {
       "type": "object",
-      "description": "Common identity and prose fields for named practice artifacts. tags is optional (0..*); omit or [].",
+      "description": "Common identity and prose fields for named practice artifacts. tags optional: omit, structured buckets, or legacy string[].",
       "required": ["name", "description"],
       "properties": {
         "name": { "type": "string" },
         "description": { "type": "string" },
         "tags": {
-          "type": "array",
-          "items": { "type": "string" },
-          "description": "Optional labels; default treated as empty when absent (language.mmd PracticeElement)."
+          "description": "Canonical shape: orthogonal tag buckets. Legacy interchange: flat string array (tooling treats it as lifecycleTags only).",
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "domainTags": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Technical discipline (e.g., Architecture, FinOps, Security)."
+                },
+                "lifecycleTags": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Temporal mapping (e.g., Strategy, Sprints, Operations)."
+                },
+                "organizationalTags": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Owning business unit."
+                }
+              }
+            },
+            {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Deprecated interchange; prefer the structured object."
+            }
+          ]
         }
       }
     },
@@ -25,7 +51,29 @@
           "type": "object",
           "required": ["seq"],
           "properties": {
-            "seq": { "type": "integer" }
+            "seq": { "type": "integer" },
+            "isBlocking": {
+              "type": "boolean",
+              "description": "If true, failure to meet this criteria programmatically halts Alpha progression."
+            },
+            "thresholdWeighting": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Quantitative fractional weight representing contribution to state achievement."
+            },
+            "verificationMethod": {
+              "type": "string",
+              "enum": ["automated-telemetry", "manual-audit", "documentation-review", "system-assertion"]
+            },
+            "evidenceRequired": {
+              "type": "boolean",
+              "description": "Dictates if a physical URI (Git hash, storage location) is necessary to clear the gate."
+            },
+            "evidencedBy": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/WorkProductContribution" }
+            }
           }
         }
       ],
@@ -429,6 +477,11 @@
               "type": "array",
               "items": { "$ref": "#/$defs/PatternViewReference" }
             },
+            "estimationUnit": {
+              "type": "string",
+              "enum": ["man-hours", "story-points", "currency"],
+              "description": "Strictly typed forecasting unit to prevent algorithmic corruption."
+            },
             "task": {
               "type": "array",
               "minItems": 1,
@@ -457,7 +510,11 @@
           "type": "object",
           "required": ["level", "contractType", "productRisks", "projectRisks"],
           "properties": {
-            "level": { "type": "integer" },
+            "level": { 
+              "type": "integer", 
+              "enum": [1, 2, 3, 4, 5],
+              "description": "Restricted algorithmic multiplier indicating friction: 1 (Routine) to 5 (Hyperscale Volatility)."
+            },
             "contractType": { "type": "string" },
             "valueRisk": { "$ref": "#/$defs/AlphaContribution" },
             "technicalRisk": { "$ref": "#/$defs/AlphaContribution" },

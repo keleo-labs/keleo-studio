@@ -5,6 +5,24 @@ export type LanguagePack = {
   appSubtitle: string;
   inputJson: string;
   renderedView: string;
+  /** Practice author readable column: diagram-first preview mode label. */
+  readablePreviewClassic: string;
+  /** Practice author readable column: TOC + sections preview (library browse style). */
+  readablePreviewBrowse: string;
+  /** Readable preview: PatternFly-style full document layout (FullPracticeView). */
+  readablePreviewFullDocument: string;
+  /** Readable preview: strategic outcomes + adoption lifecycle (business stakeholders). */
+  readablePreviewBusiness: string;
+  /** Readable preview: practitioner execution guide (activities & work products). */
+  readablePreviewDelivery: string;
+  /** Readable preview: statement of work estimation (work breakdowns). */
+  readablePreviewSow: string;
+  /** Delivery view: no activity spaces or activities after merge. */
+  deliveryViewEmpty: string;
+  /** Delivery view: activity space exists but lists no activities. */
+  deliveryViewNoActivitiesInSpace: string;
+  /** Delivery view: bucket for practice-level activities without activitySpaceName. */
+  deliveryViewPracticeLevelActivities: string;
   loadExample: string;
   validateAndRender: string;
   downloadPdf: string;
@@ -89,8 +107,40 @@ export type LanguagePack = {
   worksOn: string;
   recommendedCompetencyLevels: string;
   tags: string;
+  /** Browse IR: domain tag bucket label (structured tags). */
+  tagsDomain: string;
+  /** Browse IR: lifecycle tag bucket label. */
+  tagsLifecycle: string;
+  /** Browse IR: organizational tag bucket label. */
+  tagsOrganizational: string;
   checklist: string;
+  /** Browse IR: checklist item seq field. */
+  checklistSeq: string;
+  checklistBlocking: string;
+  checklistThresholdWeight: string;
+  checklistVerificationMethod: string;
+  checklistEvidenceRequired: string;
+  checklistEvidencedBy: string;
+  /** Browse IR: Activity.activitySpaceName when distinct from parent space. */
+  activityParentSpace: string;
+  /** Browse IR: LevelOfDetail.seq label. */
+  levelOfDetailSeq: string;
+  /** Browse IR: WorkBreakdown.estimationUnit. */
+  wbEstimationUnit: string;
+  /** Browse IR: collapsible heading for Pattern.patternViews. */
+  patternViewsHeading: string;
+  patternViewAlphaStates: string;
+  patternViewActivitySpaces: string;
+  patternViewActivities: string;
+  /** Browse IR: Practice.practiceElementAliases section title. */
+  practiceElementAliasesHeading: string;
   keywords: string;
+  /** Library list: heading for structured tag filters. */
+  libraryTagFiltersHeading: string;
+  /** Library list: reset domain / lifecycle / org tag selections. */
+  libraryClearTagFilters: string;
+  /** Manage library table: opens row menu with Download, Browse, edit links, Delete. */
+  libraryRowActionsMenu: string;
   /** Library browse / method IR: heading above extension practice list (`Method.practices`). */
   methodBrowseExtensionPracticesHeading: string;
   extendsBaseline: string;

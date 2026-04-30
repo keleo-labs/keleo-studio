@@ -1,18 +1,30 @@
-%% Practice language — diagram conventions
-%% *-- composition: child is embedded in / owned by the parent document (same JSON aggregate).
-%% o-- aggregation: parent holds children that are proper elements or shared references (lifecycle may extend beyond this slice).
-%% --> association: navigable link; use for Method→baseline and similar.
-%% Cardinality: "1" | "0..1" | "*" | "0..*" | "1..*" (quoted on each side of the connector).
-%% *Name / *Names on a class = STRING (or List~STRING~) foreign keys: edges show semantic target type, not embedded objects.
+%% Practice language — class diagram for adoptionframework JSON (`language.schema.json`).
+%%
+%% Legend:
+%% *-- composition: child is embedded / owned by the parent aggregate (same JSON document subtree).
+%% o-- aggregation: parent lists element ids or symbolic refs (lifecycle may extend beyond this slice).
+%% --> association: navigable symbolic link (STRING foreign keys); edge labels show JSON field names.
+%% Cardinality uses "1" | "0..1" | "*" | "0..*" | "1..*" on each connector side.
+%%
+%% Naming: `*Name` / `*Names` fields are STRING (or List~STRING~) keys; edges name the semantic target type, not embedded objects.
 
 classDiagram
+    %% -------------------------------------------------------------------------
+    %% Tags (optional on every PracticeElement)
+    %% -------------------------------------------------------------------------
+    class TagsClassification {
+        +domainTags: List~STRING~
+        +lifecycleTags: List~STRING~
+        +organizationalTags: List~STRING~
+    }
+
     class PracticeElement {
         +name: STRING
         +description: STRING
-        +tags: List~STRING~
     }
 
-    note for PracticeElement "tags optional (0..*); omit field or use [] when absent."
+    PracticeElement "0..1" *-- "0..1" TagsClassification : tags
+    note for PracticeElement "tags optional: omit entirely, OR structured TagsClassification, OR legacy List~STRING~ (interchange; maps to lifecycleTags in tooling)."
 
     class PracticeElementAlias {
         +practiceElementType: STRING
@@ -20,8 +32,11 @@ classDiagram
         +aliasName: STRING
     }
 
-    note for PracticeElementAlias "Maps aliasName to an existing element (practiceElementType + practiceElementName) within the same Practice document. Optional 0..* on Practice (practiceElementAliases). practiceElementType names the element kind (e.g. Alpha, Activity); practiceElementName matches that element name; loaders may resolve references using either the canonical name or any alias."
+    note for PracticeElementAlias "Maps aliasName → (practiceElementType, practiceElementName) in the same Practice. 0..* on Practice (practiceElementAliases)."
 
+    %% -------------------------------------------------------------------------
+    %% Document roots
+    %% -------------------------------------------------------------------------
     class PracticeBaseline {
         +authors: List~STRING~
         +createdAt: DATE
@@ -39,20 +54,35 @@ classDiagram
     class Method {
     }
 
+    note for Practice "Names a baseline (baselinePracticeName); may embed baseline-shaped arrays (focuses, alphas, …) as 0..* overlays. Required: baselinePracticeName only."
+    note for PracticeBaseline "Full baseline aggregate: requires focuses, alphas, activitySpaces, competencies, authors, createdAt, updatedAt, version, keywords."
+    note for Method "Root: baselinePractice embeds PracticeBaseline; optional practices[]."
+
+    %% -------------------------------------------------------------------------
+    %% Value stream & work
+    %% -------------------------------------------------------------------------
+    class Focus {
+    }
+
     class Alpha {
         +focusName: STRING
         +contributesTo: STRING
         +supportingAlphas: List~STRING~
     }
 
-    note for Alpha "contributesTo optional (0..1). supportingAlphas optional (0..*); each entry is Alpha.name in the same baseline. Use supportingAlphas on a rollup alpha to nest contributing alphas; lists are unioned when combining practices."
+    note for Alpha "contributesTo 0..1 (parent alpha name). supportingAlphas 0..* (child / contributor alpha names); unioned when merging practices."
 
-    class WorkProduct {
+    class State {
+        +seq: INT
     }
 
-    class WorkProductContribution {
-        +workProductName: STRING
-        +levelOfDetailName: STRING
+    class Checklist {
+        +seq: INT
+        +isBlocking: BOOLEAN
+        +thresholdWeighting: NUMBER
+        +verificationMethod: STRING
+        +evidenceRequired: BOOLEAN
+        +evidencedBy: List~WorkProductContribution~
     }
 
     class ActivitySpace {
@@ -64,46 +94,17 @@ classDiagram
         +activitySpaceName: STRING
     }
 
-    note for Activity "When nested under ActivitySpace.activities, activitySpaceName may be omitted (implicit parent)."
+    note for Activity "When nested under ActivitySpace.activities, activitySpaceName may be omitted (implicit parent). Flat Practice.activities remains valid legacy interchange."
 
-    class Focus {
+    class WorkProduct {
     }
 
-    class Competency {
-    }
-
-    class CompetencyLevel {
-        +level: INT
-        +competencyName: STRING
-    }
-
-    class CompetencyLevelReference {
-        +competencyName: STRING
-        +competencyLevelName: STRING
-    }
-
-    class Pattern {
-    }
-
-    class PatternView {
+    class LevelOfDetail {
         +seq: INT
-        +alphaStates: List~AlphaContribution~
-        +activitySpaces: List~STRING~
-        +activities: List~STRING~
-    }
-
-    note for PatternView "alphaStates: JSON array of embedded AlphaContribution objects; legacy documents may use STRING tokens (same meaning as alphaName/stateName; project convention e.g. Alpha->State). activitySpaces: ActivitySpace.name swimlane refs. activities: Activity.name swimlane refs (nested or flat). Legacy: Activity.name may still appear in activitySpaces; loaders merge both lists for matrix resolution."
-
-    class PatternViewReference {
-        +patternName: STRING
-        +patternViewName: STRING
-    }
-
-    class ActivitySpaceReference {
-        +activitySpaceName: STRING
     }
 
     class WorkBreakdown {
+        +estimationUnit: STRING
     }
 
     class WorkItem {
@@ -122,13 +123,51 @@ classDiagram
         +contractType: STRING
     }
 
-    class Checklist {
+    %% -------------------------------------------------------------------------
+    %% Competency & patterns
+    %% -------------------------------------------------------------------------
+    class Competency {
+    }
+
+    class CompetencyLevel {
+        +level: INT
+        +competencyName: STRING
+    }
+
+    class Pattern {
+    }
+
+    class PatternView {
         +seq: INT
     }
 
+    note for PatternView "alphaStates: canonical List~AlphaContribution~; legacy documents may use STRING tokens (same semantics). activitySpaces / activities: ActivitySpace.name and Activity.name refs as STRING lists."
+
+    %% -------------------------------------------------------------------------
+    %% Symbolic reference value objects (STRING keys only; not PracticeElement subclasses)
+    %% -------------------------------------------------------------------------
     class AlphaContribution {
         +alphaName: STRING
         +stateName: STRING
+    }
+
+    class WorkProductContribution {
+        +workProductName: STRING
+        +levelOfDetailName: STRING
+    }
+
+    class CompetencyLevelReference {
+        +competencyName: STRING
+        +competencyLevelName: STRING
+    }
+
+    class PatternViewReference {
+        +patternName: STRING
+        +patternViewName: STRING
+    }
+
+    class ActivitySpaceReference {
+        +activitySpaceName: STRING
     }
 
     class AlphaInstance {
@@ -143,30 +182,13 @@ classDiagram
         +levelOfDetailName: STRING
     }
 
-    class State {
-        +seq: INT
-    }
-
-    class LevelOfDetail {
-        +seq: INT
-    }
-
-    %% --- Structural relationships (role / JSON field on label) ---
-    %% focusName on Alpha / ActivitySpace / Activity: STRING (= Focus.name); link to baseline.focuses, not embedding.
-    %% contributesTo on Alpha: STRING (target alpha name); semantic link, not embedding.
-    %% supportingAlphas: each STRING is Alpha.name in the same baseline (rollup nesting); unioned when combining practices.
-    %% Flat Practice.activities: legacy interchange; canonical form nests under ActivitySpace.activities.
-
-    Activity "1" *-- "0..*" AlphaContribution : contributesTo
-    Activity "1" o-- "0..*" CompetencyLevelReference : recommendedCompetencyLevels
-    Activity "1" o-- "0..*" WorkProductContribution : worksOn
+    %% -------------------------------------------------------------------------
+    %% Composition & aggregation (JSON shape)
+    %% -------------------------------------------------------------------------
     ActivitySpace "1" *-- "0..*" Activity : activities
     ActivitySpace "1" *-- "1..*" AlphaContribution : contributesTo
-    ActivitySpace "1" --> "1" Focus : focusName
     Alpha "1" *-- "3..*" State : states
-    Alpha "1" --> "0..1" Alpha : contributesTo
-    Alpha "1" --> "1" Focus : focusName
-    Alpha "1" o-- "0..*" Alpha : supportingAlphas
+    Alpha "1" o-- "0..*" STRING : supportingAlphas
     Competency "1" *-- "1..*" CompetencyLevel : levels
     Complexity "1" *-- "0..*" AlphaContribution : productRisks
     Complexity "1" *-- "0..*" AlphaContribution : projectRisks
@@ -198,19 +220,26 @@ classDiagram
     WorkItem "1" *-- "1" Estimate : estimate
     WorkProduct "1" *-- "2..*" LevelOfDetail : levelsOfDetail
 
-    %% --- Symbolic name references (JSON: STRING or List~STRING~; edges = semantic type, not composition) ---
+    Activity "1" *-- "0..*" AlphaContribution : contributesTo
+    Activity "1" o-- "0..*" CompetencyLevelReference : recommendedCompetencyLevels
+    Activity "1" o-- "0..*" WorkProductContribution : worksOn
 
+    %% -------------------------------------------------------------------------
+    %% Symbolic STRING associations (targets named elsewhere in baseline / practice)
+    %% -------------------------------------------------------------------------
     Activity "1" --> "1" ActivitySpace : activitySpaceName
-    ActivitySpace "1" o-- "0..*" Competency : requiredCompetencies
+    ActivitySpace "1" --> "0..*" Competency : requiredCompetencies
     AlphaContribution "1" --> "1" Alpha : alphaName
     AlphaContribution "1" --> "1" State : stateName
     AlphaInstance "1" --> "1" Alpha : alphaName
     AlphaInstance "1" --> "1" State : stateName
+    Alpha "1" --> "0..1" Alpha : contributesTo
+    Alpha "1" --> "1" Focus : focusName
+    ActivitySpace "1" --> "1" Focus : focusName
+    Activity "1" --> "1" Focus : focusName
     CompetencyLevel "1" --> "1" Competency : competencyName
     CompetencyLevelReference "1" --> "1" Competency : competencyName
     CompetencyLevelReference "1" --> "1" CompetencyLevel : competencyLevelName
-    PatternView "1" o-- "0..*" Activity : activities
-    PatternView "1" o-- "0..*" ActivitySpace : activitySpaces
     PatternViewReference "1" --> "1" Pattern : patternName
     PatternViewReference "1" --> "1" PatternView : patternViewName
     Practice "1" --> "1" PracticeBaseline : baselinePracticeName
@@ -220,14 +249,18 @@ classDiagram
     WorkProductContribution "1" --> "1" WorkProduct : workProductName
     WorkProductInstance "1" --> "1" LevelOfDetail : levelOfDetailName
     WorkProductInstance "1" --> "1" WorkProduct : workProductName
+    PatternView "1" --> "0..*" STRING : activitySpaces
+    PatternView "1" --> "0..*" STRING : activities
 
-    %% stateName (AlphaContribution, AlphaInstance): resolve with alphaName to a State under that Alpha.
-    %% levelOfDetailName (WorkProduct*, WorkProductContribution): resolve with workProductName to LevelOfDetail under that WorkProduct.
-    %% competencyLevelName (CompetencyLevelReference): CompetencyLevel.name under the named Competency.
-    %% patternViewName (PatternViewReference): PatternView.name under the named Pattern.
+    %% Resolution notes:
+    %% stateName (+ alphaName) → State under that Alpha.
+    %% levelOfDetailName (+ workProductName) → LevelOfDetail under that WorkProduct.
+    %% competencyLevelName (+ competencyName) → CompetencyLevel.name under that Competency.
+    %% patternViewName (+ patternName) → PatternView.name under that Pattern.
 
-    %% --- Inheritance ---
-
+    %% -------------------------------------------------------------------------
+    %% Inheritance (PracticeElement subclasses)
+    %% -------------------------------------------------------------------------
     PracticeBaseline <|-- Practice
     PracticeElement <|-- Activity
     PracticeElement <|-- ActivitySpace

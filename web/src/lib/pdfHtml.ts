@@ -1,4 +1,5 @@
 import { IMPLICIT_FOCUS_NAME, practiceElementDescriptionForDisplay } from "@/lib/ir";
+import { flattenPracticeElementTags } from "@/lib/practiceElementTags";
 import { extendsBaselineDisplayName } from "@/lib/library/classify";
 import {
   buildPracticeElementAliasLookup,
@@ -423,9 +424,10 @@ export function renderPdfHtml(args: {
             .slice()
             .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
             .map((s: any) => {
+              const tagList = flattenPracticeElementTags(s.tags);
               const tags =
-                Array.isArray(s.tags) && s.tags.length
-                  ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.tags)}: ${s.tags
+                tagList.length > 0
+                  ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.tags)}: ${tagList
                       .map((x: string) => esc(x))
                       .join(", ")}</div>`
                   : "";
@@ -459,9 +461,10 @@ export function renderPdfHtml(args: {
             })
             .join("");
 
+          const alphaTagList = flattenPracticeElementTags(a.tags);
           const alphaTags =
-            Array.isArray(a.tags) && a.tags.length
-              ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${a.tags
+            alphaTagList.length > 0
+              ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${alphaTagList
                   .map((x: string) => esc(x))
                   .join(", ")}</div>`
               : "";
@@ -483,9 +486,10 @@ export function renderPdfHtml(args: {
                   .map((nm: string) => {
                     const child = (g.alphas ?? []).find((x: any) => String(x?.name ?? "").trim() === nm);
                     const chAd = child ? practiceElementDescriptionForDisplay(child) : "";
+                    const childTagList = child ? flattenPracticeElementTags(child.tags) : [];
                     const chTags =
-                      child && Array.isArray(child.tags) && child.tags.length
-                        ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${child.tags
+                      childTagList.length > 0
+                        ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${childTagList
                             .map((x: string) => esc(x))
                             .join(", ")}</div>`
                         : "";
@@ -579,12 +583,14 @@ export function renderPdfHtml(args: {
                   .join(", ")}</div>`
               : "";
 
-          const tagsLine = (tags: any) =>
-            Array.isArray(tags) && tags.length
-              ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${tags
+          const tagsLine = (tags: unknown) => {
+            const list = flattenPracticeElementTags(tags);
+            return list.length
+              ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${list
                   .map((x: string) => esc(x))
                   .join(", ")}</div>`
               : "";
+          };
 
           if (isActivity(s)) {
             const parent = String(s.activitySpaceName).trim();
@@ -703,9 +709,10 @@ export function renderPdfHtml(args: {
     Array.isArray(sourceDoc?.patterns) && (sourceDoc!.patterns as any[]).length
       ? (sourceDoc!.patterns as any[])
           .map((p: any) => {
+            const patternTagList = flattenPracticeElementTags(p.tags);
             const tags =
-              Array.isArray(p.tags) && p.tags.length
-                ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.tags)}: ${p.tags
+              patternTagList.length > 0
+                ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.tags)}: ${patternTagList
                     .map((x: string) => esc(x))
                     .join(", ")}</div>`
                 : "";
@@ -752,9 +759,10 @@ export function renderPdfHtml(args: {
     .slice()
     .sort((a: any, b: any) => String(a.name).localeCompare(String(b.name)))
     .map((c: any) => {
+      const competencyTagList = flattenPracticeElementTags(c.tags);
       const ctags =
-        Array.isArray(c.tags) && c.tags.length
-          ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${c.tags
+        competencyTagList.length > 0
+          ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${competencyTagList
               .map((x: string) => esc(x))
               .join(", ")}</div>`
           : "";
@@ -792,9 +800,10 @@ export function renderPdfHtml(args: {
     Array.isArray(sourceDoc?.workProducts) && (sourceDoc!.workProducts as any[]).length
       ? (sourceDoc!.workProducts as any[])
           .map((wp: any) => {
+            const wpTagList = flattenPracticeElementTags(wp.tags);
             const wtags =
-              Array.isArray(wp.tags) && wp.tags.length
-                ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${wp.tags
+              wpTagList.length > 0
+                ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${wpTagList
                     .map((x: string) => esc(x))
                     .join(", ")}</div>`
                 : "";
@@ -860,9 +869,10 @@ export function renderPdfHtml(args: {
     Array.isArray(sourceDoc?.workBreakdowns) && (sourceDoc!.workBreakdowns as any[]).length
       ? (sourceDoc!.workBreakdowns as any[])
           .map((wb: any) => {
+            const wbTagList = flattenPracticeElementTags(wb.tags);
             const wbTags =
-              Array.isArray(wb.tags) && wb.tags.length
-                ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${wb.tags
+              wbTagList.length > 0
+                ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${wbTagList
                     .map((x: string) => esc(x))
                     .join(", ")}</div>`
                 : "";
@@ -882,6 +892,13 @@ export function renderPdfHtml(args: {
                 : "";
             const cx = wb.complexity;
             const cxd = cx ? practiceElementDescriptionForDisplay(cx) : "";
+            const cxTagList = cx ? flattenPracticeElementTags(cx.tags) : [];
+            const cxComplexityTags =
+              cxTagList.length > 0
+                ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.tags)}: ${cxTagList
+                    .map((x: string) => esc(x))
+                    .join(", ")}</div>`
+                : "";
             const cxBlock = cx
               ? `<div class="card" style="margin-top:8px;background:rgba(2,6,23,0.04)">
               <div style="font-weight:800;margin-bottom:4px">${esc(t.wbComplexity)}</div>
@@ -890,13 +907,7 @@ export function renderPdfHtml(args: {
               <div class="muted" style="margin-top:6px;font-size:12px"><b>${esc(t.complexityLevel)}:</b> ${esc(
                   String(cx.level ?? ""),
                 )} &nbsp; <b>${esc(t.contractType)}:</b> ${esc(String(cx.contractType ?? ""))}</div>
-              ${
-                Array.isArray(cx.tags) && cx.tags.length
-                  ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.tags)}: ${cx.tags
-                      .map((x: string) => esc(x))
-                      .join(", ")}</div>`
-                  : ""
-              }
+              ${cxComplexityTags}
               ${
                 cx.valueRisk
                   ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.complexityValueRisk)} → <a href="#${esc(
@@ -971,9 +982,10 @@ export function renderPdfHtml(args: {
               .slice()
               .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
               .map((task: any) => {
+                const taskTagList = flattenPracticeElementTags(task.tags);
                 const taskTags =
-                  Array.isArray(task.tags) && task.tags.length
-                    ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.tags)}: ${task.tags
+                  taskTagList.length > 0
+                    ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.tags)}: ${taskTagList
                         .map((x: string) => esc(x))
                         .join(", ")}</div>`
                     : "";
