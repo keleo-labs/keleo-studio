@@ -1,0 +1,420 @@
+{
+  "title": "Essence textual syntax — class object specification",
+  "generatedFrom": "language.json",
+  "description": "Each object describes one language construct (grammar non-terminal). Fields are suitable for code generation, documentation, or schema tooling.",
+  "constructCount": 41,
+  "constructs": [
+    {
+      "name": "Model",
+      "namespace": "Root_Elements",
+      "syntaxRule": "elements+=GroupElement*;"
+    },
+    {
+      "name": "GroupElement",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Kernel | Practice | Library | PracticeAsset | Method;"
+    },
+    {
+      "name": "PatternElement",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Alpha | AlphaAssociation | AlphaContainment | WorkProduct | WorkProductManifest | Activity | ActivitySpace | ActivityAssociation | Competency | Pattern | WorkBreakdown | Complexity | PrerequisiteAndAssumption | TeamRole;"
+    },
+    {
+      "name": "PracticeElement",
+      "namespace": "Root_Elements",
+      "syntaxRule": "PatternElement | ExtensionElement | MergeResolution | UserDefinedType;"
+    },
+    {
+      "name": "AnyElement",
+      "namespace": "Root_Elements",
+      "syntaxRule": "GroupElement | PracticeElement | State | Level | CheckListItem | CompetencyLevel | PatternAssociation | Tag | Resource;"
+    },
+    {
+      "name": "KernelElement",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Alpha | AlphaAssociation | AlphaContainment | ActivitySpace | Competency | Kernel | ExtensionElement | MergeResolution | UserDefinedType;"
+    },
+    {
+      "name": "StateOrLevel",
+      "namespace": "Root_Elements",
+      "syntaxRule": "State | Level;"
+    },
+    {
+      "name": "AlphaOrWorkProduct",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Alpha | WorkProduct;"
+    },
+    {
+      "name": "AbstractActivity",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Activity | ActivitySpace | WorkBreakdown;"
+    },
+    {
+      "name": "PracticeContent",
+      "namespace": "Root_Elements",
+      "syntaxRule": "PracticeElement | Practice | PracticeAsset;"
+    },
+    {
+      "name": "MethodContent",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Practice | ExtensionElement | MergeResolution;"
+    },
+    {
+      "name": "Kernel",
+      "namespace": "Element_Groups",
+      "syntaxRule": "'kernel' ID ':' STRING ('with rules' STRING)? ('owns' '{' KernelElement* '}')? ('uses' '{' KernelElementRef (',' KernelElementRef)* '}')? (AddedTags)?;"
+    },
+    {
+      "name": "Practice",
+      "namespace": "Element_Groups",
+      "syntaxRule": "'practice' ID ':' STRING 'with objective' STRING ('with measures' STRING(',' STRING)*)? ('with entry' STRING(',' STRING)*)? ('with result' STRING(',' STRING)*)? ('with rules' STRING)? ('owns' '{' PracticeElement* '}')? ('uses' '{' PracticeContentRef (',' PracticeContentRef)* '}')? (AddedTags)?;"
+    },
+    {
+      "name": "Library",
+      "namespace": "Element_Groups",
+      "syntaxRule": "'library' ID ':' STRING ('owns' '{' GroupElement* '}')? ('uses' '{' GroupElementRef (',' GroupElementRef)* '}')? (AddedTags)?;"
+    },
+    {
+      "name": "PracticeAsset",
+      "namespace": "Element_Groups",
+      "syntaxRule": "'practiceAsset' ID ':' STRING ('owns' '{' PracticeElement* '}')? ('uses' '{' PracticeElementRef (',' PracticeElementRef)* '}')? (AddedTags)?;"
+    },
+    {
+      "name": "Method",
+      "namespace": "Element_Groups",
+      "syntaxRule": "'method' ID 'based on' KernelRef ':' STRING 'with purpose' STRING ('owns' '{' MethodContent* '}')? ('uses' '{' PracticeRef(',' PracticeRef)* '}')? (AddedTags)?;"
+    },
+    {
+      "name": "Alpha",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'alpha' ID ':' STRING (Resource(',' Resource)*)? 'with states' '{' State+ '}' (AddedTags)?;"
+    },
+    {
+      "name": "State",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'state' ID '{' STRING ('checks {' CheckListItem+ '}')? '}' (AddedTags)?;"
+    },
+    {
+      "name": "CheckListItem",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'item' ID '{' STRING '}' (AddedTags)?;"
+    },
+    {
+      "name": "AlphaAssociation",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "Cardinality AlphaRef '--' STRING '-->' Cardinality AlphaRef (AddedTags)?;"
+    },
+    {
+      "name": "AlphaContainment",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "AlphaRef 'contains' Cardinality AlphaRef (AddedTags)?;"
+    },
+    {
+      "name": "ActivitySpace",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'activitySpace' ID ':' STRING (Resource(',' Resource)*)? 'targets' StateRef (',' StateRef)* ('with input' AlphaRef (',' AlphaRef)*)? (AddedTags)?;"
+    },
+    {
+      "name": "Competency",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'competency' ID ':' STRING (Resource (',' Resource)*)? ('has' '{' CompetencyLevel* '}')? (AddedTags)?;"
+    },
+    {
+      "name": "CompetencyLevel",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'level' INT ID STRING? AddedTags?;"
+    },
+    {
+      "name": "WorkProduct",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'workProduct' ID ':' STRING (Resource(',' Resource)*)? 'with levels' '{' Level+ '}' (AddedTags)?;"
+    },
+    {
+      "name": "Level",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "('sufficient')? 'level' ID '{' STRING ('checks {' CheckListItem+ '}')? '}' (AddedTags)?;"
+    },
+    {
+      "name": "WorkProductManifest",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'describe' AlphaRef 'by' Cardinality WorkProductRef (',' Cardinality WorkProductRef)* (AddedTags)?;"
+    },
+    {
+      "name": "Activity",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'activity' ID ':' STRING (Resource(',' Resource)*)? 'targets' StateOrLevelRef (',' StateOrLevelRef)* ('with actions' Action (',' Action)*)? ('requires competency level' CompetencyLevelRef(',' CompetencyLevelRef)*)? (AddedTags)?;"
+    },
+    {
+      "name": "ActivityAssociation",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "AbstractActivityRef '--' STRING '-->' AbstractActivityRef (AddedTags)?;"
+    },
+    {
+      "name": "Pattern",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'pattern' ('<' UserDefinedTypeRef '>')? ID ':' STRING (Resource(',' Resource)*)? ('{' PatternAssociation+ '}')? (AddedTags)?;"
+    },
+    {
+      "name": "PatternAssociation",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'with' PatternElementRef (',' PatternElementRef)* 'as' STRING (AddedTags)?;"
+    },
+    {
+      "name": "WorkBreakdown",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'workBreakdown' ID ':' STRING 'implements' ActivityRef 'using' PracticeRef ('in phase' STRING)? ('on track' STRING)? ('for product' STRING)? ('targets' StateOrLevelRef (',' StateOrLevelRef)*)? ('estimates' INT ',' INT ',' INT)? ('with complexity' ComplexityRef)? ('requires role' TeamRoleRef (',' TeamRoleRef)*)? (AddedTags)?;"
+    },
+    {
+      "name": "Complexity",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'complexity' ID ':' STRING ('with score' DECIMAL)? ('with impact type' STRING)? (AddedTags)?;"
+    },
+    {
+      "name": "PrerequisiteAndAssumption",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'prerequisiteAndAssumption' ID ':' STRING ('for phase' STRING)? ('for track' STRING)? ('for product' STRING)? ('for environment' STRING)? (AddedTags)?;"
+    },
+    {
+      "name": "TeamRole",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'teamRole' ID ':' STRING ('with labor category' STRING)? ('with primary skill' CompetencyLevelRef)? ('with secondary skills' CompetencyLevelRef (',' CompetencyLevelRef)*)? ('allocates billable time' INT)? (AddedTags)?;"
+    },
+    {
+      "name": "UserDefinedType",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "'type' ID ':' STRING (Resource(',' Resource)*)? ('with constraint' STRING)? (AddedTags)?;"
+    },
+    {
+      "name": "Tag",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "(UserDefinedTypeRef '=')? STRING;"
+    },
+    {
+      "name": "Resource",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "'resource' (UserDefinedTypeRef '=')? STRING;"
+    },
+    {
+      "name": "AddedTags",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "'tagged with' '{' Tag(',' Tag)* '}';"
+    },
+    {
+      "name": "ExtensionElement",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "'on' AnyElementRef 'in' STRING 'apply' STRING (AddedTags)?;"
+    },
+    {
+      "name": "MergeResolution",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "'on' STRING 'in' STRING 'apply' STRING (AddedTags)?;"
+    }
+  ],
+  "byName": {
+    "Model": {
+      "name": "Model",
+      "namespace": "Root_Elements",
+      "syntaxRule": "elements+=GroupElement*;"
+    },
+    "GroupElement": {
+      "name": "GroupElement",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Kernel | Practice | Library | PracticeAsset | Method;"
+    },
+    "PatternElement": {
+      "name": "PatternElement",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Alpha | AlphaAssociation | AlphaContainment | WorkProduct | WorkProductManifest | Activity | ActivitySpace | ActivityAssociation | Competency | Pattern | WorkBreakdown | Complexity | PrerequisiteAndAssumption | TeamRole;"
+    },
+    "PracticeElement": {
+      "name": "PracticeElement",
+      "namespace": "Root_Elements",
+      "syntaxRule": "PatternElement | ExtensionElement | MergeResolution | UserDefinedType;"
+    },
+    "AnyElement": {
+      "name": "AnyElement",
+      "namespace": "Root_Elements",
+      "syntaxRule": "GroupElement | PracticeElement | State | Level | CheckListItem | CompetencyLevel | PatternAssociation | Tag | Resource;"
+    },
+    "KernelElement": {
+      "name": "KernelElement",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Alpha | AlphaAssociation | AlphaContainment | ActivitySpace | Competency | Kernel | ExtensionElement | MergeResolution | UserDefinedType;"
+    },
+    "StateOrLevel": {
+      "name": "StateOrLevel",
+      "namespace": "Root_Elements",
+      "syntaxRule": "State | Level;"
+    },
+    "AlphaOrWorkProduct": {
+      "name": "AlphaOrWorkProduct",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Alpha | WorkProduct;"
+    },
+    "AbstractActivity": {
+      "name": "AbstractActivity",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Activity | ActivitySpace | WorkBreakdown;"
+    },
+    "PracticeContent": {
+      "name": "PracticeContent",
+      "namespace": "Root_Elements",
+      "syntaxRule": "PracticeElement | Practice | PracticeAsset;"
+    },
+    "MethodContent": {
+      "name": "MethodContent",
+      "namespace": "Root_Elements",
+      "syntaxRule": "Practice | ExtensionElement | MergeResolution;"
+    },
+    "Kernel": {
+      "name": "Kernel",
+      "namespace": "Element_Groups",
+      "syntaxRule": "'kernel' ID ':' STRING ('with rules' STRING)? ('owns' '{' KernelElement* '}')? ('uses' '{' KernelElementRef (',' KernelElementRef)* '}')? (AddedTags)?;"
+    },
+    "Practice": {
+      "name": "Practice",
+      "namespace": "Element_Groups",
+      "syntaxRule": "'practice' ID ':' STRING 'with objective' STRING ('with measures' STRING(',' STRING)*)? ('with entry' STRING(',' STRING)*)? ('with result' STRING(',' STRING)*)? ('with rules' STRING)? ('owns' '{' PracticeElement* '}')? ('uses' '{' PracticeContentRef (',' PracticeContentRef)* '}')? (AddedTags)?;"
+    },
+    "Library": {
+      "name": "Library",
+      "namespace": "Element_Groups",
+      "syntaxRule": "'library' ID ':' STRING ('owns' '{' GroupElement* '}')? ('uses' '{' GroupElementRef (',' GroupElementRef)* '}')? (AddedTags)?;"
+    },
+    "PracticeAsset": {
+      "name": "PracticeAsset",
+      "namespace": "Element_Groups",
+      "syntaxRule": "'practiceAsset' ID ':' STRING ('owns' '{' PracticeElement* '}')? ('uses' '{' PracticeElementRef (',' PracticeElementRef)* '}')? (AddedTags)?;"
+    },
+    "Method": {
+      "name": "Method",
+      "namespace": "Element_Groups",
+      "syntaxRule": "'method' ID 'based on' KernelRef ':' STRING 'with purpose' STRING ('owns' '{' MethodContent* '}')? ('uses' '{' PracticeRef(',' PracticeRef)* '}')? (AddedTags)?;"
+    },
+    "Alpha": {
+      "name": "Alpha",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'alpha' ID ':' STRING (Resource(',' Resource)*)? 'with states' '{' State+ '}' (AddedTags)?;"
+    },
+    "State": {
+      "name": "State",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'state' ID '{' STRING ('checks {' CheckListItem+ '}')? '}' (AddedTags)?;"
+    },
+    "CheckListItem": {
+      "name": "CheckListItem",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'item' ID '{' STRING '}' (AddedTags)?;"
+    },
+    "AlphaAssociation": {
+      "name": "AlphaAssociation",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "Cardinality AlphaRef '--' STRING '-->' Cardinality AlphaRef (AddedTags)?;"
+    },
+    "AlphaContainment": {
+      "name": "AlphaContainment",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "AlphaRef 'contains' Cardinality AlphaRef (AddedTags)?;"
+    },
+    "ActivitySpace": {
+      "name": "ActivitySpace",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'activitySpace' ID ':' STRING (Resource(',' Resource)*)? 'targets' StateRef (',' StateRef)* ('with input' AlphaRef (',' AlphaRef)*)? (AddedTags)?;"
+    },
+    "Competency": {
+      "name": "Competency",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'competency' ID ':' STRING (Resource (',' Resource)*)? ('has' '{' CompetencyLevel* '}')? (AddedTags)?;"
+    },
+    "CompetencyLevel": {
+      "name": "CompetencyLevel",
+      "namespace": "Kernel_Elements",
+      "syntaxRule": "'level' INT ID STRING? AddedTags?;"
+    },
+    "WorkProduct": {
+      "name": "WorkProduct",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'workProduct' ID ':' STRING (Resource(',' Resource)*)? 'with levels' '{' Level+ '}' (AddedTags)?;"
+    },
+    "Level": {
+      "name": "Level",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "('sufficient')? 'level' ID '{' STRING ('checks {' CheckListItem+ '}')? '}' (AddedTags)?;"
+    },
+    "WorkProductManifest": {
+      "name": "WorkProductManifest",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'describe' AlphaRef 'by' Cardinality WorkProductRef (',' Cardinality WorkProductRef)* (AddedTags)?;"
+    },
+    "Activity": {
+      "name": "Activity",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'activity' ID ':' STRING (Resource(',' Resource)*)? 'targets' StateOrLevelRef (',' StateOrLevelRef)* ('with actions' Action (',' Action)*)? ('requires competency level' CompetencyLevelRef(',' CompetencyLevelRef)*)? (AddedTags)?;"
+    },
+    "ActivityAssociation": {
+      "name": "ActivityAssociation",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "AbstractActivityRef '--' STRING '-->' AbstractActivityRef (AddedTags)?;"
+    },
+    "Pattern": {
+      "name": "Pattern",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'pattern' ('<' UserDefinedTypeRef '>')? ID ':' STRING (Resource(',' Resource)*)? ('{' PatternAssociation+ '}')? (AddedTags)?;"
+    },
+    "PatternAssociation": {
+      "name": "PatternAssociation",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'with' PatternElementRef (',' PatternElementRef)* 'as' STRING (AddedTags)?;"
+    },
+    "WorkBreakdown": {
+      "name": "WorkBreakdown",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'workBreakdown' ID ':' STRING 'implements' ActivityRef 'using' PracticeRef ('in phase' STRING)? ('on track' STRING)? ('for product' STRING)? ('targets' StateOrLevelRef (',' StateOrLevelRef)*)? ('estimates' INT ',' INT ',' INT)? ('with complexity' ComplexityRef)? ('requires role' TeamRoleRef (',' TeamRoleRef)*)? (AddedTags)?;"
+    },
+    "Complexity": {
+      "name": "Complexity",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'complexity' ID ':' STRING ('with score' DECIMAL)? ('with impact type' STRING)? (AddedTags)?;"
+    },
+    "PrerequisiteAndAssumption": {
+      "name": "PrerequisiteAndAssumption",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'prerequisiteAndAssumption' ID ':' STRING ('for phase' STRING)? ('for track' STRING)? ('for product' STRING)? ('for environment' STRING)? (AddedTags)?;"
+    },
+    "TeamRole": {
+      "name": "TeamRole",
+      "namespace": "Practice_Elements",
+      "syntaxRule": "'teamRole' ID ':' STRING ('with labor category' STRING)? ('with primary skill' CompetencyLevelRef)? ('with secondary skills' CompetencyLevelRef (',' CompetencyLevelRef)*)? ('allocates billable time' INT)? (AddedTags)?;"
+    },
+    "UserDefinedType": {
+      "name": "UserDefinedType",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "'type' ID ':' STRING (Resource(',' Resource)*)? ('with constraint' STRING)? (AddedTags)?;"
+    },
+    "Tag": {
+      "name": "Tag",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "(UserDefinedTypeRef '=')? STRING;"
+    },
+    "Resource": {
+      "name": "Resource",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "'resource' (UserDefinedTypeRef '=')? STRING;"
+    },
+    "AddedTags": {
+      "name": "AddedTags",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "'tagged with' '{' Tag(',' Tag)* '}';"
+    },
+    "ExtensionElement": {
+      "name": "ExtensionElement",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "'on' AnyElementRef 'in' STRING 'apply' STRING (AddedTags)?;"
+    },
+    "MergeResolution": {
+      "name": "MergeResolution",
+      "namespace": "Auxiliary_Elements",
+      "syntaxRule": "'on' STRING 'in' STRING 'apply' STRING (AddedTags)?;"
+    }
+  }
+}

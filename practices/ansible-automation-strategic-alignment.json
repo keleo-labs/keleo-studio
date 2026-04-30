@@ -1,0 +1,180 @@
+{
+    "name": "Ansible Automation Strategic Alignment",
+    "description": "This practice focuses on the business justification, strategic roadmapping, and governance modeling required to ensure that the adoption of Red Hat Ansible Automation Platform aligns with organizational objectives and yields measurable value.",
+    "baselinePracticeName": "Platform Adoption Essentials",
+    "authors": [
+      "Methods Engineer",
+      "Enterprise Ontology Architect"
+    ],
+    "createdAt": "2024-05-22T10:00:00Z",
+    "updatedAt": "2024-05-22T10:00:00Z",
+    "version": "1.0.0",
+    "keywords": [
+      "Ansible",
+      "Strategy",
+      "Governance",
+      "ROI",
+      "Gap Analysis"
+    ],
+    "practiceElementAliases": [
+      {
+        "practiceElementType": "Alpha",
+        "practiceElementName": "Opportunity",
+        "aliasName": "Ansible Automation Opportunity"
+      },
+      {
+        "practiceElementType": "Alpha",
+        "practiceElementName": "Platform Governance",
+        "aliasName": "Ansible Governance Framework"
+      },
+      {
+        "practiceElementType": "ActivitySpace",
+        "practiceElementName": "Align To Opportunity",
+        "aliasName": "Map Ansible Business Value"
+      }
+    ],
+    "alphas": [
+      {
+        "name": "Automation Strategy",
+        "description": "Represents the strategic intent and planned roadmap for transitioning from fragmented scripts to a unified Ansible platform.",
+        "contributesTo": "Opportunity",
+        "states": [
+          {
+            "name": "Vision Defined",
+            "description": "The high-level objectives for Ansible adoption are documented.",
+            "seq": 1,
+            "checklist": [
+              {
+                "name": "Business Drivers Identified",
+                "description": "Specific business problems (e.g., manual patching, slow deployments) are identified for automation.",
+                "seq": 1
+              },
+              {
+                "name": "Sponsorship Confirmed",
+                "description": "An executive champion is identified who aligns with the automation-first culture.",
+                "seq": 2
+              }
+            ]
+          },
+          {
+            "name": "Roadmap Validated",
+            "description": "A phased roadmap for migration and growth is established and accepted.",
+            "seq": 2,
+            "checklist": [
+              {
+                "name": "Target Environment Mapped",
+                "description": "Current infrastructure and automation gaps are fully documented.",
+                "seq": 1
+              },
+              {
+                "name": "ROI Projections Accepted",
+                "description": "The financial benefits and TCO of moving to AAP are quantified and approved.",
+                "seq": 2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Automation Governance Model",
+        "description": "Defines the policies, guardrails, and decision-making structures for managing automation content and execution.",
+        "contributesTo": "Platform Governance",
+        "states": [
+          {
+            "name": "Guardrails Defined",
+            "description": "Standards for architecture, security, and developer experience are established.",
+            "seq": 1,
+            "checklist": [
+              {
+                "name": "Standard Operating Model Established",
+                "description": "An opinionated model for operating Ansible in the environment is defined.",
+                "seq": 1
+              },
+              {
+                "name": "Compliance Requirements Integrated",
+                "description": "Regulatory and security standards (e.g., RBAC, audit logs) are mapped to AAP features.",
+                "seq": 2
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "activities": [
+      {
+        "name": "Conduct Automation Gap Analysis",
+        "description": "Analyze the current automation estate to identify technology gaps, missing integrations, and tooling required for a holistic strategy.",
+        "activitySpaceName": "Align To Opportunity",
+        "completionCriteria": "A comprehensive report recapping current environment vs. future goals.",
+        "contributesTo": [
+          "Opportunity",
+          "Requirements"
+        ]
+      },
+      {
+        "name": "Execute Architecture Standards Workshop",
+        "description": "Collaborative sessions to define high-level design, integration points, and governance guardrails for Ansible.",
+        "activitySpaceName": "Govern The Platform",
+        "completionCriteria": "Documented architecture standards and governance model.",
+        "contributesTo": [
+          "Platform Governance",
+          "Platform"
+        ]
+      }
+    ],
+    "workProducts": [
+      {
+        "name": "Automation Strategic Roadmap",
+        "description": "A temporal plan showing the sequence of automation use-cases and platform maturity milestones.",
+        "levelOfDetails": [
+          {
+            "name": "Descriptive",
+            "description": "High-level themes and goals.",
+            "level": 1
+          },
+          {
+            "name": "Defined",
+            "description": "Specific project timelines and resource allocations.",
+            "level": 2
+          }
+        ],
+        "contributesTo": "Opportunity"
+      },
+      {
+        "name": "Capability Gap Report",
+        "description": "Assessment of current skills, tools, and processes compared to the requirements of the new automation platform.",
+        "levelOfDetails": [
+          {
+            "name": "Logical",
+            "description": "Identification of specific gaps in skills and technology.",
+            "level": 2
+          }
+        ],
+        "contributesTo": "Requirements"
+      }
+    ],
+    "workBreakdowns": [
+      {
+        "name": "Strategic Alignment Phase",
+        "description": "Activities associated with defining the business and governance foundation.",
+        "workItems": [
+          {
+            "name": "Establish Business Objectives",
+            "description": "Facilitate stakeholder interviews to align automation with top business priorities.",
+            "lowEst": 4,
+            "medEst": 8,
+            "highEst": 16,
+            "complexity": {
+              "valueRisk": 3,
+              "technicalRisk": 1
+            }
+          }
+        ]
+      }
+    ],
+    "tags": [
+      "Domain: Value",
+      "Organizational: Strategic",
+      "Lifecycle: Assessment"
+    ]
+  }

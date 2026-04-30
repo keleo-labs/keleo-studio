@@ -1,0 +1,85 @@
+import type { JsonDocumentKind } from "@/lib/storage/types";
+
+/** Top-level shape of a stored JSON artifact in the library tree. */
+export type LibraryRootKind = "method" | "baselinePractice" | "practice" | "unknown";
+
+/** Maps document shape to the persisted {@link JsonDocumentKind} for POST /api/documents. */
+export function storageKindForBody(body: unknown): JsonDocumentKind {
+  const root = classifyLibraryRoot(body);
+  if (root === "method") return "method";
+  if (root === "practice") return "practice";
+  return "upload";
+}
+
+export function classifyLibraryRoot(body: unknown): LibraryRootKind {
+  if (!body || typeof body !== "object") return "unknown";
+  const o = body as Record<string, unknown>;
+  if (o.baselinePractice && typeof o.baselinePractice === "object") return "method";
+  if (typeof o.baselinePracticeName === "string" && String(o.baselinePracticeName).trim()) return "practice";
+  if (Array.isArray(o.alphas) && Array.isArray(o.focuses)) return "baselinePractice";
+  return "unknown";
+}
+
+/**
+ * Baseline name to show for “extends …” on a document that may be a thin extension (`baselinePracticeName`)
+ * or a merged composite from a method (`mergesBaselinePracticeName`).
+ */
+export function extendsBaselineDisplayName(body: unknown): string | null {
+  if (!body || typeof body !== "object") return null;
+  const o = body as Record<string, unknown>;
+  const m = o.mergesBaselinePracticeName;
+  if (typeof m === "string" && m.trim()) return m.trim();
+  const b = o.baselinePracticeName;
+  if (typeof b === "string" && b.trim()) return b.trim();
+  return null;
+}
+
+export function baselineNameForPracticeLink(body: unknown): string | null {
+  if (!body || typeof body !== "object") return null;
+  const root = classifyLibraryRoot(body);
+  const o = body as Record<string, unknown>;
+  if (root === "baselinePractice") {
+    const n = o.name;
+    return typeof n === "string" && n.trim() ? n.trim() : null;
+  }
+  if (root === "method") {
+    const bp = o.baselinePractice;
+    if (bp && typeof bp === "object") {
+      const n = (bp as Record<string, unknown>).name;
+      return typeof n === "string" && n.trim() ? n.trim() : null;
+    }
+  }
+  return null;
+}
+
+/**
+ * Symbolic {@link Practice}.`name` for `practiceDependencyNames` (extension practice references).
+ */
+export function practiceNameForDependencyLink(body: unknown): string | null {
+  if (classifyLibraryRoot(body) !== "practice") return null;
+  const n = (body as Record<string, unknown>).name;
+  return typeof n === "string" && n.trim() ? n.trim() : null;
+}
+
+/** Pseudo-extension for the root document row (e.g. <name>.baseline). */
+export function rootKindExtension(kind: LibraryRootKind): string {
+  switch (kind) {
+    case "method":
+      return "method";
+    case "baselinePractice":
+      return "baseline";
+    case "practice":
+      return "practice";
+    default:
+      return "json";
+  }
+}
+
+export function displayNameForBody(body: unknown, fallbackTitle: string): string {
+  if (body && typeof body === "object") {
+    const n = (body as Record<string, unknown>).name;
+    if (typeof n === "string" && n.trim()) return n.trim();
+  }
+  const t = fallbackTitle?.trim();
+  return t || "Untitled";
+}

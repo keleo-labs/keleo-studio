@@ -1,0 +1,206 @@
+{
+    "name": "Ansible Automation Adoption Lifecycle",
+    "description": "A pattern-driven practice that orchestrates the strategic alignment, implementation, and enterprise scaling of Red Hat Ansible Automation Platform based on the Red Hat Consulting checklist.",
+    "baselinePracticeName": "Platform Adoption Essentials",
+    "authors": [
+      "Methods Engineer",
+      "Enterprise Ontology Architect"
+    ],
+    "createdAt": "2024-05-22T10:00:00Z",
+    "updatedAt": "2024-05-22T10:00:00Z",
+    "version": "1.0.0",
+    "practiceDependencyNames": [
+      "Ansible Automation Platform 2.6 Implementation",
+      "Ansible Automation Strategic Alignment",
+      "Ansible Enterprise Scaling"
+    ],
+    "patterns": [
+      {
+        "name": "Ansible Adoption Journey",
+        "description": "A three-phase lifecycle pattern for implementing and scaling AAP.",
+        "patternViews": [
+          {
+            "name": "Phase 1: Tailor a Migration Plan",
+            "description": "Focuses on understanding the current environment and preparing the initial infrastructure and content migration.",
+            "alphaStates": [
+              {
+                "alphaName": "Opportunity",
+                "stateName": "Determined"
+              },
+              {
+                "alphaName": "Stakeholders",
+                "stateName": "Represented"
+              },
+              {
+                "alphaName": "Requirements",
+                "stateName": "Coherent"
+              },
+              {
+                "alphaName": "Platform",
+                "stateName": "Architecture Selected"
+              },
+              {
+                "alphaName": "Platform Consumption Interface",
+                "stateName": "Explored"
+              },
+              {
+                "alphaName": "Platform Asset",
+                "stateName": "Identified"
+              },
+              {
+                "alphaName": "Work",
+                "stateName": "Initiated"
+              },
+              {
+                "alphaName": "Team",
+                "stateName": "Seeded"
+              },
+              {
+                "alphaName": "Way Of Working",
+                "stateName": "Principles Established"
+              },
+              {
+                "alphaName": "Platform Governance",
+                "stateName": "Framework Defined"
+              },
+              {
+                "alphaName": "Platform Risk And Compliance",
+                "stateName": "Under Review"
+              },
+              {
+                "alphaName": "Organizational Change",
+                "stateName": "Awareness Raised"
+              }
+            ],
+            "activities": [
+              "Conduct Automation Gap Analysis",
+              "Plan and Design AAP Infrastructure"
+            ]
+          },
+          {
+            "name": "Phase 2: Build Out Automation Strategy",
+            "description": "Transition from tactical migration to strategic planning, focusing on long-term goals, governance, and architecture standards.",
+            "alphaStates": [
+              {
+                "alphaName": "Opportunity",
+                "stateName": "Value Established"
+              },
+              {
+                "alphaName": "Stakeholders",
+                "stateName": "In Agreement"
+              },
+              {
+                "alphaName": "Requirements",
+                "stateName": "Acceptable"
+              },
+              {
+                "alphaName": "Platform",
+                "stateName": "Architecture Proven"
+              },
+              {
+                "alphaName": "Platform Consumption Interface",
+                "stateName": "Architecture Defined"
+              },
+              {
+                "alphaName": "Platform Asset",
+                "stateName": "Development Underway"
+              },
+              {
+                "alphaName": "Work",
+                "stateName": "Prepared"
+              },
+              {
+                "alphaName": "Team",
+                "stateName": "Formed"
+              },
+              {
+                "alphaName": "Way Of Working",
+                "stateName": "Foundation Established"
+              },
+              {
+                "alphaName": "Platform Governance",
+                "stateName": "Operationally Aligned"
+              },
+              {
+                "alphaName": "Platform Risk And Compliance",
+                "stateName": "Controls Defined"
+              },
+              {
+                "alphaName": "Organizational Change",
+                "stateName": "Strategy Defined"
+              }
+            ],
+            "activities": [
+              "Execute Architecture Standards Workshop",
+              "Deploy Ansible Automation Platform",
+              "Migrate Existing Automation Content"
+            ]
+          },
+          {
+            "name": "Phase 3: Scale Across the Enterprise",
+            "description": "Establish enterprise-wide scaling through culture, mentorship, and optimized platform operations.",
+            "alphaStates": [
+              {
+                "alphaName": "Opportunity",
+                "stateName": "Viable"
+              },
+              {
+                "alphaName": "Stakeholders",
+                "stateName": "In Use"
+              },
+              {
+                "alphaName": "Requirements",
+                "stateName": "Addressed"
+              },
+              {
+                "alphaName": "Platform",
+                "stateName": "Operational"
+              },
+              {
+                "alphaName": "Platform Consumption Interface",
+                "stateName": "User Aligned"
+              },
+              {
+                "alphaName": "Platform Asset",
+                "stateName": "Operational"
+              },
+              {
+                "alphaName": "Work",
+                "stateName": "Under Control"
+              },
+              {
+                "alphaName": "Team",
+                "stateName": "Collaborating"
+              },
+              {
+                "alphaName": "Way Of Working",
+                "stateName": "In Use"
+              },
+              {
+                "alphaName": "Platform Governance",
+                "stateName": "Audited"
+              },
+              {
+                "alphaName": "Platform Risk And Compliance",
+                "stateName": "Automated"
+              },
+              {
+                "alphaName": "Organizational Change",
+                "stateName": "Embedded"
+              }
+            ],
+            "activities": [
+              "Implement Hands-on Mentorship",
+              "Propagate Proven Patterns",
+              "Establish Automation Community of Practice"
+            ]
+          }
+        ]
+      }
+    ],
+    "tags": [
+      "Domain: Lifecycle",
+      "Organizational: Enterprise",
+      "Lifecycle: Adoption"
+    ]
+  }

@@ -1,0 +1,661 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/adoptionframework/language.schema.json",
+  "title": "Practice language (from language.mmd)",
+  "description": "JSON Schema derived from the Mermaid classDiagram in language.mmd. Identity is by name; most cross-links are string names (not embedded objects). Root validation discriminates Practice (baselinePracticeName) vs Method (baselinePractice) vs PracticeBaseline so extension practices are not validated as full baselines.",
+  "$defs": {
+    "PracticeElement": {
+      "type": "object",
+      "description": "Common identity and prose fields for named practice artifacts. tags is optional (0..*); omit or [].",
+      "required": ["name", "description"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Optional labels; default treated as empty when absent (language.mmd PracticeElement)."
+        }
+      }
+    },
+    "Checklist": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["seq"],
+          "properties": {
+            "seq": { "type": "integer" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "State": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["seq", "checklist"],
+          "properties": {
+            "seq": { "type": "integer" },
+            "checklist": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Checklist" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "AlphaContribution": {
+      "type": "object",
+      "description": "Symbolic slice to an alpha state: STRING keys only; resolve (alphaName, stateName) to a State under the named Alpha; do not embed Alpha or State.",
+      "required": ["alphaName", "stateName"],
+      "properties": {
+        "alphaName": {
+          "type": "string",
+          "description": "Name of an Alpha in the same baseline (symbolic link; must match Alpha.name)."
+        },
+        "stateName": {
+          "type": "string",
+          "description": "Name of a State under that Alpha (symbolic link; must match State.name within the named Alpha)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "PracticeElementAlias": {
+      "type": "object",
+      "description": "Local name alias: aliasName is treated as an alternate string for (practiceElementType, practiceElementName) within the same Practice document (language.mmd). Not a PracticeElement subclass; embedded only under Practice.practiceElementAliases.",
+      "required": ["practiceElementType", "practiceElementName", "aliasName"],
+      "properties": {
+        "practiceElementType": {
+          "type": "string",
+          "description": "Kind of element being aliased (e.g. Alpha, Activity, ActivitySpace, Focus, WorkProduct, Pattern, PatternView, Competency, WorkBreakdown); must match how the target is stored in JSON."
+        },
+        "practiceElementName": {
+          "type": "string",
+          "description": "Canonical PracticeElement.name of the target within this practice aggregate."
+        },
+        "aliasName": {
+          "type": "string",
+          "description": "Alternate string equivalent to practiceElementName for resolution within this practice."
+        }
+      },
+      "additionalProperties": false
+    },
+    "WorkProductContribution": {
+      "type": "object",
+      "description": "Symbolic slice to a level of detail: STRING keys only; resolve (workProductName, levelOfDetailName) under the named WorkProduct; do not embed.",
+      "required": ["workProductName", "levelOfDetailName"],
+      "properties": {
+        "workProductName": {
+          "type": "string",
+          "description": "Name of a WorkProduct in the same aggregate (symbolic link; must match WorkProduct.name)."
+        },
+        "levelOfDetailName": {
+          "type": "string",
+          "description": "Name of a LevelOfDetail under that work product (symbolic link; must match LevelOfDetail.name)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "Alpha": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["states", "focusName"],
+          "properties": {
+            "states": {
+              "type": "array",
+              "minItems": 3,
+              "items": { "$ref": "#/$defs/State" }
+            },
+            "focusName": {
+              "type": "string",
+              "description": "Name of a Focus in the same baseline (symbolic link; must match Focus.name; do not embed a Focus object)."
+            },
+            "contributesTo": {
+              "type": "string",
+              "description": "Optional name of another Alpha in the same baseline (0..1 association); do not embed an Alpha object."
+            },
+            "supportingAlphas": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Optional names of other Alphas in the same baseline (0..*); each entry must match Alpha.name. Declares contributing / child alphas nested under this rollup alpha; unioned when combining practices."
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "AlphaInstance": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["instanceName", "alphaName", "stateName"],
+          "properties": {
+            "instanceName": {
+              "type": "string",
+              "description": "Name of this AlphaInstance element (PracticeElement identity), not a foreign key to another type."
+            },
+            "alphaName": {
+              "type": "string",
+              "description": "Name of the Alpha this instance tracks (symbolic link; must match Alpha.name)."
+            },
+            "stateName": {
+              "type": "string",
+              "description": "Name of a State under that Alpha (symbolic link; must match State.name within the named Alpha)."
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "WorkProduct": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["levelsOfDetail"],
+          "properties": {
+            "levelsOfDetail": {
+              "type": "array",
+              "minItems": 2,
+              "items": { "$ref": "#/$defs/LevelOfDetail" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "WorkProductInstance": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["instanceName", "workProductName", "levelOfDetailName"],
+          "properties": {
+            "instanceName": {
+              "type": "string",
+              "description": "Name of this WorkProductInstance element (PracticeElement identity), not a foreign key to another type."
+            },
+            "workProductName": {
+              "type": "string",
+              "description": "Name of the WorkProduct (symbolic link; must match WorkProduct.name)."
+            },
+            "levelOfDetailName": {
+              "type": "string",
+              "description": "Name of a LevelOfDetail under that work product (symbolic link; must match LevelOfDetail.name)."
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "LevelOfDetail": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["seq", "checklist", "contributesTo"],
+          "properties": {
+            "seq": { "type": "integer" },
+            "checklist": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Checklist" }
+            },
+            "contributesTo": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/AlphaContribution" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "ActivitySpace": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["contributesTo", "focusName", "requiredCompetencies"],
+          "properties": {
+            "contributesTo": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/AlphaContribution" }
+            },
+            "focusName": {
+              "type": "string",
+              "description": "Name of a Focus in the same baseline (symbolic link; must match Focus.name; do not embed a Focus object)."
+            },
+            "requiredCompetencies": {
+              "type": "array",
+              "description": "Each item is a Competency.name in the same baseline (symbolic link; do not embed Competency objects).",
+              "items": { "type": "string" }
+            },
+            "activities": {
+              "type": "array",
+              "description": "Activities owned by this activity space (canonical shape, 0..*).",
+              "items": { "$ref": "#/$defs/Activity" }
+            }
+          }
+        }
+      ],
+      "description": "Coordinates work in a focus area; may embed activities.",
+      "unevaluatedProperties": false
+    },
+    "Activity": {
+      "description": "Swimlane activity. Canonical JSON nests instances under ActivitySpace.activities; Practice.activities (flat) remains valid for legacy interchange.",
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["contributesTo", "focusName", "requiredCompetencies", "worksOn", "recommendedCompetencyLevels"],
+          "properties": {
+            "activitySpaceName": {
+              "type": "string",
+              "description": "Parent ActivitySpace.name; required in Practice.activities; optional when nested under ActivitySpace.activities (implicit parent)."
+            },
+            "focusName": {
+              "type": "string",
+              "description": "Focus for swimlane grouping (symbolic link; should match the parent ActivitySpace.focusName when nested)."
+            },
+            "contributesTo": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/AlphaContribution" }
+            },
+            "requiredCompetencies": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "worksOn": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/WorkProductContribution" }
+            },
+            "recommendedCompetencyLevels": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/CompetencyLevelReference" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Competency": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["levels"],
+          "properties": {
+            "levels": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/CompetencyLevel" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "CompetencyLevel": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["level", "competencyName"],
+          "properties": {
+            "level": { "type": "integer" },
+            "competencyName": {
+              "type": "string",
+              "description": "Name of the parent Competency this level belongs to (symbolic link; must match Competency.name in the same baseline)."
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "CompetencyLevelReference": {
+      "type": "object",
+      "description": "Symbolic reference to a competency level by two STRING keys; resolve under the named Competency; do not embed.",
+      "required": ["competencyName", "competencyLevelName"],
+      "properties": {
+        "competencyName": {
+          "type": "string",
+          "description": "Name of a Competency (symbolic link; must match Competency.name)."
+        },
+        "competencyLevelName": {
+          "type": "string",
+          "description": "Name of a CompetencyLevel under that competency (symbolic link; must match CompetencyLevel.name)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "Pattern": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["patternViews"],
+          "properties": {
+            "patternViews": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/PatternView" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "PatternViewReference": {
+      "type": "object",
+      "description": "Symbolic reference to a pattern view by two STRING keys; resolve under the named Pattern; do not embed.",
+      "required": ["patternName", "patternViewName"],
+      "properties": {
+        "patternName": {
+          "type": "string",
+          "description": "Name of a Pattern (symbolic link; must match Pattern.name)."
+        },
+        "patternViewName": {
+          "type": "string",
+          "description": "Name of a PatternView under that pattern (symbolic link; must match PatternView.name)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "ActivitySpaceReference": {
+      "type": "object",
+      "description": "Symbolic reference to an activity space by name; do not embed.",
+      "required": ["activitySpaceName"],
+      "properties": {
+        "activitySpaceName": {
+          "type": "string",
+          "description": "Name of an ActivitySpace (symbolic link; must match ActivitySpace.name in scope)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "WorkItem": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": [
+            "seq",
+            "implementsActivityName",
+            "contributesTo",
+            "worksOn",
+            "applies",
+            "estimate"
+          ],
+          "properties": {
+            "seq": { "type": "integer" },
+            "implementsActivityName": {
+              "type": "string",
+              "description": "Name of an Activity (Practice-level swimlane item; symbolic link; must match Activity.name in the same practice)."
+            },
+            "contributesTo": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/AlphaContribution" }
+            },
+            "worksOn": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/WorkProductContribution" }
+            },
+            "applies": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/ActivitySpaceReference" }
+            },
+            "estimate": { "$ref": "#/$defs/Estimate" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "WorkBreakdown": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["prerequisiteAndAssumptions", "task", "complexity"],
+          "properties": {
+            "prerequisiteAndAssumptions": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/PatternViewReference" }
+            },
+            "task": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/WorkItem" }
+            },
+            "complexity": { "$ref": "#/$defs/Complexity" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Estimate": {
+      "type": "object",
+      "required": ["lowEst", "medEst", "highEst"],
+      "properties": {
+        "lowEst": { "type": "integer" },
+        "medEst": { "type": "integer" },
+        "highEst": { "type": "integer" }
+      },
+      "additionalProperties": false
+    },
+    "Complexity": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["level", "contractType", "productRisks", "projectRisks"],
+          "properties": {
+            "level": { "type": "integer" },
+            "contractType": { "type": "string" },
+            "valueRisk": { "$ref": "#/$defs/AlphaContribution" },
+            "technicalRisk": { "$ref": "#/$defs/AlphaContribution" },
+            "stakeholderEngagement": { "$ref": "#/$defs/AlphaContribution" },
+            "productRisks": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/AlphaContribution" }
+            },
+            "projectRisks": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/AlphaContribution" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Focus": {
+      "allOf": [{ "$ref": "#/$defs/PracticeElement" }],
+      "unevaluatedProperties": false
+    },
+    "PatternView": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["seq", "alphaStates"],
+          "properties": {
+            "seq": { "type": "integer" },
+            "alphaStates": {
+              "type": "array",
+              "description": "Alpha/state slices for this pattern view. Canonical: embedded AlphaContribution objects. Legacy interchange: STRING tokens (e.g. \"AlphaName→StateName\" or \"AlphaName->StateName\").",
+              "items": {
+                "oneOf": [{ "type": "string" }, { "$ref": "#/$defs/AlphaContribution" }]
+              }
+            },
+            "activitySpaces": {
+              "type": "array",
+              "description": "ActivitySpace.name entries for pattern-matrix swimlanes (symbolic links in the same baseline or practice). Legacy interchange: Activity.name may appear here; prefer the `activities` array for activities.",
+              "items": { "type": "string" }
+            },
+            "activities": {
+              "type": "array",
+              "description": "Activity.name entries for pattern-matrix swimlanes (symbolic links to nested Activity under ActivitySpace or to flat Practice.activities).",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "PracticeBaselineShape": {
+      "description": "PracticeElement + baseline arrays and metadata (no document-level unevaluatedProperties; compose into PracticeBaseline or Practice).",
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": [
+            "focuses",
+            "alphas",
+            "activitySpaces",
+            "competencies",
+            "authors",
+            "createdAt",
+            "updatedAt",
+            "version",
+            "keywords"
+          ],
+          "properties": {
+            "focuses": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Focus" }
+            },
+            "alphas": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Alpha" }
+            },
+            "activitySpaces": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/ActivitySpace" }
+            },
+            "competencies": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Competency" }
+            },
+            "authors": { "type": "array", "items": { "type": "string" } },
+            "createdAt": { "type": "string" },
+            "updatedAt": { "type": "string" },
+            "version": { "type": "string" },
+            "keywords": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      ]
+    },
+    "PracticeBaseline": {
+      "allOf": [{ "$ref": "#/$defs/PracticeBaselineShape" }],
+      "unevaluatedProperties": false
+    },
+    "Practice": {
+      "description": "A practice names its baseline and may optionally embed baseline-like content; baseline element arrays are not required (language.mmd 0..* on PracticeBaseline edges; Practice only requires baselinePracticeName).",
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["baselinePracticeName"],
+          "properties": {
+            "baselinePracticeName": {
+              "type": "string",
+              "description": "Name of the PracticeBaseline this practice depends on (symbolic link; must match PracticeBaseline.name in the method or registry; do not embed the baseline object in this field)."
+            },
+            "practiceDependencyNames": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Name of another Practice (symbolic link; must match Practice.name)."
+              },
+              "description": "Zero or more other Practice documents by name (symbolic links only; do not embed Practice objects)."
+            },
+            "practiceElementAliases": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/PracticeElementAlias" },
+              "description": "Optional local aliases for named elements in this practice (0..*; language.mmd)."
+            },
+            "focuses": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Focus" }
+            },
+            "alphas": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Alpha" }
+            },
+            "activitySpaces": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/ActivitySpace" }
+            },
+            "competencies": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Competency" }
+            },
+            "authors": { "type": "array", "items": { "type": "string" } },
+            "createdAt": { "type": "string" },
+            "updatedAt": { "type": "string" },
+            "version": { "type": "string" },
+            "keywords": { "type": "array", "items": { "type": "string" } },
+            "activities": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Activity" },
+              "description": "Optional flat list of activities (legacy interchange). Canonical shape nests the same Activity objects under ActivitySpace.activities; loaders may fold this array into parents."
+            },
+            "workProducts": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/WorkProduct" },
+              "description": "Work products elaborated by this practice (language.mmd)."
+            },
+            "workBreakdowns": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/WorkBreakdown" },
+              "description": "Work breakdowns for this practice (language.mmd)."
+            },
+            "patterns": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Pattern" },
+              "description": "Patterns for this practice (language.mmd)."
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Method": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["baselinePractice"],
+          "properties": {
+            "baselinePractice": { "$ref": "#/$defs/PracticeBaseline" },
+            "practices": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Practice" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  },
+  "if": {
+    "type": "object",
+    "required": ["baselinePracticeName"]
+  },
+  "then": { "$ref": "#/$defs/Practice" },
+  "else": {
+    "if": {
+      "type": "object",
+      "required": ["baselinePractice"]
+    },
+    "then": { "$ref": "#/$defs/Method" },
+    "else": { "$ref": "#/$defs/PracticeBaseline" }
+  }
+}
