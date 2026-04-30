@@ -1,0 +1,666 @@
+{
+  "name": "Scrum Practice",
+  "description": "An agile framework that helps teams generate value through adaptive solutions for complex problems, mapped to the foundational Platform Adoption Kernel. It establishes the empirical process control required for modern platform engineering.",
+  "baselinePracticeName": "Platform Adoption Kernel",
+  "authors": [
+    "Methods Engineering Team"
+  ],
+  "version": "1.0",
+  "keywords": [
+    "scrum",
+    "agile",
+    "sprint",
+    "empirical",
+    "framework"
+  ],
+  "alphas": [
+    {
+      "name": "Sprint",
+      "description": "A time-boxed iteration of continuous development and value delivery, typically 1-4 weeks in duration.",
+      "focusName": "Endeavor",
+      "states": [
+        {
+          "name": "Planned",
+          "description": "The Sprint Goal has been defined and the Sprint Backlog is committed by the team.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Capacity Established",
+              "description": "Team availability, holidays, and total capacity are calculated and transparent.",
+              "seq": 1
+            },
+            {
+              "name": "Sprint Goal Formulated",
+              "description": "A clear, concise Sprint Goal is agreed upon by the Scrum Team.",
+              "seq": 2
+            },
+            {
+              "name": "Commitment Made",
+              "description": "The developers explicitly commit to the Sprint Backlog scope.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Active",
+          "description": "The Sprint is currently in progress, with daily inspection and adaptation.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Daily Syncs Occurring",
+              "description": "The Daily Scrum is held every working day to inspect progress toward the Sprint Goal.",
+              "seq": 1
+            },
+            {
+              "name": "Continuous Integration",
+              "description": "Work is continuously integrated, tested, and added to the Increment.",
+              "seq": 2
+            },
+            {
+              "name": "Impediments Addressed",
+              "description": "Blockers identified in the Daily Scrum are actively resolved by the Scrum Master.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Reviewed",
+          "description": "The outcome of the Sprint has been demonstrated to stakeholders for feedback.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Increment Demonstrated",
+              "description": "Working, \"Done\" software is demonstrated to key stakeholders.",
+              "seq": 1
+            },
+            {
+              "name": "Feedback Captured",
+              "description": "Stakeholder feedback and market shifts are recorded to influence the next Product Backlog refinement.",
+              "seq": 2
+            }
+          ]
+        },
+        {
+          "name": "Retrospected",
+          "description": "The team has reflected on their performance and identified process improvements.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Metrics Analyzed",
+              "description": "Velocity, burn-down charts, and quality metrics are reviewed.",
+              "seq": 1
+            },
+            {
+              "name": "Process Friction Identified",
+              "description": "Team members candidly discuss what went well and what caused friction.",
+              "seq": 2
+            },
+            {
+              "name": "Action Items Created",
+              "description": "Concrete process improvements are added to the backlog for the next Sprint.",
+              "seq": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Product Backlog",
+      "description": "An emergent, ordered list of what is needed to improve the product. It is the single source of work undertaken by the Scrum Team.",
+      "levelsOfDetail": [
+        {
+          "name": "Initiated",
+          "description": "Items are added to the backlog as rough concepts or epics.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Items Drafted",
+              "description": "Product Backlog Items (PBIs) are drafted with basic descriptions.",
+              "seq": 1
+            },
+            {
+              "name": "Business Value Proposed",
+              "description": "Initial business value hypotheses are associated with the items.",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Requirements",
+              "stateName": "Conceived"
+            }
+          ]
+        },
+        {
+          "name": "Refined",
+          "description": "Items are sized, clarified, and acceptance criteria are added.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Acceptance Criteria Added",
+              "description": "Clear conditions of satisfaction are defined for the PBIs.",
+              "seq": 1
+            },
+            {
+              "name": "Estimated",
+              "description": "Items are estimated by the development team (e.g., using story points).",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Requirements",
+              "stateName": "Bounded"
+            }
+          ]
+        },
+        {
+          "name": "Ready For Sprint",
+          "description": "Items at the top of the backlog are clear, ordered, and small enough to be completed in one Sprint.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Ordered",
+              "description": "The Product Owner has prioritized the items based on maximum business value.",
+              "seq": 1
+            },
+            {
+              "name": "Sized Appropriately",
+              "description": "The items are broken down enough to confidently fit into a single Sprint boundary.",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Requirements",
+              "stateName": "Coherent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sprint Backlog",
+      "description": "The set of Product Backlog items selected for the Sprint, plus a plan for delivering the Increment.",
+      "levelsOfDetail": [
+        {
+          "name": "Planned",
+          "description": "The initial scope and tactical execution plan for the Sprint is documented.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Sprint Goal Visibile",
+              "description": "The Sprint Goal is documented at the top of the backlog.",
+              "seq": 1
+            },
+            {
+              "name": "Tasks Broken Down",
+              "description": "Selected PBIs are broken down into actionable technical tasks.",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            }
+          ]
+        },
+        {
+          "name": "Active",
+          "description": "The backlog is being dynamically updated as work progresses.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Daily State Updates",
+              "description": "Task states (e.g., To Do, Doing, Done) are updated continuously.",
+              "seq": 1
+            },
+            {
+              "name": "Scope Negotiated",
+              "description": "If capacity changes, the developers negotiate scope boundaries with the Product Owner.",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Work",
+              "stateName": "Started"
+            }
+          ]
+        },
+        {
+          "name": "Completed",
+          "description": "The time-box has expired and the Sprint Backlog is retired.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Remaining Work Moved",
+              "description": "Any incomplete work is moved back to the Product Backlog.",
+              "seq": 1
+            },
+            {
+              "name": "Done Work Validated",
+              "description": "All completed tasks meet the Definition of Done.",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Work",
+              "stateName": "Under Control"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Increment",
+      "description": "The concrete stepping stone toward the Product Goal. Each Increment is additive to all prior Increments.",
+      "levelsOfDetail": [
+        {
+          "name": "Integrated",
+          "description": "The new features and artifacts have been merged with existing components.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Build Successful",
+              "description": "The continuous integration pipeline compiles the Increment without errors.",
+              "seq": 1
+            },
+            {
+              "name": "Automated Tests Passed",
+              "description": "All unit and integration tests return green.",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Integrated"
+            }
+          ]
+        },
+        {
+          "name": "Done",
+          "description": "The Increment formally meets the strict Definition of Done and is fully operational.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Definition of Done Met",
+              "description": "The organization's strict quality and security gates have been satisfied.",
+              "seq": 1
+            },
+            {
+              "name": "Deployable",
+              "description": "The artifact is successfully packaged and ready for immediate deployment to production.",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Operational"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "name": "Refine Product Backlog",
+      "description": "The ongoing activity of adding detail, estimates, and order to items in the Product Backlog.",
+      "activitySpaceName": "Understand The Requirements",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Requirements",
+          "stateName": "Coherent"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Stakeholder Representation"
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Product Backlog",
+          "levelOfDetailName": "Refined"
+        }
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        }
+      ]
+    },
+    {
+      "name": "Conduct Sprint Planning",
+      "description": "Initiates the Sprint by laying out the work to be performed. The Scrum Team determines the why, what, and how.",
+      "activitySpaceName": "Prepare To Do The Work",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Sprint",
+          "stateName": "Planned"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Leadership"
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sprint Backlog",
+          "levelOfDetailName": "Planned"
+        }
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ]
+    },
+    {
+      "name": "Hold Daily Scrum",
+      "description": "A 15-minute daily event to inspect progress toward the Sprint Goal and adapt the Sprint Backlog as necessary.",
+      "activitySpaceName": "Coordinate Activity",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Sprint",
+          "stateName": "Active"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management"
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sprint Backlog",
+          "levelOfDetailName": "Active"
+        }
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Basic"
+        }
+      ]
+    },
+    {
+      "name": "Conduct Sprint Review",
+      "description": "Inspect the outcome of the Sprint and determine future adaptations.",
+      "activitySpaceName": "Ensure Stakeholder Satisfaction",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Sprint",
+          "stateName": "Reviewed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation",
+        "Leadership"
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Increment",
+          "levelOfDetailName": "Done"
+        }
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        }
+      ]
+    },
+    {
+      "name": "Conduct Sprint Retrospective",
+      "description": "Plan ways to increase quality and effectiveness. The team inspects how the last Sprint went with regards to individuals, interactions, processes, tools, and their Definition of Done.",
+      "activitySpaceName": "Support The Team",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Sprint",
+          "stateName": "Retrospected"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership"
+      ],
+      "worksOn": [],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Scrum Sprint Lifecycle",
+      "description": "The sequential phase model orchestrating the cadence of empirical delivery over a single iteration.",
+      "patternViews": [
+        {
+          "name": "Sprint Planning Phase",
+          "description": "The focused phase for establishing scope and tactical alignment before execution begins.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Sprint",
+              "stateName": "Planned"
+            }
+          ],
+          "activitySpaces": [
+            "Prepare To Do The Work"
+          ],
+          "activities": [
+            "Conduct Sprint Planning"
+          ]
+        },
+        {
+          "name": "Sprint Execution Phase",
+          "description": "The core iteration phase focused on daily alignment and engineering value generation.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Sprint",
+              "stateName": "Active"
+            }
+          ],
+          "activitySpaces": [
+            "Coordinate Activity"
+          ],
+          "activities": [
+            "Hold Daily Scrum"
+          ]
+        },
+        {
+          "name": "Sprint Review Phase",
+          "description": "The focused phase for market evaluation and stakeholder value alignment.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Sprint",
+              "stateName": "Reviewed"
+            }
+          ],
+          "activitySpaces": [
+            "Ensure Stakeholder Satisfaction"
+          ],
+          "activities": [
+            "Conduct Sprint Review"
+          ]
+        },
+        {
+          "name": "Sprint Retrospective Phase",
+          "description": "The terminal phase of the iteration dedicated purely to continuous team improvement.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Sprint",
+              "stateName": "Retrospected"
+            }
+          ],
+          "activitySpaces": [
+            "Support The Team"
+          ],
+          "activities": [
+            "Conduct Sprint Retrospective"
+          ]
+        }
+      ]
+    }
+  ],
+  "workBreakdowns": [
+    {
+      "name": "Scrum Execution Schedule",
+      "description": "The operational execution structures and discrete tasks required to fulfill a single Sprint iteration.",
+      "prerequisiteAndAssumptions": [
+        {
+          "patternName": "Scrum Sprint Lifecycle",
+          "patternViewName": "Sprint Planning Phase"
+        }
+      ],
+      "complexity": {
+        "name": "Sprint Delivery Complexity",
+        "description": "Algorithmic modifiers applied based on standard iteration risk vectors.",
+        "level": 3,
+        "contractType": "Agile Time & Materials",
+        "productRisks": [
+          {
+            "alphaName": "Requirements",
+            "stateName": "Coherent"
+          }
+        ],
+        "projectRisks": [
+          {
+            "alphaName": "Team",
+            "stateName": "Collaborating"
+          }
+        ]
+      },
+      "task": [
+        {
+          "name": "Execute Capacity Planning",
+          "description": "Calculate team velocity constraints and map available working hours for the upcoming iteration.",
+          "seq": 1,
+          "implementsActivityName": "Conduct Sprint Planning",
+          "contributesTo": [
+            {
+              "alphaName": "Sprint",
+              "stateName": "Planned"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "Sprint Backlog",
+              "levelOfDetailName": "Planned"
+            }
+          ],
+          "applies": [
+            {
+              "activitySpaceName": "Prepare To Do The Work"
+            }
+          ],
+          "estimate": {
+            "lowEst": 2,
+            "medEst": 4,
+            "highEst": 8
+          }
+        },
+        {
+          "name": "Facilitate Daily Standup",
+          "description": "Execute the 15-minute timebox requiring developers to state progress, intentions, and immediate blockers.",
+          "seq": 2,
+          "implementsActivityName": "Hold Daily Scrum",
+          "contributesTo": [
+            {
+              "alphaName": "Sprint",
+              "stateName": "Active"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "Sprint Backlog",
+              "levelOfDetailName": "Active"
+            }
+          ],
+          "applies": [
+            {
+              "activitySpaceName": "Coordinate Activity"
+            }
+          ],
+          "estimate": {
+            "lowEst": 1,
+            "medEst": 2,
+            "highEst": 3
+          }
+        },
+        {
+          "name": "Host Demo and Review",
+          "description": "Present the Increment to external stakeholders and gather actionable feedback to adjust the Product Backlog.",
+          "seq": 3,
+          "implementsActivityName": "Conduct Sprint Review",
+          "contributesTo": [
+            {
+              "alphaName": "Sprint",
+              "stateName": "Reviewed"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "Increment",
+              "levelOfDetailName": "Done"
+            }
+          ],
+          "applies": [
+            {
+              "activitySpaceName": "Ensure Stakeholder Satisfaction"
+            }
+          ],
+          "estimate": {
+            "lowEst": 2,
+            "medEst": 4,
+            "highEst": 6
+          }
+        },
+        {
+          "name": "Perform Iteration Retrospective",
+          "description": "Analyze team metrics and friction points, establishing at least one concrete action item for process enhancement.",
+          "seq": 4,
+          "implementsActivityName": "Conduct Sprint Retrospective",
+          "contributesTo": [
+            {
+              "alphaName": "Sprint",
+              "stateName": "Retrospected"
+            }
+          ],
+          "worksOn": [],
+          "applies": [
+            {
+              "activitySpaceName": "Support The Team"
+            }
+          ],
+          "estimate": {
+            "lowEst": 2,
+            "medEst": 3,
+            "highEst": 5
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,478 @@
+{
+  "name": "Ansible Automation Platform Essentials",
+  "description": "An executable practice for implementing and managing Red Hat Ansible Automation Platform (AAP) 2.6, focusing on the deployment of Automation Controller, Private Automation Hub, and Event-Driven Ansible.",
+  "baselinePracticeName": "Platform Adoption Kernel",
+  "tags": [
+    "ansible",
+    "aap-2.6",
+    "automation",
+    "redhat"
+  ],
+  "authors": [
+    "Practice Generator"
+  ],
+  "createdAt": "2024-05-22T00:00:00Z",
+  "updatedAt": "2024-05-22T00:00:00Z",
+  "version": "2.6.0",
+  "keywords": [
+    "ansible",
+    "automation-controller",
+    "hub",
+    "eda",
+    "execution-environments"
+  ],
+  "alphas": [
+    {
+      "name": "Ansible Infrastructure",
+      "description": "The physical or virtual instances hosting the AAP components including Controller, Hub, and EDA.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "states": [
+        {
+          "name": "Architecture Defined",
+          "description": "The deployment topology (Single node, Multi-node, or Mesh) is selected.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Database strategy (Internal vs External) decided",
+              "seq": 1
+            },
+            {
+              "name": "Node counts and instance groups sized for load",
+              "seq": 2
+            },
+            {
+              "name": "Network ports and firewall requirements documented",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Base OS Prepared",
+          "description": "Target hosts are provisioned with RHEL and meeting prerequisites.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "RHEL 8.6+ or 9.0+ installed and registered",
+              "seq": 1
+            },
+            {
+              "name": "System resources (CPU/RAM) meet 2.6 minimums",
+              "seq": 2
+            },
+            {
+              "name": "Ansible user and SSH keys configured",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Platform Components Installed",
+          "description": "The AAP setup bundle has successfully deployed the components.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Inventory file for installer completed",
+              "seq": 1
+            },
+            {
+              "name": "setup.sh executed without errors",
+              "seq": 2
+            },
+            {
+              "name": "Web UI for Controller and Hub accessible",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Component Integration Verified",
+          "description": "Controller, Hub, and EDA can communicate effectively.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Controller linked to Private Automation Hub",
+              "seq": 1
+            },
+            {
+              "name": "EDA Controller successfully registered with Controller",
+              "seq": 2
+            },
+            {
+              "name": "Centralized logging/metrics configured (optional)",
+              "seq": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Automation Content",
+      "description": "The collection of Playbooks, Roles, and Collections that perform the actual work.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Asset",
+      "states": [
+        {
+          "name": "Content Strategy Defined",
+          "description": "Naming conventions and repository structures established.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Git branching strategy agreed",
+              "seq": 1
+            },
+            {
+              "name": "Namespace requirements for Hub identified",
+              "seq": 2
+            }
+          ]
+        },
+        {
+          "name": "Execution Environment Baselined",
+          "description": "The runtime environments (EE) are defined and built.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Ansible Builder used to define dependencies",
+              "seq": 1
+            },
+            {
+              "name": "EE images pushed to Private Automation Hub",
+              "seq": 2
+            }
+          ]
+        },
+        {
+          "name": "Playbooks Operational",
+          "description": "Automation assets are successfully executing in Controller.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Job Templates configured in Controller",
+              "seq": 1
+            },
+            {
+              "name": "Inventories and Credentials attached",
+              "seq": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "AAP Installation Inventory",
+      "description": "The configuration file defining the topology for the AAP installer.",
+      "levelsOfDetail": [
+        {
+          "name": "Drafted",
+          "description": "Hosts and variable definitions mapped.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "All component hosts listed in [automationcontroller], [automationhub], etc.",
+              "seq": 1
+            },
+            {
+              "name": "Admin passwords and DB credentials defined",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Ansible Infrastructure",
+              "stateName": "Architecture Defined"
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Installer pre-flight checks passed.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Connectivity to all hosts verified",
+              "seq": 1
+            },
+            {
+              "name": "Repository access for AAP packages confirmed",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Ansible Infrastructure",
+              "stateName": "Base OS Prepared"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Automation Controller Configuration",
+      "description": "The logical configuration of the Controller including Orgs, Projects, and Templates.",
+      "levelsOfDetail": [
+        {
+          "name": "Defined",
+          "description": "Resources created via UI or API.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Organizations and Teams created",
+              "seq": 1
+            },
+            {
+              "name": "RBAC roles assigned",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Ansible Infrastructure",
+              "stateName": "Component Integration Verified"
+            }
+          ]
+        },
+        {
+          "name": "Automated",
+          "description": "Controller configuration is managed as code (Config as Code).",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "controller_configuration collection used to sync settings",
+              "seq": 1
+            },
+            {
+              "name": "Configuration stored in Version Control",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Playbooks Operational"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "name": "Design AAP Topology",
+      "description": "Architecting the mesh and database requirements for AAP 2.6.",
+      "focusName": "Solution",
+      "activitySpaceName": "Architect Platform Foundation",
+      "contributesTo": [
+        {
+          "alphaName": "Ansible Infrastructure",
+          "stateName": "Architecture Defined"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "worksOn": [
+        {
+          "workProductName": "AAP Installation Inventory",
+          "levelOfDetailName": "Drafted"
+        }
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Basic"
+        }
+      ]
+    },
+    {
+      "name": "Deploy AAP Components",
+      "description": "Executing the setup script to install Controller, Hub, and EDA.",
+      "focusName": "Solution",
+      "activitySpaceName": "Deploy The Platform",
+      "contributesTo": [
+        {
+          "alphaName": "Ansible Infrastructure",
+          "stateName": "Platform Components Installed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "worksOn": [
+        {
+          "workProductName": "AAP Installation Inventory",
+          "levelOfDetailName": "Validated"
+        }
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Basic"
+        }
+      ]
+    },
+    {
+      "name": "Configure RBAC and Governance",
+      "description": "Establishing security boundaries and access controls.",
+      "focusName": "Endeavor",
+      "activitySpaceName": "Establish Platform Governance",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Governance",
+          "stateName": "Enforced"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement"
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Controller Configuration",
+          "levelOfDetailName": "Defined"
+        }
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Basic"
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "AAP 2.6 Deployment Lifecycle",
+      "description": "The sequential journey from planning to an operational Ansible environment.",
+      "patternViews": [
+        {
+          "name": "Infrastructure Phase",
+          "description": "Focuses on setting up the core servers and services.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Ansible Infrastructure",
+              "stateName": "Architecture Defined"
+            },
+            {
+              "alphaName": "Ansible Infrastructure",
+              "stateName": "Platform Components Installed"
+            }
+          ],
+          "activitySpaces": [
+            "Architect Platform Foundation",
+            "Deploy The Platform"
+          ]
+        },
+        {
+          "name": "Content Enablement Phase",
+          "description": "Focuses on building EEs and importing automation assets.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Execution Environment Baselined"
+            },
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Playbooks Operational"
+            }
+          ],
+          "activitySpaces": [
+            "Host And Operate Assets",
+            "Engineer Platform Interfaces"
+          ]
+        }
+      ]
+    }
+  ],
+  "workBreakdowns": [
+    {
+      "name": "AAP Core Installation",
+      "description": "Detailed tasks for a standard 2.6 connected installation.",
+      "prerequisiteAndAssumptions": [
+        {
+          "patternName": "AAP 2.6 Deployment Lifecycle",
+          "patternViewName": "Infrastructure Phase"
+        }
+      ],
+      "complexity": {
+        "name": "Standard AAP Install",
+        "description": "Evaluation of installation risk.",
+        "level": 2,
+        "contractType": "Standard",
+        "productRisks": [
+          {
+            "alphaName": "Platform",
+            "stateName": "Baselined"
+          }
+        ],
+        "projectRisks": [
+          {
+            "alphaName": "Work",
+            "stateName": "Under Control"
+          }
+        ]
+      },
+      "task": [
+        {
+          "name": "Configure Setup Inventory",
+          "description": "Populate the inventory file for the AAP installer.",
+          "seq": 1,
+          "implementsActivityName": "Design AAP Topology",
+          "contributesTo": [
+            {
+              "alphaName": "Ansible Infrastructure",
+              "stateName": "Architecture Defined"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "AAP Installation Inventory",
+              "levelOfDetailName": "Drafted"
+            }
+          ],
+          "applies": [
+            {
+              "activitySpaceName": "Architect Platform Foundation"
+            }
+          ],
+          "estimate": {
+            "lowEst": 2,
+            "medEst": 4,
+            "highEst": 8
+          }
+        },
+        {
+          "name": "Execute Installer",
+          "description": "Run the setup.sh script from the bundle.",
+          "seq": 2,
+          "implementsActivityName": "Deploy AAP Components",
+          "contributesTo": [
+            {
+              "alphaName": "Ansible Infrastructure",
+              "stateName": "Platform Components Installed"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "AAP Installation Inventory",
+              "levelOfDetailName": "Validated"
+            }
+          ],
+          "applies": [
+            {
+              "activitySpaceName": "Deploy The Platform"
+            }
+          ],
+          "estimate": {
+            "lowEst": 4,
+            "medEst": 6,
+            "highEst": 12
+          }
+        }
+      ]
+    }
+  ]
+}

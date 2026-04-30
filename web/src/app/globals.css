@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/* Match previous tailwind.config.js `darkMode: "class"` */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@theme {
+  /* Dashboard palette (from prior tailwind.config.js) */
+  --color-canvas: hsl(220 14% 97%);
+  --color-canvas-subtle: hsl(220 13% 94%);
+  --color-ink: hsl(222 47% 11%);
+  --color-ink-muted: hsl(215 16% 42%);
+  --color-ink-faint: hsl(215 14% 58%);
+  --color-surface: hsl(0 0% 100%);
+  --color-surface-raised: hsl(220 14% 99%);
+  --color-line: hsl(220 13% 91%);
+  --color-line-strong: hsl(220 13% 84%);
+  --color-accent: hsl(221 83% 53%);
+  --color-accent-hover: hsl(221 83% 48%);
+  --color-accent-muted: hsl(221 83% 53% / 0.12);
+  --color-danger: hsl(0 72% 51%);
+  --color-danger-muted: hsl(0 72% 51% / 0.1);
+  --color-success: hsl(152 64% 36%);
+  --color-success-muted: hsl(152 64% 36% / 0.12);
+
+  --color-night-canvas: hsl(222 47% 6%);
+  --color-night-canvas-subtle: hsl(222 40% 8%);
+  --color-night-ink: hsl(210 20% 98%);
+  --color-night-ink-muted: hsl(215 16% 65%);
+  --color-night-ink-faint: hsl(215 14% 46%);
+  --color-night-surface: hsl(222 40% 10%);
+  --color-night-surface-raised: hsl(222 38% 13%);
+  --color-night-line: hsl(222 16% 18%);
+  --color-night-line-strong: hsl(222 14% 26%);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+
+  --shadow-shell: 0 1px 0 hsl(220 13% 91%);
+  --shadow-card: 0 1px 2px hsl(220 13% 91%), 0 0 0 1px hsl(220 13% 96%);
+  --shadow-card-hover: 0 4px 12px hsl(220 13% 91% / 0.6), 0 0 0 1px hsl(220 13% 90%);
+  --shadow-focus: 0 0 0 3px hsl(221 83% 53% / 0.25);
+
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.25rem;
+
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+  --spacing-sidebar: 16rem;
+  --spacing-sidebar-collapsed: 4.5rem;
+
+  --container-content: 72rem;
+
+  --ease-out-soft: cubic-bezier(0.33, 1, 0.68, 1);
+
+  --animate-fade-in: fade-in 0.2s ease-out both;
+  --animate-slide-in-from-left: slide-in-from-left 0.22s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+
+:root {
+  --bg: #0b0d12;
+  --panel: #121628;
+  --text: #eef2ff;
+  --muted: #a7b0d6;
+  --border: rgba(255, 255, 255, 0.12);
+  --accent: #8b5cf6;
+  --bad: #fb7185;
+  --good: #34d399;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+}
+
+a {
+  color: inherit;
+}
+
+code,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.no-print {
+  display: block;
+}
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  :root {
+    --bg: #ffffff;
+    --panel: #ffffff;
+    --text: #0b1020;
+    --muted: #4b5563;
+    --border: rgba(2, 6, 23, 0.14);
+    --accent: #6d28d9;
+    --bad: #e11d48;
+    --good: #059669;
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #0b1020 !important;
+  }
+
+  main {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0.6in !important;
+  }
+
+  .print-only svg {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .print-only * {
+    overflow: visible !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  a[href]:after {
+    content: "";
+  }
+}

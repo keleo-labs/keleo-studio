@@ -1,0 +1,753 @@
+{
+  "name": "OpenShift Container Platform Production Pilot",
+  "description": "An operational practice defining the deployment, governance, and onboarding of applications to a production-ready OpenShift Container Platform using GitOps.",
+  "baselinePracticeName": "Platform Adoption Kernel",
+  "focuses": [],
+  "alphas": [
+    {
+      "name": "OpenShift Infrastructure",
+      "description": "The OpenShift clusters and underlying infrastructure resources configured across logical environments (Sandbox, Non-Prod, Prod).",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "states": [
+        {
+          "name": "Architecture Designed",
+          "description": "The infrastructure architecture, networking, storage, and integration requirements are documented.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Network Architecture Approved",
+              "description": "Ingress, egress, proxy, and SDN requirements are defined.",
+              "seq": 1
+            },
+            {
+              "name": "Storage Architecture Approved",
+              "description": "Block, file, and object storage providers are selected.",
+              "seq": 2
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "OpenShift clusters are deployed and network connectivity is verified.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Sandbox Provisioned",
+              "description": "Sandbox cluster deployed and validated.",
+              "seq": 1
+            },
+            {
+              "name": "Non-Prod Provisioned",
+              "description": "Non-Production cluster deployed and validated.",
+              "seq": 2
+            },
+            {
+              "name": "Production Provisioned",
+              "description": "Production cluster deployed and validated.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Operationalized via GitOps",
+          "description": "Cluster configuration, RBAC, logging, and monitoring are continuously reconciled via GitOps.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "GitOps Loop Active",
+              "description": "Declarative configuration is actively reconciling against clusters.",
+              "seq": 1
+            },
+            {
+              "name": "Observability Stack Deployed",
+              "description": "Logging, monitoring, and alerting are configured.",
+              "seq": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Containerized Workload",
+      "description": "Application workloads assessed, containerized, and deployed to OpenShift via automated CI/CD pipelines.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Asset",
+      "states": [
+        {
+          "name": "Assessed",
+          "description": "Deployable units are identified and application changes needed for containerization are documented.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Candidates Selected",
+              "description": "2-3 deployables identified.",
+              "seq": 1
+            }
+          ]
+        },
+        {
+          "name": "Containerized",
+          "description": "Applications are successfully built into certified container images.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Base Image Selected",
+              "description": "Red Hat certified base image identified.",
+              "seq": 1
+            },
+            {
+              "name": "Image Built",
+              "description": "Container build definition created and tested.",
+              "seq": 2
+            }
+          ]
+        },
+        {
+          "name": "Pipeline Integrated",
+          "description": "Workloads are deployed across environments using a mature CI/CD workflow.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "CI/CD Tested",
+              "description": "Workflow handles success and failure conditions.",
+              "seq": 1
+            },
+            {
+              "name": "Promoted to Prod",
+              "description": "Workloads successfully promoted to the Production cluster.",
+              "seq": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "activitySpaces": [],
+  "competencies": [],
+  "authors": [
+    "Practice Generator"
+  ],
+  "createdAt": "2026-04-28T17:34:18Z",
+  "updatedAt": "2026-04-28T17:34:18Z",
+  "version": "1.0",
+  "keywords": [
+    "openshift",
+    "gitops",
+    "containers",
+    "kubernetes",
+    "pilot"
+  ],
+  "activities": [
+    {
+      "name": "Prepare OpenShift Engagement",
+      "description": "Coordinate logistics, kickoff, and validate technical prerequisites.",
+      "activitySpaceName": "Prepare To Do The Work",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Work",
+          "stateName": "Prepared"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management"
+      ],
+      "worksOn": [],
+      "recommendedCompetencyLevels": []
+    },
+    {
+      "name": "Design OpenShift Architecture",
+      "description": "Design cluster topology, networking, storage, and platform integrations.",
+      "activitySpaceName": "Architect Platform Foundation",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "OpenShift Infrastructure",
+          "stateName": "Architecture Designed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Platform Strategic Alignment"
+      ],
+      "worksOn": [
+        {
+          "workProductName": "OpenShift Architecture Document",
+          "levelOfDetailName": "Approved"
+        }
+      ],
+      "recommendedCompetencyLevels": []
+    },
+    {
+      "name": "Provision OpenShift Clusters",
+      "description": "Deploy OpenShift across Sandbox, Non-Prod, and Prod environments.",
+      "activitySpaceName": "Automate Platform Provisioning",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "OpenShift Infrastructure",
+          "stateName": "Provisioned"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "worksOn": [],
+      "recommendedCompetencyLevels": []
+    },
+    {
+      "name": "Implement OpenShift GitOps",
+      "description": "Configure ArgoCD/GitOps loops for declarative platform management and observability.",
+      "activitySpaceName": "Establish Platform Governance",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "OpenShift Infrastructure",
+          "stateName": "Operationalized via GitOps"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Platform Security And Compliance Enforcement"
+      ],
+      "worksOn": [],
+      "recommendedCompetencyLevels": []
+    },
+    {
+      "name": "Onboard Container Applications",
+      "description": "Containerize workloads, define Kubernetes resources, and implement CI/CD.",
+      "activitySpaceName": "Host And Operate Assets",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Containerized Workload",
+          "stateName": "Pipeline Integrated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Application CI/CD Pipeline",
+          "levelOfDetailName": "Tested"
+        }
+      ],
+      "recommendedCompetencyLevels": []
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "OpenShift Architecture Document",
+      "description": "Comprehensive design encompassing compute, network, storage, and GitOps workflows.",
+      "levelsOfDetail": [
+        {
+          "name": "Drafted",
+          "description": "Initial design concepts captured.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Workshops Completed",
+              "description": "Design workshops facilitated.",
+              "seq": 1
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Architecture Designed"
+            }
+          ]
+        },
+        {
+          "name": "Approved",
+          "description": "Architecture formally accepted by stakeholders.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Sign-off",
+              "description": "Stakeholder sign-off achieved.",
+              "seq": 1
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Architecture Designed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Application CI/CD Pipeline",
+      "description": "Declarative pipeline workflows mapping code changes to container builds and deployments.",
+      "levelsOfDetail": [
+        {
+          "name": "Designed",
+          "description": "Pipeline stages mapped out.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Stages Identified",
+              "description": "Build, test, and deploy stages identified.",
+              "seq": 1
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Containerized Workload",
+              "stateName": "Assessed"
+            }
+          ]
+        },
+        {
+          "name": "Tested",
+          "description": "Pipeline reliably promotes artifacts.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "End-to-End Success",
+              "description": "Pipeline runs green to production.",
+              "seq": 1
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Containerized Workload",
+              "stateName": "Pipeline Integrated"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "OpenShift Pilot Lifecycle",
+      "description": "The sequential delivery pattern for OpenShift platform initialization and application onboarding.",
+      "patternViews": [
+        {
+          "name": "Phase 1: Engagement Readiness",
+          "description": "Preparation and alignment.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            }
+          ],
+          "activitySpaces": [
+            "Prepare To Do The Work"
+          ],
+          "activities": [
+            "Prepare OpenShift Engagement"
+          ]
+        },
+        {
+          "name": "Phase 2: Platform and Workload Design",
+          "description": "Architectural design and requirements gathering.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Architecture Designed"
+            },
+            {
+              "alphaName": "Containerized Workload",
+              "stateName": "Assessed"
+            }
+          ],
+          "activitySpaces": [
+            "Architect Platform Foundation"
+          ],
+          "activities": [
+            "Design OpenShift Architecture"
+          ]
+        },
+        {
+          "name": "Phase 3: Cluster Provisioning and GitOps",
+          "description": "Deploying the platforms and bootstrapping GitOps.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Operationalized via GitOps"
+            }
+          ],
+          "activitySpaces": [
+            "Automate Platform Provisioning",
+            "Establish Platform Governance"
+          ],
+          "activities": [
+            "Provision OpenShift Clusters",
+            "Implement OpenShift GitOps"
+          ]
+        },
+        {
+          "name": "Phase 4: App Onboarding Pilot",
+          "description": "Containerizing and migrating target workloads via CI/CD.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Containerized Workload",
+              "stateName": "Containerized"
+            },
+            {
+              "alphaName": "Containerized Workload",
+              "stateName": "Pipeline Integrated"
+            }
+          ],
+          "activitySpaces": [
+            "Host And Operate Assets"
+          ],
+          "activities": [
+            "Onboard Container Applications"
+          ]
+        }
+      ]
+    }
+  ],
+  "workBreakdowns": [
+    {
+      "name": "OpenShift Pilot Work Breakdown Structure",
+      "description": "Discrete execution tasks derived from the OpenShift Pilot delivery scope.",
+      "prerequisiteAndAssumptions": [],
+      "complexity": {
+        "name": "Standard Pilot",
+        "description": "Standard T&M Engagement",
+        "level": 2,
+        "contractType": "T&M",
+        "productRisks": [],
+        "projectRisks": []
+      },
+      "task": [
+        {
+          "name": "Engagement Logistics and Coordination",
+          "description": "Identifying project points of contact, coordinating kickoff meetings, and reviewing requirements.",
+          "seq": 1,
+          "implementsActivityName": "Prepare OpenShift Engagement",
+          "contributesTo": [
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            }
+          ],
+          "worksOn": [],
+          "applies": [
+            {
+              "activitySpaceName": "Prepare To Do The Work"
+            }
+          ],
+          "estimate": {
+            "lowEst": 12,
+            "medEst": 12,
+            "highEst": 12
+          }
+        },
+        {
+          "name": "Validate Technical Prerequisites",
+          "description": "Validating the technical prerequisites have been completed and determining environment readiness.",
+          "seq": 2,
+          "implementsActivityName": "Prepare OpenShift Engagement",
+          "contributesTo": [
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            }
+          ],
+          "worksOn": [],
+          "applies": [
+            {
+              "activitySpaceName": "Prepare To Do The Work"
+            }
+          ],
+          "estimate": {
+            "lowEst": 1,
+            "medEst": 1,
+            "highEst": 4
+          }
+        },
+        {
+          "name": "Review Platform Architecture",
+          "description": "Reviewing cluster architecture, node types, multi-cluster enterprise architecture, network, and storage.",
+          "seq": 3,
+          "implementsActivityName": "Design OpenShift Architecture",
+          "contributesTo": [
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Architecture Designed"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "OpenShift Architecture Document",
+              "levelOfDetailName": "Drafted"
+            }
+          ],
+          "applies": [
+            {
+              "activitySpaceName": "Architect Platform Foundation"
+            }
+          ],
+          "estimate": {
+            "lowEst": 4,
+            "medEst": 8,
+            "highEst": 12
+          }
+        },
+        {
+          "name": "Design GitOps and Integration Architecture",
+          "description": "Reviewing target GitOps process, identity, RBAC schemas, log aggregation, and CI/CD imperative automation.",
+          "seq": 4,
+          "implementsActivityName": "Design OpenShift Architecture",
+          "contributesTo": [
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Architecture Designed"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "OpenShift Architecture Document",
+              "levelOfDetailName": "Approved"
+            }
+          ],
+          "applies": [
+            {
+              "activitySpaceName": "Architect Platform Foundation"
+            }
+          ],
+          "estimate": {
+            "lowEst": 8,
+            "medEst": 16,
+            "highEst": 24
+          }
+        },
+        {
+          "name": "Identify Target Workloads",
+          "description": "Facilitating review session of applications, assessing risks, and identifying 2-3 deployables for containerization.",
+          "seq": 5,
+          "implementsActivityName": "Onboard Container Applications",
+          "contributesTo": [
+            {
+              "alphaName": "Containerized Workload",
+              "stateName": "Assessed"
+            }
+          ],
+          "worksOn": [],
+          "applies": [
+            {
+              "activitySpaceName": "Host And Operate Assets"
+            }
+          ],
+          "estimate": {
+            "lowEst": 4,
+            "medEst": 8,
+            "highEst": 16
+          }
+        },
+        {
+          "name": "Provision Sandbox Cluster",
+          "description": "Refining install process, validating network, deploying Sandbox cluster, and testing node scaling/storage.",
+          "seq": 6,
+          "implementsActivityName": "Provision OpenShift Clusters",
+          "contributesTo": [
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Provisioned"
+            }
+          ],
+          "worksOn": [],
+          "applies": [
+            {
+              "activitySpaceName": "Automate Platform Provisioning"
+            }
+          ],
+          "estimate": {
+            "lowEst": 4,
+            "medEst": 6,
+            "highEst": 12
+          }
+        },
+        {
+          "name": "Provision Non-Prod and Prod Clusters",
+          "description": "Deploying Non-prod and Production clusters and performing installation validation.",
+          "seq": 7,
+          "implementsActivityName": "Provision OpenShift Clusters",
+          "contributesTo": [
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Provisioned"
+            }
+          ],
+          "worksOn": [],
+          "applies": [
+            {
+              "activitySpaceName": "Automate Platform Provisioning"
+            }
+          ],
+          "estimate": {
+            "lowEst": 4,
+            "medEst": 8,
+            "highEst": 40
+          }
+        },
+        {
+          "name": "Configure GitOps Reconciliation",
+          "description": "Creating, refining, and applying declarative GitOps configuration for cluster base setups.",
+          "seq": 8,
+          "implementsActivityName": "Implement OpenShift GitOps",
+          "contributesTo": [
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Operationalized via GitOps"
+            }
+          ],
+          "worksOn": [],
+          "applies": [
+            {
+              "activitySpaceName": "Establish Platform Governance"
+            }
+          ],
+          "estimate": {
+            "lowEst": 8,
+            "medEst": 16,
+            "highEst": 40
+          }
+        },
+        {
+          "name": "Deploy Platform Observability via GitOps",
+          "description": "Deploying and tuning integrated Logging, Monitoring, and Alerting stacks.",
+          "seq": 9,
+          "implementsActivityName": "Implement OpenShift GitOps",
+          "contributesTo": [
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Operationalized via GitOps"
+            }
+          ],
+          "worksOn": [],
+          "applies": [
+            {
+              "activitySpaceName": "Establish Platform Governance"
+            }
+          ],
+          "estimate": {
+            "lowEst": 2,
+            "medEst": 2,
+            "highEst": 24
+          }
+        },
+        {
+          "name": "Configure Platform Security via GitOps",
+          "description": "Configuring RBAC, integrating authentication, Secret Management (External Secrets), and Compliance Operator.",
+          "seq": 10,
+          "implementsActivityName": "Implement OpenShift GitOps",
+          "contributesTo": [
+            {
+              "alphaName": "OpenShift Infrastructure",
+              "stateName": "Operationalized via GitOps"
+            }
+          ],
+          "worksOn": [],
+          "applies": [
+            {
+              "activitySpaceName": "Establish Platform Governance"
+            }
+          ],
+          "estimate": {
+            "lowEst": 4,
+            "medEst": 8,
+            "highEst": 28
+          }
+        },
+        {
+          "name": "Containerize Application Workloads",
+          "description": "Identifying base images, modifying applications, externalizing config, and creating container builds.",
+          "seq": 11,
+          "implementsActivityName": "Onboard Container Applications",
+          "contributesTo": [
+            {
+              "alphaName": "Containerized Workload",
+              "stateName": "Containerized"
+            }
+          ],
+          "worksOn": [],
+          "applies": [
+            {
+              "activitySpaceName": "Host And Operate Assets"
+            }
+          ],
+          "estimate": {
+            "lowEst": 16,
+            "medEst": 30,
+            "highEst": 60
+          }
+        },
+        {
+          "name": "Create CI/CD Pipeline Patterns",
+          "description": "Creating continuous integration and deployment workflows for target application profiles.",
+          "seq": 12,
+          "implementsActivityName": "Onboard Container Applications",
+          "contributesTo": [
+            {
+              "alphaName": "Containerized Workload",
+              "stateName": "Pipeline Integrated"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "Application CI/CD Pipeline",
+              "levelOfDetailName": "Designed"
+            }
+          ],
+          "applies": [
+            {
+              "activitySpaceName": "Host And Operate Assets"
+            }
+          ],
+          "estimate": {
+            "lowEst": 8,
+            "medEst": 24,
+            "highEst": 40
+          }
+        },
+        {
+          "name": "Deploy Applications via CI/CD",
+          "description": "Testing CI/CD workflows, handling success/failure conditions, and deploying workloads through logical environments to Production.",
+          "seq": 13,
+          "implementsActivityName": "Onboard Container Applications",
+          "contributesTo": [
+            {
+              "alphaName": "Containerized Workload",
+              "stateName": "Pipeline Integrated"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "Application CI/CD Pipeline",
+              "levelOfDetailName": "Tested"
+            }
+          ],
+          "applies": [
+            {
+              "activitySpaceName": "Host And Operate Assets"
+            }
+          ],
+          "estimate": {
+            "lowEst": 4,
+            "medEst": 20,
+            "highEst": 48
+          }
+        }
+      ]
+    }
+  ]
+}

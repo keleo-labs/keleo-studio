@@ -1,0 +1,442 @@
+{
+  "name": "Platform Adoption Kernel",
+  "description": "The Platform Adoption Kernel establishes the universal foundation for platform transformations, organized into the three standard Essence Areas of Concern.",
+  "tags": ["kernel", "platform-adoption"],
+  "focuses": [
+    {
+      "name": "Value",
+      "description": "Focuses on business justification, financial management, and organizational alignment.",
+      "tags": ["area-of-concern"]
+    },
+    {
+      "name": "Solution",
+      "description": "Encapsulates the design, provisioning, optimization, and the hosted items running on the platform foundation.",
+      "tags": ["area-of-concern"]
+    },
+    {
+      "name": "Endeavor",
+      "description": "Governs the execution of the transformation, encompassing people, processes, and policies.",
+      "tags": ["area-of-concern"]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Opportunity",
+      "description": "The foundational business drivers dictating the platform transformation.",
+      "tags": ["alpha", "value"],
+      "focusName": "Value",
+      "states": [
+        { "name": "Initiated", "description": "The desire to adopt a platform is identified.", "tags": [], "seq": 1, "checklist": [] },
+        { "name": "Determined", "description": "The value and parameters of the platform are quantified.", "tags": [], "seq": 2, "checklist": [] },
+        { "name": "Value Established", "description": "The platform's value is accepted by sponsors.", "tags": [], "seq": 3, "checklist": [] },
+        { "name": "Viable", "description": "The platform adoption is deemed feasible.", "tags": [], "seq": 4, "checklist": [] },
+        { "name": "Addressed", "description": "The platform provides the intended operational capabilities.", "tags": [], "seq": 5, "checklist": [] },
+        { "name": "Benefit Accrued", "description": "Return on investment is realized.", "tags": [], "seq": 6, "checklist": [] }
+      ]
+    },
+    {
+      "name": "Stakeholders",
+      "description": "The people, groups, or organizations who affect or are affected by the platform.",
+      "tags": ["alpha", "value"],
+      "focusName": "Value",
+      "states": [
+        { "name": "Recognized", "description": "All key stakeholder groups are identified.", "tags": [], "seq": 1, "checklist": [] },
+        { "name": "Represented", "description": "Representatives for platform consumers and business units are appointed.", "tags": [], "seq": 2, "checklist": [] },
+        { "name": "Involved", "description": "Representatives actively participate in platform design.", "tags": [], "seq": 3, "checklist": [] },
+        { "name": "In Agreement", "description": "Stakeholders agree on platform capabilities and constraints.", "tags": [], "seq": 4, "checklist": [] },
+        { "name": "Satisfied For Deployment", "description": "Stakeholders accept the initial platform foundation.", "tags": [], "seq": 5, "checklist": [] },
+        { "name": "Satisfied In Use", "description": "Stakeholders successfully use the platform for operations.", "tags": [], "seq": 6, "checklist": [] }
+      ]
+    },
+    {
+      "name": "Platform Value And Economics",
+      "description": "The realization of financial and strategic return on investment.",
+      "tags": ["alpha", "value"],
+      "focusName": "Value",
+      "states": [
+        { "name": "Identified", "description": "TCO drafted, drivers documented.", "tags": [], "seq": 1, "checklist": [] },
+        { "name": "Modeled", "description": "Financial model created, funding secured.", "tags": [], "seq": 2, "checklist": [] },
+        { "name": "Allocated", "description": "Budgets assigned, tagging enforced.", "tags": [], "seq": 3, "checklist": [] },
+        { "name": "Optimized", "description": "Resources actively rightsized.", "tags": [], "seq": 4, "checklist": [] },
+        { "name": "Sustained", "description": "Cost optimization is a continuous automated process.", "tags": [], "seq": 5, "checklist": [] }
+      ]
+    },
+    {
+      "name": "Requirements",
+      "description": "What the platform must do to address the opportunity and satisfy the stakeholders.",
+      "tags": ["alpha", "solution"],
+      "focusName": "Solution",
+      "states": [
+        { "name": "Conceived", "description": "The need for a new platform has been agreed.", "tags": [], "seq": 1, "checklist": [] },
+        { "name": "Bounded", "description": "The purpose and extent of the new platform are clear.", "tags": [], "seq": 2, "checklist": [] },
+        { "name": "Coherent", "description": "The requirements provide a consistent description of the essential characteristics.", "tags": [], "seq": 3, "checklist": [] },
+        { "name": "Acceptable", "description": "The requirements describe a platform that is acceptable to the stakeholders.", "tags": [], "seq": 4, "checklist": [] },
+        { "name": "Addressed", "description": "Enough of the requirements have been addressed to satisfy the need.", "tags": [], "seq": 5, "checklist": [] },
+        { "name": "Fulfilled", "description": "The requirements that have been addressed fully satisfy the need.", "tags": [], "seq": 6, "checklist": [] }
+      ]
+    },
+    {
+      "name": "Platform",
+      "description": "The foundational environment serving as the scalable backbone.",
+      "tags": ["alpha", "solution"],
+      "focusName": "Solution",
+      "states": [
+        { "name": "Envisioned", "description": "Target architecture style selected.", "tags": [], "seq": 1, "checklist": [] },
+        { "name": "Baselined", "description": "Core platform foundation and shared environments defined.", "tags": [], "seq": 2, "checklist": [] },
+        { "name": "Provisioned", "description": "IaC templates have deployed the baseline.", "tags": [], "seq": 3, "checklist": [] },
+        { "name": "Hosting Assets", "description": "The platform is formally accepting Platform Asset deployments.", "tags": [], "seq": 4, "checklist": [] },
+        { "name": "Evolving", "description": "Platform is being continuously adapted to address the evolving needs of its users.", "tags": [], "seq": 5, "checklist": [] }
+      ]
+    },
+    {
+      "name": "Platform Consumption Interface",
+      "description": "The unified boundary abstracting platform complexity for consumers.",
+      "tags": ["alpha", "solution"],
+      "focusName": "Solution",
+      "states": [
+        { "name": "Scoped", "description": "Consumer personas identified.", "tags": [], "seq": 1, "checklist": [] },
+        { "name": "Unified", "description": "Cohesive consumption strategy established.", "tags": [], "seq": 2, "checklist": [] },
+        { "name": "Self Service", "description": "Consumers can autonomously provision.", "tags": [], "seq": 3, "checklist": [] },
+        { "name": "Governed", "description": "Interface automatically enforces rules.", "tags": [], "seq": 4, "checklist": [] },
+        { "name": "Optimized", "description": "Interface adapts based on telemetry.", "tags": [], "seq": 5, "checklist": [] }
+      ]
+    },
+    {
+      "name": "Platform Asset",
+      "description": "The abstract items (e.g., containers, models, services) hosted by and dependent upon the platform.",
+      "tags": ["alpha", "solution"],
+      "focusName": "Solution",
+      "states": [
+        { "name": "Identified", "description": "Need for the asset on the platform is recognized.", "tags": [], "seq": 1, "checklist": [] },
+        { "name": "Integrated", "description": "Configured to natively consume platform services.", "tags": [], "seq": 2, "checklist": [] },
+        { "name": "Operational", "description": "Deployed and actively running on the platform infrastructure.", "tags": [], "seq": 3, "checklist": [] },
+        { "name": "Value Yielding", "description": "Leverages platform scale to deliver business value.", "tags": [], "seq": 4, "checklist": [] },
+        { "name": "Optimized", "description": "Resource consumption is highly efficient.", "tags": [], "seq": 5, "checklist": [] },
+        { "name": "Retired", "description": "Safely decoupled and removed from the platform.", "tags": [], "seq": 6, "checklist": [] }
+      ]
+    },
+    {
+      "name": "Work",
+      "description": "Activity involving mental or physical effort done in order to achieve a result.",
+      "tags": ["alpha", "endeavor"],
+      "focusName": "Endeavor",
+      "states": [
+        { "name": "Initiated", "description": "The work has been requested.", "tags": [], "seq": 1, "checklist": [] },
+        { "name": "Prepared", "description": "All pre-conditions for starting the work have been met.", "tags": [], "seq": 2, "checklist": [] },
+        { "name": "Started", "description": "The work is proceeding.", "tags": [], "seq": 3, "checklist": [] },
+        { "name": "Under Control", "description": "The work is going well, risks are under control.", "tags": [], "seq": 4, "checklist": [] },
+        { "name": "Concluded", "description": "The work to produce the results has been concluded.", "tags": [], "seq": 5, "checklist": [] },
+        { "name": "Closed", "description": "All remaining housekeeping tasks have been completed.", "tags": [], "seq": 6, "checklist": [] }
+      ]
+    },
+    {
+      "name": "Team",
+      "description": "A group of people actively engaged in the development, maintenance, delivery, or support of a specific platform.",
+      "tags": ["alpha", "endeavor"],
+      "focusName": "Endeavor",
+      "states": [
+        { "name": "Seeded", "description": "The team's mission is clear and the know-how needed is in place.", "tags": [], "seq": 1, "checklist": [] },
+        { "name": "Formed", "description": "The team has been populated with enough committed people.", "tags": [], "seq": 2, "checklist": [] },
+        { "name": "Collaborating", "description": "The team members are working together as one unit.", "tags": [], "seq": 3, "checklist": [] },
+        { "name": "Performing", "description": "The team is working effectively and efficiently.", "tags": [], "seq": 4, "checklist": [] },
+        { "name": "Adjourned", "description": "The team is no longer accountable for carrying out its mission.", "tags": [], "seq": 5, "checklist": [] }
+      ]
+    },
+    {
+      "name": "Way Of Working",
+      "description": "The tailored set of practices and tools used by a team to guide and support their work.",
+      "tags": ["alpha", "endeavor"],
+      "focusName": "Endeavor",
+      "states": [
+        { "name": "Principles Established", "description": "The principles and constraints are established.", "tags": [], "seq": 1, "checklist": [] },
+        { "name": "Foundation Established", "description": "The key practices and tools are selected.", "tags": [], "seq": 2, "checklist": [] },
+        { "name": "In Use", "description": "Some members of the team are using, and adapting, the way-of-working.", "tags": [], "seq": 3, "checklist": [] },
+        { "name": "In Place", "description": "All team members are using the way of working to accomplish their work.", "tags": [], "seq": 4, "checklist": [] },
+        { "name": "Working Well", "description": "The team's way of working is working well for the team.", "tags": [], "seq": 5, "checklist": [] },
+        { "name": "Retired", "description": "The way of working is no longer in use by the team.", "tags": [], "seq": 6, "checklist": [] }
+      ]
+    },
+    {
+      "name": "Platform Governance",
+      "description": "Automated controls, policies, and guardrails.",
+      "tags": ["alpha", "endeavor"],
+      "focusName": "Endeavor",
+      "states": [
+        { "name": "Scoped", "description": "Regulatory requirements identified.", "tags": [], "seq": 1, "checklist": [] },
+        { "name": "Documented", "description": "Policies are written and approved.", "tags": [], "seq": 2, "checklist": [] },
+        { "name": "Audited", "description": "Platform monitored for configuration drift.", "tags": [], "seq": 3, "checklist": [] },
+        { "name": "Enforced", "description": "Automated guardrails physically prevent non-compliance.", "tags": [], "seq": 4, "checklist": [] },
+        { "name": "Automated", "description": "Remediation occurs instantaneously.", "tags": [], "seq": 5, "checklist": [] }
+      ]
+    }
+  ],
+  "activitySpaces": [
+    {
+      "name": "Explore Possibilities",
+      "description": "Explore the possibilities presented by the creation of a new or improved platform.",
+      "tags": ["activity-space", "value"],
+      "focusName": "Value",
+      "contributesTo": [{ "alphaName": "Opportunity", "stateName": "Initiated" }],
+      "requiredCompetencies": ["Platform Strategic Alignment"]
+    },
+    {
+      "name": "Understand Stakeholder Needs",
+      "description": "Engage with the stakeholders to understand their needs and ensure that the right results are produced.",
+      "tags": ["activity-space", "value"],
+      "focusName": "Value",
+      "contributesTo": [{ "alphaName": "Stakeholders", "stateName": "Involved" }],
+      "requiredCompetencies": ["Stakeholder Representation"]
+    },
+    {
+      "name": "Ensure Stakeholder Satisfaction",
+      "description": "Share the results of the development work with the stakeholders to gain their acceptance of the platform produced.",
+      "tags": ["activity-space", "value"],
+      "focusName": "Value",
+      "contributesTo": [{ "alphaName": "Stakeholders", "stateName": "Satisfied For Deployment" }],
+      "requiredCompetencies": ["Stakeholder Representation"]
+    },
+    {
+      "name": "Understand Platform Opportunity",
+      "description": "Defines the overarching platform strategy and aligns executive sponsorship.",
+      "tags": ["activity-space", "value"],
+      "focusName": "Value",
+      "contributesTo": [
+        { "alphaName": "Opportunity", "stateName": "Determined" },
+        { "alphaName": "Platform Value And Economics", "stateName": "Identified" }
+      ],
+      "requiredCompetencies": ["Platform Strategic Alignment"]
+    },
+    {
+      "name": "Optimize Platform Value",
+      "description": "The continuous process of forecasting costs and maximizing financial efficiency.",
+      "tags": ["activity-space", "value"],
+      "focusName": "Value",
+      "contributesTo": [
+        { "alphaName": "Platform Value And Economics", "stateName": "Modeled" },
+        { "alphaName": "Platform Value And Economics", "stateName": "Optimized" }
+      ],
+      "requiredCompetencies": ["Platform Strategic Alignment"]
+    },
+    {
+      "name": "Understand The Requirements",
+      "description": "Establish a shared understanding of what the platform to be produced must do.",
+      "tags": ["activity-space", "solution"],
+      "focusName": "Solution",
+      "contributesTo": [{ "alphaName": "Requirements", "stateName": "Coherent" }],
+      "requiredCompetencies": ["Analysis"]
+    },
+    {
+      "name": "Automate Platform Provisioning",
+      "description": "The automation engineering of the platform for its target operating environment.",
+      "tags": ["activity-space", "solution"],
+      "focusName": "Solution",
+      "contributesTo": [
+        { "alphaName": "Platform", "stateName": "Baselined" }
+      ],
+      "requiredCompetencies": ["Engineering"]
+    },
+    {
+      "name": "Automate Platform Testing",
+      "description": "Verify that the platform produced meets the stakeholders' requirements through automated means.",
+      "tags": ["activity-space", "solution"],
+      "focusName": "Solution",
+      "contributesTo": [
+        { "alphaName": "Platform", "stateName": "Baselined" }
+      ],
+      "requiredCompetencies": ["Engineering"]
+    },
+    {
+      "name": "Deploy The Platform",
+      "description": "Take the tested platform and make it available for use.",
+      "tags": ["activity-space", "solution"],
+      "focusName": "Solution",
+      "contributesTo": [
+        { "alphaName": "Platform", "stateName": "Provisioned" }
+      ],
+      "requiredCompetencies": ["Engineering"]
+    },
+    {
+      "name": "Operate The Platform",
+      "description": "Support the use of the platform in the live environment.",
+      "tags": ["activity-space", "solution"],
+      "focusName": "Solution",
+      "contributesTo": [
+        { "alphaName": "Platform", "stateName": "Hosting Assets" },
+        { "alphaName": "Platform", "stateName": "Evolving" }
+      ],
+      "requiredCompetencies": ["Engineering"]
+    },
+    {
+      "name": "Architect Platform Foundation",
+      "description": "Designing the core platform infrastructure topology and shared services.",
+      "tags": ["activity-space", "solution"],
+      "focusName": "Solution",
+      "contributesTo": [
+        { "alphaName": "Platform", "stateName": "Baselined" },
+        { "alphaName": "Platform", "stateName": "Provisioned" }
+      ],
+      "requiredCompetencies": ["Engineering"]
+    },
+    {
+      "name": "Engineer Platform Interfaces",
+      "description": "Building the APIs or Internal Developer Portals (IDPs) allowing self-service.",
+      "tags": ["activity-space", "solution"],
+      "focusName": "Solution",
+      "contributesTo": [
+        { "alphaName": "Platform Consumption Interface", "stateName": "Unified" }
+      ],
+      "requiredCompetencies": ["Engineering"]
+    },
+    {
+      "name": "Host And Operate Assets",
+      "description": "The continuous lifecycle management of items running on the platform.",
+      "tags": ["activity-space", "solution"],
+      "focusName": "Solution",
+      "contributesTo": [
+        { "alphaName": "Platform Asset", "stateName": "Integrated" },
+        { "alphaName": "Platform Asset", "stateName": "Operational" },
+        { "alphaName": "Platform Asset", "stateName": "Value Yielding" }
+      ],
+      "requiredCompetencies": ["Engineering", "Site Reliability"]
+    },
+    {
+      "name": "Prepare To Do The Work",
+      "description": "Set up the team and its working environment. Understand and commit to completing the work.",
+      "tags": ["activity-space", "endeavor"],
+      "focusName": "Endeavor",
+      "contributesTo": [{ "alphaName": "Work", "stateName": "Prepared" }],
+      "requiredCompetencies": ["Management"]
+    },
+    {
+      "name": "Coordinate Activity",
+      "description": "Co-ordinate and direct the team's work. This includes all ongoing planning and re-planning.",
+      "tags": ["activity-space", "endeavor"],
+      "focusName": "Endeavor",
+      "contributesTo": [{ "alphaName": "Work", "stateName": "Started" }],
+      "requiredCompetencies": ["Management"]
+    },
+    {
+      "name": "Support The Team",
+      "description": "Help the team members to help themselves, collaborate, and improve their way of working.",
+      "tags": ["activity-space", "endeavor"],
+      "focusName": "Endeavor",
+      "contributesTo": [{ "alphaName": "Team", "stateName": "Collaborating" }],
+      "requiredCompetencies": ["Leadership"]
+    },
+    {
+      "name": "Track Progress",
+      "description": "Measure and assess the progress made by the team.",
+      "tags": ["activity-space", "endeavor"],
+      "focusName": "Endeavor",
+      "contributesTo": [{ "alphaName": "Work", "stateName": "Under Control" }],
+      "requiredCompetencies": ["Management"]
+    },
+    {
+      "name": "Stop The Work",
+      "description": "Shutdown the platform engineering endeavor and hand over the team's responsibilities.",
+      "tags": ["activity-space", "endeavor"],
+      "focusName": "Endeavor",
+      "contributesTo": [{ "alphaName": "Work", "stateName": "Closed" }],
+      "requiredCompetencies": ["Management"]
+    },
+    {
+      "name": "Establish Platform Governance",
+      "description": "Translating regulatory requirements into executable policy code.",
+      "tags": ["activity-space", "endeavor"],
+      "focusName": "Endeavor",
+      "contributesTo": [
+        { "alphaName": "Platform Governance", "stateName": "Documented" },
+        { "alphaName": "Platform Governance", "stateName": "Enforced" }
+      ],
+      "requiredCompetencies": ["Platform Security And Compliance Enforcement"]
+    },
+    {
+      "name": "Organize Platform Engineering",
+      "description": "Structuring the platform teams and managing backlogs.",
+      "tags": ["activity-space", "endeavor"],
+      "focusName": "Endeavor",
+      "contributesTo": [
+        { "alphaName": "Work", "stateName": "Started" }
+      ],
+      "requiredCompetencies": ["Management"]
+    }
+  ],
+  "competencies": [
+    {
+      "name": "Stakeholder Representation",
+      "description": "Ability to gather, communicate, and balance the needs of other stakeholders, and accurately represent their views.",
+      "tags": ["competency"],
+      "levels": [
+        { "name": "Basic", "description": "Fundamental ability.", "tags": [], "level": 1, "competencyName": "Stakeholder Representation" }
+      ]
+    },
+    {
+      "name": "Platform Strategic Alignment",
+      "description": "Ability to synthesize business goals and organizational dynamics.",
+      "tags": ["competency"],
+      "levels": [
+        { "name": "Basic", "description": "Fundamental ability.", "tags": [], "level": 1, "competencyName": "Platform Strategic Alignment" }
+      ]
+    },
+    {
+      "name": "Analysis",
+      "description": "Ability to understand opportunities and their related stakeholder needs, and transform them into an agreed and consistent set of requirements.",
+      "tags": ["competency"],
+      "levels": [
+        { "name": "Basic", "description": "Fundamental ability.", "tags": [], "level": 1, "competencyName": "Analysis" }
+      ]
+    },
+    {
+      "name": "Engineering",
+      "description": "Ability to design distributed systems and author Infrastructure as Code.",
+      "tags": ["competency"],
+      "levels": [
+        { "name": "Basic", "description": "Fundamental ability.", "tags": [], "level": 1, "competencyName": "Engineering" }
+      ]
+    },
+    {
+      "name": "Leadership",
+      "description": "Ability to inspire and motivate a group of people to achieve a successful conclusion to their work.",
+      "tags": ["competency"],
+      "levels": [
+        { "name": "Basic", "description": "Fundamental ability.", "tags": [], "level": 1, "competencyName": "Leadership" }
+      ]
+    },
+    {
+      "name": "Management",
+      "description": "Ability to coordinate, plan, and track the work done by a team.",
+      "tags": ["competency"],
+      "levels": [
+        { "name": "Basic", "description": "Fundamental ability.", "tags": [], "level": 1, "competencyName": "Management" }
+      ]
+    },
+    {
+      "name": "Site Reliability",
+      "description": "Ability to engineer observability telemetry and automate incident remediation.",
+      "tags": ["competency"],
+      "levels": [
+        { "name": "Basic", "description": "Fundamental ability.", "tags": [], "level": 1, "competencyName": "Site Reliability" }
+      ]
+    },
+    {
+      "name": "Platform Security And Compliance Enforcement",
+      "description": "The ability to design zero-trust perimeters, manage cryptographic keys, and author compliance-as-code.",
+      "tags": ["competency"],
+      "levels": [
+        { "name": "Basic", "description": "Fundamental ability.", "tags": [], "level": 1, "competencyName": "Platform Security And Compliance Enforcement" }
+      ]
+    }
+  ],
+  "authors": [
+    "Kernel Authors"
+  ],
+  "createdAt": "2023-10-25T00:00:00Z",
+  "updatedAt": "2023-10-25T00:00:00Z",
+  "version": "1",
+  "keywords": [
+    "platform",
+    "adoption",
+    "kernel",
+    "essence"
+  ]
+}

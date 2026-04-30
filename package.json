@@ -1,0 +1,14 @@
+{
+  "name": "adoptionframework",
+  "scripts": {
+    "dev": "npm run dev --workspace web",
+    "build": "npm run build --workspace web",
+    "start": "npm run start --workspace web"
+  },
+  "private": true,
+  "workspaces": ["web"],
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
+    "tailwindcss": "^4.1.17"
+  }
+}

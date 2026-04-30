@@ -1,0 +1,250 @@
+%% Practice language — diagram conventions
+%% *-- composition: child is embedded in / owned by the parent document (same JSON aggregate).
+%% o-- aggregation: parent holds children that are proper elements or shared references (lifecycle may extend beyond this slice).
+%% --> association: navigable link; use for Method→baseline and similar.
+%% Cardinality: "1" | "0..1" | "*" | "0..*" | "1..*" (quoted on each side of the connector).
+%% *Name / *Names on a class = STRING (or List~STRING~) foreign keys: edges show semantic target type, not embedded objects.
+
+classDiagram
+    class PracticeElement {
+        +name: STRING
+        +description: STRING
+        +tags: List~STRING~
+    }
+
+    note for PracticeElement "tags optional (0..*); omit field or use [] when absent."
+
+    class PracticeElementAlias {
+        +practiceElementType: STRING
+        +practiceElementName: STRING
+        +aliasName: STRING
+    }
+
+    note for PracticeElementAlias "Maps aliasName to an existing element (practiceElementType + practiceElementName) within the same Practice document. Optional 0..* on Practice (practiceElementAliases). practiceElementType names the element kind (e.g. Alpha, Activity); practiceElementName matches that element name; loaders may resolve references using either the canonical name or any alias."
+
+    class PracticeBaseline {
+        +authors: List~STRING~
+        +createdAt: DATE
+        +updatedAt: DATE
+        +version: STRING
+        +keywords: List~STRING~
+    }
+
+    class Practice {
+        +baselinePracticeName: STRING
+        +practiceDependencyNames: List~STRING~
+        +practiceElementAliases: List~PracticeElementAlias~
+    }
+
+    class Method {
+    }
+
+    class Alpha {
+        +focusName: STRING
+        +contributesTo: STRING
+        +supportingAlphas: List~STRING~
+    }
+
+    note for Alpha "contributesTo optional (0..1). supportingAlphas optional (0..*); each entry is Alpha.name in the same baseline. Use supportingAlphas on a rollup alpha to nest contributing alphas; lists are unioned when combining practices."
+
+    class WorkProduct {
+    }
+
+    class WorkProductContribution {
+        +workProductName: STRING
+        +levelOfDetailName: STRING
+    }
+
+    class ActivitySpace {
+        +focusName: STRING
+        +requiredCompetencies: List~STRING~
+    }
+
+    class Activity {
+        +activitySpaceName: STRING
+    }
+
+    note for Activity "When nested under ActivitySpace.activities, activitySpaceName may be omitted (implicit parent)."
+
+    class Focus {
+    }
+
+    class Competency {
+    }
+
+    class CompetencyLevel {
+        +level: INT
+        +competencyName: STRING
+    }
+
+    class CompetencyLevelReference {
+        +competencyName: STRING
+        +competencyLevelName: STRING
+    }
+
+    class Pattern {
+    }
+
+    class PatternView {
+        +seq: INT
+        +alphaStates: List~AlphaContribution~
+        +activitySpaces: List~STRING~
+        +activities: List~STRING~
+    }
+
+    note for PatternView "alphaStates: JSON array of embedded AlphaContribution objects; legacy documents may use STRING tokens (same meaning as alphaName/stateName; project convention e.g. Alpha->State). activitySpaces: ActivitySpace.name swimlane refs. activities: Activity.name swimlane refs (nested or flat). Legacy: Activity.name may still appear in activitySpaces; loaders merge both lists for matrix resolution."
+
+    class PatternViewReference {
+        +patternName: STRING
+        +patternViewName: STRING
+    }
+
+    class ActivitySpaceReference {
+        +activitySpaceName: STRING
+    }
+
+    class WorkBreakdown {
+    }
+
+    class WorkItem {
+        +seq: INT
+        +implementsActivityName: STRING
+    }
+
+    class Estimate {
+        +lowEst: INT
+        +medEst: INT
+        +highEst: INT
+    }
+
+    class Complexity {
+        +level: INT
+        +contractType: STRING
+    }
+
+    class Checklist {
+        +seq: INT
+    }
+
+    class AlphaContribution {
+        +alphaName: STRING
+        +stateName: STRING
+    }
+
+    class AlphaInstance {
+        +instanceName: STRING
+        +alphaName: STRING
+        +stateName: STRING
+    }
+
+    class WorkProductInstance {
+        +instanceName: STRING
+        +workProductName: STRING
+        +levelOfDetailName: STRING
+    }
+
+    class State {
+        +seq: INT
+    }
+
+    class LevelOfDetail {
+        +seq: INT
+    }
+
+    %% --- Structural relationships (role / JSON field on label) ---
+    %% focusName on Alpha / ActivitySpace / Activity: STRING (= Focus.name); link to baseline.focuses, not embedding.
+    %% contributesTo on Alpha: STRING (target alpha name); semantic link, not embedding.
+    %% supportingAlphas: each STRING is Alpha.name in the same baseline (rollup nesting); unioned when combining practices.
+    %% Flat Practice.activities: legacy interchange; canonical form nests under ActivitySpace.activities.
+
+    Activity "1" *-- "0..*" AlphaContribution : contributesTo
+    Activity "1" o-- "0..*" CompetencyLevelReference : recommendedCompetencyLevels
+    Activity "1" o-- "0..*" WorkProductContribution : worksOn
+    ActivitySpace "1" *-- "0..*" Activity : activities
+    ActivitySpace "1" *-- "1..*" AlphaContribution : contributesTo
+    ActivitySpace "1" --> "1" Focus : focusName
+    Alpha "1" *-- "3..*" State : states
+    Alpha "1" --> "0..1" Alpha : contributesTo
+    Alpha "1" --> "1" Focus : focusName
+    Alpha "1" o-- "0..*" Alpha : supportingAlphas
+    Competency "1" *-- "1..*" CompetencyLevel : levels
+    Complexity "1" *-- "0..*" AlphaContribution : productRisks
+    Complexity "1" *-- "0..*" AlphaContribution : projectRisks
+    Complexity "1" *-- "0..1" AlphaContribution : stakeholderEngagement
+    Complexity "1" *-- "0..1" AlphaContribution : technicalRisk
+    Complexity "1" *-- "0..1" AlphaContribution : valueRisk
+    LevelOfDetail "1" *-- "0..*" Checklist : checklist
+    LevelOfDetail "1" *-- "1..*" AlphaContribution : contributesTo
+    Method "1" --> "1" PracticeBaseline : baselinePractice
+    Method "1" o-- "0..*" Practice : practices
+    Pattern "1" *-- "1..*" PatternView : patternViews
+    PatternView "1" *-- "0..*" AlphaContribution : alphaStates
+    Practice "1" o-- "0..*" Activity : activities
+    Practice "1" o-- "0..*" Pattern : patterns
+    Practice "1" o-- "0..*" PracticeElementAlias : practiceElementAliases
+    Practice "1" o-- "0..*" WorkBreakdown : workBreakdowns
+    Practice "1" o-- "0..*" WorkProduct : workProducts
+    PracticeBaseline "1" *-- "0..*" ActivitySpace : activitySpaces
+    PracticeBaseline "1" *-- "0..*" Alpha : alphas
+    PracticeBaseline "1" *-- "0..*" Competency : competencies
+    PracticeBaseline "1" *-- "0..*" Focus : focuses
+    State "1" *-- "0..*" Checklist : checklist
+    WorkBreakdown "1" *-- "0..*" PatternViewReference : prerequisiteAndAssumptions
+    WorkBreakdown "1" *-- "1" Complexity : complexity
+    WorkBreakdown "1" *-- "1..*" WorkItem : task
+    WorkItem "1" *-- "0..*" ActivitySpaceReference : applies
+    WorkItem "1" *-- "0..*" AlphaContribution : contributesTo
+    WorkItem "1" *-- "0..*" WorkProductContribution : worksOn
+    WorkItem "1" *-- "1" Estimate : estimate
+    WorkProduct "1" *-- "2..*" LevelOfDetail : levelsOfDetail
+
+    %% --- Symbolic name references (JSON: STRING or List~STRING~; edges = semantic type, not composition) ---
+
+    Activity "1" --> "1" ActivitySpace : activitySpaceName
+    ActivitySpace "1" o-- "0..*" Competency : requiredCompetencies
+    AlphaContribution "1" --> "1" Alpha : alphaName
+    AlphaContribution "1" --> "1" State : stateName
+    AlphaInstance "1" --> "1" Alpha : alphaName
+    AlphaInstance "1" --> "1" State : stateName
+    CompetencyLevel "1" --> "1" Competency : competencyName
+    CompetencyLevelReference "1" --> "1" Competency : competencyName
+    CompetencyLevelReference "1" --> "1" CompetencyLevel : competencyLevelName
+    PatternView "1" o-- "0..*" Activity : activities
+    PatternView "1" o-- "0..*" ActivitySpace : activitySpaces
+    PatternViewReference "1" --> "1" Pattern : patternName
+    PatternViewReference "1" --> "1" PatternView : patternViewName
+    Practice "1" --> "1" PracticeBaseline : baselinePracticeName
+    Practice "1" o-- "0..*" Practice : practiceDependencyNames
+    WorkItem "1" --> "1" Activity : implementsActivityName
+    WorkProductContribution "1" --> "1" LevelOfDetail : levelOfDetailName
+    WorkProductContribution "1" --> "1" WorkProduct : workProductName
+    WorkProductInstance "1" --> "1" LevelOfDetail : levelOfDetailName
+    WorkProductInstance "1" --> "1" WorkProduct : workProductName
+
+    %% stateName (AlphaContribution, AlphaInstance): resolve with alphaName to a State under that Alpha.
+    %% levelOfDetailName (WorkProduct*, WorkProductContribution): resolve with workProductName to LevelOfDetail under that WorkProduct.
+    %% competencyLevelName (CompetencyLevelReference): CompetencyLevel.name under the named Competency.
+    %% patternViewName (PatternViewReference): PatternView.name under the named Pattern.
+
+    %% --- Inheritance ---
+
+    PracticeBaseline <|-- Practice
+    PracticeElement <|-- Activity
+    PracticeElement <|-- ActivitySpace
+    PracticeElement <|-- Alpha
+    PracticeElement <|-- AlphaInstance
+    PracticeElement <|-- Checklist
+    PracticeElement <|-- Competency
+    PracticeElement <|-- CompetencyLevel
+    PracticeElement <|-- Complexity
+    PracticeElement <|-- Focus
+    PracticeElement <|-- LevelOfDetail
+    PracticeElement <|-- Method
+    PracticeElement <|-- Pattern
+    PracticeElement <|-- PatternView
+    PracticeElement <|-- PracticeBaseline
+    PracticeElement <|-- State
+    PracticeElement <|-- WorkBreakdown
+    PracticeElement <|-- WorkItem
+    PracticeElement <|-- WorkProduct
+    PracticeElement <|-- WorkProductInstance

@@ -1,0 +1,1129 @@
+{
+  "name": "Platform Adoption Essentials",
+  "description": "The Platform Adoption Kernel establishes the universal foundation for platform transformations, organized into the three standard Essence Areas of Concern.",
+  "focuses": [
+    {
+      "name": "Value",
+      "description": "Focuses on business justification, financial management, and organizational alignment."
+    },
+    {
+      "name": "Solution",
+      "description": "Encapsulates the design, provisioning, optimization, and the hosted items running on the platform foundation."
+    },
+    {
+      "name": "Endeavor",
+      "description": "Governs the execution of the transformation, encompassing people, processes, and policies."
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Opportunity",
+      "description": "The foundational business drivers dictating the platform transformation.",
+      "focusName": "Value",
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "The desire to adopt a platform is identified.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Determined",
+          "description": "The value and parameters of the platform are quantified.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Value Established",
+          "description": "The platform's value is accepted by sponsors.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Viable",
+          "description": "The business case demonstrates a viable return.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Addressed",
+          "description": "The opportunity is actively being addressed by the platform.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Benefit Accrued",
+          "description": "The expected benefits are being consistently realized.",
+          "seq": 6,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Platform Value And Economics",
+      "description": "The financial and outcome-based justification and accounting for the platform.",
+      "focusName": "Value",
+      "states": [
+        {
+          "name": "Modeled",
+          "description": "Financial needs and potential values are recognized.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Allocated",
+          "description": "Costs and benefits are logically modeled.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Sustained",
+          "description": "The economic model is approved.",
+          "seq": 3,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Stakeholders",
+      "description": "The individuals, groups, or organizations affected by, or able to affect, the platform.",
+      "focusName": "Value",
+      "states": [
+        {
+          "name": "Recognized",
+          "description": "Key stakeholders are identified.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Represented",
+          "description": "Stakeholder representatives are designated.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Involved",
+          "description": "Stakeholders actively participate.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "In Agreement",
+          "description": "Stakeholder expectations are aligned.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Satisfied for Deployment",
+          "description": "Stakeholders approve deployment.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Satisfied in Use",
+          "description": "Stakeholders are satisfied with the operational platform.",
+          "seq": 6,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Requirements",
+      "description": "The capabilities, features, and constraints the platform must satisfy.",
+      "focusName": "Solution",
+      "states": [
+        {
+          "name": "Conceived",
+          "description": "The need for a specific asset is identified.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Bounded",
+          "description": "The scope of the requirements is defined.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Coherent",
+          "description": "Requirements are clear, consistent, and logical.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Acceptable",
+          "description": "Stakeholders agree the requirements meet their needs.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Addressed",
+          "description": "The platform satisfies the established requirements.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Fulfilled",
+          "description": "All requirements are successfully delivered and operational.",
+          "seq": 6,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Platform",
+      "description": "The unified system of assets and interfaces provided to consumers.",
+      "focusName": "Solution",
+      "states": [
+        {
+          "name": "Architecture Selected",
+          "description": "The foundational structure is chosen.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Baselined",
+          "description": "Core capabilities are established.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Provisioned",
+          "description": "The platform can be consumed.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Ready",
+          "description": "The platform is fully operational.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Hosting Assets",
+          "description": "The platform is actively supporting workloads.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Evolving",
+          "description": "The platform is decommissioned.",
+          "seq": 6,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Platform Consumption Interface",
+      "description": "The means by which consumers interact with and consume platform assets.",
+      "focusName": "Solution",
+      "states": [
+        {
+          "name": "Envisioned",
+          "description": "The desired interface is conceptualized.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Scoped",
+          "description": "Interface capabilities are defined.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Available",
+          "description": "The interface is accessible.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Self Service",
+          "description": "Consumers can independently use the interface.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Optimized",
+          "description": "The interface provides a frictionless experience.",
+          "seq": 5,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Platform Asset",
+      "description": "The individual services, tools, or resources that constitute the platform.",
+      "focusName": "Solution",
+      "states": [
+        {
+          "name": "Identified",
+          "description": "The need for a specific asset is identified.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Specified",
+          "description": "Asset requirements are detailed.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Provisioned",
+          "description": "The asset is created or acquired.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Integrated",
+          "description": "The asset works within the broader platform.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Operational",
+          "description": "The asset is in active use.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Value Yielding",
+          "description": "The asset is decommissioned.",
+          "seq": 6,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Work",
+      "description": "The activities required to build, operate, and maintain the platform.",
+      "focusName": "Endeavor",
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "Work is requested.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Prepared",
+          "description": "Work is ready to begin.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Started",
+          "description": "Work is in progress.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Under Control",
+          "description": "Work is proceeding predictably.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Concluded",
+          "description": "Work is finished.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Closed",
+          "description": "All work activities are officially complete.",
+          "seq": 6,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Team",
+      "description": "The group of individuals responsible for the platform's success.",
+      "focusName": "Endeavor",
+      "states": [
+        {
+          "name": "Seeded",
+          "description": "Initial team members are identified.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Formed",
+          "description": "The team structure is established.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Collaborating",
+          "description": "Team members work together effectively.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Performing",
+          "description": "The team consistently delivers value.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Adjourned",
+          "description": "The team is disbanded or repurposed.",
+          "seq": 5,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Way Of Working",
+      "description": "The tailored set of practices, tools, operational workflows, and industry alignments used by a team.",
+      "focusName": "Endeavor",
+      "states": [
+        {
+          "name": "Principles Established",
+          "description": "The principles, constraints, and baseline industry alignments are established.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Foundation Established",
+          "description": "The key practices, workflow models, and logical definitions are selected.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "In Use",
+          "description": "Team members are using behavioral walkthroughs to adapt to the way-of-working.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "In Place",
+          "description": "The practices are fully integrated into daily activities.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Working Well",
+          "description": "The way of working is highly efficient, automated, and demonstrably successful.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Retired",
+          "description": "The way of working is no longer needed.",
+          "seq": 6,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Platform Governance",
+      "description": "Automated controls, policies, and guardrails",
+      "focusName": "Endeavor",
+      "states": [
+        {
+          "name": "Scoped",
+          "description": "The need for governance is recognized.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Documented",
+          "description": "Initial policies are defined.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Audited",
+          "description": "Policies are actively applied.",
+          "seq": 3,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Platform Risk And Compliance",
+      "description": "Measures the business risk evaluation, security posture validation, and compliance mitigation maturity.",
+      "focusName": "Value",
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Basic security risks and compliance needs are listed.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Assessed",
+          "description": "Detailed risk assessment matrices and compliance mappings are documented.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Mitigated",
+          "description": "Scenario-based behavioral guides mitigate specific user risks.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Automated",
+          "description": "Automated compliance auditing and security posture checks are in place.",
+          "seq": 4,
+          "checklist": []
+        }
+      ]
+    },
+    {
+      "name": "Organizational Change",
+      "description": "The organizational patterns, business rationale, and change management required to support the platform transformation.",
+      "focusName": "Endeavor",
+      "states": [
+        {
+          "name": "Recognized",
+          "description": "Rationale for change is identified.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Strategized",
+          "description": "Change plans and communication pathways are mapped.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Enabled",
+          "description": "Playbooks addressing behavioral pushback are executed.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Embedded",
+          "description": "Comprehensive change management toolkits and automated feedback surveys are deployed.",
+          "seq": 4,
+          "checklist": []
+        }
+      ]
+    }
+  ],
+  "activitySpaces": [
+    {
+      "name": "Explore Possibilities",
+      "description": "Explore the possibilities presented by the creation of a new or improved platform.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Initiated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Strategic Alignment"
+      ]
+    },
+    {
+      "name": "Understand Stakeholder Needs",
+      "description": "Understand the needs of the stakeholders who will consume or be affected by the platform.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Involved"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation",
+        "Analysis"
+      ]
+    },
+    {
+      "name": "Ensure Stakeholder Satisfaction",
+      "description": "Ensure the stakeholders are satisfied with the platform and its value proposition.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Satisfied for Deployment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation"
+      ]
+    },
+    {
+      "name": "Understand Platform Opportunity",
+      "description": "Understand the opportunity for the platform and the value it will deliver.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Determined"
+        },
+        {
+          "alphaName": "Platform Value And Economics",
+          "stateName": "Modeled"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Strategic Alignment",
+        "Analysis"
+      ]
+    },
+    {
+      "name": "Optimize Platform Value",
+      "description": "Optimize the value delivered by the platform and its economics.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Value And Economics",
+          "stateName": "Modeled"
+        },
+        {
+          "alphaName": "Platform Value And Economics",
+          "stateName": "Sustained"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Strategic Alignment",
+        "Management"
+      ]
+    },
+    {
+      "name": "Understand The Requirements",
+      "description": "Understand the requirements for the platform and its assets.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Requirements",
+          "stateName": "Coherent"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis"
+      ]
+    },
+    {
+      "name": "Automate Platform Provisioning",
+      "description": "Automate the provisioning of the platform and its assets.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Baselined"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ]
+    },
+    {
+      "name": "Automate Platform Testing",
+      "description": "Automate the testing of the platform and its assets.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Baselined"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Deploy The Platform",
+      "description": "Deploy the platform and its assets.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Provisioned"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ]
+    },
+    {
+      "name": "Operate The Platform",
+      "description": "Operate the platform and its assets.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Hosting Assets"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Evolving"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Platform Security And Compliance Enforcement"
+      ]
+    },
+    {
+      "name": "Architect Platform Foundation",
+      "description": "Architect the platform foundation and its components.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Baselined"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Provisioned"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ]
+    },
+    {
+      "name": "Engineer Platform Interfaces",
+      "description": "Engineer the interfaces for the platform.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Consumption Interface",
+          "stateName": "Available"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Host And Operate Assets",
+      "description": "Host and operate the assets on the platform.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Integrated"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Operational"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Value Yielding"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Prepare To Do The Work",
+      "description": "Prepare to do the work required for the platform.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Work",
+          "stateName": "Prepared"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Coordinate Activity",
+      "description": "Coordinate the activity of the team.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Work",
+          "stateName": "Started"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management"
+      ]
+    },
+    {
+      "name": "Support The Team",
+      "description": "Support the team in its work.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Team",
+          "stateName": "Collaborating"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Track Progress",
+      "description": "Track the progress of the work.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Work",
+          "stateName": "Under Control"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management"
+      ]
+    },
+    {
+      "name": "Stop The Work",
+      "description": "Stop the work and close out the endeavor.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Work",
+          "stateName": "Closed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management"
+      ]
+    },
+    {
+      "name": "Establish Platform Governance",
+      "description": "Establish governance for the platform.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Governance",
+          "stateName": "Documented"
+        },
+        {
+          "alphaName": "Platform Governance",
+          "stateName": "Audited"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Platform Security And Compliance Enforcement"
+      ]
+    },
+    {
+      "name": "Organize Platform Engineering",
+      "description": "Organize the platform engineering effort.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Work",
+          "stateName": "Started"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Leadership"
+      ]
+    }
+  ],
+  "competencies": [
+    {
+      "name": "Analysis",
+      "description": "The ability to understand needs, assess options, and make informed decisions.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Fundamental awareness",
+          "level": 1,
+          "competencyName": "Analysis"
+        },
+        {
+          "name": "Applies",
+          "description": "Applies in simple contexts",
+          "level": 2,
+          "competencyName": "Analysis"
+        },
+        {
+          "name": "Masters",
+          "description": "Applies in most contexts",
+          "level": 3,
+          "competencyName": "Analysis"
+        },
+        {
+          "name": "Adapts",
+          "description": "Adapts to complex contexts",
+          "level": 4,
+          "competencyName": "Analysis"
+        },
+        {
+          "name": "Innovating",
+          "description": "Extends to new contexts",
+          "level": 5,
+          "competencyName": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Engineering",
+      "description": "The ability to design, build, and implement technical solutions.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Fundamental awareness",
+          "level": 1,
+          "competencyName": "Engineering"
+        },
+        {
+          "name": "Applies",
+          "description": "Applies in simple contexts",
+          "level": 2,
+          "competencyName": "Engineering"
+        },
+        {
+          "name": "Masters",
+          "description": "Applies in most contexts",
+          "level": 3,
+          "competencyName": "Engineering"
+        },
+        {
+          "name": "Adapts",
+          "description": "Adapts to complex contexts",
+          "level": 4,
+          "competencyName": "Engineering"
+        },
+        {
+          "name": "Innovating",
+          "description": "Extends to new contexts",
+          "level": 5,
+          "competencyName": "Engineering"
+        }
+      ]
+    },
+    {
+      "name": "Leadership",
+      "description": "The ability to inspire, guide, and motivate a team.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Fundamental awareness",
+          "level": 1,
+          "competencyName": "Leadership"
+        },
+        {
+          "name": "Applies",
+          "description": "Applies in simple contexts",
+          "level": 2,
+          "competencyName": "Leadership"
+        },
+        {
+          "name": "Masters",
+          "description": "Applies in most contexts",
+          "level": 3,
+          "competencyName": "Leadership"
+        },
+        {
+          "name": "Adapts",
+          "description": "Adapts to complex contexts",
+          "level": 4,
+          "competencyName": "Leadership"
+        },
+        {
+          "name": "Innovating",
+          "description": "Extends to new contexts",
+          "level": 5,
+          "competencyName": "Leadership"
+        }
+      ]
+    },
+    {
+      "name": "Management",
+      "description": "The ability to plan, organize, and coordinate work.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Fundamental awareness",
+          "level": 1,
+          "competencyName": "Management"
+        },
+        {
+          "name": "Applies",
+          "description": "Applies in simple contexts",
+          "level": 2,
+          "competencyName": "Management"
+        },
+        {
+          "name": "Masters",
+          "description": "Applies in most contexts",
+          "level": 3,
+          "competencyName": "Management"
+        },
+        {
+          "name": "Adapts",
+          "description": "Adapts to complex contexts",
+          "level": 4,
+          "competencyName": "Management"
+        },
+        {
+          "name": "Innovating",
+          "description": "Extends to new contexts",
+          "level": 5,
+          "competencyName": "Management"
+        }
+      ]
+    },
+    {
+      "name": "Platform Security And Compliance Enforcement",
+      "description": "The ability to design, implement, and automate security policies, access controls, and compliance checks within the platform.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands basic security principles and compliance requirements.",
+          "level": 1,
+          "competencyName": "Platform Security And Compliance Enforcement"
+        },
+        {
+          "name": "Applies",
+          "description": "Can configure basic security settings and access controls based on documented procedures.",
+          "level": 2,
+          "competencyName": "Platform Security And Compliance Enforcement"
+        },
+        {
+          "name": "Masters",
+          "description": "Can independently design and implement comprehensive security architectures and automate compliance auditing.",
+          "level": 3,
+          "competencyName": "Platform Security And Compliance Enforcement"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can adapt security strategies to address novel threats and complex, multi-cloud environments.",
+          "level": 4,
+          "competencyName": "Platform Security And Compliance Enforcement"
+        },
+        {
+          "name": "Innovating",
+          "description": "Develops new paradigms for platform security and proactive threat hunting.",
+          "level": 5,
+          "competencyName": "Platform Security And Compliance Enforcement"
+        }
+      ]
+    },
+    {
+      "name": "Platform Strategic Alignment",
+      "description": "The ability to align platform capabilities and roadmap with broader business goals, economic models, and enterprise architecture.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands the high-level business drivers for the platform.",
+          "level": 1,
+          "competencyName": "Platform Strategic Alignment"
+        },
+        {
+          "name": "Applies",
+          "description": "Can articulate how specific platform features support identified business opportunities.",
+          "level": 2,
+          "competencyName": "Platform Strategic Alignment"
+        },
+        {
+          "name": "Masters",
+          "description": "Can develop and manage platform roadmaps that demonstrably drive business value and ROI.",
+          "level": 3,
+          "competencyName": "Platform Strategic Alignment"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can pivot platform strategy in response to shifting market conditions or major organizational changes.",
+          "level": 4,
+          "competencyName": "Platform Strategic Alignment"
+        },
+        {
+          "name": "Innovating",
+          "description": "Pioneers new platform business models or economic strategies that redefine enterprise value.",
+          "level": 5,
+          "competencyName": "Platform Strategic Alignment"
+        }
+      ]
+    },
+    {
+      "name": "Site Reliability",
+      "description": "The ability to apply software engineering principles to operations, ensuring platform reliability, scalability, and performance (SRE).",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands the concepts of SLIs, SLOs, and basic incident response.",
+          "level": 1,
+          "competencyName": "Site Reliability"
+        },
+        {
+          "name": "Applies",
+          "description": "Can participate in incident response and implement basic monitoring alerts.",
+          "level": 2,
+          "competencyName": "Site Reliability"
+        },
+        {
+          "name": "Masters",
+          "description": "Can independently design robust monitoring systems, define effective SLOs, and lead complex incident resolutions.",
+          "level": 3,
+          "competencyName": "Site Reliability"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can architect highly resilient, self-healing systems and establish enterprise-wide SRE practices.",
+          "level": 4,
+          "competencyName": "Site Reliability"
+        },
+        {
+          "name": "Innovating",
+          "description": "Develops novel approaches to chaos engineering or predictive reliability modeling.",
+          "level": 5,
+          "competencyName": "Site Reliability"
+        }
+      ]
+    },
+    {
+      "name": "Stakeholder Representation",
+      "description": "The ability to gather, communicate, and balance the needs of other stakeholders, and accurately represent their views.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Fundamental awareness and understanding of representation concepts.",
+          "level": 1,
+          "competencyName": "Stakeholder Representation"
+        },
+        {
+          "name": "Applies",
+          "description": "Can apply representation concepts in simple contexts.",
+          "level": 2,
+          "competencyName": "Stakeholder Representation"
+        },
+        {
+          "name": "Masters",
+          "description": "Can apply representation concepts in most contexts without supervision.",
+          "level": 3,
+          "competencyName": "Stakeholder Representation"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can apply judgment and adapt representation techniques to complex contexts.",
+          "level": 4,
+          "competencyName": "Stakeholder Representation"
+        },
+        {
+          "name": "Innovating",
+          "description": "Recognized expert, able to extend representation concepts to new contexts.",
+          "level": 5,
+          "competencyName": "Stakeholder Representation"
+        }
+      ]
+    }
+  ],
+  "authors": [
+    "Kernel Authors"
+  ],
+  "createdAt": "2023-10-25T00:00:00Z",
+  "updatedAt": "2023-10-25T00:00:00Z",
+  "version": "1",
+  "keywords": [
+    "platform",
+    "adoption",
+    "kernel"
+  ]
+}
