@@ -1,13 +1,15 @@
 import type {
   Method,
+  NarrativeType,
   Pattern,
+  Persona,
+  PersonaGroup,
   PracticeActivity,
   PracticeBaseline,
   PracticeElement,
   PracticeElementAlias,
   ReadablePracticePreviewDoc,
   RefIssue,
-  WorkBreakdown,
   WorkProduct,
 } from "@/lib/types";
 import {
@@ -43,6 +45,9 @@ export function asBaselineDocument(doc: any): PracticeBaseline | null {
       updatedAt: typeof doc.updatedAt === "string" ? doc.updatedAt : "",
       version: typeof doc.version === "string" ? doc.version : "",
       keywords: Array.isArray(doc.keywords) ? doc.keywords : [],
+      narrativeTypes: Array.isArray((doc as { narrativeTypes?: unknown }).narrativeTypes)
+        ? ((doc as { narrativeTypes?: unknown }).narrativeTypes as NarrativeType[])
+        : [],
     } as PracticeBaseline;
   }
   if (Array.isArray(doc.alphas) && Array.isArray(doc.focuses)) {
@@ -63,7 +68,9 @@ export function readablePracticePreviewFromEnriched(
     ...(Array.isArray(d.patterns) ? { patterns: d.patterns as Pattern[] } : {}),
     ...(Array.isArray(d.activities) ? { activities: d.activities as PracticeActivity[] } : {}),
     ...(Array.isArray(d.workProducts) ? { workProducts: d.workProducts as WorkProduct[] } : {}),
-    ...(Array.isArray(d.workBreakdowns) ? { workBreakdowns: d.workBreakdowns as WorkBreakdown[] } : {}),
+    ...(Array.isArray(d.personas) ? { personas: d.personas as Persona[] } : {}),
+    ...(Array.isArray(d.personaGroups) ? { personaGroups: d.personaGroups as PersonaGroup[] } : {}),
+    ...(Array.isArray(d.narrativeTypes) ? { narrativeTypes: d.narrativeTypes as NarrativeType[] } : {}),
     ...(Array.isArray(d.practiceElementAliases)
       ? { practiceElementAliases: d.practiceElementAliases as PracticeElementAlias[] }
       : {}),
@@ -626,19 +633,6 @@ export function enrichBaselineWithReferencedWrappers(doc: unknown, baseline: Pra
       for (const c of lod.contributesTo ?? []) walkContrib(c);
     }
   }
-  for (const wb of d.workBreakdowns ?? []) {
-    const cx = wb.complexity;
-    if (cx && typeof cx === "object") {
-      if (cx.valueRisk) walkContrib(cx.valueRisk);
-      if (cx.technicalRisk) walkContrib(cx.technicalRisk);
-      if (cx.stakeholderEngagement) walkContrib(cx.stakeholderEngagement);
-      for (const c of cx.productRisks ?? []) walkContrib(c);
-      for (const c of cx.projectRisks ?? []) walkContrib(c);
-    }
-    for (const task of wb.task ?? []) {
-      for (const c of task.contributesTo ?? []) walkContrib(c);
-    }
-  }
 
   const rollupAlphaTargets = new Set<string>();
   for (const a of d.alphas ?? []) {
@@ -658,14 +652,6 @@ export function enrichBaselineWithReferencedWrappers(doc: unknown, baseline: Pra
   for (const act of d.activities ?? []) {
     const p = String(act.activitySpaceName ?? "").trim();
     if (p) activitySpaceNames.add(p);
-  }
-  for (const wb of d.workBreakdowns ?? []) {
-    for (const task of wb.task ?? []) {
-      for (const ap of task.applies ?? []) {
-        const n = String(ap?.activitySpaceName ?? "").trim();
-        if (n) activitySpaceNames.add(n);
-      }
-    }
   }
   for (const s of d.activitySpaces ?? []) {
     if (isPracticeActivityNode(s)) continue;
@@ -899,7 +885,32 @@ export function enrichBaselineWithReferencedWrappers(doc: unknown, baseline: Pra
   return enriched;
 }
 
-export function buildIndexes(baseline: PracticeBaseline): { indexes: Indexes; issues: RefIssue[] } {
+/** PersonaGroup.name values declared on a Practice/METHOD root (`personaGroups`) or nested on `Method.practices[]`. */
+export function collectPersonaGroupNamesFromPracticeDoc(doc: unknown): Set<string> {
+  const out = new Set<string>();
+  if (!doc || typeof doc !== "object") return out;
+  const d = doc as Record<string, unknown>;
+
+  const addFrom = (list: unknown) => {
+    for (const pg of Array.isArray(list) ? list : []) {
+      if (!pg || typeof pg !== "object") continue;
+      const n = String((pg as { name?: unknown }).name ?? "").trim();
+      if (n) out.add(n);
+    }
+  };
+
+  addFrom(d.personaGroups);
+  for (const pr of Array.isArray(d.practices) ? d.practices : []) {
+    if (pr && typeof pr === "object") addFrom((pr as Record<string, unknown>).personaGroups);
+  }
+
+  return out;
+}
+
+export function buildIndexes(
+  baseline: PracticeBaseline,
+  practiceDoc?: unknown,
+): { indexes: Indexes; issues: RefIssue[] } {
   const issues: RefIssue[] = [];
 
   const focusByName = new Map<string, PracticeBaseline["focuses"][number]>();
@@ -917,7 +928,8 @@ export function buildIndexes(baseline: PracticeBaseline): { indexes: Indexes; is
   const competencyByName = new Map<string, PracticeBaseline["competencies"][number]>();
   for (const c of baseline.competencies ?? []) competencyByName.set(c.name, c);
 
-  // basic ref checks
+  const personaGroupsInDoc =
+    practiceDoc !== undefined && practiceDoc !== null ? collectPersonaGroupNamesFromPracticeDoc(practiceDoc) : null;
   for (const a of baseline.alphas ?? []) {
     if (!focusByName.has(a.focusName)) {
       issues.push({ kind: "missing", type: "Focus", ref: a.focusName, context: `Alpha:${a.name}` });
@@ -1003,6 +1015,21 @@ export function buildIndexes(baseline: PracticeBaseline): { indexes: Indexes; is
           ref: `${c.alphaName}→${c.stateName}`,
           context: `ActivitySpace:${s.name}`,
         });
+      }
+    }
+    if (personaGroupsInDoc) {
+      const inv = (s as { involves?: unknown }).involves;
+      for (const raw of Array.isArray(inv) ? inv : []) {
+        const g = String(raw ?? "").trim();
+        if (!g) continue;
+        if (!personaGroupsInDoc.has(g)) {
+          issues.push({
+            kind: "missing",
+            type: "PersonaGroup",
+            ref: g,
+            context: `ActivitySpace:${s.name}(involves)`,
+          });
+        }
       }
     }
     for (const act of (s as any).activities ?? []) {

@@ -15,7 +15,7 @@ export type LanguagePack = {
   readablePreviewBusiness: string;
   /** Readable preview: practitioner execution guide (activities & work products). */
   readablePreviewDelivery: string;
-  /** Readable preview: statement of work estimation (work breakdowns). */
+  /** Readable preview: personas and narrative spine (commercial / adoption storytelling). */
   readablePreviewSow: string;
   /** Delivery view: no activity spaces or activities after merge. */
   deliveryViewEmpty: string;
@@ -60,6 +60,20 @@ export type LanguagePack = {
   libraryDeleting: string;
   /** Library: delete failed (HTTP or network). */
   libraryDeleteFailed: string;
+  /** Library: toolbar — delete every extension practice document (not methods or baselines). */
+  libraryDeleteAllPractices: string;
+  /** Library: title tooltip for delete-all-practices (scope + ignores filters). */
+  libraryDeleteAllPracticesTitle: string;
+  /** Library: first confirmation before bulk delete; `{count}` = number of extension practices. */
+  libraryDeleteAllPracticesConfirm: string;
+  /** Library: second confirmation (final chance); `{count}` replays the count. */
+  libraryDeleteAllPracticesConfirmFinal: string;
+  /** Library: bulk delete practices in progress. */
+  libraryDeletingAllPractices: string;
+  /** Library: alert when there are no extension practices to delete. */
+  libraryDeleteAllPracticesNone: string;
+  /** Library: bulk delete finished with some failures; `{failed}` and `{total}`. */
+  libraryDeleteAllPracticesPartial: string;
   /** Library browse: TOC nav label. */
   browseTableOfContents: string;
   /** Library browse: link to practice title / overview. */
@@ -125,8 +139,25 @@ export type LanguagePack = {
   activityParentSpace: string;
   /** Browse IR: LevelOfDetail.seq label. */
   levelOfDetailSeq: string;
-  /** Browse IR: WorkBreakdown.estimationUnit. */
-  wbEstimationUnit: string;
+  /** Browse IR / PDF: Narrative spine types defined on the baseline. */
+  narrativeTypesHeading: string;
+  /** Browse IR: Narrative elements listed under a narrative type. */
+  narrativeElementsHeading: string;
+  /** Browse IR: Narrative contexts on an embedded Narrative subtree. */
+  narrativeContextsHeading: string;
+  narrativeContextSeq: string;
+  /** Browse IR: Practice-level personas. */
+  personasHeading: string;
+  /** Browse IR: persona group → named personas. */
+  personaGroupsHeading: string;
+  personaGroupMembers: string;
+  /** ActivitySpace symbolic links to PersonaGroup.name. */
+  activitySpaceInvolvesPersonaGroups: string;
+  /** Pattern symbolic link to NarrativeType.name. */
+  patternNarrativeTypeName: string;
+  /** Pattern view symbolic link to NarrativeElement.name (within the pattern’s narrative spine). */
+  patternViewNarrativeElementName: string;
+  sowViewEmpty: string;
   /** Browse IR: collapsible heading for Pattern.patternViews. */
   patternViewsHeading: string;
   /** Pattern matrix toolbar: reveal every cell’s execution lanes at once. */
@@ -161,22 +192,7 @@ export type LanguagePack = {
   practiceDependencies: string;
   workProducts: string;
 
-  workBreakdowns: string;
   patterns: string;
   /** Pattern view: list of lane names (activity space or activity). */
   patternViewLanes: string;
-  wbTasks: string;
-  wbPrerequisites: string;
-  wbComplexity: string;
-  wbEstimate: string;
-  implementsActivity: string;
-  appliesInSpaces: string;
-  contractType: string;
-  complexityLevel: string;
-  productRisks: string;
-  projectRisks: string;
-  complexityValueRisk: string;
-  complexityTechnicalRisk: string;
-  complexityStakeholderEngagement: string;
 };
-

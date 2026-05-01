@@ -131,17 +131,31 @@ export function listVirtualElementFiles(
       push(out, depthBase + 1, `activities/${a.name}`, "activity", a.name, pathPrefix);
     }
 
-    for (const wb of doc.workBreakdowns ?? []) {
-      if (!wb || typeof wb !== "object" || typeof wb.name !== "string") continue;
-      push(out, depthBase + 1, `workBreakdowns/${wb.name}`, "workBreakdown", wb.name, pathPrefix);
-      for (const wi of wb.task ?? []) {
-        if (!wi || typeof wi !== "object" || typeof wi.name !== "string") continue;
-        push(out, depthBase + 2, `workBreakdowns/${wb.name}/tasks/${wi.name}`, "workItem", wi.name, pathPrefix);
+    for (const nt of doc.narrativeTypes ?? []) {
+      if (!nt || typeof nt !== "object" || typeof nt.name !== "string") continue;
+      push(out, depthBase + 1, `narrativeTypes/${nt.name}`, "narrativeType", nt.name, pathPrefix);
+      for (const nel of (nt as { narrativeElements?: unknown[] }).narrativeElements ?? []) {
+        if (!nel || typeof nel !== "object" || typeof (nel as { name?: unknown }).name !== "string") continue;
+        const nm = (nel as { name: string }).name;
+        push(
+          out,
+          depthBase + 2,
+          `narrativeTypes/${nt.name}/narrativeElements/${nm}`,
+          "narrativeElement",
+          nm,
+          pathPrefix,
+        );
       }
-      const cx = wb.complexity;
-      if (cx && typeof cx === "object" && typeof cx.name === "string") {
-        push(out, depthBase + 2, `workBreakdowns/${wb.name}/complexity`, "complexity", cx.name, pathPrefix);
-      }
+    }
+
+    for (const per of doc.personas ?? []) {
+      if (!per || typeof per !== "object" || typeof per.name !== "string") continue;
+      push(out, depthBase + 1, `personas/${per.name}`, "persona", per.name, pathPrefix);
+    }
+
+    for (const pg of doc.personaGroups ?? []) {
+      if (!pg || typeof pg !== "object" || typeof pg.name !== "string") continue;
+      push(out, depthBase + 1, `personaGroups/${pg.name}`, "personaGroup", pg.name, pathPrefix);
     }
 
     if (Array.isArray(doc.practices)) {

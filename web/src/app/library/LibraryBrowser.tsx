@@ -106,13 +106,14 @@ function LibraryManageRowActions(props: {
   row: EnrichedMeta;
   browseHref: string;
   deleteBusyId: string | null;
+  bulkDeleteInProgress: boolean;
   actionsMenuLabel: string;
   deleteLabel: string;
   deletingLabel: string;
   onDownload: () => void;
   onConfirmDelete: () => void | Promise<void>;
 }) {
-  const busy = props.deleteBusyId !== null;
+  const busy = props.deleteBusyId !== null || props.bulkDeleteInProgress;
   const rowBusy = props.deleteBusyId === props.row.id;
   const detailsRef = useRef<HTMLDetailsElement>(null);
 
@@ -206,6 +207,7 @@ export function LibraryBrowser() {
   const [downloadError, setDownloadError] = useState<string | null>(null);
   const [deleteBusyId, setDeleteBusyId] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [deleteAllPracticesBusy, setDeleteAllPracticesBusy] = useState(false);
 
   const [domainTagFilter, setDomainTagFilter] = useState<string[]>([]);
   const [lifecycleTagFilter, setLifecycleTagFilter] = useState<string[]>([]);
@@ -255,6 +257,11 @@ export function LibraryBrowser() {
     }
     return c;
   }, [items]);
+
+  const extensionPracticeItems = useMemo(
+    () => items.filter((it) => it.libraryRootKind === "practice"),
+    [items],
+  );
 
   const domainTagOptions = useMemo(() => collectSortedUniqueTags(items.map((it) => it.libraryTags.domainTags)), [items]);
   const lifecycleTagOptions = useMemo(
@@ -317,6 +324,7 @@ export function LibraryBrowser() {
   }
 
   async function confirmAndDeletePractice(row: EnrichedMeta) {
+    if (deleteAllPracticesBusy) return;
     const label = row.displayName || row.title || row.id;
     const msg = t.libraryDeleteConfirm.replace("{name}", label);
     if (!window.confirm(msg)) return;
@@ -346,6 +354,61 @@ export function LibraryBrowser() {
     } finally {
       setDeleteBusyId(null);
     }
+  }
+
+  async function confirmAndDeleteAllPractices() {
+    const targets = extensionPracticeItems;
+    if (targets.length === 0) {
+      window.alert(t.libraryDeleteAllPracticesNone);
+      return;
+    }
+    const countStr = String(targets.length);
+    if (!window.confirm(t.libraryDeleteAllPracticesConfirm.replace("{count}", countStr))) return;
+    if (!window.confirm(t.libraryDeleteAllPracticesConfirmFinal.replace("{count}", countStr))) return;
+
+    setDeleteAllPracticesBusy(true);
+    setDeleteError(null);
+    const failures: string[] = [];
+    for (const row of targets) {
+      try {
+        const res = await fetch(`/api/documents/${encodeURIComponent(row.id)}`, { method: "DELETE" });
+        if (!res.ok && res.status !== 404) {
+          let m = await res.text().catch(() => "");
+          try {
+            const j = JSON.parse(m) as { error?: string };
+            if (j?.error) m = j.error;
+          } catch {
+            /* keep */
+          }
+          const label = row.displayName || row.title || row.id;
+          failures.push(m ? `${label}: ${m}` : `${label} (HTTP ${res.status})`);
+        }
+      } catch (e: unknown) {
+        const label = row.displayName || row.title || row.id;
+        failures.push(`${label}: ${e instanceof Error ? e.message : t.libraryDeleteFailed}`);
+      }
+    }
+
+    const expandedWasDeleted =
+      expandedId !== null && targets.some((row) => row.id === expandedId);
+    if (expandedWasDeleted) {
+      setExpandedId(null);
+      setVirtualRows(null);
+      setExpandError(null);
+    }
+
+    await refresh();
+
+    if (failures.length > 0) {
+      const summary = t.libraryDeleteAllPracticesPartial.replace("{failed}", String(failures.length)).replace(
+        "{total}",
+        countStr,
+      );
+      const detail = failures.slice(0, 3).join(" · ");
+      setDeleteError(detail ? `${summary} ${detail}` : summary);
+    }
+
+    setDeleteAllPracticesBusy(false);
   }
 
   const breadcrumb = folder === "all" ? "Library" : `Library / ${folderLabel(folder)}`;
@@ -453,6 +516,21 @@ export function LibraryBrowser() {
                 className="rounded-lg border border-[var(--border)] bg-[var(--panel)] px-3 py-1.5 text-xs font-semibold text-[var(--text)] hover:border-[var(--accent)]"
               >
                 Refresh
+              </button>
+              <button
+                type="button"
+                disabled={
+                  loading ||
+                  !!loadError ||
+                  extensionPracticeItems.length === 0 ||
+                  deleteAllPracticesBusy ||
+                  deleteBusyId !== null
+                }
+                title={t.libraryDeleteAllPracticesTitle}
+                onClick={() => void confirmAndDeleteAllPractices()}
+                className="rounded-lg border border-[var(--bad)]/55 bg-transparent px-3 py-1.5 text-xs font-semibold text-[var(--bad)] hover:bg-[var(--bad)]/10 disabled:cursor-not-allowed disabled:opacity-45"
+              >
+                {deleteAllPracticesBusy ? t.libraryDeletingAllPractices : t.libraryDeleteAllPractices}
               </button>
               <button
                 type="button"
@@ -595,6 +673,7 @@ export function LibraryBrowser() {
                               row={row}
                               browseHref={browseHref}
                               deleteBusyId={deleteBusyId}
+                              bulkDeleteInProgress={deleteAllPracticesBusy}
                               actionsMenuLabel={t.libraryRowActionsMenu}
                               deleteLabel={t.libraryDelete}
                               deletingLabel={t.libraryDeleting}

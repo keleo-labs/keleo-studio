@@ -46,8 +46,14 @@ function workProductId(name: string) {
 function activityId(name: string) {
   return `activity-${slug(name)}`;
 }
-function workBreakdownId(name: string) {
-  return `work-breakdown-${slug(name)}`;
+function narrativeTypeIdPdf(name: string) {
+  return `narrative-type-${slug(name)}`;
+}
+function personaIdPdf(name: string) {
+  return `persona-${slug(name)}`;
+}
+function personaGroupIdPdf(name: string) {
+  return `persona-group-${slug(name)}`;
 }
 function patternId(name: string) {
   return `pattern-${slug(name)}`;
@@ -370,22 +376,58 @@ export function renderPdfHtml(args: {
       </li>`);
     }
 
-    const wbs = Array.isArray(sourceDoc?.workBreakdowns) ? (sourceDoc!.workBreakdowns as any[]) : [];
-    if (wbs.length) {
-      const wbList = wbs
+    const ntypes = baseline.narrativeTypes ?? [];
+    if (ntypes.length) {
+      const ntList = (ntypes as any[])
         .map(
-          (wb: any) =>
-            `<li style="margin:2px 0;font-size:11px"><a href="#${esc(workBreakdownId(wb.name))}">${formatAliasedNameHtml(
+          (nt: any) =>
+            `<li style="margin:2px 0;font-size:11px"><a href="#${esc(narrativeTypeIdPdf(nt.name))}">${formatAliasedNameHtml(
               aliasLookup,
-              "WorkBreakdown",
-              wb.name,
+              "NarrativeType",
+              nt.name,
               esc,
             )}</a></li>`,
         )
         .join("");
       chunks.push(`<li style="margin:12px 0 6px;padding-top:8px;border-top:1px solid rgba(2,6,23,0.12)">
-        <a href="#browse-section-work-breakdowns" style="font-weight:800">${esc(t.workBreakdowns)}</a>
-        <ul style="margin:6px 0 0;padding-left:12px;list-style:none">${wbList}</ul>
+        <a href="#browse-section-narrative-types" style="font-weight:800">${esc(t.narrativeTypesHeading)}</a>
+        <ul style="margin:6px 0 0;padding-left:12px;list-style:none">${ntList}</ul>
+      </li>`);
+    }
+    const pdfPersonas = Array.isArray(sourceDoc?.personas) ? (sourceDoc!.personas as any[]) : [];
+    if (pdfPersonas.length) {
+      const pList = pdfPersonas
+        .map(
+          (p: any) =>
+            `<li style="margin:2px 0;font-size:11px"><a href="#${esc(personaIdPdf(p.name))}">${formatAliasedNameHtml(
+              aliasLookup,
+              "Persona",
+              p.name,
+              esc,
+            )}</a></li>`,
+        )
+        .join("");
+      chunks.push(`<li style="margin:12px 0 6px;padding-top:8px;border-top:1px solid rgba(2,6,23,0.12)">
+        <a href="#browse-section-personas" style="font-weight:800">${esc(t.personasHeading)}</a>
+        <ul style="margin:6px 0 0;padding-left:12px;list-style:none">${pList}</ul>
+      </li>`);
+    }
+    const pdfGroups = Array.isArray(sourceDoc?.personaGroups) ? (sourceDoc!.personaGroups as any[]) : [];
+    if (pdfGroups.length) {
+      const gList = pdfGroups
+        .map(
+          (pg: any) =>
+            `<li style="margin:2px 0;font-size:11px"><a href="#${esc(personaGroupIdPdf(pg.name))}">${formatAliasedNameHtml(
+              aliasLookup,
+              "PersonaGroup",
+              pg.name,
+              esc,
+            )}</a></li>`,
+        )
+        .join("");
+      chunks.push(`<li style="margin:12px 0 6px;padding-top:8px;border-top:1px solid rgba(2,6,23,0.12)">
+        <a href="#browse-section-persona-groups" style="font-weight:800">${esc(t.personaGroupsHeading)}</a>
+        <ul style="margin:6px 0 0;padding-left:12px;list-style:none">${gList}</ul>
       </li>`);
     }
 
@@ -583,6 +625,21 @@ export function renderPdfHtml(args: {
                   .join(", ")}</div>`
               : "";
 
+          const involvesPg =
+            s.involves?.length
+              ? `<div class="muted" style="margin-top:4px;font-size:12px">${esc(t.activitySpaceInvolvesPersonaGroups)}: ${s.involves
+                  .map(
+                    (g: string) =>
+                      `<a href="#${esc(personaGroupIdPdf(g))}"><code>${formatAliasedNameHtml(
+                        aliasLookup,
+                        "PersonaGroup",
+                        g,
+                        esc,
+                      )}</code></a>`,
+                  )
+                  .join(", ")}</div>`
+              : "";
+
           const tagsLine = (tags: unknown) => {
             const list = flattenPracticeElementTags(tags);
             return list.length
@@ -687,6 +744,7 @@ export function renderPdfHtml(args: {
             ${tagsLine(s.tags)}
             ${contributes}
             ${required}
+            ${involvesPg}
             ${nestedActs}
           </div>`;
         })
@@ -863,223 +921,82 @@ export function renderPdfHtml(args: {
           .join("")
       : "";
 
-  const workBreakdownsHtml =
-    Array.isArray(sourceDoc?.workBreakdowns) && (sourceDoc!.workBreakdowns as any[]).length
-      ? (sourceDoc!.workBreakdowns as any[])
-          .map((wb: any) => {
-            const wbTagList = flattenPracticeElementTags(wb.tags);
-            const wbTags =
-              wbTagList.length > 0
-                ? `<div class="muted" style="margin-top:6px;font-size:12px">${esc(t.tags)}: ${wbTagList
-                    .map((x: string) => esc(x))
-                    .join(", ")}</div>`
-                : "";
-            const prereq =
-              Array.isArray(wb.prerequisiteAndAssumptions) && wb.prerequisiteAndAssumptions.length
-                ? `<div style="margin-top:8px"><div style="font-weight:800;margin-bottom:4px">${esc(t.wbPrerequisites)}</div><ul style="margin:0;padding-left:18px;font-size:12px" class="muted">${wb.prerequisiteAndAssumptions
-                    .map(
-                      (pv: any) =>
-                        `<li><code>${formatAliasedNameHtml(aliasLookup, "Pattern", pv.patternName, esc)} → ${formatAliasedNameHtml(
-                          aliasLookup,
-                          "PatternView",
-                          pv.patternViewName,
-                          esc,
-                        )}</code></li>`,
-                    )
-                    .join("")}</ul></div>`
-                : "";
-            const cx = wb.complexity;
-            const cxd = cx ? practiceElementDescriptionForDisplay(cx) : "";
-            const cxTagList = cx ? flattenPracticeElementTags(cx.tags) : [];
-            const cxComplexityTags =
-              cxTagList.length > 0
-                ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.tags)}: ${cxTagList
-                    .map((x: string) => esc(x))
-                    .join(", ")}</div>`
-                : "";
-            const cxBlock = cx
-              ? `<div class="card" style="margin-top:8px;background:rgba(2,6,23,0.04)">
-              <div style="font-weight:800;margin-bottom:4px">${esc(t.wbComplexity)}</div>
-              <div style="font-weight:900">${formatAliasedNameHtml(aliasLookup, "Complexity", cx.name, esc)}</div>
-              ${cxd ? `<div class="muted" style="margin-top:4px;font-size:12px">${esc(cxd)}</div>` : ""}
-              <div class="muted" style="margin-top:6px;font-size:12px"><b>${esc(t.complexityLevel)}:</b> ${esc(
-                  String(cx.level ?? ""),
-                )} &nbsp; <b>${esc(t.contractType)}:</b> ${esc(String(cx.contractType ?? ""))}</div>
-              ${cxComplexityTags}
-              ${
-                cx.valueRisk
-                  ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.complexityValueRisk)} → <a href="#${esc(
-                      stateId(cx.valueRisk.alphaName, cx.valueRisk.stateName),
-                    )}"><code>${formatAliasedNameHtml(
-                      aliasLookup,
-                      "Alpha",
-                      cx.valueRisk.alphaName,
-                      esc,
-                    )}→${formatAliasedNameHtml(aliasLookup, "State", cx.valueRisk.stateName, esc)}</code></a></div>`
-                  : ""
-              }
-              ${
-                cx.technicalRisk
-                  ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.complexityTechnicalRisk)} → <a href="#${esc(
-                      stateId(cx.technicalRisk.alphaName, cx.technicalRisk.stateName),
-                    )}"><code>${formatAliasedNameHtml(
-                      aliasLookup,
-                      "Alpha",
-                      cx.technicalRisk.alphaName,
-                      esc,
-                    )}→${formatAliasedNameHtml(aliasLookup, "State", cx.technicalRisk.stateName, esc)}</code></a></div>`
-                  : ""
-              }
-              ${
-                cx.stakeholderEngagement
-                  ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(
-                      t.complexityStakeholderEngagement,
-                    )} → <a href="#${esc(
-                      stateId(cx.stakeholderEngagement.alphaName, cx.stakeholderEngagement.stateName),
-                    )}"><code>${formatAliasedNameHtml(
-                      aliasLookup,
-                      "Alpha",
-                      cx.stakeholderEngagement.alphaName,
-                      esc,
-                    )}→${formatAliasedNameHtml(aliasLookup, "State", cx.stakeholderEngagement.stateName, esc)}</code></a></div>`
-                  : ""
-              }
-              ${
-                cx.productRisks?.length
-                  ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.productRisks)}: ${cx.productRisks
-                      .map(
-                        (c: any) =>
-                          `<a href="#${esc(stateId(c.alphaName, c.stateName))}"><code>${formatAliasedNameHtml(
-                            aliasLookup,
-                            "Alpha",
-                            c.alphaName,
-                            esc,
-                          )}→${formatAliasedNameHtml(aliasLookup, "State", c.stateName, esc)}</code></a>`,
-                      )
-                      .join(", ")}</div>`
-                  : ""
-              }
-              ${
-                cx.projectRisks?.length
-                  ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.projectRisks)}: ${cx.projectRisks
-                      .map(
-                        (c: any) =>
-                          `<a href="#${esc(stateId(c.alphaName, c.stateName))}"><code>${formatAliasedNameHtml(
-                            aliasLookup,
-                            "Alpha",
-                            c.alphaName,
-                            esc,
-                          )}→${formatAliasedNameHtml(aliasLookup, "State", c.stateName, esc)}</code></a>`,
-                      )
-                      .join(", ")}</div>`
-                  : ""
-              }
-            </div>`
+  const personasNarrativeHtmlParts: string[] = [];
+  const ntsPdf = baseline.narrativeTypes ?? [];
+  if (ntsPdf.length) {
+    personasNarrativeHtmlParts.push(
+      `<div class="section-title" id="browse-section-narrative-types">${esc(t.narrativeTypesHeading)}</div>` +
+        (ntsPdf as any[])
+          .map((nt: any) => {
+            const elems = Array.isArray(nt.narrativeElements)
+              ? (nt.narrativeElements as any[])
+                  .map(
+                    (el: any) =>
+                      `<li style="margin:6px 0">${formatAliasedNameHtml(aliasLookup, "NarrativeElement", el.name, esc)}${el?.howToUse ? `<span class="muted"> — ${esc(String(el.howToUse))}</span>` : ""}</li>`,
+                  )
+                  .join("")
               : "";
-            const tasks = (wb.task ?? [])
-              .slice()
-              .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-              .map((task: any) => {
-                const taskTagList = flattenPracticeElementTags(task.tags);
-                const taskTags =
-                  taskTagList.length > 0
-                    ? `<div class="muted" style="margin-top:4px;font-size:11px">${esc(t.tags)}: ${taskTagList
-                        .map((x: string) => esc(x))
-                        .join(", ")}</div>`
-                    : "";
-                const impl =
-                  task.implementsActivityName
-                    ? `<div class="muted" style="margin-top:4px;font-size:12px">${esc(t.implementsActivity)}: <a href="#${esc(
-                        activityId(String(task.implementsActivityName)),
-                      )}"><code>${formatAliasedNameHtml(
-                        aliasLookup,
-                        "Activity",
-                        String(task.implementsActivityName),
-                        esc,
-                      )}</code></a></div>`
-                    : "";
-                const contrib =
-                  task.contributesTo?.length
-                    ? `<div class="muted" style="margin-top:4px;font-size:12px">${esc(t.contributesTo)}: ${task.contributesTo
-                        .map(
-                          (c: any) =>
-                            `<a href="#${esc(stateId(c.alphaName, c.stateName))}"><code>${formatAliasedNameHtml(
-                              aliasLookup,
-                              "Alpha",
-                              c.alphaName,
-                              esc,
-                            )}→${formatAliasedNameHtml(aliasLookup, "State", c.stateName, esc)}</code></a>`,
-                        )
-                        .join(", ")}</div>`
-                    : "";
-                const wo =
-                  task.worksOn?.length
-                    ? `<div class="muted" style="margin-top:4px;font-size:12px">${esc(t.worksOn)}: ${task.worksOn
-                        .map(
-                          (w: any) =>
-                            `<a href="#${esc(workProductId(w.workProductName))}"><code>${formatAliasedNameHtml(
-                              aliasLookup,
-                              "WorkProduct",
-                              w.workProductName,
-                              esc,
-                            )}→${formatAliasedNameHtml(aliasLookup, "LevelOfDetail", w.levelOfDetailName, esc)}</code></a>`,
-                        )
-                        .join(", ")}</div>`
-                    : "";
-                const ap =
-                  task.applies?.length
-                    ? `<div class="muted" style="margin-top:4px;font-size:12px">${esc(t.appliesInSpaces)}: ${task.applies
-                        .map(
-                          (a: any) =>
-                            `<a href="#${esc(activitySpaceId(a.activitySpaceName))}"><code>${formatAliasedNameHtml(
-                              aliasLookup,
-                              "ActivitySpace",
-                              a.activitySpaceName,
-                              esc,
-                            )}</code></a>`,
-                        )
-                        .join(", ")}</div>`
-                    : "";
-                const est = task.estimate
-                  ? `<div class="muted" style="margin-top:4px;font-size:12px">${esc(t.wbEstimate)}: ${esc(
-                      String(task.estimate.lowEst),
-                    )} / ${esc(String(task.estimate.medEst))} / ${esc(String(task.estimate.highEst))}</div>`
-                  : "";
-                const td = practiceElementDescriptionForDisplay(task);
-                return `<li value="${seqInt(task.seq)}" style="margin:8px 0;padding:8px;border:1px solid rgba(2,6,23,0.12);border-radius:8px">
-              <div style="font-weight:900">${formatAliasedNameHtml(aliasLookup, "WorkItem", task.name, esc)}</div>
-              ${td ? `<div class="muted" style="margin-top:4px;font-size:12px">${esc(td)}</div>` : ""}
-              ${taskTags}
-              ${impl}
-              ${contrib}
-              ${wo}
-              ${ap}
-              ${est}
-            </li>`;
-              })
-              .join("");
-            const tasksBlock =
-              tasks !== ""
-                ? `<div style="margin-top:8px"><div style="font-weight:800;margin-bottom:4px">${esc(t.wbTasks)}</div><ol style="margin:0;padding-left:18px">${tasks}</ol></div>`
-                : "";
-            const wbd = practiceElementDescriptionForDisplay(wb);
-            return `
-        <div class="card" id="${esc(workBreakdownId(wb.name))}">
-          <div style="font-weight:900"><a href="#${esc(workBreakdownId(wb.name))}">${formatAliasedNameHtml(
-            aliasLookup,
-            "WorkBreakdown",
-            wb.name,
-            esc,
-          )}</a></div>
-          ${wbd ? `<div class="muted" style="margin-top:4px">${esc(wbd)}</div>` : ""}
-          ${wbTags}
-          ${prereq}
-          ${cxBlock}
-          ${tasksBlock}
-        </div>`;
+            const ntd = practiceElementDescriptionForDisplay(nt);
+            return `<div class="card" id="${esc(narrativeTypeIdPdf(nt.name))}">
+            <div style="font-weight:900">${formatAliasedNameHtml(aliasLookup, "NarrativeType", nt.name, esc)}</div>
+            ${ntd ? `<div class="muted" style="margin-top:4px">${esc(ntd)}</div>` : ""}
+            ${elems !== "" ? `<div style="margin-top:8px;font-weight:800">${esc(t.narrativeElementsHeading)}</div><ul style="margin:4px 0 0;padding-left:18px;font-size:12px">${elems}</ul>` : ""}
+          </div>`;
           })
-          .join("")
-      : "";
+          .join(""),
+    );
+  }
+  const psPdf = Array.isArray(sourceDoc?.personas) ? (sourceDoc!.personas as any[]) : [];
+  if (psPdf.length) {
+    personasNarrativeHtmlParts.push(
+      `<div class="section-title" id="browse-section-personas">${esc(t.personasHeading)}</div>` +
+        psPdf
+          .map((p: any) => {
+            const pd = practiceElementDescriptionForDisplay(p);
+            const comps = Array.isArray(p.competencies)
+              ? p.competencies
+                  .map(
+                    (r: any) =>
+                      `<code>${formatAliasedNameHtml(aliasLookup, "Competency", r.competencyName, esc)}→${formatAliasedNameHtml(
+                        aliasLookup,
+                        "CompetencyLevel",
+                        r.competencyLevelName,
+                        esc,
+                      )}</code>`,
+                  )
+                  .join(", ")
+              : "";
+            return `<div class="card" id="${esc(personaIdPdf(p.name))}">
+            <div style="font-weight:900">${formatAliasedNameHtml(aliasLookup, "Persona", p.name, esc)}</div>
+            ${pd ? `<div class="muted" style="margin-top:4px">${esc(pd)}</div>` : ""}
+            ${comps ? `<div class="muted" style="margin-top:6px;font-size:12px"><b>${esc(t.recommendedCompetencyLevels)}:</b> ${comps}</div>` : ""}
+          </div>`;
+          })
+          .join(""),
+    );
+  }
+  const pgsPdf = Array.isArray(sourceDoc?.personaGroups) ? (sourceDoc!.personaGroups as any[]) : [];
+  if (pgsPdf.length) {
+    personasNarrativeHtmlParts.push(
+      `<div class="section-title" id="browse-section-persona-groups">${esc(t.personaGroupsHeading)}</div>` +
+        pgsPdf
+          .map((pg: any) => {
+            const gd = practiceElementDescriptionForDisplay(pg);
+            const members = Array.isArray(pg.personaNames)
+              ? pg.personaNames
+                  .map((nm: any) => formatAliasedNameHtml(aliasLookup, "Persona", String(nm ?? ""), esc))
+                  .join(", ")
+              : "";
+            return `<div class="card" id="${esc(personaGroupIdPdf(pg.name))}">
+            <div style="font-weight:900">${formatAliasedNameHtml(aliasLookup, "PersonaGroup", pg.name, esc)}</div>
+            ${gd ? `<div class="muted" style="margin-top:4px">${esc(gd)}</div>` : ""}
+            ${members ? `<div class="muted" style="margin-top:6px;font-size:12px"><b>${esc(t.personaGroupMembers)}:</b> ${members}</div>` : ""}
+          </div>`;
+          })
+          .join(""),
+    );
+  }
+  const personasNarrativeHtml = personasNarrativeHtmlParts.length ? personasNarrativeHtmlParts.join("") : "";
 
   const keywordsLine =
     (baseline.keywords ?? []).length > 0
@@ -1133,11 +1050,7 @@ export function renderPdfHtml(args: {
             ? `<div class="section-title" id="browse-section-work-products">${esc(t.workProducts)}</div>${workProductsHtml}`
             : ""
         }
-        ${
-          workBreakdownsHtml
-            ? `<div class="section-title" id="browse-section-work-breakdowns">${esc(t.workBreakdowns)}</div>${workBreakdownsHtml}`
-            : ""
-        }
+        ${personasNarrativeHtml}
       </main>
     </body>
   </html>`;

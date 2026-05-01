@@ -242,6 +242,7 @@ function mergeSpaceSlots(prev: SpaceSlot, next: SpaceSlot): SpaceSlot {
       ...(prev.space.requiredCompetencies ?? []),
       ...(next.space.requiredCompetencies ?? []),
     ]),
+    involves: uniqStrings([...(prev.space.involves ?? []), ...(next.space.involves ?? [])]),
     focusName: mergeFocusNamePreferNonImplicit(prev.space.focusName, next.space.focusName),
   };
   const activities = new Map(prev.activities);
@@ -367,64 +368,78 @@ function mergeWorkProducts(a: any[], b: any[]): any[] {
   return [...byName.values()];
 }
 
-function mergeTasks(a: any[], b: any[]): any[] {
+function mergeNarrativeElements(a: any[], b: any[]): any[] {
   const byName = new Map<string, any>();
-  for (const t of a ?? []) {
-    if (t?.name) byName.set(String(t.name), clone(t));
+  for (const item of a ?? []) {
+    if (item?.name) byName.set(String(item.name), clone(item));
   }
-  for (const t of b ?? []) {
-    if (!t?.name) continue;
-    const k = String(t.name);
+  for (const item of b ?? []) {
+    if (!item?.name) continue;
+    const k = String(item.name);
+    if (byName.has(k)) byName.set(k, mergePracticeElements(byName.get(k), item));
+    else byName.set(k, clone(item));
+  }
+  return [...byName.values()];
+}
+
+function mergeNarrativeTypes(a: any[], b: any[]): any[] {
+  const byName = new Map<string, any>();
+  for (const nt of a ?? []) {
+    if (nt?.name) byName.set(String(nt.name), clone(nt));
+  }
+  for (const nt of b ?? []) {
+    if (!nt?.name) continue;
+    const k = String(nt.name);
     if (byName.has(k)) {
       const prev = byName.get(k);
       byName.set(k, {
-        ...mergePracticeElements(prev, t),
-        seq: t.seq ?? prev.seq,
-        contributesTo: mergeContribs(prev.contributesTo ?? [], t.contributesTo ?? []),
-        worksOn: [...(prev.worksOn ?? []), ...(t.worksOn ?? [])],
-        applies: [...(prev.applies ?? []), ...(t.applies ?? [])],
-        estimate: t.estimate ?? prev.estimate,
+        ...mergePracticeElements(prev, nt),
+        narrativeElements: mergeNarrativeElements(prev.narrativeElements ?? [], nt.narrativeElements ?? []),
       });
     } else {
-      byName.set(k, clone(t));
+      byName.set(k, clone(nt));
     }
   }
-  return [...byName.values()].sort((p, q) => (Number(p.seq) || 0) - (Number(q.seq) || 0));
+  return [...byName.values()];
 }
 
-function mergeComplexity(a: any, b: any): any {
-  if (!a) return b ? clone(b) : undefined;
-  if (!b) return a;
-  return {
-    ...mergePracticeElements(a, b),
-    level: b.level ?? a.level,
-    contractType: b.contractType || a.contractType,
-    valueRisk: b.valueRisk ?? a.valueRisk,
-    technicalRisk: b.technicalRisk ?? a.technicalRisk,
-    stakeholderEngagement: b.stakeholderEngagement ?? a.stakeholderEngagement,
-    productRisks: [...(a.productRisks ?? []), ...(b.productRisks ?? [])],
-    projectRisks: [...(a.projectRisks ?? []), ...(b.projectRisks ?? [])],
-  };
-}
-
-function mergeWorkBreakdowns(a: any[], b: any[]): any[] {
+function mergePersonas(a: any[], b: any[]): any[] {
   const byName = new Map<string, any>();
-  for (const wb of a ?? []) {
-    if (wb?.name) byName.set(String(wb.name), clone(wb));
+  for (const p of a ?? []) {
+    if (p?.name) byName.set(String(p.name), clone(p));
   }
-  for (const wb of b ?? []) {
-    if (!wb?.name) continue;
-    const k = String(wb.name);
+  for (const p of b ?? []) {
+    if (!p?.name) continue;
+    const k = String(p.name);
     if (byName.has(k)) {
       const prev = byName.get(k);
       byName.set(k, {
-        ...mergePracticeElements(prev, wb),
-        prerequisiteAndAssumptions: [...(prev.prerequisiteAndAssumptions ?? []), ...(wb.prerequisiteAndAssumptions ?? [])],
-        task: mergeTasks(prev.task ?? [], wb.task ?? []),
-        complexity: mergeComplexity(prev.complexity, wb.complexity),
+        ...mergePracticeElements(prev, p),
+        competencies: [...(prev.competencies ?? []), ...(p.competencies ?? [])],
       });
     } else {
-      byName.set(k, clone(wb));
+      byName.set(k, clone(p));
+    }
+  }
+  return [...byName.values()];
+}
+
+function mergePersonaGroups(a: any[], b: any[]): any[] {
+  const byName = new Map<string, any>();
+  for (const pg of a ?? []) {
+    if (pg?.name) byName.set(String(pg.name), clone(pg));
+  }
+  for (const pg of b ?? []) {
+    if (!pg?.name) continue;
+    const k = String(pg.name);
+    if (byName.has(k)) {
+      const prev = byName.get(k);
+      byName.set(k, {
+        ...mergePracticeElements(prev, pg),
+        personaNames: uniqStrings([...(prev.personaNames ?? []), ...(pg.personaNames ?? [])]),
+      });
+    } else {
+      byName.set(k, clone(pg));
     }
   }
   return [...byName.values()];
@@ -443,6 +458,10 @@ function mergePatternViews(a: any[], b: any[]): any[] {
       byName.set(k, {
         ...mergePracticeElements(prev, pv),
         seq: pv.seq ?? prev.seq,
+        narrativeElementName:
+          pv.narrativeElementName !== undefined && String(pv.narrativeElementName).trim() !== ""
+            ? pv.narrativeElementName
+            : prev.narrativeElementName,
         activitySpaces: uniqStrings([...(prev.activitySpaces ?? []), ...(pv.activitySpaces ?? [])]),
         activities: uniqStrings([...(prev.activities ?? []), ...(pv.activities ?? [])]),
         alphaStates: mergePatternViewAlphaStates(prev.alphaStates ?? [], pv.alphaStates ?? []),
@@ -466,6 +485,10 @@ function mergePatterns(a: any[], b: any[]): any[] {
       const prev = byName.get(k);
       byName.set(k, {
         ...mergePracticeElements(prev, pat),
+        narrativeTypeName:
+          typeof pat.narrativeTypeName === "string" && pat.narrativeTypeName.trim() !== ""
+            ? pat.narrativeTypeName
+            : prev.narrativeTypeName,
         patternViews: mergePatternViews(prev.patternViews ?? [], pat.patternViews ?? []),
       });
     } else {
@@ -483,13 +506,13 @@ function mergePatterns(a: any[], b: any[]): any[] {
 export function compositePracticeFromMethod(method: Method): Record<string, unknown> {
   const baseline = clone(method.baselinePractice);
   const practices = method.practices ?? [];
-  /** Embedded baseline JSON may carry practice-only arrays (not on {@link PracticeBaseline} type); merge these before overlay practices. */
+  /** Embedded baseline-shaped arrays on the Method baseline (optional overlays). */
   const baselineDoc = baseline as Record<string, unknown>;
   const baselineWorkProducts = Array.isArray(baselineDoc.workProducts) ? (baselineDoc.workProducts as any[]) : [];
-  const baselineWorkBreakdowns = Array.isArray(baselineDoc.workBreakdowns)
-    ? (baselineDoc.workBreakdowns as any[])
-    : [];
   const baselinePatterns = Array.isArray(baselineDoc.patterns) ? (baselineDoc.patterns as any[]) : [];
+  const baselineNarrativeTypes = Array.isArray(baselineDoc.narrativeTypes) ? (baselineDoc.narrativeTypes as any[]) : [];
+  const baselinePersonas = Array.isArray(baselineDoc.personas) ? (baselineDoc.personas as any[]) : [];
+  const baselinePersonaGroups = Array.isArray(baselineDoc.personaGroups) ? (baselineDoc.personaGroups as any[]) : [];
   const mergedRootTags = mergePracticeElementTags(method.tags, baseline.tags);
   const out: Record<string, unknown> = {
     name: method.name,
@@ -505,10 +528,12 @@ export function compositePracticeFromMethod(method: Method): Record<string, unkn
     updatedAt: baseline.updatedAt,
     version: baseline.version,
     keywords: uniqStrings([...(baseline.keywords ?? [])]),
+    narrativeTypes: mergeNarrativeTypes([], baselineNarrativeTypes),
     practiceDependencyNames: uniqStrings(((method as any).practiceDependencyNames ?? []) as string[]),
     workProducts: mergeWorkProducts([], baselineWorkProducts),
-    workBreakdowns: mergeWorkBreakdowns([], baselineWorkBreakdowns),
     patterns: mergePatterns([], baselinePatterns),
+    personas: mergePersonas([], baselinePersonas),
+    personaGroups: mergePersonaGroups([], baselinePersonaGroups),
   };
 
   let slotMap = toSpaceSlotMap(baseline.activitySpaces ?? [], []);
@@ -528,7 +553,9 @@ export function compositePracticeFromMethod(method: Method): Record<string, unkn
       ...((p.practiceDependencyNames ?? []) as string[]),
     ]);
     out.workProducts = mergeWorkProducts(out.workProducts as any, (p.workProducts ?? []) as any[]);
-    out.workBreakdowns = mergeWorkBreakdowns(out.workBreakdowns as any, (p.workBreakdowns ?? []) as any[]);
+    out.narrativeTypes = mergeNarrativeTypes(out.narrativeTypes as any, ((p as any).narrativeTypes ?? []) as any[]);
+    out.personas = mergePersonas(out.personas as any, ((p as any).personas ?? []) as any[]);
+    out.personaGroups = mergePersonaGroups(out.personaGroups as any, ((p as any).personaGroups ?? []) as any[]);
     out.patterns = mergePatterns(out.patterns as any, (p.patterns ?? []) as any[]);
     if (typeof p.updatedAt === "string" && p.updatedAt.trim()) out.updatedAt = p.updatedAt;
   }
@@ -537,7 +564,9 @@ export function compositePracticeFromMethod(method: Method): Record<string, unkn
   if (mergedAliases.length) out.practiceElementAliases = mergedAliases;
 
   if (!(out.workProducts as any[]).length) delete out.workProducts;
-  if (!(out.workBreakdowns as any[]).length) delete out.workBreakdowns;
+  if (!(out.narrativeTypes as any[]).length) delete out.narrativeTypes;
+  if (!(out.personas as any[]).length) delete out.personas;
+  if (!(out.personaGroups as any[]).length) delete out.personaGroups;
   if (!(out.patterns as any[]).length) delete out.patterns;
   if (!(out.practiceDependencyNames as string[]).length) delete out.practiceDependencyNames;
 
