@@ -129,6 +129,16 @@ export type LanguagePack = {
   wbEstimationUnit: string;
   /** Browse IR: collapsible heading for Pattern.patternViews. */
   patternViewsHeading: string;
+  /** Pattern matrix toolbar: reveal every cell’s execution lanes at once. */
+  patternMatrixExpandAllLanes: string;
+  /** Pattern matrix toolbar: hide all execution lanes (per-cell toggles cleared). */
+  patternMatrixCollapseAllLanes: string;
+  /**
+   * Pattern matrix per alpha→state block when lanes are collapsed; `{count}` is the number of lanes.
+   */
+  patternMatrixShowLanesCount: string;
+  /** Pattern matrix: collapse execution lanes under one alpha/state slice (others unaffected). */
+  patternMatrixHideSliceLanes: string;
   patternViewAlphaStates: string;
   patternViewActivitySpaces: string;
   patternViewActivities: string;
@@ -141,6 +151,10 @@ export type LanguagePack = {
   libraryClearTagFilters: string;
   /** Manage library table: opens row menu with Download, Browse, edit links, Delete. */
   libraryRowActionsMenu: string;
+  /** Library: toolbar — download every stored document as one JSON array (bulk re-import compatible). */
+  libraryDownloadAllJson: string;
+  /** Library: toolbar bulk export busy state. */
+  libraryDownloadingAllJson: string;
   /** Library browse / method IR: heading above extension practice list (`Method.practices`). */
   methodBrowseExtensionPracticesHeading: string;
   extendsBaseline: string;

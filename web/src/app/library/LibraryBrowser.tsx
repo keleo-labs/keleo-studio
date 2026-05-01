@@ -28,6 +28,27 @@ function slugFileBase(name: string): string {
     .slice(0, 80) || "untitled";
 }
 
+/** Fetches all library documents with bodies and downloads a JSON array (bulk import expects this shape). */
+async function downloadFullLibraryBodiesJson(filenameStem: string): Promise<void> {
+  const res = await fetch("/api/documents?details=1&withBody=1");
+  if (!res.ok) {
+    throw new Error(`Export failed (${res.status})`);
+  }
+  const data = (await res.json()) as { documents?: Array<{ body?: unknown }> };
+  const docs = Array.isArray(data.documents) ? data.documents : [];
+  const bodies = docs.map((d) => (d.body === undefined ? null : d.body));
+  const text = JSON.stringify(bodies, null, 2);
+  const blob = new Blob([text], { type: "application/json;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${slugFileBase(filenameStem)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
 /** Fetches the stored document and downloads the JSON body (language document). */
 async function downloadLibraryDocumentJson(id: string, filenameBase: string): Promise<void> {
   const res = await fetch(`/api/documents/${encodeURIComponent(id)}`);
@@ -181,6 +202,7 @@ export function LibraryBrowser() {
   const [expandLoading, setExpandLoading] = useState(false);
   const [expandError, setExpandError] = useState<string | null>(null);
   const [uploadOpen, setUploadOpen] = useState(false);
+  const [exportAllBusy, setExportAllBusy] = useState(false);
   const [downloadError, setDownloadError] = useState<string | null>(null);
   const [deleteBusyId, setDeleteBusyId] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
@@ -431,6 +453,28 @@ export function LibraryBrowser() {
                 className="rounded-lg border border-[var(--border)] bg-[var(--panel)] px-3 py-1.5 text-xs font-semibold text-[var(--text)] hover:border-[var(--accent)]"
               >
                 Refresh
+              </button>
+              <button
+                type="button"
+                disabled={loading || !!loadError || items.length === 0 || exportAllBusy}
+                title={
+                  items.length === 0 && !loading && !loadError
+                    ? "Add documents before exporting."
+                    : "JSON array of every stored document body — use Add to library to re-import."
+                }
+                onClick={() => {
+                  setDownloadError(null);
+                  setExportAllBusy(true);
+                  const stem = `adoption-library-${new Date().toISOString().slice(0, 10)}`;
+                  void downloadFullLibraryBodiesJson(stem)
+                    .catch((e: unknown) => {
+                      setDownloadError(e instanceof Error ? e.message : "Export failed");
+                    })
+                    .finally(() => setExportAllBusy(false));
+                }}
+                className="rounded-lg border border-[var(--border)] bg-[var(--panel)] px-3 py-1.5 text-xs font-semibold text-[var(--text)] hover:border-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {exportAllBusy ? t.libraryDownloadingAllJson : t.libraryDownloadAllJson}
               </button>
             </div>
           </div>

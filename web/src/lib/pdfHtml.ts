@@ -721,9 +721,7 @@ export function renderPdfHtml(args: {
                 ? svgPatternMatrix({
                     pattern: p,
                     baseline,
-                    grouped,
                     theme,
-                    focusDisplayNames: grouped.map((g) => displayFocusName(g.focusName)),
                     laneLabels: { activitySpace: t.activitySpace, activity: t.practiceActivity },
                     aliasLookup,
                   })

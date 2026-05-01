@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useId, useMemo, useState, type ReactNode } from "react";
 import type { Method, PracticeBaseline, PracticeElementAlias } from "@/lib/types";
 import {
   asBaselineDocument,
@@ -18,8 +18,8 @@ import { useTheme } from "@/lib/theme";
 import { useLanguagePack } from "@/lib/languagePack";
 import type { LanguagePack } from "@/lib/languagePackTypes";
 import {
+  buildPatternMatrixAlphaRows,
   buildPatternMatrixCells,
-  buildPatternMatrixRows,
   computeArrowHeightForWidthWithAlias,
   computeBlockHeightForWidthWithAlias,
   computePatternMatrixLayout,
@@ -27,6 +27,7 @@ import {
   computeSwimlaneFocusHeadingLayoutAliased,
   diagramTextCharLimits,
   layoutDiagramAliasedNameRows,
+  PATTERN_MATRIX_LANE_TOGGLE_HEIGHT,
   SWIMLANE_FOCUS_HEADING,
   wrapDiagramTextLines,
   type DiagramAliasedNameRow,
@@ -107,8 +108,8 @@ function IrBrowseTagsBlock({ tags, t, className = "mt-2" }: { tags: unknown; t: 
             {row.label}
           </span>
           <div className="flex flex-wrap gap-1.5">
-            {row.items.map((x) => (
-              <span key={`${row.label}-${x}`} style={tag()}>
+            {row.items.map((x, xi) => (
+              <span key={`${row.label}-${xi}-${slug(x)}`} style={tag()}>
                 {x}
               </span>
             ))}
@@ -1408,8 +1409,8 @@ function PracticeBaselineView({
             </div>
             <div style={{ color: "var(--muted)", marginTop: 6 }}>{baseline.description}</div>
             <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {flattenPracticeElementTags(baseline.tags).map((tagLabel) => (
-                <span key={tagLabel} style={tag()}>
+              {flattenPracticeElementTags(baseline.tags).map((tagLabel, ti) => (
+                <span key={`baseline-tag-${ti}-${slug(tagLabel)}`} style={tag()}>
                   {tagLabel}
                 </span>
               ))}
@@ -1494,8 +1495,8 @@ function PracticeBaselineView({
                     {flattenPracticeElementTags(a.tags).length ? (
                       <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                         <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                        {flattenPracticeElementTags(a.tags).map((x) => (
-                          <span key={x} style={tag()}>
+                        {flattenPracticeElementTags(a.tags).map((x, ti) => (
+                          <span key={`${a.name}-tag-${ti}-${slug(x)}`} style={tag()}>
                             {x}
                           </span>
                         ))}
@@ -1562,8 +1563,8 @@ function PracticeBaselineView({
                                       style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}
                                     >
                                       <span style={{ fontSize: 11, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                                      {flattenPracticeElementTags(child.tags).map((x: string) => (
-                                        <span key={x} style={tag()}>
+                                      {flattenPracticeElementTags(child.tags).map((x: string, ti: number) => (
+                                        <span key={`supporting-tag-${nm}-${ti}-${slug(x)}`} style={tag()}>
                                           {x}
                                         </span>
                                       ))}
@@ -1656,8 +1657,8 @@ function PracticeBaselineView({
                         {flattenPracticeElementTags(s.tags).length ? (
                           <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                             <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                            {flattenPracticeElementTags(s.tags).map((x: string) => (
-                              <span key={x} style={tag()}>
+                            {flattenPracticeElementTags(s.tags).map((x: string, ti: number) => (
+                              <span key={`aspace-${slug(s.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
                                 {x}
                               </span>
                             ))}
@@ -1742,8 +1743,8 @@ function PracticeBaselineView({
                       {flattenPracticeElementTags(s.tags).length ? (
                         <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                           <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                          {flattenPracticeElementTags(s.tags).map((x: string) => (
-                            <span key={x} style={tag()}>
+                          {flattenPracticeElementTags(s.tags).map((x: string, ti: number) => (
+                            <span key={`aspace-${slug(s.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
                               {x}
                             </span>
                           ))}
@@ -1808,8 +1809,8 @@ function PracticeBaselineView({
                             {flattenPracticeElementTags(act.tags).length ? (
                               <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                                 <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                                {flattenPracticeElementTags(act.tags).map((x: string) => (
-                                  <span key={x} style={tag()}>
+                                {flattenPracticeElementTags(act.tags).map((x: string, ti: number) => (
+                                  <span key={`activity-${slug(parent)}-${slug(act.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
                                     {x}
                                   </span>
                                 ))}
@@ -1927,8 +1928,8 @@ function PracticeBaselineView({
                 ) : flattenPracticeElementTags(p.tags).length ? (
                   <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                     <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                    {flattenPracticeElementTags(p.tags).map((x: string) => (
-                      <span key={x} style={tag()}>
+                    {flattenPracticeElementTags(p.tags).map((x: string, ti: number) => (
+                      <span key={`pattern-${slug(p.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
                         {x}
                       </span>
                     ))}
@@ -1944,17 +1945,7 @@ function PracticeBaselineView({
                   />
                 ) : null}
 
-                <DiagramPatternMatrix
-                  pattern={p}
-                  baseline={baseline}
-                  grouped={grouped}
-                  focusLabels={grouped.map((g) =>
-                    g.focusName === IMPLICIT_FOCUS_NAME
-                      ? displayFocusName(g.focusName)
-                      : diagramMeasureName(aliasLookup, "Focus", g.focusName),
-                  )}
-                  fitToWidth
-                />
+                <DiagramPatternMatrix pattern={p} baseline={baseline} fitToWidth />
               </div>
             ))}
           </div>
@@ -2008,8 +1999,8 @@ function PracticeBaselineView({
                 ) : flattenPracticeElementTags(c.tags).length ? (
                   <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                     <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                    {flattenPracticeElementTags(c.tags).map((x: string) => (
-                      <span key={x} style={tag()}>
+                    {flattenPracticeElementTags(c.tags).map((x: string, ti: number) => (
+                      <span key={`competency-${slug(c.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
                         {x}
                       </span>
                     ))}
@@ -2082,8 +2073,8 @@ function PracticeBaselineView({
                 ) : flattenPracticeElementTags(wp.tags).length ? (
                   <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                     <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                    {flattenPracticeElementTags(wp.tags).map((x: string) => (
-                      <span key={x} style={tag()}>
+                    {flattenPracticeElementTags(wp.tags).map((x: string, ti: number) => (
+                      <span key={`workproduct-${slug(wp.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
                         {x}
                       </span>
                     ))}
@@ -2250,8 +2241,8 @@ function PracticeBaselineView({
                 ) : flattenPracticeElementTags(wb.tags).length ? (
                   <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                     <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                    {flattenPracticeElementTags(wb.tags).map((x: string) => (
-                      <span key={x} style={tag()}>
+                    {flattenPracticeElementTags(wb.tags).map((x: string, ti: number) => (
+                      <span key={`wbreakdown-${slug(wb.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
                         {x}
                       </span>
                     ))}
@@ -2310,8 +2301,8 @@ function PracticeBaselineView({
                     ) : flattenPracticeElementTags(wb.complexity.tags).length ? (
                       <div style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                         <span style={{ fontSize: 11, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                        {flattenPracticeElementTags(wb.complexity.tags).map((x: string) => (
-                          <span key={x} style={tag()}>
+                        {flattenPracticeElementTags(wb.complexity.tags).map((x: string, ti: number) => (
+                          <span key={`wbreakdown-${slug(wb.name)}-cx-tag-${ti}-${slug(x)}`} style={tag()}>
                             {x}
                           </span>
                         ))}
@@ -2494,8 +2485,8 @@ function PracticeBaselineView({
                                 {flattenPracticeElementTags(task.tags).length ? (
                                   <div style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                                     <span style={{ fontSize: 11, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                                    {flattenPracticeElementTags(task.tags).map((x: string) => (
-                                      <span key={x} style={tag()}>
+                                    {flattenPracticeElementTags(task.tags).map((x: string, ti: number) => (
+                                      <span key={`witem-${slug(wb.name)}-${slug(task.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
                                         {x}
                                       </span>
                                     ))}
@@ -2622,49 +2613,112 @@ function buildActivitiesByParentMap(baseline: PracticeBaseline) {
   return activitiesByParent;
 }
 
-/** Pattern views as columns, focuses as horizontal swimlanes; cells show alpha → state chips. */
+/** Pattern views as columns; one row per baseline alpha; slices + lanes grouped per PatternView.alphaStates slice. */
 function DiagramPatternMatrix({
   pattern,
   baseline,
-  grouped,
-  focusLabels,
   fitToWidth = true,
 }: {
   pattern: any;
   baseline: PracticeBaseline;
-  grouped: FocusGroup[];
-  focusLabels: string[];
   fitToWidth?: boolean;
 }) {
+  const cellPad = 10;
+  const blockGap = 8;
+  const blockStackGap = 8;
+  const chipGapBetweenLanes = 8;
+
   const { theme } = useTheme();
   const { t } = useLanguagePack();
   const lookup = usePracticeElementAliasLookup();
-  const measureName = (kind: string, name: string) => diagramMeasureName(lookup, kind, name);
+  const measureName = useCallback((kind: string, name: string) => diagramMeasureName(lookup, kind, name), [lookup]);
   const patternSectionHref = diagramHrefPattern(String(pattern?.name ?? ""));
   const labelColW = 200;
   const colW = 240;
-  const rows = buildPatternMatrixRows(baseline, grouped);
-  const rowFocusNames = rows.map((r) => r.focusName);
-  const { views, cells, laneCells } = buildPatternMatrixCells(pattern?.patternViews, baseline, rowFocusNames, {
-    activitySpace: t.activitySpace,
-    activity: t.practiceActivity,
-  });
-  if (!views.length || !rowFocusNames.length) return null;
 
-  const layout = computePatternMatrixLayout(views, cells, laneCells, {
-    labelColW,
-    colW,
-    headerTopPad: 18,
-    cellPadding: 10,
-    chipGap: 8,
-    minRowH: 56,
-    blockGap: 8,
-    measureName,
-    aliasLookup: lookup,
-  });
+  const rowAlphaNames = useMemo(() => buildPatternMatrixAlphaRows(baseline), [baseline]);
+
+  const { views, cellBlocks } = useMemo(
+    () =>
+      buildPatternMatrixCells(pattern?.patternViews, baseline, rowAlphaNames, {
+        activitySpace: t.activitySpace,
+        activity: t.practiceActivity,
+      }),
+    [pattern?.patternViews, baseline, rowAlphaNames, t.activitySpace, t.practiceActivity],
+  );
+
+  const hasAnyLanes = useMemo(
+    () => cellBlocks.some((row) => row.some((cell) => cell.some((b) => b.lanes.length > 0))),
+    [cellBlocks],
+  );
+
+  /** Slice keys `{ri}-{cj}-{bk}` where `lanes` exist — used when collapsing one slice during “expand all”. */
+  const sliceKeysWithLanes = useMemo(() => {
+    const keys: string[] = [];
+    cellBlocks.forEach((row, ri) => {
+      row.forEach((cell, cj) => {
+        cell.forEach((_b, bk) => {
+          if ((_b?.lanes ?? []).length > 0) keys.push(`${ri}-${cj}-${bk}`);
+        });
+      });
+    });
+    return keys;
+  }, [cellBlocks]);
+
+  const [expandAllLanes, setExpandAllLanes] = useState(false);
+  const [openLaneSlices, setOpenLaneSlices] = useState<Record<string, boolean>>({});
+
+  const lanesExpandedFn = useCallback(
+    (ri: number, cj: number, bk: number) => expandAllLanes || Boolean(openLaneSlices[`${ri}-${cj}-${bk}`]),
+    [expandAllLanes, openLaneSlices],
+  );
+
+  const layout = useMemo(
+    () =>
+      computePatternMatrixLayout(views, cellBlocks, {
+        labelColW,
+        colW,
+        headerTopPad: 18,
+        cellPadding: cellPad,
+        chipGap: chipGapBetweenLanes,
+        minRowH: 56,
+        blockGap,
+        blockStackGap,
+        lanesExpanded: lanesExpandedFn,
+        measureName,
+        aliasLookup: lookup,
+      }),
+    [
+      views,
+      cellBlocks,
+      labelColW,
+      colW,
+      cellPad,
+      chipGapBetweenLanes,
+      blockGap,
+      blockStackGap,
+      lanesExpandedFn,
+      measureName,
+      lookup,
+    ],
+  );
+
+  const alphaFocusByRow = useMemo(() => {
+    const m = new Map<number, string>();
+    for (let ri = 0; ri < rowAlphaNames.length; ri++) {
+      const nm = rowAlphaNames[ri].trim();
+      const found = baseline.alphas?.find((a) => String(a.name).trim() === nm);
+      m.set(ri, String(found?.focusName ?? "").trim());
+    }
+    return m;
+  }, [baseline.alphas, rowAlphaNames]);
+
+  if (!views.length || !rowAlphaNames.length) return null;
+
   const { width, height, headerH, rowHeights, chipInnerW } = layout;
   const nC = views.length;
-  const nR = rowFocusNames.length;
+  const nR = rowAlphaNames.length;
+  const chipW = chipInnerW + 8;
 
   const gridLines = (
     <g>
@@ -2688,19 +2742,21 @@ function DiagramPatternMatrix({
   let rowY = headerH;
   const rowBands: ReactNode[] = [];
   const rowContent: ReactNode[] = [];
+
   for (let ri = 0; ri < nR; ri++) {
     const rowH = rowHeights[ri] ?? 56;
-    const laneFill = theme.focusSwimlaneFill[rowFocusNames[ri]] ?? "var(--panel)";
+    const focusNm = alphaFocusByRow.get(ri) ?? "";
+    const laneFill = (focusNm && theme.focusSwimlaneFill[focusNm]) || "var(--panel)";
     rowBands.push(
       <rect key={`lane-${ri}`} x={0} y={rowY} width={width} height={rowH} fill={laneFill} stroke="none" />,
     );
 
-    const label = focusLabels[ri] ?? rowFocusNames[ri];
+    const labelPrimary = diagramMeasureName(lookup, "Alpha", rowAlphaNames[ri]);
     const labelMaxChars = Math.max(8, Math.floor((labelColW - 20) / 7));
-    const labelLines = wrapLines(label, labelMaxChars);
+    const labelLines = wrapLines(labelPrimary, labelMaxChars);
     const labelLineH = 16;
     const labelStartY = rowY + Math.max(12, (rowH - labelLines.length * labelLineH) / 2);
-    const rowFocusHref = diagramHrefBrowseAlphasFocus(rowFocusNames[ri]);
+    const rowAlphaHref = diagramHrefAlpha(rowAlphaNames[ri]);
     const labelTexts = labelLines.map((ln, i) => (
       <text key={i} x={12} y={labelStartY + i * labelLineH} fill="var(--text)" fontSize={14} fontWeight={800}>
         {ln}
@@ -2708,8 +2764,8 @@ function DiagramPatternMatrix({
     ));
     rowContent.push(
       <g key={`lab-${ri}`}>
-        {rowFocusHref ? (
-          <a href={rowFocusHref} className="diagram-matrix-row-label-link">
+        {rowAlphaHref ? (
+          <a href={rowAlphaHref} className="diagram-matrix-row-label-link">
             <g>{labelTexts}</g>
           </a>
         ) : (
@@ -2720,18 +2776,29 @@ function DiagramPatternMatrix({
 
     for (let cj = 0; cj < nC; cj++) {
       const x0 = labelColW + cj * colW;
-      const chips = cells[ri][cj];
-      const lanes = laneCells[ri][cj];
-      let cy = rowY + 10;
-      chips.forEach((e, k) => {
-        const chipW = chipInnerW + 8;
-        const ch = computeBlockHeightForWidthWithAlias(lookup, "Alpha", e.alphaName, measureName("State", e.stateName), chipW, 8, 8);
+      const blocks = cellBlocks[ri][cj];
+      let cy = rowY + cellPad;
+      blocks.forEach((b, bk) => {
+        const ak = `${ri}-${cj}-${bk}`;
+        const chChip = computeBlockHeightForWidthWithAlias(
+          lookup,
+          "Alpha",
+          b.alphaName,
+          measureName("State", b.stateName),
+          chipW,
+          8,
+          8,
+        );
+        const sliceTop = cy;
+        const lanes = b.lanes;
+        const exp = lanesExpandedFn(ri, cj, bk);
+
         rowContent.push(
-          <g key={`cell-${ri}-${cj}-a-${k}`} transform={`translate(${x0 + 12}, ${cy})`}>
-            <rect x={0} y={0} width={chipW} height={ch} rx={12} ry={12} fill="rgba(0,0,0,0.18)" stroke="var(--border)" />
+          <g key={`cell-${ak}-slice`} transform={`translate(${x0 + 12}, ${sliceTop})`}>
+            <rect x={0} y={0} width={chipW} height={chChip} rx={12} ry={12} fill="rgba(0,0,0,0.18)" stroke="var(--border)" />
             {renderWrappedText(
-              e.alphaName,
-              e.stateName,
+              b.alphaName,
+              b.stateName,
               chipW,
               8,
               8,
@@ -2739,49 +2806,155 @@ function DiagramPatternMatrix({
               "Alpha",
               "State",
               lookup,
-              diagramHrefAlpha(e.alphaName),
-              diagramHrefState(e.alphaName, e.stateName),
+              diagramHrefAlpha(b.alphaName),
+              diagramHrefState(b.alphaName, b.stateName),
             )}
           </g>,
         );
-        cy += ch + 8;
-      });
-      if (chips.length && lanes.length) cy += 8;
-      lanes.forEach((lane, k) => {
-        const chipW = chipInnerW + 8;
-        const ch = computeArrowHeightForWidthWithAlias(
-          lookup,
-          lane.kind === "activitySpace" ? "ActivitySpace" : "Activity",
-          lane.laneName,
-          lane.secondary,
-          chipW,
-          8,
-          8,
-        );
-        rowContent.push(
-          <g key={`cell-${ri}-${cj}-l-${k}`} transform={`translate(${x0 + 12}, ${cy})`}>
-            <ArrowBlock width={chipW} height={ch} dashed={lane.kind === "activitySpace"} />
-            {renderWrappedText(
+
+        if (lanes.length > 0) {
+          rowContent.push(
+            <foreignObject
+              key={`lane-chev-${ak}`}
+              x={x0 + cellPad}
+              y={sliceTop}
+              width={colW - 2 * cellPad}
+              height={Math.max(chChip, PATTERN_MATRIX_LANE_TOGGLE_HEIGHT)}
+            >
+              <div
+                {...({ xmlns: "http://www.w3.org/1999/xhtml" } as Record<string, unknown>)}
+                style={{
+                  margin: 0,
+                  padding: 0,
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "flex-start",
+                  pointerEvents: "none",
+                }}
+              >
+                <div style={{ pointerEvents: "auto", paddingRight: 2 }}>
+                  <button
+                    type="button"
+                    aria-expanded={exp}
+                    title={
+                      exp
+                        ? t.patternMatrixHideSliceLanes
+                        : t.patternMatrixShowLanesCount.replace(/\{count\}/g, String(lanes.length))
+                    }
+                    aria-label={
+                      exp
+                        ? t.patternMatrixHideSliceLanes
+                        : t.patternMatrixShowLanesCount.replace(/\{count\}/g, String(lanes.length))
+                    }
+                    className={`flex size-[22px] shrink-0 items-center justify-center rounded-md border bg-[var(--bg)] shadow-sm ${
+                      exp
+                        ? "border-[var(--accent)] text-[var(--accent)] ring-1 ring-[var(--accent)]/35"
+                        : "border-[var(--border)] text-[var(--text)] hover:border-[var(--accent)]/70"
+                    }`}
+                    style={{ cursor: "pointer", lineHeight: 1 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      if (exp) {
+                        setExpandAllLanes(false);
+                        setOpenLaneSlices(() => {
+                          const next: Record<string, boolean> = {};
+                          for (const sk of sliceKeysWithLanes) {
+                            if (sk !== ak) next[sk] = true;
+                          }
+                          return next;
+                        });
+                      } else {
+                        setExpandAllLanes(false);
+                        setOpenLaneSlices((prev) => ({ ...prev, [ak]: true }));
+                      }
+                    }}
+                  >
+                    {exp ? (
+                      <span className="block text-[12px] font-bold leading-none text-[var(--accent)]" aria-hidden>
+                        &#9660;
+                      </span>
+                    ) : (
+                      <span className="block pl-px text-[12px] font-bold leading-none" aria-hidden>
+                        &#9654;
+                      </span>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </foreignObject>,
+          );
+        }
+
+        cy += chChip;
+
+        if (lanes.length > 0 && exp) {
+          cy += blockGap;
+          lanes.forEach((lane, lk) => {
+            const lh = computeArrowHeightForWidthWithAlias(
+              lookup,
+              lane.kind === "activitySpace" ? "ActivitySpace" : "Activity",
               lane.laneName,
               lane.secondary,
               chipW,
               8,
               8,
-              true,
-              lane.kind === "activitySpace" ? "ActivitySpace" : "Activity",
-              undefined,
-              lookup,
-              lane.kind === "activitySpace"
-                ? diagramHrefActivitySpace(lane.laneName)
-                : diagramHrefActivity(lane.laneName),
-            )}
-          </g>,
-        );
-        cy += ch + 8;
+            );
+            rowContent.push(
+              <g key={`cell-${ak}-lane-${lk}`} transform={`translate(${x0 + 12}, ${cy})`}>
+                <ArrowBlock width={chipW} height={lh} dashed={lane.kind === "activitySpace"} />
+                {renderWrappedText(
+                  lane.laneName,
+                  lane.secondary,
+                  chipW,
+                  8,
+                  8,
+                  true,
+                  lane.kind === "activitySpace" ? "ActivitySpace" : "Activity",
+                  undefined,
+                  lookup,
+                  lane.kind === "activitySpace"
+                    ? diagramHrefActivitySpace(lane.laneName)
+                    : diagramHrefActivity(lane.laneName),
+                )}
+              </g>,
+            );
+            cy += lh;
+            if (lk < lanes.length - 1) cy += chipGapBetweenLanes;
+          });
+        }
+
+        if (bk < blocks.length - 1) cy += blockStackGap;
       });
     }
     rowY += rowH;
   }
+
+  const toolbarControls = (
+    <div className="flex flex-wrap items-center gap-2 border-b border-[var(--border)] bg-[var(--bg)]/30 px-3 py-2">
+      <span className="text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">{t.patternViewLanes}</span>
+      <button
+        type="button"
+        onClick={() => {
+          setExpandAllLanes(true);
+        }}
+        className="rounded-md border border-[var(--border)] bg-[var(--panel)] px-2.5 py-1 text-[11px] font-semibold text-[var(--text)] hover:border-[var(--accent)]"
+      >
+        {t.patternMatrixExpandAllLanes}
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          setExpandAllLanes(false);
+          setOpenLaneSlices({});
+        }}
+        className="rounded-md border border-[var(--border)] bg-[var(--panel)] px-2.5 py-1 text-[11px] font-semibold text-[var(--text)] hover:border-[var(--accent)]"
+      >
+        {t.patternMatrixCollapseAllLanes}
+      </button>
+    </div>
+  );
 
   return (
     <div
@@ -2793,6 +2966,7 @@ function DiagramPatternMatrix({
         background: "var(--panel)",
       }}
     >
+      {hasAnyLanes ? toolbarControls : null}
       <svg
         width={fitToWidth ? "100%" : width}
         height={fitToWidth ? undefined : height}

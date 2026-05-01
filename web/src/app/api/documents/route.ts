@@ -16,7 +16,8 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Invalid kind filter" }, { status: 400 });
   }
   const filter = kind && isKind(kind) ? { kind } : undefined;
-  const enrich = url.searchParams.get("details") === "1";
+  const withBody = url.searchParams.get("withBody") === "1";
+  const enrich = url.searchParams.get("details") === "1" || withBody;
   const store = await getJsonDocumentStore();
   const metas = await store.list(filter);
   if (!enrich) {
@@ -28,6 +29,7 @@ export async function GET(req: Request) {
       const body = full?.body;
       return {
         ...m,
+        ...(withBody ? { body } : {}),
         libraryRootKind: classifyLibraryRoot(body),
         displayName: displayNameForBody(body, m.title),
         virtualFileCount: listVirtualElementFiles(body).length,

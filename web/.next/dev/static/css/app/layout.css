@@ -388,6 +388,10 @@
   .table {
     display: table;
   }
+  .size-\[22px\] {
+    width: 22px;
+    height: 22px;
+  }
   .h-0 {
     height: calc(var(--spacing) * 0);
   }
@@ -844,6 +848,12 @@
       background-color: color-mix(in oklab, var(--bg) 50%, transparent);
     }
   }
+  .bg-\[var\(--bg\)\]\/80 {
+    background-color: var(--bg);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--bg) 80%, transparent);
+    }
+  }
   .bg-\[var\(--panel\)\] {
     background-color: var(--panel);
   }
@@ -1023,6 +1033,9 @@
   }
   .pl-5 {
     padding-left: calc(var(--spacing) * 5);
+  }
+  .pl-px {
+    padding-left: 1px;
   }
   .text-center {
     text-align: center;
@@ -1385,6 +1398,16 @@
         border-color: var(--accent);
         @supports (color: color-mix(in lab, red, red)) {
           border-color: color-mix(in oklab, var(--accent) 50%, transparent);
+        }
+      }
+    }
+  }
+  .hover\:border-\[var\(--accent\)\]\/70 {
+    &:hover {
+      @media (hover: hover) {
+        border-color: var(--accent);
+        @supports (color: color-mix(in lab, red, red)) {
+          border-color: color-mix(in oklab, var(--accent) 70%, transparent);
         }
       }
     }
