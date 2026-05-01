@@ -1,4 +1,72 @@
+# Dependencies
 node_modules/
 
 # Local JSON document store (file driver)
 web/data/documents/*.json
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# Logs & debug
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Package manager caches
+.npm/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Tool / framework caches
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+.stylelintcache
+
+# Test / coverage
+coverage/
+.nyc_output/
+
+# Playwright (if tests or reports are generated under the repo)
+playwright-report/
+blob-report/
+test-results/
+
+# OS junk
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor / IDE swap & backup
+*.swp
+*.swo
+*~
+*.bak
+*.orig
+
+# Transient dirs & scratch files
+tmp/
+temp/
+.tmp/
+*.tmp
+*.temp
+
+# Machine-local env (secrets / overrides — keep templates like .env.example tracked)
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

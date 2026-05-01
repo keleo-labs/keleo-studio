@@ -8,8 +8,8 @@ import {
 } from "@/lib/alphaContributesDiagram";
 import { practiceElementDescriptionForDisplay } from "@/lib/ir";
 import {
+  buildPatternMatrixAlphaRows,
   buildPatternMatrixCells,
-  buildPatternMatrixRows,
   computeArrowHeightForWidth,
   computeBlockHeightForWidth,
   computePatternMatrixLayout,
@@ -769,39 +769,42 @@ export function svgFocusActivity(args: {
   </svg>`;
 }
 
-/** Matrix: focus swimlanes (rows) × pattern views (columns). */
+/** Matrix: one row per baseline alpha × pattern views (columns); PDF renders all lanes expanded. */
 export function svgPatternMatrix(args: {
   pattern: any;
   baseline: PracticeBaseline;
-  grouped: GroupedByFocus[];
   theme: ThemeTokens;
-  focusDisplayNames: string[];
   laneLabels: PatternMatrixLaneLabels;
   aliasLookup?: PracticeElementAliasLookup;
 }): string {
-  const { pattern, baseline, grouped, theme, focusDisplayNames, laneLabels, aliasLookup } = args;
+  const { pattern, baseline, theme, laneLabels, aliasLookup } = args;
   const lookup = aliasLookup ?? EMPTY_PRACTICE_ELEMENT_ALIAS_LOOKUP;
-  const rows = buildPatternMatrixRows(baseline, grouped);
-  const rowFocusNames = rows.map((r) => r.focusName);
-  const { views, cells, laneCells } = buildPatternMatrixCells(pattern?.patternViews, baseline, rowFocusNames, laneLabels);
-  if (!views.length || !rowFocusNames.length) return "";
+  const rowAlphas = buildPatternMatrixAlphaRows(baseline);
+  const { views, cellBlocks } = buildPatternMatrixCells(pattern?.patternViews, baseline, rowAlphas, laneLabels);
+  if (!views.length || !rowAlphas.length) return "";
 
   const labelColW = 200;
   const colW = 240;
-  const layout = computePatternMatrixLayout(views, cells, laneCells, {
+  const chipGapPx = 8;
+  const cellPad = 10;
+  const blockGap = 8;
+  const blockStackGap = 8;
+  const layout = computePatternMatrixLayout(views, cellBlocks, {
     labelColW,
     colW,
     headerTopPad: 18,
-    cellPadding: 10,
-    chipGap: 8,
+    cellPadding: cellPad,
+    chipGap: chipGapPx,
     minRowH: 56,
-    blockGap: 8,
+    blockGap,
+    blockStackGap,
+    lanesExpanded: () => true,
     measureName: (k, n) => diagramMeasureName(lookup, k, n),
     aliasLookup: lookup,
   });
   const { width, height, headerH, rowHeights, chipInnerW } = layout;
   const nC = views.length;
-  const nR = rowFocusNames.length;
+  const nR = rowAlphas.length;
 
   const headerBand = `<rect x="0" y="0" width="${width}" height="${headerH}" fill="rgba(0,0,0,0.06)" stroke="var(--border)" stroke-width="1"/>`;
   const corner = `<rect x="0" y="0" width="${labelColW}" height="${headerH}" fill="rgba(0,0,0,0.04)" stroke="var(--border)" stroke-width="1"/>`;
@@ -825,26 +828,24 @@ export function svgPatternMatrix(args: {
 
   let rowY = headerH;
   const rowBlocks: string[] = [];
+  const labelMaxChars = Math.max(8, Math.floor((labelColW - 20) / 7));
   for (let ri = 0; ri < nR; ri++) {
     const rowH = rowHeights[ri] ?? 56;
-    const laneFill = theme.focusSwimlaneFill[rowFocusNames[ri]] ?? theme.panel;
-    rowBlocks.push(
-      `<rect x="0" y="${rowY}" width="${width}" height="${rowH}" fill="${esc(laneFill)}" stroke="none"/>`,
-    );
+    const alphaRowName = rowAlphas[ri];
+    const focusAlpha =
+      baseline.alphas?.find((a: { name?: string }) => String(a?.name ?? "").trim() === alphaRowName.trim()) ?? null;
+    const focusNm = String((focusAlpha as { focusName?: string } | null)?.focusName ?? "").trim();
+    const laneFill = theme.focusSwimlaneFill[focusNm] ?? theme.panel;
+    rowBlocks.push(`<rect x="0" y="${rowY}" width="${width}" height="${rowH}" fill="${esc(laneFill)}" stroke="none"/>`);
 
-    const canon = rowFocusNames[ri];
-    const given = focusDisplayNames[ri] ?? canon;
-    const implicitFocus = given !== canon;
-    const labelMaxChars = Math.max(8, Math.floor((labelColW - 20) / 7));
-    const focusRowDisp = getAliasedDisplay(lookup, "Focus", canon);
-    const labelForWrap = implicitFocus ? given : focusRowDisp.primary;
-    const labelSuffix = !implicitFocus && focusRowDisp.showCanonical ? focusRowDisp.canonical : null;
-    const labelLines = wrapLines(labelForWrap, labelMaxChars);
+    const alphaDisp = getAliasedDisplay(lookup, "Alpha", alphaRowName);
+    const labelLines = wrapLines(alphaDisp.primary, labelMaxChars);
+    const labelSuffix = alphaDisp.showCanonical ? alphaDisp.canonical : null;
     const labelLineH = 16;
     const labelStartY = rowY + Math.max(12, (rowH - labelLines.length * labelLineH) / 2);
     const nLab = labelLines.length;
     const labelSvg = labelLines
-      .map((ln, i) => {
+      .map((ln: string, i: number) => {
         const base = `<text x="12" y="${labelStartY + i * labelLineH}" fill="var(--text)" font-size="14" font-weight="800">${esc(ln)}`;
         if (labelSuffix && i === nLab - 1) {
           return `${base}<tspan font-size="12" font-style="italic" font-weight="500" fill="var(--muted)"> (${esc(labelSuffix)})</tspan></text>`;
@@ -856,42 +857,36 @@ export function svgPatternMatrix(args: {
     const cellsSvg: string[] = [labelSvg];
     for (let cj = 0; cj < nC; cj++) {
       const x0 = labelColW + cj * colW;
-      const chips = cells[ri][cj];
-      const lanes = laneCells[ri][cj];
-      let cy = rowY + 10;
-      for (let k = 0; k < chips.length; k++) {
-        const e = chips[k];
-        const ch = computeBlockHeightAliased(
-          e.alphaName,
-          e.stateName,
-          chipInnerW + 8,
-          8,
-          8,
-          false,
-          lookup,
-          "Alpha",
-          "State",
-        );
-        cellsSvg.push(`<g transform="translate(${x0 + 12}, ${cy})">
-            <rect x="0" y="0" width="${chipInnerW + 8}" height="${ch}" rx="12" ry="12" fill="rgba(0,0,0,0.18)" stroke="var(--border)"/>
-            ${renderAliasedDiagramText(e.alphaName, e.stateName, chipInnerW + 8, 8, 8, false, lookup, "Alpha", "State")}
-          </g>`);
-        cy += ch + 8;
-      }
-      if (chips.length && lanes.length) cy += 8;
-      for (let k = 0; k < lanes.length; k++) {
-        const lane = lanes[k];
+      const blocks = cellBlocks[ri][cj];
+      let cy = rowY + cellPad;
+      blocks.forEach((b, bk) => {
         const chipW = chipInnerW + 8;
-        const laneKind = lane.kind === "activitySpace" ? "ActivitySpace" : "Activity";
-        const ch = computeArrowHeightAliased(lane.laneName, lane.secondary, chipW, 8, 8, lookup, laneKind);
-        const poly = arrowPolygon(chipW, ch);
-        const dash = lane.kind === "activitySpace" ? ` stroke-dasharray="6 6"` : "";
+        const chipH = computeBlockHeightAliased(b.alphaName, b.stateName, chipW, 8, 8, false, lookup, "Alpha", "State");
         cellsSvg.push(`<g transform="translate(${x0 + 12}, ${cy})">
+            <rect x="0" y="0" width="${chipW}" height="${chipH}" rx="12" ry="12" fill="rgba(0,0,0,0.18)" stroke="var(--border)"/>
+            ${renderAliasedDiagramText(b.alphaName, b.stateName, chipW, 8, 8, false, lookup, "Alpha", "State")}
+          </g>`);
+        cy += chipH;
+
+        const lanes = b.lanes;
+        if (lanes.length > 0) {
+          cy += blockGap;
+          lanes.forEach((lane, lk) => {
+            const laneKind = lane.kind === "activitySpace" ? "ActivitySpace" : "Activity";
+            const laneCh = computeArrowHeightAliased(lane.laneName, lane.secondary, chipW, 8, 8, lookup, laneKind);
+            const poly = arrowPolygon(chipW, laneCh);
+            const dash = lane.kind === "activitySpace" ? ` stroke-dasharray="6 6"` : "";
+            cellsSvg.push(`<g transform="translate(${x0 + 12}, ${cy})">
             <polygon points="${poly}" fill="rgba(0,0,0,0.18)" stroke="var(--border)" stroke-width="1.5"${dash}/>
             ${renderAliasedDiagramText(lane.laneName, lane.secondary, chipW, 8, 8, true, lookup, laneKind)}
           </g>`);
-        cy += ch + 8;
-      }
+            cy += laneCh;
+            if (lk < lanes.length - 1) cy += chipGapPx;
+          });
+        }
+
+        if (bk < blocks.length - 1) cy += blockStackGap;
+      });
     }
     rowBlocks.push(cellsSvg.join(""));
     rowY += rowH;

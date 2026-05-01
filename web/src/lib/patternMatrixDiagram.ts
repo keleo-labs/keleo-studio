@@ -4,9 +4,30 @@ import {
   type PracticeElementAliasLookup,
 } from "@/lib/practiceElementAliasDisplay";
 import type { PracticeBaseline } from "@/lib/types";
-import { parsePatternViewAlphaState, patternViewLaneRefsWithOrigin, type PatternViewLaneListOrigin } from "@/lib/patternView";
+import {
+  parsePatternViewAlphaState,
+  patternViewLaneRefsWithOrigin,
+  type PatternViewLaneListOrigin,
+} from "@/lib/patternView";
+
+/** True when a baseline `contributesTo` entry targets the exact alpha/state slice used in PatternView.alphaStates. */
+export function contribEntryMatchesAlphaState(
+  entry: unknown,
+  alphaName: string,
+  stateName: string,
+): boolean {
+  const p = parsePatternViewAlphaState(entry);
+  if (!p) return false;
+  return (
+    p.alphaName.trim() === alphaName.trim() &&
+    p.stateName.trim() === stateName.trim()
+  );
+}
 
 export type PatternMatrixCellEntry = { alphaName: string; stateName: string };
+
+/** One alpha→state slice in a matrix cell plus execution lanes inferred from contributesTo / explicit refs. */
+export type PatternMatrixCellBlock = PatternMatrixCellEntry & { lanes: PatternMatrixLaneChip[] };
 
 /** Resolved swimlane chip: name matches ActivitySpace.name or Activity.name; secondary is description or type label. */
 export type PatternMatrixLaneChip = {
@@ -87,6 +108,52 @@ export function baselineFocusNamesReferencedByPatternView(pv: unknown, baseline:
     if (!resolved) continue;
     const fn = String(resolved.entity?.focusName ?? "").trim();
     if (fn) names.add(fn);
+  }
+  /** Lanes tied via contributesTo → alpha state slices also constrain focus closure. */
+  for (const raw of o?.alphaStates ?? []) {
+    const slice = parsePatternViewAlphaState(raw);
+    if (!slice) continue;
+    for (const s of baseline.activitySpaces ?? []) {
+      if (isFlatActivityNode(s)) {
+        const match = (s.contributesTo ?? []).some((c) =>
+          contribEntryMatchesAlphaState(c, slice.alphaName, slice.stateName),
+        );
+        if (match) {
+          const fn = String((s as { focusName?: unknown }).focusName ?? "").trim();
+          if (fn) names.add(fn);
+        }
+      } else {
+        const matchSpace = (s.contributesTo ?? []).some((c) =>
+          contribEntryMatchesAlphaState(c, slice.alphaName, slice.stateName),
+        );
+        if (matchSpace) {
+          const fn = String(s.focusName ?? "").trim();
+          if (fn) names.add(fn);
+        }
+        for (const act of s.activities ?? []) {
+          const matchAct = (act.contributesTo ?? []).some((c) =>
+            contribEntryMatchesAlphaState(c, slice.alphaName, slice.stateName),
+          );
+          if (matchAct) {
+            const fn = String(act.focusName ?? "").trim();
+            if (fn) names.add(fn);
+          }
+        }
+      }
+    }
+    const topActs = (baseline as unknown as { activities?: unknown }).activities;
+    if (Array.isArray(topActs)) {
+      for (const act of topActs) {
+        if (!act || typeof act !== "object") continue;
+        const matchAct = ((act as { contributesTo?: unknown[] }).contributesTo ?? []).some((c) =>
+          contribEntryMatchesAlphaState(c, slice.alphaName, slice.stateName),
+        );
+        if (matchAct) {
+          const fn = String((act as { focusName?: unknown }).focusName ?? "").trim();
+          if (fn) names.add(fn);
+        }
+      }
+    }
   }
   return [...names];
 }
@@ -340,6 +407,133 @@ export function computeArrowHeightForWidth(name: unknown, desc: unknown, blockW:
   return Math.max(74, computeBlockHeightForWidth(name, desc, blockW, padX, padY, true));
 }
 
+/**
+ * Ordered alpha names for the pattern matrix rows: grouped by focus (order follows
+ * `PracticeBaseline.focuses`), and within each focus roots first (no in-group parent via
+ * `Alpha.contributesTo`), then depth-first under each parent so contributors sit below their rollup.
+ */
+export function buildPatternMatrixAlphaRows(baseline: PracticeBaseline): string[] {
+  const list = baseline.alphas ?? [];
+  if (list.length === 0) return [];
+
+  const indexByName = new Map<string, number>();
+  for (let i = 0; i < list.length; i++) {
+    const n = String(list[i]?.name ?? "").trim();
+    if (n && !indexByName.has(n)) indexByName.set(n, i);
+  }
+
+  const byFocus = new Map<string, typeof list>();
+  for (const a of list) {
+    const fk = String(a.focusName ?? "").trim();
+    if (!byFocus.has(fk)) byFocus.set(fk, []);
+    byFocus.get(fk)!.push(a);
+  }
+
+  /** Focus buckets in focuses[] order; remaining focuses appended by earliest alpha index then name */
+  const focusKeysOrdered: string[] = [];
+  const seenFocus = new Set<string>();
+  for (const f of baseline.focuses ?? []) {
+    const k = String(f?.name ?? "").trim();
+    if (!byFocus.has(k)) continue;
+    focusKeysOrdered.push(k);
+    seenFocus.add(k);
+  }
+  const remainingFocuses = [...byFocus.keys()].filter((k) => !seenFocus.has(k));
+  remainingFocuses.sort((a, b) => {
+    const minIdx = (fk: string) => {
+      const idxs = (byFocus.get(fk) ?? []).map((x) => indexByName.get(String(x?.name ?? "").trim()) ?? 1e9);
+      return idxs.length ? Math.min(...idxs) : 1e9;
+    };
+    const da = minIdx(a);
+    const db = minIdx(b);
+    if (da !== db) return da - db;
+    return a.localeCompare(b);
+  });
+  focusKeysOrdered.push(...remainingFocuses);
+
+  const out: string[] = [];
+  for (const fk of focusKeysOrdered) {
+    const group = byFocus.get(fk) ?? [];
+    if (group.length === 0) continue;
+    out.push(...orderAlphasWithinFocusForPatternMatrix(group, indexByName));
+  }
+  return out;
+}
+
+function parentNameInFocus(a: { name?: unknown; contributesTo?: unknown }, nameSet: Set<string>): string | null {
+  const self = String(a?.name ?? "").trim();
+  const raw = typeof a.contributesTo === "string" ? a.contributesTo.trim() : "";
+  if (!raw || raw === self) return null;
+  if (!nameSet.has(raw)) return null;
+  return raw;
+}
+
+/** Depth-first: each root, then contributors that point at it (and their subtrees), baseline order among siblings. */
+function orderAlphasWithinFocusForPatternMatrix(
+  group: NonNullable<PracticeBaseline["alphas"]>,
+  indexByName: Map<string, number>,
+): string[] {
+  const nameSet = new Set(group.map((a) => String(a?.name ?? "").trim()).filter(Boolean));
+
+  const sortByBaselineIndex = (x: (typeof group)[number], y: (typeof group)[number]) => {
+    const ix = indexByName.get(String(x?.name ?? "").trim()) ?? 0;
+    const iy = indexByName.get(String(y?.name ?? "").trim()) ?? 0;
+    return ix - iy;
+  };
+
+  /** Children[a] = alphas whose contributesTo parent (within focus) === a */
+  const childrenByParent = new Map<string, typeof group>();
+  const roots: typeof group = [];
+
+  for (const a of group) {
+    const n = String(a?.name ?? "").trim();
+    if (!n) continue;
+    const p = parentNameInFocus(a, nameSet);
+    if (p === null) {
+      roots.push(a);
+    } else {
+      if (!childrenByParent.has(p)) childrenByParent.set(p, []);
+      childrenByParent.get(p)!.push(a);
+    }
+  }
+
+  for (const [, ch] of childrenByParent) ch.sort(sortByBaselineIndex);
+
+  const seenRoot = new Set<string>();
+  const rootsDedup = roots.sort(sortByBaselineIndex).filter((a) => {
+    const n = String(a?.name ?? "").trim();
+    if (!n || seenRoot.has(n)) return false;
+    seenRoot.add(n);
+    return true;
+  });
+
+  /** Pure contributesTo cycles: no alpha lacks an in-focus parent → fall back to baseline order */
+  if (rootsDedup.length === 0 && group.length > 0) {
+    return [...group].sort(sortByBaselineIndex).map((a) => String(a?.name ?? "").trim()).filter(Boolean);
+  }
+
+  const ordered: string[] = [];
+  const visited = new Set<string>();
+
+  function dfs(alpha: (typeof group)[number]) {
+    const n = String(alpha?.name ?? "").trim();
+    if (!n || visited.has(n)) return;
+    visited.add(n);
+    ordered.push(n);
+    const kids = childrenByParent.get(n) ?? [];
+    for (const k of kids) dfs(k);
+  }
+
+  for (const r of rootsDedup) dfs(r);
+
+  const leftovers = group
+    .map((a) => String(a?.name ?? "").trim())
+    .filter((n) => n && !visited.has(n));
+  leftovers.sort((a, b) => (indexByName.get(a) ?? 0) - (indexByName.get(b) ?? 0));
+  ordered.push(...leftovers);
+  return ordered;
+}
+
 export function buildPatternMatrixRows(
   baseline: PracticeBaseline,
   grouped: PatternMatrixGrouped[],
@@ -348,22 +542,118 @@ export function buildPatternMatrixRows(
   return (baseline.focuses ?? []).map((f) => ({ focusName: f.name }));
 }
 
+function alphaRowIndex(rowAlphaNames: string[], alphaName: string): number {
+  const t = alphaName.trim();
+  return rowAlphaNames.findIndex((n) => n.trim() === t);
+}
+
+function findOrAppendCellBlock(bucket: PatternMatrixCellBlock[], alphaName: string, stateName: string): PatternMatrixCellBlock {
+  const k = `${alphaName}\0${stateName}`;
+  const found = bucket.find((b) => `${b.alphaName}\0${b.stateName}` === k);
+  if (found) return found;
+  const b: PatternMatrixCellBlock = { alphaName, stateName, lanes: [] };
+  bucket.push(b);
+  return b;
+}
+
+function appendLaneIfMissing(
+  block: PatternMatrixCellBlock,
+  lane: Omit<PatternMatrixLaneChip, "patternRef"> & { patternRef: string },
+) {
+  const key = `${lane.listOrigin}\0${lane.patternRef}`;
+  if (block.lanes.some((e) => `${e.listOrigin}\0${e.patternRef}` === key)) return;
+  block.lanes.push({
+    laneName: lane.laneName,
+    secondary: lane.secondary,
+    kind: lane.kind,
+    listOrigin: lane.listOrigin,
+    patternRef: lane.patternRef,
+  });
+}
+
+function fillLanesContributingForSlice(
+  block: PatternMatrixCellBlock,
+  baseline: PracticeBaseline,
+  alphaName: string,
+  stateName: string,
+  laneLabels: PatternMatrixLaneLabels,
+) {
+  function tryLane(
+    entity: { name?: unknown; contributesTo?: unknown[] } | null | undefined,
+    kind: "activitySpace" | "activity",
+    listOrigin: PatternViewLaneListOrigin,
+  ) {
+    if (!entity || typeof entity !== "object") return;
+    const laneName = String(entity.name ?? "").trim();
+    if (!laneName) return;
+    const match = (entity.contributesTo ?? []).some((c) =>
+      contribEntryMatchesAlphaState(c, alphaName, stateName),
+    );
+    if (!match) return;
+    const secondary = laneChipSecondary(entity, kind, laneLabels);
+    appendLaneIfMissing(block, { laneName, secondary, kind, listOrigin, patternRef: laneName });
+  }
+
+  for (const s of baseline.activitySpaces ?? []) {
+    if (isFlatActivityNode(s)) tryLane(s, "activity", "activities");
+    else {
+      tryLane(s, "activitySpace", "activitySpaces");
+      for (const act of s.activities ?? []) {
+        tryLane(act, "activity", "activities");
+      }
+    }
+  }
+  const topActs = (baseline as unknown as { activities?: unknown }).activities;
+  if (Array.isArray(topActs)) {
+    for (const act of topActs) {
+      tryLane(act as { name?: unknown; contributesTo?: unknown[] }, "activity", "activities");
+    }
+  }
+}
+
+function appendExplicitLanesForSliceFromPatternView(
+  block: PatternMatrixCellBlock,
+  pv: unknown,
+  baseline: PracticeBaseline,
+  alphaName: string,
+  stateName: string,
+  laneLabels: PatternMatrixLaneLabels,
+) {
+  const { spaceByName, activityByName } = buildLaneIndexes(baseline);
+  for (const { name: refName, listOrigin } of patternViewLaneRefsWithOrigin(pv)) {
+    const resolved = resolvePatternLane(refName, spaceByName, activityByName);
+    if (!resolved) continue;
+    const ln = String(resolved.entity.name ?? "").trim();
+    if (!ln) continue;
+    const match = (resolved.entity.contributesTo ?? []).some((c: unknown) =>
+      contribEntryMatchesAlphaState(c, alphaName, stateName),
+    );
+    if (!match) continue;
+    const secondary = laneChipSecondary(resolved.entity, resolved.kind, laneLabels);
+    appendLaneIfMissing(block, {
+      laneName: ln,
+      secondary,
+      kind: resolved.kind,
+      listOrigin,
+      patternRef: refName,
+    });
+  }
+}
+
+/**
+ * Rows = baseline alphas; each cell stacks {@link PatternMatrixCellBlock} for every alpha/state slice that the
+ * PatternView names for that alpha. Execution lanes nest under each slice.
+ */
 export function buildPatternMatrixCells(
   patternViews: any[] | undefined,
   baseline: PracticeBaseline,
-  rowFocusNames: string[],
+  rowAlphaNames: string[],
   laneLabels: PatternMatrixLaneLabels,
-): { views: any[]; cells: PatternMatrixCellEntry[][][]; laneCells: PatternMatrixLaneChip[][][] } {
+): { views: any[]; cellBlocks: PatternMatrixCellBlock[][][] } {
   const views = [...(patternViews ?? [])].sort((a, b) => (Number(a?.seq) || 0) - (Number(b?.seq) || 0));
-  const alphaByName = new Map<string, any>();
-  for (const a of baseline.alphas ?? []) {
-    alphaByName.set(String(a.name), a);
-  }
-  const nR = rowFocusNames.length;
+  const nR = rowAlphaNames.length;
   const nC = views.length;
-  const cells: PatternMatrixCellEntry[][][] = rowFocusNames.map(() => views.map(() => []));
-  const laneCells: PatternMatrixLaneChip[][][] = rowFocusNames.map(() => views.map(() => []));
-  const { spaceByName, activityByName } = buildLaneIndexes(baseline);
+  const cellBlocks: PatternMatrixCellBlock[][][] = rowAlphaNames.map(() => views.map(() => []));
 
   for (let cj = 0; cj < nC; cj++) {
     const pv = views[cj];
@@ -371,45 +661,32 @@ export function buildPatternMatrixCells(
     for (const raw of states) {
       const p = parsePatternViewAlphaState(raw);
       if (!p) continue;
-      const alpha = alphaByName.get(p.alphaName);
-      if (!alpha) continue;
-      const af = String(alpha.focusName ?? "").trim();
-      const ri = rowFocusNames.findIndex((fn) => String(fn).trim() === af);
+      const ri = alphaRowIndex(rowAlphaNames, p.alphaName);
       if (ri < 0) continue;
-      const bucket = cells[ri][cj];
-      const key = `${p.alphaName}\0${p.stateName}`;
-      if (bucket.some((e) => `${e.alphaName}\0${e.stateName}` === key)) continue;
-      bucket.push({ alphaName: p.alphaName, stateName: p.stateName });
-    }
-
-    const laneRefs = patternViewLaneRefsWithOrigin(pv);
-    for (const { name: refName, listOrigin } of laneRefs) {
-      const resolved = resolvePatternLane(refName, spaceByName, activityByName);
-      if (!resolved) continue;
-      const focus = String(resolved.entity.focusName ?? "").trim();
-      const ri = rowFocusNames.findIndex((fn) => String(fn).trim() === focus);
-      if (ri < 0) continue;
-      const laneName = String(resolved.entity.name ?? "").trim();
-      if (!laneName) continue;
-      const secondary = laneChipSecondary(resolved.entity, resolved.kind, laneLabels);
-      const bucket = laneCells[ri][cj];
-      const key = `${listOrigin}\0${refName}`;
-      if (bucket.some((e) => `${e.listOrigin}\0${e.patternRef}` === key)) continue;
-      bucket.push({ laneName, secondary, kind: resolved.kind, listOrigin, patternRef: refName });
+      const block = findOrAppendCellBlock(cellBlocks[ri][cj], p.alphaName, p.stateName);
+      fillLanesContributingForSlice(block, baseline, p.alphaName, p.stateName, laneLabels);
+      appendExplicitLanesForSliceFromPatternView(block, pv, baseline, p.alphaName, p.stateName, laneLabels);
     }
   }
+
   for (let ri = 0; ri < nR; ri++) {
     for (let cj = 0; cj < nC; cj++) {
-      cells[ri][cj].sort((a, b) => a.alphaName.localeCompare(b.alphaName) || a.stateName.localeCompare(b.stateName));
-      laneCells[ri][cj].sort((a, b) => {
-        const oa = a.listOrigin === "activities" ? 1 : 0;
-        const ob = b.listOrigin === "activities" ? 1 : 0;
-        if (oa !== ob) return oa - ob;
-        return a.patternRef.localeCompare(b.patternRef) || a.laneName.localeCompare(b.laneName) || a.kind.localeCompare(b.kind);
-      });
+      cellBlocks[ri][cj].sort((a, b) => a.stateName.localeCompare(b.stateName));
+      for (const b of cellBlocks[ri][cj]) {
+        b.lanes.sort((x, y) => {
+          const oa = x.listOrigin === "activities" ? 1 : 0;
+          const ob = y.listOrigin === "activities" ? 1 : 0;
+          if (oa !== ob) return oa - ob;
+          return (
+            x.patternRef.localeCompare(y.patternRef) ||
+            x.laneName.localeCompare(y.laneName) ||
+            x.kind.localeCompare(y.kind)
+          );
+        });
+      }
     }
   }
-  return { views, cells, laneCells };
+  return { views, cellBlocks };
 }
 
 export type PatternMatrixLayout = {
@@ -422,10 +699,12 @@ export type PatternMatrixLayout = {
   chipInnerW: number;
 };
 
+/** Min height for lane fold overlay (execution lanes) in {@link DiagramPatternMatrix}. */
+export const PATTERN_MATRIX_LANE_TOGGLE_HEIGHT = 22;
+
 export function computePatternMatrixLayout(
   views: any[],
-  cells: PatternMatrixCellEntry[][][],
-  laneCells: PatternMatrixLaneChip[][][],
+  cellBlocks: PatternMatrixCellBlock[][][],
   options: {
     labelColW: number;
     colW: number;
@@ -433,15 +712,30 @@ export function computePatternMatrixLayout(
     cellPadding: number;
     chipGap: number;
     minRowH: number;
-    /** Vertical gap between alpha/state stack and activity lane stack inside a cell. */
+    /** Vertical gap between alpha→state slice and lanes / toggle beneath it. */
     blockGap?: number;
-    /** Optional display measurement for element names (e.g. alias + canonical) so row heights fit. */
+    /** Extra gap between sibling alpha→state stacks within one matrix cell. */
+    blockStackGap?: number;
+    /** When false, lane arrows are hidden; fold control overlays the slice chip (no separate strip height). */
+    lanesExpanded?: (ri: number, cj: number, blockIdx: number) => boolean;
     measureName?: (kind: string, canonicalName: string) => string;
-    /** When set, chip/arrow heights use alias-aware wrapping for these element kinds. */
     aliasLookup?: PracticeElementAliasLookup;
   },
 ): PatternMatrixLayout {
-  const { labelColW, colW, headerTopPad, cellPadding, chipGap, minRowH, blockGap = 8, measureName, aliasLookup } = options;
+  const {
+    labelColW,
+    colW,
+    headerTopPad,
+    cellPadding,
+    chipGap,
+    minRowH,
+    blockGap = 8,
+    blockStackGap = 8,
+    lanesExpanded,
+    measureName,
+    aliasLookup,
+  } = options;
+  const isExpanded = lanesExpanded ?? (() => true);
   const m = measureName ?? ((_k: string, n: string) => n);
   const chipNameBlockH = (
     kind: string,
@@ -460,7 +754,7 @@ export function computePatternMatrixLayout(
       : computeBlockHeightForWidth(m(kind, name), desc, w, 8, 8, useChevron);
   };
 
-  const nR = cells.length;
+  const nR = cellBlocks.length;
   const nC = views.length;
   const innerHeaderW = colW - 16;
   const colHeaderHs = views.map((pv) =>
@@ -489,35 +783,39 @@ export function computePatternMatrixLayout(
   for (let ri = 0; ri < nR; ri++) {
     let maxCell = minRowH;
     for (let cj = 0; cj < nC; cj++) {
-      const alphaChips = cells[ri][cj];
-      const laneChips = laneCells[ri]?.[cj] ?? [];
+      const blocks = cellBlocks[ri][cj];
       let cellH = cellPadding * 2;
-      if (alphaChips.length) {
-        cellH += alphaChips.reduce(
-          (sum, e, idx) =>
-            sum +
-            chipNameBlockH("Alpha", e.alphaName, m("State", e.stateName), chipW, false) +
-            (idx < alphaChips.length - 1 ? chipGap : 0),
-          0,
-        );
+      if (blocks.length === 0) {
+        cellH += 12;
+        maxCell = Math.max(maxCell, cellH);
+        continue;
       }
-      if (alphaChips.length && laneChips.length) cellH += blockGap;
-      if (laneChips.length) {
-        cellH += laneChips.reduce(
-          (sum, e, idx) =>
-            sum +
-            chipNameBlockH(
-              e.kind === "activitySpace" ? "ActivitySpace" : "Activity",
-              e.laneName,
-              e.secondary,
-              chipW,
-              true,
-            ) +
-            (idx < laneChips.length - 1 ? chipGap : 0),
-          0,
-        );
+      for (let bk = 0; bk < blocks.length; bk++) {
+        const b = blocks[bk];
+        cellH +=
+          chipNameBlockH("Alpha", b.alphaName, m("State", b.stateName), chipW, false);
+        const lanes = b.lanes;
+        if (lanes.length > 0) {
+          if (isExpanded(ri, cj, bk)) {
+            cellH += blockGap;
+            cellH += lanes.reduce(
+              (sum, e, idx) =>
+                sum +
+                chipNameBlockH(
+                  e.kind === "activitySpace" ? "ActivitySpace" : "Activity",
+                  e.laneName,
+                  e.secondary,
+                  chipW,
+                  true,
+                ) +
+                (idx < lanes.length - 1 ? chipGap : 0),
+              0,
+            );
+          }
+          /* Collapsed: fold control overlays the slice chip row — no reserved strip height here. */
+        }
+        if (bk < blocks.length - 1) cellH += blockStackGap;
       }
-      if (!alphaChips.length && !laneChips.length) cellH += 12;
       maxCell = Math.max(maxCell, cellH);
     }
     rowHeights.push(maxCell);

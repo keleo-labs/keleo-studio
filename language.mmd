@@ -24,6 +24,7 @@ classDiagram
     }
 
     PracticeElement "0..1" *-- "0..1" TagsClassification : tags
+    PracticeElement "0..1" *-- "0..*" Narrative : narratives
     note for PracticeElement "tags optional: omit entirely, OR structured TagsClassification, OR legacy List~STRING~ (interchange; maps to lifecycleTags in tooling)."
 
     class PracticeElementAlias {
@@ -78,10 +79,7 @@ classDiagram
 
     class Checklist {
         +seq: INT
-        +isBlocking: BOOLEAN
-        +thresholdWeighting: NUMBER
         +verificationMethod: STRING
-        +evidenceRequired: BOOLEAN
         +evidencedBy: List~WorkProductContribution~
     }
 
@@ -103,25 +101,7 @@ classDiagram
         +seq: INT
     }
 
-    class WorkBreakdown {
-        +estimationUnit: STRING
-    }
-
-    class WorkItem {
-        +seq: INT
-        +implementsActivityName: STRING
-    }
-
-    class Estimate {
-        +lowEst: INT
-        +medEst: INT
-        +highEst: INT
-    }
-
-    class Complexity {
-        +level: INT
-        +contractType: STRING
-    }
+    
 
     %% -------------------------------------------------------------------------
     %% Competency & patterns
@@ -131,14 +111,28 @@ classDiagram
 
     class CompetencyLevel {
         +level: INT
-        +competencyName: STRING
     }
 
+    class Persona {
+    }
+
+    Persona "0..1" *-- "0..*" CompetencyLevelReference : competencies
+
+    class PersonaGroup {
+        +personaNames: List~STRING~
+    }
+    
+    PracticeElement <|-- PersonaGroup
+    PracticeElement <|-- Persona 
+
+
     class Pattern {
+        +narrativeTypeName: STRING
     }
 
     class PatternView {
         +seq: INT
+        +narrativeElementName: STRING
     }
 
     note for PatternView "alphaStates: canonical List~AlphaContribution~; legacy documents may use STRING tokens (same semantics). activitySpaces / activities: ActivitySpace.name and Activity.name refs as STRING lists."
@@ -182,6 +176,34 @@ classDiagram
         +levelOfDetailName: STRING
     }
 
+    class NarrativeContext {
+        +seq: INT
+        +narrativeElementName: STRING
+        +context: STRING
+    }
+
+    class Narrative {
+        +narrativeName: STRING
+        +narrativeTypeName: STRING
+        +narrativeContexts: List~NarrativeContext~
+    }
+
+    PracticeElement <|-- Narrative
+
+    class NarrativeType {
+        +name: STRING
+        +description: STRING
+        +narrativeElements: List~NarrativeElement
+    }
+
+    PracticeElement <|-- NarrativeType
+
+    class NarrativeElement {
+        +name: STRING
+        +description: STRING
+        +howToUse: STRING
+    }
+
     %% -------------------------------------------------------------------------
     %% Composition & aggregation (JSON shape)
     %% -------------------------------------------------------------------------
@@ -190,11 +212,6 @@ classDiagram
     Alpha "1" *-- "3..*" State : states
     Alpha "1" o-- "0..*" STRING : supportingAlphas
     Competency "1" *-- "1..*" CompetencyLevel : levels
-    Complexity "1" *-- "0..*" AlphaContribution : productRisks
-    Complexity "1" *-- "0..*" AlphaContribution : projectRisks
-    Complexity "1" *-- "0..1" AlphaContribution : stakeholderEngagement
-    Complexity "1" *-- "0..1" AlphaContribution : technicalRisk
-    Complexity "1" *-- "0..1" AlphaContribution : valueRisk
     LevelOfDetail "1" *-- "0..*" Checklist : checklist
     LevelOfDetail "1" *-- "1..*" AlphaContribution : contributesTo
     Method "1" --> "1" PracticeBaseline : baselinePractice
@@ -204,20 +221,18 @@ classDiagram
     Practice "1" o-- "0..*" Activity : activities
     Practice "1" o-- "0..*" Pattern : patterns
     Practice "1" o-- "0..*" PracticeElementAlias : practiceElementAliases
-    Practice "1" o-- "0..*" WorkBreakdown : workBreakdowns
     Practice "1" o-- "0..*" WorkProduct : workProducts
+    Practice "1" o-- "0..*" Persona : personas
+    Practice "1" o-- "0..*" PersonaGroup : personaGroups
+    
     PracticeBaseline "1" *-- "0..*" ActivitySpace : activitySpaces
     PracticeBaseline "1" *-- "0..*" Alpha : alphas
     PracticeBaseline "1" *-- "0..*" Competency : competencies
     PracticeBaseline "1" *-- "0..*" Focus : focuses
+    PracticeBaseline "1" *-- "0..*" NarrativeType : narrativeTypes
+    
     State "1" *-- "0..*" Checklist : checklist
-    WorkBreakdown "1" *-- "0..*" PatternViewReference : prerequisiteAndAssumptions
-    WorkBreakdown "1" *-- "1" Complexity : complexity
-    WorkBreakdown "1" *-- "1..*" WorkItem : task
-    WorkItem "1" *-- "0..*" ActivitySpaceReference : applies
-    WorkItem "1" *-- "0..*" AlphaContribution : contributesTo
-    WorkItem "1" *-- "0..*" WorkProductContribution : worksOn
-    WorkItem "1" *-- "1" Estimate : estimate
+    
     WorkProduct "1" *-- "2..*" LevelOfDetail : levelsOfDetail
 
     Activity "1" *-- "0..*" AlphaContribution : contributesTo
