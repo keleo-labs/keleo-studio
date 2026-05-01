@@ -5,7 +5,17 @@ export type ValidationIssue = {
 
 export type RefIssue = {
   kind: "missing";
-  type: "Focus" | "Alpha" | "AlphaState" | "ActivitySpace" | "Competency" | "WorkProduct" | "LevelOfDetail" | "Pattern" | "PatternView";
+  type:
+    | "Focus"
+    | "Alpha"
+    | "AlphaState"
+    | "ActivitySpace"
+    | "Competency"
+    | "WorkProduct"
+    | "LevelOfDetail"
+    | "Pattern"
+    | "PatternView"
+    | "PersonaGroup";
   ref: string;
   context?: string;
 };
@@ -17,10 +27,29 @@ export type PracticeElementTags = {
   organizationalTags?: string[];
 };
 
-export type PracticeElement = {
+/** Core fields shared by every practice artifact (excluding recursive `narratives`). */
+export type PracticeElementIdentity = {
   name: string;
   description: string;
   tags?: PracticeElementTags | string[];
+};
+
+export type NarrativeContext = {
+  seq: number;
+  narrativeElementName: string;
+  context: string;
+};
+
+/** Embedded narrative breakdown subtree (`PracticeElement.narratives`; language.schema.json). */
+export type Narrative = PracticeElementIdentity & {
+  narratives?: Narrative[];
+  narrativeName: string;
+  narrativeTypeName: string;
+  narrativeContexts: NarrativeContext[];
+};
+
+export type PracticeElement = PracticeElementIdentity & {
+  narratives?: Narrative[];
 };
 
 export type AlphaContribution = {
@@ -39,8 +68,20 @@ export type CompetencyLevelReference = {
   competencyLevelName: string;
 };
 
-export type ActivitySpaceReference = {
-  activitySpaceName: string;
+export type NarrativeElement = PracticeElement & {
+  howToUse: string;
+};
+
+export type NarrativeType = PracticeElement & {
+  narrativeElements?: NarrativeElement[];
+};
+
+export type Persona = PracticeElement & {
+  competencies?: CompetencyLevelReference[];
+};
+
+export type PersonaGroup = PracticeElement & {
+  personaNames: string[];
 };
 
 export type PatternViewReference = {
@@ -53,40 +94,6 @@ export type PracticeElementAlias = {
   practiceElementType: string;
   practiceElementName: string;
   aliasName: string;
-};
-
-export type Estimate = {
-  lowEst: number;
-  medEst: number;
-  highEst: number;
-};
-
-export type Complexity = PracticeElement & {
-  level: number;
-  contractType: string;
-  /** Present when a single alpha/state slice is modeled (language.mmd 0..1). */
-  valueRisk?: AlphaContribution;
-  technicalRisk?: AlphaContribution;
-  stakeholderEngagement?: AlphaContribution;
-  productRisks: AlphaContribution[];
-  projectRisks: AlphaContribution[];
-};
-
-export type WorkItem = PracticeElement & {
-  seq: number;
-  implementsActivityName: string;
-  contributesTo: AlphaContribution[];
-  worksOn: WorkProductContribution[];
-  applies: ActivitySpaceReference[];
-  estimate: Estimate;
-};
-
-export type WorkBreakdown = PracticeElement & {
-  prerequisiteAndAssumptions: PatternViewReference[];
-  /** Forecasting unit (language.schema.json); optional on partial/runtime JSON. */
-  estimationUnit?: "man-hours" | "story-points" | "currency" | string;
-  task: WorkItem[];
-  complexity: Complexity;
 };
 
 /** Essence swimlane activity; nested under ActivitySpace.activities or flat on Practice.activities (legacy). */
@@ -113,6 +120,8 @@ export type PracticeBaseline = PracticeElement & {
     contributesTo: { alphaName: string; stateName: string }[];
     focusName: string;
     requiredCompetencies: string[];
+    /** Symbolic PersonaGroup.name refs (same practice / merged scope; language.mmd). */
+    involves?: string[];
     activities?: PracticeActivity[];
   })[];
   competencies: (PracticeElement & {
@@ -123,6 +132,7 @@ export type PracticeBaseline = PracticeElement & {
   updatedAt: string;
   version: string;
   keywords: string[];
+  narrativeTypes?: NarrativeType[];
 };
 
 export type WorkProduct = PracticeElement & {
@@ -143,10 +153,13 @@ export type PatternView = PracticeElement & {
   activitySpaces?: string[];
   /** Activity.name entries for matrix swimlanes (nested or flat activities; symbolic links). */
   activities?: string[];
+  /** Optional hook to NarrativeElement.name under Pattern.narrativeTypeName spine. */
+  narrativeElementName?: string;
 };
 
 export type Pattern = PracticeElement & {
   patternViews: PatternView[];
+  narrativeTypeName?: string;
 };
 
 /** Practice document: names a baseline; baseline-shaped fields are optional overlays. */
@@ -167,13 +180,27 @@ export type Practice = PracticeElement & {
   keywords?: string[];
   activities?: PracticeActivity[];
   workProducts?: WorkProduct[];
-  workBreakdowns?: WorkBreakdown[];
   patterns?: Pattern[];
+  personas?: Persona[];
+  personaGroups?: PersonaGroup[];
+  /** Baseline-overlay narrative spine types (merged like focuses when composing methods). */
+  narrativeTypes?: NarrativeType[];
 };
 
 /** Enriched baseline plus practice-root overlays for alternate readable previews (business / delivery / SOW). */
 export type ReadablePracticePreviewDoc = PracticeBaseline &
-  Partial<Pick<Practice, "patterns" | "activities" | "workProducts" | "workBreakdowns" | "practiceElementAliases">>;
+  Partial<
+    Pick<
+      Practice,
+      | "patterns"
+      | "activities"
+      | "workProducts"
+      | "practiceElementAliases"
+      | "personas"
+      | "personaGroups"
+      | "narrativeTypes"
+    >
+  >;
 
 export type Method = PracticeElement & {
   baselinePractice: PracticeBaseline;

@@ -1125,5 +1125,117 @@
     "platform",
     "adoption",
     "kernel"
+  ],
+  "narrativeTypes": [
+    {
+      "name": "The STAR Format",
+      "description": "Enforces a strict cause-and-effect relationship between context and outcomes (Situation, Task, Action, Result).",
+      "narrativeElements": [
+        {
+          "name": "Situation",
+          "description": "The context or background of the challenge.",
+          "howToUse": "Describe the specific situation, context, or baseline state before action is taken."
+        },
+        {
+          "name": "Task",
+          "description": "The specific challenge, objective, or requirement.",
+          "howToUse": "Outline the specific task, problem, or goal that needs to be addressed."
+        },
+        {
+          "name": "Action",
+          "description": "The specific steps or interventions performed.",
+          "howToUse": "Detail the methodology, activities, or steps taken to address the task."
+        },
+        {
+          "name": "Result",
+          "description": "The outcome, impact, or value achieved.",
+          "howToUse": "Summarize the measurable results, outcomes, or state changes achieved from the actions."
+        }
+      ]
+    },
+    {
+      "name": "The Hero's Journey",
+      "description": "Highly effective for macro-level lifecycle orchestrations (platform adoptions, transformations).",
+      "narrativeElements": [
+        {
+          "name": "The Ordinary World",
+          "description": "The starting point before the transformation.",
+          "howToUse": "Describe the current, pre-platform state of the organization."
+        },
+        {
+          "name": "The Call to Adventure",
+          "description": "The catalyst for change.",
+          "howToUse": "Outline the business opportunity, crisis, or driver that necessitates the platform transformation."
+        },
+        {
+          "name": "The Ordeal",
+          "description": "The core transformation challenges and execution.",
+          "howToUse": "Detail the complex adoption activities, migrations, and challenges faced during implementation."
+        },
+        {
+          "name": "The Return",
+          "description": "The new operational baseline and realized value.",
+          "howToUse": "Describe the successful adoption, the accrual of benefits, and the new optimized way of working."
+        }
+      ]
+    },
+    {
+      "name": "The Three-Act Structure & StoryBrand",
+      "description": "Positions the consumer as the Hero and the Platform Engineering team as the Guide utilizing the defined approach.",
+      "narrativeElements": [
+        {
+          "name": "Act I: The Hero and the Problem",
+          "description": "Identifying the consumer and their pain points.",
+          "howToUse": "Identify the primary consumer (the Hero) and detail the specific friction or problem they face."
+        },
+        {
+          "name": "Act II: The Guide and the Plan",
+          "description": "The platform team offers a solution.",
+          "howToUse": "Introduce the Platform Engineering team as the Guide who provides a clear, paved-path approach or plan."
+        },
+        {
+          "name": "Act III: Call to Action and Success",
+          "description": "Execution and outcome.",
+          "howToUse": "Describe the call to action for the consumer to adopt the plan, and the successful outcome of doing so."
+        }
+      ]
+    },
+    {
+      "name": "Micro-Narratives (ABT)",
+      "description": "Shorter frameworks (And/But/Therefore) designed for rapid, highly persuasive daily execution updates.",
+      "narrativeElements": [
+        {
+          "name": "And (Context)",
+          "description": "The current situation and baseline facts.",
+          "howToUse": "State the current agreed-upon context, background, and baseline facts."
+        },
+        {
+          "name": "But (Conflict)",
+          "description": "The problem, challenge, or contradiction.",
+          "howToUse": "Introduce the specific problem, blocker, challenge, or contradiction encountered."
+        },
+        {
+          "name": "Therefore (Resolution)",
+          "description": "The action taken or conclusion reached.",
+          "howToUse": "State the specific action taken, decision made, or conclusion reached to resolve the conflict."
+        }
+      ]
+    },
+    {
+      "name": "Lifecycle",
+      "description": "A standard lifecycle orchestration framework to map progression phases.",
+      "narrativeElements": [
+        {
+          "name": "Prerequisites",
+          "description": "Conditions required before starting the lifecycle.",
+          "howToUse": "Define the Phase 0 or preparation steps, including baseline checks or prerequisite states, that must be achieved before the main lifecycle begins."
+        },
+        {
+          "name": "Lifecycle Phase",
+          "description": "An active stage of lifecycle execution.",
+          "howToUse": "Detail the active state transitions, required work products, and activities for this specific phase of the lifecycle progression."
+        }
+      ]
+    }
   ]
 }

@@ -27,7 +27,8 @@ export type DocumentationClosure = {
   activityNames: Set<string>;
   competencyNames: Set<string>;
   workProductNames: Set<string>;
-  workBreakdownNames: Set<string>;
+  personaNames: Set<string>;
+  personaGroupNames: Set<string>;
   patternNames: Set<string>;
 };
 
@@ -39,7 +40,8 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
   const activityNames = new Set<string>();
   const competencyNames = new Set<string>();
   const workProductNames = new Set<string>();
-  const workBreakdownNames = new Set<string>();
+  const personaNames = new Set<string>();
+  const personaGroupNames = new Set<string>();
   const patternNames = new Set<string>();
 
   if (!doc || typeof doc !== "object") {
@@ -50,7 +52,8 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
       activityNames,
       competencyNames,
       workProductNames,
-      workBreakdownNames,
+      personaNames,
+      personaGroupNames,
       patternNames,
     };
   }
@@ -137,6 +140,12 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
       const n = String(c ?? "").trim();
       if (n) competencyNames.add(n);
     }
+    for (const raw of Array.isArray((s as { involves?: unknown }).involves)
+      ? ((s as { involves?: unknown }).involves as unknown[])
+      : []) {
+      const gn = String(raw ?? "").trim();
+      if (gn) personaGroupNames.add(gn);
+    }
     for (const act of s.activities ?? []) {
       const af = String(act.focusName ?? "").trim();
       if (af) focusNames.add(af);
@@ -182,29 +191,20 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
     }
   }
 
-  for (const wb of d.workBreakdowns ?? []) {
-    const n = String(wb.name ?? "").trim();
-    if (n) workBreakdownNames.add(n);
-    const cx = wb.complexity;
-    if (cx && typeof cx === "object") {
-      if (cx.valueRisk) walkContrib(cx.valueRisk);
-      if (cx.technicalRisk) walkContrib(cx.technicalRisk);
-      if (cx.stakeholderEngagement) walkContrib(cx.stakeholderEngagement);
-      for (const c of cx.productRisks ?? []) walkContrib(c);
-      for (const c of cx.projectRisks ?? []) walkContrib(c);
+  for (const persona of (d.personas ?? []) as { name?: unknown; competencies?: unknown[] }[]) {
+    const pn = String(persona?.name ?? "").trim();
+    if (pn) personaNames.add(pn);
+    for (const r of persona.competencies ?? []) {
+      const cn = String((r as { competencyName?: unknown })?.competencyName ?? "").trim();
+      if (cn) competencyNames.add(cn);
     }
-    for (const task of wb.task ?? []) {
-      for (const c of task.contributesTo ?? []) walkContribEntry(c);
-      for (const w of task.worksOn ?? []) {
-        const n = String(w?.workProductName ?? "").trim();
-        if (n) workProductNames.add(n);
-      }
-      for (const ap of task.applies ?? []) {
-        const sn = String(ap?.activitySpaceName ?? "").trim();
-        if (sn) activitySpaceNames.add(sn);
-      }
-      const impl = String(task.implementsActivityName ?? "").trim();
-      if (impl) activityNames.add(impl);
+  }
+  for (const pg of (d.personaGroups ?? []) as { name?: unknown; personaNames?: unknown[] }[]) {
+    const gn = String(pg?.name ?? "").trim();
+    if (gn) personaGroupNames.add(gn);
+    for (const raw of pg.personaNames ?? []) {
+      const pn = String(raw ?? "").trim();
+      if (pn) personaNames.add(pn);
     }
   }
 
@@ -239,7 +239,8 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
     activityNames,
     competencyNames,
     workProductNames,
-    workBreakdownNames,
+    personaNames,
+    personaGroupNames,
     patternNames,
   };
 }
@@ -252,7 +253,8 @@ function documentationClosureIsEmpty(c: DocumentationClosure): boolean {
       c.activityNames.size +
       c.competencyNames.size +
       c.workProductNames.size +
-      c.workBreakdownNames.size +
+      c.personaNames.size +
+      c.personaGroupNames.size +
       c.patternNames.size ===
     0
   );
@@ -265,7 +267,8 @@ function unionDocumentationClosuresInPlace(into: DocumentationClosure, other: Do
   for (const x of other.activityNames) into.activityNames.add(x);
   for (const x of other.competencyNames) into.competencyNames.add(x);
   for (const x of other.workProductNames) into.workProductNames.add(x);
-  for (const x of other.workBreakdownNames) into.workBreakdownNames.add(x);
+  for (const x of other.personaNames) into.personaNames.add(x);
+  for (const x of other.personaGroupNames) into.personaGroupNames.add(x);
   for (const x of other.patternNames) into.patternNames.add(x);
 }
 
@@ -323,6 +326,12 @@ function expandDocumentationClosureFromMergedGraph(merged: Record<string, unknow
       c.workProductNames.add(t);
       changed = true;
     };
+    const addPersona = (n: string) => {
+      const t = String(n ?? "").trim();
+      if (!t || c.personaNames.has(t)) return;
+      c.personaNames.add(t);
+      changed = true;
+    };
 
     for (const a of (merged.alphas as any[]) ?? []) {
       if (!a?.name || !c.alphaNames.has(String(a.name))) continue;
@@ -378,23 +387,16 @@ function expandDocumentationClosureFromMergedGraph(merged: Record<string, unknow
       }
     }
 
-    for (const wb of (merged.workBreakdowns as any[]) ?? []) {
-      if (!wb?.name || !c.workBreakdownNames.has(String(wb.name))) continue;
-      const cx = wb.complexity;
-      if (cx && typeof cx === "object") {
-        if (cx.valueRisk) walkContrib(cx.valueRisk, addAlpha);
-        if (cx.technicalRisk) walkContrib(cx.technicalRisk, addAlpha);
-        if (cx.stakeholderEngagement) walkContrib(cx.stakeholderEngagement, addAlpha);
-        for (const x of cx.productRisks ?? []) walkContrib(x, addAlpha);
-        for (const x of cx.projectRisks ?? []) walkContrib(x, addAlpha);
-      }
-      for (const task of wb.task ?? []) {
-        for (const x of task.contributesTo ?? []) walkContrib(x, addAlpha);
-        for (const w of task.worksOn ?? []) addWp(String(w?.workProductName ?? ""));
-        for (const ap of task.applies ?? []) addSpace(String(ap?.activitySpaceName ?? ""));
-        const impl = String(task.implementsActivityName ?? "").trim();
-        if (impl) addActivity(impl);
-      }
+    for (const pg of (merged.personaGroups as any[]) ?? []) {
+      const gn = String(pg?.name ?? "").trim();
+      if (!gn || !c.personaGroupNames.has(gn)) continue;
+      for (const raw of pg.personaNames ?? []) addPersona(String(raw ?? ""));
+    }
+
+    for (const persona of (merged.personas as any[]) ?? []) {
+      const pn = String(persona?.name ?? "").trim();
+      if (!pn || !c.personaNames.has(pn)) continue;
+      for (const r of persona.competencies ?? []) addComp(String(r?.competencyName ?? ""));
     }
 
     for (const pat of (merged.patterns as any[]) ?? []) {
@@ -468,8 +470,10 @@ export function prunePracticeToDocumentationClosure(
   const keptWps =
     (merged.workProducts as any[] | undefined)?.filter((wp) => wp?.name && closure.workProductNames.has(String(wp.name))) ??
     [];
-  const keptWbs =
-    (merged.workBreakdowns as any[] | undefined)?.filter((wb) => wb?.name && closure.workBreakdownNames.has(String(wb.name))) ??
+  const keptPersonas =
+    (merged.personas as any[] | undefined)?.filter((p) => p?.name && closure.personaNames.has(String(p.name))) ?? [];
+  const keptPersonaGroups =
+    (merged.personaGroups as any[] | undefined)?.filter((pg) => pg?.name && closure.personaGroupNames.has(String(pg.name))) ??
     [];
   const keptPatterns =
     (merged.patterns as any[] | undefined)?.filter((p) => p?.name && closure.patternNames.has(String(p.name))) ?? [];
@@ -484,8 +488,10 @@ export function prunePracticeToDocumentationClosure(
   out.competencies = keptCompetencies;
   if (keptWps.length) out.workProducts = keptWps;
   else delete out.workProducts;
-  if (keptWbs.length) out.workBreakdowns = keptWbs;
-  else delete out.workBreakdowns;
+  if (keptPersonas.length) out.personas = keptPersonas;
+  else delete out.personas;
+  if (keptPersonaGroups.length) out.personaGroups = keptPersonaGroups;
+  else delete out.personaGroups;
   if (keptPatterns.length) out.patterns = keptPatterns;
   else delete out.patterns;
 

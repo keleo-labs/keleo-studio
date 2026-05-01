@@ -6,7 +6,6 @@ import type { LibraryRootKind } from "@/lib/library/classify";
 import { classifyLibraryRoot } from "@/lib/library/classify";
 import type { JsonDocumentMeta } from "@/lib/storage/types";
 import {
-  activitySpaceReference,
   alphaContribution,
   checklistItem,
   competencyLevelRef,
@@ -14,18 +13,17 @@ import {
   emptyActivitySpace,
   emptyAlpha,
   emptyBaselinePractice,
-  emptyComplexity,
   emptyCompetency,
   emptyCompetencyLevel,
-  emptyEstimate,
   emptyExtensionPractice,
   emptyFocus,
   emptyLevelOfDetail,
+  emptyNarrativeType,
   emptyPattern,
   emptyPatternView,
+  emptyPersona,
+  emptyPersonaGroup,
   emptyState,
-  emptyWorkBreakdown,
-  emptyWorkItem,
   emptyWorkProduct,
   patternViewReference,
   workProductContribution,
@@ -775,15 +773,40 @@ export function PracticeAuthorForm({
         emptyItem={() => emptyWorkProduct()}
       />
 
+      {kind === "extension" ? (
+        <>
+          <RepeatSection
+            title="Personas"
+            items={getArr("personas")}
+            onReplace={(xs) => setRoot("personas", xs)}
+            addLabel="+ Add persona"
+            renderItem={(p, i, mutate) => (
+              <PersonaBlock persona={p} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
+            )}
+            emptyItem={() => emptyPersona()}
+          />
+          <RepeatSection
+            title="Persona groups"
+            items={getArr("personaGroups")}
+            onReplace={(xs) => setRoot("personaGroups", xs)}
+            addLabel="+ Add persona group"
+            renderItem={(pg, i, mutate) => (
+              <PersonaGroupBlock group={pg} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
+            )}
+            emptyItem={() => emptyPersonaGroup()}
+          />
+        </>
+      ) : null}
+
       <RepeatSection
-        title="Work breakdowns"
-        items={getArr("workBreakdowns")}
-        onReplace={(xs) => setRoot("workBreakdowns", xs)}
-        addLabel="+ Add work breakdown (includes task & complexity shells)"
-        renderItem={(wb, i, mutate) => (
-          <WorkBreakdownBlock wb={wb} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
+        title="Narrative spine types"
+        items={getArr("narrativeTypes")}
+        onReplace={(xs) => setRoot("narrativeTypes", xs)}
+        addLabel="+ Add narrative type"
+        renderItem={(nt, i, mutate) => (
+          <NarrativeTypeBlock nt={nt} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
         )}
-        emptyItem={() => emptyWorkBreakdown()}
+        emptyItem={() => emptyNarrativeType()}
       />
 
       <RepeatSection
@@ -1123,6 +1146,12 @@ function ActivitySpaceBlock({
         onChange={(e) => patch((s) => ({ ...s, requiredCompetencies: strArrFromLines(e.target.value) }))}
         style={{ ...inp, minHeight: 40, fontFamily: "inherit" }}
       />
+      <label style={lab}>involves — PersonaGroup.name (one per line)</label>
+      <textarea
+        value={linesFromStrArr(space.involves)}
+        onChange={(e) => patch((s) => ({ ...s, involves: strArrFromLines(e.target.value) }))}
+        style={{ ...inp, minHeight: 36, fontFamily: "inherit" }}
+      />
       <RepeatSection
         title="contributesTo (alpha slices)"
         items={contributes}
@@ -1391,249 +1420,97 @@ function LevelOfDetailBlock({ lod, onChange }: { lod: Record<string, unknown>; o
   );
 }
 
-function WorkBreakdownBlock({ wb, onChange }: { wb: Record<string, unknown>; onChange: (next: Record<string, unknown>) => void }) {
-  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...wb })), [wb, onChange]);
-  const pre = arr<Record<string, unknown>>(wb, "prerequisiteAndAssumptions");
-  const tasks = arr<Record<string, unknown>>(wb, "task");
-  const complexity = (typeof wb.complexity === "object" && wb.complexity !== null ? wb.complexity : emptyComplexity()) as Record<string, unknown>;
-
+function NarrativeElementBlock({
+  el,
+  onChange,
+}: {
+  el: Record<string, unknown>;
+  onChange: (next: Record<string, unknown>) => void;
+}) {
+  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...el })), [el, onChange]);
   return (
     <div style={{ display: "grid", gap: 8 }}>
-      {practiceElFields(wb, patch)}
-      <RepeatSection
-        title="prerequisiteAndAssumptions (pattern views)"
-        items={pre}
-        onReplace={(xs) => patch((w) => ({ ...w, prerequisiteAndAssumptions: xs }))}
-        addLabel="+ Add pattern view ref"
-        emptyItem={() => patternViewReference()}
-        renderItem={(pv, pi, mutate) => (
-          <div style={{ display: "flex", gap: 8 }}>
-            <input
-              placeholder="patternName"
-              value={sx(pv, "patternName")}
-              onChange={(e) => mutate((list) => [...list.slice(0, pi), { ...pv, patternName: e.target.value }, ...list.slice(pi + 1)])}
-              style={inp}
-            />
-            <input
-              placeholder="patternViewName"
-              value={sx(pv, "patternViewName")}
-              onChange={(e) => mutate((list) => [...list.slice(0, pi), { ...pv, patternViewName: e.target.value }, ...list.slice(pi + 1)])}
-              style={inp}
-            />
-          </div>
-        )}
+      {practiceElFields(el, patch)}
+      <label style={lab}>howToUse</label>
+      <textarea
+        value={sx(el, "howToUse")}
+        onChange={(e) => patch((x) => ({ ...x, howToUse: e.target.value }))}
+        style={{ ...inp, minHeight: 48 }}
       />
-      <RepeatSection
-        title="task (work items)"
-        items={tasks}
-        onReplace={(xs) => patch((w) => ({ ...w, task: xs.length ? xs : [emptyWorkItem(1)] }))}
-        addLabel="+ Add work item"
-        renumberSeq
-        emptyItem={() => emptyWorkItem(1)}
-        renderItem={(wi, ti, mutate) => (
-          <WorkItemBlock item={wi} onChange={(next) => mutate((list) => [...list.slice(0, ti), next, ...list.slice(ti + 1)])} />
-        )}
-      />
-      <ComplexityBlock complexity={complexity} onChange={(next) => patch((w) => ({ ...w, complexity: next }))} />
     </div>
   );
 }
 
-function WorkItemBlock({ item, onChange }: { item: Record<string, unknown>; onChange: (next: Record<string, unknown>) => void }) {
-  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...item })), [item, onChange]);
-  const contrib = arr<Record<string, unknown>>(item, "contributesTo");
-  const worksOn = arr<Record<string, unknown>>(item, "worksOn");
-  const applies = arr<Record<string, unknown>>(item, "applies");
-  const est = (typeof item.estimate === "object" && item.estimate !== null ? item.estimate : emptyEstimate()) as Record<string, unknown>;
-
+function NarrativeTypeBlock({ nt, onChange }: { nt: Record<string, unknown>; onChange: (next: Record<string, unknown>) => void }) {
+  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...nt })), [nt, onChange]);
+  const els = arr<Record<string, unknown>>(nt, "narrativeElements");
   return (
     <div style={{ display: "grid", gap: 8 }}>
-      {practiceElFields(item, patch)}
-      <label style={lab}>implementsActivityName</label>
-      <input value={sx(item, "implementsActivityName")} onChange={(e) => patch((x) => ({ ...x, implementsActivityName: e.target.value }))} style={inp} />
+      {practiceElFields(nt, patch)}
       <RepeatSection
-        title="contributesTo"
-        items={contrib}
-        onReplace={(xs) => patch((x) => ({ ...x, contributesTo: xs }))}
-        addLabel="+ Alpha contribution"
-        emptyItem={() => alphaContribution()}
-        renderItem={(ct, ii, mutate) => (
-          <div style={{ display: "flex", gap: 8 }}>
-            <input
-              placeholder="alphaName"
-              value={sx(ct, "alphaName")}
-              onChange={(e) => mutate((list) => [...list.slice(0, ii), { ...ct, alphaName: e.target.value }, ...list.slice(ii + 1)])}
-              style={inp}
-            />
-            <input
-              placeholder="stateName"
-              value={sx(ct, "stateName")}
-              onChange={(e) => mutate((list) => [...list.slice(0, ii), { ...ct, stateName: e.target.value }, ...list.slice(ii + 1)])}
-              style={inp}
-            />
-          </div>
+        title="narrativeElements"
+        items={els}
+        onReplace={(xs) => patch((n) => ({ ...n, narrativeElements: xs }))}
+        addLabel="+ Add narrative element"
+        renderItem={(el, i, mutate) => (
+          <NarrativeElementBlock el={el} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
         )}
+        emptyItem={() => ({ ...emptyPracticeElementStub(), howToUse: "" })}
       />
-      <RepeatSection
-        title="worksOn"
-        items={worksOn}
-        onReplace={(xs) => patch((x) => ({ ...x, worksOn: xs }))}
-        addLabel="+ Work product slice"
-        emptyItem={() => workProductContribution()}
-        renderItem={(wo, wi, mutate) => (
-          <div style={{ display: "flex", gap: 8 }}>
-            <input
-              placeholder="workProductName"
-              value={sx(wo, "workProductName")}
-              onChange={(e) => mutate((list) => [...list.slice(0, wi), { ...wo, workProductName: e.target.value }, ...list.slice(wi + 1)])}
-              style={inp}
-            />
-            <input
-              placeholder="levelOfDetailName"
-              value={sx(wo, "levelOfDetailName")}
-              onChange={(e) => mutate((list) => [...list.slice(0, wi), { ...wo, levelOfDetailName: e.target.value }, ...list.slice(wi + 1)])}
-              style={inp}
-            />
-          </div>
-        )}
-      />
-      <RepeatSection
-        title="applies (activity space refs)"
-        items={applies}
-        onReplace={(xs) => patch((x) => ({ ...x, applies: xs }))}
-        addLabel="+ activitySpaceName"
-        emptyItem={() => activitySpaceReference()}
-        renderItem={(ap, ai, mutate) => (
-          <input
-            placeholder="activitySpaceName"
-            value={sx(ap, "activitySpaceName")}
-            onChange={(e) => mutate((list) => [...list.slice(0, ai), { ...ap, activitySpaceName: e.target.value }, ...list.slice(ai + 1)])}
-            style={inp}
-          />
-        )}
-      />
-      <fieldset style={{ border: "1px solid var(--border)", borderRadius: 8, padding: 8 }}>
-        <legend style={{ fontWeight: 700, fontSize: 12 }}>estimate</legend>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 6 }}>
-          <div>
-            <label style={lab}>lowEst</label>
-            <input
-              type="number"
-              value={ix(est, "lowEst")}
-              onChange={(e) => patch((x) => ({ ...x, estimate: { ...est, lowEst: Number(e.target.value) || 0 } }))}
-              style={inp}
-            />
-          </div>
-          <div>
-            <label style={lab}>medEst</label>
-            <input
-              type="number"
-              value={ix(est, "medEst")}
-              onChange={(e) => patch((x) => ({ ...x, estimate: { ...est, medEst: Number(e.target.value) || 0 } }))}
-              style={inp}
-            />
-          </div>
-          <div>
-            <label style={lab}>highEst</label>
-            <input
-              type="number"
-              value={ix(est, "highEst")}
-              onChange={(e) => patch((x) => ({ ...x, estimate: { ...est, highEst: Number(e.target.value) || 0 } }))}
-              style={inp}
-            />
-          </div>
-        </div>
-      </fieldset>
     </div>
   );
 }
 
-function ComplexityBlock({ complexity, onChange }: { complexity: Record<string, unknown>; onChange: (next: Record<string, unknown>) => void }) {
-  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...complexity })), [complexity, onChange]);
-  const prod = arr<Record<string, unknown>>(complexity, "productRisks");
-  const proj = arr<Record<string, unknown>>(complexity, "projectRisks");
+function emptyPracticeElementStub() {
+  return { name: "", description: "" } as Record<string, unknown>;
+}
 
-  function alphaTriple(
-    label: string,
-    key: "valueRisk" | "technicalRisk" | "stakeholderEngagement",
-  ) {
-    const v = complexity[key];
-    const o = typeof v === "object" && v !== null ? (v as Record<string, unknown>) : alphaContribution();
-    return (
-      <>
-        <div style={{ fontWeight: 700, marginTop: 6, fontSize: 11, color: "var(--muted)" }}>{label}</div>
-        <div style={{ display: "flex", gap: 8 }}>
-          <input
-            placeholder="alphaName"
-            value={sx(o, "alphaName")}
-            onChange={(e) => patch((c) => ({ ...c, [key]: { ...o, alphaName: e.target.value } }))}
-            style={inp}
-          />
-          <input
-            placeholder="stateName"
-            value={sx(o, "stateName")}
-            onChange={(e) => patch((c) => ({ ...c, [key]: { ...o, stateName: e.target.value } }))}
-            style={inp}
-          />
-        </div>
-      </>
-    );
-  }
-
+function PersonaBlock({ persona, onChange }: { persona: Record<string, unknown>; onChange: (next: Record<string, unknown>) => void }) {
+  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...persona })), [persona, onChange]);
+  const comps = arr<Record<string, unknown>>(persona, "competencies");
   return (
-    <fieldset style={{ border: "1px solid var(--border)", borderRadius: 10, padding: 12 }}>
-      <legend style={{ fontWeight: 800 }}>complexity</legend>
-      {practiceElFields(complexity, patch)}
-      <label style={lab}>level</label>
-      <input type="number" value={ix(complexity, "level") || ""} onChange={(e) => patch((c) => ({ ...c, level: Number(e.target.value) || 0 }))} style={inp} />
-      <label style={lab}>contractType</label>
-      <input value={sx(complexity, "contractType")} onChange={(e) => patch((c) => ({ ...c, contractType: e.target.value }))} style={inp} />
-      {alphaTriple("valueRisk", "valueRisk")}
-      {alphaTriple("technicalRisk", "technicalRisk")}
-      {alphaTriple("stakeholderEngagement", "stakeholderEngagement")}
+    <div style={{ display: "grid", gap: 8 }}>
+      {practiceElFields(persona, patch)}
       <RepeatSection
-        title="productRisks"
-        items={prod}
-        onReplace={(xs) => patch((c) => ({ ...c, productRisks: xs }))}
-        addLabel="+ risk slice"
-        emptyItem={() => alphaContribution()}
-        renderItem={(ct, ii, mutate) => (
+        title="competencies (level refs)"
+        items={comps}
+        onReplace={(xs) => patch((p) => ({ ...p, competencies: xs }))}
+        addLabel="+ competency level ref"
+        emptyItem={() => competencyLevelRef()}
+        renderItem={(r, i, mutate) => (
           <div style={{ display: "flex", gap: 8 }}>
             <input
-              value={sx(ct, "alphaName")}
-              onChange={(e) => mutate((list) => [...list.slice(0, ii), { ...ct, alphaName: e.target.value }, ...list.slice(ii + 1)])}
+              placeholder="competencyName"
+              value={sx(r, "competencyName")}
+              onChange={(e) => mutate((list) => [...list.slice(0, i), { ...r, competencyName: e.target.value }, ...list.slice(i + 1)])}
               style={inp}
             />
             <input
-              value={sx(ct, "stateName")}
-              onChange={(e) => mutate((list) => [...list.slice(0, ii), { ...ct, stateName: e.target.value }, ...list.slice(ii + 1)])}
+              placeholder="competencyLevelName"
+              value={sx(r, "competencyLevelName")}
+              onChange={(e) => mutate((list) => [...list.slice(0, i), { ...r, competencyLevelName: e.target.value }, ...list.slice(i + 1)])}
               style={inp}
             />
           </div>
         )}
       />
-      <RepeatSection
-        title="projectRisks"
-        items={proj}
-        onReplace={(xs) => patch((c) => ({ ...c, projectRisks: xs }))}
-        addLabel="+ risk slice"
-        emptyItem={() => alphaContribution()}
-        renderItem={(ct, ii, mutate) => (
-          <div style={{ display: "flex", gap: 8 }}>
-            <input
-              value={sx(ct, "alphaName")}
-              onChange={(e) => mutate((list) => [...list.slice(0, ii), { ...ct, alphaName: e.target.value }, ...list.slice(ii + 1)])}
-              style={inp}
-            />
-            <input
-              value={sx(ct, "stateName")}
-              onChange={(e) => mutate((list) => [...list.slice(0, ii), { ...ct, stateName: e.target.value }, ...list.slice(ii + 1)])}
-              style={inp}
-            />
-          </div>
-        )}
+    </div>
+  );
+}
+
+function PersonaGroupBlock({ group, onChange }: { group: Record<string, unknown>; onChange: (next: Record<string, unknown>) => void }) {
+  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...group })), [group, onChange]);
+  const lines = linesFromStrArr(group.personaNames);
+  return (
+    <div style={{ display: "grid", gap: 8 }}>
+      {practiceElFields(group, patch)}
+      <label style={lab}>personaNames (one per line)</label>
+      <textarea
+        value={lines}
+        onChange={(e) => patch((g) => ({ ...g, personaNames: strArrFromLines(e.target.value) }))}
+        style={{ ...inp, minHeight: 56 }}
       />
-    </fieldset>
+    </div>
   );
 }
 
@@ -1644,6 +1521,12 @@ function PatternBlock({ pat, onChange }: { pat: Record<string, unknown>; onChang
   return (
     <div style={{ display: "grid", gap: 8 }}>
       {practiceElFields(pat, patch)}
+      <label style={lab}>narrativeTypeName (optional)</label>
+      <input
+        value={sx(pat, "narrativeTypeName")}
+        onChange={(e) => patch((p) => ({ ...p, narrativeTypeName: e.target.value }))}
+        style={inp}
+      />
       <RepeatSection
         title="patternViews"
         items={views}
@@ -1673,6 +1556,13 @@ function PatternViewBlock({
   return (
     <div style={{ display: "grid", gap: 8 }}>
       {practiceElFields(view, patch)}
+      <label style={lab}>narrativeElementName (optional)</label>
+      <input
+        value={sx(view, "narrativeElementName")}
+        onChange={(e) => patch((v) => ({ ...v, narrativeElementName: e.target.value }))}
+        style={inp}
+      />
+
       <label style={lab}>alphaStates (one token per line; alpha→state shortcuts ok)</label>
       <textarea
         value={ast}

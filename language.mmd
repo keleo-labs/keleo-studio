@@ -25,7 +25,7 @@ classDiagram
 
     PracticeElement "0..1" *-- "0..1" TagsClassification : tags
     PracticeElement "0..1" *-- "0..*" Narrative : narratives
-    note for PracticeElement "tags optional: omit entirely, OR structured TagsClassification, OR legacy List~STRING~ (interchange; maps to lifecycleTags in tooling)."
+    note for PracticeElement "tags optional: omit entirely, OR structured TagsClassification, OR legacy List~STRING~ (interchange; maps to lifecycleTags in tooling). Optional narrative breakdown on any element: 0..* embedded Narratives (composition); interchange field commonly `narratives`."
 
     class PracticeElementAlias {
         +practiceElementType: STRING
@@ -86,7 +86,10 @@ classDiagram
     class ActivitySpace {
         +focusName: STRING
         +requiredCompetencies: List~STRING~
+        +involves: List~STRING~
     }
+
+    note for ActivitySpace "involves: 0..* symbolic links; each STRING must match PersonaGroup.name in the same Practice overlay (or merged method scope), not Persona.name and not entries inside PersonaGroup.personaNames."
 
     class Activity {
         +activitySpaceName: STRING
@@ -100,8 +103,6 @@ classDiagram
     class LevelOfDetail {
         +seq: INT
     }
-
-    
 
     %% -------------------------------------------------------------------------
     %% Competency & patterns
@@ -160,10 +161,6 @@ classDiagram
         +patternViewName: STRING
     }
 
-    class ActivitySpaceReference {
-        +activitySpaceName: STRING
-    }
-
     class AlphaInstance {
         +instanceName: STRING
         +alphaName: STRING
@@ -193,7 +190,7 @@ classDiagram
     class NarrativeType {
         +name: STRING
         +description: STRING
-        +narrativeElements: List~NarrativeElement
+        +narrativeElements: List~NarrativeElement~
     }
 
     PracticeElement <|-- NarrativeType
@@ -203,6 +200,9 @@ classDiagram
         +description: STRING
         +howToUse: STRING
     }
+
+    PracticeElement <|-- NarrativeElement
+    NarrativeType "1" *-- "0..*" NarrativeElement : narrativeElements
 
     %% -------------------------------------------------------------------------
     %% Composition & aggregation (JSON shape)
@@ -244,6 +244,7 @@ classDiagram
     %% -------------------------------------------------------------------------
     Activity "1" --> "1" ActivitySpace : activitySpaceName
     ActivitySpace "1" --> "0..*" Competency : requiredCompetencies
+    ActivitySpace "1" --> "0..*" PersonaGroup : involves
     AlphaContribution "1" --> "1" Alpha : alphaName
     AlphaContribution "1" --> "1" State : stateName
     AlphaInstance "1" --> "1" Alpha : alphaName
@@ -259,19 +260,25 @@ classDiagram
     PatternViewReference "1" --> "1" PatternView : patternViewName
     Practice "1" --> "1" PracticeBaseline : baselinePracticeName
     Practice "1" o-- "0..*" Practice : practiceDependencyNames
-    WorkItem "1" --> "1" Activity : implementsActivityName
     WorkProductContribution "1" --> "1" LevelOfDetail : levelOfDetailName
     WorkProductContribution "1" --> "1" WorkProduct : workProductName
     WorkProductInstance "1" --> "1" LevelOfDetail : levelOfDetailName
     WorkProductInstance "1" --> "1" WorkProduct : workProductName
     PatternView "1" --> "0..*" STRING : activitySpaces
     PatternView "1" --> "0..*" STRING : activities
+    Pattern "1" --> "1" NarrativeType : narrativeTypeName
+    PatternView "1" --> "0..1" NarrativeElement : narrativeElementName
+    Narrative "1" --> "1" NarrativeType : narrativeTypeName
+    NarrativeContext "1" --> "1" NarrativeElement : narrativeElementName
 
     %% Resolution notes:
     %% stateName (+ alphaName) → State under that Alpha.
     %% levelOfDetailName (+ workProductName) → LevelOfDetail under that WorkProduct.
     %% competencyLevelName (+ competencyName) → CompetencyLevel.name under that Competency.
     %% patternViewName (+ patternName) → PatternView.name under that Pattern.
+    %% narrativeTypeName → NarrativeType.name in the baseline (or practice overlay embedding narrativeTypes).
+    %% narrativeElementName → NarrativeElement.name defined on that NarrativeType (within the patterned narrative spine).
+    %% involves → PersonaGroup.name in the same practice aggregate (extension overlay or merged composite); not Persona.name.
 
     %% -------------------------------------------------------------------------
     %% Inheritance (PracticeElement subclasses)
@@ -284,7 +291,6 @@ classDiagram
     PracticeElement <|-- Checklist
     PracticeElement <|-- Competency
     PracticeElement <|-- CompetencyLevel
-    PracticeElement <|-- Complexity
     PracticeElement <|-- Focus
     PracticeElement <|-- LevelOfDetail
     PracticeElement <|-- Method
@@ -292,7 +298,5 @@ classDiagram
     PracticeElement <|-- PatternView
     PracticeElement <|-- PracticeBaseline
     PracticeElement <|-- State
-    PracticeElement <|-- WorkBreakdown
-    PracticeElement <|-- WorkItem
     PracticeElement <|-- WorkProduct
     PracticeElement <|-- WorkProductInstance

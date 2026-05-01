@@ -102,7 +102,7 @@ function PracticeAuthorPageInner() {
     const b = asBaselineDocument(parsed);
     if (b) {
       const withActivities = baselineWithPracticeActivities(parsed, b);
-      setRefIssues(buildIndexes(enrichBaselineWithReferencedWrappers(parsed, withActivities)).issues);
+      setRefIssues(buildIndexes(enrichBaselineWithReferencedWrappers(parsed, withActivities), parsed).issues);
     } else {
       setRefIssues([]);
     }

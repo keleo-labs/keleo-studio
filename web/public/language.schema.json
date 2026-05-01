@@ -41,6 +41,11 @@
               "description": "Deprecated interchange; prefer the structured object."
             }
           ]
+        },
+        "narratives": {
+          "type": "array",
+          "description": "Optional narrative breakdown embedded on any practice element (language.mmd).",
+          "items": { "$ref": "#/$defs/Narrative" }
         }
       }
     },
@@ -119,7 +124,7 @@
       "properties": {
         "practiceElementType": {
           "type": "string",
-          "description": "Kind of element being aliased (e.g. Alpha, Activity, ActivitySpace, Focus, WorkProduct, Pattern, PatternView, Competency, WorkBreakdown); must match how the target is stored in JSON."
+          "description": "Kind of element being aliased (e.g. Alpha, Activity, ActivitySpace, Focus, WorkProduct, Pattern, PatternView, Competency, Persona, PersonaGroup, Narrative); must match how the target is stored in JSON."
         },
         "practiceElementName": {
           "type": "string",
@@ -286,6 +291,11 @@
               "description": "Each item is a Competency.name in the same baseline (symbolic link; do not embed Competency objects).",
               "items": { "type": "string" }
             },
+            "involves": {
+              "type": "array",
+              "description": "PersonaGroup.name entries (symbolic links on the same Practice document or merged method scope; must match PersonaGroup.name, not Persona.name).",
+              "items": { "type": "string" }
+            },
             "activities": {
               "type": "array",
               "description": "Activities owned by this activity space (canonical shape, 0..*).",
@@ -395,6 +405,10 @@
               "type": "array",
               "minItems": 1,
               "items": { "$ref": "#/$defs/PatternView" }
+            },
+            "narrativeTypeName": {
+              "type": "string",
+              "description": "Symbolic link to NarrativeType.name in the baseline (or practice overlay); patterns may hang a narrative spine (language.mmd)."
             }
           }
         }
@@ -417,115 +431,105 @@
       },
       "additionalProperties": false
     },
-    "ActivitySpaceReference": {
+    "NarrativeContext": {
       "type": "object",
-      "description": "Symbolic reference to an activity space by name; do not embed.",
-      "required": ["activitySpaceName"],
+      "description": "One slice of authored narrative keyed to a narrative element (STRING ref; resolve to NarrativeElement.name on the parent NarrativeType).",
+      "required": ["seq", "narrativeElementName", "context"],
       "properties": {
-        "activitySpaceName": {
+        "seq": { "type": "integer" },
+        "narrativeElementName": {
           "type": "string",
-          "description": "Name of an ActivitySpace (symbolic link; must match ActivitySpace.name in scope)."
-        }
+          "description": "Symbolic link to NarrativeElement.name inside the NarrativeType named by enclosing Narrative.narrativeTypeName."
+        },
+        "context": { "type": "string" }
       },
       "additionalProperties": false
     },
-    "WorkItem": {
+    "NarrativeElement": {
       "allOf": [
         { "$ref": "#/$defs/PracticeElement" },
         {
           "type": "object",
-          "required": [
-            "seq",
-            "implementsActivityName",
-            "contributesTo",
-            "worksOn",
-            "applies",
-            "estimate"
-          ],
+          "required": ["howToUse"],
           "properties": {
-            "seq": { "type": "integer" },
-            "implementsActivityName": {
+            "howToUse": {
               "type": "string",
-              "description": "Name of an Activity (Practice-level swimlane item; symbolic link; must match Activity.name in the same practice)."
-            },
-            "contributesTo": {
-              "type": "array",
-              "items": { "$ref": "#/$defs/AlphaContribution" }
-            },
-            "worksOn": {
-              "type": "array",
-              "items": { "$ref": "#/$defs/WorkProductContribution" }
-            },
-            "applies": {
-              "type": "array",
-              "items": { "$ref": "#/$defs/ActivitySpaceReference" }
-            },
-            "estimate": { "$ref": "#/$defs/Estimate" }
+              "description": "Guidance for applying this spine element."
+            }
           }
         }
       ],
       "unevaluatedProperties": false
     },
-    "WorkBreakdown": {
+    "NarrativeType": {
       "allOf": [
         { "$ref": "#/$defs/PracticeElement" },
         {
           "type": "object",
-          "required": ["prerequisiteAndAssumptions", "task", "complexity"],
           "properties": {
-            "prerequisiteAndAssumptions": {
+            "narrativeElements": {
               "type": "array",
-              "items": { "$ref": "#/$defs/PatternViewReference" }
-            },
-            "estimationUnit": {
-              "type": "string",
-              "enum": ["man-hours", "story-points", "currency"],
-              "description": "Strictly typed forecasting unit to prevent algorithmic corruption."
-            },
-            "task": {
-              "type": "array",
-              "minItems": 1,
-              "items": { "$ref": "#/$defs/WorkItem" }
-            },
-            "complexity": { "$ref": "#/$defs/Complexity" }
+              "description": "Embedded narrative spine elements owned by this type (composition; language.mmd).",
+              "items": { "$ref": "#/$defs/NarrativeElement" }
+            }
           }
         }
       ],
       "unevaluatedProperties": false
     },
-    "Estimate": {
-      "type": "object",
-      "required": ["lowEst", "medEst", "highEst"],
-      "properties": {
-        "lowEst": { "type": "integer" },
-        "medEst": { "type": "integer" },
-        "highEst": { "type": "integer" }
-      },
-      "additionalProperties": false
-    },
-    "Complexity": {
+    "Narrative": {
       "allOf": [
         { "$ref": "#/$defs/PracticeElement" },
         {
           "type": "object",
-          "required": ["level", "contractType", "productRisks", "projectRisks"],
+          "required": ["narrativeName", "narrativeTypeName", "narrativeContexts"],
           "properties": {
-            "level": { 
-              "type": "integer", 
-              "enum": [1, 2, 3, 4, 5],
-              "description": "Restricted algorithmic multiplier indicating friction: 1 (Routine) to 5 (Hyperscale Volatility)."
+            "narrativeName": {
+              "type": "string",
+              "description": "Human-facing narrative label (distinct from PracticeElement.name in interchange; tooling may synchronize)."
             },
-            "contractType": { "type": "string" },
-            "valueRisk": { "$ref": "#/$defs/AlphaContribution" },
-            "technicalRisk": { "$ref": "#/$defs/AlphaContribution" },
-            "stakeholderEngagement": { "$ref": "#/$defs/AlphaContribution" },
-            "productRisks": {
-              "type": "array",
-              "items": { "$ref": "#/$defs/AlphaContribution" }
+            "narrativeTypeName": {
+              "type": "string",
+              "description": "Symbolic link to NarrativeType.name in scope (baseline narrativeTypes or practice overlay)."
             },
-            "projectRisks": {
+            "narrativeContexts": {
               "type": "array",
-              "items": { "$ref": "#/$defs/AlphaContribution" }
+              "items": { "$ref": "#/$defs/NarrativeContext" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Persona": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "properties": {
+            "competencies": {
+              "type": "array",
+              "description": "Symbolic competency level refs (same baseline or merged practice scope).",
+              "items": { "$ref": "#/$defs/CompetencyLevelReference" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "PersonaGroup": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["personaNames"],
+          "properties": {
+            "personaNames": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Persona.name entries (symbolic links in the same practice)."
+              }
             }
           }
         }
@@ -560,6 +564,10 @@
               "type": "array",
               "description": "Activity.name entries for pattern-matrix swimlanes (symbolic links to nested Activity under ActivitySpace or to flat Practice.activities).",
               "items": { "type": "string" }
+            },
+            "narrativeElementName": {
+              "type": "string",
+              "description": "Optional symbolic link to NarrativeElement.name on the NarrativeType selected by Pattern.narrativeTypeName (language.mmd)."
             }
           }
         }
@@ -604,7 +612,12 @@
             "createdAt": { "type": "string" },
             "updatedAt": { "type": "string" },
             "version": { "type": "string" },
-            "keywords": { "type": "array", "items": { "type": "string" } }
+            "keywords": { "type": "array", "items": { "type": "string" } },
+            "narrativeTypes": {
+              "type": "array",
+              "description": "Narrative spine types defined in this baseline aggregate (language.mmd).",
+              "items": { "$ref": "#/$defs/NarrativeType" }
+            }
           }
         }
       ]
@@ -669,10 +682,20 @@
               "items": { "$ref": "#/$defs/WorkProduct" },
               "description": "Work products elaborated by this practice (language.mmd)."
             },
-            "workBreakdowns": {
+            "personas": {
               "type": "array",
-              "items": { "$ref": "#/$defs/WorkBreakdown" },
-              "description": "Work breakdowns for this practice (language.mmd)."
+              "items": { "$ref": "#/$defs/Persona" },
+              "description": "Named personas for this practice (language.mmd)."
+            },
+            "personaGroups": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/PersonaGroup" },
+              "description": "Grouped persona refs (symbolic lists of Persona.name; language.mmd)."
+            },
+            "narrativeTypes": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/NarrativeType" },
+              "description": "Optional baseline overlay: narrative spine types (unioned like focuses/alphas when merging)."
             },
             "patterns": {
               "type": "array",

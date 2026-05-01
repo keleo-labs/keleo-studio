@@ -267,6 +267,9 @@ export function FullPracticeView({
   const sourceDocRecord = effectiveDoc && typeof effectiveDoc === "object" ? (effectiveDoc as Record<string, unknown>) : {};
   const patterns = Array.isArray(sourceDocRecord.patterns) ? (sourceDocRecord.patterns as Record<string, unknown>[]) : [];
   const competencies = baseline?.competencies ?? [];
+  const narrativeTypesList = baselineForRender?.narrativeTypes ?? [];
+  const personasList = Array.isArray(sourceDocRecord.personas) ? sourceDocRecord.personas : [];
+  const personaGroupsList = Array.isArray(sourceDocRecord.personaGroups) ? sourceDocRecord.personaGroups : [];
 
   if (shouldResolveLibrary && resolveBusy) {
     return (
@@ -352,9 +355,19 @@ export function FullPracticeView({
             {t.workProducts}
           </a>
         ) : null}
-        {Array.isArray(sourceDocRecord.workBreakdowns) && sourceDocRecord.workBreakdowns.length > 0 ? (
-          <a href="#work-breakdowns" style={navItemStyle}>
-            Work Breakdowns & Estimates
+        {narrativeTypesList.length > 0 ? (
+          <a href="#section-narrative-types" style={navItemStyle}>
+            {t.narrativeTypesHeading}
+          </a>
+        ) : null}
+        {personasList.length > 0 ? (
+          <a href="#section-personas" style={navItemStyle}>
+            {t.personasHeading}
+          </a>
+        ) : null}
+        {personaGroupsList.length > 0 ? (
+          <a href="#section-persona-groups" style={navItemStyle}>
+            {t.personaGroupsHeading}
           </a>
         ) : null}
       </nav>
@@ -432,6 +445,23 @@ export function FullPracticeView({
                     <h4 style={{ fontSize: "20px", fontWeight: 700, margin: "0 0 8px 0" }}>{space.name}</h4>
                     <p style={{ fontSize: "15px", color: "#393f44" }}>{practiceElementDescriptionForDisplay(space)}</p>
 
+                    {Array.isArray(space.involves) && space.involves.length > 0 ? (
+                      <div style={{ marginTop: "12px", fontSize: "14px", color: "#393f44" }}>
+                        <strong>{t.activitySpaceInvolvesPersonaGroups}:</strong>{" "}
+                        {space.involves.map((g: unknown, ix: number) => (
+                          <span key={`${String(g)}:${ix}`}>
+                            <a
+                              href={`#persona-group-${slug(String(g ?? ""))}`}
+                              style={{ color: "#0066cc", textDecoration: "underline" }}
+                            >
+                              {String(g ?? "").trim()}
+                            </a>
+                            {ix < (space.involves as unknown[]).length - 1 ? ", " : ""}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
+
                     {space.activities?.length > 0 && (
                       <div style={{ marginTop: "24px" }}>
                         <strong style={{ display: "block", marginBottom: "12px", fontSize: "16px" }}>Activities under this space:</strong>
@@ -479,6 +509,14 @@ export function FullPracticeView({
                   {practiceElementDescriptionForDisplay(pRecord) ? (
                     <p style={{ fontSize: "15px", color: "#393f44", marginBottom: "16px" }}>{practiceElementDescriptionForDisplay(pRecord)}</p>
                   ) : null}
+                  {typeof pRecord.narrativeTypeName === "string" && String(pRecord.narrativeTypeName).trim() ? (
+                    <p style={{ fontSize: "13px", color: "#393f44", margin: "0 0 8px 0" }}>
+                      <strong>{t.patternNarrativeTypeName}:</strong>{" "}
+                      <code style={{ fontSize: "13px", backgroundColor: "#f5f5f5", padding: "2px 6px", borderRadius: 4 }}>
+                        {String(pRecord.narrativeTypeName).trim()}
+                      </code>
+                    </p>
+                  ) : null}
                   <TagsGroup tags={pRecord.tags} />
                   <div
                     style={{
@@ -524,6 +562,14 @@ export function FullPracticeView({
                             <p style={{ fontSize: "14px", color: "#393f44", margin: "0 0 16px 0" }}>{practiceElementDescriptionForDisplay(pv)}</p>
                           ) : null}
                           <TagsGroup tags={pv.tags} />
+                          {typeof pv.narrativeElementName === "string" && String(pv.narrativeElementName).trim() ? (
+                            <p style={{ fontSize: "13px", color: "#393f44", margin: "0 0 12px 0" }}>
+                              <strong>{t.patternViewNarrativeElementName}:</strong>{" "}
+                              <code style={{ fontSize: "13px", backgroundColor: "#f5f5f5", padding: "2px 6px", borderRadius: 4 }}>
+                                {String(pv.narrativeElementName).trim()}
+                              </code>
+                            </p>
+                          ) : null}
                           {alphaStates.length > 0 ? (
                             <div style={{ marginTop: "16px" }}>
                               <strong style={{ fontSize: "13px", color: "#6a6e73", display: "block", marginBottom: "8px" }}>
@@ -661,62 +707,105 @@ export function FullPracticeView({
           </section>
         )}
 
-        {/* 5. Work Breakdowns */}
-        {Array.isArray(sourceDocRecord?.workBreakdowns) && sourceDocRecord.workBreakdowns.length > 0 && (
-          <section id="work-breakdowns" style={{ marginBottom: "64px" }}>
+        {narrativeTypesList.length > 0 ? (
+          <section id="section-narrative-types" style={{ marginBottom: "64px" }}>
             <h2 style={{ fontSize: "28px", fontWeight: 700, borderBottom: "1px solid #d2d2d2", paddingBottom: "8px", margin: "48px 0 24px 0" }}>
-              Work Breakdowns & Algorithmic Estimation
+              {t.narrativeTypesHeading}
             </h2>
-            
-            {sourceDocRecord.workBreakdowns.map((wb: any) => (
-              <div key={wb.name} style={{ border: "1px solid #d2d2d2", padding: "24px", marginBottom: "24px" }}>
-                <h3 style={{ fontSize: "20px", fontWeight: 700, margin: "0 0 8px 0" }}>{wb.name}</h3>
-                <p style={{ fontSize: "15px", color: "#151515" }}>{practiceElementDescriptionForDisplay(wb)}</p>
-
-                {wb.estimationUnit && (
-                  <RHAlert variant="danger" title="Strict Estimation Integrity">
-                    Forecasting Unit: <strong>{wb.estimationUnit}</strong>. Operational methodology strictly forbids mixing units within a single hierarchy. Doing so causes systemic failure in forecasting algorithms.
-                  </RHAlert>
-                )}
-
-                {wb.complexity && (
-                  <div style={{ backgroundColor: "#faeae8", padding: "16px", borderLeft: "4px solid #c9190b", marginBottom: "24px" }}>
-                    <h4 style={{ margin: "0 0 8px 0", color: "#a30000" }}>Complexity Multiplier: Level {wb.complexity.level}</h4>
-                    <p style={{ fontSize: "14px", margin: 0 }}>
-                      This level systematically measures systemic friction (from Routine execution to Hyperscale Volatility) across value, technical, and product risk vectors.
-                    </p>
+            <RHAlert variant="info" title="Narrative spine">
+              Narrative spine types group ordered <strong>narrative elements</strong>; patterns may optionally reference a spine via{" "}
+              <code>narrativeTypeName</code> and <code>narrativeElementName</code> on views.
+            </RHAlert>
+            {narrativeTypesList.map((nt: Record<string, unknown>) => (
+              <div
+                key={String(nt.name ?? "")}
+                style={{ backgroundColor: "#fafafa", border: "1px solid #d2d2d2", padding: "24px", marginBottom: "24px" }}
+              >
+                <h3 style={{ fontSize: "20px", fontWeight: 700, margin: "0 0 8px 0" }}>{String(nt.name ?? "")}</h3>
+                {practiceElementDescriptionForDisplay(nt) ? (
+                  <p style={{ fontSize: "15px", color: "#151515" }}>{practiceElementDescriptionForDisplay(nt)}</p>
+                ) : null}
+                <TagsGroup tags={nt.tags} />
+                {Array.isArray(nt.narrativeElements) && nt.narrativeElements.length ? (
+                  <div style={{ marginTop: "20px" }}>
+                    <strong style={{ fontSize: "14px", color: "#6a6e73", display: "block", marginBottom: "8px" }}>
+                      Narrative elements
+                    </strong>
+                    <ul style={{ margin: 0, paddingLeft: "20px", fontSize: "14px", color: "#151515" }}>
+                      {(nt.narrativeElements as Record<string, unknown>[]).map((el) => (
+                        <li key={String(el.name ?? "")} style={{ marginBottom: "8px" }}>
+                          <strong>{String(el.name ?? "")}</strong>
+                          {typeof el.howToUse === "string" && el.howToUse.trim() ? (
+                            <span style={{ color: "#6a6e73" }}> — {el.howToUse.trim()}</span>
+                          ) : null}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                )}
-
-                {wb.task?.length > 0 && (
-                  <div style={{ marginTop: "24px" }}>
-                    <strong style={{ fontSize: "16px", display: "block", marginBottom: "16px" }}>Probabilistic Work Items</strong>
-                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px", border: "1px solid #d2d2d2" }}>
-                      <thead>
-                        <tr style={{ backgroundColor: "#f0f0f0", borderBottom: "2px solid #d2d2d2", textAlign: "left" }}>
-                          <th style={{ padding: "12px 16px" }}>Task</th>
-                          <th style={{ padding: "12px 16px" }}>Implements Activity</th>
-                          <th style={{ padding: "12px 16px" }}>Est (Low / Med / High)</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {wb.task.map((tItem: any, idx: number) => (
-                          <tr key={idx} style={{ borderBottom: "1px solid #d2d2d2" }}>
-                            <td style={{ padding: "12px 16px", fontWeight: "bold", color: "#0066cc" }}>{tItem.name}</td>
-                            <td style={{ padding: "12px 16px" }}>{tItem.implementsActivityName || "—"}</td>
-                            <td style={{ padding: "12px 16px" }}>
-                              {tItem.estimate ? `${tItem.estimate.lowEst} / ${tItem.estimate.medEst} / ${tItem.estimate.highEst}` : "—"}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
+                ) : null}
               </div>
             ))}
           </section>
-        )}
+        ) : null}
+
+        {personasList.length > 0 ? (
+          <section id="section-personas" style={{ marginBottom: "64px" }}>
+            <h2 style={{ fontSize: "28px", fontWeight: 700, borderBottom: "1px solid #d2d2d2", paddingBottom: "8px", margin: "48px 0 24px 0" }}>
+              {t.personasHeading}
+            </h2>
+            {personasList.map((pers: Record<string, unknown>) => (
+              <div
+                key={String(pers.name ?? "")}
+                style={{ border: "1px solid #d2d2d2", padding: "24px", marginBottom: "24px", backgroundColor: "#fafafa" }}
+              >
+                <h3 style={{ fontSize: "20px", fontWeight: 700, margin: "0 0 8px 0" }}>{String(pers.name ?? "")}</h3>
+                {practiceElementDescriptionForDisplay(pers) ? (
+                  <p style={{ fontSize: "15px", color: "#151515" }}>{practiceElementDescriptionForDisplay(pers)}</p>
+                ) : null}
+                <TagsGroup tags={pers.tags} />
+                {Array.isArray(pers.competencies) && pers.competencies.length ? (
+                  <div style={{ marginTop: "16px", fontSize: "14px", color: "#393f44" }}>
+                    <strong>Competency level refs:</strong>
+                    <ul style={{ margin: "8px 0 0 20px", padding: 0 }}>
+                      {(pers.competencies as Record<string, unknown>[]).map((c, i) => (
+                        <li key={i}>
+                          {String(c.competencyName ?? "")}
+                          {c.competencyLevelName != null ? ` → ${String(c.competencyLevelName)}` : ""}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+            ))}
+          </section>
+        ) : null}
+
+        {personaGroupsList.length > 0 ? (
+          <section id="section-persona-groups" style={{ marginBottom: "64px" }}>
+            <h2 style={{ fontSize: "28px", fontWeight: 700, borderBottom: "1px solid #d2d2d2", paddingBottom: "8px", margin: "48px 0 24px 0" }}>
+              {t.personaGroupsHeading}
+            </h2>
+            {personaGroupsList.map((pg: Record<string, unknown>) => (
+              <div
+                key={String(pg.name ?? "")}
+                id={`persona-group-${slug(String(pg.name ?? ""))}`}
+                style={{ border: "1px solid #d2d2d2", padding: "24px", marginBottom: "24px", backgroundColor: "#fafafa" }}
+              >
+                <h3 style={{ fontSize: "20px", fontWeight: 700, margin: "0 0 8px 0" }}>{String(pg.name ?? "")}</h3>
+                {practiceElementDescriptionForDisplay(pg) ? (
+                  <p style={{ fontSize: "15px", color: "#151515" }}>{practiceElementDescriptionForDisplay(pg)}</p>
+                ) : null}
+                <TagsGroup tags={pg.tags} />
+                {Array.isArray(pg.personaNames) && pg.personaNames.length ? (
+                  <p style={{ marginTop: "12px", fontSize: "14px", color: "#393f44" }}>
+                    <strong>{t.personaGroupMembers}:</strong> {pg.personaNames.map((nm) => String(nm ?? "").trim()).filter(Boolean).join(", ")}
+                  </p>
+                ) : null}
+              </div>
+            ))}
+          </section>
+        ) : null}
 
         {methodComposition ? (
           <section style={{ marginBottom: "64px", padding: "24px", border: "1px solid #d2d2d2", backgroundColor: "#fafafa" }}>

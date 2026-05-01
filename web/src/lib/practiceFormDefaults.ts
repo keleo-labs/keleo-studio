@@ -55,6 +55,7 @@ export function emptyActivitySpace(focusFallback = ""): Record<string, unknown> 
     focusName: focusFallback,
     contributesTo: [alphaContribution()],
     requiredCompetencies: [] as string[],
+    involves: [] as string[],
     activities: [] as Record<string, unknown>[],
   };
 }
@@ -103,38 +104,31 @@ export function emptyWorkProduct(): Record<string, unknown> {
   };
 }
 
-export function emptyEstimate(): Record<string, unknown> {
-  return { lowEst: 0, medEst: 0, highEst: 0 };
-}
-
-export function emptyComplexity(): Record<string, unknown> {
+export function emptyNarrativeElement(): Record<string, unknown> {
   return {
     ...emptyPracticeElement("", ""),
-    level: 1,
-    contractType: "",
-    productRisks: [] as Record<string, unknown>[],
-    projectRisks: [] as Record<string, unknown>[],
+    howToUse: "",
   };
 }
 
-export function emptyWorkItem(seq: number): Record<string, unknown> {
+export function emptyNarrativeType(): Record<string, unknown> {
   return {
     ...emptyPracticeElement("", ""),
-    seq,
-    implementsActivityName: "",
-    contributesTo: [] as Record<string, unknown>[],
-    worksOn: [] as Record<string, unknown>[],
-    applies: [] as Record<string, unknown>[],
-    estimate: emptyEstimate(),
+    narrativeElements: [] as Record<string, unknown>[],
   };
 }
 
-export function emptyWorkBreakdown(): Record<string, unknown> {
+export function emptyPersona(): Record<string, unknown> {
   return {
     ...emptyPracticeElement("", ""),
-    prerequisiteAndAssumptions: [] as Record<string, unknown>[],
-    task: [emptyWorkItem(1)],
-    complexity: emptyComplexity(),
+    competencies: [] as Record<string, unknown>[],
+  };
+}
+
+export function emptyPersonaGroup(): Record<string, unknown> {
+  return {
+    ...emptyPracticeElement("", ""),
+    personaNames: [] as string[],
   };
 }
 
@@ -142,6 +136,7 @@ export function emptyPatternView(seq: number): Record<string, unknown> {
   return {
     ...emptyPracticeElement("", ""),
     seq,
+    narrativeElementName: "",
     alphaStates: [] as unknown[],
     activitySpaces: [] as string[],
     activities: [] as string[],
@@ -151,6 +146,7 @@ export function emptyPatternView(seq: number): Record<string, unknown> {
 export function emptyPattern(): Record<string, unknown> {
   return {
     ...emptyPracticeElement("", ""),
+    narrativeTypeName: "",
     patternViews: [emptyPatternView(1)],
   };
 }
@@ -172,7 +168,9 @@ export function emptyExtensionPractice(): Record<string, unknown> {
     activitySpaces: [] as Record<string, unknown>[],
     activities: [] as Record<string, unknown>[],
     workProducts: [] as Record<string, unknown>[],
-    workBreakdowns: [] as Record<string, unknown>[],
+    personas: [] as Record<string, unknown>[],
+    personaGroups: [] as Record<string, unknown>[],
+    narrativeTypes: [] as Record<string, unknown>[],
     patterns: [] as Record<string, unknown>[],
   };
 }
@@ -190,5 +188,6 @@ export function emptyBaselinePractice(): Record<string, unknown> {
     alphas: [] as Record<string, unknown>[],
     competencies: [] as Record<string, unknown>[],
     activitySpaces: [] as Record<string, unknown>[],
+    narrativeTypes: [] as Record<string, unknown>[],
   };
 }

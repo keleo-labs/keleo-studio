@@ -566,7 +566,9 @@ function BrowseTableOfContents({
   const competencyId = (name: string) => `competency-${slug(name)}`;
   const workProductId = (name: string) => `work-product-${slug(name)}`;
   const activityId = (name: string) => `activity-${slug(name)}`;
-  const workBreakdownId = (name: string) => `work-breakdown-${slug(name)}`;
+  const narrativeTypeIdBrowse = (name: string) => `narrative-type-${slug(name)}`;
+  const personaIdBrowseFn = (name: string) => `persona-${slug(name)}`;
+  const personaGroupIdBrowseFn = (name: string) => `persona-group-${slug(name)}`;
   const patternId = (name: string) => `pattern-${slug(name)}`;
 
   const isPracticeActivity = (s: any) =>
@@ -579,7 +581,9 @@ function BrowseTableOfContents({
 
   const hasCompetencies = (baseline.competencies ?? []).length > 0;
   const workProducts = Array.isArray(sourceDoc?.workProducts) ? (sourceDoc!.workProducts as any[]) : [];
-  const workBreakdowns = Array.isArray(sourceDoc?.workBreakdowns) ? (sourceDoc!.workBreakdowns as any[]) : [];
+  const narrativeTypesBrowse = baseline.narrativeTypes ?? [];
+  const personasBrowse = Array.isArray(sourceDoc?.personas) ? (sourceDoc!.personas as any[]) : [];
+  const personaGroupsBrowse = Array.isArray(sourceDoc?.personaGroups) ? (sourceDoc!.personaGroups as any[]) : [];
   const patterns = Array.isArray(sourceDoc?.patterns) ? (sourceDoc!.patterns as any[]) : [];
   const aliases = Array.isArray(sourceDoc?.practiceElementAliases)
     ? (sourceDoc!.practiceElementAliases as PracticeElementAlias[])
@@ -761,16 +765,48 @@ function BrowseTableOfContents({
             </ul>
           </li>
         ) : null}
-        {workBreakdowns.length ? (
+        {narrativeTypesBrowse.length ? (
           <li className="border-t border-[var(--border)]/70 pt-2">
-            <a href="#browse-section-work-breakdowns" className={tocLink}>
-              {t.workBreakdowns}
+            <a href="#browse-section-narrative-types" className={tocLink}>
+              {t.narrativeTypesHeading}
             </a>
             <ul className="mt-1 list-none space-y-0.5 border-l border-[var(--border)]/80 py-0.5 pl-3">
-              {workBreakdowns.map((wb: any) => (
-                <li key={`toc-wb-${wb.name}`}>
-                  <a href={`#${workBreakdownId(wb.name)}`} className={tocSubLink}>
-                    <AliasedName kind="WorkBreakdown" name={String(wb.name)} browse />
+              {narrativeTypesBrowse.map((nt: any) => (
+                <li key={`toc-nt-${nt.name}`}>
+                  <a href={`#${narrativeTypeIdBrowse(String(nt.name))}`} className={tocSubLink}>
+                    <AliasedName kind="NarrativeType" name={String(nt.name)} browse />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ) : null}
+        {personasBrowse.length ? (
+          <li className="border-t border-[var(--border)]/70 pt-2">
+            <a href="#browse-section-personas" className={tocLink}>
+              {t.personasHeading}
+            </a>
+            <ul className="mt-1 list-none space-y-0.5 border-l border-[var(--border)]/80 py-0.5 pl-3">
+              {personasBrowse.map((p: any) => (
+                <li key={`toc-persona-${p.name}`}>
+                  <a href={`#${personaIdBrowseFn(String(p.name))}`} className={tocSubLink}>
+                    <AliasedName kind="Persona" name={String(p.name)} browse />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ) : null}
+        {personaGroupsBrowse.length ? (
+          <li className="border-t border-[var(--border)]/70 pt-2">
+            <a href="#browse-section-persona-groups" className={tocLink}>
+              {t.personaGroupsHeading}
+            </a>
+            <ul className="mt-1 list-none space-y-0.5 border-l border-[var(--border)]/80 py-0.5 pl-3">
+              {personaGroupsBrowse.map((pg: any) => (
+                <li key={`toc-pg-${pg.name}`}>
+                  <a href={`#${personaGroupIdBrowseFn(String(pg.name))}`} className={tocSubLink}>
+                    <AliasedName kind="PersonaGroup" name={String(pg.name)} browse />
                   </a>
                 </li>
               ))}
@@ -805,6 +841,7 @@ function BrowsePracticeFocusSections({
   const stateId = (alphaName: string, stateName: string) => `state-${slug(alphaName)}--${slug(stateName)}`;
   const activitySpaceId = (name: string) => `activity-space-${slug(name)}`;
   const competencyId = (name: string) => `competency-${slug(name)}`;
+  const personaGroupId = (name: string) => `persona-group-${slug(name)}`;
   const workProductId = (name: string) => `work-product-${slug(name)}`;
   const activityId = (name: string) => `activity-${slug(name)}`;
 
@@ -1180,6 +1217,21 @@ function BrowsePracticeFocusSections({
                       ))}
                     </p>
                   ) : null}
+                  {s.involves?.length ? (
+                    <p className={`mt-2 ${BROWSE.bodyMuted}`}>
+                      {t.activitySpaceInvolvesPersonaGroups}:{" "}
+                      {s.involves.map((g: string, idx: number) => (
+                        <span key={g}>
+                          <a href={`#${personaGroupId(g)}`} style={linkStyle()}>
+                            <code>
+                              <AliasedName kind="PersonaGroup" name={g} browse />
+                            </code>
+                          </a>
+                          {idx < s.involves.length - 1 ? ", " : ""}
+                        </span>
+                      ))}
+                    </p>
+                  ) : null}
                   {(byParent.get(s.name) ?? [])
                     .slice()
                     .sort((x: any, y: any) => String(x.name).localeCompare(String(y.name)))
@@ -1266,7 +1318,9 @@ function PracticeBaselineView({
   const competencyId = (name: string) => `competency-${slug(name)}`;
   const workProductId = (name: string) => `work-product-${slug(name)}`;
   const activityId = (name: string) => `activity-${slug(name)}`;
-  const workBreakdownId = (name: string) => `work-breakdown-${slug(name)}`;
+  const narrativeTypeIdPv = (name: string) => `narrative-type-${slug(name)}`;
+  const personaIdPv = (name: string) => `persona-${slug(name)}`;
+  const personaGroupIdPv = (name: string) => `persona-group-${slug(name)}`;
   const patternId = (name: string) => `pattern-${slug(name)}`;
 
   const isPracticeActivity = (s: any) =>
@@ -1779,6 +1833,21 @@ function PracticeBaselineView({
                           ))}
                         </div>
                       ) : null}
+                      {s.involves?.length ? (
+                        <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
+                          {t.activitySpaceInvolvesPersonaGroups}:{" "}
+                          {s.involves.map((g: string, idx: number) => (
+                            <span key={g}>
+                              <a href={`#${personaGroupIdPv(g)}`} style={linkStyle()}>
+                                <code>
+                                  <AliasedName kind="PersonaGroup" name={g} browse={browse} />
+                                </code>
+                              </a>
+                              {idx < s.involves.length - 1 ? ", " : ""}
+                            </span>
+                          ))}
+                        </div>
+                      ) : null}
                       {(s.activities ?? []).map((act: any) => {
                         const parent = String(s.name).trim();
                         return (
@@ -2196,373 +2265,197 @@ function PracticeBaselineView({
         </div>
       ) : null}
 
-      {Array.isArray(sourceDoc?.workBreakdowns) && (sourceDoc!.workBreakdowns as any[]).length ? (
+      {(baseline.narrativeTypes ?? []).length > 0 ||
+      (Array.isArray(sourceDoc?.personas) && (sourceDoc!.personas as any[]).length > 0) ||
+      (Array.isArray(sourceDoc?.personaGroups) && (sourceDoc!.personaGroups as any[]).length > 0) ? (
         <div style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}>
-          {browse ? (
-            <h2 id="browse-section-work-breakdowns" className={`${BROWSE.h2Global} scroll-mt-4`}>
-              {t.workBreakdowns}
-            </h2>
-          ) : (
-            <div style={{ fontSize: 16, fontWeight: 800 }}>{t.workBreakdowns}</div>
-          )}
-          <div style={{ marginTop: 10, display: "grid", gap: 12 }}>
-            {(sourceDoc!.workBreakdowns as any[]).map((wb: any) => (
-              <div
-                key={wb.name}
-                id={workBreakdownId(wb.name)}
-                style={
-                  browse
-                    ? { marginTop: 8 }
-                    : { padding: 12, border: "1px solid var(--border)", borderRadius: 10 }
-                }
-              >
-                {browse ? (
-                  <h3 className={BROWSE.h3Item}>
-                    <a href={`#${workBreakdownId(wb.name)}`} style={linkStyle()}>
-                      <AliasedName kind="WorkBreakdown" name={wb.name} browse />
-                    </a>
-                  </h3>
-                ) : (
-                  <div style={{ fontWeight: 800 }}>
-                    <a href={`#${workBreakdownId(wb.name)}`} style={linkStyle()}>
-                      <AliasedName kind="WorkBreakdown" name={wb.name} browse={false} />
-                    </a>
-                  </div>
-                )}
-                {practiceElementDescriptionForDisplay(wb) ? (
-                  browse ? (
-                    <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(wb)}</p>
-                  ) : (
-                    <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(wb)}</div>
-                  )
-                ) : null}
-                {browse ? (
-                  <IrBrowseTagsBlock tags={wb.tags} t={t} />
-                ) : flattenPracticeElementTags(wb.tags).length ? (
-                  <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
-                    <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                    {flattenPracticeElementTags(wb.tags).map((x: string, ti: number) => (
-                      <span key={`wbreakdown-${slug(wb.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
-                        {x}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
-                {browse && typeof wb.estimationUnit === "string" && wb.estimationUnit.trim() !== "" ? (
-                  <p className={`mt-2 ${BROWSE.bodyMuted}`}>
-                    <span className="font-semibold text-[var(--text)]">{t.wbEstimationUnit}: </span>
-                    <code>{wb.estimationUnit.trim()}</code>
-                  </p>
-                ) : null}
-
-                {Array.isArray(wb.prerequisiteAndAssumptions) && wb.prerequisiteAndAssumptions.length ? (
-                  <div style={{ marginTop: 10 }}>
-                    <div style={{ fontWeight: 700, marginBottom: 4 }}>{t.wbPrerequisites}</div>
-                    <ul style={{ margin: 0, paddingLeft: 18, color: "var(--muted)", fontSize: 13 }}>
-                      {wb.prerequisiteAndAssumptions.map((pv: any, idx: number) => (
-                        <li key={`${pv.patternName}:${pv.patternViewName}:${idx}`}>
-                          <code>
-                                  <AliasedName kind="Pattern" name={pv.patternName} browse={browse} /> →{" "}
-                                  <AliasedName kind="PatternView" name={pv.patternViewName} browse={browse} />
-                                </code>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-
-                {wb.complexity ? (
+          {(baseline.narrativeTypes ?? []).length > 0 ? (
+            <>
+              {browse ? (
+                <h2 id="browse-section-narrative-types" className={`${BROWSE.h2Global} scroll-mt-4`}>
+                  {t.narrativeTypesHeading}
+                </h2>
+              ) : (
+                <div style={{ fontSize: 16, fontWeight: 800 }}>{t.narrativeTypesHeading}</div>
+              )}
+              <div style={{ marginTop: 10, display: "grid", gap: 12 }}>
+                {(baseline.narrativeTypes ?? []).map((nt: any) => (
                   <div
-                    style={{
-                      marginTop: 10,
-                      padding: 10,
-                      border: "1px solid var(--border)",
-                      borderRadius: 8,
-                      background: "rgba(0,0,0,0.12)",
-                    }}
+                    key={String(nt.name)}
+                    id={narrativeTypeIdPv(String(nt.name))}
+                    style={
+                      browse
+                        ? { marginTop: 8 }
+                        : { padding: 12, border: "1px solid var(--border)", borderRadius: 10 }
+                    }
                   >
-                    <div style={{ fontWeight: 700, marginBottom: 6 }}>{t.wbComplexity}</div>
-                    <div style={{ fontWeight: 800 }}>
-                      <AliasedName kind="Complexity" name={wb.complexity.name} browse={browse} />
-                    </div>
-                    {practiceElementDescriptionForDisplay(wb.complexity) ? (
-                      <div style={{ color: "var(--muted)", marginTop: 4, fontSize: 13 }}>
-                        {practiceElementDescriptionForDisplay(wb.complexity)}
-                      </div>
-                    ) : null}
-                    <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
-                      <span style={{ fontWeight: 700 }}>{t.complexityLevel}: </span>
-                      {wb.complexity.level}
-                      <span style={{ marginLeft: 12, fontWeight: 700 }}>{t.contractType}: </span>
-                      {wb.complexity.contractType}
-                    </div>
                     {browse ? (
-                      <IrBrowseTagsBlock tags={wb.complexity.tags} t={t} className="mt-2" />
-                    ) : flattenPracticeElementTags(wb.complexity.tags).length ? (
-                      <div style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
-                        <span style={{ fontSize: 11, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                        {flattenPracticeElementTags(wb.complexity.tags).map((x: string, ti: number) => (
-                          <span key={`wbreakdown-${slug(wb.name)}-cx-tag-${ti}-${slug(x)}`} style={tag()}>
-                            {x}
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
-                    {wb.complexity.valueRisk ? (
-                      <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 12 }}>
-                        {t.complexityValueRisk} →{" "}
-                        <a href={`#${stateId(wb.complexity.valueRisk.alphaName, wb.complexity.valueRisk.stateName)}`} style={linkStyle()}>
-                          <code>
-                            {wb.complexity.valueRisk.alphaName}→{wb.complexity.valueRisk.stateName}
-                          </code>
+                      <h3 className={BROWSE.h3Item}>
+                        <a href={`#${narrativeTypeIdPv(String(nt.name))}`} style={linkStyle()}>
+                          <AliasedName kind="NarrativeType" name={String(nt.name)} browse />
                         </a>
-                      </div>
-                    ) : null}
-                    {wb.complexity.technicalRisk ? (
-                      <div style={{ marginTop: 4, color: "var(--muted)", fontSize: 12 }}>
-                        {t.complexityTechnicalRisk} →{" "}
-                        <a
-                          href={`#${stateId(wb.complexity.technicalRisk.alphaName, wb.complexity.technicalRisk.stateName)}`}
-                          style={linkStyle()}
-                        >
-                          <code>
-                            {wb.complexity.technicalRisk.alphaName}→{wb.complexity.technicalRisk.stateName}
-                          </code>
-                        </a>
-                      </div>
-                    ) : null}
-                    {wb.complexity.stakeholderEngagement ? (
-                      <div style={{ marginTop: 4, color: "var(--muted)", fontSize: 12 }}>
-                        {t.complexityStakeholderEngagement} →{" "}
-                        <a
-                          href={`#${stateId(
-                            wb.complexity.stakeholderEngagement.alphaName,
-                            wb.complexity.stakeholderEngagement.stateName,
-                          )}`}
-                          style={linkStyle()}
-                        >
-                          <code>
-                            {wb.complexity.stakeholderEngagement.alphaName}→{wb.complexity.stakeholderEngagement.stateName}
-                          </code>
-                        </a>
-                      </div>
-                    ) : null}
-                    {wb.complexity.productRisks?.length ? (
-                      <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 12 }}>
-                        {t.productRisks}:{" "}
-                        {wb.complexity.productRisks.map((c: any, idx: number) => (
-                          <span key={`pr:${c.alphaName}:${c.stateName}:${idx}`}>
-                            <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
-                              <code>
-                                <AliasedName kind="Alpha" name={c.alphaName} browse={browse} />→
-                                    <AliasedName kind="State" name={c.stateName} browse={browse} />
-                              </code>
-                            </a>
-                            {idx < wb.complexity.productRisks.length - 1 ? ", " : ""}
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
-                    {wb.complexity.projectRisks?.length ? (
-                      <div style={{ marginTop: 4, color: "var(--muted)", fontSize: 12 }}>
-                        {t.projectRisks}:{" "}
-                        {wb.complexity.projectRisks.map((c: any, idx: number) => (
-                          <span key={`jr:${c.alphaName}:${c.stateName}:${idx}`}>
-                            <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
-                              <code>
-                                <AliasedName kind="Alpha" name={c.alphaName} browse={browse} />→
-                                    <AliasedName kind="State" name={c.stateName} browse={browse} />
-                              </code>
-                            </a>
-                            {idx < wb.complexity.projectRisks.length - 1 ? ", " : ""}
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                ) : null}
-
-                {Array.isArray(wb.task) && wb.task.length ? (
-                  <div style={{ marginTop: 10 }}>
-                    <div style={{ fontWeight: 700, marginBottom: 6 }}>{t.wbTasks}</div>
-                    {browse ? (
-                      <div className="mt-2 flex flex-col gap-6 border-l-2 border-[var(--border)] pl-4">
-                        {wb.task
-                          .slice()
-                          .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-                          .map((task: any) => (
-                            <div key={`${wb.name}:${task.name}:${task.seq}`}>
-                              <h4 className="text-lg font-semibold text-[var(--text)]">
-                                <AliasedName kind="WorkItem" name={task.name} browse />
-                              </h4>
-                              {practiceElementDescriptionForDisplay(task) ? (
-                                <p className={`mt-1 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(task)}</p>
-                              ) : null}
-                              <IrBrowseTagsBlock tags={task.tags} t={t} />
-                              {task.implementsActivityName ? (
-                                <p className={`mt-2 ${BROWSE.bodyMuted}`}>
-                                  {t.implementsActivity}:{" "}
-                                  <a href={`#${activityId(String(task.implementsActivityName))}`} style={linkStyle()}>
-                                    <code>
-                                      <AliasedName kind="Activity" name={String(task.implementsActivityName)} browse={browse} />
-                                    </code>
-                                  </a>
-                                </p>
-                              ) : null}
-                              {dedupeContributesToRefs(task.contributesTo).length ? (
-                                <p className={`mt-2 ${BROWSE.bodyMuted}`}>
-                                  {t.contributesTo}:{" "}
-                                  {dedupeContributesToRefs(task.contributesTo).map((c, idx, arr) => (
-                                    <span key={`${task.name}:${c.alphaName}:${c.stateName}`}>
-                                      <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
-                                        <code>
-                                          <AliasedName kind="Alpha" name={c.alphaName} browse={browse} />→
-                                    <AliasedName kind="State" name={c.stateName} browse={browse} />
-                                        </code>
-                                      </a>
-                                      {idx < arr.length - 1 ? ", " : ""}
-                                    </span>
-                                  ))}
-                                </p>
-                              ) : null}
-                              {task.worksOn?.length ? (
-                                <p className={`mt-2 ${BROWSE.bodyMuted}`}>
-                                  {t.worksOn}:{" "}
-                                  {task.worksOn.map((w: any, idx: number) => (
-                                    <span key={`${task.name}:${w.workProductName}:${idx}`}>
-                                      <a href={`#${workProductId(w.workProductName)}`} style={linkStyle()}>
-                                        <code>
-                                          <AliasedName kind="WorkProduct" name={w.workProductName} browse={browse} />→
-                                        <AliasedName kind="LevelOfDetail" name={w.levelOfDetailName} browse={browse} />
-                                        </code>
-                                      </a>
-                                      {idx < task.worksOn.length - 1 ? ", " : ""}
-                                    </span>
-                                  ))}
-                                </p>
-                              ) : null}
-                              {task.applies?.length ? (
-                                <p className={`mt-2 ${BROWSE.bodyMuted}`}>
-                                  {t.appliesInSpaces}:{" "}
-                                  {task.applies.map((a: any, idx: number) => (
-                                    <span key={`${task.name}:${a.activitySpaceName}:${idx}`}>
-                                      <a href={`#${activitySpaceId(a.activitySpaceName)}`} style={linkStyle()}>
-                                        <code>
-                                        <AliasedName kind="ActivitySpace" name={a.activitySpaceName} browse={browse} />
-                                      </code>
-                                      </a>
-                                      {idx < task.applies.length - 1 ? ", " : ""}
-                                    </span>
-                                  ))}
-                                </p>
-                              ) : null}
-                              {task.estimate ? (
-                                <p className={`mt-2 ${BROWSE.bodyMuted}`}>
-                                  {t.wbEstimate}: {task.estimate.lowEst} / {task.estimate.medEst} / {task.estimate.highEst}
-                                </p>
-                              ) : null}
-                            </div>
-                          ))}
-                      </div>
+                      </h3>
                     ) : (
-                      <ol style={{ margin: 0, paddingLeft: 18 }}>
-                        {wb.task
-                          .slice()
-                          .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-                          .map((task: any) => (
-                              <li
-                                key={`${wb.name}:${task.name}:${task.seq}`}
-                                style={{ marginBottom: 12, padding: 10, border: "1px solid var(--border)", borderRadius: 8 }}
-                              >
-                                <div style={{ fontWeight: 800 }}>
-                                  <AliasedName kind="WorkItem" name={task.name} browse={browse} />
-                                </div>
-                                {practiceElementDescriptionForDisplay(task) ? (
-                                  <div style={{ color: "var(--muted)", marginTop: 4, fontSize: 13 }}>
-                                    {practiceElementDescriptionForDisplay(task)}
-                                  </div>
-                                ) : null}
-                                {flattenPracticeElementTags(task.tags).length ? (
-                                  <div style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
-                                    <span style={{ fontSize: 11, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                                    {flattenPracticeElementTags(task.tags).map((x: string, ti: number) => (
-                                      <span key={`witem-${slug(wb.name)}-${slug(task.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
-                                        {x}
-                                      </span>
-                                    ))}
-                                  </div>
-                                ) : null}
-                                {task.implementsActivityName ? (
-                                  <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
-                                    {t.implementsActivity}:{" "}
-                                    <a href={`#${activityId(String(task.implementsActivityName))}`} style={linkStyle()}>
-                                      <code>
-                                      <AliasedName kind="Activity" name={String(task.implementsActivityName)} browse={browse} />
-                                    </code>
-                                    </a>
-                                  </div>
-                                ) : null}
-                                {dedupeContributesToRefs(task.contributesTo).length ? (
-                                  <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
-                                    {t.contributesTo}:{" "}
-                                    {dedupeContributesToRefs(task.contributesTo).map((c, idx, arr) => (
-                                      <span key={`${task.name}:${c.alphaName}:${c.stateName}`}>
-                                        <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
-                                          <code>
-                                            <AliasedName kind="Alpha" name={c.alphaName} browse={browse} />→
-                                    <AliasedName kind="State" name={c.stateName} browse={browse} />
-                                          </code>
-                                        </a>
-                                        {idx < arr.length - 1 ? ", " : ""}
-                                      </span>
-                                    ))}
-                                  </div>
-                                ) : null}
-                                {task.worksOn?.length ? (
-                                  <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
-                                    {t.worksOn}:{" "}
-                                    {task.worksOn.map((w: any, idx: number) => (
-                                      <span key={`${task.name}:${w.workProductName}:${idx}`}>
-                                        <a href={`#${workProductId(w.workProductName)}`} style={linkStyle()}>
-                                          <code>
-                                            <AliasedName kind="WorkProduct" name={w.workProductName} browse={browse} />→
-                                        <AliasedName kind="LevelOfDetail" name={w.levelOfDetailName} browse={browse} />
-                                          </code>
-                                        </a>
-                                        {idx < task.worksOn.length - 1 ? ", " : ""}
-                                      </span>
-                                    ))}
-                                  </div>
-                                ) : null}
-                                {task.applies?.length ? (
-                                  <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
-                                    {t.appliesInSpaces}:{" "}
-                                    {task.applies.map((a: any, idx: number) => (
-                                      <span key={`${task.name}:${a.activitySpaceName}:${idx}`}>
-                                        <a href={`#${activitySpaceId(a.activitySpaceName)}`} style={linkStyle()}>
-                                          <code>
-                                        <AliasedName kind="ActivitySpace" name={a.activitySpaceName} browse={browse} />
-                                      </code>
-                                        </a>
-                                        {idx < task.applies.length - 1 ? ", " : ""}
-                                      </span>
-                                    ))}
-                                  </div>
-                                ) : null}
-                                {task.estimate ? (
-                                  <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
-                                    {t.wbEstimate}: {task.estimate.lowEst} / {task.estimate.medEst} / {task.estimate.highEst}
-                                  </div>
-                                ) : null}
-                              </li>
-                          ))}
-                      </ol>
+                      <div style={{ fontWeight: 800 }}>
+                        <AliasedName kind="NarrativeType" name={String(nt.name)} browse={false} />
+                      </div>
                     )}
+                    {practiceElementDescriptionForDisplay(nt) ? (
+                      browse ? (
+                        <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(nt)}</p>
+                      ) : (
+                        <div style={{ color: "var(--muted)", marginTop: 6 }}>
+                          {practiceElementDescriptionForDisplay(nt)}
+                        </div>
+                      )
+                    ) : null}
+                    {browse ? <IrBrowseTagsBlock tags={nt.tags} t={t} /> : null}
+                    {Array.isArray(nt.narrativeElements) && nt.narrativeElements.length ? (
+                      <div style={{ marginTop: 8 }}>
+                        <div style={{ fontWeight: 700, marginBottom: 4 }}>{t.narrativeElementsHeading}</div>
+                        <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--muted)" }}>
+                          {(nt.narrativeElements as any[]).map((el: any) => (
+                            <li key={`${String(nt.name)}:${String(el.name)}`}>
+                              <strong style={{ color: "var(--text)" }}>{String(el.name)}</strong>
+                              {practiceElementDescriptionForDisplay(el) ? (
+                                <span> — {practiceElementDescriptionForDisplay(el)}</span>
+                              ) : null}
+                              {el?.howToUse ? (
+                                <div style={{ fontSize: 12, marginTop: 4 }}>{String(el.howToUse)}</div>
+                              ) : null}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : null}
+
+          {Array.isArray(sourceDoc?.personas) && (sourceDoc!.personas as any[]).length ? (
+            <>
+              {browse ? (
+                <h2 id="browse-section-personas" className={`${BROWSE.h2Global} mt-10 scroll-mt-4`}>
+                  {t.personasHeading}
+                </h2>
+              ) : (
+                <div style={{ fontSize: 16, fontWeight: 800, marginTop: 16 }}>{t.personasHeading}</div>
+              )}
+              <div style={{ marginTop: 10, display: "grid", gap: 12 }}>
+                {(sourceDoc!.personas as any[]).map((p: any) => (
+                  <div
+                    key={String(p.name)}
+                    id={personaIdPv(String(p.name))}
+                    style={
+                      browse
+                        ? { marginTop: 8 }
+                        : { padding: 12, border: "1px solid var(--border)", borderRadius: 10 }
+                    }
+                  >
+                    {browse ? (
+                      <h3 className={BROWSE.h3Item}>
+                        <a href={`#${personaIdPv(String(p.name))}`} style={linkStyle()}>
+                          <AliasedName kind="Persona" name={String(p.name)} browse />
+                        </a>
+                      </h3>
+                    ) : (
+                      <div style={{ fontWeight: 800 }}>
+                        <AliasedName kind="Persona" name={String(p.name)} browse={false} />
+                      </div>
+                    )}
+                    {practiceElementDescriptionForDisplay(p) ? (
+                      browse ? (
+                        <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(p)}</p>
+                      ) : (
+                        <div style={{ color: "var(--muted)", marginTop: 6 }}>
+                          {practiceElementDescriptionForDisplay(p)}
+                        </div>
+                      )
+                    ) : null}
+                    {browse ? <IrBrowseTagsBlock tags={p.tags} t={t} /> : null}
+                    {Array.isArray(p.competencies) && p.competencies.length ? (
+                      <p className={`mt-2 ${BROWSE.bodyMuted}`}>
+                        {t.recommendedCompetencyLevels}:{" "}
+                        {p.competencies.map((r: any, ri: number) => (
+                          <span key={`${String(p.name)}:rc:${ri}`}>
+                            <code>
+                              <AliasedName kind="Competency" name={String(r?.competencyName ?? "")} browse={browse} />/
+                              <AliasedName
+                                kind="CompetencyLevel"
+                                name={String(r?.competencyLevelName ?? "")}
+                                browse={browse}
+                              />
+                            </code>
+                            {ri < p.competencies.length - 1 ? ", " : ""}
+                          </span>
+                        ))}
+                      </p>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : null}
+
+          {Array.isArray(sourceDoc?.personaGroups) && (sourceDoc!.personaGroups as any[]).length ? (
+            <>
+              {browse ? (
+                <h2 id="browse-section-persona-groups" className={`${BROWSE.h2Global} mt-10 scroll-mt-4`}>
+                  {t.personaGroupsHeading}
+                </h2>
+              ) : (
+                <div style={{ fontSize: 16, fontWeight: 800, marginTop: 16 }}>{t.personaGroupsHeading}</div>
+              )}
+              <div style={{ marginTop: 10, display: "grid", gap: 12 }}>
+                {(sourceDoc!.personaGroups as any[]).map((pg: any) => (
+                  <div
+                    key={String(pg.name)}
+                    id={personaGroupIdPv(String(pg.name))}
+                    style={
+                      browse
+                        ? { marginTop: 8 }
+                        : { padding: 12, border: "1px solid var(--border)", borderRadius: 10 }
+                    }
+                  >
+                    {browse ? (
+                      <h3 className={BROWSE.h3Item}>
+                        <a href={`#${personaGroupIdPv(String(pg.name))}`} style={linkStyle()}>
+                          <AliasedName kind="PersonaGroup" name={String(pg.name)} browse />
+                        </a>
+                      </h3>
+                    ) : (
+                      <div style={{ fontWeight: 800 }}>
+                        <AliasedName kind="PersonaGroup" name={String(pg.name)} browse={false} />
+                      </div>
+                    )}
+                    {practiceElementDescriptionForDisplay(pg) ? (
+                      browse ? (
+                        <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(pg)}</p>
+                      ) : (
+                        <div style={{ color: "var(--muted)", marginTop: 6 }}>
+                          {practiceElementDescriptionForDisplay(pg)}
+                        </div>
+                      )
+                    ) : null}
+                    {browse ? <IrBrowseTagsBlock tags={pg.tags} t={t} /> : null}
+                    {Array.isArray(pg.personaNames) && pg.personaNames.length ? (
+                      <p className={`mt-2 ${BROWSE.bodyMuted}`}>
+                        {t.personaGroupMembers}:{" "}
+                        {pg.personaNames.map((nm: unknown, gi: number) => (
+                          <span key={`${String(pg.name)}:pg:${gi}:${String(nm)}`}>
+                            <AliasedName kind="Persona" name={String(nm)} browse={browse} />
+                            {gi < (pg.personaNames as unknown[]).length - 1 ? ", " : ""}
+                          </span>
+                        ))}
+                      </p>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : null}
         </div>
       ) : null}
 

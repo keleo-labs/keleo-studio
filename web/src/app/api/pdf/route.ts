@@ -66,7 +66,7 @@ export async function POST(req: Request) {
   const ok = validate(docObj);
   const baseline = asBaselineDocument(docObj);
   // Browse sends merged method → composite Practice; it matches what the human-readable panel renders
-  // but can still fail full JSON Schema (nested Activity/WorkBreakdown shape, unevaluatedProperties, …).
+  // but can still fail full JSON Schema (nested Activity shape, unevaluatedProperties, …).
   // If we can derive a baseline—the same gate the renderer uses—generate the PDF anyway.
   if (!ok && !baseline) {
     return NextResponse.json({ error: "Schema validation failed", issues: validate.errors }, { status: 400 });
