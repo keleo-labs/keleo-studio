@@ -57,23 +57,9 @@
           "required": ["seq"],
           "properties": {
             "seq": { "type": "integer" },
-            "isBlocking": {
-              "type": "boolean",
-              "description": "If true, failure to meet this criteria programmatically halts Alpha progression."
-            },
-            "thresholdWeighting": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1,
-              "description": "Quantitative fractional weight representing contribution to state achievement."
-            },
             "verificationMethod": {
               "type": "string",
               "enum": ["automated-telemetry", "manual-audit", "documentation-review", "system-assertion"]
-            },
-            "evidenceRequired": {
-              "type": "boolean",
-              "description": "Dictates if a physical URI (Git hash, storage location) is necessary to clear the gate."
             },
             "evidencedBy": {
               "type": "array",
@@ -270,7 +256,8 @@
       ],
       "unevaluatedProperties": false
     },
-    "ActivitySpace": {
+    "ActivitySpaceCore": {
+      "description": "Symbolic swimlane slice shared by ActivitySpace rows and nested/flat Activity rows (contributions, focus, competencies, persona groups).",
       "allOf": [
         { "$ref": "#/$defs/PracticeElement" },
         {
@@ -295,41 +282,23 @@
               "type": "array",
               "description": "PersonaGroup.name entries (symbolic links on the same Practice document or merged method scope; must match PersonaGroup.name, not Persona.name).",
               "items": { "type": "string" }
-            },
-            "activities": {
-              "type": "array",
-              "description": "Activities owned by this activity space (canonical shape, 0..*).",
-              "items": { "$ref": "#/$defs/Activity" }
             }
           }
         }
       ],
-      "description": "Coordinates work in a focus area; may embed activities.",
       "unevaluatedProperties": false
     },
     "Activity": {
-      "description": "Swimlane activity. Canonical JSON nests instances under ActivitySpace.activities; Practice.activities (flat) remains valid for legacy interchange.",
+      "description": "Swimlane activity; extends ActivitySpaceCore with work linkage and competency levels. Canonical JSON nests instances under ActivitySpace.activities; Practice.activities (flat) remains valid for legacy interchange.",
       "allOf": [
-        { "$ref": "#/$defs/PracticeElement" },
+        { "$ref": "#/$defs/ActivitySpaceCore" },
         {
           "type": "object",
-          "required": ["contributesTo", "focusName", "requiredCompetencies", "worksOn", "recommendedCompetencyLevels"],
+          "required": ["worksOn", "recommendedCompetencyLevels"],
           "properties": {
             "activitySpaceName": {
               "type": "string",
               "description": "Parent ActivitySpace.name; required in Practice.activities; optional when nested under ActivitySpace.activities (implicit parent)."
-            },
-            "focusName": {
-              "type": "string",
-              "description": "Focus for swimlane grouping (symbolic link; should match the parent ActivitySpace.focusName when nested)."
-            },
-            "contributesTo": {
-              "type": "array",
-              "items": { "$ref": "#/$defs/AlphaContribution" }
-            },
-            "requiredCompetencies": {
-              "type": "array",
-              "items": { "type": "string" }
             },
             "worksOn": {
               "type": "array",
@@ -338,6 +307,23 @@
             "recommendedCompetencyLevels": {
               "type": "array",
               "items": { "$ref": "#/$defs/CompetencyLevelReference" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "ActivitySpace": {
+      "description": "Coordinates work in a focus area; extends ActivitySpaceCore with nested Activity children.",
+      "allOf": [
+        { "$ref": "#/$defs/ActivitySpaceCore" },
+        {
+          "type": "object",
+          "properties": {
+            "activities": {
+              "type": "array",
+              "description": "Activities owned by this activity space (canonical shape, 0..*).",
+              "items": { "$ref": "#/$defs/Activity" }
             }
           }
         }
@@ -565,9 +551,9 @@
               "description": "Activity.name entries for pattern-matrix swimlanes (symbolic links to nested Activity under ActivitySpace or to flat Practice.activities).",
               "items": { "type": "string" }
             },
-            "narrativeElementName": {
-              "type": "string",
-              "description": "Optional symbolic link to NarrativeElement.name on the NarrativeType selected by Pattern.narrativeTypeName (language.mmd)."
+            "narrativeContexts": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/NarrativeContext" }
             }
           }
         }

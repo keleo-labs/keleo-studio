@@ -102,6 +102,8 @@ export type PracticeActivity = PracticeElement & {
   focusName: string;
   contributesTo: { alphaName: string; stateName: string }[];
   requiredCompetencies: string[];
+  /** Symbolic PersonaGroup.name refs (same as ActivitySpace.involves; schema ActivitySpaceCore). */
+  involves?: string[];
   worksOn: WorkProductContribution[];
   recommendedCompetencyLevels: CompetencyLevelReference[];
 };
@@ -167,6 +169,11 @@ export type Practice = PracticeElement & {
   baselinePracticeName: string;
   /** When set on merged output (e.g. {@link compositePracticeFromMethod}), baseline provenance without implying an unresolved extension. */
   mergesBaselinePracticeName?: string;
+  /**
+   * Other practices merged after the named baseline during resolution. **Order defines hierarchy among extensions:**
+   * entries earlier in the array are **above** later entries — they merge first onto the accumulating document, so on
+   * same-named elements their `description` prevails under the merge rules implemented in **`compositePracticeFromMethod`**.
+   */
   practiceDependencyNames?: string[];
   practiceElementAliases?: PracticeElementAlias[];
   focuses?: PracticeBaseline["focuses"];
@@ -187,23 +194,14 @@ export type Practice = PracticeElement & {
   narrativeTypes?: NarrativeType[];
 };
 
-/** Enriched baseline plus practice-root overlays for alternate readable previews (business / delivery / SOW). */
-export type ReadablePracticePreviewDoc = PracticeBaseline &
-  Partial<
-    Pick<
-      Practice,
-      | "patterns"
-      | "activities"
-      | "workProducts"
-      | "practiceElementAliases"
-      | "personas"
-      | "personaGroups"
-      | "narrativeTypes"
-    >
-  >;
-
 export type Method = PracticeElement & {
+  /** Canonical kernel artifact; head of the practice hierarchy — always merges first into the accumulator. */
   baselinePractice: PracticeBaseline;
+  /**
+   * Extension layers merged after {@link baselinePractice}, in hierarchy order — **nearest baseline first**, leaf
+   * practice last (e.g. `[...dependencyPracticesFromLibraryInDependencyListOrder, primaryPractice]`).
+   * Each layer overlays the accumulator under {@link compositePracticeFromMethod}: earlier layers keep `description` on same-named rows when later layers redefine them.
+   */
   practices?: Practice[];
 };
 

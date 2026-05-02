@@ -1,19 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useCallback, useEffect, useId, useMemo, useState, type ReactNode } from "react";
-import type { Method, PracticeBaseline, PracticeElementAlias } from "@/lib/types";
+import { useCallback, useId, useMemo, useState, type ReactNode } from "react";
+import type {
+  Method,
+  Narrative,
+  NarrativeType,
+  PracticeBaseline,
+  PracticeElementAlias,
+} from "@/lib/types";
 import {
   asBaselineDocument,
   baselineWithPracticeActivities,
   enrichBaselineWithReferencedWrappers,
   groupByFocus,
   IMPLICIT_FOCUS_NAME,
+  narrativeContextBulletLine,
+  patternViewNarrativeContextProseTexts,
+  personaCompetencyDisplayRefs,
   practiceElementDescriptionForDisplay,
 } from "@/lib/ir";
 import { flattenPracticeElementTags, normalizePracticeElementTags } from "@/lib/practiceElementTags";
 import { parsePatternViewAlphaState } from "@/lib/patternView";
-import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
+import { practiceNeedsLibraryResolution, type BrowseDependencyArtifact } from "@/lib/library/practiceDependencyResolution";
+import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
+import { mergeNarrativeTypes } from "@/lib/methodMerge/compositePracticeFromMethod";
 import { useTheme } from "@/lib/theme";
 import { useLanguagePack } from "@/lib/languagePack";
 import type { LanguagePack } from "@/lib/languagePackTypes";
@@ -28,6 +39,7 @@ import {
   diagramTextCharLimits,
   layoutDiagramAliasedNameRows,
   PATTERN_MATRIX_LANE_TOGGLE_HEIGHT,
+  PATTERN_VIEW_MATRIX_NARRATIVE_BULLET_GAP_PX,
   SWIMLANE_FOCUS_HEADING,
   wrapDiagramTextLines,
   type DiagramAliasedNameRow,
@@ -40,7 +52,7 @@ import {
   computeAlphaContributorBelowLayout,
   contributeEdgePathD,
 } from "@/lib/alphaContributesDiagram";
-import { extendsBaselineDisplayName } from "@/lib/library/classify";
+import { extendsBaselineDisplayName, isStandaloneBaselinePracticeArtifact } from "@/lib/library/classify";
 import {
   diagramMeasureName,
   EMPTY_PRACTICE_ELEMENT_ALIAS_LOOKUP,
@@ -120,7 +132,7 @@ function IrBrowseTagsBlock({ tags, t, className = "mt-2" }: { tags: unknown; t: 
   );
 }
 
-/** Browse IR: optional checklist gate metadata from language.schema.json Checklist. */
+/** Browse IR: optional checklist metadata from language.schema.json Checklist (verification + evidencedBy). */
 function IrBrowseChecklistSchemaBlock({
   ch,
   t,
@@ -130,13 +142,6 @@ function IrBrowseChecklistSchemaBlock({
   t: LanguagePack;
   workProductId: (n: string) => string;
 }) {
-  const blockRow =
-    typeof ch.isBlocking === "boolean" ? (
-      <div key="block" className="text-[11px] text-[var(--muted)]">
-        <span className="font-semibold text-[var(--text)]">{t.checklistBlocking}: </span>
-        {ch.isBlocking ? "true" : "false"}
-      </div>
-    ) : null;
   const vmRow =
     typeof ch.verificationMethod === "string" && ch.verificationMethod.trim() ? (
       <div key="vm" className="text-[11px] text-[var(--muted)]">
@@ -144,27 +149,9 @@ function IrBrowseChecklistSchemaBlock({
         <code>{ch.verificationMethod.trim()}</code>
       </div>
     ) : null;
-  const erRow =
-    typeof ch.evidenceRequired === "boolean" ? (
-      <div key="er" className="text-[11px] text-[var(--muted)]">
-        <span className="font-semibold text-[var(--text)]">{t.checklistEvidenceRequired}: </span>
-        {ch.evidenceRequired ? "true" : "false"}
-      </div>
-    ) : null;
-
-  const thresholdWeight =
-    typeof ch.thresholdWeighting === "number" && Number.isFinite(ch.thresholdWeighting) ? (
-      <div key="tw" className="text-[11px] text-[var(--muted)]">
-        <span className="font-semibold text-[var(--text)]">{t.checklistThresholdWeight}: </span>
-        {ch.thresholdWeighting}
-      </div>
-    ) : null;
 
   const metaInSchemaOrder: ReactNode[] = [];
-  if (blockRow) metaInSchemaOrder.push(blockRow);
-  if (thresholdWeight) metaInSchemaOrder.push(thresholdWeight);
   if (vmRow) metaInSchemaOrder.push(vmRow);
-  if (erRow) metaInSchemaOrder.push(erRow);
 
   const ev = Array.isArray(ch.evidencedBy) ? ch.evidencedBy : [];
   const evBlock =
@@ -194,15 +181,13 @@ function IrBrowseChecklistSchemaBlock({
   );
 }
 
-/** True when checklist row has tags or schema metadata worth showing behind a click. */
+/** True when checklist row has tags or checklist schema fields worth showing behind a click. */
 function browseChecklistHasExpandableFields(ch: unknown): boolean {
   if (normalizePracticeElementTags((ch as { tags?: unknown })?.tags)) return true;
   const c = ch as Record<string, unknown>;
-  if (typeof c?.isBlocking === "boolean") return true;
   if (typeof c?.verificationMethod === "string" && String(c.verificationMethod).trim() !== "") return true;
-  if (typeof c?.evidenceRequired === "boolean") return true;
-  if (typeof c?.thresholdWeighting === "number" && Number.isFinite(c.thresholdWeighting)) return true;
   if (Array.isArray(c?.evidencedBy) && (c.evidencedBy as unknown[]).length > 0) return true;
+  if (Array.isArray(c?.narratives) && (c.narratives as unknown[]).length > 0) return true;
   return false;
 }
 
@@ -242,12 +227,16 @@ function IrBrowseChecklistBullets({
                   {headline}
                 </summary>
                 <div className="mt-2 space-y-2 border-l-2 border-[var(--border)]/70 pl-2.5">
+                  <EmbeddedNarrativesUnderDescription narratives={ch.narratives} browse />
                   <IrBrowseTagsBlock tags={ch.tags} t={t} className="mt-0" />
                   <IrBrowseChecklistSchemaBlock ch={ch} t={t} workProductId={workProductId} />
                 </div>
               </details>
             ) : (
-              <div className="leading-snug">{headline}</div>
+              <div>
+                <div className="leading-snug">{headline}</div>
+                <EmbeddedNarrativesUnderDescription narratives={ch.narratives} browse />
+              </div>
             )}
           </li>
         );
@@ -287,6 +276,7 @@ function IrBrowsePatternViewsSection({
             {practiceElementDescriptionForDisplay(pv) ? (
               <p className={`mt-1 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(pv)}</p>
             ) : null}
+            <EmbeddedNarrativesUnderDescription narratives={pv?.narratives} browse />
             <IrBrowseTagsBlock tags={pv.tags} t={t} className="mt-1.5" />
             <div className="mt-2 text-[11px] leading-snug text-[var(--muted)]">
               <span className="font-semibold text-[var(--text)]">{t.patternViewAlphaStates}: </span>
@@ -357,6 +347,15 @@ function IrBrowsePatternViewsSection({
 
 type FocusGroup = { focusName: string; focus: any | null; alphas: any[]; activitySpaces: any[] };
 
+/** Baseline enrichment can omit narrative spine overlays that still exist on `doc.narrativeTypes`. */
+function narrativeTypesMergedForRenderable(doc: unknown, baseline: PracticeBaseline): NarrativeType[] {
+  const fromBaseline = baseline.narrativeTypes ?? [];
+  if (!doc || typeof doc !== "object") return [...fromBaseline];
+  const raw = (doc as Record<string, unknown>).narrativeTypes;
+  const fromDoc = Array.isArray(raw) ? raw : [];
+  return mergeNarrativeTypes(fromBaseline as any[], fromDoc as any[]) as NarrativeType[];
+}
+
 export function PracticeHumanReadablePanel({
   doc,
   variant = "default",
@@ -368,42 +367,19 @@ export function PracticeHumanReadablePanel({
   methodComposition?: Method | null;
 }) {
   const { t } = useLanguagePack();
+  const browseMode = variant === "browse";
   const shouldResolveLibrary = useMemo(() => practiceNeedsLibraryResolution(doc), [doc]);
-  const [libraryResolvedDoc, setLibraryResolvedDoc] = useState<unknown | null>(null);
-  const [libraryResolveNote, setLibraryResolveNote] = useState<string | null>(null);
+  const libraryFetchEnabled = browseMode || shouldResolveLibrary;
+  const { loading: libraryFetchLoading, resolved: libraryResolvedRaw, dependencyArtifacts: browseDependencyArtifacts, error: libraryResolveRaw } =
+    usePracticeLibraryResolveForRender(doc, libraryFetchEnabled);
 
-  useEffect(() => {
-    if (!shouldResolveLibrary) {
-      setLibraryResolvedDoc(null);
-      setLibraryResolveNote(null);
-      return;
-    }
-    let cancelled = false;
-    setLibraryResolvedDoc(null);
-    setLibraryResolveNote(null);
-    (async () => {
-      try {
-        const res = await fetch("/api/documents/resolve-for-render", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ doc }),
-        });
-        const j = (await res.json().catch(() => null)) as { resolved?: unknown; error?: string } | null;
-        if (cancelled) return;
-        if (!res.ok) {
-          setLibraryResolveNote(typeof j?.error === "string" ? j.error : `Library merge failed (${res.status}).`);
-          return;
-        }
-        if (j?.error) setLibraryResolveNote(j.error);
-        else if (j && "resolved" in j) setLibraryResolvedDoc(j.resolved);
-      } catch (e) {
-        if (!cancelled) setLibraryResolveNote(e instanceof Error ? e.message : "Library merge failed.");
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [doc, shouldResolveLibrary]);
+  const libraryResolvedDoc = useMemo(() => {
+    if (!shouldResolveLibrary || libraryResolvedRaw === undefined) return null;
+    return libraryResolvedRaw;
+  }, [shouldResolveLibrary, libraryResolvedRaw]);
+
+  const libraryResolveNote = shouldResolveLibrary && libraryResolveRaw ? libraryResolveRaw : null;
+  const browseContextBusy = libraryFetchEnabled && libraryFetchLoading;
 
   const effectiveDoc = useMemo(() => {
     if (!shouldResolveLibrary) return doc;
@@ -434,8 +410,15 @@ export function PracticeHumanReadablePanel({
     return s;
   }, [grouped]);
 
+  const showNarrativeSpineCatalog = useMemo(() => isStandaloneBaselinePracticeArtifact(doc), [doc]);
+
   const sourceDocRecord =
     effectiveDoc && typeof effectiveDoc === "object" ? (effectiveDoc as Record<string, unknown>) : null;
+
+  const mergedNarrativeTypes = useMemo(
+    () => (baselineForRender ? narrativeTypesMergedForRenderable(effectiveDoc, baselineForRender) : []),
+    [effectiveDoc, baselineForRender],
+  );
 
   return (
     <PracticeElementAliasesProvider
@@ -447,8 +430,11 @@ export function PracticeHumanReadablePanel({
     >
       <section style={panel}>
       <div style={{ fontWeight: 700, marginBottom: 8 }}>{t.renderedView}</div>
-      {shouldResolveLibrary && libraryResolvedDoc === null && !libraryResolveNote ? (
-        <div style={{ color: "var(--muted)", fontSize: 13, marginBottom: 8 }}>Merging baseline and dependencies from the library…</div>
+      {(shouldResolveLibrary && libraryResolvedDoc === null && !libraryResolveNote) ||
+      (!shouldResolveLibrary && browseMode && browseContextBusy) ? (
+        <div style={{ color: "var(--muted)", fontSize: 13, marginBottom: 8 }}>
+          {shouldResolveLibrary ? "Merging baseline and dependencies from the library…" : "Loading library references…"}
+        </div>
       ) : null}
       {libraryResolveNote ? (
         <div style={{ color: "var(--muted)", fontSize: 13, marginBottom: 8 }}>{libraryResolveNote}</div>
@@ -465,6 +451,9 @@ export function PracticeHumanReadablePanel({
               t={t}
               supportingAlphaNamesGlobal={supportingAlphaNamesGlobalBrowse}
               methodComposition={methodComposition ?? undefined}
+              browseDependencyArtifacts={browseDependencyArtifacts}
+              mergedNarrativeTypes={mergedNarrativeTypes}
+              showNarrativeSpineCatalog={showNarrativeSpineCatalog}
             />
           ) : null}
           <PracticeBaselineView
@@ -473,6 +462,9 @@ export function PracticeHumanReadablePanel({
             sourceDoc={sourceDocRecord}
             variant={variant}
             methodComposition={methodComposition ?? undefined}
+            browseDependencyArtifacts={variant === "browse" ? browseDependencyArtifacts : undefined}
+            mergedNarrativeTypes={mergedNarrativeTypes}
+            showNarrativeSpineCatalog={showNarrativeSpineCatalog}
           />
         </div>
       )}
@@ -481,10 +473,17 @@ export function PracticeHumanReadablePanel({
   );
 }
 
+const BROWSE_SECTION_DEPENDENCIES = "browse-section-dependencies";
+const BROWSE_SECTION_OVERVIEW = "browse-section-overview";
 const BROWSE_SECTION_ALPHAS = "browse-section-alphas";
 const BROWSE_SECTION_ACTIVITIES = "browse-section-activities";
 const BROWSE_SECTION_METHOD_PRACTICES = "browse-section-composing-practices";
 const BROWSE_SECTION_ALIASES = "browse-section-aliases";
+const BROWSE_SECTION_NARRATIVE_TYPES = "browse-section-narrative-types";
+
+function browseResolvedDepId(depName: string) {
+  return `browse-dep-${slug(depName)}`;
+}
 
 function browseAlphasFocusSectionId(focusName: string) {
   return `browse-alphas-focus-${slug(focusName)}`;
@@ -496,6 +495,55 @@ function browseActivitiesFocusSectionId(focusName: string) {
 
 function browseOrphanActsId(parentSpaceName: string) {
   return `browse-orphan-acts-${slug(parentSpaceName)}`;
+}
+
+function BrowseResolvedDependenciesSection({ artifacts, t }: { artifacts: BrowseDependencyArtifact[]; t: LanguagePack }) {
+  if (!artifacts.length) return null;
+  return (
+    <section id={BROWSE_SECTION_DEPENDENCIES} className="scroll-mt-4 border-t border-[var(--border)] pt-6">
+      <h2 className={`${BROWSE.h2Global}`}>{t.browseTocDependencies}</h2>
+      <div className="mt-6 flex flex-col gap-6">
+        {artifacts.map((a) => {
+          const body = a.body as Record<string, unknown>;
+          const depNames =
+            Array.isArray(body.practiceDependencyNames) && body.practiceDependencyNames.length
+              ? (body.practiceDependencyNames as string[]).map((x) => String(x ?? "").trim()).filter(Boolean).join(", ")
+              : "";
+          return (
+            <article
+              key={`${a.role}:${a.name}`}
+              id={browseResolvedDepId(a.name)}
+              className="scroll-mt-4 rounded-xl border border-[var(--border)] bg-[var(--panel)] px-4 py-4 sm:px-5"
+            >
+              <header className="flex flex-wrap items-baseline gap-2">
+                <h3 className="text-[17px] font-semibold text-[var(--text)]">{a.name}</h3>
+                <span className="rounded-full border border-[var(--border)] px-2 py-0.5 text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">
+                  {a.role === "baselinePractice" ? "Baseline practice" : "Practice"}
+                </span>
+              </header>
+              {a.role === "practice" &&
+              typeof body.baselinePracticeName === "string" &&
+              String(body.baselinePracticeName).trim() !== "" ? (
+                <p className={`mt-2 ${BROWSE.bodyMuted}`}>
+                  {t.extendsBaseline}: <code className="text-[var(--text)]">{String(body.baselinePracticeName)}</code>
+                </p>
+              ) : null}
+              {practiceElementDescriptionForDisplay(body) ? (
+                <p className={`mt-3 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(body)}</p>
+              ) : null}
+              <EmbeddedNarrativesUnderDescription narratives={body.narratives} browse />
+              {depNames ? (
+                <p className={`mt-2 ${BROWSE.bodyMuted}`}>
+                  {t.practiceDependencies}: {depNames}
+                </p>
+              ) : null}
+              <IrBrowseTagsBlock tags={body.tags} t={t} className="mt-3" />
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
 }
 
 function MethodComposingPracticesBrowse({ method, t }: { method: Method; t: LanguagePack }) {
@@ -552,6 +600,9 @@ function BrowseTableOfContents({
   t,
   supportingAlphaNamesGlobal,
   methodComposition,
+  browseDependencyArtifacts,
+  mergedNarrativeTypes,
+  showNarrativeSpineCatalog,
 }: {
   grouped: { focusName: string; focus: any | null; alphas: any[]; activitySpaces: any[] }[];
   baseline: PracticeBaseline;
@@ -559,7 +610,11 @@ function BrowseTableOfContents({
   t: LanguagePack;
   supportingAlphaNamesGlobal: Set<string>;
   methodComposition?: Method;
+  browseDependencyArtifacts?: BrowseDependencyArtifact[];
+  mergedNarrativeTypes: NarrativeType[];
+  showNarrativeSpineCatalog: boolean;
 }) {
+  const dependencyArtifacts = browseDependencyArtifacts ?? [];
   const displayFocusName = (nm: string) => (nm === IMPLICIT_FOCUS_NAME ? t.implicitFocusName : nm);
   const alphaId = (alphaName: string) => `alpha-${slug(alphaName)}`;
   const activitySpaceId = (name: string) => `activity-space-${slug(name)}`;
@@ -581,10 +636,14 @@ function BrowseTableOfContents({
 
   const hasCompetencies = (baseline.competencies ?? []).length > 0;
   const workProducts = Array.isArray(sourceDoc?.workProducts) ? (sourceDoc!.workProducts as any[]) : [];
-  const narrativeTypesBrowse = baseline.narrativeTypes ?? [];
+  const workProductsSorted = workProducts
+    .slice()
+    .sort((a: any, b: any) => String(a?.name ?? "").localeCompare(String(b?.name ?? "")));
+  const narrativeTypesBrowse = mergedNarrativeTypes;
   const personasBrowse = Array.isArray(sourceDoc?.personas) ? (sourceDoc!.personas as any[]) : [];
   const personaGroupsBrowse = Array.isArray(sourceDoc?.personaGroups) ? (sourceDoc!.personaGroups as any[]) : [];
   const patterns = Array.isArray(sourceDoc?.patterns) ? (sourceDoc!.patterns as any[]) : [];
+  const patternsSorted = patterns.slice().sort((a: any, b: any) => String(a?.name ?? "").localeCompare(String(b?.name ?? "")));
   const aliases = Array.isArray(sourceDoc?.practiceElementAliases)
     ? (sourceDoc!.practiceElementAliases as PracticeElementAlias[])
     : [];
@@ -596,8 +655,24 @@ function BrowseTableOfContents({
     >
       <p className="text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">{t.browseTableOfContents}</p>
       <ul className="mt-2 list-none space-y-2 p-0 text-sm text-[var(--text)]">
+        {dependencyArtifacts.length ? (
+          <li>
+            <a href={`#${BROWSE_SECTION_DEPENDENCIES}`} className={tocLink}>
+              {t.browseTocDependencies}
+            </a>
+            <ul className="mt-1 list-none space-y-0.5 border-l border-[var(--border)]/80 py-0.5 pl-3">
+              {dependencyArtifacts.map((d) => (
+                <li key={`toc-dep-${d.role}-${d.name}`}>
+                  <a href={`#${browseResolvedDepId(d.name)}`} className={tocSubLink}>
+                    {d.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ) : null}
         <li>
-          <a href="#practice-readable-title" className={tocLink}>
+          <a href={`#${BROWSE_SECTION_OVERVIEW}`} className={tocLink}>
             {t.browseTocOverview}
           </a>
         </li>
@@ -635,6 +710,22 @@ function BrowseTableOfContents({
                 </ul>
               </li>
             ))}
+            {workProductsSorted.length ? (
+              <li className="mt-1.5 border-t border-[var(--border)]/60 pt-1.5">
+                <a href="#browse-section-work-products" className={tocSubLink}>
+                  {t.browseWorkProductsUnderAlphas}
+                </a>
+                <ul className="mt-1 list-none space-y-0.5 p-0 pl-2">
+                  {workProductsSorted.map((wp: any) => (
+                    <li key={`toc-wp-${wp.name}`}>
+                      <a href={`#${workProductId(wp.name)}`} className={tocLeafLink}>
+                        <AliasedName kind="WorkProduct" name={String(wp.name)} browse />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ) : null}
           </ul>
         </li>
         <li>
@@ -714,67 +805,16 @@ function BrowseTableOfContents({
             })}
           </ul>
         </li>
-        {patterns.length ? (
+        {patternsSorted.length ? (
           <li className="border-t border-[var(--border)]/70 pt-2">
             <a href="#browse-section-patterns" className={tocLink}>
               {t.patterns}
             </a>
             <ul className="mt-1 list-none space-y-0.5 border-l border-[var(--border)]/80 py-0.5 pl-3">
-              {patterns.map((p: any) => (
+              {patternsSorted.map((p: any) => (
                 <li key={`toc-pattern-${p.name}`}>
                   <a href={`#${patternId(p.name)}`} className={tocSubLink}>
                     <AliasedName kind="Pattern" name={String(p.name)} browse />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ) : null}
-        {hasCompetencies ? (
-          <li className="border-t border-[var(--border)]/70 pt-2">
-            <a href="#browse-section-competencies" className={tocLink}>
-              {t.competencies}
-            </a>
-            <ul className="mt-1 list-none space-y-0.5 border-l border-[var(--border)]/80 py-0.5 pl-3">
-              {(baseline.competencies ?? [])
-                .slice()
-                .sort((a: any, b: any) => String(a.name).localeCompare(String(b.name)))
-                .map((c: any) => (
-                  <li key={`toc-comp-${c.name}`}>
-                    <a href={`#${competencyId(c.name)}`} className={tocSubLink}>
-                      <AliasedName kind="Competency" name={String(c.name)} browse />
-                    </a>
-                  </li>
-                ))}
-            </ul>
-          </li>
-        ) : null}
-        {workProducts.length ? (
-          <li className="border-t border-[var(--border)]/70 pt-2">
-            <a href="#browse-section-work-products" className={tocLink}>
-              {t.workProducts}
-            </a>
-            <ul className="mt-1 list-none space-y-0.5 border-l border-[var(--border)]/80 py-0.5 pl-3">
-              {workProducts.map((wp: any) => (
-                <li key={`toc-wp-${wp.name}`}>
-                  <a href={`#${workProductId(wp.name)}`} className={tocSubLink}>
-                    <AliasedName kind="WorkProduct" name={String(wp.name)} browse />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ) : null}
-        {narrativeTypesBrowse.length ? (
-          <li className="border-t border-[var(--border)]/70 pt-2">
-            <a href="#browse-section-narrative-types" className={tocLink}>
-              {t.narrativeTypesHeading}
-            </a>
-            <ul className="mt-1 list-none space-y-0.5 border-l border-[var(--border)]/80 py-0.5 pl-3">
-              {narrativeTypesBrowse.map((nt: any) => (
-                <li key={`toc-nt-${nt.name}`}>
-                  <a href={`#${narrativeTypeIdBrowse(String(nt.name))}`} className={tocSubLink}>
-                    <AliasedName kind="NarrativeType" name={String(nt.name)} browse />
                   </a>
                 </li>
               ))}
@@ -803,13 +843,48 @@ function BrowseTableOfContents({
               {t.personaGroupsHeading}
             </a>
             <ul className="mt-1 list-none space-y-0.5 border-l border-[var(--border)]/80 py-0.5 pl-3">
-              {personaGroupsBrowse.map((pg: any) => (
-                <li key={`toc-pg-${pg.name}`}>
-                  <a href={`#${personaGroupIdBrowseFn(String(pg.name))}`} className={tocSubLink}>
-                    <AliasedName kind="PersonaGroup" name={String(pg.name)} browse />
-                  </a>
-                </li>
-              ))}
+              {personaGroupsBrowse.map((pg: any) => {
+                const memberNames = Array.isArray(pg.personaNames)
+                  ? (pg.personaNames as unknown[]).map((nm) => String(nm ?? "").trim()).filter(Boolean)
+                  : [];
+                return (
+                  <li key={`toc-pg-${pg.name}`}>
+                    <a href={`#${personaGroupIdBrowseFn(String(pg.name))}`} className={tocSubLink}>
+                      <AliasedName kind="PersonaGroup" name={String(pg.name)} browse />
+                    </a>
+                    {memberNames.length ? (
+                      <ul className="mt-0.5 list-none space-y-0.5 border-l border-[var(--border)]/60 py-0.5 pl-2">
+                        {memberNames.map((n) => (
+                          <li key={`toc-pg-${String(pg.name)}-p-${n}`}>
+                            <a href={`#${personaIdBrowseFn(n)}`} className={tocLeafLink}>
+                              <AliasedName kind="Persona" name={n} browse />
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </li>
+                );
+              })}
+            </ul>
+          </li>
+        ) : null}
+        {hasCompetencies ? (
+          <li className="border-t border-[var(--border)]/70 pt-2">
+            <a href="#browse-section-competencies" className={tocLink}>
+              {t.competencies}
+            </a>
+            <ul className="mt-1 list-none space-y-0.5 border-l border-[var(--border)]/80 py-0.5 pl-3">
+              {(baseline.competencies ?? [])
+                .slice()
+                .sort((a: any, b: any) => String(a.name).localeCompare(String(b.name)))
+                .map((c: any) => (
+                  <li key={`toc-comp-${c.name}`}>
+                    <a href={`#${competencyId(c.name)}`} className={tocSubLink}>
+                      <AliasedName kind="Competency" name={String(c.name)} browse />
+                    </a>
+                  </li>
+                ))}
             </ul>
           </li>
         ) : null}
@@ -820,8 +895,429 @@ function BrowseTableOfContents({
             </a>
           </li>
         ) : null}
+        {showNarrativeSpineCatalog && narrativeTypesBrowse.length ? (
+          <li className="border-t border-[var(--border)]/70 pt-2">
+            <a href={`#${BROWSE_SECTION_NARRATIVE_TYPES}`} className={tocLink}>
+              {t.narrativeTypesHeading}
+            </a>
+            <ul className="mt-1 list-none space-y-0.5 border-l border-[var(--border)]/80 py-0.5 pl-3">
+              {narrativeTypesBrowse.map((nt: any) => (
+                <li key={`toc-nt-${nt.name}`}>
+                  <a href={`#${narrativeTypeIdBrowse(String(nt.name))}`} className={tocSubLink}>
+                    <AliasedName kind="NarrativeType" name={String(nt.name)} browse />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ) : null}
       </ul>
     </nav>
+  );
+}
+
+function narrativeTreeDisplayName(n: Narrative): string {
+  const rec = n as Record<string, unknown>;
+  const nn = typeof rec.narrativeName === "string" ? String(rec.narrativeName).trim() : "";
+  if (nn) return nn;
+  const nm = typeof rec.name === "string" ? String(rec.name).trim() : "";
+  return nm || "—";
+}
+
+/** Non-empty `narratives` on a {@link PracticeElement}, if present. */
+function narrativesOnPracticeElement(el: unknown): Narrative[] | undefined {
+  if (!el || typeof el !== "object") return undefined;
+  const raw = (el as { narratives?: unknown }).narratives;
+  return Array.isArray(raw) && raw.length ? (raw as Narrative[]) : undefined;
+}
+
+function mergedRootPracticeNarratives(
+  baseline: PracticeBaseline,
+  sourceDoc?: Record<string, unknown> | null,
+): Narrative[] | undefined {
+  const a = narrativesOnPracticeElement(baseline);
+  const b = sourceDoc ? narrativesOnPracticeElement(sourceDoc) : undefined;
+  if (a?.length && b?.length) return [...a, ...b];
+  return a ?? b;
+}
+
+function EmbeddedNarrativePracticeSection({
+  narrative,
+  browse,
+  depth,
+}: {
+  narrative: Narrative;
+  browse: boolean;
+  depth: number;
+}) {
+  if (!narrative || typeof narrative !== "object") return null;
+  const label = narrativeTreeDisplayName(narrative);
+  const desc = practiceElementDescriptionForDisplay(narrative);
+  const rawCtx = (narrative as Record<string, unknown>).narrativeContexts;
+  const ctxList = Array.isArray(rawCtx) ? rawCtx : [];
+  const sortedCtx = [...ctxList].sort(
+    (a, b) => (Number((a as { seq?: unknown })?.seq ?? 0) || 0) - (Number((b as { seq?: unknown })?.seq ?? 0) || 0),
+  );
+  const rawNested = (narrative as Record<string, unknown>).narratives;
+  const nested = Array.isArray(rawNested) ? (rawNested as Narrative[]) : [];
+  const sectionClass =
+    browse && depth > 0 ? "mt-4 border-l-2 border-[var(--border)]/60 pl-3" : undefined;
+  const sectionStyle =
+    browse
+      ? undefined
+      : {
+          marginTop: depth ? 12 : 8,
+          paddingLeft: depth ? 12 : 0,
+          borderLeft: depth ? "2px solid var(--border)" : undefined,
+        };
+  const ctxBlock =
+    sortedCtx.length ? (
+      (() => {
+        const items = sortedCtx
+          .map((c, ci) => {
+            const line = narrativeContextBulletLine(c);
+            if (!line) return null;
+            return (
+              <li
+                key={`ctx-${depth}-${ci}-${slug(label)}`}
+                className={
+                  browse
+                    ? "break-words text-[15px] leading-snug text-[var(--text)] marker:text-[var(--muted)]"
+                    : undefined
+                }
+                style={
+                  browse
+                    ? undefined
+                    : { wordBreak: "break-word", fontSize: 13, lineHeight: 1.45, color: "var(--text)" }
+                }
+              >
+                {line}
+              </li>
+            );
+          })
+          .filter(Boolean);
+        if (!items.length) return null;
+        return (
+          <ul
+            className={
+              browse
+                ? "mt-2 list-outside list-disc space-y-1.5 pl-5 text-[var(--text)]"
+                : "m-0 mt-2 list-disc space-y-1.5 pl-5 text-[var(--text)]"
+            }
+          >
+            {items}
+          </ul>
+        );
+      })()
+    ) : null;
+
+  return (
+    <section className={sectionClass} style={sectionStyle}>
+      {browse ? (
+        depth === 0 ? (
+          <h4 className={BROWSE.h5}>{label}</h4>
+        ) : (
+          <h5 className="mt-3 text-[15px] font-semibold text-[var(--text)]">{label}</h5>
+        )
+      ) : (
+        <div style={{ fontWeight: 800, fontSize: depth ? 14 : 15 }}>{label}</div>
+      )}
+      {desc ? (
+        browse ? (
+          <p className={`mt-1 ${BROWSE.body}`}>{desc}</p>
+        ) : (
+          <div style={{ color: "var(--muted)", marginTop: 4, fontSize: 13 }}>{desc}</div>
+        )
+      ) : null}
+      {ctxBlock}
+      {nested.map((child, chi) => (
+        <EmbeddedNarrativePracticeSection key={`nar-${depth}-${chi}-${slug(narrativeTreeDisplayName(child))}`} narrative={child} browse={browse} depth={depth + 1} />
+      ))}
+    </section>
+  );
+}
+
+/** Renders {@link PracticeElement.narratives} under the owning element&apos;s description. */
+function EmbeddedNarrativesUnderDescription({ narratives, browse }: { narratives: unknown; browse: boolean }) {
+  const list = Array.isArray(narratives) ? (narratives as Narrative[]) : [];
+  if (!list.length) return null;
+  return (
+    <div
+      className={browse ? "mt-4 space-y-5 border-t border-[var(--border)]/70 pt-4" : undefined}
+      style={browse ? undefined : { marginTop: 12, paddingTop: 12, borderTop: "1px solid var(--border)" }}
+    >
+      {list.map((nar, ni) => (
+        <EmbeddedNarrativePracticeSection key={`nu-${ni}-${slug(narrativeTreeDisplayName(nar))}`} narrative={nar} browse={browse} depth={0} />
+      ))}
+    </div>
+  );
+}
+
+function NarrativeTypesSpineSection({
+  mergedNarrativeTypes,
+  t,
+  browse,
+  narrativeTypeIdPv,
+}: {
+  mergedNarrativeTypes: NarrativeType[];
+  t: LanguagePack;
+  browse: boolean;
+  narrativeTypeIdPv: (name: string) => string;
+}) {
+  if (!mergedNarrativeTypes.length) return null;
+  if (browse) {
+    return (
+      <section id={BROWSE_SECTION_NARRATIVE_TYPES} className="scroll-mt-4 border-t border-[var(--border)] pt-6">
+        <h2 className={`${BROWSE.h2Global}`}>{t.narrativeTypesHeading}</h2>
+        <div className="mt-4 flex flex-col gap-6">
+          {mergedNarrativeTypes.map((nt: any) => (
+            <div key={String(nt.name)} id={narrativeTypeIdPv(String(nt.name))} className="scroll-mt-4">
+              <h3 className={BROWSE.h3Item}>
+                <a href={`#${narrativeTypeIdPv(String(nt.name))}`} style={linkStyle()}>
+                  <AliasedName kind="NarrativeType" name={String(nt.name)} browse />
+                </a>
+              </h3>
+              {practiceElementDescriptionForDisplay(nt) ? (
+                <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(nt)}</p>
+              ) : null}
+              <EmbeddedNarrativesUnderDescription narratives={(nt as { narratives?: unknown }).narratives} browse />
+              <IrBrowseTagsBlock tags={nt.tags} t={t} />
+              {Array.isArray(nt.narrativeElements) && nt.narrativeElements.length ? (
+                <div className="mt-3">
+                  <div className="text-sm font-semibold text-[var(--text)]">{t.narrativeElementsHeading}</div>
+                  <ul className="mt-2 list-outside list-disc space-y-2 pl-5 text-[15px] text-[var(--muted)] marker:text-[var(--muted)]">
+                    {(nt.narrativeElements as any[]).map((el: any) => (
+                      <li key={`${String(nt.name)}:${String(el.name)}`}>
+                        <strong className="text-[var(--text)]">{String(el.name)}</strong>
+                        {practiceElementDescriptionForDisplay(el) ? (
+                          <span> — {practiceElementDescriptionForDisplay(el)}</span>
+                        ) : null}
+                        {el?.howToUse ? (
+                          <div className="mt-1 text-[13px] leading-snug text-[var(--text)]">{String(el.howToUse)}</div>
+                        ) : null}
+                        <EmbeddedNarrativesUnderDescription narratives={el?.narratives} browse />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+  return (
+    <div style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}>
+      <div style={{ fontSize: 16, fontWeight: 800 }}>{t.narrativeTypesHeading}</div>
+      <div style={{ marginTop: 10, display: "grid", gap: 12 }}>
+        {mergedNarrativeTypes.map((nt: any) => (
+          <div
+            key={String(nt.name)}
+            id={narrativeTypeIdPv(String(nt.name))}
+            style={{ padding: 12, border: "1px solid var(--border)", borderRadius: 10 }}
+          >
+            <div style={{ fontWeight: 800 }}>
+              <AliasedName kind="NarrativeType" name={String(nt.name)} browse={false} />
+            </div>
+            {practiceElementDescriptionForDisplay(nt) ? (
+              <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(nt)}</div>
+            ) : null}
+            <EmbeddedNarrativesUnderDescription narratives={(nt as { narratives?: unknown }).narratives} browse={false} />
+            {Array.isArray(nt.narrativeElements) && nt.narrativeElements.length ? (
+              <div style={{ marginTop: 8 }}>
+                <div style={{ fontWeight: 700, marginBottom: 4 }}>{t.narrativeElementsHeading}</div>
+                <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--muted)" }}>
+                  {(nt.narrativeElements as any[]).map((el: any) => (
+                    <li key={`${String(nt.name)}:${String(el.name)}`}>
+                      <strong style={{ color: "var(--text)" }}>{String(el.name)}</strong>
+                      {practiceElementDescriptionForDisplay(el) ? (
+                        <span> — {practiceElementDescriptionForDisplay(el)}</span>
+                      ) : null}
+                      {el?.howToUse ? (
+                        <div style={{ fontSize: 12, marginTop: 4 }}>{String(el.howToUse)}</div>
+                      ) : null}
+                      <EmbeddedNarrativesUnderDescription narratives={el?.narratives} browse={false} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BrowseWorkProductsUnderAlphas({ workProducts, t }: { workProducts: any[]; t: LanguagePack }) {
+  const workProductId = (name: string) => `work-product-${slug(name)}`;
+  const stateId = (alphaName: string, stateName: string) => `state-${slug(alphaName)}--${slug(stateName)}`;
+  const sorted = workProducts
+    .slice()
+    .sort((a: any, b: any) => String(a?.name ?? "").localeCompare(String(b?.name ?? "")));
+  return (
+    <>
+      <h3
+        id="browse-section-work-products"
+        className={`${BROWSE.h3Item} mt-10 scroll-mt-4 border-t border-[var(--border)] pt-6`}
+      >
+        {t.browseWorkProductsUnderAlphas}
+      </h3>
+      <div className="mt-4 flex flex-col gap-8">
+        {sorted.map((wp: any) => (
+          <div key={wp.name} id={workProductId(wp.name)} className="scroll-mt-4">
+            <h4 className={BROWSE.h4}>
+              <AliasedName kind="WorkProduct" name={wp.name} browse />
+            </h4>
+            {practiceElementDescriptionForDisplay(wp) ? (
+              <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(wp)}</p>
+            ) : null}
+            <EmbeddedNarrativesUnderDescription narratives={(wp as { narratives?: unknown }).narratives} browse />
+            <IrBrowseTagsBlock tags={wp.tags} t={t} />
+            <p className="mt-4 text-sm font-semibold text-[var(--text)]">{t.levels}</p>
+            <ul className="mt-2 list-outside list-disc space-y-4 pl-5 text-[15px] marker:text-[var(--muted)]">
+              {(wp.levelsOfDetail ?? [])
+                .slice()
+                .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
+                .map((lod: any) => (
+                  <li key={lod.name}>
+                    <span className="font-semibold text-[var(--text)]">
+                      <AliasedName kind="LevelOfDetail" name={lod.name} browse />
+                    </span>
+                    {practiceElementDescriptionForDisplay(lod) ? (
+                      <p className={`mt-1 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(lod)}</p>
+                    ) : null}
+                    <EmbeddedNarrativesUnderDescription narratives={(lod as { narratives?: unknown }).narratives} browse />
+                    <IrBrowseTagsBlock tags={lod.tags} t={t} />
+                    {dedupeContributesToRefs(lod.contributesTo).length ? (
+                      <p className={`mt-2 ${BROWSE.bodyMuted}`}>
+                        {t.contributesTo}:{" "}
+                        {dedupeContributesToRefs(lod.contributesTo).map((c, idx, arr) => (
+                          <span key={`${lod.name}:${c.alphaName}:${c.stateName}`}>
+                            <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
+                              <code>
+                                <AliasedName kind="Alpha" name={c.alphaName} browse />→
+                                <AliasedName kind="State" name={c.stateName} browse />
+                              </code>
+                            </a>
+                            {idx < arr.length - 1 ? ", " : ""}
+                          </span>
+                        ))}
+                      </p>
+                    ) : null}
+                    {Array.isArray(lod.checklist) && lod.checklist.length ? (
+                      <IrBrowseChecklistBullets
+                        checklist={lod.checklist}
+                        t={t}
+                        workProductId={workProductId}
+                        listClassName="ml-4 mt-2 list-outside list-disc space-y-3 pl-5 text-[15px] leading-snug marker:text-[var(--muted)]"
+                        itemKeyPrefix={`browse-wp-${slug(wp.name)}--${slug(lod.name)}`}
+                      />
+                    ) : null}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function PracticeBaselineCompetenciesSection({
+  browse,
+  baseline,
+  t,
+  competencyId,
+}: {
+  browse: boolean;
+  baseline: PracticeBaseline;
+  t: LanguagePack;
+  competencyId: (name: string) => string;
+}) {
+  return (
+    <div style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}>
+      {browse ? (
+        <h2 id="browse-section-competencies" className={`${BROWSE.h2Global} scroll-mt-4`}>
+          {t.competencies}
+        </h2>
+      ) : (
+        <div style={{ fontSize: 16, fontWeight: 800 }}>{t.competencies}</div>
+      )}
+      <div style={{ marginTop: 10, display: "grid", gap: 10 }}>
+        {(baseline.competencies ?? [])
+          .slice()
+          .sort((a: any, b: any) => String(a.name).localeCompare(String(b.name)))
+          .map((c: any) => (
+            <div
+              key={c.name}
+              id={competencyId(c.name)}
+              style={
+                browse
+                  ? { marginTop: 8 }
+                  : { padding: 12, border: "1px solid var(--border)", borderRadius: 10 }
+              }
+            >
+              {browse ? (
+                <h3 className={BROWSE.h3Item}>
+                  <a href={`#${competencyId(c.name)}`} style={linkStyle()}>
+                    <AliasedName kind="Competency" name={c.name} browse />
+                  </a>
+                </h3>
+              ) : (
+                <div style={{ fontWeight: 800 }}>
+                  <a href={`#${competencyId(c.name)}`} style={linkStyle()}>
+                    <AliasedName kind="Competency" name={c.name} browse={false} />
+                  </a>
+                </div>
+              )}
+              {practiceElementDescriptionForDisplay(c) ? (
+                browse ? (
+                  <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(c)}</p>
+                ) : (
+                  <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(c)}</div>
+                )
+              ) : null}
+              <EmbeddedNarrativesUnderDescription narratives={c.narratives} browse={browse} />
+              {browse ? (
+                <IrBrowseTagsBlock tags={c.tags} t={t} />
+              ) : flattenPracticeElementTags(c.tags).length ? (
+                <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
+                  {flattenPracticeElementTags(c.tags).map((x: string, ti: number) => (
+                    <span key={`competency-${slug(c.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
+                      {x}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+              {Array.isArray(c.levels) && c.levels.length ? (
+                <div style={{ marginTop: 10 }}>
+                  <div style={{ fontWeight: 700, marginBottom: 6 }}>{t.levels}</div>
+                  <ol style={{ margin: 0, paddingLeft: 18 }}>
+                    {c.levels
+                      .slice()
+                      .sort((x: any, y: any) => (x.level ?? 0) - (y.level ?? 0))
+                      .map((lvl: any) => (
+                        <li key={`${c.name}:${lvl.level}:${lvl.name}`} style={{ marginBottom: 6 }}>
+                          <b>
+                            <AliasedName kind="CompetencyLevel" name={lvl.name} browse={browse} /> (Level {lvl.level})
+                          </b>
+                          {practiceElementDescriptionForDisplay(lvl) ? (
+                            <span style={{ color: "var(--muted)" }}>: {practiceElementDescriptionForDisplay(lvl)}</span>
+                          ) : null}
+                          <EmbeddedNarrativesUnderDescription narratives={lvl.narratives} browse={browse} />
+                          {browse ? <IrBrowseTagsBlock tags={lvl.tags} t={t} className="mt-1.5" /> : null}
+                        </li>
+                      ))}
+                  </ol>
+                </div>
+              ) : null}
+            </div>
+          ))}
+      </div>
+    </div>
   );
 }
 
@@ -829,10 +1325,12 @@ function BrowseTableOfContents({
 function BrowsePracticeFocusSections({
   baseline,
   grouped,
+  sourceDoc,
   t,
 }: {
   baseline: PracticeBaseline;
   grouped: { focusName: string; focus: any | null; alphas: any[]; activitySpaces: any[] }[];
+  sourceDoc?: Record<string, unknown> | null;
   t: LanguagePack;
 }) {
   const displayFocusName = (nm: string) => (nm === IMPLICIT_FOCUS_NAME ? t.implicitFocusName : nm);
@@ -855,6 +1353,7 @@ function BrowsePracticeFocusSections({
         {practiceElementDescriptionForDisplay(s) ? (
           <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(s)}</p>
         ) : null}
+        <EmbeddedNarrativesUnderDescription narratives={s?.narratives} browse />
         <IrBrowseTagsBlock tags={s.tags} t={t} />
         {typeof s.activitySpaceName === "string" && s.activitySpaceName.trim() !== "" ? (
           <p className={`mt-2 ${BROWSE.bodyMuted}`}>
@@ -897,6 +1396,27 @@ function BrowsePracticeFocusSections({
             ))}
           </p>
         ) : null}
+        {(() => {
+          const involvesGroups = Array.isArray(s.involves)
+            ? (s.involves as unknown[]).map((grp) => String(grp ?? "").trim()).filter(Boolean)
+            : [];
+          if (!involvesGroups.length) return null;
+          return (
+            <p className={`mt-2 ${BROWSE.bodyMuted}`}>
+              {t.activitySpaceInvolvesPersonaGroups}:{" "}
+              {involvesGroups.map((gn, idx) => (
+                <span key={gn}>
+                  <a href={`#${personaGroupId(gn)}`} style={linkStyle()}>
+                    <code>
+                      <AliasedName kind="PersonaGroup" name={gn} browse />
+                    </code>
+                  </a>
+                  {idx < involvesGroups.length - 1 ? ", " : ""}
+                </span>
+              ))}
+            </p>
+          );
+        })()}
         {s.worksOn?.length ? (
           <p className={`mt-2 ${BROWSE.bodyMuted}`}>
             {t.worksOn}:{" "}
@@ -943,6 +1463,7 @@ function BrowsePracticeFocusSections({
       {practiceElementDescriptionForDisplay(child) ? (
         <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(child)}</p>
       ) : null}
+      <EmbeddedNarrativesUnderDescription narratives={child?.narratives} browse />
       <IrBrowseTagsBlock tags={child.tags} t={t} />
       {typeof child.contributesTo === "string" && child.contributesTo.trim() !== "" ? (
         <p className={`mt-2 ${BROWSE.bodyMuted}`}>
@@ -981,6 +1502,7 @@ function BrowsePracticeFocusSections({
                       ) : null}
                     </summary>
                     <div className="ml-0 mt-1.5 border-l-2 border-[var(--border)] pl-2.5">
+                      <EmbeddedNarrativesUnderDescription narratives={st.narratives} browse />
                       <IrBrowseTagsBlock tags={st.tags} t={t} className="mt-1.5" />
                       {Array.isArray(st.checklist) && st.checklist.length ? (
                         <IrBrowseChecklistBullets
@@ -1043,6 +1565,7 @@ function BrowsePracticeFocusSections({
           {g.focus && practiceElementDescriptionForDisplay(g.focus) ? (
             <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(g.focus)}</p>
           ) : null}
+          <EmbeddedNarrativesUnderDescription narratives={g.focus?.narratives} browse />
           <IrBrowseTagsBlock tags={g.focus?.tags} t={t} />
           <div className="mt-2 flex flex-col gap-8">
             {g.alphas
@@ -1057,6 +1580,7 @@ function BrowsePracticeFocusSections({
                   {practiceElementDescriptionForDisplay(a) ? (
                     <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(a)}</p>
                   ) : null}
+                  <EmbeddedNarrativesUnderDescription narratives={a.narratives} browse />
                   <IrBrowseTagsBlock tags={a.tags} t={t} />
                   {Array.isArray(a.supportingAlphas) && a.supportingAlphas.length ? (
                     <p className={`mt-2 ${BROWSE.bodyMuted}`}>
@@ -1130,6 +1654,10 @@ function BrowsePracticeFocusSections({
         </div>
       ))}
 
+      {Array.isArray(sourceDoc?.workProducts) && (sourceDoc!.workProducts as any[]).length ? (
+        <BrowseWorkProductsUnderAlphas workProducts={sourceDoc!.workProducts as any[]} t={t} />
+      ) : null}
+
       <h2 id={BROWSE_SECTION_ACTIVITIES} className={`${BROWSE.h2Global} scroll-mt-4`}>
         {t.sectionActivities}
       </h2>
@@ -1174,6 +1702,7 @@ function BrowsePracticeFocusSections({
             {g.focus && practiceElementDescriptionForDisplay(g.focus) ? (
               <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(g.focus)}</p>
             ) : null}
+            <EmbeddedNarrativesUnderDescription narratives={g.focus?.narratives} browse />
             <div className="mt-2 flex flex-col gap-8">
               {spaces.map((s: any) => (
                 <section key={s.name} id={activitySpaceId(s.name)}>
@@ -1185,6 +1714,7 @@ function BrowsePracticeFocusSections({
                   {practiceElementDescriptionForDisplay(s) ? (
                     <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(s)}</p>
                   ) : null}
+                  <EmbeddedNarrativesUnderDescription narratives={s.narratives} browse />
                   <IrBrowseTagsBlock tags={s.tags} t={t} />
                   {dedupeContributesToRefs(s.contributesTo).length ? (
                     <p className={`mt-2 ${BROWSE.bodyMuted}`}>
@@ -1295,6 +1825,9 @@ function PracticeBaselineView({
   sourceDoc,
   variant = "default",
   methodComposition,
+  browseDependencyArtifacts,
+  mergedNarrativeTypes,
+  showNarrativeSpineCatalog,
 }: {
   baseline: PracticeBaseline;
   grouped: { focusName: string; focus: any | null; alphas: any[]; activitySpaces: any[] }[];
@@ -1302,6 +1835,11 @@ function PracticeBaselineView({
   sourceDoc?: Record<string, unknown> | null;
   variant?: PracticeHumanReadableVariant;
   methodComposition?: Method;
+  browseDependencyArtifacts?: BrowseDependencyArtifact[];
+  /** Baseline spine types merged with optional `doc.narrativeTypes` overlay (composite / extension practices). */
+  mergedNarrativeTypes: NarrativeType[];
+  /** When false (extension practice / method / non-baseline roots), omit the spine *catalog* block. */
+  showNarrativeSpineCatalog: boolean;
 }) {
   const { t } = useLanguagePack();
   const browse = variant === "browse";
@@ -1386,6 +1924,7 @@ function PracticeBaselineView({
                         ))}
                       </div>
                     ) : null}
+                    <EmbeddedNarrativesUnderDescription narratives={s.narratives} browse={browse} />
                     {Array.isArray(s.checklist) && s.checklist.length ? (
                       <div style={{ marginTop: 6 }}>
                         <div style={{ fontSize: 10, fontWeight: 700, color: "var(--muted)" }}>{t.checklist}</div>
@@ -1404,6 +1943,7 @@ function PracticeBaselineView({
                                   {practiceElementDescriptionForDisplay(ch) ? (
                                     <span style={{ color: "var(--muted)" }}> — {practiceElementDescriptionForDisplay(ch)}</span>
                                   ) : null}
+                                  <EmbeddedNarrativesUnderDescription narratives={ch.narratives} browse={browse} />
                                 </li>
                             ))}
                         </ol>
@@ -1418,13 +1958,15 @@ function PracticeBaselineView({
 
   return (
     <div className={browse ? "flex flex-col gap-6" : ""} style={browse ? undefined : { display: "grid", gap: 14 }}>
+      {browse ? <BrowseResolvedDependenciesSection artifacts={browseDependencyArtifacts ?? []} t={t} /> : null}
       <div>
         {browse ? (
-          <>
-            <p id="practice-readable-title" className={`${BROWSE.docTitle} scroll-mt-4`}>
+          <section id={BROWSE_SECTION_OVERVIEW} className="scroll-mt-4">
+            <p id="practice-readable-title" className={BROWSE.docTitle}>
               <AliasedName kind="PracticeBaseline" name={baseline.name} browse />
             </p>
             {baseline.description ? <p className={BROWSE.docSubtitle}>{baseline.description}</p> : null}
+            <EmbeddedNarrativesUnderDescription narratives={mergedRootPracticeNarratives(baseline, sourceDoc)} browse />
             <IrBrowseTagsBlock tags={baseline.tags} t={t} className="mt-4" />
             <p className={BROWSE.meta}>
               Authors: {(baseline.authors ?? []).join(", ")} • Version: {baseline.version ?? ""} • Updated:{" "}
@@ -1455,13 +1997,14 @@ function PracticeBaselineView({
                 ) : null}
               </>
             )}
-          </>
+          </section>
         ) : (
           <>
             <div style={{ fontSize: 18, fontWeight: 800 }}>
               <AliasedName kind="PracticeBaseline" name={baseline.name} browse={false} />
             </div>
             <div style={{ color: "var(--muted)", marginTop: 6 }}>{baseline.description}</div>
+            <EmbeddedNarrativesUnderDescription narratives={mergedRootPracticeNarratives(baseline, sourceDoc)} browse={false} />
             <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap" }}>
               {flattenPracticeElementTags(baseline.tags).map((tagLabel, ti) => (
                 <span key={`baseline-tag-${ti}-${slug(tagLabel)}`} style={tag()}>
@@ -1495,7 +2038,7 @@ function PracticeBaselineView({
       </div>
 
       {browse ? (
-        <BrowsePracticeFocusSections baseline={baseline} grouped={grouped} t={t} />
+        <BrowsePracticeFocusSections baseline={baseline} grouped={grouped} sourceDoc={sourceDoc} t={t} />
       ) : (
         <div style={{ display: "grid", gap: 16 }}>
           <div
@@ -1527,6 +2070,7 @@ function PracticeBaselineView({
             {g.focus && practiceElementDescriptionForDisplay(g.focus) ? (
               <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(g.focus)}</div>
             ) : null}
+            <EmbeddedNarrativesUnderDescription narratives={g.focus?.narratives} browse={false} />
 
             <div style={{ marginTop: 10, display: "grid", gap: 10 }}>
               <div style={{ display: "grid", gap: 10 }}>
@@ -1546,6 +2090,7 @@ function PracticeBaselineView({
                     {practiceElementDescriptionForDisplay(a) ? (
                       <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(a)}</div>
                     ) : null}
+                    <EmbeddedNarrativesUnderDescription narratives={a.narratives} browse={false} />
                     {flattenPracticeElementTags(a.tags).length ? (
                       <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                         <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
@@ -1612,6 +2157,9 @@ function PracticeBaselineView({
                                       {practiceElementDescriptionForDisplay(child)}
                                     </div>
                                   ) : null}
+                                  {child ? (
+                                    <EmbeddedNarrativesUnderDescription narratives={child.narratives} browse={false} />
+                                  ) : null}
                                   {child && flattenPracticeElementTags(child.tags).length ? (
                                     <div
                                       style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}
@@ -1676,6 +2224,7 @@ function PracticeBaselineView({
               {g.focus && practiceElementDescriptionForDisplay(g.focus) ? (
                 <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(g.focus)}</div>
               ) : null}
+              <EmbeddedNarrativesUnderDescription narratives={g.focus?.narratives} browse={false} />
               <div style={{ display: "grid", gap: 10 }}>
                 {g.activitySpaces.map((s: any) => {
                   if (isPracticeActivity(s)) {
@@ -1708,6 +2257,7 @@ function PracticeBaselineView({
                         {practiceElementDescriptionForDisplay(s) ? (
                           <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(s)}</div>
                         ) : null}
+                        <EmbeddedNarrativesUnderDescription narratives={s.narratives} browse={browse} />
                         {flattenPracticeElementTags(s.tags).length ? (
                           <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                             <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
@@ -1747,6 +2297,27 @@ function PracticeBaselineView({
                             ))}
                           </div>
                         ) : null}
+                        {(() => {
+                          const involvesGroups = Array.isArray(s.involves)
+                            ? (s.involves as unknown[]).map((g) => String(g ?? "").trim()).filter(Boolean)
+                            : [];
+                          if (!involvesGroups.length) return null;
+                          return (
+                            <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
+                              {t.activitySpaceInvolvesPersonaGroups}:{" "}
+                              {involvesGroups.map((gn, idx) => (
+                                <span key={gn}>
+                                  <a href={`#${personaGroupIdPv(gn)}`} style={linkStyle()}>
+                                    <code>
+                                      <AliasedName kind="PersonaGroup" name={gn} browse={browse} />
+                                    </code>
+                                  </a>
+                                  {idx < involvesGroups.length - 1 ? ", " : ""}
+                                </span>
+                              ))}
+                            </div>
+                          );
+                        })()}
                         {s.worksOn?.length ? (
                           <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                             {t.worksOn}:{" "}
@@ -1794,6 +2365,7 @@ function PracticeBaselineView({
                       {practiceElementDescriptionForDisplay(s) ? (
                         <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(s)}</div>
                       ) : null}
+                      <EmbeddedNarrativesUnderDescription narratives={s.narratives} browse={browse} />
                       {flattenPracticeElementTags(s.tags).length ? (
                         <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                           <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
@@ -1875,6 +2447,7 @@ function PracticeBaselineView({
                             {practiceElementDescriptionForDisplay(act) ? (
                               <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(act)}</div>
                             ) : null}
+                            <EmbeddedNarrativesUnderDescription narratives={act.narratives} browse={browse} />
                             {flattenPracticeElementTags(act.tags).length ? (
                               <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                                 <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
@@ -1914,6 +2487,27 @@ function PracticeBaselineView({
                                 ))}
                               </div>
                             ) : null}
+                            {(() => {
+                              const involvesGroups = Array.isArray(act.involves)
+                                ? (act.involves as unknown[]).map((g) => String(g ?? "").trim()).filter(Boolean)
+                                : [];
+                              if (!involvesGroups.length) return null;
+                              return (
+                                <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
+                                  {t.activitySpaceInvolvesPersonaGroups}:{" "}
+                                  {involvesGroups.map((gn, idx) => (
+                                    <span key={gn}>
+                                      <a href={`#${personaGroupIdPv(gn)}`} style={linkStyle()}>
+                                        <code>
+                                          <AliasedName kind="PersonaGroup" name={gn} browse={browse} />
+                                        </code>
+                                      </a>
+                                      {idx < involvesGroups.length - 1 ? ", " : ""}
+                                    </span>
+                                  ))}
+                                </div>
+                              );
+                            })()}
                             {act.worksOn?.length ? (
                               <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                                 {t.worksOn}:{" "}
@@ -1992,6 +2586,7 @@ function PracticeBaselineView({
                     <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(p)}</div>
                   )
                 ) : null}
+                <EmbeddedNarrativesUnderDescription narratives={p.narratives} browse={browse} />
                 {browse ? (
                   <IrBrowseTagsBlock tags={p.tags} t={t} />
                 ) : flattenPracticeElementTags(p.tags).length ? (
@@ -2005,103 +2600,33 @@ function PracticeBaselineView({
                   </div>
                 ) : null}
                 {browse ? (
-                  <IrBrowsePatternViewsSection
-                    pattern={p}
-                    t={t}
-                    stateId={stateId}
-                    activitySpaceId={activitySpaceId}
-                    activityId={activityId}
-                  />
+                  <>
+                    <div className="mt-6">
+                      <DiagramPatternMatrix pattern={p} baseline={baseline} fitToWidth />
+                    </div>
+                    <IrBrowsePatternViewsSection
+                      pattern={p}
+                      t={t}
+                      stateId={stateId}
+                      activitySpaceId={activitySpaceId}
+                      activityId={activityId}
+                    />
+                  </>
                 ) : null}
 
-                <DiagramPatternMatrix pattern={p} baseline={baseline} fitToWidth />
+                {!browse ? <DiagramPatternMatrix pattern={p} baseline={baseline} fitToWidth /> : null}
               </div>
             ))}
           </div>
         </div>
       ) : null}
 
-      <div style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}>
-        {browse ? (
-          <h2 id="browse-section-competencies" className={`${BROWSE.h2Global} scroll-mt-4`}>
-            {t.competencies}
-          </h2>
-        ) : (
-          <div style={{ fontSize: 16, fontWeight: 800 }}>{t.competencies}</div>
-        )}
-        <div style={{ marginTop: 10, display: "grid", gap: 10 }}>
-          {(baseline.competencies ?? [])
-            .slice()
-            .sort((a: any, b: any) => String(a.name).localeCompare(String(b.name)))
-            .map((c: any) => (
-              <div
-                key={c.name}
-                id={competencyId(c.name)}
-                style={
-                  browse
-                    ? { marginTop: 8 }
-                    : { padding: 12, border: "1px solid var(--border)", borderRadius: 10 }
-                }
-              >
-                {browse ? (
-                  <h3 className={BROWSE.h3Item}>
-                    <a href={`#${competencyId(c.name)}`} style={linkStyle()}>
-                      <AliasedName kind="Competency" name={c.name} browse />
-                    </a>
-                  </h3>
-                ) : (
-                  <div style={{ fontWeight: 800 }}>
-                    <a href={`#${competencyId(c.name)}`} style={linkStyle()}>
-                      <AliasedName kind="Competency" name={c.name} browse={false} />
-                    </a>
-                  </div>
-                )}
-                {practiceElementDescriptionForDisplay(c) ? (
-                  browse ? (
-                    <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(c)}</p>
-                  ) : (
-                    <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(c)}</div>
-                  )
-                ) : null}
-                {browse ? (
-                  <IrBrowseTagsBlock tags={c.tags} t={t} />
-                ) : flattenPracticeElementTags(c.tags).length ? (
-                  <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
-                    <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
-                    {flattenPracticeElementTags(c.tags).map((x: string, ti: number) => (
-                      <span key={`competency-${slug(c.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
-                        {x}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
-                {Array.isArray(c.levels) && c.levels.length ? (
-                  <div style={{ marginTop: 10 }}>
-                    <div style={{ fontWeight: 700, marginBottom: 6 }}>{t.levels}</div>
-                    <ol style={{ margin: 0, paddingLeft: 18 }}>
-                      {c.levels
-                        .slice()
-                        .sort((x: any, y: any) => (x.level ?? 0) - (y.level ?? 0))
-                        .map((lvl: any) => (
-                          <li key={`${c.name}:${lvl.level}:${lvl.name}`} style={{ marginBottom: 6 }}>
-                            <b>
-                              <AliasedName kind="CompetencyLevel" name={lvl.name} browse={browse} /> (Level {lvl.level})
-                            </b>
-                            {practiceElementDescriptionForDisplay(lvl) ? (
-                              <span style={{ color: "var(--muted)" }}>: {practiceElementDescriptionForDisplay(lvl)}</span>
-                            ) : null}
-                            {browse ? <IrBrowseTagsBlock tags={lvl.tags} t={t} className="mt-1.5" /> : null}
-                          </li>
-                        ))}
-                    </ol>
-                  </div>
-                ) : null}
-              </div>
-            ))}
-        </div>
-      </div>
+      {!browse ? (
+        <PracticeBaselineCompetenciesSection browse={false} baseline={baseline} t={t} competencyId={competencyId} />
+      ) : null}
 
-      {Array.isArray(sourceDoc?.workProducts) && (sourceDoc!.workProducts as any[]).length ? (
+      {!browse &&
+      Array.isArray(sourceDoc?.workProducts) && (sourceDoc!.workProducts as any[]).length ? (
         <div style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}>
           {browse ? (
             <h2 id="browse-section-work-products" className={`${BROWSE.h2Global} scroll-mt-4`}>
@@ -2137,6 +2662,7 @@ function PracticeBaselineView({
                     <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(wp)}</div>
                   )
                 ) : null}
+                <EmbeddedNarrativesUnderDescription narratives={wp.narratives} browse={browse} />
                 {browse ? (
                   <IrBrowseTagsBlock tags={wp.tags} t={t} />
                 ) : flattenPracticeElementTags(wp.tags).length ? (
@@ -2164,6 +2690,7 @@ function PracticeBaselineView({
                             {practiceElementDescriptionForDisplay(lod) ? (
                               <p className={`mt-1 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(lod)}</p>
                             ) : null}
+                            <EmbeddedNarrativesUnderDescription narratives={lod.narratives} browse={browse} />
                             <IrBrowseTagsBlock tags={lod.tags} t={t} />
                             {dedupeContributesToRefs(lod.contributesTo).length ? (
                               <p className={`mt-2 ${BROWSE.bodyMuted}`}>
@@ -2220,6 +2747,7 @@ function PracticeBaselineView({
                                   {practiceElementDescriptionForDisplay(lod)}
                                 </div>
                               ) : null}
+                              <EmbeddedNarrativesUnderDescription narratives={lod.narratives} browse={false} />
                               {dedupeContributesToRefs(lod.contributesTo).length ? (
                                 <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 12 }}>
                                   {t.contributesTo}:{" "}
@@ -2249,6 +2777,7 @@ function PracticeBaselineView({
                                             {practiceElementDescriptionForDisplay(ch) ? (
                                               <span style={{ color: "var(--muted)" }}> — {practiceElementDescriptionForDisplay(ch)}</span>
                                             ) : null}
+                                            <EmbeddedNarrativesUnderDescription narratives={ch.narratives} browse={false} />
                                           </li>
                                       ))}
                                   </ol>
@@ -2265,86 +2794,22 @@ function PracticeBaselineView({
         </div>
       ) : null}
 
-      {(baseline.narrativeTypes ?? []).length > 0 ||
-      (Array.isArray(sourceDoc?.personas) && (sourceDoc!.personas as any[]).length > 0) ||
+      {(Array.isArray(sourceDoc?.personas) && (sourceDoc!.personas as any[]).length > 0) ||
       (Array.isArray(sourceDoc?.personaGroups) && (sourceDoc!.personaGroups as any[]).length > 0) ? (
         <div style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}>
-          {(baseline.narrativeTypes ?? []).length > 0 ? (
-            <>
-              {browse ? (
-                <h2 id="browse-section-narrative-types" className={`${BROWSE.h2Global} scroll-mt-4`}>
-                  {t.narrativeTypesHeading}
-                </h2>
-              ) : (
-                <div style={{ fontSize: 16, fontWeight: 800 }}>{t.narrativeTypesHeading}</div>
-              )}
-              <div style={{ marginTop: 10, display: "grid", gap: 12 }}>
-                {(baseline.narrativeTypes ?? []).map((nt: any) => (
-                  <div
-                    key={String(nt.name)}
-                    id={narrativeTypeIdPv(String(nt.name))}
-                    style={
-                      browse
-                        ? { marginTop: 8 }
-                        : { padding: 12, border: "1px solid var(--border)", borderRadius: 10 }
-                    }
-                  >
-                    {browse ? (
-                      <h3 className={BROWSE.h3Item}>
-                        <a href={`#${narrativeTypeIdPv(String(nt.name))}`} style={linkStyle()}>
-                          <AliasedName kind="NarrativeType" name={String(nt.name)} browse />
-                        </a>
-                      </h3>
-                    ) : (
-                      <div style={{ fontWeight: 800 }}>
-                        <AliasedName kind="NarrativeType" name={String(nt.name)} browse={false} />
-                      </div>
-                    )}
-                    {practiceElementDescriptionForDisplay(nt) ? (
-                      browse ? (
-                        <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(nt)}</p>
-                      ) : (
-                        <div style={{ color: "var(--muted)", marginTop: 6 }}>
-                          {practiceElementDescriptionForDisplay(nt)}
-                        </div>
-                      )
-                    ) : null}
-                    {browse ? <IrBrowseTagsBlock tags={nt.tags} t={t} /> : null}
-                    {Array.isArray(nt.narrativeElements) && nt.narrativeElements.length ? (
-                      <div style={{ marginTop: 8 }}>
-                        <div style={{ fontWeight: 700, marginBottom: 4 }}>{t.narrativeElementsHeading}</div>
-                        <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--muted)" }}>
-                          {(nt.narrativeElements as any[]).map((el: any) => (
-                            <li key={`${String(nt.name)}:${String(el.name)}`}>
-                              <strong style={{ color: "var(--text)" }}>{String(el.name)}</strong>
-                              {practiceElementDescriptionForDisplay(el) ? (
-                                <span> — {practiceElementDescriptionForDisplay(el)}</span>
-                              ) : null}
-                              {el?.howToUse ? (
-                                <div style={{ fontSize: 12, marginTop: 4 }}>{String(el.howToUse)}</div>
-                              ) : null}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
-                  </div>
-                ))}
-              </div>
-            </>
-          ) : null}
+          {browse ? (
+            <h2 id="browse-section-personas" className={`${BROWSE.h2Global} scroll-mt-4`}>
+              {t.personasHeading}
+            </h2>
+          ) : (
+            <div style={{ fontSize: 16, fontWeight: 800, marginTop: 16 }}>{t.personasHeading}</div>
+          )}
 
           {Array.isArray(sourceDoc?.personas) && (sourceDoc!.personas as any[]).length ? (
-            <>
-              {browse ? (
-                <h2 id="browse-section-personas" className={`${BROWSE.h2Global} mt-10 scroll-mt-4`}>
-                  {t.personasHeading}
-                </h2>
-              ) : (
-                <div style={{ fontSize: 16, fontWeight: 800, marginTop: 16 }}>{t.personasHeading}</div>
-              )}
-              <div style={{ marginTop: 10, display: "grid", gap: 12 }}>
-                {(sourceDoc!.personas as any[]).map((p: any) => (
+            <div style={{ marginTop: 10, display: "grid", gap: 12 }}>
+              {(sourceDoc!.personas as any[]).map((p: any) => {
+                const competencyRows = personaCompetencyDisplayRefs(p);
+                return (
                   <div
                     key={String(p.name)}
                     id={personaIdPv(String(p.name))}
@@ -2374,39 +2839,48 @@ function PracticeBaselineView({
                         </div>
                       )
                     ) : null}
+                    <EmbeddedNarrativesUnderDescription narratives={p.narratives} browse={browse} />
                     {browse ? <IrBrowseTagsBlock tags={p.tags} t={t} /> : null}
-                    {Array.isArray(p.competencies) && p.competencies.length ? (
+                    {competencyRows.length ? (
                       <p className={`mt-2 ${BROWSE.bodyMuted}`}>
                         {t.recommendedCompetencyLevels}:{" "}
-                        {p.competencies.map((r: any, ri: number) => (
+                        {competencyRows.map((r, ri) => (
                           <span key={`${String(p.name)}:rc:${ri}`}>
                             <code>
-                              <AliasedName kind="Competency" name={String(r?.competencyName ?? "")} browse={browse} />/
-                              <AliasedName
-                                kind="CompetencyLevel"
-                                name={String(r?.competencyLevelName ?? "")}
-                                browse={browse}
-                              />
+                              <AliasedName kind="Competency" name={String(r.competencyName)} browse={browse} />
+                              {r.competencyLevelName ? (
+                                <>
+                                  /
+                                  <AliasedName
+                                    kind="CompetencyLevel"
+                                    name={String(r.competencyLevelName)}
+                                    browse={browse}
+                                  />
+                                </>
+                              ) : null}
                             </code>
-                            {ri < p.competencies.length - 1 ? ", " : ""}
+                            {ri < competencyRows.length - 1 ? ", " : ""}
                           </span>
                         ))}
                       </p>
                     ) : null}
                   </div>
-                ))}
-              </div>
-            </>
+                );
+              })}
+            </div>
           ) : null}
 
           {Array.isArray(sourceDoc?.personaGroups) && (sourceDoc!.personaGroups as any[]).length ? (
             <>
               {browse ? (
-                <h2 id="browse-section-persona-groups" className={`${BROWSE.h2Global} mt-10 scroll-mt-4`}>
+                <h3
+                  id="browse-section-persona-groups"
+                  className="mt-10 scroll-mt-4 border-t border-[var(--border)] pt-8 text-xl font-semibold tracking-tight text-[var(--text)]"
+                >
                   {t.personaGroupsHeading}
-                </h2>
+                </h3>
               ) : (
-                <div style={{ fontSize: 16, fontWeight: 800, marginTop: 16 }}>{t.personaGroupsHeading}</div>
+                <div style={{ fontSize: 15, fontWeight: 800, marginTop: 20 }}>{t.personaGroupsHeading}</div>
               )}
               <div style={{ marginTop: 10, display: "grid", gap: 12 }}>
                 {(sourceDoc!.personaGroups as any[]).map((pg: any) => (
@@ -2439,24 +2913,67 @@ function PracticeBaselineView({
                         </div>
                       )
                     ) : null}
+                    <EmbeddedNarrativesUnderDescription narratives={pg.narratives} browse={browse} />
                     {browse ? <IrBrowseTagsBlock tags={pg.tags} t={t} /> : null}
-                    {Array.isArray(pg.personaNames) && pg.personaNames.length ? (
-                      <p className={`mt-2 ${BROWSE.bodyMuted}`}>
-                        {t.personaGroupMembers}:{" "}
-                        {pg.personaNames.map((nm: unknown, gi: number) => (
-                          <span key={`${String(pg.name)}:pg:${gi}:${String(nm)}`}>
-                            <AliasedName kind="Persona" name={String(nm)} browse={browse} />
-                            {gi < (pg.personaNames as unknown[]).length - 1 ? ", " : ""}
-                          </span>
-                        ))}
-                      </p>
-                    ) : null}
+                    {(() => {
+                      const members = Array.isArray(pg.personaNames)
+                        ? (pg.personaNames as unknown[]).map((nm) => String(nm ?? "").trim()).filter(Boolean)
+                        : [];
+                      if (!members.length) {
+                        return browse ? (
+                          <p className={`mt-3 text-sm italic text-[var(--muted)]`}>No personas listed for this group.</p>
+                        ) : null;
+                      }
+                      if (browse) {
+                        return (
+                          <div className="mt-3">
+                            <div className="text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">
+                              {t.personaGroupMembers}
+                            </div>
+                            <ul className="mt-2 list-outside list-disc space-y-2 pl-5 text-[15px] text-[var(--text)] marker:text-[var(--muted)]">
+                              {members.map((n) => (
+                                <li key={`${String(pg.name)}:member:${n}`}>
+                                  <a href={`#${personaIdPv(n)}`} style={linkStyle()}>
+                                    <AliasedName kind="Persona" name={n} browse />
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        );
+                      }
+                      return (
+                        <div style={{ marginTop: 10 }}>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: "var(--muted)" }}>{t.personaGroupMembers}</div>
+                          <ul style={{ margin: "8px 0 0", paddingLeft: 20, color: "var(--text)" }}>
+                            {members.map((n) => (
+                              <li key={`${String(pg.name)}:member:${n}`} style={{ marginBottom: 4 }}>
+                                <AliasedName kind="Persona" name={n} browse={false} />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    })()}
                   </div>
                 ))}
               </div>
             </>
           ) : null}
         </div>
+      ) : null}
+
+      {!browse && showNarrativeSpineCatalog ? (
+        <NarrativeTypesSpineSection
+          mergedNarrativeTypes={mergedNarrativeTypes}
+          t={t}
+          browse={false}
+          narrativeTypeIdPv={narrativeTypeIdPv}
+        />
+      ) : null}
+
+      {browse ? (
+        <PracticeBaselineCompetenciesSection browse baseline={baseline} t={t} competencyId={competencyId} />
       ) : null}
 
       {browse && browsePracticeElementAliases.length ? (
@@ -2481,6 +2998,14 @@ function PracticeBaselineView({
             })}
           </ul>
         </div>
+      ) : null}
+      {browse && showNarrativeSpineCatalog ? (
+        <NarrativeTypesSpineSection
+          mergedNarrativeTypes={mergedNarrativeTypes}
+          t={t}
+          browse
+          narrativeTypeIdPv={narrativeTypeIdPv}
+        />
       ) : null}
     </div>
   );
@@ -2887,6 +3412,8 @@ function DiagramPatternMatrix({
                 undefined,
                 lookup,
                 patternSectionHref,
+                undefined,
+                patternViewNarrativeContextProseTexts(pv),
               )}
             </g>
           ))}
@@ -3547,6 +4074,7 @@ function renderWrappedText(
   lookup: PracticeElementAliasLookup = EMPTY_PRACTICE_ELEMENT_ALIAS_LOOKUP,
   nameHref?: string,
   descHref?: string,
+  narrativeContextBullets?: string[],
 ) {
   const { nameMaxChars, descMaxChars } = diagramTextCharLimits(blockW, padX, chevron);
   const nameLineH = 18;
@@ -3572,6 +4100,9 @@ function renderWrappedText(
     nameHref,
   );
   const descY = y0 + nNameLines * nameLineH + gap;
+  const descLineCount = descKind
+    ? layoutDiagramAliasedNameRows(lookup, descKind, descCanon, descMaxChars).length
+    : wrapDiagramTextLines(descCanon, descMaxChars).length;
   const descPlainLines = wrapDiagramTextLines(descCanon, descMaxChars).map((ln, i) => (
     <text key={`d-${i}`} x={x} y={descY + i * descLineH} fill="var(--muted)" fontSize={12}>
       {ln}
@@ -3593,10 +4124,46 @@ function renderWrappedText(
         descHref,
       )
     : wrapSvgResourceLink(descHref, "diagram-inline-resource-link", <g>{descPlainLines}</g>);
+
+  const bullets = narrativeContextBullets?.filter((s) => String(s ?? "").trim() !== "") ?? [];
+  const useNarrativeBullets = bullets.length > 1;
+  const narrativeWrapMaxChars = Math.max(
+    4,
+    useNarrativeBullets ? descMaxChars - 2 : descMaxChars,
+  );
+  let narrativeBulletEls: ReactNode = null;
+  if (bullets.length > 0) {
+    const bulletStartY = descY + descLineCount * descLineH + PATTERN_VIEW_MATRIX_NARRATIVE_BULLET_GAP_PX;
+    let lineIdx = 0;
+    const textNodes: ReactNode[] = [];
+    for (const raw of bullets) {
+      const wrapped = wrapDiagramTextLines(String(raw).trim(), narrativeWrapMaxChars);
+      for (let wi = 0; wi < wrapped.length; wi++) {
+        const ln = wrapped[wi] ?? "";
+        const prefix =
+          useNarrativeBullets && wi === 0 ? "• " : useNarrativeBullets ? "  " : "";
+        textNodes.push(
+          <text
+            key={`nc-${lineIdx}`}
+            x={x}
+            y={bulletStartY + lineIdx * descLineH}
+            fill="var(--muted)"
+            fontSize={12}
+          >
+            {`${prefix}${ln}`}
+          </text>,
+        );
+        lineIdx += 1;
+      }
+    }
+    narrativeBulletEls = textNodes.length > 0 ? <g>{textNodes}</g> : null;
+  }
+
   return (
     <g>
       {nameEls}
       {descEls}
+      {narrativeBulletEls}
     </g>
   );
 }

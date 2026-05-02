@@ -5,18 +5,15 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { PracticeHumanReadablePanel } from "@/components/PracticeHumanReadablePanel";
 import { FullPracticeView } from "@/components/FullPracticeView";
-import { BusinessOutcomeView } from "@/components/business-view";
-import { PractitionerExecutionView } from "@/components/delivery-view";
-import { SalesStatementOfWorkView } from "@/components/sow-view";
 import { useLanguagePack } from "@/lib/languagePack";
 import type { LanguagePack } from "@/lib/languagePackTypes";
 import { classifyLibraryRoot } from "@/lib/library/classify";
 import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
+import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePracticeFromMethod";
-import { buildReadablePracticePreviewDoc } from "@/lib/ir";
 import type { Method } from "@/lib/types";
 
-type ReadablePreviewMode = "classic" | "browse" | "full" | "business" | "delivery" | "sow";
+type ReadablePreviewMode = "classic" | "browse" | "full";
 
 function BrowseReadableToolbar({
   mode,
@@ -48,9 +45,6 @@ function BrowseReadableToolbar({
         {chip("classic", t.readablePreviewClassic)}
         {chip("browse", t.readablePreviewBrowse)}
         {chip("full", t.readablePreviewFullDocument)}
-        {chip("business", t.readablePreviewBusiness)}
-        {chip("delivery", t.readablePreviewDelivery)}
-        {chip("sow", t.readablePreviewSow)}
       </div>
     </div>
   );
@@ -69,31 +63,12 @@ function LibraryBrowseReadablePane({
   onModeChange: (m: ReadablePreviewMode) => void;
   t: LanguagePack;
 }) {
-  const previewDoc = useMemo(() => buildReadablePracticePreviewDoc(browseDoc), [browseDoc]);
   if (!browseDoc || typeof browseDoc !== "object") return null;
   return (
     <>
       <BrowseReadableToolbar mode={mode} onModeChange={onModeChange} t={t} />
       {mode === "full" ? (
         <FullPracticeView doc={browseDoc} embed methodComposition={methodComposition ?? undefined} />
-      ) : mode === "business" ? (
-        previewDoc ? (
-          <BusinessOutcomeView doc={previewDoc} />
-        ) : (
-          <p className="text-sm text-[var(--muted)]">{t.nothingToRender}</p>
-        )
-      ) : mode === "delivery" ? (
-        previewDoc ? (
-          <PractitionerExecutionView doc={previewDoc} />
-        ) : (
-          <p className="text-sm text-[var(--muted)]">{t.nothingToRender}</p>
-        )
-      ) : mode === "sow" ? (
-        previewDoc ? (
-          <SalesStatementOfWorkView doc={previewDoc} />
-        ) : (
-          <p className="text-sm text-[var(--muted)]">{t.nothingToRender}</p>
-        )
       ) : (
         <PracticeHumanReadablePanel
           doc={browseDoc}
@@ -116,13 +91,6 @@ export function LibraryBrowseClient() {
   const [pdfBusy, setPdfBusy] = useState(false);
   const [pdfError, setPdfError] = useState<string | null>(null);
   const [readablePreview, setReadablePreview] = useState<ReadablePreviewMode>("browse");
-
-  /** Library merge for extension practices (baseline + deps from other stored docs). */
-  const [practiceResolved, setPracticeResolved] = useState<{
-    phase: "idle" | "loading" | "done" | "error";
-    doc?: unknown;
-    errorMessage?: string;
-  }>({ phase: "idle" });
 
   useEffect(() => {
     if (!libraryId) {
@@ -168,67 +136,27 @@ export function LibraryBrowseClient() {
     [body],
   );
 
-  useEffect(() => {
-    if (!body || typeof body !== "object") {
-      setPracticeResolved({ phase: "idle" });
-      return;
-    }
-    if (classifyLibraryRoot(body) !== "practice" || !practiceNeedsLibraryResolution(body)) {
-      setPracticeResolved({ phase: "idle" });
-      return;
-    }
-    let cancelled = false;
-    setPracticeResolved({ phase: "loading" });
-    (async () => {
-      try {
-        const res = await fetch("/api/documents/resolve-for-render", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ doc: body }),
-        });
-        const data = (await res.json().catch(() => ({}))) as { resolved?: unknown; error?: string };
-        if (cancelled) return;
-        if (!res.ok) {
-          setPracticeResolved({
-            phase: "error",
-            errorMessage: data.error || `Could not merge library baseline (${res.status}).`,
-          });
-          return;
-        }
-        setPracticeResolved({ phase: "done", doc: data.resolved ?? body });
-      } catch (e) {
-        if (!cancelled) {
-          setPracticeResolved({
-            phase: "error",
-            errorMessage: e instanceof Error ? e.message : "Baseline merge failed.",
-          });
-        }
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [body]);
+  const {
+    loading: practiceMergeRequestLoading,
+    resolved: practiceMergedBody,
+    error: practiceMergeRequestError,
+  } = usePracticeLibraryResolveForRender(body, needsPracticeLibraryMerge);
 
   const rootKind = body ? classifyLibraryRoot(body) : "unknown";
   const browseDoc = useMemo(() => {
     if (!body || typeof body !== "object") return body;
     if (classifyLibraryRoot(body) === "method") return compositePracticeFromMethod(body as Method);
     if (needsPracticeLibraryMerge) {
-      if (practiceResolved.phase === "done" && practiceResolved.doc != null && typeof practiceResolved.doc === "object") {
-        return practiceResolved.doc;
-      }
-      if (practiceResolved.phase === "error") return body;
-      return null;
+      if (practiceMergeRequestLoading) return null;
+      if (practiceMergeRequestError) return body;
+      const merged = practiceMergedBody ?? body;
+      return merged != null && typeof merged === "object" ? merged : body;
     }
     return body;
-  }, [body, needsPracticeLibraryMerge, practiceResolved]);
+  }, [body, needsPracticeLibraryMerge, practiceMergeRequestLoading, practiceMergeRequestError, practiceMergedBody]);
 
-  const practiceMergeLoading =
-    needsPracticeLibraryMerge &&
-    practiceResolved.phase !== "done" &&
-    practiceResolved.phase !== "error";
-  const practiceMergeFailed = needsPracticeLibraryMerge && practiceResolved.phase === "error";
+  const practiceMergeLoading = needsPracticeLibraryMerge && practiceMergeRequestLoading;
+  const practiceMergeFailed = needsPracticeLibraryMerge && !practiceMergeRequestLoading && practiceMergeRequestError !== null;
 
   async function downloadBrowsePdf() {
     const doc = browseDoc;
@@ -330,9 +258,9 @@ export function LibraryBrowseClient() {
             {practiceMergeLoading ? (
               <p className="mt-6 text-sm text-[var(--muted)]">Merging baseline and dependencies from the library…</p>
             ) : null}
-            {practiceMergeFailed && practiceResolved.errorMessage ? (
+            {practiceMergeFailed && practiceMergeRequestError ? (
               <p className="mt-4 text-sm text-[var(--bad)]" role="alert">
-                {practiceResolved.errorMessage} Showing the extension document only; baseline links may be missing.
+                {practiceMergeRequestError} Showing the extension document only; baseline links may be missing.
               </p>
             ) : null}
 
@@ -362,7 +290,7 @@ export function LibraryBrowseClient() {
                   />
                 </div>
               </>
-            ) : rootKind === "practice" && needsPracticeLibraryMerge && practiceResolved.phase === "done" && browseDoc ? (
+            ) : rootKind === "practice" && needsPracticeLibraryMerge && browseDoc && !practiceMergeRequestLoading && !practiceMergeRequestError ? (
               <>
                 <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] px-4 py-4 sm:px-5">
                   <h2 className="text-sm font-semibold text-[var(--text)]">Merged for display</h2>

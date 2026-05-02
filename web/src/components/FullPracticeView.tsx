@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import type { Method } from "@/lib/types";
 import {
   asBaselineDocument,
@@ -8,9 +8,12 @@ import {
   groupByFocus,
   IMPLICIT_FOCUS_NAME,
   practiceElementDescriptionForDisplay,
+  personaCompetencyDisplayRefs,
 } from "@/lib/ir";
 import { normalizePracticeElementTags } from "@/lib/practiceElementTags";
+import { isStandaloneBaselinePracticeArtifact } from "@/lib/library/classify";
 import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
+import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { formatPatternViewAlphaState } from "@/lib/patternView";
 import { useLanguagePack } from "@/lib/languagePack";
 // ---------------------------------------------------------
@@ -143,9 +146,8 @@ function ChecklistTable({ checklist }: { checklist: any[] }) {
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px", border: "1px solid #d2d2d2" }}>
         <thead>
           <tr style={{ backgroundColor: "#f0f0f0", borderBottom: "2px solid #d2d2d2", textAlign: "left" }}>
-            <th style={{ padding: "12px 16px" }}>Sequence Item</th>
-            <th style={{ padding: "12px 16px" }}>Verification / Evidence</th>
-            <th style={{ padding: "12px 16px" }}>Operational Gate</th>
+            <th style={{ padding: "12px 16px" }}>Sequence item</th>
+            <th style={{ padding: "12px 16px" }}>Verification / evidence</th>
           </tr>
         </thead>
         <tbody>
@@ -164,14 +166,9 @@ function ChecklistTable({ checklist }: { checklist: any[] }) {
                       <strong>Method:</strong> <code>{ch.verificationMethod}</code>
                     </div>
                   )}
-                  {ch.evidenceRequired && (
-                    <div style={{ marginBottom: "6px" }}>
-                      <RHBadge color="blue">Physical URI Evidence Required</RHBadge>
-                    </div>
-                  )}
                   {ch.evidencedBy && ch.evidencedBy.length > 0 && (
                     <div style={{ color: "#151515" }}>
-                      <strong>Evidenced By:</strong>
+                      <strong>Evidenced by:</strong>
                       <ul style={{ margin: "4px 0 0 16px", padding: 0 }}>
                         {ch.evidencedBy.map((e: any, i: number) => (
                           <li key={i}>
@@ -179,18 +176,6 @@ function ChecklistTable({ checklist }: { checklist: any[] }) {
                           </li>
                         ))}
                       </ul>
-                    </div>
-                  )}
-                </td>
-                <td style={{ padding: "12px 16px", verticalAlign: "top" }}>
-                  {ch.isBlocking ? (
-                    <RHBadge color="red">BLOCKING</RHBadge>
-                  ) : (
-                    <RHBadge color="gray">NON-BLOCKING</RHBadge>
-                  )}
-                  {ch.thresholdWeighting !== undefined && (
-                    <div style={{ marginTop: "8px", fontSize: "13px" }}>
-                      <strong>Threshold Weight:</strong> {ch.thresholdWeighting}
                     </div>
                   )}
                 </td>
@@ -218,44 +203,9 @@ export function FullPracticeView({
 }) {
   const { t } = useLanguagePack();
   const shouldResolveLibrary = useMemo(() => practiceNeedsLibraryResolution(doc), [doc]);
-  const [libraryResolvedDoc, setLibraryResolvedDoc] = useState<unknown | null>(null);
-  const [resolveBusy, setResolveBusy] = useState(false);
+  const { loading: resolveBusy, resolved: libraryResolved } = usePracticeLibraryResolveForRender(doc, shouldResolveLibrary);
 
-  useEffect(() => {
-    if (!shouldResolveLibrary) {
-      setLibraryResolvedDoc(null);
-      setResolveBusy(false);
-      return;
-    }
-    let cancelled = false;
-    setLibraryResolvedDoc(null);
-    setResolveBusy(true);
-    void (async () => {
-      try {
-        const res = await fetch("/api/documents/resolve-for-render", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ doc }),
-        });
-        const j = (await res.json()) as { resolved?: unknown; error?: string };
-        if (cancelled) return;
-        if (res.ok && j?.resolved !== undefined && j.resolved !== null && typeof j.resolved === "object") {
-          setLibraryResolvedDoc(j.resolved);
-        } else {
-          setLibraryResolvedDoc(null);
-        }
-      } catch {
-        if (!cancelled) setLibraryResolvedDoc(null);
-      } finally {
-        if (!cancelled) setResolveBusy(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [doc, shouldResolveLibrary]);
-
-  const effectiveDoc = shouldResolveLibrary ? (libraryResolvedDoc ?? doc) : doc;
+  const effectiveDoc = shouldResolveLibrary ? (libraryResolved ?? doc) : doc;
   const baseline = useMemo(() => (effectiveDoc ? asBaselineDocument(effectiveDoc) : null), [effectiveDoc]);
   const baselineForRender = useMemo(() => {
     if (!baseline || !effectiveDoc) return null;
@@ -267,7 +217,8 @@ export function FullPracticeView({
   const sourceDocRecord = effectiveDoc && typeof effectiveDoc === "object" ? (effectiveDoc as Record<string, unknown>) : {};
   const patterns = Array.isArray(sourceDocRecord.patterns) ? (sourceDocRecord.patterns as Record<string, unknown>[]) : [];
   const competencies = baseline?.competencies ?? [];
-  const narrativeTypesList = baselineForRender?.narrativeTypes ?? [];
+  const showNarrativeSpineCatalog = isStandaloneBaselinePracticeArtifact(doc);
+  const narrativeTypesList = showNarrativeSpineCatalog ? (baselineForRender?.narrativeTypes ?? []) : [];
   const personasList = Array.isArray(sourceDocRecord.personas) ? sourceDocRecord.personas : [];
   const personaGroupsList = Array.isArray(sourceDocRecord.personaGroups) ? sourceDocRecord.personaGroups : [];
 
@@ -360,13 +311,13 @@ export function FullPracticeView({
             {t.narrativeTypesHeading}
           </a>
         ) : null}
-        {personasList.length > 0 ? (
+        {personasList.length > 0 || personaGroupsList.length > 0 ? (
           <a href="#section-personas" style={navItemStyle}>
             {t.personasHeading}
           </a>
         ) : null}
         {personaGroupsList.length > 0 ? (
-          <a href="#section-persona-groups" style={navItemStyle}>
+          <a href="#section-persona-groups" style={{ ...navItemStyle, paddingLeft: "40px" }}>
             {t.personaGroupsHeading}
           </a>
         ) : null}
@@ -404,7 +355,7 @@ export function FullPracticeView({
               <div id={`alphas-${slug(g.focusName)}`}>
                 <h3 style={{ fontSize: "22px", fontWeight: 700, margin: "32px 0 16px 0" }}>Alphas & Trajectories</h3>
                 <RHAlert variant="warning" title="State Progression and the Guidance Function">
-                  Alphas represent the essential elements of an endeavor. Their states form an acyclic graph of dependencies. Ensure <strong>Checklist Blocking Logic</strong> is observed to prevent unauthorized deployments to subsequent stages.
+                  Alphas represent the essential elements of an endeavor. Their states form an acyclic graph of dependencies. Each state’s <strong>checklist</strong> can name a verification method and evidentiary work-product links.
                 </RHAlert>
 
                 {g.alphas.map((alpha: any) => (
@@ -748,62 +699,79 @@ export function FullPracticeView({
           </section>
         ) : null}
 
-        {personasList.length > 0 ? (
+        {personasList.length > 0 || personaGroupsList.length > 0 ? (
           <section id="section-personas" style={{ marginBottom: "64px" }}>
             <h2 style={{ fontSize: "28px", fontWeight: 700, borderBottom: "1px solid #d2d2d2", paddingBottom: "8px", margin: "48px 0 24px 0" }}>
               {t.personasHeading}
             </h2>
-            {personasList.map((pers: Record<string, unknown>) => (
-              <div
-                key={String(pers.name ?? "")}
-                style={{ border: "1px solid #d2d2d2", padding: "24px", marginBottom: "24px", backgroundColor: "#fafafa" }}
-              >
-                <h3 style={{ fontSize: "20px", fontWeight: 700, margin: "0 0 8px 0" }}>{String(pers.name ?? "")}</h3>
-                {practiceElementDescriptionForDisplay(pers) ? (
-                  <p style={{ fontSize: "15px", color: "#151515" }}>{practiceElementDescriptionForDisplay(pers)}</p>
-                ) : null}
-                <TagsGroup tags={pers.tags} />
-                {Array.isArray(pers.competencies) && pers.competencies.length ? (
-                  <div style={{ marginTop: "16px", fontSize: "14px", color: "#393f44" }}>
-                    <strong>Competency level refs:</strong>
-                    <ul style={{ margin: "8px 0 0 20px", padding: 0 }}>
-                      {(pers.competencies as Record<string, unknown>[]).map((c, i) => (
-                        <li key={i}>
-                          {String(c.competencyName ?? "")}
-                          {c.competencyLevelName != null ? ` → ${String(c.competencyLevelName)}` : ""}
-                        </li>
-                      ))}
-                    </ul>
+            {personasList.length > 0 ? (
+              <>
+                {personasList.map((pers: Record<string, unknown>) => {
+                  const competencyRows = personaCompetencyDisplayRefs(pers);
+                  return (
+                  <div
+                    key={String(pers.name ?? "")}
+                    style={{ border: "1px solid #d2d2d2", padding: "24px", marginBottom: "24px", backgroundColor: "#fafafa" }}
+                  >
+                    <h3 style={{ fontSize: "20px", fontWeight: 700, margin: "0 0 8px 0" }}>{String(pers.name ?? "")}</h3>
+                    {practiceElementDescriptionForDisplay(pers) ? (
+                      <p style={{ fontSize: "15px", color: "#151515" }}>{practiceElementDescriptionForDisplay(pers)}</p>
+                    ) : null}
+                    <TagsGroup tags={pers.tags} />
+                    {competencyRows.length ? (
+                      <div style={{ marginTop: "16px", fontSize: "14px", color: "#393f44" }}>
+                        <strong>{t.recommendedCompetencyLevels}:</strong>
+                        <ul style={{ margin: "8px 0 0 20px", padding: 0 }}>
+                          {competencyRows.map((r, i) => (
+                            <li key={i}>
+                              {r.competencyName}
+                              {r.competencyLevelName ? ` → ${r.competencyLevelName}` : ""}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
-              </div>
-            ))}
-          </section>
-        ) : null}
-
-        {personaGroupsList.length > 0 ? (
-          <section id="section-persona-groups" style={{ marginBottom: "64px" }}>
-            <h2 style={{ fontSize: "28px", fontWeight: 700, borderBottom: "1px solid #d2d2d2", paddingBottom: "8px", margin: "48px 0 24px 0" }}>
-              {t.personaGroupsHeading}
-            </h2>
-            {personaGroupsList.map((pg: Record<string, unknown>) => (
-              <div
-                key={String(pg.name ?? "")}
-                id={`persona-group-${slug(String(pg.name ?? ""))}`}
-                style={{ border: "1px solid #d2d2d2", padding: "24px", marginBottom: "24px", backgroundColor: "#fafafa" }}
-              >
-                <h3 style={{ fontSize: "20px", fontWeight: 700, margin: "0 0 8px 0" }}>{String(pg.name ?? "")}</h3>
-                {practiceElementDescriptionForDisplay(pg) ? (
-                  <p style={{ fontSize: "15px", color: "#151515" }}>{practiceElementDescriptionForDisplay(pg)}</p>
-                ) : null}
-                <TagsGroup tags={pg.tags} />
-                {Array.isArray(pg.personaNames) && pg.personaNames.length ? (
-                  <p style={{ marginTop: "12px", fontSize: "14px", color: "#393f44" }}>
-                    <strong>{t.personaGroupMembers}:</strong> {pg.personaNames.map((nm) => String(nm ?? "").trim()).filter(Boolean).join(", ")}
-                  </p>
-                ) : null}
-              </div>
-            ))}
+                  );
+                })}
+              </>
+            ) : null}
+            {personaGroupsList.length > 0 ? (
+              <>
+                <h3
+                  id="section-persona-groups"
+                  style={{
+                    fontSize: "22px",
+                    fontWeight: 700,
+                    borderBottom: "1px solid #d2d2d2",
+                    paddingBottom: "8px",
+                    marginTop: personasList.length ? "40px" : "0",
+                    marginBottom: "24px",
+                  }}
+                >
+                  {t.personaGroupsHeading}
+                </h3>
+                {personaGroupsList.map((pg: Record<string, unknown>) => (
+                  <div
+                    key={String(pg.name ?? "")}
+                    id={`persona-group-${slug(String(pg.name ?? ""))}`}
+                    style={{ border: "1px solid #d2d2d2", padding: "24px", marginBottom: "24px", backgroundColor: "#fafafa" }}
+                  >
+                    <h4 style={{ fontSize: "20px", fontWeight: 700, margin: "0 0 8px 0" }}>{String(pg.name ?? "")}</h4>
+                    {practiceElementDescriptionForDisplay(pg) ? (
+                      <p style={{ fontSize: "15px", color: "#151515" }}>{practiceElementDescriptionForDisplay(pg)}</p>
+                    ) : null}
+                    <TagsGroup tags={pg.tags} />
+                    {Array.isArray(pg.personaNames) && pg.personaNames.length ? (
+                      <p style={{ marginTop: "12px", fontSize: "14px", color: "#393f44" }}>
+                        <strong>{t.personaGroupMembers}:</strong>{" "}
+                        {pg.personaNames.map((nm) => String(nm ?? "").trim()).filter(Boolean).join(", ")}
+                      </p>
+                    ) : null}
+                  </div>
+                ))}
+              </>
+            ) : null}
           </section>
         ) : null}
 

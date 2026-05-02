@@ -11,18 +11,6 @@ export type LanguagePack = {
   readablePreviewBrowse: string;
   /** Readable preview: PatternFly-style full document layout (FullPracticeView). */
   readablePreviewFullDocument: string;
-  /** Readable preview: strategic outcomes + adoption lifecycle (business stakeholders). */
-  readablePreviewBusiness: string;
-  /** Readable preview: practitioner execution guide (activities & work products). */
-  readablePreviewDelivery: string;
-  /** Readable preview: personas and narrative spine (commercial / adoption storytelling). */
-  readablePreviewSow: string;
-  /** Delivery view: no activity spaces or activities after merge. */
-  deliveryViewEmpty: string;
-  /** Delivery view: activity space exists but lists no activities. */
-  deliveryViewNoActivitiesInSpace: string;
-  /** Delivery view: bucket for practice-level activities without activitySpaceName. */
-  deliveryViewPracticeLevelActivities: string;
   loadExample: string;
   validateAndRender: string;
   downloadPdf: string;
@@ -78,6 +66,10 @@ export type LanguagePack = {
   browseTableOfContents: string;
   /** Library browse: link to practice title / overview. */
   browseTocOverview: string;
+  /** Library browse: TOC label for upstream baselines / dependency practices resolved from naming fields. */
+  browseTocDependencies: string;
+  /** Browse layout: subsection heading under Alphas for work-product definitions. */
+  browseWorkProductsUnderAlphas: string;
   nothingToRender: string;
   schemaIssuesTitle: string;
   refIssuesTitle: string;
@@ -127,18 +119,18 @@ export type LanguagePack = {
   tagsLifecycle: string;
   /** Browse IR: organizational tag bucket label. */
   tagsOrganizational: string;
+  /** Browse IR: checklist label. */
   checklist: string;
   /** Browse IR: checklist item seq field. */
   checklistSeq: string;
-  checklistBlocking: string;
-  checklistThresholdWeight: string;
   checklistVerificationMethod: string;
-  checklistEvidenceRequired: string;
   checklistEvidencedBy: string;
   /** Browse IR: Activity.activitySpaceName when distinct from parent space. */
   activityParentSpace: string;
   /** Browse IR: LevelOfDetail.seq label. */
   levelOfDetailSeq: string;
+  /** Readable / browse: embedded {@link PracticeElement.narratives} trees rolled up for the report. */
+  elementNarrativesHeading: string;
   /** Browse IR / PDF: Narrative spine types defined on the baseline. */
   narrativeTypesHeading: string;
   /** Browse IR: Narrative elements listed under a narrative type. */
@@ -157,7 +149,6 @@ export type LanguagePack = {
   patternNarrativeTypeName: string;
   /** Pattern view symbolic link to NarrativeElement.name (within the pattern’s narrative spine). */
   patternViewNarrativeElementName: string;
-  sowViewEmpty: string;
   /** Browse IR: collapsible heading for Pattern.patternViews. */
   patternViewsHeading: string;
   /** Pattern matrix toolbar: reveal every cell’s execution lanes at once. */
