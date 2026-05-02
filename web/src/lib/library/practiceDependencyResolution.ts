@@ -3,9 +3,11 @@ import { classifyLibraryRoot, type LibraryRootKind } from "@/lib/library/classif
 import {
   activitySpaceIdentityKey,
   asBaselineDocument,
+  canonicalPracticeElementName,
   finalizeImplicitFocusPlaceholders,
   isPracticeActivityNode,
   isUnresolvedFocusName,
+  personaReferencedCompetencyNames,
   propagateDerivedFocusNames,
 } from "@/lib/ir";
 import { baselineFocusNamesReferencedByPatternView } from "@/lib/patternMatrixDiagram";
@@ -191,12 +193,12 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
     }
   }
 
-  for (const persona of (d.personas ?? []) as { name?: unknown; competencies?: unknown[] }[]) {
+  for (const persona of (d.personas ?? []) as { name?: unknown }[]) {
     const pn = String(persona?.name ?? "").trim();
     if (pn) personaNames.add(pn);
-    for (const r of persona.competencies ?? []) {
-      const cn = String((r as { competencyName?: unknown })?.competencyName ?? "").trim();
-      if (cn) competencyNames.add(cn);
+    for (const cn of personaReferencedCompetencyNames(persona)) {
+      const n = String(cn ?? "").trim();
+      if (n) competencyNames.add(n);
     }
   }
   for (const pg of (d.personaGroups ?? []) as { name?: unknown; personaNames?: unknown[] }[]) {
@@ -396,7 +398,7 @@ function expandDocumentationClosureFromMergedGraph(merged: Record<string, unknow
     for (const persona of (merged.personas as any[]) ?? []) {
       const pn = String(persona?.name ?? "").trim();
       if (!pn || !c.personaNames.has(pn)) continue;
-      for (const r of persona.competencies ?? []) addComp(String(r?.competencyName ?? ""));
+      for (const cn of personaReferencedCompetencyNames(persona)) addComp(String(cn ?? ""));
     }
 
     for (const pat of (merged.patterns as any[]) ?? []) {
@@ -415,6 +417,48 @@ function expandDocumentationClosureFromMergedGraph(merged: Record<string, unknow
           addActivity(lane);
         }
       }
+    }
+  }
+}
+
+/**
+ * Bidirectionally expand persona ↔ persona-group membership against the merged doc; then add competency names
+ * from every retained persona so prune keeps matching Competency definitions for display.
+ */
+function expandPersonaSubgroupClosureInPlace(merged: Record<string, unknown>, c: DocumentationClosure) {
+  const allPersonas = (merged.personas as any[] | undefined) ?? [];
+  const allGroups = (merged.personaGroups as any[] | undefined) ?? [];
+
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const pg of allGroups) {
+      const gn = String(pg?.name ?? "").trim();
+      if (!gn || c.personaGroupNames.has(gn)) continue;
+      const members = (pg.personaNames ?? []).map((x: unknown) => String(x ?? "").trim()).filter(Boolean);
+      if (!members.some((m: string) => c.personaNames.has(m))) continue;
+      c.personaGroupNames.add(gn);
+      changed = true;
+    }
+    for (const pg of allGroups) {
+      const gn = String(pg?.name ?? "").trim();
+      if (!gn || !c.personaGroupNames.has(gn)) continue;
+      for (const raw of pg.personaNames ?? []) {
+        const pn = String(raw ?? "").trim();
+        if (pn && !c.personaNames.has(pn)) {
+          c.personaNames.add(pn);
+          changed = true;
+        }
+      }
+    }
+  }
+
+  for (const persona of allPersonas) {
+    const pn = String(persona?.name ?? "").trim();
+    if (!pn || !c.personaNames.has(pn)) continue;
+    for (const cn of personaReferencedCompetencyNames(persona)) {
+      const t = String(cn ?? "").trim();
+      if (t) c.competencyNames.add(t);
     }
   }
 }
@@ -445,17 +489,25 @@ export function prunePracticeToDocumentationClosure(
 ): Record<string, unknown> {
   const out = { ...merged };
 
-  const keptAlphas = (merged.alphas as any[] | undefined)?.filter((a) => a?.name && closure.alphaNames.has(String(a.name))) ?? [];
+  const keptAlphas =
+    (merged.alphas as any[] | undefined)?.filter((a) => {
+      const n = canonicalPracticeElementName(a?.name);
+      return n !== null && closure.alphaNames.has(n);
+    }) ?? [];
   const rawSpaces = (merged.activitySpaces as any[] | undefined) ?? [];
   const keptSpaces: any[] = [];
   for (const s of rawSpaces) {
     if (isPracticeActivityNode(s)) {
-      if (s?.name && closure.activityNames.has(String(s.name))) keptSpaces.push(s);
+      const n = canonicalPracticeElementName((s as { name?: unknown }).name);
+      if (n !== null && closure.activityNames.has(n)) keptSpaces.push(s);
       continue;
     }
     const sn = String(s?.name ?? "").trim();
     if (!closure.activitySpaceNames.has(sn)) continue;
-    const acts = (s.activities ?? []).filter((act: any) => act?.name && closure.activityNames.has(String(act.name)));
+    const acts = (s.activities ?? []).filter((act: any) => {
+      const an = canonicalPracticeElementName(act?.name);
+      return an !== null && closure.activityNames.has(an);
+    });
     keptSpaces.push(acts.length ? { ...s, activities: acts } : { ...s, activities: undefined });
   }
 
@@ -463,24 +515,40 @@ export function prunePracticeToDocumentationClosure(
   for (const fn of closure.focusNames) usedFocus.add(fn);
 
   const keptFocuses =
-    (merged.focuses as any[] | undefined)?.filter((f) => f?.name && usedFocus.has(String(f.name))) ?? [];
+    (merged.focuses as any[] | undefined)?.filter((f) => {
+      const n = canonicalPracticeElementName((f as { name?: unknown }).name);
+      return n !== null && usedFocus.has(n);
+    }) ?? [];
   const keptCompetencies =
-    (merged.competencies as any[] | undefined)?.filter((c) => c?.name && closure.competencyNames.has(String(c.name))) ??
-    [];
+    (merged.competencies as any[] | undefined)?.filter((c) => {
+      const n = canonicalPracticeElementName((c as { name?: unknown }).name);
+      return n !== null && closure.competencyNames.has(n);
+    }) ?? [];
   const keptWps =
-    (merged.workProducts as any[] | undefined)?.filter((wp) => wp?.name && closure.workProductNames.has(String(wp.name))) ??
-    [];
+    (merged.workProducts as any[] | undefined)?.filter((wp) => {
+      const n = canonicalPracticeElementName((wp as { name?: unknown }).name);
+      return n !== null && closure.workProductNames.has(n);
+    }) ?? [];
   const keptPersonas =
-    (merged.personas as any[] | undefined)?.filter((p) => p?.name && closure.personaNames.has(String(p.name))) ?? [];
+    (merged.personas as any[] | undefined)?.filter((p) => {
+      const n = canonicalPracticeElementName((p as { name?: unknown }).name);
+      return n !== null && closure.personaNames.has(n);
+    }) ?? [];
   const keptPersonaGroups =
-    (merged.personaGroups as any[] | undefined)?.filter((pg) => pg?.name && closure.personaGroupNames.has(String(pg.name))) ??
-    [];
+    (merged.personaGroups as any[] | undefined)?.filter((pg) => {
+      const n = canonicalPracticeElementName((pg as { name?: unknown }).name);
+      return n !== null && closure.personaGroupNames.has(n);
+    }) ?? [];
   const keptPatterns =
-    (merged.patterns as any[] | undefined)?.filter((p) => p?.name && closure.patternNames.has(String(p.name))) ?? [];
+    (merged.patterns as any[] | undefined)?.filter((p) => {
+      const n = canonicalPracticeElementName((p as { name?: unknown }).name);
+      return n !== null && closure.patternNames.has(n);
+    }) ?? [];
 
-  const flatActs = (merged.activities as any[] | undefined)?.filter(
-    (a) => a?.name && closure.activityNames.has(String(a.name)),
-  );
+  const flatActs = (merged.activities as any[] | undefined)?.filter((a) => {
+    const n = canonicalPracticeElementName((a as { name?: unknown }).name);
+    return n !== null && closure.activityNames.has(n);
+  });
 
   out.focuses = keptFocuses;
   out.alphas = keptAlphas;
@@ -507,8 +575,91 @@ export function prunePracticeToDocumentationClosure(
   return out;
 }
 
+/** Heuristic richness so we prefer the canonical kernel over thin duplicate baselines registering under the same `name`. */
+function baselineStructuralRichness(bp: PracticeBaseline): number {
+  let states = 0;
+  let checklistRows = 0;
+  for (const a of bp.alphas ?? []) {
+    for (const st of (a as { states?: unknown[] }).states ?? []) {
+      states++;
+      checklistRows += (st as { checklist?: unknown[] }).checklist?.length ?? 0;
+    }
+  }
+  const nt = bp.narrativeTypes?.reduce((acc, nt) => acc + ((nt.narrativeElements ?? []) as unknown[]).length, 0) ?? 0;
+  return (
+    (bp.alphas ?? []).length * 10_000 +
+    states * 100 +
+    checklistRows +
+    nt * 3 +
+    (bp.focuses ?? []).length * 50 +
+    (bp.activitySpaces ?? []).length * 20 +
+    (bp.competencies ?? []).length * 15
+  );
+}
+
+/**
+ * Prefer the strictly richer artifact when multiple library roots claim the same {@link PracticeBaseline.name}.
+ * On ties, keep {@link existing} so ingest order wins — pair with deterministic ordering in
+ * {@link buildLibraryLookupIndex} so standalone kernels do not lose to duplicate embedded copies.
+ */
+function pickRicherPracticeBaseline(existing: PracticeBaseline | undefined, next: PracticeBaseline): PracticeBaseline {
+  if (!existing) return next;
+  const re = baselineStructuralRichness(existing);
+  const rn = baselineStructuralRichness(next);
+  if (rn > re) return next;
+  if (rn < re) return existing;
+  return existing;
+}
+
+/**
+ * Prefer standalone {@link baselineByName} entries over an embedded {@link Method.baselinePractice} duplicate.
+ * Embedded copies sometimes carry extension-local prose while matching structural richness — only adopt embedded
+ * when it is strictly structurally richer.
+ */
+function preferIndexedBaselineOverEmbedded(existing: PracticeBaseline | undefined, embedded: PracticeBaseline): PracticeBaseline {
+  if (!existing) return embedded;
+  const re = baselineStructuralRichness(existing);
+  const rn = baselineStructuralRichness(embedded);
+  if (rn > re) return embedded;
+  return existing;
+}
+
+/** When two baselines collide (normalized name tie, equivalence class, …), prefer a root stored as `baselinePractice` over one only embedded under a Method. Hierarchy sort alone cannot decide that—library ingestion order is unrelated to compose order. */
+function compareBaselinePreferStandaloneArtifact(
+  index: LibraryLookupIndex,
+  a: PracticeBaseline,
+  b: PracticeBaseline,
+): number {
+  const standalone = index.standaloneBaselinePracticeKeys;
+  const sa = standalone.has(String(a.name ?? "").trim()) ? 0 : 1;
+  const sb = standalone.has(String(b.name ?? "").trim()) ? 0 : 1;
+  if (sa !== sb) return sa - sb;
+  const ra = baselineStructuralRichness(a);
+  const rb = baselineStructuralRichness(b);
+  if (rb !== ra) return rb - ra;
+  return String(a.name ?? "").localeCompare(String(b.name ?? ""));
+}
+
+/** Pick richer among {@link prev} vs {@link next}, breaking ties toward standalone-root baselines recorded in {@link LibraryLookupIndex.standaloneBaselinePracticeKeys}. */
+function pickRicherWithStandaloneBaselinePreference(
+  index: LibraryLookupIndex,
+  prev: PracticeBaseline | undefined,
+  next: PracticeBaseline,
+): PracticeBaseline {
+  if (!prev) return next;
+  const c = compareBaselinePreferStandaloneArtifact(index, prev, next);
+  if (c < 0) return prev;
+  if (c > 0) return next;
+  return pickRicherPracticeBaseline(prev, next);
+}
+
 export type LibraryLookupIndex = {
   baselineByName: Map<string, PracticeBaseline>;
+  /**
+   * Baseline artifact names registered from standalone library roots ({@link classifyLibraryRoot} `"baselinePractice"`).
+   * These must not be swapped for duplicated {@link Method.baselinePractice} copies that often carry vendor-local prose on shared alphas.
+   */
+  standaloneBaselinePracticeKeys: Set<string>;
   practiceByName: Map<string, Practice>;
   methods: Method[];
 };
@@ -537,38 +688,69 @@ function equivalenceClassForRequestedName(requestedNorm: string): Set<string> | 
   return null;
 }
 
-function uniqueBaselinesInIndex(index: LibraryLookupIndex): PracticeBaseline[] {
-  const out: PracticeBaseline[] = [];
-  const seen = new Set<string>();
+/** Pool baselines indexed as artifacts with method embeddings filling gaps except where a standalone kernel already owns the name. */
+function allPracticeBaselinesInIndex(index: LibraryLookupIndex): Map<string, PracticeBaseline> {
+  const standaloneKeys = index.standaloneBaselinePracticeKeys;
+  const byName = new Map<string, PracticeBaseline>();
   for (const b of index.baselineByName.values()) {
     const k = String(b?.name ?? "").trim();
-    if (!k || seen.has(k)) continue;
-    seen.add(k);
-    out.push(b);
+    if (!k) continue;
+    byName.set(k, pickRicherPracticeBaseline(byName.get(k), b));
   }
   for (const m of index.methods) {
     const bp = m.baselinePractice;
     if (!bp) continue;
     const k = String(bp.name ?? "").trim();
-    if (!k || seen.has(k)) continue;
-    seen.add(k);
-    out.push(bp);
+    if (!k) continue;
+    /** Do not overlay method-embedded kernels on top of authoritative standalone artifacts (same trimmed name key). */
+    if (standaloneKeys.has(k)) continue;
+    const existing = byName.get(k);
+    byName.set(k, preferIndexedBaselineOverEmbedded(existing, bp as PracticeBaseline));
   }
-  return out;
+  return byName;
+}
+
+function uniqueBaselinesInIndex(index: LibraryLookupIndex): PracticeBaseline[] {
+  return [...allPracticeBaselinesInIndex(index).values()];
+}
+
+function libraryLookupIngestRank(kind: LibraryRootKind): number {
+  /** Standalone baselines → standalone practices → methods (kernels embedded last so ties keep earlier copies). */
+  switch (kind) {
+    case "baselinePractice":
+      return 0;
+    case "practice":
+      return 1;
+    case "method":
+      return 2;
+    default:
+      return 9;
+  }
 }
 
 export function buildLibraryLookupIndex(bodies: unknown[]): LibraryLookupIndex {
   const baselineByName = new Map<string, PracticeBaseline>();
+  const standaloneBaselinePracticeKeys = new Set<string>();
   const practiceByName = new Map<string, Practice>();
   const methods: Method[] = [];
 
-  for (const body of bodies) {
+  const sortedBodies = [...bodies].sort((a, b) => {
+    if (!a || typeof a !== "object") return 1;
+    if (!b || typeof b !== "object") return -1;
+    const ka = classifyLibraryRoot(a);
+    const kb = classifyLibraryRoot(b);
+    return libraryLookupIngestRank(ka) - libraryLookupIngestRank(kb);
+  });
+
+  for (const body of sortedBodies) {
     if (!body || typeof body !== "object") continue;
     const kind: LibraryRootKind = classifyLibraryRoot(body);
     if (kind === "baselinePractice") {
       const b = body as PracticeBaseline;
       const n = String(b.name ?? "").trim();
-      if (n && !baselineByName.has(n)) baselineByName.set(n, b);
+      if (!n) continue;
+      standaloneBaselinePracticeKeys.add(n);
+      baselineByName.set(n, pickRicherPracticeBaseline(baselineByName.get(n), b));
     } else if (kind === "practice") {
       const p = body as Practice;
       const n = String(p.name ?? "").trim();
@@ -578,32 +760,39 @@ export function buildLibraryLookupIndex(bodies: unknown[]): LibraryLookupIndex {
       methods.push(m);
       const bp = m.baselinePractice;
       const bn = String(bp?.name ?? "").trim();
-      if (bn && !baselineByName.has(bn)) baselineByName.set(bn, bp);
+      if (bn) {
+        if (!standaloneBaselinePracticeKeys.has(bn)) {
+          baselineByName.set(bn, preferIndexedBaselineOverEmbedded(baselineByName.get(bn), bp as PracticeBaseline));
+        }
+      }
+      const plist = Array.isArray(m.practices) ? m.practices : [];
+      for (const pr of plist) {
+        const pn = String((pr as Practice)?.name ?? "").trim();
+        if (!pn || practiceByName.has(pn)) continue;
+        practiceByName.set(pn, pr as Practice);
+      }
     }
   }
 
-  return { baselineByName, practiceByName, methods };
+  return { baselineByName, standaloneBaselinePracticeKeys, practiceByName, methods };
 }
 
 export function findBaselineInLibrary(index: LibraryLookupIndex, baselinePracticeName: string): PracticeBaseline | null {
   const n = String(baselinePracticeName ?? "").trim();
   if (!n) return null;
-  const hit = index.baselineByName.get(n);
-  if (hit) return clone(hit);
+
+  const pooled = allPracticeBaselinesInIndex(index);
+  const direct = pooled.get(n);
+  if (direct) return clone(direct);
 
   const wantNorm = normalizeBaselinePracticeName(n);
 
-  for (const k of index.baselineByName.keys()) {
-    if (normalizeBaselinePracticeName(k) === wantNorm) {
-      const b = index.baselineByName.get(k);
-      if (b) return clone(b);
-    }
+  let normPick: PracticeBaseline | undefined;
+  for (const b of pooled.values()) {
+    if (normalizeBaselinePracticeName(b.name) === wantNorm)
+      normPick = pickRicherWithStandaloneBaselinePreference(index, normPick, b);
   }
-
-  for (const m of index.methods) {
-    const bp = m.baselinePractice;
-    if (bp && normalizeBaselinePracticeName(bp.name) === wantNorm) return clone(bp);
-  }
+  if (normPick) return clone(normPick);
 
   const eq = equivalenceClassForRequestedName(wantNorm);
   if (eq) {
@@ -612,6 +801,8 @@ export function findBaselineInLibrary(index: LibraryLookupIndex, baselinePractic
     if (matches.length > 1) {
       const exactCi = matches.find((b) => normalizeBaselinePracticeName(b.name) === wantNorm);
       if (exactCi) return clone(exactCi);
+      matches.sort((a, b) => compareBaselinePreferStandaloneArtifact(index, a, b));
+      return clone(matches[0]);
     }
   }
 
@@ -623,6 +814,57 @@ export function findPracticeInLibrary(index: LibraryLookupIndex, practiceName: s
   if (!n) return null;
   const hit = index.practiceByName.get(n);
   return hit ? clone(hit) : null;
+}
+
+/** Library snapshot embedded in browse “Dependencies” (baseline or extension practice bodies). */
+export type BrowseDependencyArtifact = {
+  role: "baselinePractice" | "practice";
+  /** Canonical {@link PracticeElement.name} */
+  name: string;
+  body: Record<string, unknown>;
+};
+
+/**
+ * Resolved stored documents referenced by naming fields on {@link Practice} aggregates or merged composites
+ * (`mergesBaselinePracticeName`, `practiceDependencyNames`, or extension `baselinePracticeName`).
+ */
+export function collectBrowseDependencyArtifacts(primary: unknown, index: LibraryLookupIndex): BrowseDependencyArtifact[] {
+  if (!primary || typeof primary !== "object") return [];
+  const o = primary as Record<string, unknown>;
+  const root = classifyLibraryRoot(primary);
+  const out: BrowseDependencyArtifact[] = [];
+
+  const addBaselineFromName = (name: string) => {
+    const b = findBaselineInLibrary(index, name);
+    if (!b?.name) return;
+    const n = String(b.name).trim();
+    if (!n) return;
+    out.push({ role: "baselinePractice", name: n, body: structuredClone(b) as Record<string, unknown> });
+  };
+
+  const addPracticeFromName = (name: string) => {
+    const n = String(name ?? "").trim();
+    if (!n) return;
+    const pb = findPracticeInLibrary(index, n);
+    if (!pb?.name) return;
+    out.push({ role: "practice", name: String(pb.name).trim(), body: structuredClone(pb) as Record<string, unknown> });
+  };
+
+  if (root === "practice") {
+    const bn = typeof o.baselinePracticeName === "string" ? o.baselinePracticeName.trim() : "";
+    if (bn) addBaselineFromName(bn);
+    const self = typeof o.name === "string" ? o.name.trim() : "";
+    for (const raw of uniqStrings((o.practiceDependencyNames ?? []) as string[])) {
+      if (!raw || raw === self) continue;
+      addPracticeFromName(raw);
+    }
+    return out;
+  }
+
+  const merges = typeof o.mergesBaselinePracticeName === "string" ? o.mergesBaselinePracticeName.trim() : "";
+  if (merges) addBaselineFromName(merges);
+  for (const raw of uniqStrings((o.practiceDependencyNames ?? []) as string[])) addPracticeFromName(raw);
+  return out;
 }
 
 /**
@@ -741,9 +983,17 @@ export function practiceNeedsLibraryResolution(doc: unknown): boolean {
 }
 
 /**
- * Merge the named baseline and dependency practices from the library into one practice-shaped document,
- * then prune to elements referenced by `primary` so the result is documentation-sized.
+ * Merge the named baseline and dependency practices from the library into one practice-shaped document following the
+ * **practice hierarchy**: kernel baseline practice first, extension layers in **`practiceDependencyNames` list order**, then the
+ * primary document last (see {@link compositePracticeFromMethod}), then prune to elements referenced by `primary` so the result is documentation-sized.
+ * Element merge follows {@link compositePracticeFromMethod}: same-named baseline practice elements accumulate
+ * extension deltas rather than wholesale replacement from the extending practice JSON.
  */
+function stripExtensionBaselineNameForKernelComposite(doc: Record<string, unknown>): void {
+  /** Merged outputs use {@link mergesBaselinePracticeName}; retaining `baselinePracticeName` would re-run stub enrichment on the client and fight kernel prose. */
+  delete doc.baselinePracticeName;
+}
+
 export function resolvePracticeWithLibraryIndex(primary: unknown, index: LibraryLookupIndex): unknown {
   if (!practiceNeedsLibraryResolution(primary)) return primary;
   const p = primary as Record<string, unknown>;
@@ -764,11 +1014,14 @@ export function resolvePracticeWithLibraryIndex(primary: unknown, index: Library
     if (pb) depPractices.push(pb);
   }
 
+  /** Extension merge hierarchy beyond the kernel baseline: deps in dependency-list order (closest to baseline first), primary last. */
+  const hierarchicalExtensions: Practice[] = [...depPractices, p as Practice];
+
   const method: Method = {
     name: String(p.name ?? "Practice"),
     description: String(p.description ?? ""),
     baselinePractice: baseline,
-    practices: [...depPractices, p as Practice],
+    practices: hierarchicalExtensions,
     ...(p.tags !== undefined && p.tags !== null ? { tags: p.tags as Practice["tags"] } : {}),
   };
 
@@ -785,10 +1038,15 @@ export function resolvePracticeWithLibraryIndex(primary: unknown, index: Library
     unionDocumentationClosuresInPlace(closure, collectPrimaryDocumentationClosure(dep));
   }
   expandDocumentationClosureFromMergedGraph(merged, closure);
+  expandPersonaSubgroupClosureInPlace(merged, closure);
 
-  if (documentationClosureIsEmpty(closure)) return merged;
+  if (documentationClosureIsEmpty(closure)) {
+    stripExtensionBaselineNameForKernelComposite(merged);
+    return merged;
+  }
   const pruned = prunePracticeToDocumentationClosure(merged, closure, p) as Record<string, unknown>;
   propagateDerivedFocusNames(pruned as { alphas?: any[]; activitySpaces?: any[]; activities?: any[] });
   finalizeImplicitFocusPlaceholders(pruned as { activitySpaces?: any[]; alphas?: any[] });
+  stripExtensionBaselineNameForKernelComposite(pruned);
   return pruned;
 }

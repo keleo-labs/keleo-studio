@@ -1,11 +1,19 @@
 import { NextResponse } from "next/server";
-import { buildLibraryLookupIndex, resolvePracticeWithLibraryIndex } from "@/lib/library/practiceDependencyResolution";
+import {
+  buildLibraryLookupIndex,
+  collectBrowseDependencyArtifacts,
+  resolvePracticeWithLibraryIndex,
+} from "@/lib/library/practiceDependencyResolution";
 import { loadAllLibraryDocumentBodies } from "@/lib/library/loadLibraryBodies";
 
 /**
  * POST JSON `{ doc }` — for Practice documents with `baselinePracticeName` and/or `practiceDependencyNames`,
- * merges matching baseline and dependency practices from the library (same as method merge), then prunes to
- * elements referenced by `doc` for documentation-sized output.
+ * merges matching baseline practice (head of hierarchy), dependency practices (`practiceDependencyNames` order),
+ * then the document itself ({@link resolvePracticeWithLibraryIndex} → {@link compositePracticeFromMethod}),
+ * respecting baseline-first rules for identical practice elements (including immutability of `description` on earlier layers).
+ * Same-named practice elements (alphas, activity spaces and nested activities, etc.) are merged **additively** into
+ * the baseline row (`description` stays from the baseline; other fields accumulate per composite rules). Output is then
+ * pruned to elements referenced by `doc` for documentation-sized output.
  */
 export async function POST(req: Request) {
   let body: unknown;
@@ -25,8 +33,9 @@ export async function POST(req: Request) {
   try {
     const bodies = await loadAllLibraryDocumentBodies();
     const index = buildLibraryLookupIndex(bodies);
+    const dependencyArtifacts = collectBrowseDependencyArtifacts(doc, index);
     const resolved = resolvePracticeWithLibraryIndex(doc, index);
-    return NextResponse.json({ resolved });
+    return NextResponse.json({ resolved, dependencyArtifacts });
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Resolution failed";
     return NextResponse.json({ error: message }, { status: 500 });

@@ -1,4 +1,7 @@
-import { practiceElementDescriptionForDisplay } from "@/lib/ir";
+import {
+  patternViewNarrativeContextProseTexts,
+  practiceElementDescriptionForDisplay,
+} from "@/lib/ir";
 import {
   getAliasedDisplay,
   type PracticeElementAliasLookup,
@@ -702,6 +705,34 @@ export type PatternMatrixLayout = {
 /** Min height for lane fold overlay (execution lanes) in {@link DiagramPatternMatrix}. */
 export const PATTERN_MATRIX_LANE_TOGGLE_HEIGHT = 22;
 
+/** Vertical gap between PatternView description and first narrative-context bullet in the matrix header. */
+export const PATTERN_VIEW_MATRIX_NARRATIVE_BULLET_GAP_PX = 6;
+
+/**
+ * Extra height for narrative-context bullets under the PatternView column header (web + PDF matrix).
+ */
+export function patternViewNarrativeBulletBlockHeight(
+  innerHeaderW: number,
+  padX: number,
+  proseLines: readonly string[],
+): number {
+  const nonEmpty = proseLines
+    .map((p) => String(p ?? "").trim())
+    .filter((t) => t !== "");
+  if (nonEmpty.length === 0) return 0;
+  const { descMaxChars } = diagramTextCharLimits(innerHeaderW, padX, false);
+  /** Single context: plain prose (full width). Multiple: bulleted; reserve two chars for • and gap. */
+  const wrapMaxChars =
+    nonEmpty.length > 1 ? Math.max(4, descMaxChars - 2) : Math.max(4, descMaxChars);
+  const lineH = 16;
+  let lines = 0;
+  for (const prose of nonEmpty) {
+    lines += wrapDiagramTextLines(prose, wrapMaxChars).length;
+  }
+  if (lines === 0) return 0;
+  return PATTERN_VIEW_MATRIX_NARRATIVE_BULLET_GAP_PX + lines * lineH;
+}
+
 export function computePatternMatrixLayout(
   views: any[],
   cellBlocks: PatternMatrixCellBlock[][][],
@@ -757,25 +788,28 @@ export function computePatternMatrixLayout(
   const nR = cellBlocks.length;
   const nC = views.length;
   const innerHeaderW = colW - 16;
-  const colHeaderHs = views.map((pv) =>
-    aliasLookup
-      ? computeBlockHeightForWidthWithAlias(
-          aliasLookup,
-          "PatternView",
-          String(pv.name ?? ""),
-          practiceElementDescriptionForDisplay(pv),
-          innerHeaderW,
-          8,
-          8,
-        )
-      : computeBlockHeightForWidth(
-          m("PatternView", String(pv.name ?? "")),
-          practiceElementDescriptionForDisplay(pv),
-          innerHeaderW,
-          8,
-          8,
-        ),
-  );
+  const colHeaderHs = views.map((pv) => {
+    const bullets = patternViewNarrativeContextProseTexts(pv);
+    const base =
+      aliasLookup
+        ? computeBlockHeightForWidthWithAlias(
+            aliasLookup,
+            "PatternView",
+            String(pv.name ?? ""),
+            practiceElementDescriptionForDisplay(pv),
+            innerHeaderW,
+            8,
+            8,
+          )
+        : computeBlockHeightForWidth(
+            m("PatternView", String(pv.name ?? "")),
+            practiceElementDescriptionForDisplay(pv),
+            innerHeaderW,
+            8,
+            8,
+          );
+    return base + patternViewNarrativeBulletBlockHeight(innerHeaderW, 8, bullets);
+  });
   const headerH = (colHeaderHs.length ? Math.max(...colHeaderHs) : 48) + headerTopPad;
   const chipInnerW = Math.max(80, colW - 2 * cellPadding - 8);
   const chipW = chipInnerW + 8;

@@ -1,4 +1,4 @@
-import { IMPLICIT_FOCUS_NAME, practiceElementDescriptionForDisplay } from "@/lib/ir";
+import { IMPLICIT_FOCUS_NAME, narrativeContextBulletLine, personaCompetencyDisplayRefs, practiceElementDescriptionForDisplay } from "@/lib/ir";
 import { flattenPracticeElementTags } from "@/lib/practiceElementTags";
 import { extendsBaselineDisplayName } from "@/lib/library/classify";
 import {
@@ -9,6 +9,7 @@ import {
 import type { LanguagePack } from "@/lib/languagePackTypes";
 import { svgFocusActivityForGroup, svgFocusAlphasForGroup, svgPatternMatrix } from "@/lib/pdfSvgs";
 import type { ThemeTokens } from "@/lib/themeTokens";
+import { mergeNarrativeTypes } from "@/lib/methodMerge/compositePracticeFromMethod";
 import type { Method, PracticeBaseline, PracticeElementAlias } from "@/lib/types";
 
 function esc(s: unknown) {
@@ -129,6 +130,75 @@ function seqInt(x: unknown): number {
   return Math.trunc(n);
 }
 
+function renderPdfEmbeddedNarrativeSubtree(narratives: unknown[]): string {
+  if (!Array.isArray(narratives) || !narratives.length) return "";
+  return narratives
+    .map((raw) => {
+      if (!raw || typeof raw !== "object") return "";
+      const n = raw as Record<string, unknown>;
+      const label =
+        typeof n.narrativeName === "string" && n.narrativeName.trim()
+          ? n.narrativeName.trim()
+          : typeof n.name === "string" && n.name.trim()
+            ? String(n.name).trim()
+            : "—";
+      const desc = practiceElementDescriptionForDisplay(n);
+      const rawCtx = n.narrativeContexts;
+      const ctxList = Array.isArray(rawCtx) ? rawCtx : [];
+      const sorted = [...ctxList].sort(
+        (a, b) =>
+          (Number((a as { seq?: unknown })?.seq ?? 0) || 0) -
+          (Number((b as { seq?: unknown })?.seq ?? 0) || 0),
+      );
+      const bullets = sorted
+        .map((c) => {
+          const line = narrativeContextBulletLine(c);
+          return line ? `<li style="margin:3px 0">${esc(line)}</li>` : "";
+        })
+        .join("");
+      const bulletBlock =
+        bullets !== ""
+          ? `<ul style="margin:6px 0 0;padding-left:18px;line-height:1.45;color:#111827">${bullets}</ul>`
+          : "";
+      const nestedRaw = n.narratives;
+      const nested = Array.isArray(nestedRaw)
+        ? `<div style="margin-top:8px;padding-left:10px;border-left:2px solid rgba(2,6,23,0.12)">${renderPdfEmbeddedNarrativeSubtree(
+            nestedRaw as unknown[],
+          )}</div>`
+        : "";
+      return `<section style="margin-top:12px;break-inside:avoid">
+          <div style="font-weight:800">${esc(label)}</div>
+          ${
+            desc
+              ? `<div class="muted" style="margin-top:4px;font-size:12px;line-height:1.45">${esc(desc)}</div>`
+              : ""
+          }
+          ${bulletBlock}
+          ${nested}
+        </section>`;
+    })
+    .join("");
+}
+
+/** HTML for {@link PracticeElement.narratives} under the enclosing element&apos;s prose (PDF). */
+function pdfPracticeElementNarrativesHtml(rec: unknown): string {
+  if (!rec || typeof rec !== "object") return "";
+  const n = (rec as { narratives?: unknown }).narratives;
+  return Array.isArray(n) && n.length ? renderPdfEmbeddedNarrativeSubtree(n as unknown[]) : "";
+}
+
+function pdfMergedRootNarrativesHtml(baseline: PracticeBaseline, sourceDoc?: Record<string, unknown> | null): string {
+  const aa = Array.isArray((baseline as { narratives?: unknown }).narratives)
+    ? ((baseline as { narratives: unknown[] }).narratives as unknown[])
+    : [];
+  const bb =
+    sourceDoc && Array.isArray(sourceDoc.narratives) ? (sourceDoc.narratives as unknown[]) : ([] as unknown[]);
+  if (aa.length && bb.length) return renderPdfEmbeddedNarrativeSubtree([...aa, ...bb]);
+  if (aa.length) return renderPdfEmbeddedNarrativeSubtree(aa);
+  if (bb.length) return renderPdfEmbeddedNarrativeSubtree(bb as unknown[]);
+  return "";
+}
+
 export function renderPdfHtml(args: {
   baseline: PracticeBaseline;
   grouped: { focusName: string; focus: any | null; alphas: any[]; activitySpaces: any[] }[];
@@ -138,8 +208,10 @@ export function renderPdfHtml(args: {
   sourceDoc?: Record<string, unknown> | null;
   /** Library method source: replaces extends/related meta with the composing-practices list (baseline first). */
   methodComposition?: Method | null;
+  /** Narrative spine *catalog* (merged types section + TOC): only when the opened artifact is a baseline practice file. */
+  showNarrativeSpineCatalog?: boolean;
 }) {
-  const { baseline, grouped, theme, t, sourceDoc, methodComposition } = args;
+  const { baseline, grouped, theme, t, sourceDoc, methodComposition, showNarrativeSpineCatalog = false } = args;
   const displayFocusName = (nm: string) => (nm === IMPLICIT_FOCUS_NAME ? t.implicitFocusName : nm);
   const aliasLookup: PracticeElementAliasLookup = buildPracticeElementAliasLookup(
     Array.isArray(sourceDoc?.practiceElementAliases)
@@ -183,6 +255,11 @@ export function renderPdfHtml(args: {
       }
     }
   }
+
+  const mergedNarrativeTypesPdf = mergeNarrativeTypes(
+    (baseline.narrativeTypes ?? []) as unknown[],
+    Array.isArray(sourceDoc?.narrativeTypes) ? (sourceDoc!.narrativeTypes as unknown[]) : [],
+  );
 
   const isActivityPdf = (s: any) =>
     s && typeof s.activitySpaceName === "string" && String(s.activitySpaceName).trim() !== "";
@@ -376,24 +453,6 @@ export function renderPdfHtml(args: {
       </li>`);
     }
 
-    const ntypes = baseline.narrativeTypes ?? [];
-    if (ntypes.length) {
-      const ntList = (ntypes as any[])
-        .map(
-          (nt: any) =>
-            `<li style="margin:2px 0;font-size:11px"><a href="#${esc(narrativeTypeIdPdf(nt.name))}">${formatAliasedNameHtml(
-              aliasLookup,
-              "NarrativeType",
-              nt.name,
-              esc,
-            )}</a></li>`,
-        )
-        .join("");
-      chunks.push(`<li style="margin:12px 0 6px;padding-top:8px;border-top:1px solid rgba(2,6,23,0.12)">
-        <a href="#browse-section-narrative-types" style="font-weight:800">${esc(t.narrativeTypesHeading)}</a>
-        <ul style="margin:6px 0 0;padding-left:12px;list-style:none">${ntList}</ul>
-      </li>`);
-    }
     const pdfPersonas = Array.isArray(sourceDoc?.personas) ? (sourceDoc!.personas as any[]) : [];
     if (pdfPersonas.length) {
       const pList = pdfPersonas
@@ -428,6 +487,25 @@ export function renderPdfHtml(args: {
       chunks.push(`<li style="margin:12px 0 6px;padding-top:8px;border-top:1px solid rgba(2,6,23,0.12)">
         <a href="#browse-section-persona-groups" style="font-weight:800">${esc(t.personaGroupsHeading)}</a>
         <ul style="margin:6px 0 0;padding-left:12px;list-style:none">${gList}</ul>
+      </li>`);
+    }
+
+    const ntypesForToc = showNarrativeSpineCatalog ? mergedNarrativeTypesPdf : [];
+    if (ntypesForToc.length) {
+      const ntList = (ntypesForToc as any[])
+        .map(
+          (nt: any) =>
+            `<li style="margin:2px 0;font-size:11px"><a href="#${esc(narrativeTypeIdPdf(nt.name))}">${formatAliasedNameHtml(
+              aliasLookup,
+              "NarrativeType",
+              nt.name,
+              esc,
+            )}</a></li>`,
+        )
+        .join("");
+      chunks.push(`<li style="margin:12px 0 6px;padding-top:8px;border-top:1px solid rgba(2,6,23,0.12)">
+        <a href="#browse-section-narrative-types" style="font-weight:800">${esc(t.narrativeTypesHeading)}</a>
+        <ul style="margin:6px 0 0;padding-left:12px;list-style:none">${ntList}</ul>
       </li>`);
     }
 
@@ -479,12 +557,13 @@ export function renderPdfHtml(args: {
                     .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
                     .map((ch: any) => {
                       const chd = practiceElementDescriptionForDisplay(ch);
+                      const chNar = pdfPracticeElementNarrativesHtml(ch);
                       return `<li value="${seqInt(ch.seq)}"><b>${formatAliasedNameHtml(
                         aliasLookup,
                         "Checklist",
                         ch.name,
                         esc,
-                      )}</b>${chd ? `<span class="muted"> — ${esc(chd)}</span>` : ""}</li>`;
+                      )}</b>${chd ? `<span class="muted"> — ${esc(chd)}</span>` : ""}${chNar}</li>`;
                     })
                     .join("")
                 : "";
@@ -499,7 +578,7 @@ export function renderPdfHtml(args: {
                 stateId(a.name, s.name),
               )}"><b>${formatAliasedNameHtml(aliasLookup, "State", s.name, esc)}</b>${
                 sd ? `<span class="muted" style="font-weight:400"> — ${esc(sd)}</span>` : ""
-              }</a>${tags}${checklistBlock}</li>`;
+              }</a>${pdfPracticeElementNarrativesHtml(s)}${tags}${checklistBlock}</li>`;
             })
             .join("");
 
@@ -553,6 +632,7 @@ export function renderPdfHtml(args: {
                       alphaId(a.name),
                     )}"><code>${formatAliasedNameHtml(aliasLookup, "Alpha", a.name, esc)}</code></a></div>
               ${chAd ? `<div class="muted" style="margin-top:4px">${esc(chAd)}</div>` : ""}
+              ${pdfPracticeElementNarrativesHtml(child)}
               ${chTags}
               ${chRoll}
             </div>`;
@@ -570,6 +650,7 @@ export function renderPdfHtml(args: {
               esc,
             )}</a></div>
             ${ad ? `<div class="muted" style="margin-top:4px">${esc(ad)}</div>` : ""}
+            ${pdfPracticeElementNarrativesHtml(a)}
             ${alphaTags}
             ${alphaRollup}
             ${alphaSupporting}
@@ -586,6 +667,7 @@ export function renderPdfHtml(args: {
             ? `<div class="muted" style="margin-top:4px">${esc(practiceElementDescriptionForDisplay(g.focus))}</div>`
             : ""
         }
+        ${pdfPracticeElementNarrativesHtml(g.focus)}
         ${alphas}
       </div>`;
     })
@@ -687,6 +769,7 @@ export function renderPdfHtml(args: {
               activitySpaceId(parent),
             )}"><code>${formatAliasedNameHtml(aliasLookup, "ActivitySpace", parent, esc)}</code></a></div>
             ${practiceElementDescriptionForDisplay(s) ? `<div class="muted" style="margin-top:4px">${esc(practiceElementDescriptionForDisplay(s))}</div>` : ""}
+            ${pdfPracticeElementNarrativesHtml(s)}
             ${tagsLine(s.tags)}
             ${contributes}
             ${required}
@@ -725,6 +808,7 @@ export function renderPdfHtml(args: {
                 activitySpaceId(s.name),
               )}"><code>${formatAliasedNameHtml(aliasLookup, "ActivitySpace", s.name, esc)}</code></a></div>
               ${ad ? `<div class="muted" style="margin-top:4px">${esc(ad)}</div>` : ""}
+              ${pdfPracticeElementNarrativesHtml(act)}
               ${tagsLine(act.tags)}
               ${actContributes}
             </div>`;
@@ -741,6 +825,7 @@ export function renderPdfHtml(args: {
               esc,
             )}</a></div>
             ${spd ? `<div class="muted" style="margin-top:4px">${esc(spd)}</div>` : ""}
+            ${pdfPracticeElementNarrativesHtml(s)}
             ${tagsLine(s.tags)}
             ${contributes}
             ${required}
@@ -758,6 +843,7 @@ export function renderPdfHtml(args: {
             ? `<div class="muted" style="margin-top:4px">${esc(practiceElementDescriptionForDisplay(g.focus))}</div>`
             : ""
         }
+        ${pdfPracticeElementNarrativesHtml(g.focus)}
         ${spaces}
       </div>`;
     })
@@ -784,6 +870,21 @@ export function renderPdfHtml(args: {
                     aliasLookup,
                   })
                 : "";
+            const pvBlocks =
+              Array.isArray(p.patternViews) && p.patternViews.length
+                ? [...p.patternViews]
+                    .sort((a: any, b: any) => (Number(a.seq) || 0) - (Number(b.seq) || 0))
+                    .map((pv: any) => {
+                      const pvD = practiceElementDescriptionForDisplay(pv);
+                      return `<section style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(2,6,23,0.12);break-inside:avoid"><div style="font-weight:800">${formatAliasedNameHtml(
+                        aliasLookup,
+                        "PatternView",
+                        pv.name,
+                        esc,
+                      )}</div>${pvD ? `<div class="muted" style="margin-top:4px;font-size:12px">${esc(pvD)}</div>` : ""}${pdfPracticeElementNarrativesHtml(pv)}</section>`;
+                    })
+                    .join("")
+                : "";
             return `<div class="card" id="${esc(patternId(p.name))}">
               <div style="font-weight:900"><a href="#${esc(patternId(p.name))}">${formatAliasedNameHtml(
                 aliasLookup,
@@ -792,8 +893,10 @@ export function renderPdfHtml(args: {
                 esc,
               )}</a></div>
               ${practiceElementDescriptionForDisplay(p) ? `<div class="muted" style="margin-top:4px">${esc(practiceElementDescriptionForDisplay(p))}</div>` : ""}
+              ${pdfPracticeElementNarrativesHtml(p)}
               ${tags}
               ${matrix}
+              ${pvBlocks}
             </div>`;
           })
           .join("")
@@ -829,7 +932,7 @@ export function renderPdfHtml(args: {
           const ld = practiceElementDescriptionForDisplay(lvl);
           return `<li><b>${formatAliasedNameHtml(aliasLookup, "CompetencyLevel", lvl.name, esc)} (Level ${esc(
             lvl.level,
-          )})</b>${ld ? `: <span class="muted">${esc(ld)}</span>` : ""}</li>`;
+          )})</b>${ld ? `: <span class="muted">${esc(ld)}</span>` : ""}${pdfPracticeElementNarrativesHtml(lvl)}</li>`;
         })
         .join("");
       const cd = practiceElementDescriptionForDisplay(c);
@@ -842,6 +945,7 @@ export function renderPdfHtml(args: {
           esc,
         )}</a></div>
         ${cd ? `<div class="muted" style="margin-top:4px">${esc(cd)}</div>` : ""}
+        ${pdfPracticeElementNarrativesHtml(c)}
         ${ctags}
         ${
           levels
@@ -890,12 +994,13 @@ export function renderPdfHtml(args: {
                         .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
                         .map((ch: any) => {
                           const chd = practiceElementDescriptionForDisplay(ch);
+                          const chNar = pdfPracticeElementNarrativesHtml(ch);
                           return `<li value="${seqInt(ch.seq)}"><b>${formatAliasedNameHtml(
                             aliasLookup,
                             "Checklist",
                             ch.name,
                             esc,
-                          )}</b>${chd ? `<span class="muted"> — ${esc(chd)}</span>` : ""}</li>`;
+                          )}</b>${chd ? `<span class="muted"> — ${esc(chd)}</span>` : ""}${chNar}</li>`;
                         })
                         .join("")}</ol></div>`
                     : "";
@@ -903,6 +1008,7 @@ export function renderPdfHtml(args: {
                 return `<li value="${seqInt(lod.seq)}" style="margin:8px 0;padding:8px;border:1px solid rgba(2,6,23,0.12);border-radius:8px;background:rgba(2,6,23,0.04)">
               <div style="font-weight:800">${formatAliasedNameHtml(aliasLookup, "LevelOfDetail", lod.name, esc)}</div>
               ${lodd ? `<div class="muted" style="margin-top:4px;font-size:12px">${esc(lodd)}</div>` : ""}
+              ${pdfPracticeElementNarrativesHtml(lod)}
               ${lodContrib}
               ${lodCl}
             </li>`;
@@ -913,6 +1019,7 @@ export function renderPdfHtml(args: {
         <div class="card" id="${esc(workProductId(wp.name))}">
           <div style="font-weight:900">${formatAliasedNameHtml(aliasLookup, "WorkProduct", wp.name, esc)}</div>
           ${wpd ? `<div class="muted" style="margin-top:4px">${esc(wpd)}</div>` : ""}
+          ${pdfPracticeElementNarrativesHtml(wp)}
           ${wtags}
           <div style="margin-top:8px;font-weight:900">${esc(t.levels)}</div>
           <ol style="margin:6px 0 0;padding-left:18px">${lods}</ol>
@@ -921,18 +1028,16 @@ export function renderPdfHtml(args: {
           .join("")
       : "";
 
-  const personasNarrativeHtmlParts: string[] = [];
-  const ntsPdf = baseline.narrativeTypes ?? [];
-  if (ntsPdf.length) {
-    personasNarrativeHtmlParts.push(
-      `<div class="section-title" id="browse-section-narrative-types">${esc(t.narrativeTypesHeading)}</div>` +
-        (ntsPdf as any[])
+  const narrativeTypesPdfHtml =
+    showNarrativeSpineCatalog && mergedNarrativeTypesPdf.length > 0
+      ? `<div class="section-title" id="browse-section-narrative-types">${esc(t.narrativeTypesHeading)}</div>` +
+        (mergedNarrativeTypesPdf as any[])
           .map((nt: any) => {
             const elems = Array.isArray(nt.narrativeElements)
               ? (nt.narrativeElements as any[])
                   .map(
                     (el: any) =>
-                      `<li style="margin:6px 0">${formatAliasedNameHtml(aliasLookup, "NarrativeElement", el.name, esc)}${el?.howToUse ? `<span class="muted"> — ${esc(String(el.howToUse))}</span>` : ""}</li>`,
+                      `<li style="margin:6px 0">${formatAliasedNameHtml(aliasLookup, "NarrativeElement", el.name, esc)}${el?.howToUse ? `<span class="muted"> — ${esc(String(el.howToUse))}</span>` : ""}${pdfPracticeElementNarrativesHtml(el)}</li>`,
                   )
                   .join("")
               : "";
@@ -940,12 +1045,14 @@ export function renderPdfHtml(args: {
             return `<div class="card" id="${esc(narrativeTypeIdPdf(nt.name))}">
             <div style="font-weight:900">${formatAliasedNameHtml(aliasLookup, "NarrativeType", nt.name, esc)}</div>
             ${ntd ? `<div class="muted" style="margin-top:4px">${esc(ntd)}</div>` : ""}
+            ${pdfPracticeElementNarrativesHtml(nt)}
             ${elems !== "" ? `<div style="margin-top:8px;font-weight:800">${esc(t.narrativeElementsHeading)}</div><ul style="margin:4px 0 0;padding-left:18px;font-size:12px">${elems}</ul>` : ""}
           </div>`;
           })
-          .join(""),
-    );
-  }
+          .join("")
+      : "";
+
+  const personasNarrativeHtmlParts: string[] = [];
   const psPdf = Array.isArray(sourceDoc?.personas) ? (sourceDoc!.personas as any[]) : [];
   if (psPdf.length) {
     personasNarrativeHtmlParts.push(
@@ -953,22 +1060,23 @@ export function renderPdfHtml(args: {
         psPdf
           .map((p: any) => {
             const pd = practiceElementDescriptionForDisplay(p);
-            const comps = Array.isArray(p.competencies)
-              ? p.competencies
-                  .map(
-                    (r: any) =>
-                      `<code>${formatAliasedNameHtml(aliasLookup, "Competency", r.competencyName, esc)}→${formatAliasedNameHtml(
-                        aliasLookup,
-                        "CompetencyLevel",
-                        r.competencyLevelName,
-                        esc,
-                      )}</code>`,
-                  )
-                  .join(", ")
-              : "";
+            const compRows = personaCompetencyDisplayRefs(p);
+            const comps =
+              compRows.length > 0
+                ? compRows
+                    .map((r) => {
+                      const cPart = formatAliasedNameHtml(aliasLookup, "Competency", r.competencyName, esc);
+                      if (!String(r.competencyName ?? "").trim()) return "";
+                      if (!r.competencyLevelName) return `<code>${cPart}</code>`;
+                      return `<code>${cPart}→${formatAliasedNameHtml(aliasLookup, "CompetencyLevel", r.competencyLevelName, esc)}</code>`;
+                    })
+                    .filter(Boolean)
+                    .join(", ")
+                : "";
             return `<div class="card" id="${esc(personaIdPdf(p.name))}">
             <div style="font-weight:900">${formatAliasedNameHtml(aliasLookup, "Persona", p.name, esc)}</div>
             ${pd ? `<div class="muted" style="margin-top:4px">${esc(pd)}</div>` : ""}
+            ${pdfPracticeElementNarrativesHtml(p)}
             ${comps ? `<div class="muted" style="margin-top:6px;font-size:12px"><b>${esc(t.recommendedCompetencyLevels)}:</b> ${comps}</div>` : ""}
           </div>`;
           })
@@ -990,6 +1098,7 @@ export function renderPdfHtml(args: {
             return `<div class="card" id="${esc(personaGroupIdPdf(pg.name))}">
             <div style="font-weight:900">${formatAliasedNameHtml(aliasLookup, "PersonaGroup", pg.name, esc)}</div>
             ${gd ? `<div class="muted" style="margin-top:4px">${esc(gd)}</div>` : ""}
+            ${pdfPracticeElementNarrativesHtml(pg)}
             ${members ? `<div class="muted" style="margin-top:6px;font-size:12px"><b>${esc(t.personaGroupMembers)}:</b> ${members}</div>` : ""}
           </div>`;
           })
@@ -1034,6 +1143,7 @@ export function renderPdfHtml(args: {
       <main>
         <h1 id="practice-readable-title">${formatAliasedNameHtml(aliasLookup, "PracticeBaseline", baseline.name, esc)}</h1>
         <div class="muted" style="margin-top:6px">${esc(baseline.description)}</div>
+        ${pdfMergedRootNarrativesHtml(baseline, sourceDoc ?? null)}
         <div class="muted" style="margin-top:8px;font-size:12px">Authors: ${esc(
           (baseline.authors ?? []).join(", "),
         )} • Version: ${esc(baseline.version ?? "")} • Updated: ${esc(baseline.updatedAt ?? "")}</div>
@@ -1051,6 +1161,7 @@ export function renderPdfHtml(args: {
             : ""
         }
         ${personasNarrativeHtml}
+        ${narrativeTypesPdfHtml}
       </main>
     </body>
   </html>`;

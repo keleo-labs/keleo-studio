@@ -22,6 +22,7 @@ import { PACKS } from "@/lib/languagePacksData";
 import type { LanguagePackId } from "@/lib/languagePackTypes";
 import { renderPdfHtml } from "@/lib/pdfHtml";
 import { relaxCardinalityInSchema } from "@/lib/schemaRelax";
+import { isStandaloneBaselinePracticeArtifact } from "@/lib/library/classify";
 import type { Method } from "@/lib/types";
 
 function isMethodCompositionPayload(v: unknown): v is Method {
@@ -50,6 +51,7 @@ export async function POST(req: Request) {
       /* keep original doc if store/read fails */
     }
   }
+  const showNarrativeSpineCatalog = isStandaloneBaselinePracticeArtifact(docObj);
   const themeId = ((body as any).themeId as ThemeId | undefined) ?? "light";
   const packId = ((body as any).packId as LanguagePackId | undefined) ?? "default";
   const rawComposition = (body as { methodComposition?: unknown }).methodComposition;
@@ -92,6 +94,7 @@ export async function POST(req: Request) {
     t,
     sourceDoc: docObj,
     methodComposition,
+    showNarrativeSpineCatalog,
   });
 
   const browser = await chromium.launch();

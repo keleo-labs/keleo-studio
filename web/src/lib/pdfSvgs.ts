@@ -6,7 +6,7 @@ import {
   computeAlphaContributorBelowLayout,
   contributeEdgePathD,
 } from "@/lib/alphaContributesDiagram";
-import { practiceElementDescriptionForDisplay } from "@/lib/ir";
+import { practiceElementDescriptionForDisplay, patternViewNarrativeContextProseTexts } from "@/lib/ir";
 import {
   buildPatternMatrixAlphaRows,
   buildPatternMatrixCells,
@@ -17,6 +17,7 @@ import {
   computeSwimlaneFocusHeadingLayoutAliased,
   diagramTextCharLimits,
   layoutDiagramAliasedNameRows,
+  PATTERN_VIEW_MATRIX_NARRATIVE_BULLET_GAP_PX,
   SWIMLANE_FOCUS_HEADING,
   wrapDiagramTextLines,
   type PatternMatrixLaneLabels,
@@ -217,6 +218,7 @@ function renderAliasedDiagramText(
   lookup: PracticeElementAliasLookup,
   nameKind?: string,
   descKind?: string,
+  narrativeContextBullets?: string[],
 ): string {
   const { nameMaxChars, descMaxChars } = diagramTextCharLimits(blockW, padX, chevron);
   const nameLineH = 18;
@@ -259,7 +261,27 @@ function renderAliasedDiagramText(
       return `<text x="${x}" y="${y}" fill="var(--muted)" font-size="10" font-style="italic" font-weight="500">${esc(row.text)}</text>`;
     })
     .join("");
-  return nameText + descText;
+  const bullets =
+    narrativeContextBullets?.map((s) => String(s ?? "").trim()).filter((s) => s !== "") ?? [];
+  if (bullets.length === 0) return nameText + descText;
+
+  const useBullets = bullets.length > 1;
+  const narrativeWrapMaxChars = Math.max(
+    4,
+    useBullets ? descMaxChars - 2 : descMaxChars,
+  );
+  let yBullet = descY + descRows.length * descLineH + PATTERN_VIEW_MATRIX_NARRATIVE_BULLET_GAP_PX;
+  const bulletFragments: string[] = [];
+  for (const body of bullets) {
+    const wrapped = wrapDiagramTextLines(body, narrativeWrapMaxChars);
+    wrapped.forEach((ln, wi) => {
+      const prefix = useBullets && wi === 0 ? "• " : useBullets ? "  " : "";
+      const txt = `${prefix}${ln}`;
+      bulletFragments.push(`<text x="${x}" y="${yBullet}" fill="var(--muted)" font-size="12">${esc(txt)}</text>`);
+      yBullet += descLineH;
+    });
+  }
+  return nameText + descText + bulletFragments.join("");
 }
 
 export function svgFocusAlphas(args: {
@@ -822,6 +844,8 @@ export function svgPatternMatrix(args: {
         false,
         lookup,
         "PatternView",
+        undefined,
+        patternViewNarrativeContextProseTexts(pv),
       )}</g>`;
     })
     .join("");

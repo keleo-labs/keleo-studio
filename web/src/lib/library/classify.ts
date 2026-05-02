@@ -11,13 +11,51 @@ export function storageKindForBody(body: unknown): JsonDocumentKind {
   return "upload";
 }
 
+function hasNonemptyPracticeDependencies(o: Record<string, unknown>): boolean {
+  const raw = o.practiceDependencyNames;
+  if (!Array.isArray(raw)) return false;
+  return raw.some((x) => typeof x === "string" && String(x).trim() !== "");
+}
+
+/**
+ * Kernel-shaped aggregates (both `alphas` and `focuses` populated) classify as `{@link LibraryRootKind} "baselinePractice"`
+ * when they do not compose named dependency practices (`practiceDependencyNames`), even if `baselinePracticeName` leaked
+ * from tooling interchange. Compose shells (thin extensions) list deps and/or omit one of those arrays → `"practice"`.
+ */
 export function classifyLibraryRoot(body: unknown): LibraryRootKind {
   if (!body || typeof body !== "object") return "unknown";
   const o = body as Record<string, unknown>;
   if (o.baselinePractice && typeof o.baselinePractice === "object") return "method";
+
+  const alphaList = Array.isArray(o.alphas) ? o.alphas : [];
+  const focusList = Array.isArray(o.focuses) ? o.focuses : [];
+  const hasKernelSlices = alphaList.length > 0 && focusList.length > 0;
+
+  if (hasKernelSlices && !hasNonemptyPracticeDependencies(o)) {
+    return "baselinePractice";
+  }
+
   if (typeof o.baselinePracticeName === "string" && String(o.baselinePracticeName).trim()) return "practice";
   if (Array.isArray(o.alphas) && Array.isArray(o.focuses)) return "baselinePractice";
   return "unknown";
+}
+
+/**
+ * True for a persisted baseline kernel document (standalone PracticeBaseline artifact).
+ * Extension practices, methods, and merged composites classify as baseline-shaped for rendering but must not show
+ * the narrative spine catalog: merged docs set {@link mergesBaselinePracticeName}; extension practices set
+ * `baselinePracticeName`.
+ */
+export function isStandaloneBaselinePracticeArtifact(body: unknown): boolean {
+  if (!body || typeof body !== "object") return false;
+  const o = body as Record<string, unknown>;
+  if (o.baselinePractice && typeof o.baselinePractice === "object") return false;
+  const merges =
+    typeof o.mergesBaselinePracticeName === "string" ? String(o.mergesBaselinePracticeName).trim() : "";
+  if (merges) return false;
+  const alphaList = Array.isArray(o.alphas) ? o.alphas : [];
+  const focusList = Array.isArray(o.focuses) ? o.focuses : [];
+  return alphaList.length > 0 && focusList.length > 0 && !hasNonemptyPracticeDependencies(o);
 }
 
 /**

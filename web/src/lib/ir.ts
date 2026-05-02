@@ -1,16 +1,11 @@
 import type {
   Method,
+  Narrative,
   NarrativeType,
-  Pattern,
-  Persona,
-  PersonaGroup,
   PracticeActivity,
   PracticeBaseline,
   PracticeElement,
-  PracticeElementAlias,
-  ReadablePracticePreviewDoc,
   RefIssue,
-  WorkProduct,
 } from "@/lib/types";
 import {
   isSynthesizedPracticeElementTags,
@@ -32,8 +27,11 @@ export function asBaselineDocument(doc: any): PracticeBaseline | null {
     return (doc as Method).baselinePractice;
   }
   if (typeof doc.baselinePracticeName === "string") {
+    const bn = String(doc.baselinePracticeName).trim();
+    if (!bn) return null;
     return {
-      name: doc.name,
+      /** Named baseline artifact, not the extension practice title (`doc.name`). */
+      name: bn,
       description: doc.description,
       ...(doc.tags !== undefined ? { tags: doc.tags } : {}),
       focuses: Array.isArray(doc.focuses) ? doc.focuses : [],
@@ -54,35 +52,6 @@ export function asBaselineDocument(doc: any): PracticeBaseline | null {
     return doc as PracticeBaseline;
   }
   return null;
-}
-
-/** Overlay practice-root arrays onto an enriched baseline for alternate readable previews. */
-export function readablePracticePreviewFromEnriched(
-  doc: unknown,
-  enrichedBaseline: PracticeBaseline,
-): ReadablePracticePreviewDoc {
-  if (!doc || typeof doc !== "object") return enrichedBaseline as ReadablePracticePreviewDoc;
-  const d = doc as Record<string, unknown>;
-  return {
-    ...enrichedBaseline,
-    ...(Array.isArray(d.patterns) ? { patterns: d.patterns as Pattern[] } : {}),
-    ...(Array.isArray(d.activities) ? { activities: d.activities as PracticeActivity[] } : {}),
-    ...(Array.isArray(d.workProducts) ? { workProducts: d.workProducts as WorkProduct[] } : {}),
-    ...(Array.isArray(d.personas) ? { personas: d.personas as Persona[] } : {}),
-    ...(Array.isArray(d.personaGroups) ? { personaGroups: d.personaGroups as PersonaGroup[] } : {}),
-    ...(Array.isArray(d.narrativeTypes) ? { narrativeTypes: d.narrativeTypes as NarrativeType[] } : {}),
-    ...(Array.isArray(d.practiceElementAliases)
-      ? { practiceElementAliases: d.practiceElementAliases as PracticeElementAlias[] }
-      : {}),
-  };
-}
-
-/** Same enrichment pipeline as readable panels; returns null when the document has no baseline slice. */
-export function buildReadablePracticePreviewDoc(doc: unknown): ReadablePracticePreviewDoc | null {
-  const baseline = asBaselineDocument(doc);
-  if (!baseline) return null;
-  const enriched = enrichBaselineWithReferencedWrappers(doc, baselineWithPracticeActivities(doc, baseline));
-  return readablePracticePreviewFromEnriched(doc, enriched);
 }
 
 /**
@@ -108,6 +77,15 @@ export const IMPLICIT_FOCUS_NAME = "Implicit focus";
 /** Case-folded key so `activitySpaceName` matches `ActivitySpace.name` even when casing differs. */
 export function activitySpaceIdentityKey(name: unknown): string {
   return String(name ?? "").trim().toLowerCase();
+}
+
+/**
+ * Trimmed practice element `name` for merges and lookups. Baseline/extension JSON that differs only by surrounding
+ * whitespace maps to one row so kernel description reapplication and UI indexing stay aligned.
+ */
+export function canonicalPracticeElementName(raw: unknown): string | null {
+  const k = String(raw ?? "").trim();
+  return k || null;
 }
 
 /**
@@ -210,127 +188,63 @@ export function practiceElementDescriptionForDisplay(
   return "";
 }
 
+/** Symbolic spine element reference on `NarrativeContext` (language.schema.json). */
+export function narrativeContextElementName(contextRow: unknown): string {
+  if (!contextRow || typeof contextRow !== "object") return "";
+  const nm = (contextRow as { narrativeElementName?: unknown }).narrativeElementName;
+  return typeof nm === "string" ? nm.trim() : "";
+}
+
+/**
+ * Visible prose for one `narrativeContexts` row. Canonical field is {@link NarrativeContext.context};
+ * interchange may omit it and use `narrativeContext`, `description`, `body`, or `text`.
+ */
+export function narrativeContextRowDisplayText(contextRow: unknown): string {
+  if (contextRow == null) return "";
+  if (typeof contextRow === "string" || typeof contextRow === "number" || typeof contextRow === "boolean") {
+    return String(contextRow).trim();
+  }
+  if (typeof contextRow !== "object") return "";
+  const o = contextRow as Record<string, unknown>;
+  // Canonical: `context` (language.schema.json). Interchange includes `content` (e.g. kernel authoring prompts), plus other prose keys.
+  for (const k of ["context", "content", "narrativeContext", "body", "text", "description"] as const) {
+    const v = o[k];
+    if (typeof v === "string" && v.trim()) return v.trim();
+  }
+  return "";
+}
+
+/** One bullet line for reports — use context prose only; do not emit narrativeElementName as the bullet body. */
+export function narrativeContextBulletLine(contextRow: unknown): string | null {
+  if (contextRow == null) return null;
+  const body = narrativeContextRowDisplayText(contextRow);
+  return body.trim() !== "" ? body : null;
+}
+
+/**
+ * Context prose strings for `PatternView.narrativeContexts`, ordered by `seq` ascending.
+ * Each entry uses {@link narrativeContextRowDisplayText} (no symbolic element names).
+ */
+export function patternViewNarrativeContextProseTexts(pv: unknown): string[] {
+  if (!pv || typeof pv !== "object") return [];
+  const raw = (pv as Record<string, unknown>).narrativeContexts;
+  if (!Array.isArray(raw) || raw.length === 0) return [];
+  const rows = [...raw].sort(
+    (a, b) =>
+      (Number((a as { seq?: unknown }).seq ?? 0) || 0) -
+      (Number((b as { seq?: unknown }).seq ?? 0) || 0),
+  );
+  const out: string[] = [];
+  for (const c of rows) {
+    const t = narrativeContextRowDisplayText(c);
+    if (t.trim()) out.push(t.trim());
+  }
+  return out;
+}
+
 /** True when this object is a legacy flat Activity row (Practice.activities or mixed into activitySpaces). */
 export function isPracticeActivityNode(s: any): boolean {
   return s && typeof s.activitySpaceName === "string" && String(s.activitySpaceName).trim() !== "";
-}
-
-export type DeliveryViewActivitySpaceSection = {
-  key: string;
-  /** Activity-space metadata when defined on the baseline; synthetic stub when only activities reference the space. */
-  space: PracticeBaseline["activitySpaces"][number];
-  activities: PracticeActivity[];
-};
-
-const DELIVERY_VIEW_UNSCOPED_BUCKET = "__delivery_unscoped__";
-
-/**
- * Builds ordered sections for the practitioner delivery view: each ActivitySpace-shaped row frames its bucket;
- * nested `activities`, practice-level `activities`, and legacy activity-shaped rows are merged by space name.
- * Spaces referenced only from activities appear after known rows; activities without `activitySpaceName` appear last.
- */
-export function buildDeliveryViewActivitySections(doc: ReadablePracticePreviewDoc): DeliveryViewActivitySpaceSection[] {
-  type SpaceRow = PracticeBaseline["activitySpaces"][number];
-  type Bucket = { meta: SpaceRow | null; acts: Map<string, PracticeActivity> };
-  const buckets = new Map<string, Bucket>();
-  const sk = activitySpaceIdentityKey;
-
-  const ensureBucket = (spaceName: string): Bucket => {
-    const key = sk(spaceName);
-    if (!buckets.has(key)) buckets.set(key, { meta: null, acts: new Map() });
-    return buckets.get(key)!;
-  };
-
-  const putAct = (spaceName: string | undefined, raw: PracticeActivity) => {
-    const an = String(raw?.name ?? "").trim();
-    if (!an) return;
-    const sn = String(spaceName ?? "").trim();
-    if (!sn) {
-      let b = buckets.get(DELIVERY_VIEW_UNSCOPED_BUCKET);
-      if (!b) {
-        b = { meta: null, acts: new Map() };
-        buckets.set(DELIVERY_VIEW_UNSCOPED_BUCKET, b);
-      }
-      if (!b.acts.has(sk(an))) b.acts.set(sk(an), raw);
-      return;
-    }
-    const b = ensureBucket(sn);
-    const merged = {
-      ...raw,
-      activitySpaceName: String(raw.activitySpaceName ?? "").trim() || sn,
-    } as PracticeActivity;
-    if (!b.acts.has(sk(an))) b.acts.set(sk(an), merged);
-  };
-
-  for (const row of doc.activitySpaces ?? []) {
-    if (!row || typeof row !== "object") continue;
-    if (isPracticeActivityNode(row)) continue;
-    const space = row as SpaceRow;
-    const n = String(space.name ?? "").trim();
-    if (!n) continue;
-    const b = ensureBucket(n);
-    b.meta = space;
-    for (const raw of space.activities ?? []) putAct(n, raw as PracticeActivity);
-  }
-
-  for (const row of doc.activitySpaces ?? []) {
-    if (!row || typeof row !== "object") continue;
-    if (!isPracticeActivityNode(row)) continue;
-    putAct(String((row as PracticeActivity).activitySpaceName ?? "").trim(), row as PracticeActivity);
-  }
-
-  for (const act of doc.activities ?? []) putAct(String(act.activitySpaceName ?? "").trim(), act);
-
-  const sections: DeliveryViewActivitySpaceSection[] = [];
-  let i = 0;
-  const emittedBucketKeys = new Set<string>();
-
-  for (const row of doc.activitySpaces ?? []) {
-    if (!row || typeof row !== "object") continue;
-    if (isPracticeActivityNode(row)) continue;
-    const space = row as SpaceRow;
-    const n = String(space.name ?? "").trim();
-    if (!n) continue;
-    emittedBucketKeys.add(sk(n));
-    const b = ensureBucket(n);
-    const activities = [...b.acts.values()].sort((a, x) => String(a.name).localeCompare(String(x.name)));
-    sections.push({ key: `space-${i++}`, space: b.meta ?? space, activities });
-  }
-
-  for (const [bk, b] of buckets) {
-    if (bk === DELIVERY_VIEW_UNSCOPED_BUCKET) continue;
-    if (emittedBucketKeys.has(bk)) continue;
-    if (b.acts.size === 0) continue;
-    const first = [...b.acts.values()][0];
-    const recoveredName = String(b.meta?.name ?? first?.activitySpaceName ?? "").trim();
-    const stub = (b.meta ??
-      ({
-        name: recoveredName,
-        description: "",
-        focusName: "",
-        contributesTo: [],
-        requiredCompetencies: [],
-      } as SpaceRow)) as SpaceRow;
-    const activities = [...b.acts.values()].sort((a, x) => String(a.name).localeCompare(String(x.name)));
-    sections.push({ key: `orphan-${i++}`, space: stub, activities });
-  }
-
-  const ub = buckets.get(DELIVERY_VIEW_UNSCOPED_BUCKET);
-  if (ub && ub.acts.size > 0) {
-    sections.push({
-      key: `unscoped-${i++}`,
-      space: {
-        name: "",
-        description: "",
-        focusName: "",
-        contributesTo: [],
-        requiredCompetencies: [],
-      } as SpaceRow,
-      activities: [...ub.acts.values()].sort((a, x) => String(a.name).localeCompare(String(x.name))),
-    });
-  }
-
-  return sections;
 }
 
 function buildAlphaByNameForFocus(doc: { alphas?: any[] }): Map<string, any> {
@@ -502,28 +416,38 @@ export function canonicalizeActivitySpaces(mixed: any[], flatActivities: any[] =
     } else {
       const slot = byKey.get(key)!;
       const preservedName = String(slot.space?.name ?? "").trim();
+      const prevDesc = String(slot.space?.description ?? "");
       slot.space = { ...slot.space, ...deepClone(rest) };
       if (preservedName) slot.space.name = preservedName;
+      /** Matches composite merge semantics: baseline (first-seen row) prose wins over later rows. */
+      slot.space.description = prevDesc;
     }
     const slot = byKey.get(key)!;
     const canonSpaceName = String(slot.space.name ?? "").trim();
     for (const a of nested) {
-      if (a?.name) {
-        const ac = deepClone(a);
-        if (canonSpaceName) ac.activitySpaceName = canonSpaceName;
-        slot.activities.set(String(a.name), ac);
-      }
+      const actKey = canonicalPracticeElementName(a?.name);
+      if (!actKey) continue;
+      const ac = deepClone(a);
+      if (typeof ac.name === "string") ac.name = actKey;
+      if (canonSpaceName) ac.activitySpaceName = canonSpaceName;
+      const existing = slot.activities.get(actKey);
+      if (existing) slot.activities.set(actKey, { ...ac, description: existing.description });
+      else slot.activities.set(actKey, ac);
     }
   }
 
   const attach = (act: any) => {
     const parent = String(act?.activitySpaceName ?? "").trim();
-    if (!parent || !act?.name) return;
+    const actKey = canonicalPracticeElementName(act?.name);
+    if (!parent || !actKey) return;
     const slot = ensureSlot(parent, act);
     const canonName = String(slot.space.name ?? "").trim() || parent;
     const actClone = deepClone(act);
+    if (typeof actClone.name === "string") actClone.name = actKey;
     actClone.activitySpaceName = canonName;
-    slot.activities.set(String(act.name), actClone);
+    const existing = slot.activities.get(actKey);
+    if (!existing) slot.activities.set(actKey, actClone);
+    else slot.activities.set(actKey, { ...actClone, description: existing.description });
   };
 
   for (const item of mixed ?? []) {
@@ -770,11 +694,14 @@ export function enrichBaselineWithReferencedWrappers(doc: unknown, baseline: Pra
   const alphaByName = new Map<string, PracticeBaseline["alphas"][number]>();
   const alphaOrder: string[] = [];
   for (const a of baseline.alphas ?? []) {
-    alphaByName.set(a.name, {
+    const nk = canonicalPracticeElementName(a.name);
+    if (!nk) continue;
+    alphaByName.set(nk, {
       ...a,
+      name: nk,
       states: (a.states ?? []).map((st) => ({ ...st, checklist: [...(st.checklist ?? [])] })),
     });
-    alphaOrder.push(a.name);
+    alphaOrder.push(nk);
   }
 
   for (const target of rollupAlphaTargets) {
@@ -905,6 +832,53 @@ export function collectPersonaGroupNamesFromPracticeDoc(doc: unknown): Set<strin
   }
 
   return out;
+}
+
+/** Display rows for Persona → competency linkage (canonical `competencies`; interchange: string names; optional `recommendedCompetencyLevels` like Activities). */
+export type PersonaCompetencyDisplayRef = {
+  competencyName: string;
+  competencyLevelName: string | null;
+};
+
+export function personaCompetencyDisplayRefs(persona: unknown): PersonaCompetencyDisplayRef[] {
+  if (!persona || typeof persona !== "object") return [];
+  const o = persona as Record<string, unknown>;
+  const rows: PersonaCompetencyDisplayRef[] = [];
+  const push = (competencyName: string, levelName: string | null) => {
+    const cn = String(competencyName ?? "").trim();
+    const ln = levelName != null && String(levelName).trim() !== "" ? String(levelName).trim() : null;
+    if (!cn && !ln) return;
+    rows.push({ competencyName: cn, competencyLevelName: ln });
+  };
+  const scan = (list: unknown) => {
+    if (!Array.isArray(list)) return;
+    for (const item of list) {
+      if (typeof item === "string") {
+        const s = item.trim();
+        if (s) push(s, null);
+        continue;
+      }
+      if (item && typeof item === "object") {
+        const r = item as Record<string, unknown>;
+        const cn = String(r.competencyName ?? "").trim();
+        const lnRaw = r.competencyLevelName != null ? String(r.competencyLevelName).trim() : "";
+        if (cn) push(cn, lnRaw || null);
+      }
+    }
+  };
+  scan(o.competencies);
+  scan(o.recommendedCompetencyLevels);
+  return rows;
+}
+
+/** `Competency.name` strings referenced by a persona (documentation closure / pruning). */
+export function personaReferencedCompetencyNames(persona: unknown): string[] {
+  const s = new Set<string>();
+  for (const r of personaCompetencyDisplayRefs(persona)) {
+    const n = String(r.competencyName ?? "").trim();
+    if (n) s.add(n);
+  }
+  return [...s];
 }
 
 export function buildIndexes(
@@ -1075,3 +1049,107 @@ export function groupByFocus(baseline: PracticeBaseline) {
   return list;
 }
 
+/** Locations of {@link PracticeElement.narratives} trees for readable / PDF summaries. */
+export type EmbeddedNarrativeSite = {
+  /** Display path such as “Alpha / Adoption / State / Planned”. */
+  elementPath: string;
+  narratives: Narrative[];
+};
+
+function pushEmbeddedNarrativeSite(el: unknown, elementPath: string, out: EmbeddedNarrativeSite[]) {
+  if (!el || typeof el !== "object") return;
+  const raw = (el as Record<string, unknown>).narratives;
+  if (!Array.isArray(raw) || raw.length === 0) return;
+  out.push({ elementPath, narratives: raw as Narrative[] });
+}
+
+/**
+ * Collects {@link Narrative} subtrees embedded on baseline and practice-overlay elements so they can render
+ * in a consolidated report section. Uses only structural checks — missing optional fields are fine.
+ */
+export function collectEmbeddedNarrativesForReadableReport(
+  baseline: PracticeBaseline,
+  sourceDoc: Record<string, unknown> | null | undefined,
+  /** Merged spine types may include overlays not yet on {@link baseline}. */
+  mergedNarrativeTypes?: NarrativeType[] | null,
+): EmbeddedNarrativeSite[] {
+  const out: EmbeddedNarrativeSite[] = [];
+
+  for (const f of baseline.focuses ?? []) pushEmbeddedNarrativeSite(f, `Focus / ${String(f?.name ?? "—")}`, out);
+
+  for (const a of baseline.alphas ?? []) {
+    pushEmbeddedNarrativeSite(a, `Alpha / ${String(a?.name ?? "—")}`, out);
+    for (const st of a.states ?? []) {
+      pushEmbeddedNarrativeSite(st, `Alpha / ${String(a?.name ?? "—")} / State / ${String(st?.name ?? "—")}`, out);
+      for (const ch of st.checklist ?? []) {
+        pushEmbeddedNarrativeSite(ch, `Alpha / ${String(a?.name ?? "—")} / State / ${String(st?.name ?? "—")} / Checklist / ${String(ch?.name ?? "—")}`, out);
+      }
+    }
+  }
+
+  for (const s of baseline.activitySpaces ?? []) {
+    if (isPracticeActivityNode(s)) {
+      pushEmbeddedNarrativeSite(s, `Activity / ${String((s as { name?: unknown }).name ?? "—")}`, out);
+      continue;
+    }
+    const sn = String((s as { name?: unknown }).name ?? "—");
+    pushEmbeddedNarrativeSite(s, `Activity space / ${sn}`, out);
+    for (const act of (s as { activities?: PracticeActivity[] }).activities ?? []) {
+      pushEmbeddedNarrativeSite(act, `Activity space / ${sn} / Activity / ${String(act?.name ?? "—")}`, out);
+    }
+  }
+
+  for (const c of baseline.competencies ?? []) {
+    pushEmbeddedNarrativeSite(c, `Competency / ${String(c?.name ?? "—")}`, out);
+    for (const lvl of c.levels ?? []) {
+      pushEmbeddedNarrativeSite(lvl, `Competency / ${String(c?.name ?? "—")} / Level / ${String(lvl?.name ?? "—")}`, out);
+    }
+  }
+
+  const spineTypes =
+    mergedNarrativeTypes && mergedNarrativeTypes.length ? mergedNarrativeTypes : (baseline.narrativeTypes ?? []);
+  for (const nt of spineTypes ?? []) {
+    pushEmbeddedNarrativeSite(nt, `Narrative type / ${String(nt?.name ?? "—")}`, out);
+    for (const gel of nt.narrativeElements ?? []) {
+      pushEmbeddedNarrativeSite(gel, `Narrative type / ${String(nt?.name ?? "—")} / Element / ${String(gel?.name ?? "—")}`, out);
+    }
+  }
+
+  if (!sourceDoc || typeof sourceDoc !== "object") return out;
+
+  for (const p of (sourceDoc.patterns as any[]) ?? []) {
+    pushEmbeddedNarrativeSite(p, `Pattern / ${String(p?.name ?? "—")}`, out);
+    for (const pv of p.patternViews ?? []) {
+      pushEmbeddedNarrativeSite(pv, `Pattern / ${String(p?.name ?? "—")} / Pattern view / ${String(pv?.name ?? "—")}`, out);
+    }
+  }
+
+  for (const act of (sourceDoc.activities as any[]) ?? []) {
+    pushEmbeddedNarrativeSite(act, `Activity / ${String(act?.name ?? "—")}`, out);
+  }
+
+  for (const wp of (sourceDoc.workProducts as any[]) ?? []) {
+    pushEmbeddedNarrativeSite(wp, `Work product / ${String(wp?.name ?? "—")}`, out);
+    for (const lod of wp.levelsOfDetail ?? []) {
+      pushEmbeddedNarrativeSite(lod, `Work product / ${String(wp?.name ?? "—")} / Level of detail / ${String(lod?.name ?? "—")}`, out);
+      for (const ch of lod.checklist ?? []) {
+        pushEmbeddedNarrativeSite(
+          ch,
+          `Work product / ${String(wp?.name ?? "—")} / Level of detail / ${String(lod?.name ?? "—")} / Checklist / ${String(ch?.name ?? "—")}`,
+          out,
+        );
+      }
+    }
+  }
+
+  for (const per of (sourceDoc.personas as any[]) ?? []) {
+    pushEmbeddedNarrativeSite(per, `Persona / ${String(per?.name ?? "—")}`, out);
+  }
+  for (const pg of (sourceDoc.personaGroups as any[]) ?? []) {
+    pushEmbeddedNarrativeSite(pg, `Persona group / ${String(pg?.name ?? "—")}`, out);
+  }
+
+  pushEmbeddedNarrativeSite(sourceDoc, `Practice`, out);
+
+  return out;
+}

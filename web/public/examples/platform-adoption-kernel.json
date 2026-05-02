@@ -1222,6 +1222,58 @@
       ]
     },
     {
+      "name": "User story",
+      "description": "A brief, informal explanation of a software feature written from the perspective of the end user.",
+      "narrativeElements": [
+        {
+          "name": "As a [role]",
+          "description": "This identifies the specific persona or role interacting with the feature. It avoids the generic term **the user** to provide context on their technical ability, permissions, and needs.",
+          "howToUse": "Use this to define constraints. Instead of saying \"user,\" say \"First-time Visitor\" or \"System Administrator.\" This helps the developers understand if the UI should be \"idiot-proof\" or \"power-user focused.\""
+        },
+        {
+          "name": "I wan to [perform some action]",
+          "description": "This is the intent or the feature itself. It describes the action the user wants to take within the software.",
+          "howToUse": "Keep this focused on the **what,** not the **how.** Avoid mentioning specific UI elements like **click a red button.** Focus on the functional capability you are giving them."
+        },
+        {
+          "name": "So that [I can achieve some goal]",
+          "description": "This is the purpose. It explains the underlying problem the user is trying to solve or the value they hope to gain.",
+          "howToUse": "Use this to justify the work. If you can’t find a compelling **So that** statement, the feature might not be worth building. It also helps developers suggest better technical solutions if they understand the ultimate goal."
+        }
+      ]
+    },
+    {
+      "name": "Epic",
+      "description": "A well-structured Epic provides a \"north star\" for the team, ensuring everyone knows why a large project exists and what success looks like.",
+      "narrativeElements": [
+        {
+          "name": "Summary",
+          "description": "A clear, punchy title and a one-sentence elevator pitch that describes the high-level initiative.",
+          "howToUse": "Treat this as the project's identity. Use it in stakeholder meetings and roadmap views to provide an instant understanding of what is being built without getting bogged down in details."
+        },
+        {
+          "name": "Strategic Intent",
+          "description": "This section explains how this Epic aligns with the company's broader business goals or quarterly objectives (OKRs).",
+          "howToUse": "Use this to justify the budget and resource allocation. If you can't link the Epic back to a specific business value (e.g., \"Increasing retention by 10%\"), it shouldn't be an Epic."
+        },
+        {
+          "name": "User Personas",
+          "description": "A list of the primary and secondary users who will be impacted by this large-scale change.",
+          "howToUse": "Use this to keep the scope focused. When brainstorming features, ask: \"Does this specific feature serve the personas listed in the Epic?\" If not, it belongs in a different Epic."
+        },
+        {
+          "name": "High-Level Requirements",
+          "description": "These are not detailed stories yet, but rather the broad capabilities the system must have once the Epic is finished.",
+          "howToUse": "Use these as \"themes\" to help you brainstorm the individual User Stories later. They serve as the framework for your backlog."
+        },
+        {
+          "name": "Success Metrics",
+          "description": "The quantitative data points that will prove the Epic was a success after it is released.",
+          "howToUse": "Use this to define the \"Definition of Done\" for the entire project. Instead of saying \"when the code is finished,\" use \"when the checkout conversion rate hits 5%.\""
+        }
+      ]
+    },
+    {
       "name": "Lifecycle",
       "description": "A standard lifecycle orchestration framework to map progression phases.",
       "narrativeElements": [
