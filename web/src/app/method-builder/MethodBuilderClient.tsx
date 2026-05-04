@@ -8,6 +8,7 @@ import type { LibraryRootKind } from "@/lib/library/classify";
 import { rootKindExtension } from "@/lib/library/classify";
 import {
   baselineForMethodFromLibraryBody,
+  methodBaselineBundleFromLibraryBody,
   methodFromLibraryBody,
   practiceForMethodFromLibraryBody,
   practiceWithBaselineName,
@@ -374,6 +375,18 @@ export function MethodBuilderClient() {
       setComposeError("Could not load that library document.");
       return;
     }
+    const fromMethod = methodBaselineBundleFromLibraryBody(body);
+    if (fromMethod) {
+      const { baseline, practices } = fromMethod;
+      setBaselineSlot({ libraryId: payload.id, baseline });
+      setPracticeSlots(
+        practices.map((p, i) => ({
+          libraryId: `embedded:${i}:${encodeURIComponent(String(p.name ?? ""))}`,
+          practice: practiceWithBaselineName(clonePractice(p), baseline.name),
+        })),
+      );
+      return;
+    }
     const baseline = baselineForMethodFromLibraryBody(body);
     if (!baseline) {
       setComposeError(
@@ -549,7 +562,9 @@ export function MethodBuilderClient() {
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted)]">
           Drag a <strong className="text-[var(--text)]">baseline</strong> from the library into the baseline slot, then
           drag <strong className="text-[var(--text)]">extension practices</strong> into the method. Enter the
-          method&apos;s name and description, then save. Extension practices are linked to the method baseline by name
+          method&apos;s name and description, then save. Dropping a <strong className="text-[var(--text)]">method</strong>{" "}
+          loads its embedded baseline and all of that method&apos;s extension practices; dropping a standalone baseline
+          keeps or re-links practices you already added. Extension practices are linked to the method baseline by name
           automatically. Open a method from the library to edit its current version here.
         </p>
 

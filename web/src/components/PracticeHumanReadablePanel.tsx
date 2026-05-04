@@ -181,7 +181,7 @@ function IrBrowseChecklistSchemaBlock({
   );
 }
 
-/** True when checklist row has tags or checklist schema fields worth showing behind a click. */
+/** True when checklist row has tags or checklist schema fields shown in the block below the headline. */
 function browseChecklistHasExpandableFields(ch: unknown): boolean {
   if (normalizePracticeElementTags((ch as { tags?: unknown })?.tags)) return true;
   const c = ch as Record<string, unknown>;
@@ -191,7 +191,7 @@ function browseChecklistHasExpandableFields(ch: unknown): boolean {
   return false;
 }
 
-/** Browse IR: checklist items as bullets; name bold + description visible; tags & schema in `<details>`. */
+/** Browse IR: checklist items as bullets; name bold + description visible; tags & schema expanded below */
 function IrBrowseChecklistBullets({
   checklist,
   t,
@@ -221,23 +221,14 @@ function IrBrowseChecklistBullets({
         );
         return (
           <li key={`${itemKeyPrefix}-${chIdx}-${slug(String(ch.name ?? ""))}`}>
+            <div className="leading-snug">{headline}</div>
             {expandable ? (
-              <details className="rounded-sm">
-                <summary className="cursor-pointer list-none leading-snug [&::-webkit-details-marker]:hidden">
-                  {headline}
-                </summary>
-                <div className="mt-2 space-y-2 border-l-2 border-[var(--border)]/70 pl-2.5">
-                  <EmbeddedNarrativesUnderDescription narratives={ch.narratives} browse />
-                  <IrBrowseTagsBlock tags={ch.tags} t={t} className="mt-0" />
-                  <IrBrowseChecklistSchemaBlock ch={ch} t={t} workProductId={workProductId} />
-                </div>
-              </details>
-            ) : (
-              <div>
-                <div className="leading-snug">{headline}</div>
+              <div className="mt-2 space-y-2 border-l-2 border-[var(--border)]/70 pl-2.5">
                 <EmbeddedNarrativesUnderDescription narratives={ch.narratives} browse />
+                <IrBrowseTagsBlock tags={ch.tags} t={t} className="mt-0" />
+                <IrBrowseChecklistSchemaBlock ch={ch} t={t} workProductId={workProductId} />
               </div>
-            )}
+            ) : null}
           </li>
         );
       })}
@@ -262,11 +253,11 @@ function IrBrowsePatternViewsSection({
   if (!views.length) return null;
   views.sort((a: any, b: any) => (Number(a.seq) || 0) - (Number(b.seq) || 0));
   return (
-    <details className="mt-4 rounded-lg border border-[var(--border)]/80 bg-[var(--panel)]/40 px-3 py-2">
-      <summary className="cursor-pointer select-none text-sm font-semibold text-[var(--muted)] [&::-webkit-details-marker]:hidden">
+    <div className="mt-4 rounded-lg border border-[var(--border)]/80 bg-[var(--panel)]/40 px-3 py-2">
+      <div className="text-sm font-semibold text-[var(--muted)]">
         {t.patternViewsHeading}
         <span className="ml-1.5 font-normal tabular-nums">({views.length})</span>
-      </summary>
+      </div>
       <ul className="mt-3 list-none space-y-4 border-t border-[var(--border)]/60 pt-3 pl-0">
         {views.map((pv: any) => (
           <li key={String(pv.name)}>
@@ -378,7 +369,7 @@ function IrBrowsePatternViewsSection({
           </li>
         ))}
       </ul>
-    </details>
+    </div>
   );
 }
 
@@ -601,6 +592,7 @@ function MethodComposingPracticesBrowse({ method, t }: { method: Method; t: Lang
           {String(baseline.description ?? "").trim() ? (
             <p className="mt-1 text-sm leading-relaxed text-[var(--muted)]">{baseline.description}</p>
           ) : null}
+          <EmbeddedNarrativesUnderDescription narratives={baseline.narratives} browse />
         </li>
         {extensions.map((p, idx) => (
           <li key={`meth-practice-${idx}-${p.name ?? ""}`} className="pl-2">
@@ -610,6 +602,7 @@ function MethodComposingPracticesBrowse({ method, t }: { method: Method; t: Lang
             {p.description?.trim?.() ? (
               <p className="mt-1 text-sm leading-relaxed text-[var(--muted)]">{p.description}</p>
             ) : null}
+            <EmbeddedNarrativesUnderDescription narratives={p.narratives} browse />
             {typeof p.baselinePracticeName === "string" && p.baselinePracticeName.trim() !== "" ? (
               <p className="mt-2 text-xs text-[var(--muted)]">
                 <span className="font-semibold text-[var(--text)]/90">{t.extendsBaseline}: </span>
@@ -972,10 +965,24 @@ function mergedRootPracticeNarratives(
   baseline: PracticeBaseline,
   sourceDoc?: Record<string, unknown> | null,
 ): Narrative[] | undefined {
+  if (sourceDoc && (baseline as unknown) === sourceDoc) {
+    return narrativesOnPracticeElement(baseline);
+  }
   const a = narrativesOnPracticeElement(baseline);
   const b = sourceDoc ? narrativesOnPracticeElement(sourceDoc) : undefined;
+  if (a?.length && b?.length && a === b) return a as Narrative[];
   if (a?.length && b?.length) return [...a, ...b];
   return a ?? b;
+}
+
+function isMethodDocumentShape(doc: unknown): doc is Method {
+  return (
+    !!doc &&
+    typeof doc === "object" &&
+    "baselinePractice" in doc &&
+    typeof (doc as Method).baselinePractice === "object" &&
+    (doc as Method).baselinePractice !== null
+  );
 }
 
 function EmbeddedNarrativePracticeSection({
@@ -1358,6 +1365,32 @@ function PracticeBaselineCompetenciesSection({
   );
 }
 
+/** Safe fragment for React keys when JSON `name` / `focusName` values are malformed (non-primitive or empty). */
+function browseFocusKeyPart(focusName: unknown): string {
+  if (typeof focusName === "string" || typeof focusName === "number") {
+    const t = String(focusName).trim();
+    if (t) return slug(t);
+  }
+  if (focusName !== null && typeof focusName === "object") {
+    try {
+      return slug(JSON.stringify(focusName));
+    } catch {
+      /* noop */
+    }
+  }
+  return "focus";
+}
+
+function browseNameKeyPart(name: unknown, index: number): string {
+  if (typeof name === "string") {
+    const t = name.trim();
+    if (t) return slug(t);
+  }
+  if (typeof name === "number") return slug(String(name));
+  if (typeof name === "boolean") return String(name);
+  return `row-${index}`;
+}
+
 /** Text layout for library browse: heading scale, expandable states, activities nested under spaces. */
 function BrowsePracticeFocusSections({
   baseline,
@@ -1406,7 +1439,7 @@ function BrowsePracticeFocusSections({
           <p className={`mt-2 ${BROWSE.bodyMuted}`}>
             {t.contributesTo}:{" "}
             {contributesTo.map((c, idx) => (
-              <span key={`${c.alphaName}:${c.stateName}`}>
+              <span key={`ct-body-${idx}-${slug(c.alphaName)}--${slug(c.stateName)}`}>
                 <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
                   <code>
                     <AliasedName kind="Alpha" name={c.alphaName} browse />→
@@ -1421,11 +1454,11 @@ function BrowsePracticeFocusSections({
         {s.requiredCompetencies?.length ? (
           <p className={`mt-2 ${BROWSE.bodyMuted}`}>
             {t.requiredCompetencies}:{" "}
-            {s.requiredCompetencies.map((c: string, idx: number) => (
-              <span key={c}>
-                <a href={`#${competencyId(c)}`} style={linkStyle()}>
+            {s.requiredCompetencies.map((c: unknown, idx: number) => (
+              <span key={`reqc-body-${browseNameKeyPart(c, idx)}-${idx}`}>
+                <a href={`#${competencyId(String(c))}`} style={linkStyle()}>
                   <code>
-                    <AliasedName kind="Competency" name={c} browse />
+                    <AliasedName kind="Competency" name={String(c)} browse />
                   </code>
                 </a>
                 {idx < s.requiredCompetencies.length - 1 ? ", " : ""}
@@ -1442,7 +1475,7 @@ function BrowsePracticeFocusSections({
             <p className={`mt-2 ${BROWSE.bodyMuted}`}>
               {t.activitySpaceInvolvesPersonaGroups}:{" "}
               {involvesGroups.map((gn, idx) => (
-                <span key={gn}>
+                <span key={`pg-body-${browseNameKeyPart(gn, idx)}-${idx}`}>
                   <a href={`#${personaGroupId(gn)}`} style={linkStyle()}>
                     <code>
                       <AliasedName kind="PersonaGroup" name={gn} browse />
@@ -1458,7 +1491,7 @@ function BrowsePracticeFocusSections({
           <p className={`mt-2 ${BROWSE.bodyMuted}`}>
             {t.worksOn}:{" "}
             {s.worksOn.map((w: any, idx: number) => (
-              <span key={`${w.workProductName}:${w.levelOfDetailName}:${idx}`}>
+              <span key={`wo-${idx}-${browseNameKeyPart(w?.workProductName, idx)}-${browseNameKeyPart(w?.levelOfDetailName, idx)}`}>
                 <a href={`#${workProductId(w.workProductName)}`} style={linkStyle()}>
                   <code>
                     <AliasedName kind="WorkProduct" name={w.workProductName} browse />→
@@ -1474,7 +1507,7 @@ function BrowsePracticeFocusSections({
           <p className={`mt-2 ${BROWSE.bodyMuted}`}>
             {t.recommendedCompetencyLevels}:{" "}
             {s.recommendedCompetencyLevels.map((r: any, idx: number) => (
-              <span key={`${r.competencyName}:${r.competencyLevelName}:${idx}`}>
+              <span key={`rcl-${idx}-${browseNameKeyPart(r?.competencyName, idx)}-${browseNameKeyPart(r?.competencyLevelName, idx)}`}>
                 <code>
                   <AliasedName kind="Competency" name={r.competencyName} browse /> /{" "}
                   <AliasedName kind="CompetencyLevel" name={r.competencyLevelName} browse />
@@ -1517,11 +1550,11 @@ function BrowsePracticeFocusSections({
 
   const browseAlphaStatesDetails = (alpha: any) =>
     (alpha.states ?? []).length ? (
-      <details className="mt-3 rounded-md border border-[var(--border)]/70 bg-[var(--panel)] px-2.5">
-        <summary className="cursor-pointer select-none list-none py-2 text-sm font-semibold text-[var(--muted)] [&::-webkit-details-marker]:hidden">
+      <div className="mt-3 rounded-md border border-[var(--border)]/70 bg-[var(--panel)] px-2.5">
+        <div className="py-2 text-sm font-semibold text-[var(--muted)]">
           {t.alphaStatesSection}
           <span className="ml-1.5 font-normal tabular-nums text-[var(--muted)]">({(alpha.states ?? []).length})</span>
-        </summary>
+        </div>
         <div className="border-t border-[var(--border)]/60 pb-2 pt-1">
           <ul className="list-outside list-disc space-y-1.5 pl-4 text-[13px] leading-snug marker:text-[var(--muted)]">
             {alpha.states
@@ -1529,15 +1562,15 @@ function BrowsePracticeFocusSections({
               .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
               .map((st: any, stIdx: number) => (
                 <li key={`browse-st-${slug(alpha.name)}-${stIdx}-${String(st.seq ?? "")}-${slug(String(st.name ?? ""))}`} className="pl-0.5">
-                  <details id={stateId(alpha.name, st.name)} className="group">
-                    <summary className="cursor-pointer list-none pr-2 text-[13px] leading-snug text-[var(--text)] [&::-webkit-details-marker]:hidden">
+                  <div id={stateId(alpha.name, st.name)} className="scroll-mt-4">
+                    <div className="pr-2 text-[13px] leading-snug text-[var(--text)]">
                       <span className="font-bold">
                         <AliasedName kind="State" name={st.name} browse />
                       </span>
                       {practiceElementDescriptionForDisplay(st) ? (
                         <span className="font-normal"> — {practiceElementDescriptionForDisplay(st)}</span>
                       ) : null}
-                    </summary>
+                    </div>
                     <div className="ml-0 mt-1.5 border-l-2 border-[var(--border)] pl-2.5">
                       <EmbeddedNarrativesUnderDescription narratives={st.narratives} browse />
                       <IrBrowseTagsBlock tags={st.tags} t={t} className="mt-1.5" />
@@ -1551,12 +1584,12 @@ function BrowsePracticeFocusSections({
                         />
                       ) : null}
                     </div>
-                  </details>
+                  </div>
                 </li>
               ))}
           </ul>
         </div>
-      </details>
+      </div>
     ) : null;
 
   const supportingAlphaNamesGlobal = new Set<string>();
@@ -1580,9 +1613,9 @@ function BrowsePracticeFocusSections({
       <div className="mt-2 flex flex-col gap-3">
         {grouped
           .filter((g) => g.focusName !== IMPLICIT_FOCUS_NAME || (g.alphas ?? []).length > 0)
-          .map((g) => (
+          .map((g, gdi) => (
           <DiagramForSingleFocusAlpha
-            key={`alphas-diagram-${g.focusName}`}
+            key={`alphas-diagram-${gdi}-${browseFocusKeyPart(g.focusName)}`}
             baseline={baseline}
             g={g}
             fitToWidth
@@ -1591,7 +1624,7 @@ function BrowsePracticeFocusSections({
         ))}
       </div>
       {grouped.map((g, gi) => (
-        <div key={`${g.focusName}-alphas`} className="scroll-mt-4">
+        <div key={`browse-alphas-focus-${gi}-${browseFocusKeyPart(g.focusName)}`} className="scroll-mt-4">
           <h3 id={browseAlphasFocusSectionId(g.focusName)} className={focusGroupHeading(gi)}>
             {g.focusName === IMPLICIT_FOCUS_NAME ? (
               displayFocusName(g.focusName)
@@ -1606,9 +1639,9 @@ function BrowsePracticeFocusSections({
           <IrBrowseTagsBlock tags={g.focus?.tags} t={t} />
           <div className="mt-2 flex flex-col gap-8">
             {g.alphas
-              .filter((a: any) => !supportingAlphaNamesGlobal.has(String(a.name)))
-              .map((a: any) => (
-                <section key={a.name} id={alphaId(a.name)}>
+              .filter((a: any) => !supportingAlphaNamesGlobal.has(String(a?.name ?? "")))
+              .map((a: any, ai: number) => (
+                <section key={`browse-alpha-${gi}-${ai}-${browseNameKeyPart(a?.name, ai)}`} id={alphaId(String(a?.name ?? `alpha-${gi}-${ai}`))}>
                   <h4 className={BROWSE.h4}>
                     <a href={`#${alphaId(a.name)}`} style={linkStyle()}>
                       <AliasedName kind="Alpha" name={a.name} browse />
@@ -1626,7 +1659,7 @@ function BrowsePracticeFocusSections({
                         .map((x) => String(x ?? "").trim())
                         .filter(Boolean)
                         .map((nm, idx, arr) => (
-                          <span key={`${a.name}-sup-${nm}`}>
+                          <span key={`browse-alpha-${gi}-${ai}-sup-${browseNameKeyPart(nm as unknown, idx)}-${idx}`}>
                             <a href={`#${alphaId(nm)}`} style={linkStyle()}>
                               <code>
                                 <AliasedName kind="Alpha" name={nm} browse />
@@ -1655,17 +1688,17 @@ function BrowsePracticeFocusSections({
                     if (!supportingNames.length) return null;
                     const sorted = supportingNames.slice().sort((x: string, y: string) => x.localeCompare(y));
                     return (
-                      <details open className="mt-3 rounded-md border border-[var(--border)]/70 bg-[var(--panel)] px-2.5">
-                        <summary className="cursor-pointer select-none list-none py-2 text-sm font-semibold text-[var(--muted)] [&::-webkit-details-marker]:hidden">
+                      <div className="mt-3 rounded-md border border-[var(--border)]/70 bg-[var(--panel)] px-2.5">
+                        <div className="py-2 text-sm font-semibold text-[var(--muted)]">
                           {t.alphaSupportingAlphas}
                           <span className="ml-1.5 font-normal tabular-nums text-[var(--muted)]">({sorted.length})</span>
-                        </summary>
+                        </div>
                         <div className="flex flex-col gap-3 border-t border-[var(--border)]/60 pb-2 pt-2">
                           {sorted.map((nm: string) => {
                             const child = alphaByNameAll.get(nm);
                             return (
                               <div
-                                key={`${a.name}-supporting-${nm}`}
+                                key={`browse-support-${gi}-${ai}-${browseNameKeyPart(nm as unknown, 0)}`}
                                 id={alphaId(nm)}
                                 className="ml-3 border-l-2 border-[var(--border)] pl-3"
                                 role="group"
@@ -1682,7 +1715,7 @@ function BrowsePracticeFocusSections({
                             );
                           })}
                         </div>
-                      </details>
+                      </div>
                     );
                   })()}
                 </section>
@@ -1701,9 +1734,9 @@ function BrowsePracticeFocusSections({
       <div className="mt-2 flex flex-col gap-3">
         {grouped
           .filter((g) => g.focusName !== IMPLICIT_FOCUS_NAME || (g.activitySpaces ?? []).length > 0)
-          .map((g) => (
+          .map((g, gadi) => (
           <DiagramForSingleFocusActivity
-            key={`activities-diagram-${g.focusName}`}
+            key={`activities-diagram-${gadi}-${browseFocusKeyPart(g.focusName)}`}
             baseline={baseline}
             g={g}
             fitToWidth
@@ -1728,7 +1761,7 @@ function BrowsePracticeFocusSections({
         }
         const spaceNames = new Set(spaces.map((s: any) => String(s.name)));
         return (
-          <div key={`${g.focusName}-activities`} className="scroll-mt-4">
+          <div key={`browse-activities-focus-${gai}-${browseFocusKeyPart(g.focusName)}`} className="scroll-mt-4">
             <h3 id={browseActivitiesFocusSectionId(g.focusName)} className={focusGroupHeading(gai)}>
               {g.focusName === IMPLICIT_FOCUS_NAME ? (
                 displayFocusName(g.focusName)
@@ -1741,10 +1774,10 @@ function BrowsePracticeFocusSections({
             ) : null}
             <EmbeddedNarrativesUnderDescription narratives={g.focus?.narratives} browse />
             <div className="mt-2 flex flex-col gap-8">
-              {spaces.map((s: any) => (
-                <section key={s.name} id={activitySpaceId(s.name)}>
+              {spaces.map((s: any, si: number) => (
+                <section key={`browse-space-${gai}-${si}-${browseNameKeyPart(s?.name, si)}`} id={activitySpaceId(String(s?.name ?? `space-${gai}-${si}`))}>
                   <h4 className={BROWSE.h4}>
-                    <a href={`#${activitySpaceId(s.name)}`} style={linkStyle()}>
+                    <a href={`#${activitySpaceId(String(s.name))}`} style={linkStyle()}>
                       <AliasedName kind="ActivitySpace" name={s.name} browse />
                     </a>
                   </h4>
@@ -1757,7 +1790,7 @@ function BrowsePracticeFocusSections({
                     <p className={`mt-2 ${BROWSE.bodyMuted}`}>
                       {t.contributesTo}:{" "}
                       {dedupeContributesToRefs(s.contributesTo).map((c, idx, arr) => (
-                        <span key={`${c.alphaName}:${c.stateName}`}>
+                        <span key={`ctb-${browseNameKeyPart(c.alphaName as unknown, idx)}-${browseNameKeyPart(c.stateName as unknown, idx)}-${idx}`}>
                           <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
                             <code>
                               <AliasedName kind="Alpha" name={c.alphaName} browse />→
@@ -1772,11 +1805,11 @@ function BrowsePracticeFocusSections({
                   {s.requiredCompetencies?.length ? (
                     <p className={`mt-2 ${BROWSE.bodyMuted}`}>
                       {t.requiredCompetencies}:{" "}
-                      {s.requiredCompetencies.map((c: string, idx: number) => (
-                        <span key={c}>
-                          <a href={`#${competencyId(c)}`} style={linkStyle()}>
+                      {s.requiredCompetencies.map((c: unknown, idx: number) => (
+                        <span key={`reqc-${browseNameKeyPart(c, idx)}-${idx}`}>
+                          <a href={`#${competencyId(String(c))}`} style={linkStyle()}>
                             <code>
-                              <AliasedName kind="Competency" name={c} browse />
+                              <AliasedName kind="Competency" name={String(c)} browse />
                             </code>
                           </a>
                           {idx < s.requiredCompetencies.length - 1 ? ", " : ""}
@@ -1787,11 +1820,11 @@ function BrowsePracticeFocusSections({
                   {s.involves?.length ? (
                     <p className={`mt-2 ${BROWSE.bodyMuted}`}>
                       {t.activitySpaceInvolvesPersonaGroups}:{" "}
-                      {s.involves.map((g: string, idx: number) => (
-                        <span key={g}>
-                          <a href={`#${personaGroupId(g)}`} style={linkStyle()}>
+                      {s.involves.map((pg: unknown, idx: number) => (
+                        <span key={`inv-${browseNameKeyPart(pg, idx)}-${idx}`}>
+                          <a href={`#${personaGroupId(String(pg))}`} style={linkStyle()}>
                             <code>
-                              <AliasedName kind="PersonaGroup" name={g} browse />
+                              <AliasedName kind="PersonaGroup" name={String(pg)} browse />
                             </code>
                           </a>
                           {idx < s.involves.length - 1 ? ", " : ""}
@@ -1799,17 +1832,17 @@ function BrowsePracticeFocusSections({
                       ))}
                     </p>
                   ) : null}
-                  {(byParent.get(s.name) ?? [])
+                  {(byParent.get(String(s.name ?? "")) ?? [])
                     .slice()
                     .sort((x: any, y: any) => String(x.name).localeCompare(String(y.name)))
-                    .map((act: any) => (
+                    .map((act: any, acti: number) => (
                       <div
-                        key={act.name}
-                        id={activityId(act.name)}
+                        key={`browse-act-${gai}-${si}-${acti}-${browseNameKeyPart(act?.name, acti)}`}
+                        id={activityId(String(act?.name ?? `act-${gai}-${si}-${acti}`))}
                         className="ml-4 mt-4 border-l-2 border-[var(--border)] pl-4"
                       >
                         <h5 className={BROWSE.h5}>
-                          <a href={`#${activityId(act.name)}`} style={linkStyle()}>
+                          <a href={`#${activityId(String(act.name))}`} style={linkStyle()}>
                             <AliasedName kind="Activity" name={act.name} browse />
                           </a>
                         </h5>
@@ -1822,8 +1855,12 @@ function BrowsePracticeFocusSections({
 
             {[...byParent.entries()]
               .filter(([p]) => p && !spaceNames.has(p))
-              .map(([parent, acts]) => (
-                <div key={`orphan-${g.focusName}-${parent}`} id={browseOrphanActsId(parent)} className="mt-10 scroll-mt-4">
+              .map(([parent, acts], oi) => (
+                <div
+                  key={`orphan-${gai}-${oi}-${browseNameKeyPart(parent, oi)}`}
+                  id={browseOrphanActsId(parent)}
+                  className="mt-10 scroll-mt-4"
+                >
                   <h4 className={BROWSE.h4}>
                     <AliasedName kind="ActivitySpace" name={parent} browse />
                   </h4>
@@ -1833,14 +1870,14 @@ function BrowsePracticeFocusSections({
                   {acts
                     .slice()
                     .sort((x: any, y: any) => String(x.name).localeCompare(String(y.name)))
-                    .map((act: any) => (
+                    .map((act: any, oacti: number) => (
                       <div
-                        key={act.name}
-                        id={activityId(act.name)}
+                        key={`browse-orphan-act-${gai}-${oi}-${oacti}-${browseNameKeyPart(act?.name, oacti)}`}
+                        id={activityId(String(act?.name ?? `orph-act-${gai}-${oi}-${oacti}`))}
                         className="ml-4 mt-4 border-l-2 border-[var(--border)] pl-4"
                       >
                         <h5 className={BROWSE.h5}>
-                          <a href={`#${activityId(act.name)}`} style={linkStyle()}>
+                          <a href={`#${activityId(String(act.name))}`} style={linkStyle()}>
                             <AliasedName kind="Activity" name={act.name} browse />
                           </a>
                         </h5>
@@ -1880,6 +1917,8 @@ function PracticeBaselineView({
 }) {
   const { t } = useLanguagePack();
   const browse = variant === "browse";
+  const methodRootDesc = isMethodDocumentShape(sourceDoc) ? String(sourceDoc.description ?? "").trim() : "";
+  const baselineDescTrim = String(baseline.description ?? "").trim();
   const browsePracticeElementAliases: PracticeElementAlias[] = Array.isArray(sourceDoc?.practiceElementAliases)
     ? (sourceDoc!.practiceElementAliases as PracticeElementAlias[])
     : [];
@@ -2002,8 +2041,20 @@ function PracticeBaselineView({
             <p id="practice-readable-title" className={BROWSE.docTitle}>
               <AliasedName kind="PracticeBaseline" name={baseline.name} browse />
             </p>
-            {baseline.description ? <p className={BROWSE.docSubtitle}>{baseline.description}</p> : null}
-            <EmbeddedNarrativesUnderDescription narratives={mergedRootPracticeNarratives(baseline, sourceDoc)} browse />
+            {isMethodDocumentShape(sourceDoc) ? (
+              <>
+                {methodRootDesc ? <p className={BROWSE.docSubtitle}>{methodRootDesc}</p> : null}
+                {baselineDescTrim && baselineDescTrim !== methodRootDesc ? (
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{baseline.description}</p>
+                ) : null}
+                <EmbeddedNarrativesUnderDescription narratives={mergedRootPracticeNarratives(baseline, sourceDoc)} browse />
+              </>
+            ) : (
+              <>
+                {baselineDescTrim ? <p className={BROWSE.docSubtitle}>{baseline.description}</p> : null}
+                <EmbeddedNarrativesUnderDescription narratives={mergedRootPracticeNarratives(baseline, sourceDoc)} browse />
+              </>
+            )}
             <IrBrowseTagsBlock tags={baseline.tags} t={t} className="mt-4" />
             <p className={BROWSE.meta}>
               Authors: {(baseline.authors ?? []).join(", ")} • Version: {baseline.version ?? ""} • Updated:{" "}
@@ -2087,9 +2138,9 @@ function PracticeBaselineView({
           <div style={{ display: "grid", gap: 10 }}>
             {grouped
               .filter((g) => g.focusName !== IMPLICIT_FOCUS_NAME || (g.alphas ?? []).length > 0)
-              .map((g) => (
+              .map((g, gdi) => (
               <DiagramForSingleFocusAlpha
-                key={`alphas-diagram-${g.focusName}`}
+                key={`alphas-diagram-${gdi}-${browseFocusKeyPart(g.focusName)}`}
                 baseline={baseline}
                 g={g}
                 fitToWidth
@@ -2097,9 +2148,9 @@ function PracticeBaselineView({
               />
             ))}
           </div>
-          {grouped.map((g) => (
+          {grouped.map((g, gi) => (
             <div
-              key={`${g.focusName}-alphas`}
+              key={`nb-alphas-focus-${gi}-${browseFocusKeyPart(g.focusName)}`}
               id={browseAlphasFocusSectionId(g.focusName)}
               style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}
             >
@@ -2113,9 +2164,9 @@ function PracticeBaselineView({
               <div style={{ display: "grid", gap: 10 }}>
                 {g.alphas
                   .filter((a: any) => !supportingAlphaNamesGlobal.has(String(a.name)))
-                  .map((a: any) => (
+                  .map((a: any, ai: number) => (
                   <div
-                    key={a.name}
+                    key={`nb-alpha-${gi}-${ai}-${browseNameKeyPart(a?.name, ai)}`}
                     id={alphaId(a.name)}
                     style={{ padding: 12, border: "1px solid var(--border)", borderRadius: 10 }}
                   >
@@ -2160,11 +2211,11 @@ function PracticeBaselineView({
                             <span className="ml-1.5 font-normal tabular-nums">({sorted.length})</span>
                           </summary>
                           <div className="flex flex-col gap-2.5 border-t border-[var(--border)]/70 px-1 py-2">
-                            {sorted.map((nm: string) => {
+                            {sorted.map((nm: string, sni: number) => {
                               const child = lookupAlphaAcrossFocus(nm);
                               return (
                                 <div
-                                  key={`${a.name}-supporting-${nm}`}
+                                  key={`nb-sup-${gi}-${ai}-${browseNameKeyPart(nm, sni)}-${sni}`}
                                   id={alphaId(nm)}
                                   role="group"
                                   aria-label={`${t.alphaSupportingAlphas}: ${nm}`}
@@ -2241,9 +2292,9 @@ function PracticeBaselineView({
           <div style={{ display: "grid", gap: 10 }}>
             {grouped
               .filter((g) => g.focusName !== IMPLICIT_FOCUS_NAME || (g.activitySpaces ?? []).length > 0)
-              .map((g) => (
+              .map((g, gdi) => (
               <DiagramForSingleFocusActivity
-                key={`activities-diagram-${g.focusName}`}
+                key={`activities-diagram-${gdi}-${browseFocusKeyPart(g.focusName)}`}
                 baseline={baseline}
                 g={g}
                 fitToWidth
@@ -2251,9 +2302,9 @@ function PracticeBaselineView({
               />
             ))}
           </div>
-          {grouped.map((g) => (
+          {grouped.map((g, gj) => (
             <div
-              key={`${g.focusName}-act`}
+              key={`nb-act-focus-${gj}-${browseFocusKeyPart(g.focusName)}`}
               id={browseActivitiesFocusSectionId(g.focusName)}
               style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}
             >
@@ -2263,12 +2314,12 @@ function PracticeBaselineView({
               ) : null}
               <EmbeddedNarrativesUnderDescription narratives={g.focus?.narratives} browse={false} />
               <div style={{ display: "grid", gap: 10 }}>
-                {g.activitySpaces.map((s: any) => {
+                {g.activitySpaces.map((s: any, si: number) => {
                   if (isPracticeActivity(s)) {
                     const parent = String(s.activitySpaceName).trim();
                     return (
                       <div
-                        key={`activity:${s.name}`}
+                        key={`nb-activity-${gj}-${si}-${browseNameKeyPart(s?.name, si)}`}
                         id={activityId(s.name)}
                         style={{
                           padding: 12,
@@ -2309,7 +2360,7 @@ function PracticeBaselineView({
                           <div style={{ marginTop: 8, color: "var(--muted)", fontSize: 13 }}>
                             {t.contributesTo}:{" "}
                             {dedupeContributesToRefs(s.contributesTo).map((c, idx, arr) => (
-                              <span key={`${c.alphaName}:${c.stateName}`}>
+                              <span key={`ct-nb-${gj}-${si}-${idx}-${slug(String(c.alphaName))}--${slug(String(c.stateName))}`}>
                                 <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
                                   <code>
                                     <AliasedName kind="Alpha" name={c.alphaName} browse={browse} />→
@@ -2325,7 +2376,7 @@ function PracticeBaselineView({
                           <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                             {t.requiredCompetencies}:{" "}
                             {s.requiredCompetencies.map((c: string, idx: number) => (
-                              <span key={c}>
+                              <span key={`reqc-nb-${gj}-${si}-${browseNameKeyPart(c, idx)}-${idx}`}>
                                 <a href={`#${competencyId(c)}`} style={linkStyle()}>
                                   <code>{c}</code>
                                 </a>
@@ -2343,7 +2394,7 @@ function PracticeBaselineView({
                             <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                               {t.activitySpaceInvolvesPersonaGroups}:{" "}
                               {involvesGroups.map((gn, idx) => (
-                                <span key={gn}>
+                                <span key={`pg-nb-${gj}-${si}-${browseNameKeyPart(gn, idx)}-${idx}`}>
                                   <a href={`#${personaGroupIdPv(gn)}`} style={linkStyle()}>
                                     <code>
                                       <AliasedName kind="PersonaGroup" name={gn} browse={browse} />
@@ -2359,7 +2410,7 @@ function PracticeBaselineView({
                           <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                             {t.worksOn}:{" "}
                             {s.worksOn.map((w: any, idx: number) => (
-                              <span key={`${w.workProductName}:${w.levelOfDetailName}:${idx}`}>
+                              <span key={`wo-${idx}-${browseNameKeyPart(w?.workProductName, idx)}-${browseNameKeyPart(w?.levelOfDetailName, idx)}`}>
                                 <a href={`#${workProductId(w.workProductName)}`} style={linkStyle()}>
                                   <code>
                                     <AliasedName kind="WorkProduct" name={w.workProductName} browse={browse} />→
@@ -2375,7 +2426,7 @@ function PracticeBaselineView({
                           <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                             {t.recommendedCompetencyLevels}:{" "}
                             {s.recommendedCompetencyLevels.map((r: any, idx: number) => (
-                              <span key={`${r.competencyName}:${r.competencyLevelName}:${idx}`}>
+                              <span key={`rcl-${idx}-${browseNameKeyPart(r?.competencyName, idx)}-${browseNameKeyPart(r?.competencyLevelName, idx)}`}>
                                 <code>
                                   <AliasedName kind="Competency" name={r.competencyName} browse={browse} /> /{" "}
                                   <AliasedName kind="CompetencyLevel" name={r.competencyLevelName} browse={browse} />
@@ -2390,7 +2441,7 @@ function PracticeBaselineView({
                   }
                   return (
                     <div
-                      key={s.name}
+                      key={`nb-space-${gj}-${si}-${browseNameKeyPart(s?.name, si)}`}
                       id={activitySpaceId(s.name)}
                       style={{ padding: 12, border: "1px solid var(--border)", borderRadius: 10 }}
                     >
@@ -2417,7 +2468,7 @@ function PracticeBaselineView({
                         <div style={{ marginTop: 8, color: "var(--muted)", fontSize: 13 }}>
                           {t.contributesTo}:{" "}
                           {dedupeContributesToRefs(s.contributesTo).map((c, idx, arr) => (
-                            <span key={`${c.alphaName}:${c.stateName}`}>
+                            <span key={`ct-nb-${gj}-${si}-${idx}-${slug(String(c.alphaName))}--${slug(String(c.stateName))}`}>
                               <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
                                 <code>
                                   <AliasedName kind="Alpha" name={c.alphaName} browse={browse} />→
@@ -2433,7 +2484,7 @@ function PracticeBaselineView({
                         <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                           {t.requiredCompetencies}:{" "}
                           {s.requiredCompetencies.map((c: string, idx: number) => (
-                            <span key={c}>
+                            <span key={`reqc-nb-${gj}-${si}-${browseNameKeyPart(c, idx)}-${idx}`}>
                               <a href={`#${competencyId(c)}`} style={linkStyle()}>
                                 <code>{c}</code>
                               </a>
@@ -2445,11 +2496,11 @@ function PracticeBaselineView({
                       {s.involves?.length ? (
                         <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                           {t.activitySpaceInvolvesPersonaGroups}:{" "}
-                          {s.involves.map((g: string, idx: number) => (
-                            <span key={g}>
-                              <a href={`#${personaGroupIdPv(g)}`} style={linkStyle()}>
+                          {s.involves.map((pgName: string, idx: number) => (
+                            <span key={`pg-nb-inv-${gj}-${si}-${browseNameKeyPart(pgName, idx)}-${idx}`}>
+                              <a href={`#${personaGroupIdPv(pgName)}`} style={linkStyle()}>
                                 <code>
-                                  <AliasedName kind="PersonaGroup" name={g} browse={browse} />
+                                  <AliasedName kind="PersonaGroup" name={pgName} browse={browse} />
                                 </code>
                               </a>
                               {idx < s.involves.length - 1 ? ", " : ""}
@@ -2457,11 +2508,11 @@ function PracticeBaselineView({
                           ))}
                         </div>
                       ) : null}
-                      {(s.activities ?? []).map((act: any) => {
+                      {(s.activities ?? []).map((act: any, acti: number) => {
                         const parent = String(s.name).trim();
                         return (
                           <div
-                            key={`nested:${parent}:${act.name}`}
+                            key={`nb-nested-act-${gj}-${si}-${acti}-${browseNameKeyPart(parent, 0)}-${browseNameKeyPart(act?.name, acti)}`}
                             id={activityId(act.name)}
                             style={{
                               marginTop: 10,
@@ -2489,7 +2540,7 @@ function PracticeBaselineView({
                               <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                                 <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
                                 {flattenPracticeElementTags(act.tags).map((x: string, ti: number) => (
-                                  <span key={`activity-${slug(parent)}-${slug(act.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
+                                  <span key={`activity-${gj}-${si}-${acti}-${slug(String(parent))}-${browseNameKeyPart(act?.name, acti)}-tag-${ti}-${slug(x)}`} style={tag()}>
                                     {x}
                                   </span>
                                 ))}
@@ -2499,7 +2550,7 @@ function PracticeBaselineView({
                               <div style={{ marginTop: 8, color: "var(--muted)", fontSize: 13 }}>
                                 {t.contributesTo}:{" "}
                                 {dedupeContributesToRefs(act.contributesTo).map((c, idx, arr) => (
-                                  <span key={`${c.alphaName}:${c.stateName}`}>
+                                  <span key={`ct-nb-nested-${gj}-${si}-${acti}-${idx}-${slug(String(c.alphaName))}--${slug(String(c.stateName))}`}>
                                     <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
                                       <code>
                                         <AliasedName kind="Alpha" name={c.alphaName} browse={browse} />→
@@ -2515,7 +2566,7 @@ function PracticeBaselineView({
                               <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                                 {t.requiredCompetencies}:{" "}
                                 {act.requiredCompetencies.map((c: string, idx: number) => (
-                                  <span key={c}>
+                                  <span key={`reqc-nb-nested-${gj}-${si}-${acti}-${browseNameKeyPart(c, idx)}-${idx}`}>
                                     <a href={`#${competencyId(c)}`} style={linkStyle()}>
                                       <code>{c}</code>
                                     </a>
@@ -2533,7 +2584,7 @@ function PracticeBaselineView({
                                 <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                                   {t.activitySpaceInvolvesPersonaGroups}:{" "}
                                   {involvesGroups.map((gn, idx) => (
-                                    <span key={gn}>
+                                    <span key={`pg-nb-nested-${gj}-${si}-${acti}-${browseNameKeyPart(gn, idx)}-${idx}`}>
                                       <a href={`#${personaGroupIdPv(gn)}`} style={linkStyle()}>
                                         <code>
                                           <AliasedName kind="PersonaGroup" name={gn} browse={browse} />
@@ -2549,7 +2600,7 @@ function PracticeBaselineView({
                               <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                                 {t.worksOn}:{" "}
                                 {act.worksOn.map((w: any, idx: number) => (
-                                  <span key={`${w.workProductName}:${w.levelOfDetailName}:${idx}`}>
+                                  <span key={`wo-${idx}-${browseNameKeyPart(w?.workProductName, idx)}-${browseNameKeyPart(w?.levelOfDetailName, idx)}`}>
                                     <a href={`#${workProductId(w.workProductName)}`} style={linkStyle()}>
                                       <code>
                                         <AliasedName kind="WorkProduct" name={w.workProductName} browse={browse} />→
@@ -2565,7 +2616,7 @@ function PracticeBaselineView({
                               <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
                                 {t.recommendedCompetencyLevels}:{" "}
                                 {act.recommendedCompetencyLevels.map((r: any, idx: number) => (
-                                  <span key={`${r.competencyName}:${r.competencyLevelName}:${idx}`}>
+                                  <span key={`rcl-${idx}-${browseNameKeyPart(r?.competencyName, idx)}-${browseNameKeyPart(r?.competencyLevelName, idx)}`}>
                                     <code>
                                       <AliasedName kind="Competency" name={r.competencyName} browse={browse} /> /{" "}
                                       <AliasedName kind="CompetencyLevel" name={r.competencyLevelName} browse={browse} />
@@ -2597,9 +2648,9 @@ function PracticeBaselineView({
             <div style={{ fontSize: 16, fontWeight: 800 }}>{t.patterns}</div>
           )}
           <div style={{ marginTop: 10, display: "grid", gap: 12 }}>
-            {(sourceDoc!.patterns as any[]).map((p: any) => (
+            {(sourceDoc!.patterns as any[]).map((p: any, pi: number) => (
               <div
-                key={p.name}
+                key={`nb-pattern-${pi}-${browseNameKeyPart(p?.name, pi)}`}
                 id={patternId(p.name)}
                 style={
                   browse
@@ -2673,9 +2724,9 @@ function PracticeBaselineView({
             <div style={{ fontSize: 16, fontWeight: 800 }}>{t.workProducts}</div>
           )}
           <div style={{ marginTop: 10, display: "grid", gap: 10 }}>
-            {(sourceDoc!.workProducts as any[]).map((wp: any) => (
+            {(sourceDoc!.workProducts as any[]).map((wp: any, wpi: number) => (
               <div
-                key={wp.name}
+                key={`nb-wp-${wpi}-${browseNameKeyPart(wp?.name, wpi)}`}
                 id={workProductId(wp.name)}
                 style={
                   browse
@@ -2719,8 +2770,8 @@ function PracticeBaselineView({
                       {(wp.levelsOfDetail ?? [])
                         .slice()
                         .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-                        .map((lod: any) => (
-                          <li key={lod.name}>
+                        .map((lod: any, lodi: number) => (
+                          <li key={`browse-wp-lod-${wpi}-${lodi}-${browseNameKeyPart(lod?.name, lodi)}`}>
                             <span className="font-semibold text-[var(--text)]">
                               <AliasedName kind="LevelOfDetail" name={lod.name} browse />
                             </span>
@@ -2733,7 +2784,7 @@ function PracticeBaselineView({
                               <p className={`mt-2 ${BROWSE.bodyMuted}`}>
                                 {t.contributesTo}:{" "}
                                 {dedupeContributesToRefs(lod.contributesTo).map((c, idx, arr) => (
-                                  <span key={`${lod.name}:${c.alphaName}:${c.stateName}`}>
+                                  <span key={`ct-wp-${wpi}-${lodi}-${idx}-${slug(String(c.alphaName))}--${slug(String(c.stateName))}`}>
                                     <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
                                       <code>
                                         <AliasedName kind="Alpha" name={c.alphaName} browse={browse} />→
@@ -2765,9 +2816,9 @@ function PracticeBaselineView({
                       {(wp.levelsOfDetail ?? [])
                         .slice()
                         .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-                        .map((lod: any) => (
+                        .map((lod: any, lodi: number) => (
                             <li
-                              key={lod.name}
+                              key={`nb-wp-lod-${wpi}-${lodi}-${browseNameKeyPart(lod?.name, lodi)}`}
                               style={{
                                 marginBottom: 10,
                                 padding: 10,
@@ -2789,7 +2840,7 @@ function PracticeBaselineView({
                                 <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 12 }}>
                                   {t.contributesTo}:{" "}
                                   {dedupeContributesToRefs(lod.contributesTo).map((c, idx, arr) => (
-                                    <span key={`${lod.name}:${c.alphaName}:${c.stateName}`}>
+                                    <span key={`ct-nb-wp-${wpi}-${lodi}-${idx}-${slug(String(c.alphaName))}--${slug(String(c.stateName))}`}>
                                       <a href={`#${stateId(c.alphaName, c.stateName)}`} style={linkStyle()}>
                                         <code>
                                           <AliasedName kind="Alpha" name={c.alphaName} browse={browse} />→
@@ -2808,8 +2859,8 @@ function PracticeBaselineView({
                                     {lod.checklist
                                       .slice()
                                       .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
-                                      .map((ch: any) => (
-                                          <li key={`${lod.name}:${ch.name}`}>
+                                      .map((ch: any, chi: number) => (
+                                          <li key={`nb-wp-${wpi}-lod-${lodi}-ch-${chi}-${browseNameKeyPart(ch?.name, chi)}`}>
                                             <b>{ch.name}</b>
                                             {practiceElementDescriptionForDisplay(ch) ? (
                                               <span style={{ color: "var(--muted)" }}> — {practiceElementDescriptionForDisplay(ch)}</span>
@@ -3585,7 +3636,7 @@ function DiagramForSingleFocusAlpha({
             const y = layout.y[idx] ?? headerH;
             const h = alphaHeights[idx] ?? 96;
             return (
-              <g key={a.name} transform={`translate(${x}, ${y})`}>
+              <g key={`dia-alpha-${idx}-${browseNameKeyPart(a?.name, idx)}`} transform={`translate(${x}, ${y})`}>
                 <rect
                   x={0}
                   y={0}
@@ -3618,7 +3669,7 @@ function DiagramForSingleFocusAlpha({
                 const d = contributeEdgePathD(geoms[child], geoms[parent], ei);
                 return (
                   <path
-                    key={`${alphas[child]?.name ?? child}-to-${alphas[parent]?.name ?? parent}`}
+                    key={`contrib-edge-${ei}`}
                     d={d}
                     markerEnd={`url(#${contribArrowId})`}
                   />
@@ -3751,7 +3802,7 @@ function DiagramForSingleFocusActivity({
             );
 
             return (
-              <g key={s.name} transform={`translate(${x}, ${y})`}>
+              <g key={`dia-lane-${idx}-${browseNameKeyPart(s?.name, idx)}`} transform={`translate(${x}, ${y})`}>
                 <ArrowBlock width={arrowW} height={sH} dashed />
                 {renderWrappedText(
                   s.name,
@@ -3796,7 +3847,7 @@ function DiagramForSingleFocusActivity({
                     );
                   if (yy + aH > laneH - 12) return null;
                   return (
-                    <g key={a.name} transform={`translate(0, ${yy})`}>
+                    <g key={`dia-act-${idx}-${k}-${browseNameKeyPart(a?.name, k)}`} transform={`translate(0, ${yy})`}>
                       <ArrowBlock width={arrowW} height={aH} dashed={false} />
                       {renderWrappedText(
                         a.name,

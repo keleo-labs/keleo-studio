@@ -39,3 +39,16 @@ export function methodFromLibraryBody(body: unknown): Method | null {
   if (!m.baselinePractice || typeof m.baselinePractice !== "object") return null;
   return clone(m);
 }
+
+/** When the library body is a Method, embed its kernel baseline and carry over its extension practice layers. */
+export function methodBaselineBundleFromLibraryBody(body: unknown): {
+  baseline: PracticeBaseline;
+  practices: Practice[];
+} | null {
+  const m = methodFromLibraryBody(body);
+  if (!m) return null;
+  return {
+    baseline: m.baselinePractice,
+    practices: Array.isArray(m.practices) ? m.practices : [],
+  };
+}
