@@ -84,6 +84,29 @@ export type PersonaGroup = PracticeElement & {
   personaNames: string[];
 };
 
+export type WorkProductInstance = PracticeElement & {
+  instanceName: string;
+  workProductName: string;
+  levelOfDetailName: string;
+};
+
+export type AlphaInstance = PracticeElement & {
+  instanceName: string;
+  alphaName: string;
+  stateName: string;
+  evidenceBy?: WorkProductInstance[];
+};
+
+/** Practice-level tagging row (`Practice.alphaInstances[]`; schema `AlphaInstanceName`). */
+export type AlphaInstanceNameRow = PracticeElement & {
+  alphaName: string;
+};
+
+/** Practice-level tagging row (`Practice.workProductInstances[]`; schema `WorkProductInstanceName`). */
+export type WorkProductInstanceNameRow = PracticeElement & {
+  workProductName: string;
+};
+
 export type PatternViewReference = {
   patternName: string;
   patternViewName: string;
@@ -151,12 +174,15 @@ export type PatternViewAlphaState = AlphaContribution | string;
 export type PatternView = PracticeElement & {
   seq: number;
   alphaStates: PatternViewAlphaState[];
+  /** Embedded instance outcome rows expected for this view (composition; schema `AlphaInstance`). */
+  alphaInstances?: AlphaInstance[];
   /** ActivitySpace.name entries for matrix swimlanes (symbolic links). Legacy: may also list Activity.name here. */
   activitySpaces?: string[];
   /** Activity.name entries for matrix swimlanes (nested or flat activities; symbolic links). */
   activities?: string[];
   /** Optional hook to NarrativeElement.name under Pattern.narrativeTypeName spine. */
   narrativeElementName?: string;
+  narrativeContexts?: NarrativeContext[];
 };
 
 export type Pattern = PracticeElement & {
@@ -190,6 +216,8 @@ export type Practice = PracticeElement & {
   patterns?: Pattern[];
   personas?: Persona[];
   personaGroups?: PersonaGroup[];
+  alphaInstances?: AlphaInstanceNameRow[];
+  workProductInstances?: WorkProductInstanceNameRow[];
   /** Baseline-overlay narrative spine types (merged like focuses when composing methods). */
   narrativeTypes?: NarrativeType[];
 };

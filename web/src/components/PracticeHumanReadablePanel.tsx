@@ -21,7 +21,7 @@ import {
   practiceElementDescriptionForDisplay,
 } from "@/lib/ir";
 import { flattenPracticeElementTags, normalizePracticeElementTags } from "@/lib/practiceElementTags";
-import { parsePatternViewAlphaState } from "@/lib/patternView";
+import { formatPatternViewAlphaInstance, parsePatternViewAlphaState } from "@/lib/patternView";
 import { practiceNeedsLibraryResolution, type BrowseDependencyArtifact } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { mergeNarrativeTypes } from "@/lib/methodMerge/compositePracticeFromMethod";
@@ -308,6 +308,43 @@ function IrBrowsePatternViewsSection({
                 <span className="italic">—</span>
               )}
             </div>
+            {Array.isArray(pv.alphaInstances) && pv.alphaInstances.length ? (
+              <div className="mt-2 text-[11px] leading-snug text-[var(--muted)]">
+                <span className="font-semibold text-[var(--text)]">{t.patternViewAlphaInstances}: </span>
+                {(pv.alphaInstances as unknown[]).map((raw, idx, arr) => {
+                  const o = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : null;
+                  const a = String(o?.alphaName ?? "").trim();
+                  const st = String(o?.stateName ?? "").trim();
+                  const sep = idx < arr.length - 1 ? ", " : "";
+                  if (o && a && st) {
+                    const instLabel = String(o.instanceName ?? o.name ?? "").trim();
+                    return (
+                      <span key={`pv-${String(pv.name)}-ai-${idx}`}>
+                        {instLabel ? (
+                          <>
+                            <code>{instLabel}</code>
+                            {": "}
+                          </>
+                        ) : null}
+                        <a href={`#${stateId(a, st)}`} style={linkStyle()}>
+                          <code>
+                            <AliasedName kind="Alpha" name={a} browse />→
+                            <AliasedName kind="State" name={st} browse />
+                          </code>
+                        </a>
+                        {sep}
+                      </span>
+                    );
+                  }
+                  return (
+                    <span key={`pv-${String(pv.name)}-ai-${idx}`}>
+                      <code>{formatPatternViewAlphaInstance(raw)}</code>
+                      {sep}
+                    </span>
+                  );
+                })}
+              </div>
+            ) : null}
             {Array.isArray(pv.activitySpaces) && pv.activitySpaces.length ? (
               <div className="mt-1 text-[11px] text-[var(--muted)]">
                 <span className="font-semibold text-[var(--text)]">{t.patternViewActivitySpaces}: </span>

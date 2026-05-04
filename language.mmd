@@ -136,7 +136,7 @@ classDiagram
         +narrativeElementName: STRING
     }
 
-    note for PatternView "alphaStates: canonical List~AlphaContribution~; legacy documents may use STRING tokens (same semantics). activitySpaces / activities: ActivitySpace.name and Activity.name refs as STRING lists."
+    note for PatternView "alphaStates: canonical List~AlphaContribution~; legacy documents may use STRING tokens (same semantics). alphaInstances: 0..* embedded AlphaInstance rows (expected instance outcomes). activitySpaces / activities: ActivitySpace.name and Activity.name refs as STRING lists."
 
     %% -------------------------------------------------------------------------
     %% Symbolic reference value objects (STRING keys only; not PracticeElement subclasses)
@@ -165,6 +165,15 @@ classDiagram
         +instanceName: STRING
         +alphaName: STRING
         +stateName: STRING
+        +evidenceBy: List~WorkProductInstance~
+    }
+
+    class AlphaInstanceName {
+        +alphaName: STRING
+    }
+
+    class WorkProductInstanceName {
+        +workProductName: STRING
     }
 
     class WorkProductInstance {
@@ -218,9 +227,13 @@ classDiagram
     Method "1" o-- "0..*" Practice : practices
     Pattern "1" *-- "1..*" PatternView : patternViews
     PatternView "1" *-- "0..*" AlphaContribution : alphaStates
+    PatternView "1" *-- "0..*" AlphaInstance : alphaInstances
+    AlphaInstance "1" *-- "0..*" WorkProductInstance : evidenceBy
     Practice "1" o-- "0..*" Activity : activities
     Practice "1" o-- "0..*" Pattern : patterns
     Practice "1" o-- "0..*" PracticeElementAlias : practiceElementAliases
+    Practice "1" o-- "0..*" AlphaInstanceName : alphaInstances
+    Practice "1" o-- "0..*" WorkProductInstanceName : workProductInstances
     Practice "1" o-- "0..*" WorkProduct : workProducts
     Practice "1" o-- "0..*" Persona : personas
     Practice "1" o-- "0..*" PersonaGroup : personaGroups
@@ -249,6 +262,8 @@ classDiagram
     AlphaContribution "1" --> "1" State : stateName
     AlphaInstance "1" --> "1" Alpha : alphaName
     AlphaInstance "1" --> "1" State : stateName
+    AlphaInstanceName "1" --> "1" Alpha : alphaName
+    WorkProductInstanceName "1" --> "1" WorkProduct : workProductName
     Alpha "1" --> "0..1" Alpha : contributesTo
     Alpha "1" --> "1" Focus : focusName
     ActivitySpace "1" --> "1" Focus : focusName
@@ -288,6 +303,7 @@ classDiagram
     PracticeElement <|-- ActivitySpace
     PracticeElement <|-- Alpha
     PracticeElement <|-- AlphaInstance
+    PracticeElement <|-- AlphaInstanceName
     PracticeElement <|-- Checklist
     PracticeElement <|-- Competency
     PracticeElement <|-- CompetencyLevel
@@ -300,3 +316,4 @@ classDiagram
     PracticeElement <|-- State
     PracticeElement <|-- WorkProduct
     PracticeElement <|-- WorkProductInstance
+    PracticeElement <|-- WorkProductInstanceName

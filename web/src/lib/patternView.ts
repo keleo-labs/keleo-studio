@@ -22,6 +22,18 @@ export function parsePatternViewAlphaState(x: unknown): { alphaName: string; sta
   return null;
 }
 
+/** Human-readable summary of one `PatternView.alphaInstances[]` row. */
+export function formatPatternViewAlphaInstance(x: unknown): string {
+  if (!x || typeof x !== "object") return String(x ?? "");
+  const o = x as Record<string, unknown>;
+  const label = String(o.instanceName ?? o.name ?? "").trim();
+  const a = String(o.alphaName ?? "").trim();
+  const s = String(o.stateName ?? "").trim();
+  if (label && a && s) return `${label}: ${a}→${s}`;
+  if (a && s) return `${a}→${s}`;
+  return JSON.stringify(o);
+}
+
 /** Display one PatternView.alphaStates entry (embedded contribution or legacy string token). */
 export function formatPatternViewAlphaState(x: unknown): string {
   if (x && typeof x === "object" && x !== null && "alphaName" in x) {

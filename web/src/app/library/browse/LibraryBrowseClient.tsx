@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { PracticeHumanReadablePanel } from "@/components/PracticeHumanReadablePanel";
 import { FullPracticeView } from "@/components/FullPracticeView";
+import { PracticeReportView } from "@/components/PracticeReportView";
 import { useLanguagePack } from "@/lib/languagePack";
 import type { LanguagePack } from "@/lib/languagePackTypes";
 import { classifyLibraryRoot } from "@/lib/library/classify";
@@ -13,7 +14,7 @@ import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLib
 import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePracticeFromMethod";
 import type { Method } from "@/lib/types";
 
-type ReadablePreviewMode = "classic" | "browse" | "full";
+type ReadablePreviewMode = "classic" | "browse" | "full" | "report";
 
 function BrowseReadableToolbar({
   mode,
@@ -45,6 +46,7 @@ function BrowseReadableToolbar({
         {chip("classic", t.readablePreviewClassic)}
         {chip("browse", t.readablePreviewBrowse)}
         {chip("full", t.readablePreviewFullDocument)}
+        {chip("report", t.readablePreviewReport)}
       </div>
     </div>
   );
@@ -69,6 +71,8 @@ function LibraryBrowseReadablePane({
       <BrowseReadableToolbar mode={mode} onModeChange={onModeChange} t={t} />
       {mode === "full" ? (
         <FullPracticeView doc={browseDoc} embed methodComposition={methodComposition ?? undefined} />
+      ) : mode === "report" ? (
+        <PracticeReportView doc={browseDoc} />
       ) : (
         <PracticeHumanReadablePanel
           doc={browseDoc}

@@ -1121,6 +1121,26 @@ export function collectEmbeddedNarrativesForReadableReport(
     pushEmbeddedNarrativeSite(p, `Pattern / ${String(p?.name ?? "—")}`, out);
     for (const pv of p.patternViews ?? []) {
       pushEmbeddedNarrativeSite(pv, `Pattern / ${String(p?.name ?? "—")} / Pattern view / ${String(pv?.name ?? "—")}`, out);
+      for (const inst of Array.isArray((pv as { alphaInstances?: unknown }).alphaInstances)
+        ? ((pv as { alphaInstances?: unknown[] }).alphaInstances ?? [])
+        : []) {
+        if (!inst || typeof inst !== "object") continue;
+        pushEmbeddedNarrativeSite(
+          inst,
+          `Pattern / ${String(p?.name ?? "—")} / Pattern view / ${String(pv?.name ?? "—")} / Alpha instance / ${String((inst as { instanceName?: unknown }).instanceName ?? (inst as { name?: unknown }).name ?? "—")}`,
+          out,
+        );
+        for (const ev of Array.isArray((inst as { evidenceBy?: unknown }).evidenceBy)
+          ? ((inst as { evidenceBy?: unknown[] }).evidenceBy ?? [])
+          : []) {
+          if (!ev || typeof ev !== "object") continue;
+          pushEmbeddedNarrativeSite(
+            ev,
+            `Pattern / ${String(p?.name ?? "—")} / Pattern view / ${String(pv?.name ?? "—")} / Evidence / ${String((ev as { instanceName?: unknown }).instanceName ?? (ev as { name?: unknown }).name ?? "—")}`,
+            out,
+          );
+        }
+      }
     }
   }
 
