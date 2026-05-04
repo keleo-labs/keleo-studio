@@ -1191,6 +1191,9 @@ function mergeSecondaryBaselineKernel(acc: ExtensionMergeAccumulator, secondary:
     sdoc.practiceElementAliases as Practice["practiceElementAliases"] | undefined,
   ]);
   if (mergedAle.length) acc.out.practiceElementAliases = mergedAle;
+  if (Array.isArray(sdoc.narratives) && sdoc.narratives.length) {
+    acc.out.narratives = mergeNarrativesIncoming(acc.out.narratives, sdoc.narratives as unknown[]);
+  }
 }
 
 /** Flatten nested {@link Method} trees to ordered {@link Practice} overlays for swimlane serialization. */
@@ -1272,6 +1275,10 @@ function mergeOneExtensionPracticeOntoOut(acc: ExtensionMergeAccumulator, overla
   if (mergedAle.length) acc.out.practiceElementAliases = mergedAle;
   if (typeof overlayPractice.updatedAt === "string" && overlayPractice.updatedAt.trim())
     acc.out.updatedAt = overlayPractice.updatedAt;
+  const overlayNarratives = (overlayPractice as Record<string, unknown>).narratives;
+  if (Array.isArray(overlayNarratives) && overlayNarratives.length) {
+    acc.out.narratives = mergeNarrativesIncoming(acc.out.narratives, overlayNarratives as unknown[]);
+  }
 }
 
 /** doc-gen-spec **MergePracticeArray** / recursive **MergeMethod**: embedded methods contribute baseline then child practices. */
@@ -1316,6 +1323,11 @@ export function compositePracticeFromMethod(method: Method): Record<string, unkn
   const baselinePersonas = Array.isArray(baselineDoc.personas) ? (baselineDoc.personas as any[]) : [];
   const baselinePersonaGroups = Array.isArray(baselineDoc.personaGroups) ? (baselineDoc.personaGroups as any[]) : [];
   const mergedRootTags = mergePracticeElementTags(method.tags, baseline.tags);
+  const baselineNarr = Array.isArray(baselineDoc.narratives) ? (baselineDoc.narratives as unknown[]) : [];
+  const methodNarr = Array.isArray((method as Record<string, unknown>).narratives)
+    ? ((method as Record<string, unknown>).narratives as unknown[])
+    : [];
+  const mergedRootNarratives = mergeNarrativesAdditive(mergeNarrativesAdditive([], baselineNarr), methodNarr);
   const out: Record<string, unknown> = {
     name: method.name,
     description: String(method.description ?? "").trim(),
@@ -1336,6 +1348,7 @@ export function compositePracticeFromMethod(method: Method): Record<string, unkn
     patterns: mergePatterns([], baselinePatterns),
     personas: mergePersonas([], baselinePersonas),
     personaGroups: mergePersonaGroups([], baselinePersonaGroups),
+    ...(mergedRootNarratives.length ? { narratives: mergedRootNarratives } : {}),
   };
 
   const layersUnknown = extensionPracticeLayers as unknown[];
