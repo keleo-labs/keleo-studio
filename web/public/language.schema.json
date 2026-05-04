@@ -110,7 +110,7 @@
       "properties": {
         "practiceElementType": {
           "type": "string",
-          "description": "Kind of element being aliased (e.g. Alpha, Activity, ActivitySpace, Focus, WorkProduct, Pattern, PatternView, Competency, Persona, PersonaGroup, Narrative); must match how the target is stored in JSON."
+          "description": "Kind of element being aliased (e.g. Alpha, Activity, ActivitySpace, Focus, WorkProduct, Pattern, PatternView, AlphaInstanceName, WorkProductInstanceName, Competency, Persona, PersonaGroup, Narrative); must match how the target is stored in JSON."
         },
         "practiceElementName": {
           "type": "string",
@@ -169,6 +169,23 @@
       ],
       "unevaluatedProperties": false
     },
+
+    "AlphaInstanceName": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["alphaName"],
+          "properties": {
+            "alphaName": {
+              "type": "string",
+              "description": "Name of the Alpha this instance tracks (symbolic link; must match Alpha.name)."
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
     "AlphaInstance": {
       "allOf": [
         { "$ref": "#/$defs/PracticeElement" },
@@ -187,6 +204,11 @@
             "stateName": {
               "type": "string",
               "description": "Name of a State under that Alpha (symbolic link; must match State.name within the named Alpha)."
+            },
+            "evidenceBy": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/WorkProductInstance" },
+              "description": "Embedded work-product instance rows that evidence this AlphaInstance (same aggregate)."
             }
           }
         }
@@ -204,6 +226,22 @@
               "type": "array",
               "minItems": 2,
               "items": { "$ref": "#/$defs/LevelOfDetail" }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "WorkProductInstanceName": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["workProductName"],
+          "properties": {
+            "workProductName": {
+              "type": "string",
+              "description": "Name of a WorkProduct this instance grouping refers to (symbolic link; must match WorkProduct.name)."
             }
           }
         }
@@ -541,6 +579,11 @@
                 "oneOf": [{ "type": "string" }, { "$ref": "#/$defs/AlphaContribution" }]
               }
             },
+            "alphaInstances": {
+              "type": "array",
+              "description": "AlphaInstances that are expected outcomes for this pattern view.",
+              "items": { "$ref": "#/$defs/AlphaInstance" }
+            },
             "activitySpaces": {
               "type": "array",
               "description": "ActivitySpace.name entries for pattern-matrix swimlanes (symbolic links in the same baseline or practice). Legacy interchange: Activity.name may appear here; prefer the `activities` array for activities.",
@@ -644,6 +687,16 @@
             "alphas": {
               "type": "array",
               "items": { "$ref": "#/$defs/Alpha" }
+            },
+            "alphaInstances": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/AlphaInstanceName" },
+              "description": "Optional list of AlphaInstance names used to allow practices to identify instances of concepts or areas of concern within the practice."
+            },
+            "workProductInstances": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/WorkProductInstanceName" },
+              "description": "Optional list of WorkProductInstance names used to allow practices to identify instances of work products within the practice."
             },
             "activitySpaces": {
               "type": "array",

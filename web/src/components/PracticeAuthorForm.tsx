@@ -6,6 +6,9 @@ import type { LibraryRootKind } from "@/lib/library/classify";
 import { classifyLibraryRoot } from "@/lib/library/classify";
 import type { JsonDocumentMeta } from "@/lib/storage/types";
 import {
+  emptyAlphaInstance,
+  emptyAlphaInstanceName,
+  emptyEmbeddedWorkProductInstance,
   alphaContribution,
   checklistItem,
   competencyLevelRef,
@@ -25,6 +28,7 @@ import {
   emptyPersonaGroup,
   emptyState,
   emptyWorkProduct,
+  emptyWorkProductInstanceName,
   patternViewReference,
   workProductContribution,
 } from "@/lib/practiceFormDefaults";
@@ -795,6 +799,32 @@ export function PracticeAuthorForm({
             )}
             emptyItem={() => emptyPersonaGroup()}
           />
+          <RepeatSection
+            title="Alpha instance names (practice tags)"
+            items={getArr("alphaInstances")}
+            onReplace={(xs) => setRoot("alphaInstances", xs)}
+            addLabel="+ Add alpha instance name"
+            renderItem={(row, i, mutate) => (
+              <AlphaInstanceNameBlock
+                row={row}
+                onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])}
+              />
+            )}
+            emptyItem={() => emptyAlphaInstanceName()}
+          />
+          <RepeatSection
+            title="Work product instance names (practice tags)"
+            items={getArr("workProductInstances")}
+            onReplace={(xs) => setRoot("workProductInstances", xs)}
+            addLabel="+ Add work product instance name"
+            renderItem={(row, i, mutate) => (
+              <WorkProductInstanceNameBlock
+                row={row}
+                onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])}
+              />
+            )}
+            emptyItem={() => emptyWorkProductInstanceName()}
+          />
         </>
       ) : null}
 
@@ -1514,6 +1544,48 @@ function PersonaGroupBlock({ group, onChange }: { group: Record<string, unknown>
   );
 }
 
+function AlphaInstanceNameBlock({
+  row,
+  onChange,
+}: {
+  row: Record<string, unknown>;
+  onChange: (next: Record<string, unknown>) => void;
+}) {
+  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...row })), [row, onChange]);
+  return (
+    <div style={{ display: "grid", gap: 8 }}>
+      {practiceElFields(row, patch)}
+      <label style={lab}>alphaName</label>
+      <input
+        value={sx(row, "alphaName")}
+        onChange={(e) => patch((r) => ({ ...r, alphaName: e.target.value }))}
+        style={inp}
+      />
+    </div>
+  );
+}
+
+function WorkProductInstanceNameBlock({
+  row,
+  onChange,
+}: {
+  row: Record<string, unknown>;
+  onChange: (next: Record<string, unknown>) => void;
+}) {
+  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...row })), [row, onChange]);
+  return (
+    <div style={{ display: "grid", gap: 8 }}>
+      {practiceElFields(row, patch)}
+      <label style={lab}>workProductName</label>
+      <input
+        value={sx(row, "workProductName")}
+        onChange={(e) => patch((r) => ({ ...r, workProductName: e.target.value }))}
+        style={inp}
+      />
+    </div>
+  );
+}
+
 function PatternBlock({ pat, onChange }: { pat: Record<string, unknown>; onChange: (next: Record<string, unknown>) => void }) {
   const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...pat })), [pat, onChange]);
   const views = arr<Record<string, unknown>>(pat, "patternViews");
@@ -1551,6 +1623,7 @@ function PatternViewBlock({
 }) {
   const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...view })), [view, onChange]);
   const ast = linesFromStrArr(view.alphaStates);
+  const ain = arr<Record<string, unknown>>(view, "alphaInstances");
   /* alphaStates can mix strings + objects; we edit as lines of tokens */
 
   return (
@@ -1569,6 +1642,19 @@ function PatternViewBlock({
         onChange={(e) => patch((x) => ({ ...x, alphaStates: strArrFromLines(e.target.value) }))}
         style={{ ...inp, minHeight: 48, fontFamily: "inherit" }}
       />
+      <RepeatSection
+        title="alphaInstances"
+        items={ain}
+        onReplace={(xs) => patch((v) => ({ ...v, alphaInstances: xs }))}
+        addLabel="+ Add alpha instance row"
+        renderItem={(inst, ii, mutate) => (
+          <PatternViewAlphaInstanceBlock
+            inst={inst}
+            onChange={(next) => mutate((list) => [...list.slice(0, ii), next, ...list.slice(ii + 1)])}
+          />
+        )}
+        emptyItem={() => emptyAlphaInstance()}
+      />
       <label style={lab}>activitySpaces (one per line)</label>
       <textarea
         value={linesFromStrArr(view.activitySpaces)}
@@ -1580,6 +1666,86 @@ function PatternViewBlock({
         value={linesFromStrArr(view.activities)}
         onChange={(e) => patch((x) => ({ ...x, activities: strArrFromLines(e.target.value) }))}
         style={{ ...inp, minHeight: 36, fontFamily: "inherit" }}
+      />
+    </div>
+  );
+}
+
+function PatternViewAlphaInstanceBlock({
+  inst,
+  onChange,
+}: {
+  inst: Record<string, unknown>;
+  onChange: (next: Record<string, unknown>) => void;
+}) {
+  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...inst })), [inst, onChange]);
+  const evid = arr<Record<string, unknown>>(inst, "evidenceBy");
+  return (
+    <div style={{ display: "grid", gap: 8 }}>
+      {practiceElFields(inst, patch)}
+      <label style={lab}>instanceName</label>
+      <input
+        value={sx(inst, "instanceName")}
+        onChange={(e) => patch((r) => ({ ...r, instanceName: e.target.value }))}
+        style={inp}
+      />
+      <label style={lab}>alphaName</label>
+      <input
+        value={sx(inst, "alphaName")}
+        onChange={(e) => patch((r) => ({ ...r, alphaName: e.target.value }))}
+        style={inp}
+      />
+      <label style={lab}>stateName</label>
+      <input
+        value={sx(inst, "stateName")}
+        onChange={(e) => patch((r) => ({ ...r, stateName: e.target.value }))}
+        style={inp}
+      />
+      <RepeatSection
+        title="evidenceBy"
+        items={evid}
+        onReplace={(xs) => patch((r) => ({ ...r, evidenceBy: xs }))}
+        addLabel="+ embedded work-product instance"
+        emptyItem={() => emptyEmbeddedWorkProductInstance()}
+        renderItem={(wp, wi, mutate) => (
+          <EmbeddedWorkProductInstanceBlock
+            row={wp}
+            onChange={(next) => mutate((list) => [...list.slice(0, wi), next, ...list.slice(wi + 1)])}
+          />
+        )}
+      />
+    </div>
+  );
+}
+
+function EmbeddedWorkProductInstanceBlock({
+  row,
+  onChange,
+}: {
+  row: Record<string, unknown>;
+  onChange: (next: Record<string, unknown>) => void;
+}) {
+  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...row })), [row, onChange]);
+  return (
+    <div style={{ display: "grid", gap: 8 }}>
+      {practiceElFields(row, patch)}
+      <label style={lab}>instanceName</label>
+      <input
+        value={sx(row, "instanceName")}
+        onChange={(e) => patch((r) => ({ ...r, instanceName: e.target.value }))}
+        style={inp}
+      />
+      <label style={lab}>workProductName</label>
+      <input
+        value={sx(row, "workProductName")}
+        onChange={(e) => patch((r) => ({ ...r, workProductName: e.target.value }))}
+        style={inp}
+      />
+      <label style={lab}>levelOfDetailName</label>
+      <input
+        value={sx(row, "levelOfDetailName")}
+        onChange={(e) => patch((r) => ({ ...r, levelOfDetailName: e.target.value }))}
+        style={inp}
       />
     </div>
   );

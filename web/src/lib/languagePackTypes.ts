@@ -11,6 +11,8 @@ export type LanguagePack = {
   readablePreviewBrowse: string;
   /** Readable preview: PatternFly-style full document layout (FullPracticeView). */
   readablePreviewFullDocument: string;
+  /** Readable preview: structured executive report (areas of concern, STAR lifecycle prose, conclusions). */
+  readablePreviewReport: string;
   loadExample: string;
   validateAndRender: string;
   downloadPdf: string;
@@ -162,6 +164,7 @@ export type LanguagePack = {
   /** Pattern matrix: collapse execution lanes under one alpha/state slice (others unaffected). */
   patternMatrixHideSliceLanes: string;
   patternViewAlphaStates: string;
+  patternViewAlphaInstances: string;
   patternViewActivitySpaces: string;
   patternViewActivities: string;
   /** Browse IR: Practice.practiceElementAliases section title. */

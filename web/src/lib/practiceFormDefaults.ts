@@ -132,12 +132,46 @@ export function emptyPersonaGroup(): Record<string, unknown> {
   };
 }
 
+export function emptyEmbeddedWorkProductInstance(): Record<string, unknown> {
+  return {
+    ...emptyPracticeElement("", ""),
+    instanceName: "",
+    workProductName: "",
+    levelOfDetailName: "",
+  };
+}
+
+export function emptyAlphaInstance(): Record<string, unknown> {
+  return {
+    ...emptyPracticeElement("", ""),
+    instanceName: "",
+    alphaName: "",
+    stateName: "",
+    evidenceBy: [] as Record<string, unknown>[],
+  };
+}
+
+export function emptyAlphaInstanceName(): Record<string, unknown> {
+  return {
+    ...emptyPracticeElement("", ""),
+    alphaName: "",
+  };
+}
+
+export function emptyWorkProductInstanceName(): Record<string, unknown> {
+  return {
+    ...emptyPracticeElement("", ""),
+    workProductName: "",
+  };
+}
+
 export function emptyPatternView(seq: number): Record<string, unknown> {
   return {
     ...emptyPracticeElement("", ""),
     seq,
     narrativeElementName: "",
     alphaStates: [] as unknown[],
+    alphaInstances: [] as Record<string, unknown>[],
     activitySpaces: [] as string[],
     activities: [] as string[],
   };
@@ -170,6 +204,8 @@ export function emptyExtensionPractice(): Record<string, unknown> {
     workProducts: [] as Record<string, unknown>[],
     personas: [] as Record<string, unknown>[],
     personaGroups: [] as Record<string, unknown>[],
+    alphaInstances: [] as Record<string, unknown>[],
+    workProductInstances: [] as Record<string, unknown>[],
     narrativeTypes: [] as Record<string, unknown>[],
     patterns: [] as Record<string, unknown>[],
   };

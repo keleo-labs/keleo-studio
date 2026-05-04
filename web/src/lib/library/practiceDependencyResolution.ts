@@ -210,6 +210,14 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
     }
   }
 
+  for (const tag of (d.alphaInstances ?? []) as { alphaName?: unknown }[]) {
+    addAlphaState(String(tag?.alphaName ?? ""), undefined);
+  }
+  for (const tag of (d.workProductInstances ?? []) as { workProductName?: unknown }[]) {
+    const wpn = String(tag?.workProductName ?? "").trim();
+    if (wpn) workProductNames.add(wpn);
+  }
+
   const baselineForPatternResolution = {
     alphas: d.alphas ?? [],
     activitySpaces: d.activitySpaces ?? [],
@@ -226,6 +234,17 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
       for (const raw of pv.alphaStates ?? []) {
         const p = parsePatternViewAlphaState(raw);
         if (p) addAlphaState(p.alphaName, p.stateName);
+      }
+      for (const inst of Array.isArray(pv.alphaInstances) ? pv.alphaInstances : []) {
+        if (!inst || typeof inst !== "object") continue;
+        const ai = inst as Record<string, unknown>;
+        addAlphaState(String(ai.alphaName ?? ""), String(ai.stateName ?? ""));
+        for (const ev of Array.isArray(ai.evidenceBy) ? ai.evidenceBy : []) {
+          if (ev && typeof ev === "object") {
+            const wpn = String((ev as { workProductName?: unknown }).workProductName ?? "").trim();
+            if (wpn) workProductNames.add(wpn);
+          }
+        }
       }
       for (const ref of patternViewLaneRefStrings(pv)) {
         activitySpaceNames.add(ref);
@@ -411,6 +430,18 @@ function expandDocumentationClosureFromMergedGraph(merged: Record<string, unknow
         for (const raw of pv.alphaStates ?? []) {
           const p = parsePatternViewAlphaState(raw);
           if (p?.alphaName) addAlpha(p.alphaName);
+        }
+        for (const inst of Array.isArray(pv.alphaInstances) ? pv.alphaInstances : []) {
+          if (!inst || typeof inst !== "object") continue;
+          const ai = inst as Record<string, unknown>;
+          const an = String(ai.alphaName ?? "").trim();
+          if (an) addAlpha(an);
+          for (const ev of Array.isArray(ai.evidenceBy) ? ai.evidenceBy : []) {
+            if (ev && typeof ev === "object") {
+              const wpn = String((ev as { workProductName?: unknown }).workProductName ?? "").trim();
+              if (wpn) addWp(wpn);
+            }
+          }
         }
         for (const lane of patternViewLaneRefStrings(pv)) {
           addSpace(lane);
@@ -816,6 +847,44 @@ export function findPracticeInLibrary(index: LibraryLookupIndex, practiceName: s
   return hit ? clone(hit) : null;
 }
 
+/**
+ * doc-gen-spec **MergePractice** dependency phase: recursively merge transitive
+ * {@link Practice.practiceDependencyNames} before merging the dependent practice.
+ * Post-order DFS (dependencies first); each distinct practice name merges once.
+ * Missing library rows are skipped (same tolerance as shallow resolution).
+ *
+ * @throws When {@link Practice.practiceDependencyNames} forms a cycle.
+ */
+export function orderedTransitiveExtensionPractices(primary: Practice, index: LibraryLookupIndex): Practice[] {
+  const ordered: Practice[] = [];
+  const done = new Set<string>();
+  const visiting = new Set<string>();
+
+  function visitPractice(p: Practice): void {
+    const n = String(p.name ?? "").trim();
+    if (!n || done.has(n)) return;
+    if (visiting.has(n))
+      throw new Error(`Circular practiceDependencyNames at "${n}" (MergePractice preprocessing).`);
+
+    visiting.add(n);
+    try {
+      for (const dep of uniqStrings((p.practiceDependencyNames ?? []) as string[])) {
+        if (dep === n) continue;
+        const depP = findPracticeInLibrary(index, dep);
+        if (depP) visitPractice(depP);
+      }
+    } finally {
+      visiting.delete(n);
+    }
+
+    done.add(n);
+    ordered.push(clone(p));
+  }
+
+  visitPractice(primary);
+  return ordered;
+}
+
 /** Library snapshot embedded in browse “Dependencies” (baseline or extension practice bodies). */
 export type BrowseDependencyArtifact = {
   role: "baselinePractice" | "practice";
@@ -983,11 +1052,9 @@ export function practiceNeedsLibraryResolution(doc: unknown): boolean {
 }
 
 /**
- * Merge the named baseline and dependency practices from the library into one practice-shaped document following the
- * **practice hierarchy**: kernel baseline practice first, extension layers in **`practiceDependencyNames` list order**, then the
- * primary document last (see {@link compositePracticeFromMethod}), then prune to elements referenced by `primary` so the result is documentation-sized.
- * Element merge follows {@link compositePracticeFromMethod}: same-named baseline practice elements accumulate
- * extension deltas rather than wholesale replacement from the extending practice JSON.
+ * Merge the named baseline and dependency practices into one kernel-shaped document (doc-gen-spec **MergePractice** /
+ * {@link compositePracticeFromMethod}): transitive {@link Practice.practiceDependencyNames} resolve in post-order before
+ * the primary, then prune to documentation referenced by `primary`.
  */
 function stripExtensionBaselineNameForKernelComposite(doc: Record<string, unknown>): void {
   /** Merged outputs use {@link mergesBaselinePracticeName}; retaining `baselinePracticeName` would re-run stub enrichment on the client and fight kernel prose. */
@@ -998,9 +1065,6 @@ export function resolvePracticeWithLibraryIndex(primary: unknown, index: Library
   if (!practiceNeedsLibraryResolution(primary)) return primary;
   const p = primary as Record<string, unknown>;
   const baselineName = typeof p.baselinePracticeName === "string" ? p.baselinePracticeName.trim() : "";
-  const depNames = uniqStrings((p.practiceDependencyNames ?? []) as string[]).filter(
-    (n) => n && n !== String(p.name ?? "").trim(),
-  );
 
   const resolvedBaseline = baselineName ? findBaselineInLibrary(index, baselineName) : null;
   const fallbackBaseline = asBaselineDocument(primary);
@@ -1008,14 +1072,8 @@ export function resolvePracticeWithLibraryIndex(primary: unknown, index: Library
 
   const baseline: PracticeBaseline = resolvedBaseline ?? (fallbackBaseline as PracticeBaseline);
 
-  const depPractices: Practice[] = [];
-  for (const name of depNames) {
-    const pb = findPracticeInLibrary(index, name);
-    if (pb) depPractices.push(pb);
-  }
-
-  /** Extension merge hierarchy beyond the kernel baseline: deps in dependency-list order (closest to baseline first), primary last. */
-  const hierarchicalExtensions: Practice[] = [...depPractices, p as Practice];
+  /** Transitive deps (library) then primary — matches MergePractice DFS before overlaying the focal practice. */
+  const hierarchicalExtensions: Practice[] = orderedTransitiveExtensionPractices(p as Practice, index);
 
   const method: Method = {
     name: String(p.name ?? "Practice"),
@@ -1028,13 +1086,12 @@ export function resolvePracticeWithLibraryIndex(primary: unknown, index: Library
   const merged = compositePracticeFromMethod(method) as Record<string, unknown>;
   const sourceChain: Record<string, unknown>[] = [
     baseline as unknown as Record<string, unknown>,
-    ...depPractices.map((x) => x as unknown as Record<string, unknown>),
-    p,
+    ...hierarchicalExtensions.map((x) => x as unknown as Record<string, unknown>),
   ];
   fillUnresolvedFocusNamesFromSourceChain(merged, sourceChain);
 
   const closure = collectPrimaryDocumentationClosure(primary);
-  for (const dep of depPractices) {
+  for (const dep of hierarchicalExtensions.slice(0, -1)) {
     unionDocumentationClosuresInPlace(closure, collectPrimaryDocumentationClosure(dep));
   }
   expandDocumentationClosureFromMergedGraph(merged, closure);

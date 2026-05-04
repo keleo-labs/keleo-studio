@@ -14,7 +14,7 @@ import { normalizePracticeElementTags } from "@/lib/practiceElementTags";
 import { isStandaloneBaselinePracticeArtifact } from "@/lib/library/classify";
 import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
-import { formatPatternViewAlphaState } from "@/lib/patternView";
+import { formatPatternViewAlphaInstance, formatPatternViewAlphaState } from "@/lib/patternView";
 import { useLanguagePack } from "@/lib/languagePack";
 // ---------------------------------------------------------
 // Red Hat / PatternFly Design System UI Mocks
@@ -494,6 +494,7 @@ export function FullPracticeView({
                       const acts = Array.isArray(pv.activities)
                         ? pv.activities.map((raw) => String(raw ?? "").trim()).filter(Boolean)
                         : [];
+                      const alphaInstances = Array.isArray(pv.alphaInstances) ? pv.alphaInstances : [];
                       return (
                         <div
                           key={`${name}-${pv.seq ?? vi}-${pvName}`}
@@ -531,6 +532,22 @@ export function FullPracticeView({
                                   <li key={idx} style={{ marginBottom: "4px" }}>
                                     <code style={{ fontSize: "13px", backgroundColor: "#f5f5f5", padding: "2px 6px", borderRadius: 4 }}>
                                       {formatPatternViewAlphaState(raw)}
+                                    </code>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ) : null}
+                          {alphaInstances.length > 0 ? (
+                            <div style={{ marginTop: "16px" }}>
+                              <strong style={{ fontSize: "13px", color: "#6a6e73", display: "block", marginBottom: "8px" }}>
+                                {t.patternViewAlphaInstances}
+                              </strong>
+                              <ul style={{ margin: 0, paddingLeft: "20px", fontSize: "14px", color: "#151515" }}>
+                                {alphaInstances.map((raw: unknown, idx: number) => (
+                                  <li key={idx} style={{ marginBottom: "4px" }}>
+                                    <code style={{ fontSize: "13px", backgroundColor: "#f5f5f5", padding: "2px 6px", borderRadius: 4 }}>
+                                      {formatPatternViewAlphaInstance(raw)}
                                     </code>
                                   </li>
                                 ))}
