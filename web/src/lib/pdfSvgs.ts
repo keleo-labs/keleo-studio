@@ -17,6 +17,7 @@ import {
   computeSwimlaneFocusHeadingLayoutAliased,
   diagramTextCharLimits,
   layoutDiagramAliasedNameRows,
+  patternMatrixSliceChipPrimaryJoined,
   PATTERN_VIEW_MATRIX_NARRATIVE_BULLET_GAP_PX,
   SWIMLANE_FOCUS_HEADING,
   wrapDiagramTextLines,
@@ -885,10 +886,28 @@ export function svgPatternMatrix(args: {
       let cy = rowY + cellPad;
       blocks.forEach((b, bk) => {
         const chipW = chipInnerW + 8;
-        const chipH = computeBlockHeightAliased(b.alphaName, b.stateName, chipW, 8, 8, false, lookup, "Alpha", "State");
+        const derivedPrimary = patternMatrixSliceChipPrimaryJoined(b);
+        const stateMeasured = diagramMeasureName(lookup, "State", b.stateName);
+        const chipH = derivedPrimary
+          ? computeBlockHeightForWidth(derivedPrimary, stateMeasured, chipW, 8, 8, false)
+          : computeBlockHeightAliased(b.alphaName, b.stateName, chipW, 8, 8, false, lookup, "Alpha", "State");
         cellsSvg.push(`<g transform="translate(${x0 + 12}, ${cy})">
             <rect x="0" y="0" width="${chipW}" height="${chipH}" rx="12" ry="12" fill="rgba(0,0,0,0.18)" stroke="var(--border)"/>
-            ${renderAliasedDiagramText(b.alphaName, b.stateName, chipW, 8, 8, false, lookup, "Alpha", "State")}
+            ${
+              derivedPrimary
+                ? renderAliasedDiagramText(
+                    derivedPrimary,
+                    b.stateName,
+                    chipW,
+                    8,
+                    8,
+                    false,
+                    lookup,
+                    undefined,
+                    "State",
+                  )
+                : renderAliasedDiagramText(b.alphaName, b.stateName, chipW, 8, 8, false, lookup, "Alpha", "State")
+            }
           </g>`);
         cy += chipH;
 
