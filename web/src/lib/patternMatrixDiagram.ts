@@ -29,8 +29,12 @@ export function contribEntryMatchesAlphaState(
 
 export type PatternMatrixCellEntry = { alphaName: string; stateName: string };
 
-/** One alpha→state slice in a matrix cell plus execution lanes inferred from contributesTo / explicit refs. */
-export type PatternMatrixCellBlock = PatternMatrixCellEntry & { lanes: PatternMatrixLaneChip[] };
+/** One PatternView.alphaInstances row matched to an alpha/state matrix slice (diagram + PDF); {@link instanceName} is `alphaName: instanceName` for display. */
+export type PatternMatrixSliceInstanceChip = {
+  instanceName: string;
+  /** Instance description from IR (currently unused inside the slice chip visual). */
+  secondary: string;
+};
 
 /** Resolved swimlane chip: name matches ActivitySpace.name or Activity.name; secondary is description or type label. */
 export type PatternMatrixLaneChip = {
@@ -42,6 +46,19 @@ export type PatternMatrixLaneChip = {
   /** Raw string from the PatternView array (stable dedup within a cell). */
   patternRef: string;
 };
+
+/** One alpha→state slice in a matrix cell plus execution lanes inferred from contributesTo / explicit refs. */
+export type PatternMatrixCellBlock = PatternMatrixCellEntry & {
+  lanes: PatternMatrixLaneChip[];
+  sliceInstances?: PatternMatrixSliceInstanceChip[];
+};
+
+/** Derived bold primary text for slice chip when `sliceInstances` are present (`" · "`-joined names). Otherwise empty. */
+export function patternMatrixSliceChipPrimaryJoined(block: PatternMatrixCellBlock): string {
+  const inst = block.sliceInstances;
+  if (!inst?.length) return "";
+  return inst.map((s) => s.instanceName.trim()).filter(Boolean).join(" · ");
+}
 
 export type PatternMatrixGrouped = { focusName: string };
 
@@ -559,6 +576,20 @@ function findOrAppendCellBlock(bucket: PatternMatrixCellBlock[], alphaName: stri
   return b;
 }
 
+function appendSliceInstanceForBlock(block: PatternMatrixCellBlock, raw: unknown): void {
+  if (!raw || typeof raw !== "object") return;
+  const o = raw as Record<string, unknown>;
+  const instanceNm = String(o.instanceName ?? o.name ?? "").trim();
+  const secondary = String(practiceElementDescriptionForDisplay(raw) ?? "").trim();
+  const displayHead = `${block.alphaName}: ${instanceNm || "—"}`;
+  if (!block.sliceInstances) block.sliceInstances = [];
+  if (block.sliceInstances.some((x) => x.instanceName === displayHead && x.secondary === secondary)) return;
+  block.sliceInstances.push({
+    instanceName: displayHead,
+    secondary,
+  });
+}
+
 function appendLaneIfMissing(
   block: PatternMatrixCellBlock,
   lane: Omit<PatternMatrixLaneChip, "patternRef"> & { patternRef: string },
@@ -669,6 +700,20 @@ export function buildPatternMatrixCells(
       const block = findOrAppendCellBlock(cellBlocks[ri][cj], p.alphaName, p.stateName);
       fillLanesContributingForSlice(block, baseline, p.alphaName, p.stateName, laneLabels);
       appendExplicitLanesForSliceFromPatternView(block, pv, baseline, p.alphaName, p.stateName, laneLabels);
+    }
+    const instRows = Array.isArray(pv?.alphaInstances) ? pv.alphaInstances : [];
+    for (const raw of instRows) {
+      if (!raw || typeof raw !== "object") continue;
+      const o = raw as Record<string, unknown>;
+      const alphaName = String(o.alphaName ?? "").trim();
+      const stateName = String(o.stateName ?? "").trim();
+      if (!alphaName || !stateName) continue;
+      const ri = alphaRowIndex(rowAlphaNames, alphaName);
+      if (ri < 0) continue;
+      const block = findOrAppendCellBlock(cellBlocks[ri][cj], alphaName, stateName);
+      appendSliceInstanceForBlock(block, raw);
+      fillLanesContributingForSlice(block, baseline, alphaName, stateName, laneLabels);
+      appendExplicitLanesForSliceFromPatternView(block, pv, baseline, alphaName, stateName, laneLabels);
     }
   }
 
@@ -826,8 +871,10 @@ export function computePatternMatrixLayout(
       }
       for (let bk = 0; bk < blocks.length; bk++) {
         const b = blocks[bk];
-        cellH +=
-          chipNameBlockH("Alpha", b.alphaName, m("State", b.stateName), chipW, false);
+        const derivedPrimary = patternMatrixSliceChipPrimaryJoined(b);
+        cellH += derivedPrimary
+          ? computeBlockHeightForWidth(derivedPrimary, m("State", b.stateName), chipW, 8, 8, false)
+          : chipNameBlockH("Alpha", b.alphaName, m("State", b.stateName), chipW, false);
         const lanes = b.lanes;
         if (lanes.length > 0) {
           if (isExpanded(ri, cj, bk)) {

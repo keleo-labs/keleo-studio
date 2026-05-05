@@ -32,12 +32,14 @@ import {
   buildPatternMatrixAlphaRows,
   buildPatternMatrixCells,
   computeArrowHeightForWidthWithAlias,
+  computeBlockHeightForWidth,
   computeBlockHeightForWidthWithAlias,
   computePatternMatrixLayout,
   computeSwimlaneFocusHeadingLayout,
   computeSwimlaneFocusHeadingLayoutAliased,
   diagramTextCharLimits,
   layoutDiagramAliasedNameRows,
+  patternMatrixSliceChipPrimaryJoined,
   PATTERN_MATRIX_LANE_TOGGLE_HEIGHT,
   PATTERN_VIEW_MATRIX_NARRATIVE_BULLET_GAP_PX,
   SWIMLANE_FOCUS_HEADING,
@@ -308,20 +310,15 @@ function IrBrowsePatternViewsSection({
                   const st = String(o?.stateName ?? "").trim();
                   const sep = idx < arr.length - 1 ? ", " : "";
                   if (o && a && st) {
-                    const instLabel = String(o.instanceName ?? o.name ?? "").trim();
+                    const instNm = String(o.instanceName ?? o.name ?? "").trim();
+                    const head = `${a}: ${instNm || "—"}`;
                     return (
                       <span key={`pv-${String(pv.name)}-ai-${idx}`}>
-                        {instLabel ? (
-                          <>
-                            <code>{instLabel}</code>
-                            {": "}
-                          </>
-                        ) : null}
                         <a href={`#${stateId(a, st)}`} style={linkStyle()}>
-                          <code>
-                            <AliasedName kind="Alpha" name={a} browse />→
-                            <AliasedName kind="State" name={st} browse />
-                          </code>
+                          <code>{head}</code>
+                          {" "}
+                          <span className="text-[var(--muted)]">→</span>{" "}
+                          <AliasedName kind="State" name={st} browse />
                         </a>
                         {sep}
                       </span>
@@ -3286,15 +3283,19 @@ function DiagramPatternMatrix({
       let cy = rowY + cellPad;
       blocks.forEach((b, bk) => {
         const ak = `${ri}-${cj}-${bk}`;
-        const chChip = computeBlockHeightForWidthWithAlias(
-          lookup,
-          "Alpha",
-          b.alphaName,
-          measureName("State", b.stateName),
-          chipW,
-          8,
-          8,
-        );
+        const derivedPrimary = patternMatrixSliceChipPrimaryJoined(b);
+        const stateMeasured = measureName("State", b.stateName);
+        const chChip = derivedPrimary
+          ? computeBlockHeightForWidth(derivedPrimary, stateMeasured, chipW, 8, 8, false)
+          : computeBlockHeightForWidthWithAlias(
+              lookup,
+              "Alpha",
+              b.alphaName,
+              stateMeasured,
+              chipW,
+              8,
+              8,
+            );
         const sliceTop = cy;
         const lanes = b.lanes;
         const exp = lanesExpandedFn(ri, cj, bk);
@@ -3302,19 +3303,33 @@ function DiagramPatternMatrix({
         rowContent.push(
           <g key={`cell-${ak}-slice`} transform={`translate(${x0 + 12}, ${sliceTop})`}>
             <rect x={0} y={0} width={chipW} height={chChip} rx={12} ry={12} fill="rgba(0,0,0,0.18)" stroke="var(--border)" />
-            {renderWrappedText(
-              b.alphaName,
-              b.stateName,
-              chipW,
-              8,
-              8,
-              false,
-              "Alpha",
-              "State",
-              lookup,
-              diagramHrefAlpha(b.alphaName),
-              diagramHrefState(b.alphaName, b.stateName),
-            )}
+            {derivedPrimary
+              ? renderWrappedText(
+                  derivedPrimary,
+                  b.stateName,
+                  chipW,
+                  8,
+                  8,
+                  false,
+                  undefined,
+                  "State",
+                  lookup,
+                  undefined,
+                  diagramHrefState(b.alphaName, b.stateName),
+                )
+              : renderWrappedText(
+                  b.alphaName,
+                  b.stateName,
+                  chipW,
+                  8,
+                  8,
+                  false,
+                  "Alpha",
+                  "State",
+                  lookup,
+                  diagramHrefAlpha(b.alphaName),
+                  diagramHrefState(b.alphaName, b.stateName),
+                )}
           </g>,
         );
 
