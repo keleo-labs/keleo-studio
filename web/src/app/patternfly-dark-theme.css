@@ -1,0 +1,36 @@
+/* PatternFly Dark Theme Overrides to match your custom dark theme */
+
+:root {
+  /* Override PatternFly colors to match your theme */
+  --pf-v6-global--BackgroundColor--100: var(--bg);
+  --pf-v6-global--BackgroundColor--200: var(--panel);
+
+  --pf-v6-global--Color--100: var(--text);
+  --pf-v6-global--Color--200: var(--muted);
+
+  --pf-v6-global--BorderColor--100: var(--border);
+
+  --pf-v6-global--primary-color--100: var(--accent);
+  --pf-v6-global--primary-color--200: var(--accent);
+
+  --pf-v6-global--link--Color: var(--accent);
+  --pf-v6-global--link--Color--hover: var(--accent);
+
+  /* Card backgrounds */
+  --pf-v6-c-card--BackgroundColor: var(--panel);
+
+  /* Navigation */
+  --pf-v6-c-nav--BackgroundColor: var(--panel);
+  --pf-v6-c-nav__link--Color: var(--text);
+  --pf-v6-c-nav__link--hover--Color: var(--accent);
+  --pf-v6-c-nav__link--active--Color: var(--accent);
+  --pf-v6-c-nav__link--active--BackgroundColor: rgba(139, 92, 246, 0.1);
+
+  /* Sidebar */
+  --pf-v6-c-sidebar__panel--BackgroundColor: var(--panel);
+  --pf-v6-c-sidebar__content--BackgroundColor: var(--bg);
+
+  /* Page Section */
+  --pf-v6-c-page__main-section--BackgroundColor: var(--panel);
+  --pf-v6-c-page__main-section--m-light--BackgroundColor: var(--panel);
+}

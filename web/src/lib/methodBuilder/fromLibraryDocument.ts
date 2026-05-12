@@ -36,7 +36,13 @@ export function methodFromLibraryBody(body: unknown): Method | null {
   if (!body || typeof body !== "object") return null;
   if (classifyLibraryRoot(body) !== "method") return null;
   const m = body as Method;
-  if (!m.baselinePractice || typeof m.baselinePractice !== "object") return null;
+  const methodAny = m as any;
+
+  // Accept Methods with embedded baselinePractice OR baselinePracticeName reference
+  const hasEmbeddedBaseline = m.baselinePractice && typeof m.baselinePractice === "object";
+  const hasBaselineRef = typeof methodAny.baselinePracticeName === "string" && String(methodAny.baselinePracticeName).trim() !== "";
+
+  if (!hasEmbeddedBaseline && !hasBaselineRef) return null;
   return clone(m);
 }
 
@@ -47,6 +53,8 @@ export function methodBaselineBundleFromLibraryBody(body: unknown): {
 } | null {
   const m = methodFromLibraryBody(body);
   if (!m) return null;
+  // Methods can reference baseline by name only; the builder needs an embedded kernel.
+  if (!m.baselinePractice || typeof m.baselinePractice !== "object") return null;
   return {
     baseline: m.baselinePractice,
     practices: Array.isArray(m.practices) ? m.practices : [],

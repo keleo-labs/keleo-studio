@@ -1288,6 +1288,95 @@
           "howToUse": "Detail the active state transitions, required work products, and activities for this specific phase of the lifecycle progression."
         }
       ]
-    }
+    },
+      {
+        "name": "Essay Narrative",
+        "description": "A cohesive narrative format that guides the reader carefully through the evidence for and against a proposition before reaching a conclusion.",
+        "narrativeElements": [
+          {
+            "name": "Introduction",
+            "description": "The start of the essay used to contextualise the work and grab the attention of the reader.",
+            "howToUse": "Explain how the topic sits within the framework of the subject area as a whole. Outline the structure of your essay very briefly, but do not give your conclusions away on the first page."
+          },
+          {
+            "name": "Defining Key Concepts",
+            "description": "A section establishing the interpretation of central concepts without relying on dictionary definitions.",
+            "howToUse": "Relate in your own words how the terms you will be using are to be interpreted within the context of your essay."
+          },
+          {
+            "name": "Presenting Evidence",
+            "description": "The core discussion where secondary works are evaluated and viewpoints are balanced against each other.",
+            "howToUse": "Be selective in your choice of evidence and use signposting language to guide your reader. Quote sparingly, paraphrase occasionally, and summarise often to integrate other people's ideas into your own argument."
+          },
+          {
+            "name": "Conclusion",
+            "description": "The closing section that synthesises the presented evidence and forms a direct response to the assignment title.",
+            "howToUse": "Draw the threads of your argument together. Do not bring in new evidence in your concluding paragraphs or try to cram in ideas that you have not developed fully."
+          }
+        ]
+      },
+      {
+        "name": "Report Narrative",
+        "description": "A formal, informative structure broken down into sections and sub-sections to order and communicate relevant information in an easily navigable way.",
+        "narrativeElements": [
+          {
+            "name": "Executive Summary",
+            "description": "A stand-alone summary of the entire report's purpose, methodology, findings, conclusions, and recommendations.",
+            "howToUse": "This should be the last thing that you write. Keep it concise (usually a paragraph or two and always less than a page) to enable the reader to make an informed decision about whether they want to read the report itself."
+          },
+          {
+            "name": "Introduction",
+            "description": "Explains the rationale for undertaking the work reported on, the background, and the scope of the report.",
+            "howToUse": "State what the report is about, define how it meets the requirements of the brief, and explain your research methods."
+          },
+          {
+            "name": "Methods",
+            "description": "A clear description of how the investigation was carried out and why specific methods were chosen.",
+            "howToUse": "Write this section concisely but thoroughly. Provide step-by-step details in such a way that a reader could replicate the research you have done."
+          },
+          {
+            "name": "Results and Findings",
+            "description": "A purely factual presentation of the research data using text, graphs, tables, or diagrams.",
+            "howToUse": "Present the findings of your research as simply as possible. Save your interpretation of the results for the Discussion section."
+          },
+          {
+            "name": "Discussion",
+            "description": "The section that brings everything together by showing how the findings relate to the purpose of the report and previous research.",
+            "howToUse": "Interpret the results, showing how they respond to the brief explained in the introduction. Mention if there were any problems or unexpected results and how they were solved."
+          },
+          {
+            "name": "Recommendations",
+            "description": "Suggestions for a future course of action based on the evidence and conclusions.",
+            "howToUse": "Make recommendations that solve problems or help to develop a new strategy. Make an effort to sound authoritative and certain in your choices."
+          }
+        ]
+      },
+      {
+        "name": "Citation Standard",
+        "description": "The structural elements required for a reference list entry.",
+        "narrativeElements": [
+          {
+            "name": "Author",
+            "description": "The person, group, or organization responsible for the work.",
+            "howToUse": "Invert authors' names (Lastname, F. M.). Use an ampersand (&) before the final author's name in a list. For groups, use the full name."
+          },
+          {
+            "name": "Date",
+            "description": "The publication date of the work.",
+            "howToUse": "Enclose the year in parentheses, followed by a period: (2026). For works with no date, use (n.d.)."
+          },
+          {
+            "name": "Title",
+            "description": "The name of the specific work being cited.",
+            "howToUse": "Italicize the title of standalone works (books, reports). Use sentence case—capitalize only the first word of the title and subtitle."
+          },
+          {
+            "name": "Source",
+            "description": "Where the work can be retrieved, such as a journal, publisher, or URL.",
+            "howToUse": "Include the periodical title and volume/issue if applicable. Provide a DOI or URL as a live link; do not include 'Retrieved from' for most entries."
+          }
+        ]
+      }
+    
   ]
 }

@@ -26,7 +26,7 @@ export async function GET(req: Request) {
   const documents = await Promise.all(
     metas.map(async (m) => {
       const full = await store.get(m.id);
-      const body = full?.body;
+      const body = normalizePracticeBody(full?.body);
       return {
         ...m,
         ...(withBody ? { body } : {}),
@@ -40,6 +40,34 @@ export async function GET(req: Request) {
     }),
   );
   return NextResponse.json({ documents });
+}
+
+function normalizePracticeBody(body: unknown): unknown {
+  if (!body || typeof body !== "object") return body;
+  const o = body as Record<string, unknown>;
+
+  // For practices with dependencies but no local elements, ensure arrays exist
+  const isPractice = typeof o.baselinePracticeName === "string" || Array.isArray(o.practiceDependencyNames);
+  if (!isPractice) {
+    // Check if this is a Method with embedded practices
+    if (Array.isArray(o.practices)) {
+      return {
+        ...o,
+        practices: o.practices.map((p) => normalizePracticeBody(p)),
+      };
+    }
+    return body;
+  }
+
+  return {
+    ...o,
+    alphas: Array.isArray(o.alphas) ? o.alphas : [],
+    activitySpaces: Array.isArray(o.activitySpaces) ? o.activitySpaces : [],
+    activities: Array.isArray(o.activities) ? o.activities : [],
+    workProducts: Array.isArray(o.workProducts) ? o.workProducts : [],
+    personas: Array.isArray(o.personas) ? o.personas : [],
+    personaGroups: Array.isArray(o.personaGroups) ? o.personaGroups : [],
+  };
 }
 
 export async function POST(req: Request) {
@@ -63,7 +91,7 @@ export async function POST(req: Request) {
   const input: JsonDocumentCreateInput = {
     title,
     kind: o.kind,
-    body: o.body === undefined ? null : o.body,
+    body: o.body === undefined ? null : normalizePracticeBody(o.body),
   };
   try {
     const store = await getJsonDocumentStore();

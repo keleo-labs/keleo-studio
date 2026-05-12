@@ -8,12 +8,11 @@ import type { LibraryRootKind } from "@/lib/library/classify";
 import { rootKindExtension } from "@/lib/library/classify";
 import {
   baselineForMethodFromLibraryBody,
-  methodBaselineBundleFromLibraryBody,
   methodFromLibraryBody,
   practiceForMethodFromLibraryBody,
   practiceWithBaselineName,
 } from "@/lib/methodBuilder/fromLibraryDocument";
-import type { Practice, PracticeBaseline } from "@/lib/types";
+import type { Method, Practice, PracticeBaseline } from "@/lib/types";
 import type { JsonDocumentMeta } from "@/lib/storage/types";
 
 const DRAG_MIME = "application/x-adoption-library";
@@ -101,6 +100,170 @@ function resolveBaselineReloadId(
 function resolvePracticeReloadId(rows: LibraryRow[], slot: PracticeSlot): string | null {
   if (!isEmbeddedPracticeSlotId(slot.libraryId)) return slot.libraryId;
   return findPracticeDocumentId(rows, String(slot.practice.name ?? ""));
+}
+
+function isEmbeddedMethodShape(v: unknown): v is Method {
+  if (!v || typeof v !== "object" || Array.isArray(v)) return false;
+  const bp = (v as Record<string, unknown>).baselinePractice;
+  return bp !== null && typeof bp === "object" && !Array.isArray(bp);
+}
+
+/**
+ * Depth-first {@link Practice} leaves from {@link Method.practices}, recursing into embedded Method-shaped aggregates
+ * (kernel heads are skipped; nesting matches composite merge walk order).
+ */
+function flattenMethodPracticeOverlays(items: unknown[]): Practice[] {
+  const flat: Practice[] = [];
+  const walk = (arr: unknown[]) => {
+    for (const raw of arr) {
+      if (isEmbeddedMethodShape(raw)) {
+        walk((((raw as Method).practices ?? []) as unknown[]) ?? []);
+      } else if (raw && typeof raw === "object" && !Array.isArray(raw)) {
+        const name = (raw as Practice).name;
+        if (typeof name === "string" && name.trim() !== "") {
+          flat.push(raw as Practice);
+        }
+      }
+    }
+  };
+  walk(items);
+  return flat;
+}
+
+/** Append incoming extension slots; skip when practice name matches an existing slot, or duplicate library ids. */
+function mergeDedupPracticeSlots(existing: PracticeSlot[], incoming: PracticeSlot[]): PracticeSlot[] {
+  const seenNames = new Set(
+    existing.map((s) => String(s.practice.name ?? "").trim()).filter((n) => n !== ""),
+  );
+  const seenDocIds = new Set(
+    existing.filter((s) => !isEmbeddedPracticeSlotId(s.libraryId)).map((s) => s.libraryId),
+  );
+  const next = [...existing];
+  for (const slot of incoming) {
+    const name = String(slot.practice.name ?? "").trim();
+    if (name && seenNames.has(name)) continue;
+    const fromLibrary = !isEmbeddedPracticeSlotId(slot.libraryId);
+    if (fromLibrary && seenDocIds.has(slot.libraryId)) continue;
+    if (name) seenNames.add(name);
+    if (fromLibrary) seenDocIds.add(slot.libraryId);
+    next.push(slot);
+  }
+  return next;
+}
+
+type ExtensionPracticeSlotsResult =
+  | { ok: true; practiceSlots: PracticeSlot[] }
+  | { ok: false; error: string };
+
+/** Extension layers aligned to `alignBaselineName` (composer baseline), embedded first then library `practiceNames`. */
+async function buildExtensionPracticeSlots(params: {
+  method: Method;
+  methodDocLibraryId: string;
+  alignBaselineName: string;
+  rows: LibraryRow[];
+  fetchBody: (id: string) => Promise<unknown | null>;
+}): Promise<ExtensionPracticeSlotsResult> {
+  const { method, methodDocLibraryId, alignBaselineName, rows, fetchBody } = params;
+  const methodRec = method as Record<string, unknown>;
+  const practiceSlots: PracticeSlot[] = [];
+
+  const embeddedLayers = flattenMethodPracticeOverlays(
+    Array.isArray(method.practices) ? (method.practices as unknown[]) : [],
+  );
+  for (let i = 0; i < embeddedLayers.length; i++) {
+    const p = embeddedLayers[i]!;
+    practiceSlots.push({
+      libraryId: `embedded:from:${methodDocLibraryId}:${i}:${encodeURIComponent(String(p.name ?? ""))}`,
+      practice: practiceWithBaselineName(clonePractice(p), alignBaselineName),
+    });
+  }
+
+  const rawNames = methodRec.practiceNames;
+  if (Array.isArray(rawNames)) {
+    for (const raw of rawNames) {
+      const practiceName = String(raw ?? "").trim();
+      if (!practiceName) continue;
+      const pid = findPracticeDocumentId(rows, practiceName);
+      if (!pid) {
+        return { ok: false, error: `Extension practice "${practiceName}" not found in library.` };
+      }
+      const pBody = await fetchBody(pid);
+      if (!pBody) {
+        return { ok: false, error: `Could not load practice "${practiceName}" from the library.` };
+      }
+      const p = practiceForMethodFromLibraryBody(pBody);
+      if (!p) {
+        return {
+          ok: false,
+          error: `Library entry for practice "${practiceName}" is not a valid extension practice.`,
+        };
+      }
+      practiceSlots.push({ libraryId: pid, practice: practiceWithBaselineName(p, alignBaselineName) });
+    }
+  }
+
+  return { ok: true, practiceSlots };
+}
+
+type ComposeMethodSlotsResult =
+  | { ok: true; baselineSlot: BaselineSlot; practiceSlots: PracticeSlot[] }
+  | { ok: false; error: string };
+
+/**
+ * Resolves a Method that may use `baselinePracticeName` and/or `practiceNames` by loading documents from the library.
+ * Embedded `practices` are flattened depth-first with nested Methods; then `practiceNames` resolve via the library index
+ * (same extension order as composite merge).
+ */
+async function composeMethodSlotsUsingLibrary(params: {
+  method: Method;
+  methodDocLibraryId: string;
+  rows: LibraryRow[];
+  fetchBody: (id: string) => Promise<unknown | null>;
+}): Promise<ComposeMethodSlotsResult> {
+  const { method, methodDocLibraryId, rows, fetchBody } = params;
+  const methodRec = method as Record<string, unknown>;
+
+  let baselineSlot: BaselineSlot;
+  if (methodRec.baselinePractice && typeof methodRec.baselinePractice === "object") {
+    baselineSlot = {
+      libraryId: methodDocLibraryId,
+      baseline: methodRec.baselinePractice as PracticeBaseline,
+    };
+  } else {
+    const ref =
+      typeof methodRec.baselinePracticeName === "string" ? String(methodRec.baselinePracticeName).trim() : "";
+    if (!ref) {
+      return { ok: false, error: "Method has neither baselinePractice nor baselinePracticeName." };
+    }
+    const baselineLibraryId = findStandaloneBaselineDocumentId(rows, ref);
+    if (!baselineLibraryId) {
+      return { ok: false, error: `Baseline "${ref}" not found in library.` };
+    }
+    const baselineBody = await fetchBody(baselineLibraryId);
+    if (!baselineBody) {
+      return { ok: false, error: `Could not load baseline document for "${ref}".` };
+    }
+    const baseline = baselineForMethodFromLibraryBody(baselineBody);
+    if (!baseline) {
+      return {
+        ok: false,
+        error: `Referenced baseline "${ref}" is not a valid PracticeBaseline document.`,
+      };
+    }
+    baselineSlot = { libraryId: baselineLibraryId, baseline };
+  }
+
+  const baselineName = String(baselineSlot.baseline.name ?? "");
+  const layers = await buildExtensionPracticeSlots({
+    method,
+    methodDocLibraryId,
+    alignBaselineName: baselineName,
+    rows,
+    fetchBody,
+  });
+  if (!layers.ok) return layers;
+
+  return { ok: true, baselineSlot, practiceSlots: layers.practiceSlots };
 }
 
 export function MethodBuilderClient() {
@@ -194,20 +357,58 @@ export function MethodBuilderClient() {
       const doc = (await res.json()) as { body?: unknown };
       const m = methodFromLibraryBody(doc.body);
       if (!m) {
-        setLoadEditError("This library entry is not a Method (root object with baselinePractice). Open it in Practice author instead.");
+        setLoadEditError("This library entry is not a Method. Open it in Practice author instead.");
         setLoadEditBusy(false);
         return;
       }
       setEditingDocumentId(libraryIdFromUrl);
       setMethodName(String(m.name ?? ""));
       setMethodDescription(String(m.description ?? ""));
-      setBaselineSlot({ libraryId: libraryIdFromUrl, baseline: m.baselinePractice });
-      setPracticeSlots(
-        (m.practices ?? []).map((p, i) => ({
-          libraryId: `embedded:${i}:${encodeURIComponent(p.name)}`,
-          practice: clonePractice(p),
-        })),
-      );
+
+      const fetchBody = async (id: string): Promise<unknown | null> => {
+        const r = await fetch(`/api/documents/${encodeURIComponent(id)}`, { cache: "no-store" });
+        if (cancelled) return null;
+        if (!r.ok) return null;
+        const d = (await r.json()) as { body?: unknown };
+        return d.body ?? null;
+      };
+
+      const methodRec = m as Record<string, unknown>;
+      const hasBaselineRef =
+        !(methodRec.baselinePractice && typeof methodRec.baselinePractice === "object") &&
+        typeof methodRec.baselinePracticeName === "string" &&
+        String(methodRec.baselinePracticeName).trim() !== "";
+      const hasPracticeNames =
+        Array.isArray(methodRec.practiceNames) &&
+        methodRec.practiceNames.some((x) => String(x ?? "").trim() !== "");
+
+      let rows: LibraryRow[] = [];
+      if (hasBaselineRef || hasPracticeNames) {
+        const libRes = await fetch("/api/documents?details=1", { cache: "no-store" });
+        if (cancelled) return;
+        if (!libRes.ok) {
+          setLoadEditError("Could not load library to resolve method references.");
+          setLoadEditBusy(false);
+          return;
+        }
+        const libData = (await libRes.json()) as { documents?: LibraryRow[] };
+        rows = Array.isArray(libData.documents) ? libData.documents : [];
+      }
+
+      const composed = await composeMethodSlotsUsingLibrary({
+        method: m,
+        methodDocLibraryId: libraryIdFromUrl,
+        rows,
+        fetchBody,
+      });
+      if (cancelled) return;
+      if (!composed.ok) {
+        setLoadEditError(composed.error);
+        setLoadEditBusy(false);
+        return;
+      }
+      setBaselineSlot(composed.baselineSlot);
+      setPracticeSlots(composed.practiceSlots);
       setLoadEditBusy(false);
     })();
 
@@ -375,16 +576,40 @@ export function MethodBuilderClient() {
       setComposeError("Could not load that library document.");
       return;
     }
-    const fromMethod = methodBaselineBundleFromLibraryBody(body);
-    if (fromMethod) {
-      const { baseline, practices } = fromMethod;
-      setBaselineSlot({ libraryId: payload.id, baseline });
-      setPracticeSlots(
-        practices.map((p, i) => ({
-          libraryId: `embedded:${i}:${encodeURIComponent(String(p.name ?? ""))}`,
-          practice: practiceWithBaselineName(clonePractice(p), baseline.name),
-        })),
-      );
+    const m = methodFromLibraryBody(body);
+    if (m) {
+      const methodRec = m as Record<string, unknown>;
+      const hasBaselineRef =
+        !(methodRec.baselinePractice && typeof methodRec.baselinePractice === "object") &&
+        typeof methodRec.baselinePracticeName === "string" &&
+        String(methodRec.baselinePracticeName).trim() !== "";
+      const hasPracticeNames =
+        Array.isArray(methodRec.practiceNames) &&
+        methodRec.practiceNames.some((x) => String(x ?? "").trim() !== "");
+
+      let rows: LibraryRow[] = [];
+      if (hasBaselineRef || hasPracticeNames) {
+        const libRes = await fetch("/api/documents?details=1", { cache: "no-store" });
+        if (!libRes.ok) {
+          setComposeError("Could not load library index to resolve method references.");
+          return;
+        }
+        const libData = (await libRes.json()) as { documents?: LibraryRow[] };
+        rows = Array.isArray(libData.documents) ? libData.documents : [];
+      }
+
+      const composed = await composeMethodSlotsUsingLibrary({
+        method: m,
+        methodDocLibraryId: payload.id,
+        rows,
+        fetchBody: fetchDocumentBody,
+      });
+      if (!composed.ok) {
+        setComposeError(composed.error);
+        return;
+      }
+      setBaselineSlot(composed.baselineSlot);
+      setPracticeSlots(composed.practiceSlots);
       return;
     }
     const baseline = baselineForMethodFromLibraryBody(body);
@@ -422,9 +647,44 @@ export function MethodBuilderClient() {
       setComposeError("Could not load that library document.");
       return;
     }
+
+    const droppedMethod = methodFromLibraryBody(body);
+    if (droppedMethod) {
+      const baselineName = String(baselineSlot.baseline.name ?? "");
+      const methodRec = droppedMethod as Record<string, unknown>;
+      const hasPracticeNames =
+        Array.isArray(methodRec.practiceNames) &&
+        methodRec.practiceNames.some((x) => String(x ?? "").trim() !== "");
+
+      let rows: LibraryRow[] = [];
+      if (hasPracticeNames) {
+        const libRes = await fetch("/api/documents?details=1", { cache: "no-store" });
+        if (!libRes.ok) {
+          setComposeError("Could not load library index to resolve practice names.");
+          return;
+        }
+        const libData = (await libRes.json()) as { documents?: LibraryRow[] };
+        rows = Array.isArray(libData.documents) ? libData.documents : [];
+      }
+
+      const built = await buildExtensionPracticeSlots({
+        method: droppedMethod,
+        methodDocLibraryId: payload.id,
+        alignBaselineName: baselineName,
+        rows,
+        fetchBody: fetchDocumentBody,
+      });
+      if (!built.ok) {
+        setComposeError(built.error);
+        return;
+      }
+      setPracticeSlots((prev) => mergeDedupPracticeSlots(prev, built.practiceSlots));
+      return;
+    }
+
     const p = practiceForMethodFromLibraryBody(body);
     if (!p) {
-      setComposeError("Only extension practice documents (with baselinePracticeName) can be dropped here.");
+      setComposeError("Only extension practice or method documents can be dropped here.");
       return;
     }
     if (practiceSlots.some((s) => s.libraryId === payload.id)) {
@@ -734,7 +994,7 @@ export function MethodBuilderClient() {
               </p>
               <div
                 role="region"
-                aria-label="Drop extension practices here"
+                aria-label="Drop extension practices or a method here"
                 onDragOver={(e) => {
                   e.preventDefault();
                   setPracticeDropHover(true);
@@ -750,7 +1010,7 @@ export function MethodBuilderClient() {
                 {practiceSlots.length === 0 ? (
                   <p className="text-center text-sm text-[var(--muted)]">
                     {baselineSlot
-                      ? "Drag practice documents from the library onto this area."
+                      ? "Drag extension practice rows or an entire method; named references load from the library. Duplicates are skipped."
                       : "Set a baseline first."}
                   </p>
                 ) : (

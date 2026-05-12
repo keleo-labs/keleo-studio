@@ -70,6 +70,41 @@ const panel: React.CSSProperties = {
   padding: 16,
 };
 
+// ---------------------------------------------------------
+// PatternFly Design System UI Components for Browse Mode
+// ---------------------------------------------------------
+
+function RHBadge({
+  children,
+  color = "blue",
+}: {
+  children: React.ReactNode;
+  color?: "blue" | "gray" | "red" | "green";
+}) {
+  const colorMap = {
+    blue: { bg: "#e7f1fa", text: "#0066cc" },
+    gray: { bg: "#f0f0f0", text: "#151515" },
+    red: { bg: "#faeae8", text: "#c9190b" },
+    green: { bg: "#e6f6eb", text: "#1e4f28" },
+  };
+  return (
+    <span
+      style={{
+        backgroundColor: colorMap[color].bg,
+        color: colorMap[color].text,
+        padding: "2px 8px",
+        borderRadius: "12px",
+        fontSize: "12px",
+        fontWeight: 600,
+        marginRight: "6px",
+        display: "inline-block",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
 /** Browse library: document-style headings and nested activity layout. Practice author keeps `default`. */
 export type PracticeHumanReadableVariant = "default" | "browse";
 
@@ -85,6 +120,28 @@ const BROWSE = {
   h3Item: "mt-4 text-xl font-semibold text-[var(--text)]",
   h4: "mt-4 text-lg font-semibold text-[var(--text)]",
   h5: "mt-3 text-base font-semibold text-[var(--text)]",
+  // Hierarchical fan-like structure styles
+  level: {
+    // Level 1: Top-level sections (Alphas, Activities, etc.)
+    l1: { fontSize: 20, fontWeight: 700, marginTop: 16, marginBottom: 12 } as const,
+    // Level 2: Focus groups
+    l2: { fontSize: 18, fontWeight: 700, marginTop: 14, marginBottom: 10, paddingLeft: 0 } as const,
+    // Level 3: Major elements (Alpha, ActivitySpace, WorkProduct, Pattern)
+    l3: { fontSize: 16, fontWeight: 700, marginTop: 10, marginBottom: 8, paddingLeft: 16 } as const,
+    // Level 4: Sub-elements (States, Activities, Levels of Detail)
+    l4: { fontSize: 14, fontWeight: 600, marginTop: 8, marginBottom: 6, paddingLeft: 32 } as const,
+    // Level 5: Detail items (Checklist items, Competencies)
+    l5: { fontSize: 13, fontWeight: 600, marginTop: 6, marginBottom: 4, paddingLeft: 48 } as const,
+    // Level 6: Fine details (Checklist sub-items, Evidence)
+    l6: { fontSize: 12, fontWeight: 500, marginTop: 4, marginBottom: 3, paddingLeft: 64 } as const,
+  },
+  desc: {
+    l2: { fontSize: 14, color: "var(--muted)", marginTop: 6 } as const,
+    l3: { fontSize: 13, color: "var(--muted)", marginTop: 5 } as const,
+    l4: { fontSize: 12, color: "var(--muted)", marginTop: 4 } as const,
+    l5: { fontSize: 11, color: "var(--muted)", marginTop: 3 } as const,
+    l6: { fontSize: 11, color: "var(--muted)", marginTop: 3 } as const,
+  },
 } as const;
 
 /** Dedupe alpha→state links by pair (same as mergeContribs in compositePracticeFromMethod). */
@@ -109,10 +166,10 @@ function dedupeContributesToRefs(raw: unknown): { alphaName: string; stateName: 
 function IrBrowseTagsBlock({ tags, t, className = "mt-2" }: { tags: unknown; t: LanguagePack; className?: string }) {
   const n = normalizePracticeElementTags(tags);
   if (!n) return null;
-  const rows: { label: string; items: string[] }[] = [];
-  if (n.domainTags?.length) rows.push({ label: t.tagsDomain, items: n.domainTags });
-  if (n.lifecycleTags?.length) rows.push({ label: t.tagsLifecycle, items: n.lifecycleTags });
-  if (n.organizationalTags?.length) rows.push({ label: t.tagsOrganizational, items: n.organizationalTags });
+  const rows: { label: string; items: string[]; color: "blue" | "gray" | "green" }[] = [];
+  if (n.domainTags?.length) rows.push({ label: t.tagsDomain, items: n.domainTags, color: "blue" });
+  if (n.lifecycleTags?.length) rows.push({ label: t.tagsLifecycle, items: n.lifecycleTags, color: "green" });
+  if (n.organizationalTags?.length) rows.push({ label: t.tagsOrganizational, items: n.organizationalTags, color: "gray" });
   if (!rows.length) return null;
   return (
     <div className={`${className} space-y-1`}>
@@ -123,9 +180,9 @@ function IrBrowseTagsBlock({ tags, t, className = "mt-2" }: { tags: unknown; t: 
           </span>
           <div className="flex flex-wrap gap-1.5">
             {row.items.map((x, xi) => (
-              <span key={`${row.label}-${xi}-${slug(x)}`} style={tag()}>
+              <RHBadge key={`${row.label}-${xi}-${slug(x)}`} color={row.color}>
                 {x}
-              </span>
+              </RHBadge>
             ))}
           </div>
         </div>
@@ -200,16 +257,18 @@ function IrBrowseChecklistBullets({
   workProductId,
   listClassName,
   itemKeyPrefix,
+  style,
 }: {
   checklist: any[];
   t: LanguagePack;
   workProductId: (n: string) => string;
   listClassName: string;
   itemKeyPrefix: string;
+  style?: React.CSSProperties;
 }) {
   const sorted = checklist.slice().sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0));
   return (
-    <ul className={listClassName}>
+    <ul className={listClassName} style={style}>
       {sorted.map((ch: any, chIdx: number) => {
         const desc = practiceElementDescriptionForDisplay(ch);
         const expandable = browseChecklistHasExpandableFields(ch);
@@ -573,6 +632,9 @@ function BrowseResolvedDependenciesSection({ artifacts, t }: { artifacts: Browse
 
 function MethodComposingPracticesBrowse({ method, t }: { method: Method; t: LanguagePack }) {
   const baseline = method.baselinePractice;
+  const baselineNameRef = !baseline && typeof (method as any).baselinePracticeName === "string"
+    ? String((method as any).baselinePracticeName).trim()
+    : "";
   const extensions = method.practices ?? [];
   return (
     <section
@@ -582,15 +644,27 @@ function MethodComposingPracticesBrowse({ method, t }: { method: Method; t: Lang
     >
       <h2 className="text-xl font-semibold tracking-tight text-[var(--text)]">{t.methodBrowseExtensionPracticesHeading}</h2>
       <ol className="mt-3 list-decimal space-y-4 pl-5 text-sm marker:text-[var(--muted)]">
-        <li className="pl-2">
-          <span className="font-semibold text-[var(--text)]">
-            <AliasedName kind="PracticeBaseline" name={baseline.name} browse />
-          </span>
-          {String(baseline.description ?? "").trim() ? (
-            <p className="mt-1 text-sm leading-relaxed text-[var(--muted)]">{baseline.description}</p>
-          ) : null}
-          <EmbeddedNarrativesUnderDescription narratives={baseline.narratives} browse />
-        </li>
+        {baseline ? (
+          <li className="pl-2">
+            <span className="font-semibold text-[var(--text)]">
+              <AliasedName kind="PracticeBaseline" name={baseline.name} browse />
+            </span>
+            {String(baseline.description ?? "").trim() ? (
+              <p className="mt-1 text-sm leading-relaxed text-[var(--muted)]">{baseline.description}</p>
+            ) : null}
+            <EmbeddedNarrativesUnderDescription narratives={baseline.narratives} browse />
+          </li>
+        ) : baselineNameRef ? (
+          <li className="pl-2">
+            <span className="font-semibold text-[var(--text)]">
+              <AliasedName kind="PracticeBaseline" name={baselineNameRef} browse />
+            </span>
+            <p className="mt-1 text-xs text-[var(--muted)]">
+              <span className="font-semibold text-[var(--text)]/90">{t.extendsBaseline}: </span>
+              <code className="text-[var(--text)]">{baselineNameRef}</code>
+            </p>
+          </li>
+        ) : null}
         {extensions.map((p, idx) => (
           <li key={`meth-practice-${idx}-${p.name ?? ""}`} className="pl-2">
             <span className="font-semibold text-[var(--text)]">
@@ -1327,9 +1401,9 @@ function PracticeBaselineCompetenciesSection({
                 <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                   <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
                   {flattenPracticeElementTags(c.tags).map((x: string, ti: number) => (
-                    <span key={`competency-${slug(c.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
+                    <RHBadge key={`competency-${slug(c.name)}-tag-${ti}-${slug(x)}`} color="gray">
                       {x}
-                    </span>
+                    </RHBadge>
                   ))}
                 </div>
               ) : null}
@@ -1960,13 +2034,13 @@ function PracticeBaselineView({
 
   const defaultAlphaStatesDetails = (alpha: any) =>
     (alpha.states ?? []).length ? (
-      <details className="mt-2.5 rounded-lg border border-[var(--border)] bg-[var(--panel)]/50 px-2">
+      <details className="mt-2.5 rounded-lg border border-[var(--border)] bg-[var(--panel)]/50 px-2" style={{ marginLeft: BROWSE.level.l4.paddingLeft - BROWSE.level.l3.paddingLeft }}>
         <summary className="cursor-pointer select-none list-none py-2.5 text-sm font-semibold text-[var(--muted)] [&::-webkit-details-marker]:hidden">
           {t.alphaStatesSection}
           <span className="ml-1.5 font-normal tabular-nums">({(alpha.states ?? []).length})</span>
         </summary>
         <div className="border-t border-[var(--border)]/70 px-1 pb-2 pt-1">
-          <ol className="m-0 list-decimal space-y-1.5 pl-5 text-[12px] leading-snug text-[var(--text)] marker:text-[var(--muted)]">
+          <ol className="m-0 list-decimal space-y-1.5 pl-5 leading-snug text-[var(--text)] marker:text-[var(--muted)]" style={{ fontSize: BROWSE.level.l4.fontSize }}>
             {alpha.states
               .slice()
               .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
@@ -1976,12 +2050,12 @@ function PracticeBaselineView({
                     id={stateId(alpha.name, s.name)}
                     style={{ marginBottom: 6 }}
                   >
-                    <a href={`#${stateId(alpha.name, s.name)}`} style={{ ...linkStyle(), fontSize: 12, lineHeight: 1.45 }}>
-                      <span style={{ fontWeight: 700 }}>
+                    <a href={`#${stateId(alpha.name, s.name)}`} style={{ ...linkStyle(), fontSize: BROWSE.level.l4.fontSize, lineHeight: 1.45 }}>
+                      <span style={{ fontWeight: BROWSE.level.l4.fontWeight }}>
                         <AliasedName kind="State" name={s.name} browse={browse} />
                       </span>
                       {practiceElementDescriptionForDisplay(s) ? (
-                        <span style={{ fontWeight: 400, color: "var(--muted)" }}>
+                        <span style={{ fontWeight: 400, ...BROWSE.desc.l4 }}>
                           {" "}
                           — {practiceElementDescriptionForDisplay(s)}
                         </span>
@@ -1991,17 +2065,17 @@ function PracticeBaselineView({
                       <div style={{ marginTop: 4, display: "flex", gap: 4, flexWrap: "wrap", alignItems: "center" }}>
                         <span style={{ fontSize: 10, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
                         {flattenPracticeElementTags(s.tags).map((x: string, ti: number) => (
-                          <span key={`${stateIdx}-tag-${ti}-${slug(x)}`} style={tag()}>
+                          <RHBadge key={`${stateIdx}-tag-${ti}-${slug(x)}`} color="gray">
                             {x}
-                          </span>
+                          </RHBadge>
                         ))}
                       </div>
                     ) : null}
                     <EmbeddedNarrativesUnderDescription narratives={s.narratives} browse={browse} />
                     {Array.isArray(s.checklist) && s.checklist.length ? (
-                      <div style={{ marginTop: 6 }}>
+                      <div style={{ marginTop: 6, marginLeft: BROWSE.level.l5.paddingLeft - BROWSE.level.l4.paddingLeft }}>
                         <div style={{ fontSize: 10, fontWeight: 700, color: "var(--muted)" }}>{t.checklist}</div>
-                        <ol style={{ margin: "3px 0 0", paddingLeft: 16, fontSize: 11, lineHeight: 1.35 }}>
+                        <ol style={{ margin: "3px 0 0", paddingLeft: 16, fontSize: BROWSE.level.l5.fontSize, lineHeight: 1.35 }}>
                           {s.checklist
                             .slice()
                             .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
@@ -2010,11 +2084,11 @@ function PracticeBaselineView({
                                   key={`chk-${slug(alpha.name)}-${stateIdx}-${String(s.seq ?? "")}-${chIdx}-${String(ch.seq ?? "")}-${slug(String(ch.name ?? ""))}`}
                                   style={{ marginBottom: 3 }}
                                 >
-                                  <span style={{ fontWeight: 600 }}>
+                                  <span style={{ fontWeight: BROWSE.level.l5.fontWeight }}>
                                     <AliasedName kind="Checklist" name={ch.name} browse={browse} />
                                   </span>
                                   {practiceElementDescriptionForDisplay(ch) ? (
-                                    <span style={{ color: "var(--muted)" }}> — {practiceElementDescriptionForDisplay(ch)}</span>
+                                    <span style={BROWSE.desc.l5}> — {practiceElementDescriptionForDisplay(ch)}</span>
                                   ) : null}
                                   <EmbeddedNarrativesUnderDescription narratives={ch.narratives} browse={browse} />
                                 </li>
@@ -2092,9 +2166,9 @@ function PracticeBaselineView({
             <EmbeddedNarrativesUnderDescription narratives={mergedRootPracticeNarratives(baseline, sourceDoc)} browse={false} />
             <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap" }}>
               {flattenPracticeElementTags(baseline.tags).map((tagLabel, ti) => (
-                <span key={`baseline-tag-${ti}-${slug(tagLabel)}`} style={tag()}>
+                <RHBadge key={`baseline-tag-${ti}-${slug(tagLabel)}`} color="gray">
                   {tagLabel}
-                </span>
+                </RHBadge>
               ))}
             </div>
             <div style={{ marginTop: 10, color: "var(--muted)", fontSize: 13 }}>
@@ -2151,9 +2225,9 @@ function PracticeBaselineView({
               id={browseAlphasFocusSectionId(g.focusName)}
               style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}
             >
-              <div style={{ fontSize: 16, fontWeight: 800 }}>{displayFocusName(g.focusName)}</div>
+              <div style={BROWSE.level.l2}>{displayFocusName(g.focusName)}</div>
             {g.focus && practiceElementDescriptionForDisplay(g.focus) ? (
-              <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(g.focus)}</div>
+              <div style={BROWSE.desc.l2}>{practiceElementDescriptionForDisplay(g.focus)}</div>
             ) : null}
             <EmbeddedNarrativesUnderDescription narratives={g.focus?.narratives} browse={false} />
 
@@ -2165,24 +2239,24 @@ function PracticeBaselineView({
                   <div
                     key={`nb-alpha-${gi}-${ai}-${browseNameKeyPart(a?.name, ai)}`}
                     id={alphaId(a.name)}
-                    style={{ padding: 12, border: "1px solid var(--border)", borderRadius: 10 }}
+                    style={{ padding: 12, border: "1px solid var(--border)", borderRadius: 10, marginLeft: BROWSE.level.l3.paddingLeft }}
                   >
-                    <div style={{ fontWeight: 800 }}>
+                    <div style={{ fontSize: BROWSE.level.l3.fontSize, fontWeight: BROWSE.level.l3.fontWeight }}>
                       <a href={`#${alphaId(a.name)}`} style={linkStyle()}>
                         {a.name}
                       </a>
                     </div>
                     {practiceElementDescriptionForDisplay(a) ? (
-                      <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(a)}</div>
+                      <div style={BROWSE.desc.l3}>{practiceElementDescriptionForDisplay(a)}</div>
                     ) : null}
                     <EmbeddedNarrativesUnderDescription narratives={a.narratives} browse={false} />
                     {flattenPracticeElementTags(a.tags).length ? (
                       <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                         <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
                         {flattenPracticeElementTags(a.tags).map((x, ti) => (
-                          <span key={`${a.name}-tag-${ti}-${slug(x)}`} style={tag()}>
+                          <RHBadge key={`${a.name}-tag-${ti}-${slug(x)}`} color="gray">
                             {x}
-                          </span>
+                          </RHBadge>
                         ))}
                       </div>
                     ) : null}
@@ -2221,24 +2295,25 @@ function PracticeBaselineView({
                                     border: "1px solid var(--border)",
                                     borderRadius: 8,
                                     borderLeft: "4px solid rgba(139, 92, 246, 0.65)",
+                                    marginLeft: BROWSE.level.l4.paddingLeft - BROWSE.level.l3.paddingLeft,
                                   }}
                                 >
                                   <div style={{ fontSize: 10, fontWeight: 800, color: "var(--muted)", letterSpacing: "0.04em" }}>
                                     {t.alpha}
                                   </div>
-                                  <div style={{ fontWeight: 800, marginTop: 3, fontSize: 14 }}>
+                                  <div style={{ fontSize: BROWSE.level.l4.fontSize, fontWeight: BROWSE.level.l4.fontWeight, marginTop: 3 }}>
                                     <a href={`#${alphaId(nm)}`} style={linkStyle()}>
                                       {nm}
                                     </a>
                                   </div>
-                                  <div style={{ marginTop: 4, color: "var(--muted)", fontSize: 12 }}>
+                                  <div style={{ marginTop: 4, fontSize: 12, ...BROWSE.desc.l4 }}>
                                     {t.withinRollupAlpha}:{" "}
                                     <a href={`#${alphaId(a.name)}`} style={linkStyle()}>
                                       <code>{a.name}</code>
                                     </a>
                                   </div>
                                   {child && practiceElementDescriptionForDisplay(child) ? (
-                                    <div style={{ color: "var(--muted)", marginTop: 5, fontSize: 12 }}>
+                                    <div style={{ ...BROWSE.desc.l4, marginTop: 5 }}>
                                       {practiceElementDescriptionForDisplay(child)}
                                     </div>
                                   ) : null}
@@ -2251,9 +2326,9 @@ function PracticeBaselineView({
                                     >
                                       <span style={{ fontSize: 11, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
                                       {flattenPracticeElementTags(child.tags).map((x: string, ti: number) => (
-                                        <span key={`supporting-tag-${nm}-${ti}-${slug(x)}`} style={tag()}>
+                                        <RHBadge key={`supporting-tag-${nm}-${ti}-${slug(x)}`} color="gray">
                                           {x}
-                                        </span>
+                                        </RHBadge>
                                       ))}
                                     </div>
                                   ) : null}
@@ -2305,9 +2380,9 @@ function PracticeBaselineView({
               id={browseActivitiesFocusSectionId(g.focusName)}
               style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}
             >
-              <div style={{ fontSize: 16, fontWeight: 800 }}>{displayFocusName(g.focusName)}</div>
+              <div style={BROWSE.level.l2}>{displayFocusName(g.focusName)}</div>
               {g.focus && practiceElementDescriptionForDisplay(g.focus) ? (
-                <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(g.focus)}</div>
+                <div style={BROWSE.desc.l2}>{practiceElementDescriptionForDisplay(g.focus)}</div>
               ) : null}
               <EmbeddedNarrativesUnderDescription narratives={g.focus?.narratives} browse={false} />
               <div style={{ display: "grid", gap: 10 }}>
@@ -2323,15 +2398,16 @@ function PracticeBaselineView({
                           border: "1px solid var(--border)",
                           borderRadius: 10,
                           borderLeft: "4px solid rgba(139, 92, 246, 0.65)",
+                          marginLeft: BROWSE.level.l3.paddingLeft,
                         }}
                       >
                         <div style={{ fontSize: 11, fontWeight: 800, color: "var(--muted)", letterSpacing: "0.04em" }}>
                           {t.practiceActivity}
                         </div>
-                        <div style={{ fontWeight: 800, marginTop: 4 }}>
+                        <div style={{ fontSize: BROWSE.level.l3.fontSize, fontWeight: BROWSE.level.l3.fontWeight, marginTop: 4 }}>
                           <AliasedName kind="Activity" name={s.name} browse={browse} />
                         </div>
-                        <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 13 }}>
+                        <div style={{ ...BROWSE.desc.l3, marginTop: 6 }}>
                           {t.withinActivitySpace}:{" "}
                           <a href={`#${activitySpaceId(parent)}`} style={linkStyle()}>
                             <code>
@@ -2340,16 +2416,16 @@ function PracticeBaselineView({
                           </a>
                         </div>
                         {practiceElementDescriptionForDisplay(s) ? (
-                          <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(s)}</div>
+                          <div style={BROWSE.desc.l3}>{practiceElementDescriptionForDisplay(s)}</div>
                         ) : null}
                         <EmbeddedNarrativesUnderDescription narratives={s.narratives} browse={browse} />
                         {flattenPracticeElementTags(s.tags).length ? (
                           <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                             <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
                             {flattenPracticeElementTags(s.tags).map((x: string, ti: number) => (
-                              <span key={`aspace-${slug(s.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
+                              <RHBadge key={`aspace-${slug(s.name)}-tag-${ti}-${slug(x)}`} color="gray">
                                 {x}
-                              </span>
+                              </RHBadge>
                             ))}
                           </div>
                         ) : null}
@@ -2440,24 +2516,24 @@ function PracticeBaselineView({
                     <div
                       key={`nb-space-${gj}-${si}-${browseNameKeyPart(s?.name, si)}`}
                       id={activitySpaceId(s.name)}
-                      style={{ padding: 12, border: "1px solid var(--border)", borderRadius: 10 }}
+                      style={{ padding: 12, border: "1px solid var(--border)", borderRadius: 10, marginLeft: BROWSE.level.l3.paddingLeft }}
                     >
-                      <div style={{ fontWeight: 800 }}>
+                      <div style={{ fontSize: BROWSE.level.l3.fontSize, fontWeight: BROWSE.level.l3.fontWeight }}>
                         <a href={`#${activitySpaceId(s.name)}`} style={linkStyle()}>
                           {s.name}
                         </a>
                       </div>
                       {practiceElementDescriptionForDisplay(s) ? (
-                        <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(s)}</div>
+                        <div style={BROWSE.desc.l3}>{practiceElementDescriptionForDisplay(s)}</div>
                       ) : null}
                       <EmbeddedNarrativesUnderDescription narratives={s.narratives} browse={browse} />
                       {flattenPracticeElementTags(s.tags).length ? (
                         <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                           <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
                           {flattenPracticeElementTags(s.tags).map((x: string, ti: number) => (
-                            <span key={`aspace-${slug(s.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
+                            <RHBadge key={`aspace-${slug(s.name)}-tag-${ti}-${slug(x)}`} color="gray">
                               {x}
-                            </span>
+                            </RHBadge>
                           ))}
                         </div>
                       ) : null}
@@ -2537,9 +2613,9 @@ function PracticeBaselineView({
                               <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                                 <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
                                 {flattenPracticeElementTags(act.tags).map((x: string, ti: number) => (
-                                  <span key={`activity-${gj}-${si}-${acti}-${slug(String(parent))}-${browseNameKeyPart(act?.name, acti)}-tag-${ti}-${slug(x)}`} style={tag()}>
+                                  <RHBadge key={`activity-${gj}-${si}-${acti}-${slug(String(parent))}-${browseNameKeyPart(act?.name, acti)}-tag-${ti}-${slug(x)}`} color="gray">
                                     {x}
-                                  </span>
+                                  </RHBadge>
                                 ))}
                               </div>
                             ) : null}
@@ -2678,9 +2754,9 @@ function PracticeBaselineView({
                   <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                     <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
                     {flattenPracticeElementTags(p.tags).map((x: string, ti: number) => (
-                      <span key={`pattern-${slug(p.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
+                      <RHBadge key={`pattern-${slug(p.name)}-tag-${ti}-${slug(x)}`} color="gray">
                         {x}
-                      </span>
+                      </RHBadge>
                     ))}
                   </div>
                 ) : null}
@@ -2732,7 +2808,7 @@ function PracticeBaselineView({
                 }
               >
                 {browse ? (
-                  <h3 className={BROWSE.h3Item}>
+                  <h3 style={{ ...BROWSE.level.l3, paddingLeft: BROWSE.level.l3.paddingLeft }}>
                     <AliasedName kind="WorkProduct" name={wp.name} browse />
                   </h3>
                 ) : (
@@ -2742,7 +2818,7 @@ function PracticeBaselineView({
                 )}
                 {practiceElementDescriptionForDisplay(wp) ? (
                   browse ? (
-                    <p className={`mt-2 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(wp)}</p>
+                    <p style={{ ...BROWSE.desc.l3, marginTop: BROWSE.desc.l3.marginTop, paddingLeft: BROWSE.level.l3.paddingLeft }}>{practiceElementDescriptionForDisplay(wp)}</p>
                   ) : (
                     <div style={{ color: "var(--muted)", marginTop: 6 }}>{practiceElementDescriptionForDisplay(wp)}</div>
                   )
@@ -2754,26 +2830,26 @@ function PracticeBaselineView({
                   <div style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                     <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{t.tags}:</span>
                     {flattenPracticeElementTags(wp.tags).map((x: string, ti: number) => (
-                      <span key={`workproduct-${slug(wp.name)}-tag-${ti}-${slug(x)}`} style={tag()}>
+                      <RHBadge key={`workproduct-${slug(wp.name)}-tag-${ti}-${slug(x)}`} color="gray">
                         {x}
-                      </span>
+                      </RHBadge>
                     ))}
                   </div>
                 ) : null}
                 {browse ? (
                   <>
-                    <p className="mt-4 text-sm font-semibold text-[var(--text)]">{t.levels}</p>
-                    <ul className="mt-2 list-outside list-disc space-y-4 pl-5 text-[15px] marker:text-[var(--muted)]">
+                    <p className="mt-4 text-sm font-semibold text-[var(--text)]" style={{ paddingLeft: BROWSE.level.l3.paddingLeft }}>{t.levels}</p>
+                    <ul className="mt-2 list-outside list-disc space-y-4 marker:text-[var(--muted)]" style={{ paddingLeft: BROWSE.level.l4.paddingLeft + 20, fontSize: BROWSE.level.l4.fontSize }}>
                       {(wp.levelsOfDetail ?? [])
                         .slice()
                         .sort((x: any, y: any) => (x.seq ?? 0) - (y.seq ?? 0))
                         .map((lod: any, lodi: number) => (
                           <li key={`browse-wp-lod-${wpi}-${lodi}-${browseNameKeyPart(lod?.name, lodi)}`}>
-                            <span className="font-semibold text-[var(--text)]">
+                            <span style={{ fontWeight: BROWSE.level.l4.fontWeight }}>
                               <AliasedName kind="LevelOfDetail" name={lod.name} browse />
                             </span>
                             {practiceElementDescriptionForDisplay(lod) ? (
-                              <p className={`mt-1 ${BROWSE.body}`}>{practiceElementDescriptionForDisplay(lod)}</p>
+                              <p style={{ ...BROWSE.desc.l4, marginTop: 4 }}>{practiceElementDescriptionForDisplay(lod)}</p>
                             ) : null}
                             <EmbeddedNarrativesUnderDescription narratives={lod.narratives} browse={browse} />
                             <IrBrowseTagsBlock tags={lod.tags} t={t} />
@@ -2798,8 +2874,9 @@ function PracticeBaselineView({
                                 checklist={lod.checklist}
                                 t={t}
                                 workProductId={workProductId}
-                                listClassName="ml-4 mt-2 list-outside list-disc space-y-3 pl-5 text-[15px] leading-snug marker:text-[var(--muted)]"
+                                listClassName="mt-2 list-outside list-disc space-y-3 leading-snug marker:text-[var(--muted)]"
                                 itemKeyPrefix={`browse-wp-${slug(wp.name)}--${slug(lod.name)}`}
+                                style={{ paddingLeft: BROWSE.level.l5.paddingLeft + 20 - BROWSE.level.l4.paddingLeft, fontSize: BROWSE.level.l5.fontSize }}
                               />
                             ) : null}
                           </li>

@@ -497,7 +497,7 @@ export function LibraryBrowser() {
             Use the <strong className="font-semibold text-[var(--text)]">Add to library</strong> button to paste JSON or
             upload a <code className="text-[var(--text)]">.json</code> file. You can import a single document or a JSON
             array of methods, baseline practices, and/or extension practices—each array element is stored as its own library
-            item.
+            item. When adding a method, its individual practices are automatically extracted and added separately to the library.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] pb-3">
@@ -840,6 +840,8 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
     setSaveProgress(null);
     try {
       const failures: string[] = [];
+      let savedCount = 0;
+
       for (let i = 0; i < bodies.length; i++) {
         const body = bodies[i];
         const inferredTitle = displayNameForBody(
@@ -857,6 +859,7 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
           setSaveProgress(`Saving ${i + 1} of ${bodies.length}…`);
         }
 
+        // Save the Method/Practice/Baseline document
         const res = await fetch("/api/documents", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -871,17 +874,60 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
             /* keep raw */
           }
           failures.push(`#${i + 1} (${title}): ${msg || `HTTP ${res.status}`}`);
+        } else {
+          savedCount++;
+        }
+
+        // If this is a Method with practices, extract and save each practice separately
+        if (kind === "method" && typeof body === "object" && body !== null) {
+          const methodBody = body as Record<string, unknown>;
+          const practices = methodBody.practices;
+
+          if (Array.isArray(practices) && practices.length > 0) {
+            setSaveProgress(`Extracting ${practices.length} practice(s) from ${title}…`);
+
+            for (let j = 0; j < practices.length; j++) {
+              const practice = practices[j];
+              if (practice && typeof practice === "object" && !Array.isArray(practice)) {
+                const practiceBody = practice as Record<string, unknown>;
+                const practiceName = typeof practiceBody.name === "string" ? practiceBody.name : `Practice ${j + 1}`;
+                const practiceTitle = `${practiceName} (from ${title})`;
+
+                const practiceRes = await fetch("/api/documents", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    title: practiceTitle,
+                    kind: "practice",
+                    body: practice
+                  }),
+                });
+
+                if (!practiceRes.ok) {
+                  let msg = await practiceRes.text();
+                  try {
+                    const j = JSON.parse(msg) as { error?: string };
+                    if (j?.error) msg = j.error;
+                  } catch {
+                    /* keep raw */
+                  }
+                  failures.push(`Practice "${practiceName}": ${msg || `HTTP ${practiceRes.status}`}`);
+                } else {
+                  savedCount++;
+                }
+              }
+            }
+          }
         }
       }
 
       if (failures.length > 0) {
-        const saved = bodies.length - failures.length;
         setError(
-          saved === 0
+          savedCount === 0
             ? failures.join(" ")
-            : `Saved ${saved} of ${bodies.length}. ${failures.join(" ")}`,
+            : `Saved ${savedCount} item(s). Errors: ${failures.join(" ")}`,
         );
-        if (saved > 0) {
+        if (savedCount > 0) {
           setPasteText("");
           setPickedFile(null);
           setTitleOverride("");
@@ -942,6 +988,11 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
             Title defaults to each document&apos;s <code className="text-[var(--text)]">name</code> (or the filename); optional
             title below applies only when importing a <strong className="font-semibold text-[var(--text)]">single</strong>{" "}
             object.
+          </p>
+          <p className="mt-2 text-xs leading-relaxed text-[var(--accent)]">
+            <strong className="font-semibold">Method extraction:</strong> When you add a Method to the library, the individual practices
+            from the method&apos;s <code className="text-[var(--text)]">practices</code> array are automatically extracted and saved
+            separately to the library for easy reference and reuse.
           </p>
 
           <form className="mt-4 space-y-4" onSubmit={(e) => void onSubmit(e)}>

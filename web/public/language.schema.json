@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.com/adoptionframework/language.schema.json",
   "title": "Practice language (from language.mmd)",
-  "description": "JSON Schema derived from the Mermaid classDiagram in language.mmd. Identity is by name; most cross-links are string names (not embedded objects). Root validation discriminates Practice (baselinePracticeName) vs Method (baselinePractice) vs PracticeBaseline so extension practices are not validated as full baselines.",
+  "description": "JSON Schema derived from the Mermaid classDiagram in language.mmd. Identity is by name; most cross-links are string names (not embedded objects). Root validation discriminates Practice vs Method vs PracticeBaseline. Method can use embedded objects (baselinePractice + practices) or string references (baselinePracticeName + practiceNames) or a mix.",
   "$defs": {
     "PracticeElement": {
       "type": "object",
@@ -751,14 +751,36 @@
         { "$ref": "#/$defs/PracticeElement" },
         {
           "type": "object",
-          "required": ["baselinePractice"],
           "properties": {
-            "baselinePractice": { "$ref": "#/$defs/PracticeBaseline" },
+            "baselinePractice": {
+              "$ref": "#/$defs/PracticeBaseline",
+              "description": "Full baseline practice object. Use this OR baselinePracticeName (not both)."
+            },
+            "baselinePracticeName": {
+              "type": "string",
+              "description": "Symbolic link to baseline practice by name. Use this OR baselinePractice (not both)."
+            },
             "practices": {
               "type": "array",
-              "items": { "$ref": "#/$defs/Practice" }
+              "items": { "$ref": "#/$defs/Practice" },
+              "description": "Array of full Practice objects. Use this OR practiceNames."
+            },
+            "practiceNames": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Array of symbolic practice name references. Use this OR practices."
             }
-          }
+          },
+          "oneOf": [
+            {
+              "required": ["baselinePractice"],
+              "not": { "required": ["baselinePracticeName"] }
+            },
+            {
+              "required": ["baselinePracticeName"],
+              "not": { "required": ["baselinePractice"] }
+            }
+          ]
         }
       ],
       "unevaluatedProperties": false
@@ -766,15 +788,19 @@
   },
   "if": {
     "type": "object",
-    "required": ["baselinePracticeName"]
+    "anyOf": [
+      { "required": ["practices"] },
+      { "required": ["practiceNames"] },
+      { "required": ["baselinePractice"] }
+    ]
   },
-  "then": { "$ref": "#/$defs/Practice" },
+  "then": { "$ref": "#/$defs/Method" },
   "else": {
     "if": {
       "type": "object",
-      "required": ["baselinePractice"]
+      "required": ["baselinePracticeName"]
     },
-    "then": { "$ref": "#/$defs/Method" },
+    "then": { "$ref": "#/$defs/Practice" },
     "else": { "$ref": "#/$defs/PracticeBaseline" }
   }
 }

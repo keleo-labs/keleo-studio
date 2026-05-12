@@ -10,6 +10,8 @@ import {
   propagateDerivedFocusNames,
 } from "@/lib/ir";
 import { mergePatternViewAlphaStates } from "@/lib/patternView";
+import type { LibraryLookupIndex } from "@/lib/library/practiceDependencyResolution";
+import { findBaselineInLibrary, findPracticeInLibrary } from "@/lib/library/practiceDependencyResolution";
 
 function clone<T>(v: T): T {
   return typeof structuredClone === "function" ? structuredClone(v) : (JSON.parse(JSON.stringify(v)) as T);
@@ -843,7 +845,7 @@ function mergePersonaGroups(a: any[], b: any[]): any[] {
 
 function mergePatternViewAlphaInstances(a: any[] | undefined, b: any[] | undefined): any[] {
   const ident = (row: any): string =>
-    canonicalPracticeElementName(row?.instanceName) || canonicalPracticeElementName(row?.name);
+    canonicalPracticeElementName(row?.instanceName) || canonicalPracticeElementName(row?.name) || "";
 
   const mergeEvidenceRows = (
     prevRow: Record<string, unknown> | undefined,
@@ -1191,9 +1193,7 @@ function mergeSecondaryBaselineKernel(acc: ExtensionMergeAccumulator, secondary:
     sdoc.practiceElementAliases as Practice["practiceElementAliases"] | undefined,
   ]);
   if (mergedAle.length) acc.out.practiceElementAliases = mergedAle;
-  if (Array.isArray(sdoc.narratives) && sdoc.narratives.length) {
-    acc.out.narratives = mergeNarrativesIncoming(acc.out.narratives, sdoc.narratives as unknown[]);
-  }
+  // Do NOT merge secondary baseline narratives into the root - only method's own narratives should appear at root level
 }
 
 /** Flatten nested {@link Method} trees to ordered {@link Practice} overlays for swimlane serialization. */
@@ -1275,10 +1275,8 @@ function mergeOneExtensionPracticeOntoOut(acc: ExtensionMergeAccumulator, overla
   if (mergedAle.length) acc.out.practiceElementAliases = mergedAle;
   if (typeof overlayPractice.updatedAt === "string" && overlayPractice.updatedAt.trim())
     acc.out.updatedAt = overlayPractice.updatedAt;
-  const overlayNarratives = (overlayPractice as Record<string, unknown>).narratives;
-  if (Array.isArray(overlayNarratives) && overlayNarratives.length) {
-    acc.out.narratives = mergeNarrativesIncoming(acc.out.narratives, overlayNarratives as unknown[]);
-  }
+  // Do NOT merge practice narratives into the root - only method's own narratives should appear at root level
+  // Practice narratives are embedded within their respective practice elements
 }
 
 /** doc-gen-spec **MergePracticeArray** / recursive **MergeMethod**: embedded methods contribute baseline then child practices. */
@@ -1294,10 +1292,21 @@ function mergePracticeArrayOntoOut(acc: ExtensionMergeAccumulator, items: unknow
 }
 
 /**
+ * Checks if a Method needs library resolution (has `baselinePracticeName` or `practiceNames` instead of embedded data).
+ */
+export function methodNeedsLibraryResolution(method: unknown): boolean {
+  if (!method || typeof method !== "object") return false;
+  const m = method as any;
+  const hasBaselineName = typeof m.baselinePracticeName === "string" && m.baselinePracticeName.trim() !== "";
+  const hasPracticeNames = Array.isArray(m.practiceNames) && m.practiceNames.length > 0;
+  return hasBaselineName || hasPracticeNames;
+}
+
+/**
  * Composes {@link Practice}-shaped output from a {@link Method}: **merge hierarchy** is
  *
- * 1. **`baselinePractice`** (kernel head) seeds the accumulator (`out`).
- * 2. **`method.practices`** merges as **MergePracticeArray**: plain {@link Practice} rows overlay the composite; embedded
+ * 1. **`baselinePractice`** (kernel head) seeds the accumulator (`out`). If not embedded, loads from library via `baselinePracticeName`.
+ * 2. **`method.practices`** and **`method.practiceNames`** merge as **MergePracticeArray**: plain {@link Practice} rows overlay the composite; embedded
  *    {@link Method} rows (object `baselinePractice`) run **MergeMethod** — differing secondary baselines merge before their
  *    nested `practices` — so dependencies should appear before dependents when built via library resolve.
  *
@@ -1307,14 +1316,48 @@ function mergePracticeArrayOntoOut(acc: ExtensionMergeAccumulator, items: unknow
  * Activity spaces flatten {@link Practice.activities}; {@link propagateDerivedFocusNames} /
  * {@link finalizeImplicitFocusPlaceholders} finalize swimlanes on the merged graph; {@link applyBaselineKernelPracticeDescriptions}
  * re-stamps kernel text so incidental clones/spreads cannot leak lower-layer prose for baseline-defined identities.
+ *
+ * @param method The method to compose. May contain embedded `baselinePractice` and `practices`, or reference them by name.
+ * @param library Optional library index for resolving `baselinePracticeName` and `practiceNames`. Required if method uses names instead of embedded data.
  */
-export function compositePracticeFromMethod(method: Method): Record<string, unknown> {
-  const baseline = clone(method.baselinePractice);
+export function compositePracticeFromMethod(method: Method, library?: LibraryLookupIndex): Record<string, unknown> {
+  const methodAny = method as any;
+
+  // Get baseline - either embedded or load from library
+  let baseline: PracticeBaseline | null = null;
+  if (method.baselinePractice) {
+    baseline = clone(method.baselinePractice);
+  } else if (typeof methodAny.baselinePracticeName === "string" && library) {
+    const loaded = findBaselineInLibrary(library, methodAny.baselinePracticeName);
+    if (!loaded) {
+      throw new Error(`Method "${method.name}" references baselinePracticeName "${methodAny.baselinePracticeName}" which was not found in library`);
+    }
+    baseline = loaded;
+  }
+
+  if (!baseline) {
+    throw new Error(`Method "${method.name}" is missing required baselinePractice or baselinePracticeName`);
+  }
   /**
    * Extension layers only (excludes baseline). Index `0` is closest to the kernel — highest precedence among extensions;
    * the last element is typically the resolved primary leaf practice — lowest precedence.
    */
-  const extensionPracticeLayers = method.practices ?? [];
+  let extensionPracticeLayers: Practice[] = [...(method.practices ?? [])];
+
+  // Load practices from library by name if practiceNames is present
+  if (library && Array.isArray(methodAny.practiceNames)) {
+    const loadedPractices: Practice[] = [];
+    for (const name of methodAny.practiceNames) {
+      const practiceName = String(name ?? "").trim();
+      if (!practiceName) continue;
+      const loaded = findPracticeInLibrary(library, practiceName);
+      if (loaded) {
+        loadedPractices.push(loaded);
+      }
+    }
+    // Append loaded practices after embedded ones (embedded have higher precedence)
+    extensionPracticeLayers = [...extensionPracticeLayers, ...loadedPractices];
+  }
   /** Embedded baseline-shaped arrays on the Method baseline (optional overlays). */
   const baselineDoc = baseline as Record<string, unknown>;
   const baselineWorkProducts = Array.isArray(baselineDoc.workProducts) ? (baselineDoc.workProducts as any[]) : [];
@@ -1323,11 +1366,10 @@ export function compositePracticeFromMethod(method: Method): Record<string, unkn
   const baselinePersonas = Array.isArray(baselineDoc.personas) ? (baselineDoc.personas as any[]) : [];
   const baselinePersonaGroups = Array.isArray(baselineDoc.personaGroups) ? (baselineDoc.personaGroups as any[]) : [];
   const mergedRootTags = mergePracticeElementTags(method.tags, baseline.tags);
-  const baselineNarr = Array.isArray(baselineDoc.narratives) ? (baselineDoc.narratives as unknown[]) : [];
+  // Only use the method's own narratives, not baseline or practice narratives
   const methodNarr = Array.isArray((method as Record<string, unknown>).narratives)
     ? ((method as Record<string, unknown>).narratives as unknown[])
     : [];
-  const mergedRootNarratives = mergeNarrativesAdditive(mergeNarrativesAdditive([], baselineNarr), methodNarr);
   const out: Record<string, unknown> = {
     name: method.name,
     description: String(method.description ?? "").trim(),
@@ -1348,7 +1390,8 @@ export function compositePracticeFromMethod(method: Method): Record<string, unkn
     patterns: mergePatterns([], baselinePatterns),
     personas: mergePersonas([], baselinePersonas),
     personaGroups: mergePersonaGroups([], baselinePersonaGroups),
-    ...(mergedRootNarratives.length ? { narratives: mergedRootNarratives } : {}),
+    // Only include method's own narratives, not baseline or practice narratives
+    ...(methodNarr.length ? { narratives: methodNarr } : {}),
   };
 
   const layersUnknown = extensionPracticeLayers as unknown[];
