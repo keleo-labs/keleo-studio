@@ -9,7 +9,7 @@ import { PracticeReportView } from "@/components/PracticeReportView";
 import { useLanguagePack } from "@/lib/languagePack";
 import type { LanguagePack } from "@/lib/languagePackTypes";
 import { classifyLibraryRoot } from "@/lib/library/classify";
-import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
+import { practiceNeedsLibraryResolution, methodNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePracticeFromMethod";
 import type { Method } from "@/lib/types";
@@ -129,38 +129,49 @@ export function LibraryBrowseClient() {
     };
   }, [libraryId]);
 
-  const needsPracticeLibraryMerge = useMemo(
+  const needsLibraryMerge = useMemo(
     () =>
       Boolean(
         body &&
           typeof body === "object" &&
-          classifyLibraryRoot(body) === "practice" &&
-          practiceNeedsLibraryResolution(body),
+          ((classifyLibraryRoot(body) === "practice" && practiceNeedsLibraryResolution(body)) ||
+            (classifyLibraryRoot(body) === "method" && methodNeedsLibraryResolution(body))),
       ),
     [body],
   );
 
   const {
-    loading: practiceMergeRequestLoading,
-    resolved: practiceMergedBody,
-    error: practiceMergeRequestError,
-  } = usePracticeLibraryResolveForRender(body, needsPracticeLibraryMerge);
+    loading: libraryMergeRequestLoading,
+    resolved: libraryMergedBody,
+    error: libraryMergeRequestError,
+  } = usePracticeLibraryResolveForRender(body, needsLibraryMerge);
 
   const rootKind = body ? classifyLibraryRoot(body) : "unknown";
   const browseDoc = useMemo(() => {
     if (!body || typeof body !== "object") return body;
-    if (classifyLibraryRoot(body) === "method") return compositePracticeFromMethod(body as Method);
-    if (needsPracticeLibraryMerge) {
-      if (practiceMergeRequestLoading) return null;
-      if (practiceMergeRequestError) return body;
-      const merged = practiceMergedBody ?? body;
+    const kind = classifyLibraryRoot(body);
+
+    if (kind === "method") {
+      if (needsLibraryMerge) {
+        if (libraryMergeRequestLoading) return null;
+        if (libraryMergeRequestError) return body;
+        const merged = libraryMergedBody ?? body;
+        return merged != null && typeof merged === "object" ? merged : body;
+      }
+      return compositePracticeFromMethod(body as Method);
+    }
+
+    if (needsLibraryMerge) {
+      if (libraryMergeRequestLoading) return null;
+      if (libraryMergeRequestError) return body;
+      const merged = libraryMergedBody ?? body;
       return merged != null && typeof merged === "object" ? merged : body;
     }
     return body;
-  }, [body, needsPracticeLibraryMerge, practiceMergeRequestLoading, practiceMergeRequestError, practiceMergedBody]);
+  }, [body, needsLibraryMerge, libraryMergeRequestLoading, libraryMergeRequestError, libraryMergedBody]);
 
-  const practiceMergeLoading = needsPracticeLibraryMerge && practiceMergeRequestLoading;
-  const practiceMergeFailed = needsPracticeLibraryMerge && !practiceMergeRequestLoading && practiceMergeRequestError !== null;
+  const libraryMergeLoading = needsLibraryMerge && libraryMergeRequestLoading;
+  const libraryMergeFailed = needsLibraryMerge && !libraryMergeRequestLoading && libraryMergeRequestError !== null;
 
   async function downloadBrowsePdf() {
     const doc = browseDoc;
@@ -226,7 +237,7 @@ export function LibraryBrowseClient() {
           {!loading && !error && body && typeof body === "object" && browseDoc != null ? (
             <button
               type="button"
-              disabled={pdfBusy || practiceMergeLoading}
+              disabled={pdfBusy || libraryMergeLoading}
               onClick={() => void downloadBrowsePdf()}
               className="shrink-0 rounded-lg border border-[var(--border)] bg-[var(--panel)] px-4 py-2 text-sm font-semibold text-[var(--text)] shadow-sm transition hover:bg-[var(--muted)]/10 disabled:cursor-not-allowed disabled:opacity-50"
             >
@@ -259,12 +270,12 @@ export function LibraryBrowseClient() {
               <p className="mt-1 font-mono text-sm text-[var(--text)]">{rootKind}</p>
             </div>
 
-            {practiceMergeLoading ? (
+            {libraryMergeLoading ? (
               <p className="mt-6 text-sm text-[var(--muted)]">Merging baseline and dependencies from the library…</p>
             ) : null}
-            {practiceMergeFailed && practiceMergeRequestError ? (
+            {libraryMergeFailed && libraryMergeRequestError ? (
               <p className="mt-4 text-sm text-[var(--bad)]" role="alert">
-                {practiceMergeRequestError} Showing the extension document only; baseline links may be missing.
+                {libraryMergeRequestError} Showing the extension document only; baseline links may be missing.
               </p>
             ) : null}
 
@@ -294,7 +305,7 @@ export function LibraryBrowseClient() {
                   />
                 </div>
               </>
-            ) : rootKind === "practice" && needsPracticeLibraryMerge && browseDoc && !practiceMergeRequestLoading && !practiceMergeRequestError ? (
+            ) : rootKind === "practice" && needsLibraryMerge && browseDoc && !libraryMergeRequestLoading && !libraryMergeRequestError ? (
               <>
                 <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] px-4 py-4 sm:px-5">
                   <h2 className="text-sm font-semibold text-[var(--text)]">Merged for display</h2>

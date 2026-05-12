@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "@patternfly/react-core/dist/styles/base.css";
+@import "./patternfly-dark-theme.css";
 
 /* Match previous tailwind.config.js `darkMode: "class"` */
 @custom-variant dark (&:where(.dark, .dark *));

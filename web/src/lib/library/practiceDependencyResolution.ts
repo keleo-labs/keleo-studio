@@ -1051,6 +1051,24 @@ export function practiceNeedsLibraryResolution(doc: unknown): boolean {
   return hasDeps || hasBaseline;
 }
 
+export function methodNeedsLibraryResolution(doc: unknown): boolean {
+  if (!doc || typeof doc !== "object") return false;
+  if (classifyLibraryRoot(doc) !== "method") return false;
+  const o = doc as Record<string, unknown>;
+  const hasBaselineName = typeof o.baselinePracticeName === "string" && String(o.baselinePracticeName).trim() !== "";
+  if (hasBaselineName) return true;
+  const practices = o.practices;
+  if (Array.isArray(practices)) {
+    for (const p of practices) {
+      if (p && typeof p === "object") {
+        const practiceNames = (p as Record<string, unknown>).practiceNames;
+        if (Array.isArray(practiceNames) && practiceNames.length > 0) return true;
+      }
+    }
+  }
+  return false;
+}
+
 /**
  * Merge the named baseline and dependency practices into one kernel-shaped document (doc-gen-spec **MergePractice** /
  * {@link compositePracticeFromMethod}): transitive {@link Practice.practiceDependencyNames} resolve in post-order before
@@ -1059,6 +1077,11 @@ export function practiceNeedsLibraryResolution(doc: unknown): boolean {
 function stripExtensionBaselineNameForKernelComposite(doc: Record<string, unknown>): void {
   /** Merged outputs use {@link mergesBaselinePracticeName}; retaining `baselinePracticeName` would re-run stub enrichment on the client and fight kernel prose. */
   delete doc.baselinePracticeName;
+}
+
+export function resolveMethodWithLibraryIndex(method: unknown, index: LibraryLookupIndex): unknown {
+  if (!methodNeedsLibraryResolution(method)) return method;
+  return compositePracticeFromMethod(method as Method, index);
 }
 
 export function resolvePracticeWithLibraryIndex(primary: unknown, index: LibraryLookupIndex): unknown {
@@ -1083,7 +1106,7 @@ export function resolvePracticeWithLibraryIndex(primary: unknown, index: Library
     ...(p.tags !== undefined && p.tags !== null ? { tags: p.tags as Practice["tags"] } : {}),
   };
 
-  const merged = compositePracticeFromMethod(method) as Record<string, unknown>;
+  const merged = compositePracticeFromMethod(method, index) as Record<string, unknown>;
   const sourceChain: Record<string, unknown>[] = [
     baseline as unknown as Record<string, unknown>,
     ...hierarchicalExtensions.map((x) => x as unknown as Record<string, unknown>),

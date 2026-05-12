@@ -21,11 +21,27 @@ function hasNonemptyPracticeDependencies(o: Record<string, unknown>): boolean {
  * Kernel-shaped aggregates (both `alphas` and `focuses` populated) classify as `{@link LibraryRootKind} "baselinePractice"`
  * when they do not compose named dependency practices (`practiceDependencyNames`), even if `baselinePracticeName` leaked
  * from tooling interchange. Compose shells (thin extensions) list deps and/or omit one of those arrays → `"practice"`.
+ *
+ * **Method discriminators (schema 2020-12):** A document is a Method if it has ANY of:
+ * - `baselinePractice` (object) - embedded baseline format
+ * - `baselinePracticeName` (string) at method level - baseline reference format
+ * - `practices` (array) - full practice objects format
+ * - `practiceNames` (array of strings) - string reference format
  */
 export function classifyLibraryRoot(body: unknown): LibraryRootKind {
   if (!body || typeof body !== "object") return "unknown";
   const o = body as Record<string, unknown>;
+
+  // Method detection: check for discriminating properties
+  // A Method has either baselinePractice (object/string), practices (array), or practiceNames (array)
   if (o.baselinePractice && typeof o.baselinePractice === "object") return "method";
+  if (Array.isArray(o.practices) && o.practices.length > 0) return "method";
+  if (Array.isArray(o.practiceNames) && o.practiceNames.length > 0) return "method";
+
+  // Method-level baselinePracticeName (with practices array, distinguishes from Practice-level)
+  if (typeof o.baselinePracticeName === "string" && String(o.baselinePracticeName).trim() && Array.isArray(o.practices)) {
+    return "method";
+  }
 
   const alphaList = Array.isArray(o.alphas) ? o.alphas : [];
   const focusList = Array.isArray(o.focuses) ? o.focuses : [];
@@ -49,7 +65,10 @@ export function classifyLibraryRoot(body: unknown): LibraryRootKind {
 export function isStandaloneBaselinePracticeArtifact(body: unknown): boolean {
   if (!body || typeof body !== "object") return false;
   const o = body as Record<string, unknown>;
+  // Exclude Methods (embedded or referenced baseline)
   if (o.baselinePractice && typeof o.baselinePractice === "object") return false;
+  if (Array.isArray(o.practices) && o.practices.length > 0) return false;
+
   const merges =
     typeof o.mergesBaselinePracticeName === "string" ? String(o.mergesBaselinePracticeName).trim() : "";
   if (merges) return false;
@@ -81,10 +100,16 @@ export function baselineNameForPracticeLink(body: unknown): string | null {
     return typeof n === "string" && n.trim() ? n.trim() : null;
   }
   if (root === "method") {
+    // Check for embedded baseline first
     const bp = o.baselinePractice;
     if (bp && typeof bp === "object") {
       const n = (bp as Record<string, unknown>).name;
       return typeof n === "string" && n.trim() ? n.trim() : null;
+    }
+    // Check for baseline name reference
+    const bpName = o.baselinePracticeName;
+    if (typeof bpName === "string" && bpName.trim()) {
+      return bpName.trim();
     }
   }
   return null;
