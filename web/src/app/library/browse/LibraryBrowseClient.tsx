@@ -3,29 +3,25 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { PracticeHumanReadablePanel } from "@/components/PracticeHumanReadablePanel";
-import { FullPracticeView } from "@/components/FullPracticeView";
-import { PracticeReportView } from "@/components/PracticeReportView";
+import { BrowseView } from "@/components/BrowseView";
+import { ProjectManagementView } from "@/components/ProjectManagementView";
 import { useLanguagePack } from "@/lib/languagePack";
-import type { LanguagePack } from "@/lib/languagePackTypes";
 import { classifyLibraryRoot } from "@/lib/library/classify";
 import { practiceNeedsLibraryResolution, methodNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePracticeFromMethod";
 import type { Method } from "@/lib/types";
 
-type ReadablePreviewMode = "classic" | "browse" | "full" | "report";
+type ViewMode = "browse" | "project-management";
 
-function BrowseReadableToolbar({
+function ViewModeToolbar({
   mode,
   onModeChange,
-  t,
 }: {
-  mode: ReadablePreviewMode;
-  onModeChange: (m: ReadablePreviewMode) => void;
-  t: LanguagePack;
+  mode: ViewMode;
+  onModeChange: (m: ViewMode) => void;
 }) {
-  const chip = (m: ReadablePreviewMode, label: string) => (
+  const chip = (m: ViewMode, label: string) => (
     <button
       key={m}
       type="button"
@@ -41,12 +37,10 @@ function BrowseReadableToolbar({
   );
   return (
     <div className="mb-4 flex flex-wrap items-center gap-2 border-b border-[var(--border)] pb-3">
-      <span className="text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">{t.renderedView}</span>
+      <span className="text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">View</span>
       <div className="flex flex-wrap gap-1.5">
-        {chip("classic", t.readablePreviewClassic)}
-        {chip("browse", t.readablePreviewBrowse)}
-        {chip("full", t.readablePreviewFullDocument)}
-        {chip("report", t.readablePreviewReport)}
+        {chip("browse", "Browse")}
+        {chip("project-management", "Project Management")}
       </div>
     </div>
   );
@@ -57,28 +51,20 @@ function LibraryBrowseReadablePane({
   methodComposition,
   mode,
   onModeChange,
-  t,
 }: {
   browseDoc: unknown;
   methodComposition?: Method | null;
-  mode: ReadablePreviewMode;
-  onModeChange: (m: ReadablePreviewMode) => void;
-  t: LanguagePack;
+  mode: ViewMode;
+  onModeChange: (m: ViewMode) => void;
 }) {
   if (!browseDoc || typeof browseDoc !== "object") return null;
   return (
     <>
-      <BrowseReadableToolbar mode={mode} onModeChange={onModeChange} t={t} />
-      {mode === "full" ? (
-        <FullPracticeView doc={browseDoc} embed methodComposition={methodComposition ?? undefined} />
-      ) : mode === "report" ? (
-        <PracticeReportView doc={browseDoc} />
+      <ViewModeToolbar mode={mode} onModeChange={onModeChange} />
+      {mode === "project-management" ? (
+        <ProjectManagementView doc={browseDoc} embed />
       ) : (
-        <PracticeHumanReadablePanel
-          doc={browseDoc}
-          variant={mode === "browse" ? "browse" : "default"}
-          methodComposition={methodComposition ?? undefined}
-        />
+        <BrowseView doc={browseDoc} embed methodComposition={methodComposition ?? undefined} />
       )}
     </>
   );
@@ -94,7 +80,7 @@ export function LibraryBrowseClient() {
   const [error, setError] = useState<string | null>(null);
   const [pdfBusy, setPdfBusy] = useState(false);
   const [pdfError, setPdfError] = useState<string | null>(null);
-  const [readablePreview, setReadablePreview] = useState<ReadablePreviewMode>("browse");
+  const [viewMode, setViewMode] = useState<ViewMode>("browse");
 
   useEffect(() => {
     if (!libraryId) {
@@ -299,9 +285,8 @@ export function LibraryBrowseClient() {
                   <LibraryBrowseReadablePane
                     browseDoc={browseDoc}
                     methodComposition={body as Method}
-                    mode={readablePreview}
-                    onModeChange={setReadablePreview}
-                    t={t}
+                    mode={viewMode}
+                    onModeChange={setViewMode}
                   />
                 </div>
               </>
@@ -326,17 +311,15 @@ export function LibraryBrowseClient() {
                 </section>
                 <LibraryBrowseReadablePane
                   browseDoc={browseDoc}
-                  mode={readablePreview}
-                  onModeChange={setReadablePreview}
-                  t={t}
+                  mode={viewMode}
+                  onModeChange={setViewMode}
                 />
               </>
             ) : browseDoc && typeof browseDoc === "object" ? (
               <LibraryBrowseReadablePane
                 browseDoc={browseDoc}
-                mode={readablePreview}
-                onModeChange={setReadablePreview}
-                t={t}
+                mode={viewMode}
+                onModeChange={setViewMode}
               />
             ) : null}
           </div>

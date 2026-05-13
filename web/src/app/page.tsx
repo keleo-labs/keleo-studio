@@ -6,21 +6,28 @@ const areas = [
     title: "Method builder",
     badge: "Compose",
     description:
-      "Browse the library, drag a baseline and extension practices into a method, confirm name and description, and save to the library.",
+      "Browse the library, drag a baseline and extension practices into a method, confirm name and description, and save to the library. Includes Kanban pattern progression view.",
   },
   {
     href: "/practice-author",
     title: "Practice author",
     badge: "Author",
     description:
-      "Open practices, validate against the language schema, preview text and diagrams, export PDFs, and persist edits to the library.",
+      "Open practices, validate against the language schema, preview text and diagrams with Kanban pattern boards, export PDFs, and persist edits to the library.",
+  },
+  {
+    href: "/flow-visualizer",
+    title: "Pattern Kanban",
+    badge: "Visualize",
+    description:
+      "Kanban board view of pattern progression—Pattern Views as columns, Alpha States, Activities, and Work Products as cards showing temporal flow.",
   },
   {
     href: "/library",
     title: "Manage library",
     badge: "Library",
     description:
-      "Browse, import, export, and organize the practice library—metadata, versions, and availability for authors and method builder.",
+      "Browse, import, export, and organize the practice library—metadata, versions, and availability for authors and method builder. Browse view includes Kanban pattern visualization.",
   },
   {
     href: "/preferences",

@@ -7,7 +7,7 @@ import {
   type PracticeElementAliasLookup,
 } from "@/lib/practiceElementAliasDisplay";
 import type { LanguagePack } from "@/lib/languagePackTypes";
-import { svgFocusActivityForGroup, svgFocusAlphasForGroup, svgPatternMatrix } from "@/lib/pdfSvgs";
+import { svgFocusActivityForGroup, svgFocusAlphasForGroup, svgPatternMatrix, svgKanbanPattern } from "@/lib/pdfSvgs";
 import type { ThemeTokens } from "@/lib/themeTokens";
 import { mergeNarrativeTypes } from "@/lib/methodMerge/compositePracticeFromMethod";
 import type { Method, PracticeBaseline, PracticeElementAlias } from "@/lib/types";
@@ -870,6 +870,15 @@ export function renderPdfHtml(args: {
                     aliasLookup,
                   })
                 : "";
+            const kanban =
+              Array.isArray(p.patternViews) && p.patternViews.length
+                ? svgKanbanPattern({
+                    pattern: p,
+                    baseline,
+                    theme,
+                    aliasLookup,
+                  })
+                : "";
             const pvBlocks =
               Array.isArray(p.patternViews) && p.patternViews.length
                 ? [...p.patternViews]
@@ -896,6 +905,7 @@ export function renderPdfHtml(args: {
               ${pdfPracticeElementNarrativesHtml(p)}
               ${tags}
               ${matrix}
+              ${kanban}
               ${pvBlocks}
             </div>`;
           })

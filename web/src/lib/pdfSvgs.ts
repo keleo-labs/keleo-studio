@@ -31,6 +31,11 @@ import {
 } from "@/lib/practiceElementAliasDisplay";
 import type { PracticeBaseline } from "@/lib/types";
 import type { ThemeTokens } from "@/lib/themeTokens";
+import {
+  extractKanbanPatternData,
+  buildAlphaSwimLanes,
+  buildWorkProductSwimLanes,
+} from "@/lib/kanbanPatternData";
 
 function esc(s: unknown) {
   return String(s ?? "")
@@ -961,6 +966,210 @@ export function svgPatternMatrix(args: {
   return `<div style="margin:12px 0 14px;border:1px solid rgba(2,6,23,0.14);border-radius:10px;background:${esc(theme.panel)}">
     <svg width="100%" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" style="display:block;border:none;border-radius:0;max-width:${width}px">
       <g>${inner}</g>
+    </svg>
+  </div>`;
+}
+
+/**
+ * Generate SVG for Kanban pattern board showing swim lane progression
+ */
+export function svgKanbanPattern(opts: {
+  pattern: any;
+  baseline: PracticeBaseline;
+  theme: ThemeTokens;
+  aliasLookup?: PracticeElementAliasLookup;
+}): string {
+  const { pattern, baseline, theme, aliasLookup = EMPTY_PRACTICE_ELEMENT_ALIAS_LOOKUP } = opts;
+
+  const columns = extractKanbanPatternData(pattern, baseline);
+  const alphaSwimLanes = buildAlphaSwimLanes(columns);
+  const workProductSwimLanes = buildWorkProductSwimLanes(columns);
+
+  if (columns.length === 0) {
+    return "";
+  }
+
+  // Layout constants
+  const HEADER_HEIGHT = 60;
+  const ROW_HEIGHT = 50;
+  const ACTIVITY_ROW_HEIGHT = 35;
+  const COL_WIDTH = 180;
+  const ROW_LABEL_WIDTH = 160;
+  const LABEL_PADDING = 8;
+  const SECTION_GAP = 20;
+  const TILE_RADIUS = 3;
+
+  // Colors matching the component
+  const PURPLE = "#8B4DAD";
+  const GREEN = "#3E8635";
+  const ORANGE = "#EC7A08";
+  const YELLOW = "#F0AB00";
+  const BLUE = "#06C";
+  const WHITE = "#FFFFFF";
+  const BORDER = theme.border;
+  const PANEL = theme.panel;
+
+  const totalColumns = columns.length;
+  const width = ROW_LABEL_WIDTH + totalColumns * COL_WIDTH;
+
+  // Calculate heights for each section
+  const alphaRowsHeight = alphaSwimLanes.length * ROW_HEIGHT;
+  const workProductRowsHeight = workProductSwimLanes.length * ROW_HEIGHT;
+
+  // Calculate max activities per column for activity section height
+  const maxActivitiesInColumn = Math.max(...columns.map(col => col.activityCards.length), 1);
+  const activitiesHeight = maxActivitiesInColumn * ACTIVITY_ROW_HEIGHT + 40;
+
+  const height =
+    HEADER_HEIGHT +
+    alphaRowsHeight +
+    SECTION_GAP +
+    (workProductSwimLanes.length > 0 ? workProductRowsHeight + SECTION_GAP : 0) +
+    activitiesHeight;
+
+  let yOffset = 0;
+
+  // Helper to wrap text
+  const wrapText = (text: string, maxChars: number): string[] => {
+    const words = text.split(/\s+/);
+    const lines: string[] = [];
+    let line = "";
+    for (const word of words) {
+      const test = line ? `${line} ${word}` : word;
+      if (test.length <= maxChars) {
+        line = test;
+      } else {
+        if (line) lines.push(line);
+        line = word.length > maxChars ? word.slice(0, maxChars - 1) + "…" : word;
+      }
+    }
+    if (line) lines.push(line);
+    return lines.length ? lines : [""];
+  };
+
+  // Helper to render a colored tile with wrapped text
+  const renderTile = (
+    text: string,
+    x: number,
+    y: number,
+    color: string,
+    maxWidth: number,
+    maxChars: number
+  ): string => {
+    const lines = wrapText(text, maxChars);
+    const lineHeight = 14;
+    const tileHeight = lines.length * lineHeight + LABEL_PADDING * 2;
+
+    const tileLines = lines
+      .map((line, i) => {
+        return `<text x="${x + maxWidth / 2}" y="${y + LABEL_PADDING + lineHeight * (i + 1) - 2}" fill="${WHITE}" font-size="12" font-weight="600" text-anchor="middle">${esc(line)}</text>`;
+      })
+      .join("");
+
+    return `
+      <rect x="${x}" y="${y}" width="${maxWidth}" height="${tileHeight}" fill="${color}" rx="${TILE_RADIUS}" />
+      ${tileLines}
+    `;
+  };
+
+  let svg = "";
+
+  // Column Headers
+  svg += `<rect x="0" y="${yOffset}" width="${width}" height="${HEADER_HEIGHT}" fill="${PANEL}" stroke="${BORDER}" stroke-width="2" />`;
+  svg += `<text x="10" y="${yOffset + 25}" fill="${theme.text}" font-size="14" font-weight="700">Alpha</text>`;
+
+  columns.forEach((col, idx) => {
+    const x = ROW_LABEL_WIDTH + idx * COL_WIDTH;
+    svg += `<rect x="${x}" y="${yOffset}" width="${COL_WIDTH}" height="${HEADER_HEIGHT}" fill="${PANEL}" stroke="${BORDER}" />`;
+
+    const headerLines = wrapText(col.name, 18);
+    headerLines.forEach((line, i) => {
+      svg += `<text x="${x + COL_WIDTH / 2}" y="${yOffset + 20 + i * 14}" fill="${theme.text}" font-size="13" font-weight="700" text-anchor="middle">${esc(line)}</text>`;
+    });
+
+    svg += `<text x="${x + COL_WIDTH - 10}" y="${yOffset + 20}" fill="${theme.muted}" font-size="10" text-anchor="end">#${col.seq}</text>`;
+  });
+
+  yOffset += HEADER_HEIGHT;
+
+  // Alpha Swim Lanes
+  alphaSwimLanes.forEach((lane, rowIdx) => {
+    const rowY = yOffset + rowIdx * ROW_HEIGHT;
+
+    // Row label
+    svg += `<rect x="0" y="${rowY}" width="${ROW_LABEL_WIDTH}" height="${ROW_HEIGHT}" fill="${PANEL}" stroke="${BORDER}" stroke-width="2" />`;
+    svg += renderTile(lane.alphaName, 5, rowY + 10, PURPLE, ROW_LABEL_WIDTH - 10, 20);
+
+    // State cells
+    lane.stateByColumn.forEach((card, colIdx) => {
+      const cellX = ROW_LABEL_WIDTH + colIdx * COL_WIDTH;
+      svg += `<rect x="${cellX}" y="${rowY}" width="${COL_WIDTH}" height="${ROW_HEIGHT}" fill="${PANEL}" stroke="${BORDER}" />`;
+
+      if (card) {
+        const isInstance = card.type === "alphaInstance";
+        const displayText = isInstance ? card.name : (card.subtitle || "");
+        const color = isInstance ? GREEN : PURPLE;
+        svg += renderTile(displayText, cellX + 10, rowY + 10, color, COL_WIDTH - 20, 16);
+      }
+    });
+  });
+
+  yOffset += alphaRowsHeight + SECTION_GAP;
+
+  // Work Product Swim Lanes
+  if (workProductSwimLanes.length > 0) {
+    workProductSwimLanes.forEach((lane, rowIdx) => {
+      const rowY = yOffset + rowIdx * ROW_HEIGHT;
+
+      // Row label
+      svg += `<rect x="0" y="${rowY}" width="${ROW_LABEL_WIDTH}" height="${ROW_HEIGHT}" fill="${PANEL}" stroke="${BORDER}" stroke-width="2" />`;
+      svg += renderTile(lane.workProductName, 5, rowY + 10, ORANGE, ROW_LABEL_WIDTH - 10, 20);
+
+      // Level cells
+      lane.levelByColumn.forEach((card, colIdx) => {
+        const cellX = ROW_LABEL_WIDTH + colIdx * COL_WIDTH;
+        svg += `<rect x="${cellX}" y="${rowY}" width="${COL_WIDTH}" height="${ROW_HEIGHT}" fill="${PANEL}" stroke="${BORDER}" />`;
+
+        if (card) {
+          const isInstance = card.metadata?.isInstance === true;
+          const displayText = isInstance ? card.name : (card.subtitle || "");
+          const color = isInstance ? YELLOW : ORANGE;
+          svg += renderTile(displayText, cellX + 10, rowY + 10, color, COL_WIDTH - 20, 16);
+        }
+      });
+    });
+
+    yOffset += workProductRowsHeight + SECTION_GAP;
+  }
+
+  // Activities Section Header
+  svg += `<rect x="0" y="${yOffset}" width="${ROW_LABEL_WIDTH}" height="30" fill="${PANEL}" stroke="${BORDER}" stroke-width="2" />`;
+  svg += `<text x="10" y="${yOffset + 20}" fill="${theme.text}" font-size="13" font-weight="700">Activities</text>`;
+
+  columns.forEach((col, idx) => {
+    const x = ROW_LABEL_WIDTH + idx * COL_WIDTH;
+    svg += `<rect x="${x}" y="${yOffset}" width="${COL_WIDTH}" height="30" fill="${PANEL}" stroke="${BORDER}" />`;
+  });
+
+  yOffset += 30;
+
+  // Activities
+  columns.forEach((col, colIdx) => {
+    const cellX = ROW_LABEL_WIDTH + colIdx * COL_WIDTH;
+
+    // Draw column background first
+    svg += `<rect x="${cellX}" y="${yOffset}" width="${COL_WIDTH}" height="${activitiesHeight - 30}" fill="${PANEL}" stroke="${BORDER}" />`;
+
+    let activityY = yOffset + 5;
+    col.activityCards.forEach((card) => {
+      svg += renderTile(card.name, cellX + 10, activityY, BLUE, COL_WIDTH - 20, 18);
+      activityY += ACTIVITY_ROW_HEIGHT;
+    });
+  });
+
+  return `<div style="margin:12px 0 14px;border:1px solid ${esc(BORDER)};border-radius:10px;background:${esc(PANEL)}">
+    <svg width="100%" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" style="display:block;border:none;border-radius:0;max-width:${width}px">
+      <g>${svg}</g>
     </svg>
   </div>`;
 }

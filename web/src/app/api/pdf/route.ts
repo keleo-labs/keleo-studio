@@ -20,7 +20,7 @@ import { loadAllLibraryDocumentBodies } from "@/lib/library/loadLibraryBodies";
 import { THEMES, type ThemeId } from "@/lib/themeTokens";
 import { PACKS } from "@/lib/languagePacksData";
 import type { LanguagePackId } from "@/lib/languagePackTypes";
-import { renderPdfHtml } from "@/lib/pdfHtml";
+import { renderBrowsePdfHtml } from "@/lib/pdfBrowseHtml";
 import { relaxCardinalityInSchema } from "@/lib/schemaRelax";
 import { isStandaloneBaselinePracticeArtifact } from "@/lib/library/classify";
 import type { Method } from "@/lib/types";
@@ -87,14 +87,13 @@ export async function POST(req: Request) {
   const theme = THEMES.light;
   const t = PACKS[packId] ?? PACKS.default;
 
-  const html = renderPdfHtml({
+  const html = renderBrowsePdfHtml({
     baseline: baselineForRender,
     grouped,
     theme,
     t,
     sourceDoc: docObj,
     methodComposition,
-    showNarrativeSpineCatalog,
   });
 
   const browser = await chromium.launch();
@@ -104,7 +103,7 @@ export async function POST(req: Request) {
     const pdf = await page.pdf({
       format: "A4",
       printBackground: true,
-      margin: { top: "0in", bottom: "0in", left: "0in", right: "0in" },
+      margin: { top: "1cm", bottom: "1cm", left: "1cm", right: "1cm" },
     });
 
     return new NextResponse(new Uint8Array(pdf), {

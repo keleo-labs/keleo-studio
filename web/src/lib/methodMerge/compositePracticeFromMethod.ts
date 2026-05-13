@@ -148,7 +148,8 @@ function narrativeTreeKey(raw: unknown): string | null {
   return nm || null;
 }
 
-function mergeNarrativesAdditive(base: any[], overlay: any[]): any[] {
+/** Exported for method builder: merge narrative arrays by key, combining same-named narratives. */
+export function mergeNarrativesAdditive(base: any[], overlay: any[]): any[] {
   const byKey = new Map<string, any>();
   for (const x of base ?? []) {
     const k = narrativeTreeKey(x);

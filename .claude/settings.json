@@ -11,7 +11,9 @@
       "Bash(lsof -ti:3000)",
       "Bash(grep -i \"\\\\.md$\")",
       "Bash(npm run *)",
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "Bash(grep -E \"\\\\.\\(html|hbs|js|ts\\)$\")",
+      "Bash(grep -E \"\\\\.\\(ts|tsx|js\\)$\")"
     ]
   }
 }

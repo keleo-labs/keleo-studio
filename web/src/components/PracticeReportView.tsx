@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   PageSection,
   PageSectionVariants,
@@ -226,19 +226,310 @@ function getBreadcrumbPath(sectionId: string, navTree: NavItem[]): string[] {
   return path;
 }
 
+type AlphaScore = {
+  alphaName: string;
+  focusName: string;
+  score: number;
+  description: string;
+};
+
+function calculateAlphaScores(doc: unknown): AlphaScore[] {
+  if (!doc || typeof doc !== "object") return [];
+  const d = doc as Record<string, unknown>;
+
+  const scores: AlphaScore[] = [];
+  const alphas = Array.isArray(d.alphas) ? d.alphas : [];
+  const workProducts = Array.isArray(d.workProducts) ? d.workProducts : [];
+  const activitySpaces = Array.isArray(d.activitySpaces) ? d.activitySpaces : [];
+
+  // Collect all activities
+  const activities: any[] = [];
+  for (const space of activitySpaces) {
+    if (space && typeof space === "object") {
+      const spaceActivities = Array.isArray((space as any).activities) ? (space as any).activities : [];
+      activities.push(...spaceActivities);
+    }
+  }
+  if (Array.isArray(d.activities)) {
+    activities.push(...d.activities);
+  }
+
+  for (const alpha of alphas) {
+    if (!alpha || typeof alpha !== "object") continue;
+    const alphaObj = alpha as Record<string, unknown>;
+    const alphaName = String(alphaObj.name ?? "").trim();
+    const focusName = String(alphaObj.focusName ?? "").trim();
+    const description = String(alphaObj.description ?? "").trim();
+
+    let score = 0;
+
+    // +1 for each narrative
+    const narratives = Array.isArray(alphaObj.narratives) ? alphaObj.narratives : [];
+    score += narratives.length;
+
+    // +1 for each state with checklists
+    const states = Array.isArray(alphaObj.states) ? alphaObj.states : [];
+    for (const state of states) {
+      if (state && typeof state === "object") {
+        const checklist = Array.isArray((state as any).checklist) ? (state as any).checklist : [];
+        if (checklist.length > 0) score += 1;
+      }
+    }
+
+    // +1 for each work product contributing to this alpha
+    for (const wp of workProducts) {
+      if (!wp || typeof wp !== "object") continue;
+      const lods = Array.isArray((wp as any).levelsOfDetail) ? (wp as any).levelsOfDetail : [];
+      let counted = false;
+      for (const lod of lods) {
+        if (counted) break;
+        if (!lod || typeof lod !== "object") continue;
+        const contributesTo = Array.isArray((lod as any).contributesTo) ? (lod as any).contributesTo : [];
+        for (const contrib of contributesTo) {
+          if (contrib && typeof contrib === "object" && String((contrib as any).alphaName ?? "") === alphaName) {
+            score += 1;
+            counted = true;
+            break;
+          }
+        }
+      }
+    }
+
+    // +1 for each activity contributing to this alpha
+    for (const activity of activities) {
+      if (!activity || typeof activity !== "object") continue;
+      const contributesTo = Array.isArray(activity.contributesTo) ? activity.contributesTo : [];
+      let counted = false;
+      for (const contrib of contributesTo) {
+        if (contrib && typeof contrib === "object" && String((contrib as any).alphaName ?? "") === alphaName) {
+          score += 1;
+          counted = true;
+          break;
+        }
+      }
+      if (counted) break;
+    }
+
+    scores.push({ alphaName, focusName, score, description });
+  }
+
+  return scores;
+}
+
+function ConcernsCoverageTiles({ doc }: { doc: unknown }) {
+  const alphaScores = useMemo(() => calculateAlphaScores(doc), [doc]);
+
+  // Group by focus
+  const byFocus = new Map<string, AlphaScore[]>();
+  for (const score of alphaScores) {
+    if (!byFocus.has(score.focusName)) {
+      byFocus.set(score.focusName, []);
+    }
+    byFocus.get(score.focusName)!.push(score);
+  }
+
+  if (byFocus.size === 0) return null;
+
+  // Color intensity based on score
+  const getColorStyle = (score: number): React.CSSProperties => {
+    if (score === 0) {
+      return {
+        backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+        borderColor: "var(--pf-v6-global--BorderColor--100)",
+        color: "var(--pf-v6-global--Color--200)",
+      };
+    } else if (score <= 2) {
+      return {
+        backgroundColor: "var(--pf-v6-global--palette--blue-50)",
+        borderColor: "var(--pf-v6-global--palette--blue-200)",
+        color: "var(--pf-v6-global--palette--blue-400)",
+      };
+    } else if (score <= 5) {
+      return {
+        backgroundColor: "var(--pf-v6-global--palette--blue-100)",
+        borderColor: "var(--pf-v6-global--palette--blue-300)",
+        color: "var(--pf-v6-global--palette--blue-500)",
+      };
+    } else {
+      return {
+        backgroundColor: "var(--pf-v6-global--palette--blue-200)",
+        borderColor: "var(--pf-v6-global--palette--blue-400)",
+        color: "var(--pf-v6-global--palette--blue-600)",
+      };
+    }
+  };
+
+  const getIcon = (score: number) => {
+    return score === 0 ? "○" : "✓";
+  };
+
+  const getAbbreviation = (name: string): string => {
+    const words = name.trim().split(/\s+/);
+    if (words.length === 1) {
+      return name.substring(0, 4).toUpperCase();
+    }
+    return words.map(w => w[0]).join("").substring(0, 4).toUpperCase();
+  };
+
+  return (
+    <Card style={{ marginBottom: "2rem", marginTop: "1.5rem" }}>
+      <CardBody>
+        <Title headingLevel="h4" size="md" style={{ marginBottom: "1.5rem" }}>
+          Coverage Overview
+        </Title>
+
+        {Array.from(byFocus.entries()).map(([focusName, alphas], idx) => (
+          <div key={idx} style={{ marginBottom: idx < byFocus.size - 1 ? "2rem" : "0" }}>
+            <div style={{
+              fontSize: "0.875rem",
+              fontWeight: 600,
+              color: "var(--pf-v6-global--Color--100)",
+              marginBottom: "0.75rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.5px"
+            }}>
+              {focusName}
+            </div>
+
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+              gap: "0.75rem"
+            }}>
+              {alphas.map((alpha, alphaIdx) => {
+                const colorStyle = getColorStyle(alpha.score);
+                const icon = getIcon(alpha.score);
+                const abbrev = getAbbreviation(alpha.alphaName);
+
+                return (
+                  <div
+                    key={alphaIdx}
+                    title={`${alpha.alphaName}: ${alpha.description || 'No description'}\nScore: ${alpha.score}`}
+                    style={{
+                      ...colorStyle,
+                      border: "2px solid",
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      padding: "1rem",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      textAlign: "center",
+                      minHeight: "100px",
+                      cursor: "pointer",
+                      transition: "all 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                      e.currentTarget.style.boxShadow = "0 4px 8px rgba(0,0,0,0.1)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem", fontWeight: 600 }}>
+                      {icon}
+                    </div>
+                    <div style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.5px" }}>
+                      {abbrev}
+                    </div>
+                    <div style={{ fontSize: "0.625rem", marginTop: "0.25rem", opacity: 0.8 }}>
+                      {alpha.alphaName.length > 15 ? alpha.alphaName.substring(0, 12) + "..." : alpha.alphaName}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+
+        <Divider style={{ marginTop: "1.5rem", marginBottom: "1rem" }} />
+
+        <div style={{ display: "flex", gap: "1.5rem", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <div style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+              border: "2px solid var(--pf-v6-global--BorderColor--100)",
+              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "0.75rem"
+            }}>○</div>
+            <span>Not Covered</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <div style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: "var(--pf-v6-global--palette--blue-50)",
+              border: "2px solid var(--pf-v6-global--palette--blue-200)",
+              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--pf-v6-global--palette--blue-400)",
+              fontSize: "0.75rem"
+            }}>✓</div>
+            <span>Light Coverage</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <div style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: "var(--pf-v6-global--palette--blue-100)",
+              border: "2px solid var(--pf-v6-global--palette--blue-300)",
+              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--pf-v6-global--palette--blue-500)",
+              fontSize: "0.75rem"
+            }}>✓</div>
+            <span>Medium Coverage</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <div style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: "var(--pf-v6-global--palette--blue-200)",
+              border: "2px solid var(--pf-v6-global--palette--blue-400)",
+              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--pf-v6-global--palette--blue-600)",
+              fontSize: "0.75rem"
+            }}>✓</div>
+            <span>Strong Coverage</span>
+          </div>
+        </div>
+      </CardBody>
+    </Card>
+  );
+}
+
 function ReportSectionBlock({
   section,
   depth,
   sectionId,
   activeSection,
+  doc,
 }: {
   section: PracticeReportSection;
   depth: number;
   sectionId: string;
   activeSection: string;
+  doc?: unknown;
 }) {
   const headingSize = depth === 0 ? "2xl" : depth === 1 ? "xl" : depth === 2 ? "lg" : "md";
   const isActive = activeSection === sectionId;
+
+  // Check if this is the Concerns section
+  const isConcernsSection = depth === 0 && section.heading === "Concerns";
 
   return (
     <div
@@ -258,6 +549,8 @@ function ReportSectionBlock({
       >
         {section.heading}
       </Title>
+
+      {isConcernsSection && doc ? <ConcernsCoverageTiles doc={doc} /> : null}
 
       {section.paragraphs.length > 0 && (
         <div style={{ marginTop: "1rem" }}>
@@ -311,6 +604,7 @@ function ReportSectionBlock({
               depth={depth + 1}
               sectionId={`${sectionId}-${j}`}
               activeSection={activeSection}
+              doc={doc}
             />
           ))}
         </div>
@@ -400,6 +694,7 @@ export function PracticeReportView({ doc }: { doc: unknown }) {
                 depth={0}
                 sectionId={`section-${i}`}
                 activeSection={activeSection}
+                doc={doc}
               />
             ))}
           </div>
