@@ -47,6 +47,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 }
 
 
+// Validate ../../src/app/flow-visualizer/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/flow-visualizer">> = Specific
+  const handler = {} as typeof import("../../src/app/flow-visualizer/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../src/app/library/browse/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/library/browse">> = Specific

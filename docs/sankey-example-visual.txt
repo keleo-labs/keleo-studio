@@ -1,0 +1,107 @@
+================================================================================
+                      SANKEY FLOW DIAGRAM - ASCII MOCKUP
+================================================================================
+
+Example: Team Topologies Practice Flow Visualization
+
+Legend:
+  [BLUE]   = Activity
+  [ORANGE] = Work Product @ Level of Detail
+  [GREEN]  = Alpha State
+  ═══>     = Flow (width represents connection count)
+
+--------------------------------------------------------------------------------
+LEFT: ACTIVITIES          MIDDLE: WORK PRODUCTS           RIGHT: ALPHA STATES
+--------------------------------------------------------------------------------
+
+[Define Service     ═══════> [Team API Spec         ═══════> [Topology-Aligned
+ Boundaries (ISH)]              (Drafted)]                    Team → Seeded]
+      (BLUE)                      (ORANGE)                       (GREEN)
+
+                                     ║
+                                     ║
+                                     ▼
+
+[Establish Team     ═══════> [Team API Spec         ═══════> [Topology-Aligned
+ Interactions]                  (Published)]                  Team → Formed]
+      (BLUE)                      (ORANGE)                       (GREEN)
+
+                                     ║
+                                     ║
+                                     ▼
+
+                             [Team API Spec         ═══════> [Topology-Aligned
+                                (Integrated)]                 Team → Collaborating]
+                                  (ORANGE)                       (GREEN)
+
+--------------------------------------------------------------------------------
+
+[Assess Cognitive   ═══════> [Cognitive Load        ═══════> [Cognitive-Optimized WoW
+ Load]                          Assessment                     → Principles Established]
+      (BLUE)                    (Qualitative)]                    (GREEN)
+                                  (ORANGE)
+
+                                     ║
+                                     ║
+                                     ▼
+
+                             [Cognitive Load        ═══════> [Cognitive-Optimized WoW
+                                Assessment                     → Foundation Established]
+                              (Quantified)]                       (GREEN)
+                                  (ORANGE)
+
+                                     ║
+                                     ║
+                                     ▼
+
+                             [Cognitive Load        ═══════> [Cognitive-Optimized WoW
+                                Assessment                     → Working Well]
+                              (Continuous)]                      (GREEN)
+                                  (ORANGE)
+
+================================================================================
+                              KEY INSIGHTS
+================================================================================
+
+VALUE STREAMS:
+  1. Service Boundary Stream:
+     Define Boundaries → Draft API → Seed Team
+                      → Publish API → Form Team
+                      → Integrate API → Collaborate Team
+
+  2. Cognitive Optimization Stream:
+     Assess Load → Qualitative Assessment → Establish Principles
+                → Quantified Assessment → Establish Foundation
+                → Continuous Assessment → Work Well
+
+PROGRESSION PATTERN:
+  - Activities (1-time or recurring work)
+  - Create/evolve Work Products (at increasing levels of detail)
+  - Evidence Alpha States (progressive maturity)
+
+VISUALIZATION BENEFITS:
+  ✓ Shows HOW work creates value (not just WHAT states exist)
+  ✓ Traces artifact lineage from source activities
+  ✓ Identifies parallel vs. sequential work streams
+  ✓ Reveals dependencies between activities and outcomes
+
+INTERACTIVE FEATURES (in web UI):
+  • Hover over nodes → See descriptions
+  • Hover over flows → See connection details
+  • Wider flows → More connections/relationships
+  • Color coding → Quick category identification
+
+================================================================================
+                        ACCESS THE LIVE VISUALIZATION
+================================================================================
+
+1. Start the dev server:     npm run dev
+2. Navigate to:              http://localhost:3000
+3. Click:                    "Flow Visualizer" card
+4. Select practice:          Choose from dropdown
+5. Explore:                  Hover, zoom, pan
+
+The live Sankey uses D3.js with smooth curves, automatic layout,
+and interactive tooltips for a much richer experience than ASCII!
+
+================================================================================

@@ -2306,7 +2306,7 @@ function PracticeBaselineView({
                                       {nm}
                                     </a>
                                   </div>
-                                  <div style={{ marginTop: 4, fontSize: 12, ...BROWSE.desc.l4 }}>
+                                  <div style={{ ...BROWSE.desc.l4, fontSize: 12, marginTop: 4 }}>
                                     {t.withinRollupAlpha}:{" "}
                                     <a href={`#${alphaId(a.name)}`} style={linkStyle()}>
                                       <code>{a.name}</code>
