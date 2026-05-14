@@ -1683,12 +1683,6 @@ function PatternViewAlphaInstanceBlock({
   return (
     <div style={{ display: "grid", gap: 8 }}>
       {practiceElFields(inst, patch)}
-      <label style={lab}>instanceName</label>
-      <input
-        value={sx(inst, "instanceName")}
-        onChange={(e) => patch((r) => ({ ...r, instanceName: e.target.value }))}
-        style={inp}
-      />
       <label style={lab}>alphaName</label>
       <input
         value={sx(inst, "alphaName")}
@@ -1729,12 +1723,6 @@ function EmbeddedWorkProductInstanceBlock({
   return (
     <div style={{ display: "grid", gap: 8 }}>
       {practiceElFields(row, patch)}
-      <label style={lab}>instanceName</label>
-      <input
-        value={sx(row, "instanceName")}
-        onChange={(e) => patch((r) => ({ ...r, instanceName: e.target.value }))}
-        style={inp}
-      />
       <label style={lab}>workProductName</label>
       <input
         value={sx(row, "workProductName")}

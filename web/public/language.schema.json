@@ -191,12 +191,8 @@
         { "$ref": "#/$defs/PracticeElement" },
         {
           "type": "object",
-          "required": ["instanceName", "alphaName", "stateName"],
+          "required": ["alphaName", "stateName"],
           "properties": {
-            "instanceName": {
-              "type": "string",
-              "description": "Name of this AlphaInstance element (PracticeElement identity), not a foreign key to another type."
-            },
             "alphaName": {
               "type": "string",
               "description": "Name of the Alpha this instance tracks (symbolic link; must match Alpha.name)."
@@ -253,12 +249,8 @@
         { "$ref": "#/$defs/PracticeElement" },
         {
           "type": "object",
-          "required": ["instanceName", "workProductName", "levelOfDetailName"],
+          "required": ["workProductName", "levelOfDetailName"],
           "properties": {
-            "instanceName": {
-              "type": "string",
-              "description": "Name of this WorkProductInstance element (PracticeElement identity), not a foreign key to another type."
-            },
             "workProductName": {
               "type": "string",
               "description": "Name of the WorkProduct (symbolic link; must match WorkProduct.name)."

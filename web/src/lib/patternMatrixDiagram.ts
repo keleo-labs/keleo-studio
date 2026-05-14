@@ -29,7 +29,7 @@ export function contribEntryMatchesAlphaState(
 
 export type PatternMatrixCellEntry = { alphaName: string; stateName: string };
 
-/** One PatternView.alphaInstances row matched to an alpha/state matrix slice (diagram + PDF); {@link instanceName} is `alphaName: instanceName` for display. */
+/** One PatternView.alphaInstances row matched to an alpha/state matrix slice (diagram + PDF); {@link instanceName} is `alphaName: instance.name` for display. */
 export type PatternMatrixSliceInstanceChip = {
   instanceName: string;
   /** Instance description from IR (currently unused inside the slice chip visual). */
@@ -579,7 +579,7 @@ function findOrAppendCellBlock(bucket: PatternMatrixCellBlock[], alphaName: stri
 function appendSliceInstanceForBlock(block: PatternMatrixCellBlock, raw: unknown): void {
   if (!raw || typeof raw !== "object") return;
   const o = raw as Record<string, unknown>;
-  const instanceNm = String(o.instanceName ?? o.name ?? "").trim();
+  const instanceNm = String(o.name ?? "").trim();
   const secondary = String(practiceElementDescriptionForDisplay(raw) ?? "").trim();
   const displayHead = `${block.alphaName}: ${instanceNm || "—"}`;
   if (!block.sliceInstances) block.sliceInstances = [];

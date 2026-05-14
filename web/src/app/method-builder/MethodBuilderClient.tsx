@@ -4,6 +4,21 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  PageSection,
+  Title,
+  Button,
+  Label,
+  Content,
+  ContentVariants,
+  Toolbar,
+  ToolbarContent,
+  ToolbarItem,
+  ToolbarGroup,
+  TextInput,
+  TextArea,
+  Divider,
+} from "@patternfly/react-core";
 import type { LibraryRootKind } from "@/lib/library/classify";
 import { rootKindExtension } from "@/lib/library/classify";
 import {
@@ -15,6 +30,8 @@ import {
 import type { Method, Practice, PracticeBaseline } from "@/lib/types";
 import type { JsonDocumentMeta } from "@/lib/storage/types";
 import { mergeNarrativesAdditive } from "@/lib/methodMerge/compositePracticeFromMethod";
+import { MethodTagsField, type MethodTags } from "@/components/editors/fields/MethodTagsField";
+import { MethodNarrativesField, type MethodNarrative } from "@/components/editors/fields/MethodNarrativesField";
 
 const DRAG_MIME = "application/x-adoption-library";
 
@@ -283,9 +300,10 @@ export function MethodBuilderClient() {
 
   const [methodName, setMethodName] = useState("");
   const [methodDescription, setMethodDescription] = useState("");
+  const [methodTags, setMethodTags] = useState<MethodTags>({});
   const [baselineSlot, setBaselineSlot] = useState<BaselineSlot | null>(null);
   const [practiceSlots, setPracticeSlots] = useState<PracticeSlot[]>([]);
-  const [methodNarratives, setMethodNarratives] = useState<any[]>([]);
+  const [methodNarratives, setMethodNarratives] = useState<MethodNarrative[]>([]);
 
   const [baselineDropHover, setBaselineDropHover] = useState(false);
   const [practiceDropHover, setPracticeDropHover] = useState(false);
@@ -328,6 +346,7 @@ export function MethodBuilderClient() {
       setLoadEditBusy(false);
       setMethodName("");
       setMethodDescription("");
+      setMethodTags({});
       setBaselineSlot(null);
       setPracticeSlots([]);
       setMethodNarratives([]);
@@ -343,6 +362,7 @@ export function MethodBuilderClient() {
     setEditingDocumentId(null);
     setMethodName("");
     setMethodDescription("");
+    setMethodTags({});
     setBaselineSlot(null);
     setPracticeSlots([]);
     setMethodNarratives([]);
@@ -369,6 +389,16 @@ export function MethodBuilderClient() {
       setMethodName(String(m.name ?? ""));
       setMethodDescription(String(m.description ?? ""));
 
+      const methodRec = m as Record<string, unknown>;
+      const extractedTags: MethodTags = {};
+      if (methodRec.tags && typeof methodRec.tags === "object" && !Array.isArray(methodRec.tags)) {
+        const tagsObj = methodRec.tags as Record<string, unknown>;
+        if (Array.isArray(tagsObj.domainTags)) extractedTags.domainTags = tagsObj.domainTags.filter((t): t is string => typeof t === "string");
+        if (Array.isArray(tagsObj.lifecycleTags)) extractedTags.lifecycleTags = tagsObj.lifecycleTags.filter((t): t is string => typeof t === "string");
+        if (Array.isArray(tagsObj.organizationalTags)) extractedTags.organizationalTags = tagsObj.organizationalTags.filter((t): t is string => typeof t === "string");
+      }
+      setMethodTags(extractedTags);
+
       const fetchBody = async (id: string): Promise<unknown | null> => {
         const r = await fetch(`/api/documents/${encodeURIComponent(id)}`, { cache: "no-store" });
         if (cancelled) return null;
@@ -377,8 +407,7 @@ export function MethodBuilderClient() {
         return d.body ?? null;
       };
 
-      const methodRec = m as Record<string, unknown>;
-      const existingNarratives = Array.isArray(methodRec.narratives) ? (methodRec.narratives as any[]) : [];
+      const existingNarratives = Array.isArray(methodRec.narratives) ? (methodRec.narratives as MethodNarrative[]) : [];
       setMethodNarratives(existingNarratives);
       const hasBaselineRef =
         !(methodRec.baselinePractice && typeof methodRec.baselinePractice === "object") &&
@@ -529,6 +558,10 @@ export function MethodBuilderClient() {
           description: descTrim,
           baselinePractice: nextBaseline.baseline,
         };
+        const hasTags = (methodTags.domainTags && methodTags.domainTags.length > 0) ||
+                        (methodTags.lifecycleTags && methodTags.lifecycleTags.length > 0) ||
+                        (methodTags.organizationalTags && methodTags.organizationalTags.length > 0);
+        if (hasTags) methodBody.tags = methodTags;
         if (nextSlots.length) methodBody.practices = nextSlots.map((s) => s.practice);
         if (methodNarratives.length) methodBody.narratives = methodNarratives;
         const putRes = await fetch(`/api/documents/${encodeURIComponent(editingDocumentId)}`, {
@@ -566,7 +599,7 @@ export function MethodBuilderClient() {
     } finally {
       setRefreshBusy(false);
     }
-  }, [baselineSlot, practiceSlots, editingDocumentId, methodName, methodDescription, methodNarratives, loadLibrary]);
+  }, [baselineSlot, practiceSlots, editingDocumentId, methodName, methodDescription, methodTags, methodNarratives, loadLibrary]);
 
   async function handleDropBaseline(e: React.DragEvent) {
     e.preventDefault();
@@ -733,6 +766,12 @@ export function MethodBuilderClient() {
       description,
       baselinePractice: baselineSlot.baseline,
     };
+    const hasTags = (methodTags.domainTags && methodTags.domainTags.length > 0) ||
+                    (methodTags.lifecycleTags && methodTags.lifecycleTags.length > 0) ||
+                    (methodTags.organizationalTags && methodTags.organizationalTags.length > 0);
+    if (hasTags) {
+      body.tags = methodTags;
+    }
     if (practiceSlots.length) {
       body.practices = practiceSlots.map((s) => s.practice);
     }
@@ -740,7 +779,7 @@ export function MethodBuilderClient() {
       body.narratives = methodNarratives;
     }
     return body;
-  }, [baselineSlot, methodName, methodDescription, practiceSlots, methodNarratives]);
+  }, [baselineSlot, methodName, methodDescription, methodTags, practiceSlots, methodNarratives]);
 
   const canOpenSave = Boolean(baselineSlot);
   const saveModalValid =
@@ -807,22 +846,14 @@ export function MethodBuilderClient() {
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <div className="mx-auto max-w-content px-4 py-10 md:px-10">
-        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[var(--muted)]">
-          <Link href="/" className="font-medium text-[var(--accent)] underline-offset-4 hover:underline">
-            ← Dashboard
-          </Link>
-          {editingDocumentId ? (
-            <>
-              <span aria-hidden className="text-[var(--border)]">
-                ·
-              </span>
-              <Link href="/library" className="font-medium text-[var(--accent)] underline-offset-4 hover:underline">
-                Library
-              </Link>
-            </>
-          ) : null}
-        </p>
-        <h1 className="mt-6 text-3xl font-semibold tracking-tight">Method builder</h1>
+        {editingDocumentId ? (
+          <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[var(--muted)]">
+            <Link href="/library" className="font-medium text-[var(--accent)] underline-offset-4 hover:underline">
+              Library
+            </Link>
+          </p>
+        ) : null}
+        <h1 className={editingDocumentId ? "mt-2 text-3xl font-semibold tracking-tight" : "text-3xl font-semibold tracking-tight"}>Method builder</h1>
         {editingDocumentId ? (
           <p className="mt-3 rounded-lg border border-[var(--accent)]/30 bg-[var(--accent)]/10 px-3 py-2 text-sm text-[var(--text)]">
             Editing a saved library method. Saving updates this entry. Clear the baseline to start a new method.
@@ -928,6 +959,28 @@ export function MethodBuilderClient() {
                     className="mt-1.5 w-full resize-y rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/25"
                   />
                 </label>
+              </div>
+            </section>
+
+            {/* Tags Section */}
+            <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-4 sm:p-5">
+              <h2 className="text-sm font-semibold text-[var(--text)]">Method Tags</h2>
+              <p className="mt-1 text-2xs text-[var(--muted)]">
+                Categorize this method with domain, lifecycle, and organizational tags.
+              </p>
+              <div className="mt-4">
+                <MethodTagsField value={methodTags} onChange={setMethodTags} />
+              </div>
+            </section>
+
+            {/* Narratives Section */}
+            <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-4 sm:p-5">
+              <h2 className="text-sm font-semibold text-[var(--text)]">Method Narratives</h2>
+              <p className="mt-1 text-2xs text-[var(--muted)]">
+                Define narratives (user stories, use cases, scenarios) that describe how this method is applied.
+              </p>
+              <div className="mt-4">
+                <MethodNarrativesField value={methodNarratives} onChange={setMethodNarratives} />
               </div>
             </section>
 
@@ -1057,50 +1110,6 @@ export function MethodBuilderClient() {
               </div>
             </section>
 
-            {methodNarratives.length > 0 ? (
-              <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-4 sm:p-5">
-                <h2 className="text-sm font-semibold text-[var(--text)]">
-                  Collected narratives <span className="ml-2 font-mono text-xs text-[var(--muted)]">({methodNarratives.length})</span>
-                </h2>
-                <p className="mt-1 text-2xs text-[var(--muted)]">
-                  Narratives from dropped Method documents are merged and will be included in the saved method.
-                </p>
-                <details className="mt-3 group">
-                  <summary className="cursor-pointer list-none text-xs font-semibold text-[var(--accent)] hover:underline">
-                    <span className="inline-block transition-transform group-open:rotate-90">▸</span> Show narratives
-                  </summary>
-                  <ul className="mt-3 space-y-2 rounded-lg border border-[var(--border)] bg-[var(--bg)]/40 p-3">
-                    {methodNarratives.map((narrative, idx) => {
-                      const name = String(narrative?.narrativeName ?? narrative?.name ?? `Narrative ${idx + 1}`);
-                      const desc = String(narrative?.description ?? "");
-                      const typeName = String(narrative?.narrativeTypeName ?? "");
-                      const hasNested = Array.isArray(narrative?.narratives) && narrative.narratives.length > 0;
-                      return (
-                        <li key={`${name}-${idx}`} className="rounded border border-[var(--border)] bg-[var(--panel)]/60 px-3 py-2">
-                          <div className="flex items-start gap-2">
-                            <div className="min-w-0 flex-1">
-                              <p className="font-medium text-[var(--text)]">{name}</p>
-                              {typeName ? (
-                                <p className="mt-0.5 font-mono text-2xs text-[var(--muted)]">Type: {typeName}</p>
-                              ) : null}
-                              {desc ? (
-                                <p className="mt-1 line-clamp-2 text-xs text-[var(--muted)]">{desc}</p>
-                              ) : null}
-                              {hasNested ? (
-                                <p className="mt-1 text-2xs text-[var(--accent)]">
-                                  Contains {narrative.narratives.length} nested narrative{narrative.narratives.length === 1 ? "" : "s"}
-                                </p>
-                              ) : null}
-                            </div>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </details>
-              </section>
-            ) : null}
-
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
@@ -1178,9 +1187,21 @@ export function MethodBuilderClient() {
                   <span className="font-semibold text-[var(--text)]">Extensions:</span> {practiceSlots.length} practice
                   {practiceSlots.length === 1 ? "" : "s"}
                 </p>
+                {((methodTags.domainTags && methodTags.domainTags.length > 0) ||
+                  (methodTags.lifecycleTags && methodTags.lifecycleTags.length > 0) ||
+                  (methodTags.organizationalTags && methodTags.organizationalTags.length > 0)) ? (
+                  <p className="mt-1">
+                    <span className="font-semibold text-[var(--text)]">Tags:</span>{" "}
+                    {[
+                      ...(methodTags.domainTags ?? []),
+                      ...(methodTags.lifecycleTags ?? []),
+                      ...(methodTags.organizationalTags ?? [])
+                    ].length} defined
+                  </p>
+                ) : null}
                 {methodNarratives.length > 0 ? (
                   <p className="mt-1">
-                    <span className="font-semibold text-[var(--text)]">Narratives:</span> {methodNarratives.length} collected
+                    <span className="font-semibold text-[var(--text)]">Narratives:</span> {methodNarratives.length} defined
                   </p>
                 ) : null}
               </div>
