@@ -135,7 +135,6 @@ export function emptyPersonaGroup(): Record<string, unknown> {
 export function emptyEmbeddedWorkProductInstance(): Record<string, unknown> {
   return {
     ...emptyPracticeElement("", ""),
-    instanceName: "",
     workProductName: "",
     levelOfDetailName: "",
   };
@@ -144,7 +143,6 @@ export function emptyEmbeddedWorkProductInstance(): Record<string, unknown> {
 export function emptyAlphaInstance(): Record<string, unknown> {
   return {
     ...emptyPracticeElement("", ""),
-    instanceName: "",
     alphaName: "",
     stateName: "",
     evidenceBy: [] as Record<string, unknown>[],

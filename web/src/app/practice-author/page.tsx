@@ -4,6 +4,21 @@
 import Link from "next/link";
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import {
+  PageSection,
+  Title,
+  Button,
+  Label,
+  Content,
+  ContentVariants,
+  Toolbar,
+  ToolbarContent,
+  ToolbarItem,
+  ToolbarGroup,
+  Divider,
+  Split,
+  SplitItem,
+} from "@patternfly/react-core";
 import { validateAgainstSchema } from "@/lib/validate";
 import {
   asBaselineDocument,
@@ -11,57 +26,24 @@ import {
   buildIndexes,
   enrichBaselineWithReferencedWrappers,
 } from "@/lib/ir";
-import { PracticeHumanReadablePanel } from "@/components/PracticeHumanReadablePanel";
-import { FullPracticeView } from "@/components/FullPracticeView";
-import { PracticeReportView } from "@/components/PracticeReportView";
-import { inferPracticeDocKind, PracticeAuthorForm } from "@/components/PracticeAuthorForm";
+import { inferPracticeDocKind } from "@/components/PracticeAuthorForm";
 import { displayNameForBody, storageKindForBody } from "@/lib/library/classify";
 import { emptyExtensionPractice } from "@/lib/practiceFormDefaults";
 import { useTheme } from "@/lib/theme";
 import { useLanguagePack } from "@/lib/languagePack";
-
-const panel: React.CSSProperties = {
-  background: "var(--panel)",
-  border: "1px solid var(--border)",
-  borderRadius: 12,
-  padding: 16,
-};
-
-/** Matches the form column scroll area; preview scrolls horizontally for wide diagrams and vertically for long docs. */
-const previewViewport: React.CSSProperties = {
-  alignSelf: "start",
-  width: "100%",
-  height: "min(70vh, 720px)",
-  minHeight: 0,
-  overflow: "auto",
-};
-
-function linkStyle(): React.CSSProperties {
-  return {
-    color: "inherit",
-    textDecoration: "underline",
-    textDecorationColor: "rgba(139,92,246,0.6)",
-    textUnderlineOffset: 2,
-  };
-}
-
-function button(kind: "solid" | "ghost" = "ghost"): React.CSSProperties {
-  return {
-    borderRadius: 10,
-    border: "1px solid var(--border)",
-    background: kind === "solid" ? "var(--accent)" : "transparent",
-    color: kind === "solid" ? "white" : "var(--text)",
-    padding: "10px 12px",
-    cursor: "pointer",
-    fontWeight: 700,
-  };
-}
+import { JsonEditor } from "@/components/editors/JsonEditor";
+import { YamlEditor } from "@/components/editors/YamlEditor";
+import { WysiwygEditor } from "@/components/editors/WysiwygEditor";
+import { yamlToJson, jsonToYaml } from "@/lib/yaml-json-converter";
+import { useResolvedBaseline } from "@/hooks/useResolvedBaseline";
+import { buildElementSourceMap } from "@/lib/elementSourceTracking";
+import { formatValidationIssue, formatRefIssue } from "@/lib/errorFormatting";
 
 function issueBox(kind: "bad" | "warn"): React.CSSProperties {
   return {
     border: `1px solid ${kind === "bad" ? "rgba(251,113,133,0.6)" : "rgba(251,191,36,0.5)"}`,
     background: kind === "bad" ? "rgba(251,113,133,0.12)" : "rgba(251,191,36,0.10)",
-    borderRadius: 10,
+    borderRadius: 8,
     padding: 12,
     color: "var(--text)",
   };
@@ -70,11 +52,14 @@ function issueBox(kind: "bad" | "warn"): React.CSSProperties {
 
 
 function PracticeAuthorPageInner() {
+  const [mounted, setMounted] = useState(false);
   const [doc, setDoc] = useState<Record<string, unknown>>(() => emptyExtensionPractice());
-  const [editorMode, setEditorMode] = useState<"form" | "json">("form");
-  const [readablePreview, setReadablePreview] = useState<"classic" | "browse" | "full" | "report">("classic");
+  const [originalDoc, setOriginalDoc] = useState<Record<string, unknown>>(() => emptyExtensionPractice());
+  const [editorMode, setEditorMode] = useState<"wysiwyg" | "yaml" | "json">("wysiwyg");
   const [jsonDraft, setJsonDraft] = useState("");
   const [jsonDraftError, setJsonDraftError] = useState<string | null>(null);
+  const [yamlDraft, setYamlDraft] = useState("");
+  const [yamlDraftError, setYamlDraftError] = useState<string | null>(null);
   const [libraryDirty, setLibraryDirty] = useState(false);
   const [librarySaveBusy, setLibrarySaveBusy] = useState(false);
   const [librarySaveError, setLibrarySaveError] = useState<string | null>(null);
@@ -83,6 +68,7 @@ function PracticeAuthorPageInner() {
   const [validationIssues, setValidationIssues] = useState<{ path: string; message: string }[]>([]);
   const [refIssues, setRefIssues] = useState<any[]>([]);
   const [kind, setKind] = useState<"extension" | "baseline">("extension");
+  const [libraryBodies, setLibraryBodies] = useState<unknown[]>([]);
   const { themeId } = useTheme();
   const { packId, t } = useLanguagePack();
   const searchParams = useSearchParams();
@@ -90,6 +76,52 @@ function PracticeAuthorPageInner() {
   const libraryId = searchParams.get("libraryId");
 
   const isLibrarySession = Boolean(libraryId);
+
+  // Prevent hydration mismatch by only rendering on client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Fetch all library documents for baseline resolution
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/documents");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (cancelled) return;
+
+        // Fetch full content for each document
+        const documents = Array.isArray(data.documents) ? data.documents : [];
+        const bodies: unknown[] = [];
+
+        for (const doc of documents) {
+          if (!doc.id) continue;
+          try {
+            const docRes = await fetch(`/api/documents/${encodeURIComponent(doc.id)}`);
+            if (docRes.ok) {
+              const docData = await docRes.json();
+              if (docData.body) {
+                bodies.push(docData.body);
+              }
+            }
+          } catch (err) {
+            console.warn('Failed to fetch document', doc.id, err);
+          }
+        }
+
+        if (!cancelled) {
+          setLibraryBodies(bodies);
+        }
+      } catch (e) {
+        console.error("Failed to load library for baseline resolution:", e);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const runValidation = useCallback(async (parsed: unknown) => {
     const result = await validateAgainstSchema(parsed);
@@ -141,6 +173,26 @@ function PracticeAuthorPageInner() {
     }
   }, [jsonDraft, libraryId, runValidation]);
 
+  const commitYamlDraft = useCallback((): boolean => {
+    const result = yamlToJson(yamlDraft);
+    if (!result.ok) {
+      setYamlDraftError(result.error);
+      return false;
+    }
+    const parsed = result.json;
+    if (parsed === null || typeof parsed !== "object" || Array.isArray(parsed)) {
+      setYamlDraftError("Document must be a YAML object.");
+      return false;
+    }
+    const asDoc = parsed as Record<string, unknown>;
+    setDoc(asDoc);
+    setKind(inferPracticeDocKind(asDoc));
+    if (libraryId) setLibraryDirty(true);
+    void runValidation(parsed);
+    setYamlDraftError(null);
+    return true;
+  }, [yamlDraft, libraryId, runValidation]);
+
   useEffect(() => {
     const id = libraryId;
     if (!id) return;
@@ -161,13 +213,19 @@ function PracticeAuthorPageInner() {
         const parsed = data.body;
         const asDoc = parsed as Record<string, unknown>;
         setDoc(asDoc);
+        setOriginalDoc(asDoc);
         setKind(inferPracticeDocKind(asDoc));
         setLibraryDirty(false);
         setLibrarySaveError(null);
         setLibraryDiscardError(null);
         setJsonDraft(JSON.stringify(asDoc ?? {}, null, 2));
         setJsonDraftError(null);
-        setEditorMode(openJsonFromQuery ? "json" : "form");
+        const yamlResult = jsonToYaml(asDoc ?? {});
+        if (yamlResult.ok) {
+          setYamlDraft(yamlResult.yaml);
+          setYamlDraftError(null);
+        }
+        setEditorMode(openJsonFromQuery ? "json" : "wysiwyg");
         await runValidation(parsed);
         if (!cancelled && openJsonFromQuery) {
           router.replace(`/practice-author?libraryId=${encodeURIComponent(id)}`, { scroll: false });
@@ -238,8 +296,13 @@ function PracticeAuthorPageInner() {
         return;
       }
       setDoc(bodyToSave);
+      setOriginalDoc(bodyToSave);
       setKind(inferPracticeDocKind(bodyToSave));
       setJsonDraft(JSON.stringify(bodyToSave, null, 2));
+      const yamlResult = jsonToYaml(bodyToSave);
+      if (yamlResult.ok) {
+        setYamlDraft(yamlResult.yaml);
+      }
       void runValidation(bodyToSave);
       setLibraryDirty(false);
     } catch (e: unknown) {
@@ -248,6 +311,59 @@ function PracticeAuthorPageInner() {
       setLibrarySaveBusy(false);
     }
   }, [resolveBodyForSave, libraryId, router, runValidation, t]);
+
+  const saveAsNewDocument = useCallback(async () => {
+    const bodyToSave = resolveBodyForSave();
+    if (!bodyToSave) return;
+
+    setLibrarySaveBusy(true);
+    setLibrarySaveError(null);
+    try {
+      const title = displayNameForBody(bodyToSave, "Practice");
+      const storageKind = storageKindForBody(bodyToSave);
+      const res = await fetch("/api/documents", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, kind: storageKind, body: bodyToSave }),
+      });
+      if (!res.ok) {
+        const txt = await res.text().catch(() => "");
+        let msg = txt;
+        try {
+          const j = JSON.parse(txt) as { error?: string };
+          if (j?.error) msg = j.error;
+        } catch {
+          /* keep txt */
+        }
+        setLibrarySaveError(msg || `${res.status}`);
+        return;
+      }
+      const created = (await res.json()) as { id?: string };
+      if (!created.id) {
+        setLibrarySaveError(t.saveMissingDocumentId);
+        return;
+      }
+      router.push(`/practice-author?libraryId=${encodeURIComponent(created.id)}`);
+    } catch (e: unknown) {
+      setLibrarySaveError(e instanceof Error ? e.message : "Save failed");
+    } finally {
+      setLibrarySaveBusy(false);
+    }
+  }, [resolveBodyForSave, router, t]);
+
+  const revertChanges = useCallback(() => {
+    if (!window.confirm("Revert all changes to the original document? This cannot be undone.")) return;
+    setDoc(originalDoc);
+    setKind(inferPracticeDocKind(originalDoc));
+    setJsonDraft(JSON.stringify(originalDoc, null, 2));
+    const yamlResult = jsonToYaml(originalDoc);
+    if (yamlResult.ok) {
+      setYamlDraft(yamlResult.yaml);
+      setYamlDraftError(null);
+    }
+    void runValidation(originalDoc);
+    setLibraryDirty(false);
+  }, [originalDoc, runValidation]);
 
   const discardLibraryChanges = useCallback(async () => {
     if (!libraryId) return;
@@ -271,8 +387,13 @@ function PracticeAuthorPageInner() {
       setKind(inferPracticeDocKind(asDoc));
       setJsonDraft(JSON.stringify(asDoc, null, 2));
       setJsonDraftError(null);
+      const yamlResult = jsonToYaml(asDoc);
+      if (yamlResult.ok) {
+        setYamlDraft(yamlResult.yaml);
+        setYamlDraftError(null);
+      }
       setLibraryDirty(false);
-      setEditorMode("form");
+      setEditorMode("wysiwyg");
       await runValidation(parsed);
     } catch (e: unknown) {
       setLibraryDiscardError(e instanceof Error ? e.message : t.discardFailed);
@@ -289,6 +410,15 @@ function PracticeAuthorPageInner() {
     return enrichBaselineWithReferencedWrappers(doc, withActivities);
   }, [baseline, doc]);
 
+  // Resolve baseline for extension practices
+  const { baseline: resolvedBaseline, dependencies } = useResolvedBaseline(doc, libraryBodies);
+
+  // Build element source map for baseline inheritance
+  const elementSourceMap = useMemo(() => {
+    if (kind !== 'extension' || !resolvedBaseline) return new Map();
+    return buildElementSourceMap(doc, resolvedBaseline, dependencies);
+  }, [doc, resolvedBaseline, dependencies, kind]);
+
   async function loadExample() {
     const res = await fetch("/examples/platform-adoption-kernel.json");
     const txt = await res.text();
@@ -303,7 +433,12 @@ function PracticeAuthorPageInner() {
     const asDoc = parsed as Record<string, unknown>;
     setDoc(asDoc);
     setKind(inferPracticeDocKind(asDoc));
-    setEditorMode("form");
+    setJsonDraft(JSON.stringify(asDoc, null, 2));
+    const yamlResult = jsonToYaml(asDoc);
+    if (yamlResult.ok) {
+      setYamlDraft(yamlResult.yaml);
+    }
+    setEditorMode("wysiwyg");
     setLibraryDirty(false);
     await runValidation(parsed);
   }
@@ -335,275 +470,242 @@ function PracticeAuthorPageInner() {
     URL.revokeObjectURL(url);
   }
 
+  // Prevent hydration mismatch by only rendering full UI on client
+  if (!mounted) {
+    return (
+      <PageSection>
+        <Content component={ContentVariants.p}>Loading editor...</Content>
+      </PageSection>
+    );
+  }
+
   return (
-    <main style={{ maxWidth: 1200, margin: "0 auto", padding: 24 }}>
-      <div className="no-print" style={{ marginBottom: 16 }}>
-        <Link
-          href="/"
-          style={{
-            ...linkStyle(),
-            fontSize: 13,
-            fontWeight: 600,
-            color: "var(--muted)",
-            textDecoration: "none",
-          }}
-        >
-          ← Dashboard
-        </Link>
-      </div>
-      <div className="no-print" style={{ display: "flex", gap: 16, alignItems: "baseline", justifyContent: "space-between" }}>
-        <div>
-          <div style={{ fontSize: 20, fontWeight: 700 }}>{t.appTitle}</div>
-          <div style={{ color: "var(--muted)", marginTop: 6 }}>
-            {t.appSubtitle}
-          </div>
-          <div style={{ color: "var(--muted)", marginTop: 6, fontSize: 13 }}>
-            {isLibrarySession ? (
-              <>
-                <span style={{ color: "var(--text)" }}>{t.editingLibraryDocument}</span> Use the structured form or{" "}
-                <strong style={{ fontWeight: 600 }}>Edit as JSON</strong>; then <strong style={{ fontWeight: 600 }}>Save to library</strong>{" "}
-                or <strong style={{ fontWeight: 600 }}>Discard changes</strong> to stay in sync with storage.
-              </>
-            ) : (
-              <>
-                <span style={{ color: "var(--text)" }}>{t.practiceAuthorStandaloneLead}</span> Use the structured form or switch to{" "}
-                <strong style={{ fontWeight: 600 }}>Edit as JSON</strong>. Validate &amp; Render runs schema checks and refreshes the preview.
-              </>
-            )}
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", justifyContent: "flex-end" }}>
-          <Link href="/preferences" style={{ ...linkStyle(), fontSize: 13, fontWeight: 700, color: "var(--muted)", textDecoration: "none" }}>
-            Preferences
-          </Link>
-          <button
-            type="button"
-            onClick={() => void saveToLibrary()}
-            disabled={librarySaveBusy || libraryDiscardBusy || (isLibrarySession && !libraryDirty)}
-            title={
-              isLibrarySession
-                ? libraryDirty
-                  ? "Save changes to stored library JSON"
-                  : "No unsaved edits"
-                : "Save the current practice as a new library document"
-            }
-            style={{
-              ...button("solid"),
-              cursor:
-                librarySaveBusy || libraryDiscardBusy || (isLibrarySession && !libraryDirty)
-                  ? isLibrarySession && !libraryDirty
-                    ? "not-allowed"
-                    : "wait"
-                  : "pointer",
-              opacity:
-                isLibrarySession && !libraryDirty && !librarySaveBusy ? 0.55 : 1,
-            }}
-          >
-            {librarySaveBusy ? t.savingLabel : t.saveToLibrary}
-          </button>
-          {isLibrarySession ? (
-            <>
-              <button
-                type="button"
-                onClick={() => void discardLibraryChanges()}
-                disabled={librarySaveBusy || libraryDiscardBusy || !libraryDirty}
-                style={{
-                  ...button(),
-                  cursor: libraryDiscardBusy ? "wait" : libraryDirty ? "pointer" : "not-allowed",
-                  opacity: libraryDirty ? 1 : 0.55,
-                }}
-              >
-                {libraryDiscardBusy ? "…" : t.discardLibraryChanges}
-              </button>
-              {libraryDirty ? (
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--accent)" }}>Unsaved</span>
-              ) : null}
-            </>
-          ) : null}
-          <button onClick={loadExample} style={button()}>
-            {t.loadExample}
-          </button>
-          <button onClick={validateAndLoad} style={button("solid")}>
-            {t.validateAndRender}
-          </button>
-          <button onClick={downloadPdf} disabled={!baselineForRender} style={button()}>
-            {t.downloadPdf}
-          </button>
-        </div>
+    <PageSection>
+      {/* Header */}
+      <div style={{ marginBottom: 24 }}>
+        <Title headingLevel="h1" size="xl">Practice Editor</Title>
+          {isLibrarySession && (
+            <Content component={ContentVariants.small} style={{ marginTop: 4, color: "var(--pf-v6-global--Color--200)" }}>
+              Editing: <strong>{displayNameForBody(doc, "Practice")}</strong>
+              {libraryDirty && <Label color="orange" style={{ marginLeft: 8 }}>Unsaved</Label>}
+            </Content>
+          )}
       </div>
 
-      <div className="no-print" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 16 }}>
-        <section style={{ ...panel, display: "flex", flexDirection: "column", minHeight: 0 }}>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginBottom: 12 }}>
-            <div style={{ fontWeight: 700 }}>Practice document</div>
-            <div style={{ marginLeft: "auto", display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
-              <button
-                type="button"
-                onClick={() => {
-                  if (editorMode === "json") {
-                    if (commitJsonDraft()) setEditorMode("form");
-                  }
-                }}
-                style={button(editorMode === "form" ? "solid" : "ghost")}
+      {/* Toolbar */}
+      <Toolbar className="no-print" style={{ marginBottom: 16 }}>
+        <ToolbarContent>
+          <ToolbarGroup>
+            <ToolbarItem>
+              <Button
+                variant="primary"
+                onClick={() => void saveToLibrary()}
+                isDisabled={librarySaveBusy || (isLibrarySession && !libraryDirty)}
               >
-                {t.editAsForm}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  if (editorMode === "form") {
-                    setJsonDraft(JSON.stringify(doc, null, 2));
-                    setJsonDraftError(null);
-                    setEditorMode("json");
-                  }
-                }}
-                style={button(editorMode === "json" ? "solid" : "ghost")}
+                {librarySaveBusy ? "Saving..." : "Save"}
+              </Button>
+            </ToolbarItem>
+            <ToolbarItem>
+              <Button
+                variant="secondary"
+                onClick={() => void saveAsNewDocument()}
+                isDisabled={librarySaveBusy}
               >
-                {t.editAsJson}
-              </button>
-              {editorMode === "json" ? (
-                <button type="button" onClick={() => commitJsonDraft()} style={button("solid")}>
-                  {t.applyJsonToDocument}
-                </button>
-              ) : null}
-            </div>
+                Save As...
+              </Button>
+            </ToolbarItem>
+            <ToolbarItem>
+              <Button
+                variant="secondary"
+                onClick={revertChanges}
+                isDisabled={!libraryDirty}
+              >
+                Revert
+              </Button>
+            </ToolbarItem>
+          </ToolbarGroup>
+          <ToolbarItem alignment={{ default: "alignRight" }}>
+            <Link href="/preferences" style={{ color: "var(--pf-v6-global--link--Color)", fontSize: 13, fontWeight: 600, textDecoration: "none" }}>
+              Preferences
+            </Link>
+          </ToolbarItem>
+        </ToolbarContent>
+      </Toolbar>
+
+      {librarySaveError && (
+        <div style={{ ...issueBox("bad"), marginBottom: 12 }}>{librarySaveError}</div>
+      )}
+
+      <div className="no-print" style={{ marginTop: 16 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginBottom: 16 }}>
+          <Title headingLevel="h2" size="lg">Practice document</Title>
+          <div style={{ marginLeft: "auto", display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+            <Button
+              variant={editorMode === "wysiwyg" ? "primary" : "secondary"}
+              onClick={() => {
+                if (editorMode === "json" && !commitJsonDraft()) return;
+                if (editorMode === "yaml" && !commitYamlDraft()) return;
+                setEditorMode("wysiwyg");
+              }}
+            >
+              WYSIWYG
+            </Button>
+            <Button
+              variant={editorMode === "yaml" ? "primary" : "secondary"}
+              onClick={() => {
+                if (editorMode === "json" && !commitJsonDraft()) return;
+                if (editorMode === "wysiwyg") {
+                  const yamlResult = jsonToYaml(doc);
+                  if (yamlResult.ok) {
+                    setYamlDraft(yamlResult.yaml);
+                    setYamlDraftError(null);
+                  } else {
+                    setYamlDraftError(yamlResult.error);
+                    return;
+                  }
+                }
+                setEditorMode("yaml");
+              }}
+            >
+              YAML
+            </Button>
+            <Button
+              variant={editorMode === "json" ? "primary" : "secondary"}
+              onClick={() => {
+                if (editorMode === "yaml" && !commitYamlDraft()) return;
+                if (editorMode === "wysiwyg") {
+                  setJsonDraft(JSON.stringify(doc, null, 2));
+                  setJsonDraftError(null);
+                }
+                setEditorMode("json");
+              }}
+            >
+              JSON
+            </Button>
+            {editorMode === "json" ? (
+              <Button variant="primary" onClick={() => commitJsonDraft()}>
+                Apply JSON
+              </Button>
+            ) : null}
+            {editorMode === "yaml" ? (
+              <Button variant="primary" onClick={() => commitYamlDraft()}>
+                Apply YAML
+              </Button>
+            ) : null}
           </div>
-          {librarySaveError ? (
-            <div style={{ ...issueBox("bad"), marginBottom: 12 }}>
-              <strong>{t.saveFailedPrefix}:</strong> {librarySaveError}
-            </div>
-          ) : null}
-          {libraryDiscardError ? (
-            <div style={{ ...issueBox("bad"), marginBottom: 12 }}>{libraryDiscardError}</div>
-          ) : null}
-          {editorMode === "form" ? (
-            <PracticeAuthorForm
+        </div>
+
+        {editorMode === "wysiwyg" ? (
+          <div style={{
+            overflowY: 'auto',
+            overflowX: 'hidden'
+          }}>
+            <WysiwygEditor
               doc={doc}
               onChange={(next) => {
                 setDoc(next);
                 if (libraryId) setLibraryDirty(true);
+                void runValidation(next);
               }}
               kind={kind}
               onKindChange={setKind}
               lockDocumentKind={isLibrarySession}
+              resolvedBaseline={resolvedBaseline}
+              elementSourceMap={elementSourceMap}
+              dependencies={dependencies}
+              libraryBodies={libraryBodies}
             />
-          ) : (
-            <>
-              <div
-                style={{
-                  flex: "1 1 auto",
-                  minHeight: "min(70vh, 720px)",
-                  display: "flex",
-                  flexDirection: "column",
+          </div>
+        ) : editorMode === "yaml" ? (
+          <>
+            <div style={{ minHeight: "600px" }}>
+              <YamlEditor
+                value={yamlDraft}
+                onChange={(val) => {
+                  setYamlDraft(val);
+                  setYamlDraftError(null);
+                  if (libraryId) setLibraryDirty(true);
                 }}
-              >
-                <textarea
-                  value={jsonDraft}
-                  onChange={(e) => {
-                    setJsonDraft(e.target.value);
-                    setJsonDraftError(null);
-                    if (libraryId) setLibraryDirty(true);
-                  }}
-                  spellCheck={false}
-                  aria-label={t.editAsJson}
-                  style={{
-                    flex: 1,
-                    width: "100%",
-                    minHeight: 320,
-                    fontSize: 12,
-                    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace',
-                    padding: 12,
-                    borderRadius: 8,
-                    border: "1px solid var(--border)",
-                    background: "rgba(0,0,0,0.2)",
-                    color: "var(--text)",
-                    resize: "vertical",
-                    boxSizing: "border-box",
-                  }}
-                />
-              </div>
-              {jsonDraftError ? (
-                <div style={{ ...issueBox("bad"), marginTop: 8 }}>{jsonDraftError}</div>
-              ) : null}
-            </>
-          )}
+                height="800px"
+              />
+            </div>
+            {yamlDraftError ? (
+              <div style={{ ...issueBox("bad"), marginTop: 8 }}>{yamlDraftError}</div>
+            ) : null}
+          </>
+        ) : (
+          <>
+            <div style={{ minHeight: "600px" }}>
+              <JsonEditor
+                value={jsonDraft}
+                onChange={(val) => {
+                  setJsonDraft(val);
+                  setJsonDraftError(null);
+                  if (libraryId) setLibraryDirty(true);
+                }}
+                height="800px"
+              />
+            </div>
+            {jsonDraftError ? (
+              <div style={{ ...issueBox("bad"), marginTop: 8 }}>{jsonDraftError}</div>
+            ) : null}
+          </>
+        )}
           {(validationIssues.length > 0 || refIssues.length > 0) && (
             <div style={{ marginTop: 12, display: "grid", gap: 8 }}>
               {validationIssues.length > 0 && (
                 <div style={issueBox("bad")}>
                   <div style={{ fontWeight: 700, marginBottom: 6 }}>{t.schemaIssuesTitle}</div>
-                  <ul style={{ margin: 0, paddingLeft: 18 }}>
-                    {validationIssues.slice(0, 8).map((i, idx) => (
-                      <li key={idx}>
-                        <code>{i.path}</code> {i.message}
-                      </li>
-                    ))}
-                  </ul>
+                  <div style={{ display: "grid", gap: 10 }}>
+                    {validationIssues.slice(0, 8).map((i, idx) => {
+                      const formatted = formatValidationIssue(i, doc);
+                      return (
+                        <div key={idx} style={{ paddingLeft: 12, borderLeft: "3px solid rgba(251,113,133,0.6)" }}>
+                          <div style={{ fontWeight: 600, marginBottom: 2 }}>{formatted.summary}</div>
+                          <div style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)", fontFamily: "monospace" }}>
+                            {formatted.detail}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {validationIssues.length > 8 && (
+                    <div style={{ marginTop: 8, fontSize: "0.875rem", fontStyle: "italic", color: "var(--pf-v6-global--Color--200)" }}>
+                      ...and {validationIssues.length - 8} more issue{validationIssues.length - 8 !== 1 ? "s" : ""}
+                    </div>
+                  )}
                 </div>
               )}
               {refIssues.length > 0 && (
                 <div style={issueBox("warn")}>
                   <div style={{ fontWeight: 700, marginBottom: 6 }}>{t.refIssuesTitle}</div>
-                  <ul style={{ margin: 0, paddingLeft: 18 }}>
-                    {refIssues.slice(0, 8).map((i: any, idx: number) => (
-                      <li key={idx}>
-                        <code>{i.type}</code> {i.ref} {i.context ? <span style={{ color: "var(--muted)" }}>({i.context})</span> : null}
-                      </li>
-                    ))}
-                  </ul>
+                  <div style={{ display: "grid", gap: 10 }}>
+                    {refIssues.slice(0, 8).map((i: any, idx: number) => {
+                      const formatted = formatRefIssue(i);
+                      return (
+                        <div key={idx} style={{ paddingLeft: 12, borderLeft: "3px solid rgba(251,191,36,0.6)" }}>
+                          <div style={{ fontWeight: 600, marginBottom: 2 }}>{formatted.summary}</div>
+                          <div style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>
+                            {formatted.detail}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {refIssues.length > 8 && (
+                    <div style={{ marginTop: 8, fontSize: "0.875rem", fontStyle: "italic", color: "var(--pf-v6-global--Color--200)" }}>
+                      ...and {refIssues.length - 8} more issue{refIssues.length - 8 !== 1 ? "s" : ""}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
           )}
-        </section>
-
-        <div className="no-print" style={previewViewport}>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginBottom: 12 }}>
-            <div style={{ fontWeight: 700 }}>{t.renderedView}</div>
-            <div style={{ marginLeft: "auto", display: "flex", flexWrap: "wrap", gap: 6 }}>
-              <button
-                type="button"
-                onClick={() => setReadablePreview("classic")}
-                style={button(readablePreview === "classic" ? "solid" : "ghost")}
-              >
-                {t.readablePreviewClassic}
-              </button>
-              <button
-                type="button"
-                onClick={() => setReadablePreview("browse")}
-                style={button(readablePreview === "browse" ? "solid" : "ghost")}
-              >
-                {t.readablePreviewBrowse}
-              </button>
-              <button
-                type="button"
-                onClick={() => setReadablePreview("full")}
-                style={button(readablePreview === "full" ? "solid" : "ghost")}
-              >
-                {t.readablePreviewFullDocument}
-              </button>
-              <button
-                type="button"
-                onClick={() => setReadablePreview("report")}
-                style={button(readablePreview === "report" ? "solid" : "ghost")}
-              >
-                {t.readablePreviewReport}
-              </button>
-            </div>
-          </div>
-          {readablePreview === "full" ? (
-            <FullPracticeView doc={doc} embed />
-          ) : readablePreview === "report" ? (
-            <PracticeReportView doc={doc} />
-          ) : (
-            <PracticeHumanReadablePanel doc={doc} variant={readablePreview === "browse" ? "browse" : "default"} />
-          )}
-        </div>
       </div>
 
       {/* PDF is generated server-side via /api/pdf (Playwright) */}
 
-    </main>
+    </PageSection>
   );
 }
 
@@ -612,7 +714,9 @@ export default function PracticeAuthorPage() {
   return (
     <Suspense
       fallback={
-        <main style={{ maxWidth: 1200, margin: "0 auto", padding: 24, color: "var(--muted)" }}>Loading…</main>
+        <PageSection>
+          <Content component={ContentVariants.p}>Loading…</Content>
+        </PageSection>
       }
     >
       <PracticeAuthorPageInner />

@@ -9,14 +9,18 @@ export const metadata = {
 
 function LibraryFallback() {
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
-      <div className="mx-auto max-w-content px-6 py-12 md:px-10">
-        <p className="text-sm text-[var(--muted)]">
-          <Link href="/" className="font-medium text-[var(--accent)] underline-offset-4 hover:underline">
-            ← Dashboard
-          </Link>
-        </p>
-        <p className="mt-8 text-sm text-[var(--muted)]">Loading library…</p>
+    <div style={{
+      minHeight: "100vh",
+      backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+      color: "var(--pf-v6-global--Color--100)",
+      fontFamily: '"Red Hat Text", RedHatText, "Overpass", Arial, sans-serif',
+    }}>
+      <div style={{
+        maxWidth: "1400px",
+        margin: "0 auto",
+        padding: "3rem 2.5rem",
+      }}>
+        <p style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>Loading library…</p>
       </div>
     </div>
   );

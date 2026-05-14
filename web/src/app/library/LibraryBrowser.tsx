@@ -3,12 +3,21 @@
 import Link from "next/link";
 import type { FormEvent } from "react";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Title,
+  Card,
+  CardBody,
+  Button,
+  Label,
+  Content,
+  ContentVariants,
+} from "@patternfly/react-core";
 import type { LibraryRootKind } from "@/lib/library/classify";
 import { displayNameForBody, rootKindExtension, storageKindForBody } from "@/lib/library/classify";
 import type { LibraryDocumentTags } from "@/lib/library/libraryDocumentTags";
-import { listVirtualElementFiles, type VirtualFileRow } from "@/lib/library/virtualElementFiles";
 import type { JsonDocumentMeta } from "@/lib/storage/types";
 import { useLanguagePack } from "@/lib/languagePack";
+import { LibraryItemFocus } from "./LibraryItemFocus";
 
 type EnrichedMeta = JsonDocumentMeta & {
   libraryRootKind: LibraryRootKind;
@@ -68,10 +77,6 @@ async function downloadLibraryDocumentJson(id: string, filenameBase: string): Pr
   URL.revokeObjectURL(url);
 }
 
-function extBadge(ext: string): string {
-  return `.${ext}`;
-}
-
 function collectSortedUniqueTags(groups: string[][]): string[] {
   const s = new Set<string>();
   for (const g of groups) {
@@ -102,95 +107,6 @@ function folderLabel(id: FolderId): string {
   }
 }
 
-function LibraryManageRowActions(props: {
-  row: EnrichedMeta;
-  browseHref: string;
-  deleteBusyId: string | null;
-  bulkDeleteInProgress: boolean;
-  actionsMenuLabel: string;
-  deleteLabel: string;
-  deletingLabel: string;
-  onDownload: () => void;
-  onConfirmDelete: () => void | Promise<void>;
-}) {
-  const busy = props.deleteBusyId !== null || props.bulkDeleteInProgress;
-  const rowBusy = props.deleteBusyId === props.row.id;
-  const detailsRef = useRef<HTMLDetailsElement>(null);
-
-  function closeMenu() {
-    const el = detailsRef.current;
-    if (el) el.open = false;
-  }
-
-  return (
-    <details ref={detailsRef} className="group/actions relative ml-auto inline-block max-w-full text-left">
-      <summary className="flex cursor-pointer list-none items-center gap-1 rounded-lg border border-[var(--border)] bg-[var(--bg)]/50 px-2 py-1 text-xs font-semibold text-[var(--text)] hover:bg-[var(--border)]/25 [&::-webkit-details-marker]:hidden">
-        <span>{props.actionsMenuLabel}</span>
-        <span
-          className="font-mono text-[var(--muted)] transition-transform duration-150 group-open/actions:rotate-180"
-          aria-hidden
-        >
-          ▾
-        </span>
-      </summary>
-      <div
-        className="absolute right-0 top-[calc(100%+0.25rem)] z-40 min-w-[12rem] rounded-lg border border-[var(--border)] bg-[var(--panel)] py-1 shadow-lg ring-1 ring-black/5 dark:ring-white/10"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          type="button"
-          className="block w-full px-3 py-2 text-left text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)]/10"
-          onClick={() => {
-            closeMenu();
-            props.onDownload();
-          }}
-        >
-          Download
-        </button>
-        <Link
-          href={props.browseHref}
-          className="block px-3 py-2 text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)]/10"
-        >
-          Browse
-        </Link>
-        {props.row.libraryRootKind === "method" ? (
-          <Link
-            href={`/method-builder?libraryId=${encodeURIComponent(props.row.id)}`}
-            className="block px-3 py-2 text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)]/10"
-          >
-            Edit method
-          </Link>
-        ) : (
-          <Link
-            href={`/practice-author?libraryId=${encodeURIComponent(props.row.id)}&editor=json`}
-            className="block px-3 py-2 text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)]/10"
-          >
-            Edit JSON
-          </Link>
-        )}
-        <Link
-          href={`/practice-author?libraryId=${encodeURIComponent(props.row.id)}`}
-          className="block px-3 py-2 text-xs font-semibold text-[var(--accent)] hover:bg-[var(--accent)]/10"
-        >
-          Author
-        </Link>
-        <div className="my-1 border-t border-[var(--border)]/80" />
-        <button
-          type="button"
-          disabled={busy}
-          className="block w-full px-3 py-2 text-left text-xs font-semibold text-[var(--bad)] hover:bg-[var(--bad)]/10 disabled:cursor-not-allowed disabled:opacity-50"
-          onClick={() => {
-            closeMenu();
-            void props.onConfirmDelete();
-          }}
-        >
-          {rowBusy ? props.deletingLabel : props.deleteLabel}
-        </button>
-      </div>
-    </details>
-  );
-}
-
 export function LibraryBrowser() {
   const { t } = useLanguagePack();
   const [folder, setFolder] = useState<FolderId>("all");
@@ -198,20 +114,39 @@ export function LibraryBrowser() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Add styles for hover states to avoid hydration issues
+  const hoverStyles = `
+    .lib-btn-primary:hover { background-color: var(--pf-v6-global--primary-color--200); }
+    .lib-btn-secondary:hover { border-color: var(--pf-v6-global--primary-color--100); }
+    .lib-btn-danger:hover { background-color: color-mix(in srgb, var(--pf-v6-global--danger-color--100) 10%, transparent); }
+    .lib-link:hover { text-decoration: underline; }
+    .lib-folder-row:hover { background-color: var(--pf-v6-global--BackgroundColor--200); color: var(--pf-v6-global--Color--100); }
+    .lib-tag-button:hover { background-color: var(--pf-v6-global--BackgroundColor--100); color: var(--pf-v6-global--Color--100); }
+    .lib-expand-btn:hover { background-color: color-mix(in srgb, var(--pf-v6-global--BorderColor--100) 30%, transparent); color: var(--pf-v6-global--Color--100); }
+    .lib-table-row:hover { background-color: color-mix(in srgb, var(--pf-v6-global--BackgroundColor--200) 40%, transparent); }
+    .lib-row-link:hover { background-color: color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent); }
+    .lib-row-link:focus-visible { outline: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--pf-v6-global--primary-color--100) 40%, transparent); }
+    .lib-row-link:hover .lib-row-name { text-decoration: underline; }
+    .lib-mode-btn:not(.active):hover { border-color: color-mix(in srgb, var(--pf-v6-global--primary-color--100) 50%, transparent); color: var(--pf-v6-global--Color--100); }
+    .lib-input:focus { border-color: var(--pf-v6-global--primary-color--100); outline: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--pf-v6-global--primary-color--100) 25%, transparent); }
+    .lib-input::placeholder { color: var(--pf-v6-global--Color--200); }
+    .lib-file-input::file-selector-button { margin-right: 0.75rem; cursor: pointer; border-radius: var(--pf-v6-global--BorderRadius--sm); border: 0; background-color: color-mix(in srgb, var(--pf-v6-global--primary-color--100) 20%, transparent); padding: 0.375rem 0.75rem; font-size: 0.75rem; font-weight: 600; color: var(--pf-v6-global--Color--100); }
+    .lib-file-input:hover::file-selector-button { background-color: color-mix(in srgb, var(--pf-v6-global--primary-color--100) 30%, transparent); }
+    .lib-virtual-row:first-child { border-top: 0; }
+  `;
+
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [virtualRows, setVirtualRows] = useState<VirtualFileRow[] | null>(null);
-  const [expandLoading, setExpandLoading] = useState(false);
-  const [expandError, setExpandError] = useState<string | null>(null);
   const [uploadOpen, setUploadOpen] = useState(false);
   const [exportAllBusy, setExportAllBusy] = useState(false);
   const [downloadError, setDownloadError] = useState<string | null>(null);
   const [deleteBusyId, setDeleteBusyId] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
-  const [deleteAllPracticesBusy, setDeleteAllPracticesBusy] = useState(false);
+  const [deleteBusy, setDeleteBusy] = useState(false);
 
   const [domainTagFilter, setDomainTagFilter] = useState<string[]>([]);
   const [lifecycleTagFilter, setLifecycleTagFilter] = useState<string[]>([]);
   const [orgTagFilter, setOrgTagFilter] = useState<string[]>([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -245,6 +180,11 @@ export function LibraryBrowser() {
     void refresh();
   }, [refresh]);
 
+  // Clear selection when filters change to avoid phantom selected items
+  useEffect(() => {
+    clearSelection();
+  }, [folder, domainTagFilter, lifecycleTagFilter, orgTagFilter]);
+
   const counts = useMemo(() => {
     const c: Record<LibraryRootKind, number> = {
       method: 0,
@@ -257,11 +197,6 @@ export function LibraryBrowser() {
     }
     return c;
   }, [items]);
-
-  const extensionPracticeItems = useMemo(
-    () => items.filter((it) => it.libraryRootKind === "practice"),
-    [items],
-  );
 
   const domainTagOptions = useMemo(() => collectSortedUniqueTags(items.map((it) => it.libraryTags.domainTags)), [items]);
   const lifecycleTagOptions = useMemo(
@@ -296,79 +231,94 @@ export function LibraryBrowser() {
     setOrgTagFilter([]);
   }, []);
 
-  async function toggleExpand(id: string) {
+  function toggleSelection(id: string) {
+    setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+  }
+
+  function selectAll() {
+    setSelectedIds(filtered.map((item) => item.id));
+  }
+
+  function clearSelection() {
+    setSelectedIds([]);
+  }
+
+  function toggleExpand(id: string) {
     if (expandedId === id) {
       setExpandedId(null);
-      setVirtualRows(null);
-      setExpandError(null);
-      return;
-    }
-    setExpandedId(id);
-    setVirtualRows(null);
-    setExpandError(null);
-    setExpandLoading(true);
-    try {
-      const res = await fetch(`/api/documents/${encodeURIComponent(id)}`);
-      if (!res.ok) {
-        setExpandError(`Could not open document (${res.status})`);
-        setExpandLoading(false);
-        return;
-      }
-      const doc = (await res.json()) as { body?: unknown };
-      setVirtualRows(listVirtualElementFiles(doc.body));
-    } catch (e) {
-      setExpandError(e instanceof Error ? e.message : "Load failed");
-    } finally {
-      setExpandLoading(false);
+    } else {
+      setExpandedId(id);
     }
   }
 
-  async function confirmAndDeletePractice(row: EnrichedMeta) {
-    if (deleteAllPracticesBusy) return;
-    const label = row.displayName || row.title || row.id;
-    const msg = t.libraryDeleteConfirm.replace("{name}", label);
-    if (!window.confirm(msg)) return;
-    setDeleteBusyId(row.id);
-    setDeleteError(null);
-    try {
-      const res = await fetch(`/api/documents/${encodeURIComponent(row.id)}`, { method: "DELETE" });
-      if (!res.ok && res.status !== 404) {
-        let m = await res.text().catch(() => "");
-        try {
-          const j = JSON.parse(m) as { error?: string };
-          if (j?.error) m = j.error;
-        } catch {
-          /* keep */
+  function getEditHref(id: string): string {
+    const item = items.find((it) => it.id === id);
+    if (!item) return "#";
+
+    if (item.libraryRootKind === "method") {
+      return `/method-builder?libraryId=${encodeURIComponent(id)}`;
+    }
+
+    // For practices - go to practice editor
+    return `/practice-author?libraryId=${encodeURIComponent(id)}`;
+  }
+
+  async function handleBulkDownload() {
+    if (selectedIds.length === 0) return;
+
+    if (selectedIds.length === 1) {
+      // Single item - use existing function
+      const item = items.find((it) => it.id === selectedIds[0]);
+      if (!item) return;
+      await downloadLibraryDocumentJson(item.id, item.displayName || item.title || item.id);
+      return;
+    }
+
+    // Multiple items - download as JSON array
+    const selectedItems = items.filter((it) => selectedIds.includes(it.id));
+    const bodies: unknown[] = [];
+
+    for (const item of selectedItems) {
+      try {
+        const res = await fetch(`/api/documents/${encodeURIComponent(item.id)}`);
+        if (res.ok) {
+          const doc = await res.json();
+          bodies.push(doc.body ?? null);
         }
-        setDeleteError(m || `${t.libraryDeleteFailed} (${res.status})`);
-        return;
+      } catch (e) {
+        console.error(`Failed to fetch ${item.id}:`, e);
       }
-      if (expandedId === row.id) {
-        setExpandedId(null);
-        setVirtualRows(null);
-        setExpandError(null);
-      }
-      await refresh();
-    } catch (e: unknown) {
-      setDeleteError(e instanceof Error ? e.message : t.libraryDeleteFailed);
-    } finally {
-      setDeleteBusyId(null);
     }
+
+    const text = JSON.stringify(bodies, null, 2);
+    const blob = new Blob([text], { type: "application/json;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `library-export-${selectedItems.length}-items.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   }
 
-  async function confirmAndDeleteAllPractices() {
-    const targets = extensionPracticeItems;
-    if (targets.length === 0) {
-      window.alert(t.libraryDeleteAllPracticesNone);
-      return;
-    }
-    const countStr = String(targets.length);
-    if (!window.confirm(t.libraryDeleteAllPracticesConfirm.replace("{count}", countStr))) return;
-    if (!window.confirm(t.libraryDeleteAllPracticesConfirmFinal.replace("{count}", countStr))) return;
+  async function handleBulkDelete() {
+    if (selectedIds.length === 0) return;
 
-    setDeleteAllPracticesBusy(true);
+    const targets = items.filter((it) => selectedIds.includes(it.id));
+    const countStr = String(targets.length);
+
+    const confirmMsg =
+      targets.length === 1
+        ? `Delete "${targets[0].displayName || targets[0].title}"?`
+        : `Delete ${countStr} selected items? This cannot be undone.`;
+
+    if (!window.confirm(confirmMsg)) return;
+
+    setDeleteBusy(true);
     setDeleteError(null);
     const failures: string[] = [];
+
     for (const row of targets) {
       try {
         const res = await fetch(`/api/documents/${encodeURIComponent(row.id)}`, { method: "DELETE" });
@@ -389,37 +339,85 @@ export function LibraryBrowser() {
       }
     }
 
-    const expandedWasDeleted =
-      expandedId !== null && targets.some((row) => row.id === expandedId);
-    if (expandedWasDeleted) {
+    if (expandedId && selectedIds.includes(expandedId)) {
       setExpandedId(null);
-      setVirtualRows(null);
-      setExpandError(null);
     }
 
+    clearSelection();
     await refresh();
 
     if (failures.length > 0) {
-      const summary = t.libraryDeleteAllPracticesPartial.replace("{failed}", String(failures.length)).replace(
-        "{total}",
-        countStr,
-      );
+      const summary = `Failed to delete ${failures.length} of ${countStr} items.`;
       const detail = failures.slice(0, 3).join(" · ");
       setDeleteError(detail ? `${summary} ${detail}` : summary);
     }
 
-    setDeleteAllPracticesBusy(false);
+    setDeleteBusy(false);
+  }
+
+  async function confirmAndDeletePractice(row: EnrichedMeta) {
+    const label = row.displayName || row.title || row.id;
+    const msg = t.libraryDeleteConfirm.replace("{name}", label);
+    if (!window.confirm(msg)) return;
+    setDeleteBusyId(row.id);
+    setDeleteError(null);
+    try {
+      const res = await fetch(`/api/documents/${encodeURIComponent(row.id)}`, { method: "DELETE" });
+      if (!res.ok && res.status !== 404) {
+        let m = await res.text().catch(() => "");
+        try {
+          const j = JSON.parse(m) as { error?: string };
+          if (j?.error) m = j.error;
+        } catch {
+          /* keep */
+        }
+        setDeleteError(m || `${t.libraryDeleteFailed} (${res.status})`);
+        return;
+      }
+      if (expandedId === row.id) {
+        setExpandedId(null);
+      }
+      await refresh();
+    } catch (e: unknown) {
+      setDeleteError(e instanceof Error ? e.message : t.libraryDeleteFailed);
+    } finally {
+      setDeleteBusyId(null);
+    }
   }
 
   const breadcrumb = folder === "all" ? "Library" : `Library / ${folderLabel(folder)}`;
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
-      <div className="mx-auto flex max-w-content flex-col gap-0 px-4 py-10 md:flex-row md:px-10">
+    <div style={{
+      minHeight: "100vh",
+      backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+      color: "var(--pf-v6-global--Color--100)",
+      fontFamily: '"Red Hat Text", RedHatText, "Overpass", Arial, sans-serif',
+    }}>
+      <style dangerouslySetInnerHTML={{ __html: hoverStyles }} />
+      <div style={{
+        maxWidth: "1400px",
+        margin: "0 auto",
+        display: "flex",
+        flexDirection: "row",
+        gap: 0,
+        padding: "2.5rem 2.5rem",
+      }}>
         {/* Sidebar — folder tree */}
-        <aside className="mb-8 w-full shrink-0 border-b border-[var(--border)] pb-8 md:mb-0 md:w-64 md:border-b-0 md:border-r md:pb-0 md:pr-6">
-          <p className="text-2xs font-semibold uppercase tracking-wider text-[var(--muted)]">Browse</p>
-          <nav className="mt-4 flex flex-col gap-1" aria-label="Library folders">
+        <aside style={{
+          width: "16rem",
+          flexShrink: 0,
+          borderRight: "1px solid var(--pf-v6-global--BorderColor--100)",
+          paddingRight: "1.5rem",
+        }}>
+          <Title headingLevel="h3" size="md" ouiaId="sidebar-browse-title" style={{
+            textTransform: "uppercase",
+            color: "var(--pf-v6-global--Color--200)",
+            fontSize: "0.75rem",
+            fontWeight: 600,
+            letterSpacing: "0.05em",
+          }}>Browse</Title>
+          <nav style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "0.25rem" }} aria-label="Library folders">
             <FolderRow
               active={folder === "all"}
               label={folderLabel("all")}
@@ -440,22 +438,43 @@ export function LibraryBrowser() {
           </nav>
 
           {!loading && !loadError ? (
-            <div className="mt-8 border-t border-[var(--border)] pt-6">
-              <div className="flex flex-wrap items-start justify-between gap-2">
-                <p className="text-2xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+            <div style={{
+              marginTop: "2rem",
+              borderTop: "1px solid var(--pf-v6-global--BorderColor--100)",
+              paddingTop: "1.5rem",
+            }}>
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "space-between", gap: "0.5rem" }}>
+                <Title headingLevel="h3" size="md" ouiaId="sidebar-filters-title" style={{
+                  textTransform: "uppercase",
+                  color: "var(--pf-v6-global--Color--200)",
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.05em",
+                }}>
                   {t.libraryTagFiltersHeading}
-                </p>
+                </Title>
                 {tagFilterActive ? (
                   <button
                     type="button"
                     onClick={clearTagFilters}
-                    className="shrink-0 rounded-md border border-[var(--border)] bg-[var(--bg)] px-2 py-0.5 text-2xs font-semibold text-[var(--muted)] hover:border-[var(--accent)] hover:text-[var(--text)]"
+                    style={{
+                      flexShrink: 0,
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                      backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                      padding: "0.125rem 0.5rem",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      color: "var(--pf-v6-global--Color--200)",
+                      cursor: "pointer",
+                    }}
+                    className="lib-btn-secondary"
                   >
                     {t.libraryClearTagFilters}
                   </button>
                 ) : null}
               </div>
-              <div className="mt-3 flex flex-col gap-2">
+              <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                 <LibraryTagTreeSection
                   sectionLabel={t.tagsDomain}
                   options={domainTagOptions}
@@ -480,57 +499,72 @@ export function LibraryBrowser() {
         </aside>
 
         {/* Main file list */}
-        <div className="min-w-0 flex-1 md:pl-2">
-          <p className="text-sm text-[var(--muted)]">
-            <Link href="/" className="font-medium text-[var(--accent)] underline-offset-4 hover:underline">
-              ← Dashboard
-            </Link>
-          </p>
-          <h1 className="mt-6 text-3xl font-semibold tracking-tight">Manage library</h1>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted)]">
+        <div style={{ minWidth: 0, flex: 1, paddingLeft: "0.5rem" }}>
+          <Title headingLevel="h1" size="4xl" ouiaId="page-title">Manage library</Title>
+          <Content component={ContentVariants.p} ouiaId="page-description" style={{
+            marginTop: "0.75rem",
+            maxWidth: "42rem",
+            fontSize: "0.875rem",
+            lineHeight: "1.6",
+            color: "var(--pf-v6-global--Color--200)",
+          }}>
             Stored JSON is grouped like a file browser. Root documents use{" "}
-            <code className="text-[var(--text)]">.method</code>,{" "}
-            <code className="text-[var(--text)]">.baseline</code>, or{" "}
-            <code className="text-[var(--text)]">.practice</code>. Expand a row to see nested practice elements with
-            distinct pseudo-types (e.g. <code className="text-[var(--text)]">.focus</code>,{" "}
-            <code className="text-[var(--text)]">.alpha</code>, <code className="text-[var(--text)]">.activity</code>).
-            Use the <strong className="font-semibold text-[var(--text)]">Add to library</strong> button to paste JSON or
-            upload a <code className="text-[var(--text)]">.json</code> file. You can import a single document or a JSON
+            <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.method</code>,{" "}
+            <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.baseline</code>, or{" "}
+            <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.practice</code>. Expand a row to see nested practice elements with
+            distinct pseudo-types (e.g. <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.focus</code>,{" "}
+            <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.alpha</code>, <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.activity</code>).
+            Use the <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>Add to library</strong> button to paste JSON or
+            upload a <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.json</code> file. You can import a single document or a JSON
             array of methods, baseline practices, and/or extension practices—each array element is stored as its own library
             item. When adding a method, its individual practices are automatically extracted and added separately to the library.
-          </p>
+          </Content>
 
-          <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] pb-3">
-            <p className="font-mono text-xs text-[var(--muted)]">{breadcrumb}</p>
-            <div className="flex flex-wrap items-center gap-2">
+          <div style={{
+            marginTop: "1.5rem",
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "0.75rem",
+            borderBottom: "1px solid var(--pf-v6-global--BorderColor--100)",
+            paddingBottom: "0.75rem",
+          }}>
+            <p style={{ fontFamily: "monospace", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>{breadcrumb}</p>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem" }}>
               <button
                 type="button"
                 onClick={() => setUploadOpen(true)}
-                className="rounded-lg border border-[var(--accent)] bg-[var(--accent)]/90 px-3 py-1.5 text-xs font-semibold text-white hover:bg-[var(--accent)]"
+                style={{
+                  borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                  border: "1px solid var(--pf-v6-global--primary-color--100)",
+                  backgroundColor: "var(--pf-v6-global--primary-color--100)",
+                  padding: "0.375rem 0.75rem",
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  color: "white",
+                  cursor: "pointer",
+                }}
+                className="lib-btn-primary"
               >
                 Add to library
               </button>
               <button
                 type="button"
                 onClick={() => void refresh()}
-                className="rounded-lg border border-[var(--border)] bg-[var(--panel)] px-3 py-1.5 text-xs font-semibold text-[var(--text)] hover:border-[var(--accent)]"
+                style={{
+                  borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                  border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                  backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                  padding: "0.375rem 0.75rem",
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  color: "var(--pf-v6-global--Color--100)",
+                  cursor: "pointer",
+                }}
+                className="lib-btn-secondary"
               >
                 Refresh
-              </button>
-              <button
-                type="button"
-                disabled={
-                  loading ||
-                  !!loadError ||
-                  extensionPracticeItems.length === 0 ||
-                  deleteAllPracticesBusy ||
-                  deleteBusyId !== null
-                }
-                title={t.libraryDeleteAllPracticesTitle}
-                onClick={() => void confirmAndDeleteAllPractices()}
-                className="rounded-lg border border-[var(--bad)]/55 bg-transparent px-3 py-1.5 text-xs font-semibold text-[var(--bad)] hover:bg-[var(--bad)]/10 disabled:cursor-not-allowed disabled:opacity-45"
-              >
-                {deleteAllPracticesBusy ? t.libraryDeletingAllPractices : t.libraryDeleteAllPractices}
               </button>
               <button
                 type="button"
@@ -550,7 +584,18 @@ export function LibraryBrowser() {
                     })
                     .finally(() => setExportAllBusy(false));
                 }}
-                className="rounded-lg border border-[var(--border)] bg-[var(--panel)] px-3 py-1.5 text-xs font-semibold text-[var(--text)] hover:border-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-50"
+                style={{
+                  borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                  border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                  backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                  padding: "0.375rem 0.75rem",
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  color: "var(--pf-v6-global--Color--100)",
+                  cursor: "pointer",
+                  opacity: (loading || !!loadError || items.length === 0 || exportAllBusy) ? 0.5 : 1,
+                }}
+                className="lib-btn-secondary"
               >
                 {exportAllBusy ? t.libraryDownloadingAllJson : t.libraryDownloadAllJson}
               </button>
@@ -560,23 +605,23 @@ export function LibraryBrowser() {
           <LibraryAddModal open={uploadOpen} onClose={() => setUploadOpen(false)} onSaved={refresh} />
 
           {deleteError ? (
-            <p className="mt-4 text-xs text-[var(--bad)]" role="alert">
+            <p style={{ marginTop: "1rem", fontSize: "0.75rem", color: "var(--pf-v6-global--danger-color--100)" }} role="alert">
               {deleteError}
             </p>
           ) : null}
 
           {downloadError ? (
-            <p className="mt-4 text-xs text-[var(--bad)]" role="alert">
+            <p style={{ marginTop: "1rem", fontSize: "0.75rem", color: "var(--pf-v6-global--danger-color--100)" }} role="alert">
               {downloadError}
             </p>
           ) : null}
 
           {loading ? (
-            <p className="mt-8 text-sm text-[var(--muted)]">Loading library…</p>
+            <p style={{ marginTop: "2rem", fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>Loading library…</p>
           ) : loadError ? (
-            <p className="mt-8 text-sm text-[var(--bad)]">{loadError}</p>
+            <p style={{ marginTop: "2rem", fontSize: "0.875rem", color: "var(--pf-v6-global--danger-color--100)" }}>{loadError}</p>
           ) : filtered.length === 0 ? (
-            <p className="mt-8 text-sm text-[var(--muted)]">
+            <p style={{ marginTop: "2rem", fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>
               {items.length > 0 ? (
                 <>
                   {tagFilterActive ? (
@@ -585,7 +630,15 @@ export function LibraryBrowser() {
                       <button
                         type="button"
                         onClick={clearTagFilters}
-                        className="font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
+                        style={{
+                          fontWeight: 600,
+                          color: "var(--pf-v6-global--link--Color)",
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          padding: 0,
+                        }}
+                        className="lib-link"
                       >
                         {t.libraryClearTagFilters}
                       </button>
@@ -593,7 +646,7 @@ export function LibraryBrowser() {
                   ) : folder !== "all" ? (
                     <>
                       No documents in this folder. Choose another folder in the sidebar, or use{" "}
-                      <strong className="font-semibold text-[var(--text)]">Add to library</strong>.
+                      <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>Add to library</strong>.
                     </>
                   ) : (
                     "No matching documents."
@@ -601,25 +654,144 @@ export function LibraryBrowser() {
                 </>
               ) : (
                 <>
-                  No documents yet. Use <strong className="font-semibold text-[var(--text)]">Add to library</strong>, open in{" "}
-                  <Link href="/practice-author" className="font-medium text-[var(--accent)] underline-offset-4 hover:underline">
+                  No documents yet. Use <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>Add to library</strong>, open in{" "}
+                  <Link href="/practice-author" style={{
+                    fontWeight: 500,
+                    color: "var(--pf-v6-global--link--Color)",
+                  }}
+                  className="lib-link">
                     Practice author
                   </Link>
-                  , or POST to <code className="text-[var(--text)]">/api/documents</code>.
+                  , or POST to <code style={{ color: "var(--pf-v6-global--Color--100)" }}>/api/documents</code>.
                 </>
               )}
             </p>
           ) : (
-            <div className="mt-4 rounded-xl border border-[var(--border)] bg-[var(--panel)]">
-              <table className="w-full border-collapse text-left text-sm">
+            <>
+              {selectedIds.length > 0 && (
+                <div
+                  style={{
+                    marginTop: "1rem",
+                    padding: "0.75rem",
+                    backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                    borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.75rem",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  <span style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
+                    {selectedIds.length} selected
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => void handleBulkDownload()}
+                    style={{
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                      backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                      padding: "0.375rem 0.75rem",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      color: "var(--pf-v6-global--Color--100)",
+                      cursor: "pointer",
+                    }}
+                    className="lib-btn-secondary"
+                  >
+                    Download {selectedIds.length > 1 ? `(${selectedIds.length})` : ""}
+                  </button>
+
+                  {selectedIds.length === 1 && (
+                    <Link
+                      href={getEditHref(selectedIds[0])}
+                      style={{
+                        fontSize: "0.75rem",
+                        fontWeight: 600,
+                        color: "var(--pf-v6-global--link--Color)",
+                        textDecoration: "none",
+                      }}
+                      className="lib-link"
+                    >
+                      Edit
+                    </Link>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => void handleBulkDelete()}
+                    style={{
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      border: "1px solid var(--pf-v6-global--danger-color--100)",
+                      backgroundColor: "transparent",
+                      padding: "0.375rem 0.75rem",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      color: "var(--pf-v6-global--danger-color--100)",
+                      cursor: "pointer",
+                    }}
+                    className="lib-btn-danger"
+                  >
+                    Delete ({selectedIds.length})
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={clearSelection}
+                    style={{
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                      backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                      padding: "0.375rem 0.75rem",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      color: "var(--pf-v6-global--Color--100)",
+                      cursor: "pointer",
+                    }}
+                    className="lib-btn-secondary"
+                  >
+                    Clear selection
+                  </button>
+                </div>
+              )}
+
+              <div style={{
+                marginTop: "1rem",
+                borderRadius: "var(--pf-v6-global--BorderRadius--lg)",
+                border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+              }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "0.875rem" }}>
                 <thead>
-                  <tr className="border-b border-[var(--border)] text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">
-                    <th className="w-10 px-3 py-2.5" aria-label="Expand" />
-                    <th className="min-w-0 px-3 py-2.5">Name</th>
-                    <th className="hidden whitespace-nowrap px-3 py-2.5 sm:table-cell">Type</th>
-                    <th className="hidden whitespace-nowrap px-3 py-2.5 md:table-cell">Elements</th>
-                    <th className="min-w-0 whitespace-nowrap px-2 py-2.5 sm:px-3">Updated</th>
-                    <th className="w-0 whitespace-nowrap px-2 py-2.5 text-right sm:px-3">{t.libraryRowActionsMenu}</th>
+                  <tr style={{
+                    borderBottom: "1px solid var(--pf-v6-global--BorderColor--100)",
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    color: "var(--pf-v6-global--Color--200)",
+                  }}>
+                    <th
+                      style={{
+                        width: "3rem",
+                        padding: "0.75rem",
+                        borderBottom: "1px solid var(--pf-v6-global--BorderColor--100)",
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.length === filtered.length && filtered.length > 0}
+                        onChange={(e) => (e.target.checked ? selectAll() : clearSelection())}
+                        style={{ cursor: "pointer", width: "1rem", height: "1rem" }}
+                        aria-label="Select all"
+                      />
+                    </th>
+                    <th style={{ width: "2.5rem", padding: "0.625rem 0.75rem" }} aria-label="Expand" />
+                    <th style={{ minWidth: 0, padding: "0.625rem 0.75rem" }}>Name</th>
+                    <th className="hidden whitespace-nowrap sm:table-cell" style={{ padding: "0.625rem 0.75rem" }}>Type</th>
+                    <th className="hidden whitespace-nowrap md:table-cell" style={{ padding: "0.625rem 0.75rem" }}>Elements</th>
+                    <th className="min-w-0 whitespace-nowrap" style={{ padding: "0.625rem 0.5rem" }}>Updated</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -629,95 +801,118 @@ export function LibraryBrowser() {
                     const filename = `${base}.${ext}`;
                     const browseHref = `/library/browse?libraryId=${encodeURIComponent(row.id)}`;
                     const open = expandedId === row.id;
+                    const selected = selectedIds.includes(row.id);
                     return (
                       <Fragment key={row.id}>
-                        <tr className="relative z-0 border-b border-[var(--border)]/80 transition hover:bg-[var(--bg)]/40 has-[details[open]]:z-20">
-                          <td className="px-1 py-2 align-middle">
+                        <tr style={{
+                          position: "relative",
+                          zIndex: open ? 20 : 0,
+                          borderBottom: "1px solid var(--pf-v6-global--BorderColor--100)",
+                          backgroundColor: selected
+                            ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 8%, transparent)"
+                            : undefined,
+                        }}
+                        className="lib-table-row">
+                          <td style={{ padding: "0.75rem", textAlign: "center" }}>
+                            <input
+                              type="checkbox"
+                              checked={selected}
+                              onChange={() => toggleSelection(row.id)}
+                              onClick={(e) => e.stopPropagation()}
+                              style={{ cursor: "pointer", width: "1rem", height: "1rem" }}
+                              aria-label={`Select ${row.displayName || row.title}`}
+                            />
+                          </td>
+                          <td style={{ padding: "0.25rem", verticalAlign: "middle" }}>
                             <button
                               type="button"
                               aria-expanded={open}
                               aria-label={open ? "Collapse" : "Expand nested elements"}
                               onClick={() => void toggleExpand(row.id)}
-                              className="flex h-8 w-8 items-center justify-center rounded-md text-[var(--muted)] hover:bg-[var(--border)]/30 hover:text-[var(--text)]"
+                              style={{
+                                display: "flex",
+                                height: "2rem",
+                                width: "2rem",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                                color: "var(--pf-v6-global--Color--200)",
+                                border: "none",
+                                background: "none",
+                                cursor: "pointer",
+                              }}
+                              className="lib-expand-btn"
                             >
-                              <span className="font-mono text-xs" aria-hidden>
+                              <span style={{ fontFamily: "monospace", fontSize: "0.75rem" }} aria-hidden>
                                 {open ? "▾" : "▸"}
                               </span>
                             </button>
                           </td>
-                          <td className="min-w-0 px-2 py-2 font-medium sm:px-3">
+                          <td style={{ minWidth: 0, padding: "0.5rem", fontWeight: 500 }} className="sm:px-3">
                             <Link
                               href={browseHref}
                               title="Browse this document"
-                              className="group inline-block max-w-full rounded-md px-1 py-0.5 -mx-1 -my-0.5 text-left hover:bg-[var(--accent)]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]/40"
+                              style={{
+                                display: "inline-block",
+                                maxWidth: "100%",
+                                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                                padding: "0.125rem 0.25rem",
+                                margin: "-0.125rem -0.25rem",
+                                textAlign: "left",
+                                textDecoration: "none",
+                              }}
+                              className="group lib-row-link"
                             >
-                              <span className="block truncate text-[var(--text)] underline-offset-4 group-hover:underline">
+                              <span style={{
+                                display: "block",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                                color: "var(--pf-v6-global--Color--100)",
+                                          }}
+                              className="lib-row-name">
                                 {row.displayName}
                               </span>
-                              <span className="mt-0.5 block truncate font-mono text-xs text-[var(--muted)]">{filename}</span>
+                              <span style={{
+                                marginTop: "0.125rem",
+                                display: "block",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                                fontFamily: "monospace",
+                                fontSize: "0.75rem",
+                                color: "var(--pf-v6-global--Color--200)",
+                              }}>{filename}</span>
                             </Link>
                           </td>
-                          <td className="hidden px-3 py-2 text-[var(--muted)] sm:table-cell">
-                            <span className="rounded-md border border-[var(--border)] bg-[var(--bg)]/50 px-2 py-0.5 text-2xs font-semibold uppercase tracking-wide">
+                          <td className="hidden sm:table-cell" style={{ padding: "0.5rem 0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
+                            <span style={{
+                              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                              border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                              backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                              padding: "0.125rem 0.5rem",
+                              fontSize: "0.75rem",
+                              fontWeight: 600,
+                              textTransform: "uppercase",
+                              letterSpacing: "0.05em",
+                            }}>
                               {row.libraryRootKind === "unknown" ? "unknown" : row.libraryRootKind}
                             </span>
                           </td>
-                          <td className="hidden px-3 py-2 font-mono text-xs text-[var(--muted)] md:table-cell">
+                          <td className="hidden md:table-cell" style={{ padding: "0.5rem 0.75rem", fontFamily: "monospace", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
                             {row.virtualFileCount}
                           </td>
-                          <td className="whitespace-nowrap px-3 py-2 font-mono text-xs text-[var(--muted)]">
+                          <td style={{ whiteSpace: "nowrap", padding: "0.5rem 0.75rem", fontFamily: "monospace", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
                             {formatDate(row.updatedAt)}
-                          </td>
-                          <td className="w-0 whitespace-nowrap px-2 py-2 text-right align-middle sm:px-3">
-                            <LibraryManageRowActions
-                              row={row}
-                              browseHref={browseHref}
-                              deleteBusyId={deleteBusyId}
-                              bulkDeleteInProgress={deleteAllPracticesBusy}
-                              actionsMenuLabel={t.libraryRowActionsMenu}
-                              deleteLabel={t.libraryDelete}
-                              deletingLabel={t.libraryDeleting}
-                              onDownload={() => {
-                                setDownloadError(null);
-                                void downloadLibraryDocumentJson(row.id, row.displayName).catch((e: unknown) => {
-                                  setDownloadError(e instanceof Error ? e.message : "Download failed");
-                                });
-                              }}
-                              onConfirmDelete={() => confirmAndDeletePractice(row)}
-                            />
                           </td>
                         </tr>
                         {open ? (
-                          <tr className="border-b border-[var(--border)]/80 bg-[var(--bg)]/25">
-                            <td colSpan={6} className="px-0 py-0">
-                              {expandLoading ? (
-                                <p className="px-4 py-3 text-xs text-[var(--muted)]">Loading structure…</p>
-                              ) : expandError ? (
-                                <p className="px-4 py-3 text-xs text-[var(--bad)]">{expandError}</p>
-                              ) : virtualRows && virtualRows.length ? (
-                                <ul className="max-h-80 overflow-auto py-1 font-mono text-xs">
-                                  {virtualRows.map((v) => (
-                                    <li
-                                      key={v.id}
-                                      className="flex items-baseline gap-2 border-t border-[var(--border)]/40 px-4 py-1.5 first:border-t-0"
-                                      style={{ paddingLeft: `${12 + v.depth * 14}px` }}
-                                    >
-                                      <span className="shrink-0 text-[var(--muted)]" aria-hidden>
-                                        └
-                                      </span>
-                                      <span className="min-w-0 flex-1 truncate text-[var(--text)]">{v.label}</span>
-                                      <span className="shrink-0 text-[var(--muted)]">{extBadge(v.ext)}</span>
-                                      <span className="hidden max-w-[40%] truncate text-[var(--muted)] sm:inline">
-                                        {v.path}
-                                      </span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : (
-                                <p className="px-4 py-3 text-xs text-[var(--muted)]">
-                                  No baseline-shaped content to enumerate (empty or unrecognized JSON).
-                                </p>
-                              )}
+                          <tr style={{
+                            borderBottom: "1px solid var(--pf-v6-global--BorderColor--100)",
+                            backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                          }}>
+                            <td colSpan={6} style={{ padding: 0 }}>
+                              <LibraryItemFocus documentId={row.id} />
                             </td>
                           </tr>
                         ) : null}
@@ -727,6 +922,7 @@ export function LibraryBrowser() {
                 </tbody>
               </table>
             </div>
+            </>
           )}
         </div>
       </div>
@@ -954,68 +1150,120 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
   if (!props.open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+    <div style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }} className="sm:p-6">
       <button
         type="button"
         aria-label="Close dialog"
-        className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          backdropFilter: "blur(2px)",
+          border: "none",
+          cursor: "pointer",
+        }}
         onClick={props.onClose}
       />
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="library-upload-heading"
-        className="relative z-10 flex max-h-[min(90vh,40rem)] w-full max-w-lg flex-col rounded-2xl border border-[var(--border)] bg-[var(--panel)] shadow-xl"
+        style={{
+          position: "relative",
+          zIndex: 10,
+          display: "flex",
+          maxHeight: "min(90vh, 40rem)",
+          width: "100%",
+          maxWidth: "32rem",
+          flexDirection: "column",
+          borderRadius: "var(--pf-v6-global--BorderRadius--lg)",
+          border: "1px solid var(--pf-v6-global--BorderColor--100)",
+          backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+          boxShadow: "var(--pf-v6-global--BoxShadow--xl)",
+        }}
         onMouseDown={(e) => e.stopPropagation()}
       >
-        <div className="flex shrink-0 items-start justify-between gap-3 border-b border-[var(--border)] px-4 py-3 sm:px-5">
-          <h2 id="library-upload-heading" className="text-lg font-semibold tracking-tight text-[var(--text)]">
+        <div style={{
+          display: "flex",
+          flexShrink: 0,
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+          gap: "0.75rem",
+          borderBottom: "1px solid var(--pf-v6-global--BorderColor--100)",
+          padding: "0.75rem 1rem",
+        }}
+        className="sm:px-5">
+          <Title headingLevel="h2" size="lg" style={{ letterSpacing: "-0.01em" }}>
             Add to library
-          </h2>
+          </Title>
           <button
             type="button"
             onClick={props.onClose}
-            className="rounded-lg border border-transparent px-2 py-1 text-xs font-semibold text-[var(--muted)] hover:border-[var(--border)] hover:bg-[var(--bg)]/50 hover:text-[var(--text)]"
+            style={{
+              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+              border: "1px solid transparent",
+              padding: "0.25rem 0.5rem",
+              fontSize: "0.75rem",
+              fontWeight: 600,
+              color: "var(--pf-v6-global--Color--200)",
+              backgroundColor: "transparent",
+              cursor: "pointer",
+            }}
+            className="lib-btn-secondary"
           >
             Close
           </button>
         </div>
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:px-5 sm:py-5">
-          <p className="text-xs leading-relaxed text-[var(--muted)]">
+        <div style={{ minHeight: 0, flex: 1, overflowY: "auto", padding: "1rem" }} className="sm:px-5 sm:py-5">
+          <Content component={ContentVariants.p} style={{ fontSize: "0.75rem", lineHeight: 1.6, color: "var(--pf-v6-global--Color--200)" }}>
             Paste valid JSON or pick a file. Root value may be one document, or a{" "}
-            <strong className="font-semibold text-[var(--text)]">JSON array</strong> of documents—each element becomes its own
+            <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>JSON array</strong> of documents—each element becomes its own
             library item (method, baseline practice, or extension practice). Per-item storage kind is inferred from shape.
-            Title defaults to each document&apos;s <code className="text-[var(--text)]">name</code> (or the filename); optional
-            title below applies only when importing a <strong className="font-semibold text-[var(--text)]">single</strong>{" "}
+            Title defaults to each document&apos;s <code style={{ color: "var(--pf-v6-global--Color--100)" }}>name</code> (or the filename); optional
+            title below applies only when importing a <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>single</strong>{" "}
             object.
-          </p>
-          <p className="mt-2 text-xs leading-relaxed text-[var(--accent)]">
-            <strong className="font-semibold">Method extraction:</strong> When you add a Method to the library, the individual practices
-            from the method&apos;s <code className="text-[var(--text)]">practices</code> array are automatically extracted and saved
+          </Content>
+          <Content component={ContentVariants.p} style={{ marginTop: "0.5rem", fontSize: "0.75rem", lineHeight: 1.6, color: "var(--pf-v6-global--link--Color)" }}>
+            <strong style={{ fontWeight: 600 }}>Method extraction:</strong> When you add a Method to the library, the individual practices
+            from the method&apos;s <code style={{ color: "var(--pf-v6-global--Color--100)" }}>practices</code> array are automatically extracted and saved
             separately to the library for easy reference and reuse.
-          </p>
+          </Content>
 
-          <form className="mt-4 space-y-4" onSubmit={(e) => void onSubmit(e)}>
-        <div className="flex flex-wrap gap-2" role="group" aria-label="JSON source">
+          <form style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "1rem" }} onSubmit={(e) => void onSubmit(e)}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }} role="group" aria-label="JSON source">
           <button
             type="button"
             onClick={() => setMode("paste")}
-            className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
-              mode === "paste"
-                ? "border-[var(--accent)] bg-[var(--accent)]/15 text-[var(--text)]"
-                : "border-[var(--border)] text-[var(--muted)] hover:border-[var(--accent)]/50 hover:text-[var(--text)]"
-            }`}
+            style={{
+              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+              border: mode === "paste" ? "1px solid var(--pf-v6-global--primary-color--100)" : "1px solid var(--pf-v6-global--BorderColor--100)",
+              padding: "0.375rem 0.75rem",
+              fontSize: "0.75rem",
+              fontWeight: 600,
+              transition: "all 0.2s ease",
+              backgroundColor: mode === "paste" ? "var(--pf-v6-global--primary-color--100)/15" : "transparent",
+              color: mode === "paste" ? "var(--pf-v6-global--Color--100)" : "var(--pf-v6-global--Color--200)",
+              cursor: "pointer",
+            }}
+            className={mode === "paste" ? "active" : "lib-mode-btn"}
           >
             Paste JSON
           </button>
           <button
             type="button"
             onClick={() => setMode("file")}
-            className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
-              mode === "file"
-                ? "border-[var(--accent)] bg-[var(--accent)]/15 text-[var(--text)]"
-                : "border-[var(--border)] text-[var(--muted)] hover:border-[var(--accent)]/50 hover:text-[var(--text)]"
-            }`}
+            style={{
+              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+              border: mode === "file" ? "1px solid var(--pf-v6-global--primary-color--100)" : "1px solid var(--pf-v6-global--BorderColor--100)",
+              padding: "0.375rem 0.75rem",
+              fontSize: "0.75rem",
+              fontWeight: 600,
+              transition: "all 0.2s ease",
+              backgroundColor: mode === "file" ? "var(--pf-v6-global--primary-color--100)/15" : "transparent",
+              color: mode === "file" ? "var(--pf-v6-global--Color--100)" : "var(--pf-v6-global--Color--200)",
+              cursor: "pointer",
+            }}
+            className={mode === "file" ? "active" : "lib-mode-btn"}
           >
             Upload file
           </button>
@@ -1033,12 +1281,31 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
               placeholder='{ "name": "…", … } or [ { … }, { … } ]'
               spellCheck={false}
               rows={12}
-              className="w-full resize-y rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 font-mono text-xs leading-relaxed text-[var(--text)] placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/25"
+              style={{
+                width: "100%",
+                resize: "vertical",
+                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                padding: "0.5rem 0.75rem",
+                fontFamily: "monospace",
+                fontSize: "0.75rem",
+                lineHeight: 1.6,
+                color: "var(--pf-v6-global--Color--100)",
+              }}
+              className="lib-input"
             />
           </div>
         ) : (
           <div>
-            <label htmlFor="library-file-json" className="block text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">
+            <label htmlFor="library-file-json" style={{
+              display: "block",
+              fontSize: "0.75rem",
+              fontWeight: 600,
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
+              color: "var(--pf-v6-global--Color--200)",
+            }}>
               JSON file
             </label>
             <input
@@ -1046,7 +1313,16 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
               id="library-file-json"
               type="file"
               accept=".json,application/json,text/json"
-              className="mt-2 block w-full max-w-md cursor-pointer text-xs text-[var(--muted)] file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-[var(--accent)]/20 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-[var(--text)] hover:file:bg-[var(--accent)]/30"
+              style={{
+                marginTop: "0.5rem",
+                display: "block",
+                width: "100%",
+                maxWidth: "28rem",
+                cursor: "pointer",
+                fontSize: "0.75rem",
+                color: "var(--pf-v6-global--Color--200)",
+              }}
+              className="lib-file-input"
               onChange={(e) => {
                 const f = e.target.files?.[0] ?? null;
                 setPickedFile(f);
@@ -1054,14 +1330,21 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
               }}
             />
             {pickedFile ? (
-              <p className="mt-2 font-mono text-2xs text-[var(--muted)]">Selected: {pickedFile.name}</p>
+              <p style={{ marginTop: "0.5rem", fontFamily: "monospace", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>Selected: {pickedFile.name}</p>
             ) : null}
           </div>
         )}
 
         <div>
-          <label htmlFor="library-title-override" className="block text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">
-            Title <span className="font-normal normal-case text-[var(--muted)]">(optional)</span>
+          <label htmlFor="library-title-override" style={{
+            display: "block",
+            fontSize: "0.75rem",
+            fontWeight: 600,
+            textTransform: "uppercase",
+            letterSpacing: "0.05em",
+            color: "var(--pf-v6-global--Color--200)",
+          }}>
+            Title <span style={{ fontWeight: 400, textTransform: "none", color: "var(--pf-v6-global--Color--200)" }}>(optional)</span>
           </label>
           <input
             id="library-title-override"
@@ -1069,25 +1352,57 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
             value={titleOverride}
             onChange={(e) => setTitleOverride(e.target.value)}
             placeholder="Single import only: overrides title when root is one object"
-            className="mt-1.5 w-full max-w-md rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/25"
+            style={{
+              marginTop: "0.375rem",
+              width: "100%",
+              maxWidth: "28rem",
+              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+              border: "1px solid var(--pf-v6-global--BorderColor--100)",
+              backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+              padding: "0.5rem 0.75rem",
+              fontSize: "0.875rem",
+              color: "var(--pf-v6-global--Color--100)",
+            }}
+            className="placeholder:text-[var(--pf-v6-global--Color--200)] focus:border-[var(--pf-v6-global--primary-color--100)] focus:outline-none focus:ring-2 focus:ring-[var(--pf-v6-global--primary-color--100)]/25"
           />
         </div>
 
-            {error ? <p className="text-xs text-[var(--bad)]">{error}</p> : null}
-            {saveProgress ? <p className="text-xs text-[var(--muted)]">{saveProgress}</p> : null}
+            {error ? <p style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--danger-color--100)" }}>{error}</p> : null}
+            {saveProgress ? <p style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>{saveProgress}</p> : null}
 
-            <div className="flex flex-wrap items-center gap-3 pt-1">
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.75rem", paddingTop: "0.25rem" }}>
               <button
                 type="button"
                 onClick={props.onClose}
-                className="rounded-lg border border-[var(--border)] bg-transparent px-4 py-2 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)]/50"
+                style={{
+                  borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                  border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                  backgroundColor: "transparent",
+                  padding: "0.5rem 1rem",
+                  fontSize: "0.875rem",
+                  fontWeight: 600,
+                  color: "var(--pf-v6-global--Color--100)",
+                  cursor: "pointer",
+                }}
+                className="lib-btn-secondary"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={busy}
-                className="rounded-lg border border-[var(--accent)] bg-[var(--accent)]/90 px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-50"
+                style={{
+                  borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                  border: "1px solid var(--pf-v6-global--primary-color--100)",
+                  backgroundColor: "var(--pf-v6-global--primary-color--100)",
+                  padding: "0.5rem 1rem",
+                  fontSize: "0.875rem",
+                  fontWeight: 600,
+                  color: "white",
+                  cursor: busy ? "not-allowed" : "pointer",
+                  opacity: busy ? 0.5 : 1,
+                }}
+                className="lib-btn-primary"
               >
                 {busy ? saveProgress || "Saving…" : "Save to library"}
               </button>
@@ -1107,29 +1422,54 @@ function LibraryTagTreeSection(props: {
 }) {
   const selectedInSection = props.selected.filter((t) => props.options.includes(t)).length;
   return (
-    <details className="group rounded-lg border border-[var(--border)]/80 bg-[var(--panel)]/40">
-      <summary className="flex cursor-pointer list-none items-center gap-1.5 px-2 py-2 text-left [&::-webkit-details-marker]:hidden">
+    <details style={{
+      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+      border: "1px solid var(--pf-v6-global--BorderColor--100)",
+      backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+    }}
+    className="group">
+      <summary style={{
+        display: "flex",
+        cursor: "pointer",
+        listStyle: "none",
+        alignItems: "center",
+        gap: "0.375rem",
+        padding: "0.5rem",
+        textAlign: "left",
+      }}
+      className="lib-summary-no-marker">
         <span
-          className="inline-flex w-4 shrink-0 justify-center font-mono text-[10px] leading-none text-[var(--muted)] transition-transform duration-150 group-open:rotate-90"
+          style={{
+            display: "inline-flex",
+            width: "1rem",
+            flexShrink: 0,
+            justifyContent: "center",
+            fontFamily: "monospace",
+            fontSize: "10px",
+            lineHeight: 1,
+            color: "var(--pf-v6-global--Color--200)",
+            transition: "transform 0.15s",
+          }}
+          className="lib-rotate-open"
           aria-hidden
         >
           ▸
         </span>
-        <span className="min-w-0 flex-1 truncate text-xs font-semibold text-[var(--text)]">{props.sectionLabel}</span>
-        <span className="shrink-0 tabular-nums text-2xs text-[var(--muted)]">
+        <span style={{ minWidth: 0, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontSize: "0.75rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>{props.sectionLabel}</span>
+        <span style={{ flexShrink: 0, fontVariantNumeric: "tabular-nums", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
           {selectedInSection}/{props.options.length}
         </span>
       </summary>
-      <div className="border-t border-[var(--border)]/60 pb-2">
-        <ul className="mt-1 ml-5 mr-1 space-y-0 border-l border-[var(--border)]/50 py-0.5 pl-2" role="group">
+      <div style={{ borderTop: "1px solid var(--pf-v6-global--BorderColor--100)", paddingBottom: "0.5rem" }}>
+        <ul style={{ marginTop: "0.25rem", marginLeft: "1.25rem", marginRight: "0.25rem", borderLeft: "1px solid var(--pf-v6-global--BorderColor--100)", paddingTop: "0.125rem", paddingBottom: "0.125rem", paddingLeft: "0.5rem" }} role="group">
           {props.options.length === 0 ? (
-            <li className="py-1 pl-1 text-2xs text-[var(--muted)]">—</li>
+            <li style={{ padding: "0.25rem 0 0.25rem 0.25rem", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>—</li>
           ) : (
             props.options.map((tag) => {
               const on = props.selected.includes(tag);
               return (
-                <li key={tag} className="flex min-w-0 items-stretch gap-0">
-                  <span className="mt-[0.65rem] h-px w-2 shrink-0 self-start border-t border-[var(--border)]/70" aria-hidden />
+                <li key={tag} style={{ display: "flex", minWidth: 0, alignItems: "stretch", gap: 0 }}>
+                  <span style={{ marginTop: "0.65rem", height: "1px", width: "0.5rem", flexShrink: 0, alignSelf: "flex-start", borderTop: "1px solid var(--pf-v6-global--BorderColor--100)" }} aria-hidden />
                   <button
                     type="button"
                     aria-pressed={on}
@@ -1138,11 +1478,25 @@ function LibraryTagTreeSection(props: {
                       e.stopPropagation();
                       props.onToggle(tag);
                     }}
-                    className={`min-w-0 flex-1 truncate rounded px-1.5 py-1 text-left text-2xs leading-snug transition ${
-                      on
-                        ? "bg-[var(--accent)]/18 font-semibold text-[var(--text)] ring-1 ring-[var(--accent)]/35"
-                        : "text-[var(--muted)] hover:bg-[var(--bg)]/80 hover:text-[var(--text)]"
-                    }`}
+                    style={{
+                      minWidth: 0,
+                      flex: 1,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      padding: "0.25rem 0.375rem",
+                      textAlign: "left",
+                      fontSize: "0.75rem",
+                      lineHeight: 1.4,
+                      transition: "all 0.2s ease",
+                      backgroundColor: on ? "var(--pf-v6-global--primary-color--100)/18" : "transparent",
+                      fontWeight: on ? 600 : 400,
+                      color: on ? "var(--pf-v6-global--Color--100)" : "var(--pf-v6-global--Color--200)",
+                      border: on ? "1px solid var(--pf-v6-global--primary-color--100)/35" : "1px solid transparent",
+                      cursor: "pointer",
+                    }}
+                    className={on ? "" : "lib-tag-button"}
                   >
                     {tag}
                   </button>
@@ -1166,14 +1520,26 @@ function FolderRow(props: {
     <button
       type="button"
       onClick={props.onClick}
-      className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm font-medium transition ${
-        props.active
-          ? "bg-[var(--accent)]/15 text-[var(--text)] ring-1 ring-[var(--accent)]/40"
-          : "text-[var(--muted)] hover:bg-[var(--panel)] hover:text-[var(--text)]"
-      }`}
+      style={{
+        display: "flex",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "space-between",
+        borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+        padding: "0.5rem 0.75rem",
+        textAlign: "left",
+        fontSize: "0.875rem",
+        fontWeight: 500,
+        transition: "all 0.2s ease",
+        backgroundColor: props.active ? "var(--pf-v6-global--primary-color--100)/15" : "transparent",
+        color: props.active ? "var(--pf-v6-global--Color--100)" : "var(--pf-v6-global--Color--200)",
+        border: props.active ? "1px solid var(--pf-v6-global--primary-color--100)/40" : "1px solid transparent",
+        cursor: "pointer",
+      }}
+      className={props.active ? "" : "lib-folder-row"}
     >
       <span>{props.label}</span>
-      <span className="font-mono text-2xs opacity-80">{props.count}</span>
+      <span style={{ fontFamily: "monospace", fontSize: "0.75rem", opacity: 0.8 }}>{props.count}</span>
     </button>
   );
 }

@@ -32,21 +32,6 @@ export default function PreferencesPage() {
 
   return (
     <main style={{ maxWidth: 900, margin: "0 auto", padding: 24 }}>
-      <div className="no-print" style={{ marginBottom: 16 }}>
-        <Link
-          href="/"
-          style={{
-            ...linkStyle(),
-            fontSize: 13,
-            fontWeight: 600,
-            color: "var(--muted)",
-            textDecoration: "none",
-          }}
-        >
-          ← Dashboard
-        </Link>
-      </div>
-
       <div style={{ display: "grid", gap: 10 }}>
         <div style={{ fontSize: 20, fontWeight: 800 }}>Preferences</div>
         <div style={{ color: "var(--muted)" }}>

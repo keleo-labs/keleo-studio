@@ -369,7 +369,7 @@ function IrBrowsePatternViewsSection({
                   const st = String(o?.stateName ?? "").trim();
                   const sep = idx < arr.length - 1 ? ", " : "";
                   if (o && a && st) {
-                    const instNm = String(o.instanceName ?? o.name ?? "").trim();
+                    const instNm = String(o.name ?? "").trim();
                     const head = `${a}: ${instNm || "—"}`;
                     return (
                       <span key={`pv-${String(pv.name)}-ai-${idx}`}>

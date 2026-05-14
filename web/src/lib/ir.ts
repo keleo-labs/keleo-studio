@@ -1127,7 +1127,7 @@ export function collectEmbeddedNarrativesForReadableReport(
         if (!inst || typeof inst !== "object") continue;
         pushEmbeddedNarrativeSite(
           inst,
-          `Pattern / ${String(p?.name ?? "—")} / Pattern view / ${String(pv?.name ?? "—")} / Alpha instance / ${String((inst as { instanceName?: unknown }).instanceName ?? (inst as { name?: unknown }).name ?? "—")}`,
+          `Pattern / ${String(p?.name ?? "—")} / Pattern view / ${String(pv?.name ?? "—")} / Alpha instance / ${String((inst as { name?: unknown }).name ?? "—")}`,
           out,
         );
         for (const ev of Array.isArray((inst as { evidenceBy?: unknown }).evidenceBy)
@@ -1136,7 +1136,7 @@ export function collectEmbeddedNarrativesForReadableReport(
           if (!ev || typeof ev !== "object") continue;
           pushEmbeddedNarrativeSite(
             ev,
-            `Pattern / ${String(p?.name ?? "—")} / Pattern view / ${String(pv?.name ?? "—")} / Evidence / ${String((ev as { instanceName?: unknown }).instanceName ?? (ev as { name?: unknown }).name ?? "—")}`,
+            `Pattern / ${String(p?.name ?? "—")} / Pattern view / ${String(pv?.name ?? "—")} / Evidence / ${String((ev as { name?: unknown }).name ?? "—")}`,
             out,
           );
         }

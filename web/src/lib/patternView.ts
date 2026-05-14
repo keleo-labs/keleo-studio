@@ -26,7 +26,7 @@ export function parsePatternViewAlphaState(x: unknown): { alphaName: string; sta
 export function formatPatternViewAlphaInstance(x: unknown): string {
   if (!x || typeof x !== "object") return String(x ?? "");
   const o = x as Record<string, unknown>;
-  const instanceNm = String(o.instanceName ?? o.name ?? "").trim();
+  const instanceNm = String(o.name ?? "").trim();
   const a = String(o.alphaName ?? "").trim();
   const s = String(o.stateName ?? "").trim();
   if (a && instanceNm) return `${a}: ${instanceNm}`;

@@ -520,37 +520,8 @@
       ]
     },
     {
-      "name": "Understand Stakeholder Needs",
-      "description": "Understand the needs of the stakeholders who will consume or be affected by the platform.",
-      "focusName": "Value",
-      "contributesTo": [
-        {
-          "alphaName": "Stakeholders",
-          "stateName": "Involved"
-        }
-      ],
-      "requiredCompetencies": [
-        "Stakeholder Representation",
-        "Analysis"
-      ]
-    },
-    {
-      "name": "Ensure Stakeholder Satisfaction",
-      "description": "Ensure the stakeholders are satisfied with the platform and its value proposition.",
-      "focusName": "Value",
-      "contributesTo": [
-        {
-          "alphaName": "Stakeholders",
-          "stateName": "Satisfied for Deployment"
-        }
-      ],
-      "requiredCompetencies": [
-        "Stakeholder Representation"
-      ]
-    },
-    {
-      "name": "Understand Platform Opportunity",
-      "description": "Understand the opportunity for the platform and the value it will deliver.",
+      "name": "Assess Business Value",
+      "description": "Conduct rigorous business analysis to quantify potential ROI, map platform capabilities to organizational value streams, and secure executive sponsorship.",
       "focusName": "Value",
       "contributesTo": [
         {
@@ -558,8 +529,12 @@
           "stateName": "Determined"
         },
         {
-          "alphaName": "Platform Value And Economics",
-          "stateName": "Modeled"
+          "alphaName": "Opportunity",
+          "stateName": "Value Established"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Viable"
         }
       ],
       "requiredCompetencies": [
@@ -568,13 +543,32 @@
       ]
     },
     {
-      "name": "Optimize Platform Value",
-      "description": "Optimize the value delivered by the platform and its economics.",
+      "name": "Monitor Value Realization",
+      "description": "Track KPIs such as deployment frequency, MTTR, and developer adoption rates to proactively manage bottlenecks and prove continuous ROI.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Addressed"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Benefit Accrued"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Analysis"
+      ]
+    },
+    {
+      "name": "Manage Platform Economics",
+      "description": "Define chargeback/showback models, right-size infrastructure, optimize costs through FinOps practices, and transition from CapEx to OpEx.",
       "focusName": "Value",
       "contributesTo": [
         {
           "alphaName": "Platform Value And Economics",
-          "stateName": "Modeled"
+          "stateName": "Allocated"
         },
         {
           "alphaName": "Platform Value And Economics",
@@ -587,66 +581,131 @@
       ]
     },
     {
-      "name": "Understand The Requirements",
-      "description": "Understand the requirements for the platform and its assets.",
-      "focusName": "Solution",
+      "name": "Engage Platform Consumers",
+      "description": "Conduct user research, utilize Jobs-to-be-Done frameworks, and ensure the platform demonstrates value through product management practices.",
+      "focusName": "Value",
       "contributesTo": [
         {
-          "alphaName": "Requirements",
-          "stateName": "Coherent"
+          "alphaName": "Stakeholders",
+          "stateName": "Represented"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Involved"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "In Agreement"
         }
       ],
       "requiredCompetencies": [
+        "Stakeholder Representation",
         "Analysis"
       ]
     },
     {
-      "name": "Automate Platform Provisioning",
-      "description": "Automate the provisioning of the platform and its assets.",
-      "focusName": "Solution",
+      "name": "Evangelize and Support",
+      "description": "Provide internal marketing, create feedback loops, and deliver accessible support to ensure continuous voluntary adoption by stream-aligned teams.",
+      "focusName": "Value",
       "contributesTo": [
         {
-          "alphaName": "Platform",
-          "stateName": "Baselined"
+          "alphaName": "Stakeholders",
+          "stateName": "Satisfied for Deployment"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Satisfied in Use"
         }
       ],
       "requiredCompetencies": [
-        "Engineering",
-        "Site Reliability"
+        "Stakeholder Representation",
+        "Leadership"
       ]
     },
     {
-      "name": "Automate Platform Testing",
-      "description": "Automate the testing of the platform and its assets.",
-      "focusName": "Solution",
+      "name": "Establish Secure Guardrails",
+      "description": "Shift security left, embed Zero Trust principles, and codify compliance requirements into automated scanning tools to ensure secure-by-default platform operations.",
+      "focusName": "Value",
       "contributesTo": [
         {
-          "alphaName": "Platform",
-          "stateName": "Baselined"
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Assessed"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Mitigated"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Automated"
         }
       ],
       "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
         "Engineering"
       ]
     },
     {
-      "name": "Deploy The Platform",
-      "description": "Deploy the platform and its assets.",
+      "name": "Define Platform Capabilities",
+      "description": "Distill stakeholder feedback into actionable requirements and define the Thinnest Viable Platform (TVP) to avoid over-engineering.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Requirements",
+          "stateName": "Bounded"
+        },
+        {
+          "alphaName": "Requirements",
+          "stateName": "Coherent"
+        },
+        {
+          "alphaName": "Requirements",
+          "stateName": "Acceptable"
+        },
+        {
+          "alphaName": "Requirements",
+          "stateName": "Addressed"
+        },
+        {
+          "alphaName": "Requirements",
+          "stateName": "Fulfilled"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Platform Strategic Alignment"
+      ]
+    },
+    {
+      "name": "Architect and Build the Foundation",
+      "description": "Establish declarative provisioning (IaC), build CI/CD pipelines, configure connectivity, deploy orchestration engines, and instantiate the six pillars of platform engineering.",
       "focusName": "Solution",
       "contributesTo": [
         {
           "alphaName": "Platform",
+          "stateName": "Architecture Selected"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Baselined"
+        },
+        {
+          "alphaName": "Platform",
           "stateName": "Provisioned"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Ready"
         }
       ],
       "requiredCompetencies": [
         "Engineering",
-        "Site Reliability"
+        "Analysis"
       ]
     },
     {
-      "name": "Operate The Platform",
-      "description": "Operate the platform and its assets.",
+      "name": "Operate and Evolve the System",
+      "description": "Execute Day-2 operations using SRE practices, manage observability telemetry, ensure high availability, and continuously evolve the platform.",
       "focusName": "Solution",
       "contributesTo": [
         {
@@ -660,21 +719,29 @@
       ],
       "requiredCompetencies": [
         "Site Reliability",
-        "Platform Security And Compliance Enforcement"
+        "Engineering"
       ]
     },
     {
-      "name": "Architect Platform Foundation",
-      "description": "Architect the platform foundation and its components.",
+      "name": "Develop the Golden Paths",
+      "description": "Build Internal Developer Portals (IDPs), intuitive CLIs, and automated scaffolding templates to drastically reduce cognitive load and enable autonomous self-service.",
       "focusName": "Solution",
       "contributesTo": [
         {
-          "alphaName": "Platform",
-          "stateName": "Baselined"
+          "alphaName": "Platform Consumption Interface",
+          "stateName": "Scoped"
         },
         {
-          "alphaName": "Platform",
-          "stateName": "Provisioned"
+          "alphaName": "Platform Consumption Interface",
+          "stateName": "Available"
+        },
+        {
+          "alphaName": "Platform Consumption Interface",
+          "stateName": "Self Service"
+        },
+        {
+          "alphaName": "Platform Consumption Interface",
+          "stateName": "Optimized"
         }
       ],
       "requiredCompetencies": [
@@ -683,24 +750,18 @@
       ]
     },
     {
-      "name": "Engineer Platform Interfaces",
-      "description": "Engineer the interfaces for the platform.",
+      "name": "Integrate Toolchain Services",
+      "description": "Specify, acquire, and securely integrate individual platform assets ensuring seamless interoperability with established Golden Paths.",
       "focusName": "Solution",
       "contributesTo": [
         {
-          "alphaName": "Platform Consumption Interface",
-          "stateName": "Available"
-        }
-      ],
-      "requiredCompetencies": [
-        "Engineering"
-      ]
-    },
-    {
-      "name": "Host And Operate Assets",
-      "description": "Host and operate the assets on the platform.",
-      "focusName": "Solution",
-      "contributesTo": [
+          "alphaName": "Platform Asset",
+          "stateName": "Specified"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Provisioned"
+        },
         {
           "alphaName": "Platform Asset",
           "stateName": "Integrated"
@@ -708,15 +769,11 @@
         {
           "alphaName": "Platform Asset",
           "stateName": "Operational"
-        },
-        {
-          "alphaName": "Platform Asset",
-          "stateName": "Value Yielding"
         }
       ],
       "requiredCompetencies": [
-        "Site Reliability",
-        "Engineering"
+        "Engineering",
+        "Site Reliability"
       ]
     },
     {
@@ -735,13 +792,21 @@
       ]
     },
     {
-      "name": "Coordinate Activity",
-      "description": "Coordinate the activity of the team.",
+      "name": "Coordinate Delivery Sprints",
+      "description": "Manage agile delivery cycles, allocate engineering capacity, and track velocity to ensure predictable platform feature development.",
       "focusName": "Endeavor",
       "contributesTo": [
         {
           "alphaName": "Work",
           "stateName": "Started"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Under Control"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Concluded"
         }
       ],
       "requiredCompetencies": [
@@ -749,30 +814,94 @@
       ]
     },
     {
-      "name": "Support The Team",
-      "description": "Support the team in its work.",
+      "name": "Structure Organizational Topologies",
+      "description": "Define clear team interaction modes, establish X-as-a-Service boundaries, and continuously assess cognitive load using Team Topologies principles.",
       "focusName": "Endeavor",
       "contributesTo": [
         {
           "alphaName": "Team",
+          "stateName": "Formed"
+        },
+        {
+          "alphaName": "Team",
           "stateName": "Collaborating"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Performing"
         }
       ],
       "requiredCompetencies": [
-        "Leadership"
+        "Leadership",
+        "Management"
       ]
     },
     {
-      "name": "Track Progress",
-      "description": "Track the progress of the work.",
+      "name": "Establish Operational Practices",
+      "description": "Define incident response procedures, institute blameless post-mortems, standardize CI methodologies, and foster a continuous-learning culture.",
       "focusName": "Endeavor",
       "contributesTo": [
         {
-          "alphaName": "Work",
-          "stateName": "Under Control"
+          "alphaName": "Way Of Working",
+          "stateName": "Foundation Established"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "In Use"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "In Place"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Working Well"
         }
       ],
       "requiredCompetencies": [
+        "Site Reliability",
+        "Management"
+      ]
+    },
+    {
+      "name": "Implement Policy-as-Code",
+      "description": "Translate manual governance rules into automated, machine-readable policies that execute within deployment pipelines without impeding velocity.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Governance",
+          "stateName": "Documented"
+        },
+        {
+          "alphaName": "Platform Governance",
+          "stateName": "Audited"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Drive Cultural Transformation",
+      "description": "Execute formal change management programs, upskill engineering talent, address behavioral resistance, and facilitate the shift to product-driven platform engineering.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Organizational Change",
+          "stateName": "Strategized"
+        },
+        {
+          "alphaName": "Organizational Change",
+          "stateName": "Enabled"
+        },
+        {
+          "alphaName": "Organizational Change",
+          "stateName": "Embedded"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
         "Management"
       ]
     },
@@ -788,40 +917,6 @@
       ],
       "requiredCompetencies": [
         "Management"
-      ]
-    },
-    {
-      "name": "Establish Platform Governance",
-      "description": "Establish governance for the platform.",
-      "focusName": "Endeavor",
-      "contributesTo": [
-        {
-          "alphaName": "Platform Governance",
-          "stateName": "Documented"
-        },
-        {
-          "alphaName": "Platform Governance",
-          "stateName": "Audited"
-        }
-      ],
-      "requiredCompetencies": [
-        "Management",
-        "Platform Security And Compliance Enforcement"
-      ]
-    },
-    {
-      "name": "Organize Platform Engineering",
-      "description": "Organize the platform engineering effort.",
-      "focusName": "Endeavor",
-      "contributesTo": [
-        {
-          "alphaName": "Work",
-          "stateName": "Started"
-        }
-      ],
-      "requiredCompetencies": [
-        "Management",
-        "Leadership"
       ]
     }
   ],

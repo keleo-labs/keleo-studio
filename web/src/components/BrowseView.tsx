@@ -27,6 +27,7 @@ import {
 import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { useLanguagePack } from "@/lib/languagePack";
+import { calculateAlphaScores } from "@/lib/methodFocus";
 import KanbanPatternBoardPF from "./KanbanPatternBoardPF";
 
 /**
@@ -528,193 +529,10 @@ function NarrativesSection({ narratives, compact = false }: { narratives: any[] 
 // ========================================================================
 
 function MethodFocus({ doc, baseline, grouped, methodComposition }: { doc: any; baseline: any; grouped: any[]; methodComposition?: Method | null }) {
-  // Build map of alphas from practice/method that have contributesTo property (these are extension alphas)
-  const extensionAlphasMap = useMemo(() => {
-    const map = new Map<string, { alpha: any; contributesTo: string }>();
-
-    // Check all alphas in grouped (includes alphas from all practices in the composition)
-    for (const focus of grouped) {
-      const alphas = focus.alphas ?? [];
-      for (const alpha of alphas) {
-        const alphaName = String(alpha.name ?? "").trim();
-        const contributesTo = String(alpha.contributesTo ?? "").trim();
-        if (contributesTo) {
-          map.set(alphaName, { alpha, contributesTo });
-        }
-      }
-    }
-
-    console.log('MethodFocus - extensionAlphasMap:', map);
-    return map;
-  }, [grouped]);
-
-  // Build baseline alpha map for reference (all alphas in the merged baseline)
-  const baselineAlphaMap = useMemo(() => {
-    const map = new Map<string, { alpha: any; focusName: string }>();
-    if (!baseline) return map;
-
-    const baselineGrouped = groupByFocus(baseline);
-    for (const focus of baselineGrouped) {
-      const focusName = String(focus.focusName ?? "");
-      const alphas = focus.alphas ?? [];
-      for (const alpha of alphas) {
-        const alphaName = String(alpha.name ?? "");
-        // Only add to baselineAlphaMap if it's NOT an extension alpha
-        if (!extensionAlphasMap.has(alphaName)) {
-          map.set(alphaName, { alpha, focusName });
-        }
-      }
-    }
-    return map;
-  }, [baseline, extensionAlphasMap]);
-
-  // Calculate alpha scores for baseline alphas based on method/practice contributions
-  const alphaScores = useMemo(() => {
-    const scores = new Map<string, { alpha: any; focusName: string; score: number; newAlphas: Array<{ alpha: any; score: number }> }>();
-
-    // Get all work products from the method/practice (not baseline)
-    const workProducts = Array.isArray(doc.workProducts) ? doc.workProducts : [];
-
-    // Get all activities from grouped structure
-    const activities: any[] = [];
-    for (const focus of grouped) {
-      const activitySpaces = focus.activitySpaces ?? [];
-      for (const space of activitySpaces) {
-        const spaceActivities = Array.isArray(space.activities) ? space.activities : [];
-        activities.push(...spaceActivities);
-      }
-    }
-
-    // Initialize scores for all baseline alphas
-    for (const [alphaName, { alpha, focusName }] of baselineAlphaMap) {
-      scores.set(alphaName, { alpha, focusName, score: 0, newAlphas: [] });
-    }
-    console.log('Initialized baseline alphas:', Array.from(baselineAlphaMap.keys()));
-
-    // Calculate scores for each alpha in the practice/method
-    for (const focus of grouped) {
-      const focusName = String(focus.focusName ?? "");
-      const alphas = focus.alphas ?? [];
-
-      for (const alpha of alphas) {
-        const alphaName = String(alpha.name ?? "");
-        const isExtensionAlpha = extensionAlphasMap.has(alphaName);
-        const isBaselineAlpha = baselineAlphaMap.has(alphaName);
-        let score = 0;
-
-        // +1 for each narrative on the alpha (from method/practice, not baseline)
-        const narratives = Array.isArray(alpha.narratives) ? alpha.narratives : [];
-        score += narratives.length;
-
-        // +1 for each checklist in the alpha's states (from method/practice, not baseline)
-        const states = Array.isArray(alpha.states) ? alpha.states : [];
-        for (const state of states) {
-          const checklist = Array.isArray(state.checklist) ? state.checklist : [];
-          if (checklist.length > 0) {
-            score += 1;
-          }
-        }
-
-        // +1 for each work product that contributes to this alpha (or its states)
-        for (const wp of workProducts) {
-          const lods = Array.isArray(wp.levelsOfDetail) ? wp.levelsOfDetail : [];
-          for (const lod of lods) {
-            const contributesTo = Array.isArray(lod.contributesTo) ? lod.contributesTo : [];
-            const contributesToThisAlpha = contributesTo.some((contrib: any) => {
-              const contribAlphaName = String(contrib.alphaName ?? "");
-              return contribAlphaName === alphaName;
-            });
-            if (contributesToThisAlpha) {
-              score += 1;
-              break; // Only count once per work product
-            }
-          }
-        }
-
-        // +1 for each activity that contributes to this alpha (or its states)
-        for (const activity of activities) {
-          const contributesTo = Array.isArray(activity.contributesTo) ? activity.contributesTo : [];
-          const contributesToThisAlpha = contributesTo.some((contrib: any) => {
-            const contribAlphaName = String(contrib.alphaName ?? "");
-            return contribAlphaName === alphaName;
-          });
-          if (contributesToThisAlpha) {
-            score += 1;
-            break; // Only count once per activity
-          }
-        }
-
-        if (isExtensionAlpha) {
-          // This is an extension alpha that contributes to a baseline alpha
-          const extensionAlphaInfo = extensionAlphasMap.get(alphaName);
-          const parentAlphaName = extensionAlphaInfo?.contributesTo ?? "";
-          console.log(`Extension alpha "${alphaName}" with score ${score} contributes to "${parentAlphaName}"`);
-          if (parentAlphaName && scores.has(parentAlphaName)) {
-            const parentEntry = scores.get(parentAlphaName);
-            if (parentEntry) {
-              parentEntry.newAlphas.push({ alpha, score });
-              const oldScore = parentEntry.score;
-              parentEntry.score += score; // Add extension alpha score to parent
-              console.log(`  → Updated parent "${parentAlphaName}" score from ${oldScore} to ${parentEntry.score}`);
-            }
-          } else if (parentAlphaName) {
-            console.log(`  ⚠ Parent "${parentAlphaName}" not found in baseline scores`);
-          }
-        } else if (isBaselineAlpha) {
-          // Add baseline alpha's direct score to any existing score from extension alphas
-          const existing = scores.get(alphaName);
-          if (existing) {
-            const oldScore = existing.score;
-            existing.score += score;
-            console.log(`Baseline alpha "${alphaName}" direct score: ${score}, total score: ${existing.score} (was ${oldScore})`);
-          }
-        }
-      }
-    }
-
-    return scores;
-  }, [doc, grouped, baselineAlphaMap]);
-
-  // Group baseline alphas by focus for display
+  // Use shared alpha scoring logic
   const alphasByFocus = useMemo(() => {
-    const byFocus = new Map<string, { focusObj: any; alphas: Array<{ alpha: any; score: number; newAlphas: Array<{ alpha: any; score: number }> }> }>();
-
-    // First, create a map of focus names to focus objects from grouped
-    const focusMap = new Map<string, any>();
-    for (const groupedFocus of grouped) {
-      const focusName = String(groupedFocus.focusName ?? "");
-      if (!focusMap.has(focusName)) {
-        // groupedFocus.focus is the actual focus object with description
-        focusMap.set(focusName, groupedFocus.focus);
-      }
-    }
-
-    alphaScores.forEach(({ alpha, focusName, score, newAlphas }) => {
-      if (!byFocus.has(focusName)) {
-        byFocus.set(focusName, {
-          focusObj: focusMap.get(focusName) || null,
-          alphas: []
-        });
-      }
-      byFocus.get(focusName)!.alphas.push({ alpha, score, newAlphas });
-    });
-
-    console.log('MethodFocus - alphasByFocus:', byFocus);
-    console.log('MethodFocus - baselineAlphaMap size:', baselineAlphaMap.size);
-    console.log('MethodFocus - extensionAlphasMap size:', extensionAlphasMap.size);
-    console.log('MethodFocus - alphaScores size:', alphaScores.size);
-
-    // Log which alphas have extension alphas
-    alphaScores.forEach(({ alpha, score, newAlphas }) => {
-      if (newAlphas.length > 0) {
-        console.log(`✓ Alpha "${alpha.name}" final score: ${score}, has ${newAlphas.length} extension alphas:`, newAlphas.map(na => `${na.alpha.name}(${na.score})`));
-      } else if (score === 0) {
-        console.log(`○ Alpha "${alpha.name}" has zero coverage and no extension alphas`);
-      }
-    });
-
-    return byFocus;
-  }, [alphaScores, baselineAlphaMap, extensionAlphasMap, grouped]);
+    return calculateAlphaScores(doc, baseline, grouped);
+  }, [doc, baseline, grouped]);
 
   if (alphasByFocus.size === 0) {
     return null;
@@ -796,14 +614,14 @@ function MethodFocus({ doc, baseline, grouped, methodComposition }: { doc: any; 
                   const alphaName = String(alpha.name ?? "");
                   const description = practiceElementDescriptionForDisplay(alpha) ?? "";
                   const colorStyle = getColorStyle(score);
-                  const hasNewAlphas = newAlphas.length > 0;
+                  const hasNewAlphas = (newAlphas?.length ?? 0) > 0;
 
                   return (
                     <div key={alphaIdx} style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                       {/* Main baseline alpha tile */}
                       <a
                         href={`#alpha-${slug(alphaName)}`}
-                        title={`Baseline Alpha: ${alphaName}\n${description || 'No description'}\nScore: ${score}${hasNewAlphas ? `\n+ ${newAlphas.length} contributing alpha(s)` : ''}`}
+                        title={`Baseline Alpha: ${alphaName}\n${description || 'No description'}\nScore: ${score}${hasNewAlphas ? `\n+ ${newAlphas?.length ?? 0} contributing alpha(s)` : ''}`}
                         style={{
                           ...colorStyle,
                           border: "3px solid",
@@ -857,7 +675,7 @@ function MethodFocus({ doc, baseline, grouped, methodComposition }: { doc: any; 
                       </a>
 
                       {/* New contributing alphas below with connecting line */}
-                      {hasNewAlphas && (
+                      {hasNewAlphas && newAlphas && (
                         <div style={{
                           display: "flex",
                           flexDirection: "column",
@@ -1842,6 +1660,15 @@ function ActivitySpaceBlock({ activitySpace }: { activitySpace: any }) {
   const description = practiceElementDescriptionForDisplay(activitySpace) ?? "";
   const narratives = activitySpace.narratives;
   const activities = Array.isArray(activitySpace.activities) ? activitySpace.activities : [];
+  const requiredCompetencies = Array.isArray(activitySpace.requiredCompetencies)
+    ? activitySpace.requiredCompetencies
+    : [];
+  const involves = Array.isArray(activitySpace.involves)
+    ? activitySpace.involves
+    : [];
+  const contributesTo = Array.isArray(activitySpace.contributesTo)
+    ? activitySpace.contributesTo
+    : [];
 
   return (
     <Card style={{ marginBottom: "1rem" }}>
@@ -1856,6 +1683,82 @@ function ActivitySpaceBlock({ activitySpace }: { activitySpace: any }) {
         )}
 
         <NarrativesSection narratives={narratives} compact />
+
+        {/* Required Competencies */}
+        {requiredCompetencies.length > 0 && (
+          <div style={{ marginTop: "1rem" }}>
+            <div style={{ fontSize: "0.75rem", fontWeight: 600, marginBottom: "0.5rem", textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)" }}>
+              Required Competencies
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+              {requiredCompetencies.map((comp: any, compIdx: number) => {
+                const compName = String(comp ?? "");
+                return (
+                  <a
+                    key={compIdx}
+                    href={`#competency-${slug(compName)}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Label color="purple" isCompact>
+                      {compName}
+                    </Label>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Involves - Persona Groups */}
+        {involves.length > 0 && (
+          <div style={{ marginTop: "1rem" }}>
+            <div style={{ fontSize: "0.75rem", fontWeight: 600, marginBottom: "0.5rem", textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)" }}>
+              Involves
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+              {involves.map((pg: any, pgIdx: number) => {
+                const pgName = String(pg ?? "");
+                return (
+                  <a
+                    key={pgIdx}
+                    href={`#personagroup-${slug(pgName)}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Label color="blue" isCompact>
+                      {pgName}
+                    </Label>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Contributes To - Alpha States */}
+        {contributesTo.length > 0 && (
+          <div style={{ marginTop: "1rem" }}>
+            <div style={{ fontSize: "0.75rem", fontWeight: 600, marginBottom: "0.5rem", textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)" }}>
+              Contributes To
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+              {contributesTo.map((target: any, targetIdx: number) => {
+                const alphaName = String(target.alphaName ?? "");
+                const stateName = String(target.stateName ?? "");
+                return (
+                  <a
+                    key={targetIdx}
+                    href={`#alpha-${slug(alphaName)}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Label color="orange" isCompact>
+                      {alphaName} → {stateName}
+                    </Label>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {activities.length > 0 && (
           <div style={{ display: "grid", gap: "0.75rem", marginTop: narratives && Array.isArray(narratives) && narratives.length > 0 ? "1rem" : "0" }}>

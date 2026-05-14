@@ -95,27 +95,17 @@ function FlowVisualizerInner() {
       <div className="mx-auto max-w-[1800px] px-6 py-8 md:px-10">
         {/* Header */}
         <header className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <p className="text-2xs font-semibold uppercase tracking-wider text-[var(--muted)]">
-                Adoption framework
-              </p>
-              <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--text)]">
-                Pattern Kanban Board
-              </h1>
-              <p className="mt-3 text-base text-[var(--muted)] max-w-2xl">
-                Visualize pattern progression with <strong>Pattern Views</strong> as columns and{" "}
-                <strong>Alpha States</strong>, <strong>Activities</strong>, and{" "}
-                <strong>Work Products</strong> as cards
-              </p>
-            </div>
-            <Link
-              href="/"
-              className="px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--panel)] text-sm font-semibold hover:border-[var(--accent)] transition-colors"
-            >
-              ← Dashboard
-            </Link>
-          </div>
+          <p className="text-2xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+            Adoption framework
+          </p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--text)]">
+            Pattern Kanban Board
+          </h1>
+          <p className="mt-3 text-base text-[var(--muted)] max-w-2xl">
+            Visualize pattern progression with <strong>Pattern Views</strong> as columns and{" "}
+            <strong>Alpha States</strong>, <strong>Activities</strong>, and{" "}
+            <strong>Work Products</strong> as cards
+          </p>
 
           {/* Selectors */}
           <div className="mt-6 flex flex-wrap items-center gap-4">

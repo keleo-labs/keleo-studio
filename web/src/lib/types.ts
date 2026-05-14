@@ -85,13 +85,11 @@ export type PersonaGroup = PracticeElement & {
 };
 
 export type WorkProductInstance = PracticeElement & {
-  instanceName: string;
   workProductName: string;
   levelOfDetailName: string;
 };
 
 export type AlphaInstance = PracticeElement & {
-  instanceName: string;
   alphaName: string;
   stateName: string;
   evidenceBy?: WorkProductInstance[];

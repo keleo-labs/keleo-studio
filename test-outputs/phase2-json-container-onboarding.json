@@ -1,0 +1,1525 @@
+{
+  "name": "Container Platform Onboarding",
+  "description": "Comprehensive guidance for application teams transitioning to container-based platforms, covering technical transformation and organizational enablement from assessment through production operations.",
+  "baselinePracticeName": "Platform Adoption Essentials",
+  "tags": {
+    "domainTags": ["Architecture", "DevOps", "Platform Engineering", "Cloud Native", "Security"],
+    "lifecycleTags": ["Assessment", "Implementation", "Operations", "Optimization"],
+    "organizationalTags": ["Application Teams", "Platform Consumers"]
+  },
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform",
+      "aliasName": "Container Runtime Configuration"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Requirements",
+      "aliasName": "Application Manifest"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "System",
+      "aliasName": "Deployment Pipeline"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "Container Revolution Context",
+      "narrativeName": "The Container Revolution and Its Challenges",
+      "description": "Historical context and industry evolution of container adoption",
+      "narrativeTypeName": "Essay Narrative",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Introduction",
+          "context": "Over the past decade, containerization has fundamentally transformed how organizations build, deploy, and operate software. What began as Docker's elegant solution to the 'works on my machine' problem has evolved into sophisticated orchestration platforms like Kubernetes that manage thousands of containers across global infrastructure."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Key Concepts",
+          "context": "However, the journey from traditional infrastructure to container platforms is fraught with complexity. Application teams accustomed to virtual machines, direct server access, and familiar deployment patterns suddenly face a steep learning curve. Organizations that rush into container adoption without structured enablement often experience frustration and failure."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Evidence",
+          "context": "The most successful container platform transformations share common characteristics. They provide clear golden paths, invest in enablement through documentation and training, establish progressive workflows starting with simple use cases, and create fast feedback loops through automated validation."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Conclusion",
+          "context": "Research from DORA demonstrates that elite-performing organizations excel at platform capabilities. Teams report 60-80% reduction in time-to-first-deployment when golden paths and templates are available, and structured enablement reduces platform team toil by 40%."
+        }
+      ]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Container Application",
+      "description": "The containerized workload being onboarded to the platform, encompassing application code packaged as containers with runtime dependencies, configurations, and operational requirements.",
+      "tags": {
+        "domainTags": ["Architecture", "Cloud Native"],
+        "lifecycleTags": ["Assessment", "Implementation", "Operations"],
+        "organizationalTags": []
+      },
+      "focusName": "Solution",
+      "contributesTo": "System",
+      "states": [
+        {
+          "name": "Assessed",
+          "description": "The application's container readiness and platform requirements are evaluated.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Architecture Documented",
+              "description": "Application architecture and dependencies are documented",
+              "seq": 1
+            },
+            {
+              "name": "Feasibility Assessment",
+              "description": "Containerization feasibility assessment is completed",
+              "seq": 2
+            },
+            {
+              "name": "Resource Requirements",
+              "description": "Platform resource requirements are estimated (CPU, memory, storage)",
+              "seq": 3
+            },
+            {
+              "name": "Dependencies Identified",
+              "description": "External dependencies and integration points are identified",
+              "seq": 4
+            },
+            {
+              "name": "Data Requirements",
+              "description": "Data persistence and stateful requirements are understood",
+              "seq": 5
+            },
+            {
+              "name": "Security Requirements",
+              "description": "Security and compliance requirements are cataloged",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Containerized",
+          "description": "The application is packaged as a container image following platform standards.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Build Configuration",
+              "description": "Dockerfile or build configuration follows platform best practices",
+              "seq": 1
+            },
+            {
+              "name": "Image Stored",
+              "description": "Container image is built and stored in the platform's container registry",
+              "seq": 2
+            },
+            {
+              "name": "Image Optimized",
+              "description": "Image size is optimized (base image selection, layer optimization)",
+              "seq": 3
+            },
+            {
+              "name": "Local Validation",
+              "description": "Application runs successfully in local container environment",
+              "seq": 4
+            },
+            {
+              "name": "Health Checks",
+              "description": "Health check and readiness probe endpoints are implemented",
+              "seq": 5
+            },
+            {
+              "name": "Configuration Externalized",
+              "description": "Configuration is externalized (twelve-factor app principles applied)",
+              "seq": 6
+            },
+            {
+              "name": "Secrets Identified",
+              "description": "Secrets and sensitive data are identified for external management",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Integrated",
+          "description": "The application is connected to platform services and capabilities.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Deployment Manifest",
+              "description": "Platform deployment manifest is created (Kubernetes YAML, Helm chart, etc.)",
+              "seq": 1
+            },
+            {
+              "name": "Networking Configured",
+              "description": "Service discovery and networking configuration is defined",
+              "seq": 2
+            },
+            {
+              "name": "Observability Integration",
+              "description": "Platform observability integration is implemented (logging, metrics, tracing)",
+              "seq": 3
+            },
+            {
+              "name": "Security Controls",
+              "description": "Platform security controls are applied (pod security, network policies)",
+              "seq": 4
+            },
+            {
+              "name": "Storage Configured",
+              "description": "Platform storage solutions are configured for persistent data",
+              "seq": 5
+            },
+            {
+              "name": "Configuration Management",
+              "description": "Configuration management integration is established (ConfigMaps, Secrets)",
+              "seq": 6
+            },
+            {
+              "name": "Resources Defined",
+              "description": "Resource requests and limits are defined based on testing",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "The application is running in a non-production platform environment.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Environment Deployment",
+              "description": "Application successfully deploys to development or staging environment",
+              "seq": 1
+            },
+            {
+              "name": "Health Validation",
+              "description": "All health checks pass consistently",
+              "seq": 2
+            },
+            {
+              "name": "Communication Functional",
+              "description": "Service-to-service communication is functional",
+              "seq": 3
+            },
+            {
+              "name": "Telemetry Verified",
+              "description": "Observability dashboards show expected telemetry",
+              "seq": 4
+            },
+            {
+              "name": "Load Testing",
+              "description": "Load testing confirms resource allocation is appropriate",
+              "seq": 5
+            },
+            {
+              "name": "Rollback Tested",
+              "description": "Rollback procedures are tested and validated",
+              "seq": 6
+            },
+            {
+              "name": "Self-Service Deployment",
+              "description": "Team can deploy updates through self-service mechanisms",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Operational",
+          "description": "The application is running in production with established operational practices.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Production Deployment",
+              "description": "Application is deployed to production environment",
+              "seq": 1
+            },
+            {
+              "name": "Monitoring Active",
+              "description": "Monitoring and alerting are configured and actively monitored",
+              "seq": 2
+            },
+            {
+              "name": "Incident Response",
+              "description": "Incident response procedures are documented and team-validated",
+              "seq": 3
+            },
+            {
+              "name": "Scaling Configured",
+              "description": "Scaling behaviors (manual or automatic) are configured and tested",
+              "seq": 4
+            },
+            {
+              "name": "Backup Procedures",
+              "description": "Backup and disaster recovery procedures are in place",
+              "seq": 5
+            },
+            {
+              "name": "Performance Validated",
+              "description": "Performance meets or exceeds pre-container baseline",
+              "seq": 6
+            },
+            {
+              "name": "Team Ownership",
+              "description": "Team demonstrates operational ownership and autonomy",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "The application leverages advanced platform capabilities for improved performance and resilience.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Advanced Features",
+              "description": "Advanced platform features are adopted (service mesh, advanced scheduling, etc.)",
+              "seq": 1
+            },
+            {
+              "name": "Cost Optimization",
+              "description": "Cost optimization measures are implemented and monitored",
+              "seq": 2
+            },
+            {
+              "name": "Resilience Testing",
+              "description": "Chaos engineering or resilience testing is performed regularly",
+              "seq": 3
+            },
+            {
+              "name": "Continuous Refinement",
+              "description": "Platform best practices are continuously refined based on learnings",
+              "seq": 4
+            },
+            {
+              "name": "Knowledge Sharing",
+              "description": "Team shares knowledge and patterns with broader organization",
+              "seq": 5
+            },
+            {
+              "name": "Metrics Improvement",
+              "description": "Deployment and operational metrics show continuous improvement",
+              "seq": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Team Container Capability",
+      "description": "The team's knowledge, skills, and confidence in working with containers and the platform.",
+      "tags": {
+        "domainTags": ["DevOps", "Skills Development"],
+        "lifecycleTags": ["Training", "Operations"],
+        "organizationalTags": ["Application Teams"]
+      },
+      "focusName": "Endeavor",
+      "contributesTo": "Team",
+      "states": [
+        {
+          "name": "Aware",
+          "description": "The team understands container concepts and platform value proposition.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Training Completed",
+              "description": "Team members have completed platform orientation and training",
+              "seq": 1
+            },
+            {
+              "name": "Concepts Understood",
+              "description": "Basic container concepts are understood (images, containers, orchestration)",
+              "seq": 2
+            },
+            {
+              "name": "Platform Familiar",
+              "description": "Platform capabilities and self-service tools are familiar",
+              "seq": 3
+            },
+            {
+              "name": "Value Understood",
+              "description": "Team understands how containers benefit their specific applications",
+              "seq": 4
+            },
+            {
+              "name": "Questions Articulated",
+              "description": "Questions about platform adoption can be articulated",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Capable",
+          "description": "The team can containerize and deploy applications with guidance.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Local Container Skills",
+              "description": "Team members can build and test container images locally",
+              "seq": 1
+            },
+            {
+              "name": "Manifest Creation",
+              "description": "Team can create basic deployment manifests",
+              "seq": 2
+            },
+            {
+              "name": "Support Access",
+              "description": "Team knows how to access platform documentation and support",
+              "seq": 3
+            },
+            {
+              "name": "Golden Path Usage",
+              "description": "Team can follow golden path templates and patterns",
+              "seq": 4
+            },
+            {
+              "name": "Non-Prod Success",
+              "description": "Team has successfully deployed to non-production environment",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proficient",
+          "description": "The team operates containerized applications independently.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Independent Troubleshooting",
+              "description": "Team troubleshoots common container and platform issues independently",
+              "seq": 1
+            },
+            {
+              "name": "Confident Changes",
+              "description": "Team makes configuration and deployment changes with confidence",
+              "seq": 2
+            },
+            {
+              "name": "Alert Response",
+              "description": "Team monitors application health and responds to alerts appropriately",
+              "seq": 3
+            },
+            {
+              "name": "Resource Optimization",
+              "description": "Team optimizes resource usage based on observability data",
+              "seq": 4
+            },
+            {
+              "name": "Sustained Operations",
+              "description": "Team has operated production workloads for sustained period",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Expert",
+          "description": "The team masters advanced platform capabilities and shares knowledge.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Advanced Features",
+              "description": "Team leverages advanced platform features effectively",
+              "seq": 1
+            },
+            {
+              "name": "Platform Contributions",
+              "description": "Team contributes improvements to platform documentation and patterns",
+              "seq": 2
+            },
+            {
+              "name": "Mentoring Others",
+              "description": "Team mentors other teams in container adoption",
+              "seq": 3
+            },
+            {
+              "name": "Community Participation",
+              "description": "Team participates in platform community and governance",
+              "seq": 4
+            },
+            {
+              "name": "Continuous Experimentation",
+              "description": "Team continuously experiments with and adopts emerging capabilities",
+              "seq": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "alphaInstances": [
+    {
+      "name": "Stateless Web Application",
+      "description": "Typical web services or APIs without persistent state, representing the simplest onboarding scenario",
+      "alphaName": "Container Application"
+    },
+    {
+      "name": "Stateful Database Application",
+      "description": "Applications requiring persistent storage, representing more complex platform integration",
+      "alphaName": "Container Application"
+    },
+    {
+      "name": "Batch Processing Application",
+      "description": "Job-based workloads with different operational patterns than long-running services",
+      "alphaName": "Container Application"
+    },
+    {
+      "name": "Legacy Monolith Application",
+      "description": "Large, complex applications being containerized incrementally",
+      "alphaName": "Container Application"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Container Image",
+      "description": "The packaged, immutable artifact containing the application and all its dependencies, following platform standards and optimized for size and security.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic",
+          "description": "A functional container image that runs the application.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Dockerfile Exists",
+              "description": "Dockerfile exists and successfully builds an image",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies Included",
+              "description": "Image contains all runtime dependencies",
+              "seq": 2
+            },
+            {
+              "name": "Application Starts",
+              "description": "Application starts and responds to basic requests",
+              "seq": 3
+            },
+            {
+              "name": "Version Tagged",
+              "description": "Image is tagged with a version identifier",
+              "seq": 4
+            },
+            {
+              "name": "Registry Integration",
+              "description": "Image can be pushed to and pulled from a registry",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Containerized"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "A production-ready container image following platform best practices.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Approved Base Image",
+              "description": "Base image is from approved platform image catalog",
+              "seq": 1
+            },
+            {
+              "name": "Layer Optimization",
+              "description": "Image layers are optimized for size and build caching",
+              "seq": 2
+            },
+            {
+              "name": "Minimal Content",
+              "description": "Unnecessary tools and dependencies are removed",
+              "seq": 3
+            },
+            {
+              "name": "Security Scanned",
+              "description": "Image scan shows no critical or high-severity vulnerabilities",
+              "seq": 4
+            },
+            {
+              "name": "Non-Root User",
+              "description": "Non-root user is configured for runtime security",
+              "seq": 5
+            },
+            {
+              "name": "Health Endpoints",
+              "description": "Health check and readiness endpoints are exposed",
+              "seq": 6
+            },
+            {
+              "name": "Config Externalized",
+              "description": "Environment-specific configuration is externalized",
+              "seq": 7
+            },
+            {
+              "name": "Automated Build",
+              "description": "Image build is automated and reproducible",
+              "seq": 8
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Integrated"
+            },
+            {
+              "alphaName": "Container Application",
+              "stateName": "Deployed"
+            }
+          ]
+        },
+        {
+          "name": "Hardened",
+          "description": "A fully hardened, enterprise-grade container image.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Security Standards",
+              "description": "Image follows all organizational security standards",
+              "seq": 1
+            },
+            {
+              "name": "Minimal Base",
+              "description": "Minimal base image (distroless or scratch when appropriate)",
+              "seq": 2
+            },
+            {
+              "name": "Supply Chain Provenance",
+              "description": "All dependencies have documented supply chain provenance",
+              "seq": 3
+            },
+            {
+              "name": "Image Signing",
+              "description": "Image signing and verification is implemented",
+              "seq": 4
+            },
+            {
+              "name": "Runtime Security",
+              "description": "Runtime security policies are defined and tested",
+              "seq": 5
+            },
+            {
+              "name": "Bill of Materials",
+              "description": "Image metadata includes complete bill of materials",
+              "seq": 6
+            },
+            {
+              "name": "Multi-Architecture",
+              "description": "Multi-architecture support if required",
+              "seq": 7
+            },
+            {
+              "name": "Patching Process",
+              "description": "Regular vulnerability scanning and patching process established",
+              "seq": 8
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Operational"
+            },
+            {
+              "alphaName": "Container Application",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Platform Deployment Manifest",
+      "description": "Defines how the containerized application should be deployed and managed on the platform, including resource configuration, networking, and operational controls.",
+      "levelsOfDetail": [
+        {
+          "name": "Functional",
+          "description": "Basic deployment configuration that runs the application.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Deployment Resource",
+              "description": "Deployment resource defines pod template with container image",
+              "seq": 1
+            },
+            {
+              "name": "Resource Requests",
+              "description": "Resource requests specify minimum CPU and memory",
+              "seq": 2
+            },
+            {
+              "name": "Service Exposure",
+              "description": "Service resource exposes application endpoints",
+              "seq": 3
+            },
+            {
+              "name": "Basic Configuration",
+              "description": "Basic configuration is provided via environment variables",
+              "seq": 4
+            },
+            {
+              "name": "Successful Deployment",
+              "description": "Manifest deploys successfully to platform",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Integrated"
+            }
+          ]
+        },
+        {
+          "name": "Production-Ready",
+          "description": "Comprehensive deployment configuration with operational controls.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Resource Limits",
+              "description": "Resource requests and limits are defined based on testing",
+              "seq": 1
+            },
+            {
+              "name": "Health Probes",
+              "description": "Readiness and liveness probes are configured",
+              "seq": 2
+            },
+            {
+              "name": "High Availability",
+              "description": "Multiple replicas configured for availability",
+              "seq": 3
+            },
+            {
+              "name": "Config Management",
+              "description": "Configuration management uses ConfigMaps and Secrets appropriately",
+              "seq": 4
+            },
+            {
+              "name": "Standard Labels",
+              "description": "Labels and annotations follow platform conventions",
+              "seq": 5
+            },
+            {
+              "name": "Update Strategy",
+              "description": "Update strategy is defined (rolling update, blue-green, etc.)",
+              "seq": 6
+            },
+            {
+              "name": "RBAC Configuration",
+              "description": "Service accounts and RBAC permissions are configured",
+              "seq": 7
+            },
+            {
+              "name": "Network Policies",
+              "description": "Network policies restrict communication appropriately",
+              "seq": 8
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Container Application",
+              "stateName": "Operational"
+            }
+          ]
+        },
+        {
+          "name": "Advanced",
+          "description": "Sophisticated deployment configuration leveraging advanced platform features.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Auto-Scaling",
+              "description": "Horizontal Pod Autoscaling is configured based on appropriate metrics",
+              "seq": 1
+            },
+            {
+              "name": "Disruption Budgets",
+              "description": "Pod Disruption Budgets protect availability during platform maintenance",
+              "seq": 2
+            },
+            {
+              "name": "Advanced Scheduling",
+              "description": "Advanced scheduling controls (affinity, topology spread) are applied",
+              "seq": 3
+            },
+            {
+              "name": "Service Mesh",
+              "description": "Service mesh integration is configured if applicable",
+              "seq": 4
+            },
+            {
+              "name": "Progressive Delivery",
+              "description": "Progressive delivery configuration (canary, blue-green) is implemented",
+              "seq": 5
+            },
+            {
+              "name": "Observability Integration",
+              "description": "Platform observability integrations are comprehensive",
+              "seq": 6
+            },
+            {
+              "name": "Chaos Configuration",
+              "description": "Chaos engineering configurations test resilience",
+              "seq": 7
+            },
+            {
+              "name": "GitOps Lifecycle",
+              "description": "GitOps or declarative workflow manages manifest lifecycle",
+              "seq": 8
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Onboarding Runbook",
+      "description": "The team's operational guide documenting how to deploy, operate, monitor, and troubleshoot the containerized application on the platform.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic",
+          "description": "Essential operational information is documented.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Deployment Procedure",
+              "description": "Deployment procedure is documented with step-by-step instructions",
+              "seq": 1
+            },
+            {
+              "name": "Architecture Diagram",
+              "description": "Application architecture diagram shows container structure",
+              "seq": 2
+            },
+            {
+              "name": "Configuration Parameters",
+              "description": "Key configuration parameters are listed and explained",
+              "seq": 3
+            },
+            {
+              "name": "Support Contacts",
+              "description": "Contact information for platform support is included",
+              "seq": 4
+            },
+            {
+              "name": "Rollback Procedure",
+              "description": "Rollback procedure is documented",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Team Container Capability",
+              "stateName": "Capable"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive",
+          "description": "Complete operational playbook with troubleshooting guides.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Monitoring Documentation",
+              "description": "Monitoring and alerting setup is fully documented",
+              "seq": 1
+            },
+            {
+              "name": "Troubleshooting Guide",
+              "description": "Common failure modes and resolution steps are cataloged",
+              "seq": 2
+            },
+            {
+              "name": "Scaling Procedures",
+              "description": "Scaling procedures (manual and automatic) are documented",
+              "seq": 3
+            },
+            {
+              "name": "Incident Response",
+              "description": "Incident response procedures are defined with roles",
+              "seq": 4
+            },
+            {
+              "name": "Disaster Recovery",
+              "description": "Disaster recovery procedures are tested and validated",
+              "seq": 5
+            },
+            {
+              "name": "Configuration Approach",
+              "description": "Configuration management approach is documented",
+              "seq": 6
+            },
+            {
+              "name": "Dependency Mapping",
+              "description": "Dependencies and integration points are mapped",
+              "seq": 7
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Operational"
+            },
+            {
+              "alphaName": "Team Container Capability",
+              "stateName": "Proficient"
+            }
+          ]
+        },
+        {
+          "name": "Living Documentation",
+          "description": "Dynamic operational knowledge base continuously improved.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Regular Updates",
+              "description": "Runbook is regularly updated based on operational learnings",
+              "seq": 1
+            },
+            {
+              "name": "Automated Validation",
+              "description": "Automated checks validate runbook accuracy",
+              "seq": 2
+            },
+            {
+              "name": "Actual Incidents",
+              "description": "Troubleshooting includes actual incidents and resolutions",
+              "seq": 3
+            },
+            {
+              "name": "Optimization Techniques",
+              "description": "Performance optimization techniques are documented",
+              "seq": 4
+            },
+            {
+              "name": "Feature Adoption",
+              "description": "Platform feature adoption guidance is included",
+              "seq": 5
+            },
+            {
+              "name": "Decision Log",
+              "description": "Team decision log captures architectural choices and rationale",
+              "seq": 6
+            },
+            {
+              "name": "Knowledge Base Integration",
+              "description": "Runbook integrates with broader organizational knowledge base",
+              "seq": 7
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Team Container Capability",
+              "stateName": "Expert"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "workProductInstances": [
+    {
+      "name": "Application Service Image",
+      "description": "The primary container image containing the application service code",
+      "workProductName": "Container Image"
+    },
+    {
+      "name": "Sidecar Proxy Image",
+      "description": "Supporting container images for service mesh proxies, log forwarders, etc.",
+      "workProductName": "Container Image"
+    },
+    {
+      "name": "Database Migration Image",
+      "description": "Job-specific images for running schema migrations or data transformations",
+      "workProductName": "Container Image"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Assess Application for Containerization",
+      "description": "Evaluate an existing application to determine its readiness for containerization and platform deployment, examining architecture, dependencies, configuration, data management, and operational requirements.",
+      "focusName": "Solution",
+      "activitySpaceName": "Define Platform Capabilities",
+      "contributesTo": [
+        {
+          "alphaName": "Container Application",
+          "stateName": "Assessed"
+        },
+        {
+          "alphaName": "Team Container Capability",
+          "stateName": "Aware"
+        }
+      ],
+      "requiredCompetencies": ["Analysis", "Engineering"],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Onboarding Runbook",
+          "levelOfDetailName": "Basic"
+        }
+      ],
+      "involves": ["Application Development Team"]
+    },
+    {
+      "name": "Build Container Image",
+      "description": "Create the container image that packages the application with all its dependencies, including writing the Dockerfile, optimizing for size and security, implementing health checks, and establishing automated build pipeline.",
+      "focusName": "Solution",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "contributesTo": [
+        {
+          "alphaName": "Container Application",
+          "stateName": "Containerized"
+        }
+      ],
+      "requiredCompetencies": ["Engineering", "Analysis"],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Container Image",
+          "levelOfDetailName": "Optimized"
+        },
+        {
+          "workProductName": "Onboarding Runbook",
+          "levelOfDetailName": "Basic"
+        }
+      ],
+      "involves": ["Application Development Team"]
+    },
+    {
+      "name": "Create Platform Deployment Manifest",
+      "description": "Translate the containerized application into platform-specific deployment configurations, defining how the platform should run, expose, configure, and manage the application.",
+      "focusName": "Solution",
+      "activitySpaceName": "Develop the Golden Paths",
+      "contributesTo": [
+        {
+          "alphaName": "Container Application",
+          "stateName": "Integrated"
+        },
+        {
+          "alphaName": "Team Container Capability",
+          "stateName": "Capable"
+        }
+      ],
+      "requiredCompetencies": ["Engineering", "Analysis"],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Platform Deployment Manifest",
+          "levelOfDetailName": "Production-Ready"
+        },
+        {
+          "workProductName": "Onboarding Runbook",
+          "levelOfDetailName": "Basic"
+        }
+      ],
+      "involves": ["Application Development Team"]
+    },
+    {
+      "name": "Deploy to Non-Production Environment",
+      "description": "Deploy the containerized application to a development or staging environment on the platform, validating that manifests work correctly, integrations function, and the team understands deployment procedures.",
+      "focusName": "Solution",
+      "activitySpaceName": "Operate and Evolve the System",
+      "contributesTo": [
+        {
+          "alphaName": "Container Application",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Team Container Capability",
+          "stateName": "Capable"
+        }
+      ],
+      "requiredCompetencies": ["Engineering", "Test"],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Test",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Onboarding Runbook",
+          "levelOfDetailName": "Comprehensive"
+        }
+      ],
+      "involves": ["Application Development Team"]
+    },
+    {
+      "name": "Operate Containerized Application in Production",
+      "description": "Ongoing operational responsibilities for production containerized applications including monitoring, alert response, update deployment, scaling management, troubleshooting, and continuous improvement.",
+      "focusName": "Solution",
+      "activitySpaceName": "Operate and Evolve the System",
+      "contributesTo": [
+        {
+          "alphaName": "Container Application",
+          "stateName": "Operational"
+        },
+        {
+          "alphaName": "Container Application",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Team Container Capability",
+          "stateName": "Proficient"
+        },
+        {
+          "alphaName": "Team Container Capability",
+          "stateName": "Expert"
+        }
+      ],
+      "requiredCompetencies": ["Engineering", "Management", "Test"],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Test",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Onboarding Runbook",
+          "levelOfDetailName": "Living Documentation"
+        },
+        {
+          "workProductName": "Platform Deployment Manifest",
+          "levelOfDetailName": "Advanced"
+        }
+      ],
+      "involves": ["Application Operations Team", "Full-Stack Development Team"]
+    },
+    {
+      "name": "Assess Container Platform Value",
+      "description": "Evaluate the business value and ROI of containerizing applications, examining expected benefits against migration costs and ongoing operational overhead to prioritize onboarding efforts.",
+      "focusName": "Value",
+      "activitySpaceName": "Assess Business Value",
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Determined"
+        },
+        {
+          "alphaName": "Platform Value And Economics",
+          "stateName": "Modeled"
+        }
+      ],
+      "requiredCompetencies": ["Analysis", "Management"],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Onboarding Runbook",
+          "levelOfDetailName": "Basic"
+        }
+      ],
+      "involves": ["Product Management Team"]
+    }
+  ],
+  "personas": [
+    {
+      "name": "Application Developer",
+      "description": "Responsible for building and maintaining application code optimized for containerized, distributed environments, understanding packaging, deployment, scaling, and platform service integration.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ]
+    },
+    {
+      "name": "Platform Engineer",
+      "description": "Builds and maintains the container platform infrastructure and developer experience, establishing golden paths, deployment templates, base images, and self-service tools.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Innovating"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ]
+    },
+    {
+      "name": "Product Manager",
+      "description": "Maintains strategic ownership of applications and business value, prioritizing features, making trade-off decisions, and connecting technical work to business outcomes.",
+      "competencies": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ]
+    },
+    {
+      "name": "Site Reliability Engineer",
+      "description": "Ensures containerized applications meet reliability, performance, and operational requirements, bridging development and operations through SRE practices.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Innovating"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ]
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Application Development Team",
+      "description": "Team responsible for building, deploying, and operating containerized applications, owning the end-to-end lifecycle and containerization journey.",
+      "personaNames": ["Application Developer", "Product Manager", "Site Reliability Engineer"]
+    },
+    {
+      "name": "Platform Engineering Team",
+      "description": "Team that builds and operates the container platform as a product, providing golden paths, self-service tools, documentation, and support.",
+      "personaNames": ["Platform Engineer", "Site Reliability Engineer"]
+    },
+    {
+      "name": "Product Management Team",
+      "description": "Team maintaining strategic oversight of application portfolios and platform investments, prioritizing containerization efforts based on business value.",
+      "personaNames": ["Product Manager"]
+    },
+    {
+      "name": "Application Operations Team",
+      "description": "Team focused on operational responsibilities for production systems, may overlap with development team in DevOps organizations.",
+      "personaNames": ["Site Reliability Engineer", "Application Developer"]
+    },
+    {
+      "name": "Full-Stack Development Team",
+      "description": "Team with end-to-end ownership combining development and operations, typical in DevOps and SRE-enabled organizations.",
+      "personaNames": ["Application Developer", "Site Reliability Engineer"]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Container Onboarding Lifecycle",
+      "description": "Complete journey an application team follows when adopting the container platform, from initial assessment through production operations and continuous optimization.",
+      "narrativeTypeName": "Lifecycle",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Foundational elements ensuring teams have basic understanding, access, and support before beginning containerization work.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Team Container Capability",
+              "stateName": "Aware"
+            },
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Recognized"
+            }
+          ],
+          "activitySpaces": ["Assess Business Value", "Engage Platform Consumers"]
+        },
+        {
+          "name": "Assessment and Planning",
+          "description": "Thoroughly evaluating the application for containerization and creating a detailed migration plan with risk mitigation strategies.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Team Container Capability",
+              "stateName": "Aware"
+            },
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Determined"
+            },
+            {
+              "alphaName": "Platform Value And Economics",
+              "stateName": "Modeled"
+            },
+            {
+              "alphaName": "Requirements",
+              "stateName": "Conceived"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Stateless Web Application",
+              "description": "Stateless web application assessed for containerization suitability",
+              "alphaName": "Container Application",
+              "stateName": "Assessed"
+            }
+          ],
+          "activitySpaces": ["Define Platform Capabilities", "Assess Business Value"],
+          "activities": ["Assess Application for Containerization", "Assess Container Platform Value"]
+        },
+        {
+          "name": "Containerization",
+          "description": "Building production-ready container images with optimized size, security, health checks, and externalized configuration.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Containerized"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Conceived"
+            },
+            {
+              "alphaName": "Requirements",
+              "stateName": "Bounded"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Stateless Web Application",
+              "description": "Stateless web application successfully containerized",
+              "alphaName": "Container Application",
+              "stateName": "Containerized"
+            }
+          ],
+          "activitySpaces": ["Architect and Build the Foundation"],
+          "activities": ["Build Container Image"]
+        },
+        {
+          "name": "Platform Integration",
+          "description": "Creating deployment manifests, configuring platform services, implementing observability, and establishing deployment automation.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Integrated"
+            },
+            {
+              "alphaName": "Team Container Capability",
+              "stateName": "Capable"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Coherent"
+            },
+            {
+              "alphaName": "System",
+              "stateName": "Demonstrable"
+            },
+            {
+              "alphaName": "Requirements",
+              "stateName": "Coherent"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Stateless Web Application",
+              "description": "Stateless web application integrated with platform services",
+              "alphaName": "Container Application",
+              "stateName": "Integrated"
+            }
+          ],
+          "activitySpaces": ["Develop the Golden Paths", "Integrate Toolchain Services"],
+          "activities": ["Create Platform Deployment Manifest"]
+        },
+        {
+          "name": "Non-Production Deployment",
+          "description": "Deploying to development or staging environments, practicing procedures, validating behavior, and building operational confidence.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Team Container Capability",
+              "stateName": "Capable"
+            },
+            {
+              "alphaName": "System",
+              "stateName": "Usable"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Stateless Web Application",
+              "description": "Stateless web application deployed to staging environment",
+              "alphaName": "Container Application",
+              "stateName": "Deployed"
+            }
+          ],
+          "activitySpaces": ["Operate and Evolve the System", "Coordinate Delivery Sprints"],
+          "activities": ["Deploy to Non-Production Environment"]
+        },
+        {
+          "name": "Production Deployment",
+          "description": "Deploying to production with monitoring, alerting, and support, transitioning to ongoing operational responsibility.",
+          "seq": 5,
+          "alphaStates": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Operational"
+            },
+            {
+              "alphaName": "Team Container Capability",
+              "stateName": "Proficient"
+            },
+            {
+              "alphaName": "System",
+              "stateName": "Ready"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Functional"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Started"
+            },
+            {
+              "alphaName": "Ways Of Working",
+              "stateName": "Principles Established"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Stateless Web Application",
+              "description": "Stateless web application operational in production",
+              "alphaName": "Container Application",
+              "stateName": "Operational"
+            }
+          ],
+          "activitySpaces": ["Operate and Evolve the System", "Establish Operational Practices"],
+          "activities": ["Operate Containerized Application in Production"]
+        },
+        {
+          "name": "Optimization",
+          "description": "Continuously improving the application, adopting advanced platform capabilities, and sharing learnings organizationally.",
+          "seq": 6,
+          "alphaStates": [
+            {
+              "alphaName": "Container Application",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Team Container Capability",
+              "stateName": "Expert"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Baselined"
+            },
+            {
+              "alphaName": "Platform Value And Economics",
+              "stateName": "Sustained"
+            },
+            {
+              "alphaName": "Ways Of Working",
+              "stateName": "In Use"
+            }
+          ],
+          "activitySpaces": ["Operate and Evolve the System", "Manage Platform Economics", "Evangelize and Support"],
+          "activities": ["Operate Containerized Application in Production"]
+        }
+      ]
+    }
+  ],
+  "authors": ["Generated by Claude from Container Platform Onboarding methodology"],
+  "createdAt": "2026-05-14",
+  "updatedAt": "2026-05-14",
+  "version": "1.0",
+  "keywords": [
+    "container",
+    "kubernetes",
+    "platform onboarding",
+    "containerization",
+    "docker",
+    "application migration",
+    "platform adoption",
+    "DevOps",
+    "cloud native"
+  ]
+}

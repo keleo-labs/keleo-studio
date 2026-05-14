@@ -846,7 +846,7 @@ function mergePersonaGroups(a: any[], b: any[]): any[] {
 
 function mergePatternViewAlphaInstances(a: any[] | undefined, b: any[] | undefined): any[] {
   const ident = (row: any): string =>
-    canonicalPracticeElementName(row?.instanceName) || canonicalPracticeElementName(row?.name) || "";
+    canonicalPracticeElementName(row?.name) || "";
 
   const mergeEvidenceRows = (
     prevRow: Record<string, unknown> | undefined,
@@ -857,7 +857,7 @@ function mergePatternViewAlphaInstances(a: any[] | undefined, b: any[] | undefin
     const consider = (x: unknown) => {
       if (!x || typeof x !== "object") return;
       const o = x as Record<string, unknown>;
-      const i1 = String(o.instanceName ?? "").trim();
+      const i1 = String(o.name ?? "").trim();
       const i2 = String(o.workProductName ?? "").trim();
       const i3 = String(o.levelOfDetailName ?? "").trim();
       if (!i1 && !i2 && !i3) return;
@@ -883,7 +883,6 @@ function mergePatternViewAlphaInstances(a: any[] | undefined, b: any[] | undefin
     if (byKey.has(k)) {
       const prev = byKey.get(k);
       const merged = mergePracticeElements(prev, row);
-      merged.instanceName = String(row.instanceName ?? prev.instanceName ?? k).trim() || k;
       merged.name = canonicalPracticeElementName(merged.name) || k;
       const ev = mergeEvidenceRows(prev as Record<string, unknown>, row as Record<string, unknown>);
       if (ev.length) merged.evidenceBy = ev;

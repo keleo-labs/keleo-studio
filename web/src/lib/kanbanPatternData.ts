@@ -13,7 +13,7 @@ export type KanbanCard = {
   type: KanbanCardType;
   name: string;
   description?: string;
-  /** For alphaState: stateName; for alphaInstance: instanceName */
+  /** For alphaState: stateName; for alphaInstance: instance name */
   subtitle?: string;
   /** Parent entity name (alpha name, work product name, etc.) */
   parentName?: string;
@@ -121,7 +121,7 @@ export function extractKanbanPatternData(
     // 2. Extract alpha instances
     for (const instance of pv.alphaInstances ?? []) {
       const alphaName = String(instance.alphaName ?? "").trim();
-      const instanceName = String(instance.instanceName ?? instance.name ?? "").trim();
+      const instanceName = String(instance.name ?? "").trim();
       const stateName = String(instance.stateName ?? "").trim();
 
       column.alphaInstanceCards.push({
@@ -136,7 +136,7 @@ export function extractKanbanPatternData(
       // Extract work product instances from evidenceBy
       for (const wpInstance of instance.evidenceBy ?? []) {
         const wpName = String(wpInstance.workProductName ?? "").trim();
-        const wpInstanceName = String(wpInstance.instanceName ?? wpInstance.name ?? "").trim();
+        const wpInstanceName = String(wpInstance.name ?? "").trim();
         const levelName = String(wpInstance.levelOfDetailName ?? "").trim();
         if (!wpName || !wpInstanceName) continue;
 
