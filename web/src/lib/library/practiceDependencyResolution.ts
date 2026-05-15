@@ -1104,7 +1104,12 @@ export function resolvePracticeWithLibraryIndex(primary: unknown, index: Library
     baselinePractice: baseline,
     practices: hierarchicalExtensions,
     ...(p.tags !== undefined && p.tags !== null ? { tags: p.tags as Practice["tags"] } : {}),
-  };
+    // Preserve patterns, workProducts, personas, and personaGroups from primary practice
+    ...(Array.isArray((p as any).patterns) && (p as any).patterns.length > 0 ? { patterns: (p as any).patterns } : {}),
+    ...(Array.isArray((p as any).workProducts) && (p as any).workProducts.length > 0 ? { workProducts: (p as any).workProducts } : {}),
+    ...(Array.isArray((p as any).personas) && (p as any).personas.length > 0 ? { personas: (p as any).personas } : {}),
+    ...(Array.isArray((p as any).personaGroups) && (p as any).personaGroups.length > 0 ? { personaGroups: (p as any).personaGroups } : {}),
+  } as any;
 
   const merged = compositePracticeFromMethod(method, index) as Record<string, unknown>;
   const sourceChain: Record<string, unknown>[] = [

@@ -182,10 +182,11 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
       >
         <div style={{ display: "grid", gap: 16 }}>
           <div>
-            <label style={{ display: "block", fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
+            <label htmlFor="narrative-name-input" style={{ display: "block", fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
               Name <span style={{ color: "var(--pf-v6-global--danger-color--100)" }}>*</span>
             </label>
             <TextInput
+              id="narrative-name-input"
               value={formName}
               onChange={(_, val) => setFormName(val)}
               placeholder="Display name for this narrative"
@@ -194,10 +195,11 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
           </div>
 
           <div>
-            <label style={{ display: "block", fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
+            <label htmlFor="narrative-narrative-name-input" style={{ display: "block", fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
               Narrative Name <span style={{ color: "var(--pf-v6-global--danger-color--100)" }}>*</span>
             </label>
             <TextInput
+              id="narrative-narrative-name-input"
               value={formNarrativeName}
               onChange={(_, val) => setFormNarrativeName(val)}
               placeholder="Canonical narrative identifier"
@@ -206,10 +208,11 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
           </div>
 
           <div>
-            <label style={{ display: "block", fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
+            <label htmlFor="narrative-type-name-input" style={{ display: "block", fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
               Type Name
             </label>
             <TextInput
+              id="narrative-type-name-input"
               value={formTypeName}
               onChange={(_, val) => setFormTypeName(val)}
               placeholder="e.g., UserStory, UseCase, Scenario"
@@ -217,10 +220,11 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
           </div>
 
           <div>
-            <label style={{ display: "block", fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
+            <label htmlFor="narrative-description-input" style={{ display: "block", fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
               Description <span style={{ color: "var(--pf-v6-global--danger-color--100)" }}>*</span>
             </label>
             <TextArea
+              id="narrative-description-input"
               value={formDescription}
               onChange={(_, val) => setFormDescription(val)}
               placeholder="Describe this narrative..."

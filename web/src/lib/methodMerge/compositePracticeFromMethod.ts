@@ -1360,11 +1360,17 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
   }
   /** Embedded baseline-shaped arrays on the Method baseline (optional overlays). */
   const baselineDoc = baseline as Record<string, unknown>;
+  const methodDoc = method as Record<string, unknown>;
   const baselineWorkProducts = Array.isArray(baselineDoc.workProducts) ? (baselineDoc.workProducts as any[]) : [];
   const baselinePatterns = Array.isArray(baselineDoc.patterns) ? (baselineDoc.patterns as any[]) : [];
   const baselineNarrativeTypes = Array.isArray(baselineDoc.narrativeTypes) ? (baselineDoc.narrativeTypes as any[]) : [];
   const baselinePersonas = Array.isArray(baselineDoc.personas) ? (baselineDoc.personas as any[]) : [];
   const baselinePersonaGroups = Array.isArray(baselineDoc.personaGroups) ? (baselineDoc.personaGroups as any[]) : [];
+  // Also check for these elements directly on the Method object (from primary practice)
+  const methodWorkProducts = Array.isArray(methodDoc.workProducts) ? (methodDoc.workProducts as any[]) : [];
+  const methodPatterns = Array.isArray(methodDoc.patterns) ? (methodDoc.patterns as any[]) : [];
+  const methodPersonas = Array.isArray(methodDoc.personas) ? (methodDoc.personas as any[]) : [];
+  const methodPersonaGroups = Array.isArray(methodDoc.personaGroups) ? (methodDoc.personaGroups as any[]) : [];
   const mergedRootTags = mergePracticeElementTags(method.tags, baseline.tags);
   // Only use the method's own narratives, not baseline or practice narratives
   const methodNarr = Array.isArray((method as Record<string, unknown>).narratives)
@@ -1386,10 +1392,10 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
     keywords: uniqStrings([...(baseline.keywords ?? [])]),
     narrativeTypes: mergeNarrativeTypes([], baselineNarrativeTypes),
     practiceDependencyNames: uniqStrings(((method as any).practiceDependencyNames ?? []) as string[]),
-    workProducts: mergeWorkProducts([], baselineWorkProducts),
-    patterns: mergePatterns([], baselinePatterns),
-    personas: mergePersonas([], baselinePersonas),
-    personaGroups: mergePersonaGroups([], baselinePersonaGroups),
+    workProducts: mergeWorkProducts(mergeWorkProducts([], baselineWorkProducts), methodWorkProducts),
+    patterns: mergePatterns(mergePatterns([], baselinePatterns), methodPatterns),
+    personas: mergePersonas(mergePersonas([], baselinePersonas), methodPersonas),
+    personaGroups: mergePersonaGroups(mergePersonaGroups([], baselinePersonaGroups), methodPersonaGroups),
     // Only include method's own narratives, not baseline or practice narratives
     ...(methodNarr.length ? { narratives: methodNarr } : {}),
   };

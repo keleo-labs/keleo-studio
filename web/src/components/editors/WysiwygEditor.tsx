@@ -203,6 +203,7 @@ export function WysiwygEditor({
   const alphas = Array.isArray(doc.alphas) ? doc.alphas : [];
   const competencies = Array.isArray(doc.competencies) ? doc.competencies : [];
   const activitySpaces = Array.isArray(doc.activitySpaces) ? doc.activitySpaces : [];
+  const flatActivities = Array.isArray(doc.activities) ? doc.activities : [];
   const workProducts = Array.isArray(doc.workProducts) ? doc.workProducts : [];
   const patterns = Array.isArray(doc.patterns) ? doc.patterns : [];
   const personas = Array.isArray(doc.personas) ? doc.personas : [];
@@ -210,6 +211,17 @@ export function WysiwygEditor({
   const narrativeTypes = Array.isArray(doc.narrativeTypes) ? doc.narrativeTypes : [];
   const alphaInstances = Array.isArray(doc.alphaInstances) ? doc.alphaInstances : [];
   const workProductInstances = Array.isArray(doc.workProductInstances) ? doc.workProductInstances : [];
+
+  // Get baseline activitySpaces for reference
+  const baselineActivitySpaces = resolvedBaseline && Array.isArray(resolvedBaseline.activitySpaces)
+    ? resolvedBaseline.activitySpaces
+    : [];
+
+  // Merge baseline and practice activitySpaces for display
+  const allActivitySpaceNames = new Set([
+    ...baselineActivitySpaces.map((s: any) => s.name),
+    ...activitySpaces.map((s: any) => s.name),
+  ]);
 
   return (
     <div style={containerStyle}>
@@ -1132,6 +1144,175 @@ export function WysiwygEditor({
           </div>
         );
       })}
+
+      {/* Baseline Activity Spaces Section (read-only reference) */}
+      {kind === 'extension' && baselineActivitySpaces.length > 0 && (
+        <>
+          <div style={sectionHeaderStyle}>
+            <span>Baseline Activity Spaces (from {baselinePracticeName})</span>
+            <span style={{ ...badgeStyle, background: '#f3f4f6', color: '#6b7280' }}>
+              {baselineActivitySpaces.length} available
+            </span>
+          </div>
+          <div style={{ marginBottom: 24, padding: 16, background: '#f9fafb', borderRadius: 8, border: '1px solid #e5e7eb' }}>
+            <p style={{ margin: '0 0 12px 0', fontSize: 14, color: '#6b7280' }}>
+              These activity spaces are inherited from the baseline practice. You can reference them in activities below.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              {baselineActivitySpaces.map((space: any, idx: number) => (
+                <div
+                  key={idx}
+                  style={{
+                    padding: '6px 12px',
+                    background: '#e0e7ff',
+                    color: '#4338ca',
+                    borderRadius: 6,
+                    fontSize: 13,
+                    fontWeight: 600,
+                  }}
+                >
+                  {space.name || '(unnamed)'}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Flat Activities Section (Practice.activities array) */}
+      {kind === 'extension' && (
+        <>
+          <div style={sectionHeaderStyle}>
+            <span>Activities</span>
+            <span style={badgeStyle}>{flatActivities.length}</span>
+          </div>
+          <div style={{ marginBottom: 16, padding: 12, background: '#fef3c7', borderRadius: 8, border: '1px solid #fbbf24' }}>
+            <p style={{ margin: 0, fontSize: 13, color: '#92400e' }}>
+              <strong>Note:</strong> These activities reference activity spaces from the baseline practice.
+              Make sure the Activity Space Name matches one from the baseline listed above.
+            </p>
+          </div>
+          <div style={arrayHeaderStyle}>
+            <div style={arrayTitleStyle}>Activity Definitions</div>
+            <button
+              type="button"
+              onClick={() => addArrayItem('activities', emptyActivity())}
+              style={buttonStyle}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--accent)';
+                e.currentTarget.style.color = 'white';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(139,92,246,0.15)';
+                e.currentTarget.style.color = 'var(--accent)';
+              }}
+            >
+              + Add Activity
+            </button>
+          </div>
+          {flatActivities.map((activity: any, actIdx: number) => (
+            <div key={actIdx} style={cardStyle}>
+              <div style={cardHeaderStyle}>
+                Activity: {activity.name || '(unnamed)'}
+                <button
+                  type="button"
+                  onClick={() => removeArrayItem('activities', actIdx)}
+                  style={dangerButtonStyle}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(251,113,133,0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(251,113,133,0.15)';
+                  }}
+                >
+                  × Remove
+                </button>
+              </div>
+              <PropertyTable>
+                <PropertyRow label="Name" required>
+                  <InlineTextField
+                    value={activity.name || ''}
+                    onChange={(val) => updateField(`activities[${actIdx}].name`, val)}
+                  />
+                </PropertyRow>
+                <PropertyRow label="Description">
+                  <InlineTextArea
+                    value={activity.description || ''}
+                    onChange={(val) => updateField(`activities[${actIdx}].description`, val)}
+                  />
+                </PropertyRow>
+                <PropertyRow label="Activity Space Name" required>
+                  <InlineSelectField
+                    value={activity.activitySpaceName || ''}
+                    onChange={(val) => updateField(`activities[${actIdx}].activitySpaceName`, val)}
+                    options={Array.from(allActivitySpaceNames)}
+                    placeholder="Select an activity space"
+                  />
+                </PropertyRow>
+                <PropertyRow label="Focus">
+                  <InlineSelectField
+                    value={activity.focusName || ''}
+                    onChange={(val) => updateField(`activities[${actIdx}].focusName`, val)}
+                    options={practiceNames.focuses}
+                    placeholder="Select a focus"
+                  />
+                </PropertyRow>
+                <PropertyRow label="Contributes To">
+                  <AlphaContributionsField
+                    value={activity.contributesTo || []}
+                    onChange={(val) => updateField(`activities[${actIdx}].contributesTo`, val)}
+                    label=""
+                    alphaNames={practiceNames.alphaNames}
+                    stateNamesByAlpha={practiceNames.stateNamesByAlpha}
+                  />
+                </PropertyRow>
+                <PropertyRow label="Required Competencies">
+                  <StringArrayField
+                    value={activity.requiredCompetencies || []}
+                    onChange={(val) => updateField(`activities[${actIdx}].requiredCompetencies`, val)}
+                    placeholder="Add competency name"
+                  />
+                </PropertyRow>
+                <PropertyRow label="Involves (Persona Groups)">
+                  <StringArrayField
+                    value={activity.involves || []}
+                    onChange={(val) => updateField(`activities[${actIdx}].involves`, val)}
+                    placeholder="Add persona group name"
+                  />
+                </PropertyRow>
+                <PropertyRow label="Recommended Competency Levels">
+                  <CompetencyLevelReferencesField
+                    value={activity.recommendedCompetencyLevels || []}
+                    onChange={(val) => updateField(`activities[${actIdx}].recommendedCompetencyLevels`, val)}
+                    label=""
+                  />
+                </PropertyRow>
+                <PropertyRow label="Works On">
+                  <WorkProductContributionsField
+                    value={activity.worksOn || []}
+                    onChange={(val) => updateField(`activities[${actIdx}].worksOn`, val)}
+                    label=""
+                  />
+                </PropertyRow>
+                <PropertyRow label="Tags">
+                  <TagsField
+                    value={activity.tags}
+                    onChange={(val) => updateField(`activities[${actIdx}].tags`, val)}
+                    fieldPath={`activities[${actIdx}].tags`}
+                  />
+                </PropertyRow>
+                <PropertyRow label="Narratives">
+                  <NarrativesField
+                    value={activity.narratives}
+                    onChange={(val) => updateField(`activities[${actIdx}].narratives`, val)}
+                    fieldPath={`activities[${actIdx}].narratives`}
+                  />
+                </PropertyRow>
+              </PropertyTable>
+            </div>
+          ))}
+        </>
+      )}
 
       {/* Patterns Section */}
       <div style={sectionHeaderStyle}>

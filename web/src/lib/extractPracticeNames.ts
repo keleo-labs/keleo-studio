@@ -6,6 +6,7 @@
 export type PracticeNameLists = {
   practiceNames: string[];
   baselineNames: string[];
+  focusNames: string[];
   alphaNames: string[];
   stateNamesByAlpha: Map<string, string[]>;
   activitySpaceNames: string[];
@@ -21,6 +22,15 @@ export type PracticeNameLists = {
   personaGroupNames: string[];
   alphaInstanceNames: string[];
   workProductInstanceNames: string[];
+  // Convenience properties (flattened for dropdowns)
+  focuses: string[];
+  alphas: string[];
+  states: string[];
+  activities: string[];
+  competencies: string[];
+  competencyLevels: string[];
+  workProducts: string[];
+  levelsOfDetail: string[];
 };
 
 export function extractPracticeNames(
@@ -31,6 +41,7 @@ export function extractPracticeNames(
 ): PracticeNameLists {
   const practiceNames = new Set<string>();
   const baselineNames = new Set<string>();
+  const focusNames = new Set<string>();
   const alphaNames = new Set<string>();
   const stateNamesByAlpha = new Map<string, Set<string>>();
   const activitySpaceNames = new Set<string>();
@@ -67,6 +78,16 @@ export function extractPracticeNames(
   ];
 
   allPractices.forEach(practice => {
+    // Extract focus names
+    if (Array.isArray(practice.focuses)) {
+      practice.focuses.forEach((focus: any) => {
+        const focusName = focus?.name;
+        if (focusName && typeof focusName === 'string') {
+          focusNames.add(focusName);
+        }
+      });
+    }
+
     // Extract alpha names and states
     if (Array.isArray(practice.alphas)) {
       practice.alphas.forEach((alpha: any) => {
@@ -108,6 +129,24 @@ export function extractPracticeNames(
                 activityNamesBySpace.get(spaceName)!.add(activityName);
               }
             });
+          }
+        }
+      });
+    }
+
+    // Extract flat activities (Practice.activities array)
+    if (Array.isArray(practice.activities)) {
+      practice.activities.forEach((activity: any) => {
+        const activityName = activity?.name;
+        const spaceName = activity?.activitySpaceName;
+
+        if (activityName && typeof activityName === 'string') {
+          if (spaceName && typeof spaceName === 'string') {
+            // Add to the appropriate space
+            if (!activityNamesBySpace.has(spaceName)) {
+              activityNamesBySpace.set(spaceName, new Set());
+            }
+            activityNamesBySpace.get(spaceName)!.add(activityName);
           }
         }
       });
@@ -234,37 +273,76 @@ export function extractPracticeNames(
   });
 
   // Convert Sets to sorted arrays
+  const focusNamesArray = Array.from(focusNames).sort();
+  const alphaNamesArray = Array.from(alphaNames).sort();
+  const competencyNamesArray = Array.from(competencyNames).sort();
+  const workProductNamesArray = Array.from(workProductNames).sort();
+
+  const statesByAlphaMap = new Map(
+    Array.from(stateNamesByAlpha.entries()).map(([alpha, states]) => [
+      alpha,
+      Array.from(states).sort(),
+    ])
+  );
+
+  const activitiesBySpaceMap = new Map(
+    Array.from(activityNamesBySpace.entries()).map(([space, activities]) => [
+      space,
+      Array.from(activities).sort(),
+    ])
+  );
+
+  const levelsByCompetencyMap = new Map(
+    Array.from(competencyLevelNamesByCompetency.entries()).map(([comp, levels]) => [
+      comp,
+      Array.from(levels).sort(),
+    ])
+  );
+
+  const lodsByWorkProductMap = new Map(
+    Array.from(levelOfDetailNamesByWorkProduct.entries()).map(([wp, lods]) => [
+      wp,
+      Array.from(lods).sort(),
+    ])
+  );
+
+  // Create convenience properties (flattened arrays for dropdowns)
+  const allStates = Array.from(
+    new Set(
+      Array.from(statesByAlphaMap.values()).flat()
+    )
+  ).sort();
+
+  const allActivities = Array.from(
+    new Set(
+      Array.from(activitiesBySpaceMap.values()).flat()
+    )
+  ).sort();
+
+  const allCompetencyLevels = Array.from(
+    new Set(
+      Array.from(levelsByCompetencyMap.values()).flat()
+    )
+  ).sort();
+
+  const allLevelsOfDetail = Array.from(
+    new Set(
+      Array.from(lodsByWorkProductMap.values()).flat()
+    )
+  ).sort();
+
   const result = {
     practiceNames: Array.from(practiceNames).sort(),
     baselineNames: Array.from(baselineNames).sort(),
-    alphaNames: Array.from(alphaNames).sort(),
-    stateNamesByAlpha: new Map(
-      Array.from(stateNamesByAlpha.entries()).map(([alpha, states]) => [
-        alpha,
-        Array.from(states).sort(),
-      ])
-    ),
+    focusNames: focusNamesArray,
+    alphaNames: alphaNamesArray,
+    stateNamesByAlpha: statesByAlphaMap,
     activitySpaceNames: Array.from(activitySpaceNames).sort(),
-    activityNamesBySpace: new Map(
-      Array.from(activityNamesBySpace.entries()).map(([space, activities]) => [
-        space,
-        Array.from(activities).sort(),
-      ])
-    ),
-    competencyNames: Array.from(competencyNames).sort(),
-    competencyLevelNamesByCompetency: new Map(
-      Array.from(competencyLevelNamesByCompetency.entries()).map(([comp, levels]) => [
-        comp,
-        Array.from(levels).sort(),
-      ])
-    ),
-    workProductNames: Array.from(workProductNames).sort(),
-    levelOfDetailNamesByWorkProduct: new Map(
-      Array.from(levelOfDetailNamesByWorkProduct.entries()).map(([wp, lods]) => [
-        wp,
-        Array.from(lods).sort(),
-      ])
-    ),
+    activityNamesBySpace: activitiesBySpaceMap,
+    competencyNames: competencyNamesArray,
+    competencyLevelNamesByCompetency: levelsByCompetencyMap,
+    workProductNames: workProductNamesArray,
+    levelOfDetailNamesByWorkProduct: lodsByWorkProductMap,
     narrativeTypeNames: Array.from(narrativeTypeNames).sort(),
     narrativeElementNamesByType: new Map(
       Array.from(narrativeElementNamesByType.entries()).map(([type, elements]) => [
@@ -277,6 +355,15 @@ export function extractPracticeNames(
     personaGroupNames: Array.from(personaGroupNames).sort(),
     alphaInstanceNames: Array.from(alphaInstanceNames).sort(),
     workProductInstanceNames: Array.from(workProductInstanceNames).sort(),
+    // Convenience properties
+    focuses: focusNamesArray,
+    alphas: alphaNamesArray,
+    states: allStates,
+    activities: allActivities,
+    competencies: competencyNamesArray,
+    competencyLevels: allCompetencyLevels,
+    workProducts: workProductNamesArray,
+    levelsOfDetail: allLevelsOfDetail,
   };
 
   return result;
