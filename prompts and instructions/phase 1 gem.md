@@ -62,6 +62,146 @@ For each perspective covered, assess maturity using the rubric:
 
 ## 2. Baseline Alpha Constraints
 
+When analyzing source content, you may encounter the same baseline alpha concept appearing in multiple perspectives (Business, Technology, People, Process). **CRITICAL:** Before deciding to redeclare, specialize, or create instances, consider the overall method context and how the final merged version will work.
+
+### Alpha Extension Decision Framework
+
+Apply this decision logic in order when you encounter a baseline alpha concept:
+
+#### Step 1: Determine if this is truly about the baseline alpha or something else
+
+**Questions to ask:**
+- Does the source describe progression/maturity of the core concept itself?
+- Or does it describe a specific variant, implementation, or occurrence of the concept?
+- Or does it describe a specialized subset that only applies in certain contexts?
+
+**Examples:**
+- Source describes "Team effectiveness stages" → This is about the Team alpha itself (consider redeclaration)
+- Source describes "Platform Team vs Product Team" → These are likely instances or specializations
+- Source describes "Cross-functional Team Formation" → This might be a specialized Team alpha
+- Source describes "Security-focused Team" → This is likely an instance, not a redeclaration
+
+#### Step 2: Check if multiple perspectives need the same alpha
+
+**If multiple perspectives reference the same baseline alpha:**
+1. **Assess checklist compatibility:** Can the checklist items from all perspectives coexist meaningfully?
+   - Example: Business perspective adds "Team has budget approval" and Technology perspective adds "Team has production access"
+   - These CAN coexist → Consider redeclaration with merged checklists
+   - Example: Business perspective checks "Team reports to CFO" and Product perspective checks "Team reports to CPO"
+   - These CANNOT coexist → These describe instances or need a pattern
+
+2. **Assess state progression compatibility:** Do all perspectives agree on the state progression?
+   - If YES → Redeclaration is appropriate
+   - If NO → Consider specialization or instances
+
+3. **Assess whether it's describing the same thing or different things:**
+   - "Platform value tracked in business metrics" + "Platform architecture defined" → Same Platform alpha, different aspects → Redeclaration
+   - "Data Platform" + "Container Platform" + "API Platform" → Different instances → Use instances & patterns
+   - "Team in formation" + "Team operating" → Same Team alpha, different states → Redeclaration
+   - "Platform Engineering Team" + "Consumer Team" → Different team types → Instances or specialization
+
+#### Step 3: Choose the right approach
+
+**Option A: Redeclaration (Enrichment)**
+
+Use when:
+- Multiple perspectives enhance the SAME core concept
+- The baseline states apply but need additional verification criteria
+- The checklists from different perspectives are compatible and complementary
+- You're adding context, not changing the fundamental progression
+
+Requirements:
+- Preserve exact baseline name, description, and state names
+- Preserve baseline state seq numbers
+- Only ADD to checklist arrays (merge criteria from all perspectives)
+- Add source-specific context through narratives
+- Do NOT change state structure or progression
+
+**Warning signs against redeclaration:**
+- Checklist items contradict each other
+- Different perspectives imply different state progressions
+- You're describing specific instances rather than the general concept
+- The additions are only relevant in narrow contexts
+
+**Option B: Specialization (New Alpha with contributesTo)**
+
+Use when:
+- The source describes a focused subset that deserves its own progression
+- The specialized concept has genuinely different states than the parent
+- The specialization applies across multiple use cases (not just one instance)
+- The baseline alpha is too broad for this specific context
+
+Requirements:
+- Must have clear parent Alpha from baseline (contributesTo relationship)
+- Must represent a more specific/narrow refinement, not an instance
+- Must define its own progressive states (minimum 3) with detailed criteria
+- Must be reusable across multiple scenarios
+
+**Example:** "Platform Capability" specializing "Platform" - represents the progressive maturity of individual capabilities within a platform, with states like "Prototyped", "MVP", "Production-Ready", "Optimized"
+
+**Option C: Instances and Patterns**
+
+Use when:
+- The source describes specific occurrences or examples of a concept
+- Different "versions" coexist simultaneously (e.g., multiple team types)
+- The progression is situational, not universal
+- You're tracking concrete things, not abstract concepts
+
+Requirements:
+- Declare named instances (e.g., "Security Requirements" as instance of "Requirements")
+- Track instance progression in patterns
+- Use patterns to show how different instances evolve together
+- Instance names should be specific and descriptive
+
+**Example:** "Platform Engineering Team", "Data Platform Team", "Security Team" as instances of "Team" - each progresses through Team states but represents different concurrent teams
+
+**Option D: Combination Approach**
+
+Sometimes you need multiple approaches:
+- Create a specialization for a refined concept that appears in the method
+- PLUS use instances to track specific occurrences within patterns
+- PLUS possibly redeclare the baseline alpha if you add general checklists
+
+**Example:** 
+- Redeclare "Platform" with additional business and technical verification criteria
+- Create "Platform Capability" as a specialization for individual capabilities
+- Use instances like "Container Platform Capability", "API Gateway Capability" in patterns
+
+### Cross-Perspective Consistency Check
+
+**Before finalizing alpha decisions, perform this check:**
+
+1. List all alpha references across all perspectives (Business, Technology, People, Process)
+2. For each baseline alpha mentioned multiple times:
+   - Document what each perspective says about it
+   - Identify overlaps and contradictions
+   - Determine if it should be ONE redeclaration, MULTIPLE specializations, or INSTANCES
+3. Ensure the final merged version will have coherent, compatible checklists
+4. Ensure patterns can track the right level of granularity
+
+### Redeclaration Merging Guidelines
+
+**When creating a single redeclaration from multiple perspectives:**
+
+1. **Merge checklists carefully:**
+   - Combine criteria that are complementary
+   - If criteria seem contradictory, they might indicate need for instances instead
+   - Organize merged checklists logically (e.g., business criteria first, then technical)
+   - Remove duplicates but preserve distinct verification requirements
+
+2. **Use narratives to explain perspective-specific context:**
+   - Create separate narrative sections for each perspective's view
+   - Example: "Business Perspective" narrative + "Technical Perspective" narrative
+
+3. **Ensure universality:**
+   - Checklist items should apply to ALL uses of this alpha in the method
+   - If an item only applies in specific scenarios, it belongs in a pattern or instance instead
+
+4. **Test for coherence:**
+   - Read the final merged checklist as if you're one user
+   - Does it make sense as a unified progression?
+   - Or does it feel like multiple different things forced together?
+
 **New Alphas (Specialization):** Create when source identifies a specialized concept:
 - Must have a clear parent Alpha from baseline (contributesTo relationship)
 - Must represent a more specific/narrow refinement, not an instance
@@ -86,8 +226,47 @@ Activities must be derived from Alpha progression needs:
 3. Extract work types from source content verbs: assess, design, implement, validate, monitor, etc.
 4. Group similar work into coherent activities
 5. Map each activity to appropriate baseline ActivitySpace
+6. **CRITICAL:** Name each activity specifically - do NOT reuse the ActivitySpace name
 
 **Expectation:** Comprehensive practices should have 5-15 distinct activities
+
+**Activity Naming Guidelines:**
+
+Activities should be **specific, actionable work** with names that:
+- Use strong verbs describing the actual work (Design, Implement, Validate, Define, Monitor, Establish, etc.)
+- Include the specific subject of the work (what is being designed/implemented/validated)
+- Are MORE SPECIFIC than the ActivitySpace name
+- Clearly differentiate from other activities in the same ActivitySpace
+
+**ANTI-PATTERN - Do NOT do this:**
+- ActivitySpace: "Architect and Build the Foundation"
+- Activity: "Architect and Build the Foundation" ❌ (duplicates the space name)
+
+**CORRECT PATTERN - Do this:**
+- ActivitySpace: "Architect and Build the Foundation"
+- Activity: "Design Infrastructure Architecture" ✓
+- Activity: "Implement Core Platform Services" ✓
+- Activity: "Establish Network and Security Foundations" ✓
+
+**More examples:**
+
+- ActivitySpace: "Define Platform Capabilities"
+  - ✓ "Identify Consumer Requirements"
+  - ✓ "Define Service Catalog Offerings"
+  - ✓ "Specify Golden Path Templates"
+  - ❌ "Define Platform Capabilities" (too generic)
+
+- ActivitySpace: "Assess Business Value"
+  - ✓ "Analyze Platform ROI Metrics"
+  - ✓ "Evaluate Cost Efficiency Opportunities"
+  - ✓ "Measure Developer Productivity Gains"
+  - ❌ "Assess Business Value" (duplicates space)
+
+- ActivitySpace: "Operate and Evolve the System"
+  - ✓ "Monitor Platform Health and Performance"
+  - ✓ "Implement Continuous Improvements"
+  - ✓ "Manage Platform Lifecycle Updates"
+  - ❌ "Operate and Evolve the System" (too generic)
 
 **ActivitySpace Mapping Questions (in order):**
 1. Business value/ROI/stakeholder focus? → "Assess Business Value", "Monitor Value Realization", "Engage Platform Consumers"

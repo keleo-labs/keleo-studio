@@ -469,6 +469,33 @@ Extract to:
 }
 ```
 
+**CRITICAL VALIDATION - Activity Names:**
+
+Activity names must be **specific** and **different from their ActivitySpace name**:
+
+✓ **CORRECT:**
+- ActivitySpace: "Architect and Build the Foundation" → Activity: "Design Infrastructure Architecture"
+- ActivitySpace: "Define Platform Capabilities" → Activity: "Identify Consumer Requirements"
+- ActivitySpace: "Assess Business Value" → Activity: "Analyze Platform ROI Metrics"
+
+❌ **INVALID:**
+- ActivitySpace: "Architect and Build the Foundation" → Activity: "Architect and Build the Foundation"
+- ActivitySpace: "Define Platform Capabilities" → Activity: "Define Platform Capabilities"
+
+**If you encounter an activity name that matches its ActivitySpace:**
+1. Check if the report provides more specific context in the description
+2. Extract the specific action verb and subject from the description
+3. Construct a more specific name: "[Verb] [Specific Subject]"
+4. Examples:
+   - Description says "design the infrastructure architecture" → Name: "Design Infrastructure Architecture"
+   - Description says "monitor platform health metrics" → Name: "Monitor Platform Health and Performance"
+   - Description says "establish security policies" → Name: "Establish Security Policies"
+
+**Activity naming patterns to use:**
+- "[Verb] [Specific Subject]": "Design Network Topology", "Implement CI/CD Pipeline"
+- "[Verb] [Subject] [Qualifier]": "Monitor Platform Health Metrics", "Define Service Catalog Offerings"
+- Never use just the ActivitySpace name verbatim
+
 ### Parsing Personas
 
 Report format:
@@ -601,23 +628,115 @@ When the report doesn't explicitly state focusName for Activities or Alphas:
 **Infer from contributesTo relationship:**
 - If Alpha contributes to a baseline Alpha, inherit that Alpha's focusName
 
-## Step 4: Redeclaration Detection
+## Step 4: Redeclaration Detection and Merging
 
 **An Alpha is a REDECLARATION if:**
 1. Its name exactly matches a baseline Alpha name
 2. The report says "redeclares" or "provides practice-specific context for"
+3. Multiple perspectives in the report refer to the same baseline alpha
 
-**For redeclarations:**
+### Handling Multiple Perspective Redeclarations
+
+**CRITICAL:** The research report may describe the same baseline alpha from multiple perspectives (Business, Technology, People, Process). When this occurs, you must create a SINGLE merged redeclaration that combines insights from all perspectives.
+
+**Detection patterns:**
+- Same alpha name appears in multiple "Focus" sections
+- Report explicitly discusses "merging perspectives" or "cross-perspective view"
+- Different sections add different checklists to the same baseline alpha
+- Report has a section titled "Cross-Perspective Consistency" or similar
+
+**Merging process for multi-perspective redeclarations:**
+
+1. **Identify all mentions of the same baseline alpha across the report:**
+   - Scan Value Focus, Solution Focus, and Endeavor Focus sections
+   - Note every section that discusses the same alpha
+   - Track which checklists, narratives, and context come from which perspective
+
+2. **Verify this should be ONE alpha, not multiple:**
+   - If the report describes different state progressions → These are different alphas or instances
+   - If the report describes complementary aspects of the same progression → Single merged redeclaration
+   - If the report describes concurrent examples → These are instances, not redeclarations
+
+3. **Merge checklists intelligently:**
+   - Combine all checklist items from all perspectives
+   - Preserve distinct verification requirements (don't deduplicate if genuinely different)
+   - Organize logically (e.g., business criteria, then technical, then organizational)
+   - Maintain seq numbering across the merged set
+   - If checklists contradict each other, FLAG THIS - it likely indicates instances not redeclaration
+
+4. **Preserve all narratives with perspective labels:**
+   - Create separate narrative entries for each perspective's context
+   - Name narratives clearly: "Business Perspective", "Technical Perspective", etc.
+   - This preserves the multi-perspective richness while creating a unified alpha
+
+5. **Use baseline structure exactly:**
+   - Description: EXACTLY from baseline (do not merge or modify)
+   - State names: EXACTLY from baseline
+   - State descriptions: EXACTLY from baseline  
+   - State seq: EXACTLY from baseline
+   - Only merge/add: checklists and narratives
+
+**Example of proper multi-perspective merging:**
+
+If the report discusses "Team" in three sections:
+- Value Focus: "Team must have executive sponsorship and budget authority"
+- Solution Focus: "Team must have access to production systems and deployment tools"
+- Endeavor Focus: "Team must have clear roles and ways of working established"
+
+Create ONE "Team" redeclaration with:
+- Baseline description (exact copy)
+- Baseline states (exact copy)
+- Merged checklists that include ALL three sets of criteria
+- Three narratives: one for business context, one for technical context, one for organizational context
+
+### Distinguishing Redeclarations from Instances
+
+**Red flags that indicate INSTANCES not redeclaration:**
+
+1. **Concurrent existence:** Report describes multiple [alpha] that exist at the same time
+   - "Platform Team and Product Team" → Instances of Team
+   - "Security Requirements and Performance Requirements" → Instances of Requirements
+   - "Container Platform and Data Platform" → Instances of Platform
+
+2. **Specific named variants:** Report uses qualifying prefixes/suffixes consistently
+   - "Landing Zone Platform" and "Data Analytics Platform" → Instances
+   - "Technical Team" vs "Team" → Possibly instance vs redeclaration
+
+3. **Different progressions:** Report implies different state sequences for different variants
+   - This should never happen with a true redeclaration
+   - This indicates either instances or separate specialized alphas
+
+4. **Tracking in patterns:** Report shows these progressing independently in patterns
+   - If pattern phases track "Platform Team reaches X" AND "Consumer Team reaches Y" separately → Instances
+   - If pattern phases track "Team reaches X" generally → Redeclaration or instance pattern
+
+**How to handle when report is ambiguous:**
+
+If you cannot determine whether something should be merged into a redeclaration or kept as instances:
+
+1. Look for pattern tables/phases - do they track one alpha or multiple?
+2. Count references - are there 2-3 specific examples or a general concept?
+3. Check narratives - do they discuss "the Team" or "different types of teams"?
+4. If still unclear, prefer instances over redeclaration (safer, more precise)
+
+**For confirmed redeclarations:**
 - Use the baseline Alpha's description EXACTLY (copy from baseline)
 - Use the baseline Alpha's state names and descriptions EXACTLY (copy from baseline)
 - Use baseline state seq numbers EXACTLY
-- ONLY add to or enhance the checklist arrays
+- MERGE all checklists from all perspectives into each appropriate state
+- Create separate narratives for each perspective's context
 - Add practice-specific context as narratives
 
-**For new Alphas:**
+**For new Alphas (specializations):**
 - Use descriptions from report
 - Create states as described in report
 - Ensure contributesTo references a baseline Alpha name
+- Should NOT have multiple perspectives trying to define it differently
+
+**For instances:**
+- Declare as AlphaInstanceName objects in practice.alphaInstances array
+- Reference in patterns as AlphaInstance objects showing progression
+- Do NOT create separate alpha definitions for each instance
 
 ## Step 5: Exact Name Matching
 
@@ -809,6 +928,12 @@ Before outputting JSON, verify:
 - [ ] Every Alpha has focusName: "Value", "Solution", or "Endeavor"
 - [ ] Every Activity has focusName matching its ActivitySpace's focus
 - [ ] contributesTo relationships make sense (Value→Value, Solution→Solution, etc.)
+
+## Activity Naming
+
+- [ ] No Activity name exactly matches its ActivitySpace name
+- [ ] All Activity names are specific and actionable (include verb + specific subject)
+- [ ] Activity names clearly differentiate from other activities in the same ActivitySpace
 
 ---
 

@@ -1,24 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { FormEvent } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  PageSection,
-  Title,
   Button,
-  Label,
-  Content,
-  ContentVariants,
-  Toolbar,
-  ToolbarContent,
-  ToolbarItem,
-  ToolbarGroup,
-  TextInput,
-  TextArea,
-  Divider,
+  Card,
+  CardBody,
+  Title,
+  Alert,
 } from "@patternfly/react-core";
+import { TrashIcon, SyncIcon, GripVerticalIcon } from "@patternfly/react-icons";
 import type { LibraryRootKind } from "@/lib/library/classify";
 import { rootKindExtension } from "@/lib/library/classify";
 import {
@@ -30,8 +21,12 @@ import {
 import type { Method, Practice, PracticeBaseline } from "@/lib/types";
 import type { JsonDocumentMeta } from "@/lib/storage/types";
 import { mergeNarrativesAdditive } from "@/lib/methodMerge/compositePracticeFromMethod";
-import { MethodTagsField, type MethodTags } from "@/components/editors/fields/MethodTagsField";
-import { MethodNarrativesField, type MethodNarrative } from "@/components/editors/fields/MethodNarrativesField";
+import { PropertyTable } from "@/components/editors/fields/PropertyTable";
+import { PropertyRow } from "@/components/editors/fields/PropertyRow";
+import { InlineTextField } from "@/components/editors/fields/InlineTextField";
+import { InlineTextArea } from "@/components/editors/fields/InlineTextArea";
+import { practiceTagsBucketLines, practiceTagsFromBucketLines } from "@/lib/practiceElementTags";
+import { NarrativesField, type Narrative } from "@/components/editors/fields/NarrativesField";
 
 const DRAG_MIME = "application/x-adoption-library";
 
@@ -300,10 +295,10 @@ export function MethodBuilderClient() {
 
   const [methodName, setMethodName] = useState("");
   const [methodDescription, setMethodDescription] = useState("");
-  const [methodTags, setMethodTags] = useState<MethodTags>({});
+  const [methodTags, setMethodTags] = useState<Record<string, unknown>>({});
   const [baselineSlot, setBaselineSlot] = useState<BaselineSlot | null>(null);
   const [practiceSlots, setPracticeSlots] = useState<PracticeSlot[]>([]);
-  const [methodNarratives, setMethodNarratives] = useState<MethodNarrative[]>([]);
+  const [methodNarratives, setMethodNarratives] = useState<Narrative[]>([]);
 
   const [baselineDropHover, setBaselineDropHover] = useState(false);
   const [practiceDropHover, setPracticeDropHover] = useState(false);
@@ -390,14 +385,11 @@ export function MethodBuilderClient() {
       setMethodDescription(String(m.description ?? ""));
 
       const methodRec = m as Record<string, unknown>;
-      const extractedTags: MethodTags = {};
       if (methodRec.tags && typeof methodRec.tags === "object" && !Array.isArray(methodRec.tags)) {
-        const tagsObj = methodRec.tags as Record<string, unknown>;
-        if (Array.isArray(tagsObj.domainTags)) extractedTags.domainTags = tagsObj.domainTags.filter((t): t is string => typeof t === "string");
-        if (Array.isArray(tagsObj.lifecycleTags)) extractedTags.lifecycleTags = tagsObj.lifecycleTags.filter((t): t is string => typeof t === "string");
-        if (Array.isArray(tagsObj.organizationalTags)) extractedTags.organizationalTags = tagsObj.organizationalTags.filter((t): t is string => typeof t === "string");
+        setMethodTags(methodRec.tags as Record<string, unknown>);
+      } else {
+        setMethodTags({});
       }
-      setMethodTags(extractedTags);
 
       const fetchBody = async (id: string): Promise<unknown | null> => {
         const r = await fetch(`/api/documents/${encodeURIComponent(id)}`, { cache: "no-store" });
@@ -407,7 +399,7 @@ export function MethodBuilderClient() {
         return d.body ?? null;
       };
 
-      const existingNarratives = Array.isArray(methodRec.narratives) ? (methodRec.narratives as MethodNarrative[]) : [];
+      const existingNarratives = Array.isArray(methodRec.narratives) ? (methodRec.narratives as Narrative[]) : [];
       setMethodNarratives(existingNarratives);
       const hasBaselineRef =
         !(methodRec.baselinePractice && typeof methodRec.baselinePractice === "object") &&
@@ -558,10 +550,9 @@ export function MethodBuilderClient() {
           description: descTrim,
           baselinePractice: nextBaseline.baseline,
         };
-        const hasTags = (methodTags.domainTags && methodTags.domainTags.length > 0) ||
-                        (methodTags.lifecycleTags && methodTags.lifecycleTags.length > 0) ||
-                        (methodTags.organizationalTags && methodTags.organizationalTags.length > 0);
-        if (hasTags) methodBody.tags = methodTags;
+        if (methodTags && Object.keys(methodTags).length > 0) {
+          methodBody.tags = methodTags;
+        }
         if (nextSlots.length) methodBody.practices = nextSlots.map((s) => s.practice);
         if (methodNarratives.length) methodBody.narratives = methodNarratives;
         const putRes = await fetch(`/api/documents/${encodeURIComponent(editingDocumentId)}`, {
@@ -766,10 +757,7 @@ export function MethodBuilderClient() {
       description,
       baselinePractice: baselineSlot.baseline,
     };
-    const hasTags = (methodTags.domainTags && methodTags.domainTags.length > 0) ||
-                    (methodTags.lifecycleTags && methodTags.lifecycleTags.length > 0) ||
-                    (methodTags.organizationalTags && methodTags.organizationalTags.length > 0);
-    if (hasTags) {
+    if (methodTags && Object.keys(methodTags).length > 0) {
       body.tags = methodTags;
     }
     if (practiceSlots.length) {
@@ -785,8 +773,7 @@ export function MethodBuilderClient() {
   const saveModalValid =
     Boolean(methodPayload) && methodName.trim().length > 0 && methodDescription.trim().length > 0;
 
-  async function submitSave(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function submitSave() {
     if (!methodPayload) {
       setSaveError("Method name and description are required.");
       return;
@@ -844,389 +831,460 @@ export function MethodBuilderClient() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
-      <div className="mx-auto max-w-content px-4 py-10 md:px-10">
+    <div style={{ minHeight: "100vh", padding: "24px" }}>
+      <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
+        <Title headingLevel="h1" size="2xl" style={{ marginBottom: 0 }} ouiaId="page-title">
+          Method Builder
+        </Title>
         {editingDocumentId ? (
-          <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[var(--muted)]">
-            <Link href="/library" className="font-medium text-[var(--accent)] underline-offset-4 hover:underline">
-              Library
-            </Link>
-          </p>
-        ) : null}
-        <h1 className={editingDocumentId ? "mt-2 text-3xl font-semibold tracking-tight" : "text-3xl font-semibold tracking-tight"}>Method builder</h1>
-        {editingDocumentId ? (
-          <p className="mt-3 rounded-lg border border-[var(--accent)]/30 bg-[var(--accent)]/10 px-3 py-2 text-sm text-[var(--text)]">
+          <Alert variant="info" isInline title="Editing saved method" style={{ marginTop: 16, marginBottom: 16 }} ouiaId="editing-method-alert">
             Editing a saved library method. Saving updates this entry. Clear the baseline to start a new method.
-          </p>
+          </Alert>
         ) : null}
         {loadEditBusy ? (
-          <p className="mt-3 text-sm text-[var(--muted)]">Loading method from library…</p>
+          <Alert variant="info" isInline title="Loading..." style={{ marginTop: 16, marginBottom: 16 }} ouiaId="loading-method-alert">
+            Loading method from library…
+          </Alert>
         ) : null}
         {loadEditError ? (
-          <p className="mt-3 rounded-lg border border-[var(--bad)]/40 bg-[var(--bad)]/10 px-3 py-2 text-sm text-[var(--bad)]">
+          <Alert variant="danger" isInline title="Error" style={{ marginTop: 16, marginBottom: 16 }} ouiaId="load-error-alert">
             {loadEditError}
-          </p>
+          </Alert>
         ) : null}
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted)]">
-          Drag a <strong className="text-[var(--text)]">baseline</strong> from the library into the baseline slot, then
-          drag <strong className="text-[var(--text)]">extension practices</strong> into the method. Enter the
-          method&apos;s name and description, then save. Dropping a <strong className="text-[var(--text)]">method</strong>{" "}
+        <p style={{ marginTop: 16, marginBottom: 24, maxWidth: "800px", fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>
+          Drag a <strong>baseline</strong> from the library into the baseline slot, then
+          drag <strong>extension practices</strong> into the method. Enter the
+          method&apos;s name and description, then save. Dropping a <strong>method</strong>{" "}
           loads its embedded baseline and all of that method&apos;s extension practices; dropping a standalone baseline
           keeps or re-links practices you already added. Extension practices are linked to the method baseline by name
           automatically. Open a method from the library to edit its current version here.
         </p>
 
-        <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-start">
+        <div style={{ marginTop: 24, display: "flex", flexDirection: "row", gap: 24, flexWrap: "wrap" }}>
           {/* Library */}
-          <aside className="w-full shrink-0 lg:w-72 xl:w-80">
-            <div className="flex items-center justify-between gap-2 border-b border-[var(--border)] pb-2">
-              <h2 className="text-sm font-semibold tracking-tight">Library</h2>
-              <button
-                type="button"
-                onClick={() => void loadLibrary()}
-                className="rounded-md border border-[var(--border)] px-2 py-1 text-2xs font-semibold text-[var(--muted)] hover:border-[var(--accent)] hover:text-[var(--text)]"
-              >
-                Refresh
-              </button>
-            </div>
-            <div className="mt-3 flex flex-wrap gap-1" role="tablist" aria-label="Library filter">
-              {(
-                [
-                  ["all", "All"],
-                  ["baseline", "Baselines"],
-                  ["practice", "Practices"],
-                ] as const
-              ).map(([id, label]) => (
-                <button
-                  key={id}
-                  type="button"
-                  role="tab"
-                  aria-selected={libTab === id}
-                  onClick={() => setLibTab(id)}
-                  className={`rounded-lg px-2.5 py-1 text-2xs font-semibold uppercase tracking-wide ${
-                    libTab === id
-                      ? "bg-[var(--accent)]/20 text-[var(--text)] ring-1 ring-[var(--accent)]/40"
-                      : "text-[var(--muted)] hover:text-[var(--text)]"
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-            {libLoading ? (
-              <p className="mt-4 text-xs text-[var(--muted)]">Loading…</p>
-            ) : libError ? (
-              <p className="mt-4 text-xs text-[var(--bad)]">{libError}</p>
-            ) : filteredLibrary.length === 0 ? (
-              <p className="mt-4 text-xs text-[var(--muted)]">No items match this filter.</p>
-            ) : (
-              <ul className="mt-3 max-h-[min(70vh,32rem)] space-y-1 overflow-y-auto rounded-xl border border-[var(--border)] bg-[var(--panel)] p-2">
-                {filteredLibrary.map((row) => (
-                  <LibraryDraggableRow key={row.id} row={row} />
-                ))}
-              </ul>
-            )}
+          <aside style={{
+            width: "320px",
+            flexShrink: 0,
+            position: "sticky",
+            top: 24,
+            alignSelf: "flex-start",
+            maxHeight: "calc(100vh - 48px)",
+          }}>
+            <Card ouiaId="library-card" style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+              <CardBody style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                  <Title headingLevel="h2" size="lg" ouiaId="library-title">Library</Title>
+                  <Button variant="secondary" icon={<SyncIcon />} onClick={() => void loadLibrary()} ouiaId="library-refresh-button">
+                    Refresh
+                  </Button>
+                </div>
+                <div style={{ display: "flex", gap: 8, marginBottom: 16 }} role="tablist" aria-label="Library filter">
+                  {(
+                    [
+                      ["all", "All"],
+                      ["baseline", "Baselines"],
+                      ["practice", "Practices"],
+                    ] as const
+                  ).map(([id, label]) => (
+                    <Button
+                      key={id}
+                      variant={libTab === id ? "primary" : "secondary"}
+                      onClick={() => setLibTab(id)}
+                      size="sm"
+                      ouiaId={`library-filter-${id}`}
+                    >
+                      {label}
+                    </Button>
+                  ))}
+                </div>
+                {libLoading ? (
+                  <p style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>Loading…</p>
+                ) : libError ? (
+                  <Alert variant="danger" isInline title="Error" style={{ marginTop: 8 }} ouiaId="library-error-alert">
+                    {libError}
+                  </Alert>
+                ) : filteredLibrary.length === 0 ? (
+                  <p style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)", fontStyle: "italic" }}>
+                    No items match this filter.
+                  </p>
+                ) : (
+                  <div style={{ flex: 1, overflowY: "auto", minHeight: 0 }}>
+                    {filteredLibrary.map((row) => (
+                      <LibraryDraggableRow key={row.id} row={row} />
+                    ))}
+                  </div>
+                )}
+              </CardBody>
+            </Card>
           </aside>
 
           {/* Composition */}
-          <div className="min-w-0 flex-1 space-y-6">
-            <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-4 sm:p-5">
-              <h2 className="text-sm font-semibold text-[var(--text)]">Method details</h2>
-              <p className="mt-1 text-2xs text-[var(--muted)]">
-                <span className="text-[var(--bad)]">*</span> Required for a valid Method document.
-              </p>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <label className="block sm:col-span-1">
-                  <span className="text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">
-                    Method name <span className="text-[var(--bad)]">*</span>
-                  </span>
-                  <input
-                    value={methodName}
-                    onChange={(e) => setMethodName(e.target.value)}
-                    placeholder="e.g. Platform adoption method"
-                    className="mt-1.5 w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/25"
-                  />
-                </label>
-                <label className="block sm:col-span-2">
-                  <span className="text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">
-                    Method description <span className="text-[var(--bad)]">*</span>
-                  </span>
-                  <textarea
-                    value={methodDescription}
-                    onChange={(e) => setMethodDescription(e.target.value)}
-                    placeholder="Short prose describing this method bundle."
-                    rows={3}
-                    className="mt-1.5 w-full resize-y rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/25"
-                  />
-                </label>
-              </div>
-            </section>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16, flex: 1, minWidth: 0 }}>
+            <PropertyTable title="Method Details">
+              <PropertyRow label="Name" required>
+                <InlineTextField
+                  value={methodName}
+                  onChange={setMethodName}
+                  placeholder="e.g. Platform adoption method"
+                />
+              </PropertyRow>
+              <PropertyRow label="Description" required>
+                <InlineTextArea
+                  value={methodDescription}
+                  onChange={setMethodDescription}
+                  placeholder="Short prose describing this method bundle."
+                />
+              </PropertyRow>
+            </PropertyTable>
 
             {/* Tags Section */}
-            <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-4 sm:p-5">
-              <h2 className="text-sm font-semibold text-[var(--text)]">Method Tags</h2>
-              <p className="mt-1 text-2xs text-[var(--muted)]">
-                Categorize this method with domain, lifecycle, and organizational tags.
-              </p>
-              <div className="mt-4">
-                <MethodTagsField value={methodTags} onChange={setMethodTags} />
-              </div>
-            </section>
+            <PropertyTable title="Method Tags">
+              <PropertyRow label="Domain Tags" description="One per line">
+                <InlineTextArea
+                  value={practiceTagsBucketLines(methodTags).domain}
+                  onChange={(val) => {
+                    const cur = practiceTagsBucketLines(methodTags);
+                    const tags = practiceTagsFromBucketLines(val, cur.lifecycle, cur.organizational);
+                    setMethodTags(tags ?? {});
+                  }}
+                  placeholder="e.g., Software&#10;Cloud&#10;Platform"
+                />
+              </PropertyRow>
+              <PropertyRow label="Lifecycle Tags" description="One per line">
+                <InlineTextArea
+                  value={practiceTagsBucketLines(methodTags).lifecycle}
+                  onChange={(val) => {
+                    const cur = practiceTagsBucketLines(methodTags);
+                    const tags = practiceTagsFromBucketLines(cur.domain, val, cur.organizational);
+                    setMethodTags(tags ?? {});
+                  }}
+                  placeholder="e.g., Active&#10;Deprecated&#10;Experimental"
+                />
+              </PropertyRow>
+              <PropertyRow label="Organizational Tags" description="One per line">
+                <InlineTextArea
+                  value={practiceTagsBucketLines(methodTags).organizational}
+                  onChange={(val) => {
+                    const cur = practiceTagsBucketLines(methodTags);
+                    const tags = practiceTagsFromBucketLines(cur.domain, cur.lifecycle, val);
+                    setMethodTags(tags ?? {});
+                  }}
+                  placeholder="e.g., Enterprise&#10;Team&#10;Individual"
+                />
+              </PropertyRow>
+            </PropertyTable>
 
             {/* Narratives Section */}
-            <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-4 sm:p-5">
-              <h2 className="text-sm font-semibold text-[var(--text)]">Method Narratives</h2>
-              <p className="mt-1 text-2xs text-[var(--muted)]">
-                Define narratives (user stories, use cases, scenarios) that describe how this method is applied.
-              </p>
-              <div className="mt-4">
-                <MethodNarrativesField value={methodNarratives} onChange={setMethodNarratives} />
-              </div>
-            </section>
+            <NarrativesField
+              value={methodNarratives}
+              onChange={setMethodNarratives}
+              fieldPath="methodNarratives"
+            />
 
             {composeError ? (
-              <p className="rounded-lg border border-[var(--bad)]/40 bg-[var(--bad)]/10 px-3 py-2 text-xs text-[var(--bad)]">
+              <Alert variant="danger" isInline title="Error" ouiaId="compose-error-alert">
                 {composeError}
-              </p>
+              </Alert>
             ) : null}
             {refreshNote ? (
-              <p className="rounded-lg border border-[var(--accent)]/30 bg-[var(--accent)]/10 px-3 py-2 text-xs text-[var(--text)]">
+              <Alert variant="info" isInline title="Success" ouiaId="refresh-note-alert">
                 {refreshNote}
-              </p>
+              </Alert>
             ) : null}
 
-            <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-4 sm:p-5">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h2 className="text-sm font-semibold text-[var(--text)]">
-                  Baseline practice <span className="text-[var(--bad)]">*</span>
-                </h2>
-                {baselineSlot ? (
-                  <button
-                    type="button"
-                    onClick={clearBaseline}
-                    className="text-2xs font-semibold text-[var(--muted)] underline-offset-2 hover:text-[var(--bad)] hover:underline"
-                  >
-                    Clear baseline &amp; practices
-                  </button>
-                ) : null}
-              </div>
-              <div
-                role="region"
-                aria-label="Drop baseline practice here"
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  setBaselineDropHover(true);
-                }}
-                onDragLeave={() => setBaselineDropHover(false)}
-                onDrop={handleDropBaseline}
-                className={`mt-3 min-h-[120px] rounded-xl border-2 border-dashed px-4 py-6 transition ${
-                  baselineDropHover
-                    ? "border-[var(--accent)] bg-[var(--accent)]/10"
-                    : "border-[var(--border)] bg-[var(--bg)]/40"
-                }`}
-              >
-                {baselineSlot ? (
-                  <div>
-                    <p className="font-medium text-[var(--text)]">{baselineSlot.baseline.name}</p>
-                    <p className="mt-1 line-clamp-3 text-xs text-[var(--muted)]">{baselineSlot.baseline.description}</p>
-                    <p className="mt-2 font-mono text-2xs text-[var(--muted)]">
-                      {baselineSlot.baseline.focuses?.length ?? 0} focuses · {baselineSlot.baseline.alphas?.length ?? 0}{" "}
-                      alphas
-                    </p>
-                  </div>
-                ) : (
-                  <p className="text-center text-sm text-[var(--muted)]">
-                    Drag a <strong className="text-[var(--text)]">baseline</strong> or{" "}
-                    <strong className="text-[var(--text)]">method</strong> document here.
-                  </p>
-                )}
-              </div>
-            </section>
-
-            <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-4 sm:p-5">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h2 className="text-sm font-semibold text-[var(--text)]">Extension practices</h2>
-                <button
-                  type="button"
-                  disabled={!baselineSlot || loadEditBusy || refreshBusy || libLoading}
-                  onClick={() => void refreshCompositionFromLibrary()}
-                  className="shrink-0 rounded-md border border-[var(--border)] px-3 py-1.5 text-2xs font-semibold uppercase tracking-wide text-[var(--muted)] hover:border-[var(--accent)] hover:text-[var(--text)] disabled:cursor-not-allowed disabled:opacity-50"
+            <Card ouiaId="baseline-card">
+              <CardBody>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                  <Title headingLevel="h2" size="lg" ouiaId="baseline-title">
+                    Baseline Practice <span style={{ color: "var(--pf-v6-global--danger-color--100)" }}>*</span>
+                  </Title>
+                  {baselineSlot ? (
+                    <Button variant="link" isDanger onClick={clearBaseline} ouiaId="clear-baseline-button">
+                      Clear baseline &amp; practices
+                    </Button>
+                  ) : null}
+                </div>
+                <div
+                  role="region"
+                  aria-label="Drop baseline practice here"
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    setBaselineDropHover(true);
+                  }}
+                  onDragLeave={() => setBaselineDropHover(false)}
+                  onDrop={handleDropBaseline}
+                  style={{
+                    minHeight: 120,
+                    padding: 24,
+                    border: baselineDropHover ? "2px dashed var(--pf-v6-global--primary-color--100)" : "2px dashed var(--pf-v6-global--BorderColor--100)",
+                    backgroundColor: baselineDropHover ? "var(--pf-v6-global--BackgroundColor--200)" : "var(--pf-v6-global--BackgroundColor--100)",
+                    borderRadius: 8,
+                    transition: "all 0.2s",
+                  }}
                 >
-                  {refreshBusy ? "Refreshing…" : "Refresh from library"}
-                </button>
-              </div>
-              <p className="mt-1 text-2xs text-[var(--muted)]">
-                Optional Practice-shaped entries. Refresh pulls the latest baseline and practices from the library
-                (direct links by document id; otherwise matches by symbolic JSON{" "}
-                <code className="text-[var(--text)]">name</code>, preferring the most recently updated library entry
-                when several share a name). When you have a saved library method open, refresh also saves the method so
-                Browse shows the merged content.
-              </p>
-              <div
-                role="region"
-                aria-label="Drop extension practices or a method here"
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  setPracticeDropHover(true);
-                }}
-                onDragLeave={() => setPracticeDropHover(false)}
-                onDrop={handleDropPractice}
-                className={`mt-3 min-h-[100px] rounded-xl border-2 border-dashed px-4 py-4 transition ${
-                  practiceDropHover
-                    ? "border-[var(--accent)] bg-[var(--accent)]/10"
-                    : "border-[var(--border)] bg-[var(--bg)]/40"
-                }`}
-              >
-                {practiceSlots.length === 0 ? (
-                  <p className="text-center text-sm text-[var(--muted)]">
-                    {baselineSlot
-                      ? "Drag extension practice rows or an entire method; named references load from the library. Duplicates are skipped."
-                      : "Set a baseline first."}
-                  </p>
-                ) : (
-                  <ul className="space-y-2">
-                    {practiceSlots.map((s) => (
-                      <li
-                        key={s.libraryId}
-                        className="flex items-start justify-between gap-2 rounded-lg border border-[var(--border)] bg-[var(--bg)]/50 px-3 py-2"
-                      >
-                        <div className="min-w-0">
-                          <p className="truncate font-medium text-[var(--text)]">{s.practice.name}</p>
-                          <p className="font-mono text-2xs text-[var(--muted)]">
-                            baselinePracticeName → {s.practice.baselinePracticeName}
-                          </p>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => removePractice(s.libraryId)}
-                          className="shrink-0 rounded-md border border-[var(--border)] px-2 py-1 text-2xs font-semibold text-[var(--muted)] hover:border-[var(--bad)] hover:text-[var(--bad)]"
-                        >
-                          Remove
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </section>
+                  {baselineSlot ? (
+                    <div>
+                      <div style={{ fontWeight: 600, fontSize: "1rem", marginBottom: 8 }}>
+                        {baselineSlot.baseline.name}
+                      </div>
+                      <div style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)", marginBottom: 8 }}>
+                        {baselineSlot.baseline.description}
+                      </div>
+                      <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", fontFamily: "monospace" }}>
+                        {baselineSlot.baseline.focuses?.length ?? 0} focuses · {baselineSlot.baseline.alphas?.length ?? 0}{" "}
+                        alphas
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ textAlign: "center", fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>
+                      Drag a <strong>baseline</strong> or{" "}
+                      <strong>method</strong> document here.
+                    </div>
+                  )}
+                </div>
+              </CardBody>
+            </Card>
 
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                disabled={!canOpenSave}
+            <Card ouiaId="extension-practices-card">
+              <CardBody>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                  <Title headingLevel="h2" size="lg" ouiaId="extension-practices-title">
+                    Extension Practices
+                  </Title>
+                  <Button
+                    variant="secondary"
+                    icon={<SyncIcon />}
+                    isDisabled={!baselineSlot || loadEditBusy || refreshBusy || libLoading}
+                    onClick={() => void refreshCompositionFromLibrary()}
+                    ouiaId="refresh-practices-button"
+                  >
+                    {refreshBusy ? "Refreshing…" : "Refresh from library"}
+                  </Button>
+                </div>
+                <p style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginBottom: 16 }}>
+                  Optional Practice-shaped entries. Refresh pulls the latest baseline and practices from the library
+                  (direct links by document id; otherwise matches by symbolic JSON{" "}
+                  <code>name</code>, preferring the most recently updated library entry
+                  when several share a name). When you have a saved library method open, refresh also saves the method so
+                  Browse shows the merged content.
+                </p>
+                <div
+                  role="region"
+                  aria-label="Drop extension practices or a method here"
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    setPracticeDropHover(true);
+                  }}
+                  onDragLeave={() => setPracticeDropHover(false)}
+                  onDrop={handleDropPractice}
+                  style={{
+                    minHeight: 100,
+                    padding: 16,
+                    border: practiceDropHover ? "2px dashed var(--pf-v6-global--primary-color--100)" : "2px dashed var(--pf-v6-global--BorderColor--100)",
+                    backgroundColor: practiceDropHover ? "var(--pf-v6-global--BackgroundColor--200)" : "var(--pf-v6-global--BackgroundColor--100)",
+                    borderRadius: 8,
+                    transition: "all 0.2s",
+                  }}
+                >
+                  {practiceSlots.length === 0 ? (
+                    <div style={{ textAlign: "center", fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>
+                      {baselineSlot
+                        ? "Drag extension practice rows or an entire method; named references load from the library. Duplicates are skipped."
+                        : "Set a baseline first."}
+                    </div>
+                  ) : (
+                    <div style={{ display: "grid", gap: 8 }}>
+                      {practiceSlots.map((s, idx) => (
+                        <div
+                          key={s.libraryId}
+                          draggable
+                          onDragStart={(e) => {
+                            e.dataTransfer.effectAllowed = "move";
+                            e.dataTransfer.setData("text/plain", String(idx));
+                          }}
+                          onDragOver={(e) => {
+                            // Check if this is a library drop (has our custom MIME type) or a reorder
+                            const isLibraryDrop = e.dataTransfer.types.includes(DRAG_MIME);
+
+                            if (!isLibraryDrop) {
+                              // This is a reorder operation
+                              e.preventDefault();
+                              e.dataTransfer.dropEffect = "move";
+                            }
+                            // For library drops, don't preventDefault so parent can handle it
+                          }}
+                          onDrop={(e) => {
+                            // Check if this is a library drop or a reorder
+                            const isLibraryDrop = e.dataTransfer.types.includes(DRAG_MIME);
+
+                            if (!isLibraryDrop) {
+                              // This is a reorder operation
+                              e.preventDefault();
+                              e.stopPropagation();
+                              const reorderData = e.dataTransfer.getData("text/plain");
+                              const fromIndex = parseInt(reorderData, 10);
+                              if (!isNaN(fromIndex) && fromIndex !== idx) {
+                                const newSlots = [...practiceSlots];
+                                const [moved] = newSlots.splice(fromIndex, 1);
+                                newSlots.splice(idx, 0, moved!);
+                                setPracticeSlots(newSlots);
+                              }
+                            }
+                            // For library drops, let the event bubble up to the parent drop zone
+                          }}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            gap: 12,
+                            padding: 12,
+                            border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                            borderRadius: 8,
+                            backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                            cursor: "move",
+                          }}
+                        >
+                          <div style={{ display: "flex", alignItems: "center", gap: 8, flex: 1, minWidth: 0 }}>
+                            <GripVerticalIcon style={{ color: "var(--pf-v6-global--Color--200)", flexShrink: 0 }} />
+                            <div style={{ minWidth: 0, flex: 1 }}>
+                              <div style={{ fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
+                                {s.practice.name}
+                              </div>
+                              <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", fontFamily: "monospace" }}>
+                                baselinePracticeName → {s.practice.baselinePracticeName}
+                              </div>
+                            </div>
+                          </div>
+                          <Button
+                            variant="plain"
+                            isDanger
+                            icon={<TrashIcon />}
+                            onClick={() => removePractice(s.libraryId)}
+                            aria-label="Remove practice"
+                            ouiaId={`remove-practice-${idx}`}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </CardBody>
+            </Card>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <Button
+                variant="primary"
+                isDisabled={!canOpenSave}
                 onClick={() => {
                   setSaveError(null);
                   setSaveOpen(true);
                 }}
-                className="rounded-lg border border-[var(--accent)] bg-[var(--accent)]/90 px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-40"
+                ouiaId="review-save-button"
               >
                 Review &amp; save…
-              </button>
+              </Button>
               {!canOpenSave ? (
-                <span className="self-center text-xs text-[var(--muted)]">Add a baseline to enable saving.</span>
+                <span style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>
+                  Add a baseline to enable saving.
+                </span>
               ) : !methodName.trim() || !methodDescription.trim() ? (
-                <span className="self-center text-xs text-[var(--muted)]">Fill method name and description before saving.</span>
+                <span style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>
+                  Fill method name and description before saving.
+                </span>
               ) : null}
             </div>
           </div>
         </div>
       </div>
 
-      {saveOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-          <button
-            type="button"
-            aria-label="Close"
-            className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"
-            onClick={() => !saveBusy && setSaveOpen(false)}
-          />
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="method-save-title"
-            className="relative z-10 w-full max-w-md rounded-2xl border border-[var(--border)] bg-[var(--panel)] p-5 shadow-xl"
-          >
-            <h2 id="method-save-title" className="text-lg font-semibold text-[var(--text)]">
+      {saveOpen && (
+        <div style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 9999,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        }}>
+          <div style={{
+            backgroundColor: "white",
+            padding: 24,
+            borderRadius: 8,
+            maxWidth: 600,
+            width: "100%",
+            margin: 16,
+          }}>
+            <Title headingLevel="h2" size="xl" style={{ marginBottom: 16 }} ouiaId="save-modal-title">
               {editingDocumentId ? "Update method in library" : "Save method to library"}
-            </h2>
-            <p className="mt-2 text-xs leading-relaxed text-[var(--muted)]">
-              {editingDocumentId
-                ? "Confirm the Method fields below. Saving replaces the existing library document with this version."
-                : "Confirm the required Method fields. The stored document uses your method name as the library title and embeds the baseline plus any extension practices."}
+            </Title>
+        <p style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)", marginBottom: 16 }}>
+          {editingDocumentId
+            ? "Confirm the Method fields below. Saving replaces the existing library document with this version."
+            : "Confirm the required Method fields. The stored document uses your method name as the library title and embeds the baseline plus any extension practices."}
+        </p>
+        <div style={{ display: "grid", gap: 16 }}>
+          <div style={{
+            padding: 12,
+            border: "1px solid var(--pf-v6-global--BorderColor--100)",
+            borderRadius: 8,
+            backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+            fontSize: "0.875rem"
+          }}>
+            <p>
+              <span style={{ fontWeight: 600 }}>Name:</span>{" "}
+              {methodName || "—"}
             </p>
-            <form className="mt-4 space-y-3" onSubmit={(e) => void submitSave(e)}>
-              <label className="block">
-                <span className="text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">
-                  Method name <span className="text-[var(--bad)]">*</span>
-                </span>
-                <input
-                  value={methodName}
-                  onChange={(e) => setMethodName(e.target.value)}
-                  required
-                  className="mt-1 w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/25"
-                />
-              </label>
-              <label className="block">
-                <span className="text-2xs font-semibold uppercase tracking-wide text-[var(--muted)]">
-                  Method description <span className="text-[var(--bad)]">*</span>
-                </span>
-                <textarea
-                  value={methodDescription}
-                  onChange={(e) => setMethodDescription(e.target.value)}
-                  required
-                  rows={3}
-                  className="mt-1 w-full resize-y rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/25"
-                />
-              </label>
-              <div className="rounded-lg border border-[var(--border)] bg-[var(--bg)]/40 px-3 py-2 text-xs text-[var(--muted)]">
-                <p>
-                  <span className="font-semibold text-[var(--text)]">Baseline:</span>{" "}
-                  {baselineSlot ? baselineSlot.baseline.name : "—"}
-                </p>
-                <p className="mt-1">
-                  <span className="font-semibold text-[var(--text)]">Extensions:</span> {practiceSlots.length} practice
-                  {practiceSlots.length === 1 ? "" : "s"}
-                </p>
-                {((methodTags.domainTags && methodTags.domainTags.length > 0) ||
-                  (methodTags.lifecycleTags && methodTags.lifecycleTags.length > 0) ||
-                  (methodTags.organizationalTags && methodTags.organizationalTags.length > 0)) ? (
-                  <p className="mt-1">
-                    <span className="font-semibold text-[var(--text)]">Tags:</span>{" "}
-                    {[
-                      ...(methodTags.domainTags ?? []),
-                      ...(methodTags.lifecycleTags ?? []),
-                      ...(methodTags.organizationalTags ?? [])
-                    ].length} defined
-                  </p>
-                ) : null}
-                {methodNarratives.length > 0 ? (
-                  <p className="mt-1">
-                    <span className="font-semibold text-[var(--text)]">Narratives:</span> {methodNarratives.length} defined
-                  </p>
-                ) : null}
-              </div>
-              {saveError ? <p className="text-xs text-[var(--bad)]">{saveError}</p> : null}
-              <div className="flex flex-wrap justify-end gap-2 pt-2">
-                <button
-                  type="button"
-                  disabled={saveBusy}
-                  onClick={() => setSaveOpen(false)}
-                  className="rounded-lg border border-[var(--border)] px-4 py-2 text-sm font-semibold text-[var(--text)] hover:border-[var(--accent)]/50 disabled:opacity-50"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={saveBusy || !saveModalValid}
-                  className="rounded-lg border border-[var(--accent)] bg-[var(--accent)]/90 px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {saveBusy ? "Saving…" : editingDocumentId ? "Update in library" : "Save to library"}
-                </button>
-              </div>
-            </form>
+            <p style={{ marginTop: 8 }}>
+              <span style={{ fontWeight: 600 }}>Description:</span>{" "}
+              {methodDescription || "—"}
+            </p>
+            <p style={{ marginTop: 8 }}>
+              <span style={{ fontWeight: 600 }}>Baseline:</span>{" "}
+              {baselineSlot ? baselineSlot.baseline.name : "—"}
+            </p>
+            <p style={{ marginTop: 8 }}>
+              <span style={{ fontWeight: 600 }}>Extensions:</span> {practiceSlots.length} practice
+              {practiceSlots.length === 1 ? "" : "s"}
+            </p>
+            {methodTags && Object.keys(methodTags).length > 0 ? (
+              <p style={{ marginTop: 8 }}>
+                <span style={{ fontWeight: 600 }}>Tags:</span> defined
+              </p>
+            ) : null}
+            {methodNarratives.length > 0 ? (
+              <p style={{ marginTop: 8 }}>
+                <span style={{ fontWeight: 600 }}>Narratives:</span> {methodNarratives.length} defined
+              </p>
+            ) : null}
+          </div>
+          {saveError ? (
+            <Alert variant="danger" isInline title="Error" ouiaId="save-error-alert">
+              {saveError}
+            </Alert>
+          ) : null}
+          <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 16 }}>
+            <Button
+              variant="link"
+              onClick={() => setSaveOpen(false)}
+              isDisabled={saveBusy}
+              ouiaId="save-modal-cancel-button"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => void submitSave()}
+              isDisabled={saveBusy || !saveModalValid}
+              ouiaId="save-modal-submit-button"
+            >
+              {saveBusy ? "Saving…" : editingDocumentId ? "Update in library" : "Save to library"}
+            </Button>
           </div>
         </div>
-      ) : null}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1248,22 +1306,49 @@ function LibraryDraggableRow({ row }: { row: LibraryRow }) {
   }
 
   return (
-    <li className="flex items-center gap-2 rounded-lg border border-transparent bg-[var(--bg)]/30 px-2 py-2 hover:border-[var(--border)]">
-      <div
-        draggable
-        onDragStart={onDragStart}
-        className="cursor-grab select-none rounded border border-[var(--border)] bg-[var(--panel)] px-1.5 py-1 font-mono text-xs text-[var(--muted)] active:cursor-grabbing"
-        title="Drag into baseline or extensions"
-        aria-grabbed="false"
-      >
-        ⋮⋮
+    <div
+      draggable
+      onDragStart={onDragStart}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        padding: 8,
+        marginBottom: 4,
+        border: "1px solid transparent",
+        borderRadius: 8,
+        backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+        cursor: "grab",
+        transition: "all 0.2s",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "var(--pf-v6-global--BorderColor--100)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "transparent";
+      }}
+      title="Drag into baseline or extensions"
+      aria-grabbed="false"
+    >
+      <div style={{
+        padding: "4px 6px",
+        border: "1px solid var(--pf-v6-global--BorderColor--100)",
+        borderRadius: 4,
+        fontSize: "0.75rem",
+        color: "var(--pf-v6-global--Color--200)",
+        fontFamily: "monospace",
+        userSelect: "none",
+      }}>
+        <GripVerticalIcon />
       </div>
-      <div className="min-w-0 flex-1">
-        <p className="truncate text-xs font-medium text-[var(--text)]">{row.displayName}</p>
-        <p className="mt-0.5 font-mono text-2xs text-[var(--muted)]">
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: "0.875rem", fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+          {row.displayName}
+        </div>
+        <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", fontFamily: "monospace", marginTop: 2 }}>
           .{ext} · {hint}
-        </p>
+        </div>
       </div>
-    </li>
+    </div>
   );
 }

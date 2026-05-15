@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Title, Card, CardBody, Label } from "@patternfly/react-core";
+import { Title, Card, CardBody } from "@patternfly/react-core";
 
 const areas = [
   {
@@ -48,7 +48,7 @@ export default function DashboardPage() {
           <p className="text-2xs font-semibold uppercase tracking-wider text-[var(--muted)]">
             Adoption framework
           </p>
-          <Title headingLevel="h1" size="3xl" style={{
+          <Title headingLevel="h1" size="3xl" ouiaId="dashboard-title" style={{
             marginTop: '0.75rem',
             color: 'var(--text)',
             fontWeight: 600,
@@ -69,6 +69,7 @@ export default function DashboardPage() {
               isClickable
               component="a"
               href={a.href}
+              ouiaId={`card-${a.href.replace(/\//g, '-')}`}
               style={{
                 height: '100%',
                 borderRadius: '1.25rem',
@@ -79,24 +80,20 @@ export default function DashboardPage() {
               className="group"
             >
               <CardBody style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
-                <Label
-                  color="blue"
-                  style={{
-                    fontSize: '0.6875rem',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    color: 'var(--accent)',
-                    backgroundColor: 'transparent',
-                    padding: 0,
-                    marginBottom: '0.75rem',
-                  }}
-                >
+                <div style={{
+                  fontSize: '0.6875rem',
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  color: 'var(--accent)',
+                  marginBottom: '0.75rem',
+                }}>
                   {a.badge}
-                </Label>
+                </div>
                 <Title
                   headingLevel="h2"
                   size="xl"
+                  ouiaId={`title-${a.href.replace(/\//g, '-')}`}
                   style={{
                     color: 'var(--text)',
                     fontWeight: 600,

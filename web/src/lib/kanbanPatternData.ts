@@ -98,6 +98,10 @@ export function extractKanbanPatternData(
         .join(" ");
     }
 
+    // Track added cards to prevent duplicates
+    const addedWorkProductIds = new Set<string>();
+    const addedActivityIds = new Set<string>();
+
     // 1. Extract alpha states
     for (const alphaStateRef of pv.alphaStates ?? []) {
       const parsed = parsePatternViewAlphaState(alphaStateRef);
@@ -170,11 +174,7 @@ export function extractKanbanPatternData(
       ...(pv.activities ?? []),
     ];
 
-    const addedActivityIds = new Set<string>();
-
     // Helper to add work product card
-    const addedWorkProductIds = new Set<string>();
-
     const addWorkProductCard = (wpName: string, levelName: string, inferred = false) => {
       const cardId = `workProduct:${wpName}@${levelName}`;
 

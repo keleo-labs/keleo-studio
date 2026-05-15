@@ -474,7 +474,9 @@ function PracticeAuthorPageInner() {
   if (!mounted) {
     return (
       <PageSection>
-        <Content component={ContentVariants.p}>Loading editor...</Content>
+        <div style={{ padding: '24px', textAlign: 'center', color: '#6a6e73' }}>
+          Loading editor...
+        </div>
       </PageSection>
     );
   }

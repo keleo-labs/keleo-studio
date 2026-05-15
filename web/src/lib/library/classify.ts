@@ -43,6 +43,10 @@ export function classifyLibraryRoot(body: unknown): LibraryRootKind {
     return "method";
   }
 
+  // Check for extension practice FIRST (baselinePracticeName is a strong indicator)
+  // Extension practices can define their own alphas/focuses to add or override baseline elements
+  if (typeof o.baselinePracticeName === "string" && String(o.baselinePracticeName).trim()) return "practice";
+
   const alphaList = Array.isArray(o.alphas) ? o.alphas : [];
   const focusList = Array.isArray(o.focuses) ? o.focuses : [];
   const hasKernelSlices = alphaList.length > 0 && focusList.length > 0;
@@ -51,7 +55,6 @@ export function classifyLibraryRoot(body: unknown): LibraryRootKind {
     return "baselinePractice";
   }
 
-  if (typeof o.baselinePracticeName === "string" && String(o.baselinePracticeName).trim()) return "practice";
   if (Array.isArray(o.alphas) && Array.isArray(o.focuses)) return "baselinePractice";
   return "unknown";
 }
