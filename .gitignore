@@ -26,6 +26,8 @@ lerna-debug.log*
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+.pnpm-store/
+.pnpm/
 
 # Tool / framework caches
 .cache/
@@ -33,10 +35,14 @@ lerna-debug.log*
 .turbo/
 .eslintcache
 .stylelintcache
+.swc/
+*.cache
 
 # Test / coverage
 coverage/
 .nyc_output/
+.jest/
+.vitest/
 
 # Playwright (if tests or reports are generated under the repo)
 playwright-report/
@@ -57,6 +63,11 @@ Desktop.ini
 *~
 *.bak
 *.orig
+
+# IDE directories (contain caches and machine-specific settings)
+.vscode/
+.idea/
+*.iml
 
 # Transient dirs & scratch files
 tmp/
