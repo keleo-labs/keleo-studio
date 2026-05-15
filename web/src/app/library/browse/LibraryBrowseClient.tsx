@@ -206,19 +206,7 @@ export function LibraryBrowseClient() {
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <div className="mx-auto max-w-content px-4 py-10 md:px-10">
-        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[var(--muted)]">
-          <Link href="/library" className="font-medium text-[var(--accent)] underline-offset-4 hover:underline">
-            ← Manage library
-          </Link>
-          <span aria-hidden className="text-[var(--border)]">
-            ·
-          </span>
-          <Link href="/" className="font-medium text-[var(--accent)] underline-offset-4 hover:underline">
-            Dashboard
-          </Link>
-        </p>
-
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <h1 className="text-3xl font-semibold tracking-tight">Browse</h1>
           {!loading && !error && body && typeof body === "object" && browseDoc != null ? (
             <button

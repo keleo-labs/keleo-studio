@@ -443,6 +443,16 @@ Required Capabilities:
 
 Team Involvement:
 This activity is typically performed by the **PersonaGroup Name** team.
+
+How to Perform This Activity:
+
+**[Technique/Approach Title]**
+
+[Narrative paragraphs describing techniques, approaches, methods, best practices]
+
+**[Another Technique Title]**
+
+[More narrative paragraphs]
 ```
 
 Extract to:
@@ -465,7 +475,55 @@ Extract to:
     { "competencyName": "Competency Name", "competencyLevelName": "Level Name" },
     { "competencyName": "Competency Name", "competencyLevelName": "Level Name" }
   ],
-  "involves": ["PersonaGroup Name"]
+  "involves": ["PersonaGroup Name"],
+  "narratives": [
+    {
+      "name": "Technique/Approach Title",
+      "description": "Brief description of what this narrative covers",
+      "narrativeName": "Technique/Approach Title",
+      "narrativeTypeName": "Lifecycle",  // Or appropriate type based on content structure
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Step 1",  // Or appropriate element from narrative type
+          "context": "First paragraph of guidance"
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Step 2",
+          "context": "Second paragraph of guidance"
+        }
+      ]
+    },
+    {
+      "name": "Another Technique Title",
+      "description": "Brief description",
+      "narrativeName": "Another Technique Title",
+      "narrativeTypeName": "The STAR Format",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Situation",
+          "context": "Context paragraph"
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Task",
+          "context": "Task paragraph"
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Action",
+          "context": "Action paragraph"
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Result",
+          "context": "Result paragraph"
+        }
+      ]
+    }
+  ]
 }
 ```
 
@@ -495,6 +553,92 @@ Activity names must be **specific** and **different from their ActivitySpace nam
 - "[Verb] [Specific Subject]": "Design Network Topology", "Implement CI/CD Pipeline"
 - "[Verb] [Subject] [Qualifier]": "Monitor Platform Health Metrics", "Define Service Catalog Offerings"
 - Never use just the ActivitySpace name verbatim
+
+**Extracting Activity Narratives:**
+
+The "How to Perform This Activity" section in the report contains rich guidance on techniques, approaches, and methods. Extract each technique as a separate narrative:
+
+1. **Identify narrative sections:**
+   - Each sub-heading under "How to Perform This Activity" becomes a narrative
+   - The sub-heading text becomes the narrative name
+   - Extract all paragraphs under that heading as narrative contexts
+
+2. **Determine narrative type from content structure:**
+   - **Step-by-step instructions** (Begin with..., Next..., Then..., Finally...) → "Lifecycle"
+   - **Problem-solution pattern** (struggle/challenge, must/need to, approach/solution, results) → "The STAR Format"
+   - **Best practices essay** (introduction, concepts, evidence, conclusion) → "Essay Narrative"
+   - **User perspective** (As a..., I want..., So that...) → "User story"
+   - **Worked example** (context, action, outcome) → "Micro-Narratives (ABT)"
+
+3. **Map paragraphs to narrative elements:**
+   - For **Lifecycle**: Sequential steps (Step 1, Step 2, etc. OR Prerequisites, Phase 1, Phase 2, etc.)
+   - For **STAR Format**: Situation, Task, Action, Result
+   - For **Essay Narrative**: Introduction, Body Paragraphs (Concept 1, Concept 2, etc.), Conclusion
+   - For **User story**: Role, Goal, Benefit
+   - For **ABT**: And (context), But (challenge), Therefore (solution)
+
+4. **Example extraction:**
+
+   Report text:
+   ```
+   **How to Perform This Activity:**
+   
+   **Establishing Effective Guardrails Without Blocking Innovation**
+   
+   Many organizations struggle with balancing governance and developer autonomy, leading to either security gaps or developer frustration with overly restrictive controls.
+   
+   Platform teams must implement guardrails that enforce security and compliance requirements while enabling self-service innovation.
+   
+   Start with policy-as-code frameworks like OPA or Sentinel to codify security requirements. Implement automated validation in deployment pipelines rather than manual approval gates. Provide clear error messages that guide developers toward compliant solutions. Create "paved paths" that satisfy all guardrails by default.
+   
+   This approach reduces security incidents while improving deployment velocity, as developers can self-service within safe boundaries.
+   ```
+
+   Extract to:
+   ```json
+   {
+     "narratives": [
+       {
+         "name": "Establishing Effective Guardrails Without Blocking Innovation",
+         "description": "Technique for balancing security governance with developer autonomy using policy-as-code and automated validation",
+         "narrativeName": "Establishing Effective Guardrails Without Blocking Innovation",
+         "narrativeTypeName": "The STAR Format",
+         "narrativeContexts": [
+           {
+             "seq": 1,
+             "narrativeElementName": "Situation",
+             "context": "Many organizations struggle with balancing governance and developer autonomy, leading to either security gaps or developer frustration with overly restrictive controls."
+           },
+           {
+             "seq": 2,
+             "narrativeElementName": "Task",
+             "context": "Platform teams must implement guardrails that enforce security and compliance requirements while enabling self-service innovation."
+           },
+           {
+             "seq": 3,
+             "narrativeElementName": "Action",
+             "context": "Start with policy-as-code frameworks like OPA or Sentinel to codify security requirements. Implement automated validation in deployment pipelines rather than manual approval gates. Provide clear error messages that guide developers toward compliant solutions. Create \"paved paths\" that satisfy all guardrails by default."
+           },
+           {
+             "seq": 4,
+             "narrativeElementName": "Result",
+             "context": "This approach reduces security incidents while improving deployment velocity, as developers can self-service within safe boundaries."
+           }
+         ]
+       }
+     ]
+   }
+   ```
+
+5. **Multiple techniques:**
+   - If the activity section has multiple sub-headings, create a narrative for each
+   - Each technique becomes a separate entry in the narratives array
+   - Practitioners can then reference specific techniques by name
+
+6. **When there's no explicit "How to Perform" section:**
+   - Look for guidance in the "Context and Guidance" section (legacy format)
+   - Extract narratives from any detailed procedural or best-practice content
+   - If the report only has a brief description with no techniques, the narratives array can be empty or omitted
 
 ### Parsing Personas
 

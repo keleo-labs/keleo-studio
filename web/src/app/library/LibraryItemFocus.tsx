@@ -9,7 +9,7 @@ import {
   groupByFocus,
   practiceElementDescriptionForDisplay,
 } from "@/lib/ir";
-import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
+import { practiceNeedsLibraryResolution, methodNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { calculateAlphaScores } from "@/lib/methodFocus";
 import type { AlphaScore } from "@/lib/methodFocus";
@@ -81,27 +81,48 @@ export function LibraryItemFocus({ documentId }: { documentId: string }) {
   }, [documentId]);
 
   // Resolve library dependencies FIRST (same as LibraryBrowseClient)
-  const shouldResolveLibrary = useMemo(() => practiceNeedsLibraryResolution(doc), [doc]);
+  const shouldResolveLibrary = useMemo(() => {
+    if (!doc || typeof doc !== 'object') return false;
+    const kind = classifyLibraryRoot(doc);
+    return (kind === 'practice' && practiceNeedsLibraryResolution(doc)) ||
+           (kind === 'method' && methodNeedsLibraryResolution(doc));
+  }, [doc]);
   const { loading: resolveBusy, resolved: libraryResolved } = usePracticeLibraryResolveForRender(doc, shouldResolveLibrary);
 
   // Then flatten method into a merged practice AFTER library resolution (same as LibraryBrowseClient)
   const { effectiveDoc, flattenError: flattenErr } = useMemo(() => {
-    const resolvedDoc = shouldResolveLibrary ? (libraryResolved ?? doc) : doc;
-    if (!resolvedDoc || typeof resolvedDoc !== "object") return { effectiveDoc: resolvedDoc, flattenError: null };
+    if (!doc || typeof doc !== "object") return { effectiveDoc: doc, flattenError: null };
 
-    const kind = classifyLibraryRoot(resolvedDoc);
+    const kind = classifyLibraryRoot(doc);
+
+    // For methods, use library-resolved version if available
     if (kind === "method") {
+      if (shouldResolveLibrary) {
+        if (resolveBusy) return { effectiveDoc: null, flattenError: null };
+        // Use the library-resolved version which is already fully merged
+        const merged = libraryResolved ?? doc;
+        return { effectiveDoc: merged != null && typeof merged === "object" ? merged : doc, flattenError: null };
+      }
+      // No library resolution needed - call compositePracticeFromMethod directly
       try {
-        return { effectiveDoc: compositePracticeFromMethod(resolvedDoc as Method), flattenError: null };
+        return { effectiveDoc: compositePracticeFromMethod(doc as Method), flattenError: null };
       } catch (e) {
         // Method is malformed or incomplete (e.g., missing baseline)
         const msg = e instanceof Error ? e.message : "Failed to process method";
-        console.warn(`Failed to flatten method "${(resolvedDoc as any).name}":`, msg);
+        console.warn(`Failed to flatten method "${(doc as any).name}":`, msg);
         return { effectiveDoc: null, flattenError: msg };
       }
     }
-    return { effectiveDoc: resolvedDoc, flattenError: null };
-  }, [doc, shouldResolveLibrary, libraryResolved]);
+
+    // For practices (baselines), use library-resolved version if needed
+    if (shouldResolveLibrary) {
+      if (resolveBusy) return { effectiveDoc: null, flattenError: null };
+      const merged = libraryResolved ?? doc;
+      return { effectiveDoc: merged != null && typeof merged === "object" ? merged : doc, flattenError: null };
+    }
+
+    return { effectiveDoc: doc, flattenError: null };
+  }, [doc, shouldResolveLibrary, libraryResolved, resolveBusy]);
 
   // Set flatten error state when it changes
   useEffect(() => {

@@ -542,9 +542,57 @@ This work requires proficiency in:
 
 This activity is typically performed by the **[PersonaGroup Name]** team.
 
-**Context and Guidance:**
+**How to Perform This Activity:**
 
-[One or more paragraphs providing additional context, examples, best practices, or stories about how this activity is performed]
+**IMPORTANT:** This section should capture rich guidance from the source material on techniques, approaches, methods, and best practices for performing this activity. Structure this as one or more narratives that tell practitioners HOW to do the work.
+
+**[Technique/Approach Title]**
+
+[Multiple paragraphs using appropriate narrative structure - User Story, STAR, Essay, etc. - that provide actionable guidance]
+
+**Example formats:**
+
+*For step-by-step techniques (use Lifecycle narrative):*
+> **Defining Platform Capabilities Through User Research**
+>
+> Begin by conducting stakeholder interviews with potential platform consumers to understand their pain points and workflow bottlenecks. Focus on developers, operators, and product teams who will use the platform.
+>
+> Next, analyze the interview findings to identify common patterns and recurring needs. Group similar requirements into logical capability domains such as deployment, observability, and data access.
+>
+> Then, prioritize capabilities based on business impact and technical feasibility. Use a value-effort matrix to identify quick wins that can demonstrate platform value early.
+>
+> Finally, document each capability with clear success criteria, expected outcomes, and initial scope boundaries. This creates a shared understanding between platform and consumer teams.
+
+*For problem-solution approaches (use STAR narrative):*
+> **Establishing Effective Guardrails Without Blocking Innovation**
+>
+> Many organizations struggle with balancing governance and developer autonomy, leading to either security gaps or developer frustration with overly restrictive controls.
+>
+> Platform teams must implement guardrails that enforce security and compliance requirements while enabling self-service innovation.
+>
+> Start with policy-as-code frameworks like OPA or Sentinel to codify security requirements. Implement automated validation in deployment pipelines rather than manual approval gates. Provide clear error messages that guide developers toward compliant solutions. Create "paved paths" that satisfy all guardrails by default.
+>
+> This approach reduces security incidents while improving deployment velocity, as developers can self-service within safe boundaries.
+
+*For best practices and principles (use Essay narrative):*
+> **Cost Optimization Through FinOps Practices**
+>
+> Effective platform cost management requires a cultural shift toward shared responsibility between platform teams and consumers. The traditional model of centralized cost control creates bottlenecks and obscures the true cost drivers.
+>
+> Modern FinOps practices emphasize transparency and accountability. Platform teams should implement cost allocation tagging that maps spending to specific teams, products, and environments. Real-time cost dashboards make spending visible to all stakeholders. Automated anomaly detection alerts teams to unexpected cost spikes before they become budget crises.
+>
+> Most importantly, platform teams should provide cost optimization tools and guidance rather than mandates. Rightsizing recommendations, idle resource detection, and reserved instance planning become self-service capabilities. This empowers consumer teams to make informed tradeoffs between cost and performance.
+>
+> Organizations that adopt this approach typically see 30-40% cost reductions while maintaining or improving service quality.
+
+**Guidelines for this section:**
+- Extract specific techniques, methods, and approaches from the source material
+- Provide actionable guidance that practitioners can apply
+- Include examples, scenarios, or worked cases when available
+- Reference tools, frameworks, or technologies mentioned in the source
+- Capture best practices, common pitfalls, and lessons learned
+- Use appropriate narrative types based on the content structure
+- Create multiple narratives if the source describes different approaches or techniques
 
 ### Solution Focus Activities
 
