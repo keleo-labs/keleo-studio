@@ -43,7 +43,7 @@ export function buildElementSourceMap(
 
       // Track baseline narratives
       for (const narr of (state.narratives ?? []) as any[]) {
-        const narrName = String(narr?.narrativeName ?? "").trim();
+        const narrName = String(narr?.name ?? "").trim();
         if (narrName) map.set(`${stateKey}.narratives.${narrName}`, "baseline");
       }
     }
@@ -116,7 +116,7 @@ export function buildElementSourceMap(
 
       // Track baseline narratives in LOD
       for (const narr of (lod.narratives ?? []) as any[]) {
-        const narrName = String(narr?.narrativeName ?? "").trim();
+        const narrName = String(narr?.name ?? "").trim();
         if (narrName) map.set(`${lodKey}.narratives.${narrName}`, "baseline");
       }
     }

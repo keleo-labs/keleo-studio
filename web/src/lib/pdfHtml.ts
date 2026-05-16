@@ -137,11 +137,9 @@ function renderPdfEmbeddedNarrativeSubtree(narratives: unknown[]): string {
       if (!raw || typeof raw !== "object") return "";
       const n = raw as Record<string, unknown>;
       const label =
-        typeof n.narrativeName === "string" && n.narrativeName.trim()
-          ? n.narrativeName.trim()
-          : typeof n.name === "string" && n.name.trim()
-            ? String(n.name).trim()
-            : "—";
+        typeof n.name === "string" && n.name.trim()
+          ? String(n.name).trim()
+          : "—";
       const desc = practiceElementDescriptionForDisplay(n);
       const rawCtx = n.narrativeContexts;
       const ctxList = Array.isArray(rawCtx) ? rawCtx : [];

@@ -28,6 +28,14 @@ export function activitySpaceReference(activitySpaceName = ""): Record<string, u
   return { activitySpaceName };
 }
 
+export function emptyPracticeElementAlias(): Record<string, unknown> {
+  return {
+    practiceElementType: "",
+    practiceElementName: "",
+    aliasName: "",
+  };
+}
+
 export function checklistItem(seq: number): Record<string, unknown> {
   return { ...emptyPracticeElement("", ""), seq };
 }

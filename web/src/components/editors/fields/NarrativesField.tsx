@@ -5,6 +5,7 @@ import { PropertyTable } from './PropertyTable';
 import { PropertyRow } from './PropertyRow';
 import { InlineTextField } from './InlineTextField';
 import { InlineTextArea } from './InlineTextArea';
+import { InlineSelectField } from './InlineSelectField';
 import { NarrativeContextsField } from './NarrativeContextsField';
 
 export type NarrativeContext = {
@@ -14,11 +15,10 @@ export type NarrativeContext = {
 };
 
 export type Narrative = {
-  narrativeName?: string;
-  narrativeTypeName?: string;
-  narrativeContexts?: NarrativeContext[];
   name?: string;
   description?: string;
+  narrativeTypeName?: string;
+  narrativeContexts?: NarrativeContext[];
 };
 
 export type NarrativesFieldProps = {
@@ -26,6 +26,8 @@ export type NarrativesFieldProps = {
   onChange: (value: Narrative[]) => void;
   fieldPath: string;
   readonlyItemNames?: Set<string>;
+  availableNarrativeTypeNames?: string[];
+  narrativeTypesData?: Array<{ name?: string; narrativeElements?: Array<{ name?: string }> }>;
 };
 
 const moveButtonStyle: CSSProperties = {
@@ -51,11 +53,13 @@ const labelStyle: CSSProperties = {
 };
 
 const cardStyle: CSSProperties = {
-  background: 'rgba(0,0,0,0.05)',
-  border: '1px solid var(--border)',
-  borderRadius: 8,
+  background: '#ffffff',
+  border: '1px solid #d2d2d2',
+  borderLeft: '4px solid #0066cc',
+  borderRadius: 4,
   padding: 16,
-  marginBottom: 12,
+  marginTop: 16,
+  marginBottom: 16,
 };
 
 const cardHeaderStyle: CSSProperties = {
@@ -90,11 +94,31 @@ const removeButtonStyle: CSSProperties = {
   cursor: 'pointer',
 };
 
-export function NarrativesField({ value, onChange, fieldPath, readonlyItemNames }: NarrativesFieldProps) {
+export function NarrativesField({ value, onChange, fieldPath, readonlyItemNames, availableNarrativeTypeNames, narrativeTypesData }: NarrativesFieldProps) {
   const narratives = value || [];
+  const narrativeTypeOptions = availableNarrativeTypeNames || [];
+  const narrativeTypes = narrativeTypesData || [];
+
+  // Helper function to get narrative element names for a given narrative type name
+  const getNarrativeElementsForType = useCallback((narrativeTypeName: string): string[] => {
+    if (!narrativeTypeName) return [];
+    const narrativeType = narrativeTypes.find(nt => nt.name === narrativeTypeName);
+    if (!narrativeType || !Array.isArray(narrativeType.narrativeElements)) return [];
+    return narrativeType.narrativeElements
+      .map(el => el?.name)
+      .filter((name): name is string => typeof name === 'string' && name.trim() !== '');
+  }, [narrativeTypes]);
+
+  // Helper function to get full narrative element data for a given narrative type name
+  const getNarrativeElementsDataForType = useCallback((narrativeTypeName: string) => {
+    if (!narrativeTypeName) return [];
+    const narrativeType = narrativeTypes.find(nt => nt.name === narrativeTypeName);
+    if (!narrativeType || !Array.isArray(narrativeType.narrativeElements)) return [];
+    return narrativeType.narrativeElements;
+  }, [narrativeTypes]);
 
   const handleAdd = useCallback(() => {
-    onChange([...narratives, { narrativeName: '', narrativeTypeName: '', narrativeContexts: [] }]);
+    onChange([...narratives, { name: '', description: '', narrativeTypeName: '', narrativeContexts: [] }]);
   }, [narratives, onChange]);
 
   const handleRemove = useCallback((index: number) => {
@@ -123,15 +147,41 @@ export function NarrativesField({ value, onChange, fieldPath, readonlyItemNames 
 
   return (
     <div style={containerStyle}>
-      <label style={labelStyle}>Narratives</label>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <label style={{ ...labelStyle, marginBottom: 0 }}>Narratives</label>
+        <button
+          type="button"
+          onClick={handleAdd}
+          style={buttonStyle}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'var(--accent)';
+            e.currentTarget.style.color = 'white';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(139,92,246,0.15)';
+            e.currentTarget.style.color = 'var(--accent)';
+          }}
+        >
+          + Add Narrative
+        </button>
+      </div>
       {narratives.map((narrative, idx) => (
         <div key={idx} style={cardStyle}>
-          <div style={cardHeaderStyle}>
+          {/* Narrative header row */}
+          <div style={{
+            fontSize: 16,
+            fontWeight: 700,
+            marginBottom: 12,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            justifyContent: 'space-between'
+          }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 11, color: '#6a6e73' }}>#{idx + 1}</span>
-              <span>{narrative.narrativeName || narrative.name || '(unnamed)'}</span>
+              <span style={{ fontSize: 13, color: '#6a6e73' }}>#{idx + 1}</span>
+              <span>{narrative.name || '(unnamed)'}</span>
               {narrative.narrativeTypeName && (
-                <span style={{ fontSize: 12, color: '#6a6e73' }}>[{narrative.narrativeTypeName}]</span>
+                <span style={{ fontSize: 13, color: '#0066cc', fontWeight: 600 }}>[{narrative.narrativeTypeName}]</span>
               )}
             </div>
             <div style={{ display: 'flex', gap: 4 }}>
@@ -173,26 +223,14 @@ export function NarrativesField({ value, onChange, fieldPath, readonlyItemNames 
               </button>
             </div>
           </div>
+
+          {/* Narrative fields as table */}
           <PropertyTable>
-            <PropertyRow label="Narrative Name">
-              <InlineTextField
-                value={narrative.narrativeName || ''}
-                onChange={(val) => handleUpdate(idx, 'narrativeName', val)}
-                placeholder="Narrative name"
-              />
-            </PropertyRow>
-            <PropertyRow label="Narrative Type Name">
-              <InlineTextField
-                value={narrative.narrativeTypeName || ''}
-                onChange={(val) => handleUpdate(idx, 'narrativeTypeName', val)}
-                placeholder="e.g., UserStory, UseCase, Scenario"
-              />
-            </PropertyRow>
             <PropertyRow label="Name">
               <InlineTextField
                 value={narrative.name || ''}
                 onChange={(val) => handleUpdate(idx, 'name', val)}
-                placeholder="Alternative name"
+                placeholder="Narrative name"
               />
             </PropertyRow>
             <PropertyRow label="Description">
@@ -202,31 +240,28 @@ export function NarrativesField({ value, onChange, fieldPath, readonlyItemNames 
                 placeholder="Description of this narrative"
               />
             </PropertyRow>
-            <PropertyRow label="Narrative Contexts">
-              <NarrativeContextsField
-                value={narrative.narrativeContexts || []}
-                onChange={(contexts) => handleUpdateContexts(idx, contexts)}
-                label=""
+            <PropertyRow label="Narrative Type Name">
+              <InlineSelectField
+                value={narrative.narrativeTypeName || ''}
+                onChange={(val) => handleUpdate(idx, 'narrativeTypeName', val)}
+                options={narrativeTypeOptions}
+                placeholder="Select narrative type"
               />
             </PropertyRow>
           </PropertyTable>
+
+          {/* Narrative Contexts section */}
+          <div style={{ marginTop: 16 }}>
+            <NarrativeContextsField
+              value={narrative.narrativeContexts || []}
+              onChange={(contexts) => handleUpdateContexts(idx, contexts)}
+              label="Narrative Contexts"
+              availableNarrativeElements={getNarrativeElementsForType(narrative.narrativeTypeName || '')}
+              narrativeElementsData={getNarrativeElementsDataForType(narrative.narrativeTypeName || '')}
+            />
+          </div>
         </div>
       ))}
-      <button
-        type="button"
-        onClick={handleAdd}
-        style={buttonStyle}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'var(--accent)';
-          e.currentTarget.style.color = 'white';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'rgba(139,92,246,0.15)';
-          e.currentTarget.style.color = 'var(--accent)';
-        }}
-      >
-        + Add Narrative
-      </button>
     </div>
   );
 }

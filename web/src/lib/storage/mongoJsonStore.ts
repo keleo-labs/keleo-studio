@@ -21,7 +21,7 @@ function collectionName(): string {
 }
 
 function dbName(): string {
-  return process.env.MONGODB_DB?.trim() || "adoptionframework";
+  return process.env.MONGODB_DB?.trim() || "keleo-studio";
 }
 
 function isJsonDocumentKind(v: string): v is JsonDocumentKind {

@@ -1,10 +1,10 @@
-# Adoption Framework
+# Keleo Studio
 
 A comprehensive practice management and method composition system for software engineering practices, built on the SEMAT Essence framework. This application enables teams to author, compose, visualize, and manage software engineering practices and methods.
 
 ## Overview
 
-The Adoption Framework provides a complete toolset for:
+Keleo Studio provides a complete toolset for:
 - **Practice Authoring**: Create and edit software engineering practices with validation
 - **Method Building**: Compose methods from baseline practices and extensions
 - **Visualization**: Kanban pattern boards, Sankey flow diagrams, and alpha contributes diagrams
@@ -25,7 +25,7 @@ The Adoption Framework provides a complete toolset for:
 ### Project Structure
 
 ```
-adoptionframework/
+keleo-studio/
 ├── web/                           # Next.js web application
 │   ├── src/
 │   │   ├── app/                   # Next.js app router pages
@@ -123,7 +123,7 @@ Create a `.env.local` file in the `web/` directory:
 STORAGE_TYPE=file
 
 # MongoDB connection (if using mongo storage)
-MONGODB_URI=mongodb://localhost:27017/adoptionframework
+MONGODB_URI=mongodb://localhost:27017/keleo-studio
 ```
 
 ### Using the Application

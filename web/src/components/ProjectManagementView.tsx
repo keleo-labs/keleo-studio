@@ -49,7 +49,7 @@ function slug(s: unknown) {
 // ========================================================================
 
 function NarrativeBlock({ narrative }: { narrative: any }) {
-  const narrativeName = String(narrative.narrativeName ?? narrative.name ?? "");
+  const narrativeName = String(narrative.name ?? "");
   const narrativeTypeName = String(narrative.narrativeTypeName ?? "");
   const description = practiceElementDescriptionForDisplay(narrative) ?? "";
   const contexts = Array.isArray(narrative.narrativeContexts) ? narrative.narrativeContexts : [];

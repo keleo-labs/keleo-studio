@@ -126,7 +126,7 @@ function bulletsFromNarrativeContexts(raw: unknown): PracticeReportBullet[] {
 function printNarrativeSections(narrative: unknown, display: DisplayAliasFn): PracticeReportSection[] {
   if (!narrative || typeof narrative !== "object") return [];
   const n = narrative as Record<string, unknown>;
-  const titleRaw = String(n.narrativeName ?? "").trim();
+  const titleRaw = String(n.name ?? "").trim();
   const heading = titleRaw ? display("Narrative", titleRaw) : "Narrative";
   const desc =
     practiceElementDescriptionForDisplay(n)?.trim() ?? String(n.description ?? "").trim();

@@ -8,6 +8,7 @@ export type PropertyRowProps = {
   required?: boolean;
   readonly?: boolean;
   description?: string;
+  fullWidth?: boolean;
 };
 
 const rowStyle: CSSProperties = {
@@ -38,7 +39,19 @@ const descriptionStyle: CSSProperties = {
   fontStyle: 'italic',
 };
 
-export function PropertyRow({ label, children, required, readonly, description }: PropertyRowProps) {
+export function PropertyRow({ label, children, required, readonly, description, fullWidth }: PropertyRowProps) {
+  if (fullWidth) {
+    return (
+      <div style={{
+        padding: '12px 0',
+        borderBottom: '1px solid var(--border)',
+        opacity: readonly ? 0.7 : 1
+      }}>
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div style={{ ...rowStyle, opacity: readonly ? 0.7 : 1 }}>
       <div style={labelCellStyle}>

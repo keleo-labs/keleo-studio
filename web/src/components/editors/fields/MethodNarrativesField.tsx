@@ -6,7 +6,6 @@ import { PlusIcon, EditIcon, TrashIcon } from "@patternfly/react-icons";
 
 export type MethodNarrative = {
   name: string;
-  narrativeName: string;
   narrativeTypeName: string;
   description: string;
   narrativeContexts?: any[];
@@ -22,13 +21,11 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [formName, setFormName] = useState("");
-  const [formNarrativeName, setFormNarrativeName] = useState("");
   const [formTypeName, setFormTypeName] = useState("");
   const [formDescription, setFormDescription] = useState("");
 
   const openAdd = () => {
     setFormName("");
-    setFormNarrativeName("");
     setFormTypeName("");
     setFormDescription("");
     setEditingIndex(null);
@@ -39,7 +36,6 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
     const narrative = value[index];
     if (!narrative) return;
     setFormName(narrative.name || "");
-    setFormNarrativeName(narrative.narrativeName || "");
     setFormTypeName(narrative.narrativeTypeName || "");
     setFormDescription(narrative.description || "");
     setEditingIndex(index);
@@ -49,7 +45,6 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
   const handleSave = () => {
     const narrative: MethodNarrative = {
       name: formName.trim(),
-      narrativeName: formNarrativeName.trim(),
       narrativeTypeName: formTypeName.trim(),
       description: formDescription.trim(),
       narrativeContexts: [],
@@ -74,7 +69,7 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
     }
   };
 
-  const isFormValid = formName.trim() && formNarrativeName.trim() && formDescription.trim();
+  const isFormValid = formName.trim() && formDescription.trim();
 
   return (
     <div>
@@ -107,7 +102,7 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
             const hasNested = Array.isArray(narrative.narratives) && narrative.narratives.length > 0;
             return (
               <div
-                key={`${narrative.narrativeName}-${idx}`}
+                key={`${narrative.name}-${idx}`}
                 style={{
                   border: "1px solid var(--pf-v6-global--BorderColor--100)",
                   borderRadius: 8,
@@ -121,11 +116,6 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
                     {narrative.narrativeTypeName && (
                       <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", fontFamily: "monospace", marginTop: 2 }}>
                         Type: {narrative.narrativeTypeName}
-                      </div>
-                    )}
-                    {narrative.narrativeName && narrative.narrativeName !== narrative.name && (
-                      <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", fontFamily: "monospace", marginTop: 2 }}>
-                        Narrative Name: {narrative.narrativeName}
                       </div>
                     )}
                     {narrative.description && (
@@ -189,33 +179,8 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
               id="narrative-name-input"
               value={formName}
               onChange={(_, val) => setFormName(val)}
-              placeholder="Display name for this narrative"
+              placeholder="Narrative name"
               isRequired
-            />
-          </div>
-
-          <div>
-            <label htmlFor="narrative-narrative-name-input" style={{ display: "block", fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
-              Narrative Name <span style={{ color: "var(--pf-v6-global--danger-color--100)" }}>*</span>
-            </label>
-            <TextInput
-              id="narrative-narrative-name-input"
-              value={formNarrativeName}
-              onChange={(_, val) => setFormNarrativeName(val)}
-              placeholder="Canonical narrative identifier"
-              isRequired
-            />
-          </div>
-
-          <div>
-            <label htmlFor="narrative-type-name-input" style={{ display: "block", fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
-              Type Name
-            </label>
-            <TextInput
-              id="narrative-type-name-input"
-              value={formTypeName}
-              onChange={(_, val) => setFormTypeName(val)}
-              placeholder="e.g., UserStory, UseCase, Scenario"
             />
           </div>
 
@@ -230,6 +195,18 @@ export function MethodNarrativesField({ value, onChange }: MethodNarrativesField
               placeholder="Describe this narrative..."
               rows={4}
               isRequired
+            />
+          </div>
+
+          <div>
+            <label htmlFor="narrative-type-name-input" style={{ display: "block", fontWeight: 600, fontSize: "0.875rem", marginBottom: 4 }}>
+              Type Name
+            </label>
+            <TextInput
+              id="narrative-type-name-input"
+              value={formTypeName}
+              onChange={(_, val) => setFormTypeName(val)}
+              placeholder="e.g., UserStory, UseCase, Scenario"
             />
           </div>
         </div>

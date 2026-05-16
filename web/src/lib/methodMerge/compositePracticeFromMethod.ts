@@ -142,8 +142,6 @@ function mergeNarrativeContextRows(prev: Record<string, unknown>, next: Record<s
 
 function narrativeTreeKey(raw: unknown): string | null {
   if (!isPlainRecord(raw)) return null;
-  const nn = typeof raw.narrativeName === "string" ? raw.narrativeName.trim() : "";
-  if (nn) return nn;
   const nm = typeof raw.name === "string" ? raw.name.trim() : "";
   return nm || null;
 }

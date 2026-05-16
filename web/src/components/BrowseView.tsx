@@ -14,6 +14,7 @@ import {
   ListItem,
   Divider,
   Label,
+  Switch,
 } from "@patternfly/react-core";
 import type { Method } from "@/lib/types";
 import {
@@ -28,6 +29,11 @@ import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependency
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { useLanguagePack } from "@/lib/languagePack";
 import { calculateAlphaScores } from "@/lib/methodFocus";
+import {
+  buildPracticeElementAliasLookup,
+  getAliasedDisplay,
+  type PracticeElementAliasLookup,
+} from "@/lib/practiceElementAliasDisplay";
 import KanbanPatternBoardPF from "./KanbanPatternBoardPF";
 
 /**
@@ -53,7 +59,7 @@ function slug(s: unknown) {
 // OUTLINE: Quick Navigation
 // ========================================================================
 
-function OutlineSection({ doc, grouped }: { doc: any; grouped: any[] }) {
+function OutlineSection({ doc, grouped, aliasMap }: { doc: any; grouped: any[]; aliasMap: PracticeElementAliasLookup }) {
   const patterns = Array.isArray(doc.patterns) ? doc.patterns : [];
   const workProducts = Array.isArray(doc.workProducts) ? doc.workProducts : [];
   const personas = Array.isArray(doc.personas) ? doc.personas : [];
@@ -286,10 +292,128 @@ function OutlineSection({ doc, grouped }: { doc: any; grouped: any[] }) {
 }
 
 // ========================================================================
+// ELEMENT NAME WITH ALIAS FORMATTING
+// ========================================================================
+
+/**
+ * Component to display an element name with its alias.
+ * If an alias exists, shows: "Alias Name (Original Name)" with original in italics and smaller
+ */
+function ElementNameWithAlias({
+  aliasMap,
+  elementType,
+  name,
+  style,
+}: {
+  aliasMap: PracticeElementAliasLookup;
+  elementType: string;
+  name: string;
+  style?: CSSProperties;
+}) {
+  const { primary, showCanonical, canonical } = getAliasedDisplay(aliasMap, elementType, name);
+
+  if (showCanonical) {
+    return (
+      <span style={style}>
+        {primary}{" "}
+        <span style={{ fontStyle: "italic", fontSize: "0.85em", fontWeight: 400 }}>
+          ({canonical})
+        </span>
+      </span>
+    );
+  }
+
+  return <span style={style}>{primary}</span>;
+}
+
+// ========================================================================
+// CITATION FORMATTING
+// ========================================================================
+
+/**
+ * Checks if a narrative is a citation based on its narrativeTypeName
+ */
+function isCitation(narrative: any): boolean {
+  const typeName = String(narrative.narrativeTypeName ?? "").toLowerCase().trim();
+  return typeName === "citation" || typeName === "reference" || typeName === "source" || typeName === "citation standard";
+}
+
+/**
+ * Converts URLs in text to clickable hyperlinks
+ */
+function linkifyUrls(text: string): string {
+  // URL regex pattern
+  const urlPattern = /(https?:\/\/[^\s<>"]+)/gi;
+
+  return text.replace(urlPattern, (url) => {
+    // Remove trailing punctuation that might not be part of the URL
+    let cleanUrl = url;
+    let trailingPunctuation = "";
+
+    // Check for trailing punctuation
+    const trailingPunctuationPattern = /([.,;:!?)])+$/;
+    const match = cleanUrl.match(trailingPunctuationPattern);
+    if (match) {
+      trailingPunctuation = match[0];
+      cleanUrl = cleanUrl.slice(0, -trailingPunctuation.length);
+    }
+
+    return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--pf-v6-global--link--Color); text-decoration: underline;">${cleanUrl}</a>${trailingPunctuation}`;
+  });
+}
+
+/**
+ * Formats a narrative as an APA7 citation
+ * Uses the narrative's fields to construct a proper APA7 reference entry
+ */
+function formatAPA7Citation(narrative: any): string {
+  const name = String(narrative.name || "");
+  const description = practiceElementDescriptionForDisplay(narrative) ?? "";
+  const contexts = Array.isArray(narrative.narrativeContexts) ? narrative.narrativeContexts : [];
+
+  // Build APA7 format from available fields
+  // name serves as the author/source
+  // description serves as the title/details
+  // contexts provide additional citation details
+
+  let citation = "";
+
+  if (name) {
+    // Remove "Reference:" prefix if present (case-insensitive)
+    const cleanedName = name.replace(/^Reference:\s*/i, "");
+    citation += cleanedName;
+  }
+
+  if (description) {
+    citation += citation ? ". " : "";
+    citation += `<em>${description}</em>`;
+  }
+
+  // Add context information
+  if (contexts.length > 0) {
+    const contextTexts = contexts
+      .slice()
+      .sort((a: any, b: any) => (a.seq ?? 0) - (b.seq ?? 0))
+      .map((ctx: any) => narrativeContextRowDisplayText(ctx))
+      .filter(Boolean);
+
+    if (contextTexts.length > 0) {
+      citation += citation ? ". " : "";
+      citation += contextTexts.join(". ");
+    }
+  }
+
+  // Convert URLs to clickable links
+  citation = linkifyUrls(citation);
+
+  return citation || "(No citation details available)";
+}
+
+// ========================================================================
 // SECTION 1: Executive Context
 // ========================================================================
 
-function ExecutiveContext({ doc, methodComposition }: { doc: any; methodComposition?: Method | null }) {
+function ExecutiveContext({ doc, methodComposition, aliasMap }: { doc: any; methodComposition?: Method | null; aliasMap: PracticeElementAliasLookup }) {
   const name = String(doc.name ?? "Unnamed Practice");
   const description = practiceElementDescriptionForDisplay(doc) ?? "";
   const version = String(doc.version ?? "—");
@@ -352,9 +476,7 @@ function ExecutiveContext({ doc, methodComposition }: { doc: any; methodComposit
           <Title headingLevel="h2" size="xl" style={{ marginTop: "3rem", marginBottom: "1rem" }}>
             Strategic Context
           </Title>
-          {narratives.map((narrative: any, idx: number) => (
-            <NarrativeBlock key={idx} narrative={narrative} />
-          ))}
+          <NarrativesSection narratives={narratives} compact={false} />
         </>
       )}
 
@@ -396,7 +518,7 @@ function ExecutiveContext({ doc, methodComposition }: { doc: any; methodComposit
 }
 
 function NarrativeBlock({ narrative, compact = false }: { narrative: any; compact?: boolean }) {
-  const narrativeName = String(narrative.narrativeName ?? narrative.name ?? "");
+  const narrativeName = String(narrative.name ?? "");
   const description = practiceElementDescriptionForDisplay(narrative) ?? "";
   const contexts = Array.isArray(narrative.narrativeContexts) ? narrative.narrativeContexts : [];
 
@@ -515,11 +637,44 @@ function NarrativesSection({ narratives, compact = false }: { narratives: any[] 
     return null;
   }
 
+  // Separate citations from regular narratives
+  const regularNarratives = narratives.filter(n => !isCitation(n));
+  const citations = narratives.filter(n => isCitation(n));
+
   return (
     <>
-      {narratives.map((narrative: any, idx: number) => (
+      {/* Render regular narratives */}
+      {regularNarratives.map((narrative: any, idx: number) => (
         <NarrativeBlock key={idx} narrative={narrative} compact={compact} />
       ))}
+
+      {/* Render citations grouped in a References section */}
+      {citations.length > 0 && (
+        <div style={{
+          marginTop: regularNarratives.length > 0 ? "1.5rem" : "0",
+          padding: compact ? "1rem" : "1.5rem",
+          backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+          borderLeft: "3px solid var(--pf-v6-global--palette--blue-300)",
+          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+        }}>
+          <Title headingLevel="h4" size={compact ? "md" : "lg"} style={{ marginBottom: "1rem" }}>
+            References
+          </Title>
+          <List style={{ fontSize: compact ? "0.75rem" : "0.875rem" }}>
+            {citations.map((citation: any, idx: number) => (
+              <ListItem
+                key={idx}
+                style={{
+                  marginBottom: idx < citations.length - 1 ? "0.5rem" : "0",
+                  lineHeight: "1.6",
+                }}
+              >
+                <div dangerouslySetInnerHTML={{ __html: formatAPA7Citation(citation) }} />
+              </ListItem>
+            ))}
+          </List>
+        </div>
+      )}
     </>
   );
 }
@@ -528,7 +683,7 @@ function NarrativesSection({ narratives, compact = false }: { narratives: any[] 
 // SECTION 2: Method Focus
 // ========================================================================
 
-function MethodFocus({ doc, baseline, grouped, methodComposition }: { doc: any; baseline: any; grouped: any[]; methodComposition?: Method | null }) {
+function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap }: { doc: any; baseline: any; grouped: any[]; methodComposition?: Method | null; aliasMap: PracticeElementAliasLookup }) {
   // Use shared alpha scoring logic
   const alphasByFocus = useMemo(() => {
     return calculateAlphaScores(doc, baseline, grouped);
@@ -856,7 +1011,7 @@ function MethodFocus({ doc, baseline, grouped, methodComposition }: { doc: any; 
 // SECTION 3: Lifecycle Orchestration (Patterns)
 // ========================================================================
 
-function LifecycleOrchestration({ doc, baseline }: { doc: any; baseline: any }) {
+function LifecycleOrchestration({ doc, baseline, aliasMap }: { doc: any; baseline: any; aliasMap: PracticeElementAliasLookup }) {
   const { t } = useLanguagePack();
   const patterns = Array.isArray(doc.patterns) ? doc.patterns : [];
 
@@ -1108,7 +1263,8 @@ function buildAlphaHierarchy(alphas: any[]): { roots: any[]; childrenMap: Map<st
   return { roots, childrenMap };
 }
 
-function CoreConcepts({ doc, grouped }: { doc: any; grouped: any[] }) {
+function CoreConcepts({ doc, originalDoc, grouped, aliasMap }: { doc: any; originalDoc: any; grouped: any[]; aliasMap: PracticeElementAliasLookup }) {
+  const [showOnlyPracticeDefined, setShowOnlyPracticeDefined] = useState(false);
   const workProducts = Array.isArray(doc.workProducts) ? doc.workProducts : [];
 
   // Extract all activities from all activitySpaces across all focuses
@@ -1120,6 +1276,17 @@ function CoreConcepts({ doc, grouped }: { doc: any; grouped: any[] }) {
       activities.push(...spaceActivities);
     }
   }
+
+  // Build a set of alpha names from the original practice document
+  const practiceAlphaNames = useMemo(() => {
+    const names = new Set<string>();
+    const alphas = Array.isArray(originalDoc.alphas) ? originalDoc.alphas : [];
+    for (const alpha of alphas) {
+      const name = String(alpha.name ?? "").trim();
+      if (name) names.add(name);
+    }
+    return names;
+  }, [originalDoc]);
 
   if (grouped.length === 0) {
     return null;
@@ -1133,30 +1300,46 @@ function CoreConcepts({ doc, grouped }: { doc: any; grouped: any[] }) {
         </Label>
       </div>
 
-      <Title headingLevel="h2" size="3xl" style={{ marginBottom: "1rem" }}>
-        Core Concepts & Progression
-      </Title>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+        <Title headingLevel="h2" size="3xl">
+          Core Concepts & Progression
+        </Title>
+        <Switch
+          id="core-concepts-filter-toggle"
+          label="Show only practice-defined"
+          isChecked={showOnlyPracticeDefined}
+          onChange={(_event, checked) => setShowOnlyPracticeDefined(checked)}
+        />
+      </div>
 
       <Content component={ContentVariants.p} style={{ marginBottom: "2rem", color: "var(--pf-v6-global--Color--200)" }}>
         Abstract areas of concern and their sequential states of maturity.
       </Content>
 
       {grouped.map((focus: any, idx: number) => (
-        <FocusBlock key={idx} focus={focus} workProducts={workProducts} activities={activities} />
+        <FocusBlock key={idx} focus={focus} workProducts={workProducts} activities={activities} aliasMap={aliasMap} showOnlyPracticeDefined={showOnlyPracticeDefined} practiceAlphaNames={practiceAlphaNames} />
       ))}
     </section>
   );
 }
 
-function FocusBlock({ focus, workProducts, activities }: { focus: any; workProducts: any[]; activities: any[] }) {
+function FocusBlock({ focus, workProducts, activities, aliasMap, showOnlyPracticeDefined, practiceAlphaNames }: { focus: any; workProducts: any[]; activities: any[]; aliasMap: PracticeElementAliasLookup; showOnlyPracticeDefined: boolean; practiceAlphaNames: Set<string> }) {
   const focusName = String(focus.focusName ?? "");
   const alphas = focus.alphas ?? [];
 
-  if (alphas.length === 0) {
+  // Filter alphas if showOnlyPracticeDefined is true
+  const filteredAlphas = showOnlyPracticeDefined
+    ? alphas.filter((alpha: any) => {
+        const alphaName = String(alpha.name ?? "").trim();
+        return practiceAlphaNames.has(alphaName);
+      })
+    : alphas;
+
+  if (filteredAlphas.length === 0) {
     return null;
   }
 
-  const { roots, childrenMap } = buildAlphaHierarchy(alphas);
+  const { roots, childrenMap } = buildAlphaHierarchy(filteredAlphas);
 
   return (
     <div id={`focus-${slug(focusName)}`} style={{ marginBottom: "3rem", scrollMarginTop: "2rem" }}>
@@ -1165,13 +1348,13 @@ function FocusBlock({ focus, workProducts, activities }: { focus: any; workProdu
       </Title>
 
       {roots.map((alpha: any, idx: number) => (
-        <AlphaBlock key={idx} alpha={alpha} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={0} />
+        <AlphaBlock key={idx} alpha={alpha} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={0} aliasMap={aliasMap} />
       ))}
     </div>
   );
 }
 
-function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0 }: { alpha: any; childrenMap: Map<string, any[]>; workProducts: any[]; activities: any[]; depth?: number }) {
+function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0, aliasMap }: { alpha: any; childrenMap: Map<string, any[]>; workProducts: any[]; activities: any[]; depth?: number; aliasMap: PracticeElementAliasLookup }) {
   const name = String(alpha.name ?? "");
   const description = practiceElementDescriptionForDisplay(alpha) ?? "";
   const narratives = alpha.narratives;
@@ -1197,7 +1380,7 @@ function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0 }:
         <CardBody>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
             <Title headingLevel={depth === 0 ? "h4" : depth === 1 ? "h5" : "h6"} size={depth === 0 ? "lg" : "md"}>
-              {name}
+              <ElementNameWithAlias aliasMap={aliasMap} elementType="Alpha" name={name} />
             </Title>
             {depth > 0 && (
               <a
@@ -1248,7 +1431,7 @@ function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0 }:
       {hasChildren && (
         <div style={{ marginBottom: "1.5rem" }}>
           {children.map((child: any, idx: number) => (
-            <AlphaBlock key={idx} alpha={child} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={depth + 1} />
+            <AlphaBlock key={idx} alpha={child} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={depth + 1} aliasMap={aliasMap} />
           ))}
         </div>
       )}
@@ -1410,7 +1593,7 @@ function StateBlock({ state, alphaName, workProducts, activities, index, total }
 // SECTION 5: Evidentiary Artifacts (Work Products)
 // ========================================================================
 
-function EvidentaryArtifacts({ doc }: { doc: any }) {
+function EvidentaryArtifacts({ doc, aliasMap }: { doc: any; aliasMap: PracticeElementAliasLookup }) {
   const workProducts = Array.isArray(doc.workProducts) ? doc.workProducts : [];
 
   if (workProducts.length === 0) {
@@ -1559,10 +1742,22 @@ function LevelOfDetailCard({ lod }: { lod: any }) {
 // SECTION 6: Execution & Roles (Activities & Personas)
 // ========================================================================
 
-function ExecutionAndRoles({ doc, grouped }: { doc: any; grouped: any[] }) {
+function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap }: { doc: any; originalDoc: any; grouped: any[]; aliasMap: PracticeElementAliasLookup }) {
+  const [showOnlyPracticeDefined, setShowOnlyPracticeDefined] = useState(false);
   const personas = Array.isArray(doc.personas) ? doc.personas : [];
   const personaGroups = Array.isArray(doc.personaGroups) ? doc.personaGroups : [];
   const competencies = Array.isArray(doc.competencies) ? doc.competencies : [];
+
+  // Build a set of activity space names from the original practice document
+  const practiceActivitySpaceNames = useMemo(() => {
+    const names = new Set<string>();
+    const activitySpaces = Array.isArray(originalDoc.activitySpaces) ? originalDoc.activitySpaces : [];
+    for (const space of activitySpaces) {
+      const name = String(space.name ?? "").trim();
+      if (name) names.add(name);
+    }
+    return names;
+  }, [originalDoc]);
 
   const hasActivities = grouped.some((g: any) => g.activitySpaces?.length > 0);
 
@@ -1578,9 +1773,17 @@ function ExecutionAndRoles({ doc, grouped }: { doc: any; grouped: any[] }) {
         </Label>
       </div>
 
-      <Title headingLevel="h2" size="3xl" style={{ marginBottom: "1rem" }}>
-        Execution & Roles
-      </Title>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+        <Title headingLevel="h2" size="3xl">
+          Execution & Roles
+        </Title>
+        <Switch
+          id="execution-roles-filter-toggle"
+          label="Show only practice-defined"
+          isChecked={showOnlyPracticeDefined}
+          onChange={(_event, checked) => setShowOnlyPracticeDefined(checked)}
+        />
+      </div>
 
       <Content component={ContentVariants.p} style={{ marginBottom: "2rem", color: "var(--pf-v6-global--Color--200)" }}>
         Specific workflows, who executes them, and the competencies required.
@@ -1594,14 +1797,25 @@ function ExecutionAndRoles({ doc, grouped }: { doc: any; grouped: any[] }) {
           </Title>
           {grouped.map((focus: any, idx: number) => {
             const activitySpaces = focus.activitySpaces ?? [];
-            if (activitySpaces.length === 0) return null;
+
+            // Filter activity spaces if showOnlyPracticeDefined is true
+            const filteredActivitySpaces = showOnlyPracticeDefined
+              ? activitySpaces.filter((space: any) => {
+                  const spaceName = String(space.name ?? "").trim();
+                  const activities = Array.isArray(space.activities) ? space.activities : [];
+                  // Show if the space is defined in the practice OR has activities
+                  return practiceActivitySpaceNames.has(spaceName) || activities.length > 0;
+                })
+              : activitySpaces;
+
+            if (filteredActivitySpaces.length === 0) return null;
 
             return (
               <div key={idx} id={`activities-${slug(focus.focusName)}`} style={{ marginBottom: "2rem", scrollMarginTop: "2rem" }}>
                 <Title headingLevel="h4" size="lg" style={{ marginBottom: "1rem", color: "var(--pf-v6-global--primary-color--100)" }}>
                   {focus.focusName}
                 </Title>
-                {activitySpaces.map((space: any, spaceIdx: number) => (
+                {filteredActivitySpaces.map((space: any, spaceIdx: number) => (
                   <ActivitySpaceBlock key={spaceIdx} activitySpace={space} />
                 ))}
               </div>
@@ -1761,7 +1975,7 @@ function ActivitySpaceBlock({ activitySpace }: { activitySpace: any }) {
         )}
 
         {activities.length > 0 && (
-          <div style={{ display: "grid", gap: "0.75rem", marginTop: narratives && Array.isArray(narratives) && narratives.length > 0 ? "1rem" : "0" }}>
+          <div style={{ display: "grid", gap: "0.75rem", marginTop: "0.75rem" }}>
             {activities.map((activity: any, idx: number) => {
               const actName = String(activity.name ?? "");
               const actDesc = practiceElementDescriptionForDisplay(activity) ?? "";
@@ -2170,6 +2384,13 @@ export function BrowseView({
 
   const grouped = useMemo(() => (baselineForRender ? groupByFocus(baselineForRender) : []), [baselineForRender]);
 
+  // Build alias lookup map from practiceElementAliases
+  const aliasMap = useMemo(() => {
+    const sourceDoc = effectiveDoc && typeof effectiveDoc === "object" ? (effectiveDoc as Record<string, unknown>) : {};
+    const aliases = Array.isArray(sourceDoc.practiceElementAliases) ? sourceDoc.practiceElementAliases : undefined;
+    return buildPracticeElementAliasLookup(aliases);
+  }, [effectiveDoc]);
+
   if (shouldResolveLibrary && resolveBusy) {
     return (
       <div style={{ padding: embed ? 16 : 48, color: "var(--pf-v6-global--Color--200)" }}>
@@ -2203,25 +2424,25 @@ export function BrowseView({
         maxWidth: embed ? "none" : "1400px",
         minWidth: 0,
       }}>
-        <OutlineSection doc={sourceDocRecord} grouped={grouped} />
+        <OutlineSection doc={sourceDocRecord} grouped={grouped} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <ExecutiveContext doc={baselineForRender} methodComposition={methodComposition} />
+        <ExecutiveContext doc={baselineForRender} methodComposition={methodComposition} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <MethodFocus doc={sourceDocRecord} baseline={baselineForRender} grouped={grouped} methodComposition={methodComposition} />
+        <MethodFocus doc={sourceDocRecord} baseline={baselineForRender} grouped={grouped} methodComposition={methodComposition} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <LifecycleOrchestration doc={sourceDocRecord} baseline={baselineForRender} />
+        <LifecycleOrchestration doc={sourceDocRecord} baseline={baselineForRender} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <CoreConcepts doc={baselineForRender} grouped={grouped} />
+        <CoreConcepts doc={baselineForRender} originalDoc={sourceDocRecord} grouped={grouped} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <EvidentaryArtifacts doc={sourceDocRecord} />
+        <EvidentaryArtifacts doc={sourceDocRecord} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <ExecutionAndRoles doc={baselineForRender} grouped={grouped} />
+        <ExecutionAndRoles doc={baselineForRender} originalDoc={sourceDocRecord} grouped={grouped} aliasMap={aliasMap} />
       </main>
     </div>
   );
