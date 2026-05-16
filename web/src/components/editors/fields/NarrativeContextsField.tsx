@@ -2,6 +2,7 @@
 
 import { useCallback, type CSSProperties } from 'react';
 import { InlineTextField } from './InlineTextField';
+import { InlineSelectField } from './InlineSelectField';
 import { InlineTextArea } from './InlineTextArea';
 
 export type NarrativeContext = {
@@ -14,6 +15,8 @@ export type NarrativeContextsFieldProps = {
   value: NarrativeContext[] | undefined;
   onChange: (value: NarrativeContext[]) => void;
   label: string;
+  availableNarrativeElements?: string[];
+  narrativeElementsData?: Array<{ name?: string; howToUse?: string }>;
 };
 
 const moveButtonStyle: CSSProperties = {
@@ -41,7 +44,7 @@ const labelStyle: CSSProperties = {
 const tableStyle: CSSProperties = {
   width: '100%',
   borderCollapse: 'collapse',
-  border: '1px solid var(--border)',
+  border: '1px solid #d2d2d2',
   fontSize: 14,
 };
 
@@ -67,8 +70,16 @@ const removeButtonStyle: CSSProperties = {
   cursor: 'pointer',
 };
 
-export function NarrativeContextsField({ value, onChange, label }: NarrativeContextsFieldProps) {
+export function NarrativeContextsField({ value, onChange, label, availableNarrativeElements, narrativeElementsData }: NarrativeContextsFieldProps) {
   const contexts = value || [];
+  const narrativeElementOptions = availableNarrativeElements || [];
+  const narrativeElements = narrativeElementsData || [];
+
+  // Helper to get howToUse text for a given element name
+  const getHowToUse = (elementName: string): string => {
+    const element = narrativeElements.find(el => el.name === elementName);
+    return element?.howToUse || '';
+  };
 
   const handleAdd = useCallback(() => {
     onChange([...contexts, { narrativeElementName: '', context: '' }]);
@@ -94,29 +105,58 @@ export function NarrativeContextsField({ value, onChange, label }: NarrativeCont
 
   return (
     <div style={containerStyle}>
-      <label style={labelStyle}>{label}</label>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+        <label style={{ ...labelStyle, marginBottom: 0 }}>{label || 'Narrative Contexts'}</label>
+        <button
+          type="button"
+          onClick={handleAdd}
+          style={buttonStyle}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'var(--accent)';
+            e.currentTarget.style.color = 'white';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(139,92,246,0.15)';
+            e.currentTarget.style.color = 'var(--accent)';
+          }}
+        >
+          + Add Context
+        </button>
+      </div>
       {contexts.length > 0 && (
         <table style={tableStyle}>
           <thead>
-            <tr style={{ background: '#f0f0f0', borderBottom: '1px solid var(--border)' }}>
+            <tr style={{ background: '#f0f0f0', borderBottom: '1px solid #d2d2d2' }}>
               <th style={{ padding: '6px 10px', textAlign: 'left', fontSize: 12, width: 40 }}>#</th>
-              <th style={{ padding: '6px 10px', textAlign: 'left', fontSize: 12 }}>Narrative Element</th>
-              <th style={{ padding: '6px 10px', textAlign: 'left', fontSize: 12 }}>Context</th>
+              <th style={{ padding: '6px 10px', textAlign: 'left', fontSize: 12, width: '30%' }}>Narrative Element</th>
+              <th style={{ padding: '6px 10px', textAlign: 'left', fontSize: 12, width: '55%' }}>Context</th>
               <th style={{ padding: '6px 10px', width: 100 }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {contexts.map((ctx, idx) => (
-              <tr key={idx} style={{ borderBottom: '1px solid var(--border)' }}>
+              <tr key={idx} style={{ borderBottom: '1px solid #d2d2d2' }}>
                 <td style={{ padding: '6px 10px', fontSize: 11, color: '#6a6e73' }}>
                   {idx + 1}
                 </td>
                 <td style={{ padding: '6px 10px' }}>
-                  <InlineTextField
+                  <InlineSelectField
                     value={ctx.narrativeElementName || ''}
                     onChange={(val) => handleUpdate(idx, 'narrativeElementName', val)}
-                    placeholder="Narrative element name"
+                    options={narrativeElementOptions}
+                    placeholder="Select narrative element"
                   />
+                  {ctx.narrativeElementName && getHowToUse(ctx.narrativeElementName) && (
+                    <div style={{
+                      fontSize: 11,
+                      color: '#6a6e73',
+                      marginTop: 4,
+                      fontStyle: 'italic',
+                      lineHeight: 1.4
+                    }}>
+                      {getHowToUse(ctx.narrativeElementName)}
+                    </div>
+                  )}
                 </td>
                 <td style={{ padding: '6px 10px' }}>
                   <InlineTextArea
@@ -171,21 +211,6 @@ export function NarrativeContextsField({ value, onChange, label }: NarrativeCont
           </tbody>
         </table>
       )}
-      <button
-        type="button"
-        onClick={handleAdd}
-        style={buttonStyle}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'var(--accent)';
-          e.currentTarget.style.color = 'white';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'rgba(139,92,246,0.15)';
-          e.currentTarget.style.color = 'var(--accent)';
-        }}
-      >
-        + Add Context
-      </button>
     </div>
   );
 }

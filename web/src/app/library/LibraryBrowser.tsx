@@ -119,6 +119,7 @@ export function LibraryBrowser() {
     .lib-btn-primary:hover { background-color: var(--pf-v6-global--primary-color--200); }
     .lib-btn-secondary:hover { border-color: var(--pf-v6-global--primary-color--100); }
     .lib-btn-danger:hover { background-color: color-mix(in srgb, var(--pf-v6-global--danger-color--100) 10%, transparent); }
+    .lib-btn-danger-filled:hover { background-color: color-mix(in srgb, var(--pf-v6-global--danger-color--100) 90%, black); }
     .lib-link:hover { text-decoration: underline; }
     .lib-folder-row:hover { background-color: var(--pf-v6-global--BackgroundColor--200); color: var(--pf-v6-global--Color--100); }
     .lib-tag-button:hover { background-color: var(--pf-v6-global--BackgroundColor--100); color: var(--pf-v6-global--Color--100); }
@@ -142,6 +143,11 @@ export function LibraryBrowser() {
   const [deleteBusyId, setDeleteBusyId] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [deleteBusy, setDeleteBusy] = useState(false);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [deleteConfirmData, setDeleteConfirmData] = useState<{
+    type: 'bulk' | 'single';
+    items: EnrichedMeta[];
+  } | null>(null);
 
   const [domainTagFilter, setDomainTagFilter] = useState<string[]>([]);
   const [lifecycleTagFilter, setLifecycleTagFilter] = useState<string[]>([]);
@@ -302,18 +308,21 @@ export function LibraryBrowser() {
     URL.revokeObjectURL(url);
   }
 
-  async function handleBulkDelete() {
+  function requestBulkDelete() {
     if (selectedIds.length === 0) return;
 
     const targets = items.filter((it) => selectedIds.includes(it.id));
+    setDeleteConfirmData({ type: 'bulk', items: targets });
+    setDeleteConfirmOpen(true);
+  }
+
+  async function handleBulkDelete() {
+    if (!deleteConfirmData || deleteConfirmData.type !== 'bulk') return;
+
+    const targets = deleteConfirmData.items;
     const countStr = String(targets.length);
 
-    const confirmMsg =
-      targets.length === 1
-        ? `Delete "${targets[0].displayName || targets[0].title}"?`
-        : `Delete ${countStr} selected items? This cannot be undone.`;
-
-    if (!window.confirm(confirmMsg)) return;
+    setDeleteConfirmOpen(false);
 
     setDeleteBusy(true);
     setDeleteError(null);
@@ -355,10 +364,16 @@ export function LibraryBrowser() {
     setDeleteBusy(false);
   }
 
-  async function confirmAndDeletePractice(row: EnrichedMeta) {
-    const label = row.displayName || row.title || row.id;
-    const msg = t.libraryDeleteConfirm.replace("{name}", label);
-    if (!window.confirm(msg)) return;
+  function requestSingleDelete(row: EnrichedMeta) {
+    setDeleteConfirmData({ type: 'single', items: [row] });
+    setDeleteConfirmOpen(true);
+  }
+
+  async function handleSingleDelete() {
+    if (!deleteConfirmData || deleteConfirmData.type !== 'single' || deleteConfirmData.items.length === 0) return;
+
+    const row = deleteConfirmData.items[0];
+    setDeleteConfirmOpen(false);
     setDeleteBusyId(row.id);
     setDeleteError(null);
     try {
@@ -604,6 +619,24 @@ export function LibraryBrowser() {
 
           <LibraryAddModal open={uploadOpen} onClose={() => setUploadOpen(false)} onSaved={refresh} />
 
+          <DeleteConfirmModal
+            open={deleteConfirmOpen}
+            data={deleteConfirmData}
+            onCancel={() => {
+              setDeleteConfirmOpen(false);
+              setDeleteConfirmData(null);
+            }}
+            onConfirm={async () => {
+              if (deleteConfirmData?.type === 'bulk') {
+                await handleBulkDelete();
+              } else if (deleteConfirmData?.type === 'single') {
+                await handleSingleDelete();
+              }
+              setDeleteConfirmData(null);
+            }}
+            busy={deleteBusy}
+          />
+
           {deleteError ? (
             <p style={{ marginTop: "1rem", fontSize: "0.75rem", color: "var(--pf-v6-global--danger-color--100)" }} role="alert">
               {deleteError}
@@ -720,7 +753,8 @@ export function LibraryBrowser() {
 
                   <button
                     type="button"
-                    onClick={() => void handleBulkDelete()}
+                    onClick={requestBulkDelete}
+                    disabled={deleteBusy}
                     style={{
                       borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
                       border: "1px solid var(--pf-v6-global--danger-color--100)",
@@ -729,7 +763,8 @@ export function LibraryBrowser() {
                       fontSize: "0.75rem",
                       fontWeight: 600,
                       color: "var(--pf-v6-global--danger-color--100)",
-                      cursor: "pointer",
+                      cursor: deleteBusy ? "not-allowed" : "pointer",
+                      opacity: deleteBusy ? 0.5 : 1,
                     }}
                     className="lib-btn-danger"
                   >
@@ -1408,6 +1443,189 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
               </button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DeleteConfirmModal(props: {
+  open: boolean;
+  data: { type: 'bulk' | 'single'; items: EnrichedMeta[] } | null;
+  onCancel: () => void;
+  onConfirm: () => Promise<void>;
+  busy: boolean;
+}) {
+  const [confirming, setConfirming] = useState(false);
+
+  useEffect(() => {
+    if (!props.open) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") props.onCancel();
+    }
+    document.addEventListener("keydown", onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [props.open, props.onCancel]);
+
+  async function handleConfirm() {
+    setConfirming(true);
+    try {
+      await props.onConfirm();
+    } finally {
+      setConfirming(false);
+    }
+  }
+
+  if (!props.open || !props.data) return null;
+
+  const { type, items } = props.data;
+  const isBulk = type === 'bulk';
+  const count = items.length;
+  const itemName = items[0]?.displayName || items[0]?.title || items[0]?.id || 'item';
+
+  const title = isBulk && count > 1
+    ? `Delete ${count} items?`
+    : `Delete "${itemName}"?`;
+
+  const message = isBulk && count > 1
+    ? `You are about to permanently delete ${count} library items. This action cannot be undone.`
+    : `You are about to permanently delete this library item. This action cannot be undone.`;
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 50,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "1rem",
+      }}
+    >
+      <button
+        type="button"
+        aria-label="Close dialog"
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          backdropFilter: "blur(2px)",
+          border: "none",
+          cursor: "pointer",
+        }}
+        onClick={props.onCancel}
+      />
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="delete-confirm-heading"
+        style={{
+          position: "relative",
+          zIndex: 10,
+          width: "100%",
+          maxWidth: "28rem",
+          borderRadius: "var(--pf-v6-global--BorderRadius--lg)",
+          border: "1px solid var(--pf-v6-global--BorderColor--100)",
+          backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+          boxShadow: "var(--pf-v6-global--BoxShadow--xl)",
+        }}
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            gap: "0.75rem",
+            borderBottom: "1px solid var(--pf-v6-global--BorderColor--100)",
+            padding: "1rem 1.25rem",
+          }}
+        >
+          <Title headingLevel="h2" size="lg" id="delete-confirm-heading">
+            {title}
+          </Title>
+        </div>
+
+        <div style={{ padding: "1.25rem" }}>
+          <Content
+            component={ContentVariants.p}
+            style={{
+              fontSize: "0.875rem",
+              lineHeight: "1.6",
+              color: "var(--pf-v6-global--Color--200)",
+              marginBottom: "1.5rem",
+            }}
+          >
+            {message}
+          </Content>
+
+          {isBulk && count > 1 && count <= 5 && (
+            <div
+              style={{
+                marginBottom: "1.5rem",
+                padding: "0.75rem",
+                backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                fontSize: "0.75rem",
+              }}
+            >
+              <div style={{ fontWeight: 600, marginBottom: "0.5rem", color: "var(--pf-v6-global--Color--100)" }}>
+                Items to be deleted:
+              </div>
+              <ul style={{ listStyle: "disc", paddingLeft: "1.25rem", color: "var(--pf-v6-global--Color--200)" }}>
+                {items.map((item, idx) => (
+                  <li key={idx}>{item.displayName || item.title || item.id}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div style={{ display: "flex", gap: "0.75rem", justifyContent: "flex-end" }}>
+            <button
+              type="button"
+              onClick={props.onCancel}
+              disabled={confirming || props.busy}
+              style={{
+                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                padding: "0.5rem 1rem",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                color: "var(--pf-v6-global--Color--100)",
+                cursor: (confirming || props.busy) ? "not-allowed" : "pointer",
+                opacity: (confirming || props.busy) ? 0.5 : 1,
+              }}
+              className="lib-btn-secondary"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => void handleConfirm()}
+              disabled={confirming || props.busy}
+              style={{
+                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                border: "1px solid #C9190B",
+                backgroundColor: "#C9190B",
+                padding: "0.5rem 1rem",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                color: "#FFFFFF",
+                cursor: (confirming || props.busy) ? "not-allowed" : "pointer",
+                opacity: (confirming || props.busy) ? 0.5 : 1,
+              }}
+              className="lib-btn-danger-filled"
+            >
+              {confirming || props.busy ? "Deleting..." : "Delete"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -26,6 +26,7 @@ import {
   emptyPatternView,
   emptyPersona,
   emptyPersonaGroup,
+  emptyPracticeElementAlias,
   emptyState,
   emptyWorkProduct,
   emptyWorkProductInstanceName,
@@ -131,6 +132,21 @@ function collectFocusNameOptions(doc: Record<string, unknown>): string[] {
       const n = String((pv as Record<string, unknown>).focusName ?? "").trim();
       if (n) names.add(n);
     }
+  }
+
+  return [...names].sort((a, b) => a.localeCompare(b));
+}
+
+/**
+ * Collects all alpha names from the document for use in contributesTo dropdown
+ */
+function collectAlphaNameOptions(doc: Record<string, unknown>): string[] {
+  const names = new Set<string>();
+
+  for (const a of Array.isArray(doc.alphas) ? doc.alphas : []) {
+    if (!a || typeof a !== "object") continue;
+    const n = String((a as Record<string, unknown>).name ?? "").trim();
+    if (n) names.add(n);
   }
 
   return [...names].sort((a, b) => a.localeCompare(b));
@@ -432,6 +448,10 @@ export function PracticeAuthorForm({
     return [...s].sort((a, b) => a.localeCompare(b));
   }, [declaredFocusNames, resolvedMixFocusNames, baselineDeclaredFocusNames]);
 
+  const alphaOptions = useMemo(() => {
+    return collectAlphaNameOptions(rd);
+  }, [rd]);
+
   const defaultFocusHint = focusOptions[0] ?? "";
 
   return (
@@ -722,6 +742,7 @@ export function PracticeAuthorForm({
             alpha={alpha}
             focusHint={defaultFocusHint}
             focusOptions={focusOptions}
+            alphaOptions={alphaOptions}
             onChange={(next) => mutate((list) => [...list.slice(0, ai), next, ...list.slice(ai + 1)])}
           />
         )}
@@ -749,6 +770,7 @@ export function PracticeAuthorForm({
             space={sp}
             focusHint={defaultFocusHint}
             focusOptions={focusOptions}
+            alphaOptions={alphaOptions}
             onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])}
           />
         )}
@@ -761,7 +783,7 @@ export function PracticeAuthorForm({
         onReplace={(xs) => setRoot("activities", xs)}
         addLabel="+ Add activity"
         renderItem={(a, i, mutate) => (
-          <ActivityBlock act={a} focusOptions={focusOptions} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
+          <ActivityBlock act={a} focusOptions={focusOptions} alphaOptions={alphaOptions} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
         )}
         emptyItem={() => emptyActivity("")}
       />
@@ -772,7 +794,7 @@ export function PracticeAuthorForm({
         onReplace={(xs) => setRoot("workProducts", xs)}
         addLabel="+ Add work product (includes 2 levels of detail)"
         renderItem={(wp, i, mutate) => (
-          <WorkProductBlock wp={wp} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
+          <WorkProductBlock wp={wp} alphaOptions={alphaOptions} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
         )}
         emptyItem={() => emptyWorkProduct()}
       />
@@ -828,16 +850,29 @@ export function PracticeAuthorForm({
         </>
       ) : null}
 
-      <RepeatSection
-        title="Narrative spine types"
-        items={getArr("narrativeTypes")}
-        onReplace={(xs) => setRoot("narrativeTypes", xs)}
-        addLabel="+ Add narrative type"
-        renderItem={(nt, i, mutate) => (
-          <NarrativeTypeBlock nt={nt} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
-        )}
-        emptyItem={() => emptyNarrativeType()}
-      />
+      <div style={{ border: "1px solid var(--border)", borderRadius: 10, padding: 12 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+          <h3 style={{ margin: 0, fontWeight: 800, fontSize: 16 }}>Narratives</h3>
+          <Btn onClick={() => setRoot("narrativeTypes", [...getArr("narrativeTypes"), emptyNarrativeType()])}>
+            + Add Narrative
+          </Btn>
+        </div>
+        {getArr("narrativeTypes").map((nt, i) => (
+          <NarrativeTypeBlock
+            key={i}
+            nt={nt}
+            index={i}
+            onChange={(next) => {
+              const arr = getArr("narrativeTypes");
+              setRoot("narrativeTypes", [...arr.slice(0, i), next, ...arr.slice(i + 1)]);
+            }}
+            onRemove={() => {
+              const arr = getArr("narrativeTypes");
+              setRoot("narrativeTypes", arr.filter((_, j) => j !== i));
+            }}
+          />
+        ))}
+      </div>
 
       <RepeatSection
         title="Patterns"
@@ -848,6 +883,20 @@ export function PracticeAuthorForm({
           <PatternBlock pat={p} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
         )}
         emptyItem={() => emptyPattern()}
+      />
+
+      <RepeatSection
+        title="Practice element aliases"
+        items={getArr("practiceElementAliases")}
+        onReplace={(xs) => setRoot("practiceElementAliases", xs)}
+        addLabel="+ Add alias"
+        renderItem={(alias, i, mutate) => (
+          <PracticeElementAliasBlock
+            alias={alias}
+            onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])}
+          />
+        )}
+        emptyItem={() => emptyPracticeElementAlias()}
       />
     </div>
   );
@@ -967,11 +1016,13 @@ function AlphaBlock({
   alpha,
   focusHint,
   focusOptions,
+  alphaOptions,
   onChange,
 }: {
   alpha: Record<string, unknown>;
   focusHint: string;
   focusOptions: string[];
+  alphaOptions: string[];
   onChange: (next: Record<string, unknown>) => void;
 }) {
   const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...alpha })), [alpha, onChange]);
@@ -987,7 +1038,18 @@ function AlphaBlock({
         onChange={(v) => patch((a) => ({ ...a, focusName: v }))}
       />
       <label style={lab}>contributesTo (optional alpha name)</label>
-      <input value={sx(alpha, "contributesTo")} onChange={(e) => patch((a) => ({ ...a, contributesTo: e.target.value }))} style={inp} />
+      <select
+        value={sx(alpha, "contributesTo")}
+        onChange={(e) => patch((a) => ({ ...a, contributesTo: e.target.value }))}
+        style={sel}
+      >
+        <option value="">-- None (root alpha) --</option>
+        {alphaOptions.map((alphaName) => (
+          <option key={alphaName} value={alphaName}>
+            {alphaName}
+          </option>
+        ))}
+      </select>
       <RepeatSection
         title="States"
         items={states}
@@ -1148,11 +1210,13 @@ function ActivitySpaceBlock({
   space,
   focusHint,
   focusOptions,
+  alphaOptions,
   onChange,
 }: {
   space: Record<string, unknown>;
   focusHint: string;
   focusOptions: string[];
+  alphaOptions: string[];
   onChange: (next: Record<string, unknown>) => void;
 }) {
   const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...space })), [space, onChange]);
@@ -1190,12 +1254,18 @@ function ActivitySpaceBlock({
         emptyItem={() => alphaContribution()}
         renderItem={(ct, ii, mutate) => (
           <div style={{ display: "flex", gap: 8 }}>
-            <input
-              placeholder="alphaName"
+            <select
               value={sx(ct, "alphaName")}
               onChange={(e) => mutate((list) => [...list.slice(0, ii), { ...ct, alphaName: e.target.value }, ...list.slice(ii + 1)])}
-              style={inp}
-            />
+              style={sel}
+            >
+              <option value="">-- Select alpha --</option>
+              {alphaOptions.map((alphaName) => (
+                <option key={alphaName} value={alphaName}>
+                  {alphaName}
+                </option>
+              ))}
+            </select>
             <input
               placeholder="stateName"
               value={sx(ct, "stateName")}
@@ -1217,6 +1287,7 @@ function ActivitySpaceBlock({
             parentSpaceName={spaceName}
             focusHint={sx(space, "focusName") || focusHint}
             focusOptions={focusOptions}
+            alphaOptions={alphaOptions}
             onChange={(next) => mutate((list) => [...list.slice(0, ai), next, ...list.slice(ai + 1)])}
           />
         )}
@@ -1231,30 +1302,34 @@ function ActivityBlockEmbedded({
   parentSpaceName,
   focusHint,
   focusOptions,
+  alphaOptions,
   onChange,
 }: {
   act: Record<string, unknown>;
   parentSpaceName: string;
   focusHint: string;
   focusOptions: string[];
+  alphaOptions: string[];
   onChange: (next: Record<string, unknown>) => void;
 }) {
   const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...act })), [act, onChange]);
-  return <ActivityCore patch={patch} el={act} activitySpaceDefault={parentSpaceName} focusDefault={focusHint} focusOptions={focusOptions} />;
+  return <ActivityCore patch={patch} el={act} activitySpaceDefault={parentSpaceName} focusDefault={focusHint} focusOptions={focusOptions} alphaOptions={alphaOptions} />;
 }
 
 /** Practice.activities swimlane rows (activitySpaceName required in interchange). */
 function ActivityBlock({
   act,
   focusOptions,
+  alphaOptions,
   onChange,
 }: {
   act: Record<string, unknown>;
   focusOptions: string[];
+  alphaOptions: string[];
   onChange: (next: Record<string, unknown>) => void;
 }) {
   const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...act })), [act, onChange]);
-  return <ActivityCore patch={patch} el={act} activitySpaceDefault="" focusDefault="" focusOptions={focusOptions} />;
+  return <ActivityCore patch={patch} el={act} activitySpaceDefault="" focusDefault="" focusOptions={focusOptions} alphaOptions={alphaOptions} />;
 }
 
 function ActivityCore({
@@ -1263,12 +1338,14 @@ function ActivityCore({
   activitySpaceDefault,
   focusDefault,
   focusOptions,
+  alphaOptions,
 }: {
   patch: (fn: (x: Record<string, unknown>) => Record<string, unknown>) => void;
   el: Record<string, unknown>;
   activitySpaceDefault: string;
   focusDefault: string;
   focusOptions: string[];
+  alphaOptions: string[];
 }) {
   const contributes = arr<Record<string, unknown>>(el, "contributesTo");
   const req = linesFromStrArr(el.requiredCompetencies);
@@ -1304,12 +1381,18 @@ function ActivityCore({
         emptyItem={() => alphaContribution()}
         renderItem={(ct, ii, mutate) => (
           <div style={{ display: "flex", gap: 8 }}>
-            <input
-              placeholder="alphaName"
+            <select
               value={sx(ct, "alphaName")}
               onChange={(e) => mutate((list) => [...list.slice(0, ii), { ...ct, alphaName: e.target.value }, ...list.slice(ii + 1)])}
-              style={inp}
-            />
+              style={sel}
+            >
+              <option value="">-- Select alpha --</option>
+              {alphaOptions.map((alphaName) => (
+                <option key={alphaName} value={alphaName}>
+                  {alphaName}
+                </option>
+              ))}
+            </select>
             <input
               placeholder="stateName"
               value={sx(ct, "stateName")}
@@ -1369,7 +1452,7 @@ function ActivityCore({
   );
 }
 
-function WorkProductBlock({ wp, onChange }: { wp: Record<string, unknown>; onChange: (next: Record<string, unknown>) => void }) {
+function WorkProductBlock({ wp, alphaOptions, onChange }: { wp: Record<string, unknown>; alphaOptions: string[]; onChange: (next: Record<string, unknown>) => void }) {
   const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...wp })), [wp, onChange]);
   const lods = arr<Record<string, unknown>>(wp, "levelsOfDetail");
 
@@ -1384,14 +1467,14 @@ function WorkProductBlock({ wp, onChange }: { wp: Record<string, unknown>; onCha
         renumberSeq
         emptyItem={() => emptyLevelOfDetail(1)}
         renderItem={(lod, li, mutate) => (
-          <LevelOfDetailBlock lod={lod} onChange={(next) => mutate((list) => [...list.slice(0, li), next, ...list.slice(li + 1)])} />
+          <LevelOfDetailBlock lod={lod} alphaOptions={alphaOptions} onChange={(next) => mutate((list) => [...list.slice(0, li), next, ...list.slice(li + 1)])} />
         )}
       />
     </div>
   );
 }
 
-function LevelOfDetailBlock({ lod, onChange }: { lod: Record<string, unknown>; onChange: (next: Record<string, unknown>) => void }) {
+function LevelOfDetailBlock({ lod, alphaOptions, onChange }: { lod: Record<string, unknown>; alphaOptions: string[]; onChange: (next: Record<string, unknown>) => void }) {
   const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...lod })), [lod, onChange]);
   const checklist = arr<Record<string, unknown>>(lod, "checklist");
   const cts = arr<Record<string, unknown>>(lod, "contributesTo");
@@ -1407,12 +1490,18 @@ function LevelOfDetailBlock({ lod, onChange }: { lod: Record<string, unknown>; o
         emptyItem={() => alphaContribution()}
         renderItem={(ct, ii, mutate) => (
           <div style={{ display: "flex", gap: 8 }}>
-            <input
-              placeholder="alphaName"
+            <select
               value={sx(ct, "alphaName")}
               onChange={(e) => mutate((list) => [...list.slice(0, ii), { ...ct, alphaName: e.target.value }, ...list.slice(ii + 1)])}
-              style={inp}
-            />
+              style={sel}
+            >
+              <option value="">-- Select alpha --</option>
+              {alphaOptions.map((alphaName) => (
+                <option key={alphaName} value={alphaName}>
+                  {alphaName}
+                </option>
+              ))}
+            </select>
             <input
               placeholder="stateName"
               value={sx(ct, "stateName")}
@@ -1450,43 +1539,191 @@ function LevelOfDetailBlock({ lod, onChange }: { lod: Record<string, unknown>; o
   );
 }
 
-function NarrativeElementBlock({
-  el,
+function NarrativeTypeBlock({
+  nt,
+  index,
   onChange,
+  onRemove,
 }: {
-  el: Record<string, unknown>;
+  nt: Record<string, unknown>;
+  index: number;
   onChange: (next: Record<string, unknown>) => void;
+  onRemove: () => void;
 }) {
-  const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...el })), [el, onChange]);
-  return (
-    <div style={{ display: "grid", gap: 8 }}>
-      {practiceElFields(el, patch)}
-      <label style={lab}>howToUse</label>
-      <textarea
-        value={sx(el, "howToUse")}
-        onChange={(e) => patch((x) => ({ ...x, howToUse: e.target.value }))}
-        style={{ ...inp, minHeight: 48 }}
-      />
-    </div>
-  );
-}
-
-function NarrativeTypeBlock({ nt, onChange }: { nt: Record<string, unknown>; onChange: (next: Record<string, unknown>) => void }) {
   const patch = useCallback((fn: (x: Record<string, unknown>) => Record<string, unknown>) => onChange(fn({ ...nt })), [nt, onChange]);
   const els = arr<Record<string, unknown>>(nt, "narrativeElements");
+
   return (
-    <div style={{ display: "grid", gap: 8 }}>
-      {practiceElFields(nt, patch)}
-      <RepeatSection
-        title="narrativeElements"
-        items={els}
-        onReplace={(xs) => patch((n) => ({ ...n, narrativeElements: xs }))}
-        addLabel="+ Add narrative element"
-        renderItem={(el, i, mutate) => (
-          <NarrativeElementBlock el={el} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
+    <div style={{ marginBottom: 24, border: "1px solid var(--border)", borderRadius: 8, overflow: "hidden" }}>
+      {/* Narrative header row */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "auto 1fr auto",
+          alignItems: "center",
+          padding: 12,
+          background: "rgba(0,0,0,0.05)",
+          borderBottom: "1px solid var(--border)",
+          gap: 12,
+        }}
+      >
+        <span style={{ fontWeight: 700 }}>#{index + 1}</span>
+        <div>
+          <strong>{sx(nt, "name") || "(Unnamed Narrative)"}</strong>
+          {sx(nt, "name") && <span style={{ marginLeft: 8, color: "var(--muted)", fontSize: 13 }}>[{sx(nt, "name")}]</span>}
+        </div>
+        <div style={{ display: "flex", gap: 6 }}>
+          <button
+            type="button"
+            onClick={onRemove}
+            style={{
+              ...moveBtnStyle,
+              background: "rgba(220,38,38,0.1)",
+              borderColor: "rgba(220,38,38,0.3)",
+              color: "rgb(220,38,38)",
+            }}
+            title="Remove narrative"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+
+      {/* Narrative fields */}
+      <div style={{ padding: 12, display: "grid", gap: 8, background: "white" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 12, alignItems: "start" }}>
+          <label style={{ ...lab, marginBottom: 0 }}>Narrative Name</label>
+          <input value={sx(nt, "name")} onChange={(e) => patch((prev) => ({ ...prev, name: e.target.value }))} style={inp} />
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 12, alignItems: "start" }}>
+          <label style={{ ...lab, marginBottom: 0 }}>Description</label>
+          <textarea
+            value={sx(nt, "description")}
+            onChange={(e) => patch((prev) => ({ ...prev, description: e.target.value }))}
+            style={{ ...inp, minHeight: 60 }}
+          />
+        </div>
+      </div>
+
+      {/* Narrative Contexts section */}
+      <div style={{ borderTop: "1px solid var(--border)" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "10px 12px",
+            background: "rgba(0,0,0,0.02)",
+          }}
+        >
+          <span style={{ fontWeight: 700, fontSize: 14 }}>Narrative Contexts</span>
+          <Btn
+            onClick={() =>
+              patch((n) => ({
+                ...n,
+                narrativeElements: [...arr<Record<string, unknown>>(n, "narrativeElements"), { ...emptyPracticeElementStub(), howToUse: "" }],
+              }))
+            }
+          >
+            + Add Context
+          </Btn>
+        </div>
+
+        {/* Contexts table */}
+        {els.length > 0 && (
+          <div style={{ border: "1px solid var(--border)", margin: 12, borderRadius: 6, overflow: "hidden" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr style={{ background: "rgba(0,0,0,0.03)" }}>
+                  <th style={{ padding: 8, textAlign: "left", width: 40, borderBottom: "1px solid var(--border)" }}>#</th>
+                  <th style={{ padding: 8, textAlign: "left", borderBottom: "1px solid var(--border)" }}>Name</th>
+                  <th style={{ padding: 8, textAlign: "left", borderBottom: "1px solid var(--border)" }}>Description</th>
+                  <th style={{ padding: 8, textAlign: "left", borderBottom: "1px solid var(--border)" }}>How to Use</th>
+                  <th style={{ padding: 8, textAlign: "right", width: 100, borderBottom: "1px solid var(--border)" }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {els.map((el, i) => (
+                  <tr key={i} style={{ borderBottom: i < els.length - 1 ? "1px solid var(--border)" : "none" }}>
+                    <td style={{ padding: 8 }}>{i + 1}</td>
+                    <td style={{ padding: 8 }}>
+                      <input
+                        value={sx(el, "name")}
+                        onChange={(e) =>
+                          patch((n) => ({
+                            ...n,
+                            narrativeElements: [
+                              ...arr<Record<string, unknown>>(n, "narrativeElements").slice(0, i),
+                              { ...el, name: e.target.value },
+                              ...arr<Record<string, unknown>>(n, "narrativeElements").slice(i + 1),
+                            ],
+                          }))
+                        }
+                        style={{ ...inp, padding: 6 }}
+                        placeholder="Context name"
+                      />
+                    </td>
+                    <td style={{ padding: 8 }}>
+                      <textarea
+                        value={sx(el, "description")}
+                        onChange={(e) =>
+                          patch((n) => ({
+                            ...n,
+                            narrativeElements: [
+                              ...arr<Record<string, unknown>>(n, "narrativeElements").slice(0, i),
+                              { ...el, description: e.target.value },
+                              ...arr<Record<string, unknown>>(n, "narrativeElements").slice(i + 1),
+                            ],
+                          }))
+                        }
+                        style={{ ...inp, minHeight: 40, padding: 6 }}
+                        placeholder="Description"
+                      />
+                    </td>
+                    <td style={{ padding: 8 }}>
+                      <textarea
+                        value={sx(el, "howToUse")}
+                        onChange={(e) =>
+                          patch((n) => ({
+                            ...n,
+                            narrativeElements: [
+                              ...arr<Record<string, unknown>>(n, "narrativeElements").slice(0, i),
+                              { ...el, howToUse: e.target.value },
+                              ...arr<Record<string, unknown>>(n, "narrativeElements").slice(i + 1),
+                            ],
+                          }))
+                        }
+                        style={{ ...inp, minHeight: 40, padding: 6 }}
+                        placeholder="How to use"
+                      />
+                    </td>
+                    <td style={{ padding: 8, textAlign: "right" }}>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          patch((n) => ({
+                            ...n,
+                            narrativeElements: arr<Record<string, unknown>>(n, "narrativeElements").filter((_, j) => j !== i),
+                          }))
+                        }
+                        style={{
+                          ...moveBtnStyle,
+                          background: "rgba(220,38,38,0.1)",
+                          borderColor: "rgba(220,38,38,0.3)",
+                          color: "rgb(220,38,38)",
+                        }}
+                        title="Remove context"
+                      >
+                        ×
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
-        emptyItem={() => ({ ...emptyPracticeElementStub(), howToUse: "" })}
-      />
+      </div>
     </div>
   );
 }
@@ -1735,6 +1972,61 @@ function EmbeddedWorkProductInstanceBlock({
         onChange={(e) => patch((r) => ({ ...r, levelOfDetailName: e.target.value }))}
         style={inp}
       />
+    </div>
+  );
+}
+
+function PracticeElementAliasBlock({ alias, onChange }: { alias: Record<string, unknown>; onChange: (next: Record<string, unknown>) => void }) {
+  const elementTypes = [
+    "Alpha",
+    "ActivitySpace",
+    "Activity",
+    "WorkProduct",
+    "Focus",
+    "Pattern",
+    "PatternView",
+    "Persona",
+    "PersonaGroup",
+    "Competency",
+    "Practice",
+    "PracticeBaseline",
+  ];
+
+  return (
+    <div style={{ display: "grid", gap: 8, gridTemplateColumns: "1fr 1fr 1fr" }}>
+      <div>
+        <label style={lab}>Element Type</label>
+        <select
+          value={sx(alias, "practiceElementType")}
+          onChange={(e) => onChange({ ...alias, practiceElementType: e.target.value })}
+          style={sel}
+        >
+          <option value="">-- Select type --</option>
+          {elementTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label style={lab}>Original Name</label>
+        <input
+          placeholder="Original element name"
+          value={sx(alias, "practiceElementName")}
+          onChange={(e) => onChange({ ...alias, practiceElementName: e.target.value })}
+          style={inp}
+        />
+      </div>
+      <div>
+        <label style={lab}>Alias Name</label>
+        <input
+          placeholder="Display alias"
+          value={sx(alias, "aliasName")}
+          onChange={(e) => onChange({ ...alias, aliasName: e.target.value })}
+          style={inp}
+        />
+      </div>
     </div>
   );
 }

@@ -171,6 +171,52 @@ export function WysiwygEditor({
     libraryBodies
   );
 
+  // Collect all narrative types from baseline, dependencies, and current doc
+  const { narrativeTypeNames, narrativeTypesData } = (() => {
+    const names = new Set<string>();
+    const typesMap = new Map<string, any>();
+
+    // From resolved baseline
+    if (resolvedBaseline?.narrativeTypes) {
+      for (const nt of resolvedBaseline.narrativeTypes) {
+        const name = canonicalPracticeElementName(nt?.name);
+        if (name) {
+          names.add(name);
+          if (!typesMap.has(name)) typesMap.set(name, nt);
+        }
+      }
+    }
+
+    // From dependencies
+    for (const dep of dependencies) {
+      if (dep && typeof dep === 'object' && Array.isArray((dep as any).narrativeTypes)) {
+        for (const nt of (dep as any).narrativeTypes) {
+          const name = canonicalPracticeElementName(nt?.name);
+          if (name) {
+            names.add(name);
+            if (!typesMap.has(name)) typesMap.set(name, nt);
+          }
+        }
+      }
+    }
+
+    // From current document (takes precedence)
+    if (Array.isArray(doc.narrativeTypes)) {
+      for (const nt of doc.narrativeTypes as any[]) {
+        const name = canonicalPracticeElementName(nt?.name);
+        if (name) {
+          names.add(name);
+          typesMap.set(name, nt); // Override with current doc version
+        }
+      }
+    }
+
+    return {
+      narrativeTypeNames: Array.from(names).sort(),
+      narrativeTypesData: Array.from(typesMap.values())
+    };
+  })();
+
   const updateField = useCallback((path: string, value: any) => {
     const updated = setValueAtPath(doc, path, value);
     onChange(updated);
@@ -371,11 +417,13 @@ export function WysiwygEditor({
                 fieldPath={`focuses[${idx}].tags`}
               />
             </PropertyRow>
-            <PropertyRow label="Narratives">
+            <PropertyRow label="Narratives" fullWidth>
               <NarrativesField
                 value={focus.narratives}
                 onChange={(val) => updateField(`focuses[${idx}].narratives`, val)}
                 fieldPath={`focuses[${idx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
               />
             </PropertyRow>
           </PropertyTable>
@@ -477,11 +525,13 @@ export function WysiwygEditor({
                   fieldPath={`alphas[${alphaIdx}].tags`}
                 />
               </PropertyRow>
-              <PropertyRow label="Narratives">
+              <PropertyRow label="Narratives" fullWidth>
                 <NarrativesField
                   value={alpha.narratives}
                   onChange={(val) => updateField(`alphas[${alphaIdx}].narratives`, val)}
                   fieldPath={`alphas[${alphaIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                 />
               </PropertyRow>
             </PropertyTable>
@@ -566,11 +616,13 @@ export function WysiwygEditor({
                         fieldPath={`alphas[${alphaIdx}].states[${stateIdx}].tags`}
                       />
                     </PropertyRow>
-                    <PropertyRow label="Narratives">
+                    <PropertyRow label="Narratives" fullWidth>
                       <NarrativesField
                         value={state.narratives}
                         onChange={(val) => updateField(`alphas[${alphaIdx}].states[${stateIdx}].narratives`, val)}
                         fieldPath={`alphas[${alphaIdx}].states[${stateIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                       />
                     </PropertyRow>
                   </PropertyTable>
@@ -772,11 +824,13 @@ export function WysiwygEditor({
                   fieldPath={`competencies[${compIdx}].tags`}
                 />
               </PropertyRow>
-              <PropertyRow label="Narratives">
+              <PropertyRow label="Narratives" fullWidth>
                 <NarrativesField
                   value={comp.narratives}
                   onChange={(val) => updateField(`competencies[${compIdx}].narratives`, val)}
                   fieldPath={`competencies[${compIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                 />
               </PropertyRow>
             </PropertyTable>
@@ -838,11 +892,13 @@ export function WysiwygEditor({
                       fieldPath={`competencies[${compIdx}].levels[${levelIdx}].tags`}
                     />
                   </PropertyRow>
-                  <PropertyRow label="Narratives">
+                  <PropertyRow label="Narratives" fullWidth>
                     <NarrativesField
                       value={level.narratives}
                       onChange={(val) => updateField(`competencies[${compIdx}].levels[${levelIdx}].narratives`, val)}
                       fieldPath={`competencies[${compIdx}].levels[${levelIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                     />
                   </PropertyRow>
                 </PropertyTable>
@@ -915,11 +971,13 @@ export function WysiwygEditor({
                   fieldPath={`workProducts[${wpIdx}].tags`}
                 />
               </PropertyRow>
-              <PropertyRow label="Narratives">
+              <PropertyRow label="Narratives" fullWidth>
                 <NarrativesField
                   value={wp.narratives}
                   onChange={(val) => updateField(`workProducts[${wpIdx}].narratives`, val)}
                   fieldPath={`workProducts[${wpIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                 />
               </PropertyRow>
             </PropertyTable>
@@ -981,11 +1039,13 @@ export function WysiwygEditor({
                       fieldPath={`workProducts[${wpIdx}].levelsOfDetail[${lodIdx}].tags`}
                     />
                   </PropertyRow>
-                  <PropertyRow label="Narratives">
+                  <PropertyRow label="Narratives" fullWidth>
                     <NarrativesField
                       value={lod.narratives}
                       onChange={(val) => updateField(`workProducts[${wpIdx}].levelsOfDetail[${lodIdx}].narratives`, val)}
                       fieldPath={`workProducts[${wpIdx}].levelsOfDetail[${lodIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                     />
                   </PropertyRow>
                 </PropertyTable>
@@ -1065,11 +1125,13 @@ export function WysiwygEditor({
                   fieldPath={`activitySpaces[${spaceIdx}].tags`}
                 />
               </PropertyRow>
-              <PropertyRow label="Narratives">
+              <PropertyRow label="Narratives" fullWidth>
                 <NarrativesField
                   value={space.narratives}
                   onChange={(val) => updateField(`activitySpaces[${spaceIdx}].narratives`, val)}
                   fieldPath={`activitySpaces[${spaceIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                 />
               </PropertyRow>
             </PropertyTable>
@@ -1131,11 +1193,13 @@ export function WysiwygEditor({
                       fieldPath={`activitySpaces[${spaceIdx}].activities[${actIdx}].tags`}
                     />
                   </PropertyRow>
-                  <PropertyRow label="Narratives">
+                  <PropertyRow label="Narratives" fullWidth>
                     <NarrativesField
                       value={activity.narratives}
                       onChange={(val) => updateField(`activitySpaces[${spaceIdx}].activities[${actIdx}].narratives`, val)}
                       fieldPath={`activitySpaces[${spaceIdx}].activities[${actIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                     />
                   </PropertyRow>
                 </PropertyTable>
@@ -1301,11 +1365,13 @@ export function WysiwygEditor({
                     fieldPath={`activities[${actIdx}].tags`}
                   />
                 </PropertyRow>
-                <PropertyRow label="Narratives">
+                <PropertyRow label="Narratives" fullWidth>
                   <NarrativesField
                     value={activity.narratives}
                     onChange={(val) => updateField(`activities[${actIdx}].narratives`, val)}
                     fieldPath={`activities[${actIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                   />
                 </PropertyRow>
               </PropertyTable>
@@ -1384,11 +1450,13 @@ export function WysiwygEditor({
                   fieldPath={`patterns[${patternIdx}].tags`}
                 />
               </PropertyRow>
-              <PropertyRow label="Narratives">
+              <PropertyRow label="Narratives" fullWidth>
                 <NarrativesField
                   value={pattern.narratives}
                   onChange={(val) => updateField(`patterns[${patternIdx}].narratives`, val)}
                   fieldPath={`patterns[${patternIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                 />
               </PropertyRow>
             </PropertyTable>
@@ -1492,11 +1560,13 @@ export function WysiwygEditor({
                       fieldPath={`patterns[${patternIdx}].patternViews[${viewIdx}].tags`}
                     />
                   </PropertyRow>
-                  <PropertyRow label="Narratives">
+                  <PropertyRow label="Narratives" fullWidth>
                     <NarrativesField
                       value={view.narratives}
                       onChange={(val) => updateField(`patterns[${patternIdx}].patternViews[${viewIdx}].narratives`, val)}
                       fieldPath={`patterns[${patternIdx}].patternViews[${viewIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                     />
                   </PropertyRow>
                 </PropertyTable>
@@ -1574,11 +1644,13 @@ export function WysiwygEditor({
                 fieldPath={`personas[${personaIdx}].tags`}
               />
             </PropertyRow>
-            <PropertyRow label="Narratives">
+            <PropertyRow label="Narratives" fullWidth>
               <NarrativesField
                 value={persona.narratives}
                 onChange={(val) => updateField(`personas[${personaIdx}].narratives`, val)}
                 fieldPath={`personas[${personaIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
               />
             </PropertyRow>
           </PropertyTable>
@@ -1654,11 +1726,13 @@ export function WysiwygEditor({
                 fieldPath={`personaGroups[${groupIdx}].tags`}
               />
             </PropertyRow>
-            <PropertyRow label="Narratives">
+            <PropertyRow label="Narratives" fullWidth>
               <NarrativesField
                 value={group.narratives}
                 onChange={(val) => updateField(`personaGroups[${groupIdx}].narratives`, val)}
                 fieldPath={`personaGroups[${groupIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
               />
             </PropertyRow>
           </PropertyTable>
@@ -1728,11 +1802,13 @@ export function WysiwygEditor({
                   fieldPath={`narrativeTypes[${ntIdx}].tags`}
                 />
               </PropertyRow>
-              <PropertyRow label="Narratives">
+              <PropertyRow label="Narratives" fullWidth>
                 <NarrativesField
                   value={nt.narratives}
                   onChange={(val) => updateField(`narrativeTypes[${ntIdx}].narratives`, val)}
                   fieldPath={`narrativeTypes[${ntIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                 />
               </PropertyRow>
             </PropertyTable>
@@ -1801,11 +1877,13 @@ export function WysiwygEditor({
                       fieldPath={`narrativeTypes[${ntIdx}].narrativeElements[${elemIdx}].tags`}
                     />
                   </PropertyRow>
-                  <PropertyRow label="Narratives">
+                  <PropertyRow label="Narratives" fullWidth>
                     <NarrativesField
                       value={elem.narratives}
                       onChange={(val) => updateField(`narrativeTypes[${ntIdx}].narrativeElements[${elemIdx}].narratives`, val)}
                       fieldPath={`narrativeTypes[${ntIdx}].narrativeElements[${elemIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
                     />
                   </PropertyRow>
                 </PropertyTable>
@@ -1897,11 +1975,13 @@ export function WysiwygEditor({
                 fieldPath={`alphaInstances[${aiIdx}].tags`}
               />
             </PropertyRow>
-            <PropertyRow label="Narratives">
+            <PropertyRow label="Narratives" fullWidth>
               <NarrativesField
                 value={ai.narratives}
                 onChange={(val) => updateField(`alphaInstances[${aiIdx}].narratives`, val)}
                 fieldPath={`alphaInstances[${aiIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
               />
             </PropertyRow>
           </PropertyTable>
@@ -1990,11 +2070,13 @@ export function WysiwygEditor({
                 fieldPath={`workProductInstances[${wpiIdx}].tags`}
               />
             </PropertyRow>
-            <PropertyRow label="Narratives">
+            <PropertyRow label="Narratives" fullWidth>
               <NarrativesField
                 value={wpi.narratives}
                 onChange={(val) => updateField(`workProductInstances[${wpiIdx}].narratives`, val)}
                 fieldPath={`workProductInstances[${wpiIdx}].narratives`}
+                availableNarrativeTypeNames={narrativeTypeNames}
+                narrativeTypesData={narrativeTypesData}
               />
             </PropertyRow>
           </PropertyTable>

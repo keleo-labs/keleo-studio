@@ -43,7 +43,6 @@ export type NarrativeContext = {
 /** Embedded narrative breakdown subtree (`PracticeElement.narratives`; language.schema.json). */
 export type Narrative = PracticeElementIdentity & {
   narratives?: Narrative[];
-  narrativeName: string;
   narrativeTypeName: string;
   narrativeContexts: NarrativeContext[];
 };

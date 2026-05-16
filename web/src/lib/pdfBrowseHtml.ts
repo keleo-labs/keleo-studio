@@ -61,7 +61,7 @@ function buildAlphaHierarchy(alphas: any[]): { roots: any[]; childrenMap: Map<st
 }
 
 function renderNarrativeCompact(narrative: any): string {
-  const narrativeName = String(narrative.narrativeName ?? narrative.name ?? "");
+  const narrativeName = String(narrative.name ?? "");
   const description = practiceElementDescriptionForDisplay(narrative) ?? "";
   const contexts = Array.isArray(narrative.narrativeContexts) ? narrative.narrativeContexts : [];
 

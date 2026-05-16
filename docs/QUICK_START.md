@@ -1,13 +1,13 @@
 # Quick Start Guide
 
-A concise guide to get started with the Adoption Framework as a developer or user.
+A concise guide to get started with Keleo Studio as a developer or user.
 
 ## Installation
 
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd adoptionframework
+cd keleo-studio
 
 # Install dependencies
 npm install
@@ -22,7 +22,7 @@ npm run dev
 ## Project Structure at a Glance
 
 ```
-adoptionframework/
+keleo-studio/
 ├── web/                    # Next.js application
 │   ├── src/
 │   │   ├── app/           # Pages and API routes
@@ -362,7 +362,7 @@ Create `.env.local` in `web/` directory:
 STORAGE_TYPE=file          # or "mongo"
 
 # MongoDB (if using mongo storage)
-MONGODB_URI=mongodb://localhost:27017/adoptionframework
+MONGODB_URI=mongodb://localhost:27017/keleo-studio
 
 # Optional
 PORT=3000

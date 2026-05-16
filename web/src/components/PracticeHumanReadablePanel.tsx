@@ -1019,8 +1019,6 @@ function BrowseTableOfContents({
 
 function narrativeTreeDisplayName(n: Narrative): string {
   const rec = n as Record<string, unknown>;
-  const nn = typeof rec.narrativeName === "string" ? String(rec.narrativeName).trim() : "";
-  if (nn) return nn;
   const nm = typeof rec.name === "string" ? String(rec.name).trim() : "";
   return nm || "—";
 }

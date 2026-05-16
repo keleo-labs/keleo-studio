@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.com/adoptionframework/language.schema.json",
+  "$id": "https://example.com/keleo-studio/language.schema.json",
   "title": "Practice language (from language.mmd)",
   "description": "JSON Schema derived from the Mermaid classDiagram in language.mmd. Identity is by name; most cross-links are string names (not embedded objects). Root validation discriminates Practice vs Method vs PracticeBaseline. Method can use embedded objects (baselinePractice + practices) or string references (baselinePracticeName + practiceNames) or a mix.",
   "$defs": {
@@ -499,10 +499,6 @@
           "type": "object",
           "required": ["narrativeName", "narrativeTypeName", "narrativeContexts"],
           "properties": {
-            "narrativeName": {
-              "type": "string",
-              "description": "Human-facing narrative label (distinct from PracticeElement.name in interchange; tooling may synchronize)."
-            },
             "narrativeTypeName": {
               "type": "string",
               "description": "Symbolic link to NarrativeType.name in scope (baseline narrativeTypes or practice overlay)."

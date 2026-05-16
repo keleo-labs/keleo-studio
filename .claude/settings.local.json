@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx ajv-cli *)",
+      "Bash(node validate-schema.js)",
+      "Bash(npm install *)",
+      "Bash(npx tsx *)",
+      "Bash(curl -s http://localhost:3000/api/documents?details=1)",
+      "Bash(curl -s 'http://localhost:3000/api/documents?details=1')",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(awk '{print $2}')",
+      "Bash(xargs kill)",
+      "Bash(kill 22409)",
+      "Bash(grep -n 'style={{ ...style' LibraryBrowser.tsx)",
+      "Bash(awk '/^function LibraryManageRowActions/,/^}$/{if\\(/^}$/ && NR>110\\){print NR\": \"$0; exit}}' /Users/eseymour/code/keleo-studio/web/src/app/library/LibraryBrowser.tsx)",
+      "Bash(grep -E \"\\\\.\\(tsx?|jsx?\\)$\")",
+      "Bash(grep -E \"\\\\.tsx$|\\\\.ts$\")",
+      "Bash(xargs cat)",
+      "Bash(curl -s http://localhost:3000/practice-author -o /dev/null -w \"%{http_code}\\\\n\")",
+      "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")",
+      "Bash(curl -s http://localhost:3000/library -o /dev/null -w \"%{http_code}\\\\n\")",
+      "Bash(chmod +x /tmp/fix_editor_layout.sh)",
+      "Bash(/tmp/fix_editor_layout.sh)",
+      "Bash(xargs -I {} basename {})",
+      "Bash(grep -B 3 \"const { baseline: resolvedBaseline, dependencies }\" /Users/eseymour/code/keleo-studio/web/src/app/practice-author/page.tsx)",
+      "Bash(awk '{print $9, \"\\(\" $5 \"\\)\"}')",
+      "Bash(node -e \"require\\('typescript'\\).createProgram\\(['src/components/editors/fields/MethodTagsField.tsx'], {}\\).getSemanticDiagnostics\\(\\).length === 0 ? console.log\\('OK'\\) : console.log\\('Errors'\\)\")",
+      "Bash(kill 11040 11063)",
+      "Bash(grep -E \"\\\\.\\(json|ts\\)$\")",
+      "Bash(node test-validation.js)",
+      "Bash(node /tmp/test-validation.js)",
+      "Bash(node test-validation.mjs)",
+      "Bash(grep -v \"^--$\")",
+      "Bash(node -e \"const fs = require\\('fs'\\); const data = JSON.parse\\(fs.readFileSync\\('aap-2.6-lifecycle-orchestration-practice.json', 'utf8'\\)\\); console.log\\('Has patterns:', Array.isArray\\(data.patterns\\)\\); console.log\\('Pattern count:', data.patterns?.length\\); console.log\\('First pattern has patternViews:', Array.isArray\\(data.patterns?.[0]?.patternViews\\)\\); console.log\\('PatternViews count:', data.patterns?.[0]?.patternViews?.length\\);\")",
+      "Bash(node /tmp/test-classify-practice.mjs)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(grep -n \"aliasMap: Map<string, { aliasName: string; originalName: string }>\" /Users/eseymour/code/keleo-studio/web/src/components/BrowseView.tsx)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(curl -s \"http://localhost:3000/practice-author?libraryId=33377352-730c-4117-90d5-96d6e7df1f42\")",
+      "Bash(python3)",
+      "Bash(grep -n \"fieldPath={\\\\`focuses\\\\[\" /Users/eseymour/code/keleo-studio/web/src/components/editors/WysiwygEditor.tsx)",
+      "Bash(grep -A1 \"fieldPath={\\\\`focuses\\\\[\" /Users/eseymour/code/keleo-studio/web/src/components/editors/WysiwygEditor.tsx)"
+    ],
+    "additionalDirectories": [
+      "/tmp"
+    ]
+  }
+}
