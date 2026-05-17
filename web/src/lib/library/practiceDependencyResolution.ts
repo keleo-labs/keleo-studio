@@ -1125,6 +1125,22 @@ export function resolvePracticeWithLibraryIndex(primary: unknown, index: Library
   expandDocumentationClosureFromMergedGraph(merged, closure);
   expandPersonaSubgroupClosureInPlace(merged, closure);
 
+  // CRITICAL: Always include ALL baseline alphas in the closure to ensure they're shown
+  // in the Method Focus view, even if not referenced by the extension practice.
+  // This provides a complete view of baseline coverage.
+  const baselineAlphas = (baseline as any).alphas ?? [];
+  for (const alpha of baselineAlphas) {
+    const alphaName = canonicalPracticeElementName(alpha?.name);
+    if (alphaName !== null) {
+      closure.alphaNames.add(alphaName);
+      // Also ensure the alpha's focus is included
+      const focusName = canonicalPracticeElementName((alpha as any)?.focusName);
+      if (focusName !== null) {
+        closure.focusNames.add(focusName);
+      }
+    }
+  }
+
   if (documentationClosureIsEmpty(closure)) {
     stripExtensionBaselineNameForKernelComposite(merged);
     return merged;

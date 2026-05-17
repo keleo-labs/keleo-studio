@@ -314,7 +314,10 @@ export function PracticeAuthorForm({
         }
         const data = (await res.json()) as { documents?: EnrichedLibraryDoc[] };
         if (!cancelled) {
-          setLibDocs(Array.isArray(data.documents) ? data.documents : []);
+          const allDocs = Array.isArray(data.documents) ? data.documents : [];
+          // Filter out dashboard-config documents - only show library items
+          const libraryDocs = allDocs.filter((d) => d.kind !== "dashboard-config");
+          setLibDocs(libraryDocs);
           setLibError(null);
         }
       } catch (e: unknown) {

@@ -1,15 +1,31 @@
 # Keleo Studio
 
-A comprehensive practice management and method composition system for software engineering practices, built on the SEMAT Essence framework. This application enables teams to author, compose, visualize, and manage software engineering practices and methods.
+A comprehensive practice management and method composition system built on a practice language derived from SEMAT Essence. While originally designed for software engineering, the system supports any domain where teams need to define, compose, and manage structured practices and methods.
 
 ## Overview
 
 Keleo Studio provides a complete toolset for:
-- **Practice Authoring**: Create and edit software engineering practices with validation
+
+- **Practice Authoring**: Create and edit practices with schema validation
 - **Method Building**: Compose methods from baseline practices and extensions
-- **Visualization**: Kanban pattern boards, Sankey flow diagrams, and alpha contributes diagrams
+- **Visualization**: Kanban pattern boards, Sankey flow diagrams, and dependency visualizations
 - **Library Management**: Browse, import, export, and organize practice libraries
 - **PDF Export**: Generate human-readable PDF reports of practices and methods
+
+## Philosophy: Modular and Adaptable Practices
+
+Traditional methodologies often force teams into rigid, monolithic processes. Keleo Studio takes a different approach—building on an extensible baseline framework that allows teams to mix and match practices like they would technology choices.
+
+Instead of being locked into a single methodology, teams can:
+
+- Start with a common baseline (like the Platform Adoption Baseline)
+- Add universal practices (SRE, GitOps, etc.)
+- Layer in specialized practices for their specific needs
+- Compose custom methods tailored to their challenges
+
+This approach is inspired by SEMAT Essence but adapted to encourage alternative baselines and more composable, granular practices that fit today's diverse platform engineering needs.
+
+**Learn more**: See [docs/ABOUT.md](docs/ABOUT.md) for the complete philosophy and vision behind modular team architecture.
 
 ## Architecture
 
@@ -59,33 +75,37 @@ The system is built on a formal language model derived from SEMAT Essence, consi
 - **PracticeBaseline**: Foundation practices (kernel) with core elements
 - **Practice**: Extensions that build on baselines
 - **Method**: Composed from a baseline and multiple practices
-- **Alphas**: Essential elements of concern in software engineering
+- **Alphas**: Essential elements of concern (e.g., requirements, software system, team)
 - **States**: Progression checkpoints for alphas
-- **Activities**: Work that contributes to alpha states
+- **Activities**: Work that advances alpha states
 - **Work Products**: Artifacts produced by activities
-- **Patterns**: Temporal progressions showing how practices unfold
+- **Patterns**: Temporal progressions showing how practices unfold over time
 
 ### Key Features
 
 #### 1. Practice Authoring
-- JSON editor with validation against schema
+
+- JSON editor with schema validation
 - WYSIWYG editor for descriptions
 - Structured field editors for practice elements
 - Real-time validation and error reporting
 - Preview with Kanban pattern boards
 
 #### 2. Method Builder
+
 - Drag-and-drop composition from library
 - Automatic practice dependency resolution
 - Hierarchical merge of practices
 - Preserves baseline descriptions during composition
 
 #### 3. Visualizations
-- **Kanban Pattern Board**: Shows pattern views as columns, alpha states, activities, and work products as cards
+
+- **Kanban Pattern Board**: Shows pattern views as columns with alpha states, activities, and work products as cards
 - **Sankey Flow Diagram**: Visualizes alpha state progressions and dependencies
 - **Alpha Contributes Diagram**: Shows relationships between alphas
 
 #### 4. Library Management
+
 - Import/export practices and methods
 - Browse by tags (domain, lifecycle, organizational)
 - Version control integration
@@ -146,6 +166,7 @@ Complete documentation is available in the `docs/` directory:
 ### JSON Schema Overview
 
 The schema defines:
+
 - Identity and metadata fields (name, description, tags)
 - Core elements (Alphas, States, Activities, WorkProducts)
 - Composition structures (Patterns, PatternViews)
@@ -172,6 +193,7 @@ See [web/src/lib/methodMerge/compositePracticeFromMethod.ts](web/src/lib/methodM
 ### Practice Dependencies
 
 Practices can depend on other practices:
+
 - `baselinePracticeName`: The kernel practice this extends
 - `practiceDependencyNames`: Other practices to merge before this one
 
@@ -234,6 +256,7 @@ node validate-schema.js practices/my-practice.json
 See source code documentation in [docs/SOURCE_FILES.md](docs/SOURCE_FILES.md) for detailed information about each module.
 
 Key files to understand:
+
 - [types.ts](web/src/lib/types.ts) - Type definitions
 - [compositePracticeFromMethod.ts](web/src/lib/methodMerge/compositePracticeFromMethod.ts) - Merge algorithm
 - [validate.ts](web/src/lib/validate.ts) - Validation logic
@@ -256,6 +279,6 @@ See `authors` field in practice documents.
 
 ## References
 
-- SEMAT Essence: https://www.semat.org/
-- PatternFly Design System: https://www.patternfly.org/
-- Next.js Documentation: https://nextjs.org/docs
+- [SEMAT Essence](https://www.semat.org/) - Software Engineering Method and Theory
+- [PatternFly Design System](https://www.patternfly.org/) - React component library
+- [Next.js Documentation](https://nextjs.org/docs) - React framework

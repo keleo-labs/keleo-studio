@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/keleo-studio/dashboard-config.schema.json",
+  "title": "Dashboard Configuration",
+  "description": "JSON Schema for dashboard configuration with custom sections and starred documents",
+  "type": "object",
+  "required": ["version", "sections", "starredDocumentIds"],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version for future migrations"
+    },
+    "sections": {
+      "type": "array",
+      "description": "User-defined sections for organizing library items",
+      "items": {
+        "$ref": "#/$defs/DashboardSection"
+      }
+    },
+    "starredDocumentIds": {
+      "type": "array",
+      "description": "IDs of documents starred by the user",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "DashboardSection": {
+      "type": "object",
+      "required": ["id", "name", "seq", "filters", "sortBy"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the section (UUID)"
+        },
+        "name": {
+          "type": "string",
+          "description": "User-defined name for the section",
+          "minLength": 1
+        },
+        "seq": {
+          "type": "integer",
+          "description": "Display order sequence number",
+          "minimum": 0
+        },
+        "filters": {
+          "$ref": "#/$defs/SectionFilters"
+        },
+        "sortBy": {
+          "type": "array",
+          "description": "Multi-level sort criteria applied in order",
+          "items": {
+            "$ref": "#/$defs/SortCriterion"
+          },
+          "minItems": 1
+        },
+        "maxItems": {
+          "type": "integer",
+          "description": "Optional limit on number of items to display",
+          "minimum": 1
+        }
+      }
+    },
+    "SectionFilters": {
+      "type": "object",
+      "description": "Filter criteria for selecting documents to display in a section",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["practice", "method"],
+          "description": "Filter by document kind"
+        },
+        "onlyStarred": {
+          "type": "boolean",
+          "description": "Show only starred items"
+        },
+        "domainTags": {
+          "type": "array",
+          "description": "Filter by domain tags (OR logic within this category)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lifecycleTags": {
+          "type": "array",
+          "description": "Filter by lifecycle tags (OR logic within this category)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "organizationalTags": {
+          "type": "array",
+          "description": "Filter by organizational tags (OR logic within this category)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "namePattern": {
+          "type": "string",
+          "description": "Case-insensitive substring match for document title or display name"
+        }
+      }
+    },
+    "SortCriterion": {
+      "type": "object",
+      "required": ["field", "order"],
+      "description": "A single sort criterion with field and order",
+      "properties": {
+        "field": {
+          "type": "string",
+          "enum": ["starred", "completeness", "title", "updatedAt"],
+          "description": "Field to sort by"
+        },
+        "order": {
+          "type": "string",
+          "enum": ["asc", "desc"],
+          "description": "Sort order: ascending or descending"
+        }
+      }
+    }
+  }
+}

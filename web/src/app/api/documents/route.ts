@@ -6,7 +6,7 @@ import { getJsonDocumentStore } from "@/lib/storage/getStore";
 import type { JsonDocumentCreateInput, JsonDocumentKind } from "@/lib/storage/types";
 
 function isKind(v: unknown): v is JsonDocumentKind {
-  return v === "practice" || v === "method" || v === "upload";
+  return v === "practice" || v === "method" || v === "upload" || v === "dashboard-config";
 }
 
 export async function GET(req: Request) {
@@ -26,6 +26,13 @@ export async function GET(req: Request) {
   const documents = await Promise.all(
     metas.map(async (m) => {
       const full = await store.get(m.id);
+      // Don't normalize or enrich dashboard-config documents
+      if (m.kind === "dashboard-config") {
+        return {
+          ...m,
+          ...(withBody ? { body: full?.body } : {}),
+        };
+      }
       const body = normalizePracticeBody(full?.body);
       return {
         ...m,
@@ -86,12 +93,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "title is required" }, { status: 400 });
   }
   if (!isKind(o.kind)) {
-    return NextResponse.json({ error: "kind must be practice | method | upload" }, { status: 400 });
+    return NextResponse.json({ error: "kind must be practice | method | upload | dashboard-config" }, { status: 400 });
   }
   const input: JsonDocumentCreateInput = {
     title,
     kind: o.kind,
-    body: o.body === undefined ? null : normalizePracticeBody(o.body),
+    // Only normalize practice/method bodies, not dashboard-config
+    body: o.kind === "dashboard-config"
+      ? o.body
+      : (o.body === undefined ? null : normalizePracticeBody(o.body)),
   };
   try {
     const store = await getJsonDocumentStore();

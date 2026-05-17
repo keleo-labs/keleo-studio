@@ -41,7 +41,13 @@
       "Bash(curl -s \"http://localhost:3000/practice-author?libraryId=33377352-730c-4117-90d5-96d6e7df1f42\")",
       "Bash(python3)",
       "Bash(grep -n \"fieldPath={\\\\`focuses\\\\[\" /Users/eseymour/code/keleo-studio/web/src/components/editors/WysiwygEditor.tsx)",
-      "Bash(grep -A1 \"fieldPath={\\\\`focuses\\\\[\" /Users/eseymour/code/keleo-studio/web/src/components/editors/WysiwygEditor.tsx)"
+      "Bash(grep -A1 \"fieldPath={\\\\`focuses\\\\[\" /Users/eseymour/code/keleo-studio/web/src/components/editors/WysiwygEditor.tsx)",
+      "Bash(xargs ls -la)",
+      "Bash(curl -s \"http://localhost:3000/api/documents?kind=dashboard-config\")",
+      "Bash(curl -s \"http://localhost:3000/api/documents\")",
+      "Bash(curl -s http://localhost:3000/api/documents/d6ad78cd-0224-460c-be20-fadebab4669a)",
+      "Bash(curl -s \"http://localhost:3000/api/documents?details=1\")",
+      "Bash(curl -s http://localhost:3000/api/documents/b59210e0-adcb-4aad-a3b4-976e51b2286c)"
     ],
     "additionalDirectories": [
       "/tmp"

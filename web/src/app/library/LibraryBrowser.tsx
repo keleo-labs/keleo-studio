@@ -12,12 +12,14 @@ import {
   Content,
   ContentVariants,
 } from "@patternfly/react-core";
+import { StarIcon, OutlinedStarIcon } from "@patternfly/react-icons";
 import type { LibraryRootKind } from "@/lib/library/classify";
 import { displayNameForBody, rootKindExtension, storageKindForBody } from "@/lib/library/classify";
 import type { LibraryDocumentTags } from "@/lib/library/libraryDocumentTags";
 import type { JsonDocumentMeta } from "@/lib/storage/types";
 import { useLanguagePack } from "@/lib/languagePack";
 import { LibraryItemFocus } from "./LibraryItemFocus";
+import { loadDashboardConfig, saveDashboardConfig } from "@/lib/dashboardConfig";
 
 type EnrichedMeta = JsonDocumentMeta & {
   libraryRootKind: LibraryRootKind;
@@ -43,8 +45,10 @@ async function downloadFullLibraryBodiesJson(filenameStem: string): Promise<void
   if (!res.ok) {
     throw new Error(`Export failed (${res.status})`);
   }
-  const data = (await res.json()) as { documents?: Array<{ body?: unknown }> };
-  const docs = Array.isArray(data.documents) ? data.documents : [];
+  const data = (await res.json()) as { documents?: Array<{ body?: unknown; kind?: string }> };
+  const allDocs = Array.isArray(data.documents) ? data.documents : [];
+  // Filter out dashboard-config documents - only export library items
+  const docs = allDocs.filter((d) => d.kind !== "dashboard-config");
   const bodies = docs.map((d) => (d.body === undefined ? null : d.body));
   const text = JSON.stringify(bodies, null, 2);
   const blob = new Blob([text], { type: "application/json;charset=utf-8" });
@@ -134,6 +138,7 @@ export function LibraryBrowser() {
     .lib-file-input::file-selector-button { margin-right: 0.75rem; cursor: pointer; border-radius: var(--pf-v6-global--BorderRadius--sm); border: 0; background-color: color-mix(in srgb, var(--pf-v6-global--primary-color--100) 20%, transparent); padding: 0.375rem 0.75rem; font-size: 0.75rem; font-weight: 600; color: var(--pf-v6-global--Color--100); }
     .lib-file-input:hover::file-selector-button { background-color: color-mix(in srgb, var(--pf-v6-global--primary-color--100) 30%, transparent); }
     .lib-virtual-row:first-child { border-top: 0; }
+    .lib-star-btn:hover { color: var(--pf-v6-global--palette--gold-400); }
   `;
 
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -154,12 +159,17 @@ export function LibraryBrowser() {
   const [orgTagFilter, setOrgTagFilter] = useState<string[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
+  // Dashboard config for starring
+  const [dashboardConfigId, setDashboardConfigId] = useState<string>("");
+  const [starredIds, setStarredIds] = useState<string[]>([]);
+
   const refresh = useCallback(async () => {
     setLoading(true);
     setLoadError(null);
     setDownloadError(null);
     setDeleteError(null);
     try {
+      // Load library items
       const res = await fetch("/api/documents?details=1");
       if (!res.ok) {
         setLoadError((await res.text()) || `HTTP ${res.status}`);
@@ -167,13 +177,25 @@ export function LibraryBrowser() {
         return;
       }
       const data = (await res.json()) as { documents?: EnrichedMeta[] };
-      const docs = Array.isArray(data.documents) ? data.documents : [];
+      const allDocs = Array.isArray(data.documents) ? data.documents : [];
+      // Filter out dashboard-config documents - only show library items
+      const docs = allDocs.filter((d) => d.kind !== "dashboard-config");
       setItems(
         docs.map((d) => ({
           ...d,
           libraryTags: d.libraryTags ?? { domainTags: [], lifecycleTags: [], organizationalTags: [] },
         })),
       );
+
+      // Load dashboard config for starring
+      try {
+        const dashboardConfig = await loadDashboardConfig();
+        setDashboardConfigId(dashboardConfig.id);
+        setStarredIds(dashboardConfig.config.starredDocumentIds || []);
+      } catch (e) {
+        console.error("Failed to load dashboard config:", e);
+        // Continue without starring functionality
+      }
     } catch (e) {
       setLoadError(e instanceof Error ? e.message : "Failed to load library");
       setItems([]);
@@ -216,6 +238,30 @@ export function LibraryBrowser() {
 
   const tagFilterActive =
     domainTagFilter.length > 0 || lifecycleTagFilter.length > 0 || orgTagFilter.length > 0;
+
+  // Toggle star status
+  const toggleStar = useCallback(async (documentId: string) => {
+    if (!dashboardConfigId) return;
+
+    const newStarredIds = starredIds.includes(documentId)
+      ? starredIds.filter((id) => id !== documentId)
+      : [...starredIds, documentId];
+
+    // Optimistic update
+    setStarredIds(newStarredIds);
+
+    try {
+      const dashboardConfig = await loadDashboardConfig();
+      await saveDashboardConfig(dashboardConfigId, {
+        ...dashboardConfig.config,
+        starredDocumentIds: newStarredIds,
+      });
+    } catch (e) {
+      console.error("Failed to update starred status:", e);
+      // Revert on error
+      setStarredIds(starredIds);
+    }
+  }, [dashboardConfigId, starredIds]);
 
   const filtered = useMemo(() => {
     let list = folder === "all" ? items : items.filter((it) => it.libraryRootKind === folder);
@@ -884,41 +930,70 @@ export function LibraryBrowser() {
                             </button>
                           </td>
                           <td style={{ minWidth: 0, padding: "0.5rem", fontWeight: 500 }} className="sm:px-3">
-                            <Link
-                              href={browseHref}
-                              title="Browse this document"
-                              style={{
-                                display: "inline-block",
-                                maxWidth: "100%",
-                                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                                padding: "0.125rem 0.25rem",
-                                margin: "-0.125rem -0.25rem",
-                                textAlign: "left",
-                                textDecoration: "none",
-                              }}
-                              className="group lib-row-link"
-                            >
-                              <span style={{
-                                display: "block",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                whiteSpace: "nowrap",
-                                color: "var(--pf-v6-global--Color--100)",
-                                          }}
-                              className="lib-row-name">
-                                {row.displayName}
-                              </span>
-                              <span style={{
-                                marginTop: "0.125rem",
-                                display: "block",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                whiteSpace: "nowrap",
-                                fontFamily: "monospace",
-                                fontSize: "0.75rem",
-                                color: "var(--pf-v6-global--Color--200)",
-                              }}>{filename}</span>
-                            </Link>
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                              <Link
+                                href={browseHref}
+                                title="Browse this document"
+                                style={{
+                                  flex: 1,
+                                  minWidth: 0,
+                                  borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                                  padding: "0.125rem 0.25rem",
+                                  margin: "-0.125rem -0.25rem",
+                                  textAlign: "left",
+                                  textDecoration: "none",
+                                }}
+                                className="group lib-row-link"
+                              >
+                                <span style={{
+                                  display: "block",
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  whiteSpace: "nowrap",
+                                  color: "var(--pf-v6-global--Color--100)",
+                                }}
+                                className="lib-row-name">
+                                  {row.displayName}
+                                </span>
+                                <span style={{
+                                  marginTop: "0.125rem",
+                                  display: "block",
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  whiteSpace: "nowrap",
+                                  fontFamily: "monospace",
+                                  fontSize: "0.75rem",
+                                  color: "var(--pf-v6-global--Color--200)",
+                                }}>{filename}</span>
+                              </Link>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  void toggleStar(row.id);
+                                }}
+                                aria-label={starredIds.includes(row.id) ? "Unstar item" : "Star item"}
+                                className="lib-star-btn"
+                                style={{
+                                  flexShrink: 0,
+                                  border: "none",
+                                  background: "none",
+                                  cursor: "pointer",
+                                  padding: "0.25rem",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  color: starredIds.includes(row.id)
+                                    ? "var(--pf-v6-global--palette--gold-400)"
+                                    : "var(--pf-v6-global--Color--200)",
+                                }}
+                              >
+                                {starredIds.includes(row.id) ? (
+                                  <StarIcon size="sm" />
+                                ) : (
+                                  <OutlinedStarIcon size="sm" />
+                                )}
+                              </button>
+                            </div>
                           </td>
                           <td className="hidden sm:table-cell" style={{ padding: "0.5rem 0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
                             <span style={{
