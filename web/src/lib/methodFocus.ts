@@ -4,6 +4,7 @@
  */
 
 import { groupByFocus } from "./ir";
+import type { JsonDocument } from "./storage/types";
 
 export interface AlphaScore {
   alpha: any;
@@ -15,6 +16,47 @@ export interface AlphaScore {
 export interface FocusGroup {
   focusObj: any;
   alphas: AlphaScore[];
+}
+
+/**
+ * Calculate a simple completeness score for a document without full dependency resolution.
+ * This is a fast approximation based on structural element counts.
+ * Used for sorting in dashboard views where full alpha scoring would be too expensive.
+ *
+ * @param doc - The JsonDocument to score
+ * @returns A numeric score (higher is more complete)
+ */
+export function calculateSimpleCompletenessScore(doc: JsonDocument | { body: unknown }): number {
+  const body = doc.body;
+  if (!body || typeof body !== "object") {
+    return 0;
+  }
+
+  const obj = body as Record<string, unknown>;
+  let score = 0;
+
+  // Count alphas (weight: 3 points each)
+  const alphas = Array.isArray(obj.alphas) ? obj.alphas : [];
+  score += alphas.length * 3;
+
+  // Count activities (weight: 2 points each)
+  const activities = Array.isArray(obj.activities) ? obj.activities : [];
+  score += activities.length * 2;
+
+  // Count work products (weight: 2 points each)
+  const workProducts = Array.isArray(obj.workProducts) ? obj.workProducts : [];
+  score += workProducts.length * 2;
+
+  // For methods with embedded practices, sum up their scores too
+  if (Array.isArray(obj.practices)) {
+    for (const practice of obj.practices) {
+      if (practice && typeof practice === "object") {
+        score += calculateSimpleCompletenessScore({ body: practice });
+      }
+    }
+  }
+
+  return score;
 }
 
 /**
@@ -49,18 +91,21 @@ export function calculateAlphaScores(
     }
   }
 
-  // Build baseline alpha map (exclude extension alphas)
+  // Build baseline alpha map from the ORIGINAL baseline, not the merged/pruned one
+  // This ensures ALL baseline alphas are shown, even if not referenced in the extension
   const baselineGrouped = groupByFocus(baseline);
   const baselineAlphaMap = new Map<string, { alpha: any; focusName: string }>();
-  for (const focus of baselineGrouped) {
-    const focusName = String(focus.focusName ?? "");
-    const alphas = focus.alphas ?? [];
-    for (const alpha of alphas) {
-      const alphaName = String(alpha.name ?? "");
-      // Only add if it's NOT an extension alpha
-      if (!extensionAlphasMap.has(alphaName)) {
-        baselineAlphaMap.set(alphaName, { alpha, focusName });
-      }
+
+  // CRITICAL: Always include ALL alphas from the baseline's focuses array
+  // This ensures complete baseline coverage is shown even when extension practices
+  // don't reference all baseline alphas
+  const baselineAlphas = baseline.alphas ?? [];
+  for (const alpha of baselineAlphas) {
+    const alphaName = String(alpha.name ?? "").trim();
+    const alphaFocusName = String(alpha.focusName ?? "").trim();
+    // Only add if it's NOT an extension alpha
+    if (!extensionAlphasMap.has(alphaName)) {
+      baselineAlphaMap.set(alphaName, { alpha, focusName: alphaFocusName });
     }
   }
 
@@ -168,7 +213,19 @@ export function calculateAlphaScores(
   }
 
   // Group by focus for display
+  // Build focus map from both baseline and grouped structures to ensure all focuses are captured
   const focusMap = new Map<string, any>();
+
+  // Add focuses from baseline
+  const baselineFocuses = baseline.focuses ?? [];
+  for (const focus of baselineFocuses) {
+    const focusName = String(focus.name ?? "").trim();
+    if (focusName && !focusMap.has(focusName)) {
+      focusMap.set(focusName, focus);
+    }
+  }
+
+  // Add focuses from grouped (may have additional focuses from extensions)
   for (const groupedFocus of grouped) {
     const focusName = String(groupedFocus.focusName ?? "");
     if (!focusMap.has(focusName)) {

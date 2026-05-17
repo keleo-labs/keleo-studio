@@ -26,7 +26,9 @@ function FlowVisualizerInner() {
         const res = await fetch("/api/documents?details=1");
         if (!res.ok) throw new Error("Failed to load library");
         const data = await res.json();
-        const practices = data.documents || [];
+        const allDocs = data.documents || [];
+        // Filter out dashboard-config documents - only show library items
+        const practices = allDocs.filter((d: any) => d.kind !== "dashboard-config");
         setAvailablePractices(
           practices.map((p: any) => ({
             id: p.id,

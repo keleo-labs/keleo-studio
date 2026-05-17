@@ -25,7 +25,7 @@ function dbName(): string {
 }
 
 function isJsonDocumentKind(v: string): v is JsonDocumentKind {
-  return v === "practice" || v === "method" || v === "upload";
+  return v === "practice" || v === "method" || v === "upload" || v === "dashboard-config";
 }
 
 function rowToDoc(row: MongoDoc): JsonDocument {

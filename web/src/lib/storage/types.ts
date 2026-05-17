@@ -1,5 +1,5 @@
-/** Stored JSON artifact (practice baseline, method pack, upload, etc.). */
-export type JsonDocumentKind = "practice" | "method" | "upload";
+/** Stored JSON artifact (practice baseline, method pack, upload, dashboard config, etc.). */
+export type JsonDocumentKind = "practice" | "method" | "upload" | "dashboard-config";
 
 export type JsonDocumentMeta = {
   id: string;

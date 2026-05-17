@@ -321,7 +321,10 @@ export function MethodBuilderClient() {
         return;
       }
       const data = (await res.json()) as { documents?: LibraryRow[] };
-      setLibrary(Array.isArray(data.documents) ? data.documents : []);
+      const allDocs = Array.isArray(data.documents) ? data.documents : [];
+      // Filter out dashboard-config documents - only show library items
+      const libraryDocs = allDocs.filter((d) => d.kind !== "dashboard-config");
+      setLibrary(libraryDocs);
     } catch (e) {
       setLibError(e instanceof Error ? e.message : "Failed to load library");
       setLibrary([]);
@@ -419,7 +422,9 @@ export function MethodBuilderClient() {
           return;
         }
         const libData = (await libRes.json()) as { documents?: LibraryRow[] };
-        rows = Array.isArray(libData.documents) ? libData.documents : [];
+        const allRows = Array.isArray(libData.documents) ? libData.documents : [];
+        // Filter out dashboard-config documents - only use library items
+        rows = allRows.filter((d) => d.kind !== "dashboard-config");
       }
 
       const composed = await composeMethodSlotsUsingLibrary({
@@ -626,7 +631,9 @@ export function MethodBuilderClient() {
           return;
         }
         const libData = (await libRes.json()) as { documents?: LibraryRow[] };
-        rows = Array.isArray(libData.documents) ? libData.documents : [];
+        const allRows = Array.isArray(libData.documents) ? libData.documents : [];
+        // Filter out dashboard-config documents - only use library items
+        rows = allRows.filter((d) => d.kind !== "dashboard-config");
       }
 
       const composed = await composeMethodSlotsUsingLibrary({
@@ -698,7 +705,9 @@ export function MethodBuilderClient() {
           return;
         }
         const libData = (await libRes.json()) as { documents?: LibraryRow[] };
-        rows = Array.isArray(libData.documents) ? libData.documents : [];
+        const allRows = Array.isArray(libData.documents) ? libData.documents : [];
+        // Filter out dashboard-config documents - only use library items
+        rows = allRows.filter((d) => d.kind !== "dashboard-config");
       }
 
       const built = await buildExtensionPracticeSlots({

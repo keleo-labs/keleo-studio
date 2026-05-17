@@ -93,7 +93,9 @@ function PracticeAuthorPageInner() {
         if (cancelled) return;
 
         // Fetch full content for each document
-        const documents = Array.isArray(data.documents) ? data.documents : [];
+        const allDocs = Array.isArray(data.documents) ? data.documents : [];
+        // Filter out dashboard-config documents - only use library items
+        const documents = allDocs.filter((d: any) => d.kind !== "dashboard-config");
         const bodies: unknown[] = [];
 
         for (const doc of documents) {
