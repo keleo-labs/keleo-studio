@@ -41,6 +41,7 @@ export async function POST(req: Request) {
   if (!doc || typeof doc !== "object") {
     return NextResponse.json({ error: "Missing doc" }, { status: 400 });
   }
+  const originalDoc = doc as Record<string, unknown>;
   let docObj = doc as Record<string, unknown>;
   if (practiceNeedsLibraryResolution(docObj)) {
     try {
@@ -93,6 +94,7 @@ export async function POST(req: Request) {
     theme,
     t,
     sourceDoc: docObj,
+    originalDoc,
     methodComposition,
   });
 

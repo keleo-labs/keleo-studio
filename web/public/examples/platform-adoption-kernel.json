@@ -177,38 +177,44 @@
       "states": [
         {
           "name": "Architecture Selected",
-          "description": "The foundational structure is chosen.",
+          "description": "The foundational structural boundaries, hosting paradigms, and technical strategies are formally selected and agreed upon by enterprise architecture.",
           "seq": 1,
           "checklist": []
         },
         {
           "name": "Baselined",
-          "description": "Core capabilities are established.",
+          "description": "Core capabilities, shared services, and network perimeters are logically mapped, with constraints and integration points clearly defined.",
           "seq": 2,
           "checklist": []
         },
         {
           "name": "Provisioned",
-          "description": "The platform can be consumed.",
+          "description": "The foundational infrastructure and shared environments have been instantiated and are ready to support integration, though not yet accepting live production workloads.",
           "seq": 3,
           "checklist": []
         },
         {
           "name": "Ready",
-          "description": "The platform is fully operational.",
+          "description": "The platform is fully operational, resilient, and successfully integrated with consumption interfaces, enabling autonomous developer self-service.",
           "seq": 4,
           "checklist": []
         },
         {
           "name": "Hosting Assets",
-          "description": "The platform is actively supporting workloads.",
+          "description": "The platform is actively, securely, and reliably supporting external application workloads serving live enterprise traffic.",
           "seq": 5,
           "checklist": []
         },
         {
           "name": "Evolving",
-          "description": "The platform is decommissioned.",
+          "description": "The platform architecture autonomously adapts using predictive scaling and continuous feedback, while obsolete legacy capabilities are gracefully decoupled and decommissioned.",
           "seq": 6,
+          "checklist": []
+        },
+        {
+          "name": "Retiring",
+          "description": "The platform is being systematically decommissioned, with workloads migrated to alternative platforms and infrastructure safely removed.",
+          "seq": 7,
           "checklist": []
         }
       ]
@@ -244,7 +250,7 @@
         },
         {
           "name": "Optimized",
-          "description": "The interface provides a frictionless experience.",
+          "description": "The interface dynamically adapts based on deep user telemetry, providing a frictionless, self-service experience that actively minimizes developer cognitive load.",
           "seq": 5,
           "checklist": []
         }
@@ -263,7 +269,7 @@
         },
         {
           "name": "Specified",
-          "description": "Asset requirements are detailed.",
+          "description": "The asset's architectural footprint, resource dependencies, and required platform integrations are explicitly detailed and approved.",
           "seq": 2,
           "checklist": []
         },
@@ -275,7 +281,7 @@
         },
         {
           "name": "Integrated",
-          "description": "The asset works within the broader platform.",
+          "description": "The asset is successfully configured to natively consume platform-provided shared services (e.g., logging, identity, routing) within non-production environments.",
           "seq": 4,
           "checklist": []
         },
@@ -287,8 +293,14 @@
         },
         {
           "name": "Value Yielding",
-          "description": "The asset is decommissioned.",
+          "description": "The asset is demonstrably delivering measurable value to platform consumers and the broader enterprise.",
           "seq": 6,
+          "checklist": []
+        },
+        {
+          "name": "Retiring",
+          "description": "The asset is being systematically decommissioned and replaced, with dependencies migrated and resources reclaimed.",
+          "seq": 7,
           "checklist": []
         }
       ]
@@ -625,7 +637,7 @@
     {
       "name": "Establish Secure Guardrails",
       "description": "Shift security left, embed Zero Trust principles, and codify compliance requirements into automated scanning tools to ensure secure-by-default platform operations.",
-      "focusName": "Value",
+      "focusName": "Solution",
       "contributesTo": [
         {
           "alphaName": "Platform Risk And Compliance",
@@ -792,8 +804,8 @@
       ]
     },
     {
-      "name": "Coordinate Delivery Sprints",
-      "description": "Manage agile delivery cycles, allocate engineering capacity, and track velocity to ensure predictable platform feature development.",
+      "name": "Manage Work Execution",
+      "description": "Coordinate delivery cycles, allocate engineering capacity, and track velocity to ensure predictable platform feature development without dictating specific execution frameworks.",
       "focusName": "Endeavor",
       "contributesTo": [
         {
@@ -918,6 +930,29 @@
       "requiredCompetencies": [
         "Management"
       ]
+    },
+    {
+      "name": "Decommission and Retire",
+      "description": "Safely decouple, deprecate, and remove obsolete platform assets, legacy infrastructure, or older operational processes to minimize technical debt and resource waste.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Retiring"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Retiring"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Retired"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Management"
+      ]
     }
   ],
   "competencies": [
@@ -927,31 +962,31 @@
       "levels": [
         {
           "name": "Basic",
-          "description": "Fundamental awareness",
+          "description": "Understands basic business needs and can parse user feedback.",
           "level": 1,
           "competencyName": "Analysis"
         },
         {
           "name": "Applies",
-          "description": "Applies in simple contexts",
+          "description": "Can map simple user requirements to existing platform capabilities and identify basic friction points.",
           "level": 2,
           "competencyName": "Analysis"
         },
         {
           "name": "Masters",
-          "description": "Applies in most contexts",
+          "description": "Can independently translate complex stakeholder friction points into actionable platform architectural requirements and map out the boundaries of the Thinnest Viable Platform (TVP).",
           "level": 3,
           "competencyName": "Analysis"
         },
         {
           "name": "Adapts",
-          "description": "Adapts to complex contexts",
+          "description": "Can analyze shifting enterprise domains to identify new organizational fracture planes, cognitive load bottlenecks, and strategic platform opportunities.",
           "level": 4,
           "competencyName": "Analysis"
         },
         {
           "name": "Innovating",
-          "description": "Extends to new contexts",
+          "description": "Pioneers new analytical methods for value stream mapping and enterprise capability assessment.",
           "level": 5,
           "competencyName": "Analysis"
         }
@@ -963,31 +998,31 @@
       "levels": [
         {
           "name": "Basic",
-          "description": "Fundamental awareness",
+          "description": "Understands fundamental software architecture and basic cloud infrastructure concepts.",
           "level": 1,
           "competencyName": "Engineering"
         },
         {
           "name": "Applies",
-          "description": "Applies in simple contexts",
+          "description": "Can implement basic infrastructure components, deployment scripts, or single-node services based on established guidance.",
           "level": 2,
           "competencyName": "Engineering"
         },
         {
           "name": "Masters",
-          "description": "Applies in most contexts",
+          "description": "Can independently design distributed components, author declarative configuration templates, and build automated pipelines for platform ecosystems.",
           "level": 3,
           "competencyName": "Engineering"
         },
         {
           "name": "Adapts",
-          "description": "Adapts to complex contexts",
+          "description": "Can architect complex, multi-tenant platform foundations, resolve systemic integration challenges, and abstract underlying infrastructure complexities for consumers.",
           "level": 4,
           "competencyName": "Engineering"
         },
         {
           "name": "Innovating",
-          "description": "Extends to new contexts",
+          "description": "Develops entirely new engineering paradigms or open-source technical solutions for hyperscale platform orchestration.",
           "level": 5,
           "competencyName": "Engineering"
         }
@@ -999,31 +1034,31 @@
       "levels": [
         {
           "name": "Basic",
-          "description": "Fundamental awareness",
+          "description": "Can participate effectively in team environments and support overarching goals.",
           "level": 1,
           "competencyName": "Leadership"
         },
         {
           "name": "Applies",
-          "description": "Applies in simple contexts",
+          "description": "Can guide small engineering squads and foster adherence to agreed-upon ways of working.",
           "level": 2,
           "competencyName": "Leadership"
         },
         {
           "name": "Masters",
-          "description": "Applies in most contexts",
+          "description": "Can inspire platform teams to embrace DevOps cultures, champion blameless post-mortems, and establish psychological safety for complex engineering efforts.",
           "level": 3,
           "competencyName": "Leadership"
         },
         {
           "name": "Adapts",
-          "description": "Adapts to complex contexts",
+          "description": "Can lead large-scale cultural transformations, overcoming deep organizational resistance to self-service models and declarative operations.",
           "level": 4,
           "competencyName": "Leadership"
         },
         {
           "name": "Innovating",
-          "description": "Extends to new contexts",
+          "description": "Acts as an industry-recognized visionary, shaping the global discourse on platform engineering culture and organizational design.",
           "level": 5,
           "competencyName": "Leadership"
         }
@@ -1035,31 +1070,31 @@
       "levels": [
         {
           "name": "Basic",
-          "description": "Fundamental awareness",
+          "description": "Understands basic task tracking and team coordination.",
           "level": 1,
           "competencyName": "Management"
         },
         {
           "name": "Applies",
-          "description": "Applies in simple contexts",
+          "description": "Can manage the delivery of discrete platform features and organize daily operational workflows.",
           "level": 2,
           "competencyName": "Management"
         },
         {
           "name": "Masters",
-          "description": "Applies in most contexts",
+          "description": "Can independently orchestrate cross-functional platform delivery cycles, balance technical debt against feature velocity, and manage platform service-level agreements.",
           "level": 3,
           "competencyName": "Management"
         },
         {
           "name": "Adapts",
-          "description": "Adapts to complex contexts",
+          "description": "Can adapt delivery structures across highly matrixed environments, transitioning organizations from project-based funding to product-centric platform lifecycles.",
           "level": 4,
           "competencyName": "Management"
         },
         {
           "name": "Innovating",
-          "description": "Extends to new contexts",
+          "description": "Develops novel management and operational frameworks that redefine how global enterprises deliver internal services.",
           "level": 5,
           "competencyName": "Management"
         }
@@ -1179,31 +1214,31 @@
       "levels": [
         {
           "name": "Basic",
-          "description": "Fundamental awareness and understanding of representation concepts.",
+          "description": "Understands the different consumer personas utilizing the platform.",
           "level": 1,
           "competencyName": "Stakeholder Representation"
         },
         {
           "name": "Applies",
-          "description": "Can apply representation concepts in simple contexts.",
+          "description": "Can effectively gather and advocate for the needs of a specific stream-aligned consumer team.",
           "level": 2,
           "competencyName": "Stakeholder Representation"
         },
         {
           "name": "Masters",
-          "description": "Can apply representation concepts in most contexts without supervision.",
+          "description": "Can accurately balance competing requirements from security, networking, and developer teams to ensure the platform interface remains frictionless.",
           "level": 3,
           "competencyName": "Stakeholder Representation"
         },
         {
           "name": "Adapts",
-          "description": "Can apply judgment and adapt representation techniques to complex contexts.",
+          "description": "Can negotiate complex political landscapes, aligning executive C-suite objectives with the daily operational realities of the developer workforce.",
           "level": 4,
           "competencyName": "Stakeholder Representation"
         },
         {
           "name": "Innovating",
-          "description": "Recognized expert, able to extend representation concepts to new contexts.",
+          "description": "Creates novel enterprise feedback loops and representation models that radically democratize platform evolution.",
           "level": 5,
           "competencyName": "Stakeholder Representation"
         }

@@ -26,6 +26,7 @@ type EnrichedMeta = JsonDocumentMeta & {
   displayName: string;
   virtualFileCount: number;
   libraryTags: LibraryDocumentTags;
+  keywords?: string[];
 };
 
 type FolderId = "all" | LibraryRootKind;
@@ -139,6 +140,7 @@ export function LibraryBrowser() {
     .lib-file-input:hover::file-selector-button { background-color: color-mix(in srgb, var(--pf-v6-global--primary-color--100) 30%, transparent); }
     .lib-virtual-row:first-child { border-top: 0; }
     .lib-star-btn:hover { color: var(--pf-v6-global--palette--gold-400); }
+    .lib-sort-header:hover { color: var(--pf-v6-global--Color--100); background-color: color-mix(in srgb, var(--pf-v6-global--BackgroundColor--200) 40%, transparent); }
   `;
 
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -157,7 +159,12 @@ export function LibraryBrowser() {
   const [domainTagFilter, setDomainTagFilter] = useState<string[]>([]);
   const [lifecycleTagFilter, setLifecycleTagFilter] = useState<string[]>([]);
   const [orgTagFilter, setOrgTagFilter] = useState<string[]>([]);
+  const [keywordFilter, setKeywordFilter] = useState<string[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  // Sorting state
+  const [sortColumn, setSortColumn] = useState<'name' | 'type' | 'elements' | 'updated'>('updated');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
 
   // Dashboard config for starring
   const [dashboardConfigId, setDashboardConfigId] = useState<string>("");
@@ -169,22 +176,33 @@ export function LibraryBrowser() {
     setDownloadError(null);
     setDeleteError(null);
     try {
-      // Load library items
-      const res = await fetch("/api/documents?details=1");
+      // Load library items with body to extract keywords
+      const res = await fetch("/api/documents?details=1&withBody=1");
       if (!res.ok) {
         setLoadError((await res.text()) || `HTTP ${res.status}`);
         setItems([]);
         return;
       }
-      const data = (await res.json()) as { documents?: EnrichedMeta[] };
+      const data = (await res.json()) as { documents?: Array<EnrichedMeta & { body?: unknown }> };
       const allDocs = Array.isArray(data.documents) ? data.documents : [];
       // Filter out dashboard-config documents - only show library items
       const docs = allDocs.filter((d) => d.kind !== "dashboard-config");
       setItems(
-        docs.map((d) => ({
-          ...d,
-          libraryTags: d.libraryTags ?? { domainTags: [], lifecycleTags: [], organizationalTags: [] },
-        })),
+        docs.map((d) => {
+          // Extract keywords from body
+          const keywords: string[] = [];
+          if (d.body && typeof d.body === "object") {
+            const bodyObj = d.body as Record<string, unknown>;
+            if (Array.isArray(bodyObj.keywords)) {
+              keywords.push(...bodyObj.keywords.filter((k): k is string => typeof k === "string"));
+            }
+          }
+          return {
+            ...d,
+            libraryTags: d.libraryTags ?? { domainTags: [], lifecycleTags: [], organizationalTags: [] },
+            keywords,
+          };
+        }),
       );
 
       // Load dashboard config for starring
@@ -211,7 +229,7 @@ export function LibraryBrowser() {
   // Clear selection when filters change to avoid phantom selected items
   useEffect(() => {
     clearSelection();
-  }, [folder, domainTagFilter, lifecycleTagFilter, orgTagFilter]);
+  }, [folder, domainTagFilter, lifecycleTagFilter, orgTagFilter, keywordFilter]);
 
   const counts = useMemo(() => {
     const c: Record<LibraryRootKind, number> = {
@@ -235,9 +253,13 @@ export function LibraryBrowser() {
     () => collectSortedUniqueTags(items.map((it) => it.libraryTags.organizationalTags)),
     [items],
   );
+  const keywordOptions = useMemo(
+    () => collectSortedUniqueTags(items.map((it) => it.keywords || [])),
+    [items],
+  );
 
   const tagFilterActive =
-    domainTagFilter.length > 0 || lifecycleTagFilter.length > 0 || orgTagFilter.length > 0;
+    domainTagFilter.length > 0 || lifecycleTagFilter.length > 0 || orgTagFilter.length > 0 || keywordFilter.length > 0;
 
   // Toggle star status
   const toggleStar = useCallback(async (documentId: string) => {
@@ -274,13 +296,40 @@ export function LibraryBrowser() {
     if (orgTagFilter.length > 0) {
       list = list.filter((it) => orgTagFilter.some((x) => it.libraryTags.organizationalTags.includes(x)));
     }
-    return list;
-  }, [items, folder, domainTagFilter, lifecycleTagFilter, orgTagFilter]);
+    if (keywordFilter.length > 0) {
+      list = list.filter((it) => keywordFilter.some((x) => (it.keywords || []).includes(x)));
+    }
+
+    // Apply sorting
+    const sorted = [...list].sort((a, b) => {
+      let comparison = 0;
+
+      switch (sortColumn) {
+        case 'name':
+          comparison = a.displayName.localeCompare(b.displayName);
+          break;
+        case 'type':
+          comparison = a.libraryRootKind.localeCompare(b.libraryRootKind);
+          break;
+        case 'elements':
+          comparison = a.virtualFileCount - b.virtualFileCount;
+          break;
+        case 'updated':
+          comparison = a.updatedAt.localeCompare(b.updatedAt);
+          break;
+      }
+
+      return sortDirection === 'asc' ? comparison : -comparison;
+    });
+
+    return sorted;
+  }, [items, folder, domainTagFilter, lifecycleTagFilter, orgTagFilter, keywordFilter, sortColumn, sortDirection]);
 
   const clearTagFilters = useCallback(() => {
     setDomainTagFilter([]);
     setLifecycleTagFilter([]);
     setOrgTagFilter([]);
+    setKeywordFilter([]);
   }, []);
 
   function toggleSelection(id: string) {
@@ -300,6 +349,17 @@ export function LibraryBrowser() {
       setExpandedId(null);
     } else {
       setExpandedId(id);
+    }
+  }
+
+  function handleSort(column: 'name' | 'type' | 'elements' | 'updated') {
+    if (sortColumn === column) {
+      // Toggle direction if same column
+      setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      // New column, default to ascending
+      setSortColumn(column);
+      setSortDirection('asc');
     }
   }
 
@@ -383,7 +443,10 @@ export function LibraryBrowser() {
             const j = JSON.parse(m) as { error?: string };
             if (j?.error) m = j.error;
           } catch {
-            /* keep */
+            // If response is HTML (server error page), provide a clean error message
+            if (m.trim().startsWith("<!DOCTYPE") || m.trim().startsWith("<html")) {
+              m = "Server error";
+            }
           }
           const label = row.displayName || row.title || row.id;
           failures.push(m ? `${label}: ${m}` : `${label} (HTTP ${res.status})`);
@@ -430,7 +493,10 @@ export function LibraryBrowser() {
           const j = JSON.parse(m) as { error?: string };
           if (j?.error) m = j.error;
         } catch {
-          /* keep */
+          // If response is HTML (server error page), provide a clean error message
+          if (m.trim().startsWith("<!DOCTYPE") || m.trim().startsWith("<html")) {
+            m = "Server error";
+          }
         }
         setDeleteError(m || `${t.libraryDeleteFailed} (${res.status})`);
         return;
@@ -553,6 +619,12 @@ export function LibraryBrowser() {
                   options={orgTagOptions}
                   selected={orgTagFilter}
                   onToggle={(tag) => setOrgTagFilter((prev) => toggleTagSelection(prev, tag))}
+                />
+                <LibraryTagTreeSection
+                  sectionLabel="Keywords"
+                  options={keywordOptions}
+                  selected={keywordFilter}
+                  onToggle={(tag) => setKeywordFilter((prev) => toggleTagSelection(prev, tag))}
                 />
               </div>
             </div>
@@ -869,10 +941,34 @@ export function LibraryBrowser() {
                       />
                     </th>
                     <th style={{ width: "2.5rem", padding: "0.625rem 0.75rem" }} aria-label="Expand" />
-                    <th style={{ minWidth: 0, padding: "0.625rem 0.75rem" }}>Name</th>
-                    <th className="hidden whitespace-nowrap sm:table-cell" style={{ padding: "0.625rem 0.75rem" }}>Type</th>
-                    <th className="hidden whitespace-nowrap md:table-cell" style={{ padding: "0.625rem 0.75rem" }}>Elements</th>
-                    <th className="min-w-0 whitespace-nowrap" style={{ padding: "0.625rem 0.5rem" }}>Updated</th>
+                    <th
+                      style={{ minWidth: 0, padding: "0.625rem 0.75rem", cursor: "pointer", userSelect: "none" }}
+                      onClick={() => handleSort('name')}
+                      className="lib-sort-header"
+                    >
+                      Name {sortColumn === 'name' && (sortDirection === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th
+                      className="hidden whitespace-nowrap sm:table-cell lib-sort-header"
+                      style={{ padding: "0.625rem 0.75rem", cursor: "pointer", userSelect: "none" }}
+                      onClick={() => handleSort('type')}
+                    >
+                      Type {sortColumn === 'type' && (sortDirection === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th
+                      className="hidden whitespace-nowrap md:table-cell lib-sort-header"
+                      style={{ padding: "0.625rem 0.75rem", cursor: "pointer", userSelect: "none" }}
+                      onClick={() => handleSort('elements')}
+                    >
+                      Elements {sortColumn === 'elements' && (sortDirection === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th
+                      className="min-w-0 whitespace-nowrap lib-sort-header"
+                      style={{ padding: "0.625rem 0.5rem", cursor: "pointer", userSelect: "none" }}
+                      onClick={() => handleSort('updated')}
+                    >
+                      Updated {sortColumn === 'updated' && (sortDirection === 'asc' ? '↑' : '↓')}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1148,6 +1244,14 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
       const failures: string[] = [];
       let savedCount = 0;
 
+      // Fetch existing documents to check for duplicates by title AND kind (type)
+      setSaveProgress("Loading existing library items…");
+      const listRes = await fetch("/api/documents");
+      const listData = listRes.ok ? await listRes.json() : { documents: [] };
+      const existingDocs: Array<{ id: string; title: string; kind: string }> = Array.isArray(listData.documents) ? listData.documents : [];
+      // Map by "title|kind" to allow same title for different types
+      const titleKindToId = new Map(existingDocs.map(d => [`${d.title.toLowerCase()}|${d.kind}`, d.id]));
+
       for (let i = 0; i < bodies.length; i++) {
         const body = bodies[i];
         const inferredTitle = displayNameForBody(
@@ -1165,23 +1269,48 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
           setSaveProgress(`Saving ${i + 1} of ${bodies.length}…`);
         }
 
-        // Save the Method/Practice/Baseline document
-        const res = await fetch("/api/documents", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title, kind, body }),
-        });
+        // Check if document with same title AND kind already exists
+        const compositeKey = `${title.toLowerCase()}|${kind}`;
+        const existingId = titleKindToId.get(compositeKey);
+        let res: Response;
+
+        if (existingId) {
+          // Update existing document with same name and type
+          res = await fetch(`/api/documents/${encodeURIComponent(existingId)}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title, kind, body }),
+          });
+        } else {
+          // Create new document
+          res = await fetch("/api/documents", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title, kind, body }),
+          });
+        }
+
         if (!res.ok) {
           let msg = await res.text();
           try {
             const j = JSON.parse(msg) as { error?: string };
             if (j?.error) msg = j.error;
           } catch {
-            /* keep raw */
+            // If response is HTML (server error page), provide a clean error message
+            if (msg.trim().startsWith("<!DOCTYPE") || msg.trim().startsWith("<html")) {
+              msg = "Server error";
+            }
           }
           failures.push(`#${i + 1} (${title}): ${msg || `HTTP ${res.status}`}`);
         } else {
           savedCount++;
+          // Update the map with the new document if it was created
+          if (!existingId) {
+            const newDoc = await res.json();
+            if (newDoc?.id) {
+              titleKindToId.set(compositeKey, newDoc.id);
+            }
+          }
         }
 
         // If this is a Method with practices, extract and save each practice separately
@@ -1192,22 +1321,60 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
           if (Array.isArray(practices) && practices.length > 0) {
             setSaveProgress(`Extracting ${practices.length} practice(s) from ${title}…`);
 
+            // Get the method name from the body
+            const methodName = typeof body.name === "string" ? body.name : title;
+
             for (let j = 0; j < practices.length; j++) {
               const practice = practices[j];
               if (practice && typeof practice === "object" && !Array.isArray(practice)) {
                 const practiceBody = practice as Record<string, unknown>;
                 const practiceName = typeof practiceBody.name === "string" ? practiceBody.name : `Practice ${j + 1}`;
                 const practiceTitle = `${practiceName} (from ${title})`;
+                const practiceKind = "practice";
 
-                const practiceRes = await fetch("/api/documents", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    title: practiceTitle,
-                    kind: "practice",
-                    body: practice
-                  }),
-                });
+                // Add method name to practice keywords
+                const existingKeywords = Array.isArray(practiceBody.keywords)
+                  ? practiceBody.keywords.filter(k => typeof k === "string")
+                  : [];
+                const methodKeyword = methodName.trim();
+                const updatedKeywords = existingKeywords.includes(methodKeyword)
+                  ? existingKeywords
+                  : [...existingKeywords, methodKeyword];
+
+                // Create enriched practice body with method name in keywords
+                const enrichedPractice = {
+                  ...practiceBody,
+                  keywords: updatedKeywords
+                };
+
+                // Check if practice with same title AND kind already exists
+                const practiceCompositeKey = `${practiceTitle.toLowerCase()}|${practiceKind}`;
+                const existingPracticeId = titleKindToId.get(practiceCompositeKey);
+                let practiceRes: Response;
+
+                if (existingPracticeId) {
+                  // Update existing practice with same name and type
+                  practiceRes = await fetch(`/api/documents/${encodeURIComponent(existingPracticeId)}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      title: practiceTitle,
+                      kind: practiceKind,
+                      body: enrichedPractice
+                    }),
+                  });
+                } else {
+                  // Create new practice
+                  practiceRes = await fetch("/api/documents", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      title: practiceTitle,
+                      kind: practiceKind,
+                      body: enrichedPractice
+                    }),
+                  });
+                }
 
                 if (!practiceRes.ok) {
                   let msg = await practiceRes.text();
@@ -1215,11 +1382,21 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
                     const j = JSON.parse(msg) as { error?: string };
                     if (j?.error) msg = j.error;
                   } catch {
-                    /* keep raw */
+                    // If response is HTML (server error page), provide a clean error message
+                    if (msg.trim().startsWith("<!DOCTYPE") || msg.trim().startsWith("<html")) {
+                      msg = "Server error";
+                    }
                   }
                   failures.push(`Practice "${practiceName}": ${msg || `HTTP ${practiceRes.status}`}`);
                 } else {
                   savedCount++;
+                  // Update the map with the new practice if it was created
+                  if (!existingPracticeId) {
+                    const newPractice = await practiceRes.json();
+                    if (newPractice?.id) {
+                      titleKindToId.set(practiceCompositeKey, newPractice.id);
+                    }
+                  }
                 }
               }
             }

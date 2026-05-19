@@ -26,6 +26,7 @@ import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependency
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { useLanguagePack } from "@/lib/languagePack";
 import KanbanPatternBoardPF from "./KanbanPatternBoardPF";
+import ProgressiveFlowDiagram from "./ProgressiveFlowDiagram";
 
 /**
  * ProjectManagementView: A 4-part project planning report structure
@@ -523,10 +524,9 @@ function LevelOfDetailCard({ lod }: { lod: any }) {
 // SECTION 4: Resourcing & Activity Backlog
 // ========================================================================
 
-function ResourcingAndActivities({ doc }: { doc: any }) {
+function ResourcingAndActivities({ doc, activities }: { doc: any; activities: any[] }) {
   const personaGroups = Array.isArray(doc.personaGroups) ? doc.personaGroups : [];
   const personas = Array.isArray(doc.personas) ? doc.personas : [];
-  const activities = Array.isArray(doc.activities) ? doc.activities : [];
 
   if (personaGroups.length === 0 && personas.length === 0 && activities.length === 0) {
     return null;
@@ -556,6 +556,23 @@ function ResourcingAndActivities({ doc }: { doc: any }) {
           {personaGroups.map((group: any, idx: number) => (
             <PersonaGroupCard key={idx} group={group} />
           ))}
+        </>
+      )}
+
+      {personaGroups.length > 0 && activities.length > 0 && (
+        <>
+          <Title headingLevel="h3" size="xl" style={{ marginTop: "3rem", marginBottom: "1rem" }}>
+            Team Progression Flow
+          </Title>
+          <Card style={{ marginBottom: "2rem" }}>
+            <CardBody>
+              <Content component={ContentVariants.p} style={{ marginBottom: "1.5rem", color: "var(--pf-v6-global--Color--200)" }}>
+                Horizontal flow diagrams showing how each team progresses through activities to achieve alpha states.
+                One flow per PersonaGroup, reading left to right: Team → Activity → State → Activity → State...
+              </Content>
+              <ProgressiveFlowDiagram practice={doc} width={1200} />
+            </CardBody>
+          </Card>
         </>
       )}
 
@@ -844,7 +861,28 @@ export function ProjectManagementView({
   }
 
   const sourceDocRecord = effectiveDoc && typeof effectiveDoc === "object" ? (effectiveDoc as Record<string, unknown>) : {};
-  const activities = Array.isArray((baselineForRender as any)?.activities) ? (baselineForRender as any).activities : [];
+
+  // Collect all activities from activitySpaces and flat array
+  const activities = useMemo(() => {
+    const result: any[] = [];
+
+    // Collect from activitySpaces (nested structure)
+    const activitySpaces = Array.isArray((baselineForRender as any)?.activitySpaces)
+      ? (baselineForRender as any).activitySpaces
+      : [];
+    for (const space of activitySpaces) {
+      const spaceActivities = Array.isArray(space.activities) ? space.activities : [];
+      result.push(...spaceActivities);
+    }
+
+    // Collect from flat activities array (legacy)
+    const flatActivities = Array.isArray((baselineForRender as any)?.activities)
+      ? (baselineForRender as any).activities
+      : [];
+    result.push(...flatActivities);
+
+    return result;
+  }, [baselineForRender]);
 
   return (
     <div style={{
@@ -870,7 +908,7 @@ export function ProjectManagementView({
         <MilestonesAndDeliverables doc={baselineForRender} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <ResourcingAndActivities doc={baselineForRender} />
+        <ResourcingAndActivities doc={baselineForRender} activities={activities} />
       </main>
     </div>
   );

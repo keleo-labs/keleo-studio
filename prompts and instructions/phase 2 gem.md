@@ -348,6 +348,11 @@ When you encounter narrative sections (paragraphs with headers like "Context and
 
 ### Parsing Alpha States
 
+**Important baseline state clarifications:**
+
+* **Platform alpha**: Progresses through Architecture Selected → Baselined → Provisioned → Ready → Hosting Assets → Evolving → Retiring. "Evolving" (seq 6) represents adaptive platform evolution with continuous feedback, while "Retiring" (seq 7) represents systematic decommissioning.
+* **Platform Asset alpha**: Progresses through Identified → Specified → Provisioned → Integrated → Operational → Value Yielding → Retiring. "Value Yielding" (seq 6) means the asset is delivering measurable value (NOT decommissioning), and "Retiring" (seq 7) means systematic decommissioning in progress.
+
 Report format:
 ```
 1. **State Name:** Description text
@@ -729,6 +734,113 @@ Extract to:
 
 Use the table as a validation/cross-reference but extract primary data from the detailed phase descriptions above it.
 
+### Parsing Citations and References
+
+**CRITICAL:** Every practice MUST extract citation narratives from the "Citations and References" section of the report.
+
+Report format:
+```
+### References
+
+Amazon Web Services. (2024). AWS Well-Architected Framework. https://aws.amazon.com/architecture/well-architected/
+
+Humble, J., & Farley, D. (2010). Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation. Addison-Wesley Professional.
+
+### Citation Narratives
+
+**AWS Well-Architected Framework Foundation**
+
+Amazon Web Services developed the Well-Architected Framework to provide architectural best practices for cloud workloads. Published in 2024, the framework covers six pillars of operational excellence. This authoritative source from AWS provides the foundation for understanding cloud architecture principles.
+```
+
+Extract to:
+```json
+{
+  "narratives": [
+    {
+      "name": "AWS Well-Architected Framework Foundation",
+      "description": "Citation for AWS Well-Architected Framework as authoritative source for cloud architecture principles",
+      "narrativeName": "AWS Well-Architected Framework",
+      "narrativeTypeName": "Citation Standard",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Author",
+          "context": "Amazon Web Services"
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Date",
+          "context": "2024"
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Title",
+          "context": "AWS Well-Architected Framework"
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Source",
+          "context": "https://aws.amazon.com/architecture/well-architected/"
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Citation Extraction Guidelines:**
+
+1. **Parse the References section** to identify all sources
+2. **Parse each citation narrative** in the report that references these sources
+3. **Extract citation details** into Citation Standard narrative format:
+   - seq 1: Author (individual name(s) or organization)
+   - seq 2: Date (publication year or "n.d.")
+   - seq 3: Title (full title of work)
+   - seq 4: Source (URL, publisher, or publication venue)
+
+4. **Place citations appropriately:**
+   - Practice-level narratives: Citations that inform the overall practice
+   - Alpha narratives: Citations that validate or define the alpha concept
+   - Activity narratives: Citations for techniques and approaches alongside other narrative types
+   - Pattern narratives: Citations for case studies and implementation examples
+
+5. **Validation:**
+   - Every practice should have multiple Citation Standard narratives
+   - Citations should come from authoritative sources (primary methodology sources preferred)
+   - Avoid citations from social media or unattributed sources
+   - Prioritize company/organization sources for their own methodologies
+
+**Example multi-narrative activity with citations:**
+
+```json
+{
+  "name": "Design Infrastructure Architecture",
+  "narratives": [
+    {
+      "name": "AWS Well-Architected Framework",
+      "narrativeTypeName": "Citation Standard",
+      "narrativeContexts": [
+        {"seq": 1, "narrativeElementName": "Author", "context": "Amazon Web Services"},
+        {"seq": 2, "narrativeElementName": "Date", "context": "2024"},
+        {"seq": 3, "narrativeElementName": "Title", "context": "AWS Well-Architected Framework"},
+        {"seq": 4, "narrativeElementName": "Source", "context": "https://aws.amazon.com/architecture/well-architected/"}
+      ]
+    },
+    {
+      "name": "Establishing Effective Guardrails",
+      "narrativeTypeName": "The STAR Format",
+      "narrativeContexts": [
+        {"seq": 1, "narrativeElementName": "Situation", "context": "..."},
+        {"seq": 2, "narrativeElementName": "Task", "context": "..."},
+        {"seq": 3, "narrativeElementName": "Action", "context": "..."},
+        {"seq": 4, "narrativeElementName": "Result", "context": "..."}
+      ]
+    }
+  ]
+}
+```
+
 ### Parsing Terminology Mapping (Appendix)
 
 Report format:
@@ -886,13 +998,15 @@ If you cannot determine whether something should be merged into a redeclaration 
 
 **Critical validation before generating JSON:**
 
-1. **Load baseline Alpha names:** ["Opportunity", "Platform Value And Economics", "Stakeholders", "Platform", "Requirements", "System", "Platform Governance", "Team", "Ways Of Working", "Work"]
+1. **Load baseline Alpha names:** ["Opportunity", "Platform Value And Economics", "Stakeholders", "Platform", "Requirements", "System", "Platform Governance", "Platform Asset", "Platform Consumption Interface", "Team", "Way Of Working", "Work", "Platform Risk And Compliance", "Organizational Change"]
 
 2. **Load baseline ActivitySpace names:** Extract exact names from baseline (they include modern platform engineering names like "Assess Business Value", "Manage Platform Economics", "Architect and Build the Foundation", "Develop the Golden Paths", etc.)
 
 3. **Load baseline Competency names:** ["Analysis", "Engineering", "Leadership", "Management", "Test", "Usage"]
 
 4. **Load NarrativeType names:** ["The STAR Format", "The Hero's Journey", "The Three-Act Structure & StoryBrand", "Micro-Narratives (ABT)", "User story", "Epic", "Lifecycle", "Essay Narrative", "Report Narrative", "Citation Standard"]
+
+5. **Load Citation Standard NarrativeElements:** ["Author", "Date", "Title", "Source"]
 
 5. **For every symbolic reference:**
    - alphaName in AlphaContribution → MUST match a baseline or declared Alpha exactly
@@ -1058,6 +1172,15 @@ Before outputting JSON, verify:
 - [ ] All narrativeContexts arrays are complete for the narrative type
 - [ ] Every PersonaGroup referenced in Activity.involves is defined
 - [ ] Every Persona in PersonaGroup.personaNames is defined
+
+## Citations
+
+- [ ] Practice includes multiple Citation Standard narratives (minimum 3, recommend 5-15)
+- [ ] Each Citation Standard narrative has all 4 required elements (Author, Date, Title, Source)
+- [ ] Citations come from authoritative sources (primary methodology sources preferred)
+- [ ] No citations from social media platforms
+- [ ] Company/organization sources prioritized for their own methodologies
+- [ ] Citations distributed across practice elements (practice-level, alphas, activities, patterns as appropriate)
 
 ## Tags
 
