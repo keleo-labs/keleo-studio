@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import type { CSSProperties } from "react";
 import {
   PageSection,
@@ -14,7 +14,6 @@ import {
   ListItem,
   Divider,
   Label,
-  Switch,
 } from "@patternfly/react-core";
 import type { Method } from "@/lib/types";
 import {
@@ -35,6 +34,7 @@ import {
   type PracticeElementAliasLookup,
 } from "@/lib/practiceElementAliasDisplay";
 import KanbanPatternBoardPF from "./KanbanPatternBoardPF";
+import { PracticeRadarChart } from "./PracticeRadarChart";
 
 /**
  * BrowseView: A 6-part methodology documentation structure following outline.md
@@ -744,6 +744,15 @@ function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap }: { 
         Where this {methodComposition ? "method" : "practice"} focuses its guidance and which areas it does not address.
       </Content>
 
+      {/* Radar Chart Visualization */}
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: "3rem" }}>
+        <PracticeRadarChart
+          alphasByFocus={alphasByFocus}
+          size="medium"
+          fixedMaxScore={20}
+        />
+      </div>
+
       {/* Tile-based Coverage Overview */}
       <Card style={{ marginBottom: "3rem" }}>
         <CardBody>
@@ -1263,8 +1272,7 @@ function buildAlphaHierarchy(alphas: any[]): { roots: any[]; childrenMap: Map<st
   return { roots, childrenMap };
 }
 
-function CoreConcepts({ doc, originalDoc, grouped, aliasMap }: { doc: any; originalDoc: any; grouped: any[]; aliasMap: PracticeElementAliasLookup }) {
-  const [showOnlyPracticeDefined, setShowOnlyPracticeDefined] = useState(false);
+function CoreConcepts({ doc, originalDoc, grouped, aliasMap, methodComposition }: { doc: any; originalDoc: any; grouped: any[]; aliasMap: PracticeElementAliasLookup; methodComposition?: Method | null }) {
   const workProducts = Array.isArray(doc.workProducts) ? doc.workProducts : [];
 
   // Extract all activities from all activitySpaces across all focuses
@@ -1277,16 +1285,31 @@ function CoreConcepts({ doc, originalDoc, grouped, aliasMap }: { doc: any; origi
     }
   }
 
-  // Build a set of alpha names from the original practice document
+  // Build a set of alpha names from the original practice document or method's practices
   const practiceAlphaNames = useMemo(() => {
     const names = new Set<string>();
-    const alphas = Array.isArray(originalDoc.alphas) ? originalDoc.alphas : [];
-    for (const alpha of alphas) {
-      const name = String(alpha.name ?? "").trim();
-      if (name) names.add(name);
+
+    if (methodComposition) {
+      // For methods, collect alphas from all the method's extension practices (not the baseline)
+      const practices = Array.isArray(methodComposition.practices) ? methodComposition.practices : [];
+      for (const practice of practices) {
+        const alphas = Array.isArray(practice.alphas) ? practice.alphas : [];
+        for (const alpha of alphas) {
+          const name = String(alpha.name ?? "").trim();
+          if (name) names.add(name);
+        }
+      }
+    } else {
+      // For standalone practices, use the practice's own alphas
+      const alphas = Array.isArray(originalDoc.alphas) ? originalDoc.alphas : [];
+      for (const alpha of alphas) {
+        const name = String(alpha.name ?? "").trim();
+        if (name) names.add(name);
+      }
     }
+
     return names;
-  }, [originalDoc]);
+  }, [originalDoc, methodComposition]);
 
   if (grouped.length === 0) {
     return null;
@@ -1300,46 +1323,30 @@ function CoreConcepts({ doc, originalDoc, grouped, aliasMap }: { doc: any; origi
         </Label>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-        <Title headingLevel="h2" size="3xl">
-          Core Concepts & Progression
-        </Title>
-        <Switch
-          id="core-concepts-filter-toggle"
-          label="Show only practice-defined"
-          isChecked={showOnlyPracticeDefined}
-          onChange={(_event, checked) => setShowOnlyPracticeDefined(checked)}
-        />
-      </div>
+      <Title headingLevel="h2" size="3xl" style={{ marginBottom: "1rem" }}>
+        Core Concepts & Progression
+      </Title>
 
       <Content component={ContentVariants.p} style={{ marginBottom: "2rem", color: "var(--pf-v6-global--Color--200)" }}>
         Abstract areas of concern and their sequential states of maturity.
       </Content>
 
       {grouped.map((focus: any, idx: number) => (
-        <FocusBlock key={idx} focus={focus} workProducts={workProducts} activities={activities} aliasMap={aliasMap} showOnlyPracticeDefined={showOnlyPracticeDefined} practiceAlphaNames={practiceAlphaNames} />
+        <FocusBlock key={idx} focus={focus} workProducts={workProducts} activities={activities} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} />
       ))}
     </section>
   );
 }
 
-function FocusBlock({ focus, workProducts, activities, aliasMap, showOnlyPracticeDefined, practiceAlphaNames }: { focus: any; workProducts: any[]; activities: any[]; aliasMap: PracticeElementAliasLookup; showOnlyPracticeDefined: boolean; practiceAlphaNames: Set<string> }) {
+function FocusBlock({ focus, workProducts, activities, aliasMap, practiceAlphaNames }: { focus: any; workProducts: any[]; activities: any[]; aliasMap: PracticeElementAliasLookup; practiceAlphaNames: Set<string> }) {
   const focusName = String(focus.focusName ?? "");
   const alphas = focus.alphas ?? [];
 
-  // Filter alphas if showOnlyPracticeDefined is true
-  const filteredAlphas = showOnlyPracticeDefined
-    ? alphas.filter((alpha: any) => {
-        const alphaName = String(alpha.name ?? "").trim();
-        return practiceAlphaNames.has(alphaName);
-      })
-    : alphas;
-
-  if (filteredAlphas.length === 0) {
+  if (alphas.length === 0) {
     return null;
   }
 
-  const { roots, childrenMap } = buildAlphaHierarchy(filteredAlphas);
+  const { roots, childrenMap } = buildAlphaHierarchy(alphas);
 
   return (
     <div id={`focus-${slug(focusName)}`} style={{ marginBottom: "3rem", scrollMarginTop: "2rem" }}>
@@ -1348,13 +1355,13 @@ function FocusBlock({ focus, workProducts, activities, aliasMap, showOnlyPractic
       </Title>
 
       {roots.map((alpha: any, idx: number) => (
-        <AlphaBlock key={idx} alpha={alpha} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={0} aliasMap={aliasMap} />
+        <AlphaBlock key={idx} alpha={alpha} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={0} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} />
       ))}
     </div>
   );
 }
 
-function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0, aliasMap }: { alpha: any; childrenMap: Map<string, any[]>; workProducts: any[]; activities: any[]; depth?: number; aliasMap: PracticeElementAliasLookup }) {
+function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0, aliasMap, practiceAlphaNames }: { alpha: any; childrenMap: Map<string, any[]>; workProducts: any[]; activities: any[]; depth?: number; aliasMap: PracticeElementAliasLookup; practiceAlphaNames: Set<string> }) {
   const name = String(alpha.name ?? "");
   const description = practiceElementDescriptionForDisplay(alpha) ?? "";
   const narratives = alpha.narratives;
@@ -1365,10 +1372,66 @@ function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0, a
   const children = childrenMap.get(name) ?? [];
   const hasChildren = children.length > 0;
 
+  // Check if this alpha is defined in the practice (not from a dependency)
+  const isPracticeDefined = practiceAlphaNames.has(name.trim());
+
   // Adjust styling based on depth
   const marginLeft = depth > 0 ? `${depth * 2}rem` : "0";
   const borderLeftColor = depth > 0 ? "var(--pf-v6-global--BorderColor--200)" : "transparent";
 
+  // If not practice-defined, render simplified view (just name and description)
+  if (!isPracticeDefined) {
+    return (
+      <>
+        <Card id={`alpha-${slug(name)}`} style={{
+          marginBottom: "1.5rem",
+          marginLeft,
+          borderLeft: depth > 0 ? `3px solid ${borderLeftColor}` : undefined,
+          scrollMarginTop: "2rem",
+          backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+          opacity: 0.8,
+        }}>
+          <CardBody>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+              <Title headingLevel={depth === 0 ? "h4" : depth === 1 ? "h5" : "h6"} size={depth === 0 ? "lg" : "md"}>
+                <ElementNameWithAlias aliasMap={aliasMap} elementType="Alpha" name={name} />
+              </Title>
+              <Label color="grey" isCompact>
+                Referenced
+              </Label>
+              {depth > 0 && (
+                <a
+                  href={`#alpha-${slug(String(alpha.contributesTo ?? ""))}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Label color="grey" isCompact>
+                    Specializes {String(alpha.contributesTo ?? "")}
+                  </Label>
+                </a>
+              )}
+            </div>
+
+            {description && (
+              <Content component={ContentVariants.p} style={{ marginBottom: "0", color: "var(--pf-v6-global--Color--200)" }}>
+                {description}
+              </Content>
+            )}
+          </CardBody>
+        </Card>
+
+        {/* Render child alphas */}
+        {hasChildren && (
+          <div style={{ marginBottom: "1.5rem" }}>
+            {children.map((child: any, idx: number) => (
+              <AlphaBlock key={idx} alpha={child} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={depth + 1} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} />
+            ))}
+          </div>
+        )}
+      </>
+    );
+  }
+
+  // Practice-defined alpha - render full view
   return (
     <>
       <Card id={`alpha-${slug(name)}`} style={{
@@ -1431,7 +1494,7 @@ function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0, a
       {hasChildren && (
         <div style={{ marginBottom: "1.5rem" }}>
           {children.map((child: any, idx: number) => (
-            <AlphaBlock key={idx} alpha={child} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={depth + 1} aliasMap={aliasMap} />
+            <AlphaBlock key={idx} alpha={child} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={depth + 1} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} />
           ))}
         </div>
       )}
@@ -1742,22 +1805,36 @@ function LevelOfDetailCard({ lod }: { lod: any }) {
 // SECTION 6: Execution & Roles (Activities & Personas)
 // ========================================================================
 
-function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap }: { doc: any; originalDoc: any; grouped: any[]; aliasMap: PracticeElementAliasLookup }) {
-  const [showOnlyPracticeDefined, setShowOnlyPracticeDefined] = useState(false);
+function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap, methodComposition }: { doc: any; originalDoc: any; grouped: any[]; aliasMap: PracticeElementAliasLookup; methodComposition?: Method | null }) {
   const personas = Array.isArray(doc.personas) ? doc.personas : [];
   const personaGroups = Array.isArray(doc.personaGroups) ? doc.personaGroups : [];
   const competencies = Array.isArray(doc.competencies) ? doc.competencies : [];
 
-  // Build a set of activity space names from the original practice document
+  // Build a set of activity space names from the original practice document or method's practices
   const practiceActivitySpaceNames = useMemo(() => {
     const names = new Set<string>();
-    const activitySpaces = Array.isArray(originalDoc.activitySpaces) ? originalDoc.activitySpaces : [];
-    for (const space of activitySpaces) {
-      const name = String(space.name ?? "").trim();
-      if (name) names.add(name);
+
+    if (methodComposition) {
+      // For methods, collect activity spaces from all the method's extension practices (not the baseline)
+      const practices = Array.isArray(methodComposition.practices) ? methodComposition.practices : [];
+      for (const practice of practices) {
+        const activitySpaces = Array.isArray(practice.activitySpaces) ? practice.activitySpaces : [];
+        for (const space of activitySpaces) {
+          const name = String(space.name ?? "").trim();
+          if (name) names.add(name);
+        }
+      }
+    } else {
+      // For standalone practices, use the practice's own activity spaces
+      const activitySpaces = Array.isArray(originalDoc.activitySpaces) ? originalDoc.activitySpaces : [];
+      for (const space of activitySpaces) {
+        const name = String(space.name ?? "").trim();
+        if (name) names.add(name);
+      }
     }
+
     return names;
-  }, [originalDoc]);
+  }, [originalDoc, methodComposition]);
 
   const hasActivities = grouped.some((g: any) => g.activitySpaces?.length > 0);
 
@@ -1773,17 +1850,9 @@ function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap }: { doc: any; 
         </Label>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-        <Title headingLevel="h2" size="3xl">
-          Execution & Roles
-        </Title>
-        <Switch
-          id="execution-roles-filter-toggle"
-          label="Show only practice-defined"
-          isChecked={showOnlyPracticeDefined}
-          onChange={(_event, checked) => setShowOnlyPracticeDefined(checked)}
-        />
-      </div>
+      <Title headingLevel="h2" size="3xl" style={{ marginBottom: "1rem" }}>
+        Execution & Roles
+      </Title>
 
       <Content component={ContentVariants.p} style={{ marginBottom: "2rem", color: "var(--pf-v6-global--Color--200)" }}>
         Specific workflows, who executes them, and the competencies required.
@@ -1798,25 +1867,15 @@ function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap }: { doc: any; 
           {grouped.map((focus: any, idx: number) => {
             const activitySpaces = focus.activitySpaces ?? [];
 
-            // Filter activity spaces if showOnlyPracticeDefined is true
-            const filteredActivitySpaces = showOnlyPracticeDefined
-              ? activitySpaces.filter((space: any) => {
-                  const spaceName = String(space.name ?? "").trim();
-                  const activities = Array.isArray(space.activities) ? space.activities : [];
-                  // Show if the space is defined in the practice OR has activities
-                  return practiceActivitySpaceNames.has(spaceName) || activities.length > 0;
-                })
-              : activitySpaces;
-
-            if (filteredActivitySpaces.length === 0) return null;
+            if (activitySpaces.length === 0) return null;
 
             return (
               <div key={idx} id={`activities-${slug(focus.focusName)}`} style={{ marginBottom: "2rem", scrollMarginTop: "2rem" }}>
                 <Title headingLevel="h4" size="lg" style={{ marginBottom: "1rem", color: "var(--pf-v6-global--primary-color--100)" }}>
                   {focus.focusName}
                 </Title>
-                {filteredActivitySpaces.map((space: any, spaceIdx: number) => (
-                  <ActivitySpaceBlock key={spaceIdx} activitySpace={space} />
+                {activitySpaces.map((space: any, spaceIdx: number) => (
+                  <ActivitySpaceBlock key={spaceIdx} activitySpace={space} practiceActivitySpaceNames={practiceActivitySpaceNames} />
                 ))}
               </div>
             );
@@ -1869,7 +1928,7 @@ function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap }: { doc: any; 
   );
 }
 
-function ActivitySpaceBlock({ activitySpace }: { activitySpace: any }) {
+function ActivitySpaceBlock({ activitySpace, practiceActivitySpaceNames }: { activitySpace: any; practiceActivitySpaceNames: Set<string> }) {
   const name = String(activitySpace.name ?? "");
   const description = practiceElementDescriptionForDisplay(activitySpace) ?? "";
   const narratives = activitySpace.narratives;
@@ -1884,12 +1943,47 @@ function ActivitySpaceBlock({ activitySpace }: { activitySpace: any }) {
     ? activitySpace.contributesTo
     : [];
 
+  // Check if this activity space is defined in the practice (not from a dependency)
+  const isPracticeDefined = practiceActivitySpaceNames.has(name.trim());
+  const hasActivities = activities.length > 0;
+
+  // If not practice-defined AND has no activities, render simplified view (just name and description)
+  if (!isPracticeDefined && !hasActivities) {
+    return (
+      <Card style={{ marginBottom: "1rem", backgroundColor: "var(--pf-v6-global--BackgroundColor--200)", opacity: 0.8 }}>
+        <CardBody>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+            <Title headingLevel="h5" size="md">
+              {name}
+            </Title>
+            <Label color="grey" isCompact>
+              Referenced
+            </Label>
+          </div>
+          {description && (
+            <Content component={ContentVariants.p} style={{ marginBottom: "0", fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>
+              {description}
+            </Content>
+          )}
+        </CardBody>
+      </Card>
+    );
+  }
+
+  // Practice-defined OR has activities - render full view
   return (
     <Card style={{ marginBottom: "1rem" }}>
       <CardBody>
-        <Title headingLevel="h5" size="md" style={{ marginBottom: "0.5rem" }}>
-          {name}
-        </Title>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+          <Title headingLevel="h5" size="md">
+            {name}
+          </Title>
+          {!isPracticeDefined && hasActivities && (
+            <Label color="grey" isCompact>
+              Referenced (with activities)
+            </Label>
+          )}
+        </div>
         {description && (
           <Content component={ContentVariants.p} style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>
             {description}
@@ -2363,18 +2457,75 @@ function NavigationSidebar() {
 
 export function BrowseView({
   doc,
+  originalDoc,
+  libraryId,
   methodComposition,
   embed = false,
 }: {
-  doc: unknown;
+  doc?: unknown;
+  originalDoc?: unknown;
+  libraryId?: string;
   methodComposition?: Method | null;
   embed?: boolean;
 }) {
   const { t } = useLanguagePack();
-  const shouldResolveLibrary = useMemo(() => practiceNeedsLibraryResolution(doc), [doc]);
-  const { loading: resolveBusy, resolved: libraryResolved } = usePracticeLibraryResolveForRender(doc, shouldResolveLibrary);
+  const [apiData, setApiData] = useState<{
+    original: unknown;
+    merged: unknown;
+    methodComposition?: Method | null;
+  } | null>(null);
+  const [apiLoading, setApiLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
-  const effectiveDoc = shouldResolveLibrary ? (libraryResolved ?? doc) : doc;
+  // Fetch from API if libraryId is provided
+  useEffect(() => {
+    if (!libraryId) return;
+
+    let cancelled = false;
+    setApiLoading(true);
+    setApiError(null);
+
+    (async () => {
+      try {
+        const res = await fetch(`/api/library/browse/${encodeURIComponent(libraryId)}`);
+        if (!res.ok) {
+          if (!cancelled) setApiError(`Failed to load document (${res.status})`);
+          return;
+        }
+        const data = await res.json();
+        if (cancelled) return;
+        setApiData({
+          original: data.original,
+          merged: data.merged,
+          methodComposition: data.metadata?.methodComposition ?? null,
+        });
+      } catch (e) {
+        if (!cancelled) setApiError(e instanceof Error ? e.message : "Failed to load document");
+      } finally {
+        if (!cancelled) setApiLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [libraryId]);
+
+  // Determine effective doc based on mode (API or props)
+  const effectiveOriginalDoc = libraryId ? apiData?.original : (originalDoc ?? doc);
+  const effectiveMergedDoc = libraryId ? apiData?.merged : doc;
+  const effectiveMethodComposition = libraryId ? apiData?.methodComposition : methodComposition;
+
+  // Handle legacy behavior for doc prop (without libraryId) - must call hooks unconditionally
+  const shouldResolveLibrary = useMemo(() => {
+    if (libraryId) return false; // Don't resolve if using API
+    return practiceNeedsLibraryResolution(effectiveMergedDoc);
+  }, [libraryId, effectiveMergedDoc]);
+
+  const { loading: resolveBusy, resolved: libraryResolved } = usePracticeLibraryResolveForRender(effectiveMergedDoc, shouldResolveLibrary);
+
+  // Call all hooks before any early returns
+  const effectiveDoc = shouldResolveLibrary ? (libraryResolved ?? effectiveMergedDoc) : effectiveMergedDoc;
   const baseline = useMemo(() => (effectiveDoc ? asBaselineDocument(effectiveDoc) : null), [effectiveDoc]);
   const baselineForRender = useMemo(() => {
     if (!baseline || !effectiveDoc) return null;
@@ -2390,6 +2541,23 @@ export function BrowseView({
     const aliases = Array.isArray(sourceDoc.practiceElementAliases) ? sourceDoc.practiceElementAliases : undefined;
     return buildPracticeElementAliasLookup(aliases);
   }, [effectiveDoc]);
+
+  // Now safe to do early returns after all hooks have been called
+  if (libraryId && apiLoading) {
+    return (
+      <div style={{ padding: embed ? 16 : 48, color: "var(--pf-v6-global--Color--200)" }}>
+        Loading from library…
+      </div>
+    );
+  }
+
+  if (libraryId && apiError) {
+    return (
+      <div style={{ padding: embed ? 16 : 48, color: "var(--pf-v6-global--Color--200)" }}>
+        Error: {apiError}
+      </div>
+    );
+  }
 
   if (shouldResolveLibrary && resolveBusy) {
     return (
@@ -2408,6 +2576,10 @@ export function BrowseView({
   }
 
   const sourceDocRecord = effectiveDoc && typeof effectiveDoc === "object" ? (effectiveDoc as Record<string, unknown>) : {};
+  // Use effectiveOriginalDoc which comes from API or props
+  const originalDocRecord = effectiveOriginalDoc && typeof effectiveOriginalDoc === "object"
+    ? (effectiveOriginalDoc as Record<string, unknown>)
+    : {};
 
   return (
     <div style={{
@@ -2427,22 +2599,22 @@ export function BrowseView({
         <OutlineSection doc={sourceDocRecord} grouped={grouped} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <ExecutiveContext doc={baselineForRender} methodComposition={methodComposition} aliasMap={aliasMap} />
+        <ExecutiveContext doc={baselineForRender} methodComposition={effectiveMethodComposition} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <MethodFocus doc={sourceDocRecord} baseline={baselineForRender} grouped={grouped} methodComposition={methodComposition} aliasMap={aliasMap} />
+        <MethodFocus doc={sourceDocRecord} baseline={baselineForRender} grouped={grouped} methodComposition={effectiveMethodComposition} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
         <LifecycleOrchestration doc={sourceDocRecord} baseline={baselineForRender} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <CoreConcepts doc={baselineForRender} originalDoc={sourceDocRecord} grouped={grouped} aliasMap={aliasMap} />
+        <CoreConcepts doc={baselineForRender} originalDoc={originalDocRecord} grouped={grouped} aliasMap={aliasMap} methodComposition={effectiveMethodComposition} />
         <Divider style={{ margin: "3rem 0" }} />
 
         <EvidentaryArtifacts doc={sourceDocRecord} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <ExecutionAndRoles doc={baselineForRender} originalDoc={sourceDocRecord} grouped={grouped} aliasMap={aliasMap} />
+        <ExecutionAndRoles doc={baselineForRender} originalDoc={originalDocRecord} grouped={grouped} aliasMap={aliasMap} methodComposition={effectiveMethodComposition} />
       </main>
     </div>
   );

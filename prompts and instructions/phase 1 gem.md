@@ -139,6 +139,11 @@ Requirements:
 
 **Example:** "Platform Capability" specializing "Platform" - represents the progressive maturity of individual capabilities within a platform, with states like "Prototyped", "MVP", "Production-Ready", "Optimized"
 
+**Important baseline state clarifications:**
+
+- **Platform alpha**: Progresses through Architecture Selected → Baselined → Provisioned → Ready → Hosting Assets → Evolving → Retiring. "Evolving" represents adaptive platform evolution with continuous feedback, while "Retiring" represents systematic decommissioning.
+- **Platform Asset alpha**: Progresses through Identified → Specified → Provisioned → Integrated → Operational → Value Yielding → Retiring. "Value Yielding" means the asset is delivering measurable value (NOT decommissioning), and "Retiring" means systematic decommissioning in progress.
+
 **Option C: Instances and Patterns**
 
 Use when:
@@ -270,14 +275,15 @@ Activities should be **specific, actionable work** with names that:
 
 **ActivitySpace Mapping Questions (in order):**
 1. Business value/ROI/stakeholder focus? → "Assess Business Value", "Monitor Value Realization", "Engage Platform Consumers"
-2. Governance/policy/compliance? → "Implement Policy-as-Code", "Establish Secure Guardrails"
+2. Governance/policy/compliance? → "Implement Policy-as-Code"
 3. Defining capabilities/requirements? → "Define Platform Capabilities"
-4. Architecture/foundation building? → "Architect and Build the Foundation"
+4. Architecture/foundation building? → "Architect and Build the Foundation", "Establish Secure Guardrails"
 5. Developer experience/golden paths? → "Develop the Golden Paths", "Integrate Toolchain Services"
 6. Operations/monitoring/evolution? → "Operate and Evolve the System"
 7. Organizational/cultural/team structure? → "Structure Organizational Topologies", "Drive Cultural Transformation"
-8. Delivery coordination? → "Coordinate Delivery Sprints"
-9. Early exploration/prototyping? → "Explore Possibilities"
+8. Delivery coordination? → "Manage Work Execution"
+9. Decommissioning/retirement? → "Decommission and Retire"
+10. Early exploration/prototyping? → "Explore Possibilities"
 
 ## 4. Work Products as Evidence
 
@@ -704,6 +710,97 @@ Below is a summary view of how areas of concern and deliverables progress throug
 | [Instance Name] ([Alpha]) | [State] | [State] | [State] | [State] |
 | **Key Deliverables** ||||
 | [Instance Name] ([WP]) | [LOD] | [LOD] | [LOD] | [LOD] |
+
+---
+
+## Citations and References
+
+**MANDATORY:** Every practice and method MUST include comprehensive citations and an APA7-style references section.
+
+### Citation Requirements
+
+**Source Prioritization (in order):**
+
+1. **Primary Authoritative Sources:**
+   - Official documentation from the company/organization that created the methodology
+   - Published books or whitepapers by the methodology's authors
+   - Peer-reviewed academic papers
+   - Company blog posts or technical articles from the originating organization
+
+2. **Secondary Sources:**
+   - Implementation guides from reputable consulting firms
+   - Technical articles from established technology publications
+   - Conference presentations by recognized experts
+   - Case studies from enterprise implementations
+
+3. **Avoid:**
+   - Social media posts (Reddit, Twitter, etc.)
+   - Unattributed blog posts
+   - Marketing materials without substantial technical content
+   - Third-party interpretations when primary sources are available
+
+**Attribution Guidelines:**
+
+- When specific authors are named in source materials, cite them by name
+- When no individual authors are listed, use the company/organization name as the author
+- For methodologies owned by companies (e.g., AWS, Google, Microsoft), prioritize that company's documentation over third-party discussions
+- Always prefer the company most directly associated with the subject matter
+
+**For each source cited:**
+
+Create a citation narrative using the **Citation Standard** narrative type with the following elements:
+
+1. **Author:** Individual name(s) or organization/company name
+2. **Date:** Publication or last update date (use "n.d." if unavailable)
+3. **Title:** Full title of the work, article, or documentation
+4. **Source:** Publication venue, website, or platform
+
+**APA7 Reference Format:**
+
+Author, A. A. (Year). *Title of work*. Publisher. URL (if online)
+
+Organization Name. (Year). *Title of documentation*. URL
+
+**Example Citations in Report:**
+
+Create a dedicated "References" section containing all citations formatted in APA7 style:
+
+### References
+
+Amazon Web Services. (2024). *AWS Well-Architected Framework*. https://aws.amazon.com/architecture/well-architected/
+
+Humble, J., & Farley, D. (2010). *Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation*. Addison-Wesley Professional.
+
+Google Cloud. (2024). *SRE Handbook: How Google Runs Production Systems*. https://sre.google/sre-book/table-of-contents/
+
+Team Topologies Ltd. (2023). *Team Topologies: Organizing Business and Technology Teams for Fast Flow*. IT Revolution Press.
+
+### Citation Narratives
+
+**CRITICAL:** For each reference listed above, create a citation narrative that will be extracted into JSON. These narratives should appear throughout the report wherever the source informs the content.
+
+**Example citation narrative structure:**
+
+**AWS Well-Architected Framework Foundation**
+
+Amazon Web Services developed the Well-Architected Framework to provide architectural best practices for cloud workloads. Published in 2024, the framework covers six pillars of operational excellence. This authoritative source from AWS provides the foundation for understanding cloud architecture principles.
+
+*This narrative would use the "Citation Standard" narrative type when converted to JSON, with contexts mapping to Author: "Amazon Web Services", Date: "2024", Title: "AWS Well-Architected Framework", Source: "https://aws.amazon.com/architecture/well-architected/"*
+
+**Where to include citations:**
+
+- In the **Executive Summary**: Cite the primary methodology source
+- In **Practice Overview**: Cite sources that inform the practice definition
+- In **Alpha** and **WorkProduct** descriptions: Cite sources that define or validate these concepts
+- In **Activity narratives**: Cite sources for techniques, approaches, and best practices
+- In **Pattern** descriptions: Cite case studies or implementation examples
+
+**Comprehensive citation coverage:**
+
+- Aim for 5-15 distinct authoritative sources per practice
+- Every major claim, technique, or approach should trace to a citation
+- Balance primary sources (methodology creators) with implementation examples
+- Include both foundational sources (books, frameworks) and current sources (recent documentation, case studies)
 
 ---
 

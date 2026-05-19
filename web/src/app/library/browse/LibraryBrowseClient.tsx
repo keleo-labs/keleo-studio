@@ -2,15 +2,10 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowseView } from "@/components/BrowseView";
 import { ProjectManagementView } from "@/components/ProjectManagementView";
 import { useLanguagePack } from "@/lib/languagePack";
-import { classifyLibraryRoot } from "@/lib/library/classify";
-import { practiceNeedsLibraryResolution, methodNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
-import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
-import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePracticeFromMethod";
-import type { Method } from "@/lib/types";
 
 type ViewMode = "browse" | "project-management";
 
@@ -47,24 +42,51 @@ function ViewModeToolbar({
 }
 
 function LibraryBrowseReadablePane({
-  browseDoc,
-  methodComposition,
+  libraryId,
   mode,
   onModeChange,
 }: {
-  browseDoc: unknown;
-  methodComposition?: Method | null;
+  libraryId: string;
   mode: ViewMode;
   onModeChange: (m: ViewMode) => void;
 }) {
-  if (!browseDoc || typeof browseDoc !== "object") return null;
+  const [merged, setMerged] = useState<unknown>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+
+    (async () => {
+      try {
+        const res = await fetch(`/api/library/browse/${encodeURIComponent(libraryId)}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (cancelled) return;
+        setMerged(data.merged);
+      } catch {
+        // Silently fail - error already handled in parent
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [libraryId]);
+
+  if (loading) {
+    return <div style={{ padding: "2rem", color: "var(--pf-v6-global--Color--200)" }}>Loading...</div>;
+  }
+
   return (
     <>
       <ViewModeToolbar mode={mode} onModeChange={onModeChange} />
       {mode === "project-management" ? (
-        <ProjectManagementView doc={browseDoc} embed />
+        <ProjectManagementView doc={merged} embed />
       ) : (
-        <BrowseView doc={browseDoc} embed methodComposition={methodComposition ?? undefined} />
+        <BrowseView libraryId={libraryId} embed />
       )}
     </>
   );
@@ -75,19 +97,22 @@ export function LibraryBrowseClient() {
   const { t, packId } = useLanguagePack();
   const libraryId = searchParams.get("libraryId");
   const [docTitle, setDocTitle] = useState("");
-  const [body, setBody] = useState<unknown>(null);
+  const [docName, setDocName] = useState("");
+  const [rootKind, setRootKind] = useState<string>("unknown");
+  const [baselinePracticeName, setBaselinePracticeName] = useState<string>("");
+  const [dependencyCount, setDependencyCount] = useState<number>(0);
+  const [needsMerge, setNeedsMerge] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pdfBusy, setPdfBusy] = useState(false);
   const [pdfError, setPdfError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("browse");
 
+  // Fetch metadata for display and PDF generation
   useEffect(() => {
     if (!libraryId) {
       setLoading(false);
       setError("No document selected. Open Browse from an item in Manage library.");
-      setBody(null);
-      setDocTitle("");
       return;
     }
     let cancelled = false;
@@ -95,15 +120,26 @@ export function LibraryBrowseClient() {
     setError(null);
     (async () => {
       try {
-        const res = await fetch(`/api/documents/${encodeURIComponent(libraryId)}`);
+        const res = await fetch(`/api/library/browse/${encodeURIComponent(libraryId)}`);
         if (!res.ok) {
           if (!cancelled) setError(`Could not load document (${res.status}).`);
           return;
         }
-        const data = (await res.json()) as { title?: string; body?: unknown };
+        const data = await res.json();
         if (cancelled) return;
+
         setDocTitle(typeof data.title === "string" ? data.title : "");
-        setBody(data.body ?? null);
+        setRootKind(data.metadata?.kind ?? "unknown");
+        setNeedsMerge(data.metadata?.needsLibraryMerge ?? false);
+
+        // Extract name from original doc
+        const original = data.original;
+        if (original && typeof original === "object") {
+          setDocName(String((original as { name?: string }).name ?? ""));
+          setBaselinePracticeName(String((original as { baselinePracticeName?: string }).baselinePracticeName ?? ""));
+          const deps = (original as { practiceDependencyNames?: string[] }).practiceDependencyNames;
+          setDependencyCount(Array.isArray(deps) ? deps.length : 0);
+        }
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : "Load failed");
       } finally {
@@ -115,68 +151,38 @@ export function LibraryBrowseClient() {
     };
   }, [libraryId]);
 
-  const needsLibraryMerge = useMemo(
-    () =>
-      Boolean(
-        body &&
-          typeof body === "object" &&
-          ((classifyLibraryRoot(body) === "practice" && practiceNeedsLibraryResolution(body)) ||
-            (classifyLibraryRoot(body) === "method" && methodNeedsLibraryResolution(body))),
-      ),
-    [body],
-  );
-
-  const {
-    loading: libraryMergeRequestLoading,
-    resolved: libraryMergedBody,
-    error: libraryMergeRequestError,
-  } = usePracticeLibraryResolveForRender(body, needsLibraryMerge);
-
-  const rootKind = body ? classifyLibraryRoot(body) : "unknown";
-  const browseDoc = useMemo(() => {
-    if (!body || typeof body !== "object") return body;
-    const kind = classifyLibraryRoot(body);
-
-    if (kind === "method") {
-      if (needsLibraryMerge) {
-        if (libraryMergeRequestLoading) return null;
-        if (libraryMergeRequestError) return body;
-        const merged = libraryMergedBody ?? body;
-        return merged != null && typeof merged === "object" ? merged : body;
-      }
-      return compositePracticeFromMethod(body as Method);
-    }
-
-    if (needsLibraryMerge) {
-      if (libraryMergeRequestLoading) return null;
-      if (libraryMergeRequestError) return body;
-      const merged = libraryMergedBody ?? body;
-      return merged != null && typeof merged === "object" ? merged : body;
-    }
-    return body;
-  }, [body, needsLibraryMerge, libraryMergeRequestLoading, libraryMergeRequestError, libraryMergedBody]);
-
-  const libraryMergeLoading = needsLibraryMerge && libraryMergeRequestLoading;
-  const libraryMergeFailed = needsLibraryMerge && !libraryMergeRequestLoading && libraryMergeRequestError !== null;
-
   async function downloadBrowsePdf() {
-    const doc = browseDoc;
-    if (!doc || typeof doc !== "object") return;
+    if (!libraryId) return;
     setPdfError(null);
     setPdfBusy(true);
     try {
-      const payload: Record<string, unknown> = { doc, themeId: "light", packId };
-      if (body && typeof body === "object" && classifyLibraryRoot(body) === "method") {
-        payload.methodComposition = body;
+      // Fetch the merged document for PDF generation
+      const res = await fetch(`/api/library/browse/${encodeURIComponent(libraryId)}`);
+      if (!res.ok) {
+        setPdfError(`Failed to load document (${res.status})`);
+        return;
       }
-      const res = await fetch("/api/pdf", {
+      const data = await res.json();
+
+      const payload: Record<string, unknown> = {
+        doc: data.merged,
+        themeId: "light",
+        packId
+      };
+
+      if (data.metadata?.methodComposition) {
+        payload.methodComposition = data.metadata.methodComposition;
+      }
+
+      const pdfRes = await fetch("/api/pdf", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) {
-        const raw = await res.text().catch(() => "");
-        let msg = `PDF failed (${res.status})`;
+
+      if (!pdfRes.ok) {
+        const raw = await pdfRes.text().catch(() => "");
+        let msg = `PDF failed (${pdfRes.status})`;
         try {
           const j = JSON.parse(raw) as { error?: string };
           if (typeof j.error === "string") msg = j.error;
@@ -186,11 +192,12 @@ export function LibraryBrowseClient() {
         setPdfError(msg);
         return;
       }
-      const blob = await res.blob();
+
+      const blob = await pdfRes.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      const base = (docTitle || (doc as { name?: string }).name || "document").replace(/[^\w.\-]+/g, "_");
+      const base = (docTitle || docName || "document").replace(/[^\w.\-]+/g, "_");
       a.download = `${base}.pdf`;
       document.body.appendChild(a);
       a.click();
@@ -208,10 +215,10 @@ export function LibraryBrowseClient() {
       <div className="mx-auto max-w-content px-4 py-10 md:px-10">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <h1 className="text-3xl font-semibold tracking-tight">Browse</h1>
-          {!loading && !error && body && typeof body === "object" && browseDoc != null ? (
+          {!loading && !error && libraryId ? (
             <button
               type="button"
-              disabled={pdfBusy || libraryMergeLoading}
+              disabled={pdfBusy}
               onClick={() => void downloadBrowsePdf()}
               className="shrink-0 rounded-lg border border-[var(--border)] bg-[var(--panel)] px-4 py-2 text-sm font-semibold text-[var(--text)] shadow-sm transition hover:bg-[var(--muted)]/10 disabled:cursor-not-allowed disabled:opacity-50"
             >
@@ -233,8 +240,8 @@ export function LibraryBrowseClient() {
           <p className="mt-8 text-sm text-[var(--muted)]">Loading…</p>
         ) : error ? (
           <p className="mt-8 text-sm text-[var(--bad)]">{error}</p>
-        ) : !body || typeof body !== "object" ? (
-          <p className="mt-8 text-sm text-[var(--muted)]">This document has no JSON body to display.</p>
+        ) : !libraryId ? (
+          <p className="mt-8 text-sm text-[var(--muted)]">No document selected. Open Browse from an item in Manage library.</p>
         ) : (
           <div className="mt-8 space-y-8">
             <div className="rounded-xl border border-[var(--border)] bg-[var(--panel)] px-4 py-3 sm:px-5">
@@ -244,72 +251,55 @@ export function LibraryBrowseClient() {
               <p className="mt-1 font-mono text-sm text-[var(--text)]">{rootKind}</p>
             </div>
 
-            {libraryMergeLoading ? (
-              <p className="mt-6 text-sm text-[var(--muted)]">Merging baseline and dependencies from the library…</p>
-            ) : null}
-            {libraryMergeFailed && libraryMergeRequestError ? (
-              <p className="mt-4 text-sm text-[var(--bad)]" role="alert">
-                {libraryMergeRequestError} Showing the extension document only; baseline links may be missing.
-              </p>
-            ) : null}
-
             {rootKind === "method" ? (
               <>
                 <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] px-4 py-4 sm:px-5">
                   <h2 className="text-sm font-semibold text-[var(--text)]">Method (source)</h2>
-                  <p className="mt-1 text-lg font-semibold">{(body as Method).name}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{(body as Method).description}</p>
+                  <p className="mt-1 text-lg font-semibold">{docName}</p>
                   <p className="mt-3 text-xs leading-relaxed text-[var(--muted)]">
-                    The view below is a <strong className="font-semibold text-[var(--text)]">single merged practice</strong>: baseline{" "}
-                    <code className="text-[var(--text)]">{(body as Method).baselinePractice?.name}</code>
-                    {Array.isArray((body as Method).practices) && (body as Method).practices!.length
-                      ? ` plus ${(body as Method).practices!.length} extension practice(s), merged by element name.`
-                      : " only."}
+                    The view below is a <strong className="font-semibold text-[var(--text)]">single merged practice</strong> combining
+                    the baseline and extension practices from this method.
                   </p>
                 </section>
 
                 <div>
                   <h2 className="mb-3 text-sm font-semibold text-[var(--text)]">Merged practice view</h2>
                   <LibraryBrowseReadablePane
-                    browseDoc={browseDoc}
-                    methodComposition={body as Method}
+                    libraryId={libraryId}
                     mode={viewMode}
                     onModeChange={setViewMode}
                   />
                 </div>
               </>
-            ) : rootKind === "practice" && needsLibraryMerge && browseDoc && !libraryMergeRequestLoading && !libraryMergeRequestError ? (
+            ) : rootKind === "practice" && needsMerge ? (
               <>
                 <section className="rounded-xl border border-[var(--border)] bg-[var(--panel)] px-4 py-4 sm:px-5">
                   <h2 className="text-sm font-semibold text-[var(--text)]">Merged for display</h2>
                   <p className="mt-2 text-xs leading-relaxed text-[var(--muted)]">
                     This extension practice was merged with baseline{" "}
                     <code className="text-[var(--text)]">
-                      {String((body as { baselinePracticeName?: string }).baselinePracticeName ?? "").trim() || "—"}
+                      {baselinePracticeName || "—"}
                     </code>
-                    {(() => {
-                      const deps = (body as { practiceDependencyNames?: string[] }).practiceDependencyNames;
-                      const n = Array.isArray(deps) ? deps.length : 0;
-                      if (!n) return " ";
-                      return ` and ${n} listed ${n === 1 ? "dependency" : "dependencies"} `;
-                    })()}
+                    {dependencyCount > 0
+                      ? ` and ${dependencyCount} listed ${dependencyCount === 1 ? "dependency" : "dependencies"} `
+                      : " "}
                     from the library so links such as <code className="text-[var(--text)]">contributesTo</code> point at baseline
                     alphas and other merged elements.
                   </p>
                 </section>
                 <LibraryBrowseReadablePane
-                  browseDoc={browseDoc}
+                  libraryId={libraryId}
                   mode={viewMode}
                   onModeChange={setViewMode}
                 />
               </>
-            ) : browseDoc && typeof browseDoc === "object" ? (
+            ) : (
               <LibraryBrowseReadablePane
-                browseDoc={browseDoc}
+                libraryId={libraryId}
                 mode={viewMode}
                 onModeChange={setViewMode}
               />
-            ) : null}
+            )}
           </div>
         )}
       </div>

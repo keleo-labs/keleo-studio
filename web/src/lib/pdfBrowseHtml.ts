@@ -25,6 +25,7 @@ type RenderContext = {
   theme: ThemeTokens;
   t: LanguagePack;
   sourceDoc: Record<string, unknown>;
+  originalDoc: Record<string, unknown>;
   baseline: any;
   grouped: any[];
   methodComposition?: Method;
@@ -209,7 +210,7 @@ function renderStateBlock(state: any, alphaName: string, workProducts: any[], ac
   return html;
 }
 
-function renderAlphaBlock(alpha: any, childrenMap: Map<string, any[]>, workProducts: any[], activities: any[], depth: number = 0): string {
+function renderAlphaBlock(alpha: any, childrenMap: Map<string, any[]>, workProducts: any[], activities: any[], depth: number = 0, practiceAlphaNames?: Set<string>): string {
   const name = String(alpha.name ?? "");
   const description = practiceElementDescriptionForDisplay(alpha) ?? "";
   const narratives = alpha.narratives;
@@ -220,6 +221,41 @@ function renderAlphaBlock(alpha: any, childrenMap: Map<string, any[]>, workProdu
   const children = childrenMap.get(name) ?? [];
   const marginLeft = depth > 0 ? `${depth * 2}rem` : "0";
 
+  // Check if this alpha is defined in the practice (not from a dependency)
+  const isPracticeDefined = !practiceAlphaNames || practiceAlphaNames.has(name.trim());
+
+  // If not practice-defined, render simplified view (just name and description)
+  if (!isPracticeDefined) {
+    let html = `<div id="alpha-${slug(name)}" style="margin-bottom:1.5rem;margin-left:${marginLeft};${depth > 0 ? 'border-left:3px solid #d2d2d2;' : ''}padding:1.5rem;background:#f5f5f5;border:1px solid #d2d2d2;border-radius:4px;opacity:0.8;">`;
+
+    html += '<div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">';
+    html += `<h${depth + 4} style="font-size:${depth === 0 ? '1.25rem' : '1rem'};font-weight:700;margin:0;">${esc(name)}</h${depth + 4}>`;
+    html += '<span style="background:#f0f0f0;color:#151515;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:600;">Referenced</span>';
+    if (depth > 0) {
+      const contributesTo = String(alpha.contributesTo ?? "");
+      html += `<a href="#alpha-${slug(contributesTo)}" style="text-decoration:none;">`;
+      html += `<span style="background:#f0f0f0;color:#151515;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:600;">Specializes ${esc(contributesTo)}</span>`;
+      html += '</a>';
+    }
+    html += '</div>';
+
+    if (description) {
+      html += `<div style="margin-bottom:0;color:#666;">${esc(description)}</div>`;
+    }
+
+    html += '</div>';
+
+    // Render children
+    if (children.length > 0) {
+      children.forEach((child: any) => {
+        html += renderAlphaBlock(child, childrenMap, workProducts, activities, depth + 1, practiceAlphaNames);
+      });
+    }
+
+    return html;
+  }
+
+  // Practice-defined alpha - render full view
   let html = `<div id="alpha-${slug(name)}" style="margin-bottom:1.5rem;margin-left:${marginLeft};${depth > 0 ? 'border-left:3px solid #d2d2d2;' : ''}padding:1.5rem;background:#fafafa;border:1px solid #d2d2d2;border-radius:4px;">`;
 
   html += '<div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">';
@@ -254,7 +290,7 @@ function renderAlphaBlock(alpha: any, childrenMap: Map<string, any[]>, workProdu
   // Render children
   if (children.length > 0) {
     children.forEach((child: any) => {
-      html += renderAlphaBlock(child, childrenMap, workProducts, activities, depth + 1);
+      html += renderAlphaBlock(child, childrenMap, workProducts, activities, depth + 1, practiceAlphaNames);
     });
   }
 
@@ -886,6 +922,28 @@ function renderCoreConceptsSection(ctx: RenderContext): string {
     }
   }
 
+  // Build a set of alpha names from the original practice document or method's practices
+  const practiceAlphaNames = new Set<string>();
+
+  if (ctx.methodComposition) {
+    // For methods, collect alphas from all the method's extension practices (not the baseline)
+    const practices = Array.isArray(ctx.methodComposition.practices) ? ctx.methodComposition.practices : [];
+    for (const practice of practices) {
+      const alphas = Array.isArray(practice.alphas) ? practice.alphas : [];
+      for (const alpha of alphas) {
+        const name = String(alpha.name ?? "").trim();
+        if (name) practiceAlphaNames.add(name);
+      }
+    }
+  } else {
+    // For standalone practices, use the practice's own alphas
+    const alphas = Array.isArray(ctx.originalDoc.alphas) ? ctx.originalDoc.alphas : [];
+    for (const alpha of alphas) {
+      const name = String(alpha.name ?? "").trim();
+      if (name) practiceAlphaNames.add(name);
+    }
+  }
+
   let html = '<section id="core-concepts" style="page-break-before:always;margin-bottom:3rem;">';
   html += '<div style="margin-bottom:1.5rem;">';
   html += '<span style="background:#ff8c00;color:white;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600;">Part 4 of 6</span>';
@@ -905,7 +963,7 @@ function renderCoreConceptsSection(ctx: RenderContext): string {
     html += `<h3 style="font-size:1.5rem;font-weight:700;margin-bottom:1.5rem;color:#0066cc;">${esc(focusName)}</h3>`;
 
     roots.forEach((alpha: any) => {
-      html += renderAlphaBlock(alpha, childrenMap, workProducts, activities);
+      html += renderAlphaBlock(alpha, childrenMap, workProducts, activities, 0, practiceAlphaNames);
     });
 
     html += '</div>';
@@ -1015,6 +1073,28 @@ function renderExecutionAndRoles(ctx: RenderContext): string {
     return "";
   }
 
+  // Build a set of activity space names from the original practice document or method's practices
+  const practiceActivitySpaceNames = new Set<string>();
+
+  if (ctx.methodComposition) {
+    // For methods, collect activity spaces from all the method's extension practices (not the baseline)
+    const practices = Array.isArray(ctx.methodComposition.practices) ? ctx.methodComposition.practices : [];
+    for (const practice of practices) {
+      const activitySpaces = Array.isArray(practice.activitySpaces) ? practice.activitySpaces : [];
+      for (const space of activitySpaces) {
+        const name = String(space.name ?? "").trim();
+        if (name) practiceActivitySpaceNames.add(name);
+      }
+    }
+  } else {
+    // For standalone practices, use the practice's own activity spaces
+    const activitySpaces = Array.isArray(ctx.originalDoc.activitySpaces) ? ctx.originalDoc.activitySpaces : [];
+    for (const space of activitySpaces) {
+      const name = String(space.name ?? "").trim();
+      if (name) practiceActivitySpaceNames.add(name);
+    }
+  }
+
   let html = '<section id="execution-roles" style="page-break-before:always;margin-bottom:3rem;">';
   html += '<div style="margin-bottom:1.5rem;">';
   html += '<span style="background:#ffc107;color:#151515;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600;">Part 6 of 6</span>';
@@ -1039,8 +1119,32 @@ function renderExecutionAndRoles(ctx: RenderContext): string {
         const spaceNarratives = space.narratives;
         const activities = Array.isArray(space.activities) ? space.activities : [];
 
+        // Check if this activity space is defined in the practice (not from a dependency)
+        const isPracticeDefined = practiceActivitySpaceNames.has(spaceName.trim());
+        const hasActivities = activities.length > 0;
+
+        // If not practice-defined AND has no activities, render simplified view (just name and description)
+        if (!isPracticeDefined && !hasActivities) {
+          html += '<div style="margin-bottom:1rem;padding:1.5rem;background:#f5f5f5;border:1px solid #d2d2d2;border-radius:4px;opacity:0.8;">';
+          html += '<div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">';
+          html += `<h5 style="font-size:1rem;font-weight:700;margin:0;">${esc(spaceName)}</h5>`;
+          html += '<span style="background:#f0f0f0;color:#151515;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:600;">Referenced</span>';
+          html += '</div>';
+          if (spaceDesc) {
+            html += `<p style="margin-bottom:0;font-size:0.875rem;color:#666;">${esc(spaceDesc)}</p>`;
+          }
+          html += '</div>';
+          return;
+        }
+
+        // Practice-defined OR has activities - render full view
         html += '<div style="margin-bottom:1rem;padding:1.5rem;background:#fafafa;border:1px solid #d2d2d2;border-radius:4px;">';
-        html += `<h5 style="font-size:1rem;font-weight:700;margin-bottom:0.5rem;">${esc(spaceName)}</h5>`;
+        html += '<div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">';
+        html += `<h5 style="font-size:1rem;font-weight:700;margin:0;">${esc(spaceName)}</h5>`;
+        if (!isPracticeDefined && hasActivities) {
+          html += '<span style="background:#f0f0f0;color:#151515;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:600;">Referenced (with activities)</span>';
+        }
+        html += '</div>';
         if (spaceDesc) {
           html += `<p style="margin-bottom:1rem;font-size:0.875rem;color:#666;">${esc(spaceDesc)}</p>`;
         }
