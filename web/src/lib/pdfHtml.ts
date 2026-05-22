@@ -1,4 +1,5 @@
 import { IMPLICIT_FOCUS_NAME, narrativeContextBulletLine, personaCompetencyDisplayRefs, practiceElementDescriptionForDisplay } from "@/lib/ir";
+import { formatAPA7Citation } from "@/lib/citationUtils";
 import { flattenPracticeElementTags } from "@/lib/practiceElementTags";
 import { extendsBaselineDisplayName } from "@/lib/library/classify";
 import {
@@ -504,6 +505,14 @@ export function renderPdfHtml(args: {
       chunks.push(`<li style="margin:12px 0 6px;padding-top:8px;border-top:1px solid rgba(2,6,23,0.12)">
         <a href="#browse-section-narrative-types" style="font-weight:800">${esc(t.narrativeTypesHeading)}</a>
         <ul style="margin:6px 0 0;padding-left:12px;list-style:none">${ntList}</ul>
+      </li>`);
+    }
+
+    // Citations TOC entry
+    const citationsList = Array.isArray(sourceDoc?.citations) ? (sourceDoc!.citations as any[]) : [];
+    if (citationsList.length > 0) {
+      chunks.push(`<li style="margin:12px 0 6px;padding-top:8px;border-top:1px solid rgba(2,6,23,0.12)">
+        <a href="#browse-section-citations" style="font-weight:800">References</a>
       </li>`);
     }
 
@@ -1060,6 +1069,18 @@ export function renderPdfHtml(args: {
           .join("")
       : "";
 
+  const citationsPdfHtml =
+    Array.isArray(sourceDoc?.citations) && (sourceDoc!.citations as any[]).length > 0
+      ? `<div class="section-title" id="browse-section-citations">References</div>` +
+        `<ul style="list-style:none;padding:0;margin:8px 0">` +
+        (sourceDoc!.citations as any[])
+          .map((citation: any) => {
+            return `<li style="margin:8px 0;line-height:1.6">${formatAPA7Citation(citation)}</li>`;
+          })
+          .join("") +
+        `</ul>`
+      : "";
+
   const personasNarrativeHtmlParts: string[] = [];
   const psPdf = Array.isArray(sourceDoc?.personas) ? (sourceDoc!.personas as any[]) : [];
   if (psPdf.length) {
@@ -1170,6 +1191,7 @@ export function renderPdfHtml(args: {
         }
         ${personasNarrativeHtml}
         ${narrativeTypesPdfHtml}
+        ${citationsPdfHtml}
       </main>
     </body>
   </html>`;

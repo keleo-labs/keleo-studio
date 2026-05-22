@@ -126,6 +126,15 @@ export function emptyNarrativeType(): Record<string, unknown> {
   };
 }
 
+export function emptyCitation(): Record<string, unknown> {
+  return {
+    ...emptyPracticeElement("", ""),
+    authors: [] as string[],
+    date: "",
+    source: "",
+  };
+}
+
 export function emptyPersona(): Record<string, unknown> {
   return {
     ...emptyPracticeElement("", ""),

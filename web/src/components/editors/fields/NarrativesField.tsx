@@ -7,6 +7,7 @@ import { InlineTextField } from './InlineTextField';
 import { InlineTextArea } from './InlineTextArea';
 import { InlineSelectField } from './InlineSelectField';
 import { NarrativeContextsField } from './NarrativeContextsField';
+import { StringArrayField } from './StringArrayField';
 
 export type NarrativeContext = {
   seq?: number;
@@ -19,6 +20,7 @@ export type Narrative = {
   description?: string;
   narrativeTypeName?: string;
   narrativeContexts?: NarrativeContext[];
+  citationNames?: string[];
 };
 
 export type NarrativesFieldProps = {
@@ -28,6 +30,7 @@ export type NarrativesFieldProps = {
   readonlyItemNames?: Set<string>;
   availableNarrativeTypeNames?: string[];
   narrativeTypesData?: Array<{ name?: string; narrativeElements?: Array<{ name?: string }> }>;
+  availableCitationNames?: string[];
 };
 
 const moveButtonStyle: CSSProperties = {
@@ -94,10 +97,11 @@ const removeButtonStyle: CSSProperties = {
   cursor: 'pointer',
 };
 
-export function NarrativesField({ value, onChange, fieldPath, readonlyItemNames, availableNarrativeTypeNames, narrativeTypesData }: NarrativesFieldProps) {
+export function NarrativesField({ value, onChange, fieldPath, readonlyItemNames, availableNarrativeTypeNames, narrativeTypesData, availableCitationNames }: NarrativesFieldProps) {
   const narratives = value || [];
   const narrativeTypeOptions = availableNarrativeTypeNames || [];
   const narrativeTypes = narrativeTypesData || [];
+  const citationOptions = availableCitationNames || [];
 
   // Helper function to get narrative element names for a given narrative type name
   const getNarrativeElementsForType = useCallback((narrativeTypeName: string): string[] => {
@@ -260,6 +264,22 @@ export function NarrativesField({ value, onChange, fieldPath, readonlyItemNames,
               narrativeElementsData={getNarrativeElementsDataForType(narrative.narrativeTypeName || '')}
             />
           </div>
+
+          {/* Citations section */}
+          {citationOptions.length > 0 && (
+            <div style={{ marginTop: 16 }}>
+              <PropertyTable>
+                <PropertyRow label="Citations" info="Link to citations that support this narrative">
+                  <StringArrayField
+                    value={narrative.citationNames || []}
+                    onChange={(val) => handleUpdate(idx, 'citationNames', val)}
+                    placeholder="Citation name"
+                    suggestions={citationOptions}
+                  />
+                </PropertyRow>
+              </PropertyTable>
+            </div>
+          )}
         </div>
       ))}
     </div>

@@ -84,9 +84,9 @@ function LibraryBrowseReadablePane({
     <>
       <ViewModeToolbar mode={mode} onModeChange={onModeChange} />
       {mode === "project-management" ? (
-        <ProjectManagementView doc={merged} embed />
+        <ProjectManagementView doc={merged} />
       ) : (
-        <BrowseView libraryId={libraryId} embed />
+        <BrowseView libraryId={libraryId} />
       )}
     </>
   );

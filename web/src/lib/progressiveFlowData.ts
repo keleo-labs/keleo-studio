@@ -105,6 +105,7 @@ function getActivityMinSeq(
 
 /**
  * Build flow for a single PersonaGroup
+ * Activities are repeated before each alpha state they contribute to
  */
 function buildPersonaGroupFlow(
   personaGroupName: string,
@@ -128,75 +129,122 @@ function buildPersonaGroupFlow(
     return involves.some((pg: any) => String(pg ?? "").trim() === personaGroupName);
   });
 
-  // Sort activities by progression
-  const sortedActivities = pgActivities
-    .map((activity) => ({
-      activity,
-      minSeq: getActivityMinSeq(activity, alphaStateSeq),
-    }))
-    .sort((a, b) => {
-      if (a.minSeq !== b.minSeq) return a.minSeq - b.minSeq;
-      return String(a.activity.name ?? "").localeCompare(String(b.activity.name ?? ""));
-    })
-    .map((item) => item.activity);
+  // Build activity-state contributions grouped by alpha
+  type AlphaThread = {
+    alphaName: string;
+    pairs: Array<{
+      activityName: string;
+      activityDescription: string;
+      stateName: string;
+      stateSeq: number;
+    }>;
+  };
 
-  // Track first activity in each alpha thread for PersonaGroup linking
-  const firstActivityPerAlpha = new Map<string, string>();
+  const alphaThreads = new Map<string, AlphaThread>();
 
-  // Build nodes and links
-  for (const activity of sortedActivities) {
+  for (const activity of pgActivities) {
     const activityName = String(activity.name ?? "").trim();
     if (!activityName) continue;
 
-    const activityId = `activity:${activityName}`;
     const description = String(activity.description ?? "").trim();
-
-    // Add activity node
-    nodes.push({
-      type: "activity",
-      id: activityId,
-      label: activityName,
-      description: description || undefined,
-    });
-
-    // Add alpha state nodes and links
     const contributesTo = Array.isArray(activity.contributesTo) ? activity.contributesTo : [];
+
     for (const contrib of contributesTo) {
       const alphaName = String(contrib.alphaName ?? "").trim();
       const stateName = String(contrib.stateName ?? "").trim();
 
       if (alphaName && stateName) {
         const stateSeq = alphaStateSeq.get(alphaName)?.get(stateName) ?? 0;
-        const stateId = `state:${alphaName}:${stateName}`;
 
-        // Track first activity for this alpha thread
-        if (!firstActivityPerAlpha.has(alphaName)) {
-          firstActivityPerAlpha.set(alphaName, activityId);
+        if (!alphaThreads.has(alphaName)) {
+          alphaThreads.set(alphaName, { alphaName, pairs: [] });
         }
 
-        // Add state node if not already added
-        if (!nodes.find((n) => n.id === stateId)) {
-          nodes.push({
-            type: "alphaState",
-            id: stateId,
-            label: `${alphaName}: ${stateName}`,
-            alphaName,
-            stateName,
-            stateSeq,
-          });
-        }
-
-        // Link from Activity to State (Activity comes BEFORE State)
-        links.push({
-          sourceId: activityId,
-          targetId: stateId,
+        alphaThreads.get(alphaName)!.pairs.push({
+          activityName,
+          activityDescription: description,
+          stateName,
+          stateSeq,
         });
       }
     }
   }
 
-  // Link PersonaGroup only to first activity in each alpha thread
-  for (const firstActivityId of Array.from(firstActivityPerAlpha.values())) {
+  // Sort pairs within each alpha thread by stateSeq
+  for (const thread of alphaThreads.values()) {
+    thread.pairs.sort((a, b) => {
+      if (a.stateSeq !== b.stateSeq) return a.stateSeq - b.stateSeq;
+      return a.stateName.localeCompare(b.stateName);
+    });
+  }
+
+  // Sort alpha threads by the minimum stateSeq
+  const sortedThreads = Array.from(alphaThreads.values()).sort((a, b) => {
+    const minSeqA = Math.min(...a.pairs.map((p) => p.stateSeq));
+    const minSeqB = Math.min(...b.pairs.map((p) => p.stateSeq));
+    if (minSeqA !== minSeqB) return minSeqA - minSeqB;
+    return a.alphaName.localeCompare(b.alphaName);
+  });
+
+  // Track first activity in each alpha for PersonaGroup linking
+  const firstActivityPerAlpha = new Map<string, string>();
+
+  // Build nodes and links for each alpha thread
+  for (const thread of sortedThreads) {
+    const { alphaName, pairs } = thread;
+    let prevNodeId: string | null = null;
+
+    for (let i = 0; i < pairs.length; i++) {
+      const pair = pairs[i];
+      const { activityName, activityDescription, stateName, stateSeq } = pair;
+
+      // Create unique activity node for this contribution
+      const activityId = `activity:${activityName}:${alphaName}:${stateName}`;
+      nodes.push({
+        type: "activity",
+        id: activityId,
+        label: activityName,
+        description: activityDescription || undefined,
+      });
+
+      // Track first activity for PersonaGroup linking
+      if (i === 0) {
+        firstActivityPerAlpha.set(alphaName, activityId);
+      }
+
+      // Create state node (unique per alpha state)
+      const stateId = `state:${alphaName}:${stateName}`;
+      if (!nodes.find((n) => n.id === stateId)) {
+        nodes.push({
+          type: "alphaState",
+          id: stateId,
+          label: `${alphaName}: ${stateName}`,
+          alphaName,
+          stateName,
+          stateSeq,
+        });
+      }
+
+      // Link activity to state
+      links.push({
+        sourceId: activityId,
+        targetId: stateId,
+      });
+
+      // Link previous state to current activity (sequential flow within alpha)
+      if (prevNodeId) {
+        links.push({
+          sourceId: prevNodeId,
+          targetId: activityId,
+        });
+      }
+
+      prevNodeId = stateId;
+    }
+  }
+
+  // Link PersonaGroup to first activity in each alpha thread
+  for (const firstActivityId of firstActivityPerAlpha.values()) {
     links.push({
       sourceId: pgNodeId,
       targetId: firstActivityId,

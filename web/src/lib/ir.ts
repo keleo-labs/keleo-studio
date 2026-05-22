@@ -46,6 +46,9 @@ export function asBaselineDocument(doc: any): PracticeBaseline | null {
       narrativeTypes: Array.isArray((doc as { narrativeTypes?: unknown }).narrativeTypes)
         ? ((doc as { narrativeTypes?: unknown }).narrativeTypes as NarrativeType[])
         : [],
+      citations: Array.isArray((doc as { citations?: unknown }).citations)
+        ? ((doc as { citations?: unknown }).citations as Citation[])
+        : [],
     } as PracticeBaseline;
   }
   if (Array.isArray(doc.alphas) && Array.isArray(doc.focuses)) {
@@ -832,6 +835,20 @@ export function collectPersonaGroupNamesFromPracticeDoc(doc: unknown): Set<strin
   }
 
   return out;
+}
+
+/** Citation.name values declared in a Practice/Method document or baseline. */
+export function collectCitationNames(doc: Record<string, unknown>): string[] {
+  const names = new Set<string>();
+  const citations = Array.isArray(doc.citations) ? doc.citations : [];
+
+  for (const citation of citations) {
+    if (!citation || typeof citation !== 'object') continue;
+    const name = String((citation as Record<string, unknown>).name ?? '').trim();
+    if (name) names.add(name);
+  }
+
+  return [...names].sort((a, b) => a.localeCompare(b));
 }
 
 /** Display rows for Persona → competency linkage (canonical `competencies`; interchange: string names; optional `recommendedCompetencyLevels` like Activities). */

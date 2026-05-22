@@ -1,6 +1,10 @@
 {
+  "kind": "baseline",
   "name": "Platform Adoption Essentials",
   "description": "The Platform Adoption Kernel establishes the universal foundation for platform transformations, organized into the three Areas of Concern.",
+  "version": "1.0.0",
+  "authors": ["Platform Engineering Team"],
+  "keywords": ["platform", "adoption", "kernel", "baseline"],
   "focuses": [
     {
       "name": "Value",
@@ -1480,33 +1484,7 @@
             "howToUse": "Make recommendations that solve problems or help to develop a new strategy. Make an effort to sound authoritative and certain in your choices."
           }
         ]
-      },
-      {
-        "name": "Citation Standard",
-        "description": "The structural elements required for a reference list entry.",
-        "narrativeElements": [
-          {
-            "name": "Author",
-            "description": "The person, group, or organization responsible for the work.",
-            "howToUse": "Invert authors' names (Lastname, F. M.). Use an ampersand (&) before the final author's name in a list. For groups, use the full name."
-          },
-          {
-            "name": "Date",
-            "description": "The publication date of the work.",
-            "howToUse": "Enclose the year in parentheses, followed by a period: (2026). For works with no date, use (n.d.)."
-          },
-          {
-            "name": "Title",
-            "description": "The name of the specific work being cited.",
-            "howToUse": "Italicize the title of standalone works (books, reports). Use sentence case—capitalize only the first word of the title and subtitle."
-          },
-          {
-            "name": "Source",
-            "description": "Where the work can be retrieved, such as a journal, publisher, or URL.",
-            "howToUse": "Include the periodical title and volume/issue if applicable. Provide a DOI or URL as a live link; do not include 'Retrieved from' for most entries."
-          }
-        ]
       }
-    
+
   ]
 }

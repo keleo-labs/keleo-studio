@@ -1,8 +1,9 @@
 import { narrativeContextRowDisplayText, practiceElementDescriptionForDisplay, groupByFocus } from "@/lib/ir";
 import type { LanguagePack } from "@/lib/languagePackTypes";
 import type { ThemeTokens } from "@/lib/themeTokens";
-import type { Method } from "@/lib/types";
+import type { Method, Citation } from "@/lib/types";
 import { svgKanbanPattern } from "@/lib/pdfSvgs";
+import { getCitationsForNarrative, formatInTextCitation, formatAPA7Citation } from "@/lib/citationUtils";
 
 function esc(s: unknown) {
   return String(s ?? "")
@@ -29,6 +30,7 @@ type RenderContext = {
   baseline: any;
   grouped: any[];
   methodComposition?: Method;
+  citations: Citation[];
 };
 
 // Build alpha hierarchy based on contributesTo relationships
@@ -61,12 +63,16 @@ function buildAlphaHierarchy(alphas: any[]): { roots: any[]; childrenMap: Map<st
   return { roots, childrenMap };
 }
 
-function renderNarrativeCompact(narrative: any): string {
+function renderNarrativeCompact(narrative: any, allCitations: Citation[] = []): string {
   const narrativeName = String(narrative.name ?? "");
   const description = practiceElementDescriptionForDisplay(narrative) ?? "";
   const contexts = Array.isArray(narrative.narrativeContexts) ? narrative.narrativeContexts : [];
 
-  if (!narrativeName && !description && contexts.length === 0) {
+  // Get citations for this narrative
+  const narrativeCitations = getCitationsForNarrative(narrative, allCitations);
+  const hasCitations = narrativeCitations.length > 0;
+
+  if (!narrativeName && !description && contexts.length === 0 && !hasCitations) {
     return "";
   }
 
@@ -77,11 +83,11 @@ function renderNarrativeCompact(narrative: any): string {
   }
 
   if (description) {
-    html += `<div style="margin-bottom:${contexts.length > 0 ? "0.75rem" : "0"};font-size:0.875rem;color:#666;">${esc(description)}</div>`;
+    html += `<div style="margin-bottom:${contexts.length > 0 || hasCitations ? "0.75rem" : "0"};font-size:0.875rem;color:#666;">${esc(description)}</div>`;
   }
 
   if (contexts.length > 0) {
-    html += '<div style="font-size:0.875rem;">';
+    html += `<div style="font-size:0.875rem;margin-bottom:${hasCitations ? "0.75rem" : "0"};">`;
     const sorted = contexts.slice().sort((a: any, b: any) => (a.seq ?? 0) - (b.seq ?? 0));
     sorted.forEach((ctx: any, idx: number) => {
       const text = narrativeContextRowDisplayText(ctx);
@@ -96,15 +102,63 @@ function renderNarrativeCompact(narrative: any): string {
     html += '</div>';
   }
 
+  // Further Reading section
+  if (hasCitations) {
+    html += '<div>';
+    html += '<div style="font-size:0.75rem;font-weight:600;margin-bottom:0.5rem;text-transform:uppercase;color:#666;">Further Reading</div>';
+    html += '<ul style="margin:0;padding-left:1.5rem;font-size:0.75rem;list-style:disc;">';
+    narrativeCitations.forEach((citation: Citation) => {
+      const citationName = String(citation.name ?? "");
+      const citationUrl = citation.url;
+      const inTextCitation = formatInTextCitation(citation);
+
+      html += '<li style="margin-bottom:0.25rem;">';
+      html += `<a href="${citationUrl || `#citation-${slug(citationName)}`}" style="color:#0066cc;text-decoration:underline;">`;
+      html += esc(citationName);
+      if (citationUrl) {
+        html += '<span style="margin-left:0.25rem;font-size:0.7em;vertical-align:super;">↗</span>';
+      }
+      html += '</a>';
+      if (inTextCitation) {
+        html += `<span style="margin-left:0.5rem;color:#666;">${esc(inTextCitation)}</span>`;
+      }
+      html += '</li>';
+    });
+    html += '</ul>';
+    html += '</div>';
+  }
+
   html += '</div>';
   return html;
 }
 
-function renderNarratives(narratives: any[] | undefined): string {
+function renderNarratives(narratives: any[] | undefined, allCitations: Citation[] = []): string {
   if (!Array.isArray(narratives) || narratives.length === 0) {
     return "";
   }
-  return narratives.map(n => renderNarrativeCompact(n)).join("");
+  return narratives.map(n => renderNarrativeCompact(n, allCitations)).join("");
+}
+
+function renderCitationsSection(citations: Citation[]): string {
+  if (!Array.isArray(citations) || citations.length === 0) {
+    return "";
+  }
+
+  let html = '<div style="margin-top:1.5rem;padding:1.5rem;background:#f0f7ff;border-left:3px solid #0066cc;border-radius:4px;">';
+  html += '<h4 style="font-size:1.25rem;font-weight:700;margin:0 0 1rem 0;">References</h4>';
+  html += '<ul style="margin:0;padding-left:1.5rem;font-size:0.875rem;list-style:none;">';
+
+  citations.forEach((citation: Citation) => {
+    const citationName = String(citation.name ?? "");
+    html += `<li id="citation-${slug(citationName)}" style="margin-bottom:0.5rem;line-height:1.6;">`;
+    html += formatAPA7Citation(citation);
+    html += '</li>';
+  });
+
+  html += '</ul>';
+  html += '</div>';
+
+  return html;
 }
 
 function renderStateBlock(state: any, alphaName: string, workProducts: any[], activities: any[], index: number): string {
@@ -210,7 +264,7 @@ function renderStateBlock(state: any, alphaName: string, workProducts: any[], ac
   return html;
 }
 
-function renderAlphaBlock(alpha: any, childrenMap: Map<string, any[]>, workProducts: any[], activities: any[], depth: number = 0, practiceAlphaNames?: Set<string>): string {
+function renderAlphaBlock(alpha: any, childrenMap: Map<string, any[]>, workProducts: any[], activities: any[], depth: number = 0, practiceAlphaNames?: Set<string>, allCitations: Citation[] = []): string {
   const name = String(alpha.name ?? "");
   const description = practiceElementDescriptionForDisplay(alpha) ?? "";
   const narratives = alpha.narratives;
@@ -248,7 +302,7 @@ function renderAlphaBlock(alpha: any, childrenMap: Map<string, any[]>, workProdu
     // Render children
     if (children.length > 0) {
       children.forEach((child: any) => {
-        html += renderAlphaBlock(child, childrenMap, workProducts, activities, depth + 1, practiceAlphaNames);
+        html += renderAlphaBlock(child, childrenMap, workProducts, activities, depth + 1, practiceAlphaNames, allCitations);
       });
     }
 
@@ -272,7 +326,7 @@ function renderAlphaBlock(alpha: any, childrenMap: Map<string, any[]>, workProdu
     html += `<div style="margin-bottom:1rem;color:#666;">${esc(description)}</div>`;
   }
 
-  html += renderNarratives(narratives);
+  html += renderNarratives(narratives, allCitations);
 
   if (states.length > 0) {
     html += '<h5 style="font-size:1rem;font-weight:700;margin:1.5rem 0 1rem 0;">State Progression</h5>';
@@ -290,7 +344,7 @@ function renderAlphaBlock(alpha: any, childrenMap: Map<string, any[]>, workProdu
   // Render children
   if (children.length > 0) {
     children.forEach((child: any) => {
-      html += renderAlphaBlock(child, childrenMap, workProducts, activities, depth + 1, practiceAlphaNames);
+      html += renderAlphaBlock(child, childrenMap, workProducts, activities, depth + 1, practiceAlphaNames, allCitations);
     });
   }
 
@@ -428,8 +482,13 @@ function renderExecutiveContext(ctx: RenderContext): string {
   if (narratives.length > 0) {
     html += '<h2 style="font-size:1.5rem;font-weight:700;margin-top:3rem;margin-bottom:1rem;">Strategic Context</h2>';
     narratives.forEach((narrative: any) => {
-      html += renderNarrativeCompact(narrative);
+      html += renderNarrativeCompact(narrative, ctx.citations);
     });
+  }
+
+  // Add citations section
+  if (ctx.citations && ctx.citations.length > 0) {
+    html += renderCitationsSection(ctx.citations);
   }
 
   if (practices.length > 0) {
@@ -448,7 +507,7 @@ function renderExecutiveContext(ctx: RenderContext): string {
       }
       if (practiceNarratives.length > 0) {
         practiceNarratives.forEach((narrative: any) => {
-          html += renderNarrativeCompact(narrative);
+          html += renderNarrativeCompact(narrative, ctx.citations);
         });
       }
       html += '</div>';
@@ -817,7 +876,7 @@ function renderLifecycleOrchestration(ctx: RenderContext): string {
     if (description) {
       html += `<p style="margin-bottom:1rem;color:#666;">${esc(description)}</p>`;
     }
-    html += renderNarratives(narratives);
+    html += renderNarratives(narratives, ctx.citations);
 
     // Add Kanban visualization if pattern has views
     if (patternViews.length > 0) {
@@ -963,7 +1022,7 @@ function renderCoreConceptsSection(ctx: RenderContext): string {
     html += `<h3 style="font-size:1.5rem;font-weight:700;margin-bottom:1.5rem;color:#0066cc;">${esc(focusName)}</h3>`;
 
     roots.forEach((alpha: any) => {
-      html += renderAlphaBlock(alpha, childrenMap, workProducts, activities, 0, practiceAlphaNames);
+      html += renderAlphaBlock(alpha, childrenMap, workProducts, activities, 0, practiceAlphaNames, ctx.citations || []);
     });
 
     html += '</div>';
@@ -1000,7 +1059,7 @@ function renderWorkProductsSection(ctx: RenderContext): string {
       html += `<div style="margin-bottom:1rem;color:#666;">${esc(description)}</div>`;
     }
 
-    html += renderNarratives(narratives);
+    html += renderNarratives(narratives, ctx.citations);
 
     if (lods.length > 0) {
       html += '<h5 style="font-size:1rem;font-weight:700;margin:1.5rem 0 1rem 0;">Levels of Detail</h5>';
@@ -1148,7 +1207,7 @@ function renderExecutionAndRoles(ctx: RenderContext): string {
         if (spaceDesc) {
           html += `<p style="margin-bottom:1rem;font-size:0.875rem;color:#666;">${esc(spaceDesc)}</p>`;
         }
-        html += renderNarratives(spaceNarratives);
+        html += renderNarratives(spaceNarratives, ctx.citations);
 
         if (activities.length > 0) {
           activities.forEach((activity: any) => {
@@ -1166,7 +1225,7 @@ function renderExecutionAndRoles(ctx: RenderContext): string {
             if (actDesc) {
               html += `<p style="font-size:0.75rem;margin-bottom:0.5rem;color:#666;">${esc(actDesc)}</p>`;
             }
-            html += renderNarratives(actNarratives);
+            html += renderNarratives(actNarratives, ctx.citations);
 
             if (worksOn.length > 0) {
               html += '<div style="margin-top:0.75rem;">';
@@ -1266,7 +1325,7 @@ function renderExecutionAndRoles(ctx: RenderContext): string {
       if (description) {
         html += `<p style="font-size:0.875rem;margin-bottom:0.75rem;color:#666;">${esc(description)}</p>`;
       }
-      html += renderNarratives(narratives);
+      html += renderNarratives(narratives, ctx.citations);
       if (personaCompetencies.length > 0) {
         html += '<div style="margin-top:0.75rem;">';
         html += '<div style="font-size:0.75rem;font-weight:600;margin-bottom:0.5rem;text-transform:uppercase;color:#666;">Required Competencies</div>';
@@ -1299,7 +1358,7 @@ function renderExecutionAndRoles(ctx: RenderContext): string {
       if (description) {
         html += `<p style="font-size:0.875rem;margin-bottom:0.75rem;color:#666;">${esc(description)}</p>`;
       }
-      html += renderNarratives(narratives);
+      html += renderNarratives(narratives, ctx.citations);
       if (personaNames.length > 0) {
         html += '<div style="margin-top:0.75rem;">';
         html += '<div style="font-size:0.75rem;font-weight:600;margin-bottom:0.5rem;text-transform:uppercase;color:#666;">Members</div>';
@@ -1333,7 +1392,7 @@ function renderExecutionAndRoles(ctx: RenderContext): string {
       if (description) {
         html += `<p style="font-size:0.875rem;margin-bottom:0.75rem;color:#666;">${esc(description)}</p>`;
       }
-      html += renderNarratives(narratives);
+      html += renderNarratives(narratives, ctx.citations);
       if (levels.length > 0) {
         html += '<div style="margin-top:0.75rem;">';
         html += '<div style="font-size:0.75rem;font-weight:600;margin-bottom:0.5rem;text-transform:uppercase;color:#666;">Levels</div>';

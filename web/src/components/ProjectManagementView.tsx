@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import type { CSSProperties } from "react";
 import {
   PageSection,
@@ -763,28 +763,102 @@ function ActivityCard({ activity }: { activity: any }) {
 // NAVIGATION SIDEBAR
 // ========================================================================
 
-function NavigationSidebar() {
-  const navItems = [
-    { id: "strategic-context", label: "1. Strategic Context & Business Case" },
-    { id: "project-lifecycle", label: "2. Project Lifecycle & Phasing" },
-    { id: "milestones-deliverables", label: "3. Milestones & Deliverables" },
-    { id: "resourcing-activities", label: "4. Resourcing & Activities" },
-  ];
+function NavigationSidebar({ doc, activities }: { doc: any; activities: any[] }) {
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(["patterns", "alphas", "workproducts", "teams", "activities"]));
+  const [activeSection, setActiveSection] = useState<string>("");
 
-  const navItemStyle: CSSProperties = {
+  // Track scroll position to highlight active section
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        "strategic-context", "project-lifecycle", "milestones-deliverables", "resourcing-activities"
+      ];
+
+      const scrollPosition = window.scrollY + 100; // Offset for header
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sections[i]);
+        if (element && element.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Set initial active section
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(sectionId)) {
+        next.delete(sectionId);
+      } else {
+        next.add(sectionId);
+      }
+      return next;
+    });
+  };
+
+  const patterns = Array.isArray(doc.patterns) ? doc.patterns : [];
+  const sortedPatterns = patterns.slice().sort((a: any, b: any) => {
+    const aIsLifecycle = a.type === "lifecycle" || a.category === "lifecycle" ||
+      String(a.name ?? "").toLowerCase().includes("lifecycle");
+    const bIsLifecycle = b.type === "lifecycle" || b.category === "lifecycle" ||
+      String(b.name ?? "").toLowerCase().includes("lifecycle");
+    if (aIsLifecycle && !bIsLifecycle) return -1;
+    if (!aIsLifecycle && bIsLifecycle) return 1;
+    const aCount = Array.isArray(a.patternViews) ? a.patternViews.length : 0;
+    const bCount = Array.isArray(b.patternViews) ? b.patternViews.length : 0;
+    return bCount - aCount;
+  });
+
+  const alphas = Array.isArray(doc.alphas) ? doc.alphas : [];
+  const workProducts = Array.isArray(doc.workProducts) ? doc.workProducts : [];
+  const personaGroups = Array.isArray(doc.personaGroups) ? doc.personaGroups : [];
+
+  const navItemStyle = (isActive: boolean = false): CSSProperties => ({
     display: "block",
-    padding: "0.75rem 1rem",
-    color: "var(--pf-v6-global--Color--100)",
+    padding: "0.5rem 1rem",
+    color: isActive ? "var(--pf-v6-global--primary-color--100)" : "var(--pf-v6-global--Color--100)",
+    textDecoration: "none",
+    borderLeft: isActive ? "3px solid var(--pf-v6-global--primary-color--100)" : "3px solid transparent",
+    fontSize: "0.875rem",
+    marginBottom: "0.125rem",
+    transition: "all 0.2s ease",
+    fontWeight: isActive ? 600 : 400,
+  });
+
+  const subItemStyle: CSSProperties = {
+    display: "block",
+    padding: "0.5rem 1rem 0.5rem 2rem",
+    color: "var(--pf-v6-global--Color--200)",
     textDecoration: "none",
     borderLeft: "3px solid transparent",
+    fontSize: "0.8rem",
+    marginBottom: "0.125rem",
+    transition: "all 0.2s ease",
+  };
+
+  const sectionHeaderStyle: CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "0.5rem 1rem",
+    cursor: "pointer",
     fontSize: "0.875rem",
-    marginBottom: "0.25rem",
+    fontWeight: 600,
+    color: "var(--pf-v6-global--Color--100)",
+    borderLeft: "3px solid transparent",
     transition: "all 0.2s ease",
   };
 
   return (
     <nav style={{
-      width: 280,
+      width: 300,
       flexShrink: 0,
       borderRight: "1px solid var(--pf-v6-global--BorderColor--100)",
       padding: "2rem 0",
@@ -795,28 +869,175 @@ function NavigationSidebar() {
       overflowY: "auto",
       backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
     }}>
-      <div style={{ padding: "0 1.5rem", marginBottom: "1.5rem" }}>
-        <Title headingLevel="h3" size="md" style={{ textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)" }}>
+      <div style={{ padding: "0 1.5rem", marginBottom: "1rem" }}>
+        <Title headingLevel="h3" size="md" style={{ textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)", fontSize: "0.875rem" }}>
           Contents
         </Title>
       </div>
-      {navItems.map((item) => (
-        <a
-          key={item.id}
-          href={`#${item.id}`}
-          style={navItemStyle}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
-            e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "transparent";
-            e.currentTarget.style.borderLeftColor = "transparent";
-          }}
-        >
-          {item.label}
-        </a>
-      ))}
+
+      <a
+        href="#strategic-context"
+        style={navItemStyle(activeSection === "strategic-context")}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+          if (activeSection !== "strategic-context") e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = "transparent";
+          if (activeSection !== "strategic-context") e.currentTarget.style.borderLeftColor = "transparent";
+        }}
+      >
+        1. Strategic Context
+      </a>
+
+      {/* Patterns with subsections */}
+      {sortedPatterns.length > 0 && (
+        <div>
+          <div
+            style={sectionHeaderStyle}
+            onClick={() => toggleSection("patterns")}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
+          >
+            <a href="#project-lifecycle" style={{ textDecoration: "none", color: "inherit", flex: 1 }}>
+              2. Lifecycle & Phasing
+            </a>
+            <span style={{ fontSize: "0.75rem" }}>{expandedSections.has("patterns") ? "▼" : "▶"}</span>
+          </div>
+          {expandedSections.has("patterns") && sortedPatterns.map((pattern: any, idx: number) => {
+            const name = String(pattern.name ?? "");
+            return (
+              <a
+                key={idx}
+                href={`#pattern-${slug(name)}`}
+                style={subItemStyle}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                  e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.borderLeftColor = "transparent";
+                }}
+              >
+                {name}
+              </a>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Alphas with subsections */}
+      {alphas.length > 0 && (
+        <div>
+          <div
+            style={sectionHeaderStyle}
+            onClick={() => toggleSection("alphas")}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
+          >
+            <a href="#milestones-deliverables" style={{ textDecoration: "none", color: "inherit", flex: 1 }}>
+              3. Milestones
+            </a>
+            <span style={{ fontSize: "0.75rem" }}>{expandedSections.has("alphas") ? "▼" : "▶"}</span>
+          </div>
+          {expandedSections.has("alphas") && alphas.map((alpha: any, idx: number) => {
+            const name = String(alpha.name ?? "");
+            return (
+              <a
+                key={idx}
+                href={`#milestone-${slug(name)}`}
+                style={subItemStyle}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                  e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.borderLeftColor = "transparent";
+                }}
+              >
+                {name}
+              </a>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Work Products */}
+      {workProducts.length > 0 && expandedSections.has("workproducts") && (
+        <div style={{ marginLeft: "1rem" }}>
+          {workProducts.slice(0, 5).map((wp: any, idx: number) => {
+            const name = String(wp.name ?? "");
+            return (
+              <a
+                key={idx}
+                href={`#artifact-${slug(name)}`}
+                style={subItemStyle}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                  e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.borderLeftColor = "transparent";
+                }}
+              >
+                {name}
+              </a>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Teams and Activities */}
+      {personaGroups.length > 0 && (
+        <div>
+          <div
+            style={sectionHeaderStyle}
+            onClick={() => toggleSection("teams")}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
+          >
+            <a href="#resourcing-activities" style={{ textDecoration: "none", color: "inherit", flex: 1 }}>
+              4. Teams & Activities
+            </a>
+            <span style={{ fontSize: "0.75rem" }}>{expandedSections.has("teams") ? "▼" : "▶"}</span>
+          </div>
+          {expandedSections.has("teams") && personaGroups.map((pg: any, idx: number) => {
+            const name = String(pg.name ?? "");
+            return (
+              <a
+                key={idx}
+                href={`#team-${slug(name)}`}
+                style={subItemStyle}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                  e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.borderLeftColor = "transparent";
+                }}
+              >
+                {name}
+              </a>
+            );
+          })}
+        </div>
+      )}
     </nav>
   );
 }
@@ -885,13 +1106,15 @@ export function ProjectManagementView({
   }, [baselineForRender]);
 
   return (
-    <div style={{
-      display: "flex",
-      fontFamily: '"Red Hat Text", RedHatText, "Overpass", Arial, sans-serif',
-      minHeight: embed ? undefined : "100vh",
-      backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
-    }}>
-      {!embed && <NavigationSidebar />}
+    <>
+      {!embed && <style>{`html { scroll-behavior: smooth; }`}</style>}
+      <div style={{
+        display: "flex",
+        fontFamily: '"Red Hat Text", RedHatText, "Overpass", Arial, sans-serif',
+        minHeight: embed ? undefined : "100vh",
+        backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+      }}>
+        {!embed && <NavigationSidebar doc={baselineForRender} activities={activities} />}
 
       <main style={{
         flex: 1,
@@ -910,6 +1133,7 @@ export function ProjectManagementView({
 
         <ResourcingAndActivities doc={baselineForRender} activities={activities} />
       </main>
-    </div>
+      </div>
+    </>
   );
 }
