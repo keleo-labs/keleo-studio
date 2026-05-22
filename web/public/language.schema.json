@@ -497,7 +497,7 @@
         { "$ref": "#/$defs/PracticeElement" },
         {
           "type": "object",
-          "required": ["narrativeName", "narrativeTypeName", "narrativeContexts"],
+          "required": ["narrativeTypeName", "narrativeContexts"],
           "properties": {
             "narrativeTypeName": {
               "type": "string",
@@ -506,6 +506,11 @@
             "narrativeContexts": {
               "type": "array",
               "items": { "$ref": "#/$defs/NarrativeContext" }
+            },
+            "citationNames": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Optional array of Citation.name references (symbolic links to citations in the same practice/method scope)."
             }
           }
         }
@@ -549,6 +554,36 @@
     },
     "Focus": {
       "allOf": [{ "$ref": "#/$defs/PracticeElement" }],
+      "unevaluatedProperties": false
+    },
+    "Citation": {
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["authors", "date", "source"],
+          "properties": {
+            "authors": {
+              "type": "array",
+              "items": { "type": "string" },
+              "minItems": 1,
+              "description": "The person, group, or organization responsible for the work (e.g., ['Skelton, M.', 'Pais, M.'])."
+            },
+            "date": {
+              "type": "string",
+              "description": "Publication date (typically year, e.g., '2019')."
+            },
+            "source": {
+              "type": "string",
+              "description": "Publisher, journal, or URL where the work can be retrieved."
+            },
+            "url": {
+              "type": "string",
+              "description": "URL or DOI where the work can be retrieved."
+            }
+          }
+        }
+      ],
       "unevaluatedProperties": false
     },
     "PatternView": {
@@ -633,6 +668,11 @@
               "type": "array",
               "description": "Narrative spine types defined in this baseline aggregate (language.mmd).",
               "items": { "$ref": "#/$defs/NarrativeType" }
+            },
+            "citations": {
+              "type": "array",
+              "description": "Bibliographic references defined in this baseline.",
+              "items": { "$ref": "#/$defs/Citation" }
             }
           }
         }
@@ -727,6 +767,11 @@
               "type": "array",
               "items": { "$ref": "#/$defs/Pattern" },
               "description": "Patterns for this practice (language.mmd)."
+            },
+            "citations": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Citation" },
+              "description": "Bibliographic references elaborated by this practice."
             }
           }
         }
@@ -756,6 +801,11 @@
               "type": "array",
               "items": { "type": "string" },
               "description": "Array of symbolic practice name references. Use this OR practices."
+            },
+            "citations": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Citation" },
+              "description": "Bibliographic references defined in this method (merged from baseline and practices)."
             }
           },
           "oneOf": [

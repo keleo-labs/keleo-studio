@@ -88,6 +88,9 @@ export async function POST(req: Request) {
   const theme = THEMES.light;
   const t = PACKS[packId] ?? PACKS.default;
 
+  // Extract citations from baselineForRender (which includes citations from the merged practice)
+  const citations = Array.isArray(baselineForRender.citations) ? baselineForRender.citations : [];
+
   const html = renderBrowsePdfHtml({
     baseline: baselineForRender,
     grouped,
@@ -96,6 +99,7 @@ export async function POST(req: Request) {
     sourceDoc: docObj,
     originalDoc,
     methodComposition,
+    citations,
   });
 
   const browser = await chromium.launch();

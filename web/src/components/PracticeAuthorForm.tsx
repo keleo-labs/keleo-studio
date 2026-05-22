@@ -22,6 +22,7 @@ import {
   emptyFocus,
   emptyLevelOfDetail,
   emptyNarrativeType,
+  emptyCitation,
   emptyPattern,
   emptyPatternView,
   emptyPersona,
@@ -36,6 +37,8 @@ import {
 import { practiceTagsBucketLines, practiceTagsFromBucketLines } from "@/lib/practiceElementTags";
 import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { useLanguagePack } from "@/lib/languagePack";
+import { collectCitationNames } from "@/lib/ir";
+import { CitationsField } from "./editors/fields/CitationsField";
 
 type EnrichedLibraryDoc = JsonDocumentMeta & {
   libraryRootKind: LibraryRootKind;
@@ -372,6 +375,7 @@ export function PracticeAuthorForm({
   );
 
   const declaredFocusNames = useMemo(() => collectFocusNameOptions(rd), [rd]);
+  const declaredCitationNames = useMemo(() => collectCitationNames(rd), [rd]);
 
   const [resolvedMixFocusNames, setResolvedMixFocusNames] = useState<string[]>([]);
 
@@ -886,6 +890,12 @@ export function PracticeAuthorForm({
           <PatternBlock pat={p} onChange={(next) => mutate((list) => [...list.slice(0, i), next, ...list.slice(i + 1)])} />
         )}
         emptyItem={() => emptyPattern()}
+      />
+
+      <CitationsField
+        value={getArr("citations") as any}
+        onChange={(xs) => setRoot("citations", xs)}
+        fieldPath="citations"
       />
 
       <RepeatSection

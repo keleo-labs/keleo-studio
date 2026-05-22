@@ -20,16 +20,16 @@ import {
 /**
  * Horizontal Flow Component
  * Renders a single horizontal flow for one PersonaGroup
- * Organized into threads by Alpha
+ * Activities are repeated before each alpha state they contribute to
  */
 function HorizontalFlow({ flow }: { flow: PersonaGroupFlow }) {
   const nodeSpacing = 200;
-  const nodeHeight = 60; // Increased for wrapped text
+  const nodeHeight = 60;
   const threadSpacing = 90;
   const startX = 20;
   const startY = 40;
 
-  // Calculate node positions using threading by Alpha
+  // Calculate node positions
   const nodePositions = new Map<string, { x: number; y: number }>();
 
   const personaGroupNode = flow.nodes.find(n => n.type === "personaGroup");
@@ -38,12 +38,10 @@ function HorizontalFlow({ flow }: { flow: PersonaGroupFlow }) {
   // Position PersonaGroup node
   nodePositions.set(personaGroupNode.id, { x: startX, y: startY });
 
-  // Group activities and states by Alpha to create threads
+  // Group nodes by alpha to create threads
   type ThreadItem = {
     nodeId: string;
     stateSeq: number;
-    isActivity: boolean;
-    activityName?: string;
   };
 
   type Thread = {
@@ -54,81 +52,87 @@ function HorizontalFlow({ flow }: { flow: PersonaGroupFlow }) {
   const threads: Thread[] = [];
   const alphaThreadMap = new Map<string, Thread>();
 
-  // Build activity->state pairs for threading
-  const activityStatePairs: Array<{
-    activityId: string;
-    activityName: string;
-    stateId: string;
-    stateSeq: number;
-    alphaName: string;
-  }> = [];
-
+  // Build threads from the link structure
+  // Each alpha state defines a thread
   for (const node of flow.nodes) {
-    if (node.type === "activity") {
-      const activityName = node.label;
-      // Find states this activity contributes to
-      const targetStates = flow.links
-        .filter(link => link.sourceId === node.id)
-        .map(link => flow.nodes.find(n => n.id === link.targetId))
-        .filter(n => n?.type === "alphaState" && n.alphaName);
-
-      for (const state of targetStates) {
-        if (state?.alphaName) {
-          activityStatePairs.push({
-            activityId: node.id,
-            activityName,
-            stateId: state.id,
-            stateSeq: state.stateSeq || 0,
-            alphaName: state.alphaName,
-          });
-        }
+    if (node.type === "alphaState" && node.alphaName) {
+      if (!alphaThreadMap.has(node.alphaName)) {
+        const thread: Thread = { alphaName: node.alphaName, items: [] };
+        alphaThreadMap.set(node.alphaName, thread);
+        threads.push(thread);
       }
     }
   }
 
-  // Create threads and add activity->state pairs in sequence order
-  for (const pair of activityStatePairs) {
-    if (!alphaThreadMap.has(pair.alphaName)) {
-      const thread: Thread = { alphaName: pair.alphaName, items: [] };
-      alphaThreadMap.set(pair.alphaName, thread);
-      threads.push(thread);
+  // Build sequential chains for each alpha
+  // Follow links to construct: Activity -> State -> Activity -> State
+  for (const thread of threads) {
+    const { alphaName } = thread;
+    const visited = new Set<string>();
+
+    // Find activities that target states in this alpha
+    const alphaActivities = flow.nodes.filter(n =>
+      n.type === "activity" &&
+      flow.links.some(link => {
+        const target = flow.nodes.find(tn => tn.id === link.targetId);
+        return link.sourceId === n.id &&
+               target?.type === "alphaState" &&
+               target.alphaName === alphaName;
+      })
+    );
+
+    // Find the first activity (one not preceded by a state in this alpha)
+    let currentActivityId: string | null = null;
+    for (const activity of alphaActivities) {
+      const incomingFromState = flow.links.some(link => {
+        const source = flow.nodes.find(n => n.id === link.sourceId);
+        return link.targetId === activity.id &&
+               source?.type === "alphaState" &&
+               source.alphaName === alphaName;
+      });
+
+      if (!incomingFromState) {
+        currentActivityId = activity.id;
+        break;
+      }
     }
 
-    const thread = alphaThreadMap.get(pair.alphaName)!;
+    // Follow the chain: Activity -> State -> Activity -> State
+    while (currentActivityId && !visited.has(currentActivityId)) {
+      visited.add(currentActivityId);
 
-    // Add activity before state
-    thread.items.push({
-      nodeId: pair.activityId,
-      stateSeq: pair.stateSeq,
-      isActivity: true,
-      activityName: pair.activityName,
-    });
+      const activityNode = flow.nodes.find(n => n.id === currentActivityId);
+      if (!activityNode) break;
 
-    thread.items.push({
-      nodeId: pair.stateId,
-      stateSeq: pair.stateSeq,
-      isActivity: false,
-    });
+      // Find the state this activity leads to
+      const stateLink = flow.links.find(link =>
+        link.sourceId === currentActivityId &&
+        flow.nodes.find(n => n.id === link.targetId && n.type === "alphaState" && n.alphaName === alphaName)
+      );
+
+      if (!stateLink) break;
+
+      const stateNode = flow.nodes.find(n => n.id === stateLink.targetId);
+      if (!stateNode || stateNode.type !== "alphaState") break;
+
+      // Add activity and state to thread
+      thread.items.push({ nodeId: currentActivityId, stateSeq: stateNode.stateSeq || 0 });
+      thread.items.push({ nodeId: stateNode.id, stateSeq: stateNode.stateSeq || 0 });
+
+      // Find next activity (one that comes after this state)
+      const nextActivityLink = flow.links.find(link => link.sourceId === stateNode.id);
+      currentActivityId = nextActivityLink?.targetId || null;
+
+      if (visited.has(currentActivityId || "")) break;
+    }
   }
 
-  // Sort and deduplicate items within each thread
-  for (const thread of threads) {
-    // Sort by stateSeq, then by activity-before-state
-    thread.items.sort((a, b) => {
-      if (a.stateSeq !== b.stateSeq) return a.stateSeq - b.stateSeq;
-      if (a.isActivity && !b.isActivity) return -1;
-      if (!a.isActivity && b.isActivity) return 1;
-      return 0;
-    });
-
-    // Deduplicate (keep unique nodeIds in order)
-    const seen = new Set<string>();
-    thread.items = thread.items.filter(item => {
-      if (seen.has(item.nodeId)) return false;
-      seen.add(item.nodeId);
-      return true;
-    });
-  }
+  // Sort threads by minimum stateSeq
+  threads.sort((a, b) => {
+    const minSeqA = Math.min(...a.items.map(item => item.stateSeq), Infinity);
+    const minSeqB = Math.min(...b.items.map(item => item.stateSeq), Infinity);
+    return minSeqA - minSeqB;
+  });
 
   // Position nodes in threads
   for (let threadIdx = 0; threadIdx < threads.length; threadIdx++) {
@@ -137,9 +141,11 @@ function HorizontalFlow({ flow }: { flow: PersonaGroupFlow }) {
     let colIdx = 1; // Start after PersonaGroup
 
     for (const item of thread.items) {
-      const x = startX + colIdx * nodeSpacing;
-      nodePositions.set(item.nodeId, { x, y: threadY });
-      colIdx++;
+      if (!nodePositions.has(item.nodeId)) {
+        const x = startX + colIdx * nodeSpacing;
+        nodePositions.set(item.nodeId, { x, y: threadY });
+        colIdx++;
+      }
     }
   }
 

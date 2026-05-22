@@ -842,6 +842,40 @@ function mergePersonaGroups(a: any[], b: any[]): any[] {
   return [...byName.values()];
 }
 
+function mergeCitations(a: any[], b: any[]): any[] {
+  const byName = new Map<string, any>();
+
+  // Process first array
+  for (const citation of a ?? []) {
+    const k = canonicalPracticeElementName(citation?.name);
+    if (!k) continue;
+    byName.set(k, clonedRowWithCanonicalName(citation as Record<string, unknown>, k));
+  }
+
+  // Process second array with merging
+  for (const citation of b ?? []) {
+    const k = canonicalPracticeElementName(citation?.name);
+    if (!k) continue;
+
+    if (byName.has(k)) {
+      const prev = byName.get(k);
+      byName.set(k, {
+        ...mergePracticeElements(prev, citation),
+        name: k,
+        // Union authors arrays and deduplicate
+        authors: uniqStrings([...(prev.authors ?? []), ...(citation.authors ?? [])]),
+        // Later citation wins for date and source
+        date: citation.date ?? prev.date,
+        source: citation.source ?? prev.source,
+      });
+    } else {
+      byName.set(k, clonedRowWithCanonicalName(citation as Record<string, unknown>, k));
+    }
+  }
+
+  return [...byName.values()];
+}
+
 function mergePatternViewAlphaInstances(a: any[] | undefined, b: any[] | undefined): any[] {
   const ident = (row: any): string =>
     canonicalPracticeElementName(row?.name) || "";
@@ -1168,6 +1202,7 @@ function mergeSecondaryBaselineKernel(acc: ExtensionMergeAccumulator, secondary:
   acc.out.keywords = uniqStrings([...(acc.out.keywords as string[]), ...((secondary.keywords ?? []) as string[])]);
   acc.out.workProducts = mergeWorkProducts(acc.out.workProducts as any, (sdoc.workProducts ?? []) as any[]);
   acc.out.narrativeTypes = mergeNarrativeTypes(acc.out.narrativeTypes as any, (sdoc.narrativeTypes ?? []) as any[]);
+  acc.out.citations = mergeCitations(acc.out.citations as any, (sdoc.citations ?? []) as any[]);
   acc.out.personas = mergePersonas(acc.out.personas as any, (sdoc.personas ?? []) as any[]);
   acc.out.personaGroups = mergePersonaGroups(
     acc.out.personaGroups as any,
@@ -1245,6 +1280,10 @@ function mergeOneExtensionPracticeOntoOut(acc: ExtensionMergeAccumulator, overla
   acc.out.narrativeTypes = mergeNarrativeTypes(
     acc.out.narrativeTypes as any,
     ((overlayPractice as any).narrativeTypes ?? []) as any[],
+  );
+  acc.out.citations = mergeCitations(
+    acc.out.citations as any,
+    ((overlayPractice as any).citations ?? []) as any[],
   );
   acc.out.personas = mergePersonas(acc.out.personas as any, ((overlayPractice as any).personas ?? []) as any[]);
   acc.out.personaGroups = mergePersonaGroups(
@@ -1362,11 +1401,13 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
   const baselineWorkProducts = Array.isArray(baselineDoc.workProducts) ? (baselineDoc.workProducts as any[]) : [];
   const baselinePatterns = Array.isArray(baselineDoc.patterns) ? (baselineDoc.patterns as any[]) : [];
   const baselineNarrativeTypes = Array.isArray(baselineDoc.narrativeTypes) ? (baselineDoc.narrativeTypes as any[]) : [];
+  const baselineCitations = Array.isArray(baselineDoc.citations) ? (baselineDoc.citations as any[]) : [];
   const baselinePersonas = Array.isArray(baselineDoc.personas) ? (baselineDoc.personas as any[]) : [];
   const baselinePersonaGroups = Array.isArray(baselineDoc.personaGroups) ? (baselineDoc.personaGroups as any[]) : [];
   // Also check for these elements directly on the Method object (from primary practice)
   const methodWorkProducts = Array.isArray(methodDoc.workProducts) ? (methodDoc.workProducts as any[]) : [];
   const methodPatterns = Array.isArray(methodDoc.patterns) ? (methodDoc.patterns as any[]) : [];
+  const methodCitations = Array.isArray(methodDoc.citations) ? (methodDoc.citations as any[]) : [];
   const methodPersonas = Array.isArray(methodDoc.personas) ? (methodDoc.personas as any[]) : [];
   const methodPersonaGroups = Array.isArray(methodDoc.personaGroups) ? (methodDoc.personaGroups as any[]) : [];
   const mergedRootTags = mergePracticeElementTags(method.tags, baseline.tags);
@@ -1389,6 +1430,7 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
     version: baseline.version,
     keywords: uniqStrings([...(baseline.keywords ?? [])]),
     narrativeTypes: mergeNarrativeTypes([], baselineNarrativeTypes),
+    citations: mergeCitations(mergeCitations([], baselineCitations), methodCitations),
     practiceDependencyNames: uniqStrings(((method as any).practiceDependencyNames ?? []) as string[]),
     workProducts: mergeWorkProducts(mergeWorkProducts([], baselineWorkProducts), methodWorkProducts),
     patterns: mergePatterns(mergePatterns([], baselinePatterns), methodPatterns),

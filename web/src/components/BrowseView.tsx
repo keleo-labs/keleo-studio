@@ -24,6 +24,7 @@ import {
   practiceElementDescriptionForDisplay,
   narrativeContextRowDisplayText,
 } from "@/lib/ir";
+import { formatAPA7Citation, getCitationsForNarrative, formatInTextCitation } from "@/lib/citationUtils";
 import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { useLanguagePack } from "@/lib/languagePack";
@@ -327,87 +328,6 @@ function ElementNameWithAlias({
 }
 
 // ========================================================================
-// CITATION FORMATTING
-// ========================================================================
-
-/**
- * Checks if a narrative is a citation based on its narrativeTypeName
- */
-function isCitation(narrative: any): boolean {
-  const typeName = String(narrative.narrativeTypeName ?? "").toLowerCase().trim();
-  return typeName === "citation" || typeName === "reference" || typeName === "source" || typeName === "citation standard";
-}
-
-/**
- * Converts URLs in text to clickable hyperlinks
- */
-function linkifyUrls(text: string): string {
-  // URL regex pattern
-  const urlPattern = /(https?:\/\/[^\s<>"]+)/gi;
-
-  return text.replace(urlPattern, (url) => {
-    // Remove trailing punctuation that might not be part of the URL
-    let cleanUrl = url;
-    let trailingPunctuation = "";
-
-    // Check for trailing punctuation
-    const trailingPunctuationPattern = /([.,;:!?)])+$/;
-    const match = cleanUrl.match(trailingPunctuationPattern);
-    if (match) {
-      trailingPunctuation = match[0];
-      cleanUrl = cleanUrl.slice(0, -trailingPunctuation.length);
-    }
-
-    return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--pf-v6-global--link--Color); text-decoration: underline;">${cleanUrl}</a>${trailingPunctuation}`;
-  });
-}
-
-/**
- * Formats a narrative as an APA7 citation
- * Uses the narrative's fields to construct a proper APA7 reference entry
- */
-function formatAPA7Citation(narrative: any): string {
-  const name = String(narrative.name || "");
-  const description = practiceElementDescriptionForDisplay(narrative) ?? "";
-  const contexts = Array.isArray(narrative.narrativeContexts) ? narrative.narrativeContexts : [];
-
-  // Build APA7 format from available fields
-  // name serves as the author/source
-  // description serves as the title/details
-  // contexts provide additional citation details
-
-  let citation = "";
-
-  if (name) {
-    // Remove "Reference:" prefix if present (case-insensitive)
-    const cleanedName = name.replace(/^Reference:\s*/i, "");
-    citation += cleanedName;
-  }
-
-  if (description) {
-    citation += citation ? ". " : "";
-    citation += `<em>${description}</em>`;
-  }
-
-  // Add context information
-  if (contexts.length > 0) {
-    const contextTexts = contexts
-      .slice()
-      .sort((a: any, b: any) => (a.seq ?? 0) - (b.seq ?? 0))
-      .map((ctx: any) => narrativeContextRowDisplayText(ctx))
-      .filter(Boolean);
-
-    if (contextTexts.length > 0) {
-      citation += citation ? ". " : "";
-      citation += contextTexts.join(". ");
-    }
-  }
-
-  // Convert URLs to clickable links
-  citation = linkifyUrls(citation);
-
-  return citation || "(No citation details available)";
-}
 
 // ========================================================================
 // SECTION 1: Executive Context
@@ -424,6 +344,9 @@ function ExecutiveContext({ doc, methodComposition, aliasMap }: { doc: any; meth
 
   // Root narratives
   const narratives = Array.isArray(doc.narratives) ? doc.narratives : [];
+
+  // Citations
+  const citations = Array.isArray(doc.citations) ? doc.citations : [];
 
   // Get practices from method composition
   const practices = methodComposition?.practices ?? [];
@@ -476,8 +399,12 @@ function ExecutiveContext({ doc, methodComposition, aliasMap }: { doc: any; meth
           <Title headingLevel="h2" size="xl" style={{ marginTop: "3rem", marginBottom: "1rem" }}>
             Strategic Context
           </Title>
-          <NarrativesSection narratives={narratives} compact={false} />
+          <NarrativesSection narratives={narratives} compact={false} allCitations={citations} />
         </>
+      )}
+
+      {citations.length > 0 && (
+        <CitationsSection citations={citations} compact={false} />
       )}
 
       {practices.length > 0 && (
@@ -505,7 +432,7 @@ function ExecutiveContext({ doc, methodComposition, aliasMap }: { doc: any; meth
                     </Content>
                   )}
                   {practiceNarratives.length > 0 && (
-                    <NarrativesSection narratives={practiceNarratives} compact={true} />
+                    <NarrativesSection narratives={practiceNarratives} compact={true} allCitations={citations} />
                   )}
                 </CardBody>
               </Card>
@@ -517,12 +444,16 @@ function ExecutiveContext({ doc, methodComposition, aliasMap }: { doc: any; meth
   );
 }
 
-function NarrativeBlock({ narrative, compact = false }: { narrative: any; compact?: boolean }) {
+function NarrativeBlock({ narrative, compact = false, allCitations = [] }: { narrative: any; compact?: boolean; allCitations?: any[] }) {
   const narrativeName = String(narrative.name ?? "");
   const description = practiceElementDescriptionForDisplay(narrative) ?? "";
   const contexts = Array.isArray(narrative.narrativeContexts) ? narrative.narrativeContexts : [];
 
-  if (!narrativeName && !description && contexts.length === 0) {
+  // Get citations for this narrative
+  const narrativeCitations = getCitationsForNarrative(narrative, allCitations);
+  const hasCitations = narrativeCitations.length > 0;
+
+  if (!narrativeName && !description && contexts.length === 0 && !hasCitations) {
     return null;
   }
 
@@ -542,12 +473,12 @@ function NarrativeBlock({ narrative, compact = false }: { narrative: any; compac
           </div>
         )}
         {description && (
-          <Content component={ContentVariants.p} style={{ marginBottom: contexts.length > 0 ? "0.75rem" : "0", fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>
+          <Content component={ContentVariants.p} style={{ marginBottom: contexts.length > 0 || hasCitations ? "0.75rem" : "0", fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }}>
             {description}
           </Content>
         )}
         {contexts.length > 0 && (
-          <div style={{ fontSize: "0.875rem" }}>
+          <div style={{ fontSize: "0.875rem", marginBottom: hasCitations ? "0.75rem" : "0" }}>
             {contexts
               .slice()
               .sort((a: any, b: any) => (a.seq ?? 0) - (b.seq ?? 0))
@@ -577,6 +508,39 @@ function NarrativeBlock({ narrative, compact = false }: { narrative: any; compac
               })}
           </div>
         )}
+        {hasCitations && (
+          <div>
+            <div style={{ fontSize: "0.75rem", fontWeight: 600, marginBottom: "0.5rem", textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)" }}>
+              Further Reading
+            </div>
+            <List style={{ fontSize: "0.75rem" }}>
+              {narrativeCitations.map((citation: any, idx: number) => {
+                const citationName = String(citation.name ?? "");
+                const citationUrl = citation.url;
+                const inTextCitation = formatInTextCitation(citation);
+                return (
+                  <ListItem key={idx} style={{ marginBottom: "0.25rem" }}>
+                    <a
+                      href={citationUrl || `#citation-${slug(citationName)}`}
+                      target={citationUrl ? "_blank" : undefined}
+                      rel={citationUrl ? "noopener noreferrer" : undefined}
+                      style={{
+                        color: "var(--pf-v6-global--link--Color)",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {citationName}
+                      {citationUrl && (
+                        <span style={{ marginLeft: "0.25rem", fontSize: "0.7em", verticalAlign: "super" }}>↗</span>
+                      )}
+                    </a>
+                    {inTextCitation && <span style={{ marginLeft: "0.5rem", color: "var(--pf-v6-global--Color--200)" }}>{inTextCitation}</span>}
+                  </ListItem>
+                );
+              })}
+            </List>
+          </div>
+        )}
       </div>
     );
   }
@@ -594,7 +558,7 @@ function NarrativeBlock({ narrative, compact = false }: { narrative: any; compac
           </Content>
         )}
         {contexts.length > 0 && (
-          <List isPlain>
+          <List isPlain style={{ marginBottom: hasCitations ? "1rem" : "0" }}>
             {contexts
               .slice()
               .sort((a: any, b: any) => (a.seq ?? 0) - (b.seq ?? 0))
@@ -626,56 +590,95 @@ function NarrativeBlock({ narrative, compact = false }: { narrative: any; compac
               })}
           </List>
         )}
+        {hasCitations && (
+          <div>
+            <div style={{ fontSize: "0.75rem", fontWeight: 600, marginBottom: "0.5rem", textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)" }}>
+              Further Reading
+            </div>
+            <List>
+              {narrativeCitations.map((citation: any, idx: number) => {
+                const citationName = String(citation.name ?? "");
+                const citationUrl = citation.url;
+                const inTextCitation = formatInTextCitation(citation);
+                return (
+                  <ListItem key={idx} style={{ marginBottom: "0.25rem" }}>
+                    <a
+                      href={citationUrl || `#citation-${slug(citationName)}`}
+                      target={citationUrl ? "_blank" : undefined}
+                      rel={citationUrl ? "noopener noreferrer" : undefined}
+                      style={{
+                        color: "var(--pf-v6-global--link--Color)",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      {citationName}
+                      {citationUrl && (
+                        <span style={{ marginLeft: "0.25rem", fontSize: "0.7em", verticalAlign: "super" }}>↗</span>
+                      )}
+                    </a>
+                    {inTextCitation && <span style={{ marginLeft: "0.5rem", color: "var(--pf-v6-global--Color--200)" }}>{inTextCitation}</span>}
+                  </ListItem>
+                );
+              })}
+            </List>
+          </div>
+        )}
       </CardBody>
     </Card>
   );
 }
 
 // Reusable component to render narratives array
-function NarrativesSection({ narratives, compact = false }: { narratives: any[] | undefined; compact?: boolean }) {
+function NarrativesSection({ narratives, compact = false, allCitations = [] }: { narratives: any[] | undefined; compact?: boolean; allCitations?: any[] }) {
   if (!Array.isArray(narratives) || narratives.length === 0) {
     return null;
   }
 
-  // Separate citations from regular narratives
-  const regularNarratives = narratives.filter(n => !isCitation(n));
-  const citations = narratives.filter(n => isCitation(n));
-
   return (
     <>
-      {/* Render regular narratives */}
-      {regularNarratives.map((narrative: any, idx: number) => (
-        <NarrativeBlock key={idx} narrative={narrative} compact={compact} />
+      {narratives.map((narrative: any, idx: number) => (
+        <NarrativeBlock key={idx} narrative={narrative} compact={compact} allCitations={allCitations} />
       ))}
-
-      {/* Render citations grouped in a References section */}
-      {citations.length > 0 && (
-        <div style={{
-          marginTop: regularNarratives.length > 0 ? "1.5rem" : "0",
-          padding: compact ? "1rem" : "1.5rem",
-          backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
-          borderLeft: "3px solid var(--pf-v6-global--palette--blue-300)",
-          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-        }}>
-          <Title headingLevel="h4" size={compact ? "md" : "lg"} style={{ marginBottom: "1rem" }}>
-            References
-          </Title>
-          <List style={{ fontSize: compact ? "0.75rem" : "0.875rem" }}>
-            {citations.map((citation: any, idx: number) => (
-              <ListItem
-                key={idx}
-                style={{
-                  marginBottom: idx < citations.length - 1 ? "0.5rem" : "0",
-                  lineHeight: "1.6",
-                }}
-              >
-                <div dangerouslySetInnerHTML={{ __html: formatAPA7Citation(citation) }} />
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      )}
     </>
+  );
+}
+
+// Reusable component to render citations array
+function CitationsSection({ citations, compact = false }: { citations: any[] | undefined; compact?: boolean }) {
+  if (!Array.isArray(citations) || citations.length === 0) {
+    return null;
+  }
+
+  return (
+    <div style={{
+      marginTop: "1.5rem",
+      padding: compact ? "1rem" : "1.5rem",
+      backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+      borderLeft: "3px solid var(--pf-v6-global--palette--blue-300)",
+      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+    }}>
+      <Title headingLevel="h4" size={compact ? "md" : "lg"} style={{ marginBottom: "1rem" }}>
+        References
+      </Title>
+      <List style={{ fontSize: compact ? "0.75rem" : "0.875rem" }}>
+        {citations.map((citation: any, idx: number) => {
+          const citationName = String(citation.name ?? "");
+          return (
+            <ListItem
+              key={idx}
+              id={`citation-${slug(citationName)}`}
+              style={{
+                marginBottom: idx < citations.length - 1 ? "0.5rem" : "0",
+                lineHeight: "1.6",
+                scrollMarginTop: "2rem",
+              }}
+            >
+              <div dangerouslySetInnerHTML={{ __html: formatAPA7Citation(citation) }} />
+            </ListItem>
+          );
+        })}
+      </List>
+    </div>
   );
 }
 
@@ -1023,6 +1026,7 @@ function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap }: { 
 function LifecycleOrchestration({ doc, baseline, aliasMap }: { doc: any; baseline: any; aliasMap: PracticeElementAliasLookup }) {
   const { t } = useLanguagePack();
   const patterns = Array.isArray(doc.patterns) ? doc.patterns : [];
+  const citations = Array.isArray(doc.citations) ? doc.citations : [];
 
   if (patterns.length === 0) {
     return null;
@@ -1063,13 +1067,13 @@ function LifecycleOrchestration({ doc, baseline, aliasMap }: { doc: any; baselin
       </Content>
 
       {sortedPatterns.map((pattern: any, idx: number) => (
-        <PatternBlock key={idx} pattern={pattern} baseline={baseline} />
+        <PatternBlock key={idx} pattern={pattern} baseline={baseline} allCitations={citations} />
       ))}
     </section>
   );
 }
 
-function PatternBlock({ pattern, baseline }: { pattern: any; baseline: any }) {
+function PatternBlock({ pattern, baseline, allCitations = [] }: { pattern: any; baseline: any; allCitations?: any[] }) {
   const name = String(pattern.name ?? "Pattern");
   const description = practiceElementDescriptionForDisplay(pattern) ?? "";
   const narratives = pattern.narratives;
@@ -1089,7 +1093,7 @@ function PatternBlock({ pattern, baseline }: { pattern: any; baseline: any }) {
           </Content>
         )}
 
-        <NarrativesSection narratives={narratives} compact />
+        <NarrativesSection narratives={narratives} compact allCitations={allCitations} />
 
         {patternViews.length > 0 && baseline && (
           <div style={{ marginTop: "1.5rem" }}>
@@ -1274,6 +1278,7 @@ function buildAlphaHierarchy(alphas: any[]): { roots: any[]; childrenMap: Map<st
 
 function CoreConcepts({ doc, originalDoc, grouped, aliasMap, methodComposition }: { doc: any; originalDoc: any; grouped: any[]; aliasMap: PracticeElementAliasLookup; methodComposition?: Method | null }) {
   const workProducts = Array.isArray(doc.workProducts) ? doc.workProducts : [];
+  const citations = Array.isArray(doc.citations) ? doc.citations : [];
 
   // Extract all activities from all activitySpaces across all focuses
   const activities: any[] = [];
@@ -1291,12 +1296,43 @@ function CoreConcepts({ doc, originalDoc, grouped, aliasMap, methodComposition }
 
     if (methodComposition) {
       // For methods, collect alphas from all the method's extension practices (not the baseline)
+      // First, collect baseline alphas to exclude them
+      const baselineAlphaNames = new Set<string>();
+      const baseline = methodComposition.baselinePractice;
+      if (baseline && typeof baseline === 'object') {
+        const baselineAlphas = Array.isArray(baseline.alphas) ? baseline.alphas : [];
+        for (const alpha of baselineAlphas) {
+          const name = String(alpha.name ?? "").trim();
+          if (name) baselineAlphaNames.add(name);
+        }
+      }
+
+      // Collect from embedded practices
       const practices = Array.isArray(methodComposition.practices) ? methodComposition.practices : [];
       for (const practice of practices) {
         const alphas = Array.isArray(practice.alphas) ? practice.alphas : [];
         for (const alpha of alphas) {
           const name = String(alpha.name ?? "").trim();
           if (name) names.add(name);
+        }
+      }
+
+      // Check if method uses practiceNames (practices referenced by name)
+      const practiceNames = Array.isArray((methodComposition as any).practiceNames)
+        ? (methodComposition as any).practiceNames
+        : [];
+
+      // If there are practices referenced by name, we need to include their alphas too
+      // Since those practices have been merged into doc and we can't distinguish which
+      // baseline alphas were extended vs baseline-only, include ALL alphas from the merged doc
+      // This ensures alphas from referenced practices are never incorrectly marked as "Referenced"
+      if (practiceNames.length > 0) {
+        const allAlphas = Array.isArray(doc.alphas) ? doc.alphas : [];
+        for (const alpha of allAlphas) {
+          const name = String(alpha.name ?? "").trim();
+          if (name) {
+            names.add(name);
+          }
         }
       }
     } else {
@@ -1309,7 +1345,7 @@ function CoreConcepts({ doc, originalDoc, grouped, aliasMap, methodComposition }
     }
 
     return names;
-  }, [originalDoc, methodComposition]);
+  }, [doc, originalDoc, methodComposition]);
 
   if (grouped.length === 0) {
     return null;
@@ -1332,13 +1368,13 @@ function CoreConcepts({ doc, originalDoc, grouped, aliasMap, methodComposition }
       </Content>
 
       {grouped.map((focus: any, idx: number) => (
-        <FocusBlock key={idx} focus={focus} workProducts={workProducts} activities={activities} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} />
+        <FocusBlock key={idx} focus={focus} workProducts={workProducts} activities={activities} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} allCitations={citations} />
       ))}
     </section>
   );
 }
 
-function FocusBlock({ focus, workProducts, activities, aliasMap, practiceAlphaNames }: { focus: any; workProducts: any[]; activities: any[]; aliasMap: PracticeElementAliasLookup; practiceAlphaNames: Set<string> }) {
+function FocusBlock({ focus, workProducts, activities, aliasMap, practiceAlphaNames, allCitations = [] }: { focus: any; workProducts: any[]; activities: any[]; aliasMap: PracticeElementAliasLookup; practiceAlphaNames: Set<string>; allCitations?: any[] }) {
   const focusName = String(focus.focusName ?? "");
   const alphas = focus.alphas ?? [];
 
@@ -1355,13 +1391,13 @@ function FocusBlock({ focus, workProducts, activities, aliasMap, practiceAlphaNa
       </Title>
 
       {roots.map((alpha: any, idx: number) => (
-        <AlphaBlock key={idx} alpha={alpha} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={0} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} />
+        <AlphaBlock key={idx} alpha={alpha} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={0} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} allCitations={allCitations} />
       ))}
     </div>
   );
 }
 
-function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0, aliasMap, practiceAlphaNames }: { alpha: any; childrenMap: Map<string, any[]>; workProducts: any[]; activities: any[]; depth?: number; aliasMap: PracticeElementAliasLookup; practiceAlphaNames: Set<string> }) {
+function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0, aliasMap, practiceAlphaNames, allCitations = [] }: { alpha: any; childrenMap: Map<string, any[]>; workProducts: any[]; activities: any[]; depth?: number; aliasMap: PracticeElementAliasLookup; practiceAlphaNames: Set<string>; allCitations?: any[] }) {
   const name = String(alpha.name ?? "");
   const description = practiceElementDescriptionForDisplay(alpha) ?? "";
   const narratives = alpha.narratives;
@@ -1423,7 +1459,7 @@ function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0, a
         {hasChildren && (
           <div style={{ marginBottom: "1.5rem" }}>
             {children.map((child: any, idx: number) => (
-              <AlphaBlock key={idx} alpha={child} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={depth + 1} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} />
+              <AlphaBlock key={idx} alpha={child} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={depth + 1} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} allCitations={allCitations} />
             ))}
           </div>
         )}
@@ -1463,7 +1499,7 @@ function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0, a
             </Content>
           )}
 
-          <NarrativesSection narratives={narratives} compact />
+          <NarrativesSection narratives={narratives} compact allCitations={allCitations} />
 
           {states.length > 0 && (
             <>
@@ -1494,7 +1530,7 @@ function AlphaBlock({ alpha, childrenMap, workProducts, activities, depth = 0, a
       {hasChildren && (
         <div style={{ marginBottom: "1.5rem" }}>
           {children.map((child: any, idx: number) => (
-            <AlphaBlock key={idx} alpha={child} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={depth + 1} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} />
+            <AlphaBlock key={idx} alpha={child} childrenMap={childrenMap} workProducts={workProducts} activities={activities} depth={depth + 1} aliasMap={aliasMap} practiceAlphaNames={practiceAlphaNames} allCitations={allCitations} />
           ))}
         </div>
       )}
@@ -1658,6 +1694,7 @@ function StateBlock({ state, alphaName, workProducts, activities, index, total }
 
 function EvidentaryArtifacts({ doc, aliasMap }: { doc: any; aliasMap: PracticeElementAliasLookup }) {
   const workProducts = Array.isArray(doc.workProducts) ? doc.workProducts : [];
+  const citations = Array.isArray(doc.citations) ? doc.citations : [];
 
   if (workProducts.length === 0) {
     return null;
@@ -1680,13 +1717,13 @@ function EvidentaryArtifacts({ doc, aliasMap }: { doc: any; aliasMap: PracticeEl
       </Content>
 
       {workProducts.map((wp: any, idx: number) => (
-        <WorkProductBlock key={idx} workProduct={wp} />
+        <WorkProductBlock key={idx} workProduct={wp} allCitations={citations} />
       ))}
     </section>
   );
 }
 
-function WorkProductBlock({ workProduct }: { workProduct: any }) {
+function WorkProductBlock({ workProduct, allCitations = [] }: { workProduct: any; allCitations?: any[] }) {
   const name = String(workProduct.name ?? "");
   const description = practiceElementDescriptionForDisplay(workProduct) ?? "";
   const narratives = workProduct.narratives;
@@ -1706,7 +1743,7 @@ function WorkProductBlock({ workProduct }: { workProduct: any }) {
           </Content>
         )}
 
-        <NarrativesSection narratives={narratives} compact />
+        <NarrativesSection narratives={narratives} compact allCitations={allCitations} />
 
         {levelsOfDetail.length > 0 && (
           <>
@@ -1809,6 +1846,7 @@ function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap, methodComposit
   const personas = Array.isArray(doc.personas) ? doc.personas : [];
   const personaGroups = Array.isArray(doc.personaGroups) ? doc.personaGroups : [];
   const competencies = Array.isArray(doc.competencies) ? doc.competencies : [];
+  const citations = Array.isArray(doc.citations) ? doc.citations : [];
 
   // Build a set of activity space names from the original practice document or method's practices
   const practiceActivitySpaceNames = useMemo(() => {
@@ -1816,12 +1854,43 @@ function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap, methodComposit
 
     if (methodComposition) {
       // For methods, collect activity spaces from all the method's extension practices (not the baseline)
+      // First, collect baseline activity space names to exclude them
+      const baselineActivitySpaceNames = new Set<string>();
+      const baseline = methodComposition.baselinePractice;
+      if (baseline && typeof baseline === 'object') {
+        const baselineSpaces = Array.isArray(baseline.activitySpaces) ? baseline.activitySpaces : [];
+        for (const space of baselineSpaces) {
+          const name = String(space.name ?? "").trim();
+          if (name) baselineActivitySpaceNames.add(name);
+        }
+      }
+
+      // Collect from embedded practices
       const practices = Array.isArray(methodComposition.practices) ? methodComposition.practices : [];
       for (const practice of practices) {
         const activitySpaces = Array.isArray(practice.activitySpaces) ? practice.activitySpaces : [];
         for (const space of activitySpaces) {
           const name = String(space.name ?? "").trim();
           if (name) names.add(name);
+        }
+      }
+
+      // Check if method uses practiceNames (practices referenced by name)
+      const practiceNames = Array.isArray((methodComposition as any).practiceNames)
+        ? (methodComposition as any).practiceNames
+        : [];
+
+      // If there are practices referenced by name, we need to include their activity spaces too
+      // Since those practices have been merged into doc and we can't distinguish which
+      // baseline spaces were extended vs baseline-only, include ALL spaces from the merged doc
+      // This ensures activity spaces from referenced practices are never incorrectly marked as "Referenced"
+      if (practiceNames.length > 0) {
+        const allSpaces = Array.isArray(doc.activitySpaces) ? doc.activitySpaces : [];
+        for (const space of allSpaces) {
+          const name = String(space.name ?? "").trim();
+          if (name) {
+            names.add(name);
+          }
         }
       }
     } else {
@@ -1834,7 +1903,7 @@ function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap, methodComposit
     }
 
     return names;
-  }, [originalDoc, methodComposition]);
+  }, [doc, originalDoc, methodComposition]);
 
   const hasActivities = grouped.some((g: any) => g.activitySpaces?.length > 0);
 
@@ -1875,7 +1944,7 @@ function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap, methodComposit
                   {focus.focusName}
                 </Title>
                 {activitySpaces.map((space: any, spaceIdx: number) => (
-                  <ActivitySpaceBlock key={spaceIdx} activitySpace={space} practiceActivitySpaceNames={practiceActivitySpaceNames} />
+                  <ActivitySpaceBlock key={spaceIdx} activitySpace={space} practiceActivitySpaceNames={practiceActivitySpaceNames} allCitations={citations} />
                 ))}
               </div>
             );
@@ -1891,7 +1960,7 @@ function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap, methodComposit
           </Title>
           <div style={{ display: "grid", gap: "1rem" }}>
             {personas.map((persona: any, idx: number) => (
-              <PersonaCard key={idx} persona={persona} />
+              <PersonaCard key={idx} persona={persona} allCitations={citations} />
             ))}
           </div>
         </div>
@@ -1905,7 +1974,7 @@ function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap, methodComposit
           </Title>
           <div style={{ display: "grid", gap: "1rem" }}>
             {personaGroups.map((group: any, idx: number) => (
-              <PersonaGroupCard key={idx} group={group} />
+              <PersonaGroupCard key={idx} group={group} allCitations={citations} />
             ))}
           </div>
         </div>
@@ -1919,7 +1988,7 @@ function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap, methodComposit
           </Title>
           <div style={{ display: "grid", gap: "1rem" }}>
             {competencies.map((competency: any, idx: number) => (
-              <CompetencyCard key={idx} competency={competency} />
+              <CompetencyCard key={idx} competency={competency} allCitations={citations} />
             ))}
           </div>
         </div>
@@ -1928,7 +1997,7 @@ function ExecutionAndRoles({ doc, originalDoc, grouped, aliasMap, methodComposit
   );
 }
 
-function ActivitySpaceBlock({ activitySpace, practiceActivitySpaceNames }: { activitySpace: any; practiceActivitySpaceNames: Set<string> }) {
+function ActivitySpaceBlock({ activitySpace, practiceActivitySpaceNames, allCitations = [] }: { activitySpace: any; practiceActivitySpaceNames: Set<string>; allCitations?: any[] }) {
   const name = String(activitySpace.name ?? "");
   const description = practiceElementDescriptionForDisplay(activitySpace) ?? "";
   const narratives = activitySpace.narratives;
@@ -1990,7 +2059,7 @@ function ActivitySpaceBlock({ activitySpace, practiceActivitySpaceNames }: { act
           </Content>
         )}
 
-        <NarrativesSection narratives={narratives} compact />
+        <NarrativesSection narratives={narratives} compact allCitations={allCitations} />
 
         {/* Required Competencies */}
         {requiredCompetencies.length > 0 && (
@@ -2110,7 +2179,7 @@ function ActivitySpaceBlock({ activitySpace, practiceActivitySpaceNames }: { act
                       {actDesc}
                     </Content>
                   )}
-                  <NarrativesSection narratives={actNarratives} compact />
+                  <NarrativesSection narratives={actNarratives} compact allCitations={allCitations} />
 
                   {/* Works On - Work Products */}
                   {worksOn.length > 0 && (
@@ -2249,7 +2318,7 @@ function ActivitySpaceBlock({ activitySpace, practiceActivitySpaceNames }: { act
   );
 }
 
-function PersonaCard({ persona }: { persona: any }) {
+function PersonaCard({ persona, allCitations = [] }: { persona: any; allCitations?: any[] }) {
   const name = String(persona.name ?? "");
   const description = practiceElementDescriptionForDisplay(persona) ?? "";
   const narratives = persona.narratives;
@@ -2266,7 +2335,7 @@ function PersonaCard({ persona }: { persona: any }) {
             {description}
           </Content>
         )}
-        <NarrativesSection narratives={narratives} compact />
+        <NarrativesSection narratives={narratives} compact allCitations={allCitations} />
         {competencies.length > 0 && (
           <div style={{ marginTop: narratives && Array.isArray(narratives) && narratives.length > 0 ? "1rem" : "0.75rem" }}>
             <div style={{ fontSize: "0.75rem", fontWeight: 600, marginBottom: "0.5rem", textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)" }}>
@@ -2296,7 +2365,7 @@ function PersonaCard({ persona }: { persona: any }) {
   );
 }
 
-function PersonaGroupCard({ group }: { group: any }) {
+function PersonaGroupCard({ group, allCitations = [] }: { group: any; allCitations?: any[] }) {
   const name = String(group.name ?? "");
   const description = practiceElementDescriptionForDisplay(group) ?? "";
   const narratives = group.narratives;
@@ -2313,7 +2382,7 @@ function PersonaGroupCard({ group }: { group: any }) {
             {description}
           </Content>
         )}
-        <NarrativesSection narratives={narratives} compact />
+        <NarrativesSection narratives={narratives} compact allCitations={allCitations} />
         {personaNames.length > 0 && (
           <div style={{ marginTop: narratives && Array.isArray(narratives) && narratives.length > 0 ? "1rem" : "0.75rem" }}>
             <div style={{ fontSize: "0.75rem", fontWeight: 600, marginBottom: "0.5rem", textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)" }}>
@@ -2342,7 +2411,7 @@ function PersonaGroupCard({ group }: { group: any }) {
   );
 }
 
-function CompetencyCard({ competency }: { competency: any }) {
+function CompetencyCard({ competency, allCitations = [] }: { competency: any; allCitations?: any[] }) {
   const name = String(competency.name ?? "");
   const description = practiceElementDescriptionForDisplay(competency) ?? "";
   const narratives = competency.narratives;
@@ -2361,7 +2430,7 @@ function CompetencyCard({ competency }: { competency: any }) {
             {description}
           </Content>
         )}
-        <NarrativesSection narratives={narratives} compact />
+        <NarrativesSection narratives={narratives} compact allCitations={allCitations} />
         {levels.length > 0 && (
           <div style={{ marginTop: narratives && Array.isArray(narratives) && narratives.length > 0 ? "1rem" : "0.75rem" }}>
             <div style={{ fontSize: "0.75rem", fontWeight: 600, marginBottom: "0.5rem", textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)" }}>
@@ -2390,31 +2459,101 @@ function CompetencyCard({ competency }: { competency: any }) {
 // NAVIGATION SIDEBAR
 // ========================================================================
 
-function NavigationSidebar() {
-  const navItems = [
-    { id: "outline", label: "Report Outline" },
-    { id: "executive-context", label: "1. Executive Context" },
-    { id: "method-focus", label: "2. Method Focus" },
-    { id: "lifecycle-orchestration", label: "3. Lifecycle Orchestration" },
-    { id: "core-concepts", label: "4. Core Concepts & Progression" },
-    { id: "evidentiary-artifacts", label: "5. Evidentiary Artifacts" },
-    { id: "execution-roles", label: "6. Execution & Roles" },
-  ];
+function NavigationSidebar({ doc, grouped }: { doc: any; grouped: any[] }) {
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(["lifecycle", "alphas", "workproducts", "activities"]));
+  const [activeSection, setActiveSection] = useState<string>("");
 
-  const navItemStyle: CSSProperties = {
+  // Track scroll position to highlight active section
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        "outline", "executive-context", "method-focus", "lifecycle-orchestration",
+        "core-concepts", "evidentiary-artifacts", "execution-roles"
+      ];
+
+      const scrollPosition = window.scrollY + 100; // Offset for header
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sections[i]);
+        if (element && element.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Set initial active section
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(sectionId)) {
+        next.delete(sectionId);
+      } else {
+        next.add(sectionId);
+      }
+      return next;
+    });
+  };
+
+  const patterns = Array.isArray(doc.patterns) ? doc.patterns : [];
+  const sortedPatterns = patterns.slice().sort((a: any, b: any) => {
+    const aIsLifecycle = a.type === "lifecycle" || a.category === "lifecycle" ||
+      String(a.name ?? "").toLowerCase().includes("lifecycle");
+    const bIsLifecycle = b.type === "lifecycle" || b.category === "lifecycle" ||
+      String(b.name ?? "").toLowerCase().includes("lifecycle");
+    if (aIsLifecycle && !bIsLifecycle) return -1;
+    if (!aIsLifecycle && bIsLifecycle) return 1;
+    const aCount = Array.isArray(a.patternViews) ? a.patternViews.length : 0;
+    const bCount = Array.isArray(b.patternViews) ? b.patternViews.length : 0;
+    return bCount - aCount;
+  });
+
+  const workProducts = Array.isArray(doc.workProducts) ? doc.workProducts : [];
+
+  const navItemStyle = (isActive: boolean = false): CSSProperties => ({
     display: "block",
-    padding: "0.75rem 1rem",
-    color: "var(--pf-v6-global--Color--100)",
+    padding: "0.5rem 1rem",
+    color: isActive ? "var(--pf-v6-global--primary-color--100)" : "var(--pf-v6-global--Color--100)",
+    textDecoration: "none",
+    borderLeft: isActive ? "3px solid var(--pf-v6-global--primary-color--100)" : "3px solid transparent",
+    fontSize: "0.875rem",
+    marginBottom: "0.125rem",
+    transition: "all 0.2s ease",
+    fontWeight: isActive ? 600 : 400,
+  });
+
+  const subItemStyle: CSSProperties = {
+    display: "block",
+    padding: "0.5rem 1rem 0.5rem 2rem",
+    color: "var(--pf-v6-global--Color--200)",
     textDecoration: "none",
     borderLeft: "3px solid transparent",
+    fontSize: "0.8rem",
+    marginBottom: "0.125rem",
+    transition: "all 0.2s ease",
+  };
+
+  const sectionHeaderStyle: CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "0.5rem 1rem",
+    cursor: "pointer",
     fontSize: "0.875rem",
-    marginBottom: "0.25rem",
+    fontWeight: 600,
+    color: "var(--pf-v6-global--Color--100)",
+    borderLeft: "3px solid transparent",
     transition: "all 0.2s ease",
   };
 
   return (
     <nav style={{
-      width: 280,
+      width: 300,
       flexShrink: 0,
       borderRight: "1px solid var(--pf-v6-global--BorderColor--100)",
       padding: "2rem 0",
@@ -2425,28 +2564,226 @@ function NavigationSidebar() {
       overflowY: "auto",
       backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
     }}>
-      <div style={{ padding: "0 1.5rem", marginBottom: "1.5rem" }}>
-        <Title headingLevel="h3" size="md" style={{ textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)" }}>
+      <div style={{ padding: "0 1.5rem", marginBottom: "1rem" }}>
+        <Title headingLevel="h3" size="md" style={{ textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)", fontSize: "0.875rem" }}>
           Contents
         </Title>
       </div>
-      {navItems.map((item) => (
-        <a
-          key={item.id}
-          href={`#${item.id}`}
-          style={navItemStyle}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
-            e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "transparent";
-            e.currentTarget.style.borderLeftColor = "transparent";
-          }}
-        >
-          {item.label}
-        </a>
-      ))}
+
+      <a
+        href="#outline"
+        style={navItemStyle(activeSection === "outline")}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+          if (activeSection !== "outline") e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = "transparent";
+          if (activeSection !== "outline") e.currentTarget.style.borderLeftColor = "transparent";
+        }}
+      >
+        Report Outline
+      </a>
+
+      <a
+        href="#executive-context"
+        style={navItemStyle(activeSection === "executive-context")}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+          if (activeSection !== "executive-context") e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = "transparent";
+          if (activeSection !== "executive-context") e.currentTarget.style.borderLeftColor = "transparent";
+        }}
+      >
+        1. Executive Context
+      </a>
+
+      <a
+        href="#method-focus"
+        style={navItemStyle(activeSection === "method-focus")}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+          if (activeSection !== "method-focus") e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = "transparent";
+          if (activeSection !== "method-focus") e.currentTarget.style.borderLeftColor = "transparent";
+        }}
+      >
+        2. Method Focus
+      </a>
+
+      {/* Lifecycle Orchestration with subsections */}
+      {sortedPatterns.length > 0 && (
+        <div>
+          <div
+            style={sectionHeaderStyle}
+            onClick={() => toggleSection("lifecycle")}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
+          >
+            <a href="#lifecycle-orchestration" style={{ textDecoration: "none", color: "inherit", flex: 1 }}>
+              3. Lifecycle Orchestration
+            </a>
+            <span style={{ fontSize: "0.75rem" }}>{expandedSections.has("lifecycle") ? "▼" : "▶"}</span>
+          </div>
+          {expandedSections.has("lifecycle") && sortedPatterns.map((pattern: any, idx: number) => {
+            const name = String(pattern.name ?? "");
+            return (
+              <a
+                key={idx}
+                href={`#pattern-${slug(name)}`}
+                style={subItemStyle}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                  e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.borderLeftColor = "transparent";
+                }}
+              >
+                {name}
+              </a>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Core Concepts with subsections (Alphas) */}
+      {grouped.some((g: any) => g.alphas?.length > 0) && (
+        <div>
+          <div
+            style={sectionHeaderStyle}
+            onClick={() => toggleSection("alphas")}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
+          >
+            <a href="#core-concepts" style={{ textDecoration: "none", color: "inherit", flex: 1 }}>
+              4. Core Concepts
+            </a>
+            <span style={{ fontSize: "0.75rem" }}>{expandedSections.has("alphas") ? "▼" : "▶"}</span>
+          </div>
+          {expandedSections.has("alphas") && grouped.map((focusGroup: any, gIdx: number) => {
+            const alphas = focusGroup.alphas || [];
+            return alphas.map((alpha: any, aIdx: number) => {
+              const name = String(alpha.name ?? "");
+              return (
+                <a
+                  key={`${gIdx}-${aIdx}`}
+                  href={`#alpha-${slug(name)}`}
+                  style={subItemStyle}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                    e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.borderLeftColor = "transparent";
+                  }}
+                >
+                  {name}
+                </a>
+              );
+            });
+          })}
+        </div>
+      )}
+
+      {/* Work Products with subsections */}
+      {workProducts.length > 0 && (
+        <div>
+          <div
+            style={sectionHeaderStyle}
+            onClick={() => toggleSection("workproducts")}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
+          >
+            <a href="#evidentiary-artifacts" style={{ textDecoration: "none", color: "inherit", flex: 1 }}>
+              5. Evidentiary Artifacts
+            </a>
+            <span style={{ fontSize: "0.75rem" }}>{expandedSections.has("workproducts") ? "▼" : "▶"}</span>
+          </div>
+          {expandedSections.has("workproducts") && workProducts.map((wp: any, idx: number) => {
+            const name = String(wp.name ?? "");
+            return (
+              <a
+                key={idx}
+                href={`#workproduct-${slug(name)}`}
+                style={subItemStyle}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                  e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.borderLeftColor = "transparent";
+                }}
+              >
+                {name}
+              </a>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Execution & Roles with subsections (Activity Spaces) */}
+      {grouped.some((g: any) => g.activitySpaces?.length > 0) && (
+        <div>
+          <div
+            style={sectionHeaderStyle}
+            onClick={() => toggleSection("activities")}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
+          >
+            <a href="#execution-roles" style={{ textDecoration: "none", color: "inherit", flex: 1 }}>
+              6. Execution & Roles
+            </a>
+            <span style={{ fontSize: "0.75rem" }}>{expandedSections.has("activities") ? "▼" : "▶"}</span>
+          </div>
+          {expandedSections.has("activities") && grouped.map((focusGroup: any, gIdx: number) => {
+            const activitySpaces = focusGroup.activitySpaces || [];
+            return activitySpaces.map((space: any, sIdx: number) => {
+              const name = String(space.name ?? "");
+              return (
+                <a
+                  key={`${gIdx}-${sIdx}`}
+                  href={`#activityspace-${slug(name)}`}
+                  style={subItemStyle}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                    e.currentTarget.style.borderLeftColor = "var(--pf-v6-global--primary-color--100)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.borderLeftColor = "transparent";
+                  }}
+                >
+                  {name}
+                </a>
+              );
+            });
+          })}
+        </div>
+      )}
     </nav>
   );
 }
@@ -2582,13 +2919,15 @@ export function BrowseView({
     : {};
 
   return (
-    <div style={{
-      display: "flex",
-      fontFamily: '"Red Hat Text", RedHatText, "Overpass", Arial, sans-serif',
-      minHeight: embed ? undefined : "100vh",
-      backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
-    }}>
-      {!embed && <NavigationSidebar />}
+    <>
+      {!embed && <style>{`html { scroll-behavior: smooth; }`}</style>}
+      <div style={{
+        display: "flex",
+        fontFamily: '"Red Hat Text", RedHatText, "Overpass", Arial, sans-serif',
+        minHeight: embed ? undefined : "100vh",
+        backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+      }}>
+        {!embed && <NavigationSidebar doc={baselineForRender} grouped={grouped} />}
 
       <main style={{
         flex: 1,
@@ -2616,6 +2955,7 @@ export function BrowseView({
 
         <ExecutionAndRoles doc={baselineForRender} originalDoc={originalDocRecord} grouped={grouped} aliasMap={aliasMap} methodComposition={effectiveMethodComposition} />
       </main>
-    </div>
+      </div>
+    </>
   );
 }

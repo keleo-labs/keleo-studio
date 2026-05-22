@@ -20,6 +20,7 @@ import {
   personaCompetencyDisplayRefs,
   practiceElementDescriptionForDisplay,
 } from "@/lib/ir";
+import { formatAPA7Citation } from "@/lib/citationUtils";
 import { flattenPracticeElementTags, normalizePracticeElementTags } from "@/lib/practiceElementTags";
 import { formatPatternViewAlphaInstance, parsePatternViewAlphaState } from "@/lib/patternView";
 import { practiceNeedsLibraryResolution, type BrowseDependencyArtifact } from "@/lib/library/practiceDependencyResolution";
@@ -1259,6 +1260,47 @@ function NarrativeTypesSpineSection({
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+function CitationsSection({
+  citations,
+  t,
+  browse,
+}: {
+  citations: any[];
+  t: LanguagePack;
+  browse: boolean;
+}) {
+  if (!citations || citations.length === 0) return null;
+
+  if (browse) {
+    return (
+      <section id="browse-section-citations" className="scroll-mt-4 border-t border-[var(--border)] pt-6">
+        <h2 className={`${BROWSE.h2Global}`}>References</h2>
+        <ul className="mt-4 list-none space-y-3 pl-0">
+          {citations.map((citation: any, idx: number) => (
+            <li key={idx} className={`${BROWSE.body} leading-relaxed`}>
+              <div dangerouslySetInnerHTML={{ __html: formatAPA7Citation(citation) }} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  }
+
+  // Print layout
+  return (
+    <div style={{ borderTop: "1px solid var(--border)", paddingTop: 16, marginTop: 16 }}>
+      <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 12 }}>References</h2>
+      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+        {citations.map((citation: any, idx: number) => (
+          <li key={idx} style={{ marginBottom: 8, lineHeight: 1.6 }}>
+            <div dangerouslySetInnerHTML={{ __html: formatAPA7Citation(citation) }} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -3132,6 +3174,10 @@ function PracticeBaselineView({
         />
       ) : null}
 
+      {!browse && Array.isArray(doc.citations) && doc.citations.length > 0 ? (
+        <CitationsSection citations={doc.citations} t={t} browse={false} />
+      ) : null}
+
       {browse ? (
         <PracticeBaselineCompetenciesSection browse baseline={baseline} t={t} competencyId={competencyId} />
       ) : null}
@@ -3166,6 +3212,10 @@ function PracticeBaselineView({
           browse
           narrativeTypeIdPv={narrativeTypeIdPv}
         />
+      ) : null}
+
+      {browse && Array.isArray(doc.citations) && doc.citations.length > 0 ? (
+        <CitationsSection citations={doc.citations} t={t} browse />
       ) : null}
     </div>
   );

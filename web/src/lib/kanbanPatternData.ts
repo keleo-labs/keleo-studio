@@ -80,7 +80,7 @@ export function extractKanbanPatternData(
 
   for (const pv of patternViews) {
     const column: KanbanColumn = {
-      id: `pv:${pv.name}`,
+      id: `pv:${pv.seq ?? 0}:${pv.name}`,
       name: pv.name ?? "",
       description: pv.description,
       seq: pv.seq ?? 0,

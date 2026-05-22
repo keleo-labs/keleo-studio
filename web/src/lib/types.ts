@@ -45,10 +45,19 @@ export type Narrative = PracticeElementIdentity & {
   narratives?: Narrative[];
   narrativeTypeName: string;
   narrativeContexts: NarrativeContext[];
+  citationNames?: string[];
 };
 
 export type PracticeElement = PracticeElementIdentity & {
   narratives?: Narrative[];
+};
+
+/** Bibliographic reference (language.schema.json Citation). */
+export type Citation = PracticeElement & {
+  authors: string[];
+  date: string;
+  source: string;
+  url?: string;
 };
 
 export type AlphaContribution = {
@@ -155,6 +164,7 @@ export type PracticeBaseline = PracticeElement & {
   version: string;
   keywords: string[];
   narrativeTypes?: NarrativeType[];
+  citations?: Citation[];
 };
 
 export type WorkProduct = PracticeElement & {
@@ -217,6 +227,8 @@ export type Practice = PracticeElement & {
   workProductInstances?: WorkProductInstanceNameRow[];
   /** Baseline-overlay narrative spine types (merged like focuses when composing methods). */
   narrativeTypes?: NarrativeType[];
+  /** Bibliographic references elaborated by this practice. */
+  citations?: Citation[];
 };
 
 export type Method = PracticeElement & {
@@ -228,5 +240,7 @@ export type Method = PracticeElement & {
    * Each layer overlays the accumulator under {@link compositePracticeFromMethod}: earlier layers keep `description` on same-named rows when later layers redefine them.
    */
   practices?: Practice[];
+  /** Bibliographic references defined in this method (merged from baseline and practices). */
+  citations?: Citation[];
 };
 
