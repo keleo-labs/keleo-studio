@@ -1484,6 +1484,136 @@
             "howToUse": "Make recommendations that solve problems or help to develop a new strategy. Make an effort to sound authoritative and certain in your choices."
           }
         ]
+      },
+      {
+        "name": "SDLC",
+        "description": "Software Development Lifecycle pattern for systematic technical delivery from requirements through maintenance.",
+        "narrativeElements": [
+          {
+            "name": "Plan",
+            "description": "Requirements gathering and project planning phase.",
+            "howToUse": "Define objectives, scope, requirements, and success criteria for the initiative."
+          },
+          {
+            "name": "Design",
+            "description": "Architecture and detailed design phase.",
+            "howToUse": "Establish technical architecture, design patterns, and implementation approach."
+          },
+          {
+            "name": "Build",
+            "description": "Implementation and construction phase.",
+            "howToUse": "Develop, configure, and assemble the solution components."
+          },
+          {
+            "name": "Test",
+            "description": "Validation and quality assurance phase.",
+            "howToUse": "Verify functionality, performance, security, and integration through testing."
+          },
+          {
+            "name": "Deploy",
+            "description": "Release and deployment phase.",
+            "howToUse": "Roll out to production environment with appropriate deployment strategy."
+          },
+          {
+            "name": "Maintain",
+            "description": "Operations and continuous improvement phase.",
+            "howToUse": "Monitor, optimize, patch, and evolve the solution in production."
+          }
+        ]
+      },
+      {
+        "name": "PDCA",
+        "description": "Plan-Do-Check-Act cycle (Deming Cycle) for continuous improvement and iterative refinement.",
+        "narrativeElements": [
+          {
+            "name": "Plan",
+            "description": "Establish objectives and processes.",
+            "howToUse": "Identify improvement opportunity, analyze current state, and plan intervention."
+          },
+          {
+            "name": "Do",
+            "description": "Implement the plan on small scale.",
+            "howToUse": "Execute the planned change or experiment in controlled environment."
+          },
+          {
+            "name": "Check",
+            "description": "Measure and evaluate results.",
+            "howToUse": "Assess outcomes against objectives, identify gaps and learnings."
+          },
+          {
+            "name": "Act",
+            "description": "Standardize or iterate based on learnings.",
+            "howToUse": "Scale successful changes, adjust plan based on findings, repeat cycle."
+          }
+        ]
+      },
+      {
+        "name": "Build-Measure-Learn",
+        "description": "Lean Startup cycle for validating assumptions through rapid experimentation and feedback.",
+        "narrativeElements": [
+          {
+            "name": "Build",
+            "description": "Create minimum viable solution.",
+            "howToUse": "Develop smallest increment that can test key hypothesis or assumption."
+          },
+          {
+            "name": "Measure",
+            "description": "Collect data and feedback.",
+            "howToUse": "Instrument, observe, and gather quantitative and qualitative evidence."
+          },
+          {
+            "name": "Learn",
+            "description": "Analyze and decide next iteration.",
+            "howToUse": "Synthesize findings, validate or invalidate hypothesis, pivot or persevere."
+          }
+        ]
+      },
+      {
+        "name": "Design-Build-Run-Optimize",
+        "description": "Architectural lifecycle for infrastructure and platform engineering spanning conception through continuous improvement.",
+        "narrativeElements": [
+          {
+            "name": "Design",
+            "description": "Architecture definition and planning.",
+            "howToUse": "Define architecture, topology, technology choices, and capacity planning."
+          },
+          {
+            "name": "Build",
+            "description": "Provisioning and configuration.",
+            "howToUse": "Deploy infrastructure, configure systems, establish integrations and connectivity."
+          },
+          {
+            "name": "Run",
+            "description": "Operations and steady-state management.",
+            "howToUse": "Monitor health, respond to incidents, maintain availability and performance."
+          },
+          {
+            "name": "Optimize",
+            "description": "Continuous improvement and evolution.",
+            "howToUse": "Tune performance, reduce costs, enhance capabilities based on operational insights."
+          }
+        ]
+      },
+      {
+        "name": "Crawl-Walk-Run",
+        "description": "Maturity progression model for incremental capability building and adoption.",
+        "narrativeElements": [
+          {
+            "name": "Crawl",
+            "description": "Initial capability establishment.",
+            "howToUse": "Establish foundational capability with limited scope, manual processes, learning focus."
+          },
+          {
+            "name": "Walk",
+            "description": "Capability refinement and scaling.",
+            "howToUse": "Expand scope, introduce automation, standardize processes, build confidence."
+          },
+          {
+            "name": "Run",
+            "description": "Mature, optimized operation.",
+            "howToUse": "Full automation, enterprise scale, optimization focus, continuous evolution."
+          }
+        ]
       }
 
   ]
