@@ -9,6 +9,7 @@
       "description": "Common identity and prose fields for named practice artifacts. tags optional: omit, structured buckets, or legacy string[].",
       "required": ["name", "description"],
       "properties": {
+        "kind": { "type": "string", "enum": ["practice", "method", "practiceBaseline", "practiceElementAlias", "workProduct", "workProductInstance", "alpha", "alphaInstance", "activitySpace", "activity", "persona", "personaGroup", "pattern", "patternView", "narrativeType", "citation"] },
         "name": { "type": "string" },
         "description": { "type": "string" },
         "tags": {
