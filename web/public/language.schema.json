@@ -680,7 +680,22 @@
       ]
     },
     "PracticeBaseline": {
-      "allOf": [{ "$ref": "#/$defs/PracticeBaselineShape" }],
+      "allOf": [
+        { "$ref": "#/$defs/PracticeBaselineShape" },
+        {
+          "type": "object",
+          "properties": {
+            "baselinePracticeNames": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Name of another PracticeBaseline (symbolic link; must match another PracticeBaseline.name in the registry)."
+              },
+              "description": "Optional array of other PracticeBaseline names this baseline depends on (0..* symbolic links; do not embed baseline objects)."
+            }
+          }
+        }
+      ],
       "unevaluatedProperties": false
     },
     "Practice": {
