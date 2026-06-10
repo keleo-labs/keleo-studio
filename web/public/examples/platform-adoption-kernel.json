@@ -570,6 +570,10 @@
         {
           "alphaName": "Opportunity",
           "stateName": "Benefit Accrued"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Value Yielding"
         }
       ],
       "requiredCompetencies": [
@@ -845,6 +849,21 @@
         {
           "alphaName": "Team",
           "stateName": "Performing"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Management"
+      ]
+    },
+    {
+      "name": "Transition Team",
+      "description": "Plan and execute team dissolution, knowledge transfer, and member reassignment when platform initiatives conclude or teams are repurposed.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Team",
+          "stateName": "Adjourned"
         }
       ],
       "requiredCompetencies": [
