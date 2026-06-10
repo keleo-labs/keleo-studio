@@ -104,6 +104,22 @@
       },
       "additionalProperties": false
     },
+    "AlphaRelationship": {
+      "type": "object",
+      "description": "Named semantic relationship to another alpha. Provides rich relationship semantics beyond contribution/specialization (e.g., 'depends on', 'influences', 'constrains', 'validates').",
+      "required": ["relationship", "alphaName"],
+      "properties": {
+        "relationship": {
+          "type": "string",
+          "description": "The type of relationship (e.g., 'depends on', 'influences', 'constrains', 'validates', 'precedes', 'enables'). Use domain-appropriate relationship names."
+        },
+        "alphaName": {
+          "type": "string",
+          "description": "Name of the related Alpha in the same baseline (symbolic link; must match Alpha.name)."
+        }
+      },
+      "additionalProperties": false
+    },
     "PracticeElementAlias": {
       "type": "object",
       "description": "Local name alias: aliasName is treated as an alternate string for (practiceElementType, practiceElementName) within the same Practice document (language.mmd). Not a PracticeElement subclass; embedded only under Practice.practiceElementAliases.",
@@ -158,12 +174,12 @@
             },
             "contributesTo": {
               "type": "string",
-              "description": "Optional name of another Alpha in the same baseline (0..1 association); do not embed an Alpha object."
+              "description": "Optional name of another Alpha in the same baseline (0..1 specialization relationship). Used to create specialized alphas that contribute to/refine baseline alphas (e.g., 'Platform Capability' contributesTo 'Platform'). Do not embed an Alpha object."
             },
-            "supportingAlphas": {
+            "relatesTo": {
               "type": "array",
-              "items": { "type": "string" },
-              "description": "Optional names of other Alphas in the same baseline (0..*); each entry must match Alpha.name. Declares contributing / child alphas nested under this rollup alpha; unioned when combining practices."
+              "items": { "$ref": "#/$defs/AlphaRelationship" },
+              "description": "Optional array of named semantic relationships to other alphas (0..*). Use for dependencies, influences, constraints, or other domain-specific relationships beyond specialization."
             }
           }
         }

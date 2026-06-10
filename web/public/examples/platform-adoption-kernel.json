@@ -24,6 +24,20 @@
       "name": "Opportunity",
       "description": "The foundational business drivers dictating the platform transformation.",
       "focusName": "Value",
+      "relatesTo": [
+        {
+          "relationship": "identified by",
+          "alphaName": "Stakeholders"
+        },
+        {
+          "relationship": "drives",
+          "alphaName": "Requirements"
+        },
+        {
+          "relationship": "justifies",
+          "alphaName": "Platform Value And Economics"
+        }
+      ],
       "states": [
         {
           "name": "Initiated",
@@ -67,6 +81,16 @@
       "name": "Platform Value And Economics",
       "description": "The financial and outcome-based justification and accounting for the platform.",
       "focusName": "Value",
+      "relatesTo": [
+        {
+          "relationship": "identifies ROI for",
+          "alphaName": "Platform"
+        },
+        {
+          "relationship": "communicates value to",
+          "alphaName": "Stakeholders"
+        }
+      ],
       "states": [
         {
           "name": "Modeled",
@@ -92,6 +116,20 @@
       "name": "Stakeholders",
       "description": "The individuals, groups, or organizations affected by, or able to affect, the platform.",
       "focusName": "Value",
+      "relatesTo": [
+        {
+          "relationship": "provides",
+          "alphaName": "Requirements"
+        },
+        {
+          "relationship": "funds",
+          "alphaName": "Platform"
+        },
+        {
+          "relationship": "provides feedback to",
+          "alphaName": "Team"
+        }
+      ],
       "states": [
         {
           "name": "Recognized",
@@ -135,6 +173,20 @@
       "name": "Requirements",
       "description": "The capabilities, features, and constraints the platform must satisfy.",
       "focusName": "Solution",
+      "relatesTo": [
+        {
+          "relationship": "guides design of",
+          "alphaName": "Platform"
+        },
+        {
+          "relationship": "defines scope for",
+          "alphaName": "Work"
+        },
+        {
+          "relationship": "guides design of",
+          "alphaName": "Platform Consumption Interface"
+        }
+      ],
       "states": [
         {
           "name": "Conceived",
@@ -178,6 +230,24 @@
       "name": "Platform",
       "description": "The unified system of infrastructure, compute resources, networking, storage, and foundational services that provide the technical foundation for hosting and operating platform assets. This includes clusters, virtual machines, container orchestrators, databases, message queues, load balancers, and other infrastructure components that form the substrate upon which applications and services run.",
       "focusName": "Solution",
+      "relatesTo": [
+        {
+          "relationship": "built by",
+          "alphaName": "Team"
+        },
+        {
+          "relationship": "hosts",
+          "alphaName": "Platform Asset"
+        },
+        {
+          "relationship": "exposes",
+          "alphaName": "Platform Consumption Interface"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Platform Governance"
+        }
+      ],
       "states": [
         {
           "name": "Architecture Selected",
@@ -227,6 +297,20 @@
       "name": "Platform Consumption Interface",
       "description": "The means by which consumers discover, access, and consume platform capabilities, including developer portals, service catalogs, CLI tools, APIs, SDKs, documentation hubs, golden path templates, and self-service workflows that abstract the underlying platform complexity and provide a developer-friendly consumption experience.",
       "focusName": "Solution",
+      "relatesTo": [
+        {
+          "relationship": "enables access to",
+          "alphaName": "Platform"
+        },
+        {
+          "relationship": "facilitates deployment of",
+          "alphaName": "Platform Asset"
+        },
+        {
+          "relationship": "drives adoption through",
+          "alphaName": "Stakeholders"
+        }
+      ],
       "states": [
         {
           "name": "Envisioned",
@@ -264,6 +348,20 @@
       "name": "Platform Asset",
       "description": "The individual applications, services, databases, message streams, or workloads that consumers create, deploy, and operate on the platform infrastructure. These are the business-value-delivering artifacts that run atop the platform substrate and are accessed through the platform consumption interface.",
       "focusName": "Solution",
+      "relatesTo": [
+        {
+          "relationship": "realizes",
+          "alphaName": "Platform Value And Economics"
+        },
+        {
+          "relationship": "addresses",
+          "alphaName": "Opportunity"
+        },
+        {
+          "relationship": "consumes",
+          "alphaName": "Platform"
+        }
+      ],
       "states": [
         {
           "name": "Identified",
@@ -313,6 +411,20 @@
       "name": "Work",
       "description": "The activities required to build, operate, and maintain the platform.",
       "focusName": "Endeavor",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Platform"
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Platform Consumption Interface"
+        },
+        {
+          "relationship": "delivers",
+          "alphaName": "Platform Asset"
+        }
+      ],
       "states": [
         {
           "name": "Initiated",
@@ -356,6 +468,20 @@
       "name": "Team",
       "description": "The group of individuals responsible for the platform's success.",
       "focusName": "Endeavor",
+      "relatesTo": [
+        {
+          "relationship": "performs",
+          "alphaName": "Work"
+        },
+        {
+          "relationship": "applies",
+          "alphaName": "Way Of Working"
+        },
+        {
+          "relationship": "manages",
+          "alphaName": "Platform Risk And Compliance"
+        }
+      ],
       "states": [
         {
           "name": "Seeded",
@@ -393,6 +519,16 @@
       "name": "Way Of Working",
       "description": "The tailored set of practices, tools, operational workflows, and industry alignments used by a team.",
       "focusName": "Endeavor",
+      "relatesTo": [
+        {
+          "relationship": "guides",
+          "alphaName": "Work"
+        },
+        {
+          "relationship": "incorporates",
+          "alphaName": "Platform Governance"
+        }
+      ],
       "states": [
         {
           "name": "Principles Established",
@@ -436,6 +572,20 @@
       "name": "Platform Governance",
       "description": "Automated controls, policies, and guardrails",
       "focusName": "Endeavor",
+      "relatesTo": [
+        {
+          "relationship": "constrains",
+          "alphaName": "Platform"
+        },
+        {
+          "relationship": "enforces policies on",
+          "alphaName": "Platform Asset"
+        },
+        {
+          "relationship": "mitigates",
+          "alphaName": "Platform Risk And Compliance"
+        }
+      ],
       "states": [
         {
           "name": "Scoped",
@@ -461,6 +611,20 @@
       "name": "Platform Risk And Compliance",
       "description": "Measures the business risk evaluation, security posture validation, and compliance mitigation maturity.",
       "focusName": "Value",
+      "relatesTo": [
+        {
+          "relationship": "impacts",
+          "alphaName": "Opportunity"
+        },
+        {
+          "relationship": "influences",
+          "alphaName": "Requirements"
+        },
+        {
+          "relationship": "informs",
+          "alphaName": "Platform Governance"
+        }
+      ],
       "states": [
         {
           "name": "Identified",
@@ -492,6 +656,20 @@
       "name": "Organizational Change",
       "description": "The organizational patterns, business rationale, and change management required to support the platform transformation.",
       "focusName": "Endeavor",
+      "relatesTo": [
+        {
+          "relationship": "enables",
+          "alphaName": "Team"
+        },
+        {
+          "relationship": "informs",
+          "alphaName": "Way Of Working"
+        },
+        {
+          "relationship": "supports adoption of",
+          "alphaName": "Platform"
+        }
+      ],
       "states": [
         {
           "name": "Recognized",
