@@ -4,6 +4,23 @@
   "title": "Practice language (from language.mmd)",
   "description": "JSON Schema derived from the Mermaid classDiagram in language.mmd. Identity is by name; most cross-links are string names (not embedded objects). Root validation discriminates Practice vs Method vs PracticeBaseline. Method can use embedded objects (baselinePractice + practices) or string references (baselinePracticeName + practiceNames) or a mix.",
   "$defs": {
+    "AssetReference": {
+      "type": "object",
+      "description": "Reference to a visual asset with semantic type classification. Enables rich visual associations for practice elements.",
+      "required": ["assetName", "type"],
+      "properties": {
+        "assetName": {
+          "type": "string",
+          "description": "Name of an Asset in the same aggregate (symbolic link; must match Asset.name in top-level assets array)."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["icon", "illustrative", "template", "diagram"],
+          "description": "Semantic type of asset usage. icon: UI markers, visual identity (e.g., alpha icons, competency badges). illustrative: Documentation diagrams, architecture visualizations, workflow charts. template: Reusable documents, forms, decision records. diagram: Technical architecture, state progression, pattern orchestration."
+        }
+      },
+      "additionalProperties": false
+    },
     "PracticeElement": {
       "type": "object",
       "description": "Common identity and prose fields for named practice artifacts. tags optional: omit, structured buckets, or legacy string[].",
@@ -47,6 +64,11 @@
           "type": "array",
           "description": "Optional narrative breakdown embedded on any practice element (language.mmd).",
           "items": { "$ref": "#/$defs/Narrative" }
+        },
+        "assetNames": {
+          "type": "array",
+          "description": "Optional array of asset references with semantic type classification (0..*). Enables multiple visual associations per element (e.g., alpha with both icon and state diagram).",
+          "items": { "$ref": "#/$defs/AssetReference" }
         }
       }
     },
@@ -642,6 +664,71 @@
       ],
       "unevaluatedProperties": false
     },
+    "Asset": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique identifier for the asset (e.g., 'pattern-lifecycle', 'team-topology-diagram')"
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of what the asset depicts and its purpose"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["image", "diagram", "template", "icon", "font-character"],
+          "description": "Type of asset being referenced"
+        },
+        "path": {
+          "type": "string",
+          "description": "Relative path to the asset file (e.g., 'assets/diagrams/pattern-lifecycle.svg')"
+        },
+        "mimeType": {
+          "type": "string",
+          "description": "MIME type of the asset (e.g., 'image/svg+xml', 'image/png', 'application/pdf')"
+        },
+        "checksum": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "description": "SHA-256 checksum for integrity verification (format: 'sha256:...')"
+        },
+        "dataUri": {
+          "type": "string",
+          "pattern": "^data:[^;]+;base64,",
+          "description": "Optional base64-encoded data URI for small assets (<10KB)"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional external URL for remotely-hosted assets"
+        },
+        "fontFamily": {
+          "type": "string",
+          "description": "Font family name for font-character assets (e.g., 'Font Awesome 6 Free', 'Material Icons')"
+        },
+        "fontCharacter": {
+          "type": "string",
+          "description": "Unicode character or font-specific identifier (e.g., '\\uf013', 'settings', 'fa-cog')"
+        },
+        "fontWeight": {
+          "type": "string",
+          "description": "Font weight for font-character assets (e.g., '400', '900', 'bold')"
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": { "type": { "const": "font-character" } }
+          },
+          "then": {
+            "required": ["fontFamily", "fontCharacter"]
+          }
+        }
+      ]
+    },
     "PracticeBaselineShape": {
       "description": "PracticeElement + baseline arrays and metadata (no document-level unevaluatedProperties; compose into PracticeBaseline or Practice).",
       "allOf": [
@@ -690,6 +777,11 @@
               "type": "array",
               "description": "Bibliographic references defined in this baseline.",
               "items": { "$ref": "#/$defs/Citation" }
+            },
+            "assets": {
+              "type": "array",
+              "description": "Optional array of visual assets (diagrams, templates, icons) referenced by practice elements",
+              "items": { "$ref": "#/$defs/Asset" }
             }
           }
         }
@@ -804,6 +896,11 @@
               "type": "array",
               "items": { "$ref": "#/$defs/Citation" },
               "description": "Bibliographic references elaborated by this practice."
+            },
+            "assets": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Asset" },
+              "description": "Optional array of visual assets (diagrams, templates, icons) referenced by practice elements"
             }
           }
         }
@@ -838,6 +935,11 @@
               "type": "array",
               "items": { "$ref": "#/$defs/Citation" },
               "description": "Bibliographic references defined in this method (merged from baseline and practices)."
+            },
+            "assets": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Asset" },
+              "description": "Optional array of visual assets for the entire method (shared across practices)"
             }
           },
           "oneOf": [
