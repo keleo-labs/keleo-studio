@@ -17,6 +17,35 @@ import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePractice
 import { classifyLibraryRoot } from "@/lib/library/classify";
 import type { Method } from "@/lib/types";
 
+/** Download PDF for a practice/method/baseline document */
+async function downloadPDF(doc: any, methodComposition: Method | null, bookMode: boolean, forceBookMode: boolean = false): Promise<void> {
+  const response = await fetch("/api/pdf", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      doc,
+      methodComposition,
+      bookMode: forceBookMode || bookMode,
+      organizingPrinciple: "pattern",
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({ error: "Failed to generate PDF" }));
+    throw new Error(errorData.error || `PDF generation failed (${response.status})`);
+  }
+
+  const blob = await response.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `document-${Date.now()}.pdf`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
 function slug(s: unknown) {
   return String(s ?? "")
     .trim()
@@ -59,6 +88,8 @@ export function LibraryItemFocus({ documentId }: { documentId: string }) {
   const [error, setError] = useState<string | null>(null);
   const [doc, setDoc] = useState<any>(null);
   const [flattenError, setFlattenError] = useState<string | null>(null);
+  const [pdfBusy, setPdfBusy] = useState(false);
+  const [pdfError, setPdfError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadDocument() {
@@ -144,6 +175,24 @@ export function LibraryItemFocus({ documentId }: { documentId: string }) {
     return calculateAlphaScores(sourceDocRecord, baseline, grouped);
   }, [baseline, grouped, sourceDocRecord]);
 
+  // Determine document kind for PDF options (must be before conditional returns)
+  const docKind = useMemo(() => classifyLibraryRoot(doc), [doc]);
+  const isMethod = docKind === 'method';
+
+  const handleDownloadPDF = async (useBookMode: boolean) => {
+    setPdfBusy(true);
+    setPdfError(null);
+    try {
+      const methodComp = isMethod ? (doc as Method) : null;
+      // For library downloads, ALWAYS use book mode (practices get practice book, methods get method book)
+      await downloadPDF(doc, methodComp, useBookMode, true);
+    } catch (e) {
+      setPdfError(e instanceof Error ? e.message : "PDF download failed");
+    } finally {
+      setPdfBusy(false);
+    }
+  };
+
   if (loading || resolveBusy) {
     return (
       <div style={{ padding: "1rem", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
@@ -170,6 +219,41 @@ export function LibraryItemFocus({ documentId }: { documentId: string }) {
 
   return (
     <div style={{ padding: "1rem" }}>
+      {/* PDF Download Action */}
+      <div style={{
+        marginBottom: "1rem",
+        paddingBottom: "1rem",
+        borderBottom: "1px solid var(--pf-v6-global--BorderColor--100)",
+        display: "flex",
+        gap: "0.5rem",
+        alignItems: "center",
+      }}>
+        <button
+          type="button"
+          disabled={pdfBusy}
+          onClick={() => void handleDownloadPDF(true)}
+          style={{
+            borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+            border: "1px solid var(--pf-v6-global--primary-color--100)",
+            backgroundColor: "var(--pf-v6-global--primary-color--100)",
+            color: "white",
+            padding: "0.375rem 0.75rem",
+            fontSize: "0.75rem",
+            fontWeight: 600,
+            cursor: pdfBusy ? "not-allowed" : "pointer",
+            opacity: pdfBusy ? 0.5 : 1,
+          }}
+          title={isMethod ? "Download PDF (Multi-volume book format)" : "Download PDF (Book format)"}
+        >
+          {pdfBusy ? "Generating PDF..." : "Download PDF"}
+        </button>
+
+        {pdfError && (
+          <span style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--danger-color--100)" }}>
+            {pdfError}
+          </span>
+        )}
+      </div>
       {Array.from(alphasByFocus.entries()).map(([focusName, { focusObj, alphas }], idx) => {
         const focusDescription = focusObj ? (practiceElementDescriptionForDisplay(focusObj) ?? "") : "";
         return (

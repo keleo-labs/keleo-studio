@@ -24,6 +24,7 @@ import { renderBrowsePdfHtml } from "@/lib/pdfBrowseHtml";
 import { relaxCardinalityInSchema } from "@/lib/schemaRelax";
 import { isStandaloneBaselinePracticeArtifact } from "@/lib/library/classify";
 import type { Method } from "@/lib/types";
+import { buildMethodBook, buildPracticeBook, renderMethodBookHtml, type OrganizingPrinciple } from "@/lib/methodBook";
 
 function isMethodCompositionPayload(v: unknown): v is Method {
   if (!v || typeof v !== "object") return false;
@@ -58,6 +59,10 @@ export async function POST(req: Request) {
   const rawComposition = (body as { methodComposition?: unknown }).methodComposition;
   const methodComposition = isMethodCompositionPayload(rawComposition) ? rawComposition : undefined;
 
+  // Book mode parameters
+  const bookMode = (body as any).bookMode === true;
+  const organizingPrinciple = ((body as any).organizingPrinciple as OrganizingPrinciple | undefined) ?? "pattern";
+
   const schemaPath = path.join(process.cwd(), "public", "language.schema.json");
   const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
 
@@ -78,29 +83,48 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Document did not contain a PracticeBaseline / Method.baselinePractice" }, { status: 400 });
   }
 
-  const baselineForRender = enrichBaselineWithReferencedWrappers(
-    docObj,
-    baselineWithPracticeActivities(docObj, baseline),
-  );
-  const grouped = groupByFocus(baselineForRender);
   // PDFs should be generated with high-contrast, print-friendly colors regardless of UI theme.
   // We keep the focus swimlane palette but force the overall tokens to the light theme.
   const theme = THEMES.light;
   const t = PACKS[packId] ?? PACKS.default;
 
-  // Extract citations from baselineForRender (which includes citations from the merged practice)
-  const citations = Array.isArray(baselineForRender.citations) ? baselineForRender.citations : [];
+  let html: string;
+  let filename: string;
 
-  const html = renderBrowsePdfHtml({
-    baseline: baselineForRender,
-    grouped,
-    theme,
-    t,
-    sourceDoc: docObj,
-    originalDoc,
-    methodComposition,
-    citations,
-  });
+  // Choose rendering mode: book or browse
+  if (bookMode) {
+    if (methodComposition) {
+      // Book mode for Method: multi-volume series
+      const book = buildMethodBook(methodComposition, organizingPrinciple);
+      html = renderMethodBookHtml(book, theme, t);
+      filename = `${encodeURIComponent(book.series.title)}-Complete-Series.pdf`;
+    } else {
+      // Book mode for single Practice/PracticeBaseline: practice book format
+      const book = buildPracticeBook(docObj as any, organizingPrinciple);
+      html = renderMethodBookHtml(book, theme, t);
+      filename = `${encodeURIComponent(book.series.title)}-Book.pdf`;
+    }
+  } else {
+    // Browse mode: existing single-document format (for browse view)
+    const baselineForRender = enrichBaselineWithReferencedWrappers(
+      docObj,
+      baselineWithPracticeActivities(docObj, baseline),
+    );
+    const grouped = groupByFocus(baselineForRender);
+    const citations = Array.isArray(baselineForRender.citations) ? baselineForRender.citations : [];
+
+    html = renderBrowsePdfHtml({
+      baseline: baselineForRender,
+      grouped,
+      theme,
+      t,
+      sourceDoc: docObj,
+      originalDoc,
+      methodComposition,
+      citations,
+    });
+    filename = `${encodeURIComponent(baselineForRender.name)}.pdf`;
+  }
 
   const browser = await chromium.launch();
   try {
@@ -115,7 +139,7 @@ export async function POST(req: Request) {
     return new NextResponse(new Uint8Array(pdf), {
       headers: {
         "content-type": "application/pdf",
-        "content-disposition": `attachment; filename="${encodeURIComponent(baselineForRender.name)}.pdf"`,
+        "content-disposition": `attachment; filename="${filename}"`,
       },
     });
   } finally {
