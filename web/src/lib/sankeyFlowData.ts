@@ -11,6 +11,7 @@ export type SankeyNode = {
   description?: string;
   /** For activities: activitySpaceName; for workProducts: workProductName; for alphaState: alphaName */
   parentName?: string;
+  assetNames?: Array<{ assetName: string; type: string }>;
 };
 
 export type SankeyLink = {
@@ -51,6 +52,17 @@ export function extractSankeyFlowData(practice: any): SankeyFlowData {
     }
   };
 
+  // Build lookup indexes
+  const alphaByName = new Map<string, any>();
+  for (const alpha of practice.alphas ?? []) {
+    alphaByName.set(alpha.name, alpha);
+  }
+
+  const workProductByName = new Map<string, any>();
+  for (const wp of practice.workProducts ?? []) {
+    workProductByName.set(wp.name, wp);
+  }
+
   // Process Activities
   const activities = practice.activities ?? [];
   const activitySpaces = practice.activitySpaces ?? [];
@@ -76,11 +88,13 @@ export function extractSankeyFlowData(practice: any): SankeyFlowData {
     // Link Activity → WorkProduct @ Level
     for (const wp of activity.worksOn ?? []) {
       const wpId = `workProduct:${wp.workProductName}@${wp.levelOfDetailName}`;
+      const workProduct = workProductByName.get(wp.workProductName);
       addNode({
         id: wpId,
         name: `${wp.workProductName} (${wp.levelOfDetailName})`,
         category: "workProduct",
         parentName: wp.workProductName,
+        assetNames: workProduct?.assetNames,
       });
       addLink(activityId, wpId);
     }
@@ -107,11 +121,13 @@ export function extractSankeyFlowData(practice: any): SankeyFlowData {
       // Link WorkProduct → Alpha State
       for (const contrib of level.contributesTo ?? []) {
         const alphaStateId = `alphaState:${contrib.alphaName}→${contrib.stateName}`;
+        const alpha = alphaByName.get(contrib.alphaName);
         addNode({
           id: alphaStateId,
           name: `${contrib.alphaName} → ${contrib.stateName}`,
           category: "alphaState",
           parentName: contrib.alphaName,
+          assetNames: alpha?.assetNames,
         });
         addLink(wpId, alphaStateId);
       }
@@ -130,11 +146,13 @@ export function extractSankeyFlowData(practice: any): SankeyFlowData {
       );
 
       if (!hasWorkProductPath) {
+        const alpha = alphaByName.get(contrib.alphaName);
         addNode({
           id: alphaStateId,
           name: `${contrib.alphaName} → ${contrib.stateName}`,
           category: "alphaState",
           parentName: contrib.alphaName,
+          assetNames: alpha?.assetNames,
         });
         addLink(activityId, alphaStateId);
       }

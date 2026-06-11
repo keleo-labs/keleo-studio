@@ -10,6 +10,9 @@ import {
   type KanbanCardType,
   type AlphaSwimLane,
 } from "@/lib/kanbanPatternData";
+import { findAsset } from "@/lib/assetUtils";
+import type { Asset } from "@/lib/types";
+import { IconAsset } from "@/components/IconAsset";
 
 type KanbanPatternBoardProps = {
   pattern: any;
@@ -175,6 +178,7 @@ export default function KanbanPatternBoard({ pattern, baseline }: KanbanPatternB
   const [columns, setColumns] = useState<KanbanColumn[]>([]);
   const [swimLanes, setSwimLanes] = useState<AlphaSwimLane[]>([]);
   const [loading, setLoading] = useState(true);
+  const [assets, setAssets] = useState<Asset[]>([]);
 
   useEffect(() => {
     if (!pattern || !baseline) {
@@ -186,6 +190,13 @@ export default function KanbanPatternBoard({ pattern, baseline }: KanbanPatternB
       const data = extractKanbanPatternData(pattern, baseline);
       setColumns(data);
       setSwimLanes(buildAlphaSwimLanes(data));
+      // Collect assets from baseline and pattern
+      const allAssets = [
+        ...(baseline?.assets || []),
+        ...(pattern?.assets || []),
+      ];
+      setAssets(allAssets);
+      console.log(`[KanbanPatternBoard] Loaded ${allAssets.length} assets`);
     } catch (error) {
       console.error("Error extracting Kanban data:", error);
       setColumns([]);
@@ -301,10 +312,23 @@ export default function KanbanPatternBoard({ pattern, baseline }: KanbanPatternB
             >
               {/* Row header */}
               <div className="w-48 flex-shrink-0 p-3 bg-gray-50 dark:bg-gray-800/50 border-r-2 border-gray-300 dark:border-gray-600 flex items-center">
-                <div>
-                  <h4 className="font-semibold text-sm text-[var(--text)]">{lane.alphaName}</h4>
-                  <p className="text-2xs text-[var(--muted)]">→ State Progression</p>
-                </div>
+                {(() => {
+                  const alpha = baseline?.alphas?.find((a: any) => a.name === lane.alphaName);
+                  const iconRef = alpha?.assetNames?.find((ref: any) => ref.type === "icon");
+                  const iconAsset = iconRef ? findAsset(iconRef.assetName, assets) : null;
+
+                  return (
+                    <div className="flex items-start gap-2 w-full">
+                      {iconAsset && (
+                        <IconAsset asset={iconAsset} size={20} className="flex-shrink-0 mt-0.5" />
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-sm text-[var(--text)]">{lane.alphaName}</h4>
+                        <p className="text-2xs text-[var(--muted)]">→ State Progression</p>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
               {/* State cells */}
               {lane.stateByColumn.map((card, idx) => (

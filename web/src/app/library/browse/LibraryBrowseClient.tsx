@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { BrowseView } from "@/components/BrowseView";
 import { ProjectManagementView } from "@/components/ProjectManagementView";
 import { useLanguagePack } from "@/lib/languagePack";
+import { preloadPracticeFonts } from "@/lib/fontLoader";
 
 type ViewMode = "browse" | "project-management";
 
@@ -63,6 +64,12 @@ function LibraryBrowseReadablePane({
         if (!res.ok) return;
         const data = await res.json();
         if (cancelled) return;
+
+        // Preload fonts before setting merged data
+        if (data.merged) {
+          preloadPracticeFonts(data.merged);
+        }
+
         setMerged(data.merged);
       } catch {
         // Silently fail - error already handled in parent

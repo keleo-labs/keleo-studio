@@ -8,6 +8,9 @@ import {
   type ProgressiveFlowData,
   type PersonaGroupFlow,
 } from "@/lib/progressiveFlowData";
+import { findAsset } from "@/lib/assetUtils";
+import type { Asset } from "@/lib/types";
+import { IconAssetSvg } from "@/components/IconAsset";
 
 /**
  * Progressive Flow Diagram
@@ -22,7 +25,7 @@ import {
  * Renders a single horizontal flow for one PersonaGroup
  * Activities are repeated before each alpha state they contribute to
  */
-function HorizontalFlow({ flow }: { flow: PersonaGroupFlow }) {
+function HorizontalFlow({ flow, assets }: { flow: PersonaGroupFlow; assets: Asset[] }) {
   const nodeSpacing = 200;
   const nodeHeight = 60;
   const threadSpacing = 90;
@@ -294,6 +297,11 @@ function HorizontalFlow({ flow }: { flow: PersonaGroupFlow }) {
 
             if (node.type === "alphaState") {
               const width = 160;
+              const iconRef = node.assetNames?.find((ref) => ref.type === "icon");
+              const iconAsset = iconRef ? findAsset(iconRef.assetName, assets) : null;
+              const iconSize = 16;
+              const iconPadding = 4;
+
               const alphaLines = wrapText(node.alphaName || "", 18);
               const stateLines = wrapText(node.stateName || "", 18);
 
@@ -309,6 +317,15 @@ function HorizontalFlow({ flow }: { flow: PersonaGroupFlow }) {
                     stroke="#10b981"
                     strokeWidth={2}
                   />
+                  {iconAsset && (
+                    <IconAssetSvg
+                      asset={iconAsset}
+                      x={pos.x + iconPadding}
+                      y={pos.y + iconPadding}
+                      size={iconSize}
+                      fill="#10b981"
+                    />
+                  )}
                   {alphaLines.map((line, idx) => (
                     <text
                       key={`alpha-${idx}`}
@@ -482,6 +499,9 @@ export default function ProgressiveFlowDiagram({
 }) {
   const [flowData, setFlowData] = useState<ProgressiveFlowData | null>(null);
 
+  // Extract assets from practice
+  const assets = (practice?.assets || []) as Asset[];
+
   // Extract data when practice changes
   useEffect(() => {
     try {
@@ -501,7 +521,7 @@ export default function ProgressiveFlowDiagram({
     <div className="progressive-flow-diagram">
       <Legend />
       {flowData.flows.map((flow, idx) => (
-        <HorizontalFlow key={idx} flow={flow} />
+        <HorizontalFlow key={idx} flow={flow} assets={assets} />
       ))}
       <Statistics flowData={flowData} />
     </div>

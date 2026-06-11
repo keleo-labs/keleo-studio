@@ -5,6 +5,7 @@ import Link from "next/link";
 import TopologyDiagram from "@/components/TopologyDiagram";
 import { useSearchParams } from "next/navigation";
 import { asBaselineDocument, baselineWithPracticeActivities } from "@/lib/ir";
+import { preloadPracticeFonts } from "@/lib/fontLoader";
 
 function TopologyViewerInner() {
   const [practice, setPractice] = useState<any>(null);
@@ -197,12 +198,14 @@ function TopologyViewerInner() {
 
         // Apply activity enrichment
         const baselineDoc = asBaselineDocument(merged);
-        if (baselineDoc) {
-          const enriched = baselineWithPracticeActivities(merged, baselineDoc);
-          setPractice(enriched);
-        } else {
-          setPractice(merged);
-        }
+        const finalPractice = baselineDoc
+          ? baselineWithPracticeActivities(merged, baselineDoc)
+          : merged;
+
+        // Preload fonts before rendering
+        preloadPracticeFonts(finalPractice);
+
+        setPractice(finalPractice);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load practice");
         setPractice(null);

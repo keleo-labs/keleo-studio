@@ -715,6 +715,10 @@
         "fontWeight": {
           "type": "string",
           "description": "Font weight for font-character assets (e.g., '400', '900', 'bold')"
+        },
+        "fontUrl": {
+          "type": "string",
+          "description": "Optional URL to load the font from (e.g., Google Fonts, Font Awesome CDN, custom font file). If not provided, assumes font is already available."
         }
       },
       "additionalProperties": false,

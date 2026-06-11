@@ -36,6 +36,9 @@ import {
 } from "@/lib/practiceElementAliasDisplay";
 import KanbanPatternBoardPF from "./KanbanPatternBoardPF";
 import { PracticeRadarChart } from "./PracticeRadarChart";
+import { IconAsset } from "./IconAsset";
+import { findAsset } from "@/lib/assetUtils";
+import type { Asset } from "@/lib/types";
 
 /**
  * BrowseView: A 6-part methodology documentation structure following outline.md
@@ -686,7 +689,7 @@ function CitationsSection({ citations, compact = false }: { citations: any[] | u
 // SECTION 2: Method Focus
 // ========================================================================
 
-function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap }: { doc: any; baseline: any; grouped: any[]; methodComposition?: Method | null; aliasMap: PracticeElementAliasLookup }) {
+function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap, assets }: { doc: any; baseline: any; grouped: any[]; methodComposition?: Method | null; aliasMap: PracticeElementAliasLookup; assets: Asset[] }) {
   // Use shared alpha scoring logic
   const alphasByFocus = useMemo(() => {
     return calculateAlphaScores(doc, baseline, grouped);
@@ -783,6 +786,10 @@ function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap }: { 
                   const colorStyle = getColorStyle(score);
                   const hasNewAlphas = (newAlphas?.length ?? 0) > 0;
 
+                  // Get icon for this alpha
+                  const iconRef = alpha.assetNames?.find((ref: any) => ref.type === "icon");
+                  const iconAsset = iconRef ? findAsset(iconRef.assetName, assets) : null;
+
                   return (
                     <div key={alphaIdx} style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                       {/* Main baseline alpha tile */}
@@ -831,6 +838,13 @@ function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap }: { 
                           BASE
                         </div>
 
+                        {/* Icon above name */}
+                        {iconAsset && (
+                          <div style={{ marginBottom: "0.5rem" }}>
+                            <IconAsset asset={iconAsset} size={32} />
+                          </div>
+                        )}
+
                         <div style={{
                           fontSize: "0.9375rem",
                           fontWeight: 600,
@@ -854,6 +868,10 @@ function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap }: { 
                             const newAlphaName = String(newAlpha.alpha.name ?? "");
                             const newColorStyle = getColorStyle(newAlpha.score);
                             const newDescription = practiceElementDescriptionForDisplay(newAlpha.alpha) ?? "";
+
+                            // Get icon for contributing alpha
+                            const newIconRef = newAlpha.alpha.assetNames?.find((ref: any) => ref.type === "icon");
+                            const newIconAsset = newIconRef ? findAsset(newIconRef.assetName, assets) : null;
 
                             return (
                               <div key={newIdx} style={{ position: "relative" }}>
@@ -912,12 +930,18 @@ function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap }: { 
                                     EXT
                                   </div>
 
+                                  {/* Icon above name */}
+                                  {newIconAsset && (
+                                    <div style={{ marginBottom: "0.25rem", marginTop: "0.5rem" }}>
+                                      <IconAsset asset={newIconAsset} size={24} />
+                                    </div>
+                                  )}
+
                                   <div style={{
                                     fontSize: "0.8125rem",
                                     fontWeight: 600,
                                     lineHeight: 1.4,
                                     letterSpacing: "0.2px",
-                                    paddingTop: "1rem",
                                   }}>
                                     {newAlphaName}
                                   </div>
@@ -2872,6 +2896,13 @@ export function BrowseView({
 
   const grouped = useMemo(() => (baselineForRender ? groupByFocus(baselineForRender) : []), [baselineForRender]);
 
+  // Extract assets from the document
+  const assets = useMemo(() => {
+    if (!effectiveDoc || typeof effectiveDoc !== "object") return [];
+    const doc = effectiveDoc as Record<string, unknown>;
+    return (doc.assets as Asset[]) || [];
+  }, [effectiveDoc]);
+
   // Build alias lookup map from practiceElementAliases
   const aliasMap = useMemo(() => {
     const sourceDoc = effectiveDoc && typeof effectiveDoc === "object" ? (effectiveDoc as Record<string, unknown>) : {};
@@ -2941,7 +2972,7 @@ export function BrowseView({
         <ExecutiveContext doc={baselineForRender} methodComposition={effectiveMethodComposition} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <MethodFocus doc={sourceDocRecord} baseline={baselineForRender} grouped={grouped} methodComposition={effectiveMethodComposition} aliasMap={aliasMap} />
+        <MethodFocus doc={sourceDocRecord} baseline={baselineForRender} grouped={grouped} methodComposition={effectiveMethodComposition} aliasMap={aliasMap} assets={assets} />
         <Divider style={{ margin: "3rem 0" }} />
 
         <LifecycleOrchestration doc={sourceDocRecord} baseline={baselineForRender} aliasMap={aliasMap} />

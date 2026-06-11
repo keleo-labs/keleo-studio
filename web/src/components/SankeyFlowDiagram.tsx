@@ -14,6 +14,9 @@ import {
   type SankeyNode,
   type SankeyLink,
 } from "@/lib/sankeyFlowData";
+import { findAsset } from "@/lib/assetUtils";
+import type { Asset } from "@/lib/types";
+import { createIconSvgElement } from "@/lib/renderIconInSvg";
 
 type SankeyFlowDiagramProps = {
   practice: any;
@@ -38,6 +41,9 @@ export default function SankeyFlowDiagram({
   const svgRef = useRef<SVGSVGElement>(null);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [flowData, setFlowData] = useState<ReturnType<typeof extractSankeyFlowData> | null>(null);
+
+  // Extract assets from practice
+  const assets = (practice?.assets || []) as Asset[];
 
   useEffect(() => {
     if (!practice) return;
@@ -171,14 +177,33 @@ export default function SankeyFlowDiagram({
 
       nodeG.appendChild(rect);
 
+      // Icon (if available)
+      const iconRef = extNode.assetNames?.find((ref) => ref.type === "icon");
+      const iconAsset = iconRef ? findAsset(iconRef.assetName, assets) : null;
+      const iconSize = 14;
+      const iconGap = 4;
+      const isLeftSide = (node.x0 || 0) < width / 2;
+      let labelX = isLeftSide ? (node.x1 || 0) + 6 : (node.x0 || 0) - 6;
+
+      if (iconAsset) {
+        const iconX = isLeftSide ? labelX : labelX - iconSize - iconGap;
+        const iconY = ((node.y0 || 0) + (node.y1 || 0)) / 2 - iconSize / 2;
+
+        const iconElement = createIconSvgElement(iconAsset, iconX, iconY, iconSize);
+        if (iconElement) {
+          nodeG.appendChild(iconElement);
+          // Adjust label position to account for icon
+          labelX = isLeftSide ? labelX + iconSize + iconGap : labelX - iconSize - iconGap;
+        }
+      }
+
       // Node label
       const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-      const x = (node.x0 || 0) < width / 2 ? (node.x1 || 0) + 6 : (node.x0 || 0) - 6;
       const y = ((node.y0 || 0) + (node.y1 || 0)) / 2;
-      text.setAttribute("x", String(x));
+      text.setAttribute("x", String(labelX));
       text.setAttribute("y", String(y));
       text.setAttribute("dy", "0.35em");
-      text.setAttribute("text-anchor", (node.x0 || 0) < width / 2 ? "start" : "end");
+      text.setAttribute("text-anchor", isLeftSide ? "start" : "end");
       text.setAttribute("font-size", "12");
       text.setAttribute("fill", "#1e293b");
       text.setAttribute("font-weight", "500");

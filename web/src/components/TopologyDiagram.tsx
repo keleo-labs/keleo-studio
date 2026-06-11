@@ -22,6 +22,9 @@ import {
   type TopologyNodeType,
   type TopologyEdgeType,
 } from "@/lib/topologyData";
+import { findAsset } from "@/lib/assetUtils";
+import type { Asset } from "@/lib/types";
+import { createIconSvgElement } from "@/lib/renderIconInSvg";
 
 type TopologyDiagramProps = {
   practice: any;
@@ -144,7 +147,9 @@ export default function TopologyDiagram({
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const simulationRef = useRef<Simulation<SimNode, SimLink> | null>(null);
 
-  // Extract topology data when practice changes
+  // Extract topology data and assets when practice changes
+  const assets = (practice?.assets || []) as Asset[];
+
   useEffect(() => {
     if (!practice) return;
 
@@ -441,13 +446,40 @@ export default function TopologyDiagram({
         .attr("fill", NODE_COLORS[node.type])
         .attr("opacity", 0.15);
 
+      // Header icon (if available)
+      const iconRef = node.assetNames?.find((ref) => ref.type === "icon");
+      const iconAsset = iconRef ? findAsset(iconRef.assetName, assets) : null;
+      const iconSize = 16;
+      const iconPadding = 4;
+
+      if (iconAsset) {
+        const iconX = -dims.width / 2 + iconPadding;
+        const iconY = -dims.height / 2 + (CARD_HEADER_HEIGHT - iconSize) / 2;
+
+        const iconElement = createIconSvgElement(iconAsset, iconX, iconY, iconSize, NODE_COLORS[node.type]);
+        if (iconElement) {
+          nodeGroup.node()?.appendChild(iconElement);
+        }
+      }
+
       // Header text
       const headerText = node.name.length > 20 ? node.name.substring(0, 20) + "..." : node.name;
+
+      // Calculate text position
+      let textX = 0;
+      let textAnchor = "middle";
+
+      if (iconAsset) {
+        // Position text after icon (left side of card)
+        textX = -dims.width / 2 + iconPadding + iconSize + iconPadding;
+        textAnchor = "start";
+      }
+
       nodeGroup
         .append("text")
-        .attr("x", 0)
+        .attr("x", textX)
         .attr("y", -dims.height / 2 + CARD_HEADER_HEIGHT / 2)
-        .attr("text-anchor", "middle")
+        .attr("text-anchor", textAnchor)
         .attr("dy", "0.35em")
         .attr("font-size", "13px")
         .attr("font-weight", "700")

@@ -27,11 +27,34 @@ export type PracticeElementTags = {
   organizationalTags?: string[];
 };
 
+/** Reference to a visual asset with semantic type classification (language.schema.json AssetReference). */
+export type AssetReference = {
+  assetName: string;
+  type: "icon" | "illustrative" | "template" | "diagram";
+};
+
+/** Visual asset definition (language.schema.json Asset). */
+export type Asset = {
+  name: string;
+  description?: string;
+  type: "image" | "diagram" | "template" | "icon" | "font-character";
+  path?: string;
+  mimeType?: string;
+  checksum?: string;
+  dataUri?: string;
+  url?: string;
+  fontFamily?: string;
+  fontCharacter?: string;
+  fontWeight?: string;
+  fontUrl?: string;
+};
+
 /** Core fields shared by every practice artifact (excluding recursive `narratives`). */
 export type PracticeElementIdentity = {
   name: string;
   description: string;
   tags?: PracticeElementTags | string[];
+  assetNames?: AssetReference[];
 };
 
 export type NarrativeContext = {
@@ -165,6 +188,7 @@ export type PracticeBaseline = PracticeElement & {
   keywords: string[];
   narrativeTypes?: NarrativeType[];
   citations?: Citation[];
+  assets?: Asset[];
 };
 
 export type WorkProduct = PracticeElement & {
@@ -229,6 +253,8 @@ export type Practice = PracticeElement & {
   narrativeTypes?: NarrativeType[];
   /** Bibliographic references elaborated by this practice. */
   citations?: Citation[];
+  /** Visual assets referenced by practice elements. */
+  assets?: Asset[];
 };
 
 export type Method = PracticeElement & {
@@ -242,5 +268,7 @@ export type Method = PracticeElement & {
   practices?: Practice[];
   /** Bibliographic references defined in this method (merged from baseline and practices). */
   citations?: Citation[];
+  /** Visual assets for the entire method (shared across practices). */
+  assets?: Asset[];
 };
 
