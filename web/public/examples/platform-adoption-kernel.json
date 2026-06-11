@@ -2,9 +2,15 @@
   "kind": "baseline",
   "name": "Platform Adoption Essentials",
   "description": "The Platform Adoption Kernel establishes the universal foundation for platform transformations, organized into the three Areas of Concern.",
-  "version": "1.0.0",
-  "authors": ["Platform Engineering Team"],
-  "keywords": ["platform", "adoption", "kernel", "baseline"],
+  "version": "1",
+  "authors": [
+    "Kernel Authors"
+  ],
+  "keywords": [
+    "platform",
+    "adoption",
+    "kernel"
+  ],
   "focuses": [
     {
       "name": "Value",
@@ -24,6 +30,12 @@
       "name": "Opportunity",
       "description": "The foundational business drivers dictating the platform transformation.",
       "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "opportunity-icon",
+          "type": "icon"
+        }
+      ],
       "relatesTo": [
         {
           "relationship": "identified by",
@@ -81,6 +93,12 @@
       "name": "Platform Value And Economics",
       "description": "The financial and outcome-based justification and accounting for the platform.",
       "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "platform-value-economics-icon",
+          "type": "icon"
+        }
+      ],
       "relatesTo": [
         {
           "relationship": "identifies ROI for",
@@ -116,6 +134,12 @@
       "name": "Stakeholders",
       "description": "The individuals, groups, or organizations affected by, or able to affect, the platform.",
       "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "stakeholders-icon",
+          "type": "icon"
+        }
+      ],
       "relatesTo": [
         {
           "relationship": "provides",
@@ -224,6 +248,12 @@
           "seq": 6,
           "checklist": []
         }
+      ],
+      "assetNames": [
+        {
+          "assetName": "requirements-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -291,6 +321,12 @@
           "seq": 7,
           "checklist": []
         }
+      ],
+      "assetNames": [
+        {
+          "assetName": "platform-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -341,6 +377,12 @@
           "description": "The interface dynamically adapts based on deep user telemetry, providing a frictionless, self-service experience that actively minimizes developer cognitive load.",
           "seq": 5,
           "checklist": []
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "platform-consumption-interface-icon",
+          "type": "icon"
         }
       ]
     },
@@ -405,6 +447,12 @@
           "seq": 7,
           "checklist": []
         }
+      ],
+      "assetNames": [
+        {
+          "assetName": "platform-asset-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -462,6 +510,12 @@
           "seq": 6,
           "checklist": []
         }
+      ],
+      "assetNames": [
+        {
+          "assetName": "work-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -512,6 +566,12 @@
           "description": "The team is disbanded or repurposed.",
           "seq": 5,
           "checklist": []
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "team-icon",
+          "type": "icon"
         }
       ]
     },
@@ -566,6 +626,12 @@
           "seq": 6,
           "checklist": []
         }
+      ],
+      "assetNames": [
+        {
+          "assetName": "way-of-working-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -604,6 +670,12 @@
           "description": "Policies are actively applied.",
           "seq": 3,
           "checklist": []
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "platform-governance-icon",
+          "type": "icon"
         }
       ]
     },
@@ -650,6 +722,12 @@
           "seq": 4,
           "checklist": []
         }
+      ],
+      "assetNames": [
+        {
+          "assetName": "platform-risk-compliance-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -695,6 +773,12 @@
           "seq": 4,
           "checklist": []
         }
+      ],
+      "assetNames": [
+        {
+          "assetName": "organizational-change-icon",
+          "type": "icon"
+        }
       ]
     }
   ],
@@ -711,6 +795,12 @@
       ],
       "requiredCompetencies": [
         "Platform Strategic Alignment"
+      ],
+      "assetNames": [
+        {
+          "assetName": "explore-possibilities-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -734,6 +824,12 @@
       "requiredCompetencies": [
         "Platform Strategic Alignment",
         "Analysis"
+      ],
+      "assetNames": [
+        {
+          "assetName": "assess-business-value-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -757,6 +853,12 @@
       "requiredCompetencies": [
         "Management",
         "Analysis"
+      ],
+      "assetNames": [
+        {
+          "assetName": "monitor-value-realization-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -776,6 +878,12 @@
       "requiredCompetencies": [
         "Platform Strategic Alignment",
         "Management"
+      ],
+      "assetNames": [
+        {
+          "assetName": "manage-platform-economics-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -799,6 +907,12 @@
       "requiredCompetencies": [
         "Stakeholder Representation",
         "Analysis"
+      ],
+      "assetNames": [
+        {
+          "assetName": "engage-platform-consumers-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -818,6 +932,12 @@
       "requiredCompetencies": [
         "Stakeholder Representation",
         "Leadership"
+      ],
+      "assetNames": [
+        {
+          "assetName": "evangelize-support-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -841,6 +961,12 @@
       "requiredCompetencies": [
         "Platform Security And Compliance Enforcement",
         "Engineering"
+      ],
+      "assetNames": [
+        {
+          "assetName": "establish-secure-guardrails-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -872,6 +998,12 @@
       "requiredCompetencies": [
         "Analysis",
         "Platform Strategic Alignment"
+      ],
+      "assetNames": [
+        {
+          "assetName": "define-platform-capabilities-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -899,6 +1031,12 @@
       "requiredCompetencies": [
         "Engineering",
         "Analysis"
+      ],
+      "assetNames": [
+        {
+          "assetName": "architect-build-foundation-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -918,6 +1056,12 @@
       "requiredCompetencies": [
         "Site Reliability",
         "Engineering"
+      ],
+      "assetNames": [
+        {
+          "assetName": "operate-evolve-system-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -945,6 +1089,12 @@
       "requiredCompetencies": [
         "Engineering",
         "Analysis"
+      ],
+      "assetNames": [
+        {
+          "assetName": "develop-golden-paths-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -972,6 +1122,12 @@
       "requiredCompetencies": [
         "Engineering",
         "Site Reliability"
+      ],
+      "assetNames": [
+        {
+          "assetName": "integrate-toolchain-services-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -987,6 +1143,12 @@
       "requiredCompetencies": [
         "Management",
         "Leadership"
+      ],
+      "assetNames": [
+        {
+          "assetName": "prepare-to-do-work-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -1009,6 +1171,12 @@
       ],
       "requiredCompetencies": [
         "Management"
+      ],
+      "assetNames": [
+        {
+          "assetName": "manage-work-execution-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -1032,6 +1200,12 @@
       "requiredCompetencies": [
         "Leadership",
         "Management"
+      ],
+      "assetNames": [
+        {
+          "assetName": "structure-organizational-topologies-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -1047,6 +1221,12 @@
       "requiredCompetencies": [
         "Leadership",
         "Management"
+      ],
+      "assetNames": [
+        {
+          "assetName": "transition-team-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -1074,6 +1254,12 @@
       "requiredCompetencies": [
         "Site Reliability",
         "Management"
+      ],
+      "assetNames": [
+        {
+          "assetName": "establish-operational-practices-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -1093,6 +1279,12 @@
       "requiredCompetencies": [
         "Platform Security And Compliance Enforcement",
         "Engineering"
+      ],
+      "assetNames": [
+        {
+          "assetName": "implement-policy-as-code-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -1116,6 +1308,12 @@
       "requiredCompetencies": [
         "Leadership",
         "Management"
+      ],
+      "assetNames": [
+        {
+          "assetName": "drive-cultural-transformation-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -1130,6 +1328,12 @@
       ],
       "requiredCompetencies": [
         "Management"
+      ],
+      "assetNames": [
+        {
+          "assetName": "stop-the-work-icon",
+          "type": "icon"
+        }
       ]
     },
     {
@@ -1153,6 +1357,12 @@
       "requiredCompetencies": [
         "Engineering",
         "Management"
+      ],
+      "assetNames": [
+        {
+          "assetName": "decommission-retire-icon",
+          "type": "icon"
+        }
       ]
     }
   ],
@@ -1446,17 +1656,8 @@
       ]
     }
   ],
-  "authors": [
-    "Kernel Authors"
-  ],
   "createdAt": "2023-10-25T00:00:00Z",
   "updatedAt": "2023-10-25T00:00:00Z",
-  "version": "1",
-  "keywords": [
-    "platform",
-    "adoption",
-    "kernel"
-  ],
   "narrativeTypes": [
     {
       "name": "The STAR Format",
@@ -1569,7 +1770,7 @@
         {
           "name": "So that [I can achieve some goal]",
           "description": "This is the purpose. It explains the underlying problem the user is trying to solve or the value they hope to gain.",
-          "howToUse": "Use this to justify the work. If you can’t find a compelling **So that** statement, the feature might not be worth building. It also helps developers suggest better technical solutions if they understand the ultimate goal."
+          "howToUse": "Use this to justify the work. If you can\u2019t find a compelling **So that** statement, the feature might not be worth building. It also helps developers suggest better technical solutions if they understand the ultimate goal."
         }
       ]
     },
@@ -1620,198 +1821,471 @@
         }
       ]
     },
-      {
-        "name": "Essay Narrative",
-        "description": "A cohesive narrative format that guides the reader carefully through the evidence for and against a proposition before reaching a conclusion.",
-        "narrativeElements": [
-          {
-            "name": "Introduction",
-            "description": "The start of the essay used to contextualise the work and grab the attention of the reader.",
-            "howToUse": "Explain how the topic sits within the framework of the subject area as a whole. Outline the structure of your essay very briefly, but do not give your conclusions away on the first page."
-          },
-          {
-            "name": "Defining Key Concepts",
-            "description": "A section establishing the interpretation of central concepts without relying on dictionary definitions.",
-            "howToUse": "Relate in your own words how the terms you will be using are to be interpreted within the context of your essay."
-          },
-          {
-            "name": "Presenting Evidence",
-            "description": "The core discussion where secondary works are evaluated and viewpoints are balanced against each other.",
-            "howToUse": "Be selective in your choice of evidence and use signposting language to guide your reader. Quote sparingly, paraphrase occasionally, and summarise often to integrate other people's ideas into your own argument."
-          },
-          {
-            "name": "Conclusion",
-            "description": "The closing section that synthesises the presented evidence and forms a direct response to the assignment title.",
-            "howToUse": "Draw the threads of your argument together. Do not bring in new evidence in your concluding paragraphs or try to cram in ideas that you have not developed fully."
-          }
-        ]
-      },
-      {
-        "name": "Report Narrative",
-        "description": "A formal, informative structure broken down into sections and sub-sections to order and communicate relevant information in an easily navigable way.",
-        "narrativeElements": [
-          {
-            "name": "Executive Summary",
-            "description": "A stand-alone summary of the entire report's purpose, methodology, findings, conclusions, and recommendations.",
-            "howToUse": "This should be the last thing that you write. Keep it concise (usually a paragraph or two and always less than a page) to enable the reader to make an informed decision about whether they want to read the report itself."
-          },
-          {
-            "name": "Introduction",
-            "description": "Explains the rationale for undertaking the work reported on, the background, and the scope of the report.",
-            "howToUse": "State what the report is about, define how it meets the requirements of the brief, and explain your research methods."
-          },
-          {
-            "name": "Methods",
-            "description": "A clear description of how the investigation was carried out and why specific methods were chosen.",
-            "howToUse": "Write this section concisely but thoroughly. Provide step-by-step details in such a way that a reader could replicate the research you have done."
-          },
-          {
-            "name": "Results and Findings",
-            "description": "A purely factual presentation of the research data using text, graphs, tables, or diagrams.",
-            "howToUse": "Present the findings of your research as simply as possible. Save your interpretation of the results for the Discussion section."
-          },
-          {
-            "name": "Discussion",
-            "description": "The section that brings everything together by showing how the findings relate to the purpose of the report and previous research.",
-            "howToUse": "Interpret the results, showing how they respond to the brief explained in the introduction. Mention if there were any problems or unexpected results and how they were solved."
-          },
-          {
-            "name": "Recommendations",
-            "description": "Suggestions for a future course of action based on the evidence and conclusions.",
-            "howToUse": "Make recommendations that solve problems or help to develop a new strategy. Make an effort to sound authoritative and certain in your choices."
-          }
-        ]
-      },
-      {
-        "name": "SDLC",
-        "description": "Software Development Lifecycle pattern for systematic technical delivery from requirements through maintenance.",
-        "narrativeElements": [
-          {
-            "name": "Plan",
-            "description": "Requirements gathering and project planning phase.",
-            "howToUse": "Define objectives, scope, requirements, and success criteria for the initiative."
-          },
-          {
-            "name": "Design",
-            "description": "Architecture and detailed design phase.",
-            "howToUse": "Establish technical architecture, design patterns, and implementation approach."
-          },
-          {
-            "name": "Build",
-            "description": "Implementation and construction phase.",
-            "howToUse": "Develop, configure, and assemble the solution components."
-          },
-          {
-            "name": "Test",
-            "description": "Validation and quality assurance phase.",
-            "howToUse": "Verify functionality, performance, security, and integration through testing."
-          },
-          {
-            "name": "Deploy",
-            "description": "Release and deployment phase.",
-            "howToUse": "Roll out to production environment with appropriate deployment strategy."
-          },
-          {
-            "name": "Maintain",
-            "description": "Operations and continuous improvement phase.",
-            "howToUse": "Monitor, optimize, patch, and evolve the solution in production."
-          }
-        ]
-      },
-      {
-        "name": "PDCA",
-        "description": "Plan-Do-Check-Act cycle (Deming Cycle) for continuous improvement and iterative refinement.",
-        "narrativeElements": [
-          {
-            "name": "Plan",
-            "description": "Establish objectives and processes.",
-            "howToUse": "Identify improvement opportunity, analyze current state, and plan intervention."
-          },
-          {
-            "name": "Do",
-            "description": "Implement the plan on small scale.",
-            "howToUse": "Execute the planned change or experiment in controlled environment."
-          },
-          {
-            "name": "Check",
-            "description": "Measure and evaluate results.",
-            "howToUse": "Assess outcomes against objectives, identify gaps and learnings."
-          },
-          {
-            "name": "Act",
-            "description": "Standardize or iterate based on learnings.",
-            "howToUse": "Scale successful changes, adjust plan based on findings, repeat cycle."
-          }
-        ]
-      },
-      {
-        "name": "Build-Measure-Learn",
-        "description": "Lean Startup cycle for validating assumptions through rapid experimentation and feedback.",
-        "narrativeElements": [
-          {
-            "name": "Build",
-            "description": "Create minimum viable solution.",
-            "howToUse": "Develop smallest increment that can test key hypothesis or assumption."
-          },
-          {
-            "name": "Measure",
-            "description": "Collect data and feedback.",
-            "howToUse": "Instrument, observe, and gather quantitative and qualitative evidence."
-          },
-          {
-            "name": "Learn",
-            "description": "Analyze and decide next iteration.",
-            "howToUse": "Synthesize findings, validate or invalidate hypothesis, pivot or persevere."
-          }
-        ]
-      },
-      {
-        "name": "Design-Build-Run-Optimize",
-        "description": "Architectural lifecycle for infrastructure and platform engineering spanning conception through continuous improvement.",
-        "narrativeElements": [
-          {
-            "name": "Design",
-            "description": "Architecture definition and planning.",
-            "howToUse": "Define architecture, topology, technology choices, and capacity planning."
-          },
-          {
-            "name": "Build",
-            "description": "Provisioning and configuration.",
-            "howToUse": "Deploy infrastructure, configure systems, establish integrations and connectivity."
-          },
-          {
-            "name": "Run",
-            "description": "Operations and steady-state management.",
-            "howToUse": "Monitor health, respond to incidents, maintain availability and performance."
-          },
-          {
-            "name": "Optimize",
-            "description": "Continuous improvement and evolution.",
-            "howToUse": "Tune performance, reduce costs, enhance capabilities based on operational insights."
-          }
-        ]
-      },
-      {
-        "name": "Crawl-Walk-Run",
-        "description": "Maturity progression model for incremental capability building and adoption.",
-        "narrativeElements": [
-          {
-            "name": "Crawl",
-            "description": "Initial capability establishment.",
-            "howToUse": "Establish foundational capability with limited scope, manual processes, learning focus."
-          },
-          {
-            "name": "Walk",
-            "description": "Capability refinement and scaling.",
-            "howToUse": "Expand scope, introduce automation, standardize processes, build confidence."
-          },
-          {
-            "name": "Run",
-            "description": "Mature, optimized operation.",
-            "howToUse": "Full automation, enterprise scale, optimization focus, continuous evolution."
-          }
-        ]
-      }
-
+    {
+      "name": "Essay Narrative",
+      "description": "A cohesive narrative format that guides the reader carefully through the evidence for and against a proposition before reaching a conclusion.",
+      "narrativeElements": [
+        {
+          "name": "Introduction",
+          "description": "The start of the essay used to contextualise the work and grab the attention of the reader.",
+          "howToUse": "Explain how the topic sits within the framework of the subject area as a whole. Outline the structure of your essay very briefly, but do not give your conclusions away on the first page."
+        },
+        {
+          "name": "Defining Key Concepts",
+          "description": "A section establishing the interpretation of central concepts without relying on dictionary definitions.",
+          "howToUse": "Relate in your own words how the terms you will be using are to be interpreted within the context of your essay."
+        },
+        {
+          "name": "Presenting Evidence",
+          "description": "The core discussion where secondary works are evaluated and viewpoints are balanced against each other.",
+          "howToUse": "Be selective in your choice of evidence and use signposting language to guide your reader. Quote sparingly, paraphrase occasionally, and summarise often to integrate other people's ideas into your own argument."
+        },
+        {
+          "name": "Conclusion",
+          "description": "The closing section that synthesises the presented evidence and forms a direct response to the assignment title.",
+          "howToUse": "Draw the threads of your argument together. Do not bring in new evidence in your concluding paragraphs or try to cram in ideas that you have not developed fully."
+        }
+      ]
+    },
+    {
+      "name": "Report Narrative",
+      "description": "A formal, informative structure broken down into sections and sub-sections to order and communicate relevant information in an easily navigable way.",
+      "narrativeElements": [
+        {
+          "name": "Executive Summary",
+          "description": "A stand-alone summary of the entire report's purpose, methodology, findings, conclusions, and recommendations.",
+          "howToUse": "This should be the last thing that you write. Keep it concise (usually a paragraph or two and always less than a page) to enable the reader to make an informed decision about whether they want to read the report itself."
+        },
+        {
+          "name": "Introduction",
+          "description": "Explains the rationale for undertaking the work reported on, the background, and the scope of the report.",
+          "howToUse": "State what the report is about, define how it meets the requirements of the brief, and explain your research methods."
+        },
+        {
+          "name": "Methods",
+          "description": "A clear description of how the investigation was carried out and why specific methods were chosen.",
+          "howToUse": "Write this section concisely but thoroughly. Provide step-by-step details in such a way that a reader could replicate the research you have done."
+        },
+        {
+          "name": "Results and Findings",
+          "description": "A purely factual presentation of the research data using text, graphs, tables, or diagrams.",
+          "howToUse": "Present the findings of your research as simply as possible. Save your interpretation of the results for the Discussion section."
+        },
+        {
+          "name": "Discussion",
+          "description": "The section that brings everything together by showing how the findings relate to the purpose of the report and previous research.",
+          "howToUse": "Interpret the results, showing how they respond to the brief explained in the introduction. Mention if there were any problems or unexpected results and how they were solved."
+        },
+        {
+          "name": "Recommendations",
+          "description": "Suggestions for a future course of action based on the evidence and conclusions.",
+          "howToUse": "Make recommendations that solve problems or help to develop a new strategy. Make an effort to sound authoritative and certain in your choices."
+        }
+      ]
+    },
+    {
+      "name": "SDLC",
+      "description": "Software Development Lifecycle pattern for systematic technical delivery from requirements through maintenance.",
+      "narrativeElements": [
+        {
+          "name": "Plan",
+          "description": "Requirements gathering and project planning phase.",
+          "howToUse": "Define objectives, scope, requirements, and success criteria for the initiative."
+        },
+        {
+          "name": "Design",
+          "description": "Architecture and detailed design phase.",
+          "howToUse": "Establish technical architecture, design patterns, and implementation approach."
+        },
+        {
+          "name": "Build",
+          "description": "Implementation and construction phase.",
+          "howToUse": "Develop, configure, and assemble the solution components."
+        },
+        {
+          "name": "Test",
+          "description": "Validation and quality assurance phase.",
+          "howToUse": "Verify functionality, performance, security, and integration through testing."
+        },
+        {
+          "name": "Deploy",
+          "description": "Release and deployment phase.",
+          "howToUse": "Roll out to production environment with appropriate deployment strategy."
+        },
+        {
+          "name": "Maintain",
+          "description": "Operations and continuous improvement phase.",
+          "howToUse": "Monitor, optimize, patch, and evolve the solution in production."
+        }
+      ]
+    },
+    {
+      "name": "PDCA",
+      "description": "Plan-Do-Check-Act cycle (Deming Cycle) for continuous improvement and iterative refinement.",
+      "narrativeElements": [
+        {
+          "name": "Plan",
+          "description": "Establish objectives and processes.",
+          "howToUse": "Identify improvement opportunity, analyze current state, and plan intervention."
+        },
+        {
+          "name": "Do",
+          "description": "Implement the plan on small scale.",
+          "howToUse": "Execute the planned change or experiment in controlled environment."
+        },
+        {
+          "name": "Check",
+          "description": "Measure and evaluate results.",
+          "howToUse": "Assess outcomes against objectives, identify gaps and learnings."
+        },
+        {
+          "name": "Act",
+          "description": "Standardize or iterate based on learnings.",
+          "howToUse": "Scale successful changes, adjust plan based on findings, repeat cycle."
+        }
+      ]
+    },
+    {
+      "name": "Build-Measure-Learn",
+      "description": "Lean Startup cycle for validating assumptions through rapid experimentation and feedback.",
+      "narrativeElements": [
+        {
+          "name": "Build",
+          "description": "Create minimum viable solution.",
+          "howToUse": "Develop smallest increment that can test key hypothesis or assumption."
+        },
+        {
+          "name": "Measure",
+          "description": "Collect data and feedback.",
+          "howToUse": "Instrument, observe, and gather quantitative and qualitative evidence."
+        },
+        {
+          "name": "Learn",
+          "description": "Analyze and decide next iteration.",
+          "howToUse": "Synthesize findings, validate or invalidate hypothesis, pivot or persevere."
+        }
+      ]
+    },
+    {
+      "name": "Design-Build-Run-Optimize",
+      "description": "Architectural lifecycle for infrastructure and platform engineering spanning conception through continuous improvement.",
+      "narrativeElements": [
+        {
+          "name": "Design",
+          "description": "Architecture definition and planning.",
+          "howToUse": "Define architecture, topology, technology choices, and capacity planning."
+        },
+        {
+          "name": "Build",
+          "description": "Provisioning and configuration.",
+          "howToUse": "Deploy infrastructure, configure systems, establish integrations and connectivity."
+        },
+        {
+          "name": "Run",
+          "description": "Operations and steady-state management.",
+          "howToUse": "Monitor health, respond to incidents, maintain availability and performance."
+        },
+        {
+          "name": "Optimize",
+          "description": "Continuous improvement and evolution.",
+          "howToUse": "Tune performance, reduce costs, enhance capabilities based on operational insights."
+        }
+      ]
+    },
+    {
+      "name": "Crawl-Walk-Run",
+      "description": "Maturity progression model for incremental capability building and adoption.",
+      "narrativeElements": [
+        {
+          "name": "Crawl",
+          "description": "Initial capability establishment.",
+          "howToUse": "Establish foundational capability with limited scope, manual processes, learning focus."
+        },
+        {
+          "name": "Walk",
+          "description": "Capability refinement and scaling.",
+          "howToUse": "Expand scope, introduce automation, standardize processes, build confidence."
+        },
+        {
+          "name": "Run",
+          "description": "Mature, optimized operation.",
+          "howToUse": "Full automation, enterprise scale, optimization focus, continuous evolution."
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "name": "opportunity-icon",
+      "description": "Opportunity alpha icon - business opportunity and drivers",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lightbulb",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-value-economics-icon",
+      "description": "Platform Value And Economics alpha icon - financial justification",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "stakeholders-icon",
+      "description": "Stakeholders alpha icon - people and organizations",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users",
+      "fontWeight": "900"
+    },
+    {
+      "name": "requirements-icon",
+      "description": "Requirements alpha icon - needs and specifications",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-list-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-icon",
+      "description": "Platform alpha icon - infrastructure foundation",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-consumption-interface-icon",
+      "description": "Platform Consumption Interface alpha icon - developer experience",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-window-maximize",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-asset-icon",
+      "description": "Platform Asset alpha icon - platform components",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cube",
+      "fontWeight": "900"
+    },
+    {
+      "name": "work-icon",
+      "description": "Work alpha icon - tasks and activities",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-tasks",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-icon",
+      "description": "Team alpha icon - people and collaboration",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "way-of-working-icon",
+      "description": "Way Of Working alpha icon - processes and practices",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-governance-icon",
+      "description": "Platform Governance alpha icon - oversight and control",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-risk-compliance-icon",
+      "description": "Platform Risk And Compliance alpha icon - security and regulatory",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-balance-scale",
+      "fontWeight": "900"
+    },
+    {
+      "name": "organizational-change-icon",
+      "description": "Organizational Change alpha icon - transformation and adaptation",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-spin",
+      "fontWeight": "900"
+    },
+    {
+      "name": "explore-possibilities-icon",
+      "description": "Explore Possibilities activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-compass",
+      "fontWeight": "900"
+    },
+    {
+      "name": "assess-business-value-icon",
+      "description": "Assess Business Value activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-calculator",
+      "fontWeight": "900"
+    },
+    {
+      "name": "monitor-value-realization-icon",
+      "description": "Monitor Value Realization activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge",
+      "fontWeight": "900"
+    },
+    {
+      "name": "manage-platform-economics-icon",
+      "description": "Manage Platform Economics activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-coins",
+      "fontWeight": "900"
+    },
+    {
+      "name": "engage-platform-consumers-icon",
+      "description": "Engage Platform Consumers activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "evangelize-support-icon",
+      "description": "Evangelize and Support activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullhorn",
+      "fontWeight": "900"
+    },
+    {
+      "name": "establish-secure-guardrails-icon",
+      "description": "Establish Secure Guardrails activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield",
+      "fontWeight": "900"
+    },
+    {
+      "name": "define-platform-capabilities-icon",
+      "description": "Define Platform Capabilities activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-sitemap",
+      "fontWeight": "900"
+    },
+    {
+      "name": "architect-build-foundation-icon",
+      "description": "Architect and Build the Foundation activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-hammer",
+      "fontWeight": "900"
+    },
+    {
+      "name": "operate-evolve-system-icon",
+      "description": "Operate and Evolve the System activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-wrench",
+      "fontWeight": "900"
+    },
+    {
+      "name": "develop-golden-paths-icon",
+      "description": "Develop the Golden Paths activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-road",
+      "fontWeight": "900"
+    },
+    {
+      "name": "integrate-toolchain-services-icon",
+      "description": "Integrate Toolchain Services activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-link",
+      "fontWeight": "900"
+    },
+    {
+      "name": "prepare-to-do-work-icon",
+      "description": "Prepare To Do The Work activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "manage-work-execution-icon",
+      "description": "Manage Work Execution activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-project-diagram",
+      "fontWeight": "900"
+    },
+    {
+      "name": "structure-organizational-topologies-icon",
+      "description": "Structure Organizational Topologies activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-network-wired",
+      "fontWeight": "900"
+    },
+    {
+      "name": "transition-team-icon",
+      "description": "Transition Team activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-arrows",
+      "fontWeight": "900"
+    },
+    {
+      "name": "establish-operational-practices-icon",
+      "description": "Establish Operational Practices activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-book-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "implement-policy-as-code-icon",
+      "description": "Implement Policy-as-Code activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "drive-cultural-transformation-icon",
+      "description": "Drive Cultural Transformation activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-heart",
+      "fontWeight": "900"
+    },
+    {
+      "name": "stop-the-work-icon",
+      "description": "Stop The Work activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-stop",
+      "fontWeight": "900"
+    },
+    {
+      "name": "decommission-retire-icon",
+      "description": "Decommission and Retire activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-trash",
+      "fontWeight": "900"
+    }
   ]
 }
