@@ -15,6 +15,7 @@ export type FlowNode = {
   stateName?: string; // For alphaState nodes
   stateSeq?: number;  // For sorting
   description?: string;
+  assetNames?: Array<{ assetName: string; type: string }>;
 };
 
 export type FlowLink = {
@@ -110,10 +111,17 @@ function getActivityMinSeq(
 function buildPersonaGroupFlow(
   personaGroupName: string,
   activities: any[],
-  alphaStateSeq: Map<string, Map<string, number>>
+  alphaStateSeq: Map<string, Map<string, number>>,
+  alphas: any[]
 ): PersonaGroupFlow {
   const nodes: FlowNode[] = [];
   const links: FlowLink[] = [];
+
+  // Build alpha lookup
+  const alphaByName = new Map<string, any>();
+  for (const alpha of alphas) {
+    alphaByName.set(alpha.name, alpha);
+  }
 
   // Add PersonaGroup node
   const pgNodeId = `pg:${personaGroupName}`;
@@ -215,6 +223,7 @@ function buildPersonaGroupFlow(
       // Create state node (unique per alpha state)
       const stateId = `state:${alphaName}:${stateName}`;
       if (!nodes.find((n) => n.id === stateId)) {
+        const alpha = alphaByName.get(alphaName);
         nodes.push({
           type: "alphaState",
           id: stateId,
@@ -222,6 +231,7 @@ function buildPersonaGroupFlow(
           alphaName,
           stateName,
           stateSeq,
+          assetNames: alpha?.assetNames,
         });
       }
 
@@ -282,7 +292,7 @@ export function extractProgressiveFlowData(practice: any): ProgressiveFlowData {
   // Build flows for each PersonaGroup
   const flows: PersonaGroupFlow[] = [];
   for (const pgName of Array.from(personaGroupsSet).sort()) {
-    const flow = buildPersonaGroupFlow(pgName, allActivities, alphaStateSeq);
+    const flow = buildPersonaGroupFlow(pgName, allActivities, alphaStateSeq, alphas);
     if (flow.nodes.length > 1) {
       // Only include if has activities
       flows.push(flow);

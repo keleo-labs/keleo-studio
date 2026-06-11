@@ -30,6 +30,7 @@ export interface TopologyNode {
   seq?: number; // Sequence number for states/levels
   isPlaceholder?: boolean; // True if this is a reference to a baseline element
   children?: TopologyNode[]; // Child nodes for compound nodes (alphas, work products, etc.)
+  assetNames?: Array<{ assetName: string; type: string }>; // Asset references from practice element
 }
 
 export interface TopologyEdge {
@@ -285,6 +286,7 @@ export function extractTopologyData(practice: any): TopologyData {
         type: "alpha",
         description: `${alpha.description} - ${state.name}`,
         children: [stateNode],
+        assetNames: alpha.assetNames,
       });
 
       // Link to next state in sequence - but link to activities if they exist
@@ -378,6 +380,7 @@ export function extractTopologyData(practice: any): TopologyData {
             type: "workProduct",
             description: `${wp.description} - ${lod.name}`,
             children: [lodNode],
+            assetNames: wp.assetNames,
           });
 
           // Add LOD -> AlphaState edge (evidences)

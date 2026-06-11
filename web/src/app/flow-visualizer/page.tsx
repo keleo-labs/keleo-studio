@@ -5,6 +5,7 @@ import Link from "next/link";
 import KanbanPatternBoard from "@/components/KanbanPatternBoard";
 import { useSearchParams } from "next/navigation";
 import { asBaselineDocument, baselineWithPracticeActivities } from "@/lib/ir";
+import { preloadPracticeFonts } from "@/lib/fontLoader";
 
 function FlowVisualizerInner() {
   const [practice, setPractice] = useState<any>(null);
@@ -64,6 +65,10 @@ function FlowVisualizerInner() {
         if (!res.ok) throw new Error("Failed to load practice");
         const data = await res.json();
         const practiceBody = data.body;
+
+        // Preload fonts before rendering
+        preloadPracticeFonts(practiceBody);
+
         setPractice(practiceBody);
 
         // Extract baseline for pattern visualization

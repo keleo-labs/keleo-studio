@@ -12,6 +12,9 @@ import {
   type AlphaSwimLane,
   type WorkProductSwimLane,
 } from "@/lib/kanbanPatternData";
+import { getIconAssetUrl, findAsset } from "@/lib/assetUtils";
+import type { Asset } from "@/lib/types";
+import { IconAsset } from "@/components/IconAsset";
 
 function slug(s: unknown) {
   return String(s ?? "")
@@ -48,6 +51,33 @@ const CARD_COLORS = {
     badge: "var(--pf-v6-global--palette--orange-600)",
   },
 };
+
+/**
+ * Helper to get icon asset for an element (alpha or work product) from baseline
+ */
+function getElementIconAsset(elementName: string, baseline: any, assets: Asset[]): Asset | null {
+  // Look in alphas
+  const alpha = baseline?.alphas?.find((a: any) => a.name === elementName);
+  if (alpha && alpha.assetNames) {
+    const iconRef = alpha.assetNames.find((ref: any) => ref.type === "icon");
+    if (iconRef) {
+      const asset = findAsset(iconRef.assetName, assets);
+      if (asset) return asset;
+    }
+  }
+
+  // Look in work products
+  const workProduct = baseline?.workProducts?.find((wp: any) => wp.name === elementName);
+  if (workProduct && workProduct.assetNames) {
+    const iconRef = workProduct.assetNames.find((ref: any) => ref.type === "icon");
+    if (iconRef) {
+      const asset = findAsset(iconRef.assetName, assets);
+      if (asset) return asset;
+    }
+  }
+
+  return null;
+}
 
 function AlphaStateCell({ card }: { card: KanbanCard | null }) {
   if (!card) {
@@ -209,6 +239,7 @@ export default function KanbanPatternBoardPF({ pattern, baseline }: KanbanPatter
   const [swimLanes, setSwimLanes] = useState<AlphaSwimLane[]>([]);
   const [workProductSwimLanes, setWorkProductSwimLanes] = useState<WorkProductSwimLane[]>([]);
   const [loading, setLoading] = useState(true);
+  const [assets, setAssets] = useState<Asset[]>([]);
 
   useEffect(() => {
     if (!pattern || !baseline) {
@@ -221,6 +252,12 @@ export default function KanbanPatternBoardPF({ pattern, baseline }: KanbanPatter
       setColumns(data);
       setSwimLanes(buildAlphaSwimLanes(data));
       setWorkProductSwimLanes(buildWorkProductSwimLanes(data));
+      // Collect assets from baseline and pattern
+      const allAssets = [
+        ...(baseline?.assets || []),
+        ...(pattern?.assets || []),
+      ];
+      setAssets(allAssets);
     } catch (error) {
       console.error("Error extracting Kanban data:", error);
       setColumns([]);
@@ -418,32 +455,47 @@ export default function KanbanPatternBoardPF({ pattern, baseline }: KanbanPatter
                   alignItems: "center",
                 }}
               >
-                <div>
-                  <a
-                    href={`#alpha-${slug(lane.alphaName)}`}
-                    style={{ textDecoration: "none", display: "inline-block" }}
-                    title={lane.alphaName}
-                  >
-                    <span
-                      style={{
-                        display: "inline-block",
-                        padding: "0.125rem 0.5rem",
-                        fontSize: "0.875rem",
-                        fontWeight: 600,
-                        lineHeight: 1.4,
-                        color: "#FFFFFF",
-                        backgroundColor: "#8B4DAD",
-                        borderRadius: "3px",
-                        wordWrap: "break-word",
-                        overflowWrap: "break-word",
-                        hyphens: "auto",
-                        maxWidth: "10rem",
-                      }}
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", width: "100%" }}>
+                  {(() => {
+                    const iconAsset = getElementIconAsset(lane.alphaName, baseline, assets);
+                    if (iconAsset) {
+                      return (
+                        <IconAsset
+                          asset={iconAsset}
+                          size={20}
+                          style={{ flexShrink: 0 }}
+                        />
+                      );
+                    }
+                    return null;
+                  })()}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <a
+                      href={`#alpha-${slug(lane.alphaName)}`}
+                      style={{ textDecoration: "none", display: "inline-block" }}
+                      title={lane.alphaName}
                     >
-                      {lane.alphaName}
-                    </span>
-                  </a>
-                  <p style={{ fontSize: "0.625rem", color: "var(--pf-v6-global--Color--200)", margin: "0.25rem 0 0 0" }}>→ State Progression</p>
+                      <span
+                        style={{
+                          display: "inline-block",
+                          padding: "0.125rem 0.5rem",
+                          fontSize: "0.875rem",
+                          fontWeight: 600,
+                          lineHeight: 1.4,
+                          color: "#FFFFFF",
+                          backgroundColor: "#8B4DAD",
+                          borderRadius: "3px",
+                          wordWrap: "break-word",
+                          overflowWrap: "break-word",
+                          hyphens: "auto",
+                          maxWidth: "100%",
+                        }}
+                      >
+                        {lane.alphaName}
+                      </span>
+                    </a>
+                    <p style={{ fontSize: "0.625rem", color: "var(--pf-v6-global--Color--200)", margin: "0.25rem 0 0 0" }}>→ State Progression</p>
+                  </div>
                 </div>
               </div>
               {/* State cells */}
@@ -514,32 +566,47 @@ export default function KanbanPatternBoardPF({ pattern, baseline }: KanbanPatter
                       alignItems: "center",
                     }}
                   >
-                    <div>
-                      <a
-                        href={`#workproduct-${slug(lane.workProductName)}`}
-                        style={{ textDecoration: "none", display: "inline-block" }}
-                        title={lane.workProductName}
-                      >
-                        <span
-                          style={{
-                            display: "inline-block",
-                            padding: "0.125rem 0.5rem",
-                            fontSize: "0.875rem",
-                            fontWeight: 600,
-                            lineHeight: 1.4,
-                            color: "#FFFFFF",
-                            backgroundColor: "#EC7A08",
-                            borderRadius: "3px",
-                            wordWrap: "break-word",
-                            overflowWrap: "break-word",
-                            hyphens: "auto",
-                            maxWidth: "10rem",
-                          }}
+                    <div style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", width: "100%" }}>
+                      {(() => {
+                        const iconAsset = getElementIconAsset(lane.workProductName, baseline, assets);
+                        if (iconAsset) {
+                          return (
+                            <IconAsset
+                              asset={iconAsset}
+                              size={20}
+                              style={{ flexShrink: 0 }}
+                            />
+                          );
+                        }
+                        return null;
+                      })()}
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <a
+                          href={`#workproduct-${slug(lane.workProductName)}`}
+                          style={{ textDecoration: "none", display: "inline-block" }}
+                          title={lane.workProductName}
                         >
-                          {lane.workProductName}
-                        </span>
-                      </a>
-                      <p style={{ fontSize: "0.625rem", color: "var(--pf-v6-global--Color--200)", margin: "0.25rem 0 0 0" }}>→ Level Progression</p>
+                          <span
+                            style={{
+                              display: "inline-block",
+                              padding: "0.125rem 0.5rem",
+                              fontSize: "0.875rem",
+                              fontWeight: 600,
+                              lineHeight: 1.4,
+                              color: "#FFFFFF",
+                              backgroundColor: "#EC7A08",
+                              borderRadius: "3px",
+                              wordWrap: "break-word",
+                              overflowWrap: "break-word",
+                              hyphens: "auto",
+                              maxWidth: "100%",
+                            }}
+                          >
+                            {lane.workProductName}
+                          </span>
+                        </a>
+                        <p style={{ fontSize: "0.625rem", color: "var(--pf-v6-global--Color--200)", margin: "0.25rem 0 0 0" }}>→ Level Progression</p>
+                      </div>
                     </div>
                   </div>
                   {/* Level cells */}
