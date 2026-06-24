@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BrowseView } from "@/components/BrowseView";
-import { ProjectManagementView } from "@/components/ProjectManagementView";
-import { useLanguagePack } from "@/lib/languagePack";
-import { preloadPracticeFonts } from "@/lib/fontLoader";
+import { BrowseView } from "@/components/browse/BrowseView";
+import { ProjectManagementView } from "@/components/project/ProjectManagementView";
+import { useLanguagePack } from "@/lib/display/languagePack";
+import { preloadPracticeFonts } from "@/lib/display/fontLoader";
 
 type ViewMode = "browse" | "project-management";
 

@@ -69,4 +69,4 @@ export type ElementFirstMention = {
 /**
  * Organizing principle for practice body structure.
  */
-export type OrganizingPrinciple = 'focus' | 'pattern' | 'hybrid';
+export type OrganizingPrinciple = 'focus' | 'pattern' | 'hybrid' | 'methodBook';

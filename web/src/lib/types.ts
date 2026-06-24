@@ -259,13 +259,18 @@ export type Practice = PracticeElement & {
 
 export type Method = PracticeElement & {
   /** Canonical kernel artifact; head of the practice hierarchy — always merges first into the accumulator. */
-  baselinePractice: PracticeBaseline;
+  baselinePractice?: PracticeBaseline;
+  /** Symbolic link to baseline practice by name. Use this OR baselinePractice (not both). */
+  baselinePracticeName?: string;
   /**
    * Extension layers merged after {@link baselinePractice}, in hierarchy order — **nearest baseline first**, leaf
    * practice last (e.g. `[...dependencyPracticesFromLibraryInDependencyListOrder, primaryPractice]`).
    * Each layer overlays the accumulator under {@link compositePracticeFromMethod}: earlier layers keep `description` on same-named rows when later layers redefine them.
+   * Use this OR practiceNames (not both).
    */
   practices?: Practice[];
+  /** Array of symbolic practice name references. Use this OR practices (not both). */
+  practiceNames?: string[];
   /** Bibliographic references defined in this method (merged from baseline and practices). */
   citations?: Citation[];
   /** Visual assets for the entire method (shared across practices). */

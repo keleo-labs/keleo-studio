@@ -1,5 +1,5 @@
 import type { Method, Practice, PracticeBaseline } from "@/lib/types";
-import { mergePracticeElementTags } from "@/lib/practiceElementTags";
+import { mergePracticeElementTags } from "@/lib/display/elementDisplay";
 import {
   activitySpaceIdentityKey,
   canonicalPracticeElementName,
@@ -9,12 +9,20 @@ import {
   mergeFocusNamePreferNonImplicit,
   propagateDerivedFocusNames,
 } from "@/lib/ir";
-import { mergePatternViewAlphaStates } from "@/lib/patternView";
+import { mergePatternViewAlphaStates } from "@/lib/converters/patternView";
 import type { LibraryLookupIndex } from "@/lib/library/practiceDependencyResolution";
 import { findBaselineInLibrary, findPracticeInLibrary } from "@/lib/library/practiceDependencyResolution";
 
 function clone<T>(v: T): T {
   return typeof structuredClone === "function" ? structuredClone(v) : (JSON.parse(JSON.stringify(v)) as T);
+}
+
+function addSourcePracticeNameToElements(elements: any[], sourcePracticeName: string): any[] {
+  return elements.map((el) => {
+    const cloned = clone(el);
+    cloned.sourcePracticeName = sourcePracticeName;
+    return cloned;
+  });
 }
 
 function uniqStrings(xs: string[]): string[] {
@@ -446,6 +454,7 @@ function mergeContribs(
 function mergeAlphas(
   base: PracticeBaseline["alphas"],
   over: PracticeBaseline["alphas"],
+  sourcePracticeName?: string,
 ): PracticeBaseline["alphas"] {
   const byName = new Map<string, any>();
   for (const a of base ?? []) {
@@ -471,9 +480,19 @@ function mergeAlphas(
       if (!merged.contributesTo) delete merged.contributesTo;
       if (mergedSupporting.length) merged.supportingAlphas = mergedSupporting;
       else delete merged.supportingAlphas;
+      // Keep the existing sourcePracticeName if it exists, otherwise use the new one
+      if (!prev.sourcePracticeName && sourcePracticeName) {
+        merged.sourcePracticeName = sourcePracticeName;
+      } else if (prev.sourcePracticeName) {
+        merged.sourcePracticeName = prev.sourcePracticeName;
+      }
       byName.set(k, merged as PracticeBaseline["alphas"][number]);
     } else {
-      byName.set(k, clonedRowWithCanonicalName(a as Record<string, unknown>, k));
+      const cloned = clonedRowWithCanonicalName(a as Record<string, unknown>, k);
+      if (sourcePracticeName) {
+        cloned.sourcePracticeName = sourcePracticeName;
+      }
+      byName.set(k, cloned);
     }
   }
   return [...byName.values()];
@@ -562,7 +581,7 @@ type ActSlot = Map<string, any>;
 
 type SpaceSlot = { space: any; activities: ActSlot };
 
-function toSpaceSlotMap(rows: any[], flat: any[]): Map<string, SpaceSlot> {
+function toSpaceSlotMap(rows: any[], flat: any[], sourcePracticeName?: string): Map<string, SpaceSlot> {
   const canonical = canonicalizeActivitySpaces(rows, flat);
   const m = new Map<string, SpaceSlot>();
   for (const row of canonical) {
@@ -571,16 +590,23 @@ function toSpaceSlotMap(rows: any[], flat: any[]): Map<string, SpaceSlot> {
     for (const a of row.activities ?? []) {
       const ak = canonicalPracticeElementName(a?.name);
       if (!ak) continue;
-      actMap.set(ak, clonedRowWithCanonicalName(a as Record<string, unknown>, ak));
+      const cloned = clonedRowWithCanonicalName(a as Record<string, unknown>, ak);
+      if (sourcePracticeName) {
+        cloned.sourcePracticeName = sourcePracticeName;
+      }
+      actMap.set(ak, cloned);
     }
     const { activities: _a, ...sp } = row;
+    if (sourcePracticeName) {
+      sp.sourcePracticeName = sourcePracticeName;
+    }
     m.set(nm, { space: sp, activities: actMap });
   }
   return m;
 }
 
 function mergeActivityElements(base: any, over: any): any {
-  return {
+  const merged = {
     ...mergePracticeElements(base, over),
     activitySpaceName: over.activitySpaceName || base.activitySpaceName,
     // Do not use `||`: "Implicit focus" is truthy and would clobber a real focus from the baseline.
@@ -590,6 +616,13 @@ function mergeActivityElements(base: any, over: any): any {
     worksOn: [...(base.worksOn ?? []), ...(over.worksOn ?? [])],
     recommendedCompetencyLevels: [...(base.recommendedCompetencyLevels ?? []), ...(over.recommendedCompetencyLevels ?? [])],
   };
+  // Keep the existing sourcePracticeName if it exists, otherwise use the new one
+  if (!base.sourcePracticeName && over.sourcePracticeName) {
+    merged.sourcePracticeName = over.sourcePracticeName;
+  } else if (base.sourcePracticeName) {
+    merged.sourcePracticeName = base.sourcePracticeName;
+  }
+  return merged;
 }
 
 function mergeSpaceSlots(prev: SpaceSlot, next: SpaceSlot): SpaceSlot {
@@ -603,6 +636,12 @@ function mergeSpaceSlots(prev: SpaceSlot, next: SpaceSlot): SpaceSlot {
     involves: uniqStrings([...(prev.space.involves ?? []), ...(next.space.involves ?? [])]),
     focusName: mergeFocusNamePreferNonImplicit(prev.space.focusName, next.space.focusName),
   };
+  // Keep the existing sourcePracticeName if it exists, otherwise use the new one
+  if (!prev.space.sourcePracticeName && next.space.sourcePracticeName) {
+    space.sourcePracticeName = next.space.sourcePracticeName;
+  } else if (prev.space.sourcePracticeName) {
+    space.sourcePracticeName = prev.space.sourcePracticeName;
+  }
   const activities = new Map(prev.activities);
   for (const [k, v] of next.activities) {
     if (!activities.has(k)) activities.set(k, clonedRowWithCanonicalName(v as Record<string, unknown>, k));
@@ -724,7 +763,7 @@ function mergeLevelsOfDetail(a: any[], b: any[]): any[] {
   return [...byName.values()].sort((p, q) => (Number(p.seq) || 0) - (Number(q.seq) || 0));
 }
 
-function mergeWorkProducts(a: any[], b: any[]): any[] {
+function mergeWorkProducts(a: any[], b: any[], sourcePracticeName?: string): any[] {
   const byName = new Map<string, any>();
   for (const wp of a ?? []) {
     const k = canonicalPracticeElementName(wp?.name);
@@ -736,13 +775,24 @@ function mergeWorkProducts(a: any[], b: any[]): any[] {
     if (!k) continue;
     if (byName.has(k)) {
       const prev = byName.get(k);
-      byName.set(k, {
+      const merged = {
         ...mergePracticeElements(prev, wp),
         name: k,
         levelsOfDetail: mergeLevelsOfDetail(prev.levelsOfDetail ?? [], wp.levelsOfDetail ?? []),
-      });
+      };
+      // Keep the existing sourcePracticeName if it exists
+      if (!prev.sourcePracticeName && sourcePracticeName) {
+        merged.sourcePracticeName = sourcePracticeName;
+      } else if (prev.sourcePracticeName) {
+        merged.sourcePracticeName = prev.sourcePracticeName;
+      }
+      byName.set(k, merged);
     } else {
-      byName.set(k, clonedRowWithCanonicalName(wp as Record<string, unknown>, k));
+      const cloned = clonedRowWithCanonicalName(wp as Record<string, unknown>, k);
+      if (sourcePracticeName) {
+        cloned.sourcePracticeName = sourcePracticeName;
+      }
+      byName.set(k, cloned);
     }
   }
   return [...byName.values()];
@@ -980,7 +1030,7 @@ function mergePatternViews(a: any[], b: any[]): any[] {
   return [...byName.values()].sort((p, q) => (Number(p.seq) || 0) - (Number(q.seq) || 0));
 }
 
-function mergePatterns(a: any[], b: any[]): any[] {
+function mergePatterns(a: any[], b: any[], sourcePracticeName?: string): any[] {
   const byName = new Map<string, any>();
   for (const pat of a ?? []) {
     const k = canonicalPracticeElementName(pat?.name);
@@ -994,14 +1044,25 @@ function mergePatterns(a: any[], b: any[]): any[] {
       const prev = byName.get(k);
       const prevNt = String(prev.narrativeTypeName ?? "").trim();
       const overlayNt = String(pat.narrativeTypeName ?? "").trim();
-      byName.set(k, {
+      const merged = {
         ...mergePracticeElements(prev, pat),
         name: k,
         ...(prevNt || overlayNt ? { narrativeTypeName: prevNt || overlayNt } : {}),
         patternViews: mergePatternViews(prev.patternViews ?? [], pat.patternViews ?? []),
-      });
+      };
+      // Keep the existing sourcePracticeName if it exists
+      if (!prev.sourcePracticeName && sourcePracticeName) {
+        merged.sourcePracticeName = sourcePracticeName;
+      } else if (prev.sourcePracticeName) {
+        merged.sourcePracticeName = prev.sourcePracticeName;
+      }
+      byName.set(k, merged);
     } else {
-      byName.set(k, clonedRowWithCanonicalName(pat as Record<string, unknown>, k));
+      const cloned = clonedRowWithCanonicalName(pat as Record<string, unknown>, k);
+      if (sourcePracticeName) {
+        cloned.sourcePracticeName = sourcePracticeName;
+      }
+      byName.set(k, cloned);
     }
   }
   return [...byName.values()];
@@ -1288,10 +1349,10 @@ function collectSecondaryBaselineActivitySpaceRows(items: unknown[], primaryKern
 function mergeOneExtensionPracticeOntoOut(acc: ExtensionMergeAccumulator, overlayPractice: Practice): void {
   acc.slotMap = mergeSpaceSlotMaps(
     acc.slotMap,
-    toSpaceSlotMap(overlayPractice.activitySpaces ?? [], overlayPractice.activities ?? []),
+    toSpaceSlotMap(overlayPractice.activitySpaces ?? [], overlayPractice.activities ?? [], overlayPractice.name),
   );
   acc.out.focuses = mergeFocuses(acc.out.focuses as any, overlayPractice.focuses ?? []);
-  acc.out.alphas = mergeAlphas(acc.out.alphas as any, overlayPractice.alphas ?? []);
+  acc.out.alphas = mergeAlphas(acc.out.alphas as any, overlayPractice.alphas ?? [], overlayPractice.name);
   acc.out.competencies = mergeCompetencies(acc.out.competencies as any, overlayPractice.competencies ?? []);
   acc.out.authors = uniqStrings([...(acc.out.authors as string[]), ...((overlayPractice.authors ?? []) as string[])]);
   acc.out.keywords = uniqStrings([...(acc.out.keywords as string[]), ...((overlayPractice.keywords ?? []) as string[])]);
@@ -1299,7 +1360,7 @@ function mergeOneExtensionPracticeOntoOut(acc: ExtensionMergeAccumulator, overla
     ...(acc.out.practiceDependencyNames as string[]),
     ...((overlayPractice.practiceDependencyNames ?? []) as string[]),
   ]);
-  acc.out.workProducts = mergeWorkProducts(acc.out.workProducts as any, (overlayPractice.workProducts ?? []) as any[]);
+  acc.out.workProducts = mergeWorkProducts(acc.out.workProducts as any, (overlayPractice.workProducts ?? []) as any[], overlayPractice.name);
   acc.out.narrativeTypes = mergeNarrativeTypes(
     acc.out.narrativeTypes as any,
     ((overlayPractice as any).narrativeTypes ?? []) as any[],
@@ -1317,7 +1378,7 @@ function mergeOneExtensionPracticeOntoOut(acc: ExtensionMergeAccumulator, overla
     acc.out.personaGroups as any,
     ((overlayPractice as any).personaGroups ?? []) as any[],
   );
-  acc.out.patterns = mergePatterns(acc.out.patterns as any, (overlayPractice.patterns ?? []) as any[]);
+  acc.out.patterns = mergePatterns(acc.out.patterns as any, (overlayPractice.patterns ?? []) as any[], overlayPractice.name);
   const mergedExtAi = mergeKeyedPracticeOverlayRows(
     Array.isArray(acc.out.alphaInstances) ? (acc.out.alphaInstances as any[]) : [],
     Array.isArray((overlayPractice as any).alphaInstances) ? ((overlayPractice as any).alphaInstances as any[]) : [],
@@ -1444,6 +1505,7 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
   const methodNarr = Array.isArray((method as Record<string, unknown>).narratives)
     ? ((method as Record<string, unknown>).narratives as unknown[])
     : [];
+  const baselinePracticeName = String(baseline.name ?? "");
   const out: Record<string, unknown> = {
     name: method.name,
     description: String(method.description ?? "").trim(),
@@ -1451,7 +1513,7 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
     /** Provenance only: do not use `baselinePracticeName` here — merged docs must classify as kernel-shaped so library resolution and enrich stubs are not re-run. */
     mergesBaselinePracticeName: baseline.name,
     focuses: clone(baseline.focuses ?? []),
-    alphas: clone(baseline.alphas ?? []),
+    alphas: addSourcePracticeNameToElements(baseline.alphas ?? [], baselinePracticeName),
     competencies: clone(baseline.competencies ?? []),
     authors: uniqStrings([...(baseline.authors ?? [])]),
     createdAt: baseline.createdAt,
@@ -1462,8 +1524,8 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
     citations: mergeCitations(mergeCitations([], baselineCitations), methodCitations),
     assets: mergeAssets(mergeAssets([], baselineAssets), methodAssets),
     practiceDependencyNames: uniqStrings(((method as any).practiceDependencyNames ?? []) as string[]),
-    workProducts: mergeWorkProducts(mergeWorkProducts([], baselineWorkProducts), methodWorkProducts),
-    patterns: mergePatterns(mergePatterns([], baselinePatterns), methodPatterns),
+    workProducts: mergeWorkProducts(mergeWorkProducts([], addSourcePracticeNameToElements(baselineWorkProducts, baselinePracticeName)), methodWorkProducts),
+    patterns: mergePatterns(mergePatterns([], addSourcePracticeNameToElements(baselinePatterns, baselinePracticeName)), methodPatterns),
     personas: mergePersonas(mergePersonas([], baselinePersonas), methodPersonas),
     personaGroups: mergePersonaGroups(mergePersonaGroups([], baselinePersonaGroups), methodPersonaGroups),
     // Only include method's own narratives, not baseline or practice narratives
@@ -1475,7 +1537,7 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
     ...(baseline.activitySpaces ?? []),
     ...collectSecondaryBaselineActivitySpaceRows(layersUnknown, String(baseline.name ?? "")),
   ];
-  const acc: ExtensionMergeAccumulator = { out, slotMap: toSpaceSlotMap(baseline.activitySpaces ?? [], []) };
+  const acc: ExtensionMergeAccumulator = { out, slotMap: toSpaceSlotMap(baseline.activitySpaces ?? [], [], baselinePracticeName) };
   mergePracticeArrayOntoOut(acc, layersUnknown);
   out.activitySpaces = slotMapToRows(
     acc.slotMap,

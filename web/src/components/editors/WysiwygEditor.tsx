@@ -1,27 +1,27 @@
 "use client";
 
 import { useCallback, useState, type CSSProperties } from 'react';
-import { PropertyTable } from './fields/PropertyTable';
-import { PropertyRow } from './fields/PropertyRow';
-import { InlineTextField } from './fields/InlineTextField';
-import { InlineTextArea } from './fields/InlineTextArea';
-import { InlineSelectField } from './fields/InlineSelectField';
-import { InlineReadonlyValue } from './fields/InlineReadonlyValue';
-import { TagsField } from './fields/TagsField';
-import { NarrativesField } from './fields/NarrativesField';
-import { StringArrayField } from './fields/StringArrayField';
-import { AlphaContributionsField } from './fields/AlphaContributionsField';
-import { WorkProductContributionsField } from './fields/WorkProductContributionsField';
-import { CompetencyLevelReferencesField } from './fields/CompetencyLevelReferencesField';
-import { AlphaInstancesField } from './fields/AlphaInstancesField';
-import { NarrativeContextsField } from './fields/NarrativeContextsField';
-import { PracticeDependenciesField } from './fields/PracticeDependenciesField';
-import { setValueAtPath, appendToArray, removeFromArray, moveArrayItem } from '@/lib/json-path-utils';
-import type { ElementSourceMap } from '@/lib/elementSourceTracking';
-import { getBaselineChecklistItemNames, getBaselineStateNames } from '@/lib/elementSourceTracking';
+import { PropertyTable } from './fields/containers/PropertyTable';
+import { PropertyRow } from './fields/containers/PropertyRow';
+import { InlineTextField } from './fields/base/InlineTextField';
+import { InlineTextArea } from './fields/base/InlineTextArea';
+import { InlineSelectField } from './fields/base/InlineSelectField';
+import { InlineReadonlyValue } from './fields/readonly/InlineReadonlyValue';
+import { TagsField } from './fields/domain/TagsField';
+import { NarrativesField } from './fields/domain/NarrativesField';
+import { StringArrayField } from './fields/domain/StringArrayField';
+import { AlphaContributionsField } from './fields/domain/AlphaContributionsField';
+import { WorkProductContributionsField } from './fields/domain/WorkProductContributionsField';
+import { CompetencyLevelReferencesField } from './fields/domain/CompetencyLevelReferencesField';
+import { AlphaInstancesField } from './fields/domain/AlphaInstancesField';
+import { NarrativeContextsField } from './fields/domain/NarrativeContextsField';
+import { PracticeDependenciesField } from './fields/domain/PracticeDependenciesField';
+import { setValueAtPath, appendToArray, removeFromArray, moveArrayItem } from '@/lib/core/json-path-utils';
+import type { ElementSourceMap } from '@/lib/display/sourceTracking';
+import { getBaselineChecklistItemNames, getBaselineStateNames } from '@/lib/display/sourceTracking';
 import type { PracticeBaseline } from '@/lib/types';
 import { canonicalPracticeElementName } from '@/lib/ir';
-import { extractPracticeNames } from '@/lib/extractPracticeNames';
+import { extractPracticeNames } from '@/lib/analysis/extractPracticeNames';
 import {
   emptyFocus,
   emptyAlpha,
@@ -41,7 +41,7 @@ import {
   emptyNarrativeElement,
   emptyAlphaInstance,
   emptyEmbeddedWorkProductInstance,
-} from '@/lib/practiceFormDefaults';
+} from '@/lib/data/practiceFormDefaults';
 
 export type WysiwygEditorProps = {
   doc: Record<string, unknown>;

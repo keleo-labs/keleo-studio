@@ -8,32 +8,7 @@ import {
 } from "@/lib/library/practiceDependencyResolution";
 import { loadAllLibraryDocumentBodies } from "@/lib/library/loadLibraryBodies";
 import { classifyLibraryRoot } from "@/lib/library/classify";
-
-function normalizePracticeDoc(doc: unknown): unknown {
-  if (!doc || typeof doc !== "object") return doc;
-  const o = doc as Record<string, unknown>;
-
-  const isPractice = typeof o.baselinePracticeName === "string" || Array.isArray(o.practiceDependencyNames);
-  if (!isPractice) {
-    if (Array.isArray(o.practices)) {
-      return {
-        ...o,
-        practices: o.practices.map((p) => normalizePracticeDoc(p)),
-      };
-    }
-    return doc;
-  }
-
-  return {
-    ...o,
-    alphas: Array.isArray(o.alphas) ? o.alphas : [],
-    activitySpaces: Array.isArray(o.activitySpaces) ? o.activitySpaces : [],
-    activities: Array.isArray(o.activities) ? o.activities : [],
-    workProducts: Array.isArray(o.workProducts) ? o.workProducts : [],
-    personas: Array.isArray(o.personas) ? o.personas : [],
-    personaGroups: Array.isArray(o.personaGroups) ? o.personaGroups : [],
-  };
-}
+import { normalizePracticeBody } from "@/lib/core/normalizePractice";
 
 /**
  * POST JSON `{ doc }` — for Practice documents with `baselinePracticeName` and/or `practiceDependencyNames`,
@@ -61,7 +36,7 @@ export async function POST(req: Request) {
   }
 
   // Normalize practice bodies to ensure all expected arrays exist
-  doc = normalizePracticeDoc(doc);
+  doc = normalizePracticeBody(doc);
 
   try {
     const bodies = await loadAllLibraryDocumentBodies();

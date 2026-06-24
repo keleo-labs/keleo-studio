@@ -340,6 +340,7 @@ Debug by checking intermediate merge results in `compositePracticeFromMethod.ts`
 - **Source Files:** [docs/SOURCE_FILES.md](docs/SOURCE_FILES.md)
 - **Architecture:** [docs/SYSTEM_ARCHITECTURE.md](docs/SYSTEM_ARCHITECTURE.md)
 - **Philosophy:** [docs/ABOUT.md](docs/ABOUT.md)
+- **Method Book:** [docs/methodBook-implementation.md](docs/methodBook-implementation.md) - Multi-volume book generation with organizing principles
 
 ---
 

@@ -3,8 +3,8 @@
 import { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { Title, Button, Spinner } from "@patternfly/react-core";
 import { PlusCircleIcon } from "@patternfly/react-icons";
-import { DashboardSectionCarousel } from "@/components/DashboardSectionCarousel";
-import { DashboardSectionEditor } from "@/components/DashboardSectionEditor";
+import { DashboardSectionCarousel } from "@/components/dashboard/DashboardSectionCarousel";
+import { DashboardSectionEditor } from "@/components/dashboard/DashboardSectionEditor";
 import {
   loadDashboardConfig,
   saveDashboardConfig,
@@ -15,8 +15,8 @@ import {
   type DashboardConfigDocument,
   type DashboardSection,
   type EnrichedMeta,
-} from "@/lib/dashboardConfig";
-import { calculateSimpleCompletenessScore } from "@/lib/methodFocus";
+} from "@/lib/data/dashboardConfig";
+import { calculateSimpleCompletenessScore } from "@/lib/analysis/methodFocus";
 
 export default function DashboardPage() {
   const [configId, setConfigId] = useState<string>("");

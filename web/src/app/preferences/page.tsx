@@ -2,8 +2,8 @@
 "use client";
 
 import Link from "next/link";
-import { useLanguagePack } from "@/lib/languagePack";
-import { useTheme } from "@/lib/theme";
+import { useLanguagePack } from "@/lib/display/languagePack";
+import { useTheme } from "@/lib/display/theme";
 
 function linkStyle(): React.CSSProperties {
   return {

@@ -21,12 +21,12 @@ import {
 import type { Method, Practice, PracticeBaseline } from "@/lib/types";
 import type { JsonDocumentMeta } from "@/lib/storage/types";
 import { mergeNarrativesAdditive } from "@/lib/methodMerge/compositePracticeFromMethod";
-import { PropertyTable } from "@/components/editors/fields/PropertyTable";
-import { PropertyRow } from "@/components/editors/fields/PropertyRow";
-import { InlineTextField } from "@/components/editors/fields/InlineTextField";
-import { InlineTextArea } from "@/components/editors/fields/InlineTextArea";
-import { practiceTagsBucketLines, practiceTagsFromBucketLines } from "@/lib/practiceElementTags";
-import { NarrativesField, type Narrative } from "@/components/editors/fields/NarrativesField";
+import { PropertyTable } from "@/components/editors/fields/containers/PropertyTable";
+import { PropertyRow } from "@/components/editors/fields/containers/PropertyRow";
+import { InlineTextField } from "@/components/editors/fields/base/InlineTextField";
+import { InlineTextArea } from "@/components/editors/fields/base/InlineTextArea";
+import { practiceTagsBucketLines, practiceTagsFromBucketLines } from "@/lib/display/elementDisplay";
+import { NarrativesField, type Narrative } from "@/components/editors/fields/domain/NarrativesField";
 
 const DRAG_MIME = "application/x-adoption-library";
 
@@ -551,6 +551,7 @@ export function MethodBuilderClient() {
       const descTrim = methodDescription.trim();
       if (editingDocumentId && nameTrim && descTrim) {
         const methodBody: Record<string, unknown> = {
+          kind: "method",
           name: nameTrim,
           description: descTrim,
           baselinePractice: nextBaseline.baseline,
@@ -762,6 +763,7 @@ export function MethodBuilderClient() {
     const description = methodDescription.trim();
     if (!name || !description) return null;
     const body: Record<string, unknown> = {
+      kind: "method",
       name,
       description,
       baselinePractice: baselineSlot.baseline,
@@ -813,8 +815,16 @@ export function MethodBuilderClient() {
       if (!res.ok) {
         let msg = await res.text();
         try {
-          const j = JSON.parse(msg) as { error?: string };
-          if (j?.error) msg = j.error;
+          const j = JSON.parse(msg) as { error?: string; issues?: Array<{ path: string; message: string }> };
+          if (j?.error) {
+            msg = j.error;
+            // If there are detailed validation issues, append them
+            if (j.issues && j.issues.length > 0) {
+              msg += "\n\nValidation errors:\n" + j.issues.map(issue =>
+                `  ${issue.path || "(root)"}: ${issue.message}`
+              ).join("\n");
+            }
+          }
         } catch {
           /* keep */
         }
@@ -1269,7 +1279,9 @@ export function MethodBuilderClient() {
           </div>
           {saveError ? (
             <Alert variant="danger" isInline title="Error" ouiaId="save-error-alert">
-              {saveError}
+              <pre style={{ whiteSpace: "pre-wrap", fontFamily: "inherit", margin: 0 }}>
+                {saveError}
+              </pre>
             </Alert>
           ) : null}
           <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 16 }}>

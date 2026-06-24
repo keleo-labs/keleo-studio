@@ -1,0 +1,1 @@
+export { AlphaContributesDiagram } from "./diagram";

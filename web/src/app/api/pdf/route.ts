@@ -17,13 +17,13 @@ import {
   resolvePracticeWithLibraryIndex,
 } from "@/lib/library/practiceDependencyResolution";
 import { loadAllLibraryDocumentBodies } from "@/lib/library/loadLibraryBodies";
-import { THEMES, type ThemeId } from "@/lib/themeTokens";
-import { PACKS } from "@/lib/languagePacksData";
-import type { LanguagePackId } from "@/lib/languagePackTypes";
-import { renderBrowsePdfHtml } from "@/lib/pdfBrowseHtml";
-import { relaxCardinalityInSchema } from "@/lib/schemaRelax";
+import { THEMES, type ThemeId } from "@/lib/data/themeTokens";
+import { PACKS } from "@/lib/data/languagePacksData";
+import type { LanguagePackId } from "@/lib/data/languagePackTypes";
+import { renderBrowsePdfHtml } from "@/lib/rendering/pdfBrowseHtml";
+import { relaxCardinalityInSchema } from "@/lib/analysis/schemaRelax";
 import { isStandaloneBaselinePracticeArtifact } from "@/lib/library/classify";
-import type { Method } from "@/lib/types";
+import type { Method, Practice, PracticeBaseline } from "@/lib/types";
 import { buildMethodBook, buildPracticeBook, renderMethodBookHtml, type OrganizingPrinciple } from "@/lib/methodBook";
 
 function isMethodCompositionPayload(v: unknown): v is Method {
@@ -32,18 +32,50 @@ function isMethodCompositionPayload(v: unknown): v is Method {
   return Boolean(bp && typeof bp === "object" && typeof (bp as { name?: unknown }).name === "string");
 }
 
+/**
+ * Request body shape for PDF generation endpoint.
+ */
+interface PdfRequestBody {
+  doc: Record<string, unknown>;
+  themeId?: ThemeId;
+  packId?: LanguagePackId;
+  bookMode?: boolean;
+  organizingPrinciple?: OrganizingPrinciple;
+  methodComposition?: unknown;
+}
+
+/**
+ * Type guard to validate and extract PdfRequestBody from unknown input.
+ */
+function parsePdfRequestBody(body: unknown): PdfRequestBody | null {
+  if (!body || typeof body !== "object") return null;
+
+  const obj = body as Record<string, unknown>;
+  const doc = obj.doc;
+
+  if (!doc || typeof doc !== "object") return null;
+
+  return {
+    doc: doc as Record<string, unknown>,
+    themeId: typeof obj.themeId === "string" ? obj.themeId as ThemeId : undefined,
+    packId: typeof obj.packId === "string" ? obj.packId as LanguagePackId : undefined,
+    bookMode: obj.bookMode === true,
+    organizingPrinciple: typeof obj.organizingPrinciple === "string" ? obj.organizingPrinciple as OrganizingPrinciple : undefined,
+    methodComposition: obj.methodComposition,
+  };
+}
+
 export async function POST(req: Request) {
-  const body = await req.json().catch(() => null);
-  if (!body || typeof body !== "object") {
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  const rawBody = await req.json().catch(() => null);
+  const requestBody = parsePdfRequestBody(rawBody);
+
+  if (!requestBody) {
+    return NextResponse.json({ error: "Invalid request body or missing doc" }, { status: 400 });
   }
 
-  const doc = (body as any).doc;
-  if (!doc || typeof doc !== "object") {
-    return NextResponse.json({ error: "Missing doc" }, { status: 400 });
-  }
-  const originalDoc = doc as Record<string, unknown>;
-  let docObj = doc as Record<string, unknown>;
+  const originalDoc = requestBody.doc;
+  let docObj = requestBody.doc;
+
   if (practiceNeedsLibraryResolution(docObj)) {
     try {
       const bodies = await loadAllLibraryDocumentBodies();
@@ -53,15 +85,17 @@ export async function POST(req: Request) {
       /* keep original doc if store/read fails */
     }
   }
+
   const showNarrativeSpineCatalog = isStandaloneBaselinePracticeArtifact(docObj);
-  const themeId = ((body as any).themeId as ThemeId | undefined) ?? "light";
-  const packId = ((body as any).packId as LanguagePackId | undefined) ?? "default";
-  const rawComposition = (body as { methodComposition?: unknown }).methodComposition;
-  const methodComposition = isMethodCompositionPayload(rawComposition) ? rawComposition : undefined;
+  const themeId = requestBody.themeId ?? "light";
+  const packId = requestBody.packId ?? "default";
+  const methodComposition = isMethodCompositionPayload(requestBody.methodComposition)
+    ? requestBody.methodComposition
+    : undefined;
 
   // Book mode parameters
-  const bookMode = (body as any).bookMode === true;
-  const organizingPrinciple = ((body as any).organizingPrinciple as OrganizingPrinciple | undefined) ?? "pattern";
+  const bookMode = requestBody.bookMode;
+  const organizingPrinciple = requestBody.organizingPrinciple ?? "pattern";
 
   const schemaPath = path.join(process.cwd(), "public", "language.schema.json");
   const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
@@ -100,7 +134,8 @@ export async function POST(req: Request) {
       filename = `${encodeURIComponent(book.series.title)}-Complete-Series.pdf`;
     } else {
       // Book mode for single Practice/PracticeBaseline: practice book format
-      const book = buildPracticeBook(docObj as any, organizingPrinciple);
+      // docObj is validated above against relaxed schema and has baseline, safe to cast
+      const book = buildPracticeBook(docObj as Practice | PracticeBaseline, organizingPrinciple);
       html = renderMethodBookHtml(book, theme, t);
       filename = `${encodeURIComponent(book.series.title)}-Book.pdf`;
     }

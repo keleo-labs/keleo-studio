@@ -2,10 +2,10 @@
 
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import TopologyDiagram from "@/components/TopologyDiagram";
+import TopologyDiagram from "@/components/visualizations/diagrams/TopologyDiagram";
 import { useSearchParams } from "next/navigation";
 import { asBaselineDocument, baselineWithPracticeActivities } from "@/lib/ir";
-import { preloadPracticeFonts } from "@/lib/fontLoader";
+import { preloadPracticeFonts } from "@/lib/display/fontLoader";
 
 function TopologyViewerInner() {
   const [practice, setPractice] = useState<any>(null);

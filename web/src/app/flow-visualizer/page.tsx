@@ -2,10 +2,10 @@
 
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import KanbanPatternBoard from "@/components/KanbanPatternBoard";
+import KanbanPatternBoard from "@/components/visualizations/patterns/KanbanPatternBoard";
 import { useSearchParams } from "next/navigation";
 import { asBaselineDocument, baselineWithPracticeActivities } from "@/lib/ir";
-import { preloadPracticeFonts } from "@/lib/fontLoader";
+import { preloadPracticeFonts } from "@/lib/display/fontLoader";
 
 function FlowVisualizerInner() {
   const [practice, setPractice] = useState<any>(null);

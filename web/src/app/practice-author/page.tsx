@@ -19,25 +19,25 @@ import {
   Split,
   SplitItem,
 } from "@patternfly/react-core";
-import { validateAgainstSchema } from "@/lib/validate";
+import { validateAgainstSchema } from "@/lib/core/validate";
 import {
   asBaselineDocument,
   baselineWithPracticeActivities,
   buildIndexes,
   enrichBaselineWithReferencedWrappers,
 } from "@/lib/ir";
-import { inferPracticeDocKind } from "@/components/PracticeAuthorForm";
+import { inferPracticeDocKind } from "@/components/practice/PracticeAuthorForm";
 import { displayNameForBody, storageKindForBody } from "@/lib/library/classify";
-import { emptyExtensionPractice } from "@/lib/practiceFormDefaults";
-import { useTheme } from "@/lib/theme";
-import { useLanguagePack } from "@/lib/languagePack";
+import { emptyExtensionPractice } from "@/lib/data/practiceFormDefaults";
+import { useTheme } from "@/lib/display/theme";
+import { useLanguagePack } from "@/lib/display/languagePack";
 import { JsonEditor } from "@/components/editors/JsonEditor";
 import { YamlEditor } from "@/components/editors/YamlEditor";
 import { WysiwygEditor } from "@/components/editors/WysiwygEditor";
-import { yamlToJson, jsonToYaml } from "@/lib/yaml-json-converter";
+import { yamlToJson, jsonToYaml } from "@/lib/converters/yaml-json-converter";
 import { useResolvedBaseline } from "@/hooks/useResolvedBaseline";
-import { buildElementSourceMap } from "@/lib/elementSourceTracking";
-import { formatValidationIssue, formatRefIssue } from "@/lib/errorFormatting";
+import { buildElementSourceMap } from "@/lib/display/sourceTracking";
+import { formatValidationIssue, formatRefIssue } from "@/lib/core/errorFormatting";
 
 function issueBox(kind: "bad" | "warn"): React.CSSProperties {
   return {

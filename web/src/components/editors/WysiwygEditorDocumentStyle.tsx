@@ -1,10 +1,10 @@
 "use client";
 
 import { useCallback, type CSSProperties } from 'react';
-import { PropertyTable } from './fields/PropertyTable';
-import { PropertyRow } from './fields/PropertyRow';
-import { InlineTextField } from './fields/InlineTextField';
-import { InlineTextArea } from './fields/InlineTextArea';
+import { PropertyTable } from './fields/containers/PropertyTable';
+import { PropertyRow } from './fields/containers/PropertyRow';
+import { InlineTextField } from './fields/base/InlineTextField';
+import { InlineTextArea } from './fields/base/InlineTextArea';
 import { InlineReadonlyValue } from './fields/InlineReadonlyValue';
 import { TagsField } from './fields/TagsField';
 import { NarrativesField } from './fields/NarrativesField';

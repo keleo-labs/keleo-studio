@@ -911,6 +911,107 @@
       ],
       "unevaluatedProperties": false
     },
+    "PracticeInMethod": {
+      "description": "A practice embedded within a Method's practices array. The 'kind' property is optional since context (being in the practices array) implies it's a practice.",
+      "allOf": [
+        { "$ref": "#/$defs/PracticeElement" },
+        {
+          "type": "object",
+          "required": ["baselinePracticeName"],
+          "properties": {
+            "baselinePracticeName": {
+              "type": "string",
+              "description": "Name of the PracticeBaseline this practice depends on (symbolic link; must match PracticeBaseline.name in the method or registry; do not embed the baseline object in this field)."
+            },
+            "practiceDependencyNames": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Name of another Practice (symbolic link; must match Practice.name)."
+              },
+              "description": "Zero or more other Practice documents by name (symbolic links only; do not embed Practice objects)."
+            },
+            "practiceElementAliases": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/PracticeElementAlias" },
+              "description": "Optional local aliases for named elements in this practice (0..*; language.mmd)."
+            },
+            "focuses": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Focus" }
+            },
+            "alphas": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Alpha" }
+            },
+            "alphaInstances": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/AlphaInstanceName" },
+              "description": "Optional list of AlphaInstance names used to allow practices to identify instances of concepts or areas of concern within the practice."
+            },
+            "workProductInstances": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/WorkProductInstanceName" },
+              "description": "Optional list of WorkProductInstance names used to allow practices to identify instances of work products within the practice."
+            },
+            "activitySpaces": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/ActivitySpace" }
+            },
+            "competencies": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Competency" }
+            },
+            "authors": { "type": "array", "items": { "type": "string" } },
+            "createdAt": { "type": "string" },
+            "updatedAt": { "type": "string" },
+            "version": { "type": "string" },
+            "keywords": { "type": "array", "items": { "type": "string" } },
+            "activities": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Activity" },
+              "description": "Optional flat list of activities (legacy interchange). Canonical shape nests the same Activity objects under ActivitySpace.activities; loaders may fold this array into parents."
+            },
+            "workProducts": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/WorkProduct" },
+              "description": "Work products elaborated by this practice (language.mmd)."
+            },
+            "personas": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Persona" },
+              "description": "Named personas for this practice (language.mmd)."
+            },
+            "personaGroups": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/PersonaGroup" },
+              "description": "Grouped persona refs (symbolic lists of Persona.name; language.mmd)."
+            },
+            "narrativeTypes": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/NarrativeType" },
+              "description": "Optional baseline overlay: narrative spine types (unioned like focuses/alphas when merging)."
+            },
+            "patterns": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Pattern" },
+              "description": "Patterns for this practice (language.mmd)."
+            },
+            "citations": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Citation" },
+              "description": "Bibliographic references elaborated by this practice."
+            },
+            "assets": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Asset" },
+              "description": "Optional array of visual assets (diagrams, templates, icons) referenced by practice elements"
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
     "Method": {
       "allOf": [
         { "$ref": "#/$defs/PracticeElement" },
@@ -927,8 +1028,8 @@
             },
             "practices": {
               "type": "array",
-              "items": { "$ref": "#/$defs/Practice" },
-              "description": "Array of full Practice objects. Use this OR practiceNames."
+              "items": { "$ref": "#/$defs/PracticeInMethod" },
+              "description": "Array of full Practice objects. Use this OR practiceNames. Practice objects in this array don't require 'kind' property since context implies they are practices."
             },
             "practiceNames": {
               "type": "array",
