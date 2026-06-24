@@ -1,5 +1,5 @@
 import { classifyLibraryRoot } from "@/lib/library/classify";
-import { mergePracticeElementTags, normalizePracticeElementTags } from "@/lib/practiceElementTags";
+import { mergePracticeElementTags, normalizePracticeElementTags } from "@/lib/display/elementDisplay";
 
 export type LibraryDocumentTags = {
   domainTags: string[];

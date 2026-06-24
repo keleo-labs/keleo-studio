@@ -10,8 +10,8 @@ import {
   personaReferencedCompetencyNames,
   propagateDerivedFocusNames,
 } from "@/lib/ir";
-import { baselineFocusNamesReferencedByPatternView } from "@/lib/patternMatrixDiagram";
-import { parsePatternViewAlphaState, patternViewLaneRefStrings } from "@/lib/patternView";
+import { baselineFocusNamesReferencedByPatternView } from "@/lib/diagrams/patternMatrix/diagram";
+import { parsePatternViewAlphaState, patternViewLaneRefStrings } from "@/lib/converters/patternView";
 import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePracticeFromMethod";
 
 function clone<T>(v: T): T {
@@ -1137,6 +1137,30 @@ export function resolvePracticeWithLibraryIndex(primary: unknown, index: Library
       const focusName = canonicalPracticeElementName((alpha as any)?.focusName);
       if (focusName !== null) {
         closure.focusNames.add(focusName);
+      }
+    }
+  }
+
+  // CRITICAL: Always include ALL baseline activity spaces in the closure to ensure they're shown
+  // in the Activities view, even if not referenced by the extension practice.
+  // This provides a complete view of baseline activities.
+  const baselineActivitySpaces = (baseline as any).activitySpaces ?? [];
+  for (const space of baselineActivitySpaces) {
+    const spaceName = canonicalPracticeElementName(space?.name);
+    if (spaceName !== null) {
+      closure.activitySpaceNames.add(spaceName);
+      // Also ensure the activity space's focus is included
+      const focusName = canonicalPracticeElementName((space as any)?.focusName);
+      if (focusName !== null) {
+        closure.focusNames.add(focusName);
+      }
+      // Include any activities within the space
+      const activities = (space as any)?.activities ?? [];
+      for (const activity of activities) {
+        const activityName = canonicalPracticeElementName(activity?.name);
+        if (activityName !== null) {
+          closure.activityNames.add(activityName);
+        }
       }
     }
   }

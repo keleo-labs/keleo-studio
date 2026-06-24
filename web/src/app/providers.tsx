@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { ThemeProvider } from "@/lib/theme";
-import { LanguagePackProvider } from "@/lib/languagePack";
+import { ThemeProvider } from "@/lib/display/theme";
+import { LanguagePackProvider } from "@/lib/display/languagePack";
 
 export function Providers({ children }: { children: ReactNode }) {
   return (

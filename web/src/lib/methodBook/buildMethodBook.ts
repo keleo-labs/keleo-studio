@@ -9,6 +9,7 @@ import {
   generateTableOfContents,
 } from "./generateFrontMatter";
 import { organizeByPattern } from "./organizerPattern";
+import { organizeByMethodBook } from "./organizerMethodBook";
 import { generateReferencesVolume } from "./generateReferencesVolume";
 
 /**
@@ -140,6 +141,9 @@ function buildPracticeBody(
   switch (organizingPrinciple) {
     case 'pattern':
       return organizeByPattern(practice, registry, volumeIndex, aliases);
+
+    case 'methodBook':
+      return organizeByMethodBook(practice, registry, volumeIndex, aliases);
 
     case 'focus':
       // TODO: Implement focus-based organizer

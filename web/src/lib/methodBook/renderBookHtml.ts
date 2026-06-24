@@ -1,5 +1,5 @@
-import type { ThemeTokens } from "@/lib/themeTokens";
-import type { LanguagePack } from "@/lib/languagePackTypes";
+import type { ThemeTokens } from "@/lib/data/themeTokens";
+import type { LanguagePack } from "@/lib/data/languagePackTypes";
 import type { MethodBook, BookSection } from "./types";
 
 function esc(s: unknown): string {

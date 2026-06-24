@@ -4,7 +4,7 @@ import { useCallback, useMemo } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { EditorView } from '@codemirror/view';
 import { Extension } from '@codemirror/state';
-import { useTheme } from '@/lib/theme';
+import { useTheme } from '@/lib/display/theme';
 
 export type CodeEditorProps = {
   value: string;

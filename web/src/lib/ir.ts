@@ -10,7 +10,7 @@ import type {
 import {
   isSynthesizedPracticeElementTags,
   synthesizedPracticeElementTags,
-} from "@/lib/practiceElementTags";
+} from "@/lib/display/elementDisplay";
 
 type Indexes = {
   focusByName: Map<string, PracticeElement>;

@@ -1,5 +1,5 @@
 import { practiceElementDescriptionForDisplay } from "@/lib/ir";
-import { parsePatternViewAlphaState } from "@/lib/patternView";
+import { parsePatternViewAlphaState } from "@/lib/converters/patternView";
 import type { DisplayAliasFn } from "@/lib/practiceReport";
 import type { Practice, PracticeBaseline, Pattern, PatternView } from "@/lib/types";
 import type { BookSection, ElementRegistry } from "./types";

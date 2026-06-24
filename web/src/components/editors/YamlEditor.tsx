@@ -6,7 +6,7 @@ import { yaml } from '@codemirror/legacy-modes/mode/yaml';
 import { linter, Diagnostic } from '@codemirror/lint';
 import { Extension } from '@codemirror/state';
 import { CodeEditor } from './CodeEditor';
-import { validateYamlSyntax } from '@/lib/yaml-json-converter';
+import { validateYamlSyntax } from '@/lib/converters/yaml-json-converter';
 
 export type YamlEditorProps = {
   value: string;

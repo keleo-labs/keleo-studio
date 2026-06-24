@@ -17,9 +17,9 @@ import type { LibraryRootKind } from "@/lib/library/classify";
 import { displayNameForBody, rootKindExtension, storageKindForBody } from "@/lib/library/classify";
 import type { LibraryDocumentTags } from "@/lib/library/libraryDocumentTags";
 import type { JsonDocumentMeta } from "@/lib/storage/types";
-import { useLanguagePack } from "@/lib/languagePack";
+import { useLanguagePack } from "@/lib/display/languagePack";
 import { LibraryItemFocus } from "./LibraryItemFocus";
-import { loadDashboardConfig, saveDashboardConfig } from "@/lib/dashboardConfig";
+import { loadDashboardConfig, saveDashboardConfig } from "@/lib/data/dashboardConfig";
 
 type EnrichedMeta = JsonDocumentMeta & {
   libraryRootKind: LibraryRootKind;
@@ -855,18 +855,32 @@ export function LibraryBrowser() {
                   </button>
 
                   {selectedIds.length === 1 && (
-                    <Link
-                      href={getEditHref(selectedIds[0])}
-                      style={{
-                        fontSize: "0.75rem",
-                        fontWeight: 600,
-                        color: "var(--pf-v6-global--link--Color)",
-                        textDecoration: "none",
-                      }}
-                      className="lib-link"
-                    >
-                      Edit
-                    </Link>
+                    <>
+                      <Link
+                        href={`/navigator?libraryId=${encodeURIComponent(selectedIds[0])}`}
+                        style={{
+                          fontSize: "0.75rem",
+                          fontWeight: 600,
+                          color: "var(--pf-v6-global--link--Color)",
+                          textDecoration: "none",
+                        }}
+                        className="lib-link"
+                      >
+                        Navigate
+                      </Link>
+                      <Link
+                        href={getEditHref(selectedIds[0])}
+                        style={{
+                          fontSize: "0.75rem",
+                          fontWeight: 600,
+                          color: "var(--pf-v6-global--link--Color)",
+                          textDecoration: "none",
+                        }}
+                        className="lib-link"
+                      >
+                        Edit
+                      </Link>
+                    </>
                   )}
 
                   <button
@@ -1293,8 +1307,45 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
         if (!res.ok) {
           let msg = await res.text();
           try {
-            const j = JSON.parse(msg) as { error?: string };
-            if (j?.error) msg = j.error;
+            const j = JSON.parse(msg) as { error?: string; issues?: Array<{ path?: string; message?: string }> };
+            if (j?.error) {
+              msg = j.error;
+              // If validation issues are provided, append them
+              if (j.issues && Array.isArray(j.issues) && j.issues.length > 0) {
+                // Deduplicate issues by creating unique key from path + message
+                const uniqueIssues = Array.from(
+                  new Map(
+                    j.issues.map((issue) => {
+                      const path = issue.path || "";
+                      const message = issue.message || "Invalid value";
+                      return [`${path}::${message}`, { path, message }];
+                    })
+                  ).values()
+                );
+
+                const issueList = uniqueIssues
+                  .slice(0, 8) // Show up to 8 unique issues
+                  .map((issue) => {
+                    // Convert empty or root paths to something readable
+                    let displayPath = issue.path;
+                    if (!displayPath || displayPath === "" || displayPath === "#" || displayPath === "/") {
+                      displayPath = "Document root";
+                    } else {
+                      // Make the path more readable: /alphas/2/states/0 -> alphas[2].states[0]
+                      displayPath = displayPath
+                        .replace(/^\//, "") // Remove leading slash
+                        .replace(/\/(\d+)/g, "[$1]") // Convert /2 to [2]
+                        .replace(/\//g, "."); // Convert / to .
+                    }
+                    return `<strong>${displayPath}</strong>: ${issue.message}`;
+                  });
+
+                const remaining = uniqueIssues.length > 8 ? `... and ${uniqueIssues.length - 8} more issue(s)` : "";
+
+                // Join with newlines and a special separator that we'll handle in display
+                msg = `${msg}||ISSUES||${issueList.join("||ISSUE||")}${remaining ? "||ISSUE||" + remaining : ""}`;
+              }
+            }
           } catch {
             // If response is HTML (server error page), provide a clean error message
             if (msg.trim().startsWith("<!DOCTYPE") || msg.trim().startsWith("<html")) {
@@ -1342,8 +1393,10 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
                   : [...existingKeywords, methodKeyword];
 
                 // Create enriched practice body with method name in keywords
+                // Ensure 'kind' is set for standalone practice validation
                 const enrichedPractice = {
                   ...practiceBody,
+                  kind: "practice",
                   keywords: updatedKeywords
                 };
 
@@ -1654,7 +1707,32 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
           />
         </div>
 
-            {error ? <p style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--danger-color--100)" }}>{error}</p> : null}
+            {error ? (
+              <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--danger-color--100)" }}>
+                {error.includes("||ISSUES||") ? (
+                  // Format validation errors with bullet list
+                  (() => {
+                    const [mainError, issuesStr] = error.split("||ISSUES||");
+                    const issues = issuesStr ? issuesStr.split("||ISSUE||") : [];
+                    return (
+                      <>
+                        <div style={{ fontWeight: 600, marginBottom: "0.5rem" }}>{mainError}</div>
+                        {issues.length > 0 && (
+                          <ul style={{ margin: 0, paddingLeft: "1.25rem", listStyleType: "disc" }}>
+                            {issues.map((issue, idx) => (
+                              <li key={idx} style={{ marginBottom: "0.25rem" }} dangerouslySetInnerHTML={{ __html: issue }} />
+                            ))}
+                          </ul>
+                        )}
+                      </>
+                    );
+                  })()
+                ) : (
+                  // Plain error message
+                  error
+                )}
+              </div>
+            ) : null}
             {saveProgress ? <p style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>{saveProgress}</p> : null}
 
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.75rem", paddingTop: "0.25rem" }}>

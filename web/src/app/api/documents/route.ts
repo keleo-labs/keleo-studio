@@ -2,8 +2,11 @@ import { NextResponse } from "next/server";
 import { classifyLibraryRoot, displayNameForBody, baselineNameForPracticeLink, practiceNameForDependencyLink } from "@/lib/library/classify";
 import { libraryDocumentTags } from "@/lib/library/libraryDocumentTags";
 import { listVirtualElementFiles } from "@/lib/library/virtualElementFiles";
+import { extractAndPersistEmbeddedPractices } from "@/lib/library/extractEmbeddedPractices";
 import { getJsonDocumentStore } from "@/lib/storage/getStore";
 import type { JsonDocumentCreateInput, JsonDocumentKind } from "@/lib/storage/types";
+import { normalizePracticeBody } from "@/lib/core/normalizePractice";
+import { validateAgainstSchemaServer } from "@/lib/core/validateServer";
 
 function isKind(v: unknown): v is JsonDocumentKind {
   return v === "practice" || v === "method" || v === "upload" || v === "dashboard-config";
@@ -49,34 +52,6 @@ export async function GET(req: Request) {
   return NextResponse.json({ documents });
 }
 
-function normalizePracticeBody(body: unknown): unknown {
-  if (!body || typeof body !== "object") return body;
-  const o = body as Record<string, unknown>;
-
-  // For practices with dependencies but no local elements, ensure arrays exist
-  const isPractice = typeof o.baselinePracticeName === "string" || Array.isArray(o.practiceDependencyNames);
-  if (!isPractice) {
-    // Check if this is a Method with embedded practices
-    if (Array.isArray(o.practices)) {
-      return {
-        ...o,
-        practices: o.practices.map((p) => normalizePracticeBody(p)),
-      };
-    }
-    return body;
-  }
-
-  return {
-    ...o,
-    alphas: Array.isArray(o.alphas) ? o.alphas : [],
-    activitySpaces: Array.isArray(o.activitySpaces) ? o.activitySpaces : [],
-    activities: Array.isArray(o.activities) ? o.activities : [],
-    workProducts: Array.isArray(o.workProducts) ? o.workProducts : [],
-    personas: Array.isArray(o.personas) ? o.personas : [],
-    personaGroups: Array.isArray(o.personaGroups) ? o.personaGroups : [],
-  };
-}
-
 export async function POST(req: Request) {
   let body: unknown;
   try {
@@ -95,16 +70,43 @@ export async function POST(req: Request) {
   if (!isKind(o.kind)) {
     return NextResponse.json({ error: "kind must be practice | method | upload | dashboard-config" }, { status: 400 });
   }
-  const input: JsonDocumentCreateInput = {
-    title,
-    kind: o.kind,
-    // Only normalize practice/method bodies, not dashboard-config
-    body: o.kind === "dashboard-config"
-      ? o.body
-      : (o.body === undefined ? null : normalizePracticeBody(o.body)),
-  };
+  // Normalize the body before validation
+  const normalizedBody = o.kind === "dashboard-config"
+    ? o.body
+    : (o.body === undefined ? null : normalizePracticeBody(o.body));
+
+  // Validate practice/method bodies against schema before persistence
+  if (o.kind === "practice" || o.kind === "method") {
+    if (normalizedBody !== null && normalizedBody !== undefined) {
+      const validation = validateAgainstSchemaServer(normalizedBody);
+      // Use relaxed validation (allows partial/draft documents)
+      if (!validation.relaxedOk) {
+        return NextResponse.json(
+          {
+            error: "Schema validation failed",
+            issues: validation.relaxedIssues,
+          },
+          { status: 400 }
+        );
+      }
+    }
+  }
+
   try {
     const store = await getJsonDocumentStore();
+
+    // For methods with embedded practices, extract and persist them separately
+    let finalBody = normalizedBody;
+    if (o.kind === "method" && normalizedBody) {
+      finalBody = await extractAndPersistEmbeddedPractices(normalizedBody, store);
+    }
+
+    const input: JsonDocumentCreateInput = {
+      title,
+      kind: o.kind,
+      body: finalBody,
+    };
+
     const doc = await store.create(input);
     return NextResponse.json(doc, { status: 201 });
   } catch (e: unknown) {

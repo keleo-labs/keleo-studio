@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getJsonDocumentStore } from "@/lib/storage/getStore";
+import { extractAndPersistEmbeddedPractices } from "@/lib/library/extractEmbeddedPractices";
 import type { JsonDocumentKind, JsonDocumentUpdateInput } from "@/lib/storage/types";
 
 function isKind(v: unknown): v is JsonDocumentKind {
@@ -49,6 +50,18 @@ export async function PUT(req: Request, ctx: Ctx) {
   }
   try {
     const store = await getJsonDocumentStore();
+
+    // For methods with embedded practices, extract and persist them separately
+    if (patch.body !== undefined && patch.kind === "method") {
+      patch.body = await extractAndPersistEmbeddedPractices(patch.body, store);
+    } else if (patch.body !== undefined) {
+      // If kind wasn't in the patch, check the existing document
+      const existing = await store.get(id);
+      if (existing?.kind === "method") {
+        patch.body = await extractAndPersistEmbeddedPractices(patch.body, store);
+      }
+    }
+
     const doc = await store.update(id, patch);
     if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(doc);

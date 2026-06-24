@@ -1,0 +1,1 @@
+export { PatternMatrixDiagram } from "./diagram";

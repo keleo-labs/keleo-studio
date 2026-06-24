@@ -11,8 +11,8 @@ import {
 } from "@/lib/ir";
 import { practiceNeedsLibraryResolution, methodNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
-import { calculateAlphaScores } from "@/lib/methodFocus";
-import type { AlphaScore } from "@/lib/methodFocus";
+import { calculateAlphaScores } from "@/lib/analysis/methodFocus";
+import type { AlphaScore } from "@/lib/analysis/methodFocus";
 import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePracticeFromMethod";
 import { classifyLibraryRoot } from "@/lib/library/classify";
 import type { Method } from "@/lib/types";
@@ -55,26 +55,31 @@ function slug(s: unknown) {
 }
 
 function getColorStyle(score: number): CSSProperties {
+  // Score is now 0-3 (no focus, low, mid, high)
   if (score === 0) {
+    // No focus - very light gray
     return {
       backgroundColor: "#F5F5F5",
       borderColor: "#D2D2D2",
       color: "#8C8C8C",
       opacity: 0.6,
     };
-  } else if (score <= 2) {
+  } else if (score === 1) {
+    // Low focus - light blue
     return {
       backgroundColor: "#E7F1FA",
       borderColor: "#73BCF7",
       color: "#004368",
     };
-  } else if (score <= 5) {
+  } else if (score === 2) {
+    // Mid focus - medium blue
     return {
       backgroundColor: "#BEE1F4",
       borderColor: "#2B9AF3",
       color: "#002952",
     };
   } else {
+    // High focus (3) - dark blue
     return {
       backgroundColor: "#73BCF7",
       borderColor: "#06C",

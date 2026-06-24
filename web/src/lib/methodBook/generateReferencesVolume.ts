@@ -1,5 +1,5 @@
-import { formatAPA7Citation } from "@/lib/citationUtils";
-import { buildElementSourceMap, isBaselineElement } from "@/lib/elementSourceTracking";
+import { formatAPA7Citation } from "@/lib/display/citations";
+import { buildElementSourceMap, isBaselineElement } from "@/lib/display/sourceTracking";
 import { practiceElementDescriptionForDisplay } from "@/lib/ir";
 import type { DisplayAliasFn } from "@/lib/practiceReport";
 import type { Method, Practice, PracticeBaseline, Citation, Competency, Persona, PersonaGroup } from "@/lib/types";

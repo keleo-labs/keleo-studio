@@ -5,9 +5,12 @@ import { loadAllLibraryDocumentBodies } from "@/lib/library/loadLibraryBodies";
 
 /**
  * Test endpoint for book generation.
- * GET /api/test-book - generates a test method book and returns structure info
+ * GET /api/test-book?organizingPrinciple=methodBook - generates a test method book and returns structure info
  */
-export async function GET() {
+export async function GET(req: Request) {
+  // Parse query params
+  const { searchParams } = new URL(req.url);
+  const organizingPrinciple = (searchParams.get('organizingPrinciple') ?? 'pattern') as any;
   try {
     // Load practice library - these ARE the documents themselves
     const documents = await loadAllLibraryDocumentBodies();
@@ -35,7 +38,6 @@ export async function GET() {
 
     // Create a test method with baseline + first 2 practices
     const method: Method = {
-      kind: "method",
       name: "Platform Engineering Method (Test)",
       description: "Test method for book generation with baseline and 2 extension practices",
       baselinePractice: baseline as any,
@@ -44,7 +46,7 @@ export async function GET() {
 
     // Build the book
     const startTime = Date.now();
-    const book = buildMethodBook(method, "pattern");
+    const book = buildMethodBook(method, organizingPrinciple);
     const elapsed = Date.now() - startTime;
 
     // Build structure report
