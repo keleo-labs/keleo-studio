@@ -2,7 +2,7 @@
  * Radar chart data transformation for practice/method alpha coverage
  */
 
-import type { FocusGroup } from "./methodFocus";
+import type { FocusGroup } from "../../analysis/methodFocus";
 
 export interface RadarSpine {
   /** Alpha name */

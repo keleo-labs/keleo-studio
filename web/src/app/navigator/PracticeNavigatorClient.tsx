@@ -7,11 +7,9 @@ import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLib
 import { asBaselineDocument, groupByFocus } from "@/lib/ir";
 import type { PracticeBaseline } from "@/lib/types";
 import { NavigatorLayout } from "@/components/navigator/NavigatorLayout";
-import {
-  calculateAlphaScores,
-  calculateActivitySpaceScores
-} from "@/lib/analysis/methodFocus";
 import { PracticeElementAliasesProvider } from "@/components/common/AliasedName";
+import { useAlphaScores } from "@/hooks/useAlphaScores";
+import { useActivityScores } from "@/hooks/useActivityScores";
 
 type NavigatorMode = "concerns" | "activities";
 
@@ -90,35 +88,24 @@ export function PracticeNavigatorClient() {
     return asBaselineDocument(sourceDoc);
   }, [sourceDoc]);
 
-  const loading = docLoading || (shouldResolve && resolveLoading);
-  const error = docError || resolveError;
-
   // Group elements by focus for navigation
   const groupedByFocus = useMemo(() => {
     if (!baseline) return [];
     return groupByFocus(baseline);
   }, [baseline]);
 
-  // Calculate alpha scores for shading
-  const alphaScores = useMemo(() => {
-    if (!baseline || !sourceDoc || !groupedByFocus.length) return new Map();
-    return calculateAlphaScores(sourceDoc, baseline, groupedByFocus);
-  }, [baseline, sourceDoc, groupedByFocus]);
+  // Use server-side pre-computed scores (cached)
+  const { scoresByFocus: alphaScores, loading: alphaScoresLoading } = useAlphaScores(
+    libraryId || undefined,
+    true
+  );
+  const { scoresByFocus: activitySpaceScores, loading: activityScoresLoading } = useActivityScores(
+    libraryId || undefined,
+    true
+  );
 
-  // Calculate activity space scores for shading
-  const activitySpaceScores = useMemo(() => {
-    if (!baseline || !sourceDoc || !groupedByFocus.length) return new Map();
-
-    // Find the PURE baseline (before merge) from dependencyArtifacts
-    const pureBaselineArtifact = dependencyArtifacts.find(
-      (artifact) => artifact.role === "baselinePractice"
-    );
-    const pureBaseline = pureBaselineArtifact
-      ? asBaselineDocument(pureBaselineArtifact.body)
-      : baseline; // Fallback to merged baseline if not found
-
-    return calculateActivitySpaceScores(sourceDoc, pureBaseline, groupedByFocus);
-  }, [baseline, sourceDoc, groupedByFocus, dependencyArtifacts]);
+  const loading = docLoading || (shouldResolve && resolveLoading) || alphaScoresLoading || activityScoresLoading;
+  const error = docError || resolveError;
 
   // Extract aliases from the source document (resolved practice)
   const aliases = useMemo(() => {
@@ -224,8 +211,8 @@ export function PracticeNavigatorClient() {
         secondaryElement={secondaryElement}
         libraryId={libraryId}
         dependencyArtifacts={dependencyArtifacts}
-        alphaScores={alphaScores}
-        activitySpaceScores={activitySpaceScores}
+        alphaScores={alphaScores || new Map()}
+        activitySpaceScores={activitySpaceScores || new Map()}
         onSetMode={setMode}
         onSetSelectedFocus={setSelectedFocus}
         onSetSelectedElement={setSelectedElement}

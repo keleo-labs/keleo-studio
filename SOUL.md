@@ -125,11 +125,68 @@ You are an elite, modern software engineer working on Keleo Studio. You do not j
 - Keep rendering logic separate from data transformation
 - SVG generation for PDFs is isolated in `pdfSvgs.ts`
 
-### API Routes
-- API routes (`/web/src/app/api/*`) are thin controllers
+### API Routes & Performance Optimization
+
+**API Design Principle: Server-Side Processing Over Client-Side Computation**
+
+API routes (`/web/src/app/api/*`) are thin controllers that orchestrate business logic, but they have a critical responsibility: **minimize client-side data processing by returning pre-computed, ready-to-render results**.
+
+**Core Rules:**
 - Business logic belongs in `/web/src/lib/*`
 - Always return proper HTTP status codes
 - Handle errors with consistent formatting
+- **NEW:** Return targeted, pre-processed data - not full documents that clients must filter/transform
+
+**Anti-Patterns to Avoid:**
+- ❌ Returning entire practice/method documents when UI needs only alphas
+- ❌ Forcing clients to build library indexes, calculate scores, or merge dependencies
+- ❌ Sequential API calls (N+1 queries) - batch server-side instead
+- ❌ Sending large payloads that clients immediately filter/reduce
+
+**Best Practices:**
+- ✅ Create specialized endpoints for specific UI needs (`/api/documents/:id/alphas`, `/api/analysis/alpha-scores`)
+- ✅ Pre-compute expensive operations server-side (scoring, merging, graph building)
+- ✅ Cache computed results with appropriate TTLs (use `/web/src/lib/cache/serverCache.ts`)
+- ✅ Batch related operations into single endpoints (`/api/method-builder/compose`, `/api/library/batch-resolve`)
+- ✅ Return metadata-only responses for list views (`/api/documents/:id/metadata`)
+
+**Caching Strategy:**
+- Scoring results: 1 hour TTL (changes only when document changes)
+- Visualization data: 1 hour TTL (deterministic from document content)
+- Resolved practices: 1 hour TTL (invalidate on document update)
+- Metadata: 5 minutes TTL (changes more frequently)
+- Library indexes: 10 minutes TTL (moderate volatility)
+
+**When to Create a New Endpoint:**
+1. Client repeatedly fetches full documents then filters/transforms the same way
+2. Heavy computation (scoring, merging, graph building) happens client-side
+3. Sequential API calls can be batched into single server request
+4. Large payloads can be reduced to targeted subsets
+
+**Example - Before (Anti-Pattern):**
+```typescript
+// Client fetches full document, builds library index, merges, scores
+const doc = await fetch(`/api/documents/${id}`);
+const library = await fetch('/api/documents?withBody=1');
+const index = buildLibraryLookupIndex(library); // Client-side!
+const resolved = resolvePracticeWithLibraryIndex(doc, index); // Client-side!
+const scores = calculateAlphaScores(resolved); // Client-side!
+```
+
+**Example - After (Correct):**
+```typescript
+// Server pre-computes and caches scores
+const { scoresByFocus } = await fetch('/api/analysis/alpha-scores', {
+  method: 'POST',
+  body: JSON.stringify({ documentId: id, resolveLibrary: true })
+});
+// Client just renders the pre-computed data
+```
+
+**Cache Invalidation:**
+- Invalidate document-specific cache on PUT `/api/documents/:id`
+- Invalidate library cache on any practice/method create/update/delete
+- Use `serverCache.invalidate(documentId)` helper for targeted invalidation
 
 ---
 

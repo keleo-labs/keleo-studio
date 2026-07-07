@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getJsonDocumentStore } from "@/lib/storage/getStore";
 import { extractAndPersistEmbeddedPractices } from "@/lib/library/extractEmbeddedPractices";
 import type { JsonDocumentKind, JsonDocumentUpdateInput } from "@/lib/storage/types";
+import { serverCache } from "@/lib/cache/serverCache";
 
 function isKind(v: unknown): v is JsonDocumentKind {
   return v === "practice" || v === "method" || v === "upload";
@@ -64,6 +65,10 @@ export async function PUT(req: Request, ctx: Ctx) {
 
     const doc = await store.update(id, patch);
     if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+    // Invalidate all cached data for this document
+    serverCache.invalidate(id);
+
     return NextResponse.json(doc);
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Storage error";
@@ -77,5 +82,9 @@ export async function DELETE(_req: Request, ctx: Ctx) {
   const store = await getJsonDocumentStore();
   const ok = await store.delete(id);
   if (!ok) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  // Invalidate all cached data for this document
+  serverCache.invalidate(id);
+
   return new NextResponse(null, { status: 204 });
 }
