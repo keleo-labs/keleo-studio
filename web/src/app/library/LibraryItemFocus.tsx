@@ -11,11 +11,11 @@ import {
 } from "@/lib/ir";
 import { practiceNeedsLibraryResolution, methodNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
-import { calculateAlphaScores } from "@/lib/analysis/methodFocus";
 import type { AlphaScore } from "@/lib/analysis/methodFocus";
 import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePracticeFromMethod";
 import { classifyLibraryRoot } from "@/lib/library/classify";
 import type { Method } from "@/lib/types";
+import { useAlphaScores } from "@/hooks/useAlphaScores";
 
 /** Download PDF for a practice/method/baseline document */
 async function downloadPDF(doc: any, methodComposition: Method | null, bookMode: boolean, forceBookMode: boolean = false): Promise<void> {
@@ -165,20 +165,18 @@ export function LibraryItemFocus({ documentId }: { documentId: string }) {
     setFlattenError(flattenErr);
   }, [flattenErr]);
 
-  const { baseline, grouped, sourceDocRecord } = useMemo(() => {
-    if (!effectiveDoc) return { baseline: null, grouped: [], sourceDocRecord: {} };
+  const { baseline, grouped } = useMemo(() => {
+    if (!effectiveDoc) return { baseline: null, grouped: [] };
     const bl = asBaselineDocument(effectiveDoc);
-    if (!bl) return { baseline: null, grouped: [], sourceDocRecord: {} };
+    if (!bl) return { baseline: null, grouped: [] };
     const withActivities = baselineWithPracticeActivities(effectiveDoc, bl);
     const enriched = enrichBaselineWithReferencedWrappers(effectiveDoc, withActivities);
     const grp = groupByFocus(enriched);
-    const sourceDoc = effectiveDoc && typeof effectiveDoc === "object" ? (effectiveDoc as Record<string, unknown>) : {};
-    return { baseline: enriched, grouped: grp, sourceDocRecord: sourceDoc };
+    return { baseline: enriched, grouped: grp };
   }, [effectiveDoc]);
 
-  const alphasByFocus = useMemo(() => {
-    return calculateAlphaScores(sourceDocRecord, baseline, grouped);
-  }, [baseline, grouped, sourceDocRecord]);
+  // Use server-side alpha scores (pre-computed and cached)
+  const { scoresByFocus: alphasByFocus, loading: scoresLoading } = useAlphaScores(documentId, true);
 
   // Determine document kind for PDF options (must be before conditional returns)
   const docKind = useMemo(() => classifyLibraryRoot(doc), [doc]);
@@ -198,7 +196,7 @@ export function LibraryItemFocus({ documentId }: { documentId: string }) {
     }
   };
 
-  if (loading || resolveBusy) {
+  if (loading || resolveBusy || scoresLoading) {
     return (
       <div style={{ padding: "1rem", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
         Loading coverage...
@@ -214,7 +212,7 @@ export function LibraryItemFocus({ documentId }: { documentId: string }) {
     );
   }
 
-  if (alphasByFocus.size === 0) {
+  if (!alphasByFocus || alphasByFocus.size === 0) {
     return (
       <div style={{ padding: "1rem", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
         No baseline alphas found.

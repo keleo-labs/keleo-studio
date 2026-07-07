@@ -28,7 +28,7 @@ import { formatAPA7Citation, getCitationsForNarrative, formatInTextCitation } fr
 import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { useLanguagePack } from "@/lib/display/languagePack";
-import { calculateAlphaScores } from "@/lib/analysis/methodFocus";
+import { useAlphaScores } from "@/hooks/useAlphaScores";
 import {
   buildPracticeElementAliasLookup,
   getAliasedDisplay,
@@ -689,13 +689,11 @@ function CitationsSection({ citations, compact = false }: { citations: any[] | u
 // SECTION 2: Method Focus
 // ========================================================================
 
-function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap, assets }: { doc: any; baseline: any; grouped: any[]; methodComposition?: Method | null; aliasMap: PracticeElementAliasLookup; assets: Asset[] }) {
-  // Use shared alpha scoring logic
-  const alphasByFocus = useMemo(() => {
-    return calculateAlphaScores(doc, baseline, grouped);
-  }, [doc, baseline, grouped]);
+function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap, assets, alphaScores: alphasByFocus }: { doc: any; baseline: any; grouped: any[]; methodComposition?: Method | null; aliasMap: PracticeElementAliasLookup; assets: Asset[]; alphaScores?: Map<string, any> | null }) {
+  // Alpha scores are now passed from parent (pre-computed server-side)
+  const scores = alphasByFocus || new Map();
 
-  if (alphasByFocus.size === 0) {
+  if (scores.size === 0) {
     return null;
   }
 
@@ -753,7 +751,7 @@ function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap, asse
       {/* Radar Chart Visualization */}
       <div style={{ display: "flex", justifyContent: "center", marginBottom: "3rem" }}>
         <PracticeRadarChart
-          alphasByFocus={alphasByFocus}
+          alphasByFocus={scores}
           size="medium"
           fixedMaxScore={20}
         />
@@ -762,10 +760,10 @@ function MethodFocus({ doc, baseline, grouped, methodComposition, aliasMap, asse
       {/* Tile-based Coverage Overview */}
       <Card style={{ marginBottom: "3rem" }}>
         <CardBody>
-          {Array.from(alphasByFocus.entries()).map(([focusName, { focusObj, alphas }], idx) => {
+          {Array.from(scores.entries()).map(([focusName, { focusObj, alphas }], idx) => {
             const focusDescription = focusObj ? (practiceElementDescriptionForDisplay(focusObj) ?? "") : "";
             return (
-            <div key={idx} style={{ marginBottom: idx < alphasByFocus.size - 1 ? "2.5rem" : "0" }}>
+            <div key={idx} style={{ marginBottom: idx < scores.size - 1 ? "2.5rem" : "0" }}>
               <div style={{
                 color: "var(--pf-v6-global--Color--100)",
                 marginBottom: "0.75rem",
@@ -2900,6 +2898,9 @@ export function BrowseView({
 
   const grouped = useMemo(() => (baselineForRender ? groupByFocus(baselineForRender) : []), [baselineForRender]);
 
+  // Use server-side pre-computed alpha scores (cached)
+  const { scoresByFocus: alphaScores, loading: alphaScoresLoading } = useAlphaScores(libraryId, true);
+
   // Extract assets from the document
   const assets = useMemo(() => {
     if (!effectiveDoc || typeof effectiveDoc !== "object") return [];
@@ -2976,7 +2977,7 @@ export function BrowseView({
         <ExecutiveContext doc={baselineForRender} methodComposition={effectiveMethodComposition} aliasMap={aliasMap} />
         <Divider style={{ margin: "3rem 0" }} />
 
-        <MethodFocus doc={sourceDocRecord} baseline={baselineForRender} grouped={grouped} methodComposition={effectiveMethodComposition} aliasMap={aliasMap} assets={assets} />
+        <MethodFocus doc={sourceDocRecord} baseline={baselineForRender} grouped={grouped} methodComposition={effectiveMethodComposition} aliasMap={aliasMap} assets={assets} alphaScores={alphaScores} />
         <Divider style={{ margin: "3rem 0" }} />
 
         <LifecycleOrchestration doc={sourceDocRecord} baseline={baselineForRender} aliasMap={aliasMap} />

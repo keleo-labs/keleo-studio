@@ -7,6 +7,7 @@ import { getJsonDocumentStore } from "@/lib/storage/getStore";
 import type { JsonDocumentCreateInput, JsonDocumentKind } from "@/lib/storage/types";
 import { normalizePracticeBody } from "@/lib/core/normalizePractice";
 import { validateAgainstSchemaServer } from "@/lib/core/validateServer";
+import { serverCache } from "@/lib/cache/serverCache";
 
 function isKind(v: unknown): v is JsonDocumentKind {
   return v === "practice" || v === "method" || v === "upload" || v === "dashboard-config";
@@ -108,6 +109,13 @@ export async function POST(req: Request) {
     };
 
     const doc = await store.create(input);
+
+    // Clear library-wide cache entries when new practice/method is created
+    // This invalidates batch-resolve, by-tags, and other library-wide caches
+    if (o.kind === "practice" || o.kind === "method") {
+      serverCache.clear();
+    }
+
     return NextResponse.json(doc, { status: 201 });
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Storage error";
