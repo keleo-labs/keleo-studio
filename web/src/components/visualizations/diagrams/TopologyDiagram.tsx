@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import {
   forceSimulation,
   forceLink,
@@ -19,7 +19,6 @@ import {
   calculateTopologyStats,
   type TopologyNode,
   type TopologyEdge,
-  type TopologyNodeType,
   type TopologyEdgeType,
 } from "@/lib/diagrams/topology/data";
 import { findAsset } from "@/lib/display/assets";
@@ -33,105 +32,28 @@ type TopologyDiagramProps = {
 };
 
 type SimNode = TopologyNode & SimulationNodeDatum;
-type SimLink = SimulationLinkDatum<SimNode> & TopologyEdge & { count?: number };
+type SimLink = SimulationLinkDatum<SimNode> & TopologyEdge;
 
-// Color scheme for different node types
-const NODE_COLORS: Record<TopologyNodeType, string> = {
-  alpha: "#3b82f6", // blue-500
-  alphaState: "#93c5fd", // blue-300
-  activity: "#8b5cf6", // violet-500
-  activitySpace: "#c4b5fd", // violet-300
-  workProduct: "#f59e0b", // amber-500
-  levelOfDetail: "#fbbf24", // amber-400
-  competency: "#10b981", // emerald-500
-  competencyLevel: "#6ee7b7", // emerald-300
-};
+// Color scheme for alphas
+const ALPHA_COLOR = "#3b82f6"; // blue-500
+const ALPHA_STATE_COLOR = "#93c5fd"; // blue-300
 
 // Edge colors by type
 const EDGE_COLORS: Record<TopologyEdgeType, string> = {
-  contributes: "#64748b", // slate-500
-  evidences: "#22c55e", // green-500
-  worksOn: "#f97316", // orange-500
-  recommended: "#06b6d4", // cyan-500
-  required: "#ef4444", // red-500
+  contributesTo: "#8b5cf6", // violet-500
+  relatesTo: "#10b981", // emerald-500
 };
 
-// Child tile size (for states, levels, etc.)
-const CHILD_TILE_WIDTH = 140;
-const CHILD_TILE_MIN_HEIGHT = 35;
-const CHILD_TILE_GAP = 8;
-const CARD_PADDING = 12;
-const CARD_HEADER_HEIGHT = 40;
+// Alpha card dimensions
+const CARD_WIDTH = 160;
+const CARD_HEIGHT = 80;
 
-// Helper to calculate tile height based on text length
-function calculateTileHeight(text: string, width: number): number {
-  // Rough estimate: ~12 characters per line at 10px font
-  const charsPerLine = Math.floor(width / 7);
-  const lines = Math.ceil(text.length / charsPerLine);
-  const lineHeight = 14; // pixels
-  const padding = 8; // top and bottom padding
-  return Math.max(CHILD_TILE_MIN_HEIGHT, lines * lineHeight + padding);
-}
-
-// Standalone activity size
-const ACTIVITY_WIDTH = 130;
-const ACTIVITY_HEIGHT = 45;
-
-// Determine if a node should use vertical layout (sequential children)
-function usesVerticalLayout(nodeType: TopologyNodeType): boolean {
-  return nodeType === "alpha" || nodeType === "workProduct" || nodeType === "competency";
-}
-
-// Calculate dimensions for compound nodes
-function calculateNodeDimensions(node: TopologyNode): { width: number; height: number } {
-  if (!node.children || node.children.length === 0) {
-    // Standalone activity - allow dynamic height
-    const height = calculateTileHeight(node.name, ACTIVITY_WIDTH - 16);
-    return { width: ACTIVITY_WIDTH, height: Math.max(ACTIVITY_HEIGHT, height) };
-  }
-
-  // Compound node (alpha, workProduct, activitySpace, competency)
-  if (usesVerticalLayout(node.type)) {
-    // Vertical layout for sequential nodes - calculate each child's height
-    let totalHeight = 0;
-    node.children.forEach((child) => {
-      const childHeight = calculateTileHeight(child.name, CHILD_TILE_WIDTH - 16);
-      totalHeight += childHeight + CHILD_TILE_GAP;
-    });
-    totalHeight -= CHILD_TILE_GAP; // Remove last gap
-
-    return {
-      width: CHILD_TILE_WIDTH + CARD_PADDING * 2,
-      height: CARD_HEADER_HEIGHT + totalHeight + CARD_PADDING * 2,
-    };
-  } else {
-    // Grid layout for activity spaces - calculate row heights
-    const childrenPerRow = 3;
-    const rows = Math.ceil(node.children.length / childrenPerRow);
-    const cols = Math.min(node.children.length, childrenPerRow);
-
-    let totalHeight = 0;
-    for (let row = 0; row < rows; row++) {
-      let maxRowHeight = CHILD_TILE_MIN_HEIGHT;
-      for (let col = 0; col < childrenPerRow; col++) {
-        const childIndex = row * childrenPerRow + col;
-        if (childIndex < node.children.length) {
-          const child = node.children[childIndex];
-          const childHeight = calculateTileHeight(child.name, CHILD_TILE_WIDTH - 16);
-          maxRowHeight = Math.max(maxRowHeight, childHeight);
-        }
-      }
-      totalHeight += maxRowHeight + CHILD_TILE_GAP;
-    }
-    totalHeight -= CHILD_TILE_GAP; // Remove last gap
-
-    const contentWidth = cols * CHILD_TILE_WIDTH + (cols - 1) * CHILD_TILE_GAP;
-
-    return {
-      width: Math.max(200, contentWidth + CARD_PADDING * 2),
-      height: CARD_HEADER_HEIGHT + totalHeight + CARD_PADDING * 2,
-    };
-  }
+// Calculate card dimensions
+function calculateCardDimensions(node: TopologyNode): { width: number; height: number } {
+  return {
+    width: CARD_WIDTH,
+    height: CARD_HEIGHT,
+  };
 }
 
 export default function TopologyDiagram({
@@ -145,10 +67,10 @@ export default function TopologyDiagram({
     null
   );
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
+  const [resetTrigger, setResetTrigger] = useState(0);
   const simulationRef = useRef<Simulation<SimNode, SimLink> | null>(null);
 
-  // Extract topology data and assets when practice changes
-  const assets = (practice?.assets || []) as Asset[];
+  const assets = useMemo(() => (practice?.assets || []) as Asset[], [practice]);
 
   useEffect(() => {
     if (!practice) return;
@@ -162,7 +84,6 @@ export default function TopologyDiagram({
     }
   }, [practice]);
 
-  // Create and update D3 visualization
   useEffect(() => {
     if (!topologyData || !svgRef.current || !containerRef.current) return;
 
@@ -172,147 +93,51 @@ export default function TopologyDiagram({
     // Clear previous content
     container.selectAll("*").remove();
 
-    // Flatten all nodes (including children) for D3 simulation
-    // This ensures edges can find their targets
-    const allNodes: SimNode[] = [];
-    const parentNodes: SimNode[] = [];
-
-    // Group nodes by type for initial positioning
-    const nodesByType: Record<string, SimNode[]> = {
-      alpha: [],
-      workProduct: [],
-      activitySpace: [],
-      competency: [],
-    };
-
-    topologyData.nodes.forEach((node) => {
-      const simNode: SimNode = { ...node };
-
-      // Set initial positions in vertical columns by type
-      if (node.type === 'alpha') {
-        simNode.x = width * 0.15;
-        simNode.y = height * 0.2 + nodesByType.alpha.length * 150;
-        nodesByType.alpha.push(simNode);
-      } else if (node.type === 'workProduct') {
-        simNode.x = width * 0.35;
-        simNode.y = height * 0.2 + nodesByType.workProduct.length * 150;
-        nodesByType.workProduct.push(simNode);
-      } else if (node.type === 'activitySpace') {
-        simNode.x = width * 0.55;
-        simNode.y = height * 0.2 + nodesByType.activitySpace.length * 150;
-        nodesByType.activitySpace.push(simNode);
-      } else if (node.type === 'competency') {
-        simNode.x = width * 0.8;
-        simNode.y = height * 0.2 + nodesByType.competency.length * 150;
-        nodesByType.competency.push(simNode);
-      } else {
-        // Fallback for any other node types
-        simNode.x = width / 2;
-        simNode.y = height / 2;
-      }
-
-      allNodes.push(simNode);
-      parentNodes.push(simNode);
-
-      // Also add all children to the flat list for edge resolution
-      if (node.children) {
-        node.children.forEach((child) => {
-          allNodes.push({ ...child });
-        });
-      }
-    });
-
-    // Aggregate edges at the parent card level
-    const edgeGroups = new Map<string, { edge: TopologyEdge; count: number }>();
-
-    topologyData.edges.forEach((edge) => {
-      // Find the parent cards for source and target
-      let sourceParentId = edge.source;
-      let targetParentId = edge.target;
-
-      // Find parent for source (if it's a child node)
-      const sourceNode = allNodes.find((n) => n.id === edge.source);
-      if (sourceNode?.parentId) {
-        sourceParentId = sourceNode.parentId;
-      }
-
-      // Find parent for target (if it's a child node)
-      const targetNode = allNodes.find((n) => n.id === edge.target);
-      if (targetNode?.parentId) {
-        targetParentId = targetNode.parentId;
-      }
-
-      // Create a key for this parent-to-parent connection
-      const key = `${sourceParentId}::${targetParentId}::${edge.type}`;
-
-      if (edgeGroups.has(key)) {
-        edgeGroups.get(key)!.count++;
-      } else {
-        edgeGroups.set(key, {
-          edge: {
-            id: key,
-            source: sourceParentId,
-            target: targetParentId,
-            type: edge.type,
-            label: edge.label,
-          },
-          count: 1,
-        });
-      }
-    });
-
-    // Convert aggregated edges to SimLinks
-    const links: SimLink[] = Array.from(edgeGroups.values()).map((group) => ({
-      ...group.edge,
-      source: group.edge.source,
-      target: group.edge.target,
-      count: group.count, // Store count for line thickness
+    const nodes: SimNode[] = topologyData.nodes.map((node, index) => ({
+      ...node,
+      x: width / 2 + (Math.random() - 0.5) * 200,
+      y: height / 2 + (Math.random() - 0.5) * 200,
     }));
 
-    // Create force simulation with all nodes but only apply forces to parents
-    const simulation = forceSimulation<SimNode>(allNodes)
+    const links: SimLink[] = topologyData.edges.map((edge) => ({
+      ...edge,
+      source: edge.source,
+      target: edge.target,
+    }));
+
+    // Create force simulation
+    const simulation = forceSimulation<SimNode>(nodes)
       .force(
         "link",
         forceLink<SimNode, SimLink>(links)
           .id((d) => d.id)
-          .distance((d) => {
-            // Keep links shorter for more compact layout
-            if (d.type === "evidences") return 120;
-            if (d.type === "contributes") return 100;
-            if (d.type === "worksOn") return 80;
-            if (d.type === "recommended" || d.type === "required") return 90;
-            return 100;
-          })
-          .strength((d) => {
-            // Only apply link forces between parent nodes
-            const source = typeof d.source === "object" ? d.source : nodeMap.get(d.source);
-            const target = typeof d.target === "object" ? d.target : nodeMap.get(d.target);
-            const sourceIsParent = parentNodes.some(p => p.id === source?.id);
-            const targetIsParent = parentNodes.some(p => p.id === target?.id);
-            // Weaken forces if either end is a child node
-            return sourceIsParent && targetIsParent ? 0.3 : 0.05;
-          })
+          .distance((d) => (d.type === "contributesTo" ? 200 : 250))
+          .strength(0.5)
       )
-      .force("charge", forceManyBody().strength((d) => {
-        // Only apply repulsion to parent nodes, moderate strength
-        const isParent = parentNodes.some(p => p.id === d.id);
-        return isParent ? -600 : 0;
-      }))
+      .force("charge", forceManyBody().strength(-800))
       .force("center", forceCenter(width / 2, height / 2).strength(0.05))
       .force(
         "collision",
         forceCollide<SimNode>().radius((d) => {
-          // Only apply collision to parent nodes
-          const isParent = parentNodes.some(p => p.id === d.id);
-          if (!isParent) return 0;
-          const dims = calculateNodeDimensions(d);
-          return Math.max(dims.width, dims.height) / 2 + 30;
+          const dims = calculateCardDimensions(d);
+          return Math.max(dims.width, dims.height) / 2 + 40;
         }).strength(0.8)
       )
-      .alpha(0.3)
-      .alphaDecay(0.02);
+      .alpha(1)
+      .alphaDecay(0.05)
+      .alphaMin(0.001);
 
     simulationRef.current = simulation;
+
+    // Track simulation state
+    let tickCount = 0;
+    const maxTicks = 300;
+    let hasStoppedNaturally = false;
+
+    simulation.on("end", () => {
+      console.log("Topology simulation settled");
+      hasStoppedNaturally = true;
+    });
 
     // Create arrow markers for directed edges
     const defs = container.append("defs");
@@ -322,7 +147,7 @@ export default function TopologyDiagram({
         .append("marker")
         .attr("id", `arrow-${type}`)
         .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 75)
+        .attr("refX", 100)
         .attr("refY", 0)
         .attr("markerWidth", 6)
         .attr("markerHeight", 6)
@@ -340,86 +165,76 @@ export default function TopologyDiagram({
       .data(links)
       .join("line")
       .attr("stroke", (d) => EDGE_COLORS[d.type])
-      .attr("stroke-width", (d) => {
-        // Width based on number of connections, capped at reasonable max
-        const count = (d as any).count || 1;
-        return Math.min(2 + count * 0.5, 8);
-      })
+      .attr("stroke-width", 2)
       .attr("stroke-opacity", 0.6)
       .attr("marker-end", (d) => `url(#arrow-${d.type})`)
       .attr("class", "transition-opacity duration-200");
 
-    // Add tooltips to links
     linkElements.append("title").text((d) => {
       const source = typeof d.source === "object" ? d.source.name : d.source;
       const target = typeof d.target === "object" ? d.target.name : d.target;
-      const count = (d as any).count || 1;
-      const countStr = count > 1 ? ` (${count} connections)` : "";
-      return `${source} ${d.label || d.type} ${target}${countStr}`;
+      return `${source} ${d.label || d.type} ${target}`;
     });
 
-    // Create nodes - only render parent nodes (not flattened children)
+    // Create edge labels
+    const linkLabelGroup = container.append("g").attr("class", "link-labels");
+
+    const linkLabelContainers = linkLabelGroup
+      .selectAll<SVGGElement, SimLink>("g")
+      .data(links)
+      .join("g")
+      .attr("class", "link-label-container");
+
+    // Add background rectangles for labels
+    const linkLabelBgs = linkLabelContainers
+      .append("rect")
+      .attr("class", "link-label-bg")
+      .attr("fill", "#ffffff")
+      .attr("stroke", "#e2e8f0")
+      .attr("stroke-width", 1)
+      .attr("rx", 3)
+      .attr("opacity", 0.95);
+
+    // Add text labels
+    const linkLabels = linkLabelContainers
+      .append("text")
+      .attr("class", "pointer-events-none select-none")
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.35em")
+      .attr("font-size", "10px")
+      .attr("font-weight", "500")
+      .attr("fill", "#475569")
+      .attr("opacity", 0.9)
+      .text((d) => d.label || d.type);
+
+    // Calculate background sizes based on text
+    linkLabels.each(function (d, i) {
+      const textNode = this as SVGTextElement;
+      const bbox = textNode.getBBox();
+      const padding = 4;
+
+      linkLabelBgs
+        .filter((_, j) => i === j)
+        .attr("x", bbox.x - padding)
+        .attr("y", bbox.y - padding)
+        .attr("width", bbox.width + padding * 2)
+        .attr("height", bbox.height + padding * 2);
+    });
+
+    // Create nodes
     const nodeGroup = container.append("g").attr("class", "nodes");
 
     const nodeElements = nodeGroup
       .selectAll<SVGGElement, SimNode>("g")
-      .data(parentNodes)
+      .data(nodes)
       .join("g")
       .attr("class", "node cursor-pointer");
 
-    // Render each node (compound or simple)
+    // Render each alpha card
     nodeElements.each(function (d) {
       const nodeGroup = select(this);
-      const dims = calculateNodeDimensions(d);
-      const hasChildren = d.children && d.children.length > 0;
+      const dims = calculateCardDimensions(d);
 
-      if (hasChildren) {
-        // Render compound node (card with children)
-        renderCompoundNode(nodeGroup, d, dims);
-      } else {
-        // Render simple node (standalone activity)
-        renderSimpleNode(nodeGroup, d, dims);
-      }
-
-      // Add mouse events
-      nodeGroup
-        .on("mouseenter", function () {
-          nodeGroup.selectAll(".node-bg").attr("opacity", d.isPlaceholder ? 0.7 : 1);
-          setSelectedNode(d.id);
-
-          // Highlight connected links
-          linkElements
-            .attr("stroke-opacity", (link) => {
-              const source = typeof link.source === "object" ? link.source.id : link.source;
-              const target = typeof link.target === "object" ? link.target.id : link.target;
-              // Also highlight if any child is source/target
-              const isChildSource = d.children?.some((c) => c.id === source);
-              const isChildTarget = d.children?.some((c) => c.id === target);
-              return source === d.id || target === d.id || isChildSource || isChildTarget
-                ? 1
-                : 0.2;
-            })
-            .attr("stroke-width", (link) => {
-              const source = typeof link.source === "object" ? link.source.id : link.source;
-              const target = typeof link.target === "object" ? link.target.id : link.target;
-              const isChildSource = d.children?.some((c) => c.id === source);
-              const isChildTarget = d.children?.some((c) => c.id === target);
-              return source === d.id || target === d.id || isChildSource || isChildTarget ? 3 : 2;
-            });
-        })
-        .on("mouseleave", function () {
-          nodeGroup.selectAll(".node-bg").attr("opacity", d.isPlaceholder ? 0.5 : 0.9);
-          setSelectedNode(null);
-          linkElements.attr("stroke-opacity", 0.6).attr("stroke-width", 2);
-        });
-    });
-
-    // Helper function to render compound nodes
-    function renderCompoundNode(
-      nodeGroup: any,
-      node: SimNode,
-      dims: { width: number; height: number }
-    ) {
       // Card background
       nodeGroup
         .append("rect")
@@ -429,230 +244,93 @@ export default function TopologyDiagram({
         .attr("width", dims.width)
         .attr("height", dims.height)
         .attr("rx", 8)
-        .attr("fill", "#f8fafc")
-        .attr("stroke", node.isPlaceholder ? "#999" : NODE_COLORS[node.type])
+        .attr("fill", d.isPlaceholder ? "#f8fafc" : ALPHA_COLOR)
+        .attr("stroke", d.isPlaceholder ? "#999" : ALPHA_COLOR)
         .attr("stroke-width", 2)
-        .attr("stroke-dasharray", node.isPlaceholder ? "4,4" : "0")
-        .attr("opacity", node.isPlaceholder ? 0.5 : 0.9);
+        .attr("stroke-dasharray", d.isPlaceholder ? "4,4" : "0")
+        .attr("opacity", d.isPlaceholder ? 0.5 : 0.9);
 
-      // Header background
-      nodeGroup
-        .append("rect")
-        .attr("x", -dims.width / 2)
-        .attr("y", -dims.height / 2)
-        .attr("width", dims.width)
-        .attr("height", CARD_HEADER_HEIGHT)
-        .attr("rx", 8)
-        .attr("fill", NODE_COLORS[node.type])
-        .attr("opacity", 0.15);
-
-      // Header icon (if available)
-      const iconRef = node.assetNames?.find((ref) => ref.type === "icon");
+      // Icon (if available)
+      const iconRef = d.assetNames?.find((ref) => ref.type === "icon");
       const iconAsset = iconRef ? findAsset(iconRef.assetName, assets) : null;
-      const iconSize = 16;
-      const iconPadding = 4;
+      const iconSize = 24;
 
       if (iconAsset) {
-        const iconX = -dims.width / 2 + iconPadding;
-        const iconY = -dims.height / 2 + (CARD_HEADER_HEIGHT - iconSize) / 2;
+        const iconX = -dims.width / 2 + (dims.width - iconSize) / 2;
+        const iconY = -dims.height / 2 + 12;
 
-        const iconElement = createIconSvgElement(iconAsset, iconX, iconY, iconSize, NODE_COLORS[node.type]);
+        const iconColor = d.isPlaceholder ? ALPHA_COLOR : "#ffffff";
+        const iconElement = createIconSvgElement(iconAsset, iconX, iconY, iconSize, iconColor);
         if (iconElement) {
           nodeGroup.node()?.appendChild(iconElement);
         }
       }
 
-      // Header text
-      const headerText = node.name.length > 20 ? node.name.substring(0, 20) + "..." : node.name;
-
-      // Calculate text position
-      let textX = 0;
-      let textAnchor = "middle";
-
-      if (iconAsset) {
-        // Position text after icon (left side of card)
-        textX = -dims.width / 2 + iconPadding + iconSize + iconPadding;
-        textAnchor = "start";
-      }
+      // Alpha name text
+      const maxChars = 16;
+      const displayName = d.name.length > maxChars ? d.name.substring(0, maxChars - 2) + "..." : d.name;
 
       nodeGroup
         .append("text")
-        .attr("x", textX)
-        .attr("y", -dims.height / 2 + CARD_HEADER_HEIGHT / 2)
-        .attr("text-anchor", textAnchor)
+        .attr("x", 0)
+        .attr("y", iconAsset ? -dims.height / 2 + 50 : 0)
+        .attr("text-anchor", "middle")
         .attr("dy", "0.35em")
         .attr("font-size", "13px")
-        .attr("font-weight", "700")
-        .attr("fill", NODE_COLORS[node.type])
+        .attr("font-weight", "600")
+        .attr("fill", d.isPlaceholder ? ALPHA_COLOR : "#ffffff")
         .attr("class", "pointer-events-none select-none")
-        .text(headerText);
+        .text(displayName);
 
-      // Render children as tiles
-      const sortedChildren = [...(node.children || [])].sort((a, b) => (a.seq || 0) - (b.seq || 0));
-      const isVertical = usesVerticalLayout(node.type);
-
-      let cumulativeY = -dims.height / 2 + CARD_HEADER_HEIGHT + CARD_PADDING;
-
-      if (isVertical) {
-        // Vertical layout
-        sortedChildren.forEach((child) => {
-          const childHeight = calculateTileHeight(child.name, CHILD_TILE_WIDTH - 16);
-          const x = -CHILD_TILE_WIDTH / 2;
-          const y = cumulativeY;
-
-          // Child tile background
-          nodeGroup
-            .append("rect")
-            .attr("x", x)
-            .attr("y", y)
-            .attr("width", CHILD_TILE_WIDTH)
-            .attr("height", childHeight)
-            .attr("rx", 4)
-            .attr("fill", NODE_COLORS[child.type])
-            .attr("opacity", 0.9)
-            .attr("stroke", "#fff")
-            .attr("stroke-width", 1.5)
-            .append("title")
-            .text(child.description || child.name);
-
-          // Child tile text with wrapping
-          wrapText(nodeGroup, child.name, x + CHILD_TILE_WIDTH / 2, y + childHeight / 2, CHILD_TILE_WIDTH - 16, 10);
-
-          cumulativeY += childHeight + CHILD_TILE_GAP;
-        });
-      } else {
-        // Grid layout
-        const childrenPerRow = 3;
-        const rows = Math.ceil(sortedChildren.length / childrenPerRow);
-
-        for (let row = 0; row < rows; row++) {
-          // Calculate max height for this row
-          let maxRowHeight = CHILD_TILE_MIN_HEIGHT;
-          for (let col = 0; col < childrenPerRow; col++) {
-            const childIndex = row * childrenPerRow + col;
-            if (childIndex < sortedChildren.length) {
-              const child = sortedChildren[childIndex];
-              const childHeight = calculateTileHeight(child.name, CHILD_TILE_WIDTH - 16);
-              maxRowHeight = Math.max(maxRowHeight, childHeight);
-            }
-          }
-
-          // Render tiles in this row
-          for (let col = 0; col < childrenPerRow; col++) {
-            const childIndex = row * childrenPerRow + col;
-            if (childIndex >= sortedChildren.length) break;
-
-            const child = sortedChildren[childIndex];
-            const numInRow = Math.min(childrenPerRow, sortedChildren.length - row * childrenPerRow);
-            const rowWidth = numInRow * CHILD_TILE_WIDTH + (numInRow - 1) * CHILD_TILE_GAP;
-            const startX = -rowWidth / 2;
-
-            const x = startX + col * (CHILD_TILE_WIDTH + CHILD_TILE_GAP);
-            const y = cumulativeY;
-
-            // Child tile background
-            nodeGroup
-              .append("rect")
-              .attr("x", x)
-              .attr("y", y)
-              .attr("width", CHILD_TILE_WIDTH)
-              .attr("height", maxRowHeight)
-              .attr("rx", 4)
-              .attr("fill", NODE_COLORS[child.type])
-              .attr("opacity", 0.9)
-              .attr("stroke", "#fff")
-              .attr("stroke-width", 1.5)
-              .append("title")
-              .text(child.description || child.name);
-
-            // Child tile text with wrapping
-            wrapText(nodeGroup, child.name, x + CHILD_TILE_WIDTH / 2, y + maxRowHeight / 2, CHILD_TILE_WIDTH - 16, 10);
-          }
-
-          cumulativeY += maxRowHeight + CHILD_TILE_GAP;
-        }
-      }
-    }
-
-    // Helper to wrap text into multiple lines
-    function wrapText(container: any, text: string, x: number, y: number, maxWidth: number, fontSize: number) {
-      const words = text.split(/\s+/);
-      const lines: string[] = [];
-      let currentLine = "";
-
-      // Simple word wrapping
-      words.forEach((word) => {
-        const testLine = currentLine ? `${currentLine} ${word}` : word;
-        const estimatedWidth = testLine.length * (fontSize * 0.6);
-
-        if (estimatedWidth > maxWidth && currentLine) {
-          lines.push(currentLine);
-          currentLine = word;
-        } else {
-          currentLine = testLine;
-        }
-      });
-      if (currentLine) {
-        lines.push(currentLine);
-      }
-
-      // Render each line
-      const lineHeight = fontSize + 4;
-      const totalHeight = lines.length * lineHeight;
-      const startY = y - totalHeight / 2 + lineHeight / 2;
-
-      lines.forEach((line, i) => {
-        container
-          .append("text")
-          .attr("x", x)
-          .attr("y", startY + i * lineHeight)
-          .attr("text-anchor", "middle")
-          .attr("dy", "0.35em")
-          .attr("font-size", `${fontSize}px`)
-          .attr("font-weight", "600")
-          .attr("fill", "#fff")
-          .attr("class", "pointer-events-none select-none")
-          .text(line);
-      });
-    }
-
-    // Helper function to render simple nodes
-    function renderSimpleNode(
-      nodeGroup: any,
-      node: SimNode,
-      dims: { width: number; height: number }
-    ) {
-      // Simple tile
+      // Add mouse events
       nodeGroup
-        .append("rect")
-        .attr("class", "node-bg")
-        .attr("x", -dims.width / 2)
-        .attr("y", -dims.height / 2)
-        .attr("width", dims.width)
-        .attr("height", dims.height)
-        .attr("rx", 6)
-        .attr("fill", NODE_COLORS[node.type])
-        .attr("stroke", node.isPlaceholder ? "#999" : "#fff")
-        .attr("stroke-width", 2)
-        .attr("stroke-dasharray", node.isPlaceholder ? "4,4" : "0")
-        .attr("opacity", node.isPlaceholder ? 0.5 : 0.9);
+        .on("mouseenter", function () {
+          nodeGroup.selectAll(".node-bg").attr("opacity", d.isPlaceholder ? 0.7 : 1);
+          setSelectedNode(d.id);
 
-      // Text with wrapping
-      wrapText(nodeGroup, node.name, 0, 0, dims.width - 16, 11);
-    }
+          // Highlight connected links and labels
+          linkElements
+            .attr("stroke-opacity", (link) => {
+              const source = typeof link.source === "object" ? link.source.id : link.source;
+              const target = typeof link.target === "object" ? link.target.id : link.target;
+              return source === d.id || target === d.id ? 1 : 0.15;
+            })
+            .attr("stroke-width", (link) => {
+              const source = typeof link.source === "object" ? link.source.id : link.source;
+              const target = typeof link.target === "object" ? link.target.id : link.target;
+              return source === d.id || target === d.id ? 3 : 2;
+            });
+
+          linkLabelContainers.attr("opacity", (link) => {
+            const source = typeof link.source === "object" ? link.source.id : link.source;
+            const target = typeof link.target === "object" ? link.target.id : link.target;
+            return source === d.id || target === d.id ? 1 : 0.2;
+          });
+        })
+        .on("mouseleave", function () {
+          nodeGroup.selectAll(".node-bg").attr("opacity", d.isPlaceholder ? 0.5 : 0.9);
+          setSelectedNode(null);
+          linkElements.attr("stroke-opacity", 0.6).attr("stroke-width", 2);
+          linkLabelContainers.attr("opacity", 1);
+        });
+    });
 
     // Add tooltips to nodes
     nodeElements.append("title").text((d) => {
-      let text = `${d.name} (${d.type})`;
+      let text = `${d.name}`;
+      if (d.focusName) text += `\nFocus: ${d.focusName}`;
       if (d.description) text += `\n${d.description}`;
-      if (d.group) text += `\nGroup: ${d.group}`;
       return text;
     });
 
     // Add drag behavior
     const dragBehavior = d3Drag<SVGGElement, SimNode>()
       .on("start", (event, d) => {
-        if (!event.active) simulation.alphaTarget(0.3).restart();
+        if (!event.active) {
+          // Reset tick count when user drags to allow simulation to run again
+          tickCount = 0;
+          simulation.alphaTarget(0.1).restart();
+        }
         d.fx = d.x;
         d.fy = d.y;
       })
@@ -662,8 +340,10 @@ export default function TopologyDiagram({
       })
       .on("end", (event, d) => {
         if (!event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
+        // Keep nodes fixed after dragging to prevent jitter
+        // Comment out the next two lines if you want nodes to float back
+        // d.fx = null;
+        // d.fy = null;
       });
 
     nodeElements.call(dragBehavior);
@@ -677,120 +357,9 @@ export default function TopologyDiagram({
 
     svg.call(zoomBehavior).call(zoomBehavior.transform, zoomIdentity);
 
-    // Create a map to find parent position for child nodes
-    const nodeMap = new Map<string, SimNode>();
-    allNodes.forEach((n) => nodeMap.set(n.id, n));
-
-    // Helper to calculate child tile position within parent card
-    const getChildPosition = (parent: SimNode, child: TopologyNode, childIndex: number) => {
-      if (!parent.x || !parent.y) return { x: 0, y: 0 };
-
-      const dims = calculateNodeDimensions(parent);
-
-      if (usesVerticalLayout(parent.type)) {
-        // Vertical layout - children stacked vertically with dynamic heights
-        const sortedChildren = [...(parent.children || [])].sort((a, b) => (a.seq || 0) - (b.seq || 0));
-        let cumulativeY = 0;
-
-        // Calculate Y position by summing heights of previous children
-        for (let i = 0; i < childIndex; i++) {
-          const prevChild = sortedChildren[i];
-          const prevHeight = calculateTileHeight(prevChild.name, CHILD_TILE_WIDTH - 16);
-          cumulativeY += prevHeight + CHILD_TILE_GAP;
-        }
-
-        const childHeight = calculateTileHeight(child.name, CHILD_TILE_WIDTH - 16);
-        const relativeX = 0; // Centered horizontally
-        const relativeY =
-          -dims.height / 2 +
-          CARD_HEADER_HEIGHT +
-          CARD_PADDING +
-          cumulativeY +
-          childHeight / 2;
-
-        return {
-          x: parent.x + relativeX,
-          y: parent.y + relativeY,
-        };
-      } else {
-        // Grid layout for activity spaces with dynamic row heights
-        const childrenPerRow = 3;
-        const row = Math.floor(childIndex / childrenPerRow);
-        const col = childIndex % childrenPerRow;
-
-        const sortedChildren = [...(parent.children || [])].sort((a, b) => (a.seq || 0) - (b.seq || 0));
-
-        // Calculate cumulative Y by summing previous row heights
-        let cumulativeY = 0;
-        for (let r = 0; r < row; r++) {
-          let maxRowHeight = CHILD_TILE_MIN_HEIGHT;
-          for (let c = 0; c < childrenPerRow; c++) {
-            const idx = r * childrenPerRow + c;
-            if (idx < sortedChildren.length) {
-              const ch = sortedChildren[idx];
-              const h = calculateTileHeight(ch.name, CHILD_TILE_WIDTH - 16);
-              maxRowHeight = Math.max(maxRowHeight, h);
-            }
-          }
-          cumulativeY += maxRowHeight + CHILD_TILE_GAP;
-        }
-
-        // Calculate current row height
-        let currentRowHeight = CHILD_TILE_MIN_HEIGHT;
-        for (let c = 0; c < childrenPerRow; c++) {
-          const idx = row * childrenPerRow + c;
-          if (idx < sortedChildren.length) {
-            const ch = sortedChildren[idx];
-            const h = calculateTileHeight(ch.name, CHILD_TILE_WIDTH - 16);
-            currentRowHeight = Math.max(currentRowHeight, h);
-          }
-        }
-
-        const numInRow = Math.min(
-          childrenPerRow,
-          (parent.children?.length || 0) - row * childrenPerRow
-        );
-        const rowWidth = numInRow * CHILD_TILE_WIDTH + (numInRow - 1) * CHILD_TILE_GAP;
-        const startX = -rowWidth / 2;
-
-        const relativeX = startX + col * (CHILD_TILE_WIDTH + CHILD_TILE_GAP) + CHILD_TILE_WIDTH / 2;
-        const relativeY =
-          -dims.height / 2 +
-          CARD_HEADER_HEIGHT +
-          CARD_PADDING +
-          cumulativeY +
-          currentRowHeight / 2;
-
-        return {
-          x: parent.x + relativeX,
-          y: parent.y + relativeY,
-        };
-      }
-    };
-
-    // Keep child nodes positioned with their parents
-    const constrainChildren = () => {
-      parentNodes.forEach((parent) => {
-        if (parent.children) {
-          const sortedChildren = [...parent.children].sort((a, b) => (a.seq || 0) - (b.seq || 0));
-          sortedChildren.forEach((child, index) => {
-            const childNode = nodeMap.get(child.id);
-            if (childNode) {
-              // Position child at its specific tile location within the parent card
-              const pos = getChildPosition(parent, child, index);
-              childNode.x = pos.x;
-              childNode.y = pos.y;
-              childNode.vx = parent.vx;
-              childNode.vy = parent.vy;
-            }
-          });
-        }
-      });
-    };
-
     // Update positions on simulation tick
     simulation.on("tick", () => {
-      constrainChildren();
+      tickCount++;
 
       linkElements
         .attr("x1", (d) => (typeof d.source === "object" ? d.source.x || 0 : 0))
@@ -798,14 +367,30 @@ export default function TopologyDiagram({
         .attr("x2", (d) => (typeof d.target === "object" ? d.target.x || 0 : 0))
         .attr("y2", (d) => (typeof d.target === "object" ? d.target.y || 0 : 0));
 
+      // Position label containers at the midpoint of each edge
+      linkLabelContainers.attr("transform", (d) => {
+        const sx = typeof d.source === "object" ? d.source.x || 0 : 0;
+        const tx = typeof d.target === "object" ? d.target.x || 0 : 0;
+        const sy = typeof d.source === "object" ? d.source.y || 0 : 0;
+        const ty = typeof d.target === "object" ? d.target.y || 0 : 0;
+        return `translate(${(sx + tx) / 2}, ${(sy + ty) / 2})`;
+      });
+
       nodeElements.attr("transform", (d) => `translate(${d.x || 0}, ${d.y || 0})`);
+
+      // Stop simulation after max ticks to prevent infinite running
+      // Only enforce this limit during initial layout, not during drag operations
+      if (tickCount > maxTicks && simulation.alpha() < 0.05) {
+        simulation.stop();
+        hasStoppedNaturally = true;
+      }
     });
 
     // Cleanup
     return () => {
       simulation.stop();
     };
-  }, [topologyData, width, height]);
+  }, [topologyData, width, height, assets, resetTrigger]);
 
   if (!topologyData) {
     return (
@@ -822,8 +407,7 @@ export default function TopologyDiagram({
       <div className="flex flex-col items-center justify-center h-96 text-gray-600">
         <p className="text-lg font-medium mb-2">No Topology Data Available</p>
         <p className="text-sm text-gray-500 max-w-md text-center">
-          This practice doesn't have elements defined yet. Add alphas, activities, work products,
-          or competencies to visualize them.
+          This practice doesn't have alphas defined yet. Add alphas to visualize their relationships.
         </p>
       </div>
     );
@@ -831,37 +415,28 @@ export default function TopologyDiagram({
 
   return (
     <div className="flex flex-col gap-4">
+      {/* Controls */}
+      <div className="flex justify-end">
+        <button
+          onClick={() => setResetTrigger((prev) => prev + 1)}
+          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Reset Layout
+        </button>
+      </div>
+
       {/* Legend */}
       <div className="p-4 bg-gray-50 rounded-lg">
-        <h3 className="text-sm font-semibold mb-3 text-gray-700">Node Types</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {Object.entries(NODE_COLORS).map(([type, color]) => {
-            const count = stats.nodesByType[type as TopologyNodeType] || 0;
-            if (count === 0) return null;
-            return (
-              <div key={type} className="flex items-center gap-2">
-                <div
-                  className="w-4 h-4 rounded-full border-2 border-white"
-                  style={{ backgroundColor: color }}
-                />
-                <span className="text-xs font-medium capitalize">
-                  {type.replace(/([A-Z])/g, " $1").trim()} ({count})
-                </span>
-              </div>
-            );
-          })}
-        </div>
-
-        <h3 className="text-sm font-semibold mt-4 mb-3 text-gray-700">Relationship Types</h3>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <h3 className="text-sm font-semibold mb-3 text-gray-700">Alpha Relationships</h3>
+        <div className="grid grid-cols-2 gap-3">
           {Object.entries(EDGE_COLORS).map(([type, color]) => {
             const count = stats.edgesByType[type as TopologyEdgeType] || 0;
             if (count === 0) return null;
             return (
               <div key={type} className="flex items-center gap-2">
-                <div className="w-6 h-0.5" style={{ backgroundColor: color }} />
-                <span className="text-xs font-medium capitalize">
-                  {type} ({count})
+                <div className="w-8 h-1" style={{ backgroundColor: color }} />
+                <span className="text-xs font-medium">
+                  {type === "contributesTo" ? "Contributes To" : "Relates To"} ({count})
                 </span>
               </div>
             );
@@ -869,15 +444,16 @@ export default function TopologyDiagram({
         </div>
 
         <div className="mt-4 text-xs text-gray-600">
-          <p className="font-medium mb-1">Interactions:</p>
+          <p className="font-medium mb-1">Total: {stats.totalNodes} alphas</p>
+          <p className="font-medium mb-2">Interactions:</p>
           <ul className="list-disc list-inside space-y-0.5 ml-2">
-            <li>Drag nodes to reposition them</li>
-            <li>Hover over nodes to highlight connections</li>
+            <li>Drag alphas to reposition them (they stay where you place them)</li>
+            <li>Hover over alphas to highlight connections</li>
             <li>Scroll to zoom in/out</li>
             <li>Pan by dragging the background</li>
+            <li>Click "Reset Layout" to recalculate positions</li>
             <li>
-              <em>Dashed, semi-transparent nodes</em> are referenced from baseline or other
-              practices
+              <em>Dashed nodes</em> are referenced from baseline or other practices
             </li>
           </ul>
         </div>
@@ -892,23 +468,18 @@ export default function TopologyDiagram({
 
       {/* Description */}
       <div className="text-sm text-gray-600 p-4 bg-blue-50 rounded-lg">
-        <p className="font-medium mb-2">Understanding the Topology:</p>
+        <p className="font-medium mb-2">Understanding the Alpha Topology:</p>
         <ul className="list-disc list-inside space-y-1 ml-2">
           <li>
-            <strong>Alphas</strong> (blue) contain <strong>States</strong> (light blue) that
-            represent progression
+            <strong>Alphas</strong> (blue cards) represent essential elements of concern in the practice
           </li>
           <li>
-            <strong>Activities</strong> (violet) are grouped by{" "}
-            <strong>Activity Spaces</strong> (light violet)
+            <strong>Contributes To</strong> (violet arrows) shows hierarchical alpha relationships (specialization)
           </li>
           <li>
-            <strong>Work Products</strong> (amber) have <strong>Levels of Detail</strong> (yellow)
+            <strong>Relates To</strong> (emerald arrows) shows semantic relationships with custom labels (depends on, influences, constrains, etc.)
           </li>
-          <li>
-            <strong>Competencies</strong> (emerald) contain <strong>Levels</strong> (light emerald)
-          </li>
-          <li>Arrows show relationships: contributes, evidences, works on, recommended, required</li>
+          <li>Edge labels show the specific relationship type between alphas</li>
         </ul>
       </div>
     </div>

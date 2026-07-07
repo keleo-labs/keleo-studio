@@ -226,11 +226,11 @@ function TopologyViewerInner() {
             Practice visualization
           </p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--text)]">
-            Topology Diagram
+            Alpha Topology Diagram
           </h1>
           <p className="mt-3 text-base text-[var(--muted)] max-w-2xl">
-            Interactive network view showing practice elements and their relationships. Drag nodes,
-            zoom, and hover to explore the structure.
+            Interactive network view showing Alphas and their relationships through contributesTo and relatesTo connections. Drag nodes,
+            zoom, and hover to explore the alpha structure.
           </p>
 
           {/* Practice Selector */}
