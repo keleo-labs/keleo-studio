@@ -160,6 +160,11 @@ export type PracticeActivity = PracticeElement & {
   recommendedCompetencyLevels: CompetencyLevelReference[];
 };
 
+export type AlphaRelationship = {
+  relationship: string;
+  alphaName: string;
+};
+
 export type PracticeBaseline = PracticeElement & {
   focuses: PracticeElement[];
   alphas: (PracticeElement & {
@@ -168,6 +173,8 @@ export type PracticeBaseline = PracticeElement & {
     contributesTo?: string;
     /** Optional names of contributing / child alphas under this rollup alpha (same baseline; unioned when merging practices). */
     supportingAlphas?: string[];
+    /** Optional array of named semantic relationships to other alphas (language.schema.json AlphaRelationship). */
+    relatesTo?: AlphaRelationship[];
     states: (PracticeElement & { seq: number; checklist: (PracticeElement & { seq: number })[] })[];
   })[];
   activitySpaces: (PracticeElement & {
