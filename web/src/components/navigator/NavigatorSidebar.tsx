@@ -72,6 +72,97 @@ export function NavigatorSidebar({
     setExpandedElements(newSet);
   };
 
+  // Recursive function to render alpha tree
+  const renderAlphaTree = (
+    alphas: PracticeBaseline["alphas"],
+    parentName: string | null,
+    depth: number = 0
+  ): JSX.Element[] => {
+    const childAlphas = alphas.filter((a) => a.contributesTo === parentName);
+
+    return childAlphas.map((alpha) => {
+      const icon = getElementIcon(alpha, assets);
+      const isSelected = selectedElement === alpha.name;
+      const hasChildren = alphas.some((a) => a.contributesTo === alpha.name);
+      const isExpanded = expandedElements.has(alpha.name);
+
+      return (
+        <div key={alpha.name}>
+          <button
+            onClick={() => {
+              onSetSelectedElement(alpha.name);
+              if (hasChildren) {
+                toggleElement(alpha.name);
+              }
+            }}
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              padding: "0.375rem 0.5rem",
+              backgroundColor: isSelected
+                ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                : "transparent",
+              border: "none",
+              borderLeft: isSelected
+                ? "3px solid var(--pf-v6-global--primary-color--100)"
+                : "3px solid transparent",
+              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+              cursor: "pointer",
+              textAlign: "left",
+              fontSize: depth === 0 ? "0.8125rem" : "0.75rem",
+              color: "var(--pf-v6-global--Color--100)",
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              if (!isSelected) {
+                e.currentTarget.style.backgroundColor =
+                  "var(--pf-v6-global--BackgroundColor--200)";
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isSelected) {
+                e.currentTarget.style.backgroundColor = "transparent";
+              }
+            }}
+          >
+            {/* Reserve space for arrow */}
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "0.625rem",
+                color: "var(--pf-v6-global--Color--200)",
+                flexShrink: 0,
+                width: "0.75rem",
+                textAlign: "center",
+              }}
+            >
+              {hasChildren ? (isExpanded ? "▾" : "▸") : ""}
+            </span>
+            {icon && (
+              <IconAsset
+                asset={icon}
+                size={depth === 0 ? 16 : 14}
+                style={{ flexShrink: 0 }}
+              />
+            )}
+            <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+              <AliasedName kind="alpha" name={alpha.name} browse={false} />
+            </span>
+          </button>
+
+          {/* Recursively render children */}
+          {hasChildren && isExpanded && (
+            <div style={{ marginLeft: "1.5rem", marginTop: "0.25rem" }}>
+              {renderAlphaTree(alphas, alpha.name, depth + 1)}
+            </div>
+          )}
+        </div>
+      );
+    });
+  };
+
   return (
     <nav
       aria-label="Practice navigator"
@@ -461,61 +552,7 @@ export function NavigatorSidebar({
                         {hasChildren && isElementExpanded && (
                           <div style={{ marginLeft: "1.5rem", marginTop: "0.25rem" }}>
                             {mode === "concerns"
-                              ? group.alphas
-                                  .filter((a) => a.contributesTo === element.name)
-                                  .map((childAlpha) => {
-                                    const childIcon = getElementIcon(childAlpha, assets);
-                                    const isChildSelected = selectedElement === childAlpha.name;
-
-                                    return (
-                                      <button
-                                        key={childAlpha.name}
-                                        onClick={() => onSetSelectedElement(childAlpha.name)}
-                                        style={{
-                                          width: "100%",
-                                          display: "flex",
-                                          alignItems: "center",
-                                          gap: "0.5rem",
-                                          padding: "0.375rem 0.5rem",
-                                          backgroundColor: isChildSelected
-                                            ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                                            : "transparent",
-                                          border: "none",
-                                          borderLeft: isChildSelected
-                                            ? "3px solid var(--pf-v6-global--primary-color--100)"
-                                            : "3px solid transparent",
-                                          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                                          cursor: "pointer",
-                                          textAlign: "left",
-                                          fontSize: "0.75rem",
-                                          color: "var(--pf-v6-global--Color--100)",
-                                          transition: "all 0.2s",
-                                        }}
-                                        onMouseEnter={(e) => {
-                                          if (!isChildSelected) {
-                                            e.currentTarget.style.backgroundColor =
-                                              "var(--pf-v6-global--BackgroundColor--200)";
-                                          }
-                                        }}
-                                        onMouseLeave={(e) => {
-                                          if (!isChildSelected) {
-                                            e.currentTarget.style.backgroundColor = "transparent";
-                                          }
-                                        }}
-                                      >
-                                        {childIcon && (
-                                          <IconAsset
-                                            asset={childIcon}
-                                            size={14}
-                                            style={{ flexShrink: 0 }}
-                                          />
-                                        )}
-                                        <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
-                                          <AliasedName kind="alpha" name={childAlpha.name} browse={false} />
-                                        </span>
-                                      </button>
-                                    );
-                                  })
+                              ? renderAlphaTree(group.alphas, element.name, 0)
                               : "activities" in element &&
                                 element.activities?.map((activity) => {
                                   const activityIcon = getElementIcon(activity, assets);

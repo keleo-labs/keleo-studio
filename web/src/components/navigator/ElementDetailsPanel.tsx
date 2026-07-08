@@ -506,10 +506,133 @@ export function ElementDetailsPanel({
               </div>
             </div>
 
-            {/* Introduction view: Narratives */}
+            {/* Introduction view: Narratives and Practices side-by-side */}
             {type === "introduction" && data.narratives && data.narratives.length > 0 && (
-              <div style={{ marginTop: "2rem", marginBottom: "2.5rem" }}>
-                {renderNarratives(data.narratives, baseline)}
+              <div style={{ display: "flex", gap: "2rem", marginTop: "2rem", marginBottom: "2.5rem", alignItems: "flex-start" }}>
+                {/* Left column: Narratives - 55% */}
+                <div style={{ flex: "0 0 55%", minWidth: 0 }}>
+                  {renderNarratives(data.narratives, baseline)}
+                </div>
+
+                {/* Right column: Practices - 45% (aligned to top) */}
+                {((data.practices && Array.isArray(data.practices) && data.practices.length > 0) ||
+                  (data.practiceNames && Array.isArray(data.practiceNames) && data.practiceNames.length > 0) ||
+                  (data.practiceDependencyNames && Array.isArray(data.practiceDependencyNames) && data.practiceDependencyNames.length > 0)) && (
+                  <div style={{ flex: "0 0 45%", minWidth: "15rem" }}>
+                    <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                      {(data.practices && Array.isArray(data.practices) && data.practices.length > 0) ||
+                       (data.practiceNames && Array.isArray(data.practiceNames) && data.practiceNames.length > 0)
+                        ? "Practices"
+                        : "Practice Dependencies"}
+                    </Title>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", maxWidth: "24rem" }}>
+                      {/* Show practices first - handle both embedded (data.practices) and named (data.practiceNames) */}
+                      {(data.practices ?? data.practiceNames ?? []).map((practice: any, idx: number) => {
+                        const practiceName = typeof practice === "string" ? practice : (practice.name || "Unknown Practice");
+                        const isSelected = secondaryElementName === practiceName;
+
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => onSetSecondaryElement(isSelected ? null : practiceName)}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.75rem",
+                              padding: "0.75rem 1rem",
+                              border: isSelected
+                                ? "3px solid var(--pf-v6-global--primary-color--100)"
+                                : "2px solid var(--pf-v6-global--BorderColor--100)",
+                              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                              backgroundColor: isSelected
+                                ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                                : "var(--pf-v6-global--BackgroundColor--100)",
+                              cursor: "pointer",
+                              textAlign: "left",
+                              transition: "all 0.2s",
+                            }}
+                          >
+                            <i className="fa-solid fa-puzzle-piece" style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }} />
+                            <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
+                              {practiceName}
+                            </div>
+                          </button>
+                        );
+                      })}
+
+                      {/* Show practice dependencies if no practices */}
+                      {!(data.practices && Array.isArray(data.practices) && data.practices.length > 0) &&
+                       !(data.practiceNames && Array.isArray(data.practiceNames) && data.practiceNames.length > 0) &&
+                       data.practiceDependencyNames && Array.isArray(data.practiceDependencyNames) &&
+                       data.practiceDependencyNames.map((practiceName: string, idx: number) => {
+                        const isSelected = secondaryElementName === practiceName;
+
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => onSetSecondaryElement(isSelected ? null : practiceName)}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.75rem",
+                              padding: "0.75rem 1rem",
+                              border: isSelected
+                                ? "3px solid var(--pf-v6-global--primary-color--100)"
+                                : "2px solid var(--pf-v6-global--BorderColor--100)",
+                              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                              backgroundColor: isSelected
+                                ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                                : "var(--pf-v6-global--BackgroundColor--100)",
+                              cursor: "pointer",
+                              textAlign: "left",
+                              transition: "all 0.2s",
+                            }}
+                          >
+                            <i className="fa-solid fa-puzzle-piece" style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }} />
+                            <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
+                              {practiceName}
+                            </div>
+                          </button>
+                        );
+                      })}
+
+                      {/* Show baseline at the end - handle both embedded (data.baselinePractice) and named (data.baselinePracticeName) */}
+                      {(() => {
+                        const baselineName = data.baselinePracticeName || data.baselinePractice?.name;
+                        if (!baselineName) return null;
+
+                        const isSelected = secondaryElementName === baselineName;
+
+                        return (
+                          <button
+                            onClick={() => onSetSecondaryElement(isSelected ? null : baselineName)}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.75rem",
+                              padding: "0.75rem 1rem",
+                              border: isSelected
+                                ? "3px solid var(--pf-v6-global--primary-color--100)"
+                                : "2px solid var(--pf-v6-global--primary-color--100)",
+                              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                              backgroundColor: isSelected
+                                ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                                : "var(--pf-v6-global--BackgroundColor--100)",
+                              cursor: "pointer",
+                              textAlign: "left",
+                              transition: "all 0.2s",
+                            }}
+                          >
+                            <i className="fa-solid fa-layer-group" style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--primary-color--100)" }} />
+                            <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
+                              {baselineName}
+                            </div>
+                          </button>
+                        );
+                      })()}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -987,163 +1110,6 @@ export function ElementDetailsPanel({
                 </div>
               )}
 
-              {/* Introduction-specific: Show practices for methods */}
-              {/* For methods: show practices */}
-              {type === "introduction" && ((data.practices && Array.isArray(data.practices) && data.practices.length > 0) || (data.practiceNames && Array.isArray(data.practiceNames) && data.practiceNames.length > 0)) && (
-                <div style={{ flex: "0 0 45%", minWidth: "15rem", paddingRight: "2rem" }}>
-                  <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-                    Practices
-                  </Title>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    {/* Show practices first - handle both embedded (data.practices) and named (data.practiceNames) */}
-                    {(data.practices ?? data.practiceNames ?? []).map((practice: any, idx: number) => {
-                      const practiceName = typeof practice === "string" ? practice : (practice.name || "Unknown Practice");
-                      const isSelected = secondaryElementName === practiceName;
-
-                      return (
-                        <button
-                          key={idx}
-                          onClick={() => onSetSecondaryElement(isSelected ? null : practiceName)}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.75rem",
-                            padding: "0.75rem 1rem",
-                            border: isSelected
-                              ? "3px solid var(--pf-v6-global--primary-color--100)"
-                              : "2px solid var(--pf-v6-global--BorderColor--100)",
-                            borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                            backgroundColor: isSelected
-                              ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                              : "var(--pf-v6-global--BackgroundColor--100)",
-                            cursor: "pointer",
-                            textAlign: "left",
-                            transition: "all 0.2s",
-                          }}
-                        >
-                          <i className="fa-solid fa-puzzle-piece" style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }} />
-                          <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                            {practiceName}
-                          </div>
-                        </button>
-                      );
-                    })}
-
-                    {/* Show baseline at the end - handle both embedded (data.baselinePractice) and named (data.baselinePracticeName) */}
-                    {(() => {
-                      const baselineName = data.baselinePracticeName || data.baselinePractice?.name;
-                      if (!baselineName) return null;
-
-                      const isSelected = secondaryElementName === baselineName;
-
-                      return (
-                        <button
-                          onClick={() => onSetSecondaryElement(isSelected ? null : baselineName)}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.75rem",
-                            padding: "0.75rem 1rem",
-                            border: isSelected
-                              ? "3px solid var(--pf-v6-global--primary-color--100)"
-                              : "2px solid var(--pf-v6-global--primary-color--100)",
-                            borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                            backgroundColor: isSelected
-                              ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                              : "var(--pf-v6-global--BackgroundColor--100)",
-                            cursor: "pointer",
-                            textAlign: "left",
-                            transition: "all 0.2s",
-                          }}
-                        >
-                          <i className="fa-solid fa-layer-group" style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--primary-color--100)" }} />
-                          <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                            {baselineName}
-                          </div>
-                        </button>
-                      );
-                    })()}
-                  </div>
-                </div>
-              )}
-
-              {/* For practices: show practice dependencies */}
-              {type === "introduction" && data.practiceDependencyNames && Array.isArray(data.practiceDependencyNames) && data.practiceDependencyNames.length > 0 && (
-                <div style={{ flex: "0 0 45%", minWidth: "15rem", paddingRight: "2rem" }}>
-                  <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-                    Practice Dependencies
-                  </Title>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    {/* Show practice dependencies first */}
-                    {data.practiceDependencyNames.map((practiceName: string, idx: number) => {
-                      const isSelected = secondaryElementName === practiceName;
-
-                      return (
-                        <button
-                          key={idx}
-                          onClick={() => onSetSecondaryElement(isSelected ? null : practiceName)}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.75rem",
-                            padding: "0.75rem 1rem",
-                            border: isSelected
-                              ? "3px solid var(--pf-v6-global--primary-color--100)"
-                              : "2px solid var(--pf-v6-global--BorderColor--100)",
-                            borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                            backgroundColor: isSelected
-                              ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                              : "var(--pf-v6-global--BackgroundColor--100)",
-                            cursor: "pointer",
-                            textAlign: "left",
-                            transition: "all 0.2s",
-                          }}
-                        >
-                          <i className="fa-solid fa-puzzle-piece" style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }} />
-                          <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                            {practiceName}
-                          </div>
-                        </button>
-                      );
-                    })}
-
-                    {/* Show baseline at the end - handle both embedded (data.baselinePractice) and named (data.baselinePracticeName) */}
-                    {(() => {
-                      const baselineName = data.baselinePracticeName || data.baselinePractice?.name;
-                      if (!baselineName) return null;
-
-                      const isSelected = secondaryElementName === baselineName;
-
-                      return (
-                        <button
-                          onClick={() => onSetSecondaryElement(isSelected ? null : baselineName)}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.75rem",
-                            padding: "0.75rem 1rem",
-                            border: isSelected
-                              ? "3px solid var(--pf-v6-global--primary-color--100)"
-                              : "2px solid var(--pf-v6-global--primary-color--100)",
-                            borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                            backgroundColor: isSelected
-                              ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                              : "var(--pf-v6-global--BackgroundColor--100)",
-                            cursor: "pointer",
-                            textAlign: "left",
-                            transition: "all 0.2s",
-                          }}
-                        >
-                          <i className="fa-solid fa-layer-group" style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--primary-color--100)" }} />
-                          <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                            {baselineName}
-                          </div>
-                        </button>
-                      );
-                    })()}
-                  </div>
-                </div>
-              )}
 
               {hasLODs && type === "workProduct" && (
                 <div style={{ flex: "0 0 45%", minWidth: "15rem", paddingRight: "2rem" }}>
