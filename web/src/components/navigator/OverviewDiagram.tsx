@@ -46,10 +46,186 @@ export function OverviewDiagram({
   selectedElement,
 }: OverviewDiagramProps) {
 
+  // Layout constants (in pixels for SVG)
+  const CARD_WIDTH = 180;
+  const CARD_HEIGHT = 48;
+  const CARD_GAP = 12;        // Gap between sibling cards
+  const VERTICAL_PADDING = 12; // Extra padding before children
+  const INDENT = 42;
+  const LINE_OFFSET = 21;
+
+  interface AlphaNode {
+    alpha: typeof baseline.alphas[0];
+    x: number;
+    y: number;
+    score: number;
+    children: AlphaNode[];
+  }
+
+  // Build tree structure and calculate positions
+  const buildAlphaTree = (
+    parentName: string | null,
+    allAlphas: typeof baseline.alphas,
+    startX: number,
+    startY: number,
+    rootScoreEntry: any
+  ): { nodes: AlphaNode[]; totalHeight: number } => {
+    const children = allAlphas.filter((a) => a.contributesTo === parentName);
+    const nodes: AlphaNode[] = [];
+    let currentY = startY;
+
+    for (const alpha of children) {
+      // Look up score
+      let score = 0;
+      if (rootScoreEntry && rootScoreEntry.newAlphas) {
+        const findScoreRecursive = (alphas: any[]): number => {
+          for (const na of alphas) {
+            if (na.alpha.name === alpha.name) return na.score;
+            if (na.newAlphas) {
+              const s = findScoreRecursive(na.newAlphas);
+              if (s > 0) return s;
+            }
+          }
+          return 0;
+        };
+        score = findScoreRecursive(rootScoreEntry.newAlphas);
+      }
+
+      const node: AlphaNode = {
+        alpha,
+        x: startX,
+        y: currentY,
+        score,
+        children: []
+      };
+
+      // Recursively build children
+      const hasChildren = allAlphas.some((a) => a.contributesTo === alpha.name);
+      if (hasChildren) {
+        const childResult = buildAlphaTree(alpha.name, allAlphas, startX + INDENT, currentY + CARD_HEIGHT + CARD_GAP, rootScoreEntry);
+        node.children = childResult.nodes;
+        // Advance past this card's height + gap + all grandchildren's total height + padding after subtree
+        currentY += CARD_HEIGHT + CARD_GAP + childResult.totalHeight + VERTICAL_PADDING;
+      } else {
+        currentY += CARD_HEIGHT + CARD_GAP;
+      }
+
+      nodes.push(node);
+    }
+
+    const totalHeight = currentY - startY - CARD_GAP;
+    return { nodes, totalHeight };
+  };
+
+  // Render alpha nodes recursively
+  const renderAlphaNodes = (nodes: AlphaNode[], parentX?: number, parentY?: number): JSX.Element[] => {
+    const elements: JSX.Element[] = [];
+
+    nodes.forEach((node, index) => {
+      const isSelected = selectedElement === node.alpha.name;
+      const cardCenterY = node.y + CARD_HEIGHT / 2;
+
+      // Draw connecting lines if there's a parent
+      if (parentX !== undefined && parentY !== undefined) {
+        const parentBottomY = parentY + CARD_HEIGHT;
+
+        // Horizontal line from parent's vertical line to this card
+        elements.push(
+          <line
+            key={`h-${node.alpha.name}`}
+            x1={parentX + LINE_OFFSET}
+            y1={cardCenterY}
+            x2={node.x}
+            y2={cardCenterY}
+            stroke="rgba(102, 102, 102, 0.8)"
+            strokeWidth="3"
+          />
+        );
+
+        // Vertical line from parent card bottom to last child (only on first iteration)
+        if (index === 0) {
+          const lastSiblingCenterY = nodes[nodes.length - 1].y + CARD_HEIGHT / 2;
+          elements.push(
+            <line
+              key={`v-parent-${node.alpha.name}`}
+              x1={parentX + LINE_OFFSET}
+              y1={parentBottomY}
+              x2={parentX + LINE_OFFSET}
+              y2={lastSiblingCenterY}
+              stroke="rgba(102, 102, 102, 0.8)"
+              strokeWidth="3"
+            />
+          );
+        }
+      }
+
+      // Recursively render children
+      if (node.children.length > 0) {
+        elements.push(...renderAlphaNodes(node.children, node.x, node.y));
+      }
+    });
+
+    return elements;
+  };
+
+  // Render alpha cards
+  const renderAlphaCards = (nodes: AlphaNode[]): JSX.Element[] => {
+    const elements: JSX.Element[] = [];
+
+    nodes.forEach((node) => {
+      const isSelected = selectedElement === node.alpha.name;
+      const assetRef = node.alpha.assetNames?.find((a) => a.type === "icon");
+      const asset = assetRef ? findAsset(assetRef.assetName, baseline.assets || []) : null;
+
+      elements.push(
+        <g key={`card-${node.alpha.name}`}>
+          <rect
+            x={node.x}
+            y={node.y}
+            width={CARD_WIDTH}
+            height={CARD_HEIGHT}
+            rx="4"
+            fill={getScoreBackgroundColor(node.score, isSelected)}
+            stroke={isSelected ? "var(--pf-v6-global--primary-color--100)" : "var(--pf-v6-global--BorderColor--100)"}
+            strokeWidth={isSelected ? "3" : "1"}
+            style={{ cursor: "pointer", transition: "all 0.2s" }}
+            onClick={() => onSelectElement(isSelected ? null : node.alpha.name)}
+          />
+          <foreignObject
+            x={node.x}
+            y={node.y}
+            width={CARD_WIDTH}
+            height={CARD_HEIGHT}
+            style={{ pointerEvents: "none" }}
+          >
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              padding: "0.75rem",
+              height: "100%"
+            }}>
+              {asset && <IconAsset asset={asset} size={18} />}
+              <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
+                <AliasedName kind="alpha" name={node.alpha.name} browse={false} />
+              </div>
+            </div>
+          </foreignObject>
+        </g>
+      );
+
+      // Recursively render child cards
+      if (node.children.length > 0) {
+        elements.push(...renderAlphaCards(node.children));
+      }
+    });
+
+    return elements;
+  };
+
   if (mode === "concerns") {
     // Separate root alphas from contributing alphas
     const rootAlphas = (baseline.alphas || []).filter((a) => !a.contributesTo);
-    const contributingAlphas = (baseline.alphas || []).filter((a) => a.contributesTo);
 
     // Group root alphas by focus
     const rootAlphasByFocus = new Map<string, typeof baseline.alphas>();
@@ -67,15 +243,48 @@ export function OverviewDiagram({
       alphas.sort((a, b) => (a.seq || 0) - (b.seq || 0));
     });
 
-    // Build map of root alpha -> contributing alphas
-    const contributorsByRoot = new Map<string, typeof baseline.alphas>();
-    for (const alpha of contributingAlphas) {
-      const rootName = alpha.contributesTo!;
-      if (!contributorsByRoot.has(rootName)) {
-        contributorsByRoot.set(rootName, []);
-      }
-      contributorsByRoot.get(rootName)!.push(alpha);
-    }
+    // Build tree structures for all focus groups
+    const focusGroups: Array<{
+      focusName: string;
+      focus: typeof baseline.focuses[0] | undefined;
+      trees: Array<{ rootAlpha: typeof baseline.alphas[0]; tree: AlphaNode[]; height: number; score: number }>;
+    }> = [];
+
+    let maxWidth = 0;
+
+    Array.from(rootAlphasByFocus.entries()).forEach(([focusName, rootAlphas]) => {
+      const trees: Array<{ rootAlpha: typeof baseline.alphas[0]; tree: AlphaNode[]; height: number; score: number }> = [];
+
+      rootAlphas.forEach((rootAlpha) => {
+        // Look up score for root
+        let rootScore = 0;
+        let rootScoreEntry = null;
+        const focusGroup = alphaScores.get(focusName);
+        if (focusGroup) {
+          const scoreEntry = focusGroup.alphas.find(a => a.alpha.name === rootAlpha.name);
+          if (scoreEntry) {
+            rootScore = scoreEntry.score;
+            rootScoreEntry = scoreEntry;
+          }
+        }
+
+        // Build tree for children - start below the root card
+        const { nodes, totalHeight } = buildAlphaTree(rootAlpha.name, baseline.alphas || [], INDENT, CARD_HEIGHT + CARD_GAP, rootScoreEntry);
+
+        trees.push({
+          rootAlpha,
+          tree: nodes,
+          height: totalHeight,
+          score: rootScore
+        });
+      });
+
+      focusGroups.push({
+        focusName,
+        focus: baseline.focuses?.find((f) => f.name === focusName),
+        trees
+      });
+    });
 
 
     return (
@@ -92,187 +301,165 @@ export function OverviewDiagram({
           Overview of Concerns
         </Title>
 
-        {/* Alpha cards grouped by focus */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "2rem", position: "relative" }}>
-          {Array.from(rootAlphasByFocus.entries()).map(([focusName, rootAlphas]) => (
-            <div key={focusName}>
+        {/* SVG-based alpha visualization */}
+        {focusGroups.map((group) => {
+          let currentX = 0;
+          let maxGroupHeight = 0;
+
+          return (
+            <div key={group.focusName} style={{ marginBottom: "2rem" }}>
               <div style={{ marginBottom: "1rem" }}>
                 <Title headingLevel="h3" size="md" style={{ fontSize: "0.8125rem", marginBottom: "0.25rem" }}>
-                  {focusName}
+                  {group.focusName}
                 </Title>
-                {(() => {
-                  const focus = baseline.focuses?.find((f) => f.name === focusName);
-                  if (focus?.description) {
-                    return (
-                      <div style={{ fontSize: "0.75rem", fontStyle: "italic", fontWeight: 400, color: "var(--pf-v6-global--Color--100)" }}>
-                        {focus.description}
-                      </div>
-                    );
-                  }
-                  return null;
-                })()}
+                {group.focus?.description && (
+                  <div style={{ fontSize: "0.75rem", fontStyle: "italic", fontWeight: 400, color: "var(--pf-v6-global--Color--100)" }}>
+                    {group.focus.description}
+                  </div>
+                )}
               </div>
-              {/* Root alphas in rows (max 5 per row) */}
-              <div style={{ display: "flex", gap: "2.625rem", alignItems: "flex-start", flexWrap: "wrap" }}>
-                {rootAlphas.map((rootAlpha) => {
-                  const contributors = contributorsByRoot.get(rootAlpha.name) || [];
-                  const rootAssetRef = rootAlpha.assetNames?.find((a) => a.type === "icon");
+
+              <svg width="100%" height={Math.max(...group.trees.map(t => CARD_HEIGHT + t.height + CARD_GAP + 24)) + 24} style={{ overflow: "visible" }}>
+                {group.trees.map((treeData, treeIndex) => {
+                  const rootX = currentX;
+                  const rootY = 0;
+                  const treeStartX = currentX;
+
+                  // Render root alpha card
+                  const isRootSelected = selectedElement === treeData.rootAlpha.name;
+                  const rootAssetRef = treeData.rootAlpha.assetNames?.find((a) => a.type === "icon");
                   const rootAsset = rootAssetRef ? findAsset(rootAssetRef.assetName, baseline.assets || []) : null;
-                  const isSelected = selectedElement === rootAlpha.name;
 
-                  // Look up the score for this alpha
-                  let alphaScore = 0;
-                  let rootScoreEntry = null;
-                  const focusGroup = alphaScores.get(focusName);
-                  if (focusGroup) {
-                    const scoreEntry = focusGroup.alphas.find(a => a.alpha.name === rootAlpha.name);
-                    if (scoreEntry) {
-                      alphaScore = scoreEntry.score;
-                      rootScoreEntry = scoreEntry;
-                    }
-                  }
-
-                  return (
-                    <div key={rootAlpha.name} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "0.75rem", position: "relative" }}>
-                      {/* Root alpha card */}
-                      <div style={{ position: "relative", zIndex: 1 }}>
-                        <div
-                          data-element-name={rootAlpha.name}
-                          onClick={() => onSelectElement(isSelected ? null : rootAlpha.name)}
-                          style={{
-                            padding: "0.75rem",
-                            border: isSelected
-                              ? "3px solid var(--pf-v6-global--primary-color--100)"
-                              : "1px solid var(--pf-v6-global--BorderColor--100)",
-                            borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                            backgroundColor: getScoreBackgroundColor(alphaScore, isSelected),
-                            cursor: "pointer",
-                            transition: "all 0.2s",
-                            width: "180px",
-                          }}
-                        >
-                          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                            {rootAsset && <IconAsset asset={rootAsset} size={18} />}
-                            <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
-                              <AliasedName kind="alpha" name={rootAlpha.name} browse={false} />
-                            </div>
+                  const rootCard = (
+                    <g key={`root-${treeData.rootAlpha.name}`}>
+                      <rect
+                        x={rootX}
+                        y={rootY}
+                        width={CARD_WIDTH}
+                        height={CARD_HEIGHT}
+                        rx="4"
+                        fill={getScoreBackgroundColor(treeData.score, isRootSelected)}
+                        stroke={isRootSelected ? "var(--pf-v6-global--primary-color--100)" : "var(--pf-v6-global--BorderColor--100)"}
+                        strokeWidth={isRootSelected ? "3" : "1"}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => onSelectElement(isRootSelected ? null : treeData.rootAlpha.name)}
+                      />
+                      <foreignObject
+                        x={rootX}
+                        y={rootY}
+                        width={CARD_WIDTH}
+                        height={CARD_HEIGHT}
+                        style={{ pointerEvents: "none" }}
+                      >
+                        <div style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem",
+                          padding: "0.75rem",
+                          height: "100%"
+                        }}>
+                          {rootAsset && <IconAsset asset={rootAsset} size={18} />}
+                          <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
+                            <AliasedName kind="alpha" name={treeData.rootAlpha.name} browse={false} />
                           </div>
                         </div>
-                      </div>
-
-                      {/* Contributing alphas stacked vertically below with connecting lines */}
-                      {contributors.length > 0 && (
-                        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", paddingTop: "0.75rem", position: "relative" }}>
-                          {/* Vertical connector line inset from parent left edge, stops at last child's horizontal line */}
-                          <svg
-                            style={{
-                              position: "absolute",
-                              top: "-0.75rem",
-                              left: "1.3125rem",
-                              width: "3px",
-                              height: `calc((100% - ${(contributors.length - 1) * 0.75}rem) / ${contributors.length} * ${contributors.length - 0.5} + ${(contributors.length - 1) * 0.75}rem + 0.75rem)`,
-                              pointerEvents: "none",
-                              zIndex: 0,
-                            }}
-                          >
-                            <line
-                              x1="1.5"
-                              y1="0"
-                              x2="1.5"
-                              y2="100%"
-                              stroke="rgba(102, 102, 102, 0.8)"
-                              strokeWidth="3"
-                            />
-                          </svg>
-
-                          {/* Child items with horizontal connectors */}
-                          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", width: "100%" }}>
-                            {contributors.map((contributor, idx) => {
-                              const contribAssetRef = contributor.assetNames?.find((a) => a.type === "icon");
-                              const contribAsset = contribAssetRef ? findAsset(contribAssetRef.assetName, baseline.assets || []) : null;
-                              const isContribSelected = selectedElement === contributor.name;
-
-                              // Look up the score for this contributing alpha
-                              let contribScore = 0;
-                              if (rootScoreEntry && rootScoreEntry.newAlphas) {
-                                const contribEntry = rootScoreEntry.newAlphas.find(na => na.alpha.name === contributor.name);
-                                if (contribEntry) {
-                                  contribScore = contribEntry.score;
-                                }
-                              }
-
-                              return (
-                                <div
-                                  key={contributor.name}
-                                  style={{
-                                    position: "relative",
-                                    paddingLeft: "2.625rem",
-                                    display: "flex",
-                                    alignItems: "center",
-                                  }}
-                                >
-                                  {/* Horizontal connector line (50% shorter) */}
-                                  <svg
-                                    style={{
-                                      position: "absolute",
-                                      left: "1.3125rem",
-                                      top: "50%",
-                                      width: "1.3125rem",
-                                      height: "3px",
-                                      pointerEvents: "none",
-                                      transform: "translateY(-50%)",
-                                    }}
-                                  >
-                                    <line
-                                      x1="0"
-                                      y1="1.5"
-                                      x2="100%"
-                                      y2="1.5"
-                                      stroke="rgba(102, 102, 102, 0.8)"
-                                      strokeWidth="3"
-                                    />
-                                  </svg>
-
-                                  <div
-                                    data-element-name={contributor.name}
-                                    onClick={() => onSelectElement(isContribSelected ? null : contributor.name)}
-                                    style={{
-                                      padding: "0.75rem",
-                                      border: isContribSelected
-                                        ? "3px solid var(--pf-v6-global--primary-color--100)"
-                                        : "1px solid var(--pf-v6-global--BorderColor--100)",
-                                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                                      backgroundColor: getScoreBackgroundColor(contribScore, isContribSelected),
-                                      cursor: "pointer",
-                                      transition: "all 0.2s",
-                                      width: "180px",
-                                    }}
-                                  >
-                                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                                      {contribAsset && <IconAsset asset={contribAsset} size={18} />}
-                                      <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
-                                        <AliasedName kind="alpha" name={contributor.name} browse={false} />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                      </foreignObject>
+                    </g>
                   );
+
+                  // Render child tree
+                  const childElements = [
+                    ...renderAlphaNodes(treeData.tree, rootX, rootY),
+                    ...renderAlphaCards(treeData.tree)
+                  ];
+
+                  // Calculate max width for this tree
+                  const maxDepth = Math.max(0, ...treeData.tree.map(n => countDepth(n)));
+                  const treeWidth = CARD_WIDTH + (maxDepth * INDENT) + 42;
+                  currentX += treeWidth;
+                  maxGroupHeight = Math.max(maxGroupHeight, CARD_HEIGHT + treeData.height + CARD_GAP);
+
+                  return [rootCard, ...childElements];
                 })}
-              </div>
+              </svg>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
     );
   }
 
-  // Activities mode - group activity spaces by focus
+  // Helper to count tree depth
+  function countDepth(node: AlphaNode): number {
+    if (node.children.length === 0) return 0;
+    return 1 + Math.max(...node.children.map(countDepth));
+  }
+
+  // Activities mode - build tree structure
+  interface ActivityNode {
+    activity: typeof baseline.activitySpaces[0]["activities"][0];
+    x: number;
+    y: number;
+    score: number;
+  }
+
+  interface ActivitySpaceTree {
+    activitySpace: typeof baseline.activitySpaces[0];
+    x: number;
+    y: number;
+    score: number;
+    activities: ActivityNode[];
+  }
+
+  const buildActivityTree = (
+    activitySpace: typeof baseline.activitySpaces[0],
+    startX: number,
+    startY: number,
+    spaceScoreEntry: any
+  ): { tree: ActivitySpaceTree; totalHeight: number } => {
+    const activities = activitySpace.activities || [];
+    const activityNodes: ActivityNode[] = [];
+    let currentY = startY + CARD_HEIGHT + CARD_GAP;
+
+    activities.forEach((activity) => {
+      // Look up score
+      let activityScore = 0;
+      if (spaceScoreEntry && spaceScoreEntry.activityScores) {
+        const actScoreEntry = spaceScoreEntry.activityScores.find(
+          (a: any) => a.activity.name === activity.name
+        );
+        if (actScoreEntry) {
+          activityScore = actScoreEntry.score;
+        }
+      }
+
+      activityNodes.push({
+        activity,
+        x: startX + INDENT,
+        y: currentY,
+        score: activityScore
+      });
+
+      currentY += CARD_HEIGHT + CARD_GAP;
+    });
+
+    const totalHeight = activities.length > 0
+      ? CARD_HEIGHT + CARD_GAP + (activities.length * (CARD_HEIGHT + CARD_GAP)) + VERTICAL_PADDING
+      : CARD_HEIGHT + CARD_GAP;
+
+    return {
+      tree: {
+        activitySpace,
+        x: startX,
+        y: startY,
+        score: 0,
+        activities: activityNodes
+      },
+      totalHeight
+    };
+  };
+
+  // Group activity spaces by focus
   const activitySpacesByFocus = new Map<string, typeof baseline.activitySpaces>();
 
   const activitySpaces = baseline.activitySpaces || [];
@@ -289,6 +476,55 @@ export function OverviewDiagram({
     spaces.sort((a, b) => (a.seq || 0) - (b.seq || 0));
   });
 
+  // Build trees for all activity spaces
+  const activityFocusGroups: Array<{
+    focusName: string;
+    focus: typeof baseline.focuses[0] | undefined;
+    trees: Array<{ spaceTree: ActivitySpaceTree; height: number }>;
+  }> = [];
+
+  Array.from(activitySpacesByFocus.entries()).forEach(([focusName, spaces]) => {
+    const trees: Array<{ spaceTree: ActivitySpaceTree; height: number }> = [];
+    let currentX = 0;
+
+    spaces.forEach((space) => {
+      // Look up score for space
+      let spaceScore = 0;
+      let spaceScoreEntry = null;
+      if (activitySpaceScores) {
+        const focusGroup = activitySpaceScores.get(focusName);
+        if (focusGroup) {
+          const scoreEntry = focusGroup.activitySpaces.find(
+            (s) => s.activitySpace.name === space.name
+          );
+          if (scoreEntry) {
+            spaceScore = scoreEntry.score;
+            spaceScoreEntry = scoreEntry;
+          }
+        }
+      }
+
+      // Build tree at current X position
+      const { tree, totalHeight } = buildActivityTree(space, currentX, 0, spaceScoreEntry);
+      tree.score = spaceScore;
+
+      trees.push({
+        spaceTree: tree,
+        height: totalHeight
+      });
+
+      // Advance X position for next tree
+      const treeWidth = CARD_WIDTH + (space.activities && space.activities.length > 0 ? INDENT : 0) + 42;
+      currentX += treeWidth;
+    });
+
+    activityFocusGroups.push({
+      focusName,
+      focus: baseline.focuses?.find((f) => f.name === focusName),
+      trees
+    });
+  });
+
   return (
     <div style={{ position: "relative" }}>
       <Title
@@ -303,193 +539,159 @@ export function OverviewDiagram({
         Overview of Activities
       </Title>
 
-      {/* Activity spaces grouped by focus */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "2rem", position: "relative" }}>
-        {Array.from(activitySpacesByFocus.entries()).map(([focusName, spaces]) => (
-          <div key={focusName}>
+      {/* SVG-based activity visualization */}
+      {activityFocusGroups.map((group) => {
+        let currentX = 0;
+
+        return (
+          <div key={group.focusName} style={{ marginBottom: "2rem" }}>
             <div style={{ marginBottom: "1rem" }}>
               <Title headingLevel="h3" size="md" style={{ fontSize: "0.8125rem", marginBottom: "0.25rem" }}>
-                {focusName}
+                {group.focusName}
               </Title>
-              {(() => {
-                const focus = baseline.focuses?.find((f) => f.name === focusName);
-                if (focus?.description) {
-                  return (
-                    <div style={{ fontSize: "0.75rem", fontStyle: "italic", fontWeight: 400, color: "var(--pf-v6-global--Color--100)" }}>
-                      {focus.description}
-                    </div>
-                  );
-                }
-                return null;
-              })()}
+              {group.focus?.description && (
+                <div style={{ fontSize: "0.75rem", fontStyle: "italic", fontWeight: 400, color: "var(--pf-v6-global--Color--100)" }}>
+                  {group.focus.description}
+                </div>
+              )}
             </div>
-            {/* Activity spaces in rows (max 5 per row) */}
-            <div style={{ display: "flex", gap: "2.625rem", alignItems: "flex-start", flexWrap: "wrap" }}>
-              {spaces.map((activitySpace) => {
-                const activities = activitySpace.activities || [];
-                const spaceAssetRef = activitySpace.assetNames?.find((a) => a.type === "icon");
+
+            <svg width="100%" height={Math.max(...group.trees.map(t => t.height)) + 24} style={{ overflow: "visible" }}>
+              {group.trees.map((treeData) => {
+                const spaceX = currentX;
+                const spaceY = 0;
+                const space = treeData.spaceTree;
+
+                const isSpaceSelected = selectedElement === space.activitySpace.name;
+                const spaceAssetRef = space.activitySpace.assetNames?.find((a) => a.type === "icon");
                 const spaceAsset = spaceAssetRef ? findAsset(spaceAssetRef.assetName, baseline.assets || []) : null;
-                const isSelected = selectedElement === activitySpace.name;
 
-                // Look up the score for this activity space
-                let spaceScore = 0;
-                let spaceScoreEntry = null;
-                if (activitySpaceScores) {
-                  const focusGroup = activitySpaceScores.get(focusName);
-                  if (focusGroup) {
-                    const scoreEntry = focusGroup.activitySpaces.find(
-                      (s) => s.activitySpace.name === activitySpace.name
+                // Render activity space card with arrow shape
+                const spaceCard = (
+                  <g key={`space-${space.activitySpace.name}`}>
+                    {/* Arrow-shaped activity space - filled path with dashed stroke */}
+                    <path
+                      d={`M 0 0 L ${CARD_WIDTH - 12} 0 L ${CARD_WIDTH} ${CARD_HEIGHT / 2} L ${CARD_WIDTH - 12} ${CARD_HEIGHT} L 0 ${CARD_HEIGHT} Z`}
+                      transform={`translate(${spaceX}, ${spaceY})`}
+                      fill={getScoreBackgroundColor(space.score, isSpaceSelected)}
+                      stroke={isSpaceSelected ? "var(--pf-v6-global--primary-color--100)" : "var(--pf-v6-global--BorderColor--100)"}
+                      strokeWidth={isSpaceSelected ? "3" : "1"}
+                      strokeDasharray="4"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => onSelectElement(isSpaceSelected ? null : space.activitySpace.name)}
+                    />
+                    <foreignObject
+                      x={spaceX}
+                      y={spaceY}
+                      width={CARD_WIDTH - 12}
+                      height={CARD_HEIGHT}
+                      style={{ pointerEvents: "none" }}
+                    >
+                      <div style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        padding: "0.75rem",
+                        height: "100%"
+                      }}>
+                        {spaceAsset && <IconAsset asset={spaceAsset} size={18} />}
+                        <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
+                          <AliasedName kind="activitySpace" name={space.activitySpace.name} browse={false} />
+                        </div>
+                      </div>
+                    </foreignObject>
+                  </g>
+                );
+
+                // Render connecting lines and activities
+                const activityElements: JSX.Element[] = [];
+
+                if (space.activities.length > 0) {
+                  // Vertical line from space to activities
+                  const spaceBottomY = spaceY + CARD_HEIGHT;
+                  const lastActivityCenterY = space.activities[space.activities.length - 1].y + CARD_HEIGHT / 2;
+
+                  activityElements.push(
+                    <line
+                      key={`v-${space.activitySpace.name}`}
+                      x1={spaceX + LINE_OFFSET}
+                      y1={spaceBottomY}
+                      x2={spaceX + LINE_OFFSET}
+                      y2={lastActivityCenterY}
+                      stroke="rgba(102, 102, 102, 0.8)"
+                      strokeWidth="3"
+                    />
+                  );
+
+                  // Render each activity
+                  space.activities.forEach((actNode) => {
+                    const isActivitySelected = selectedElement === actNode.activity.name;
+                    const activityAssetRef = actNode.activity.assetNames?.find((a) => a.type === "icon");
+                    const activityAsset = activityAssetRef ? findAsset(activityAssetRef.assetName, baseline.assets || []) : null;
+                    const activityCenterY = actNode.y + CARD_HEIGHT / 2;
+
+                    // Horizontal line
+                    activityElements.push(
+                      <line
+                        key={`h-${actNode.activity.name}`}
+                        x1={spaceX + LINE_OFFSET}
+                        y1={activityCenterY}
+                        x2={actNode.x}
+                        y2={activityCenterY}
+                        stroke="rgba(102, 102, 102, 0.8)"
+                        strokeWidth="3"
+                      />
                     );
-                    if (scoreEntry) {
-                      spaceScore = scoreEntry.score;
-                      spaceScoreEntry = scoreEntry;
-                    }
-                  }
+
+                    // Activity card with arrow shape
+                    activityElements.push(
+                      <g key={`activity-${actNode.activity.name}`}>
+                        {/* Arrow-shaped activity - filled path with solid stroke */}
+                        <path
+                          d={`M 0 0 L ${CARD_WIDTH - 12} 0 L ${CARD_WIDTH} ${CARD_HEIGHT / 2} L ${CARD_WIDTH - 12} ${CARD_HEIGHT} L 0 ${CARD_HEIGHT} Z`}
+                          transform={`translate(${actNode.x}, ${actNode.y})`}
+                          fill={getScoreBackgroundColor(actNode.score, isActivitySelected)}
+                          stroke={isActivitySelected ? "var(--pf-v6-global--primary-color--100)" : "var(--pf-v6-global--BorderColor--100)"}
+                          strokeWidth={isActivitySelected ? "3" : "1"}
+                          style={{ cursor: "pointer" }}
+                          onClick={() => onSelectElement(isActivitySelected ? null : actNode.activity.name)}
+                        />
+                        <foreignObject
+                          x={actNode.x}
+                          y={actNode.y}
+                          width={CARD_WIDTH - 12}
+                          height={CARD_HEIGHT}
+                          style={{ pointerEvents: "none" }}
+                        >
+                          <div style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            padding: "0.75rem",
+                            height: "100%"
+                          }}>
+                            {activityAsset && <IconAsset asset={activityAsset} size={18} />}
+                            <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
+                              <AliasedName kind="activity" name={actNode.activity.name} browse={false} />
+                            </div>
+                          </div>
+                        </foreignObject>
+                      </g>
+                    );
+                  });
                 }
 
-                return (
-                  <div key={activitySpace.name} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "0.75rem", position: "relative" }}>
-                    {/* Activity space card - arrow shape with dashed border */}
-                    <div style={{ position: "relative", zIndex: 1, paddingRight: "15px" }}>
-                      <div
-                        data-element-name={activitySpace.name}
-                        onClick={() => onSelectElement(isSelected ? null : activitySpace.name)}
-                        style={{
-                          padding: "0.75rem",
-                          paddingRight: "0.75rem",
-                          clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%)",
-                          border: isSelected
-                            ? "3px dashed var(--pf-v6-global--primary-color--100)"
-                            : "1px dashed var(--pf-v6-global--BorderColor--100)",
-                          backgroundColor: getScoreBackgroundColor(spaceScore, isSelected),
-                          cursor: "pointer",
-                          transition: "all 0.2s",
-                          width: "180px",
-                          position: "relative",
-                        }}
-                      >
-                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", paddingRight: "12px" }}>
-                          {spaceAsset && <IconAsset asset={spaceAsset} size={18} />}
-                          <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
-                            <AliasedName kind="activitySpace" name={activitySpace.name} browse={false} />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                // Calculate width for next space
+                const treeWidth = CARD_WIDTH + (space.activities.length > 0 ? INDENT : 0) + 42;
+                currentX += treeWidth;
 
-                    {/* Activities stacked vertically below with connecting lines */}
-                    {activities.length > 0 && (
-                      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", paddingTop: "0.75rem", position: "relative" }}>
-                        {/* Vertical connector line inset from parent left edge, stops at last child's horizontal line */}
-                        <svg
-                          style={{
-                            position: "absolute",
-                            top: "-0.75rem",
-                            left: "1.3125rem",
-                            width: "3px",
-                            height: `calc((100% - ${(activities.length - 1) * 0.75}rem) / ${activities.length} * ${activities.length - 0.5} + ${(activities.length - 1) * 0.75}rem + 0.75rem)`,
-                            pointerEvents: "none",
-                            zIndex: 0,
-                          }}
-                        >
-                          <line
-                            x1="1.5"
-                            y1="0"
-                            x2="1.5"
-                            y2="100%"
-                            stroke="rgba(102, 102, 102, 0.8)"
-                            strokeWidth="3"
-                          />
-                        </svg>
-
-                        {/* Child items with horizontal connectors */}
-                        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", width: "100%" }}>
-                          {activities.map((activity) => {
-                            const activityAssetRef = activity.assetNames?.find((a) => a.type === "icon");
-                            const activityAsset = activityAssetRef ? findAsset(activityAssetRef.assetName, baseline.assets || []) : null;
-                            const isActivitySelected = selectedElement === activity.name;
-
-                            // Look up the score for this activity
-                            let activityScore = 0;
-                            if (spaceScoreEntry && spaceScoreEntry.activityScores) {
-                              const actScoreEntry = spaceScoreEntry.activityScores.find(
-                                (a) => a.activity.name === activity.name
-                              );
-                              if (actScoreEntry) {
-                                activityScore = actScoreEntry.score;
-                              }
-                            }
-
-                            return (
-                              <div
-                                key={activity.name}
-                                style={{
-                                  position: "relative",
-                                  paddingLeft: "2.625rem",
-                                  paddingRight: "15px",
-                                  display: "flex",
-                                  alignItems: "center",
-                                }}
-                              >
-                                {/* Horizontal connector line (50% shorter) */}
-                                <svg
-                                  style={{
-                                    position: "absolute",
-                                    left: "1.3125rem",
-                                    top: "50%",
-                                    width: "1.3125rem",
-                                    height: "3px",
-                                    pointerEvents: "none",
-                                    transform: "translateY(-50%)",
-                                  }}
-                                >
-                                  <line
-                                    x1="0"
-                                    y1="1.5"
-                                    x2="100%"
-                                    y2="1.5"
-                                    stroke="rgba(102, 102, 102, 0.8)"
-                                    strokeWidth="3"
-                                  />
-                                </svg>
-
-                                <div
-                                  data-element-name={activity.name}
-                                  onClick={() => onSelectElement(isActivitySelected ? null : activity.name)}
-                                  style={{
-                                    padding: "0.75rem",
-                                    paddingRight: "0.75rem",
-                                    clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%)",
-                                    border: isActivitySelected
-                                      ? "3px solid var(--pf-v6-global--primary-color--100)"
-                                      : "1px solid var(--pf-v6-global--BorderColor--100)",
-                                    backgroundColor: getScoreBackgroundColor(activityScore, isActivitySelected),
-                                    cursor: "pointer",
-                                    transition: "all 0.2s",
-                                    width: "180px",
-                                    position: "relative",
-                                  }}
-                                >
-                                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", paddingRight: "12px" }}>
-                                    {activityAsset && <IconAsset asset={activityAsset} size={18} />}
-                                    <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
-                                      <AliasedName kind="activity" name={activity.name} browse={false} />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
+                return [spaceCard, ...activityElements];
               })}
-            </div>
+            </svg>
           </div>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 }
+
