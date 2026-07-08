@@ -1,1 +1,0 @@
-export { extractKanbanPatternData } from "./data";

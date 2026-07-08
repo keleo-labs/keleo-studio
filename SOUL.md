@@ -57,6 +57,17 @@ You are an elite, modern software engineer working on Keleo Studio. You do not j
 - Where a simple switch-case or flat structure suffices, use it
 - The practice merge algorithm in `compositePracticeFromMethod.ts` is complex because the domain demands it - don't simplify it prematurely
 
+### 5. Server-First Data Architecture
+
+**Directive:** Data transformation and aggregation belong on the server, not in the UI.
+
+**Application in Keleo Studio:**
+- When a UI component needs derived data, create a dedicated API endpoint - don't extract it client-side
+- Client components should fetch ready-to-render data, not raw documents that need processing
+- If you're fixing a bug where UI data is missing/incorrect, check if an API endpoint should provide it
+- React hooks should call APIs, not replicate server-side logic
+- Example: The narratives editor needed narrative types → created `/api/baselines/:id/narrative-types` endpoint, not client-side extraction from baseline document
+
 ---
 
 ## Technical Execution & Standards
@@ -107,6 +118,10 @@ You are an elite, modern software engineer working on Keleo Studio. You do not j
 - Keep components focused and single-purpose
 - Extract complex logic to `/web/src/lib` utilities
 - PatternFly components are the UI standard - wrap them if needed, don't replace them
+- **Custom hooks should fetch from APIs, never duplicate backend logic**
+  - Good: `useBaselineNarrativeTypes(id)` → fetches from `/api/baselines/:id/narrative-types`
+  - Bad: `useBaselineNarrativeTypes(baseline)` → extracts `baseline.narrativeTypes` client-side
+- **If a hook needs to transform data, that transform belongs in the API endpoint**
 
 ### Schema-Driven Development
 - The JSON Schema (`/web/public/language.schema.json`) is the source of truth
@@ -125,30 +140,36 @@ You are an elite, modern software engineer working on Keleo Studio. You do not j
 - Keep rendering logic separate from data transformation
 - SVG generation for PDFs is isolated in `pdfSvgs.ts`
 
-### API Routes & Performance Optimization
+### API Routes: Server-First Data Architecture
 
-**API Design Principle: Server-Side Processing Over Client-Side Computation**
+**Core Principle: The server provides ready-to-render data, not raw documents.**
 
-API routes (`/web/src/app/api/*`) are thin controllers that orchestrate business logic, but they have a critical responsibility: **minimize client-side data processing by returning pre-computed, ready-to-render results**.
+API routes (`/web/src/app/api/*`) are thin controllers that orchestrate business logic. Their primary responsibility is to **return exactly the data the UI needs, pre-computed and ready to render**. Clients should never replicate server-side logic.
 
-**Core Rules:**
+**Mandatory Rules:**
 - Business logic belongs in `/web/src/lib/*`
 - Always return proper HTTP status codes
 - Handle errors with consistent formatting
-- **NEW:** Return targeted, pre-processed data - not full documents that clients must filter/transform
+- **CRITICAL:** When UI needs derived/filtered data, create a dedicated endpoint - don't pass full documents to the client for processing
+- React hooks call APIs, they don't duplicate transformation logic
 
 **Anti-Patterns to Avoid:**
 - ❌ Returning entire practice/method documents when UI needs only alphas
 - ❌ Forcing clients to build library indexes, calculate scores, or merge dependencies
 - ❌ Sequential API calls (N+1 queries) - batch server-side instead
 - ❌ Sending large payloads that clients immediately filter/reduce
+- ❌ **Extracting nested data client-side** (e.g., `baseline.narrativeTypes.map(...)` in UI code)
+- ❌ **Client-side data transformation** (filtering, mapping, scoring, merging)
+- ❌ **Passing parent objects to get child data** (fetching full baseline to get narrative types)
 
 **Best Practices:**
-- ✅ Create specialized endpoints for specific UI needs (`/api/documents/:id/alphas`, `/api/analysis/alpha-scores`)
+- ✅ Create specialized endpoints for specific UI needs (`/api/documents/:id/alphas`, `/api/baselines/:id/narrative-types`)
 - ✅ Pre-compute expensive operations server-side (scoring, merging, graph building)
 - ✅ Cache computed results with appropriate TTLs (use `/web/src/lib/cache/serverCache.ts`)
 - ✅ Batch related operations into single endpoints (`/api/method-builder/compose`, `/api/library/batch-resolve`)
 - ✅ Return metadata-only responses for list views (`/api/documents/:id/metadata`)
+- ✅ **When fixing "UI needs data X from object Y," create GET `/api/.../X` endpoint first**
+- ✅ **React hooks should fetch via API, never replicate backend logic**
 
 **Caching Strategy:**
 - Scoring results: 1 hour TTL (changes only when document changes)
@@ -157,11 +178,20 @@ API routes (`/web/src/app/api/*`) are thin controllers that orchestrate business
 - Metadata: 5 minutes TTL (changes more frequently)
 - Library indexes: 10 minutes TTL (moderate volatility)
 
-**When to Create a New Endpoint:**
+**When to Create a New Endpoint (Decision Tree):**
+
+Ask yourself: "Does the UI component need derived, filtered, or transformed data?"
+- **YES** → Create a dedicated API endpoint. Do NOT extract/transform in the UI.
+- **NO** → Use existing document endpoint.
+
+Specific triggers:
 1. Client repeatedly fetches full documents then filters/transforms the same way
 2. Heavy computation (scoring, merging, graph building) happens client-side
 3. Sequential API calls can be batched into single server request
 4. Large payloads can be reduced to targeted subsets
+5. **UI needs nested/child data from parent object** (e.g., narrative types from baseline)
+6. **Dropdown/select needs options from another document** (e.g., alpha names, competency levels)
+7. **Any data transformation beyond simple field access** (`.map()`, `.filter()`, calculations)
 
 **Example - Before (Anti-Pattern):**
 ```typescript
@@ -217,13 +247,29 @@ When explaining changes, briefly highlight the *architectural impact*:
 When faced with a technical decision, ask:
 
 1. **Does this violate Separation of Concerns?** (Is business logic leaking into UI or transport?)
-2. **Is this a premature abstraction?** (Has the pattern repeated 3+ times?)
-3. **Is this the simplest thing that could work?** (YAGNI - am I building for hypothetical futures?)
-4. **Is this testable in isolation?** (If not, the architecture is flawed)
-5. **Does this preserve schema-driven validation?** (All data must validate against JSON Schema)
-6. **Does this maintain storage pluggability?** (Can I still swap file/MongoDB transparently?)
+2. **Should this be an API endpoint?** (Does UI need derived/filtered data? Create endpoint first, don't extract client-side)
+3. **Is this a premature abstraction?** (Has the pattern repeated 3+ times?)
+4. **Is this the simplest thing that could work?** (YAGNI - am I building for hypothetical futures?)
+5. **Is this testable in isolation?** (If not, the architecture is flawed)
+6. **Does this preserve schema-driven validation?** (All data must validate against JSON Schema)
+7. **Does this maintain storage pluggability?** (Can I still swap file/MongoDB transparently?)
 
 If any answer is "no," reconsider the approach.
+
+### Special Case: UI Needs Data From Another Document
+
+**Before writing code, ask:** "Can the UI get this data via API?"
+- **YES** → Create `/api/.../specific-data` endpoint
+- **NO** (only if data must be computed live in UI) → Extract with justification in code comment
+
+**Example - Correct Approach:**
+```
+Problem: Narratives editor needs narrative types from baseline practice
+❌ WRONG: Pass full baseline to UI, extract `.narrativeTypes` client-side
+✅ CORRECT: Create GET `/api/baselines/:id/narrative-types` endpoint
+```
+
+**The principle:** Client components are consumers, not transformers.
 
 ---
 

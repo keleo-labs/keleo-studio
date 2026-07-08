@@ -27,6 +27,7 @@ import { InlineTextField } from "@/components/editors/fields/base/InlineTextFiel
 import { InlineTextArea } from "@/components/editors/fields/base/InlineTextArea";
 import { practiceTagsBucketLines, practiceTagsFromBucketLines } from "@/lib/display/elementDisplay";
 import { NarrativesField, type Narrative } from "@/components/editors/fields/domain/NarrativesField";
+import { useBaselineNarrativeTypes } from "@/hooks/useBaselineNarrativeTypes";
 
 const DRAG_MIME = "application/x-adoption-library";
 
@@ -305,6 +306,9 @@ export function MethodBuilderClient() {
   const [composeError, setComposeError] = useState<string | null>(null);
   const [refreshBusy, setRefreshBusy] = useState(false);
   const [refreshNote, setRefreshNote] = useState<string | null>(null);
+
+  // Load narrative types from baseline practice via API
+  const { narrativeTypes } = useBaselineNarrativeTypes(baselineSlot?.libraryId);
 
   const [saveOpen, setSaveOpen] = useState(false);
   const [saveBusy, setSaveBusy] = useState(false);
@@ -998,6 +1002,10 @@ export function MethodBuilderClient() {
               value={methodNarratives}
               onChange={setMethodNarratives}
               fieldPath="methodNarratives"
+              availableNarrativeTypeNames={
+                narrativeTypes.map(nt => nt.name).filter(name => name.trim() !== '')
+              }
+              narrativeTypesData={narrativeTypes}
             />
 
             {composeError ? (

@@ -113,7 +113,7 @@ export function OverviewDiagram({
                 })()}
               </div>
               {/* Root alphas in rows (max 5 per row) */}
-              <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start", flexWrap: "wrap" }}>
+              <div style={{ display: "flex", gap: "2.625rem", alignItems: "flex-start", flexWrap: "wrap" }}>
                 {rootAlphas.map((rootAlpha) => {
                   const contributors = contributorsByRoot.get(rootAlpha.name) || [];
                   const rootAssetRef = rootAlpha.assetNames?.find((a) => a.type === "icon");
@@ -133,7 +133,7 @@ export function OverviewDiagram({
                   }
 
                   return (
-                    <div key={rootAlpha.name} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem", position: "relative" }}>
+                    <div key={rootAlpha.name} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "0.75rem", position: "relative" }}>
                       {/* Root alpha card */}
                       <div style={{ position: "relative", zIndex: 1 }}>
                         <div
@@ -160,18 +160,17 @@ export function OverviewDiagram({
                         </div>
                       </div>
 
-                      {/* Contributing alphas stacked vertically below with connecting line */}
+                      {/* Contributing alphas stacked vertically below with connecting lines */}
                       {contributors.length > 0 && (
-                        <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                          {/* Permanent vertical line connecting to contributors - behind cards */}
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", paddingTop: "0.75rem", position: "relative" }}>
+                          {/* Vertical connector line inset from parent left edge, stops at last child's horizontal line */}
                           <svg
                             style={{
                               position: "absolute",
                               top: "-0.75rem",
-                              left: "50%",
-                              transform: "translateX(-50%)",
+                              left: "1.3125rem",
                               width: "3px",
-                              height: "calc(100% + 0.75rem)",
+                              height: `calc((100% - ${(contributors.length - 1) * 0.75}rem) / ${contributors.length} * ${contributors.length - 0.5} + ${(contributors.length - 1) * 0.75}rem + 0.75rem)`,
                               pointerEvents: "none",
                               zIndex: 0,
                             }}
@@ -186,8 +185,9 @@ export function OverviewDiagram({
                             />
                           </svg>
 
-                          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", paddingTop: "0.75rem" }}>
-                            {contributors.map((contributor) => {
+                          {/* Child items with horizontal connectors */}
+                          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", width: "100%" }}>
+                            {contributors.map((contributor, idx) => {
                               const contribAssetRef = contributor.assetNames?.find((a) => a.type === "icon");
                               const contribAsset = contribAssetRef ? findAsset(contribAssetRef.assetName, baseline.assets || []) : null;
                               const isContribSelected = selectedElement === contributor.name;
@@ -206,9 +206,33 @@ export function OverviewDiagram({
                                   key={contributor.name}
                                   style={{
                                     position: "relative",
-                                    zIndex: 1,
+                                    paddingLeft: "2.625rem",
+                                    display: "flex",
+                                    alignItems: "center",
                                   }}
                                 >
+                                  {/* Horizontal connector line (50% shorter) */}
+                                  <svg
+                                    style={{
+                                      position: "absolute",
+                                      left: "1.3125rem",
+                                      top: "50%",
+                                      width: "1.3125rem",
+                                      height: "3px",
+                                      pointerEvents: "none",
+                                      transform: "translateY(-50%)",
+                                    }}
+                                  >
+                                    <line
+                                      x1="0"
+                                      y1="1.5"
+                                      x2="100%"
+                                      y2="1.5"
+                                      stroke="rgba(102, 102, 102, 0.8)"
+                                      strokeWidth="3"
+                                    />
+                                  </svg>
+
                                   <div
                                     data-element-name={contributor.name}
                                     onClick={() => onSelectElement(isContribSelected ? null : contributor.name)}
@@ -300,7 +324,7 @@ export function OverviewDiagram({
               })()}
             </div>
             {/* Activity spaces in rows (max 5 per row) */}
-            <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: "2.625rem", alignItems: "flex-start", flexWrap: "wrap" }}>
               {spaces.map((activitySpace) => {
                 const activities = activitySpace.activities || [];
                 const spaceAssetRef = activitySpace.assetNames?.find((a) => a.type === "icon");
@@ -324,7 +348,7 @@ export function OverviewDiagram({
                 }
 
                 return (
-                  <div key={activitySpace.name} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem", position: "relative" }}>
+                  <div key={activitySpace.name} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "0.75rem", position: "relative" }}>
                     {/* Activity space card - arrow shape with dashed border */}
                     <div style={{ position: "relative", zIndex: 1, paddingRight: "15px" }}>
                       <div
@@ -353,18 +377,17 @@ export function OverviewDiagram({
                       </div>
                     </div>
 
-                    {/* Activities stacked vertically below with connecting line */}
+                    {/* Activities stacked vertically below with connecting lines */}
                     {activities.length > 0 && (
-                      <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        {/* Permanent vertical line connecting to activities - behind cards */}
+                      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", paddingTop: "0.75rem", position: "relative" }}>
+                        {/* Vertical connector line inset from parent left edge, stops at last child's horizontal line */}
                         <svg
                           style={{
                             position: "absolute",
                             top: "-0.75rem",
-                            left: "50%",
-                            transform: "translateX(-50%)",
+                            left: "1.3125rem",
                             width: "3px",
-                            height: "calc(100% + 0.75rem)",
+                            height: `calc((100% - ${(activities.length - 1) * 0.75}rem) / ${activities.length} * ${activities.length - 0.5} + ${(activities.length - 1) * 0.75}rem + 0.75rem)`,
                             pointerEvents: "none",
                             zIndex: 0,
                           }}
@@ -379,7 +402,8 @@ export function OverviewDiagram({
                           />
                         </svg>
 
-                        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", paddingTop: "0.75rem" }}>
+                        {/* Child items with horizontal connectors */}
+                        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", width: "100%" }}>
                           {activities.map((activity) => {
                             const activityAssetRef = activity.assetNames?.find((a) => a.type === "icon");
                             const activityAsset = activityAssetRef ? findAsset(activityAssetRef.assetName, baseline.assets || []) : null;
@@ -401,10 +425,34 @@ export function OverviewDiagram({
                                 key={activity.name}
                                 style={{
                                   position: "relative",
-                                  zIndex: 1,
+                                  paddingLeft: "2.625rem",
                                   paddingRight: "15px",
+                                  display: "flex",
+                                  alignItems: "center",
                                 }}
                               >
+                                {/* Horizontal connector line (50% shorter) */}
+                                <svg
+                                  style={{
+                                    position: "absolute",
+                                    left: "1.3125rem",
+                                    top: "50%",
+                                    width: "1.3125rem",
+                                    height: "3px",
+                                    pointerEvents: "none",
+                                    transform: "translateY(-50%)",
+                                  }}
+                                >
+                                  <line
+                                    x1="0"
+                                    y1="1.5"
+                                    x2="100%"
+                                    y2="1.5"
+                                    stroke="rgba(102, 102, 102, 0.8)"
+                                    strokeWidth="3"
+                                  />
+                                </svg>
+
                                 <div
                                   data-element-name={activity.name}
                                   onClick={() => onSelectElement(isActivitySelected ? null : activity.name)}

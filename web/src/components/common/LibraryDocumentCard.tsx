@@ -30,8 +30,8 @@ export function LibraryDocumentCard({
     return null;
   }
 
-  // Navigate to browse view for all documents
-  const href = `/library/browse?libraryId=${encodeURIComponent(document.id)}`;
+  // Navigate to navigator for all documents
+  const href = `/navigator?libraryId=${encodeURIComponent(document.id)}`;
 
   // Get color style for completeness score
   const getScoreColor = () => {

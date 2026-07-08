@@ -106,6 +106,12 @@ export async function GET(
 
     // Extract baseline and get alphas
     const baseline = asBaselineDocument(resolvedDoc);
+    if (!baseline) {
+      return NextResponse.json(
+        { error: "Failed to extract baseline from resolved document" },
+        { status: 400 }
+      );
+    }
     const alphas = Array.isArray(baseline.alphas) ? baseline.alphas : [];
 
     // Transform to simplified format

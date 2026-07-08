@@ -184,6 +184,30 @@ export function NavigatorLayout({
       }
     }
 
+    // Check if it's a persona group
+    if (baseline.personaGroups) {
+      const personaGroup = baseline.personaGroups.find((pg) => pg.name === selectedElement);
+      if (personaGroup) {
+        return { type: "personaGroup" as const, data: personaGroup };
+      }
+    }
+
+    // Check if it's a persona
+    if (baseline.personas) {
+      const persona = baseline.personas.find((p) => p.name === selectedElement);
+      if (persona) {
+        return { type: "persona" as const, data: persona };
+      }
+    }
+
+    // Check if it's a competency
+    if (baseline.competencies) {
+      const competency = baseline.competencies.find((c) => c.name === selectedElement);
+      if (competency) {
+        return { type: "competency" as const, data: competency };
+      }
+    }
+
     if (mode === "concerns") {
       // Search all alphas
       for (const group of groupedByFocus) {
@@ -320,6 +344,41 @@ export function NavigatorLayout({
       }
     }
 
+    // If primary is a persona group, secondary could be a persona or competency
+    if (selectedElementData?.type === "personaGroup") {
+      const personaGroup = selectedElementData.data;
+      const persona = baseline.personas?.find((p) => personaGroup.personaNames.includes(p.name) && p.name === secondaryElement);
+      if (persona) {
+        return { type: "persona" as const, data: persona };
+      }
+      // Also check competencies if they're in the group
+      const competency = baseline.competencies?.find((c) => c.name === secondaryElement);
+      if (competency) {
+        return { type: "competency" as const, data: competency };
+      }
+    }
+
+    // If primary is a persona, secondary could be a competency
+    if (selectedElementData?.type === "persona") {
+      const persona = selectedElementData.data;
+      const competencyRef = persona.competencies?.find((cr: any) => cr.competencyName === secondaryElement);
+      if (competencyRef) {
+        const competency = baseline.competencies?.find((c) => c.name === competencyRef.competencyName);
+        if (competency) {
+          return { type: "competency" as const, data: competency };
+        }
+      }
+    }
+
+    // If primary is a competency, secondary could be a skill level
+    if (selectedElementData?.type === "competency") {
+      const competency = selectedElementData.data;
+      const level = competency.levels?.find((l: any) => l.name === secondaryElement);
+      if (level) {
+        return { type: "competencyLevel" as const, data: level, parent: competency };
+      }
+    }
+
     // If primary is introduction, secondary could be a practice from the method
     if (selectedElementData?.type === "introduction") {
       // Look up practice in fetched documents
@@ -378,6 +437,7 @@ export function NavigatorLayout({
           onSetSecondaryElement={onSetSecondaryElement}
           onSetSelectedElement={onSetSelectedElement}
           onNavigateToElement={onNavigateToElement}
+          onSetMode={onSetMode}
           practiceDocuments={practiceDocuments}
           libraryId={libraryId}
         />

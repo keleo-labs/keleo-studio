@@ -41,22 +41,6 @@ export const navigationItems: NavItemConfig[] = [
     description: 'Open practices, validate against schema, preview and export PDFs',
   },
   {
-    id: 'pattern-kanban',
-    label: 'Pattern Kanban',
-    href: '/flow-visualizer',
-    badge: 'Visualize',
-    icon: 'fa-chart-simple',
-    description: 'Kanban board view of pattern progression',
-  },
-  {
-    id: 'topology-viewer',
-    label: 'Topology Diagram',
-    href: '/topology-viewer',
-    badge: 'Visualize',
-    icon: 'fa-diagram-project',
-    description: 'Interactive network view of practice elements and relationships',
-  },
-  {
     id: 'manage-library',
     label: 'Manage Library',
     href: '/library',

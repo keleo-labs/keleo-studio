@@ -449,29 +449,6 @@ function PracticeAuthorPageInner() {
     await runValidation(doc);
   }
 
-  async function downloadPdf() {
-    if (!doc || !baselineForRender) return;
-    const res = await fetch("/api/pdf", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ doc, themeId, packId }),
-    });
-    if (!res.ok) {
-      const txt = await res.text();
-      setValidationIssues([{ path: "", message: `PDF generation failed: ${txt}` }]);
-      return;
-    }
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${baselineForRender.name}.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  }
-
   // Prevent hydration mismatch by only rendering full UI on client
   if (!mounted) {
     return (
@@ -706,8 +683,6 @@ function PracticeAuthorPageInner() {
             </div>
           )}
       </div>
-
-      {/* PDF is generated server-side via /api/pdf (Playwright) */}
 
     </PageSection>
   );
