@@ -990,7 +990,7 @@ export function LibraryBrowser() {
                     const ext = rootKindExtension(row.libraryRootKind);
                     const base = slugFileBase(row.displayName);
                     const filename = `${base}.${ext}`;
-                    const browseHref = `/library/browse?libraryId=${encodeURIComponent(row.id)}`;
+                    const navigatorHref = `/navigator?libraryId=${encodeURIComponent(row.id)}`;
                     const open = expandedId === row.id;
                     const selected = selectedIds.includes(row.id);
                     return (
@@ -1042,7 +1042,7 @@ export function LibraryBrowser() {
                           <td style={{ minWidth: 0, padding: "0.5rem", fontWeight: 500 }} className="sm:px-3">
                             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                               <Link
-                                href={browseHref}
+                                href={navigatorHref}
                                 title="Browse this document"
                                 style={{
                                   flex: 1,

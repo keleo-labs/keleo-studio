@@ -25,7 +25,6 @@ import {
 import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { useLanguagePack } from "@/lib/display/languagePack";
-import KanbanPatternBoardPF from "../visualizations/patterns/KanbanPatternBoardPatternFly";
 import ProgressiveFlowDiagram from "../visualizations/diagrams/ProgressiveFlowDiagram";
 
 /**
@@ -254,11 +253,7 @@ function PatternCard({ pattern, activities, baseline }: { pattern: any; activiti
           </Content>
         )}
 
-        {patternViews.length > 0 && baseline && (
-          <div style={{ marginTop: "1.5rem" }}>
-            <KanbanPatternBoardPF pattern={pattern} baseline={baseline} />
-          </div>
-        )}
+        {/* Kanban pattern visualization removed - will be reimplemented later */}
       </CardBody>
     </Card>
   );

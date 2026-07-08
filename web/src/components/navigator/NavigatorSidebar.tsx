@@ -676,6 +676,237 @@ export function NavigatorSidebar({
         }}
       />
 
+      {/* Roles & Competencies Section */}
+      {((baseline.personaGroups && baseline.personaGroups.length > 0) ||
+        (baseline.competencies && baseline.competencies.length > 0)) && (
+        <>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <div
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                color: "var(--pf-v6-global--Color--200)",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+                marginBottom: "0.5rem",
+              }}
+            >
+              Roles & Competencies
+            </div>
+
+            {/* Persona Groups (hierarchical) */}
+            {baseline.personaGroups && baseline.personaGroups.length > 0 && (
+              <div style={{ marginBottom: "1rem" }}>
+                <div
+                  style={{
+                    fontSize: "0.6875rem",
+                    fontWeight: 600,
+                    color: "var(--pf-v6-global--Color--200)",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  PERSONA GROUPS
+                </div>
+                {baseline.personaGroups.map((personaGroup) => {
+                  const icon = getElementIcon(personaGroup, assets);
+                  const isSelected = selectedElement === personaGroup.name;
+                  const isExpanded = expandedElements.has(personaGroup.name);
+                  const hasPersonas = personaGroup.personaNames && personaGroup.personaNames.length > 0;
+
+                  return (
+                    <div key={personaGroup.name}>
+                      <button
+                        onClick={() => {
+                          onSetSelectedElement(personaGroup.name);
+                          if (hasPersonas) {
+                            toggleElement(personaGroup.name);
+                          }
+                        }}
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem",
+                          padding: "0.375rem 0.5rem",
+                          backgroundColor: isSelected
+                            ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                            : "transparent",
+                          border: "none",
+                          borderLeft: isSelected
+                            ? "3px solid var(--pf-v6-global--primary-color--100)"
+                            : "3px solid transparent",
+                          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          fontSize: "0.8125rem",
+                          color: "var(--pf-v6-global--Color--100)",
+                          transition: "all 0.2s",
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isSelected) {
+                            e.currentTarget.style.backgroundColor =
+                              "var(--pf-v6-global--BackgroundColor--200)";
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isSelected) {
+                            e.currentTarget.style.backgroundColor = "transparent";
+                          }
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "monospace",
+                            fontSize: "0.625rem",
+                            color: "var(--pf-v6-global--Color--200)",
+                            flexShrink: 0,
+                            width: "0.75rem",
+                            textAlign: "center",
+                          }}
+                        >
+                          {hasPersonas ? (isExpanded ? "▾" : "▸") : ""}
+                        </span>
+                        {icon && <IconAsset asset={icon} size={16} style={{ flexShrink: 0 }} />}
+                        <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+                          <AliasedName kind="personaGroup" name={personaGroup.name} browse={false} />
+                        </span>
+                      </button>
+
+                      {/* Child personas */}
+                      {hasPersonas && isExpanded && (
+                        <div style={{ marginLeft: "1.5rem", marginTop: "0.25rem" }}>
+                          {personaGroup.personaNames.map((personaName) => {
+                            const persona = baseline.personas?.find((p) => p.name === personaName);
+                            if (!persona) return null;
+
+                            const personaIcon = getElementIcon(persona, assets);
+                            const isPersonaSelected = selectedElement === persona.name;
+
+                            return (
+                              <button
+                                key={persona.name}
+                                onClick={() => onSetSelectedElement(persona.name)}
+                                style={{
+                                  width: "100%",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: "0.5rem",
+                                  padding: "0.375rem 0.5rem",
+                                  backgroundColor: isPersonaSelected
+                                    ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                                    : "transparent",
+                                  border: "none",
+                                  borderLeft: isPersonaSelected
+                                    ? "3px solid var(--pf-v6-global--primary-color--100)"
+                                    : "3px solid transparent",
+                                  borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                                  cursor: "pointer",
+                                  textAlign: "left",
+                                  fontSize: "0.75rem",
+                                  color: "var(--pf-v6-global--Color--100)",
+                                  transition: "all 0.2s",
+                                }}
+                                onMouseEnter={(e) => {
+                                  if (!isPersonaSelected) {
+                                    e.currentTarget.style.backgroundColor =
+                                      "var(--pf-v6-global--BackgroundColor--200)";
+                                  }
+                                }}
+                                onMouseLeave={(e) => {
+                                  if (!isPersonaSelected) {
+                                    e.currentTarget.style.backgroundColor = "transparent";
+                                  }
+                                }}
+                              >
+                                {personaIcon && <IconAsset asset={personaIcon} size={14} style={{ flexShrink: 0 }} />}
+                                <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+                                  <AliasedName kind="persona" name={persona.name} browse={false} />
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Competencies (flat list) */}
+            {baseline.competencies && baseline.competencies.length > 0 && (
+              <div>
+                <div
+                  style={{
+                    fontSize: "0.6875rem",
+                    fontWeight: 600,
+                    color: "var(--pf-v6-global--Color--200)",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  COMPETENCIES
+                </div>
+                {baseline.competencies.map((competency) => {
+                  const icon = getElementIcon(competency, assets);
+                  const isSelected = selectedElement === competency.name;
+
+                  return (
+                    <button
+                      key={competency.name}
+                      onClick={() => onSetSelectedElement(competency.name)}
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        padding: "0.375rem 0.5rem",
+                        backgroundColor: isSelected
+                          ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                          : "transparent",
+                        border: "none",
+                        borderLeft: isSelected
+                          ? "3px solid var(--pf-v6-global--primary-color--100)"
+                          : "3px solid transparent",
+                        borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                        cursor: "pointer",
+                        textAlign: "left",
+                        fontSize: "0.8125rem",
+                        color: "var(--pf-v6-global--Color--100)",
+                        transition: "all 0.2s",
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.backgroundColor =
+                            "var(--pf-v6-global--BackgroundColor--200)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.backgroundColor = "transparent";
+                        }
+                      }}
+                    >
+                      {icon && <IconAsset asset={icon} size={16} style={{ flexShrink: 0 }} />}
+                      <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+                        <AliasedName kind="competency" name={competency.name} browse={false} />
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Divider */}
+          <div
+            style={{
+              margin: "1.5rem 0",
+              borderTop: "1px solid var(--pf-v6-global--BorderColor--100)",
+            }}
+          />
+        </>
+      )}
+
       {/* References Button */}
       <div>
         <button

@@ -18,7 +18,7 @@ import { AliasedName } from "../common/AliasedName";
 
 interface ElementDetailsPanelProps {
   selectedElement: {
-    type: "alpha" | "activitySpace" | "activity" | "workProduct" | "pattern" | "references" | "overview" | "introduction";
+    type: "alpha" | "activitySpace" | "activity" | "workProduct" | "pattern" | "references" | "overview" | "introduction" | "personaGroup" | "persona" | "competency";
     data: any;
     specificLevelOfDetail?: string;
   } | null;
@@ -51,19 +51,34 @@ function renderNarratives(narratives: any[], baseline: PracticeBaseline) {
               margin: 0,
               marginBottom: "0.75rem",
             }}>
-              {narrative.narrativeContexts.map((ctx: any, ctxIdx: number) => (
-                <li
-                  key={ctxIdx}
-                  style={{
-                    fontSize: "0.75rem",
-                    lineHeight: "1.6",
-                    color: "var(--pf-v6-global--Color--100)",
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  {ctx.context}
-                </li>
-              ))}
+              {narrative.narrativeContexts.map((ctx: any, ctxIdx: number) => {
+                const contextText = ctx.context || "";
+                // Detect if context contains markup (HTML tags) or multiple lines
+                const hasMarkup = /<[^>]+>/.test(contextText);
+                const hasLineBreaks = contextText.includes('\n');
+
+                return (
+                  <li
+                    key={ctxIdx}
+                    style={{
+                      fontSize: "0.75rem",
+                      lineHeight: "1.6",
+                      color: "var(--pf-v6-global--Color--100)",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    {hasMarkup ? (
+                      <div dangerouslySetInnerHTML={{ __html: contextText }} />
+                    ) : hasLineBreaks ? (
+                      contextText.split('\n').map((line, lineIdx) => (
+                        <div key={lineIdx}>{line}</div>
+                      ))
+                    ) : (
+                      contextText
+                    )}
+                  </li>
+                );
+              })}
             </ol>
           )}
           {narrative.citationNames && narrative.citationNames.length > 0 && (
@@ -357,6 +372,9 @@ export function ElementDetailsPanel({
   const hasActivities = type === "activitySpace" && data.activities && data.activities.length > 0;
   const hasLODs = type === "workProduct" && data.levelsOfDetail && data.levelsOfDetail.length > 0;
   const hasPatternViews = type === "pattern" && data.patternViews && data.patternViews.length > 0;
+  const hasPersonas = type === "personaGroup" && baseline.personas;
+  const hasCompetencies = type === "persona" && data.competencies && data.competencies.length > 0;
+  const hasLevels = type === "competency" && data.levels && data.levels.length > 0;
 
   return (
     <main
@@ -870,6 +888,36 @@ export function ElementDetailsPanel({
                       </div>
                     )}
 
+                    {/* Involves */}
+                    {data.involves && data.involves.length > 0 && (
+                      <div style={{ marginBottom: "1.5rem" }}>
+                        <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                          Involves
+                        </Title>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                          {data.involves.map((personaGroupName: string, idx: number) => (
+                            <span
+                              key={idx}
+                              style={{
+                                fontSize: "0.75rem",
+                                padding: "0.375rem 0.75rem",
+                                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                                backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                                color: "var(--pf-v6-global--Color--100)",
+                                border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.375rem",
+                              }}
+                            >
+                              <i className="fa-solid fa-users" style={{ fontSize: "0.6875rem", color: "var(--pf-v6-global--Color--200)" }} />
+                              {personaGroupName}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                     {/* Recommended or Required Competencies */}
                     {(() => {
                       // Show recommendedCompetencyLevels if they exist, otherwise show requiredCompetencies
@@ -1274,6 +1322,254 @@ export function ElementDetailsPanel({
             </div>
           </div>
           )}
+
+          {/* Persona Group-specific: Personas in this group */}
+          {type === "personaGroup" && hasPersonas && (
+            <div style={{ marginTop: "2rem" }}>
+              <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                Personas
+              </Title>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                {baseline.personas?.filter((p) => data.personaNames.includes(p.name)).map((persona) => {
+                  const personaAssetRef = persona.assetNames?.find((a: any) => a.type === "icon");
+                  const personaAsset = personaAssetRef ? findAsset(personaAssetRef.assetName, assets) : null;
+                  const isSelected = secondaryElementName === persona.name;
+
+                  return (
+                    <button
+                      key={persona.name}
+                      onClick={() => onSetSecondaryElement(isSelected ? null : persona.name)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.75rem",
+                        padding: "0.75rem 1rem",
+                        border: isSelected
+                          ? "3px solid var(--pf-v6-global--primary-color--100)"
+                          : "2px solid var(--pf-v6-global--BorderColor--100)",
+                        borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                        backgroundColor: isSelected
+                          ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                          : "var(--pf-v6-global--BackgroundColor--100)",
+                        cursor: "pointer",
+                        textAlign: "left",
+                        width: "100%",
+                        transition: "all 0.2s",
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--100)";
+                        }
+                      }}
+                    >
+                      {personaAsset && <IconAsset asset={personaAsset} size={16} style={{ flexShrink: 0 }} />}
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: "0.8125rem", fontWeight: 600 }}>
+                          <AliasedName kind="persona" name={persona.name} browse={false} />
+                        </div>
+                        <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
+                          {persona.description}
+                        </div>
+                      </div>
+                      {isSelected && (
+                        <span
+                          style={{
+                            fontSize: "1rem",
+                            fontWeight: 400,
+                            color: "var(--pf-v6-global--Color--200)",
+                            lineHeight: 1,
+                            flexShrink: 0,
+                          }}
+                        >
+                          ×
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Persona-specific: Competencies */}
+          {type === "persona" && hasCompetencies && (
+            <div style={{ marginTop: "2rem" }}>
+              <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                Competencies
+              </Title>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                {data.competencies.map((compRef: any) => {
+                  const competency = baseline.competencies?.find((c) => c.name === compRef.competencyName);
+                  if (!competency) return null;
+
+                  const level = competency.levels?.find((l: any) => l.name === compRef.competencyLevelName);
+                  const isSelected = secondaryElementName === compRef.competencyName;
+
+                  return (
+                    <button
+                      key={compRef.competencyName}
+                      onClick={() => onSetSecondaryElement(isSelected ? null : compRef.competencyName)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.75rem",
+                        padding: "0.75rem 1rem",
+                        border: isSelected
+                          ? "3px solid var(--pf-v6-global--primary-color--100)"
+                          : "2px solid var(--pf-v6-global--BorderColor--100)",
+                        borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                        backgroundColor: isSelected
+                          ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                          : "var(--pf-v6-global--BackgroundColor--100)",
+                        cursor: "pointer",
+                        textAlign: "left",
+                        width: "100%",
+                        transition: "all 0.2s",
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--100)";
+                        }
+                      }}
+                    >
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: "0.8125rem", fontWeight: 600 }}>
+                          <AliasedName kind="competency" name={compRef.competencyName} browse={false} />
+                        </div>
+                        {level && (
+                          <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
+                            Level {level.level}: {level.name}
+                          </div>
+                        )}
+                      </div>
+                      {isSelected && (
+                        <span
+                          style={{
+                            fontSize: "1rem",
+                            fontWeight: 400,
+                            color: "var(--pf-v6-global--Color--200)",
+                            lineHeight: 1,
+                            flexShrink: 0,
+                          }}
+                        >
+                          ×
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Competency-specific: Skill Levels */}
+          {type === "competency" && hasLevels && (
+            <div style={{ marginTop: "2rem" }}>
+              <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                Skill Levels
+              </Title>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                {data.levels
+                  .sort((a: any, b: any) => a.level - b.level)
+                  .map((level: any, idx: number) => {
+                    const isSelected = secondaryElementName === level.name;
+                    const totalLevels = data.levels.length;
+                    // Generate a color based on progression (gradient from blue to green)
+                    const hue = 210 + (idx / Math.max(totalLevels - 1, 1)) * 90;
+                    const progressColor = `hsl(${hue}, 70%, 50%)`;
+
+                    return (
+                      <button
+                        key={level.name}
+                        onClick={() => onSetSecondaryElement(isSelected ? null : level.name)}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: "0.75rem",
+                          padding: "0.875rem 1rem",
+                          border: isSelected
+                            ? "3px solid var(--pf-v6-global--primary-color--100)"
+                            : "2px solid var(--pf-v6-global--BorderColor--100)",
+                          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                          backgroundColor: isSelected
+                            ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                            : "white",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          width: "100%",
+                          transition: "all 0.2s",
+                          boxShadow: "0 1px 2px rgba(0, 0, 0, 0.04)",
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isSelected) {
+                            e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                            e.currentTarget.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.08)";
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isSelected) {
+                            e.currentTarget.style.backgroundColor = "white";
+                            e.currentTarget.style.boxShadow = "0 1px 2px rgba(0, 0, 0, 0.04)";
+                          }
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "32px",
+                            height: "32px",
+                            borderRadius: "50%",
+                            backgroundColor: progressColor,
+                            color: "white",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontWeight: 700,
+                            fontSize: "0.9375rem",
+                            flexShrink: 0,
+                            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.15)",
+                          }}
+                        >
+                          {level.level}
+                        </div>
+                        <div style={{ flex: 1, minWidth: 0, paddingTop: "0.25rem" }}>
+                          <div style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
+                            <AliasedName kind="competencyLevel" name={level.name} browse={false} />
+                          </div>
+                          <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginTop: "0.25rem" }}>
+                            {level.description}
+                          </div>
+                        </div>
+                        {isSelected && (
+                          <span
+                            style={{
+                              fontSize: "1.25rem",
+                              fontWeight: 400,
+                              color: "var(--pf-v6-global--Color--200)",
+                              lineHeight: 1,
+                              flexShrink: 0,
+                              paddingTop: "0.125rem",
+                            }}
+                          >
+                            ×
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+              </div>
+            </div>
+          )}
+
           </>
         )}
       </div>

@@ -10,7 +10,7 @@ import { AliasedName } from "../common/AliasedName";
 
 interface SecondaryDetailsPanelProps {
   secondaryElement: {
-    type: "state" | "activity" | "workProduct" | "levelOfDetail" | "patternView" | "alpha" | "practice";
+    type: "state" | "activity" | "workProduct" | "levelOfDetail" | "patternView" | "alpha" | "practice" | "persona" | "competency" | "competencyLevel";
     data: any;
     parent?: any;
     specificLevelOfDetail?: string;
@@ -19,6 +19,7 @@ interface SecondaryDetailsPanelProps {
   onSetSecondaryElement: (element: string | null) => void;
   onSetSelectedElement?: (element: string | null) => void;
   onNavigateToElement?: (element: string) => void;
+  onSetMode?: (mode: "concerns" | "activities") => void;
   practiceDocuments?: Map<string, { id: string | null; body: any }>;
   libraryId?: string | null;
 }
@@ -29,13 +30,19 @@ export function SecondaryDetailsPanel({
   onSetSecondaryElement,
   onSetSelectedElement,
   onNavigateToElement,
+  onSetMode,
   practiceDocuments,
   libraryId,
 }: SecondaryDetailsPanelProps) {
   const assets = baseline.assets ?? [];
 
   // Helper to navigate to an element
-  const navigateToElement = (elementName: string) => {
+  const navigateToElement = (elementName: string, switchToMode?: "concerns" | "activities") => {
+    // Switch mode if needed
+    if (switchToMode && onSetMode) {
+      onSetMode(switchToMode);
+    }
+
     // Use the combined callback if available (preferred)
     if (onNavigateToElement) {
       onNavigateToElement(elementName);
@@ -145,7 +152,7 @@ export function SecondaryDetailsPanel({
             }}
           >
             <div
-              onClick={() => navigateToElement(parent.name)}
+              onClick={() => navigateToElement(parent.name, "concerns")}
               style={{
                 fontSize: "0.875rem",
                 fontWeight: 600,
@@ -171,7 +178,7 @@ export function SecondaryDetailsPanel({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                navigateToElement(parent.name);
+                navigateToElement(parent.name, "concerns");
               }}
               style={{
                 background: "none",
@@ -537,7 +544,7 @@ export function SecondaryDetailsPanel({
                       }}
                     >
                       <div
-                        onClick={() => !isActivitySpace && onSetSelectedElement && navigateToElement(activityName)}
+                        onClick={() => !isActivitySpace && onSetSelectedElement && navigateToElement(activityName, "activities")}
                         style={{
                           display: "flex",
                           alignItems: "center",
@@ -671,79 +678,135 @@ export function SecondaryDetailsPanel({
                       <div style={{ fontSize: "0.8125rem", fontWeight: 600, marginBottom: "0.25rem" }}>
                         {lod.seq}. <AliasedName kind="levelOfDetail" name={lod.name} browse={false} />
                       </div>
-                      <div style={{ fontSize: "0.75rem", lineHeight: "1.5", color: "var(--pf-v6-global--Color--200)" }}>
+                      <div style={{ fontSize: "0.75rem", lineHeight: "1.5", color: "var(--pf-v6-global--Color--200)", marginBottom: lod.contributesTo?.length > 0 || lod.checklist?.length > 0 ? "0.75rem" : 0 }}>
                         {practiceElementDescriptionForDisplay(lod)}
                       </div>
                       {lod.contributesTo && lod.contributesTo.length > 0 && (
-                        <div style={{ marginTop: "0.5rem", fontSize: "0.6875rem" }}>
-                          <strong>Contributes to:</strong>
-                          {lod.contributesTo.map((contrib: any, idx: number) => (
-                            <div
-                              key={idx}
-                              onClick={() => onSetSelectedElement && navigateToElement(contrib.alphaName)}
-                              style={{
-                                color: "var(--pf-v6-global--Color--200)",
-                                cursor: onSetSelectedElement ? "pointer" : "default",
-                                textDecoration: onSetSelectedElement ? "underline" : "none",
-                              }}
-                              onMouseEnter={(e) => {
-                                if (onSetSelectedElement) {
-                                  e.currentTarget.style.color = "var(--pf-v6-global--link--Color)";
-                                }
-                              }}
-                              onMouseLeave={(e) => {
-                                if (onSetSelectedElement) {
-                                  e.currentTarget.style.color = "var(--pf-v6-global--Color--200)";
-                                }
-                              }}
-                              title={onSetSelectedElement ? `Go to ${contrib.alphaName}` : undefined}
-                            >
-                              <AliasedName kind="alpha" name={contrib.alphaName} browse={false} /> → <AliasedName kind="state" name={contrib.stateName} browse={false} />
-                            </div>
-                          ))}
+                        <div style={{ marginBottom: lod.checklist?.length > 0 ? "0.75rem" : 0 }}>
+                          <div style={{ fontSize: "0.6875rem", fontWeight: 600, marginBottom: "0.375rem", color: "var(--pf-v6-global--Color--100)" }}>
+                            Contributes To
+                          </div>
+                          <div style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}>
+                            {lod.contributesTo.map((contrib: any, idx: number) => (
+                              <div
+                                key={idx}
+                                onClick={() => onSetSelectedElement && navigateToElement(contrib.alphaName, "concerns")}
+                                style={{
+                                  fontSize: "0.6875rem",
+                                  padding: "0.375rem 0.5rem",
+                                  backgroundColor: "#ffffff",
+                                  borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                                  border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                                  cursor: onSetSelectedElement ? "pointer" : "default",
+                                  transition: onSetSelectedElement ? "background-color 0.2s, border-color 0.2s" : "none",
+                                }}
+                                onMouseEnter={(e) => {
+                                  if (onSetSelectedElement) {
+                                    e.currentTarget.style.borderColor = "var(--pf-v6-global--link--Color)";
+                                  }
+                                }}
+                                onMouseLeave={(e) => {
+                                  if (onSetSelectedElement) {
+                                    e.currentTarget.style.borderColor = "var(--pf-v6-global--BorderColor--100)";
+                                  }
+                                }}
+                                title={onSetSelectedElement ? `Go to ${contrib.alphaName}` : undefined}
+                              >
+                                <div style={{ fontWeight: 600 }}>
+                                  <AliasedName kind="alpha" name={contrib.alphaName} browse={false} />
+                                </div>
+                                <div style={{ color: "var(--pf-v6-global--Color--200)" }}>
+                                  → <AliasedName kind="state" name={contrib.stateName} browse={false} />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       )}
                       {lod.checklist && lod.checklist.length > 0 && (
-                        <div style={{ marginTop: "0.75rem" }}>
-                          <div style={{ fontSize: "0.75rem", fontWeight: 600, marginBottom: "0.5rem" }}>
-                            Checklist:
+                        <div>
+                          <div style={{ fontSize: "0.6875rem", fontWeight: 600, marginBottom: "0.375rem", color: "var(--pf-v6-global--Color--100)" }}>
+                            Checklist
                           </div>
                           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                            {lod.checklist.map((item: any, itemIdx: number) => (
-                              <li
-                                key={itemIdx}
-                                style={{
-                                  fontSize: "0.75rem",
-                                  padding: "0.625rem",
-                                  backgroundColor: "white",
-                                  borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                                  border: "2px solid var(--pf-v6-global--BorderColor--100)",
-                                  boxShadow: "0 1px 2px rgba(0, 0, 0, 0.04)",
-                                  display: "flex",
-                                  gap: "0.5rem",
-                                  alignItems: "flex-start",
-                                }}
-                              >
-                                <div
-                                  style={{
-                                    width: "16px",
-                                    height: "16px",
-                                    border: "2px solid var(--pf-v6-global--primary-color--100)",
-                                    borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                                    flexShrink: 0,
-                                    marginTop: "0.125rem",
-                                  }}
-                                />
-                                <div style={{ flex: 1 }}>
-                                  <div style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                                    {item.seq}. {item.name}
-                                  </div>
-                                  <div style={{ color: "var(--pf-v6-global--Color--100)", marginTop: "0.25rem" }}>
-                                    {item.description}
-                                  </div>
-                                </div>
-                              </li>
-                            ))}
+                            {lod.checklist
+                              .sort((a: any, b: any) => a.seq - b.seq)
+                              .map((item: any, itemIdx: number) => {
+                                const getVerificationIcon = (method: string) => {
+                                  switch (method) {
+                                    case "automated-telemetry": return "fa-solid fa-chart-line";
+                                    case "manual-audit": return "fa-solid fa-user-check";
+                                    case "documentation-review": return "fa-solid fa-file-lines";
+                                    case "system-assertion": return "fa-solid fa-shield-check";
+                                    default: return null;
+                                  }
+                                };
+
+                                const iconClass = item.verificationMethod ? getVerificationIcon(item.verificationMethod) : null;
+
+                                return (
+                                  <li
+                                    key={itemIdx}
+                                    style={{
+                                      fontSize: "0.6875rem",
+                                      padding: "0.625rem",
+                                      backgroundColor: "white",
+                                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                                      border: "2px solid var(--pf-v6-global--BorderColor--100)",
+                                      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.04)",
+                                      display: "flex",
+                                      gap: "0.5rem",
+                                      alignItems: "flex-start",
+                                    }}
+                                  >
+                                    <div
+                                      style={{
+                                        width: "16px",
+                                        height: "16px",
+                                        border: "2px solid var(--pf-v6-global--primary-color--100)",
+                                        borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                                        flexShrink: 0,
+                                        marginTop: "0.125rem",
+                                      }}
+                                    />
+                                    <div style={{ flex: 1 }}>
+                                      <div style={{ fontWeight: 600, marginBottom: "0.25rem", color: "var(--pf-v6-global--Color--100)" }}>
+                                        {item.seq}. {item.name}
+                                      </div>
+                                      <div style={{ color: "var(--pf-v6-global--Color--100)", marginBottom: item.verificationMethod || (item.evidencedBy && item.evidencedBy.length > 0) ? "0.375rem" : 0 }}>
+                                        {item.description}
+                                      </div>
+                                      {item.verificationMethod && (
+                                        <div style={{ display: "flex", alignItems: "center", gap: "0.25rem", marginTop: "0.375rem" }}>
+                                          {iconClass && <i className={iconClass} style={{ fontSize: "0.625rem", color: "var(--pf-v6-global--primary-color--100)" }} />}
+                                          <span style={{ fontSize: "0.625rem", color: "var(--pf-v6-global--Color--200)", fontStyle: "italic" }}>
+                                            {item.verificationMethod.replace(/-/g, " ")}
+                                          </span>
+                                        </div>
+                                      )}
+                                      {item.evidencedBy && item.evidencedBy.length > 0 && (
+                                        <div style={{ marginTop: "0.375rem" }}>
+                                          <div style={{ fontSize: "0.625rem", fontWeight: 600, marginBottom: "0.25rem", color: "var(--pf-v6-global--Color--100)" }}>
+                                            Evidence:
+                                          </div>
+                                          {item.evidencedBy.map((evidence: any, evIdx: number) => (
+                                            <div
+                                              key={evIdx}
+                                              style={{
+                                                fontSize: "0.625rem",
+                                                color: "var(--pf-v6-global--Color--200)",
+                                                marginTop: "0.125rem",
+                                              }}
+                                            >
+                                              <AliasedName kind="workProduct" name={evidence.workProductName} browse={false} /> → <AliasedName kind="levelOfDetail" name={evidence.levelOfDetailName} browse={false} />
+                                            </div>
+                                          ))}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </li>
+                                );
+                              })}
                           </ul>
                         </div>
                       )}
@@ -982,6 +1045,39 @@ export function SecondaryDetailsPanel({
             </div>
           )}
 
+          {data.involves && data.involves.length > 0 && (
+            <div style={{ marginBottom: "1.5rem" }}>
+              <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                Involves
+              </Title>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.375rem" }}>
+                {data.involves.map((personaGroupName: string, idx: number) => (
+                  <span
+                    key={idx}
+                    style={{
+                      fontSize: "0.6875rem",
+                      padding: "0.25rem 0.5rem",
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                      color: "var(--pf-v6-global--Color--100)",
+                      border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                      maxWidth: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.25rem",
+                    }}
+                  >
+                    <i className="fa-solid fa-users" style={{ fontSize: "0.625rem", color: "var(--pf-v6-global--Color--200)" }} />
+                    {personaGroupName}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           {(() => {
             // Show recommendedCompetencyLevels if they exist, otherwise show requiredCompetencies
             const hasRecommended = data.recommendedCompetencyLevels && data.recommendedCompetencyLevels.length > 0;
@@ -1134,10 +1230,6 @@ export function SecondaryDetailsPanel({
       {/* Alpha-specific: Show states */}
       {type === "alpha" && (
         <>
-          <div style={{ fontSize: "0.8125rem", lineHeight: "1.5", color: "var(--pf-v6-global--Color--100)", marginBottom: "1.5rem" }}>
-            {practiceElementDescriptionForDisplay(data)}
-          </div>
-
           {data.states && data.states.length > 0 && (
             <div>
               <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
@@ -1316,6 +1408,169 @@ export function SecondaryDetailsPanel({
             </div>
           )}
         </>
+        );
+      })()}
+
+      {/* Persona (as secondary from persona group) */}
+      {type === "persona" && (() => {
+        const persona = data;
+        return (
+          <>
+            {persona.narratives && persona.narratives.length > 0 && (
+              <div style={{ marginBottom: "1.5rem" }}>
+                <Title headingLevel="h4" size="sm" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                  Narratives
+                </Title>
+                {renderNarratives(persona.narratives, baseline)}
+              </div>
+            )}
+
+            {persona.competencies && persona.competencies.length > 0 && (
+              <div>
+                <Title headingLevel="h4" size="sm" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                  Competencies
+                </Title>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  {persona.competencies.map((compRef: any) => {
+                    const competency = baseline.competencies?.find((c) => c.name === compRef.competencyName);
+                    if (!competency) return null;
+
+                    const level = competency.levels?.find((l: any) => l.name === compRef.competencyLevelName);
+
+                    return (
+                      <button
+                        key={compRef.competencyName}
+                        onClick={() => {
+                          if (onNavigateToElement) {
+                            onNavigateToElement(compRef.competencyName);
+                          }
+                        }}
+                        style={{
+                          padding: "0.75rem",
+                          border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                          backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          width: "100%",
+                          transition: "all 0.2s",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                          e.currentTarget.style.borderColor = "var(--pf-v6-global--primary-color--100)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--100)";
+                          e.currentTarget.style.borderColor = "var(--pf-v6-global--BorderColor--100)";
+                        }}
+                      >
+                        <div style={{ fontSize: "0.8125rem", fontWeight: 600 }}>
+                          {compRef.competencyName}
+                        </div>
+                        {level && (
+                          <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginTop: "0.25rem" }}>
+                            Level {level.level}: {level.name}
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </>
+        );
+      })()}
+
+      {/* Competency (as secondary from persona or persona group) */}
+      {type === "competency" && (() => {
+        const competency = data;
+        return (
+          <>
+            {competency.narratives && competency.narratives.length > 0 && (
+              <div style={{ marginBottom: "1.5rem" }}>
+                <Title headingLevel="h4" size="sm" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                  Narratives
+                </Title>
+                {renderNarratives(competency.narratives, baseline)}
+              </div>
+            )}
+
+            {competency.levels && competency.levels.length > 0 && (
+              <div>
+                <Title headingLevel="h4" size="sm" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                  Skill Levels
+                </Title>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  {competency.levels
+                    .sort((a: any, b: any) => a.level - b.level)
+                    .map((level: any) => (
+                      <div
+                        key={level.name}
+                        style={{
+                          display: "flex",
+                          gap: "0.75rem",
+                          padding: "0.75rem",
+                          border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                          backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "28px",
+                            height: "28px",
+                            borderRadius: "50%",
+                            backgroundColor: "var(--pf-v6-global--primary-color--100)",
+                            color: "white",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontWeight: 700,
+                            fontSize: "0.875rem",
+                            flexShrink: 0,
+                          }}
+                        >
+                          {level.level}
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: "0.8125rem", fontWeight: 600 }}>
+                            {level.name}
+                          </div>
+                          <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginTop: "0.25rem" }}>
+                            {level.description}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+          </>
+        );
+      })()}
+
+      {/* Competency Level (as secondary from competency) */}
+      {type === "competencyLevel" && (() => {
+        const level = data;
+        const competency = parent;
+        return (
+          <>
+            {competency && (
+              <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginBottom: "0.5rem" }}>
+                {competency.name}
+              </div>
+            )}
+
+            {level.narratives && level.narratives.length > 0 && (
+              <div>
+                <Title headingLevel="h4" size="sm" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                  Narratives
+                </Title>
+                {renderNarratives(level.narratives, baseline)}
+              </div>
+            )}
+          </>
         );
       })()}
     </aside>

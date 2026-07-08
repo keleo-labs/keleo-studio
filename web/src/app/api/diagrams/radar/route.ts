@@ -130,6 +130,12 @@ export async function POST(req: Request) {
 
     // Extract baseline and group by focus
     const baseline = asBaselineDocument(resolvedDoc);
+    if (!baseline) {
+      return NextResponse.json(
+        { error: "Failed to extract baseline from resolved document" },
+        { status: 400 }
+      );
+    }
     const grouped = groupByFocus(baseline);
 
     // Calculate alpha scores

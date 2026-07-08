@@ -51,17 +51,22 @@ export async function GET(req: Request) {
 
     // Find baseline by name
     const store = await getJsonDocumentStore();
-    const allDocsResponse = await store.list();
-    const allDocs = await store.list();
+    const allMeta = await store.list();
 
     const trimmed = baselineName.trim();
-    const candidates = allDocs.filter(doc => {
-      if (!doc.body || typeof doc.body !== "object") return false;
+
+    // Find candidates by loading full documents
+    const candidates: any[] = [];
+    for (const meta of allMeta) {
+      const doc = await store.get(meta.id);
+      if (!doc || !doc.body || typeof doc.body !== "object") continue;
       const bodyObj = doc.body as Record<string, unknown>;
       const docName = String(bodyObj.name ?? "").trim();
       const kind = bodyObj.kind;
-      return (kind === "baselinePractice" || kind === "baseline") && docName === trimmed;
-    });
+      if ((kind === "baselinePractice" || kind === "baseline") && docName === trimmed) {
+        candidates.push(doc);
+      }
+    }
 
     if (candidates.length === 0) {
       return NextResponse.json(
@@ -92,6 +97,12 @@ export async function GET(req: Request) {
     // Normalize and extract alphas
     doc = normalizePracticeBody(doc);
     const baseline = asBaselineDocument(doc);
+    if (!baseline) {
+      return NextResponse.json(
+        { error: "Failed to extract baseline from document" },
+        { status: 400 }
+      );
+    }
     const alphas = Array.isArray(baseline.alphas) ? baseline.alphas : [];
     const alphaNames = alphas.map((alpha: any) => String(alpha.name ?? "")).filter(Boolean);
 
