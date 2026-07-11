@@ -1154,7 +1154,7 @@ export function SecondaryDetailsPanel({
           {data.alphaStates && data.alphaStates.length > 0 && (
             <div style={{ marginBottom: "1.5rem" }}>
               <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-                Alpha States
+                Concern States
               </Title>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                 {data.alphaStates.map((alphaState: any, idx: number) => {

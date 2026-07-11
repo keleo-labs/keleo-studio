@@ -296,7 +296,20 @@ export function MethodBuilderClient() {
 
   const [methodName, setMethodName] = useState("");
   const [methodDescription, setMethodDescription] = useState("");
-  const [methodTags, setMethodTags] = useState<Record<string, unknown>>({});
+  const [methodTags, setMethodTagsRaw] = useState<Record<string, unknown>>({});
+  const [tagText, setTagText] = useState({ domain: "", lifecycle: "", organizational: "" });
+
+  const setMethodTags = useCallback((tags: Record<string, unknown>) => {
+    setMethodTagsRaw(tags);
+    const lines = practiceTagsBucketLines(tags);
+    setTagText(lines);
+  }, []);
+
+  const commitTagText = useCallback(() => {
+    const tags = practiceTagsFromBucketLines(tagText.domain, tagText.lifecycle, tagText.organizational);
+    setMethodTagsRaw(tags ?? {});
+  }, [tagText]);
+
   const [baselineSlot, setBaselineSlot] = useState<BaselineSlot | null>(null);
   const [practiceSlots, setPracticeSlots] = useState<PracticeSlot[]>([]);
   const [methodNarratives, setMethodNarratives] = useState<Narrative[]>([]);
@@ -964,34 +977,25 @@ export function MethodBuilderClient() {
             <PropertyTable title="Method Tags">
               <PropertyRow label="Domain Tags" description="One per line">
                 <InlineTextArea
-                  value={practiceTagsBucketLines(methodTags).domain}
-                  onChange={(val) => {
-                    const cur = practiceTagsBucketLines(methodTags);
-                    const tags = practiceTagsFromBucketLines(val, cur.lifecycle, cur.organizational);
-                    setMethodTags(tags ?? {});
-                  }}
+                  value={tagText.domain}
+                  onChange={(val) => setTagText((prev) => ({ ...prev, domain: val }))}
+                  onBlur={commitTagText}
                   placeholder="e.g., Software&#10;Cloud&#10;Platform"
                 />
               </PropertyRow>
               <PropertyRow label="Lifecycle Tags" description="One per line">
                 <InlineTextArea
-                  value={practiceTagsBucketLines(methodTags).lifecycle}
-                  onChange={(val) => {
-                    const cur = practiceTagsBucketLines(methodTags);
-                    const tags = practiceTagsFromBucketLines(cur.domain, val, cur.organizational);
-                    setMethodTags(tags ?? {});
-                  }}
+                  value={tagText.lifecycle}
+                  onChange={(val) => setTagText((prev) => ({ ...prev, lifecycle: val }))}
+                  onBlur={commitTagText}
                   placeholder="e.g., Active&#10;Deprecated&#10;Experimental"
                 />
               </PropertyRow>
               <PropertyRow label="Organizational Tags" description="One per line">
                 <InlineTextArea
-                  value={practiceTagsBucketLines(methodTags).organizational}
-                  onChange={(val) => {
-                    const cur = practiceTagsBucketLines(methodTags);
-                    const tags = practiceTagsFromBucketLines(cur.domain, cur.lifecycle, val);
-                    setMethodTags(tags ?? {});
-                  }}
+                  value={tagText.organizational}
+                  onChange={(val) => setTagText((prev) => ({ ...prev, organizational: val }))}
+                  onBlur={commitTagText}
                   placeholder="e.g., Enterprise&#10;Team&#10;Individual"
                 />
               </PropertyRow>
@@ -1203,6 +1207,7 @@ export function MethodBuilderClient() {
                 variant="primary"
                 isDisabled={!canOpenSave}
                 onClick={() => {
+                  commitTagText();
                   setSaveError(null);
                   setSaveOpen(true);
                 }}
