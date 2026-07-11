@@ -54,6 +54,7 @@ export interface EnrichedMeta {
   // Library-specific fields (not present on dashboard-config documents)
   libraryRootKind?: string;
   displayName?: string;
+  description?: string;
   virtualFileCount?: number;
   baselineNameForPracticeLink?: string | null;
   practiceNameForDependencyLink?: string | null;
@@ -320,13 +321,28 @@ export function filterDocuments(
     );
   }
 
-  // Name pattern filter (case-insensitive substring match)
+  // Name pattern filter (case-insensitive substring match with wildcard support)
   if (filters.namePattern) {
     const pattern = filters.namePattern.toLowerCase();
-    result = result.filter((doc) =>
-      doc.title.toLowerCase().includes(pattern) ||
-      (doc.displayName || "").toLowerCase().includes(pattern)
-    );
+
+    // Convert wildcard pattern to regex if it contains *
+    if (pattern.includes('*')) {
+      // Escape regex special characters except *
+      const regexPattern = pattern
+        .replace(/[.+?^${}()|[\]\\]/g, '\\$&')
+        .replace(/\*/g, '.*');
+      const regex = new RegExp(regexPattern, 'i');
+
+      result = result.filter((doc) =>
+        regex.test(doc.title) || regex.test(doc.displayName || "")
+      );
+    } else {
+      // Simple substring match
+      result = result.filter((doc) =>
+        doc.title.toLowerCase().includes(pattern) ||
+        (doc.displayName || "").toLowerCase().includes(pattern)
+      );
+    }
   }
 
   return result;

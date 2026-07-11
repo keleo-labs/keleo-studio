@@ -253,7 +253,8 @@ export function OverviewDiagram({
     let maxWidth = 0;
 
     Array.from(rootAlphasByFocus.entries()).forEach(([focusName, rootAlphas]) => {
-      const trees: Array<{ rootAlpha: typeof baseline.alphas[0]; tree: AlphaNode[]; height: number; score: number }> = [];
+      const trees: Array<{ rootAlpha: typeof baseline.alphas[0]; tree: AlphaNode[]; height: number; score: number; rootX: number }> = [];
+      let currentX = 0;
 
       rootAlphas.forEach((rootAlpha) => {
         // Look up score for root
@@ -268,15 +269,22 @@ export function OverviewDiagram({
           }
         }
 
-        // Build tree for children - start below the root card
-        const { nodes, totalHeight } = buildAlphaTree(rootAlpha.name, baseline.alphas || [], INDENT, CARD_HEIGHT + CARD_GAP, rootScoreEntry);
+        // Build tree for children at current X position
+        const { nodes, totalHeight } = buildAlphaTree(rootAlpha.name, baseline.alphas || [], currentX + INDENT, CARD_HEIGHT + CARD_GAP, rootScoreEntry);
+
+        // Calculate max depth for this tree to determine width
+        const maxDepth = nodes.length > 0 ? Math.max(0, ...nodes.map(n => countDepth(n))) : 0;
+        const treeWidth = CARD_WIDTH + (maxDepth > 0 ? (maxDepth + 1) * INDENT : 0) + 42;
 
         trees.push({
           rootAlpha,
           tree: nodes,
           height: totalHeight,
-          score: rootScore
+          score: rootScore,
+          rootX: currentX
         });
+
+        currentX += treeWidth;
       });
 
       focusGroups.push({
@@ -303,9 +311,6 @@ export function OverviewDiagram({
 
         {/* SVG-based alpha visualization */}
         {focusGroups.map((group) => {
-          let currentX = 0;
-          let maxGroupHeight = 0;
-
           return (
             <div key={group.focusName} style={{ marginBottom: "2rem" }}>
               <div style={{ marginBottom: "1rem" }}>
@@ -321,9 +326,8 @@ export function OverviewDiagram({
 
               <svg width="100%" height={Math.max(...group.trees.map(t => CARD_HEIGHT + t.height + CARD_GAP + 24)) + 24} style={{ overflow: "visible" }}>
                 {group.trees.map((treeData, treeIndex) => {
-                  const rootX = currentX;
+                  const rootX = treeData.rootX;
                   const rootY = 0;
-                  const treeStartX = currentX;
 
                   // Render root alpha card
                   const isRootSelected = selectedElement === treeData.rootAlpha.name;
@@ -372,12 +376,6 @@ export function OverviewDiagram({
                     ...renderAlphaNodes(treeData.tree, rootX, rootY),
                     ...renderAlphaCards(treeData.tree)
                   ];
-
-                  // Calculate max width for this tree
-                  const maxDepth = Math.max(0, ...treeData.tree.map(n => countDepth(n)));
-                  const treeWidth = CARD_WIDTH + (maxDepth * INDENT) + 42;
-                  currentX += treeWidth;
-                  maxGroupHeight = Math.max(maxGroupHeight, CARD_HEIGHT + treeData.height + CARD_GAP);
 
                   return [rootCard, ...childElements];
                 })}

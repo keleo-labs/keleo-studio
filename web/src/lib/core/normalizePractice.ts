@@ -1,4 +1,20 @@
 /**
+ * Deduplicates competency level references by competencyName + competencyLevelName.
+ * Keeps the first occurrence of each unique combination.
+ */
+function deduplicateCompetencies(competencies: unknown[]): unknown[] {
+  const seen = new Set<string>();
+  return competencies.filter((comp) => {
+    if (!comp || typeof comp !== "object") return true;
+    const c = comp as Record<string, unknown>;
+    const key = `${c.competencyName}::${c.competencyLevelName}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+/**
  * Normalizes practice and method bodies by ensuring required arrays exist.
  *
  * For practices with dependencies but no local elements, this ensures empty arrays
@@ -6,6 +22,8 @@
  * This normalization prevents undefined access errors during rendering and processing.
  *
  * For methods with embedded practices, recursively normalizes each practice.
+ *
+ * Also automatically deduplicates competency level references in personas.
  *
  * @param body - The practice/method body to normalize (unknown type for safety)
  * @returns Normalized body with guaranteed array properties, or the original if not applicable
@@ -33,6 +51,20 @@ export function normalizePracticeBody(body: unknown): unknown {
     return body;
   }
 
+  // Normalize personas and deduplicate competencies
+  let personas = Array.isArray(o.personas) ? o.personas : [];
+  personas = personas.map((persona) => {
+    if (!persona || typeof persona !== "object") return persona;
+    const p = persona as Record<string, unknown>;
+    if (Array.isArray(p.competencies) && p.competencies.length > 0) {
+      return {
+        ...p,
+        competencies: deduplicateCompetencies(p.competencies),
+      };
+    }
+    return persona;
+  });
+
   // Normalize practice by ensuring all element arrays exist
   return {
     ...o,
@@ -40,7 +72,7 @@ export function normalizePracticeBody(body: unknown): unknown {
     activitySpaces: Array.isArray(o.activitySpaces) ? o.activitySpaces : [],
     activities: Array.isArray(o.activities) ? o.activities : [],
     workProducts: Array.isArray(o.workProducts) ? o.workProducts : [],
-    personas: Array.isArray(o.personas) ? o.personas : [],
+    personas,
     personaGroups: Array.isArray(o.personaGroups) ? o.personaGroups : [],
   };
 }

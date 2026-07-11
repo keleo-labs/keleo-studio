@@ -427,6 +427,7 @@ export function NavigatorLayout({
         activitySpaceScores={activitySpaceScores}
         onSetSecondaryElement={onSetSecondaryElement}
         secondaryElementName={secondaryElement}
+        onSetMode={onSetMode}
       />
 
       {/* Right panel: Secondary details - only shown when there's content */}

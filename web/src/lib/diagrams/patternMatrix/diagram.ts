@@ -29,6 +29,12 @@ export function contribEntryMatchesAlphaState(
 
 export type PatternMatrixCellEntry = { alphaName: string; stateName: string };
 
+/** Hierarchical alpha row: root with optional children that should be displayed as sub-columns. */
+export type PatternMatrixAlphaRow = {
+  alphaName: string;
+  children: string[]; // Child alpha names (direct and indirect descendants)
+};
+
 /** One PatternView.alphaInstances row matched to an alpha/state matrix slice (diagram + PDF); {@link instanceName} is `alphaName: instance.name` for display. */
 export type PatternMatrixSliceInstanceChip = {
   instanceName: string;
@@ -428,9 +434,72 @@ export function computeArrowHeightForWidth(name: unknown, desc: unknown, blockW:
 }
 
 /**
+ * Get all descendant alphas (direct and indirect children) for a root alpha.
+ * Returns them in depth-first order.
+ */
+export function getAlphaDescendants(
+  rootAlphaName: string,
+  baseline: PracticeBaseline,
+): string[] {
+  const list = baseline.alphas ?? [];
+  const nameSet = new Set(list.map((a) => String(a?.name ?? "").trim()).filter(Boolean));
+  const alphaByName = new Map<string, (typeof list)[number]>();
+  const indexByName = new Map<string, number>();
+
+  for (let i = 0; i < list.length; i++) {
+    const n = String(list[i]?.name ?? "").trim();
+    if (n) {
+      alphaByName.set(n, list[i]);
+      if (!indexByName.has(n)) indexByName.set(n, i);
+    }
+  }
+
+  const sortByBaselineIndex = (a: string, b: string) => {
+    return (indexByName.get(a) ?? 0) - (indexByName.get(b) ?? 0);
+  };
+
+  /** Map of parent -> direct children */
+  const childrenByParent = new Map<string, string[]>();
+
+  for (const a of list) {
+    const n = String(a?.name ?? "").trim();
+    if (!n) continue;
+
+    const parent = parentNameInFocus(a, nameSet);
+    if (parent !== null) {
+      if (!childrenByParent.has(parent)) childrenByParent.set(parent, []);
+      childrenByParent.get(parent)!.push(n);
+    }
+  }
+
+  // Sort each child list by baseline index
+  for (const [, children] of childrenByParent) {
+    children.sort(sortByBaselineIndex);
+  }
+
+  // Depth-first traversal starting from rootAlphaName
+  const result: string[] = [];
+  const visited = new Set<string>();
+
+  function dfs(alphaName: string) {
+    if (visited.has(alphaName)) return;
+    visited.add(alphaName);
+
+    const children = childrenByParent.get(alphaName) ?? [];
+    for (const child of children) {
+      result.push(child);
+      dfs(child);
+    }
+  }
+
+  dfs(rootAlphaName);
+  return result;
+}
+
+/**
  * Ordered alpha names for the pattern matrix rows: grouped by focus (order follows
- * `PracticeBaseline.focuses`), and within each focus roots first (no in-group parent via
- * `Alpha.contributesTo`), then depth-first under each parent so contributors sit below their rollup.
+ * `PracticeBaseline.focuses`). Only returns root alphas (ultimate parents in contributesTo chains).
+ * Use {@link getAlphaDescendants} to find children of each root for hierarchical display.
  */
 export function buildPatternMatrixAlphaRows(baseline: PracticeBaseline): string[] {
   const list = baseline.alphas ?? [];
@@ -488,12 +557,50 @@ function parentNameInFocus(a: { name?: unknown; contributesTo?: unknown }, nameS
   return raw;
 }
 
-/** Depth-first: each root, then contributors that point at it (and their subtrees), baseline order among siblings. */
+/** Find the ultimate root alpha in a contributesTo chain (handles cycles by returning null). */
+function findUltimateRootInFocus(
+  alphaName: string,
+  alphaByName: Map<string, any>,
+  nameSet: Set<string>,
+): string | null {
+  const visited = new Set<string>();
+  let current = alphaName;
+
+  while (true) {
+    if (visited.has(current)) {
+      // Cycle detected
+      return null;
+    }
+    visited.add(current);
+
+    const alpha = alphaByName.get(current);
+    if (!alpha) return current;
+
+    const parent = parentNameInFocus(alpha, nameSet);
+    if (parent === null) {
+      // No parent - this is the root
+      return current;
+    }
+
+    current = parent;
+  }
+}
+
+/**
+ * Returns only the ultimate root alphas within a focus (no duplication of parent alphas in contributesTo chains).
+ * For hierarchical alphas (A → B → C), only the root (A) is returned.
+ */
 function orderAlphasWithinFocusForPatternMatrix(
   group: NonNullable<PracticeBaseline["alphas"]>,
   indexByName: Map<string, number>,
 ): string[] {
   const nameSet = new Set(group.map((a) => String(a?.name ?? "").trim()).filter(Boolean));
+  const alphaByName = new Map<string, (typeof group)[number]>();
+
+  for (const a of group) {
+    const n = String(a?.name ?? "").trim();
+    if (n) alphaByName.set(n, a);
+  }
 
   const sortByBaselineIndex = (x: (typeof group)[number], y: (typeof group)[number]) => {
     const ix = indexByName.get(String(x?.name ?? "").trim()) ?? 0;
@@ -501,57 +608,32 @@ function orderAlphasWithinFocusForPatternMatrix(
     return ix - iy;
   };
 
-  /** Children[a] = alphas whose contributesTo parent (within focus) === a */
-  const childrenByParent = new Map<string, typeof group>();
-  const roots: typeof group = [];
+  // Find all ultimate roots
+  const rootNames = new Set<string>();
+  const alphaToRoot = new Map<string, string>();
 
   for (const a of group) {
     const n = String(a?.name ?? "").trim();
     if (!n) continue;
-    const p = parentNameInFocus(a, nameSet);
-    if (p === null) {
-      roots.push(a);
+
+    const root = findUltimateRootInFocus(n, alphaByName, nameSet);
+    if (root) {
+      rootNames.add(root);
+      alphaToRoot.set(n, root);
     } else {
-      if (!childrenByParent.has(p)) childrenByParent.set(p, []);
-      childrenByParent.get(p)!.push(a);
+      // Cycle detected - treat this alpha as its own root
+      rootNames.add(n);
+      alphaToRoot.set(n, n);
     }
   }
 
-  for (const [, ch] of childrenByParent) ch.sort(sortByBaselineIndex);
+  // Get root alpha objects and sort by baseline index
+  const roots = Array.from(rootNames)
+    .map(name => alphaByName.get(name))
+    .filter((a): a is NonNullable<typeof a> => a !== undefined)
+    .sort(sortByBaselineIndex);
 
-  const seenRoot = new Set<string>();
-  const rootsDedup = roots.sort(sortByBaselineIndex).filter((a) => {
-    const n = String(a?.name ?? "").trim();
-    if (!n || seenRoot.has(n)) return false;
-    seenRoot.add(n);
-    return true;
-  });
-
-  /** Pure contributesTo cycles: no alpha lacks an in-focus parent → fall back to baseline order */
-  if (rootsDedup.length === 0 && group.length > 0) {
-    return [...group].sort(sortByBaselineIndex).map((a) => String(a?.name ?? "").trim()).filter(Boolean);
-  }
-
-  const ordered: string[] = [];
-  const visited = new Set<string>();
-
-  function dfs(alpha: (typeof group)[number]) {
-    const n = String(alpha?.name ?? "").trim();
-    if (!n || visited.has(n)) return;
-    visited.add(n);
-    ordered.push(n);
-    const kids = childrenByParent.get(n) ?? [];
-    for (const k of kids) dfs(k);
-  }
-
-  for (const r of rootsDedup) dfs(r);
-
-  const leftovers = group
-    .map((a) => String(a?.name ?? "").trim())
-    .filter((n) => n && !visited.has(n));
-  leftovers.sort((a, b) => (indexByName.get(a) ?? 0) - (indexByName.get(b) ?? 0));
-  ordered.push(...leftovers);
-  return ordered;
+  return roots.map(a => String(a?.name ?? "").trim()).filter(Boolean);
 }
 
 export function buildPatternMatrixRows(
@@ -562,9 +644,37 @@ export function buildPatternMatrixRows(
   return (baseline.focuses ?? []).map((f) => ({ focusName: f.name }));
 }
 
-function alphaRowIndex(rowAlphaNames: string[], alphaName: string): number {
+/**
+ * Find the row index for an alpha, mapping child alphas to their root alpha row.
+ * If alphaName is a child of a root alpha in rowAlphaNames, returns the root's index.
+ */
+function alphaRowIndexWithHierarchy(
+  rowAlphaNames: string[],
+  alphaName: string,
+  baseline: PracticeBaseline,
+): number {
   const t = alphaName.trim();
-  return rowAlphaNames.findIndex((n) => n.trim() === t);
+
+  // Direct match
+  const directIdx = rowAlphaNames.findIndex((n) => n.trim() === t);
+  if (directIdx >= 0) return directIdx;
+
+  // Check if alphaName is a child of any root alpha
+  const list = baseline.alphas ?? [];
+  const nameSet = new Set(list.map((a) => String(a?.name ?? "").trim()).filter(Boolean));
+  const alphaByName = new Map<string, (typeof list)[number]>();
+
+  for (const a of list) {
+    const n = String(a?.name ?? "").trim();
+    if (n) alphaByName.set(n, a);
+  }
+
+  const root = findUltimateRootInFocus(t, alphaByName, nameSet);
+  if (root && root !== t) {
+    return rowAlphaNames.findIndex((n) => n.trim() === root);
+  }
+
+  return -1;
 }
 
 function findOrAppendCellBlock(bucket: PatternMatrixCellBlock[], alphaName: string, stateName: string): PatternMatrixCellBlock {
@@ -695,7 +805,7 @@ export function buildPatternMatrixCells(
     for (const raw of states) {
       const p = parsePatternViewAlphaState(raw);
       if (!p) continue;
-      const ri = alphaRowIndex(rowAlphaNames, p.alphaName);
+      const ri = alphaRowIndexWithHierarchy(rowAlphaNames, p.alphaName, baseline);
       if (ri < 0) continue;
       const block = findOrAppendCellBlock(cellBlocks[ri][cj], p.alphaName, p.stateName);
       fillLanesContributingForSlice(block, baseline, p.alphaName, p.stateName, laneLabels);
@@ -708,7 +818,7 @@ export function buildPatternMatrixCells(
       const alphaName = String(o.alphaName ?? "").trim();
       const stateName = String(o.stateName ?? "").trim();
       if (!alphaName || !stateName) continue;
-      const ri = alphaRowIndex(rowAlphaNames, alphaName);
+      const ri = alphaRowIndexWithHierarchy(rowAlphaNames, alphaName, baseline);
       if (ri < 0) continue;
       const block = findOrAppendCellBlock(cellBlocks[ri][cj], alphaName, stateName);
       appendSliceInstanceForBlock(block, raw);

@@ -1,8 +1,9 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Card, CardBody, Badge } from "@patternfly/react-core";
-import { StarIcon } from "@patternfly/react-icons";
+import { Card, CardBody } from "@patternfly/react-core";
+import { StarIcon, EditIcon } from "@patternfly/react-icons";
 import type { EnrichedMeta } from "@/lib/data/dashboardConfig";
 
 interface LibraryDocumentCardProps {
@@ -18,6 +19,8 @@ export function LibraryDocumentCard({
   score,
   onToggleStar,
 }: LibraryDocumentCardProps) {
+  const router = useRouter();
+
   // Guard: Never render dashboard-config documents
   if (document.kind === "dashboard-config") {
     console.warn("Attempted to render dashboard-config document:", document.id);
@@ -32,14 +35,7 @@ export function LibraryDocumentCard({
 
   // Navigate to navigator for all documents
   const href = `/navigator?libraryId=${encodeURIComponent(document.id)}`;
-
-  // Get color style for completeness score
-  const getScoreColor = () => {
-    if (!score || score === 0) return "var(--muted)";
-    if (score < 5) return "#6ca0dc";
-    if (score < 10) return "#3b82f6";
-    return "#1d4ed8";
-  };
+  const editHref = `/practice-author?libraryId=${encodeURIComponent(document.id)}`;
 
   const kindLabel =
     document.libraryRootKind === "method"
@@ -48,242 +44,153 @@ export function LibraryDocumentCard({
       ? "Baseline"
       : "Practice";
 
-  // Get first few tags for preview
+  // Get document description from enriched metadata
+  const description = document.description || "";
+
+  // Get all tags for display
   const allTags = [
     ...(document.libraryTags.domainTags || []),
     ...(document.libraryTags.lifecycleTags || []),
     ...(document.libraryTags.organizationalTags || []),
   ];
-  const previewTags = allTags.slice(0, 3);
+
+  const handleCardClick = () => {
+    router.push(href);
+  };
 
   return (
-    <>
-      <style>{`
-        .group:hover .card-actions {
-          opacity: 1 !important;
-        }
-      `}</style>
-      <Card
-        isClickable
-        component="div"
-        style={{
-          width: "250px",
-          height: "200px",
-          borderRadius: "0.75rem",
-          border: "1px solid var(--border)",
-          backgroundColor: "var(--panel)",
-          transition: "all 0.2s cubic-bezier(0.33, 1, 0.68, 1)",
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
-        }}
-        className="group"
-      >
+    <Card
+      isClickable
+      component="div"
+      onClick={handleCardClick}
+      style={{
+        width: "266px",
+        minHeight: "160px",
+        borderRadius: "0.625rem",
+        border: "1px solid var(--border)",
+        backgroundColor: "var(--panel)",
+        transition: "all 0.2s cubic-bezier(0.33, 1, 0.68, 1)",
+        boxShadow: "0 1px 2px rgba(0, 0, 0, 0.05)",
+        cursor: "pointer",
+      }}
+    >
       <CardBody
         style={{
-          padding: "1rem",
+          padding: "0.875rem",
           display: "flex",
           flexDirection: "column",
-          height: "100%",
+          gap: "0.5rem",
         }}
       >
-        {/* Header with kind badge and star button */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.5rem" }}>
-          <Badge
-            style={{
-              fontSize: "0.625rem",
-              fontWeight: 600,
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-              backgroundColor: "var(--accent)/10",
-              color: "var(--accent)",
-              border: "none",
-            }}
-          >
-            {kindLabel}
-          </Badge>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggleStar();
-            }}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: "0.25rem",
-              color: isStarred ? "#fbbf24" : "var(--muted)",
-              transition: "color 0.2s",
-            }}
-            aria-label={isStarred ? "Unstar document" : "Star document"}
-          >
-            <StarIcon
-              style={{
-                fontSize: "1rem",
-                fill: isStarred ? "currentColor" : "none",
-                stroke: "currentColor",
-                strokeWidth: isStarred ? 0 : 2,
-              }}
-            />
-          </button>
-        </div>
-
-        {/* Title */}
-        <Link
-          href={href}
-          style={{
-            textDecoration: "none",
-            color: "var(--text)",
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+        {/* Header: Title and action buttons */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.5rem" }}>
           <h3
             style={{
-              fontSize: "0.9375rem",
+              fontSize: "0.875rem",
               fontWeight: 600,
-              letterSpacing: "-0.01em",
-              marginBottom: "0.5rem",
+              letterSpacing: "-0.005em",
               lineHeight: "1.3",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              display: "-webkit-box",
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: "vertical",
+              color: "var(--text)",
+              margin: 0,
+              flex: 1,
             }}
           >
             {document.displayName || document.title}
           </h3>
-
-          {/* Tags preview */}
-          {previewTags.length > 0 && (
-            <div style={{ display: "flex", gap: "0.25rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
-              {previewTags.map((tag, idx) => (
-                <span
-                  key={idx}
-                  style={{
-                    fontSize: "0.625rem",
-                    padding: "0.125rem 0.375rem",
-                    borderRadius: "0.25rem",
-                    backgroundColor: "var(--bg)",
-                    color: "var(--muted)",
-                    border: "1px solid var(--border)",
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-              {allTags.length > 3 && (
-                <span
-                  style={{
-                    fontSize: "0.625rem",
-                    padding: "0.125rem 0.375rem",
-                    color: "var(--muted)",
-                  }}
-                >
-                  +{allTags.length - 3}
-                </span>
-              )}
-            </div>
-          )}
-
-          {/* Completeness score indicator */}
-          <div style={{ marginTop: "auto" }}>
-            <div
+          <div style={{ display: "flex", gap: "0.25rem", flexShrink: 0 }}>
+            <Link
+              href={editHref}
+              onClick={(e) => e.stopPropagation()}
               style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "0.125rem",
+                color: "var(--pf-v6-global--primary-color--100)",
                 display: "flex",
                 alignItems: "center",
-                gap: "0.5rem",
+                justifyContent: "center",
+                borderRadius: "0.25rem",
+                transition: "background-color 0.2s",
+                textDecoration: "none",
               }}
+              aria-label="Edit document"
             >
-              <div
+              <EditIcon style={{ fontSize: "0.875rem" }} />
+            </Link>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onToggleStar();
+              }}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "0.125rem",
+                color: isStarred ? "#fbbf24" : "var(--muted)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "0.25rem",
+                transition: "color 0.2s",
+              }}
+              aria-label={isStarred ? "Unstar document" : "Star document"}
+            >
+              <StarIcon
                 style={{
-                  flex: 1,
-                  height: "4px",
-                  backgroundColor: "var(--border)",
-                  borderRadius: "2px",
-                  overflow: "hidden",
+                  fontSize: "1rem",
+                  fill: isStarred ? "currentColor" : "none",
+                  stroke: "currentColor",
+                  strokeWidth: isStarred ? 0 : 2,
+                }}
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* Description */}
+        {description && (
+          <p
+            style={{
+              fontSize: "0.75rem",
+              lineHeight: "1.4",
+              color: "var(--text)",
+              margin: 0,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+            }}
+          >
+            {description}
+          </p>
+        )}
+
+        {/* Tags */}
+        {allTags.length > 0 && (
+          <div style={{ display: "flex", gap: "0.25rem", flexWrap: "wrap" }}>
+            {allTags.map((tag, idx) => (
+              <span
+                key={idx}
+                style={{
+                  fontSize: "0.625rem",
+                  padding: "0.125rem 0.375rem",
+                  borderRadius: "0.25rem",
+                  backgroundColor: "var(--bg)",
+                  color: "var(--muted)",
+                  border: "1px solid var(--border)",
+                  fontWeight: 500,
                 }}
               >
-                <div
-                  style={{
-                    height: "100%",
-                    width: score ? `${Math.min((score / 20) * 100, 100)}%` : "0%",
-                    backgroundColor: getScoreColor(),
-                    transition: "width 0.3s ease",
-                  }}
-                />
-              </div>
-              {score !== undefined && (
-                <span
-                  style={{
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    color: getScoreColor(),
-                  }}
-                >
-                  {score}
-                </span>
-              )}
-            </div>
+                {tag}
+              </span>
+            ))}
           </div>
-        </Link>
-
-        {/* Quick action buttons */}
-        <div
-          style={{
-            display: "flex",
-            gap: "0.5rem",
-            marginTop: "0.5rem",
-            paddingTop: "0.5rem",
-            borderTop: "1px solid var(--border)",
-            opacity: 0,
-            transition: "opacity 0.2s",
-          }}
-          className="card-actions"
-        >
-          <Link
-            href={`/navigator?libraryId=${encodeURIComponent(document.id)}`}
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              flex: 1,
-              textAlign: "center",
-              padding: "0.375rem",
-              fontSize: "0.6875rem",
-              fontWeight: 600,
-              color: "var(--accent)",
-              textDecoration: "none",
-              borderRadius: "0.25rem",
-              border: "1px solid var(--border)",
-              backgroundColor: "var(--bg)",
-              transition: "all 0.2s",
-            }}
-          >
-            Navigate
-          </Link>
-          <Link
-            href={`/practice-author?libraryId=${encodeURIComponent(document.id)}`}
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              flex: 1,
-              textAlign: "center",
-              padding: "0.375rem",
-              fontSize: "0.6875rem",
-              fontWeight: 600,
-              color: "var(--accent)",
-              textDecoration: "none",
-              borderRadius: "0.25rem",
-              border: "1px solid var(--border)",
-              backgroundColor: "var(--bg)",
-              transition: "all 0.2s",
-            }}
-          >
-            Edit
-          </Link>
-        </div>
+        )}
       </CardBody>
     </Card>
-    </>
   );
 }

@@ -36,6 +36,22 @@ export function PatternTable({
     });
   });
 
+  // Helper: Find ultimate root alpha recursively
+  const findUltimateRoot = (alphaName: string, visited = new Set<string>()): string => {
+    if (visited.has(alphaName)) {
+      // Cycle detected - return current alpha as root
+      return alphaName;
+    }
+    visited.add(alphaName);
+
+    const alpha = baseline.alphas.find((a) => a.name === alphaName);
+    if (!alpha || !alpha.contributesTo) {
+      return alphaName;
+    }
+
+    return findUltimateRoot(alpha.contributesTo, visited);
+  };
+
   // Build alpha hierarchy (root alphas and their contributing alphas)
   const alphaHierarchy: Array<{
     root: any;
@@ -50,10 +66,10 @@ export function PatternTable({
     (alpha) => alpha.contributesTo && referencedAlphas.has(alpha.name)
   );
 
-  // Group contributing alphas by their root alpha
+  // Group contributing alphas by their ULTIMATE root alpha (recursive)
   const contributorsByRoot = new Map<string, any[]>();
   contributingAlphas.forEach((alpha) => {
-    const rootName = alpha.contributesTo;
+    const rootName = findUltimateRoot(alpha.name);
     if (!contributorsByRoot.has(rootName)) {
       contributorsByRoot.set(rootName, []);
     }

@@ -315,7 +315,7 @@ export function DashboardSectionEditor({
                     id="name-pattern"
                     value={namePattern}
                     onChange={(_event, value) => setNamePattern(value)}
-                    placeholder="e.g., agile"
+                    placeholder="e.g., agile or *scrum* or test*"
                   />
                   <div
                     style={{
@@ -324,7 +324,7 @@ export function DashboardSectionEditor({
                       marginTop: "0.25rem",
                     }}
                   >
-                    Case-insensitive substring match
+                    Case-insensitive match. Use * as wildcard (e.g., *scrum* or test*)
                   </div>
                 </FormGroup>
               </div>

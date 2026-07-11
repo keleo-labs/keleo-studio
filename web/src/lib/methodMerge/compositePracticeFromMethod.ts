@@ -29,6 +29,18 @@ function uniqStrings(xs: string[]): string[] {
   return [...new Set(xs.map((s) => String(s).trim()).filter(Boolean))];
 }
 
+function uniqCompetencies(competencies: any[]): any[] {
+  const seen = new Map<string, any>();
+  for (const comp of competencies ?? []) {
+    if (!comp || typeof comp !== "object") continue;
+    const key = `${comp.competencyName}::${comp.competencyLevelName}`;
+    if (!seen.has(key)) {
+      seen.set(key, comp);
+    }
+  }
+  return [...seen.values()];
+}
+
 function clonedRowWithCanonicalName(row: Record<string, unknown>, key: string): any {
   const c = clone(row);
   if (typeof c.name === "string") c.name = key;
@@ -859,7 +871,7 @@ function mergePersonas(a: any[], b: any[]): any[] {
       byName.set(k, {
         ...mergePracticeElements(prev, p),
         name: k,
-        competencies: [...(prev.competencies ?? []), ...(p.competencies ?? [])],
+        competencies: uniqCompetencies([...(prev.competencies ?? []), ...(p.competencies ?? [])]),
       });
     } else {
       byName.set(k, clonedRowWithCanonicalName(p as Record<string, unknown>, k));
