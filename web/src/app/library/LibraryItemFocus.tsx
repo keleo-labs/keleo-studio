@@ -9,7 +9,7 @@ import {
   groupByFocus,
   practiceElementDescriptionForDisplay,
 } from "@/lib/ir";
-import { practiceNeedsLibraryResolution, methodNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
+import { documentNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import type { AlphaScore } from "@/lib/analysis/methodFocus";
 import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePracticeFromMethod";
@@ -87,10 +87,7 @@ export function LibraryItemFocus({ documentId }: { documentId: string }) {
 
   // Resolve library dependencies FIRST (same as LibraryBrowseClient)
   const shouldResolveLibrary = useMemo(() => {
-    if (!doc || typeof doc !== 'object') return false;
-    const kind = classifyLibraryRoot(doc);
-    return (kind === 'practice' && practiceNeedsLibraryResolution(doc)) ||
-           (kind === 'method' && methodNeedsLibraryResolution(doc));
+    return documentNeedsLibraryResolution(doc);
   }, [doc]);
   const { loading: resolveBusy, resolved: libraryResolved } = usePracticeLibraryResolveForRender(doc, shouldResolveLibrary);
 

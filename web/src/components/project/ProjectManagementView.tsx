@@ -22,7 +22,7 @@ import {
   practiceElementDescriptionForDisplay,
   narrativeContextRowDisplayText,
 } from "@/lib/ir";
-import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
+import { documentNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { useLanguagePack } from "@/lib/display/languagePack";
 import ProgressiveFlowDiagram from "../visualizations/diagrams/ProgressiveFlowDiagram";
@@ -1049,7 +1049,7 @@ export function ProjectManagementView({
   embed?: boolean;
 }) {
   const { t } = useLanguagePack();
-  const shouldResolveLibrary = useMemo(() => practiceNeedsLibraryResolution(doc), [doc]);
+  const shouldResolveLibrary = useMemo(() => documentNeedsLibraryResolution(doc), [doc]);
   const { loading: resolveBusy, resolved: libraryResolved } = usePracticeLibraryResolveForRender(doc, shouldResolveLibrary);
 
   const effectiveDoc = shouldResolveLibrary ? (libraryResolved ?? doc) : doc;

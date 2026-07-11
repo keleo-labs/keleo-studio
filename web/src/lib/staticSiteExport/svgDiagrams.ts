@@ -11,6 +11,38 @@ const LINE_OFFSET = 21;
 const FOCUS_HEADING_HEIGHT = 40;
 const FOCUS_GAP = 32;
 const TEXT_SIZE = 11;
+const WRAP_WIDTH = 1100;
+const TREE_GAP_X = 24;
+const ROW_GAP = 24;
+
+function wrapLayout(
+  items: { width: number; height: number }[],
+): { positions: { x: number; y: number }[]; totalWidth: number; totalHeight: number } {
+  const positions: { x: number; y: number }[] = [];
+  let currentX = 0;
+  let currentY = 0;
+  let rowMaxHeight = 0;
+  let maxRowWidth = 0;
+
+  for (const item of items) {
+    if (currentX > 0 && currentX + item.width > WRAP_WIDTH) {
+      maxRowWidth = Math.max(maxRowWidth, currentX - TREE_GAP_X);
+      currentY += rowMaxHeight + ROW_GAP;
+      currentX = 0;
+      rowMaxHeight = 0;
+    }
+    positions.push({ x: currentX, y: currentY });
+    rowMaxHeight = Math.max(rowMaxHeight, item.height);
+    currentX += item.width + TREE_GAP_X;
+  }
+  maxRowWidth = Math.max(maxRowWidth, currentX > 0 ? currentX - TREE_GAP_X : 0);
+
+  return {
+    positions,
+    totalWidth: maxRowWidth,
+    totalHeight: currentY + rowMaxHeight,
+  };
+}
 
 function escSvg(s: string): string {
   return s
@@ -219,44 +251,57 @@ export function generateConcernsOverviewSvg(
     }
     globalY += FOCUS_HEADING_HEIGHT;
 
-    let currentX = 0;
-    let maxTreeHeight = 0;
+    const treeParts: { parts: string[]; width: number; height: number }[] = [];
 
     for (const rootAlpha of focusAlphas) {
       const { nodes, totalHeight } = buildAlphaTree(
         rootAlpha.name,
         baseline.alphas ?? [],
-        currentX + INDENT,
-        globalY + CARD_HEIGHT + CARD_GAP,
+        INDENT,
+        CARD_HEIGHT + CARD_GAP,
         display,
       );
 
       const rootLabel = truncate(display("Alpha", rootAlpha.name), 22);
       const rootAsset = findIconAsset(rootAlpha.assetNames, assets);
 
-      svgParts.push(
+      const parts: string[] = [];
+      parts.push(
         `<g>`,
-        `  <rect x="${currentX}" y="${globalY}" width="${CARD_WIDTH}" height="${CARD_HEIGHT}" rx="4" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>`,
-        ...renderCardContent(currentX, globalY, CARD_WIDTH, rootLabel, rootAsset),
+        `  <rect x="0" y="0" width="${CARD_WIDTH}" height="${CARD_HEIGHT}" rx="4" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>`,
+        ...renderCardContent(0, 0, CARD_WIDTH, rootLabel, rootAsset),
         `</g>`,
       );
 
-      svgParts.push(...renderAlphaNodeLines(nodes, currentX, globalY));
-      svgParts.push(...renderAlphaNodeCards(nodes, assets));
+      parts.push(...renderAlphaNodeLines(nodes, 0, 0));
+      parts.push(...renderAlphaNodeCards(nodes, assets));
 
       const maxDepth =
         nodes.length > 0 ? Math.max(0, ...nodes.map(countDepth)) : 0;
-      const treeWidth =
-        CARD_WIDTH + (maxDepth > 0 ? (maxDepth + 1) * INDENT : 0) + 42;
-      currentX += treeWidth;
+      const treeWidth = nodes.length > 0
+        ? (maxDepth + 1) * INDENT + CARD_WIDTH
+        : CARD_WIDTH;
+      const treeHeight = Math.max(
+        CARD_HEIGHT,
+        CARD_HEIGHT + CARD_GAP + totalHeight,
+      );
 
-      const treeH =
-        CARD_HEIGHT + (totalHeight > 0 ? CARD_GAP + totalHeight : 0);
-      if (treeH > maxTreeHeight) maxTreeHeight = treeH;
+      treeParts.push({ parts, width: treeWidth, height: treeHeight });
     }
 
-    if (currentX > globalMaxX) globalMaxX = currentX;
-    globalY += maxTreeHeight + FOCUS_GAP;
+    const { positions, totalWidth, totalHeight: rowsHeight } = wrapLayout(
+      treeParts.map((t) => ({ width: t.width, height: t.height })),
+    );
+
+    for (let i = 0; i < treeParts.length; i++) {
+      const pos = positions[i];
+      svgParts.push(`<g transform="translate(${pos.x}, ${globalY + pos.y})">`);
+      svgParts.push(...treeParts[i].parts);
+      svgParts.push(`</g>`);
+    }
+
+    if (totalWidth > globalMaxX) globalMaxX = totalWidth;
+    globalY += rowsHeight + FOCUS_GAP;
   }
 
   const width = Math.max(globalMaxX, 400);
@@ -325,8 +370,9 @@ export function generateActivitiesOverviewSvg(
     }
     globalY += FOCUS_HEADING_HEIGHT;
 
-    let currentX = 0;
-    let maxGroupHeight = 0;
+    const treeParts: { parts: string[]; width: number; height: number }[] = [];
+    const arrowPath = `M 0 0 L ${CARD_WIDTH - 12} 0 L ${CARD_WIDTH} ${CARD_HEIGHT / 2} L ${CARD_WIDTH - 12} ${CARD_HEIGHT} L 0 ${CARD_HEIGHT} Z`;
+    const arrowContentWidth = CARD_WIDTH - 12;
 
     for (const space of focusSpaces) {
       const spaceLabel = truncate(
@@ -335,38 +381,37 @@ export function generateActivitiesOverviewSvg(
       );
       const activities = space.activities ?? [];
       const spaceAsset = findIconAsset(space.assetNames, assets);
-      const arrowContentWidth = CARD_WIDTH - 12;
 
-      const arrowPath = `M 0 0 L ${CARD_WIDTH - 12} 0 L ${CARD_WIDTH} ${CARD_HEIGHT / 2} L ${CARD_WIDTH - 12} ${CARD_HEIGHT} L 0 ${CARD_HEIGHT} Z`;
-      svgParts.push(
+      const parts: string[] = [];
+      parts.push(
         `<g>`,
-        `  <path d="${arrowPath}" transform="translate(${currentX},${globalY})" fill="#ffffff" stroke="#d2d2d2" stroke-width="1" stroke-dasharray="4"/>`,
-        ...renderCardContent(currentX, globalY, arrowContentWidth, spaceLabel, spaceAsset),
+        `  <path d="${arrowPath}" fill="#ffffff" stroke="#d2d2d2" stroke-width="1" stroke-dasharray="4"/>`,
+        ...renderCardContent(0, 0, arrowContentWidth, spaceLabel, spaceAsset),
         `</g>`,
       );
 
       if (activities.length > 0) {
-        const firstActY = globalY + CARD_HEIGHT + CARD_GAP;
+        const firstActY = CARD_HEIGHT + CARD_GAP;
         const lastActCenterY =
           firstActY +
           (activities.length - 1) * (CARD_HEIGHT + CARD_GAP) +
           CARD_HEIGHT / 2;
-        svgParts.push(
-          `<line x1="${currentX + LINE_OFFSET}" y1="${globalY + CARD_HEIGHT}" x2="${currentX + LINE_OFFSET}" y2="${lastActCenterY}" stroke="rgba(102,102,102,0.8)" stroke-width="3"/>`,
+        parts.push(
+          `<line x1="${LINE_OFFSET}" y1="${CARD_HEIGHT}" x2="${LINE_OFFSET}" y2="${lastActCenterY}" stroke="rgba(102,102,102,0.8)" stroke-width="3"/>`,
         );
 
         let actY = firstActY;
         for (const act of activities) {
           const actLabel = truncate(display("Activity", act.name), 20);
           const actCenterY = actY + CARD_HEIGHT / 2;
-          const actX = currentX + INDENT;
+          const actX = INDENT;
           const actAsset = findIconAsset(act.assetNames, assets);
 
-          svgParts.push(
-            `<line x1="${currentX + LINE_OFFSET}" y1="${actCenterY}" x2="${actX}" y2="${actCenterY}" stroke="rgba(102,102,102,0.8)" stroke-width="3"/>`,
+          parts.push(
+            `<line x1="${LINE_OFFSET}" y1="${actCenterY}" x2="${actX}" y2="${actCenterY}" stroke="rgba(102,102,102,0.8)" stroke-width="3"/>`,
           );
 
-          svgParts.push(
+          parts.push(
             `<g>`,
             `  <path d="${arrowPath}" transform="translate(${actX},${actY})" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>`,
             ...renderCardContent(actX, actY, arrowContentWidth, actLabel, actAsset),
@@ -377,22 +422,31 @@ export function generateActivitiesOverviewSvg(
         }
       }
 
-      const groupHeight =
+      const treeWidth = CARD_WIDTH + (activities.length > 0 ? INDENT : 0);
+      const treeHeight =
         CARD_HEIGHT +
         (activities.length > 0
           ? CARD_GAP +
             activities.length * (CARD_HEIGHT + CARD_GAP) +
             VERTICAL_PADDING
           : 0);
-      if (groupHeight > maxGroupHeight) maxGroupHeight = groupHeight;
 
-      const treeWidth =
-        CARD_WIDTH + (activities.length > 0 ? INDENT : 0) + 42;
-      currentX += treeWidth;
+      treeParts.push({ parts, width: treeWidth, height: treeHeight });
     }
 
-    if (currentX > globalMaxX) globalMaxX = currentX;
-    globalY += maxGroupHeight + FOCUS_GAP;
+    const { positions, totalWidth, totalHeight: rowsHeight } = wrapLayout(
+      treeParts.map((t) => ({ width: t.width, height: t.height })),
+    );
+
+    for (let i = 0; i < treeParts.length; i++) {
+      const pos = positions[i];
+      svgParts.push(`<g transform="translate(${pos.x}, ${globalY + pos.y})">`);
+      svgParts.push(...treeParts[i].parts);
+      svgParts.push(`</g>`);
+    }
+
+    if (totalWidth > globalMaxX) globalMaxX = totalWidth;
+    globalY += rowsHeight + FOCUS_GAP;
   }
 
   const width = Math.max(globalMaxX, 400);

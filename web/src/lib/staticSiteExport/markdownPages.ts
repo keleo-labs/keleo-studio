@@ -366,6 +366,17 @@ export function generateAlphaPage(
     lines.push("", renderNarrativesToMd(alpha.narratives, 2, pagePath, citations));
   }
 
+  // Common Instances (alpha instances matching this alpha)
+  const alphaInstances = ((baseline as any).alphaInstances ?? []).filter(
+    (i: any) => i.alphaName === alpha.name,
+  );
+  if (alphaInstances.length) {
+    lines.push("", "## Common Instances", "");
+    for (const inst of alphaInstances) {
+      lines.push(`- **${inst.name}:** ${inst.description ?? ""}`);
+    }
+  }
+
   // Related alphas
   if (alpha.relatesTo?.length) {
     lines.push("", "## Related Concerns", "");
@@ -653,6 +664,17 @@ export function generateWorkProductPage(
 
   if (wp.narratives?.length) {
     lines.push("", renderNarrativesToMd(wp.narratives, 2, pagePath, citations));
+  }
+
+  // Common Examples (work product instances matching this work product)
+  const wpInstances = ((baseline as any).workProductInstances ?? []).filter(
+    (i: any) => i.workProductName === wp.name,
+  );
+  if (wpInstances.length) {
+    lines.push("", "## Common Examples", "");
+    for (const inst of wpInstances) {
+      lines.push(`- **${inst.name}:** ${inst.description ?? ""}`);
+    }
   }
 
   const lods = [...wp.levelsOfDetail].sort((a, b) => (a.seq ?? 0) - (b.seq ?? 0));

@@ -11,7 +11,7 @@ import {
 } from "@/lib/ir";
 import { mergePatternViewAlphaStates } from "@/lib/converters/patternView";
 import type { LibraryLookupIndex } from "@/lib/library/practiceDependencyResolution";
-import { findBaselineInLibrary, findPracticeInLibrary } from "@/lib/library/practiceDependencyResolution";
+import { findBaselineInLibrary, findPracticeInLibrary, resolveBaselineWithDependencies, expandMethodPracticeDependencies } from "@/lib/library/practiceDependencyResolution";
 
 function clone<T>(v: T): T {
   return typeof structuredClone === "function" ? structuredClone(v) : (JSON.parse(JSON.stringify(v)) as T);
@@ -270,6 +270,22 @@ function mergeArrayFieldValues(base: unknown[], overlay: unknown[], fieldKey: st
       if (kk === "::") continue;
       if (!map.has(kk)) map.set(kk, clone(x) as Record<string, unknown>);
       else map.set(kk, mergePracticeElementRecords(map.get(kk)!, x));
+    }
+    return [...map.values()];
+  }
+  const relatesToShape = (xs: unknown[]) =>
+    xs.every((x) => isPlainRecord(x) && typeof (x as Record<string, unknown>).alphaName === "string" && typeof (x as Record<string, unknown>).relationship === "string");
+  if (
+    fieldKey === "relatesTo" &&
+    relatesToShape(base) &&
+    relatesToShape(overlay)
+  ) {
+    const map = new Map<string, Record<string, unknown>>();
+    for (const x of base) map.set(String((x as Record<string, unknown>).alphaName ?? "").trim(), clone(x) as Record<string, unknown>);
+    for (const x of overlay as Record<string, unknown>[]) {
+      const k = String(x.alphaName ?? "").trim();
+      if (!k) continue;
+      map.set(k, clone(x) as Record<string, unknown>);
     }
     return [...map.values()];
   }
@@ -1475,6 +1491,11 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
   if (!baseline) {
     throw new Error(`Method "${method.name}" is missing required baselinePractice or baselinePracticeName`);
   }
+
+  if (library) {
+    baseline = resolveBaselineWithDependencies(baseline, library);
+  }
+
   /**
    * Extension layers only (excludes baseline). Index `0` is closest to the kernel — highest precedence among extensions;
    * the last element is typically the resolved primary leaf practice — lowest precedence.
@@ -1495,6 +1516,11 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
     // Append loaded practices after embedded ones (embedded have higher precedence)
     extensionPracticeLayers = [...extensionPracticeLayers, ...loadedPractices];
   }
+
+  if (library && extensionPracticeLayers.length > 0) {
+    extensionPracticeLayers = expandMethodPracticeDependencies(extensionPracticeLayers, library);
+  }
+
   /** Embedded baseline-shaped arrays on the Method baseline (optional overlays). */
   const baselineDoc = baseline as Record<string, unknown>;
   const methodDoc = method as Record<string, unknown>;

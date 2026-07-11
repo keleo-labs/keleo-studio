@@ -3,12 +3,9 @@ import { getJsonDocumentStore } from "@/lib/storage";
 import { normalizePracticeBody } from "@/lib/core/normalizePractice";
 import {
   buildLibraryLookupIndex,
-  resolvePracticeWithLibraryIndex,
-  resolveMethodWithLibraryIndex,
-  methodNeedsLibraryResolution,
+  resolveDocumentWithLibraryIndex,
 } from "@/lib/library/practiceDependencyResolution";
 import { loadAllLibraryDocumentBodies } from "@/lib/library/loadLibraryBodies";
-import { classifyLibraryRoot } from "@/lib/library/classify";
 import { serverCache, CACHE_TTL } from "@/lib/cache/serverCache";
 
 /**
@@ -141,13 +138,7 @@ export async function POST(req: Request) {
         // Resolve with library if requested
         let resolved = doc;
         if (resolveLibrary && index) {
-          const rootKind = classifyLibraryRoot(doc);
-
-          if (rootKind === "method" && methodNeedsLibraryResolution(doc)) {
-            resolved = resolveMethodWithLibraryIndex(doc, index);
-          } else {
-            resolved = resolvePracticeWithLibraryIndex(doc, index);
-          }
+          resolved = resolveDocumentWithLibraryIndex(doc, index);
         }
 
         documents.push({

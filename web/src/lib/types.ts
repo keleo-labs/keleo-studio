@@ -196,6 +196,7 @@ export type PracticeBaseline = PracticeElement & {
   narrativeTypes?: NarrativeType[];
   citations?: Citation[];
   assets?: Asset[];
+  baselinePracticeNames?: string[];
 };
 
 export type WorkProduct = PracticeElement & {

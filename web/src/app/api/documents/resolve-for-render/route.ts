@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import {
   buildLibraryLookupIndex,
   collectBrowseDependencyArtifacts,
-  resolvePracticeWithLibraryIndex,
-  resolveMethodWithLibraryIndex,
+  resolveDocumentWithLibraryIndex,
   methodNeedsLibraryResolution,
+  baselineNeedsLibraryResolution,
 } from "@/lib/library/practiceDependencyResolution";
 import { loadAllLibraryDocumentBodies } from "@/lib/library/loadLibraryBodies";
 import { classifyLibraryRoot } from "@/lib/library/classify";
@@ -44,12 +44,12 @@ export async function POST(req: Request) {
     const rootKind = classifyLibraryRoot(doc);
 
     if (rootKind === "method" && methodNeedsLibraryResolution(doc)) {
-      const resolved = resolveMethodWithLibraryIndex(doc, index);
+      const resolved = resolveDocumentWithLibraryIndex(doc, index);
       return NextResponse.json({ resolved, dependencyArtifacts: [] });
     }
 
     const dependencyArtifacts = collectBrowseDependencyArtifacts(doc, index);
-    const resolved = resolvePracticeWithLibraryIndex(doc, index);
+    const resolved = resolveDocumentWithLibraryIndex(doc, index);
     return NextResponse.json({ resolved, dependencyArtifacts });
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Resolution failed";
