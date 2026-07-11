@@ -151,6 +151,19 @@ Visualization data transformations belong in `/web/src/lib/*Data.ts` files:
 
 **Keep rendering logic separate from data transformation.**
 
+### Practice Navigator ↔ Static Site Export (IMPORTANT)
+
+**When modifying the practice navigator's rendering (overview diagrams, element display, layout), always propagate those changes to the static site export.**
+
+The practice navigator has an interactive implementation and a parallel static SVG implementation used for downloadable static sites:
+
+| Interactive (Navigator) | Static Export |
+|---|---|
+| `/web/src/components/navigator/OverviewDiagram.tsx` | `/web/src/lib/staticSiteExport/svgDiagrams.ts` |
+| React components with SVG | Raw SVG string generation (`generateConcernsOverviewSvg`, `generateActivitiesOverviewSvg`) |
+
+Both use the same layout constants (`CARD_WIDTH`, `CARD_HEIGHT`, `CARD_GAP`, `INDENT`, etc.) and should produce visually consistent output. When you change layout logic, card styling, grouping, or structure in one, update the other to match.
+
 ---
 
 ## Common Tasks

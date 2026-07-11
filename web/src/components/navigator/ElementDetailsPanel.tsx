@@ -471,7 +471,7 @@ export function ElementDetailsPanel({
         overflowY: "auto",
       }}
     >
-      <div style={{ maxWidth: "80rem", margin: "0 auto" }}>
+      <div style={{ maxWidth: type === "overview" ? "none" : "80rem", margin: "0 auto" }}>
         {/* Overview: Alphas or Activities diagram - full page view without header */}
         {type === "overview" ? (
           <OverviewDiagram
@@ -865,6 +865,46 @@ export function ElementDetailsPanel({
               {/* Left column: Narratives - 55% (skip for introduction since it's shown above) */}
               <div style={{ flex: "0 0 55%", minWidth: 0 }}>
                 {hasNarratives && type !== "introduction" && renderNarratives(data.narratives, baseline)}
+
+                {/* Common Instances (alpha instances matching this alpha) */}
+                {type === "alpha" && (() => {
+                  const instances = (baseline.alphaInstances ?? []).filter((i: any) => i.alphaName === data.name);
+                  return instances.length > 0 ? (
+                    <div style={{ marginTop: hasNarratives ? "2rem" : 0 }}>
+                      <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                        Common Instances
+                      </Title>
+                      <ul style={{ fontSize: "0.875rem", lineHeight: 1.6, color: "var(--pf-v6-global--Color--100)", margin: 0, paddingLeft: "1.25rem", listStyleType: "disc" }}>
+                        {instances.map((instance: any) => (
+                          <li key={instance.name} style={{ marginBottom: "0.25rem", display: "list-item" }}>
+                            <span style={{ fontWeight: 600 }}>{instance.name}:</span>{" "}
+                            {instance.description || ""}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null;
+                })()}
+
+                {/* Common Examples (work product instances matching this work product) */}
+                {type === "workProduct" && (() => {
+                  const examples = (baseline.workProductInstances ?? []).filter((i: any) => i.workProductName === data.name);
+                  return examples.length > 0 ? (
+                    <div style={{ marginTop: hasNarratives || (baseline.alphaInstances && baseline.alphaInstances.length > 0) ? "2rem" : 0 }}>
+                      <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                        Common Examples
+                      </Title>
+                      <ul style={{ fontSize: "0.875rem", lineHeight: 1.6, color: "var(--pf-v6-global--Color--100)", margin: 0, paddingLeft: "1.25rem", listStyleType: "disc" }}>
+                        {examples.map((instance: any) => (
+                          <li key={instance.name} style={{ marginBottom: "0.25rem", display: "list-item" }}>
+                            <span style={{ fontWeight: 600 }}>{instance.name}:</span>{" "}
+                            {instance.description || ""}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null;
+                })()}
 
                 {/* Activity-specific sections */}
                 {type === "activity" && (

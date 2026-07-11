@@ -247,17 +247,13 @@ export function OverviewDiagram({
     const focusGroups: Array<{
       focusName: string;
       focus: typeof baseline.focuses[0] | undefined;
-      trees: Array<{ rootAlpha: typeof baseline.alphas[0]; tree: AlphaNode[]; height: number; score: number }>;
+      trees: Array<{ rootAlpha: typeof baseline.alphas[0]; tree: AlphaNode[]; height: number; score: number; treeWidth: number; treeHeight: number }>;
     }> = [];
 
-    let maxWidth = 0;
-
     Array.from(rootAlphasByFocus.entries()).forEach(([focusName, rootAlphas]) => {
-      const trees: Array<{ rootAlpha: typeof baseline.alphas[0]; tree: AlphaNode[]; height: number; score: number; rootX: number }> = [];
-      let currentX = 0;
+      const trees: Array<{ rootAlpha: typeof baseline.alphas[0]; tree: AlphaNode[]; height: number; score: number; treeWidth: number; treeHeight: number }> = [];
 
       rootAlphas.forEach((rootAlpha) => {
-        // Look up score for root
         let rootScore = 0;
         let rootScoreEntry = null;
         const focusGroup = alphaScores.get(focusName);
@@ -269,22 +265,22 @@ export function OverviewDiagram({
           }
         }
 
-        // Build tree for children at current X position
-        const { nodes, totalHeight } = buildAlphaTree(rootAlpha.name, baseline.alphas || [], currentX + INDENT, CARD_HEIGHT + CARD_GAP, rootScoreEntry);
+        const { nodes, totalHeight } = buildAlphaTree(rootAlpha.name, baseline.alphas || [], INDENT, CARD_HEIGHT + CARD_GAP, rootScoreEntry);
 
-        // Calculate max depth for this tree to determine width
         const maxDepth = nodes.length > 0 ? Math.max(0, ...nodes.map(n => countDepth(n))) : 0;
-        const treeWidth = CARD_WIDTH + (maxDepth > 0 ? (maxDepth + 1) * INDENT : 0) + 42;
+        const treeWidth = nodes.length > 0
+          ? (maxDepth + 1) * INDENT + CARD_WIDTH
+          : CARD_WIDTH;
+        const treeHeight = Math.max(CARD_HEIGHT, CARD_HEIGHT + CARD_GAP + totalHeight);
 
         trees.push({
           rootAlpha,
           tree: nodes,
           height: totalHeight,
           score: rootScore,
-          rootX: currentX
+          treeWidth,
+          treeHeight,
         });
-
-        currentX += treeWidth;
       });
 
       focusGroups.push({
@@ -324,21 +320,17 @@ export function OverviewDiagram({
                 )}
               </div>
 
-              <svg width="100%" height={Math.max(...group.trees.map(t => CARD_HEIGHT + t.height + CARD_GAP + 24)) + 24} style={{ overflow: "visible" }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "24px", alignItems: "flex-start" }}>
                 {group.trees.map((treeData, treeIndex) => {
-                  const rootX = treeData.rootX;
-                  const rootY = 0;
-
-                  // Render root alpha card
                   const isRootSelected = selectedElement === treeData.rootAlpha.name;
                   const rootAssetRef = treeData.rootAlpha.assetNames?.find((a) => a.type === "icon");
                   const rootAsset = rootAssetRef ? findAsset(rootAssetRef.assetName, baseline.assets || []) : null;
 
-                  const rootCard = (
-                    <g key={`root-${treeData.rootAlpha.name}`}>
+                  return (
+                    <svg key={`tree-${treeData.rootAlpha.name}`} width={treeData.treeWidth} height={treeData.treeHeight} style={{ overflow: "visible" }}>
                       <rect
-                        x={rootX}
-                        y={rootY}
+                        x={0}
+                        y={0}
                         width={CARD_WIDTH}
                         height={CARD_HEIGHT}
                         rx="4"
@@ -349,8 +341,8 @@ export function OverviewDiagram({
                         onClick={() => onSelectElement(isRootSelected ? null : treeData.rootAlpha.name)}
                       />
                       <foreignObject
-                        x={rootX}
-                        y={rootY}
+                        x={0}
+                        y={0}
                         width={CARD_WIDTH}
                         height={CARD_HEIGHT}
                         style={{ pointerEvents: "none" }}
@@ -368,18 +360,12 @@ export function OverviewDiagram({
                           </div>
                         </div>
                       </foreignObject>
-                    </g>
+                      {renderAlphaNodes(treeData.tree, 0, 0)}
+                      {renderAlphaCards(treeData.tree)}
+                    </svg>
                   );
-
-                  // Render child tree
-                  const childElements = [
-                    ...renderAlphaNodes(treeData.tree, rootX, rootY),
-                    ...renderAlphaCards(treeData.tree)
-                  ];
-
-                  return [rootCard, ...childElements];
                 })}
-              </svg>
+              </div>
             </div>
           );
         })}
@@ -478,15 +464,13 @@ export function OverviewDiagram({
   const activityFocusGroups: Array<{
     focusName: string;
     focus: typeof baseline.focuses[0] | undefined;
-    trees: Array<{ spaceTree: ActivitySpaceTree; height: number }>;
+    trees: Array<{ spaceTree: ActivitySpaceTree; height: number; treeWidth: number }>;
   }> = [];
 
   Array.from(activitySpacesByFocus.entries()).forEach(([focusName, spaces]) => {
-    const trees: Array<{ spaceTree: ActivitySpaceTree; height: number }> = [];
-    let currentX = 0;
+    const trees: Array<{ spaceTree: ActivitySpaceTree; height: number; treeWidth: number }> = [];
 
     spaces.forEach((space) => {
-      // Look up score for space
       let spaceScore = 0;
       let spaceScoreEntry = null;
       if (activitySpaceScores) {
@@ -502,18 +486,16 @@ export function OverviewDiagram({
         }
       }
 
-      // Build tree at current X position
-      const { tree, totalHeight } = buildActivityTree(space, currentX, 0, spaceScoreEntry);
+      const { tree, totalHeight } = buildActivityTree(space, 0, 0, spaceScoreEntry);
       tree.score = spaceScore;
+
+      const treeWidth = CARD_WIDTH + (space.activities && space.activities.length > 0 ? INDENT : 0);
 
       trees.push({
         spaceTree: tree,
-        height: totalHeight
+        height: totalHeight,
+        treeWidth,
       });
-
-      // Advance X position for next tree
-      const treeWidth = CARD_WIDTH + (space.activities && space.activities.length > 0 ? INDENT : 0) + 42;
-      currentX += treeWidth;
     });
 
     activityFocusGroups.push({
@@ -538,157 +520,124 @@ export function OverviewDiagram({
       </Title>
 
       {/* SVG-based activity visualization */}
-      {activityFocusGroups.map((group) => {
-        let currentX = 0;
+      {activityFocusGroups.map((group) => (
+        <div key={group.focusName} style={{ marginBottom: "2rem" }}>
+          <div style={{ marginBottom: "1rem" }}>
+            <Title headingLevel="h3" size="md" style={{ fontSize: "0.8125rem", marginBottom: "0.25rem" }}>
+              {group.focusName}
+            </Title>
+            {group.focus?.description && (
+              <div style={{ fontSize: "0.75rem", fontStyle: "italic", fontWeight: 400, color: "var(--pf-v6-global--Color--100)" }}>
+                {group.focus.description}
+              </div>
+            )}
+          </div>
 
-        return (
-          <div key={group.focusName} style={{ marginBottom: "2rem" }}>
-            <div style={{ marginBottom: "1rem" }}>
-              <Title headingLevel="h3" size="md" style={{ fontSize: "0.8125rem", marginBottom: "0.25rem" }}>
-                {group.focusName}
-              </Title>
-              {group.focus?.description && (
-                <div style={{ fontSize: "0.75rem", fontStyle: "italic", fontWeight: 400, color: "var(--pf-v6-global--Color--100)" }}>
-                  {group.focus.description}
-                </div>
-              )}
-            </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "24px", alignItems: "flex-start" }}>
+            {group.trees.map((treeData) => {
+              const space = treeData.spaceTree;
+              const isSpaceSelected = selectedElement === space.activitySpace.name;
+              const spaceAssetRef = space.activitySpace.assetNames?.find((a) => a.type === "icon");
+              const spaceAsset = spaceAssetRef ? findAsset(spaceAssetRef.assetName, baseline.assets || []) : null;
 
-            <svg width="100%" height={Math.max(...group.trees.map(t => t.height)) + 24} style={{ overflow: "visible" }}>
-              {group.trees.map((treeData) => {
-                const spaceX = currentX;
-                const spaceY = 0;
-                const space = treeData.spaceTree;
-
-                const isSpaceSelected = selectedElement === space.activitySpace.name;
-                const spaceAssetRef = space.activitySpace.assetNames?.find((a) => a.type === "icon");
-                const spaceAsset = spaceAssetRef ? findAsset(spaceAssetRef.assetName, baseline.assets || []) : null;
-
-                // Render activity space card with arrow shape
-                const spaceCard = (
-                  <g key={`space-${space.activitySpace.name}`}>
-                    {/* Arrow-shaped activity space - filled path with dashed stroke */}
-                    <path
-                      d={`M 0 0 L ${CARD_WIDTH - 12} 0 L ${CARD_WIDTH} ${CARD_HEIGHT / 2} L ${CARD_WIDTH - 12} ${CARD_HEIGHT} L 0 ${CARD_HEIGHT} Z`}
-                      transform={`translate(${spaceX}, ${spaceY})`}
-                      fill={getScoreBackgroundColor(space.score, isSpaceSelected)}
-                      stroke={isSpaceSelected ? "var(--pf-v6-global--primary-color--100)" : "var(--pf-v6-global--BorderColor--100)"}
-                      strokeWidth={isSpaceSelected ? "3" : "1"}
-                      strokeDasharray="4"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => onSelectElement(isSpaceSelected ? null : space.activitySpace.name)}
-                    />
-                    <foreignObject
-                      x={spaceX}
-                      y={spaceY}
-                      width={CARD_WIDTH - 12}
-                      height={CARD_HEIGHT}
-                      style={{ pointerEvents: "none" }}
-                    >
-                      <div style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.5rem",
-                        padding: "0.75rem",
-                        height: "100%"
-                      }}>
-                        {spaceAsset && <IconAsset asset={spaceAsset} size={18} />}
-                        <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
-                          <AliasedName kind="activitySpace" name={space.activitySpace.name} browse={false} />
-                        </div>
+              return (
+                <svg key={`tree-${space.activitySpace.name}`} width={treeData.treeWidth} height={treeData.height} style={{ overflow: "visible" }}>
+                  <path
+                    d={`M 0 0 L ${CARD_WIDTH - 12} 0 L ${CARD_WIDTH} ${CARD_HEIGHT / 2} L ${CARD_WIDTH - 12} ${CARD_HEIGHT} L 0 ${CARD_HEIGHT} Z`}
+                    fill={getScoreBackgroundColor(space.score, isSpaceSelected)}
+                    stroke={isSpaceSelected ? "var(--pf-v6-global--primary-color--100)" : "var(--pf-v6-global--BorderColor--100)"}
+                    strokeWidth={isSpaceSelected ? "3" : "1"}
+                    strokeDasharray="4"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => onSelectElement(isSpaceSelected ? null : space.activitySpace.name)}
+                  />
+                  <foreignObject
+                    x={0}
+                    y={0}
+                    width={CARD_WIDTH - 12}
+                    height={CARD_HEIGHT}
+                    style={{ pointerEvents: "none" }}
+                  >
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      padding: "0.75rem",
+                      height: "100%"
+                    }}>
+                      {spaceAsset && <IconAsset asset={spaceAsset} size={18} />}
+                      <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
+                        <AliasedName kind="activitySpace" name={space.activitySpace.name} browse={false} />
                       </div>
-                    </foreignObject>
-                  </g>
-                );
+                    </div>
+                  </foreignObject>
 
-                // Render connecting lines and activities
-                const activityElements: JSX.Element[] = [];
-
-                if (space.activities.length > 0) {
-                  // Vertical line from space to activities
-                  const spaceBottomY = spaceY + CARD_HEIGHT;
-                  const lastActivityCenterY = space.activities[space.activities.length - 1].y + CARD_HEIGHT / 2;
-
-                  activityElements.push(
-                    <line
-                      key={`v-${space.activitySpace.name}`}
-                      x1={spaceX + LINE_OFFSET}
-                      y1={spaceBottomY}
-                      x2={spaceX + LINE_OFFSET}
-                      y2={lastActivityCenterY}
-                      stroke="rgba(102, 102, 102, 0.8)"
-                      strokeWidth="3"
-                    />
-                  );
-
-                  // Render each activity
-                  space.activities.forEach((actNode) => {
-                    const isActivitySelected = selectedElement === actNode.activity.name;
-                    const activityAssetRef = actNode.activity.assetNames?.find((a) => a.type === "icon");
-                    const activityAsset = activityAssetRef ? findAsset(activityAssetRef.assetName, baseline.assets || []) : null;
-                    const activityCenterY = actNode.y + CARD_HEIGHT / 2;
-
-                    // Horizontal line
-                    activityElements.push(
+                  {space.activities.length > 0 && (
+                    <>
                       <line
-                        key={`h-${actNode.activity.name}`}
-                        x1={spaceX + LINE_OFFSET}
-                        y1={activityCenterY}
-                        x2={actNode.x}
-                        y2={activityCenterY}
+                        x1={LINE_OFFSET}
+                        y1={CARD_HEIGHT}
+                        x2={LINE_OFFSET}
+                        y2={space.activities[space.activities.length - 1].y + CARD_HEIGHT / 2}
                         stroke="rgba(102, 102, 102, 0.8)"
                         strokeWidth="3"
                       />
-                    );
+                      {space.activities.map((actNode) => {
+                        const isActivitySelected = selectedElement === actNode.activity.name;
+                        const activityAssetRef = actNode.activity.assetNames?.find((a) => a.type === "icon");
+                        const activityAsset = activityAssetRef ? findAsset(activityAssetRef.assetName, baseline.assets || []) : null;
+                        const activityCenterY = actNode.y + CARD_HEIGHT / 2;
 
-                    // Activity card with arrow shape
-                    activityElements.push(
-                      <g key={`activity-${actNode.activity.name}`}>
-                        {/* Arrow-shaped activity - filled path with solid stroke */}
-                        <path
-                          d={`M 0 0 L ${CARD_WIDTH - 12} 0 L ${CARD_WIDTH} ${CARD_HEIGHT / 2} L ${CARD_WIDTH - 12} ${CARD_HEIGHT} L 0 ${CARD_HEIGHT} Z`}
-                          transform={`translate(${actNode.x}, ${actNode.y})`}
-                          fill={getScoreBackgroundColor(actNode.score, isActivitySelected)}
-                          stroke={isActivitySelected ? "var(--pf-v6-global--primary-color--100)" : "var(--pf-v6-global--BorderColor--100)"}
-                          strokeWidth={isActivitySelected ? "3" : "1"}
-                          style={{ cursor: "pointer" }}
-                          onClick={() => onSelectElement(isActivitySelected ? null : actNode.activity.name)}
-                        />
-                        <foreignObject
-                          x={actNode.x}
-                          y={actNode.y}
-                          width={CARD_WIDTH - 12}
-                          height={CARD_HEIGHT}
-                          style={{ pointerEvents: "none" }}
-                        >
-                          <div style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                            padding: "0.75rem",
-                            height: "100%"
-                          }}>
-                            {activityAsset && <IconAsset asset={activityAsset} size={18} />}
-                            <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
-                              <AliasedName kind="activity" name={actNode.activity.name} browse={false} />
-                            </div>
-                          </div>
-                        </foreignObject>
-                      </g>
-                    );
-                  });
-                }
-
-                // Calculate width for next space
-                const treeWidth = CARD_WIDTH + (space.activities.length > 0 ? INDENT : 0) + 42;
-                currentX += treeWidth;
-
-                return [spaceCard, ...activityElements];
-              })}
-            </svg>
+                        return (
+                          <g key={`activity-${actNode.activity.name}`}>
+                            <line
+                              x1={LINE_OFFSET}
+                              y1={activityCenterY}
+                              x2={actNode.x}
+                              y2={activityCenterY}
+                              stroke="rgba(102, 102, 102, 0.8)"
+                              strokeWidth="3"
+                            />
+                            <path
+                              d={`M 0 0 L ${CARD_WIDTH - 12} 0 L ${CARD_WIDTH} ${CARD_HEIGHT / 2} L ${CARD_WIDTH - 12} ${CARD_HEIGHT} L 0 ${CARD_HEIGHT} Z`}
+                              transform={`translate(${actNode.x}, ${actNode.y})`}
+                              fill={getScoreBackgroundColor(actNode.score, isActivitySelected)}
+                              stroke={isActivitySelected ? "var(--pf-v6-global--primary-color--100)" : "var(--pf-v6-global--BorderColor--100)"}
+                              strokeWidth={isActivitySelected ? "3" : "1"}
+                              style={{ cursor: "pointer" }}
+                              onClick={() => onSelectElement(isActivitySelected ? null : actNode.activity.name)}
+                            />
+                            <foreignObject
+                              x={actNode.x}
+                              y={actNode.y}
+                              width={CARD_WIDTH - 12}
+                              height={CARD_HEIGHT}
+                              style={{ pointerEvents: "none" }}
+                            >
+                              <div style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                                padding: "0.75rem",
+                                height: "100%"
+                              }}>
+                                {activityAsset && <IconAsset asset={activityAsset} size={18} />}
+                                <div style={{ fontWeight: 600, fontSize: "0.6875rem" }}>
+                                  <AliasedName kind="activity" name={actNode.activity.name} browse={false} />
+                                </div>
+                              </div>
+                            </foreignObject>
+                          </g>
+                        );
+                      })}
+                    </>
+                  )}
+                </svg>
+              );
+            })}
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 }

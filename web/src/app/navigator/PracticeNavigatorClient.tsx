@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useEffect, useMemo } from "react";
 import { Spinner, Title } from "@patternfly/react-core";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
+import { documentNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { asBaselineDocument, groupByFocus } from "@/lib/ir";
 import type { PracticeBaseline } from "@/lib/types";
 import { NavigatorLayout } from "@/components/navigator/NavigatorLayout";
@@ -61,14 +62,7 @@ export function PracticeNavigatorClient() {
 
   // Determine if we need to resolve library dependencies
   const shouldResolve = useMemo(() => {
-    if (!doc || typeof doc !== "object" || doc === null) return false;
-    // Check for named library references (load from library)
-    const hasBaselineName = "baselinePracticeName" in doc;
-    const hasDependencies = "practiceDependencyNames" in doc;
-    // Check for embedded objects that need merging (Method Builder embedded practices)
-    const hasEmbeddedBaseline = "baselinePractice" in doc;
-    const hasEmbeddedPractices = "practices" in doc && Array.isArray((doc as any).practices) && (doc as any).practices.length > 0;
-    return hasBaselineName || hasDependencies || hasEmbeddedBaseline || hasEmbeddedPractices;
+    return documentNeedsLibraryResolution(doc);
   }, [doc]);
 
   // Resolve library dependencies if needed

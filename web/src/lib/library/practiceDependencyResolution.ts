@@ -885,7 +885,116 @@ export function orderedTransitiveExtensionPractices(primary: Practice, index: Li
   return ordered;
 }
 
-/** Library snapshot embedded in browse “Dependencies” (baseline or extension practice bodies). */
+/**
+ * Post-order DFS through {@link PracticeBaseline.baselinePracticeNames}: recursively resolve
+ * transitive baseline dependencies before the primary baseline.
+ * Each distinct baseline name merges once. Missing library rows are skipped.
+ *
+ * @throws When `baselinePracticeNames` forms a cycle.
+ */
+export function orderedTransitiveBaselinePractices(primary: PracticeBaseline, index: LibraryLookupIndex): PracticeBaseline[] {
+  const ordered: PracticeBaseline[] = [];
+  const done = new Set<string>();
+  const visiting = new Set<string>();
+
+  function visitBaseline(b: PracticeBaseline): void {
+    const n = String(b.name ?? "").trim();
+    if (!n || done.has(n)) return;
+    if (visiting.has(n))
+      throw new Error(`Circular baselinePracticeNames at "${n}" (baseline dependency resolution).`);
+
+    visiting.add(n);
+    try {
+      for (const dep of uniqStrings((b.baselinePracticeNames ?? []) as string[])) {
+        if (dep === n) continue;
+        const depB = findBaselineInLibrary(index, dep);
+        if (depB) visitBaseline(depB);
+      }
+    } finally {
+      visiting.delete(n);
+    }
+
+    done.add(n);
+    ordered.push(clone(b));
+  }
+
+  visitBaseline(primary);
+  return ordered;
+}
+
+/**
+ * Resolve a baseline's {@link PracticeBaseline.baselinePracticeNames} recursively: loads
+ * referenced baselines from the library, merges them in dependency order, then overlays the
+ * primary baseline on top. Returns the original baseline unchanged if it has no dependencies.
+ */
+export function resolveBaselineWithDependencies(baseline: PracticeBaseline, index: LibraryLookupIndex): PracticeBaseline {
+  const deps = baseline.baselinePracticeNames;
+  if (!Array.isArray(deps) || deps.length === 0) return baseline;
+
+  const chain = orderedTransitiveBaselinePractices(baseline, index);
+  if (chain.length <= 1) return baseline;
+
+  const seed = chain[0];
+  delete (seed as any).baselinePracticeNames;
+
+  const overlays = chain.slice(1).map(b => {
+    const p = { ...b, baselinePracticeName: String(seed.name ?? "") } as unknown as Practice;
+    delete (p as any).baselinePracticeNames;
+    return p;
+  });
+
+  const method: Method = {
+    name: String(baseline.name ?? "Baseline"),
+    description: String(baseline.description ?? ""),
+    baselinePractice: seed,
+    practices: overlays,
+  };
+
+  const merged = compositePracticeFromMethod(method) as Record<string, unknown>;
+  delete merged.mergesBaselinePracticeName;
+  delete merged.baselinePracticeName;
+  return merged as unknown as PracticeBaseline;
+}
+
+/**
+ * Expand a method's practice layers to include transitive {@link Practice.practiceDependencyNames}
+ * loaded from the library. Practices already present (by name) are not duplicated. Dependencies
+ * are inserted before the practice that requires them (DFS post-order).
+ */
+export function expandMethodPracticeDependencies(practices: Practice[], library: LibraryLookupIndex): Practice[] {
+  const ordered: Practice[] = [];
+  const done = new Set<string>();
+  const visiting = new Set<string>();
+
+  function visit(p: Practice): void {
+    const n = String(p.name ?? "").trim();
+    if (!n || done.has(n)) return;
+    if (visiting.has(n))
+      throw new Error(`Circular practiceDependencyNames at "${n}" (method practice dependency expansion).`);
+
+    visiting.add(n);
+    try {
+      for (const depName of uniqStrings((p.practiceDependencyNames ?? []) as string[])) {
+        if (depName === n || done.has(depName)) continue;
+        const dep = findPracticeInLibrary(library, depName);
+        if (dep) visit(clone(dep));
+      }
+    } finally {
+      visiting.delete(n);
+    }
+
+    done.add(n);
+    ordered.push(p);
+  }
+
+  for (const p of practices) {
+    visit(p);
+  }
+
+  return ordered;
+}
+
+/** Library snapshot embedded in browse "Dependencies" (baseline or extension practice bodies). */
 export type BrowseDependencyArtifact = {
   role: "baselinePractice" | "practice";
   /** Canonical {@link PracticeElement.name} */
@@ -918,6 +1027,15 @@ export function collectBrowseDependencyArtifacts(primary: unknown, index: Librar
     if (!pb?.name) return;
     out.push({ role: "practice", name: String(pb.name).trim(), body: structuredClone(pb) as Record<string, unknown> });
   };
+
+  if (root === "baselinePractice") {
+    const self = typeof o.name === "string" ? o.name.trim() : "";
+    for (const raw of uniqStrings((o.baselinePracticeNames ?? []) as string[])) {
+      if (!raw || raw === self) continue;
+      addBaselineFromName(raw);
+    }
+    return out;
+  }
 
   if (root === "practice") {
     const bn = typeof o.baselinePracticeName === "string" ? o.baselinePracticeName.trim() : "";
@@ -1041,6 +1159,28 @@ function fillUnresolvedFocusNamesFromSourceChain(merged: Record<string, unknown>
   finalizeImplicitFocusPlaceholders(merged as { activitySpaces?: any[]; alphas?: any[] });
 }
 
+export function baselineNeedsLibraryResolution(doc: unknown): boolean {
+  if (!doc || typeof doc !== "object") return false;
+  if (classifyLibraryRoot(doc) !== "baselinePractice") return false;
+  const o = doc as Record<string, unknown>;
+  const deps = o.baselinePracticeNames;
+  return Array.isArray(deps) && deps.length > 0;
+}
+
+export function documentNeedsLibraryResolution(doc: unknown): boolean {
+  if (!doc || typeof doc !== "object") return false;
+  const root = classifyLibraryRoot(doc);
+  if (root === "method") return methodNeedsLibraryResolution(doc);
+  if (root === "baselinePractice") return baselineNeedsLibraryResolution(doc);
+  if (root === "practice") return practiceNeedsLibraryResolution(doc);
+  return false;
+}
+
+export function resolveBaselinePracticeWithLibraryIndex(primary: unknown, index: LibraryLookupIndex): unknown {
+  if (!baselineNeedsLibraryResolution(primary)) return primary;
+  return resolveBaselineWithDependencies(primary as PracticeBaseline, index);
+}
+
 export function practiceNeedsLibraryResolution(doc: unknown): boolean {
   if (!doc || typeof doc !== "object") return false;
   if (classifyLibraryRoot(doc) !== "practice") return false;
@@ -1082,6 +1222,16 @@ function stripExtensionBaselineNameForKernelComposite(doc: Record<string, unknow
 export function resolveMethodWithLibraryIndex(method: unknown, index: LibraryLookupIndex): unknown {
   if (!methodNeedsLibraryResolution(method)) return method;
   return compositePracticeFromMethod(method as Method, index);
+}
+
+/**
+ * Universal resolver: dispatches to method, baseline, or practice resolution based on document classification.
+ */
+export function resolveDocumentWithLibraryIndex(doc: unknown, index: LibraryLookupIndex): unknown {
+  const root = classifyLibraryRoot(doc);
+  if (root === "method") return resolveMethodWithLibraryIndex(doc, index);
+  if (root === "baselinePractice") return resolveBaselinePracticeWithLibraryIndex(doc, index);
+  return resolvePracticeWithLibraryIndex(doc, index);
 }
 
 export function resolvePracticeWithLibraryIndex(primary: unknown, index: LibraryLookupIndex): unknown {

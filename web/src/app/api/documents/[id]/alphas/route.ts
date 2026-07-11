@@ -3,12 +3,9 @@ import { getJsonDocumentStore } from "@/lib/storage";
 import { normalizePracticeBody } from "@/lib/core/normalizePractice";
 import {
   buildLibraryLookupIndex,
-  resolvePracticeWithLibraryIndex,
-  resolveMethodWithLibraryIndex,
-  methodNeedsLibraryResolution,
+  resolveDocumentWithLibraryIndex,
 } from "@/lib/library/practiceDependencyResolution";
 import { loadAllLibraryDocumentBodies } from "@/lib/library/loadLibraryBodies";
-import { classifyLibraryRoot } from "@/lib/library/classify";
 import { asBaselineDocument } from "@/lib/ir";
 import { serverCache, CACHE_TTL } from "@/lib/cache/serverCache";
 
@@ -95,13 +92,7 @@ export async function GET(
     if (resolve) {
       const bodies = await loadAllLibraryDocumentBodies();
       const index = buildLibraryLookupIndex(bodies);
-      const rootKind = classifyLibraryRoot(doc);
-
-      if (rootKind === "method" && methodNeedsLibraryResolution(doc)) {
-        resolvedDoc = resolveMethodWithLibraryIndex(doc, index);
-      } else {
-        resolvedDoc = resolvePracticeWithLibraryIndex(doc, index);
-      }
+      resolvedDoc = resolveDocumentWithLibraryIndex(doc, index);
     }
 
     // Extract baseline and get alphas

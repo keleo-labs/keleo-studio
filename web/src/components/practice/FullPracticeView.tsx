@@ -12,7 +12,7 @@ import {
 } from "@/lib/ir";
 import { normalizePracticeElementTags } from "@/lib/display/elementDisplay";
 import { isStandaloneBaselinePracticeArtifact } from "@/lib/library/classify";
-import { practiceNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
+import { documentNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { formatPatternViewAlphaInstance, formatPatternViewAlphaState } from "@/lib/converters/patternView";
 import { useLanguagePack } from "@/lib/display/languagePack";
@@ -202,7 +202,7 @@ export function FullPracticeView({
   embed?: boolean;
 }) {
   const { t } = useLanguagePack();
-  const shouldResolveLibrary = useMemo(() => practiceNeedsLibraryResolution(doc), [doc]);
+  const shouldResolveLibrary = useMemo(() => documentNeedsLibraryResolution(doc), [doc]);
   const { loading: resolveBusy, resolved: libraryResolved } = usePracticeLibraryResolveForRender(doc, shouldResolveLibrary);
 
   const effectiveDoc = shouldResolveLibrary ? (libraryResolved ?? doc) : doc;

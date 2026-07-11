@@ -2,12 +2,9 @@ import { NextResponse } from "next/server";
 import { getJsonDocumentStore } from "@/lib/storage/getStore";
 import {
   buildLibraryLookupIndex,
-  resolvePracticeWithLibraryIndex,
-  resolveMethodWithLibraryIndex,
-  methodNeedsLibraryResolution,
+  resolveDocumentWithLibraryIndex,
 } from "@/lib/library/practiceDependencyResolution";
 import { loadAllLibraryDocumentBodies } from "@/lib/library/loadLibraryBodies";
-import { classifyLibraryRoot } from "@/lib/library/classify";
 import { normalizePracticeBody } from "@/lib/core/normalizePractice";
 import { generateStaticSite } from "@/lib/staticSiteExport";
 import { slugify } from "@/lib/staticSiteExport/slugs";
@@ -33,13 +30,7 @@ export async function GET(_req: Request, ctx: Ctx) {
 
     const bodies = await loadAllLibraryDocumentBodies();
     const index = buildLibraryLookupIndex(bodies);
-    const rootKind = classifyLibraryRoot(doc);
-
-    if (rootKind === "method" && methodNeedsLibraryResolution(doc)) {
-      doc = resolveMethodWithLibraryIndex(doc, index);
-    } else if (rootKind === "practice") {
-      doc = resolvePracticeWithLibraryIndex(doc, index);
-    }
+    doc = resolveDocumentWithLibraryIndex(doc, index);
 
     const { files, practiceName } = generateStaticSite(doc);
 
