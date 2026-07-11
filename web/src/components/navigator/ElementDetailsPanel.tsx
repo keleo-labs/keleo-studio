@@ -15,6 +15,7 @@ import { practiceElementDescriptionForDisplay } from "@/lib/ir";
 import { PatternTable } from "./PatternTable";
 import { OverviewDiagram } from "./OverviewDiagram";
 import { AliasedName } from "../common/AliasedName";
+import { AlphaStateTable } from "./AlphaStateTable";
 
 interface ElementDetailsPanelProps {
   selectedElement: {
@@ -30,6 +31,7 @@ interface ElementDetailsPanelProps {
   activitySpaceScores?: Map<string, ActivitySpaceFocusGroup>;
   onSetSecondaryElement: (element: string | null) => void;
   secondaryElementName: string | null;
+  onSetMode?: (mode: "concerns" | "activities") => void;
 }
 
 // Helper function to render narratives
@@ -299,7 +301,21 @@ export function ElementDetailsPanel({
   activitySpaceScores,
   onSetSecondaryElement,
   secondaryElementName,
+  onSetMode,
 }: ElementDetailsPanelProps) {
+  // Helper to set secondary element with automatic mode switching
+  const setSecondaryWithModeSwitch = (elementName: string | null, elementType?: "alpha" | "activity") => {
+    if (elementName && elementType && onSetMode) {
+      // Switch mode based on element type
+      if (elementType === "alpha" && mode !== "concerns") {
+        onSetMode("concerns");
+      } else if (elementType === "activity" && mode !== "activities") {
+        onSetMode("activities");
+      }
+    }
+    onSetSecondaryElement(elementName);
+  };
+
   // State to hold the practice library ID lookup
   const [practiceLibraryIds, setPracticeLibraryIds] = useState<Record<string, string>>({});
 
@@ -392,7 +408,22 @@ export function ElementDetailsPanel({
             mode={mode}
             alphaScores={alphaScores}
             activitySpaceScores={activitySpaceScores}
-            onSelectElement={(elementName) => onSetSecondaryElement(elementName)}
+            onSelectElement={(elementName) => {
+              // Determine element type based on current mode and baseline data
+              const isAlpha = baseline.alphas.some(a => a.name === elementName);
+              const isActivitySpace = baseline.activitySpaces?.some(s => s.name === elementName);
+              const isActivity = baseline.activitySpaces?.some(s =>
+                s.activities?.some(a => a.name === elementName)
+              );
+
+              if (isAlpha) {
+                setSecondaryWithModeSwitch(elementName, "alpha");
+              } else if (isActivity || isActivitySpace) {
+                setSecondaryWithModeSwitch(elementName, "activity");
+              } else {
+                onSetSecondaryElement(elementName);
+              }
+            }}
             selectedElement={secondaryElementName}
           />
         ) : (
@@ -735,8 +766,8 @@ export function ElementDetailsPanel({
               baseline={baseline}
               assets={assets}
               selectedElement={secondaryElementName}
-              onSelectAlpha={(alphaName) => onSetSecondaryElement(alphaName)}
-              onSelectState={(alphaName, stateName) => onSetSecondaryElement(`${alphaName}::${stateName}`)}
+              onSelectAlpha={(alphaName) => setSecondaryWithModeSwitch(alphaName, "alpha")}
+              onSelectState={(alphaName, stateName) => setSecondaryWithModeSwitch(`${alphaName}::${stateName}`, "alpha")}
             />
             </div>
           )}
@@ -745,11 +776,10 @@ export function ElementDetailsPanel({
           {/* Type-specific sections */}
           {type !== "pattern" && type !== "references" && (
           <div style={{ display: "flex", gap: "2rem", marginTop: "2rem" }}>
-            {/* If no narratives, show states/activities/LODs on the left */}
-            {!hasNarratives && (hasStates || hasActivities || hasLODs) ? (
+            {/* If no narratives, show activities/LODs on the left (but NOT states for alphas) */}
+            {!hasNarratives && ((type !== "alpha" && (hasStates || hasActivities || hasLODs)) || (type === "alpha" && (hasActivities || hasLODs))) ? (
             <>
               <div style={{ flex: "0 0 45%", minWidth: "15rem" }}>
-                {hasStates && renderStatesList(data, assets, asset, secondaryElementName, onSetSecondaryElement)}
                 {hasActivities && renderActivitiesList(data, assets, onSetSecondaryElement)}
                 {hasLODs && type === "workProduct" && (
                   <div>
@@ -1097,10 +1127,85 @@ export function ElementDetailsPanel({
                 )}
               </div>
 
-              {/* Right column: States/Activities/Practices - 45% */}
-              {hasStates && (
+              {/* Right column: States/Activities/Practices - 45% (but NOT states for alphas - they go in table below) */}
+              {hasStates && type !== "alpha" && (
                 <div style={{ flex: "0 0 45%", minWidth: "15rem", paddingRight: "2rem" }}>
                   {renderStatesList(data, assets, asset, secondaryElementName, onSetSecondaryElement)}
+                </div>
+              )}
+
+              {/* For alphas, show Relates To in the right column instead of states */}
+              {type === "alpha" && data.relatesTo && data.relatesTo.length > 0 && (
+                <div style={{ flex: "0 0 45%", minWidth: "15rem", paddingRight: "2rem" }}>
+                  <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                    Relates To
+                  </Title>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                    {data.relatesTo.map((relation: any, idx: number) => {
+                      const relatedAlpha = baseline.alphas.find((a) => a.name === relation.alphaName);
+                      const alphaAssetRef = relatedAlpha?.assetNames?.find((a: any) => a.type === "icon");
+                      const alphaAsset = alphaAssetRef ? findAsset(alphaAssetRef.assetName, assets) : null;
+                      const isSelected = secondaryElementName === relation.alphaName;
+
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => onSetSecondaryElement(isSelected ? null : relation.alphaName)}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            padding: "0.75rem",
+                            border: isSelected
+                              ? "3px solid var(--pf-v6-global--primary-color--100)"
+                              : "2px solid var(--pf-v6-global--BorderColor--100)",
+                            borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                            backgroundColor: isSelected
+                              ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                              : "var(--pf-v6-global--BackgroundColor--100)",
+                            cursor: "pointer",
+                            textAlign: "left",
+                            width: "100%",
+                            transition: "all 0.2s",
+                          }}
+                          onMouseEnter={(e) => {
+                            if (!isSelected) {
+                              e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (!isSelected) {
+                              e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--100)";
+                            }
+                          }}
+                        >
+                          {alphaAsset && <IconAsset asset={alphaAsset} size={16} style={{ flexShrink: 0 }} />}
+                          <div style={{ fontSize: "0.8125rem", flex: 1 }}>
+                            <span style={{ fontStyle: "italic", color: "var(--pf-v6-global--Color--200)" }}>
+                              {relation.relationship}
+                            </span>
+                            {" "}
+                            <span style={{ fontWeight: 600 }}>
+                              {relation.alphaName}
+                            </span>
+                          </div>
+                          {isSelected && (
+                            <span
+                              style={{
+                                fontSize: "1rem",
+                                fontWeight: 400,
+                                color: "var(--pf-v6-global--Color--200)",
+                                lineHeight: 1,
+                                flexShrink: 0,
+                              }}
+                            >
+                              ×
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 
@@ -1214,79 +1319,15 @@ export function ElementDetailsPanel({
             </div>
           )}
 
-          {/* Alpha-specific: Relates To - shown regardless of narratives */}
-          {type === "alpha" && data.relatesTo && data.relatesTo.length > 0 && (
-          <div style={{ marginTop: "2rem" }}>
-            <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-              Relates To
-            </Title>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", maxWidth: "40rem" }}>
-              {data.relatesTo.map((relation: any, idx: number) => {
-                const relatedAlpha = baseline.alphas.find((a) => a.name === relation.alphaName);
-                const alphaAssetRef = relatedAlpha?.assetNames?.find((a: any) => a.type === "icon");
-                const alphaAsset = alphaAssetRef ? findAsset(alphaAssetRef.assetName, assets) : null;
-                const isSelected = secondaryElementName === relation.alphaName;
-
-                return (
-                  <button
-                    key={idx}
-                    onClick={() => onSetSecondaryElement(isSelected ? null : relation.alphaName)}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                      padding: "0.75rem",
-                      border: isSelected
-                        ? "3px solid var(--pf-v6-global--primary-color--100)"
-                        : "2px solid var(--pf-v6-global--BorderColor--100)",
-                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                      backgroundColor: isSelected
-                        ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                        : "var(--pf-v6-global--BackgroundColor--100)",
-                      cursor: "pointer",
-                      textAlign: "left",
-                      width: "100%",
-                      transition: "all 0.2s",
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isSelected) {
-                        e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isSelected) {
-                        e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--100)";
-                      }
-                    }}
-                  >
-                    {alphaAsset && <IconAsset asset={alphaAsset} size={16} style={{ flexShrink: 0 }} />}
-                    <div style={{ fontSize: "0.8125rem", flex: 1 }}>
-                      <span style={{ fontStyle: "italic", color: "var(--pf-v6-global--Color--200)" }}>
-                        {relation.relationship}
-                      </span>
-                      {" "}
-                      <span style={{ fontWeight: 600 }}>
-                        {relation.alphaName}
-                      </span>
-                    </div>
-                    {isSelected && (
-                      <span
-                        style={{
-                          fontSize: "1rem",
-                          fontWeight: 400,
-                          color: "var(--pf-v6-global--Color--200)",
-                          lineHeight: 1,
-                          flexShrink: 0,
-                        }}
-                      >
-                        ×
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          {/* Alpha-specific: State table - shown at bottom after narratives/relates-to */}
+          {type === "alpha" && hasStates && (
+            <AlphaStateTable
+              alpha={data}
+              baseline={baseline}
+              assets={assets}
+              selectedElement={secondaryElementName}
+              onSelectElement={onSetSecondaryElement}
+            />
           )}
 
           {/* Persona Group-specific: Personas in this group */}
@@ -1368,69 +1409,39 @@ export function ElementDetailsPanel({
               <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
                 Competencies
               </Title>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                {data.competencies.map((compRef: any) => {
-                  const competency = baseline.competencies?.find((c) => c.name === compRef.competencyName);
-                  if (!competency) return null;
-
-                  const level = competency.levels?.find((l: any) => l.name === compRef.competencyLevelName);
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                {data.competencies.map((compRef: any, idx: number) => {
                   const isSelected = secondaryElementName === compRef.competencyName;
-
                   return (
                     <button
-                      key={compRef.competencyName}
+                      key={`${compRef.competencyName}-${compRef.competencyLevelName}-${idx}`}
                       onClick={() => onSetSecondaryElement(isSelected ? null : compRef.competencyName)}
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.75rem",
-                        padding: "0.75rem 1rem",
-                        border: isSelected
-                          ? "3px solid var(--pf-v6-global--primary-color--100)"
-                          : "2px solid var(--pf-v6-global--BorderColor--100)",
+                        fontSize: "0.75rem",
+                        padding: "0.375rem 0.75rem",
                         borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
                         backgroundColor: isSelected
-                          ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                          : "var(--pf-v6-global--BackgroundColor--100)",
+                          ? "var(--pf-v6-global--primary-color--100)"
+                          : "var(--pf-v6-global--BackgroundColor--200)",
+                        color: isSelected ? "white" : "var(--pf-v6-global--Color--100)",
+                        border: isSelected
+                          ? "1px solid var(--pf-v6-global--primary-color--100)"
+                          : "1px solid var(--pf-v6-global--BorderColor--100)",
                         cursor: "pointer",
-                        textAlign: "left",
-                        width: "100%",
                         transition: "all 0.2s",
                       }}
                       onMouseEnter={(e) => {
                         if (!isSelected) {
-                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--300)";
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (!isSelected) {
-                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--100)";
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
                         }
                       }}
                     >
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: "0.8125rem", fontWeight: 600 }}>
-                          <AliasedName kind="competency" name={compRef.competencyName} browse={false} />
-                        </div>
-                        {level && (
-                          <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
-                            Level {level.level}: {level.name}
-                          </div>
-                        )}
-                      </div>
-                      {isSelected && (
-                        <span
-                          style={{
-                            fontSize: "1rem",
-                            fontWeight: 400,
-                            color: "var(--pf-v6-global--Color--200)",
-                            lineHeight: 1,
-                            flexShrink: 0,
-                          }}
-                        >
-                          ×
-                        </span>
-                      )}
+                      {compRef.competencyName} → {compRef.competencyLevelName}
                     </button>
                   );
                 })}

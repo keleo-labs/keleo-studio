@@ -38,11 +38,15 @@ export async function GET(req: Request) {
         };
       }
       const body = normalizePracticeBody(full?.body);
+      const description = body && typeof body === 'object' && 'description' in body
+        ? String(body.description)
+        : undefined;
       return {
         ...m,
         ...(withBody ? { body } : {}),
         libraryRootKind: classifyLibraryRoot(body),
         displayName: displayNameForBody(body, m.title),
+        description,
         virtualFileCount: listVirtualElementFiles(body).length,
         baselineNameForPracticeLink: baselineNameForPracticeLink(body),
         practiceNameForDependencyLink: practiceNameForDependencyLink(body),

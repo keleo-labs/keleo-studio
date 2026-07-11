@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Button, Title, Modal, ModalVariant } from "@patternfly/react-core";
+import { useState, useEffect } from "react";
+import { Button, Title } from "@patternfly/react-core";
 import { EditIcon, TrashIcon, AngleUpIcon, AngleDownIcon } from "@patternfly/react-icons";
 import { LibraryDocumentCard } from "../common/LibraryDocumentCard";
 import type { DashboardSection, EnrichedMeta } from "@/lib/data/dashboardConfig";
@@ -43,6 +43,26 @@ export function DashboardSectionCarousel({
     setShowDeleteConfirm(false);
     onDeleteSection();
   };
+
+  const handleCancelDelete = () => {
+    setShowDeleteConfirm(false);
+  };
+
+  // Handle Escape key and body overflow when delete dialog is open
+  useEffect(() => {
+    if (!showDeleteConfirm) return;
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") handleCancelDelete();
+    }
+    document.addEventListener("keydown", onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [showDeleteConfirm]);
 
   return (
     <>
@@ -193,25 +213,133 @@ export function DashboardSectionCarousel({
     </div>
 
     {/* Delete confirmation modal */}
-    <Modal
-      variant={ModalVariant.small}
-      title="Delete section?"
-      isOpen={showDeleteConfirm}
-      onClose={() => setShowDeleteConfirm(false)}
-      actions={[
-        <Button key="confirm" variant="danger" onClick={handleConfirmDelete}>
-          Delete
-        </Button>,
-        <Button key="cancel" variant="link" onClick={() => setShowDeleteConfirm(false)}>
-          Cancel
-        </Button>,
-      ]}
-    >
-      <p>
-        Are you sure you want to delete the section <strong>{section.name}</strong>?
-        This action cannot be undone.
-      </p>
-    </Modal>
+    {showDeleteConfirm && (
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 50,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "1rem",
+        }}
+      >
+        {/* Backdrop */}
+        <button
+          type="button"
+          aria-label="Close dialog"
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backdropFilter: "blur(2px)",
+            border: "none",
+            cursor: "pointer",
+          }}
+          onClick={handleCancelDelete}
+        />
+
+        {/* Dialog */}
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="delete-section-heading"
+          style={{
+            position: "relative",
+            zIndex: 10,
+            display: "flex",
+            width: "100%",
+            maxWidth: "32rem",
+            flexDirection: "column",
+            borderRadius: "var(--pf-v6-global--BorderRadius--lg)",
+            border: "1px solid var(--pf-v6-global--BorderColor--100)",
+            backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+            boxShadow: "var(--pf-v6-global--BoxShadow--xl)",
+          }}
+          onMouseDown={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div
+            style={{
+              display: "flex",
+              flexShrink: 0,
+              alignItems: "flex-start",
+              borderBottom: "1px solid var(--pf-v6-global--BorderColor--100)",
+              padding: "0.75rem 1rem",
+            }}
+          >
+            <Title headingLevel="h2" size="lg" id="delete-section-heading">
+              Delete section?
+            </Title>
+          </div>
+
+          {/* Content */}
+          <div
+            style={{
+              padding: "1rem",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "0.875rem",
+                lineHeight: "1.5",
+                color: "var(--pf-v6-global--Color--100)",
+                margin: 0,
+              }}
+            >
+              Are you sure you want to delete the section{" "}
+              <strong>{section.name}</strong>? This action cannot be undone.
+            </p>
+          </div>
+
+          {/* Footer with buttons */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: "0.75rem",
+              padding: "1rem",
+              borderTop: "1px solid var(--pf-v6-global--BorderColor--100)",
+            }}
+          >
+            <button
+              type="button"
+              onClick={handleCancelDelete}
+              style={{
+                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                backgroundColor: "transparent",
+                padding: "0.5rem 1rem",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                color: "var(--pf-v6-global--Color--100)",
+                cursor: "pointer",
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={handleConfirmDelete}
+              style={{
+                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                border: "none",
+                backgroundColor: "#c9190b",
+                padding: "0.5rem 1rem",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                color: "#ffffff",
+                cursor: "pointer",
+              }}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
   </>
   );
 }

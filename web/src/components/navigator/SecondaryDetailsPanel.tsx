@@ -319,6 +319,10 @@ export function SecondaryDetailsPanel({
                       alert('Failed to search library for practice.');
                     }
                   }
+                } else if (type === "activity") {
+                  navigateToElement(data.name, "activities");
+                } else if (type === "alpha") {
+                  navigateToElement(data.name, "concerns");
                 } else {
                   navigateToElement(data.name);
                 }
@@ -834,7 +838,7 @@ export function SecondaryDetailsPanel({
                 {data.contributesTo.map((contrib: any, idx: number) => (
                   <div
                     key={idx}
-                    onClick={() => onSetSelectedElement && navigateToElement(contrib.alphaName)}
+                    onClick={() => onSetSelectedElement && navigateToElement(contrib.alphaName, "concerns")}
                     style={{
                       fontSize: "0.6875rem",
                       padding: "0.5rem 0.625rem",
@@ -972,7 +976,7 @@ export function SecondaryDetailsPanel({
                 {data.contributesTo.map((contrib: any, idx: number) => (
                   <div
                     key={idx}
-                    onClick={() => navigateToElement(contrib.alphaName)}
+                    onClick={() => navigateToElement(contrib.alphaName, "concerns")}
                     style={{
                       fontSize: "0.6875rem",
                       padding: "0.5rem 0.625rem",
