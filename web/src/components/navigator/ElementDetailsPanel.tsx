@@ -16,6 +16,7 @@ import { PatternTable } from "./PatternTable";
 import { OverviewDiagram } from "./OverviewDiagram";
 import { AliasedName } from "../common/AliasedName";
 import { AlphaStateTable } from "./AlphaStateTable";
+import { WorkProductLODTable } from "./WorkProductLODTable";
 
 interface ElementDetailsPanelProps {
   selectedElement: {
@@ -290,6 +291,76 @@ function renderActivitiesList(
   );
 }
 
+
+function DownloadStaticSiteButton({ libraryId }: { libraryId: string }) {
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownload = async () => {
+    if (downloading) return;
+    setDownloading(true);
+    try {
+      const res = await fetch(`/api/documents/${libraryId}/static-site`);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: "Download failed" }));
+        alert(err.error || "Download failed");
+        return;
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const disposition = res.headers.get("Content-Disposition");
+      const filenameMatch = disposition?.match(/filename="(.+)"/);
+      a.download = filenameMatch?.[1] ?? "static-site.zip";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch {
+      alert("Download failed");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
+  return (
+    <div style={{ marginTop: "2rem", paddingTop: "1.5rem", borderTop: "1px solid var(--pf-v6-global--BorderColor--100)" }}>
+      <button
+        onClick={handleDownload}
+        disabled={downloading}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.5rem",
+          padding: "0.625rem 1.25rem",
+          backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+          border: "1px solid var(--pf-v6-global--BorderColor--100)",
+          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+          cursor: downloading ? "wait" : "pointer",
+          fontSize: "0.8125rem",
+          fontWeight: 500,
+          color: "var(--pf-v6-global--Color--100)",
+          opacity: downloading ? 0.6 : 1,
+          transition: "all 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          if (!downloading) {
+            e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+          }
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--100)";
+        }}
+      >
+        <i className={downloading ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-download"} style={{ fontSize: "0.875rem" }} />
+        <span>{downloading ? "Preparing download…" : "Download as static site"}</span>
+      </button>
+      <div style={{ marginTop: "0.5rem", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
+        Downloads a ZIP with markdown files and SVGs for use with MkDocs or Hugo.
+      </div>
+    </div>
+  );
+}
 
 export function ElementDetailsPanel({
   selectedElement,
@@ -667,6 +738,11 @@ export function ElementDetailsPanel({
               </div>
             )}
 
+            {/* Download as static site button - shown at bottom of introduction */}
+            {type === "introduction" && libraryId && (
+              <DownloadStaticSiteButton libraryId={libraryId} />
+            )}
+
             {/* References view: Alphabetically sorted citations */}
             {type === "references" && (
           <div style={{ marginTop: "2rem" }}>
@@ -776,109 +852,11 @@ export function ElementDetailsPanel({
           {/* Type-specific sections */}
           {type !== "pattern" && type !== "references" && (
           <div style={{ display: "flex", gap: "2rem", marginTop: "2rem" }}>
-            {/* If no narratives, show activities/LODs on the left (but NOT states for alphas) */}
-            {!hasNarratives && ((type !== "alpha" && (hasStates || hasActivities || hasLODs)) || (type === "alpha" && (hasActivities || hasLODs))) ? (
+            {/* If no narratives, show activities/LODs on the left (but NOT states for alphas, NOT LODs for workProducts - those use the table below) */}
+            {!hasNarratives && ((type !== "alpha" && type !== "workProduct" && (hasStates || hasActivities || hasLODs)) || (type === "alpha" && (hasActivities || hasLODs)) || (type === "workProduct" && hasActivities)) ? (
             <>
               <div style={{ flex: "0 0 45%", minWidth: "15rem" }}>
                 {hasActivities && renderActivitiesList(data, assets, onSetSecondaryElement)}
-                {hasLODs && type === "workProduct" && (
-                  <div>
-                    <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-                      Levels of Detail
-                    </Title>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                      {(() => {
-                        const filteredLODs = data.levelsOfDetail
-                          .filter((lod: any) => !selectedElement?.specificLevelOfDetail || lod.name === selectedElement.specificLevelOfDetail)
-                          .sort((a: any, b: any) => a.seq - b.seq);
-                        const totalLODs = filteredLODs.length;
-
-                        return filteredLODs.map((lod: any, idx: number) => {
-                          const isSelected = secondaryElementName === lod.name;
-
-                          // Generate a color based on progression (gradient from blue to green)
-                          const hue = 210 + (idx / Math.max(totalLODs - 1, 1)) * 90; // 210 (blue) to 300 (purple/green)
-                          const progressColor = `hsl(${hue}, 70%, 50%)`;
-
-                          return (
-                            <button
-                              key={lod.name}
-                              onClick={() => onSetSecondaryElement(isSelected ? null : lod.name)}
-                              style={{
-                                display: "flex",
-                                alignItems: "flex-start",
-                                gap: "0.75rem",
-                                padding: "0.875rem 1rem",
-                                border: isSelected
-                                  ? "3px solid var(--pf-v6-global--primary-color--100)"
-                                  : "2px solid var(--pf-v6-global--BorderColor--100)",
-                                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                                backgroundColor: isSelected
-                                  ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                                  : "white",
-                                cursor: "pointer",
-                                textAlign: "left",
-                                transition: "all 0.2s",
-                                position: "relative",
-                                boxShadow: "0 1px 2px rgba(0, 0, 0, 0.04)",
-                              }}
-                              onMouseEnter={(e) => {
-                                if (!isSelected) {
-                                  e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
-                                  e.currentTarget.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.08)";
-                                }
-                              }}
-                              onMouseLeave={(e) => {
-                                if (!isSelected) {
-                                  e.currentTarget.style.backgroundColor = "white";
-                                  e.currentTarget.style.boxShadow = "0 1px 2px rgba(0, 0, 0, 0.04)";
-                                }
-                              }}
-                            >
-                              <div
-                                style={{
-                                  width: "32px",
-                                  height: "32px",
-                                  borderRadius: "50%",
-                                  backgroundColor: progressColor,
-                                  color: "white",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  fontWeight: 700,
-                                  fontSize: "0.9375rem",
-                                  flexShrink: 0,
-                                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.15)",
-                                }}
-                              >
-                                {lod.seq}
-                              </div>
-                              <div style={{ flex: 1, minWidth: 0, paddingTop: "0.25rem" }}>
-                                <div style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                                  {lod.name}
-                                </div>
-                              </div>
-                              {isSelected && (
-                                <span
-                                  style={{
-                                    fontSize: "1.25rem",
-                                    fontWeight: 400,
-                                    color: "var(--pf-v6-global--Color--200)",
-                                    lineHeight: 1,
-                                    flexShrink: 0,
-                                    paddingTop: "0.125rem",
-                                  }}
-                                >
-                                  ×
-                                </span>
-                              )}
-                            </button>
-                          );
-                        });
-                      })()}
-                    </div>
-                  </div>
-                )}
               </div>
               <div style={{ flex: 1 }} />
             </>
@@ -1216,104 +1194,6 @@ export function ElementDetailsPanel({
               )}
 
 
-              {hasLODs && type === "workProduct" && (
-                <div style={{ flex: "0 0 45%", minWidth: "15rem", paddingRight: "2rem" }}>
-                  <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-                    Levels of Detail
-                  </Title>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                    {(() => {
-                      const filteredLODs = data.levelsOfDetail
-                        .filter((lod: any) => !selectedElement?.specificLevelOfDetail || lod.name === selectedElement.specificLevelOfDetail)
-                        .sort((a: any, b: any) => a.seq - b.seq);
-                      const totalLODs = filteredLODs.length;
-
-                      return filteredLODs.map((lod: any, idx: number) => {
-                        const isSelected = secondaryElementName === lod.name;
-
-                        // Generate a color based on progression (gradient from blue to green)
-                        const hue = 210 + (idx / Math.max(totalLODs - 1, 1)) * 90; // 210 (blue) to 300 (purple/green)
-                        const progressColor = `hsl(${hue}, 70%, 50%)`;
-
-                        return (
-                          <button
-                            key={lod.name}
-                            onClick={() => onSetSecondaryElement(isSelected ? null : lod.name)}
-                            style={{
-                              display: "flex",
-                              alignItems: "flex-start",
-                              gap: "0.75rem",
-                              padding: "0.875rem 1rem",
-                              border: isSelected
-                                ? "3px solid var(--pf-v6-global--primary-color--100)"
-                                : "2px solid var(--pf-v6-global--BorderColor--100)",
-                              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                              backgroundColor: isSelected
-                                ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                                : "white",
-                              cursor: "pointer",
-                              textAlign: "left",
-                              transition: "all 0.2s",
-                              position: "relative",
-                              boxShadow: "0 1px 2px rgba(0, 0, 0, 0.04)",
-                            }}
-                            onMouseEnter={(e) => {
-                              if (!isSelected) {
-                                e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
-                                e.currentTarget.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.08)";
-                              }
-                            }}
-                            onMouseLeave={(e) => {
-                              if (!isSelected) {
-                                e.currentTarget.style.backgroundColor = "white";
-                                e.currentTarget.style.boxShadow = "0 1px 2px rgba(0, 0, 0, 0.04)";
-                              }
-                            }}
-                          >
-                            <div
-                              style={{
-                                width: "32px",
-                                height: "32px",
-                                borderRadius: "50%",
-                                backgroundColor: progressColor,
-                                color: "white",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                fontWeight: 700,
-                                fontSize: "0.9375rem",
-                                flexShrink: 0,
-                                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.15)",
-                              }}
-                            >
-                              {lod.seq}
-                            </div>
-                            <div style={{ flex: 1, minWidth: 0, paddingTop: "0.25rem" }}>
-                              <div style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                                {lod.name}
-                              </div>
-                            </div>
-                            {isSelected && (
-                              <span
-                                style={{
-                                  fontSize: "1.25rem",
-                                  fontWeight: 400,
-                                  color: "var(--pf-v6-global--Color--200)",
-                                  lineHeight: 1,
-                                  flexShrink: 0,
-                                  paddingTop: "0.125rem",
-                                }}
-                              >
-                                ×
-                              </span>
-                            )}
-                          </button>
-                        );
-                      });
-                    })()}
-                  </div>
-                </div>
-              )}
             </>
             )}
             </div>
@@ -1327,6 +1207,18 @@ export function ElementDetailsPanel({
               assets={assets}
               selectedElement={secondaryElementName}
               onSelectElement={onSetSecondaryElement}
+            />
+          )}
+
+          {/* WorkProduct-specific: LOD table - shown at bottom after narratives */}
+          {type === "workProduct" && hasLODs && (
+            <WorkProductLODTable
+              workProduct={data}
+              baseline={baseline}
+              assets={assets}
+              selectedElement={secondaryElementName}
+              onSelectElement={onSetSecondaryElement}
+              specificLevelOfDetail={selectedElement?.specificLevelOfDetail}
             />
           )}
 

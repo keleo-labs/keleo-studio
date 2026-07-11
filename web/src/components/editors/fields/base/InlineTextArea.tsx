@@ -5,6 +5,7 @@ import { useCallback, useRef, useEffect, useState, type CSSProperties } from 're
 export type InlineTextAreaProps = {
   value: string;
   onChange: (value: string) => void;
+  onBlur?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
   minRows?: number;
@@ -28,6 +29,7 @@ const textareaStyle: CSSProperties = {
 export function InlineTextArea({
   value,
   onChange,
+  onBlur: onBlurProp,
   placeholder,
   disabled,
   minRows = 2,
@@ -68,6 +70,7 @@ export function InlineTextArea({
         if (!disabled) {
           e.currentTarget.style.borderColor = 'transparent';
           e.currentTarget.style.background = 'rgba(0,0,0,0.05)';
+          onBlurProp?.(e.target.value);
         }
       }}
     />

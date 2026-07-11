@@ -476,7 +476,7 @@ export function NavigatorSidebar({
                     const isSelected = selectedElement === element.name;
                     const hasChildren =
                       mode === "concerns"
-                        ? group.alphas.some(
+                        ? (baseline.alphas ?? []).some(
                             (a) => a.contributesTo === element.name
                           )
                         : "activities" in element && element.activities && element.activities.length > 0;
@@ -552,7 +552,7 @@ export function NavigatorSidebar({
                         {hasChildren && isElementExpanded && (
                           <div style={{ marginLeft: "1.5rem", marginTop: "0.25rem" }}>
                             {mode === "concerns"
-                              ? renderAlphaTree(group.alphas, element.name, 0)
+                              ? renderAlphaTree(baseline.alphas ?? [], element.name, 0)
                               : "activities" in element &&
                                 element.activities?.map((activity) => {
                                   const activityIcon = getElementIcon(activity, assets);

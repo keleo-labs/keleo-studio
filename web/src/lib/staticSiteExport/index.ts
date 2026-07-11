@@ -1,0 +1,1 @@
+export { generateStaticSite } from "./generateStaticSite";

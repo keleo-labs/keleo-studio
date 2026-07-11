@@ -35,7 +35,9 @@ export function LibraryDocumentCard({
 
   // Navigate to navigator for all documents
   const href = `/navigator?libraryId=${encodeURIComponent(document.id)}`;
-  const editHref = `/practice-author?libraryId=${encodeURIComponent(document.id)}`;
+  const editHref = document.libraryRootKind === "method"
+    ? `/method-builder?libraryId=${encodeURIComponent(document.id)}`
+    : `/practice-author?libraryId=${encodeURIComponent(document.id)}`;
 
   const kindLabel =
     document.libraryRootKind === "method"

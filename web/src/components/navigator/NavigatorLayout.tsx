@@ -208,28 +208,25 @@ export function NavigatorLayout({
       }
     }
 
-    if (mode === "concerns") {
-      // Search all alphas
-      for (const group of groupedByFocus) {
-        for (const alpha of group.alphas) {
-          if (alpha.name === selectedElement) {
-            return { type: "alpha" as const, data: alpha };
-          }
+    // Search alphas
+    for (const group of groupedByFocus) {
+      for (const alpha of group.alphas) {
+        if (alpha.name === selectedElement) {
+          return { type: "alpha" as const, data: alpha };
         }
       }
-    } else {
-      // Search activity spaces first
-      for (const group of groupedByFocus) {
-        for (const space of group.activitySpaces) {
-          if (space.name === selectedElement) {
-            return { type: "activitySpace" as const, data: space };
-          }
-          // Then search activities within spaces
-          if (space.activities) {
-            for (const activity of space.activities) {
-              if (activity.name === selectedElement) {
-                return { type: "activity" as const, data: activity };
-              }
+    }
+
+    // Search activity spaces and activities
+    for (const group of groupedByFocus) {
+      for (const space of group.activitySpaces) {
+        if (space.name === selectedElement) {
+          return { type: "activitySpace" as const, data: space };
+        }
+        if (space.activities) {
+          for (const activity of space.activities) {
+            if (activity.name === selectedElement) {
+              return { type: "activity" as const, data: activity };
             }
           }
         }
@@ -237,7 +234,18 @@ export function NavigatorLayout({
     }
 
     return null;
-  }, [selectedElement, mode, groupedByFocus, baseline.workProducts, baseline.patterns]);
+  }, [selectedElement, groupedByFocus, baseline.workProducts, baseline.patterns]);
+
+  // Auto-switch mode when selected element type doesn't match current mode
+  useEffect(() => {
+    if (!selectedElementData) return;
+    const { type } = selectedElementData;
+    if (type === "alpha" && mode !== "concerns") {
+      onSetMode("concerns");
+    } else if ((type === "activity" || type === "activitySpace") && mode !== "activities") {
+      onSetMode("activities");
+    }
+  }, [selectedElementData, mode, onSetMode]);
 
   // Find the secondary element (for detail drilldown)
   const secondaryElementData = useMemo(() => {
@@ -322,6 +330,16 @@ export function NavigatorLayout({
       const alpha = baseline.alphas.find((a) => a.name === secondaryElement);
       if (alpha) {
         return { type: "alpha" as const, data: alpha };
+      }
+    }
+
+    // Check if secondary element is an activity (e.g. clicked from alpha state table or work product LOD table)
+    for (const group of groupedByFocus) {
+      for (const space of group.activitySpaces) {
+        const activity = space.activities?.find((a) => a.name === secondaryElement);
+        if (activity) {
+          return { type: "activity" as const, data: activity };
+        }
       }
     }
 
