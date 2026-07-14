@@ -239,6 +239,7 @@ export function emptyBaselinePractice(): Record<string, unknown> {
     alphas: [] as Record<string, unknown>[],
     competencies: [] as Record<string, unknown>[],
     activitySpaces: [] as Record<string, unknown>[],
+    alphaInstances: [] as Record<string, unknown>[],
     narrativeTypes: [] as Record<string, unknown>[],
   };
 }

@@ -4,6 +4,7 @@ import { Title } from "@patternfly/react-core";
 import type { PracticeBaseline, Asset } from "@/lib/types";
 import { IconAsset } from "../common/IconAsset";
 import { findAsset } from "@/lib/display/assets";
+import { AliasedName } from "../common/AliasedName";
 
 interface PatternTableProps {
   pattern: any;
@@ -154,7 +155,7 @@ export function PatternTable({
       {/* Pattern name and description above table */}
       <div style={{ marginBottom: "1.5rem" }}>
         <div style={{ fontWeight: 600, fontSize: "0.875rem", marginBottom: "0.25rem" }}>
-          {pattern.name}
+          <AliasedName kind="pattern" name={pattern.name} browse={false} />
         </div>
         {pattern.description && (
           <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", lineHeight: "1.5" }}>
@@ -256,7 +257,7 @@ export function PatternTable({
                   >
                     {rootAsset && <IconAsset asset={rootAsset} size={20} style={{ flexShrink: 0 }} />}
                     <div style={{ fontWeight: 600, fontSize: "0.75rem", color: isRootSelected ? "var(--pf-v6-global--primary-color--100)" : "inherit" }}>
-                      {item.root.name}
+                      <AliasedName kind="alpha" name={item.root.name} browse={false} />
                     </div>
                   </div>
                 </th>
@@ -309,7 +310,7 @@ export function PatternTable({
                     >
                       {rootAsset && <IconAsset asset={rootAsset} size={18} />}
                       <div style={{ fontWeight: 700, fontSize: "0.6875rem", color: isSelected ? "var(--pf-v6-global--primary-color--100)" : "inherit" }}>
-                        {item.root.name}
+                        <AliasedName kind="alpha" name={item.root.name} browse={false} />
                       </div>
                     </button>
                   </th>
@@ -352,7 +353,7 @@ export function PatternTable({
                     >
                       {asset && <IconAsset asset={asset} size={18} />}
                       <div style={{ fontWeight: 600, fontSize: "0.6875rem", color: isSelected ? "var(--pf-v6-global--primary-color--100)" : "inherit" }}>
-                        {contributor.name}
+                        <AliasedName kind="alpha" name={contributor.name} browse={false} />
                       </div>
                     </button>
                   </th>
@@ -471,7 +472,7 @@ export function PatternTable({
                                     }
                                   }}
                                 >
-                                  {stateName}
+                                  <AliasedName kind="state" name={stateName} browse={false} />
                                 </button>
                               );
                             })}

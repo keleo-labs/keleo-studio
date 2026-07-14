@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Title } from "@patternfly/react-core";
 import type { PracticeBaseline, Asset } from "@/lib/types";
 import type { BrowseDependencyArtifact } from "@/lib/library/practiceDependencyResolution";
+import { buildLibraryLookupIndex, collectTransitiveMethodDependencies } from "@/lib/library/practiceDependencyResolution";
+import type { LibraryLookupIndex } from "@/lib/library/practiceDependencyResolution";
 import type {
   FocusGroup as AlphaScoreFocusGroup,
   ActivitySpaceFocusGroup
@@ -387,14 +389,14 @@ export function ElementDetailsPanel({
     onSetSecondaryElement(elementName);
   };
 
-  // State to hold the practice library ID lookup
+  // State to hold the practice library ID lookup and library index for transitive deps
   const [practiceLibraryIds, setPracticeLibraryIds] = useState<Record<string, string>>({});
+  const [libraryIndex, setLibraryIndex] = useState<LibraryLookupIndex | null>(null);
 
-  // Fetch library IDs for practices when component mounts
+  // Fetch library data when component mounts
   useEffect(() => {
-    async function fetchPracticeIds() {
+    async function fetchPracticeData() {
       try {
-        // Add withBody=1 to get the document bodies
         const response = await fetch('/api/documents?withBody=1');
         if (!response.ok) {
           console.error('Failed to fetch documents:', response.status);
@@ -402,21 +404,29 @@ export function ElementDetailsPanel({
         }
         const data = await response.json();
 
-        // Build a map of practice names to their library IDs
         const idMap: Record<string, string> = {};
+        const bodies: unknown[] = [];
         for (const doc of data.documents || []) {
           if (doc.body?.name) {
             idMap[doc.body.name] = doc.id;
           }
+          if (doc.body) {
+            bodies.push(doc.body);
+          }
         }
-        console.log('Practice library ID map:', idMap);
         setPracticeLibraryIds(idMap);
+        setLibraryIndex(buildLibraryLookupIndex(bodies));
       } catch (err) {
-        console.error('Failed to fetch practice library IDs:', err);
+        console.error('Failed to fetch practice library data:', err);
       }
     }
-    fetchPracticeIds();
+    fetchPracticeData();
   }, []);
+
+  const transitiveDeps = useMemo(() => {
+    if (!selectedElement || selectedElement.type !== "introduction" || !libraryIndex) return [];
+    return collectTransitiveMethodDependencies(selectedElement.data, libraryIndex);
+  }, [selectedElement, libraryIndex]);
 
   if (!selectedElement) {
     return (
@@ -609,18 +619,21 @@ export function ElementDetailsPanel({
             </div>
 
             {/* Introduction view: Narratives and Practices side-by-side */}
-            {type === "introduction" && data.narratives && data.narratives.length > 0 && (
+            {type === "introduction" && (
               <div style={{ display: "flex", gap: "2rem", marginTop: "2rem", marginBottom: "2.5rem", alignItems: "flex-start" }}>
-                {/* Left column: Narratives - 55% */}
+                {/* Left column: Narratives */}
+                {data.narratives && data.narratives.length > 0 && (
                 <div style={{ flex: "0 0 55%", minWidth: 0 }}>
                   {renderNarratives(data.narratives, baseline)}
                 </div>
+                )}
 
-                {/* Right column: Practices - 45% (aligned to top) */}
+                {/* Right column: Practices / Practice Dependencies */}
                 {((data.practices && Array.isArray(data.practices) && data.practices.length > 0) ||
                   (data.practiceNames && Array.isArray(data.practiceNames) && data.practiceNames.length > 0) ||
-                  (data.practiceDependencyNames && Array.isArray(data.practiceDependencyNames) && data.practiceDependencyNames.length > 0)) && (
-                  <div style={{ flex: "0 0 45%", minWidth: "15rem" }}>
+                  (data.practiceDependencyNames && Array.isArray(data.practiceDependencyNames) && data.practiceDependencyNames.length > 0) ||
+                  data.baselinePracticeName || data.baselinePractice) && (
+                  <div style={{ flex: (data.narratives && data.narratives.length > 0) ? "0 0 45%" : "1", minWidth: "15rem" }}>
                     <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
                       {(data.practices && Array.isArray(data.practices) && data.practices.length > 0) ||
                        (data.practiceNames && Array.isArray(data.practiceNames) && data.practiceNames.length > 0)
@@ -735,6 +748,59 @@ export function ElementDetailsPanel({
                     </div>
                   </div>
                 )}
+              </div>
+            )}
+
+            {/* Transitive Practice Dependencies - shown below direct practices */}
+            {type === "introduction" && transitiveDeps.length > 0 && (
+              <div style={{ marginTop: "1.5rem", marginBottom: "2rem" }}>
+                <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                  Practice Dependencies
+                </Title>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", maxWidth: "24rem" }}>
+                  {transitiveDeps.map((dep, idx) => {
+                    const isSelected = secondaryElementName === dep.name;
+                    const isBaseline = dep.role === "baselinePractice";
+
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => onSetSecondaryElement(isSelected ? null : dep.name)}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.75rem",
+                          padding: "0.75rem 1rem",
+                          border: isSelected
+                            ? "3px solid var(--pf-v6-global--primary-color--100)"
+                            : isBaseline
+                              ? "2px solid var(--pf-v6-global--primary-color--100)"
+                              : "2px solid var(--pf-v6-global--BorderColor--100)",
+                          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                          backgroundColor: isSelected
+                            ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                            : "var(--pf-v6-global--BackgroundColor--100)",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          transition: "all 0.2s",
+                        }}
+                      >
+                        <i
+                          className={isBaseline ? "fa-solid fa-layer-group" : "fa-solid fa-puzzle-piece"}
+                          style={{
+                            fontSize: "0.875rem",
+                            color: isBaseline
+                              ? "var(--pf-v6-global--primary-color--100)"
+                              : "var(--pf-v6-global--Color--200)",
+                          }}
+                        />
+                        <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
+                          {dep.name}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             )}
 
@@ -866,13 +932,13 @@ export function ElementDetailsPanel({
               <div style={{ flex: "0 0 55%", minWidth: 0 }}>
                 {hasNarratives && type !== "introduction" && renderNarratives(data.narratives, baseline)}
 
-                {/* Common Instances (alpha instances matching this alpha) */}
+                {/* Common Examples (alpha instances matching this alpha) */}
                 {type === "alpha" && (() => {
                   const instances = (baseline.alphaInstances ?? []).filter((i: any) => i.alphaName === data.name);
                   return instances.length > 0 ? (
                     <div style={{ marginTop: hasNarratives ? "2rem" : 0 }}>
                       <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-                        Common Instances
+                        Common Examples
                       </Title>
                       <ul style={{ fontSize: "0.875rem", lineHeight: 1.6, color: "var(--pf-v6-global--Color--100)", margin: 0, paddingLeft: "1.25rem", listStyleType: "disc" }}>
                         {instances.map((instance: any) => (

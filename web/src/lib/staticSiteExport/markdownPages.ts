@@ -19,6 +19,7 @@ import {
   findWorkProductsEvidencingState,
 } from "@/lib/analysis/stateProgression";
 import type { DisplayAliasFn } from "@/lib/practiceReport/generatePracticeReport";
+import type { TransitiveDependencyEntry } from "@/lib/library/practiceDependencyResolution";
 import { elementPath, mdLink, relativeLinkFrom, slugify } from "./slugs";
 import { findIconAsset, renderIconHtml } from "./fontIcons";
 
@@ -118,13 +119,14 @@ function renderNarrativesToMd(
         ),
       );
       if (cited.length) {
-        lines.push("");
+        lines.push("", "**Further Reading**", "");
         for (const c of cited) {
+          const authors = Array.isArray(c.authors) ? c.authors.join(", ") : "";
+          const date = String(c.date ?? "");
+          const label = `${c.name} (${authors}, ${date})`;
           const refPath = elementPath("references");
           const anchor = slugify(String(c.name));
-          lines.push(
-            `> See: ${mdLinkWithAnchor(String(c.name), fromPath, refPath, anchor)}`,
-          );
+          lines.push(`- ${mdLinkWithAnchor(label, fromPath, refPath, anchor)}`);
         }
       }
     }
@@ -145,6 +147,8 @@ function renderNarrativesToMd(
 export function generateIntroductionPage(
   doc: Record<string, unknown>,
   baseline: PracticeBaseline,
+  display: DisplayAliasFn,
+  transitiveDeps?: TransitiveDependencyEntry[],
 ): PageFile {
   const pagePath = elementPath("introduction");
   const name = String(doc.name ?? baseline.name ?? "Practice");
@@ -174,8 +178,63 @@ export function generateIntroductionPage(
   if (practices.length) {
     lines.push("", "## Practices", "");
     for (const p of practices) {
-      lines.push(`- ${p.name}`);
+      const practicePath = elementPath("practice", p.name);
+      lines.push(`- ${mdLink(display("Practice", p.name), pagePath, practicePath)}`);
     }
+  }
+
+  // Practice Dependencies (shown when no inline practices exist)
+  const deps = (doc as any).practiceDependencyNames;
+  if (!practices.length && Array.isArray(deps) && deps.length) {
+    lines.push("", "## Practice Dependencies", "");
+    for (const dep of deps) {
+      const depName = String(dep).trim();
+      if (!depName) continue;
+      const depPath = elementPath("practice", depName);
+      lines.push(`- ${mdLink(display("Practice", depName), pagePath, depPath)}`);
+    }
+  }
+
+  // Baseline Practice
+  const baselineName = String(
+    (doc as any).baselinePracticeName ?? (doc as any).baselinePractice?.name ?? "",
+  ).trim();
+  if (baselineName) {
+    lines.push("", "## Baseline Practice", "");
+    const blPath = elementPath("practice", baselineName);
+    lines.push(`- ${mdLink(display("Practice", baselineName), pagePath, blPath)}`);
+  }
+
+  // Transitive Practice Dependencies
+  if (transitiveDeps && transitiveDeps.length > 0) {
+    lines.push("", "## Practice Dependencies", "");
+    for (const dep of transitiveDeps) {
+      const depPath = elementPath("practice", dep.name);
+      const label = display("Practice", dep.name);
+      const suffix = dep.role === "baselinePractice" ? " *(baseline)*" : "";
+      lines.push(`- ${mdLink(label, pagePath, depPath)}${suffix}`);
+    }
+  }
+
+  lines.push("");
+  return { path: pagePath, content: withToc(lines.join("\n")) };
+}
+
+export function generatePracticePage(
+  practice: Record<string, unknown>,
+  baseline: PracticeBaseline,
+): PageFile {
+  const name = String(practice.name ?? "Practice");
+  const pagePath = elementPath("practice", name);
+  const desc = practiceElementDescriptionForDisplay(practice as any);
+  const citations = (baseline.citations ?? []) as Citation[];
+
+  const lines: string[] = [`# ${name}`];
+  if (desc) lines.push("", desc);
+
+  const narratives = practice.narratives;
+  if (Array.isArray(narratives) && narratives.length) {
+    lines.push("", renderNarrativesToMd(narratives, 2, pagePath, citations));
   }
 
   lines.push("");
@@ -366,12 +425,12 @@ export function generateAlphaPage(
     lines.push("", renderNarrativesToMd(alpha.narratives, 2, pagePath, citations));
   }
 
-  // Common Instances (alpha instances matching this alpha)
+  // Common Examples (alpha instances matching this alpha)
   const alphaInstances = ((baseline as any).alphaInstances ?? []).filter(
     (i: any) => i.alphaName === alpha.name,
   );
   if (alphaInstances.length) {
-    lines.push("", "## Common Instances", "");
+    lines.push("", "## Common Examples", "");
     for (const inst of alphaInstances) {
       lines.push(`- **${inst.name}:** ${inst.description ?? ""}`);
     }

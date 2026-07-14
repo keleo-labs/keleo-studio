@@ -1531,6 +1531,8 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
   const baselineAssets = Array.isArray(baselineDoc.assets) ? (baselineDoc.assets as any[]) : [];
   const baselinePersonas = Array.isArray(baselineDoc.personas) ? (baselineDoc.personas as any[]) : [];
   const baselinePersonaGroups = Array.isArray(baselineDoc.personaGroups) ? (baselineDoc.personaGroups as any[]) : [];
+  const baselineAlphaInstances = Array.isArray(baselineDoc.alphaInstances) ? (baselineDoc.alphaInstances as any[]) : [];
+  const baselineAliases = Array.isArray(baselineDoc.practiceElementAliases) ? (baselineDoc.practiceElementAliases as NonNullable<Practice["practiceElementAliases"]>) : undefined;
   // Also check for these elements directly on the Method object (from primary practice)
   const methodWorkProducts = Array.isArray(methodDoc.workProducts) ? (methodDoc.workProducts as any[]) : [];
   const methodPatterns = Array.isArray(methodDoc.patterns) ? (methodDoc.patterns as any[]) : [];
@@ -1566,6 +1568,8 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
     patterns: mergePatterns(mergePatterns([], addSourcePracticeNameToElements(baselinePatterns, baselinePracticeName)), methodPatterns),
     personas: mergePersonas(mergePersonas([], baselinePersonas), methodPersonas),
     personaGroups: mergePersonaGroups(mergePersonaGroups([], baselinePersonaGroups), methodPersonaGroups),
+    alphaInstances: mergeKeyedPracticeOverlayRows([], baselineAlphaInstances),
+    ...(baselineAliases?.length ? { practiceElementAliases: mergePracticeElementAliasLists([baselineAliases]) } : {}),
     // Only include method's own narratives, not baseline or practice narratives
     ...(methodNarr.length ? { narratives: methodNarr } : {}),
   };
