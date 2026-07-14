@@ -196,6 +196,8 @@ export type PracticeBaseline = PracticeElement & {
   narrativeTypes?: NarrativeType[];
   citations?: Citation[];
   assets?: Asset[];
+  alphaInstances?: AlphaInstanceNameRow[];
+  practiceElementAliases?: PracticeElementAlias[];
   baselinePracticeNames?: string[];
 };
 

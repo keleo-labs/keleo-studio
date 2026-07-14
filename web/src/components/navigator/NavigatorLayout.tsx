@@ -96,12 +96,9 @@ export function NavigatorLayout({
       return;
     }
 
-    // Check if it's the baseline practice, practice dependency, or named practice
-    const isBaselinePractice = originalDocument?.baselinePracticeName === secondaryElement;
-    const isPracticeDependency = originalDocument?.practiceDependencyNames?.includes(secondaryElement);
-    const isNamedPractice = originalDocument?.practiceNames?.includes(secondaryElement);
-
-    if (isBaselinePractice || isPracticeDependency || isNamedPractice) {
+    // If on the introduction page, attempt library fetch for any unresolved name
+    // (covers direct practices, dependencies, baselines, and transitive deps)
+    if (selectedElement === "__introduction__") {
       // Fetch from library
       const fetchPractice = async () => {
         try {

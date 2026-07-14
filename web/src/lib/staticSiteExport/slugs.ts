@@ -20,7 +20,8 @@ export type ElementType =
   | "workProduct"
   | "personaGroup"
   | "persona"
-  | "competency";
+  | "competency"
+  | "practice";
 
 export function elementPath(
   type: ElementType,
@@ -61,6 +62,8 @@ export function elementPath(
       return `docs/personas/${ps}/${s}.md`;
     case "competency":
       return `docs/competencies/${s}.md`;
+    case "practice":
+      return `docs/practices/${s}.md`;
   }
 }
 

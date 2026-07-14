@@ -49,6 +49,7 @@ export function generateMkdocsYaml(
   workProducts: WorkProduct[],
   personaGroups: PersonaGroup[],
   display: DisplayAliasFn,
+  practicePageNames?: string[],
 ): string {
   const lines: string[] = [
     `site_name: ${yamlEscape(practiceName)}`,
@@ -73,10 +74,16 @@ export function generateMkdocsYaml(
     lines.push(``);
   }
 
-  lines.push(
-    `nav:`,
-    `  - Introduction: index.md`,
-  );
+  lines.push(`nav:`);
+  if (practicePageNames && practicePageNames.length > 0) {
+    lines.push(`  - ${yamlEscape(practiceName)}:`);
+    lines.push(`    - Overview: index.md`);
+    for (const pName of practicePageNames) {
+      lines.push(`    - ${yamlEscape(pName)}: practices/${slugify(pName)}.md`);
+    }
+  } else {
+    lines.push(`  - ${yamlEscape(practiceName)}: index.md`);
+  }
 
   // Patterns
   if (patterns.length) {

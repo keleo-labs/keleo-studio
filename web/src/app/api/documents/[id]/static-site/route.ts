@@ -30,9 +30,10 @@ export async function GET(_req: Request, ctx: Ctx) {
 
     const bodies = await loadAllLibraryDocumentBodies();
     const index = buildLibraryLookupIndex(bodies);
+    const originalDoc = doc;
     doc = resolveDocumentWithLibraryIndex(doc, index);
 
-    const { files, practiceName } = generateStaticSite(doc);
+    const { files, practiceName } = generateStaticSite(doc, originalDoc, index);
 
     const zipData: Record<string, Uint8Array> = {};
     for (const [path, content] of files) {

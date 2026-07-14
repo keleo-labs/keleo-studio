@@ -994,6 +994,81 @@ export function expandMethodPracticeDependencies(practices: Practice[], library:
   return ordered;
 }
 
+export type TransitiveDependencyEntry = {
+  name: string;
+  role: "practice" | "baselinePractice";
+};
+
+/**
+ * Collect all transitive practice and baseline dependencies reachable from a
+ * method document's direct practices and baseline. Each entry appears at most
+ * once. Direct names (the method's own practices/baseline) are excluded since
+ * the caller already displays those. Practices are listed first, then baselines.
+ */
+export function collectTransitiveMethodDependencies(
+  doc: Record<string, unknown>,
+  index: LibraryLookupIndex,
+): TransitiveDependencyEntry[] {
+  const directNames = new Set<string>();
+
+  const addDirect = (name: unknown) => {
+    const n = String(name ?? "").trim();
+    if (n) directNames.add(n);
+  };
+
+  if (Array.isArray(doc.practices)) {
+    for (const p of doc.practices) {
+      addDirect(typeof p === "object" && p ? (p as any).name : p);
+    }
+  }
+  if (Array.isArray(doc.practiceNames)) {
+    for (const pn of doc.practiceNames) addDirect(pn);
+  }
+  if (Array.isArray(doc.practiceDependencyNames)) {
+    for (const dep of doc.practiceDependencyNames) addDirect(dep);
+  }
+  addDirect(doc.baselinePracticeName);
+  addDirect((doc.baselinePractice as any)?.name);
+
+  const seen = new Set<string>(directNames);
+  const practices: string[] = [];
+  const baselines: string[] = [];
+
+  const addIfNew = (name: string, role: "practice" | "baselinePractice") => {
+    const n = name.trim();
+    if (!n || seen.has(n)) return;
+    seen.add(n);
+    if (role === "practice") practices.push(n);
+    else baselines.push(n);
+  };
+
+  for (const directName of directNames) {
+    const practice = findPracticeInLibrary(index, directName);
+    if (practice) {
+      try {
+        const chain = orderedTransitiveExtensionPractices(practice, index);
+        for (const p of chain) {
+          addIfNew(String(p.name), "practice");
+          if (p.baselinePracticeName) addIfNew(p.baselinePracticeName, "baselinePractice");
+        }
+      } catch { /* cycle — skip */ }
+    }
+
+    const baseline = findBaselineInLibrary(index, directName);
+    if (baseline) {
+      try {
+        const chain = orderedTransitiveBaselinePractices(baseline, index);
+        for (const b of chain) addIfNew(String(b.name), "baselinePractice");
+      } catch { /* cycle — skip */ }
+    }
+  }
+
+  return [
+    ...practices.map((name) => ({ name, role: "practice" as const })),
+    ...baselines.map((name) => ({ name, role: "baselinePractice" as const })),
+  ];
+}
+
 /** Library snapshot embedded in browse "Dependencies" (baseline or extension practice bodies). */
 export type BrowseDependencyArtifact = {
   role: "baselinePractice" | "practice";

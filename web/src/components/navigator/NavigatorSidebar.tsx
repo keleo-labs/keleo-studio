@@ -213,7 +213,7 @@ export function NavigatorSidebar({
           }}
         >
           <i className="fa-solid fa-book-open" />
-          <span>Introduction</span>
+          <span>{baseline.name}</span>
         </button>
       </div>
 
