@@ -3,7 +3,7 @@
  * Barrel export for clean imports.
  */
 
-export { classifyLibraryRoot, displayNameForBody, baselineNameForPracticeLink, practiceNameForDependencyLink, isStandaloneBaselinePracticeArtifact, type LibraryRootKind } from "./classify";
+export { classifyLibraryRoot, displayNameForBody, baselineNameForPracticeLink, practiceNameForDependencyLink, associatedBaselineName, isStandaloneBaselinePracticeArtifact, type LibraryRootKind } from "./classify";
 export { libraryDocumentTags } from "./libraryDocumentTags";
 export { loadAllLibraryDocumentBodies } from "./loadLibraryBodies";
 export { buildLibraryLookupIndex, collectBrowseDependencyArtifacts, resolvePracticeWithLibraryIndex, resolveMethodWithLibraryIndex, practiceNeedsLibraryResolution, methodNeedsLibraryResolution } from "./practiceDependencyResolution";

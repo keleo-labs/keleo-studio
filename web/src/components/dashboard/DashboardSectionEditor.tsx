@@ -26,6 +26,7 @@ interface DashboardSectionEditorProps {
     lifecycle: string[];
     organizational: string[];
   };
+  availableBaselines: string[];
   onSave: (section: DashboardSection) => void;
   onCancel: () => void;
 }
@@ -33,12 +34,13 @@ interface DashboardSectionEditorProps {
 export function DashboardSectionEditor({
   section,
   availableTags,
+  availableBaselines,
   onSave,
   onCancel,
 }: DashboardSectionEditorProps) {
   const [activeTab, setActiveTab] = useState(0);
   const [name, setName] = useState(section?.name || "");
-  const [kind, setKind] = useState<"all" | "practice" | "method">(
+  const [kind, setKind] = useState<"all" | "practice" | "method" | "baselinePractice">(
     section?.filters.kind || "all"
   );
   const [onlyStarred, setOnlyStarred] = useState(section?.filters.onlyStarred || false);
@@ -50,6 +52,9 @@ export function DashboardSectionEditor({
   );
   const [selectedOrgTags, setSelectedOrgTags] = useState<string[]>(
     section?.filters.organizationalTags || []
+  );
+  const [baselineName, setBaselineName] = useState(
+    section?.filters.baselineName || ""
   );
   const [namePattern, setNamePattern] = useState(
     section?.filters.namePattern || ""
@@ -92,6 +97,7 @@ export function DashboardSectionEditor({
       seq: section?.seq ?? 0,
       filters: {
         ...(kind !== "all" && { kind }),
+        ...(baselineName && { baselineName }),
         ...(onlyStarred && { onlyStarred: true }),
         ...(selectedDomainTags.length > 0 && { domainTags: selectedDomainTags }),
         ...(selectedLifecycleTags.length > 0 && {
@@ -291,6 +297,13 @@ export function DashboardSectionEditor({
                     onChange={() => setKind("practice")}
                   />
                   <Radio
+                    id="kind-baseline"
+                    name="kind"
+                    label="Baseline practices only"
+                    isChecked={kind === "baselinePractice"}
+                    onChange={() => setKind("baselinePractice")}
+                  />
+                  <Radio
                     id="kind-method"
                     name="kind"
                     label="Methods only"
@@ -298,6 +311,33 @@ export function DashboardSectionEditor({
                     onChange={() => setKind("method")}
                   />
                 </FormGroup>
+
+                {/* Baseline filter */}
+                {availableBaselines.length > 0 && (
+                  <FormGroup label="Baseline" fieldId="baseline-filter">
+                    <select
+                      id="baseline-filter"
+                      value={baselineName}
+                      onChange={(e) => setBaselineName(e.target.value)}
+                      style={{
+                        width: "100%",
+                        padding: "0.5rem",
+                        fontSize: "0.875rem",
+                        border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                        borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                        backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                        color: "var(--pf-v6-global--Color--100)",
+                      }}
+                    >
+                      <option value="">Any baseline</option>
+                      {availableBaselines.map((name) => (
+                        <option key={name} value={name}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                  </FormGroup>
+                )}
 
                 {/* Starred items only */}
                 <FormGroup fieldId="only-starred">

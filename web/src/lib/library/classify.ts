@@ -118,6 +118,30 @@ export function baselineNameForPracticeLink(body: unknown): string | null {
   return null;
 }
 
+export function associatedBaselineName(body: unknown): string | null {
+  if (!body || typeof body !== "object") return null;
+  const root = classifyLibraryRoot(body);
+  const o = body as Record<string, unknown>;
+  if (root === "baselinePractice") {
+    const n = o.name;
+    return typeof n === "string" && n.trim() ? n.trim() : null;
+  }
+  if (root === "practice") {
+    const b = o.baselinePracticeName;
+    return typeof b === "string" && b.trim() ? b.trim() : null;
+  }
+  if (root === "method") {
+    const bp = o.baselinePractice;
+    if (bp && typeof bp === "object") {
+      const n = (bp as Record<string, unknown>).name;
+      if (typeof n === "string" && n.trim()) return n.trim();
+    }
+    const bpName = o.baselinePracticeName;
+    if (typeof bpName === "string" && bpName.trim()) return bpName.trim();
+  }
+  return null;
+}
+
 /**
  * Symbolic {@link Practice}.`name` for `practiceDependencyNames` (extension practice references).
  */

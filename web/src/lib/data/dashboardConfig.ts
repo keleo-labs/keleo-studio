@@ -37,10 +37,11 @@ export interface DashboardSection {
 }
 
 export interface SectionFilters {
-  kind?: "practice" | "method";
+  kind?: "practice" | "method" | "baselinePractice";
   domainTags?: string[];
   lifecycleTags?: string[];
   organizationalTags?: string[];
+  baselineName?: string;
   namePattern?: string;
   onlyStarred?: boolean;
 }
@@ -58,6 +59,7 @@ export interface EnrichedMeta {
   virtualFileCount?: number;
   baselineNameForPracticeLink?: string | null;
   practiceNameForDependencyLink?: string | null;
+  associatedBaselineName?: string | null;
   libraryTags?: {
     domainTags: string[];
     lifecycleTags: string[];
@@ -289,6 +291,13 @@ export function filterDocuments(
       const rootKind = doc.libraryRootKind || classifyLibraryRoot(doc.body);
       return rootKind === filters.kind;
     });
+  }
+
+  // Baseline name filter
+  if (filters.baselineName) {
+    result = result.filter(
+      (doc) => doc.associatedBaselineName === filters.baselineName
+    );
   }
 
   // Domain tags filter (OR logic)

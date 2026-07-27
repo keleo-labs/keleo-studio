@@ -61,18 +61,19 @@ export function generateMkdocsYaml(
     `markdown_extensions:`,
     `  - toc:`,
     `      title: On this page`,
+    `  - pymdownx.tasklist:`,
+    `      custom_checkbox: false`,
     ``,
   ];
 
-  // Font CDN stylesheets
+  // Extra stylesheets
   const fontUrls = collectFontCdnUrls(baseline.assets ?? []);
-  if (fontUrls.length > 0) {
-    lines.push(`extra_css:`);
-    for (const url of fontUrls) {
-      lines.push(`  - ${url}`);
-    }
-    lines.push(``);
+  lines.push(`extra_css:`);
+  lines.push(`  - stylesheets/custom.css`);
+  for (const url of fontUrls) {
+    lines.push(`  - ${url}`);
   }
+  lines.push(``);
 
   lines.push(`nav:`);
   if (practicePageNames && practicePageNames.length > 0) {

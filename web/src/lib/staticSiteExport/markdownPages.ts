@@ -490,7 +490,7 @@ export function generateAlphaPage(
       if (checklist.length) {
         lines.push("", "**Checklist:**", "");
         for (const item of checklist) {
-          lines.push(`- [ ] ${item.name}${item.description ? `: ${item.description}` : ""}`);
+          lines.push(`- [ ] **${item.name}**${item.description ? `: ${item.description}` : ""}`);
         }
       }
 
@@ -755,7 +755,7 @@ export function generateWorkProductPage(
       if (checklist.length) {
         lines.push("", "**Checklist:**", "");
         for (const item of checklist) {
-          lines.push(`- [ ] ${item.name}${item.description ? `: ${item.description}` : ""}`);
+          lines.push(`- [ ] **${item.name}**${item.description ? `: ${item.description}` : ""}`);
         }
       }
 
