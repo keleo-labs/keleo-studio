@@ -47,12 +47,11 @@ export function generateStaticSite(
   const files = new Map<string, string>();
   const addPage = (page: PageFile) => files.set(`${prefix}/${page.path}`, page.content);
 
-  // Introduction (use original doc for narratives, practices, dependencies)
+  // Use original doc for narratives, practices, dependencies
   const src = (originalDoc ?? doc) as Record<string, unknown>;
   const transitiveDeps = libraryIndex
     ? collectTransitiveMethodDependencies(src, libraryIndex)
     : [];
-  addPage(generateIntroductionPage(src, baseline, display, transitiveDeps.length > 0 ? transitiveDeps : undefined));
   const practicePages = new Map<string, Record<string, unknown>>();
 
   // Inline practice objects
@@ -106,6 +105,37 @@ export function generateStaticSite(
       if (found) practicePages.set(dep.name, found as unknown as Record<string, unknown>);
     }
   }
+
+  // Ensure every referenced practice has a page, even if not found in the library.
+  // Collect all practice names referenced by the doc.
+  const allReferencedNames = new Set<string>();
+  if (Array.isArray(src.practices)) {
+    for (const p of src.practices) {
+      if (p && typeof p === "object" && (p as any).name) allReferencedNames.add(String((p as any).name));
+    }
+  }
+  if (Array.isArray(src.practiceNames)) {
+    for (const pn of src.practiceNames) {
+      const name = String(pn ?? "").trim();
+      if (name) allReferencedNames.add(name);
+    }
+  }
+  if (Array.isArray(src.practiceDependencyNames)) {
+    for (const dep of src.practiceDependencyNames) {
+      const name = String(dep ?? "").trim();
+      if (name) allReferencedNames.add(name);
+    }
+  }
+  if (baselinePracticeName) allReferencedNames.add(baselinePracticeName);
+  for (const dep of transitiveDeps) allReferencedNames.add(dep.name);
+
+  for (const name of allReferencedNames) {
+    if (!practicePages.has(name)) {
+      practicePages.set(name, { name });
+    }
+  }
+
+  addPage(generateIntroductionPage(src, baseline, display, transitiveDeps.length > 0 ? transitiveDeps : undefined));
 
   for (const [, practiceBody] of practicePages) {
     addPage(generatePracticePage(practiceBody, baseline));
@@ -193,6 +223,9 @@ export function generateStaticSite(
     addPage(generateCompetencyPage(comp, display));
   }
 
+  // Custom stylesheet
+  files.set(`${prefix}/docs/stylesheets/custom.css`, CUSTOM_CSS);
+
   // MkDocs config
   files.set(
     `${prefix}/mkdocs.yml`,
@@ -201,3 +234,5 @@ export function generateStaticSite(
 
   return { files, practiceName };
 }
+
+const CUSTOM_CSS = ``;

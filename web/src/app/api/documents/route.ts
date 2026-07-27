@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { classifyLibraryRoot, displayNameForBody, baselineNameForPracticeLink, practiceNameForDependencyLink } from "@/lib/library/classify";
+import { classifyLibraryRoot, displayNameForBody, baselineNameForPracticeLink, practiceNameForDependencyLink, associatedBaselineName } from "@/lib/library/classify";
 import { libraryDocumentTags } from "@/lib/library/libraryDocumentTags";
 import { listVirtualElementFiles } from "@/lib/library/virtualElementFiles";
 import { extractAndPersistEmbeddedPractices } from "@/lib/library/extractEmbeddedPractices";
@@ -50,6 +50,7 @@ export async function GET(req: Request) {
         virtualFileCount: listVirtualElementFiles(body).length,
         baselineNameForPracticeLink: baselineNameForPracticeLink(body),
         practiceNameForDependencyLink: practiceNameForDependencyLink(body),
+        associatedBaselineName: associatedBaselineName(body),
         libraryTags: libraryDocumentTags(body),
       };
     }),

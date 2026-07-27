@@ -288,6 +288,14 @@ export default function DashboardPage() {
     [documents]
   );
 
+  const availableBaselines = useMemo(() => {
+    const names = new Set<string>();
+    for (const doc of documents) {
+      if (doc.associatedBaselineName) names.add(doc.associatedBaselineName);
+    }
+    return Array.from(names).sort();
+  }, [documents]);
+
   // Get the section being edited
   const editingSection = editingSectionId
     ? config?.sections.find((s) => s.id === editingSectionId)
@@ -420,6 +428,7 @@ export default function DashboardPage() {
         <DashboardSectionEditor
           section={editingSection}
           availableTags={availableTags}
+          availableBaselines={availableBaselines}
           onSave={handleSaveSection}
           onCancel={() => setEditingSectionId(null)}
         />
