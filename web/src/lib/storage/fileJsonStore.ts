@@ -28,7 +28,7 @@ async function ensureDir(): Promise<void> {
 }
 
 function isJsonDocumentKind(v: string): v is JsonDocumentKind {
-  return v === "practice" || v === "method" || v === "upload" || v === "dashboard-config";
+  return v === "practice" || v === "method" || v === "upload" || v === "dashboard-config" || v === "project";
 }
 
 function parseStored(raw: string): JsonDocument | null {

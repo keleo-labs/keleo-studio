@@ -1,13 +1,14 @@
 import type { JsonDocumentKind } from "@/lib/storage/types";
 
 /** Top-level shape of a stored JSON artifact in the library tree. */
-export type LibraryRootKind = "method" | "baselinePractice" | "practice" | "unknown";
+export type LibraryRootKind = "method" | "baselinePractice" | "practice" | "project" | "unknown";
 
 /** Maps document shape to the persisted {@link JsonDocumentKind} for POST /api/documents. */
 export function storageKindForBody(body: unknown): JsonDocumentKind {
   const root = classifyLibraryRoot(body);
   if (root === "method") return "method";
-  if (root === "practice") return "practice";
+  if (root === "practice" || root === "baselinePractice") return "practice";
+  if (root === "project") return "project";
   return "upload";
 }
 
@@ -32,6 +33,16 @@ export function classifyLibraryRoot(body: unknown): LibraryRootKind {
   if (!body || typeof body !== "object") return "unknown";
   const o = body as Record<string, unknown>;
 
+  // Project detection: has plan + current + target + (practiceName XOR methodName)
+  if (
+    o.plan && typeof o.plan === "object" &&
+    o.current && typeof o.current === "object" &&
+    o.target && typeof o.target === "object" &&
+    (typeof o.practiceName === "string" || typeof o.methodName === "string")
+  ) {
+    return "project";
+  }
+
   // Method detection: check for discriminating properties
   // A Method has either baselinePractice (object/string), practices (array), or practiceNames (array)
   if (o.baselinePractice && typeof o.baselinePractice === "object") return "method";
@@ -43,10 +54,8 @@ export function classifyLibraryRoot(body: unknown): LibraryRootKind {
     return "method";
   }
 
-  // Check for extension practice FIRST (baselinePracticeName is a strong indicator)
-  // Extension practices can define their own alphas/focuses to add or override baseline elements
-  if (typeof o.baselinePracticeName === "string" && String(o.baselinePracticeName).trim()) return "practice";
-
+  // Kernel-shaped aggregates (alphas + focuses populated, no practice dependencies)
+  // are baselines, even when baselinePracticeName is present (extending another baseline).
   const alphaList = Array.isArray(o.alphas) ? o.alphas : [];
   const focusList = Array.isArray(o.focuses) ? o.focuses : [];
   const hasKernelSlices = alphaList.length > 0 && focusList.length > 0;
@@ -54,6 +63,9 @@ export function classifyLibraryRoot(body: unknown): LibraryRootKind {
   if (hasKernelSlices && !hasNonemptyPracticeDependencies(o)) {
     return "baselinePractice";
   }
+
+  // Extension practice: has baselinePracticeName but not the full kernel shape
+  if (typeof o.baselinePracticeName === "string" && String(o.baselinePracticeName).trim()) return "practice";
 
   if (Array.isArray(o.alphas) && Array.isArray(o.focuses)) return "baselinePractice";
   return "unknown";
@@ -160,6 +172,8 @@ export function rootKindExtension(kind: LibraryRootKind): string {
       return "baseline";
     case "practice":
       return "practice";
+    case "project":
+      return "project";
     default:
       return "json";
   }

@@ -7,6 +7,7 @@ import { findAsset } from "@/lib/display/assets";
 import { practiceElementDescriptionForDisplay } from "@/lib/ir";
 import { findActivitiesProgressingState, findWorkProductsEvidencingState } from "@/lib/analysis/stateProgression";
 import { AliasedName } from "../common/AliasedName";
+import { BackgroundBlock, TestBlock, ExamplesBlock } from "./GherkinBlock";
 
 interface SecondaryDetailsPanelProps {
   secondaryElement: {
@@ -363,6 +364,15 @@ export function SecondaryDetailsPanel({
         </p>
       </div>
 
+      {/* State-specific: Background prerequisites */}
+      {type === "state" && data.background && (
+        <BackgroundBlock
+          background={data.background}
+          baseline={baseline}
+          onNavigateToElement={onNavigateToElement || onSetSelectedElement ? (name) => navigateToElement(name) : undefined}
+        />
+      )}
+
       {/* State-specific: Checklist */}
       {type === "state" && data.checklist && data.checklist.length > 0 && (
         <div>
@@ -443,11 +453,24 @@ export function SecondaryDetailsPanel({
                       )}
                     </div>
 
+                    {/* Test scenario */}
+                    {item.test && (
+                      <div style={{ marginTop: "0.5rem", marginLeft: "calc(18px + 0.75rem)" }}>
+                        <TestBlock test={item.test} compact />
+                      </div>
+                    )}
+
+                    {/* Examples */}
+                    {item.examples && item.examples.length > 0 && (
+                      <div style={{ marginLeft: "calc(18px + 0.75rem)" }}>
+                        <ExamplesBlock examples={item.examples} />
+                      </div>
+                    )}
+
                     {/* Evidence tiles */}
                     {item.evidencedBy && item.evidencedBy.length > 0 && (
                       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.75rem", marginLeft: "calc(18px + 0.75rem)" }}>
                         {item.evidencedBy.map((evidence: any, evidenceIdx: number) => {
-                          // Find work product in baseline
                           const workProduct = baseline.workProducts?.find(
                             (wp) => wp.name === evidence.workProductName
                           );
@@ -727,6 +750,15 @@ export function SecondaryDetailsPanel({
                           </div>
                         </div>
                       )}
+                      {lod.background && (
+                        <div style={{ marginBottom: lod.checklist?.length > 0 ? "0.75rem" : 0 }}>
+                          <BackgroundBlock
+                            background={lod.background}
+                            baseline={baseline}
+                            onNavigateToElement={onNavigateToElement || onSetSelectedElement ? (name) => navigateToElement(name) : undefined}
+                          />
+                        </div>
+                      )}
                       {lod.checklist && lod.checklist.length > 0 && (
                         <div>
                           <div style={{ fontSize: "0.6875rem", fontWeight: 600, marginBottom: "0.375rem", color: "var(--pf-v6-global--Color--100)" }}>
@@ -807,6 +839,14 @@ export function SecondaryDetailsPanel({
                                           ))}
                                         </div>
                                       )}
+                                      {item.test && (
+                                        <div style={{ marginTop: "0.375rem" }}>
+                                          <TestBlock test={item.test} compact />
+                                        </div>
+                                      )}
+                                      {item.examples && item.examples.length > 0 && (
+                                        <ExamplesBlock examples={item.examples} />
+                                      )}
                                     </div>
                                   </li>
                                 );
@@ -872,6 +912,14 @@ export function SecondaryDetailsPanel({
                 ))}
               </div>
             </div>
+          )}
+
+          {data.background && (
+            <BackgroundBlock
+              background={data.background}
+              baseline={baseline}
+              onNavigateToElement={onNavigateToElement || onSetSelectedElement ? (name) => navigateToElement(name) : undefined}
+            />
           )}
 
           {data.checklist && data.checklist.length > 0 && (
@@ -953,6 +1001,14 @@ export function SecondaryDetailsPanel({
                                 </div>
                               ))}
                             </div>
+                          )}
+                          {item.test && (
+                            <div style={{ marginTop: "0.5rem" }}>
+                              <TestBlock test={item.test} compact />
+                            </div>
+                          )}
+                          {item.examples && item.examples.length > 0 && (
+                            <ExamplesBlock examples={item.examples} />
                           )}
                         </div>
                       </li>

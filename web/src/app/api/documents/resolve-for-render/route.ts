@@ -9,6 +9,8 @@ import {
 import { loadAllLibraryDocumentBodies } from "@/lib/library/loadLibraryBodies";
 import { classifyLibraryRoot } from "@/lib/library/classify";
 import { normalizePracticeBody } from "@/lib/core/normalizePractice";
+import { checkSchemaCompatibility } from "@/lib/core/schemaVersion";
+import { collectDependencyVersionWarnings } from "@/lib/library/dependencyVersionCheck";
 
 /**
  * POST JSON `{ doc }` — for Practice documents with `baselinePracticeName` and/or `practiceDependencyNames`,
@@ -43,14 +45,28 @@ export async function POST(req: Request) {
     const index = buildLibraryLookupIndex(bodies);
     const rootKind = classifyLibraryRoot(doc);
 
+    const docObj = doc as Record<string, unknown>;
+    const schemaCheck = checkSchemaCompatibility(docObj.schemaVersion as string | undefined);
+    const versionWarnings = collectDependencyVersionWarnings(doc, index);
+
     if (rootKind === "method" && methodNeedsLibraryResolution(doc)) {
       const resolved = resolveDocumentWithLibraryIndex(doc, index);
-      return NextResponse.json({ resolved, dependencyArtifacts: [] });
+      return NextResponse.json({
+        resolved,
+        dependencyArtifacts: [],
+        versionWarnings,
+        schemaWarning: schemaCheck.warning,
+      });
     }
 
     const dependencyArtifacts = collectBrowseDependencyArtifacts(doc, index);
     const resolved = resolveDocumentWithLibraryIndex(doc, index);
-    return NextResponse.json({ resolved, dependencyArtifacts });
+    return NextResponse.json({
+      resolved,
+      dependencyArtifacts,
+      versionWarnings,
+      schemaWarning: schemaCheck.warning,
+    });
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Resolution failed";
     return NextResponse.json({ error: message }, { status: 500 });

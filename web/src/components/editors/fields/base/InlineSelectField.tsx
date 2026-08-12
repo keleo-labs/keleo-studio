@@ -32,7 +32,8 @@ export function InlineSelectField({
 }: InlineSelectFieldProps) {
   // If current value is not in options, include it so select doesn't break
   const valueNotInOptions = value && !options.includes(value);
-  const allOptions = valueNotInOptions ? [value, ...options] : options;
+  const deduped = Array.from(new Set(valueNotInOptions ? [value, ...options] : options));
+  const allOptions = deduped;
 
   return (
     <select

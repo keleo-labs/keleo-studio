@@ -36,10 +36,15 @@ export function AlphaStateTable({
     });
   });
 
-  // Collect activities by state
+  // Collect activities by state (deduplicated by activity name per state)
+  const seenActivityKeys = new Map<string, Set<string>>();
   allActivities.forEach(activity => {
     activity.contributesTo?.forEach((contrib: any) => {
       if (contrib.alphaName === alpha.name) {
+        const seen = seenActivityKeys.get(contrib.stateName);
+        if (seen?.has(activity.name)) return;
+        if (!seen) seenActivityKeys.set(contrib.stateName, new Set([activity.name]));
+        else seen.add(activity.name);
         const stateActivities = activitiesByState.get(contrib.stateName) || [];
         stateActivities.push(activity);
         activitiesByState.set(contrib.stateName, stateActivities);
@@ -47,13 +52,19 @@ export function AlphaStateTable({
     });
   });
 
-  // Gather work products that contribute to each state
+  // Gather work products that contribute to each state (deduplicated by wp+lod key)
   const workProductsByState = new Map<string, Array<{workProduct: any, lod: any}>>();
+  const seenWPKeys = new Map<string, Set<string>>();
 
   baseline.workProducts?.forEach(wp => {
     wp.levelsOfDetail?.forEach((lod: any) => {
       lod.contributesTo?.forEach((contrib: any) => {
         if (contrib.alphaName === alpha.name) {
+          const key = `${wp.name}::${lod.name}`;
+          const seen = seenWPKeys.get(contrib.stateName);
+          if (seen?.has(key)) return;
+          if (!seen) seenWPKeys.set(contrib.stateName, new Set([key]));
+          else seen.add(key);
           const stateWPs = workProductsByState.get(contrib.stateName) || [];
           stateWPs.push({ workProduct: wp, lod });
           workProductsByState.set(contrib.stateName, stateWPs);

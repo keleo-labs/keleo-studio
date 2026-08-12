@@ -1,6 +1,6 @@
 import type { Pattern, WorkProduct, Persona, PersonaGroup, Citation } from "@/lib/types";
 import type { LibraryLookupIndex } from "@/lib/library/practiceDependencyResolution";
-import { collectTransitiveMethodDependencies } from "@/lib/library/practiceDependencyResolution";
+import { buildDependencyTree, computeDependencyLayout } from "@/lib/diagrams/dependencyTree";
 import { groupByFocus } from "@/lib/ir";
 import {
   buildReportRenderableDoc,
@@ -27,6 +27,7 @@ import {
 import {
   generateConcernsOverviewSvg,
   generateActivitiesOverviewSvg,
+  generateDependencyDiagramSvg,
 } from "./svgDiagrams";
 import { generateMkdocsYaml } from "./mkdocsConfig";
 import { slugify } from "./slugs";
@@ -49,9 +50,16 @@ export function generateStaticSite(
 
   // Use original doc for narratives, practices, dependencies
   const src = (originalDoc ?? doc) as Record<string, unknown>;
-  const transitiveDeps = libraryIndex
-    ? collectTransitiveMethodDependencies(src, libraryIndex)
-    : [];
+
+  // Build dependency diagram SVG
+  let dependencySvg: string | undefined;
+  if (libraryIndex) {
+    const tree = buildDependencyTree(src, libraryIndex);
+    const layout = computeDependencyLayout(tree);
+    const svg = generateDependencyDiagramSvg(layout);
+    if (svg) dependencySvg = svg;
+  }
+
   const practicePages = new Map<string, Record<string, unknown>>();
 
   // Inline practice objects
@@ -95,19 +103,22 @@ export function generateStaticSite(
     }
   }
 
-  // Transitive practice dependencies (lookup from library)
+  // Collect all dependency names from the tree for practice page generation
   if (libraryIndex) {
-    for (const dep of transitiveDeps) {
-      if (practicePages.has(dep.name)) continue;
-      const found = dep.role === "baselinePractice"
-        ? libraryIndex.baselineByName.get(dep.name)
-        : libraryIndex.practiceByName.get(dep.name);
-      if (found) practicePages.set(dep.name, found as unknown as Record<string, unknown>);
-    }
+    const tree = buildDependencyTree(src, libraryIndex);
+    const collectNames = (node: { name: string; kind: string; children: any[] }) => {
+      if (!practicePages.has(node.name) && node.kind !== "root") {
+        const found = node.kind === "baselinePractice"
+          ? libraryIndex.baselineByName.get(node.name)
+          : libraryIndex.practiceByName.get(node.name);
+        if (found) practicePages.set(node.name, found as unknown as Record<string, unknown>);
+      }
+      for (const child of node.children) collectNames(child);
+    };
+    collectNames(tree.root);
   }
 
   // Ensure every referenced practice has a page, even if not found in the library.
-  // Collect all practice names referenced by the doc.
   const allReferencedNames = new Set<string>();
   if (Array.isArray(src.practices)) {
     for (const p of src.practices) {
@@ -127,7 +138,6 @@ export function generateStaticSite(
     }
   }
   if (baselinePracticeName) allReferencedNames.add(baselinePracticeName);
-  for (const dep of transitiveDeps) allReferencedNames.add(dep.name);
 
   for (const name of allReferencedNames) {
     if (!practicePages.has(name)) {
@@ -135,7 +145,7 @@ export function generateStaticSite(
     }
   }
 
-  addPage(generateIntroductionPage(src, baseline, display, transitiveDeps.length > 0 ? transitiveDeps : undefined));
+  addPage(generateIntroductionPage(src, baseline, display, dependencySvg));
 
   for (const [, practiceBody] of practicePages) {
     addPage(generatePracticePage(practiceBody, baseline));
@@ -190,7 +200,7 @@ export function generateStaticSite(
       );
 
       for (const space of group.activitySpaces) {
-        addPage(generateActivitySpacePage(space, group.focusName, baseline, display));
+        addPage(generateActivitySpacePage(space, group.focusName, baseline, display, workProducts));
 
         for (const activity of space.activities ?? []) {
           addPage(

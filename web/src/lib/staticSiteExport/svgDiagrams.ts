@@ -1,5 +1,6 @@
 import type { PracticeBaseline, Asset } from "@/lib/types";
 import type { DisplayAliasFn } from "@/lib/practiceReport/generatePracticeReport";
+import type { DependencyDiagramLayout } from "@/lib/diagrams/dependencyTree";
 import { findIconAsset, renderIconHtml, collectFontCdnUrls } from "./fontIcons";
 
 const CARD_WIDTH = 180;
@@ -14,6 +15,9 @@ const TEXT_SIZE = 11;
 const WRAP_WIDTH = 1100;
 const TREE_GAP_X = 24;
 const ROW_GAP = 24;
+const MULTI_COL_THRESHOLD = 7 * (CARD_HEIGHT + CARD_GAP);
+const COLUMN_GAP = 24;
+const MAPS_TO_BAR_WIDTH = 6;
 
 function wrapLayout(
   items: { width: number; height: number }[],
@@ -64,6 +68,9 @@ function generateSvgFontStyles(assets: Asset[]): string {
   return `  <defs>\n    <style>\n      ${imports}\n    </style>\n  </defs>`;
 }
 
+const CONTRIBUTES_TO_COLOR = "rgba(102,102,102,0.8)";
+const MAPS_TO_COLOR = "rgba(0,102,204,0.6)";
+
 interface AlphaNode {
   name: string;
   displayName: string;
@@ -71,6 +78,7 @@ interface AlphaNode {
   x: number;
   y: number;
   children: AlphaNode[];
+  relationship?: "contributesTo" | "mapsTo";
 }
 
 function buildAlphaTree(
@@ -80,7 +88,9 @@ function buildAlphaTree(
   startY: number,
   display: DisplayAliasFn,
 ): { nodes: AlphaNode[]; totalHeight: number } {
-  const children = allAlphas.filter((a) => a.contributesTo === parentName);
+  const mapsToChildren = allAlphas.filter((a) => a.mapsTo === parentName);
+  const contributesToChildren = allAlphas.filter((a) => a.contributesTo === parentName);
+  const children = [...mapsToChildren, ...contributesToChildren];
   const nodes: AlphaNode[] = [];
   let currentY = startY;
 
@@ -92,9 +102,10 @@ function buildAlphaTree(
       x: startX,
       y: currentY,
       children: [],
+      relationship: alpha.mapsTo === parentName ? "mapsTo" : "contributesTo",
     };
 
-    const hasChildren = allAlphas.some((a) => a.contributesTo === alpha.name);
+    const hasChildren = allAlphas.some((a) => a.contributesTo === alpha.name || a.mapsTo === alpha.name);
     if (hasChildren) {
       const childResult = buildAlphaTree(
         alpha.name,
@@ -129,23 +140,34 @@ function renderAlphaNodeLines(
 ): string[] {
   const lines: string[] = [];
 
-  nodes.forEach((node, index) => {
-    const cardCenterY = node.y + CARD_HEIGHT / 2;
+  if (parentX !== undefined && parentY !== undefined) {
+    const parentBottomY = parentY + CARD_HEIGHT;
+    const mapsToNodes = nodes.filter(n => n.relationship === "mapsTo");
+    const contributesToNodes = nodes.filter(n => n.relationship !== "mapsTo");
 
-    if (parentX !== undefined && parentY !== undefined) {
-      const parentBottomY = parentY + CARD_HEIGHT;
-
+    if (contributesToNodes.length > 0) {
+      const lastContribCenterY = contributesToNodes[contributesToNodes.length - 1].y + CARD_HEIGHT / 2;
       lines.push(
-        `<line x1="${parentX + LINE_OFFSET}" y1="${cardCenterY}" x2="${node.x}" y2="${cardCenterY}" stroke="rgba(102,102,102,0.8)" stroke-width="3"/>`,
+        `<line x1="${parentX + LINE_OFFSET}" y1="${parentBottomY}" x2="${parentX + LINE_OFFSET}" y2="${lastContribCenterY}" stroke="${CONTRIBUTES_TO_COLOR}" stroke-width="3"/>`,
       );
+    }
 
-      if (index === 0) {
-        const lastSiblingCenterY =
-          nodes[nodes.length - 1].y + CARD_HEIGHT / 2;
-        lines.push(
-          `<line x1="${parentX + LINE_OFFSET}" y1="${parentBottomY}" x2="${parentX + LINE_OFFSET}" y2="${lastSiblingCenterY}" stroke="rgba(102,102,102,0.8)" stroke-width="3"/>`,
-        );
-      }
+    if (mapsToNodes.length > 0) {
+      const barX = mapsToNodes[0].x - MAPS_TO_BAR_WIDTH;
+      const barTop = parentBottomY;
+      const barBottom = mapsToNodes[mapsToNodes.length - 1].y + CARD_HEIGHT;
+      lines.push(
+        `<rect x="${barX}" y="${barTop}" width="${MAPS_TO_BAR_WIDTH}" height="${barBottom - barTop}" rx="2" fill="${MAPS_TO_COLOR}"/>`,
+      );
+    }
+  }
+
+  nodes.forEach((node) => {
+    if (parentX !== undefined && parentY !== undefined && node.relationship !== "mapsTo") {
+      const cardCenterY = node.y + CARD_HEIGHT / 2;
+      lines.push(
+        `<line x1="${parentX + LINE_OFFSET}" y1="${cardCenterY}" x2="${node.x}" y2="${cardCenterY}" stroke="${CONTRIBUTES_TO_COLOR}" stroke-width="3"/>`,
+      );
     }
 
     if (node.children.length > 0) {
@@ -212,12 +234,185 @@ function renderAlphaNodeCards(
   return out;
 }
 
+function splitIntoBalancedColumns<T extends { slotHeight: number }>(
+  items: T[],
+  numCols: number,
+): T[][] {
+  if (numCols <= 1 || items.length < numCols) return [items];
+
+  const prefix = [0];
+  for (const item of items) {
+    prefix.push(prefix[prefix.length - 1] + item.slotHeight);
+  }
+  const total = prefix[items.length];
+
+  if (numCols === 2) {
+    let bestSplit = 1;
+    let bestMax = Infinity;
+    for (let s = 1; s < items.length; s++) {
+      const maxH = Math.max(prefix[s], total - prefix[s]);
+      if (maxH < bestMax) { bestMax = maxH; bestSplit = s; }
+    }
+    return [items.slice(0, bestSplit), items.slice(bestSplit)];
+  }
+
+  let bestSplits = [1, 2];
+  let bestMax = Infinity;
+  for (let s1 = 1; s1 < items.length - 1; s1++) {
+    for (let s2 = s1 + 1; s2 < items.length; s2++) {
+      const maxH = Math.max(prefix[s1], prefix[s2] - prefix[s1], total - prefix[s2]);
+      if (maxH < bestMax) { bestMax = maxH; bestSplits = [s1, s2]; }
+    }
+  }
+  return [
+    items.slice(0, bestSplits[0]),
+    items.slice(bestSplits[0], bestSplits[1]),
+    items.slice(bestSplits[1]),
+  ];
+}
+
+function buildMultiColumnTree(
+  rootAlphaName: string,
+  allAlphas: PracticeBaseline["alphas"],
+  display: DisplayAliasFn,
+  assets: Asset[],
+): {
+  parts: string[];
+  rootCardWidth: number;
+  treeWidth: number;
+  treeHeight: number;
+} {
+  const mapsToDirectChildren = allAlphas.filter(a => a.mapsTo === rootAlphaName);
+  const contributesToDirectChildren = allAlphas.filter(a => a.contributesTo === rootAlphaName);
+  const directChildren = [...mapsToDirectChildren, ...contributesToDirectChildren];
+  const rootLabel = truncate(display("Alpha", rootAlphaName), 22);
+  const rootAsset = findIconAsset(
+    allAlphas.find(a => a.name === rootAlphaName)?.assetNames,
+    assets,
+  );
+
+  if (directChildren.length === 0) {
+    const parts: string[] = [];
+    parts.push(
+      `<g>`,
+      `  <rect x="0" y="0" width="${CARD_WIDTH}" height="${CARD_HEIGHT}" rx="4" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>`,
+      ...renderCardContent(0, 0, CARD_WIDTH, rootLabel, rootAsset),
+      `</g>`,
+    );
+    return { parts, rootCardWidth: CARD_WIDTH, treeWidth: CARD_WIDTH, treeHeight: CARD_HEIGHT };
+  }
+
+  const childMeasurements = directChildren.map(child => {
+    const hasGrandchildren = allAlphas.some(a => a.contributesTo === child.name || a.mapsTo === child.name);
+    if (!hasGrandchildren) {
+      return { child, slotHeight: CARD_HEIGHT + CARD_GAP, maxDepth: 0 };
+    }
+    const { nodes: grandchildren, totalHeight: gcHeight } = buildAlphaTree(
+      child.name, allAlphas, INDENT, CARD_HEIGHT + CARD_GAP, display,
+    );
+    const maxDepth = 1 + Math.max(0, ...grandchildren.map(countDepth));
+    return {
+      child,
+      slotHeight: CARD_HEIGHT + CARD_GAP + gcHeight + VERTICAL_PADDING,
+      maxDepth,
+    };
+  });
+
+  const totalChildrenHeight = childMeasurements.reduce((s, m) => s + m.slotHeight, 0);
+
+  let numColumns = 1;
+  let columnGroups = [childMeasurements];
+
+  if (totalChildrenHeight > MULTI_COL_THRESHOLD && directChildren.length >= 2) {
+    const split2 = splitIntoBalancedColumns(childMeasurements, 2);
+    const maxHeight2 = Math.max(...split2.map(col => col.reduce((s, m) => s + m.slotHeight, 0)));
+
+    if (maxHeight2 <= totalChildrenHeight * 0.7) {
+      numColumns = 2;
+      columnGroups = split2;
+
+      if (maxHeight2 > MULTI_COL_THRESHOLD && directChildren.length >= 4) {
+        const split3 = splitIntoBalancedColumns(childMeasurements, 3);
+        const maxHeight3 = Math.max(...split3.map(col => col.reduce((s, m) => s + m.slotHeight, 0)));
+        if (maxHeight3 <= maxHeight2 * 0.7) {
+          numColumns = 3;
+          columnGroups = split3;
+        }
+      }
+    }
+  }
+
+  const columns: Array<{ nodes: AlphaNode[]; parentX: number }> = [];
+  let currentColX = 0;
+  let maxColumnBottom = CARD_HEIGHT;
+
+  for (const colItems of columnGroups) {
+    const colNodes: AlphaNode[] = [];
+    let currentY = CARD_HEIGHT + CARD_GAP;
+
+    for (const { child } of colItems) {
+      const node: AlphaNode = {
+        name: child.name,
+        displayName: display("Alpha", child.name),
+        assetNames: child.assetNames,
+        x: currentColX + INDENT,
+        y: currentY,
+        children: [],
+        relationship: child.mapsTo === rootAlphaName ? "mapsTo" : "contributesTo",
+      };
+
+      const hasGrandchildren = allAlphas.some(a => a.contributesTo === child.name || a.mapsTo === child.name);
+      if (hasGrandchildren) {
+        const childResult = buildAlphaTree(
+          child.name, allAlphas,
+          currentColX + 2 * INDENT,
+          currentY + CARD_HEIGHT + CARD_GAP,
+          display,
+        );
+        node.children = childResult.nodes;
+        currentY += CARD_HEIGHT + CARD_GAP + childResult.totalHeight + VERTICAL_PADDING;
+      } else {
+        currentY += CARD_HEIGHT + CARD_GAP;
+      }
+
+      colNodes.push(node);
+    }
+
+    maxColumnBottom = Math.max(maxColumnBottom, currentY - CARD_GAP);
+
+    const colMaxDepth = Math.max(0, ...colItems.map(m => m.maxDepth));
+    const colWidth = (colMaxDepth + 1) * INDENT + CARD_WIDTH;
+
+    columns.push({ nodes: colNodes, parentX: currentColX });
+    currentColX += colWidth + COLUMN_GAP;
+  }
+
+  const totalWidth = columns.length > 0 ? currentColX - COLUMN_GAP : CARD_WIDTH;
+  const rootCardWidth = numColumns > 1 ? totalWidth : CARD_WIDTH;
+  const treeHeight = maxColumnBottom;
+
+  const parts: string[] = [];
+  parts.push(
+    `<g>`,
+    `  <rect x="0" y="0" width="${rootCardWidth}" height="${CARD_HEIGHT}" rx="4" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>`,
+    ...renderCardContent(0, 0, rootCardWidth, rootLabel, rootAsset),
+    `</g>`,
+  );
+
+  for (const col of columns) {
+    parts.push(...renderAlphaNodeLines(col.nodes, col.parentX, 0));
+    parts.push(...renderAlphaNodeCards(col.nodes, assets));
+  }
+
+  return { parts, rootCardWidth, treeWidth: totalWidth, treeHeight };
+}
+
 export function generateConcernsOverviewSvg(
   baseline: PracticeBaseline,
   display: DisplayAliasFn,
 ): string {
   const assets = baseline.assets ?? [];
-  const rootAlphas = (baseline.alphas ?? []).filter((a) => !a.contributesTo);
+  const rootAlphas = (baseline.alphas ?? []).filter((a) => !a.contributesTo && !a.mapsTo);
 
   const rootAlphasByFocus = new Map<string, typeof baseline.alphas>();
   for (const alpha of rootAlphas) {
@@ -254,39 +449,18 @@ export function generateConcernsOverviewSvg(
     const treeParts: { parts: string[]; width: number; height: number }[] = [];
 
     for (const rootAlpha of focusAlphas) {
-      const { nodes, totalHeight } = buildAlphaTree(
+      const result = buildMultiColumnTree(
         rootAlpha.name,
         baseline.alphas ?? [],
-        INDENT,
-        CARD_HEIGHT + CARD_GAP,
         display,
+        assets,
       );
 
-      const rootLabel = truncate(display("Alpha", rootAlpha.name), 22);
-      const rootAsset = findIconAsset(rootAlpha.assetNames, assets);
-
-      const parts: string[] = [];
-      parts.push(
-        `<g>`,
-        `  <rect x="0" y="0" width="${CARD_WIDTH}" height="${CARD_HEIGHT}" rx="4" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>`,
-        ...renderCardContent(0, 0, CARD_WIDTH, rootLabel, rootAsset),
-        `</g>`,
-      );
-
-      parts.push(...renderAlphaNodeLines(nodes, 0, 0));
-      parts.push(...renderAlphaNodeCards(nodes, assets));
-
-      const maxDepth =
-        nodes.length > 0 ? Math.max(0, ...nodes.map(countDepth)) : 0;
-      const treeWidth = nodes.length > 0
-        ? (maxDepth + 1) * INDENT + CARD_WIDTH
-        : CARD_WIDTH;
-      const treeHeight = Math.max(
-        CARD_HEIGHT,
-        CARD_HEIGHT + CARD_GAP + totalHeight,
-      );
-
-      treeParts.push({ parts, width: treeWidth, height: treeHeight });
+      treeParts.push({
+        parts: result.parts,
+        width: result.treeWidth,
+        height: result.treeHeight,
+      });
     }
 
     const { positions, totalWidth, totalHeight: rowsHeight } = wrapLayout(
@@ -457,6 +631,64 @@ export function generateActivitiesOverviewSvg(
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
     ...(fontStyles ? [fontStyles] : []),
     ...svgParts,
+    `</svg>`,
+  ].join("\n");
+}
+
+// ---------------------------------------------------------------------------
+// Dependency diagram (static SVG string from pre-computed layout)
+// ---------------------------------------------------------------------------
+
+export function generateDependencyDiagramSvg(layout: DependencyDiagramLayout): string {
+  if (layout.nodes.length <= 1) return "";
+
+  const parts: string[] = [];
+
+  parts.push(
+    `  <defs>`,
+    `    <marker id="dep-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">`,
+    `      <polygon points="0 0, 8 3, 0 6" fill="rgba(102,102,102,0.7)" />`,
+    `    </marker>`,
+    `  </defs>`,
+  );
+
+  for (const group of layout.groups) {
+    parts.push(
+      `  <rect x="${group.x}" y="${group.y}" width="${group.width}" height="${group.height}" rx="6" ry="6" fill="#f0f0f0" stroke="#d2d2d2" stroke-width="1" opacity="0.5" />`,
+      `  <text x="${group.x + 8}" y="${group.y + 16}" font-size="11" fill="#6a6e73" font-family="RedHatText, Helvetica, Arial, sans-serif">${escSvg(group.baselineName)}</text>`,
+    );
+  }
+
+  for (const edge of layout.edges) {
+    const midX = (edge.x1 + edge.x2) / 2;
+    parts.push(
+      `  <path d="M ${edge.x1} ${edge.y1} C ${midX} ${edge.y1}, ${midX} ${edge.y2}, ${edge.x2} ${edge.y2}" fill="none" stroke="rgba(102,102,102,0.6)" stroke-width="1.5" marker-end="url(#dep-arrow)" />`,
+    );
+  }
+
+  for (const node of layout.nodes) {
+    const isBaseline = node.kind === "baselinePractice";
+    const isRoot = node.kind === "root";
+    const borderColor = isBaseline ? "#0066cc" : "#d2d2d2";
+    const fillColor = isBaseline ? "#f5f5f5" : "#ffffff";
+    const strokeWidth = isBaseline ? 2 : 1.5;
+    const iconColor = isBaseline || isRoot ? "#0066cc" : "#6a6e73";
+
+    parts.push(
+      `  <rect x="${node.x}" y="${node.y}" width="${node.width}" height="${node.height}" rx="4" ry="4" fill="${fillColor}" stroke="${borderColor}" stroke-width="${strokeWidth}" />`,
+      `  <foreignObject x="${node.x}" y="${node.y}" width="${node.width}" height="${node.height}">`,
+      `    <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:center;gap:6px;padding:0 10px;height:100%;overflow:hidden">`,
+      `      <span style="font-size:11px;color:${iconColor};flex-shrink:0">${isBaseline || isRoot ? "&#x25A0;" : "&#x25C6;"}</span>`,
+      `      <span style="font-size:11px;font-weight:600;color:#151515;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.3" title="${escSvg(node.name)}">${escSvg(node.name)}</span>`,
+      `    </div>`,
+      `  </foreignObject>`,
+    );
+  }
+
+  const { viewBoxWidth: w, viewBoxHeight: h } = layout;
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`,
+    ...parts,
     `</svg>`,
   ].join("\n");
 }

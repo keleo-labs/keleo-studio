@@ -18,13 +18,14 @@ export function resolveAssetUrl(asset: Asset): string | null {
     return asset.dataUri;
   }
 
-  // Font-character assets don't have URLs - they need special rendering
-  // Return null so callers know to use renderAsIcon instead
+  if (asset.path) {
+    return `/api/assets/${asset.path}`;
+  }
+
   if (asset.type === "font-character") {
     return null;
   }
 
-  // Local paths not supported yet
   return null;
 }
 

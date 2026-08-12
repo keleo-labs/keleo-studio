@@ -41,9 +41,9 @@ function uniqCompetencies(competencies: any[]): any[] {
   return [...seen.values()];
 }
 
-function clonedRowWithCanonicalName(row: Record<string, unknown>, key: string): any {
+function clonedRowWithCanonicalName(row: Record<string, unknown>, _key: string): any {
   const c = clone(row);
-  if (typeof c.name === "string") c.name = key;
+  if (typeof c.name === "string") c.name = String(c.name).trim().replace(/\s+/g, " ");
   return c;
 }
 
@@ -244,7 +244,6 @@ function mergeArrayFieldValues(base: unknown[], overlay: unknown[], fieldKey: st
       if (!k) continue;
       if (byName.has(k)) {
         const mergedRow = mergePracticeElementRecords(byName.get(k) as Record<string, unknown>, row as Record<string, unknown>);
-        mergedRow.name = k;
         byName.set(k, mergedRow);
       } else {
         byName.set(k, clonedRowWithCanonicalName(row as Record<string, unknown>, k));
@@ -422,7 +421,6 @@ function mergeChecklists(base: any[], over: any[]): any[] {
     if (!k) continue;
     if (byName.has(k)) {
       const merged = mergePracticeElements(byName.get(k), ch);
-      merged.name = k;
       byName.set(k, merged);
     } else {
       byName.set(k, clonedRowWithCanonicalName(ch as Record<string, unknown>, k));
@@ -448,7 +446,6 @@ function mergeStates(
       const prev = byName.get(k);
       byName.set(k, {
         ...mergePracticeElements(prev, s),
-        name: k,
         seq: s.seq ?? prev.seq,
         checklist: mergeChecklists(prev.checklist ?? [], s.checklist ?? []),
       });
@@ -498,14 +495,17 @@ function mergeAlphas(
       const mergedSupporting = uniqStrings([...(prev.supportingAlphas ?? []), ...(a.supportingAlphas ?? [])]);
       const baselineCt = String(prev.contributesTo ?? "").trim();
       const overlayCt = String(a.contributesTo ?? "").trim();
+      const baselineMt = String(prev.mapsTo ?? "").trim();
+      const overlayMt = String(a.mapsTo ?? "").trim();
       const merged: Record<string, unknown> = {
         ...mergePracticeElements(prev, a),
-        name: k,
         focusName: mergeFocusNamePreferNonImplicit(prev.focusName, a.focusName),
         contributesTo: baselineCt || overlayCt || undefined,
+        mapsTo: baselineMt || overlayMt || undefined,
         states: mergeStates(prev.states ?? [], a.states ?? []),
       };
       if (!merged.contributesTo) delete merged.contributesTo;
+      if (!merged.mapsTo) delete merged.mapsTo;
       if (mergedSupporting.length) merged.supportingAlphas = mergedSupporting;
       else delete merged.supportingAlphas;
       // Keep the existing sourcePracticeName if it exists, otherwise use the new one
@@ -524,6 +524,58 @@ function mergeAlphas(
     }
   }
   return [...byName.values()];
+}
+
+/**
+ * Section 7.1: Inject cross-baseline `contributesTo` and `contributesToState` from Method.alphaBindings.
+ * Must run BEFORE {@link aggregateSupportingAlphasFromContributesTo} so injected relationships
+ * are picked up by the supporting-alpha aggregation pass.
+ */
+function applyAlphaBindings(alphas: PracticeBaseline["alphas"], method: Record<string, unknown>): void {
+  const bindings = (method as any).alphaBindings;
+  if (!Array.isArray(bindings) || bindings.length === 0) return;
+
+  const byName = new Map<string, (typeof alphas)[number]>();
+  for (const a of alphas ?? []) {
+    if (a?.name) byName.set(canonicalPracticeElementName(a.name) ?? "", a);
+  }
+
+  for (const binding of bindings) {
+    if (!binding?.baselineAlpha?.alphaName) continue;
+    const targetKey = canonicalPracticeElementName(binding.baselineAlpha.alphaName);
+    if (!targetKey) continue;
+    const targetAlpha = byName.get(targetKey);
+    if (!targetAlpha) continue;
+
+    const contributing = binding.contributingAlphas;
+    if (!Array.isArray(contributing)) continue;
+
+    for (const ca of contributing) {
+      if (!ca?.alphaName) continue;
+      const contribKey = canonicalPracticeElementName(ca.alphaName);
+      if (!contribKey) continue;
+      const contribAlpha = byName.get(contribKey);
+      if (!contribAlpha) continue;
+
+      if (!contribAlpha.contributesTo) {
+        contribAlpha.contributesTo = targetAlpha.name;
+      }
+
+      if (Array.isArray(ca.stateContributions)) {
+        for (const sc of ca.stateContributions) {
+          if (!sc?.fromState || !sc?.toState) continue;
+          const fromKey = canonicalPracticeElementName(sc.fromState);
+          if (!fromKey) continue;
+          const state = (contribAlpha.states ?? []).find(
+            (s: any) => canonicalPracticeElementName(s?.name) === fromKey,
+          );
+          if (state && !(state as any).contributesToState) {
+            (state as any).contributesToState = sc.toState;
+          }
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -562,6 +614,49 @@ function aggregateSupportingAlphasFromContributesTo(
   return list;
 }
 
+/**
+ * Section 7.2a: Every alpha that declares `mapsTo` is added as a full Alpha object to the target
+ * alpha's `variants` array. Unlike `supportingAlphas` (string names from `contributesTo`), `variants`
+ * holds full Alpha objects for display purposes. Variants do NOT participate in state rollup.
+ */
+function aggregateVariantsFromMapsTo(
+  alphas: PracticeBaseline["alphas"],
+): PracticeBaseline["alphas"] {
+  const list = (alphas ?? []).map((a) => clone(a));
+  const byName = new Map<string, (typeof list)[number]>();
+  for (const a of list) {
+    if (a?.name) byName.set(String(a.name), a);
+  }
+
+  const variantsByParent = new Map<string, (typeof list)[number][]>();
+  for (const a of list) {
+    if (!a?.name) continue;
+    const parent = typeof (a as any).mapsTo === "string" ? String((a as any).mapsTo).trim() : "";
+    if (!parent || parent === String(a.name)) continue;
+    if (!byName.has(parent)) continue;
+    const arr = variantsByParent.get(parent) ?? [];
+    if (!arr.some((v) => String(v.name) === String(a.name))) arr.push(a);
+    variantsByParent.set(parent, arr);
+  }
+
+  for (const [parentName, variants] of variantsByParent) {
+    const parentAlpha = byName.get(parentName);
+    if (!parentAlpha) continue;
+    const existing = Array.isArray((parentAlpha as any).variants) ? ((parentAlpha as any).variants as any[]) : [];
+    const existingNames = new Set(existing.map((v: any) => String(v?.name ?? "")));
+    const merged = [...existing];
+    for (const v of variants) {
+      if (!existingNames.has(String(v.name))) {
+        merged.push(v);
+        existingNames.add(String(v.name));
+      }
+    }
+    if (merged.length) (parentAlpha as any).variants = merged;
+  }
+
+  return list;
+}
+
 function mergeFocuses(base: PracticeBaseline["focuses"], over: PracticeBaseline["focuses"]): PracticeBaseline["focuses"] {
   const byName = new Map<string, any>();
   for (const f of base ?? []) {
@@ -574,7 +669,6 @@ function mergeFocuses(base: PracticeBaseline["focuses"], over: PracticeBaseline[
     if (!k) continue;
     if (byName.has(k)) {
       const merged = mergePracticeElements(byName.get(k), f);
-      merged.name = k;
       byName.set(k, merged);
     } else {
       byName.set(k, clonedRowWithCanonicalName(f as Record<string, unknown>, k));
@@ -596,7 +690,6 @@ function mergeKeyedPracticeOverlayRows(base: any[] | undefined, over: any[] | un
     if (!k) continue;
     if (byName.has(k)) {
       const merged = mergePracticeElements(byName.get(k), row);
-      merged.name = k;
       byName.set(k, merged);
     } else {
       byName.set(k, clonedRowWithCanonicalName(row as Record<string, unknown>, k));
@@ -675,7 +768,6 @@ function mergeSpaceSlots(prev: SpaceSlot, next: SpaceSlot): SpaceSlot {
     if (!activities.has(k)) activities.set(k, clonedRowWithCanonicalName(v as Record<string, unknown>, k));
     else {
       const mergedAct = mergeActivityElements(activities.get(k)!, v);
-      mergedAct.name = k;
       activities.set(k, mergedAct);
     }
   }
@@ -748,14 +840,12 @@ function mergeCompetencies(
         if (!lkName) continue;
         if (levelMap.has(lk)) {
           const mergedLv = mergePracticeElements(levelMap.get(lk), lv);
-          mergedLv.name = lkName;
           levelMap.set(lk, mergedLv);
         } else {
           levelMap.set(lk, clonedRowWithCanonicalName(lv as Record<string, unknown>, lkName));
         }
       }
       const mergedRow = mergePracticeElements(prev, c) as Record<string, unknown>;
-      mergedRow.name = k;
       mergedRow.levels = [...levelMap.values()].sort((a, b) => (Number(a.level) || 0) - (Number(b.level) || 0));
       byName.set(k, mergedRow);
     } else {
@@ -779,7 +869,6 @@ function mergeLevelsOfDetail(a: any[], b: any[]): any[] {
       const prev = byName.get(k);
       byName.set(k, {
         ...mergePracticeElements(prev, x),
-        name: k,
         seq: x.seq ?? prev.seq,
         contributesTo: mergeContribs(prev.contributesTo ?? [], x.contributesTo ?? []),
         checklist: mergeChecklists(prev.checklist ?? [], x.checklist ?? []),
@@ -805,7 +894,6 @@ function mergeWorkProducts(a: any[], b: any[], sourcePracticeName?: string): any
       const prev = byName.get(k);
       const merged = {
         ...mergePracticeElements(prev, wp),
-        name: k,
         levelsOfDetail: mergeLevelsOfDetail(prev.levelsOfDetail ?? [], wp.levelsOfDetail ?? []),
       };
       // Keep the existing sourcePracticeName if it exists
@@ -838,7 +926,6 @@ function mergeNarrativeElements(a: any[], b: any[]): any[] {
     if (!k) continue;
     if (byName.has(k)) {
       const merged = mergePracticeElements(byName.get(k), item);
-      merged.name = k;
       byName.set(k, merged);
     } else {
       byName.set(k, clonedRowWithCanonicalName(item as Record<string, unknown>, k));
@@ -862,7 +949,6 @@ export function mergeNarrativeTypes(a: any[], b: any[]): any[] {
       const prev = byName.get(k);
       byName.set(k, {
         ...mergePracticeElements(prev, nt),
-        name: k,
         narrativeElements: mergeNarrativeElements(prev.narrativeElements ?? [], nt.narrativeElements ?? []),
       });
     } else {
@@ -886,7 +972,6 @@ function mergePersonas(a: any[], b: any[]): any[] {
       const prev = byName.get(k);
       byName.set(k, {
         ...mergePracticeElements(prev, p),
-        name: k,
         competencies: uniqCompetencies([...(prev.competencies ?? []), ...(p.competencies ?? [])]),
       });
     } else {
@@ -910,7 +995,6 @@ function mergePersonaGroups(a: any[], b: any[]): any[] {
       const prev = byName.get(k);
       byName.set(k, {
         ...mergePracticeElements(prev, pg),
-        name: k,
         personaNames: uniqStrings([...(prev.personaNames ?? []), ...(pg.personaNames ?? [])]),
       });
     } else {
@@ -939,7 +1023,6 @@ function mergeCitations(a: any[], b: any[]): any[] {
       const prev = byName.get(k);
       byName.set(k, {
         ...mergePracticeElements(prev, citation),
-        name: k,
         // Union authors arrays and deduplicate
         authors: uniqStrings([...(prev.authors ?? []), ...(citation.authors ?? [])]),
         // Later citation wins for date and source
@@ -1015,7 +1098,7 @@ function mergePatternViewAlphaInstances(a: any[] | undefined, b: any[] | undefin
     if (byKey.has(k)) {
       const prev = byKey.get(k);
       const merged = mergePracticeElements(prev, row);
-      merged.name = canonicalPracticeElementName(merged.name) || k;
+      merged.name = typeof merged.name === "string" ? String(merged.name).trim().replace(/\s+/g, " ") : k;
       const ev = mergeEvidenceRows(prev as Record<string, unknown>, row as Record<string, unknown>);
       if (ev.length) merged.evidenceBy = ev;
       else delete merged.evidenceBy;
@@ -1043,7 +1126,6 @@ function mergePatternViews(a: any[], b: any[]): any[] {
       const overlayNe = String(pv.narrativeElementName ?? "").trim();
       byName.set(k, {
         ...mergePracticeElements(prev, pv),
-        name: k,
         seq: pv.seq ?? prev.seq,
         ...(prevNe || overlayNe ? { narrativeElementName: prevNe || overlayNe } : {}),
         activitySpaces: uniqStrings([...(prev.activitySpaces ?? []), ...(pv.activitySpaces ?? [])]),
@@ -1074,7 +1156,6 @@ function mergePatterns(a: any[], b: any[], sourcePracticeName?: string): any[] {
       const overlayNt = String(pat.narrativeTypeName ?? "").trim();
       const merged = {
         ...mergePracticeElements(prev, pat),
-        name: k,
         ...(prevNt || overlayNt ? { narrativeTypeName: prevNt || overlayNt } : {}),
         patternViews: mergePatternViews(prev.patternViews ?? [], pat.patternViews ?? []),
       };
@@ -1593,7 +1674,9 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
   if (!(out.patterns as any[]).length) delete out.patterns;
   if (!(out.practiceDependencyNames as string[]).length) delete out.practiceDependencyNames;
 
+  applyAlphaBindings(out.alphas as PracticeBaseline["alphas"], method as Record<string, unknown>);
   out.alphas = aggregateSupportingAlphasFromContributesTo(out.alphas as PracticeBaseline["alphas"]);
+  out.alphas = aggregateVariantsFromMapsTo(out.alphas as PracticeBaseline["alphas"]);
 
   propagateDerivedFocusNames(out as { alphas?: any[]; activitySpaces?: any[]; activities?: any[] });
   finalizeImplicitFocusPlaceholders(out as { activitySpaces?: any[]; alphas?: any[] });

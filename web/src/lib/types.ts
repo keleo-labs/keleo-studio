@@ -3,6 +3,11 @@ export type ValidationIssue = {
   message: string;
 };
 
+export type DocumentVersionConstraint = {
+  documentName: string;
+  versionRange: string;
+};
+
 export type RefIssue = {
   kind: "missing";
   type:
@@ -88,6 +93,55 @@ export type AlphaContribution = {
   stateName: string;
 };
 
+export type BaselineAlphaReference = {
+  baselineName: string;
+  alphaName: string;
+};
+
+export type StateContribution = {
+  fromState: string;
+  toState: string;
+};
+
+export type ContributingAlpha = BaselineAlphaReference & {
+  stateContributions?: StateContribution[];
+};
+
+export type AlphaBinding = {
+  baselineAlpha: BaselineAlphaReference;
+  contributingAlphas: ContributingAlpha[];
+};
+
+export type AlphaInstanceStateReference = {
+  instanceName: string;
+  stateName: string;
+};
+
+export type WorkProductInstanceLevelReference = {
+  instanceName: string;
+  levelOfDetailName: string;
+};
+
+export type Background = {
+  given?: string[];
+  alphaStates?: AlphaContribution[];
+  workProductLevels?: WorkProductContribution[];
+  alphaInstanceStates?: AlphaInstanceStateReference[];
+  workProductInstanceLevels?: WorkProductInstanceLevelReference[];
+};
+
+export type Test = PracticeElement & {
+  given?: string[];
+  when?: string[];
+  then?: string[];
+};
+
+export type ExternalLink = {
+  name: string;
+  description?: string;
+  uri?: string;
+};
+
 export type WorkProductContribution = {
   workProductName: string;
   levelOfDetailName: string;
@@ -115,15 +169,35 @@ export type PersonaGroup = PracticeElement & {
   personaNames: string[];
 };
 
+export type Note = {
+  name: string;
+  timestamp: string;
+  content: string;
+};
+
+export type ChecklistState = {
+  checklistName: string;
+  state: "complete" | "not complete" | "not required";
+  evidenceUri?: string;
+  evidence?: ExternalLink;
+  notes?: Note[];
+};
+
 export type WorkProductInstance = PracticeElement & {
   workProductName: string;
   levelOfDetailName: string;
+  checklistStates?: ChecklistState[];
+  background?: Background;
+  links?: ExternalLink[];
 };
 
 export type AlphaInstance = PracticeElement & {
   alphaName: string;
   stateName: string;
   evidenceBy?: WorkProductInstance[];
+  checklistStates?: ChecklistState[];
+  background?: Background;
+  links?: ExternalLink[];
 };
 
 /** Practice-level tagging row (`Practice.alphaInstances[]`; schema `AlphaInstanceName`). */
@@ -154,15 +228,19 @@ export type PracticeActivity = PracticeElement & {
   focusName: string;
   contributesTo: { alphaName: string; stateName: string }[];
   requiredCompetencies: string[];
-  /** Symbolic PersonaGroup.name refs (same as ActivitySpace.involves; schema ActivitySpaceCore). */
   involves?: string[];
   worksOn: WorkProductContribution[];
   recommendedCompetencyLevels: CompetencyLevelReference[];
+  background?: Background;
+  test?: Test;
+  examples?: Test[];
 };
 
 export type AlphaRelationship = {
   relationship: string;
   alphaName: string;
+  direction: "outgoing" | "incoming" | "mutual";
+  description?: string;
 };
 
 export type PracticeBaseline = PracticeElement & {
@@ -171,19 +249,34 @@ export type PracticeBaseline = PracticeElement & {
     focusName: string;
     /** Optional name of another alpha this alpha contributes to (same baseline; language.mmd). */
     contributesTo?: string;
+    /** Optional name of another alpha this alpha is a variant of (same state progression; mutually exclusive with contributesTo). */
+    mapsTo?: string;
     /** Optional names of contributing / child alphas under this rollup alpha (same baseline; unioned when merging practices). */
     supportingAlphas?: string[];
+    /** Alphas that declared mapsTo this alpha, populated during merge. Each variant has the same state progression but distinct name, description, and checklists. */
+    variants?: PracticeBaseline["alphas"];
     /** Optional array of named semantic relationships to other alphas (language.schema.json AlphaRelationship). */
     relatesTo?: AlphaRelationship[];
-    states: (PracticeElement & { seq: number; checklist: (PracticeElement & { seq: number })[] })[];
+    states: (PracticeElement & {
+      seq: number;
+      checklist: (PracticeElement & {
+        seq: number;
+        verificationMethod?: string;
+        evidencedBy?: WorkProductContribution[];
+        test?: Test;
+        examples?: Test[];
+      })[];
+      contributesToState?: string;
+      background?: Background;
+    })[];
   })[];
   activitySpaces: (PracticeElement & {
     contributesTo: { alphaName: string; stateName: string }[];
     focusName: string;
     requiredCompetencies: string[];
-    /** Symbolic PersonaGroup.name refs (same practice / merged scope; language.mmd). */
     involves?: string[];
     activities?: PracticeActivity[];
+    background?: Background;
   })[];
   competencies: (PracticeElement & {
     levels: (PracticeElement & { level: number; competencyName: string })[];
@@ -199,13 +292,22 @@ export type PracticeBaseline = PracticeElement & {
   alphaInstances?: AlphaInstanceNameRow[];
   practiceElementAliases?: PracticeElementAlias[];
   baselinePracticeNames?: string[];
+  schemaVersion?: string;
+  dependencyVersions?: DocumentVersionConstraint[];
 };
 
 export type WorkProduct = PracticeElement & {
   levelsOfDetail: (PracticeElement & {
     seq: number;
-    checklist: (PracticeElement & { seq: number })[];
+    checklist: (PracticeElement & {
+      seq: number;
+      verificationMethod?: string;
+      evidencedBy?: WorkProductContribution[];
+      test?: Test;
+      examples?: Test[];
+    })[];
     contributesTo: AlphaContribution[];
+    background?: Background;
   })[];
 };
 
@@ -229,6 +331,8 @@ export type PatternView = PracticeElement & {
 export type Pattern = PracticeElement & {
   patternViews: PatternView[];
   narrativeTypeName?: string;
+  alphaInstanceNames?: AlphaInstanceNameRow[];
+  workProductInstanceNames?: WorkProductInstanceNameRow[];
 };
 
 /** Practice document: names a baseline; baseline-shaped fields are optional overlays. */
@@ -265,6 +369,8 @@ export type Practice = PracticeElement & {
   citations?: Citation[];
   /** Visual assets referenced by practice elements. */
   assets?: Asset[];
+  schemaVersion?: string;
+  dependencyVersions?: DocumentVersionConstraint[];
 };
 
 export type Method = PracticeElement & {
@@ -285,5 +391,63 @@ export type Method = PracticeElement & {
   citations?: Citation[];
   /** Visual assets for the entire method (shared across practices). */
   assets?: Asset[];
+  /** Cross-baseline alpha contribution relationships injected during composition (Section 7.1 of merge spec). */
+  alphaBindings?: AlphaBinding[];
+  version?: string;
+  authors?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+  keywords?: string[];
+  schemaVersion?: string;
+  dependencyVersions?: DocumentVersionConstraint[];
+};
+
+export type CommunicationChannel = {
+  name: string;
+  address: string;
+};
+
+export type TeamMember = {
+  name: string;
+  personaName: string;
+  contact: string;
+  started?: string;
+  finished?: string;
+};
+
+export type TeamEntry = {
+  name: string;
+  description: string;
+  communicationChannels?: CommunicationChannel[];
+  members: TeamMember[];
+  notes?: Note[];
+};
+
+export type ProjectPlan = {
+  pattern: Pattern;
+  notes?: Note[];
+};
+
+export type ProjectStateSection = {
+  alphaInstances?: AlphaInstance[];
+  workProductInstances?: WorkProductInstance[];
+  notes?: Note[];
+};
+
+export type Project = PracticeElement & {
+  practiceName?: string;
+  methodName?: string;
+  team?: TeamEntry;
+  plan: ProjectPlan;
+  current: ProjectStateSection;
+  target: ProjectStateSection;
+  notes?: Note[];
+  keywords?: string[];
+  authors?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+  version?: string;
+  schemaVersion?: string;
+  dependencyVersions?: DocumentVersionConstraint[];
 };
 

@@ -71,11 +71,13 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
     if (n) competencyNames.add(n);
   }
 
+  const cn = (raw: unknown) => canonicalPracticeElementName(raw);
+
   const addAlphaState = (alphaName: string, stateName: string | undefined) => {
-    const an = String(alphaName ?? "").trim();
+    const an = cn(alphaName);
     if (!an) return;
     alphaNames.add(an);
-    const sn = String(stateName ?? "").trim();
+    const sn = cn(stateName);
     if (sn) alphaNames.add(an);
   };
 
@@ -85,7 +87,7 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
 
   const walkContribEntry = (c: any) => {
     if (typeof c === "string") {
-      const n = c.trim();
+      const n = cn(c);
       if (n) alphaNames.add(n);
       return;
     }
@@ -93,92 +95,94 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
   };
 
   for (const act of d.activities ?? []) {
-    const fn = String(act.focusName ?? "").trim();
+    const fn = cn(act.focusName);
     if (fn) focusNames.add(fn);
-    const an = String(act.name ?? "").trim();
+    const an = cn(act.name);
     if (an) activityNames.add(an);
-    const p = String(act.activitySpaceName ?? "").trim();
+    const p = cn(act.activitySpaceName);
     if (p) activitySpaceNames.add(p);
     for (const c of act.contributesTo ?? []) walkContribEntry(c);
     for (const c of act.requiredCompetencies ?? []) {
-      const n = String(c ?? "").trim();
+      const n = cn(c);
       if (n) competencyNames.add(n);
     }
     for (const r of act.recommendedCompetencyLevels ?? []) {
-      const n = String(r?.competencyName ?? "").trim();
+      const n = cn(r?.competencyName);
       if (n) competencyNames.add(n);
     }
     for (const w of act.worksOn ?? []) {
-      const n = String(w?.workProductName ?? "").trim();
+      const n = cn(w?.workProductName);
       if (n) workProductNames.add(n);
     }
   }
 
   for (const s of d.activitySpaces ?? []) {
     if (isPracticeActivityNode(s)) {
-      const fn = String(s.focusName ?? "").trim();
+      const fn = cn(s.focusName);
       if (fn) focusNames.add(fn);
-      const an = String(s.name ?? "").trim();
+      const an = cn(s.name);
       if (an) activityNames.add(an);
-      const parent = String(s.activitySpaceName ?? "").trim();
+      const parent = cn(s.activitySpaceName);
       if (parent) activitySpaceNames.add(parent);
       for (const c of s.contributesTo ?? []) walkContribEntry(c);
       for (const c of s.requiredCompetencies ?? []) {
-        const n = String(c ?? "").trim();
+        const n = cn(c);
         if (n) competencyNames.add(n);
       }
       for (const r of s.recommendedCompetencyLevels ?? []) {
-        const n = String(r?.competencyName ?? "").trim();
+        const n = cn(r?.competencyName);
         if (n) competencyNames.add(n);
       }
       continue;
     }
-    const sn = String(s.name ?? "").trim();
+    const sn = cn(s.name);
     if (sn) activitySpaceNames.add(sn);
-    const fn = String(s.focusName ?? "").trim();
+    const fn = cn(s.focusName);
     if (fn) focusNames.add(fn);
     for (const c of s.contributesTo ?? []) walkContribEntry(c);
     for (const c of s.requiredCompetencies ?? []) {
-      const n = String(c ?? "").trim();
+      const n = cn(c);
       if (n) competencyNames.add(n);
     }
     for (const raw of Array.isArray((s as { involves?: unknown }).involves)
       ? ((s as { involves?: unknown }).involves as unknown[])
       : []) {
-      const gn = String(raw ?? "").trim();
+      const gn = cn(raw);
       if (gn) personaGroupNames.add(gn);
     }
     for (const act of s.activities ?? []) {
-      const af = String(act.focusName ?? "").trim();
+      const af = cn(act.focusName);
       if (af) focusNames.add(af);
-      const actn = String(act.name ?? "").trim();
+      const actn = cn(act.name);
       if (actn) activityNames.add(actn);
       for (const c of act.contributesTo ?? []) walkContribEntry(c);
       for (const c of act.requiredCompetencies ?? []) {
-        const n = String(c ?? "").trim();
+        const n = cn(c);
         if (n) competencyNames.add(n);
       }
       for (const r of act.recommendedCompetencyLevels ?? []) {
-        const n = String(r?.competencyName ?? "").trim();
+        const n = cn(r?.competencyName);
         if (n) competencyNames.add(n);
       }
       for (const w of act.worksOn ?? []) {
-        const n = String(w?.workProductName ?? "").trim();
+        const n = cn(w?.workProductName);
         if (n) workProductNames.add(n);
       }
     }
   }
 
   for (const a of d.alphas ?? []) {
-    const fn = String(a.focusName ?? "").trim();
+    const fn = cn(a.focusName);
     if (fn) focusNames.add(fn);
-    const an = String(a.name ?? "").trim();
+    const an = cn(a.name);
     if (an) alphaNames.add(an);
-    const rollup = typeof a.contributesTo === "string" ? a.contributesTo.trim() : "";
+    const rollup = cn(a.contributesTo);
     if (rollup) alphaNames.add(rollup);
+    const mapsTo = cn((a as any).mapsTo);
+    if (mapsTo) alphaNames.add(mapsTo);
     for (const raw of a.supportingAlphas ?? []) {
-      const cn = String(raw ?? "").trim();
-      if (cn) alphaNames.add(cn);
+      const sn = cn(raw);
+      if (sn) alphaNames.add(sn);
     }
     for (const st of a.states ?? []) {
       for (const c of st.contributesTo ?? []) walkContribEntry(c);
@@ -186,7 +190,7 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
   }
 
   for (const wp of d.workProducts ?? []) {
-    const n = String(wp.name ?? "").trim();
+    const n = cn(wp.name);
     if (n) workProductNames.add(n);
     for (const lod of wp.levelsOfDetail ?? []) {
       for (const c of lod.contributesTo ?? []) walkContribEntry(c);
@@ -194,18 +198,18 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
   }
 
   for (const persona of (d.personas ?? []) as { name?: unknown }[]) {
-    const pn = String(persona?.name ?? "").trim();
+    const pn = cn(persona?.name);
     if (pn) personaNames.add(pn);
-    for (const cn of personaReferencedCompetencyNames(persona)) {
-      const n = String(cn ?? "").trim();
+    for (const ref of personaReferencedCompetencyNames(persona)) {
+      const n = cn(ref);
       if (n) competencyNames.add(n);
     }
   }
   for (const pg of (d.personaGroups ?? []) as { name?: unknown; personaNames?: unknown[] }[]) {
-    const gn = String(pg?.name ?? "").trim();
+    const gn = cn(pg?.name);
     if (gn) personaGroupNames.add(gn);
     for (const raw of pg.personaNames ?? []) {
-      const pn = String(raw ?? "").trim();
+      const pn = cn(raw);
       if (pn) personaNames.add(pn);
     }
   }
@@ -214,7 +218,7 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
     addAlphaState(String(tag?.alphaName ?? ""), undefined);
   }
   for (const tag of (d.workProductInstances ?? []) as { workProductName?: unknown }[]) {
-    const wpn = String(tag?.workProductName ?? "").trim();
+    const wpn = cn(tag?.workProductName);
     if (wpn) workProductNames.add(wpn);
   }
 
@@ -225,11 +229,12 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
   } as unknown as PracticeBaseline;
 
   for (const pat of d.patterns ?? []) {
-    const pn = String(pat.name ?? "").trim();
+    const pn = cn(pat.name);
     if (pn) patternNames.add(pn);
     for (const pv of pat.patternViews ?? []) {
       for (const fn of baselineFocusNamesReferencedByPatternView(pv, baselineForPatternResolution)) {
-        if (fn) focusNames.add(fn);
+        const cfn = cn(fn);
+        if (cfn) focusNames.add(cfn);
       }
       for (const raw of pv.alphaStates ?? []) {
         const p = parsePatternViewAlphaState(raw);
@@ -241,14 +246,14 @@ export function collectPrimaryDocumentationClosure(doc: unknown): DocumentationC
         addAlphaState(String(ai.alphaName ?? ""), String(ai.stateName ?? ""));
         for (const ev of Array.isArray(ai.evidenceBy) ? ai.evidenceBy : []) {
           if (ev && typeof ev === "object") {
-            const wpn = String((ev as { workProductName?: unknown }).workProductName ?? "").trim();
+            const wpn = cn((ev as { workProductName?: unknown }).workProductName);
             if (wpn) workProductNames.add(wpn);
           }
         }
       }
       for (const ref of patternViewLaneRefStrings(pv)) {
-        activitySpaceNames.add(ref);
-        activityNames.add(ref);
+        const cr = cn(ref);
+        if (cr) { activitySpaceNames.add(cr); activityNames.add(cr); }
       }
     }
   }
@@ -299,130 +304,142 @@ function unionDocumentationClosuresInPlace(into: DocumentationClosure, other: Do
  * the implicit "Dependencies" swimlane.
  */
 function expandDocumentationClosureFromMergedGraph(merged: Record<string, unknown>, c: DocumentationClosure) {
+  const cn = (raw: unknown) => canonicalPracticeElementName(raw);
+
   const walkContrib = (x: any, addAlpha: (n: string) => void) => {
     if (typeof x === "string") {
-      const t = x.trim();
+      const t = cn(x);
       if (t) addAlpha(t);
       return;
     }
-    if (x && typeof x.alphaName === "string") addAlpha(x.alphaName);
+    if (x && typeof x.alphaName === "string") {
+      const t = cn(x.alphaName);
+      if (t) addAlpha(t);
+    }
   };
 
   let changed = true;
   while (changed) {
     changed = false;
     const addAlpha = (n: string) => {
-      const t = String(n ?? "").trim();
+      const t = cn(n);
       if (!t || c.alphaNames.has(t)) return;
       c.alphaNames.add(t);
       changed = true;
     };
     const addActivity = (n: string) => {
-      const t = String(n ?? "").trim();
+      const t = cn(n);
       if (!t || c.activityNames.has(t)) return;
       c.activityNames.add(t);
       changed = true;
     };
     const addSpace = (n: string) => {
-      const t = String(n ?? "").trim();
+      const t = cn(n);
       if (!t || c.activitySpaceNames.has(t)) return;
       c.activitySpaceNames.add(t);
       changed = true;
     };
     const addFocus = (n: string) => {
-      const t = String(n ?? "").trim();
+      const t = cn(n);
       if (!t || isUnresolvedFocusName(t) || c.focusNames.has(t)) return;
       c.focusNames.add(t);
       changed = true;
     };
     const addComp = (n: string) => {
-      const t = String(n ?? "").trim();
+      const t = cn(n);
       if (!t || c.competencyNames.has(t)) return;
       c.competencyNames.add(t);
       changed = true;
     };
     const addWp = (n: string) => {
-      const t = String(n ?? "").trim();
+      const t = cn(n);
       if (!t || c.workProductNames.has(t)) return;
       c.workProductNames.add(t);
       changed = true;
     };
     const addPersona = (n: string) => {
-      const t = String(n ?? "").trim();
+      const t = cn(n);
       if (!t || c.personaNames.has(t)) return;
       c.personaNames.add(t);
       changed = true;
     };
 
     for (const a of (merged.alphas as any[]) ?? []) {
-      if (!a?.name || !c.alphaNames.has(String(a.name))) continue;
-      const rollup = typeof a.contributesTo === "string" ? a.contributesTo.trim() : "";
+      const ak = cn(a?.name);
+      if (!ak || !c.alphaNames.has(ak)) continue;
+      const rollup = cn(a.contributesTo);
       if (rollup) addAlpha(rollup);
+      const mt = cn(a.mapsTo);
+      if (mt) addAlpha(mt);
       for (const raw of a.supportingAlphas ?? []) addAlpha(String(raw ?? ""));
       for (const st of a.states ?? []) {
         for (const x of st.contributesTo ?? []) walkContrib(x, addAlpha);
       }
-      addFocus(String(a.focusName ?? "").trim());
+      addFocus(String(a.focusName ?? ""));
     }
 
     for (const s of (merged.activitySpaces as any[]) ?? []) {
       if (isPracticeActivityNode(s)) {
-        if (s?.name && c.activityNames.has(String(s.name))) {
+        const sk = cn(s?.name);
+        if (sk && c.activityNames.has(sk)) {
           for (const x of s.contributesTo ?? []) walkContrib(x, addAlpha);
-          for (const cn of s.requiredCompetencies ?? []) addComp(String(cn ?? ""));
-          addFocus(String(s.focusName ?? "").trim());
+          for (const comp of s.requiredCompetencies ?? []) addComp(String(comp ?? ""));
+          addFocus(String(s.focusName ?? ""));
         }
         continue;
       }
-      const sn = String(s?.name ?? "").trim();
+      const sn = cn(s?.name);
       const spaceRelevant =
-        c.activitySpaceNames.has(sn) ||
-        (s.activities ?? []).some((act: any) => act?.name && c.activityNames.has(String(act.name)));
+        (sn && c.activitySpaceNames.has(sn)) ||
+        (s.activities ?? []).some((act: any) => { const ak = cn(act?.name); return ak && c.activityNames.has(ak); });
       if (!spaceRelevant) continue;
       for (const x of s.contributesTo ?? []) walkContrib(x, addAlpha);
-      for (const cn of s.requiredCompetencies ?? []) addComp(String(cn ?? ""));
-      addFocus(String(s.focusName ?? "").trim());
+      for (const comp of s.requiredCompetencies ?? []) addComp(String(comp ?? ""));
+      addFocus(String(s.focusName ?? ""));
       for (const act of s.activities ?? []) {
-        if (!act?.name || !c.activityNames.has(String(act.name))) continue;
+        const ak = cn(act?.name);
+        if (!ak || !c.activityNames.has(ak)) continue;
         for (const x of act.contributesTo ?? []) walkContrib(x, addAlpha);
-        for (const cn of act.requiredCompetencies ?? []) addComp(String(cn ?? ""));
+        for (const comp of act.requiredCompetencies ?? []) addComp(String(comp ?? ""));
         for (const w of act.worksOn ?? []) addWp(String(w?.workProductName ?? ""));
-        addFocus(String(act.focusName ?? "").trim());
+        addFocus(String(act.focusName ?? ""));
       }
     }
 
     for (const act of (merged.activities as any[]) ?? []) {
-      if (!act?.name || !c.activityNames.has(String(act.name))) continue;
+      const ak = cn(act?.name);
+      if (!ak || !c.activityNames.has(ak)) continue;
       for (const x of act.contributesTo ?? []) walkContrib(x, addAlpha);
-      for (const cn of act.requiredCompetencies ?? []) addComp(String(cn ?? ""));
+      for (const comp of act.requiredCompetencies ?? []) addComp(String(comp ?? ""));
       for (const w of act.worksOn ?? []) addWp(String(w?.workProductName ?? ""));
-      const parent = String(act.activitySpaceName ?? "").trim();
+      const parent = cn(act.activitySpaceName);
       if (parent) addSpace(parent);
-      addFocus(String(act.focusName ?? "").trim());
+      addFocus(String(act.focusName ?? ""));
     }
 
     for (const wp of (merged.workProducts as any[]) ?? []) {
-      if (!wp?.name || !c.workProductNames.has(String(wp.name))) continue;
+      const wk = cn(wp?.name);
+      if (!wk || !c.workProductNames.has(wk)) continue;
       for (const lod of wp.levelsOfDetail ?? []) {
         for (const x of lod.contributesTo ?? []) walkContrib(x, addAlpha);
       }
     }
 
     for (const pg of (merged.personaGroups as any[]) ?? []) {
-      const gn = String(pg?.name ?? "").trim();
-      if (!gn || !c.personaGroupNames.has(gn)) continue;
+      const gk = cn(pg?.name);
+      if (!gk || !c.personaGroupNames.has(gk)) continue;
       for (const raw of pg.personaNames ?? []) addPersona(String(raw ?? ""));
     }
 
     for (const persona of (merged.personas as any[]) ?? []) {
-      const pn = String(persona?.name ?? "").trim();
-      if (!pn || !c.personaNames.has(pn)) continue;
-      for (const cn of personaReferencedCompetencyNames(persona)) addComp(String(cn ?? ""));
+      const pk = cn(persona?.name);
+      if (!pk || !c.personaNames.has(pk)) continue;
+      for (const comp of personaReferencedCompetencyNames(persona)) addComp(String(comp ?? ""));
     }
 
     for (const pat of (merged.patterns as any[]) ?? []) {
-      const pn = String(pat?.name ?? "").trim();
-      if (!pn || !c.patternNames.has(pn)) continue;
+      const pk = cn(pat?.name);
+      if (!pk || !c.patternNames.has(pk)) continue;
       for (const pv of pat.patternViews ?? []) {
         for (const fn of baselineFocusNamesReferencedByPatternView(pv, merged as PracticeBaseline)) {
           addFocus(fn);
@@ -434,12 +451,11 @@ function expandDocumentationClosureFromMergedGraph(merged: Record<string, unknow
         for (const inst of Array.isArray(pv.alphaInstances) ? pv.alphaInstances : []) {
           if (!inst || typeof inst !== "object") continue;
           const ai = inst as Record<string, unknown>;
-          const an = String(ai.alphaName ?? "").trim();
+          const an = cn(ai.alphaName);
           if (an) addAlpha(an);
           for (const ev of Array.isArray(ai.evidenceBy) ? ai.evidenceBy : []) {
             if (ev && typeof ev === "object") {
-              const wpn = String((ev as { workProductName?: unknown }).workProductName ?? "").trim();
-              if (wpn) addWp(wpn);
+              addWp(String((ev as { workProductName?: unknown }).workProductName ?? ""));
             }
           }
         }
@@ -457,6 +473,7 @@ function expandDocumentationClosureFromMergedGraph(merged: Record<string, unknow
  * from every retained persona so prune keeps matching Competency definitions for display.
  */
 function expandPersonaSubgroupClosureInPlace(merged: Record<string, unknown>, c: DocumentationClosure) {
+  const cn = (raw: unknown) => canonicalPracticeElementName(raw);
   const allPersonas = (merged.personas as any[] | undefined) ?? [];
   const allGroups = (merged.personaGroups as any[] | undefined) ?? [];
 
@@ -464,18 +481,18 @@ function expandPersonaSubgroupClosureInPlace(merged: Record<string, unknown>, c:
   while (changed) {
     changed = false;
     for (const pg of allGroups) {
-      const gn = String(pg?.name ?? "").trim();
+      const gn = cn(pg?.name);
       if (!gn || c.personaGroupNames.has(gn)) continue;
-      const members = (pg.personaNames ?? []).map((x: unknown) => String(x ?? "").trim()).filter(Boolean);
+      const members = (pg.personaNames ?? []).map((x: unknown) => cn(x)).filter(Boolean) as string[];
       if (!members.some((m: string) => c.personaNames.has(m))) continue;
       c.personaGroupNames.add(gn);
       changed = true;
     }
     for (const pg of allGroups) {
-      const gn = String(pg?.name ?? "").trim();
+      const gn = cn(pg?.name);
       if (!gn || !c.personaGroupNames.has(gn)) continue;
       for (const raw of pg.personaNames ?? []) {
-        const pn = String(raw ?? "").trim();
+        const pn = cn(raw);
         if (pn && !c.personaNames.has(pn)) {
           c.personaNames.add(pn);
           changed = true;
@@ -485,27 +502,28 @@ function expandPersonaSubgroupClosureInPlace(merged: Record<string, unknown>, c:
   }
 
   for (const persona of allPersonas) {
-    const pn = String(persona?.name ?? "").trim();
+    const pn = cn(persona?.name);
     if (!pn || !c.personaNames.has(pn)) continue;
-    for (const cn of personaReferencedCompetencyNames(persona)) {
-      const t = String(cn ?? "").trim();
+    for (const ref of personaReferencedCompetencyNames(persona)) {
+      const t = cn(ref);
       if (t) c.competencyNames.add(t);
     }
   }
 }
 
 function computeFocusNamesUsedBySlices(alphas: any[], spaces: any[]): Set<string> {
+  const cn = (raw: unknown) => canonicalPracticeElementName(raw);
   const used = new Set<string>();
   for (const a of alphas ?? []) {
-    const fn = String(a?.focusName ?? "").trim();
+    const fn = cn(a?.focusName);
     if (fn) used.add(fn);
   }
   for (const s of spaces ?? []) {
     if (isPracticeActivityNode(s)) continue;
-    const fn = String(s?.focusName ?? "").trim();
+    const fn = cn(s?.focusName);
     if (fn) used.add(fn);
     for (const act of s?.activities ?? []) {
-      const fn2 = String(act?.focusName ?? "").trim();
+      const fn2 = cn(act?.focusName);
       if (fn2) used.add(fn2);
     }
   }
@@ -533,8 +551,8 @@ export function prunePracticeToDocumentationClosure(
       if (n !== null && closure.activityNames.has(n)) keptSpaces.push(s);
       continue;
     }
-    const sn = String(s?.name ?? "").trim();
-    if (!closure.activitySpaceNames.has(sn)) continue;
+    const sn = canonicalPracticeElementName(s?.name);
+    if (!sn || !closure.activitySpaceNames.has(sn)) continue;
     const acts = (s.activities ?? []).filter((act: any) => {
       const an = canonicalPracticeElementName(act?.name);
       return an !== null && closure.activityNames.has(an);

@@ -3,9 +3,10 @@ import { getJsonDocumentStore } from "@/lib/storage/getStore";
 import { extractAndPersistEmbeddedPractices } from "@/lib/library/extractEmbeddedPractices";
 import type { JsonDocumentKind, JsonDocumentUpdateInput } from "@/lib/storage/types";
 import { serverCache } from "@/lib/cache/serverCache";
+import { deleteDocumentAssets } from "@/lib/storage/assetStore";
 
 function isKind(v: unknown): v is JsonDocumentKind {
-  return v === "practice" || v === "method" || v === "upload";
+  return v === "practice" || v === "method" || v === "upload" || v === "dashboard-config" || v === "project";
 }
 
 type Ctx = { params: Promise<{ id: string }> };
@@ -41,7 +42,7 @@ export async function PUT(req: Request, ctx: Ctx) {
   }
   if (o.kind !== undefined) {
     if (!isKind(o.kind)) {
-      return NextResponse.json({ error: "kind must be practice | method | upload" }, { status: 400 });
+      return NextResponse.json({ error: "kind must be practice | method | upload | project | dashboard-config" }, { status: 400 });
     }
     patch.kind = o.kind;
   }
@@ -85,6 +86,8 @@ export async function DELETE(_req: Request, ctx: Ctx) {
 
   // Invalidate all cached data for this document
   serverCache.invalidate(id);
+
+  await deleteDocumentAssets(id);
 
   return new NextResponse(null, { status: 204 });
 }

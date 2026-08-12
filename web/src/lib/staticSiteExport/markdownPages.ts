@@ -7,6 +7,8 @@ import type {
   Pattern,
   Persona,
   PersonaGroup,
+  Background,
+  Test,
 } from "@/lib/types";
 import {
   practiceElementDescriptionForDisplay,
@@ -19,7 +21,6 @@ import {
   findWorkProductsEvidencingState,
 } from "@/lib/analysis/stateProgression";
 import type { DisplayAliasFn } from "@/lib/practiceReport/generatePracticeReport";
-import type { TransitiveDependencyEntry } from "@/lib/library/practiceDependencyResolution";
 import { elementPath, mdLink, relativeLinkFrom, slugify } from "./slugs";
 import { findIconAsset, renderIconHtml } from "./fontIcons";
 
@@ -82,6 +83,140 @@ function withToc(content: string): string {
 
 function stripHtml(html: string): string {
   return html.replace(/<[^>]+>/g, "").trim();
+}
+
+function renderKeywordList(keyword: string, items: string[]): string {
+  if (!items.length) return "";
+  const lines: string[] = [];
+  for (const item of items) {
+    lines.push(`- **${keyword}** ${item}`);
+  }
+  return lines.join("\n");
+}
+
+function renderBackgroundMd(
+  bg: Background | undefined,
+  headingLevel: number,
+  baseline: PracticeBaseline,
+  display: DisplayAliasFn,
+  fromPath: string,
+  workProducts: WorkProduct[],
+): string {
+  if (!bg) return "";
+  const hasContent =
+    bg.given?.length ||
+    bg.alphaStates?.length ||
+    bg.workProductLevels?.length ||
+    bg.alphaInstanceStates?.length ||
+    bg.workProductInstanceLevels?.length;
+  if (!hasContent) return "";
+
+  const hashes = "#".repeat(headingLevel);
+  const lines: string[] = [`${hashes} Prerequisites`];
+
+  if (bg.given?.length) {
+    lines.push("", renderKeywordList("Given", bg.given));
+  }
+
+  if (bg.alphaStates?.length) {
+    lines.push("", "**Required Concern States:**", "");
+    for (const as of bg.alphaStates) {
+      const alphaObj = baseline.alphas.find((a) => a.name === as.alphaName);
+      const alphaFocus = alphaObj?.focusName ?? "";
+      const alphaPath = elementPath("alpha", as.alphaName, alphaFocus);
+      const anchor = stateAnchor(as.alphaName, as.stateName, baseline, display);
+      const stateText = anchor
+        ? mdLinkWithAnchor(display("State", as.stateName), fromPath, alphaPath, anchor)
+        : display("State", as.stateName);
+      lines.push(`- ${mdLink(display("Alpha", as.alphaName), fromPath, alphaPath)} — ${stateText}`);
+    }
+  }
+
+  if (bg.workProductLevels?.length) {
+    lines.push("", "**Required Work Product Levels:**", "");
+    for (const wpl of bg.workProductLevels) {
+      const wpPath = elementPath("workProduct", wpl.workProductName);
+      const anchor = lodAnchor(wpl.workProductName, wpl.levelOfDetailName, workProducts, display);
+      const lodText = anchor
+        ? mdLinkWithAnchor(display("LevelOfDetail", wpl.levelOfDetailName), fromPath, wpPath, anchor)
+        : display("LevelOfDetail", wpl.levelOfDetailName);
+      lines.push(`- ${mdLink(display("WorkProduct", wpl.workProductName), fromPath, wpPath)} — ${lodText}`);
+    }
+  }
+
+  if (bg.alphaInstanceStates?.length) {
+    lines.push("", "**Required Instance States:**", "");
+    for (const ais of bg.alphaInstanceStates) {
+      lines.push(`- ${ais.instanceName} — ${ais.stateName}`);
+    }
+  }
+
+  if (bg.workProductInstanceLevels?.length) {
+    lines.push("", "**Required Instance Levels:**", "");
+    for (const wil of bg.workProductInstanceLevels) {
+      lines.push(`- ${wil.instanceName} — ${wil.levelOfDetailName}`);
+    }
+  }
+
+  return lines.join("\n");
+}
+
+function renderTestMd(
+  test: Test | undefined,
+  headingLevel: number,
+  heading: string,
+): string {
+  if (!test) return "";
+  const hasContent = test.given?.length || test.when?.length || test.then?.length;
+  if (!hasContent && !test.name && !test.description) return "";
+
+  const hashes = "#".repeat(headingLevel);
+  const lines: string[] = [`${hashes} ${heading}`];
+
+  if (test.name) lines.push("", `**${test.name}**`);
+  const desc = practiceElementDescriptionForDisplay(test);
+  if (desc) lines.push("", desc);
+
+  if (test.given?.length) lines.push("", renderKeywordList("Given", test.given));
+  if (test.when?.length) lines.push("", renderKeywordList("When", test.when));
+  if (test.then?.length) lines.push("", renderKeywordList("Then", test.then));
+
+  return lines.join("\n");
+}
+
+function renderTestCompactMd(test: Test | undefined): string {
+  if (!test) return "";
+  const hasContent = test.given?.length || test.when?.length || test.then?.length;
+  if (!hasContent) return "";
+
+  const parts: string[] = [];
+  if (test.given?.length) parts.push(renderKeywordList("Given", test.given));
+  if (test.when?.length) parts.push(renderKeywordList("When", test.when));
+  if (test.then?.length) parts.push(renderKeywordList("Then", test.then));
+  return parts.join("\n");
+}
+
+function renderExamplesMd(
+  examples: Test[] | undefined,
+  headingLevel: number,
+): string {
+  if (!examples?.length) return "";
+
+  const hashes = "#".repeat(headingLevel);
+  const lines: string[] = [`${hashes} Examples`];
+
+  for (const ex of examples) {
+    if (ex.name) lines.push("", `**${ex.name}**`);
+    const desc = practiceElementDescriptionForDisplay(ex);
+    if (desc) lines.push("", desc);
+
+    if (ex.given?.length) lines.push("", renderKeywordList("Given", ex.given));
+    if (ex.when?.length) lines.push("", renderKeywordList("When", ex.when));
+    if (ex.then?.length) lines.push("", renderKeywordList("Then", ex.then));
+    lines.push("");
+  }
+
+  return lines.join("\n");
 }
 
 function renderNarrativesToMd(
@@ -148,7 +283,7 @@ export function generateIntroductionPage(
   doc: Record<string, unknown>,
   baseline: PracticeBaseline,
   display: DisplayAliasFn,
-  transitiveDeps?: TransitiveDependencyEntry[],
+  dependencySvg?: string,
 ): PageFile {
   const pagePath = elementPath("introduction");
   const name = String(doc.name ?? baseline.name ?? "Practice");
@@ -164,56 +299,8 @@ export function generateIntroductionPage(
     lines.push("", renderNarrativesToMd(narratives, 2, pagePath, citations));
   }
 
-  const practices: Array<{ name: string }> = [];
-  if (Array.isArray((doc as any).practices)) {
-    for (const p of (doc as any).practices) {
-      if (p?.name) practices.push({ name: String(p.name) });
-    }
-  }
-  if (Array.isArray((doc as any).practiceNames)) {
-    for (const pn of (doc as any).practiceNames) {
-      if (typeof pn === "string" && pn.trim()) practices.push({ name: pn.trim() });
-    }
-  }
-  if (practices.length) {
-    lines.push("", "## Practices", "");
-    for (const p of practices) {
-      const practicePath = elementPath("practice", p.name);
-      lines.push(`- ${mdLink(display("Practice", p.name), pagePath, practicePath)}`);
-    }
-  }
-
-  // Practice Dependencies (shown when no inline practices exist)
-  const deps = (doc as any).practiceDependencyNames;
-  if (!practices.length && Array.isArray(deps) && deps.length) {
-    lines.push("", "## Practice Dependencies", "");
-    for (const dep of deps) {
-      const depName = String(dep).trim();
-      if (!depName) continue;
-      const depPath = elementPath("practice", depName);
-      lines.push(`- ${mdLink(display("Practice", depName), pagePath, depPath)}`);
-    }
-  }
-
-  // Baseline Practice
-  const baselineName = String(
-    (doc as any).baselinePracticeName ?? (doc as any).baselinePractice?.name ?? "",
-  ).trim();
-  if (baselineName) {
-    lines.push("", "## Baseline Practice", "");
-    const blPath = elementPath("practice", baselineName);
-    lines.push(`- ${mdLink(display("Practice", baselineName), pagePath, blPath)}`);
-  }
-
-  // Transitive Practice Dependencies
-  if (transitiveDeps && transitiveDeps.length > 0) {
-    lines.push("", "## Practice Dependencies", "");
-    for (const dep of transitiveDeps) {
-      const depPath = elementPath("practice", dep.name);
-      const label = display("Practice", dep.name);
-      const suffix = dep.role === "baselinePractice" ? " *(baseline)*" : "";
-      lines.push(`- ${mdLink(label, pagePath, depPath)}${suffix}`);
-    }
+  if (dependencySvg) {
+    lines.push("", "## Practice Dependencies", "", dependencySvg);
   }
 
   lines.push("");
@@ -483,6 +570,9 @@ export function generateAlphaPage(
       const stateDesc = practiceElementDescriptionForDisplay(state);
       if (stateDesc) lines.push("", stateDesc);
 
+      const stateBgMd = renderBackgroundMd(state.background, 4, baseline, display, pagePath, workProducts);
+      if (stateBgMd) lines.push("", stateBgMd);
+
       // Checklist
       const checklist = [...(state.checklist ?? [])].sort(
         (a, b) => (a.seq ?? 0) - (b.seq ?? 0),
@@ -491,6 +581,10 @@ export function generateAlphaPage(
         lines.push("", "**Checklist:**", "");
         for (const item of checklist) {
           lines.push(`- [ ] **${item.name}**${item.description ? `: ${item.description}` : ""}`);
+          const itemTestMd = renderTestCompactMd(item.test);
+          if (itemTestMd) lines.push("", itemTestMd);
+          const itemExMd = renderExamplesMd(item.examples, 5);
+          if (itemExMd) lines.push("", itemExMd);
         }
       }
 
@@ -578,6 +672,7 @@ export function generateActivitySpacePage(
   focusName: string,
   baseline: PracticeBaseline,
   display: DisplayAliasFn,
+  workProducts: WorkProduct[],
 ): PageFile {
   const pagePath = elementPath("activitySpace", space.name, focusName);
   const displayName = display("ActivitySpace", space.name);
@@ -617,6 +712,9 @@ export function generateActivitySpacePage(
       lines.push(`- ${mdLink(display("Activity", act.name), pagePath, actPath)}`);
     }
   }
+
+  const bgMd = renderBackgroundMd(space.background, 2, baseline, display, pagePath, workProducts);
+  if (bgMd) lines.push("", bgMd);
 
   lines.push("");
   return { path: pagePath, content: withToc(lines.join("\n")) };
@@ -702,6 +800,15 @@ export function generateActivityPage(
     }
   }
 
+  const bgMd = renderBackgroundMd(activity.background, 2, baseline, display, pagePath, workProducts);
+  if (bgMd) lines.push("", bgMd);
+
+  const testMd = renderTestMd(activity.test, 2, "Verification");
+  if (testMd) lines.push("", testMd);
+
+  const exMd = renderExamplesMd(activity.examples, 2);
+  if (exMd) lines.push("", exMd);
+
   lines.push("");
   return { path: pagePath, content: withToc(lines.join("\n")) };
 }
@@ -748,6 +855,9 @@ export function generateWorkProductPage(
       const lodDesc = practiceElementDescriptionForDisplay(lod);
       if (lodDesc) lines.push("", lodDesc);
 
+      const lodBgMd = renderBackgroundMd(lod.background, 4, baseline, display, pagePath, [wp]);
+      if (lodBgMd) lines.push("", lodBgMd);
+
       // Checklist
       const checklist = [...(lod.checklist ?? [])].sort(
         (a, b) => (a.seq ?? 0) - (b.seq ?? 0),
@@ -756,6 +866,10 @@ export function generateWorkProductPage(
         lines.push("", "**Checklist:**", "");
         for (const item of checklist) {
           lines.push(`- [ ] **${item.name}**${item.description ? `: ${item.description}` : ""}`);
+          const itemTestMd = renderTestCompactMd(item.test);
+          if (itemTestMd) lines.push("", itemTestMd);
+          const itemExMd = renderExamplesMd(item.examples, 5);
+          if (itemExMd) lines.push("", itemExMd);
         }
       }
 

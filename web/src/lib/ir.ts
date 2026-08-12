@@ -26,11 +26,20 @@ export function asBaselineDocument(doc: any): PracticeBaseline | null {
   if (doc.baselinePractice && typeof doc.baselinePractice === "object") {
     return (doc as Method).baselinePractice;
   }
+  // Kernel-shaped documents with their own alphas + focuses and no practice
+  // dependencies are baselines in their own right — preserve the document name
+  // even when baselinePracticeName references a parent baseline.
+  const hasKernelShape = Array.isArray(doc.alphas) && doc.alphas.length > 0 &&
+    Array.isArray(doc.focuses) && doc.focuses.length > 0;
+  const hasPracticeDeps = Array.isArray(doc.practiceDependencyNames) &&
+    doc.practiceDependencyNames.some((x: any) => typeof x === "string" && String(x).trim());
+  if (hasKernelShape && !hasPracticeDeps) {
+    return doc as PracticeBaseline;
+  }
   if (typeof doc.baselinePracticeName === "string") {
     const bn = String(doc.baselinePracticeName).trim();
     if (!bn) return null;
     return {
-      /** Named baseline artifact, not the extension practice title (`doc.name`). */
       name: bn,
       description: doc.description,
       ...(doc.tags !== undefined ? { tags: doc.tags } : {}),
@@ -51,6 +60,7 @@ export function asBaselineDocument(doc: any): PracticeBaseline | null {
         : [],
     } as PracticeBaseline;
   }
+  // Fallback for merged composites where baselinePracticeName was stripped
   if (Array.isArray(doc.alphas) && Array.isArray(doc.focuses)) {
     return doc as PracticeBaseline;
   }
@@ -83,11 +93,11 @@ export function activitySpaceIdentityKey(name: unknown): string {
 }
 
 /**
- * Trimmed practice element `name` for merges and lookups. Baseline/extension JSON that differs only by surrounding
- * whitespace maps to one row so kernel description reapplication and UI indexing stay aligned.
+ * Canonical practice element name for merges and lookups: case-insensitive, whitespace-normalized (Section 9 of merge spec).
+ * Used as the map key for element matching; the original casing is preserved on the element itself.
  */
 export function canonicalPracticeElementName(raw: unknown): string | null {
-  const k = String(raw ?? "").trim();
+  const k = String(raw ?? "").trim().toLowerCase().replace(/\s+/g, " ");
   return k || null;
 }
 
@@ -161,7 +171,9 @@ export function propagateAlphaFocusFromContributesToParents(doc: { alphas?: any[
     }
     for (const a of alphas) {
       if (!a?.name || !isUnresolvedFocusName(a.focusName)) continue;
-      const parentName = typeof a.contributesTo === "string" ? a.contributesTo.trim() : "";
+      const parentName = typeof a.contributesTo === "string" ? a.contributesTo.trim()
+        : typeof (a as any).mapsTo === "string" ? String((a as any).mapsTo).trim()
+        : "";
       if (!parentName || parentName === String(a.name)) continue;
       const parent = byName.get(parentName);
       if (!parent || isUnresolvedFocusName(parent.focusName)) continue;
@@ -431,7 +443,6 @@ export function canonicalizeActivitySpaces(mixed: any[], flatActivities: any[] =
       const actKey = canonicalPracticeElementName(a?.name);
       if (!actKey) continue;
       const ac = deepClone(a);
-      if (typeof ac.name === "string") ac.name = actKey;
       if (canonSpaceName) ac.activitySpaceName = canonSpaceName;
       const existing = slot.activities.get(actKey);
       if (existing) slot.activities.set(actKey, { ...ac, description: existing.description });
@@ -446,7 +457,6 @@ export function canonicalizeActivitySpaces(mixed: any[], flatActivities: any[] =
     const slot = ensureSlot(parent, act);
     const canonName = String(slot.space.name ?? "").trim() || parent;
     const actClone = deepClone(act);
-    if (typeof actClone.name === "string") actClone.name = actKey;
     actClone.activitySpaceName = canonName;
     const existing = slot.activities.get(actKey);
     if (!existing) slot.activities.set(actKey, actClone);
@@ -565,6 +575,8 @@ export function enrichBaselineWithReferencedWrappers(doc: unknown, baseline: Pra
   for (const a of d.alphas ?? []) {
     const r = typeof a.contributesTo === "string" ? a.contributesTo.trim() : "";
     if (r) rollupAlphaTargets.add(r);
+    const mt = typeof a.mapsTo === "string" ? a.mapsTo.trim() : "";
+    if (mt) rollupAlphaTargets.add(mt);
     const parent = String(a.name ?? "").trim();
     if (!parent || !Array.isArray(a.supportingAlphas) || !a.supportingAlphas.length) continue;
     rollupAlphaTargets.add(parent);
@@ -701,7 +713,6 @@ export function enrichBaselineWithReferencedWrappers(doc: unknown, baseline: Pra
     if (!nk) continue;
     alphaByName.set(nk, {
       ...a,
-      name: nk,
       states: (a.states ?? []).map((st) => ({ ...st, checklist: [...(st.checklist ?? [])] })),
     });
     alphaOrder.push(nk);
@@ -936,6 +947,19 @@ export function buildIndexes(
         });
       } else if (!alphaByName.has(rollup)) {
         issues.push({ kind: "missing", type: "Alpha", ref: rollup, context: `Alpha:${a.name}(contributesTo)` });
+      }
+    }
+    const mapsTo = typeof (a as any).mapsTo === "string" ? String((a as any).mapsTo).trim() : "";
+    if (mapsTo) {
+      if (mapsTo === a.name) {
+        issues.push({
+          kind: "missing",
+          type: "Alpha",
+          ref: mapsTo,
+          context: `Alpha:${a.name}(mapsTo: cannot reference self)`,
+        });
+      } else if (!alphaByName.has(mapsTo)) {
+        issues.push({ kind: "missing", type: "Alpha", ref: mapsTo, context: `Alpha:${a.name}(mapsTo)` });
       }
     }
     for (const raw of a.supportingAlphas ?? []) {
