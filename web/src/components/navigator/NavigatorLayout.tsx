@@ -1,8 +1,10 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
+import { Alert } from "@patternfly/react-core";
 import type { PracticeBaseline } from "@/lib/types";
 import type { BrowseDependencyArtifact } from "@/lib/library/practiceDependencyResolution";
+import type { VersionWarning } from "@/lib/library/dependencyVersionCheck";
 import type {
   FocusGroup as AlphaScoreFocusGroup,
   ActivitySpaceFocusGroup
@@ -34,6 +36,8 @@ interface NavigatorLayoutProps {
   secondaryElement: string | null;
   libraryId: string | null;
   dependencyArtifacts: BrowseDependencyArtifact[];
+  versionWarnings?: VersionWarning[];
+  schemaWarning?: string;
   alphaScores: Map<string, AlphaScoreFocusGroup>;
   activitySpaceScores?: Map<string, ActivitySpaceFocusGroup>;
   onSetMode: (mode: NavigatorMode) => void;
@@ -54,6 +58,8 @@ export function NavigatorLayout({
   secondaryElement,
   libraryId,
   dependencyArtifacts,
+  versionWarnings,
+  schemaWarning,
   alphaScores,
   activitySpaceScores,
   onSetMode,
@@ -287,12 +293,16 @@ export function NavigatorLayout({
       }
     }
 
-    // If primary is an alpha, secondary could be a state
+    // If primary is an alpha, secondary could be a state or a related alpha
     if (selectedElementData.type === "alpha") {
       const alpha = selectedElementData.data;
       const state = alpha.states.find((s) => s.name === secondaryElement);
       if (state) {
         return { type: "state" as const, data: state, parent: alpha };
+      }
+      const relatedAlpha = baseline.alphas.find((a) => a.name === secondaryElement);
+      if (relatedAlpha) {
+        return { type: "alpha" as const, data: relatedAlpha };
       }
     }
 
@@ -432,7 +442,22 @@ export function NavigatorLayout({
       />
 
       {/* Center panel: Element details */}
-      <ElementDetailsPanel
+      <div style={{ display: "flex", flexDirection: "column", minHeight: 0 }}>
+        {selectedElement === "__introduction__" && (schemaWarning || (versionWarnings && versionWarnings.length > 0)) && (
+          <div style={{ padding: "1rem 2rem 0", flexShrink: 0 }}>
+            {schemaWarning && (
+              <Alert variant="warning" title="Schema Compatibility" isInline style={{ marginBottom: "0.5rem" }}>
+                {schemaWarning}
+              </Alert>
+            )}
+            {versionWarnings?.map((w, i) => (
+              <Alert key={i} variant="warning" title="Dependency Version" isInline style={{ marginBottom: "0.5rem" }}>
+                {w.message}
+              </Alert>
+            ))}
+          </div>
+        )}
+        <ElementDetailsPanel
         selectedElement={selectedElementData}
         baseline={baseline}
         libraryId={libraryId}
@@ -443,7 +468,9 @@ export function NavigatorLayout({
         onSetSecondaryElement={onSetSecondaryElement}
         secondaryElementName={secondaryElement}
         onSetMode={onSetMode}
+        onSetSelectedElement={onSetSelectedElement}
       />
+      </div>
 
       {/* Right panel: Secondary details - only shown when there's content */}
       {hasSecondaryContent && (

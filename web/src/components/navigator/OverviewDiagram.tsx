@@ -37,6 +37,43 @@ function getScoreBackgroundColor(score: number, isSelected: boolean): string {
   }
 }
 
+function splitIntoBalancedColumns<T extends { slotHeight: number }>(
+  items: T[],
+  numCols: number,
+): T[][] {
+  if (numCols <= 1 || items.length < numCols) return [items];
+
+  const prefix = [0];
+  for (const item of items) {
+    prefix.push(prefix[prefix.length - 1] + item.slotHeight);
+  }
+  const total = prefix[items.length];
+
+  if (numCols === 2) {
+    let bestSplit = 1;
+    let bestMax = Infinity;
+    for (let s = 1; s < items.length; s++) {
+      const maxH = Math.max(prefix[s], total - prefix[s]);
+      if (maxH < bestMax) { bestMax = maxH; bestSplit = s; }
+    }
+    return [items.slice(0, bestSplit), items.slice(bestSplit)];
+  }
+
+  let bestSplits = [1, 2];
+  let bestMax = Infinity;
+  for (let s1 = 1; s1 < items.length - 1; s1++) {
+    for (let s2 = s1 + 1; s2 < items.length; s2++) {
+      const maxH = Math.max(prefix[s1], prefix[s2] - prefix[s1], total - prefix[s2]);
+      if (maxH < bestMax) { bestMax = maxH; bestSplits = [s1, s2]; }
+    }
+  }
+  return [
+    items.slice(0, bestSplits[0]),
+    items.slice(bestSplits[0], bestSplits[1]),
+    items.slice(bestSplits[1]),
+  ];
+}
+
 export function OverviewDiagram({
   baseline,
   mode,
@@ -53,6 +90,9 @@ export function OverviewDiagram({
   const VERTICAL_PADDING = 12; // Extra padding before children
   const INDENT = 42;
   const LINE_OFFSET = 21;
+  const MULTI_COL_THRESHOLD = 7 * (CARD_HEIGHT + CARD_GAP);
+  const COLUMN_GAP = 24;
+  const MAPS_TO_BAR_WIDTH = 6;
 
   interface AlphaNode {
     alpha: typeof baseline.alphas[0];
@@ -60,6 +100,7 @@ export function OverviewDiagram({
     y: number;
     score: number;
     children: AlphaNode[];
+    relationship: "contributesTo" | "mapsTo";
   }
 
   // Build tree structure and calculate positions
@@ -70,7 +111,9 @@ export function OverviewDiagram({
     startY: number,
     rootScoreEntry: any
   ): { nodes: AlphaNode[]; totalHeight: number } => {
-    const children = allAlphas.filter((a) => a.contributesTo === parentName);
+    const mapsToChildren = allAlphas.filter((a) => a.mapsTo === parentName);
+    const contributesToChildren = allAlphas.filter((a) => a.contributesTo === parentName);
+    const children = [...mapsToChildren, ...contributesToChildren];
     const nodes: AlphaNode[] = [];
     let currentY = startY;
 
@@ -96,11 +139,11 @@ export function OverviewDiagram({
         x: startX,
         y: currentY,
         score,
-        children: []
+        children: [],
+        relationship: alpha.mapsTo === parentName ? "mapsTo" : "contributesTo",
       };
 
-      // Recursively build children
-      const hasChildren = allAlphas.some((a) => a.contributesTo === alpha.name);
+      const hasChildren = allAlphas.some((a) => a.contributesTo === alpha.name || a.mapsTo === alpha.name);
       if (hasChildren) {
         const childResult = buildAlphaTree(alpha.name, allAlphas, startX + INDENT, currentY + CARD_HEIGHT + CARD_GAP, rootScoreEntry);
         node.children = childResult.nodes;
@@ -117,19 +160,187 @@ export function OverviewDiagram({
     return { nodes, totalHeight };
   };
 
-  // Render alpha nodes recursively
+  const findAlphaScore = (alphaName: string, scoreEntry: any): number => {
+    if (!scoreEntry?.newAlphas) return 0;
+    const search = (alphas: any[]): number => {
+      for (const na of alphas) {
+        if (na.alpha.name === alphaName) return na.score;
+        if (na.newAlphas) {
+          const s = search(na.newAlphas);
+          if (s > 0) return s;
+        }
+      }
+      return 0;
+    };
+    return search(scoreEntry.newAlphas);
+  };
+
+  const buildMultiColumnTree = (
+    rootAlphaName: string,
+    allAlphas: typeof baseline.alphas,
+    rootScoreEntry: any,
+  ): {
+    columns: Array<{ nodes: AlphaNode[]; parentX: number }>;
+    numColumns: number;
+    rootCardWidth: number;
+    treeWidth: number;
+    treeHeight: number;
+  } => {
+    const mapsToDirectChildren = allAlphas.filter(a => a.mapsTo === rootAlphaName);
+    const contributesToDirectChildren = allAlphas.filter(a => a.contributesTo === rootAlphaName);
+    const directChildren = [...mapsToDirectChildren, ...contributesToDirectChildren];
+
+    if (directChildren.length === 0) {
+      return {
+        columns: [],
+        numColumns: 1,
+        rootCardWidth: CARD_WIDTH,
+        treeWidth: CARD_WIDTH,
+        treeHeight: CARD_HEIGHT,
+      };
+    }
+
+    const childMeasurements = directChildren.map(child => {
+      const hasGrandchildren = allAlphas.some(a => a.contributesTo === child.name || a.mapsTo === child.name);
+      if (!hasGrandchildren) {
+        return { child, slotHeight: CARD_HEIGHT + CARD_GAP, maxDepth: 0 };
+      }
+      const { nodes: grandchildren, totalHeight: gcHeight } = buildAlphaTree(
+        child.name, allAlphas, INDENT, CARD_HEIGHT + CARD_GAP, rootScoreEntry
+      );
+      const maxDepth = 1 + Math.max(0, ...grandchildren.map(countDepth));
+      return {
+        child,
+        slotHeight: CARD_HEIGHT + CARD_GAP + gcHeight + VERTICAL_PADDING,
+        maxDepth,
+      };
+    });
+
+    const totalChildrenHeight = childMeasurements.reduce((s, m) => s + m.slotHeight, 0);
+
+    let numColumns = 1;
+    let columnGroups = [childMeasurements];
+
+    if (totalChildrenHeight > MULTI_COL_THRESHOLD && directChildren.length >= 2) {
+      const split2 = splitIntoBalancedColumns(childMeasurements, 2);
+      const maxHeight2 = Math.max(...split2.map(col => col.reduce((s, m) => s + m.slotHeight, 0)));
+
+      if (maxHeight2 <= totalChildrenHeight * 0.7) {
+        numColumns = 2;
+        columnGroups = split2;
+
+        if (maxHeight2 > MULTI_COL_THRESHOLD && directChildren.length >= 4) {
+          const split3 = splitIntoBalancedColumns(childMeasurements, 3);
+          const maxHeight3 = Math.max(...split3.map(col => col.reduce((s, m) => s + m.slotHeight, 0)));
+          if (maxHeight3 <= maxHeight2 * 0.7) {
+            numColumns = 3;
+            columnGroups = split3;
+          }
+        }
+      }
+    }
+
+    const columns: Array<{ nodes: AlphaNode[]; parentX: number }> = [];
+    let currentColX = 0;
+    let maxColumnBottom = CARD_HEIGHT;
+
+    for (const colItems of columnGroups) {
+      const colNodes: AlphaNode[] = [];
+      let currentY = CARD_HEIGHT + CARD_GAP;
+
+      for (const { child } of colItems) {
+        const score = findAlphaScore(child.name, rootScoreEntry);
+
+        const node: AlphaNode = {
+          alpha: child,
+          x: currentColX + INDENT,
+          y: currentY,
+          score,
+          children: [],
+          relationship: child.mapsTo === rootAlphaName ? "mapsTo" : "contributesTo",
+        };
+
+        const hasGrandchildren = allAlphas.some(a => a.contributesTo === child.name || a.mapsTo === child.name);
+        if (hasGrandchildren) {
+          const childResult = buildAlphaTree(
+            child.name, allAlphas,
+            currentColX + 2 * INDENT,
+            currentY + CARD_HEIGHT + CARD_GAP,
+            rootScoreEntry
+          );
+          node.children = childResult.nodes;
+          currentY += CARD_HEIGHT + CARD_GAP + childResult.totalHeight + VERTICAL_PADDING;
+        } else {
+          currentY += CARD_HEIGHT + CARD_GAP;
+        }
+
+        colNodes.push(node);
+      }
+
+      maxColumnBottom = Math.max(maxColumnBottom, currentY - CARD_GAP);
+
+      const colMaxDepth = Math.max(0, ...colItems.map(m => m.maxDepth));
+      const colWidth = (colMaxDepth + 1) * INDENT + CARD_WIDTH;
+
+      columns.push({ nodes: colNodes, parentX: currentColX });
+      currentColX += colWidth + COLUMN_GAP;
+    }
+
+    const totalWidth = columns.length > 0 ? currentColX - COLUMN_GAP : CARD_WIDTH;
+    const rootCardWidth = numColumns > 1 ? totalWidth : CARD_WIDTH;
+    const treeHeight = maxColumnBottom;
+
+    return { columns, numColumns, rootCardWidth, treeWidth: totalWidth, treeHeight };
+  };
+
+  const CONTRIBUTES_TO_COLOR = "rgba(102, 102, 102, 0.8)";
+  const MAPS_TO_COLOR = "rgba(0, 102, 204, 0.6)";
+
   const renderAlphaNodes = (nodes: AlphaNode[], parentX?: number, parentY?: number): JSX.Element[] => {
     const elements: JSX.Element[] = [];
 
-    nodes.forEach((node, index) => {
-      const isSelected = selectedElement === node.alpha.name;
+    if (parentX !== undefined && parentY !== undefined) {
+      const parentBottomY = parentY + CARD_HEIGHT;
+      const mapsToNodes = nodes.filter(n => n.relationship === "mapsTo");
+      const contributesToNodes = nodes.filter(n => n.relationship !== "mapsTo");
+
+      if (contributesToNodes.length > 0) {
+        const lastContribCenterY = contributesToNodes[contributesToNodes.length - 1].y + CARD_HEIGHT / 2;
+        elements.push(
+          <line
+            key={`v-ct-${nodes[0].alpha.name}`}
+            x1={parentX + LINE_OFFSET}
+            y1={parentBottomY}
+            x2={parentX + LINE_OFFSET}
+            y2={lastContribCenterY}
+            stroke={CONTRIBUTES_TO_COLOR}
+            strokeWidth="3"
+          />
+        );
+      }
+
+      if (mapsToNodes.length > 0) {
+        const barX = mapsToNodes[0].x - MAPS_TO_BAR_WIDTH;
+        const barTop = parentBottomY;
+        const barBottom = mapsToNodes[mapsToNodes.length - 1].y + CARD_HEIGHT;
+        elements.push(
+          <rect
+            key={`v-mt-${nodes[0].alpha.name}`}
+            x={barX}
+            y={barTop}
+            width={MAPS_TO_BAR_WIDTH}
+            height={barBottom - barTop}
+            rx={2}
+            fill={MAPS_TO_COLOR}
+          />
+        );
+      }
+    }
+
+    nodes.forEach((node) => {
       const cardCenterY = node.y + CARD_HEIGHT / 2;
 
-      // Draw connecting lines if there's a parent
-      if (parentX !== undefined && parentY !== undefined) {
-        const parentBottomY = parentY + CARD_HEIGHT;
-
-        // Horizontal line from parent's vertical line to this card
+      if (parentX !== undefined && parentY !== undefined && node.relationship !== "mapsTo") {
         elements.push(
           <line
             key={`h-${node.alpha.name}`}
@@ -137,29 +348,12 @@ export function OverviewDiagram({
             y1={cardCenterY}
             x2={node.x}
             y2={cardCenterY}
-            stroke="rgba(102, 102, 102, 0.8)"
+            stroke={CONTRIBUTES_TO_COLOR}
             strokeWidth="3"
           />
         );
-
-        // Vertical line from parent card bottom to last child (only on first iteration)
-        if (index === 0) {
-          const lastSiblingCenterY = nodes[nodes.length - 1].y + CARD_HEIGHT / 2;
-          elements.push(
-            <line
-              key={`v-parent-${node.alpha.name}`}
-              x1={parentX + LINE_OFFSET}
-              y1={parentBottomY}
-              x2={parentX + LINE_OFFSET}
-              y2={lastSiblingCenterY}
-              stroke="rgba(102, 102, 102, 0.8)"
-              strokeWidth="3"
-            />
-          );
-        }
       }
 
-      // Recursively render children
       if (node.children.length > 0) {
         elements.push(...renderAlphaNodes(node.children, node.x, node.y));
       }
@@ -225,7 +419,7 @@ export function OverviewDiagram({
 
   if (mode === "concerns") {
     // Separate root alphas from contributing alphas
-    const rootAlphas = (baseline.alphas || []).filter((a) => !a.contributesTo);
+    const rootAlphas = (baseline.alphas || []).filter((a) => !a.contributesTo && !a.mapsTo);
 
     // Group root alphas by focus
     const rootAlphasByFocus = new Map<string, typeof baseline.alphas>();
@@ -244,14 +438,24 @@ export function OverviewDiagram({
     });
 
     // Build tree structures for all focus groups
+    type TreeData = {
+      rootAlpha: typeof baseline.alphas[0];
+      columns: Array<{ nodes: AlphaNode[]; parentX: number }>;
+      numColumns: number;
+      rootCardWidth: number;
+      score: number;
+      treeWidth: number;
+      treeHeight: number;
+    };
+
     const focusGroups: Array<{
       focusName: string;
       focus: typeof baseline.focuses[0] | undefined;
-      trees: Array<{ rootAlpha: typeof baseline.alphas[0]; tree: AlphaNode[]; height: number; score: number; treeWidth: number; treeHeight: number }>;
+      trees: TreeData[];
     }> = [];
 
     Array.from(rootAlphasByFocus.entries()).forEach(([focusName, rootAlphas]) => {
-      const trees: Array<{ rootAlpha: typeof baseline.alphas[0]; tree: AlphaNode[]; height: number; score: number; treeWidth: number; treeHeight: number }> = [];
+      const trees: TreeData[] = [];
 
       rootAlphas.forEach((rootAlpha) => {
         let rootScore = 0;
@@ -265,21 +469,12 @@ export function OverviewDiagram({
           }
         }
 
-        const { nodes, totalHeight } = buildAlphaTree(rootAlpha.name, baseline.alphas || [], INDENT, CARD_HEIGHT + CARD_GAP, rootScoreEntry);
-
-        const maxDepth = nodes.length > 0 ? Math.max(0, ...nodes.map(n => countDepth(n))) : 0;
-        const treeWidth = nodes.length > 0
-          ? (maxDepth + 1) * INDENT + CARD_WIDTH
-          : CARD_WIDTH;
-        const treeHeight = Math.max(CARD_HEIGHT, CARD_HEIGHT + CARD_GAP + totalHeight);
+        const result = buildMultiColumnTree(rootAlpha.name, baseline.alphas || [], rootScoreEntry);
 
         trees.push({
           rootAlpha,
-          tree: nodes,
-          height: totalHeight,
+          ...result,
           score: rootScore,
-          treeWidth,
-          treeHeight,
         });
       });
 
@@ -331,7 +526,7 @@ export function OverviewDiagram({
                       <rect
                         x={0}
                         y={0}
-                        width={CARD_WIDTH}
+                        width={treeData.rootCardWidth}
                         height={CARD_HEIGHT}
                         rx="4"
                         fill={getScoreBackgroundColor(treeData.score, isRootSelected)}
@@ -343,7 +538,7 @@ export function OverviewDiagram({
                       <foreignObject
                         x={0}
                         y={0}
-                        width={CARD_WIDTH}
+                        width={treeData.rootCardWidth}
                         height={CARD_HEIGHT}
                         style={{ pointerEvents: "none" }}
                       >
@@ -360,8 +555,10 @@ export function OverviewDiagram({
                           </div>
                         </div>
                       </foreignObject>
-                      {renderAlphaNodes(treeData.tree, 0, 0)}
-                      {renderAlphaCards(treeData.tree)}
+                      {treeData.columns.flatMap(col => [
+                        ...renderAlphaNodes(col.nodes, col.parentX, 0),
+                        ...renderAlphaCards(col.nodes),
+                      ])}
                     </svg>
                   );
                 })}

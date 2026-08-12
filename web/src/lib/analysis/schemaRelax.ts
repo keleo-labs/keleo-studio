@@ -13,6 +13,8 @@ export function relaxCardinalityInSchema(schema: unknown): object {
     const o = node as Record<string, unknown>;
     if ("minItems" in o) delete o.minItems;
     if ("minProperties" in o) delete o.minProperties;
+    if (o.unevaluatedProperties === false) delete o.unevaluatedProperties;
+    if (o.additionalProperties === false) delete o.additionalProperties;
     for (const k of Object.keys(o)) walk(o[k]);
   };
   walk(clone);

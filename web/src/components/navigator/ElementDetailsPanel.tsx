@@ -5,8 +5,10 @@ import { useState, useEffect, useMemo } from "react";
 import { Title } from "@patternfly/react-core";
 import type { PracticeBaseline, Asset } from "@/lib/types";
 import type { BrowseDependencyArtifact } from "@/lib/library/practiceDependencyResolution";
-import { buildLibraryLookupIndex, collectTransitiveMethodDependencies } from "@/lib/library/practiceDependencyResolution";
+import { buildLibraryLookupIndex } from "@/lib/library/practiceDependencyResolution";
 import type { LibraryLookupIndex } from "@/lib/library/practiceDependencyResolution";
+import { buildDependencyTree, computeDependencyLayout } from "@/lib/diagrams/dependencyTree";
+import { DependencyDiagram } from "./DependencyDiagram";
 import type {
   FocusGroup as AlphaScoreFocusGroup,
   ActivitySpaceFocusGroup
@@ -19,6 +21,7 @@ import { OverviewDiagram } from "./OverviewDiagram";
 import { AliasedName } from "../common/AliasedName";
 import { AlphaStateTable } from "./AlphaStateTable";
 import { WorkProductLODTable } from "./WorkProductLODTable";
+import { BackgroundBlock, TestBlock, ExamplesBlock } from "./GherkinBlock";
 
 interface ElementDetailsPanelProps {
   selectedElement: {
@@ -35,6 +38,7 @@ interface ElementDetailsPanelProps {
   onSetSecondaryElement: (element: string | null) => void;
   secondaryElementName: string | null;
   onSetMode?: (mode: "concerns" | "activities") => void;
+  onSetSelectedElement?: (element: string | null) => void;
 }
 
 // Helper function to render narratives
@@ -375,6 +379,7 @@ export function ElementDetailsPanel({
   onSetSecondaryElement,
   secondaryElementName,
   onSetMode,
+  onSetSelectedElement,
 }: ElementDetailsPanelProps) {
   // Helper to set secondary element with automatic mode switching
   const setSecondaryWithModeSwitch = (elementName: string | null, elementType?: "alpha" | "activity") => {
@@ -423,9 +428,10 @@ export function ElementDetailsPanel({
     fetchPracticeData();
   }, []);
 
-  const transitiveDeps = useMemo(() => {
-    if (!selectedElement || selectedElement.type !== "introduction" || !libraryIndex) return [];
-    return collectTransitiveMethodDependencies(selectedElement.data, libraryIndex);
+  const diagramLayout = useMemo(() => {
+    if (!selectedElement || selectedElement.type !== "introduction" || !libraryIndex) return null;
+    const tree = buildDependencyTree(selectedElement.data, libraryIndex);
+    return computeDependencyLayout(tree);
   }, [selectedElement, libraryIndex]);
 
   if (!selectedElement) {
@@ -509,6 +515,50 @@ export function ElementDetailsPanel({
           />
         ) : (
           <>
+            {/* MapsTo parent tile */}
+            {type === "alpha" && data.mapsTo && (() => {
+              const parentAlpha = baseline.alphas.find((a) => a.name === data.mapsTo);
+              const parentAssetRef = parentAlpha?.assetNames?.find((a: any) => a.type === "icon");
+              const parentAsset = parentAssetRef ? findAsset(parentAssetRef.assetName, assets) : null;
+
+              return (
+                <div
+                  onClick={() => {
+                    if (onSetSelectedElement) {
+                      onSetSelectedElement(data.mapsTo);
+                    }
+                  }}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    padding: "0.375rem 0.75rem",
+                    marginBottom: "0.75rem",
+                    backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                    border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                    borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                    cursor: "pointer",
+                    transition: "background-color 0.2s, border-color 0.2s",
+                    fontSize: "0.8125rem",
+                    fontWeight: 600,
+                    color: "var(--pf-v6-global--Color--100)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#ffffff";
+                    e.currentTarget.style.borderColor = "var(--pf-v6-global--link--Color)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                    e.currentTarget.style.borderColor = "var(--pf-v6-global--BorderColor--100)";
+                  }}
+                  title={`Maps to ${data.mapsTo}`}
+                >
+                  {parentAsset && <IconAsset asset={parentAsset} size={16} style={{ flexShrink: 0 }} />}
+                  <AliasedName kind="alpha" name={data.mapsTo} browse={false} />
+                </div>
+              );
+            })()}
+
             {/* Header with icon and title */}
             <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1.5rem" }}>
               {asset && <IconAsset asset={asset} size={32} style={{ flexShrink: 0, marginTop: "0.25rem" }} />}
@@ -618,189 +668,23 @@ export function ElementDetailsPanel({
               </div>
             </div>
 
-            {/* Introduction view: Narratives and Practices side-by-side */}
-            {type === "introduction" && (
-              <div style={{ display: "flex", gap: "2rem", marginTop: "2rem", marginBottom: "2.5rem", alignItems: "flex-start" }}>
-                {/* Left column: Narratives */}
-                {data.narratives && data.narratives.length > 0 && (
-                <div style={{ flex: "0 0 55%", minWidth: 0 }}>
-                  {renderNarratives(data.narratives, baseline)}
-                </div>
-                )}
-
-                {/* Right column: Practices / Practice Dependencies */}
-                {((data.practices && Array.isArray(data.practices) && data.practices.length > 0) ||
-                  (data.practiceNames && Array.isArray(data.practiceNames) && data.practiceNames.length > 0) ||
-                  (data.practiceDependencyNames && Array.isArray(data.practiceDependencyNames) && data.practiceDependencyNames.length > 0) ||
-                  data.baselinePracticeName || data.baselinePractice) && (
-                  <div style={{ flex: (data.narratives && data.narratives.length > 0) ? "0 0 45%" : "1", minWidth: "15rem" }}>
-                    <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-                      {(data.practices && Array.isArray(data.practices) && data.practices.length > 0) ||
-                       (data.practiceNames && Array.isArray(data.practiceNames) && data.practiceNames.length > 0)
-                        ? "Practices"
-                        : "Practice Dependencies"}
-                    </Title>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", maxWidth: "24rem" }}>
-                      {/* Show practices first - handle both embedded (data.practices) and named (data.practiceNames) */}
-                      {(data.practices ?? data.practiceNames ?? []).map((practice: any, idx: number) => {
-                        const practiceName = typeof practice === "string" ? practice : (practice.name || "Unknown Practice");
-                        const isSelected = secondaryElementName === practiceName;
-
-                        return (
-                          <button
-                            key={idx}
-                            onClick={() => onSetSecondaryElement(isSelected ? null : practiceName)}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.75rem",
-                              padding: "0.75rem 1rem",
-                              border: isSelected
-                                ? "3px solid var(--pf-v6-global--primary-color--100)"
-                                : "2px solid var(--pf-v6-global--BorderColor--100)",
-                              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                              backgroundColor: isSelected
-                                ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                                : "var(--pf-v6-global--BackgroundColor--100)",
-                              cursor: "pointer",
-                              textAlign: "left",
-                              transition: "all 0.2s",
-                            }}
-                          >
-                            <i className="fa-solid fa-puzzle-piece" style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }} />
-                            <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                              {practiceName}
-                            </div>
-                          </button>
-                        );
-                      })}
-
-                      {/* Show practice dependencies if no practices */}
-                      {!(data.practices && Array.isArray(data.practices) && data.practices.length > 0) &&
-                       !(data.practiceNames && Array.isArray(data.practiceNames) && data.practiceNames.length > 0) &&
-                       data.practiceDependencyNames && Array.isArray(data.practiceDependencyNames) &&
-                       data.practiceDependencyNames.map((practiceName: string, idx: number) => {
-                        const isSelected = secondaryElementName === practiceName;
-
-                        return (
-                          <button
-                            key={idx}
-                            onClick={() => onSetSecondaryElement(isSelected ? null : practiceName)}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.75rem",
-                              padding: "0.75rem 1rem",
-                              border: isSelected
-                                ? "3px solid var(--pf-v6-global--primary-color--100)"
-                                : "2px solid var(--pf-v6-global--BorderColor--100)",
-                              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                              backgroundColor: isSelected
-                                ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                                : "var(--pf-v6-global--BackgroundColor--100)",
-                              cursor: "pointer",
-                              textAlign: "left",
-                              transition: "all 0.2s",
-                            }}
-                          >
-                            <i className="fa-solid fa-puzzle-piece" style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--Color--200)" }} />
-                            <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                              {practiceName}
-                            </div>
-                          </button>
-                        );
-                      })}
-
-                      {/* Show baseline at the end - handle both embedded (data.baselinePractice) and named (data.baselinePracticeName) */}
-                      {(() => {
-                        const baselineName = data.baselinePracticeName || data.baselinePractice?.name;
-                        if (!baselineName) return null;
-
-                        const isSelected = secondaryElementName === baselineName;
-
-                        return (
-                          <button
-                            onClick={() => onSetSecondaryElement(isSelected ? null : baselineName)}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.75rem",
-                              padding: "0.75rem 1rem",
-                              border: isSelected
-                                ? "3px solid var(--pf-v6-global--primary-color--100)"
-                                : "2px solid var(--pf-v6-global--primary-color--100)",
-                              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                              backgroundColor: isSelected
-                                ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                                : "var(--pf-v6-global--BackgroundColor--100)",
-                              cursor: "pointer",
-                              textAlign: "left",
-                              transition: "all 0.2s",
-                            }}
-                          >
-                            <i className="fa-solid fa-layer-group" style={{ fontSize: "0.875rem", color: "var(--pf-v6-global--primary-color--100)" }} />
-                            <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                              {baselineName}
-                            </div>
-                          </button>
-                        );
-                      })()}
-                    </div>
-                  </div>
-                )}
+            {/* Introduction view: Narratives then dependency diagram */}
+            {type === "introduction" && data.narratives && data.narratives.length > 0 && (
+              <div style={{ marginTop: "2rem", marginBottom: "2rem" }}>
+                {renderNarratives(data.narratives, baseline)}
               </div>
             )}
 
-            {/* Transitive Practice Dependencies - shown below direct practices */}
-            {type === "introduction" && transitiveDeps.length > 0 && (
+            {type === "introduction" && diagramLayout && diagramLayout.nodes.length > 1 && (
               <div style={{ marginTop: "1.5rem", marginBottom: "2rem" }}>
                 <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
                   Practice Dependencies
                 </Title>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", maxWidth: "24rem" }}>
-                  {transitiveDeps.map((dep, idx) => {
-                    const isSelected = secondaryElementName === dep.name;
-                    const isBaseline = dep.role === "baselinePractice";
-
-                    return (
-                      <button
-                        key={idx}
-                        onClick={() => onSetSecondaryElement(isSelected ? null : dep.name)}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.75rem",
-                          padding: "0.75rem 1rem",
-                          border: isSelected
-                            ? "3px solid var(--pf-v6-global--primary-color--100)"
-                            : isBaseline
-                              ? "2px solid var(--pf-v6-global--primary-color--100)"
-                              : "2px solid var(--pf-v6-global--BorderColor--100)",
-                          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                          backgroundColor: isSelected
-                            ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
-                            : "var(--pf-v6-global--BackgroundColor--100)",
-                          cursor: "pointer",
-                          textAlign: "left",
-                          transition: "all 0.2s",
-                        }}
-                      >
-                        <i
-                          className={isBaseline ? "fa-solid fa-layer-group" : "fa-solid fa-puzzle-piece"}
-                          style={{
-                            fontSize: "0.875rem",
-                            color: isBaseline
-                              ? "var(--pf-v6-global--primary-color--100)"
-                              : "var(--pf-v6-global--Color--200)",
-                          }}
-                        />
-                        <div style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                          {dep.name}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
+                <DependencyDiagram
+                  layout={diagramLayout}
+                  selectedElement={secondaryElementName}
+                  onSelectElement={onSetSecondaryElement}
+                />
               </div>
             )}
 
@@ -922,6 +806,15 @@ export function ElementDetailsPanel({
             {!hasNarratives && ((type !== "alpha" && type !== "workProduct" && (hasStates || hasActivities || hasLODs)) || (type === "alpha" && (hasActivities || hasLODs)) || (type === "workProduct" && hasActivities)) ? (
             <>
               <div style={{ flex: "0 0 45%", minWidth: "15rem" }}>
+                {type === "activitySpace" && data.background && (
+                  <div style={{ marginBottom: "1.5rem" }}>
+                    <BackgroundBlock
+                      background={data.background}
+                      baseline={baseline}
+                      onNavigateToElement={(name) => onSetSecondaryElement(name)}
+                    />
+                  </div>
+                )}
                 {hasActivities && renderActivitiesList(data, assets, onSetSecondaryElement)}
               </div>
               <div style={{ flex: 1 }} />
@@ -931,6 +824,17 @@ export function ElementDetailsPanel({
               {/* Left column: Narratives - 55% (skip for introduction since it's shown above) */}
               <div style={{ flex: "0 0 55%", minWidth: 0 }}>
                 {hasNarratives && type !== "introduction" && renderNarratives(data.narratives, baseline)}
+
+                {/* ActivitySpace background prerequisites */}
+                {type === "activitySpace" && data.background && (
+                  <div style={{ marginTop: hasNarratives ? "2rem" : 0, marginBottom: "1.5rem" }}>
+                    <BackgroundBlock
+                      background={data.background}
+                      baseline={baseline}
+                      onNavigateToElement={(name) => onSetSecondaryElement(name)}
+                    />
+                  </div>
+                )}
 
                 {/* Common Examples (alpha instances matching this alpha) */}
                 {type === "alpha" && (() => {
@@ -975,6 +879,34 @@ export function ElementDetailsPanel({
                 {/* Activity-specific sections */}
                 {type === "activity" && (
                   <div style={{ marginTop: hasNarratives ? "2rem" : 0 }}>
+                    {/* Background prerequisites */}
+                    {data.background && (
+                      <div style={{ marginBottom: "1.5rem" }}>
+                        <BackgroundBlock
+                          background={data.background}
+                          baseline={baseline}
+                          onNavigateToElement={(name) => onSetSecondaryElement(name)}
+                        />
+                      </div>
+                    )}
+
+                    {/* Test scenario */}
+                    {data.test && (
+                      <div style={{ marginBottom: "1.5rem" }}>
+                        <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                          Verification
+                        </Title>
+                        <TestBlock test={data.test} />
+                      </div>
+                    )}
+
+                    {/* Examples */}
+                    {data.examples && data.examples.length > 0 && (
+                      <div style={{ marginBottom: "1.5rem" }}>
+                        <ExamplesBlock examples={data.examples} />
+                      </div>
+                    )}
+
                     {/* Contributes To */}
                     {data.contributesTo && data.contributesTo.length > 0 && (
                       <div style={{ marginBottom: "1.5rem" }}>
@@ -1263,15 +1195,26 @@ export function ElementDetailsPanel({
                             }
                           }}
                         >
-                          {alphaAsset && <IconAsset asset={alphaAsset} size={16} style={{ flexShrink: 0 }} />}
+                          {alphaAsset && <IconAsset asset={alphaAsset} size={16} style={{ flexShrink: 0, alignSelf: "flex-start", marginTop: "0.125rem" }} />}
                           <div style={{ fontSize: "0.8125rem", flex: 1 }}>
-                            <span style={{ fontStyle: "italic", color: "var(--pf-v6-global--Color--200)" }}>
-                              {relation.relationship}
-                            </span>
-                            {" "}
-                            <span style={{ fontWeight: 600 }}>
-                              {relation.alphaName}
-                            </span>
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.375rem" }}>
+                              <span style={{ fontStyle: "italic", color: "var(--pf-v6-global--Color--200)" }}>
+                                {relation.relationship}
+                              </span>
+                              {relation.direction && (
+                                <span style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", flexShrink: 0 }}>
+                                  {relation.direction === "outgoing" ? "→" : relation.direction === "incoming" ? "←" : "↔"}
+                                </span>
+                              )}
+                              <span style={{ fontWeight: 600 }}>
+                                {relation.alphaName}
+                              </span>
+                            </div>
+                            {relation.description && (
+                              <div style={{ fontSize: "0.75rem", fontStyle: "italic", color: "var(--pf-v6-global--Color--200)", marginTop: "0.25rem" }}>
+                                {relation.description}
+                              </div>
+                            )}
                           </div>
                           {isSelected && (
                             <span

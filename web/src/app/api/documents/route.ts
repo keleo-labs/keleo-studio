@@ -10,7 +10,7 @@ import { validateAgainstSchemaServer } from "@/lib/core/validateServer";
 import { serverCache } from "@/lib/cache/serverCache";
 
 function isKind(v: unknown): v is JsonDocumentKind {
-  return v === "practice" || v === "method" || v === "upload" || v === "dashboard-config";
+  return v === "practice" || v === "method" || v === "upload" || v === "dashboard-config" || v === "project";
 }
 
 export async function GET(req: Request) {
@@ -37,7 +37,8 @@ export async function GET(req: Request) {
           ...(withBody ? { body: full?.body } : {}),
         };
       }
-      const body = normalizePracticeBody(full?.body);
+      // Projects use their body directly (not practice-shaped), but still get classified
+      const body = m.kind === "project" ? full?.body : normalizePracticeBody(full?.body);
       const description = body && typeof body === 'object' && 'description' in body
         ? String(body.description)
         : undefined;
@@ -74,15 +75,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "title is required" }, { status: 400 });
   }
   if (!isKind(o.kind)) {
-    return NextResponse.json({ error: "kind must be practice | method | upload | dashboard-config" }, { status: 400 });
+    return NextResponse.json({ error: "kind must be practice | method | upload | dashboard-config | project" }, { status: 400 });
   }
-  // Normalize the body before validation
-  const normalizedBody = o.kind === "dashboard-config"
+  // Normalize the body before validation (projects and dashboard-configs skip practice normalization)
+  const normalizedBody = (o.kind === "dashboard-config" || o.kind === "project")
     ? o.body
     : (o.body === undefined ? null : normalizePracticeBody(o.body));
 
-  // Validate practice/method bodies against schema before persistence
-  if (o.kind === "practice" || o.kind === "method") {
+  // Validate practice/method/project bodies against schema before persistence
+  if (o.kind === "practice" || o.kind === "method" || o.kind === "project") {
     if (normalizedBody !== null && normalizedBody !== undefined) {
       const validation = validateAgainstSchemaServer(normalizedBody);
       // Use relaxed validation (allows partial/draft documents)
@@ -117,7 +118,7 @@ export async function POST(req: Request) {
 
     // Clear library-wide cache entries when new practice/method is created
     // This invalidates batch-resolve, by-tags, and other library-wide caches
-    if (o.kind === "practice" || o.kind === "method") {
+    if (o.kind === "practice" || o.kind === "method" || o.kind === "project") {
       serverCache.clear();
     }
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { BrowseDependencyArtifact } from "@/lib/library/practiceDependencyResolution";
+import type { VersionWarning } from "@/lib/library/dependencyVersionCheck";
 import { fetchResolvePracticeForRender } from "@/lib/library/resolvePracticeForRenderApi";
 
 /**
@@ -17,11 +18,15 @@ export function usePracticeLibraryResolveForRender(
   /** Populated when the last request succeeded; otherwise `undefined`. */
   resolved: unknown | undefined;
   dependencyArtifacts: BrowseDependencyArtifact[];
+  versionWarnings: VersionWarning[];
+  schemaWarning?: string;
   error: string | null;
 } {
   const [loading, setLoading] = useState(false);
   const [resolved, setResolved] = useState<unknown | undefined>(undefined);
   const [dependencyArtifacts, setDependencyArtifacts] = useState<BrowseDependencyArtifact[]>([]);
+  const [versionWarnings, setVersionWarnings] = useState<VersionWarning[]>([]);
+  const [schemaWarning, setSchemaWarning] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -29,6 +34,8 @@ export function usePracticeLibraryResolveForRender(
       setLoading(false);
       setResolved(undefined);
       setDependencyArtifacts([]);
+      setVersionWarnings([]);
+      setSchemaWarning(undefined);
       setError(null);
       return;
     }
@@ -37,12 +44,16 @@ export function usePracticeLibraryResolveForRender(
     setResolved(undefined);
     setError(null);
     setDependencyArtifacts([]);
+    setVersionWarnings([]);
+    setSchemaWarning(undefined);
     setLoading(true);
 
     void (async () => {
       const result = await fetchResolvePracticeForRender(doc);
       if (cancelled) return;
       setDependencyArtifacts(result.dependencyArtifacts);
+      setVersionWarnings(result.versionWarnings);
+      setSchemaWarning(result.schemaWarning);
       setLoading(false);
       if (result.ok) {
         setResolved(result.resolved);
@@ -58,5 +69,5 @@ export function usePracticeLibraryResolveForRender(
     };
   }, [doc, enabled]);
 
-  return { loading, resolved, dependencyArtifacts, error };
+  return { loading, resolved, dependencyArtifacts, versionWarnings, schemaWarning, error };
 }

@@ -48,7 +48,8 @@ coverage/
 .jest/
 .vitest/
 
-# Playwright (if tests or reports are generated under the repo)
+# Playwright (MCP server state, tests, reports)
+.playwright-mcp/
 playwright-report/
 blob-report/
 test-results/
@@ -79,6 +80,9 @@ temp/
 .tmp/
 *.tmp
 *.temp
+
+# Ad-hoc validation / test scripts
+test-validate.js
 
 # Machine-local env (secrets / overrides — keep templates like .env.example tracked)
 .env.local

@@ -1,3 +1,5 @@
+import { TOOL_SCHEMA_VERSION } from "@/lib/core/schemaVersion";
+
 /** Default subtree shapes for the practice editor (see public/language.schema.json). */
 
 export function emptyPracticeElement(name = "", description = ""): Record<string, unknown> {
@@ -209,6 +211,7 @@ export function emptyExtensionPractice(): Record<string, unknown> {
     authors: [] as string[],
     keywords: [] as string[],
     version: "0.1.0",
+    schemaVersion: TOOL_SCHEMA_VERSION,
     createdAt: today,
     updatedAt: today,
     focuses: [] as Record<string, unknown>[],
@@ -226,6 +229,66 @@ export function emptyExtensionPractice(): Record<string, unknown> {
   };
 }
 
+export function emptyNote(): Record<string, unknown> {
+  return { name: "", timestamp: new Date().toISOString(), content: "" };
+}
+
+export function emptyChecklistState(): Record<string, unknown> {
+  return { checklistName: "", state: "not complete" };
+}
+
+export function emptyCommunicationChannel(): Record<string, unknown> {
+  return { name: "", address: "" };
+}
+
+export function emptyTeamMember(): Record<string, unknown> {
+  return { name: "", personaName: "", contact: "" };
+}
+
+export function emptyTeamEntry(): Record<string, unknown> {
+  return {
+    name: "",
+    description: "",
+    members: [] as Record<string, unknown>[],
+    communicationChannels: [] as Record<string, unknown>[],
+    notes: [] as Record<string, unknown>[],
+  };
+}
+
+export function emptyProjectPlan(): Record<string, unknown> {
+  return {
+    pattern: emptyPattern(),
+    notes: [] as Record<string, unknown>[],
+  };
+}
+
+export function emptyProjectStateSection(): Record<string, unknown> {
+  return {
+    alphaInstances: [] as Record<string, unknown>[],
+    workProductInstances: [] as Record<string, unknown>[],
+    notes: [] as Record<string, unknown>[],
+  };
+}
+
+export function emptyProject(): Record<string, unknown> {
+  const today = new Date().toISOString().slice(0, 10);
+  return {
+    ...emptyPracticeElement("", ""),
+    practiceName: "",
+    team: emptyTeamEntry(),
+    plan: emptyProjectPlan(),
+    current: emptyProjectStateSection(),
+    target: emptyProjectStateSection(),
+    notes: [] as Record<string, unknown>[],
+    authors: [] as string[],
+    keywords: [] as string[],
+    version: "0.1.0",
+    schemaVersion: TOOL_SCHEMA_VERSION,
+    createdAt: today,
+    updatedAt: today,
+  };
+}
+
 export function emptyBaselinePractice(): Record<string, unknown> {
   const today = new Date().toISOString().slice(0, 10);
   return {
@@ -233,6 +296,7 @@ export function emptyBaselinePractice(): Record<string, unknown> {
     authors: [] as string[],
     keywords: [] as string[],
     version: "0.1.0",
+    schemaVersion: TOOL_SCHEMA_VERSION,
     createdAt: today,
     updatedAt: today,
     focuses: [] as Record<string, unknown>[],

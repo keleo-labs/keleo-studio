@@ -6,6 +6,7 @@ import { Spinner, Title } from "@patternfly/react-core";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
 import { documentNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { asBaselineDocument, groupByFocus } from "@/lib/ir";
+import { checkSchemaCompatibility } from "@/lib/core/schemaVersion";
 import type { PracticeBaseline } from "@/lib/types";
 import { NavigatorLayout } from "@/components/navigator/NavigatorLayout";
 import { PracticeElementAliasesProvider } from "@/components/common/AliasedName";
@@ -66,10 +67,14 @@ export function PracticeNavigatorClient() {
   }, [doc]);
 
   // Resolve library dependencies if needed
-  const { loading: resolveLoading, resolved, dependencyArtifacts, error: resolveError } = usePracticeLibraryResolveForRender(
-    doc,
-    shouldResolve
-  );
+  const {
+    loading: resolveLoading,
+    resolved,
+    dependencyArtifacts,
+    versionWarnings: resolveVersionWarnings,
+    schemaWarning: resolveSchemaWarning,
+    error: resolveError,
+  } = usePracticeLibraryResolveForRender(doc, shouldResolve);
 
   // Get the source document (for method composition info)
   const sourceDoc = useMemo(() => {
@@ -100,6 +105,15 @@ export function PracticeNavigatorClient() {
 
   const loading = docLoading || (shouldResolve && resolveLoading) || alphaScoresLoading || activityScoresLoading;
   const error = docError || resolveError;
+
+  const versionWarnings = shouldResolve ? resolveVersionWarnings : [];
+  const schemaWarning = useMemo(() => {
+    if (shouldResolve) return resolveSchemaWarning;
+    if (!doc || typeof doc !== "object") return undefined;
+    const sv = (doc as Record<string, unknown>).schemaVersion;
+    if (typeof sv !== "string") return undefined;
+    return checkSchemaCompatibility(sv).warning;
+  }, [shouldResolve, resolveSchemaWarning, doc]);
 
   // Extract aliases from the source document (resolved practice)
   const aliases = useMemo(() => {
@@ -205,6 +219,8 @@ export function PracticeNavigatorClient() {
         secondaryElement={secondaryElement}
         libraryId={libraryId}
         dependencyArtifacts={dependencyArtifacts}
+        versionWarnings={versionWarnings}
+        schemaWarning={schemaWarning}
         alphaScores={alphaScores || new Map()}
         activitySpaceScores={activitySpaceScores || new Map()}
         onSetMode={setMode}

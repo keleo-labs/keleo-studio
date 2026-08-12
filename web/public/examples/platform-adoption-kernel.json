@@ -1,8 +1,8 @@
 {
-  "kind": "baseline",
+  "kind": "practiceBaseline",
   "name": "Platform Adoption Essentials",
-  "description": "The Platform Adoption Kernel establishes the universal foundation for platform transformations, organized into the three Areas of Concern.",
-  "version": "1",
+  "description": "The Platform Adoption Essentials baseline establishes the universal foundation for platform transformations, extending the Project Essentials baseline with platform-specific concerns across the three Areas of Concern.",
+  "version": "2.0.0",
   "authors": [
     "Kernel Authors"
   ],
@@ -10,6 +10,9 @@
     "platform",
     "adoption",
     "kernel"
+  ],
+  "baselinePracticeNames": [
+    "Project Essentials"
   ],
   "focuses": [
     {
@@ -27,69 +30,6 @@
   ],
   "alphas": [
     {
-      "name": "Opportunity",
-      "description": "The foundational business drivers dictating the platform transformation.",
-      "focusName": "Value",
-      "assetNames": [
-        {
-          "assetName": "opportunity-icon",
-          "type": "icon"
-        }
-      ],
-      "relatesTo": [
-        {
-          "relationship": "identified by",
-          "alphaName": "Stakeholders"
-        },
-        {
-          "relationship": "drives",
-          "alphaName": "Requirements"
-        },
-        {
-          "relationship": "justifies",
-          "alphaName": "Platform Value And Economics"
-        }
-      ],
-      "states": [
-        {
-          "name": "Initiated",
-          "description": "The desire to adopt a platform is identified.",
-          "seq": 1,
-          "checklist": []
-        },
-        {
-          "name": "Determined",
-          "description": "The value and parameters of the platform are quantified.",
-          "seq": 2,
-          "checklist": []
-        },
-        {
-          "name": "Value Established",
-          "description": "The platform's value is accepted by sponsors.",
-          "seq": 3,
-          "checklist": []
-        },
-        {
-          "name": "Viable",
-          "description": "The business case demonstrates a viable return.",
-          "seq": 4,
-          "checklist": []
-        },
-        {
-          "name": "Addressed",
-          "description": "The opportunity is actively being addressed by the platform.",
-          "seq": 5,
-          "checklist": []
-        },
-        {
-          "name": "Benefit Accrued",
-          "description": "The expected benefits are being consistently realized.",
-          "seq": 6,
-          "checklist": []
-        }
-      ]
-    },
-    {
       "name": "Platform Value And Economics",
       "description": "The financial and outcome-based justification and accounting for the platform.",
       "focusName": "Value",
@@ -102,11 +42,13 @@
       "relatesTo": [
         {
           "relationship": "identifies ROI for",
-          "alphaName": "Platform"
+          "alphaName": "Platform",
+          "direction": "outgoing"
         },
         {
           "relationship": "communicates value to",
-          "alphaName": "Stakeholders"
+          "alphaName": "Stakeholders",
+          "direction": "outgoing"
         }
       ],
       "states": [
@@ -131,84 +73,24 @@
       ]
     },
     {
-      "name": "Stakeholders",
-      "description": "The individuals, groups, or organizations affected by, or able to affect, the platform.",
-      "focusName": "Value",
-      "assetNames": [
-        {
-          "assetName": "stakeholders-icon",
-          "type": "icon"
-        }
-      ],
-      "relatesTo": [
-        {
-          "relationship": "provides",
-          "alphaName": "Requirements"
-        },
-        {
-          "relationship": "funds",
-          "alphaName": "Platform"
-        },
-        {
-          "relationship": "provides feedback to",
-          "alphaName": "Team"
-        }
-      ],
-      "states": [
-        {
-          "name": "Recognized",
-          "description": "Key stakeholders are identified.",
-          "seq": 1,
-          "checklist": []
-        },
-        {
-          "name": "Represented",
-          "description": "Stakeholder representatives are designated.",
-          "seq": 2,
-          "checklist": []
-        },
-        {
-          "name": "Involved",
-          "description": "Stakeholders actively participate.",
-          "seq": 3,
-          "checklist": []
-        },
-        {
-          "name": "In Agreement",
-          "description": "Stakeholder expectations are aligned.",
-          "seq": 4,
-          "checklist": []
-        },
-        {
-          "name": "Satisfied for Deployment",
-          "description": "Stakeholders approve deployment.",
-          "seq": 5,
-          "checklist": []
-        },
-        {
-          "name": "Satisfied in Use",
-          "description": "Stakeholders are satisfied with the operational platform.",
-          "seq": 6,
-          "checklist": []
-        }
-      ]
-    },
-    {
       "name": "Requirements",
       "description": "The capabilities, features, and constraints the platform must satisfy.",
       "focusName": "Solution",
       "relatesTo": [
         {
           "relationship": "guides design of",
-          "alphaName": "Platform"
+          "alphaName": "Platform",
+          "direction": "outgoing"
         },
         {
           "relationship": "defines scope for",
-          "alphaName": "Work"
+          "alphaName": "Work",
+          "direction": "outgoing"
         },
         {
           "relationship": "guides design of",
-          "alphaName": "Platform Consumption Interface"
+          "alphaName": "Platform Consumption Interface",
+          "direction": "outgoing"
         }
       ],
       "states": [
@@ -263,19 +145,23 @@
       "relatesTo": [
         {
           "relationship": "built by",
-          "alphaName": "Team"
+          "alphaName": "Team",
+          "direction": "incoming"
         },
         {
           "relationship": "hosts",
-          "alphaName": "Platform Asset"
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
         },
         {
           "relationship": "exposes",
-          "alphaName": "Platform Consumption Interface"
+          "alphaName": "Platform Consumption Interface",
+          "direction": "outgoing"
         },
         {
           "relationship": "governed by",
-          "alphaName": "Platform Governance"
+          "alphaName": "Platform Governance",
+          "direction": "incoming"
         }
       ],
       "states": [
@@ -327,7 +213,8 @@
           "assetName": "platform-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "contributesTo": "Deliverable"
     },
     {
       "name": "Platform Consumption Interface",
@@ -336,15 +223,18 @@
       "relatesTo": [
         {
           "relationship": "enables access to",
-          "alphaName": "Platform"
+          "alphaName": "Platform",
+          "direction": "outgoing"
         },
         {
           "relationship": "facilitates deployment of",
-          "alphaName": "Platform Asset"
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
         },
         {
           "relationship": "drives adoption through",
-          "alphaName": "Stakeholders"
+          "alphaName": "Stakeholders",
+          "direction": "outgoing"
         }
       ],
       "states": [
@@ -393,15 +283,18 @@
       "relatesTo": [
         {
           "relationship": "realizes",
-          "alphaName": "Platform Value And Economics"
+          "alphaName": "Platform Value And Economics",
+          "direction": "outgoing"
         },
         {
           "relationship": "addresses",
-          "alphaName": "Opportunity"
+          "alphaName": "Opportunity",
+          "direction": "outgoing"
         },
         {
           "relationship": "consumes",
-          "alphaName": "Platform"
+          "alphaName": "Platform",
+          "direction": "outgoing"
         }
       ],
       "states": [
@@ -453,186 +346,8 @@
           "assetName": "platform-asset-icon",
           "type": "icon"
         }
-      ]
-    },
-    {
-      "name": "Work",
-      "description": "The activities required to build, operate, and maintain the platform.",
-      "focusName": "Endeavor",
-      "relatesTo": [
-        {
-          "relationship": "produces",
-          "alphaName": "Platform"
-        },
-        {
-          "relationship": "produces",
-          "alphaName": "Platform Consumption Interface"
-        },
-        {
-          "relationship": "delivers",
-          "alphaName": "Platform Asset"
-        }
       ],
-      "states": [
-        {
-          "name": "Initiated",
-          "description": "Work is requested.",
-          "seq": 1,
-          "checklist": []
-        },
-        {
-          "name": "Prepared",
-          "description": "Work is ready to begin.",
-          "seq": 2,
-          "checklist": []
-        },
-        {
-          "name": "Started",
-          "description": "Work is in progress.",
-          "seq": 3,
-          "checklist": []
-        },
-        {
-          "name": "Under Control",
-          "description": "Work is proceeding predictably.",
-          "seq": 4,
-          "checklist": []
-        },
-        {
-          "name": "Concluded",
-          "description": "Work is finished.",
-          "seq": 5,
-          "checklist": []
-        },
-        {
-          "name": "Closed",
-          "description": "All work activities are officially complete.",
-          "seq": 6,
-          "checklist": []
-        }
-      ],
-      "assetNames": [
-        {
-          "assetName": "work-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
-      "name": "Team",
-      "description": "The group of individuals responsible for the platform's success.",
-      "focusName": "Endeavor",
-      "relatesTo": [
-        {
-          "relationship": "performs",
-          "alphaName": "Work"
-        },
-        {
-          "relationship": "applies",
-          "alphaName": "Way Of Working"
-        },
-        {
-          "relationship": "manages",
-          "alphaName": "Platform Risk And Compliance"
-        }
-      ],
-      "states": [
-        {
-          "name": "Seeded",
-          "description": "Initial team members are identified.",
-          "seq": 1,
-          "checklist": []
-        },
-        {
-          "name": "Formed",
-          "description": "The team structure is established.",
-          "seq": 2,
-          "checklist": []
-        },
-        {
-          "name": "Collaborating",
-          "description": "Team members work together effectively.",
-          "seq": 3,
-          "checklist": []
-        },
-        {
-          "name": "Performing",
-          "description": "The team consistently delivers value.",
-          "seq": 4,
-          "checklist": []
-        },
-        {
-          "name": "Adjourned",
-          "description": "The team is disbanded or repurposed.",
-          "seq": 5,
-          "checklist": []
-        }
-      ],
-      "assetNames": [
-        {
-          "assetName": "team-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
-      "name": "Way Of Working",
-      "description": "The tailored set of practices, tools, operational workflows, and industry alignments used by a team.",
-      "focusName": "Endeavor",
-      "relatesTo": [
-        {
-          "relationship": "guides",
-          "alphaName": "Work"
-        },
-        {
-          "relationship": "incorporates",
-          "alphaName": "Platform Governance"
-        }
-      ],
-      "states": [
-        {
-          "name": "Principles Established",
-          "description": "The principles, constraints, and baseline industry alignments are established.",
-          "seq": 1,
-          "checklist": []
-        },
-        {
-          "name": "Foundation Established",
-          "description": "The key practices, workflow models, and logical definitions are selected.",
-          "seq": 2,
-          "checklist": []
-        },
-        {
-          "name": "In Use",
-          "description": "Team members are using behavioral walkthroughs to adapt to the way-of-working.",
-          "seq": 3,
-          "checklist": []
-        },
-        {
-          "name": "In Place",
-          "description": "The practices are fully integrated into daily activities.",
-          "seq": 4,
-          "checklist": []
-        },
-        {
-          "name": "Working Well",
-          "description": "The way of working is highly efficient, automated, and demonstrably successful.",
-          "seq": 5,
-          "checklist": []
-        },
-        {
-          "name": "Retired",
-          "description": "The way of working is no longer needed.",
-          "seq": 6,
-          "checklist": []
-        }
-      ],
-      "assetNames": [
-        {
-          "assetName": "way-of-working-icon",
-          "type": "icon"
-        }
-      ]
+      "contributesTo": "Deliverable"
     },
     {
       "name": "Platform Governance",
@@ -641,15 +356,18 @@
       "relatesTo": [
         {
           "relationship": "constrains",
-          "alphaName": "Platform"
+          "alphaName": "Platform",
+          "direction": "outgoing"
         },
         {
           "relationship": "enforces policies on",
-          "alphaName": "Platform Asset"
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
         },
         {
           "relationship": "mitigates",
-          "alphaName": "Platform Risk And Compliance"
+          "alphaName": "Platform Risk And Compliance",
+          "direction": "outgoing"
         }
       ],
       "states": [
@@ -686,15 +404,18 @@
       "relatesTo": [
         {
           "relationship": "impacts",
-          "alphaName": "Opportunity"
+          "alphaName": "Opportunity",
+          "direction": "outgoing"
         },
         {
           "relationship": "influences",
-          "alphaName": "Requirements"
+          "alphaName": "Requirements",
+          "direction": "outgoing"
         },
         {
           "relationship": "informs",
-          "alphaName": "Platform Governance"
+          "alphaName": "Platform Governance",
+          "direction": "outgoing"
         }
       ],
       "states": [
@@ -729,130 +450,21 @@
           "type": "icon"
         }
       ]
-    },
-    {
-      "name": "Organizational Change",
-      "description": "The organizational patterns, business rationale, and change management required to support the platform transformation.",
-      "focusName": "Endeavor",
-      "relatesTo": [
-        {
-          "relationship": "enables",
-          "alphaName": "Team"
-        },
-        {
-          "relationship": "informs",
-          "alphaName": "Way Of Working"
-        },
-        {
-          "relationship": "supports adoption of",
-          "alphaName": "Platform"
-        }
-      ],
-      "states": [
-        {
-          "name": "Recognized",
-          "description": "Rationale for change is identified.",
-          "seq": 1,
-          "checklist": []
-        },
-        {
-          "name": "Strategized",
-          "description": "Change plans and communication pathways are mapped.",
-          "seq": 2,
-          "checklist": []
-        },
-        {
-          "name": "Enabled",
-          "description": "Playbooks addressing behavioral pushback are executed.",
-          "seq": 3,
-          "checklist": []
-        },
-        {
-          "name": "Embedded",
-          "description": "Comprehensive change management toolkits and automated feedback surveys are deployed.",
-          "seq": 4,
-          "checklist": []
-        }
-      ],
-      "assetNames": [
-        {
-          "assetName": "organizational-change-icon",
-          "type": "icon"
-        }
-      ]
     }
   ],
   "activitySpaces": [
-    {
-      "name": "Explore Possibilities",
-      "description": "Explore the possibilities presented by the creation of a new or improved platform.",
-      "focusName": "Value",
-      "contributesTo": [
-        {
-          "alphaName": "Opportunity",
-          "stateName": "Initiated"
-        }
-      ],
-      "requiredCompetencies": [
-        "Platform Strategic Alignment"
-      ],
-      "assetNames": [
-        {
-          "assetName": "explore-possibilities-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
-      "name": "Assess Business Value",
-      "description": "Conduct rigorous business analysis to quantify potential ROI, map platform capabilities to organizational value streams, and secure executive sponsorship.",
-      "focusName": "Value",
-      "contributesTo": [
-        {
-          "alphaName": "Opportunity",
-          "stateName": "Determined"
-        },
-        {
-          "alphaName": "Opportunity",
-          "stateName": "Value Established"
-        },
-        {
-          "alphaName": "Opportunity",
-          "stateName": "Viable"
-        }
-      ],
-      "requiredCompetencies": [
-        "Platform Strategic Alignment",
-        "Analysis"
-      ],
-      "assetNames": [
-        {
-          "assetName": "assess-business-value-icon",
-          "type": "icon"
-        }
-      ]
-    },
     {
       "name": "Monitor Value Realization",
       "description": "Track KPIs such as deployment frequency, MTTR, and developer adoption rates to proactively manage bottlenecks and prove continuous ROI.",
       "focusName": "Value",
       "contributesTo": [
         {
-          "alphaName": "Opportunity",
-          "stateName": "Addressed"
-        },
-        {
-          "alphaName": "Opportunity",
-          "stateName": "Benefit Accrued"
-        },
-        {
           "alphaName": "Platform Asset",
           "stateName": "Value Yielding"
         }
       ],
       "requiredCompetencies": [
-        "Management",
-        "Analysis"
+        "Engineering"
       ],
       "assetNames": [
         {
@@ -876,66 +488,11 @@
         }
       ],
       "requiredCompetencies": [
-        "Platform Strategic Alignment",
-        "Management"
+        "Platform Strategic Alignment"
       ],
       "assetNames": [
         {
           "assetName": "manage-platform-economics-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
-      "name": "Engage Platform Consumers",
-      "description": "Conduct user research, utilize Jobs-to-be-Done frameworks, and ensure the platform demonstrates value through product management practices.",
-      "focusName": "Value",
-      "contributesTo": [
-        {
-          "alphaName": "Stakeholders",
-          "stateName": "Represented"
-        },
-        {
-          "alphaName": "Stakeholders",
-          "stateName": "Involved"
-        },
-        {
-          "alphaName": "Stakeholders",
-          "stateName": "In Agreement"
-        }
-      ],
-      "requiredCompetencies": [
-        "Stakeholder Representation",
-        "Analysis"
-      ],
-      "assetNames": [
-        {
-          "assetName": "engage-platform-consumers-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
-      "name": "Evangelize and Support",
-      "description": "Provide internal marketing, create feedback loops, and deliver accessible support to ensure continuous voluntary adoption by stream-aligned teams.",
-      "focusName": "Value",
-      "contributesTo": [
-        {
-          "alphaName": "Stakeholders",
-          "stateName": "Satisfied for Deployment"
-        },
-        {
-          "alphaName": "Stakeholders",
-          "stateName": "Satisfied in Use"
-        }
-      ],
-      "requiredCompetencies": [
-        "Stakeholder Representation",
-        "Leadership"
-      ],
-      "assetNames": [
-        {
-          "assetName": "evangelize-support-icon",
           "type": "icon"
         }
       ]
@@ -996,7 +553,6 @@
         }
       ],
       "requiredCompetencies": [
-        "Analysis",
         "Platform Strategic Alignment"
       ],
       "assetNames": [
@@ -1029,8 +585,7 @@
         }
       ],
       "requiredCompetencies": [
-        "Engineering",
-        "Analysis"
+        "Engineering"
       ],
       "assetNames": [
         {
@@ -1087,8 +642,7 @@
         }
       ],
       "requiredCompetencies": [
-        "Engineering",
-        "Analysis"
+        "Engineering"
       ],
       "assetNames": [
         {
@@ -1131,138 +685,6 @@
       ]
     },
     {
-      "name": "Prepare To Do The Work",
-      "description": "Prepare to do the work required for the platform.",
-      "focusName": "Endeavor",
-      "contributesTo": [
-        {
-          "alphaName": "Work",
-          "stateName": "Prepared"
-        }
-      ],
-      "requiredCompetencies": [
-        "Management",
-        "Leadership"
-      ],
-      "assetNames": [
-        {
-          "assetName": "prepare-to-do-work-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
-      "name": "Manage Work Execution",
-      "description": "Coordinate delivery cycles, allocate engineering capacity, and track velocity to ensure predictable platform feature development without dictating specific execution frameworks.",
-      "focusName": "Endeavor",
-      "contributesTo": [
-        {
-          "alphaName": "Work",
-          "stateName": "Started"
-        },
-        {
-          "alphaName": "Work",
-          "stateName": "Under Control"
-        },
-        {
-          "alphaName": "Work",
-          "stateName": "Concluded"
-        }
-      ],
-      "requiredCompetencies": [
-        "Management"
-      ],
-      "assetNames": [
-        {
-          "assetName": "manage-work-execution-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
-      "name": "Structure Organizational Topologies",
-      "description": "Define clear team interaction modes, establish X-as-a-Service boundaries, and continuously assess cognitive load using Team Topologies principles.",
-      "focusName": "Endeavor",
-      "contributesTo": [
-        {
-          "alphaName": "Team",
-          "stateName": "Formed"
-        },
-        {
-          "alphaName": "Team",
-          "stateName": "Collaborating"
-        },
-        {
-          "alphaName": "Team",
-          "stateName": "Performing"
-        }
-      ],
-      "requiredCompetencies": [
-        "Leadership",
-        "Management"
-      ],
-      "assetNames": [
-        {
-          "assetName": "structure-organizational-topologies-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
-      "name": "Transition Team",
-      "description": "Plan and execute team dissolution, knowledge transfer, and member reassignment when platform initiatives conclude or teams are repurposed.",
-      "focusName": "Endeavor",
-      "contributesTo": [
-        {
-          "alphaName": "Team",
-          "stateName": "Adjourned"
-        }
-      ],
-      "requiredCompetencies": [
-        "Leadership",
-        "Management"
-      ],
-      "assetNames": [
-        {
-          "assetName": "transition-team-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
-      "name": "Establish Operational Practices",
-      "description": "Define incident response procedures, institute blameless post-mortems, standardize CI methodologies, and foster a continuous-learning culture.",
-      "focusName": "Endeavor",
-      "contributesTo": [
-        {
-          "alphaName": "Way Of Working",
-          "stateName": "Foundation Established"
-        },
-        {
-          "alphaName": "Way Of Working",
-          "stateName": "In Use"
-        },
-        {
-          "alphaName": "Way Of Working",
-          "stateName": "In Place"
-        },
-        {
-          "alphaName": "Way Of Working",
-          "stateName": "Working Well"
-        }
-      ],
-      "requiredCompetencies": [
-        "Site Reliability",
-        "Management"
-      ],
-      "assetNames": [
-        {
-          "assetName": "establish-operational-practices-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
       "name": "Implement Policy-as-Code",
       "description": "Translate manual governance rules into automated, machine-readable policies that execute within deployment pipelines without impeding velocity.",
       "focusName": "Endeavor",
@@ -1288,55 +710,6 @@
       ]
     },
     {
-      "name": "Drive Cultural Transformation",
-      "description": "Execute formal change management programs, upskill engineering talent, address behavioral resistance, and facilitate the shift to product-driven platform engineering.",
-      "focusName": "Endeavor",
-      "contributesTo": [
-        {
-          "alphaName": "Organizational Change",
-          "stateName": "Strategized"
-        },
-        {
-          "alphaName": "Organizational Change",
-          "stateName": "Enabled"
-        },
-        {
-          "alphaName": "Organizational Change",
-          "stateName": "Embedded"
-        }
-      ],
-      "requiredCompetencies": [
-        "Leadership",
-        "Management"
-      ],
-      "assetNames": [
-        {
-          "assetName": "drive-cultural-transformation-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
-      "name": "Stop The Work",
-      "description": "Stop the work and close out the endeavor.",
-      "focusName": "Endeavor",
-      "contributesTo": [
-        {
-          "alphaName": "Work",
-          "stateName": "Closed"
-        }
-      ],
-      "requiredCompetencies": [
-        "Management"
-      ],
-      "assetNames": [
-        {
-          "assetName": "stop-the-work-icon",
-          "type": "icon"
-        }
-      ]
-    },
-    {
       "name": "Decommission and Retire",
       "description": "Safely decouple, deprecate, and remove obsolete platform assets, legacy infrastructure, or older operational processes to minimize technical debt and resource waste.",
       "focusName": "Endeavor",
@@ -1348,15 +721,10 @@
         {
           "alphaName": "Platform Asset",
           "stateName": "Retiring"
-        },
-        {
-          "alphaName": "Way Of Working",
-          "stateName": "Retired"
         }
       ],
       "requiredCompetencies": [
-        "Engineering",
-        "Management"
+        "Engineering"
       ],
       "assetNames": [
         {
@@ -1367,42 +735,6 @@
     }
   ],
   "competencies": [
-    {
-      "name": "Analysis",
-      "description": "The ability to understand needs, assess options, and make informed decisions.",
-      "levels": [
-        {
-          "name": "Basic",
-          "description": "Understands basic business needs and can parse user feedback.",
-          "level": 1,
-          "competencyName": "Analysis"
-        },
-        {
-          "name": "Applies",
-          "description": "Can map simple user requirements to existing platform capabilities and identify basic friction points.",
-          "level": 2,
-          "competencyName": "Analysis"
-        },
-        {
-          "name": "Masters",
-          "description": "Can independently translate complex stakeholder friction points into actionable platform architectural requirements and map out the boundaries of the Thinnest Viable Platform (TVP).",
-          "level": 3,
-          "competencyName": "Analysis"
-        },
-        {
-          "name": "Adapts",
-          "description": "Can analyze shifting enterprise domains to identify new organizational fracture planes, cognitive load bottlenecks, and strategic platform opportunities.",
-          "level": 4,
-          "competencyName": "Analysis"
-        },
-        {
-          "name": "Innovating",
-          "description": "Pioneers new analytical methods for value stream mapping and enterprise capability assessment.",
-          "level": 5,
-          "competencyName": "Analysis"
-        }
-      ]
-    },
     {
       "name": "Engineering",
       "description": "The ability to design, build, and implement technical solutions.",
@@ -1436,78 +768,6 @@
           "description": "Develops entirely new engineering paradigms or open-source technical solutions for hyperscale platform orchestration.",
           "level": 5,
           "competencyName": "Engineering"
-        }
-      ]
-    },
-    {
-      "name": "Leadership",
-      "description": "The ability to inspire, guide, and motivate a team.",
-      "levels": [
-        {
-          "name": "Basic",
-          "description": "Can participate effectively in team environments and support overarching goals.",
-          "level": 1,
-          "competencyName": "Leadership"
-        },
-        {
-          "name": "Applies",
-          "description": "Can guide small engineering squads and foster adherence to agreed-upon ways of working.",
-          "level": 2,
-          "competencyName": "Leadership"
-        },
-        {
-          "name": "Masters",
-          "description": "Can inspire platform teams to embrace DevOps cultures, champion blameless post-mortems, and establish psychological safety for complex engineering efforts.",
-          "level": 3,
-          "competencyName": "Leadership"
-        },
-        {
-          "name": "Adapts",
-          "description": "Can lead large-scale cultural transformations, overcoming deep organizational resistance to self-service models and declarative operations.",
-          "level": 4,
-          "competencyName": "Leadership"
-        },
-        {
-          "name": "Innovating",
-          "description": "Acts as an industry-recognized visionary, shaping the global discourse on platform engineering culture and organizational design.",
-          "level": 5,
-          "competencyName": "Leadership"
-        }
-      ]
-    },
-    {
-      "name": "Management",
-      "description": "The ability to plan, organize, and coordinate work.",
-      "levels": [
-        {
-          "name": "Basic",
-          "description": "Understands basic task tracking and team coordination.",
-          "level": 1,
-          "competencyName": "Management"
-        },
-        {
-          "name": "Applies",
-          "description": "Can manage the delivery of discrete platform features and organize daily operational workflows.",
-          "level": 2,
-          "competencyName": "Management"
-        },
-        {
-          "name": "Masters",
-          "description": "Can independently orchestrate cross-functional platform delivery cycles, balance technical debt against feature velocity, and manage platform service-level agreements.",
-          "level": 3,
-          "competencyName": "Management"
-        },
-        {
-          "name": "Adapts",
-          "description": "Can adapt delivery structures across highly matrixed environments, transitioning organizations from project-based funding to product-centric platform lifecycles.",
-          "level": 4,
-          "competencyName": "Management"
-        },
-        {
-          "name": "Innovating",
-          "description": "Develops novel management and operational frameworks that redefine how global enterprises deliver internal services.",
-          "level": 5,
-          "competencyName": "Management"
         }
       ]
     },
@@ -1618,99 +878,11 @@
           "competencyName": "Site Reliability"
         }
       ]
-    },
-    {
-      "name": "Stakeholder Representation",
-      "description": "The ability to gather, communicate, and balance the needs of other stakeholders, and accurately represent their views.",
-      "levels": [
-        {
-          "name": "Basic",
-          "description": "Understands the different consumer personas utilizing the platform.",
-          "level": 1,
-          "competencyName": "Stakeholder Representation"
-        },
-        {
-          "name": "Applies",
-          "description": "Can effectively gather and advocate for the needs of a specific stream-aligned consumer team.",
-          "level": 2,
-          "competencyName": "Stakeholder Representation"
-        },
-        {
-          "name": "Masters",
-          "description": "Can accurately balance competing requirements from security, networking, and developer teams to ensure the platform interface remains frictionless.",
-          "level": 3,
-          "competencyName": "Stakeholder Representation"
-        },
-        {
-          "name": "Adapts",
-          "description": "Can negotiate complex political landscapes, aligning executive C-suite objectives with the daily operational realities of the developer workforce.",
-          "level": 4,
-          "competencyName": "Stakeholder Representation"
-        },
-        {
-          "name": "Innovating",
-          "description": "Creates novel enterprise feedback loops and representation models that radically democratize platform evolution.",
-          "level": 5,
-          "competencyName": "Stakeholder Representation"
-        }
-      ]
     }
   ],
   "createdAt": "2023-10-25T00:00:00Z",
-  "updatedAt": "2023-10-25T00:00:00Z",
+  "updatedAt": "2026-08-11",
   "narrativeTypes": [
-    {
-      "name": "The STAR Format",
-      "description": "Enforces a strict cause-and-effect relationship between context and outcomes (Situation, Task, Action, Result).",
-      "narrativeElements": [
-        {
-          "name": "Situation",
-          "description": "The context or background of the challenge.",
-          "howToUse": "Describe the specific situation, context, or baseline state before action is taken."
-        },
-        {
-          "name": "Task",
-          "description": "The specific challenge, objective, or requirement.",
-          "howToUse": "Outline the specific task, problem, or goal that needs to be addressed."
-        },
-        {
-          "name": "Action",
-          "description": "The specific steps or interventions performed.",
-          "howToUse": "Detail the methodology, activities, or steps taken to address the task."
-        },
-        {
-          "name": "Result",
-          "description": "The outcome, impact, or value achieved.",
-          "howToUse": "Summarize the measurable results, outcomes, or state changes achieved from the actions."
-        }
-      ]
-    },
-    {
-      "name": "The Hero's Journey",
-      "description": "Highly effective for macro-level lifecycle orchestrations (platform adoptions, transformations).",
-      "narrativeElements": [
-        {
-          "name": "The Ordinary World",
-          "description": "The starting point before the transformation.",
-          "howToUse": "Describe the current, pre-platform state of the organization."
-        },
-        {
-          "name": "The Call to Adventure",
-          "description": "The catalyst for change.",
-          "howToUse": "Outline the business opportunity, crisis, or driver that necessitates the platform transformation."
-        },
-        {
-          "name": "The Ordeal",
-          "description": "The core transformation challenges and execution.",
-          "howToUse": "Detail the complex adoption activities, migrations, and challenges faced during implementation."
-        },
-        {
-          "name": "The Return",
-          "description": "The new operational baseline and realized value.",
-          "howToUse": "Describe the successful adoption, the accrual of benefits, and the new optimized way of working."
-        }
-      ]
-    },
     {
       "name": "The Three-Act Structure & StoryBrand",
       "description": "Positions the consumer as the Hero and the Platform Engineering team as the Guide utilizing the defined approach.",
@@ -1733,27 +905,6 @@
       ]
     },
     {
-      "name": "Micro-Narratives (ABT)",
-      "description": "Shorter frameworks (And/But/Therefore) designed for rapid, highly persuasive daily execution updates.",
-      "narrativeElements": [
-        {
-          "name": "And (Context)",
-          "description": "The current situation and baseline facts.",
-          "howToUse": "State the current agreed-upon context, background, and baseline facts."
-        },
-        {
-          "name": "But (Conflict)",
-          "description": "The problem, challenge, or contradiction.",
-          "howToUse": "Introduce the specific problem, blocker, challenge, or contradiction encountered."
-        },
-        {
-          "name": "Therefore (Resolution)",
-          "description": "The action taken or conclusion reached.",
-          "howToUse": "State the specific action taken, decision made, or conclusion reached to resolve the conflict."
-        }
-      ]
-    },
-    {
       "name": "User story",
       "description": "A brief, informal explanation of a software feature written from the perspective of the end user.",
       "narrativeElements": [
@@ -1770,7 +921,7 @@
         {
           "name": "So that [I can achieve some goal]",
           "description": "This is the purpose. It explains the underlying problem the user is trying to solve or the value they hope to gain.",
-          "howToUse": "Use this to justify the work. If you can\u2019t find a compelling **So that** statement, the feature might not be worth building. It also helps developers suggest better technical solutions if they understand the ultimate goal."
+          "howToUse": "Use this to justify the work. If you can’t find a compelling **So that** statement, the feature might not be worth building. It also helps developers suggest better technical solutions if they understand the ultimate goal."
         }
       ]
     },
@@ -1802,22 +953,6 @@
           "name": "Success Metrics",
           "description": "The quantitative data points that will prove the Epic was a success after it is released.",
           "howToUse": "Use this to define the \"Definition of Done\" for the entire project. Instead of saying \"when the code is finished,\" use \"when the checkout conversion rate hits 5%.\""
-        }
-      ]
-    },
-    {
-      "name": "Lifecycle",
-      "description": "A standard lifecycle orchestration framework to map progression phases.",
-      "narrativeElements": [
-        {
-          "name": "Prerequisites",
-          "description": "Conditions required before starting the lifecycle.",
-          "howToUse": "Define the Phase 0 or preparation steps, including baseline checks or prerequisite states, that must be achieved before the main lifecycle begins."
-        },
-        {
-          "name": "Lifecycle Phase",
-          "description": "An active stage of lifecycle execution.",
-          "howToUse": "Detail the active state transitions, required work products, and activities for this specific phase of the lifecycle progression."
         }
       ]
     },
@@ -1920,32 +1055,6 @@
       ]
     },
     {
-      "name": "PDCA",
-      "description": "Plan-Do-Check-Act cycle (Deming Cycle) for continuous improvement and iterative refinement.",
-      "narrativeElements": [
-        {
-          "name": "Plan",
-          "description": "Establish objectives and processes.",
-          "howToUse": "Identify improvement opportunity, analyze current state, and plan intervention."
-        },
-        {
-          "name": "Do",
-          "description": "Implement the plan on small scale.",
-          "howToUse": "Execute the planned change or experiment in controlled environment."
-        },
-        {
-          "name": "Check",
-          "description": "Measure and evaluate results.",
-          "howToUse": "Assess outcomes against objectives, identify gaps and learnings."
-        },
-        {
-          "name": "Act",
-          "description": "Standardize or iterate based on learnings.",
-          "howToUse": "Scale successful changes, adjust plan based on findings, repeat cycle."
-        }
-      ]
-    },
-    {
       "name": "Build-Measure-Learn",
       "description": "Lean Startup cycle for validating assumptions through rapid experimentation and feedback.",
       "narrativeElements": [
@@ -2016,28 +1125,11 @@
   ],
   "assets": [
     {
-      "name": "opportunity-icon",
-      "description": "Opportunity alpha icon - business opportunity and drivers",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-lightbulb",
-      "fontWeight": "900",
-      "fontUrl": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    },
-    {
       "name": "platform-value-economics-icon",
       "description": "Platform Value And Economics alpha icon - financial justification",
       "type": "font-character",
       "fontFamily": "Font Awesome 6 Free",
       "fontCharacter": "fa-chart-line",
-      "fontWeight": "900"
-    },
-    {
-      "name": "stakeholders-icon",
-      "description": "Stakeholders alpha icon - people and organizations",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-users",
       "fontWeight": "900"
     },
     {
@@ -2073,30 +1165,6 @@
       "fontWeight": "900"
     },
     {
-      "name": "work-icon",
-      "description": "Work alpha icon - tasks and activities",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-tasks",
-      "fontWeight": "900"
-    },
-    {
-      "name": "team-icon",
-      "description": "Team alpha icon - people and collaboration",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-user-group",
-      "fontWeight": "900"
-    },
-    {
-      "name": "way-of-working-icon",
-      "description": "Way Of Working alpha icon - processes and practices",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-gears",
-      "fontWeight": "900"
-    },
-    {
       "name": "platform-governance-icon",
       "description": "Platform Governance alpha icon - oversight and control",
       "type": "font-character",
@@ -2113,30 +1181,6 @@
       "fontWeight": "900"
     },
     {
-      "name": "organizational-change-icon",
-      "description": "Organizational Change alpha icon - transformation and adaptation",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-arrows-spin",
-      "fontWeight": "900"
-    },
-    {
-      "name": "explore-possibilities-icon",
-      "description": "Explore Possibilities activity space icon",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-compass",
-      "fontWeight": "900"
-    },
-    {
-      "name": "assess-business-value-icon",
-      "description": "Assess Business Value activity space icon",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-calculator",
-      "fontWeight": "900"
-    },
-    {
       "name": "monitor-value-realization-icon",
       "description": "Monitor Value Realization activity space icon",
       "type": "font-character",
@@ -2150,22 +1194,6 @@
       "type": "font-character",
       "fontFamily": "Font Awesome 6 Free",
       "fontCharacter": "fa-coins",
-      "fontWeight": "900"
-    },
-    {
-      "name": "engage-platform-consumers-icon",
-      "description": "Engage Platform Consumers activity space icon",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-handshake",
-      "fontWeight": "900"
-    },
-    {
-      "name": "evangelize-support-icon",
-      "description": "Evangelize and Support activity space icon",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-bullhorn",
       "fontWeight": "900"
     },
     {
@@ -2217,67 +1245,11 @@
       "fontWeight": "900"
     },
     {
-      "name": "prepare-to-do-work-icon",
-      "description": "Prepare To Do The Work activity space icon",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-clipboard-check",
-      "fontWeight": "900"
-    },
-    {
-      "name": "manage-work-execution-icon",
-      "description": "Manage Work Execution activity space icon",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-project-diagram",
-      "fontWeight": "900"
-    },
-    {
-      "name": "structure-organizational-topologies-icon",
-      "description": "Structure Organizational Topologies activity space icon",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-network-wired",
-      "fontWeight": "900"
-    },
-    {
-      "name": "transition-team-icon",
-      "description": "Transition Team activity space icon",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-people-arrows",
-      "fontWeight": "900"
-    },
-    {
-      "name": "establish-operational-practices-icon",
-      "description": "Establish Operational Practices activity space icon",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-book-open",
-      "fontWeight": "900"
-    },
-    {
       "name": "implement-policy-as-code-icon",
       "description": "Implement Policy-as-Code activity space icon",
       "type": "font-character",
       "fontFamily": "Font Awesome 6 Free",
       "fontCharacter": "fa-code",
-      "fontWeight": "900"
-    },
-    {
-      "name": "drive-cultural-transformation-icon",
-      "description": "Drive Cultural Transformation activity space icon",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-heart",
-      "fontWeight": "900"
-    },
-    {
-      "name": "stop-the-work-icon",
-      "description": "Stop The Work activity space icon",
-      "type": "font-character",
-      "fontFamily": "Font Awesome 6 Free",
-      "fontCharacter": "fa-stop",
       "fontWeight": "900"
     },
     {
@@ -2287,6 +1259,13 @@
       "fontFamily": "Font Awesome 6 Free",
       "fontCharacter": "fa-trash",
       "fontWeight": "900"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Project Essentials",
+      "versionRange": "^1.0.0"
     }
   ]
 }

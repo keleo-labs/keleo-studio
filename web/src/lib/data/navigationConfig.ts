@@ -41,6 +41,14 @@ export const navigationItems: NavItemConfig[] = [
     description: 'Open practices, validate against schema, preview and export PDFs',
   },
   {
+    id: 'project-manager',
+    label: 'Project Manager',
+    href: '/project-manager',
+    badge: 'Execute',
+    icon: 'fa-clipboard-check',
+    description: 'Create and manage project instances tracking progress against practices and methods',
+  },
+  {
     id: 'manage-library',
     label: 'Manage Library',
     href: '/library',

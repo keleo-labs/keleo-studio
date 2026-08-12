@@ -13,6 +13,7 @@ import {
   ContentVariants,
 } from "@patternfly/react-core";
 import { StarIcon, OutlinedStarIcon } from "@patternfly/react-icons";
+import { unzipSync, strFromU8 } from "fflate";
 import type { LibraryRootKind } from "@/lib/library/classify";
 import { displayNameForBody, rootKindExtension, storageKindForBody } from "@/lib/library/classify";
 import type { LibraryDocumentTags } from "@/lib/library/libraryDocumentTags";
@@ -151,6 +152,7 @@ export function LibraryBrowser() {
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [deleteBusy, setDeleteBusy] = useState(false);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [exportKeleoBusy, setExportKeleoBusy] = useState(false);
   const [deleteConfirmData, setDeleteConfirmData] = useState<{
     type: 'bulk' | 'single';
     items: EnrichedMeta[];
@@ -236,6 +238,7 @@ export function LibraryBrowser() {
       method: 0,
       baselinePractice: 0,
       practice: 0,
+      project: 0,
       unknown: 0,
     };
     for (const it of items) {
@@ -412,6 +415,39 @@ export function LibraryBrowser() {
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
+  }
+
+  async function handleExportKeleo() {
+    if (selectedIds.length === 0) return;
+    setExportKeleoBusy(true);
+    setDownloadError(null);
+    try {
+      const res = await fetch("/api/documents/export-keleo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: selectedIds }),
+      });
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
+        throw new Error((errBody as { error?: string }).error || `Export failed (${res.status})`);
+      }
+      const blob = await res.blob();
+      const disposition = res.headers.get("Content-Disposition") || "";
+      const filenameMatch = disposition.match(/filename="?([^"]+)"?/);
+      const filename = filenameMatch?.[1] || (selectedIds.length === 1 ? "export.keleo" : "keleo-export.zip");
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (e: unknown) {
+      setDownloadError(e instanceof Error ? e.message : "Export failed");
+    } finally {
+      setExportKeleoBusy(false);
+    }
   }
 
   function requestBulkDelete() {
@@ -854,6 +890,26 @@ export function LibraryBrowser() {
                     Download {selectedIds.length > 1 ? `(${selectedIds.length})` : ""}
                   </button>
 
+                  <button
+                    type="button"
+                    disabled={exportKeleoBusy}
+                    onClick={() => void handleExportKeleo()}
+                    style={{
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      border: "1px solid var(--pf-v6-global--primary-color--100)",
+                      backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                      padding: "0.375rem 0.75rem",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      color: "var(--pf-v6-global--primary-color--100)",
+                      cursor: exportKeleoBusy ? "not-allowed" : "pointer",
+                      opacity: exportKeleoBusy ? 0.5 : 1,
+                    }}
+                    className="lib-btn-secondary"
+                  >
+                    {exportKeleoBusy ? "Exporting…" : `Export .keleo${selectedIds.length > 1 ? ` (${selectedIds.length})` : ""}`}
+                  </button>
+
                   {selectedIds.length === 1 && (
                     <>
                       <Link
@@ -1187,21 +1243,109 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
     };
   }, [props.open, props.onClose]);
 
+  function parseJsonBodies(raw: string, _fileStem: string): Record<string, unknown>[] | string {
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (err) {
+      return err instanceof Error ? err.message : "Invalid JSON";
+    }
+    if (Array.isArray(parsed)) {
+      if (parsed.length === 0) {
+        return "JSON array is empty. Add one or more method, baseline practice, or practice objects.";
+      }
+      const out: Record<string, unknown>[] = [];
+      for (let i = 0; i < parsed.length; i++) {
+        const item = parsed[i];
+        if (item === null || typeof item !== "object" || Array.isArray(item)) {
+          return `Item at index ${i} must be a JSON object (each entry should be one method, baseline practice, or practice document).`;
+        }
+        out.push(item as Record<string, unknown>);
+      }
+      return out;
+    }
+    if (parsed === null || typeof parsed !== "object") {
+      return "JSON must be an object or an array of objects at the root.";
+    }
+    return [parsed as Record<string, unknown>];
+  }
+
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
-    let raw: string;
+
+    let bodies: Record<string, unknown>[];
+    let fileStem = "";
+    // Asset files extracted from .keleo packages: filename -> raw bytes
+    let keleoAssets: Map<string, Uint8Array> | null = null;
+    // Index of the entry-point document in bodies (assets are scoped to this doc)
+    let entryPointIndex = 0;
+
+    const isKeleoFile = mode === "file" && pickedFile?.name.toLowerCase().endsWith(".keleo");
+
     if (mode === "paste") {
-      raw = pasteText.trim();
+      const raw = pasteText.trim();
       if (!raw) {
         setError("Paste JSON into the text area, or switch to file upload.");
         return;
       }
-    } else {
-      if (!pickedFile) {
-        setError("Choose a JSON file.");
+      const result = parseJsonBodies(raw, "");
+      if (typeof result === "string") { setError(result); return; }
+      bodies = result;
+    } else if (!pickedFile) {
+      setError("Choose a file.");
+      return;
+    } else if (isKeleoFile) {
+      fileStem = pickedFile.name.replace(/\.keleo$/i, "").replace(/[-_]+/g, " ").trim();
+      let buf: ArrayBuffer;
+      try {
+        buf = await pickedFile.arrayBuffer();
+      } catch {
+        setError("Could not read the selected file.");
         return;
       }
+      try {
+        const zip = unzipSync(new Uint8Array(buf));
+        const manifestBytes = zip["manifest.json"];
+        if (!manifestBytes) { setError("Invalid .keleo package: no manifest.json found."); return; }
+        const manifest = JSON.parse(strFromU8(manifestBytes)) as {
+          documents?: Array<{ path: string; entryPoint?: boolean }>;
+        };
+        if (!Array.isArray(manifest.documents) || manifest.documents.length === 0) {
+          setError("Invalid .keleo package: manifest contains no documents.");
+          return;
+        }
+        bodies = [];
+        for (let i = 0; i < manifest.documents.length; i++) {
+          const entry = manifest.documents[i];
+          const docBytes = zip[entry.path];
+          if (!docBytes) continue;
+          const docBody = JSON.parse(strFromU8(docBytes)) as Record<string, unknown>;
+          if (entry.entryPoint) entryPointIndex = bodies.length;
+          bodies.push(docBody);
+        }
+        if (bodies.length === 0) {
+          setError("No documents could be read from the .keleo package.");
+          return;
+        }
+        // Collect non-document files (assets/ directory)
+        const assetEntries = Object.keys(zip).filter(
+          (k) => k.startsWith("assets/") && k !== "assets/" && !k.endsWith("/"),
+        );
+        if (assetEntries.length > 0) {
+          keleoAssets = new Map();
+          for (const assetPath of assetEntries) {
+            const filename = assetPath.slice("assets/".length);
+            keleoAssets.set(filename, zip[assetPath]);
+          }
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to read .keleo package.");
+        return;
+      }
+    } else {
+      fileStem = pickedFile.name.replace(/\.json$/i, "").replace(/[-_]+/g, " ").trim();
+      let raw: string;
       try {
         raw = await pickedFile.text();
       } catch {
@@ -1212,51 +1356,19 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
         setError("The file is empty.");
         return;
       }
+      const result = parseJsonBodies(raw, fileStem);
+      if (typeof result === "string") { setError(result); return; }
+      bodies = result;
     }
 
-    let parsed: unknown;
-    try {
-      parsed = JSON.parse(raw);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Invalid JSON");
-      return;
-    }
-
-    const fileStem =
-      mode === "file" && pickedFile
-        ? pickedFile.name.replace(/\.json$/i, "").replace(/[-_]+/g, " ").trim()
-        : "";
     const titleTrim = titleOverride.trim();
-
-    let bodies: Record<string, unknown>[];
-    if (Array.isArray(parsed)) {
-      if (parsed.length === 0) {
-        setError("JSON array is empty. Add one or more method, baseline practice, or practice objects.");
-        return;
-      }
-      bodies = [];
-      for (let i = 0; i < parsed.length; i++) {
-        const item = parsed[i];
-        if (item === null || typeof item !== "object" || Array.isArray(item)) {
-          setError(
-            `Item at index ${i} must be a JSON object (each entry should be one method, baseline practice, or practice document).`,
-          );
-          return;
-        }
-        bodies.push(item as Record<string, unknown>);
-      }
-    } else if (parsed === null || typeof parsed !== "object") {
-      setError("JSON must be an object or an array of objects at the root.");
-      return;
-    } else {
-      bodies = [parsed as Record<string, unknown>];
-    }
 
     setBusy(true);
     setSaveProgress(null);
     try {
       const failures: string[] = [];
       let savedCount = 0;
+      let entryPointDocId: string | null = null;
 
       // Fetch existing documents to check for duplicates by title AND kind (type)
       setSaveProgress("Loading existing library items…");
@@ -1355,12 +1467,14 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
           failures.push(`#${i + 1} (${title}): ${msg || `HTTP ${res.status}`}`);
         } else {
           savedCount++;
-          // Update the map with the new document if it was created
           if (!existingId) {
             const newDoc = await res.json();
             if (newDoc?.id) {
               titleKindToId.set(compositeKey, newDoc.id);
+              if (i === entryPointIndex) entryPointDocId = newDoc.id;
             }
+          } else if (i === entryPointIndex) {
+            entryPointDocId = existingId;
           }
         }
 
@@ -1454,6 +1568,26 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
               }
             }
           }
+        }
+      }
+
+      // Upload assets from .keleo package
+      if (keleoAssets && keleoAssets.size > 0 && entryPointDocId) {
+        setSaveProgress(`Uploading ${keleoAssets.size} asset(s)…`);
+        const formData = new FormData();
+        for (const [filename, data] of keleoAssets) {
+          formData.append("file", new Blob([data]), filename);
+        }
+        try {
+          const assetRes = await fetch(`/api/documents/${encodeURIComponent(entryPointDocId)}/assets`, {
+            method: "POST",
+            body: formData,
+          });
+          if (!assetRes.ok) {
+            failures.push(`Asset upload failed: HTTP ${assetRes.status}`);
+          }
+        } catch (err) {
+          failures.push(`Asset upload failed: ${err instanceof Error ? err.message : "unknown error"}`);
         }
       }
 
@@ -1556,9 +1690,10 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
         </div>
         <div style={{ minHeight: 0, flex: 1, overflowY: "auto", padding: "1rem" }} className="sm:px-5 sm:py-5">
           <Content component={ContentVariants.p} style={{ fontSize: "0.75rem", lineHeight: 1.6, color: "var(--pf-v6-global--Color--200)" }}>
-            Paste valid JSON or pick a file. Root value may be one document, or a{" "}
+            Paste valid JSON, pick a <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>.json</strong> file, or upload a{" "}
+            <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>.keleo</strong> package. JSON root value may be one document or a{" "}
             <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>JSON array</strong> of documents—each element becomes its own
-            library item (method, baseline practice, or extension practice). Per-item storage kind is inferred from shape.
+            library item. A <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.keleo</code> package imports all bundled documents and assets automatically.
             Title defaults to each document&apos;s <code style={{ color: "var(--pf-v6-global--Color--100)" }}>name</code> (or the filename); optional
             title below applies only when importing a <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>single</strong>{" "}
             object.
@@ -1646,13 +1781,13 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
               letterSpacing: "0.05em",
               color: "var(--pf-v6-global--Color--200)",
             }}>
-              JSON file
+              JSON or .keleo file
             </label>
             <input
               ref={fileRef}
               id="library-file-json"
               type="file"
-              accept=".json,application/json,text/json"
+              accept=".json,.keleo,application/json,text/json"
               style={{
                 marginTop: "0.5rem",
                 display: "block",
