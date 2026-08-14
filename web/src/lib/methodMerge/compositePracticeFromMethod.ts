@@ -1037,6 +1037,25 @@ function mergeCitations(a: any[], b: any[]): any[] {
   return [...byName.values()];
 }
 
+function mergeAcknowledgements(a: any[], b: any[]): any[] {
+  const byName = new Map<string, any>();
+  for (const ack of a ?? []) {
+    const k = canonicalPracticeElementName(ack?.name);
+    if (!k) continue;
+    byName.set(k, clonedRowWithCanonicalName(ack as Record<string, unknown>, k));
+  }
+  for (const ack of b ?? []) {
+    const k = canonicalPracticeElementName(ack?.name);
+    if (!k) continue;
+    if (byName.has(k)) {
+      byName.set(k, { ...mergePracticeElements(byName.get(k), ack), url: ack.url ?? byName.get(k).url });
+    } else {
+      byName.set(k, clonedRowWithCanonicalName(ack as Record<string, unknown>, k));
+    }
+  }
+  return [...byName.values()];
+}
+
 function mergeAssets(a: any[], b: any[]): any[] {
   const byName = new Map<string, any>();
 
@@ -1395,6 +1414,7 @@ function mergeSecondaryBaselineKernel(acc: ExtensionMergeAccumulator, secondary:
   acc.out.workProducts = mergeWorkProducts(acc.out.workProducts as any, (sdoc.workProducts ?? []) as any[]);
   acc.out.narrativeTypes = mergeNarrativeTypes(acc.out.narrativeTypes as any, (sdoc.narrativeTypes ?? []) as any[]);
   acc.out.citations = mergeCitations(acc.out.citations as any, (sdoc.citations ?? []) as any[]);
+  acc.out.acknowledgements = mergeAcknowledgements(acc.out.acknowledgements as any ?? [], (sdoc.acknowledgements ?? []) as any[]);
   acc.out.assets = mergeAssets(acc.out.assets as any, (sdoc.assets ?? []) as any[]);
   acc.out.personas = mergePersonas(acc.out.personas as any, (sdoc.personas ?? []) as any[]);
   acc.out.personaGroups = mergePersonaGroups(
@@ -1477,6 +1497,10 @@ function mergeOneExtensionPracticeOntoOut(acc: ExtensionMergeAccumulator, overla
   acc.out.citations = mergeCitations(
     acc.out.citations as any,
     ((overlayPractice as any).citations ?? []) as any[],
+  );
+  acc.out.acknowledgements = mergeAcknowledgements(
+    acc.out.acknowledgements as any ?? [],
+    ((overlayPractice as any).acknowledgements ?? []) as any[],
   );
   acc.out.assets = mergeAssets(
     acc.out.assets as any,
@@ -1643,6 +1667,10 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
     keywords: uniqStrings([...(baseline.keywords ?? [])]),
     narrativeTypes: mergeNarrativeTypes([], baselineNarrativeTypes),
     citations: mergeCitations(mergeCitations([], baselineCitations), methodCitations),
+    acknowledgements: mergeAcknowledgements(
+      Array.isArray(baselineDoc.acknowledgements) ? (baselineDoc.acknowledgements as any[]) : [],
+      Array.isArray(methodDoc.acknowledgements) ? (methodDoc.acknowledgements as any[]) : [],
+    ),
     assets: mergeAssets(mergeAssets([], baselineAssets), methodAssets),
     practiceDependencyNames: uniqStrings(((method as any).practiceDependencyNames ?? []) as string[]),
     workProducts: mergeWorkProducts(mergeWorkProducts([], addSourcePracticeNameToElements(baselineWorkProducts, baselinePracticeName)), methodWorkProducts),

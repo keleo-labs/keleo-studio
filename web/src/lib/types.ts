@@ -80,6 +80,11 @@ export type PracticeElement = PracticeElementIdentity & {
   narratives?: Narrative[];
 };
 
+/** Acknowledgement of a person or institution (language.schema.json Acknowledgement). */
+export type Acknowledgement = PracticeElement & {
+  url?: string;
+};
+
 /** Bibliographic reference (language.schema.json Citation). */
 export type Citation = PracticeElement & {
   authors: string[];
@@ -173,12 +178,12 @@ export type Note = {
   name: string;
   timestamp: string;
   content: string;
+  links?: ExternalLink[];
 };
 
 export type ChecklistState = {
   checklistName: string;
   state: "complete" | "not complete" | "not required";
-  evidenceUri?: string;
   evidence?: ExternalLink;
   notes?: Note[];
 };
@@ -203,11 +208,13 @@ export type AlphaInstance = PracticeElement & {
 /** Practice-level tagging row (`Practice.alphaInstances[]`; schema `AlphaInstanceName`). */
 export type AlphaInstanceNameRow = PracticeElement & {
   alphaName: string;
+  links?: ExternalLink[];
 };
 
 /** Practice-level tagging row (`Practice.workProductInstances[]`; schema `WorkProductInstanceName`). */
 export type WorkProductInstanceNameRow = PracticeElement & {
   workProductName: string;
+  links?: ExternalLink[];
 };
 
 export type PatternViewReference = {
@@ -288,6 +295,7 @@ export type PracticeBaseline = PracticeElement & {
   keywords: string[];
   narrativeTypes?: NarrativeType[];
   citations?: Citation[];
+  acknowledgements?: Acknowledgement[];
   assets?: Asset[];
   alphaInstances?: AlphaInstanceNameRow[];
   practiceElementAliases?: PracticeElementAlias[];
@@ -297,6 +305,7 @@ export type PracticeBaseline = PracticeElement & {
 };
 
 export type WorkProduct = PracticeElement & {
+  partOf?: string;
   levelsOfDetail: (PracticeElement & {
     seq: number;
     checklist: (PracticeElement & {
@@ -367,6 +376,7 @@ export type Practice = PracticeElement & {
   narrativeTypes?: NarrativeType[];
   /** Bibliographic references elaborated by this practice. */
   citations?: Citation[];
+  acknowledgements?: Acknowledgement[];
   /** Visual assets referenced by practice elements. */
   assets?: Asset[];
   schemaVersion?: string;
@@ -389,6 +399,7 @@ export type Method = PracticeElement & {
   practiceNames?: string[];
   /** Bibliographic references defined in this method (merged from baseline and practices). */
   citations?: Citation[];
+  acknowledgements?: Acknowledgement[];
   /** Visual assets for the entire method (shared across practices). */
   assets?: Asset[];
   /** Cross-baseline alpha contribution relationships injected during composition (Section 7.1 of merge spec). */
@@ -434,6 +445,14 @@ export type ProjectStateSection = {
   notes?: Note[];
 };
 
+/** A bounded period of work within a project (schema ProjectCycle). */
+export type ProjectCycle = ProjectStateSection & {
+  name: string;
+  description?: string;
+  startedAt?: string;
+  completedAt?: string;
+};
+
 export type Project = PracticeElement & {
   practiceName?: string;
   methodName?: string;
@@ -441,8 +460,13 @@ export type Project = PracticeElement & {
   plan: ProjectPlan;
   current: ProjectStateSection;
   target: ProjectStateSection;
+  cycles?: ProjectCycle[];
+  currentCycleName?: string;
   notes?: Note[];
   keywords?: string[];
+  citations?: Citation[];
+  acknowledgements?: Acknowledgement[];
+  assets?: Asset[];
   authors?: string[];
   createdAt?: string;
   updatedAt?: string;
@@ -451,3 +475,115 @@ export type Project = PracticeElement & {
   dependencyVersions?: DocumentVersionConstraint[];
 };
 
+// ---------------------------------------------------------------------------
+// Package manifest types (.keleo package format)
+// ---------------------------------------------------------------------------
+
+export type PackageIdentity = {
+  name: string;
+  version: string;
+  description: string;
+  authors?: string[];
+  license?: string;
+  url?: string;
+};
+
+export type PackageDocument = {
+  path: string;
+  documentType: "practiceBaseline" | "practice" | "method" | "project" | "changeRequest" | "changeSet";
+  documentName: string;
+  entryPoint?: boolean;
+};
+
+export type PackageDependency = {
+  packageName: string;
+  versionRange: string;
+  documentNames?: string[];
+};
+
+export type PackageManifest = {
+  schemaVersion: string;
+  package: PackageIdentity;
+  documents: PackageDocument[];
+  dependencies?: PackageDependency[];
+};
+
+// ---------------------------------------------------------------------------
+// Change management types (ChangeRequest / ChangeSet)
+// ---------------------------------------------------------------------------
+
+export type ReferenceUpdate = {
+  elementType: string;
+  elementName: string;
+  field: string;
+  fromValue: string;
+  toValue: string;
+};
+
+export type AddOperation = {
+  operation: "add";
+  elementType: string;
+  elementName: string;
+  element: Record<string, unknown>;
+  rationale?: string;
+};
+
+export type ModifyOperation = {
+  operation: "modify";
+  elementType: string;
+  elementName: string;
+  modifications: Record<string, unknown>;
+  rationale?: string;
+};
+
+export type RemoveOperation = {
+  operation: "remove";
+  elementType: string;
+  elementName: string;
+  rationale?: string;
+};
+
+export type RenameOperation = {
+  operation: "rename";
+  elementType: string;
+  elementName: string;
+  newName: string;
+  referenceUpdates: ReferenceUpdate[];
+  rationale?: string;
+};
+
+export type ChangeOperation = AddOperation | ModifyOperation | RemoveOperation | RenameOperation;
+
+export type NameChange = {
+  elementType: string;
+  fromName: string;
+  toName: string;
+};
+
+export type ChangeRequest = {
+  changeId: string;
+  targetDocumentName: string;
+  targetDocumentType: "practiceBaseline" | "practice" | "method";
+  status: "draft" | "proposed" | "accepted" | "rejected" | "withdrawn";
+  note: Note;
+  authors: string[];
+  createdAt: string;
+  updatedAt: string;
+  operations: ChangeOperation[];
+  nameChanges?: NameChange[];
+  reviewNotes?: Note[];
+  supersedes?: string;
+  schemaVersion?: string;
+};
+
+export type ChangeSet = {
+  changeSetId: string;
+  status: "draft" | "proposed" | "accepted" | "rejected" | "withdrawn";
+  note: Note;
+  authors: string[];
+  createdAt: string;
+  updatedAt: string;
+  changeRequests: ChangeRequest[];
+  reviewNotes?: Note[];
+  schemaVersion?: string;
+};

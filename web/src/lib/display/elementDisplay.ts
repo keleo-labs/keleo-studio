@@ -3,7 +3,7 @@
  * Merged from practiceElementAliasDisplay.ts and practiceElementTags.ts
  */
 
-import type { PracticeElementAlias, PracticeElementTags } from "@/lib/types";
+import type { PracticeElementAlias, PracticeElementTags, WorkProduct } from "@/lib/types";
 
 // ============================================
 // ALIAS DISPLAY
@@ -164,4 +164,34 @@ function strArrFromLines(text: string): string[] {
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean);
+}
+
+// ============================================
+// WORK PRODUCT CONTAINMENT (partOf)
+// ============================================
+
+/**
+ * Returns the ancestor chain for a work product, outermost first.
+ * E.g. if C partOf B partOf A, returns ["A", "B"] for input "C".
+ * Handles cycles by stopping when a name repeats.
+ */
+export function resolveWorkProductAncestors(
+  wpName: string,
+  workProducts: WorkProduct[] | undefined,
+): string[] {
+  if (!workProducts?.length) return [];
+  const byName = new Map<string, WorkProduct>();
+  for (const wp of workProducts) byName.set(wp.name, wp);
+
+  const MAX_DEPTH = 10; // WorkProduct.partOf containment limit
+  const ancestors: string[] = [];
+  const seen = new Set<string>([wpName]);
+  let current = byName.get(wpName);
+  while (current?.partOf && ancestors.length < MAX_DEPTH) {
+    if (seen.has(current.partOf)) break;
+    seen.add(current.partOf);
+    ancestors.unshift(current.partOf);
+    current = byName.get(current.partOf);
+  }
+  return ancestors;
 }

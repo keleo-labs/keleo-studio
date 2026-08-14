@@ -468,6 +468,20 @@ export function NavigatorSidebar({
                 <span>{group.focusName}</span>
               </button>
 
+              {/* Focus description */}
+              {isExpanded && group.focus?.description && (
+                <p style={{
+                  fontSize: "0.6875rem",
+                  lineHeight: "1.5",
+                  color: "var(--pf-v6-global--Color--200)",
+                  margin: "0.25rem 0 0.5rem 1rem",
+                  padding: "0.375rem 0.5rem",
+                  borderLeft: "2px solid var(--pf-v6-global--BorderColor--100)",
+                }}>
+                  {group.focus.description}
+                </p>
+              )}
+
               {/* Elements list */}
               {isExpanded && (
                 <div style={{ marginLeft: "1rem", marginTop: "0.25rem" }}>

@@ -5,6 +5,7 @@ import type { PracticeBaseline, Asset } from "@/lib/types";
 import { IconAsset } from "../common/IconAsset";
 import { findAsset } from "@/lib/display/assets";
 import { AliasedName } from "../common/AliasedName";
+import { WorkProductQualifiedName } from "../common/WorkProductQualifiedName";
 
 interface AlphaStateTableProps {
   alpha: any;
@@ -194,18 +195,6 @@ export function AlphaStateTable({
                   minHeight: "3rem"
                 }}>
                   {state.description}
-                  {state.narratives && state.narratives.length > 0 && (
-                    <div style={{ marginTop: "0.5rem", paddingTop: "0.5rem", borderTop: "1px solid var(--pf-v6-global--BorderColor--100)" }}>
-                      {state.narratives.map((narrative: any, idx: number) => (
-                        <div key={idx} style={{ marginBottom: "0.5rem" }}>
-                          <div style={{ fontWeight: 600, marginBottom: "0.25rem" }}>{narrative.name}</div>
-                          <div style={{ fontSize: "0.575rem", color: "var(--pf-v6-global--Color--200)" }}>
-                            {narrative.description}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
                 </div>
               </td>
             ))}
@@ -360,11 +349,9 @@ export function AlphaStateTable({
                           >
                             {wpAsset && <IconAsset asset={wpAsset} size={14} style={{ flexShrink: 0 }} />}
                             <div style={{ flex: 1, minWidth: 0, fontSize: "0.7rem" }}>
-                              <div style={{ fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                                {workProduct.name}
-                              </div>
+                              <WorkProductQualifiedName wpName={workProduct.name} workProducts={baseline.workProducts} layout="stacked" />
                               <div style={{ fontSize: "0.65rem", color: "var(--pf-v6-global--Color--200)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                                → {lod.name}
+                                → <AliasedName kind="levelOfDetail" name={lod.name} browse={false} />
                               </div>
                             </div>
                           </button>

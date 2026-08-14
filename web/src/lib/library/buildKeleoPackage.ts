@@ -1,9 +1,9 @@
 import { strToU8, zipSync } from "fflate";
 import { classifyLibraryRoot, type LibraryRootKind } from "./classify";
 
-const SCHEMA_VERSION = "1.0.0";
+const SCHEMA_VERSION = "1.2.0";
 
-type PackageDocumentType = "practiceBaseline" | "practice" | "method" | "project";
+type PackageDocumentType = "practiceBaseline" | "practice" | "method" | "project" | "changeRequest" | "changeSet";
 
 type PackageDocumentEntry = {
   path: string;
@@ -36,6 +36,10 @@ function documentTypeForKind(kind: LibraryRootKind): PackageDocumentType {
       return "practice";
     case "project":
       return "project";
+    case "changeRequest":
+      return "changeRequest";
+    case "changeSet":
+      return "changeSet";
     default:
       return "practice";
   }

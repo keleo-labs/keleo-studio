@@ -1,0 +1,1 @@
+export { generateWorkProductTemplate } from "./generateWorkProductTemplate";

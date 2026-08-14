@@ -30,6 +30,7 @@ import {
   generateDependencyDiagramSvg,
 } from "./svgDiagrams";
 import { generateMkdocsYaml } from "./mkdocsConfig";
+import { generateWorkProductTemplate } from "@/lib/documentTemplate";
 import { slugify } from "./slugs";
 
 export function generateStaticSite(
@@ -159,7 +160,7 @@ export function generateStaticSite(
 
   // References
   const citations = (baseline.citations ?? []) as Citation[];
-  addPage(generateReferencesPage(citations));
+  addPage(generateReferencesPage(citations, baseline));
 
   // Patterns
   const patterns = (renderable.patterns ?? []) as Pattern[];
@@ -214,6 +215,12 @@ export function generateStaticSite(
   // Work Products
   for (const wp of workProducts) {
     addPage(generateWorkProductPage(wp, baseline, display));
+  }
+
+  // Work Product Templates
+  for (const wp of workProducts) {
+    const templateContent = generateWorkProductTemplate(wp, baseline, display);
+    files.set(`${prefix}/docs/templates/${slugify(wp.name)}.md`, templateContent);
   }
 
   // Persona Groups & Personas

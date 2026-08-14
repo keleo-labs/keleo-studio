@@ -7,7 +7,10 @@ import { findAsset } from "@/lib/display/assets";
 import { practiceElementDescriptionForDisplay } from "@/lib/ir";
 import { findActivitiesProgressingState, findWorkProductsEvidencingState } from "@/lib/analysis/stateProgression";
 import { AliasedName } from "../common/AliasedName";
+import { WorkProductQualifiedName } from "../common/WorkProductQualifiedName";
 import { BackgroundBlock, TestBlock, ExamplesBlock } from "./GherkinBlock";
+import { NarrativesBlock } from "./NarrativesBlock";
+import { ElementTagsBadges } from "./ElementTagsBadges";
 
 interface SecondaryDetailsPanelProps {
   secondaryElement: {
@@ -286,8 +289,8 @@ export function SecondaryDetailsPanel({
           >
             <AliasedName kind={type} name={type === "practice" ? (data.body?.name || data.name) : data.name} browse={false} />
           </Title>
-          {/* Show goto link for alpha, activity, and practice types */}
-          {(type === "alpha" || type === "activity" || type === "practice") && (
+          {/* Show goto link for navigable types */}
+          {(type === "alpha" || type === "activity" || type === "practice" || type === "levelOfDetail" || type === "workProduct" || type === "state" || type === "persona" || type === "competency") && (
             <button
               onClick={async (e) => {
                 e.preventDefault();
@@ -324,6 +327,10 @@ export function SecondaryDetailsPanel({
                   navigateToElement(data.name, "activities");
                 } else if (type === "alpha") {
                   navigateToElement(data.name, "concerns");
+                } else if (type === "state") {
+                  navigateToElement(parent?.name ?? data.name, "concerns");
+                } else if (type === "levelOfDetail" || type === "workProduct") {
+                  navigateToElement(parent?.name ?? data.name);
                 } else {
                   navigateToElement(data.name);
                 }
@@ -363,6 +370,23 @@ export function SecondaryDetailsPanel({
           {description}
         </p>
       </div>
+
+      {/* State-specific: Narratives (after description) */}
+      {type === "state" && data.narratives && data.narratives.length > 0 && (
+        <div style={{ marginTop: "1rem" }}>
+          <NarrativesBlock compact narratives={data.narratives} baseline={baseline} />
+        </div>
+      )}
+
+      {/* State-specific: Contributes to state */}
+      {type === "state" && data.contributesToState && (
+        <div style={{ marginBottom: "1rem", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
+          Contributes to state:{" "}
+          <span style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
+            {data.contributesToState}
+          </span>
+        </div>
+      )}
 
       {/* State-specific: Background prerequisites */}
       {type === "state" && data.background && (
@@ -467,6 +491,13 @@ export function SecondaryDetailsPanel({
                       </div>
                     )}
 
+                    {/* Checklist item narratives */}
+                    {item.narratives && item.narratives.length > 0 && (
+                      <div style={{ marginLeft: "calc(18px + 0.75rem)", marginTop: "0.5rem" }}>
+                        <NarrativesBlock compact narratives={item.narratives} baseline={baseline} />
+                      </div>
+                    )}
+
                     {/* Evidence tiles */}
                     {item.evidencedBy && item.evidencedBy.length > 0 && (
                       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.75rem", marginLeft: "calc(18px + 0.75rem)" }}>
@@ -504,9 +535,7 @@ export function SecondaryDetailsPanel({
                             >
                               {wpAsset && <IconAsset asset={wpAsset} size={16} style={{ flexShrink: 0 }} />}
                               <div style={{ fontSize: "0.6875rem", minWidth: 0 }}>
-                                <div style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
-                                  <AliasedName kind="workProduct" name={evidence.workProductName} browse={false} />
-                                </div>
+                                <WorkProductQualifiedName wpName={evidence.workProductName} workProducts={baseline.workProducts} layout="stacked" />
                                 <div style={{ color: "var(--pf-v6-global--Color--200)" }}>
                                   → <AliasedName kind="levelOfDetail" name={evidence.levelOfDetailName} browse={false} />
                                 </div>
@@ -664,9 +693,7 @@ export function SecondaryDetailsPanel({
                     >
                       {wpAsset && <IconAsset asset={wpAsset} size={16} style={{ flexShrink: 0 }} />}
                       <div style={{ fontSize: "0.6875rem", minWidth: 0 }}>
-                        <div style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                          <AliasedName kind="workProduct" name={evidence.workProductName} browse={false} />
-                        </div>
+                        <WorkProductQualifiedName wpName={evidence.workProductName} workProducts={baseline.workProducts} layout="stacked" />
                         <div style={{ color: "var(--pf-v6-global--Color--200)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                           → <AliasedName kind="levelOfDetail" name={evidence.levelOfDetailName} browse={false} />
                         </div>
@@ -680,9 +707,43 @@ export function SecondaryDetailsPanel({
         })()
       )}
 
-      {/* WorkProduct-specific: Levels of Detail and Checklist */}
+      {/* State-specific: Tags */}
+      {type === "state" && <ElementTagsBadges tags={data.tags} />}
+
+      {/* WorkProduct-specific: Part Of, Levels of Detail and Checklist */}
       {type === "workProduct" && (
         <>
+          {data.partOf && (
+            <div
+              onClick={() => navigateToElement(data.partOf)}
+              style={{
+                marginBottom: "1rem",
+                fontSize: "0.75rem",
+                color: "var(--pf-v6-global--Color--200)",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.25rem",
+              }}
+            >
+              Part of:{" "}
+              <span
+                style={{
+                  fontWeight: 600,
+                  color: "var(--pf-v6-global--link--Color)",
+                  transition: "text-decoration 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.textDecoration = "underline";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.textDecoration = "none";
+                }}
+              >
+                {data.partOf}
+              </span>
+            </div>
+          )}
           {data.levelsOfDetail && data.levelsOfDetail.length > 0 && (
             <div style={{ marginBottom: "1.5rem" }}>
               <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
@@ -834,7 +895,7 @@ export function SecondaryDetailsPanel({
                                                 marginTop: "0.125rem",
                                               }}
                                             >
-                                              <AliasedName kind="workProduct" name={evidence.workProductName} browse={false} /> → <AliasedName kind="levelOfDetail" name={evidence.levelOfDetailName} browse={false} />
+                                              <WorkProductQualifiedName wpName={evidence.workProductName} workProducts={baseline.workProducts} /> → <AliasedName kind="levelOfDetail" name={evidence.levelOfDetailName} browse={false} />
                                             </div>
                                           ))}
                                         </div>
@@ -846,6 +907,11 @@ export function SecondaryDetailsPanel({
                                       )}
                                       {item.examples && item.examples.length > 0 && (
                                         <ExamplesBlock examples={item.examples} />
+                                      )}
+                                      {item.narratives && item.narratives.length > 0 && (
+                                        <div style={{ marginTop: "0.375rem" }}>
+                                          <NarrativesBlock compact narratives={item.narratives} baseline={baseline} />
+                                        </div>
                                       )}
                                     </div>
                                   </li>
@@ -859,16 +925,18 @@ export function SecondaryDetailsPanel({
               </div>
             </div>
           )}
+          <ElementTagsBadges tags={data.tags} />
         </>
       )}
 
       {/* Level of Detail-specific: Detailed view */}
       {type === "levelOfDetail" && (
         <>
-          <div style={{ fontSize: "0.8125rem", lineHeight: "1.5", color: "var(--pf-v6-global--Color--100)", marginBottom: "1.5rem" }}>
-            {practiceElementDescriptionForDisplay(data)}
-          </div>
-
+          {data.narratives && data.narratives.length > 0 && (
+            <div style={{ marginTop: "1rem" }}>
+              <NarrativesBlock compact narratives={data.narratives} baseline={baseline} />
+            </div>
+          )}
           {data.contributesTo && data.contributesTo.length > 0 && (
             <div style={{ marginBottom: "1.5rem" }}>
               <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
@@ -997,7 +1065,7 @@ export function SecondaryDetailsPanel({
                                     marginTop: "0.125rem",
                                   }}
                                 >
-                                  <AliasedName kind="workProduct" name={evidence.workProductName} browse={false} /> → <AliasedName kind="levelOfDetail" name={evidence.levelOfDetailName} browse={false} />
+                                  <WorkProductQualifiedName wpName={evidence.workProductName} workProducts={baseline.workProducts} /> → <AliasedName kind="levelOfDetail" name={evidence.levelOfDetailName} browse={false} />
                                 </div>
                               ))}
                             </div>
@@ -1010,6 +1078,11 @@ export function SecondaryDetailsPanel({
                           {item.examples && item.examples.length > 0 && (
                             <ExamplesBlock examples={item.examples} />
                           )}
+                          {item.narratives && item.narratives.length > 0 && (
+                            <div style={{ marginTop: "0.5rem" }}>
+                              <NarrativesBlock compact narratives={item.narratives} baseline={baseline} />
+                            </div>
+                          )}
                         </div>
                       </li>
                     );
@@ -1017,12 +1090,18 @@ export function SecondaryDetailsPanel({
               </ul>
             </div>
           )}
+          <ElementTagsBadges tags={data.tags} />
         </>
       )}
 
       {/* Activity-specific: Full details (reuse structure from main panel) */}
       {type === "activity" && (
         <>
+          {data.narratives && data.narratives.length > 0 && (
+            <div style={{ marginTop: "1rem" }}>
+              <NarrativesBlock compact narratives={data.narratives} baseline={baseline} />
+            </div>
+          )}
           {data.contributesTo && data.contributesTo.length > 0 && (
             <div style={{ marginBottom: "1.5rem" }}>
               <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
@@ -1093,9 +1172,7 @@ export function SecondaryDetailsPanel({
                     }}
                     title={`Go to ${wp.workProductName}`}
                   >
-                    <div style={{ fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                      <AliasedName kind="workProduct" name={wp.workProductName} browse={false} />
-                    </div>
+                    <WorkProductQualifiedName wpName={wp.workProductName} workProducts={baseline.workProducts} layout="stacked" />
                     <div style={{ color: "var(--pf-v6-global--Color--200)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       → <AliasedName kind="levelOfDetail" name={wp.levelOfDetailName} browse={false} />
                     </div>
@@ -1197,16 +1274,32 @@ export function SecondaryDetailsPanel({
               </div>
             );
           })()}
+
+          {data.background && (
+            <div style={{ marginTop: "1.5rem" }}>
+              <BackgroundBlock background={data.background} baseline={baseline} />
+            </div>
+          )}
+
+          {data.test && (
+            <div style={{ marginTop: "1.5rem" }}>
+              <TestBlock test={data.test} />
+            </div>
+          )}
+
+          {data.examples && data.examples.length > 0 && (
+            <div style={{ marginTop: "0.5rem" }}>
+              <ExamplesBlock examples={data.examples} />
+            </div>
+          )}
+
+          <ElementTagsBadges tags={data.tags} />
         </>
       )}
 
       {/* PatternView-specific: Show details */}
       {type === "patternView" && (
         <>
-          <div style={{ fontSize: "0.8125rem", lineHeight: "1.5", color: "var(--pf-v6-global--Color--100)", marginBottom: "1.5rem" }}>
-            {practiceElementDescriptionForDisplay(data)}
-          </div>
-
           {data.alphaStates && data.alphaStates.length > 0 && (
             <div style={{ marginBottom: "1.5rem" }}>
               <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
@@ -1260,8 +1353,33 @@ export function SecondaryDetailsPanel({
             </div>
           )}
 
+          {data.activitySpaces && data.activitySpaces.length > 0 && (
+            <div style={{ marginBottom: "1.5rem" }}>
+              <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                Activity Spaces
+              </Title>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                {data.activitySpaces.map((spaceName: string, idx: number) => (
+                  <div
+                    key={idx}
+                    style={{
+                      fontSize: "0.6875rem",
+                      padding: "0.5rem 0.625rem",
+                      backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    <AliasedName kind="activitySpace" name={spaceName} browse={false} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {data.activities && data.activities.length > 0 && (
-            <div>
+            <div style={{ marginBottom: "1.5rem" }}>
               <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
                 Activities
               </Title>
@@ -1284,6 +1402,38 @@ export function SecondaryDetailsPanel({
               </div>
             </div>
           )}
+
+          {data.alphaInstances && data.alphaInstances.length > 0 && (
+            <div style={{ marginBottom: "1.5rem" }}>
+              <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                Concern Instances
+              </Title>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                {data.alphaInstances.map((instance: any, idx: number) => (
+                  <div
+                    key={idx}
+                    style={{
+                      fontSize: "0.6875rem",
+                      padding: "0.5rem 0.625rem",
+                      backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                    }}
+                  >
+                    <div style={{ fontWeight: 600 }}>{instance.name}</div>
+                    {instance.alphaName && (
+                      <div style={{ color: "var(--pf-v6-global--Color--200)", marginTop: "0.125rem" }}>
+                        <AliasedName kind="alpha" name={instance.alphaName} browse={false} />
+                        {instance.stateName && <> → <AliasedName kind="state" name={instance.stateName} browse={false} /></>}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <ElementTagsBadges tags={data.tags} />
         </>
       )}
 
@@ -1351,6 +1501,7 @@ export function SecondaryDetailsPanel({
               </div>
             </div>
           )}
+          <ElementTagsBadges tags={data.tags} />
         </>
       )}
 
@@ -1365,108 +1516,9 @@ export function SecondaryDetailsPanel({
             </div>
 
             {practiceBody.narratives && practiceBody.narratives.length > 0 && (
-            <div>
-              <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-                Narratives
-              </Title>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                {practiceBody.narratives.map((narrative: any, idx: number) => (
-                  <div
-                    key={idx}
-                    style={{
-                      padding: "0.75rem",
-                      backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
-                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                      border: "1px solid var(--pf-v6-global--BorderColor--100)",
-                    }}
-                  >
-                    <div style={{ fontWeight: 600, marginBottom: "0.25rem", fontSize: "0.75rem" }}>
-                      {narrative.name}
-                    </div>
-                    {narrative.description && (
-                      <div style={{ fontSize: "0.6875rem", lineHeight: "1.5", color: "var(--pf-v6-global--Color--100)", marginBottom: "0.5rem" }}>
-                        {narrative.description}
-                      </div>
-                    )}
-
-                    {/* Narrative Contexts */}
-                    {narrative.narrativeContexts && narrative.narrativeContexts.length > 0 && (
-                      <div style={{
-                        marginTop: "0.5rem",
-                        fontSize: "0.6875rem",
-                        color: "var(--pf-v6-global--Color--200)",
-                        paddingLeft: "0.5rem",
-                        borderLeft: "2px solid var(--pf-v6-global--BorderColor--100)"
-                      }}>
-                        {narrative.narrativeContexts
-                          .sort((a: any, b: any) => a.seq - b.seq)
-                          .map((context: any, contextIdx: number) => (
-                            <div key={contextIdx} style={{ marginTop: contextIdx > 0 ? "0.375rem" : 0 }}>
-                              {context.seq}. {context.context}
-                            </div>
-                          ))}
-                      </div>
-                    )}
-
-                    {/* Contexts */}
-                    {narrative.contexts && narrative.contexts.length > 0 && (
-                      <div style={{ marginTop: "0.5rem" }}>
-                        <div style={{ fontSize: "0.6875rem", fontWeight: 600, marginBottom: "0.25rem", color: "var(--pf-v6-global--Color--100)" }}>
-                          Contexts:
-                        </div>
-                        <div style={{
-                          fontSize: "0.6875rem",
-                          color: "var(--pf-v6-global--Color--200)",
-                          paddingLeft: "0.5rem",
-                          borderLeft: "2px solid var(--pf-v6-global--BorderColor--100)"
-                        }}>
-                          {narrative.contexts
-                            .sort((a: any, b: any) => a.seq - b.seq)
-                            .map((context: any, contextIdx: number) => (
-                              <div key={contextIdx} style={{ marginTop: contextIdx > 0 ? "0.375rem" : 0 }}>
-                                {context.seq}. {context.text}
-                              </div>
-                            ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Further Reading */}
-                    {narrative.citationNames && narrative.citationNames.length > 0 && (
-                      <div style={{ marginTop: "0.5rem" }}>
-                        <div style={{ fontSize: "0.6875rem", fontWeight: 600, marginBottom: "0.25rem", color: "var(--pf-v6-global--Color--100)" }}>
-                          Further Reading:
-                        </div>
-                        <div style={{ fontSize: "0.6875rem", color: "var(--pf-v6-global--Color--200)" }}>
-                          {narrative.citationNames.map((citationName: string, citIdx: number) => {
-                            // Find citation in practice citations
-                            const citation = practiceBody.citations?.find((c: any) => c.name === citationName);
-                            if (!citation) return null;
-
-                            return (
-                              <div key={citIdx} style={{ marginTop: citIdx > 0 ? "0.25rem" : 0 }}>
-                                • {citation.name}
-                                {citation.url && (
-                                  <a
-                                    href={citation.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{ marginLeft: "0.25rem", color: "var(--pf-v6-global--link--Color)" }}
-                                  >
-                                    ↗
-                                  </a>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+              <NarrativesBlock compact narratives={practiceBody.narratives} baseline={baseline} />
+            )}
+          <ElementTagsBadges tags={practiceBody.tags} />
         </>
         );
       })()}
@@ -1478,10 +1530,7 @@ export function SecondaryDetailsPanel({
           <>
             {persona.narratives && persona.narratives.length > 0 && (
               <div style={{ marginBottom: "1.5rem" }}>
-                <Title headingLevel="h4" size="sm" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-                  Narratives
-                </Title>
-                {renderNarratives(persona.narratives, baseline)}
+                <NarrativesBlock compact narratives={persona.narratives} baseline={baseline} />
               </div>
             )}
 
@@ -1538,6 +1587,7 @@ export function SecondaryDetailsPanel({
                 </div>
               </div>
             )}
+            <ElementTagsBadges tags={persona.tags} />
           </>
         );
       })()}
@@ -1549,10 +1599,7 @@ export function SecondaryDetailsPanel({
           <>
             {competency.narratives && competency.narratives.length > 0 && (
               <div style={{ marginBottom: "1.5rem" }}>
-                <Title headingLevel="h4" size="sm" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-                  Narratives
-                </Title>
-                {renderNarratives(competency.narratives, baseline)}
+                <NarrativesBlock compact narratives={competency.narratives} baseline={baseline} />
               </div>
             )}
 
@@ -1606,6 +1653,7 @@ export function SecondaryDetailsPanel({
                 </div>
               </div>
             )}
+            <ElementTagsBadges tags={competency.tags} />
           </>
         );
       })()}
@@ -1624,12 +1672,10 @@ export function SecondaryDetailsPanel({
 
             {level.narratives && level.narratives.length > 0 && (
               <div>
-                <Title headingLevel="h4" size="sm" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
-                  Narratives
-                </Title>
-                {renderNarratives(level.narratives, baseline)}
+                <NarrativesBlock compact narratives={level.narratives} baseline={baseline} />
               </div>
             )}
+            <ElementTagsBadges tags={level.tags} />
           </>
         );
       })()}

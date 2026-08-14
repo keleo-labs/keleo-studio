@@ -161,9 +161,12 @@ export function finalizeImplicitFocusPlaceholders(doc: {
  */
 export function propagateAlphaFocusFromContributesToParents(doc: { alphas?: any[] }): void {
   const alphas = doc.alphas ?? [];
+  const maxIterations = alphas.length + 1;
   let changed = true;
-  while (changed) {
+  let iterations = 0;
+  while (changed && iterations < maxIterations) {
     changed = false;
+    iterations++;
     const byName = new Map<string, any>();
     for (const a of alphas) {
       const n = String(a?.name ?? "").trim();
@@ -1049,6 +1052,70 @@ export function buildIndexes(
     }
     for (const act of (s as any).activities ?? []) {
       checkActivityContribs(act, `Activity:${act.name} (under ${s.name})`);
+    }
+  }
+
+  // --- Acyclicity validation: Alpha.contributesTo + Alpha.mapsTo (combined graph) ---
+  {
+    const WHITE = 0, GREY = 1, BLACK = 2;
+    const colour = new Map<string, number>();
+    const path: string[] = [];
+
+    function visitAlpha(name: string): void {
+      if (colour.get(name) === BLACK) return;
+      if (colour.get(name) === GREY) {
+        const cycleStart = path.indexOf(name);
+        const chain = [...path.slice(cycleStart), name];
+        issues.push({
+          kind: "missing",
+          type: "Alpha",
+          ref: chain.join(" → "),
+          context: `Circular reference in contributesTo/mapsTo: ${chain.join(" → ")}`,
+        });
+        return;
+      }
+      colour.set(name, GREY);
+      path.push(name);
+      const alpha = alphaByName.get(name);
+      if (alpha) {
+        const parent = typeof alpha.contributesTo === "string" ? alpha.contributesTo.trim()
+          : typeof (alpha as any).mapsTo === "string" ? String((alpha as any).mapsTo).trim()
+          : "";
+        if (parent && parent !== name && alphaByName.has(parent)) {
+          visitAlpha(parent);
+        }
+      }
+      path.pop();
+      colour.set(name, BLACK);
+    }
+
+    for (const name of alphaByName.keys()) visitAlpha(name);
+  }
+
+  // --- Acyclicity validation: WorkProduct.partOf ---
+  {
+    const wpByName = new Map<string, { name: string; partOf?: string }>();
+    for (const wp of baseline.workProducts ?? []) wpByName.set(wp.name, wp);
+
+    for (const [wpName, wp] of wpByName) {
+      if (!wp.partOf) continue;
+      const visited = new Set<string>();
+      let current: string | undefined = wpName;
+      while (current) {
+        if (visited.has(current)) {
+          const chain = [...visited, current];
+          issues.push({
+            kind: "missing",
+            type: "WorkProduct",
+            ref: [...chain].join(" → "),
+            context: `Circular reference in partOf: ${[...chain].join(" → ")}`,
+          });
+          break;
+        }
+        visited.add(current);
+        const w = wpByName.get(current);
+        current = w?.partOf && w.partOf !== current ? w.partOf : undefined;
+      }
     }
   }
 

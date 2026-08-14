@@ -877,19 +877,22 @@ export function orderedTransitiveExtensionPractices(primary: Practice, index: Li
   const ordered: Practice[] = [];
   const done = new Set<string>();
   const visiting = new Set<string>();
+  const MAX_DEPTH = 30;
 
-  function visitPractice(p: Practice): void {
+  function visitPractice(p: Practice, depth: number): void {
     const n = String(p.name ?? "").trim();
     if (!n || done.has(n)) return;
     if (visiting.has(n))
       throw new Error(`Circular practiceDependencyNames at "${n}" (MergePractice preprocessing).`);
+    if (depth > MAX_DEPTH)
+      throw new Error(`Dependency depth limit (${MAX_DEPTH}) exceeded at "${n}" in practiceDependencyNames chain.`);
 
     visiting.add(n);
     try {
       for (const dep of uniqStrings((p.practiceDependencyNames ?? []) as string[])) {
         if (dep === n) continue;
         const depP = findPracticeInLibrary(index, dep);
-        if (depP) visitPractice(depP);
+        if (depP) visitPractice(depP, depth + 1);
       }
     } finally {
       visiting.delete(n);
@@ -899,7 +902,7 @@ export function orderedTransitiveExtensionPractices(primary: Practice, index: Li
     ordered.push(clone(p));
   }
 
-  visitPractice(primary);
+  visitPractice(primary, 0);
   return ordered;
 }
 
@@ -914,19 +917,22 @@ export function orderedTransitiveBaselinePractices(primary: PracticeBaseline, in
   const ordered: PracticeBaseline[] = [];
   const done = new Set<string>();
   const visiting = new Set<string>();
+  const MAX_DEPTH = 30;
 
-  function visitBaseline(b: PracticeBaseline): void {
+  function visitBaseline(b: PracticeBaseline, depth: number): void {
     const n = String(b.name ?? "").trim();
     if (!n || done.has(n)) return;
     if (visiting.has(n))
       throw new Error(`Circular baselinePracticeNames at "${n}" (baseline dependency resolution).`);
+    if (depth > MAX_DEPTH)
+      throw new Error(`Dependency depth limit (${MAX_DEPTH}) exceeded at "${n}" in baselinePracticeNames chain.`);
 
     visiting.add(n);
     try {
       for (const dep of uniqStrings((b.baselinePracticeNames ?? []) as string[])) {
         if (dep === n) continue;
         const depB = findBaselineInLibrary(index, dep);
-        if (depB) visitBaseline(depB);
+        if (depB) visitBaseline(depB, depth + 1);
       }
     } finally {
       visiting.delete(n);
@@ -936,7 +942,7 @@ export function orderedTransitiveBaselinePractices(primary: PracticeBaseline, in
     ordered.push(clone(b));
   }
 
-  visitBaseline(primary);
+  visitBaseline(primary, 0);
   return ordered;
 }
 
@@ -983,19 +989,22 @@ export function expandMethodPracticeDependencies(practices: Practice[], library:
   const ordered: Practice[] = [];
   const done = new Set<string>();
   const visiting = new Set<string>();
+  const MAX_DEPTH = 30;
 
-  function visit(p: Practice): void {
+  function visit(p: Practice, depth: number): void {
     const n = String(p.name ?? "").trim();
     if (!n || done.has(n)) return;
     if (visiting.has(n))
       throw new Error(`Circular practiceDependencyNames at "${n}" (method practice dependency expansion).`);
+    if (depth > MAX_DEPTH)
+      throw new Error(`Dependency depth limit (${MAX_DEPTH}) exceeded at "${n}" in practiceDependencyNames chain.`);
 
     visiting.add(n);
     try {
       for (const depName of uniqStrings((p.practiceDependencyNames ?? []) as string[])) {
         if (depName === n || done.has(depName)) continue;
         const dep = findPracticeInLibrary(library, depName);
-        if (dep) visit(clone(dep));
+        if (dep) visit(clone(dep), depth + 1);
       }
     } finally {
       visiting.delete(n);
@@ -1006,7 +1015,7 @@ export function expandMethodPracticeDependencies(practices: Practice[], library:
   }
 
   for (const p of practices) {
-    visit(p);
+    visit(p, 0);
   }
 
   return ordered;

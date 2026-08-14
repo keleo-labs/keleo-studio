@@ -166,22 +166,71 @@ export function WorkProductLODTable({
                   minHeight: "3rem"
                 }}>
                   {lod.description}
-                  {lod.narratives && lod.narratives.length > 0 && (
-                    <div style={{ marginTop: "0.5rem", paddingTop: "0.5rem", borderTop: "1px solid var(--pf-v6-global--BorderColor--100)" }}>
-                      {lod.narratives.map((narrative: any, idx: number) => (
-                        <div key={idx} style={{ marginBottom: "0.5rem" }}>
-                          <div style={{ fontWeight: 600, marginBottom: "0.25rem" }}>{narrative.name}</div>
-                          <div style={{ fontSize: "0.575rem", color: "var(--pf-v6-global--Color--200)" }}>
-                            {narrative.description}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
                 </div>
               </td>
             ))}
           </tr>
+
+          {/* Row 2.5: Prerequisites (only if any LOD has background) */}
+          {lods.some((lod: any) => lod.background) && (
+          <tr>
+            <td style={{
+              fontWeight: 600,
+              fontSize: "0.875rem",
+              color: "var(--pf-v6-global--Color--100)",
+              verticalAlign: "top",
+              padding: "0.25rem"
+            }}>
+              Prerequisites
+            </td>
+            {lods.map((lod: any) => {
+              const bg = lod.background;
+              if (!bg) {
+                return (
+                  <td key={lod.name} style={{ padding: "0", verticalAlign: "top" }}>
+                    <div style={{
+                      padding: "0.5rem",
+                      backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                      border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      minHeight: "2rem",
+                      fontSize: "0.625rem",
+                      color: "var(--pf-v6-global--Color--200)",
+                      fontStyle: "italic",
+                    }}>
+                      —
+                    </div>
+                  </td>
+                );
+              }
+
+              const items: string[] = [];
+              if (bg.given) items.push(...bg.given);
+              bg.alphaStates?.forEach((s: any) => items.push(`${s.alphaName} → ${s.stateName}`));
+              bg.workProductLevels?.forEach((w: any) => items.push(`${w.workProductName} → ${w.levelOfDetailName}`));
+
+              return (
+                <td key={lod.name} style={{ padding: "0", verticalAlign: "top" }}>
+                  <div style={{
+                    padding: "0.5rem",
+                    backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                    border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                    borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                    fontSize: "0.625rem",
+                    lineHeight: "1.5",
+                    minHeight: "2rem",
+                  }}>
+                    {items.map((item, i) => (
+                      <div key={i} style={{ color: "var(--pf-v6-global--Color--100)" }}>
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </td>
+              );
+            })}
+          </tr>
+          )}
 
           {/* Row 3: Contributes To */}
           <tr>

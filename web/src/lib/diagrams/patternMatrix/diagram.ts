@@ -566,24 +566,19 @@ function findUltimateRootInFocus(
   const visited = new Set<string>();
   let current = alphaName;
 
-  while (true) {
-    if (visited.has(current)) {
-      // Cycle detected
-      return null;
-    }
+  while (visited.size <= 20) {
+    if (visited.has(current)) return null;
     visited.add(current);
 
     const alpha = alphaByName.get(current);
     if (!alpha) return current;
 
     const parent = parentNameInFocus(alpha, nameSet);
-    if (parent === null) {
-      // No parent - this is the root
-      return current;
-    }
+    if (parent === null) return current;
 
     current = parent;
   }
+  return current;
 }
 
 /**
