@@ -9,6 +9,7 @@ import type {
 import { IconAsset } from "../common/IconAsset";
 import { findAsset } from "@/lib/display/assets";
 import { AliasedName } from "../common/AliasedName";
+import { GRAPH_DEPTH_LIMITS } from "@/lib/core/graphLimits";
 
 interface OverviewDiagramProps {
   baseline: PracticeBaseline;
@@ -103,14 +104,22 @@ export function OverviewDiagram({
     relationship: "contributesTo" | "mapsTo";
   }
 
+  const MAX_ALPHA_DEPTH = GRAPH_DEPTH_LIMITS.alphaHierarchy;
+
   // Build tree structure and calculate positions
   const buildAlphaTree = (
     parentName: string | null,
     allAlphas: typeof baseline.alphas,
     startX: number,
     startY: number,
-    rootScoreEntry: any
+    rootScoreEntry: any,
+    visited?: Set<string>,
+    depth?: number,
   ): { nodes: AlphaNode[]; totalHeight: number } => {
+    const seen = visited ?? new Set<string>();
+    const d = depth ?? 0;
+    if (d > MAX_ALPHA_DEPTH) return { nodes: [], totalHeight: 0 };
+
     const mapsToChildren = allAlphas.filter((a) => a.mapsTo === parentName);
     const contributesToChildren = allAlphas.filter((a) => a.contributesTo === parentName);
     const children = [...mapsToChildren, ...contributesToChildren];
@@ -118,6 +127,9 @@ export function OverviewDiagram({
     let currentY = startY;
 
     for (const alpha of children) {
+      if (seen.has(alpha.name)) continue;
+      seen.add(alpha.name);
+
       // Look up score
       let score = 0;
       if (rootScoreEntry && rootScoreEntry.newAlphas) {
@@ -145,9 +157,8 @@ export function OverviewDiagram({
 
       const hasChildren = allAlphas.some((a) => a.contributesTo === alpha.name || a.mapsTo === alpha.name);
       if (hasChildren) {
-        const childResult = buildAlphaTree(alpha.name, allAlphas, startX + INDENT, currentY + CARD_HEIGHT + CARD_GAP, rootScoreEntry);
+        const childResult = buildAlphaTree(alpha.name, allAlphas, startX + INDENT, currentY + CARD_HEIGHT + CARD_GAP, rootScoreEntry, seen, d + 1);
         node.children = childResult.nodes;
-        // Advance past this card's height + gap + all grandchildren's total height + padding after subtree
         currentY += CARD_HEIGHT + CARD_GAP + childResult.totalHeight + VERTICAL_PADDING;
       } else {
         currentY += CARD_HEIGHT + CARD_GAP;
@@ -205,8 +216,9 @@ export function OverviewDiagram({
       if (!hasGrandchildren) {
         return { child, slotHeight: CARD_HEIGHT + CARD_GAP, maxDepth: 0 };
       }
+      const measureSeen = new Set<string>([rootAlphaName, child.name]);
       const { nodes: grandchildren, totalHeight: gcHeight } = buildAlphaTree(
-        child.name, allAlphas, INDENT, CARD_HEIGHT + CARD_GAP, rootScoreEntry
+        child.name, allAlphas, INDENT, CARD_HEIGHT + CARD_GAP, rootScoreEntry, measureSeen, 2
       );
       const maxDepth = 1 + Math.max(0, ...grandchildren.map(countDepth));
       return {
@@ -262,11 +274,12 @@ export function OverviewDiagram({
 
         const hasGrandchildren = allAlphas.some(a => a.contributesTo === child.name || a.mapsTo === child.name);
         if (hasGrandchildren) {
+          const buildSeen = new Set<string>([rootAlphaName, child.name]);
           const childResult = buildAlphaTree(
             child.name, allAlphas,
             currentColX + 2 * INDENT,
             currentY + CARD_HEIGHT + CARD_GAP,
-            rootScoreEntry
+            rootScoreEntry, buildSeen, 2
           );
           node.children = childResult.nodes;
           currentY += CARD_HEIGHT + CARD_GAP + childResult.totalHeight + VERTICAL_PADDING;

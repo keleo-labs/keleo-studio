@@ -1,7 +1,7 @@
 import type { JsonDocumentKind } from "@/lib/storage/types";
 
 /** Top-level shape of a stored JSON artifact in the library tree. */
-export type LibraryRootKind = "method" | "baselinePractice" | "practice" | "project" | "unknown";
+export type LibraryRootKind = "method" | "baselinePractice" | "practice" | "project" | "changeRequest" | "changeSet" | "unknown";
 
 /** Maps document shape to the persisted {@link JsonDocumentKind} for POST /api/documents. */
 export function storageKindForBody(body: unknown): JsonDocumentKind {
@@ -9,6 +9,7 @@ export function storageKindForBody(body: unknown): JsonDocumentKind {
   if (root === "method") return "method";
   if (root === "practice" || root === "baselinePractice") return "practice";
   if (root === "project") return "project";
+  if (root === "changeRequest" || root === "changeSet") return "upload";
   return "upload";
 }
 
@@ -32,6 +33,12 @@ function hasNonemptyPracticeDependencies(o: Record<string, unknown>): boolean {
 export function classifyLibraryRoot(body: unknown): LibraryRootKind {
   if (!body || typeof body !== "object") return "unknown";
   const o = body as Record<string, unknown>;
+
+  // ChangeSet detection: presence of changeSetId discriminates
+  if (typeof o.changeSetId === "string") return "changeSet";
+
+  // ChangeRequest detection: presence of changeId + operations discriminates
+  if (typeof o.changeId === "string" && Array.isArray(o.operations)) return "changeRequest";
 
   // Project detection: has plan + current + target + (practiceName XOR methodName)
   if (
@@ -174,6 +181,10 @@ export function rootKindExtension(kind: LibraryRootKind): string {
       return "practice";
     case "project":
       return "project";
+    case "changeRequest":
+      return "changeRequest";
+    case "changeSet":
+      return "changeSet";
     default:
       return "json";
   }

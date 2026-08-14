@@ -16,11 +16,13 @@ import {
   patternViewNarrativeContextProseTexts,
   groupByFocus,
 } from "@/lib/ir";
+import { resolveWorkProductAncestors } from "@/lib/display/elementDisplay";
 import {
   findActivitiesProgressingState,
   findWorkProductsEvidencingState,
 } from "@/lib/analysis/stateProgression";
 import type { DisplayAliasFn } from "@/lib/practiceReport/generatePracticeReport";
+import { normalizePracticeElementTags } from "@/lib/display/elementDisplay";
 import { elementPath, mdLink, relativeLinkFrom, slugify } from "./slugs";
 import { findIconAsset, renderIconHtml } from "./fontIcons";
 
@@ -85,6 +87,16 @@ function stripHtml(html: string): string {
   return html.replace(/<[^>]+>/g, "").trim();
 }
 
+function qualifiedWpName(
+  wpName: string,
+  display: DisplayAliasFn,
+  workProducts: WorkProduct[] | undefined,
+): string {
+  const ancestors = resolveWorkProductAncestors(wpName, workProducts);
+  if (!ancestors.length) return display("WorkProduct", wpName);
+  return ancestors.map(a => display("WorkProduct", a)).join(" ⊃ ") + " ⊃ " + display("WorkProduct", wpName);
+}
+
 function renderKeywordList(keyword: string, items: string[]): string {
   if (!items.length) return "";
   const lines: string[] = [];
@@ -140,7 +152,7 @@ function renderBackgroundMd(
       const lodText = anchor
         ? mdLinkWithAnchor(display("LevelOfDetail", wpl.levelOfDetailName), fromPath, wpPath, anchor)
         : display("LevelOfDetail", wpl.levelOfDetailName);
-      lines.push(`- ${mdLink(display("WorkProduct", wpl.workProductName), fromPath, wpPath)} — ${lodText}`);
+      lines.push(`- ${mdLink(qualifiedWpName(wpl.workProductName, display, workProducts), fromPath, wpPath)} — ${lodText}`);
     }
   }
 
@@ -279,6 +291,18 @@ function renderNarrativesToMd(
   return lines.join("\n");
 }
 
+function renderTagsToMd(tags: unknown): string {
+  const normalized = normalizePracticeElementTags(tags);
+  if (!normalized) return "";
+  const all = [
+    ...(normalized.domainTags ?? []),
+    ...(normalized.lifecycleTags ?? []),
+    ...(normalized.organizationalTags ?? []),
+  ];
+  if (!all.length) return "";
+  return `**Tags:** ${all.map((t) => `\`${t}\``).join(" ")}`;
+}
+
 export function generateIntroductionPage(
   doc: Record<string, unknown>,
   baseline: PracticeBaseline,
@@ -292,6 +316,18 @@ export function generateIntroductionPage(
   const citations = (baseline.citations ?? []) as Citation[];
 
   const lines: string[] = [`# ${name}`];
+
+  const metaTop: string[] = [];
+  if (baseline.version) {
+    let versionStr = `Version ${baseline.version}`;
+    if (baseline.schemaVersion) versionStr += ` *(schema ${baseline.schemaVersion})*`;
+    metaTop.push(versionStr);
+  } else if (baseline.schemaVersion) {
+    metaTop.push(`*Schema ${baseline.schemaVersion}*`);
+  }
+  if (baseline.authors?.length) metaTop.push(baseline.authors.join(", "));
+  if (metaTop.length) lines.push("", `*${metaTop.join(" · ")}*`);
+
   if (desc) lines.push("", desc);
 
   const narratives = (doc as any).narratives ?? baseline.narratives;
@@ -302,6 +338,31 @@ export function generateIntroductionPage(
   if (dependencySvg) {
     lines.push("", "## Practice Dependencies", "", dependencySvg);
   }
+
+  const acknowledgements = (baseline.acknowledgements ?? []) as { name: string; description?: string; url?: string }[];
+  if (acknowledgements.length) {
+    lines.push("", "## Acknowledgements", "");
+    for (const ack of acknowledgements) {
+      let entry = `**${ack.name}**`;
+      const ackDesc = String(ack.description ?? "").trim();
+      if (ackDesc) entry += ` — ${ackDesc}`;
+      if (ack.url) entry += ` [Link](${ack.url})`;
+      lines.push(entry, "");
+    }
+  }
+
+  const metaBottom: string[] = [];
+  if (baseline.keywords?.length) {
+    metaBottom.push(baseline.keywords.map(kw => `\`${kw}\``).join(" "));
+  }
+  const dateItems: string[] = [];
+  if (baseline.createdAt) dateItems.push(`Created: ${baseline.createdAt}`);
+  if (baseline.updatedAt) dateItems.push(`Updated: ${baseline.updatedAt}`);
+  if (dateItems.length) metaBottom.push(dateItems.join(" · "));
+  if (metaBottom.length) lines.push("", "---", "", metaBottom.join("  \n"));
+
+  const tagsMd = renderTagsToMd((doc as any).tags ?? baseline.tags);
+  if (tagsMd) lines.push("", tagsMd);
 
   lines.push("");
   return { path: pagePath, content: withToc(lines.join("\n")) };
@@ -352,9 +413,23 @@ export function generateActivitiesOverviewPage(svgContent: string): PageFile {
 
 export function generateReferencesPage(
   citations: Citation[],
+  baseline?: PracticeBaseline,
 ): PageFile {
   const pagePath = elementPath("references");
   const lines: string[] = ["# References"];
+
+  if (baseline) {
+    const metaTop: string[] = [];
+    if (baseline.version) {
+      let versionStr = `Version ${baseline.version}`;
+      if (baseline.schemaVersion) versionStr += ` *(schema ${baseline.schemaVersion})*`;
+      metaTop.push(versionStr);
+    } else if (baseline.schemaVersion) {
+      metaTop.push(`*Schema ${baseline.schemaVersion}*`);
+    }
+    if (baseline.authors?.length) metaTop.push(baseline.authors.join(", "));
+    if (metaTop.length) lines.push("", `*${metaTop.join(" · ")}*`);
+  }
 
   if (!citations.length) {
     lines.push("", "No references.");
@@ -382,6 +457,30 @@ export function generateReferencesPage(
     lines.push(`<a id="${anchor}"></a>`, "", entry || "(No citation details)", "");
   }
 
+  const acknowledgements = (baseline?.acknowledgements ?? []) as { name: string; description?: string; url?: string }[];
+  if (acknowledgements.length) {
+    lines.push("## Acknowledgements", "");
+    for (const ack of acknowledgements) {
+      let entry = `**${ack.name}**`;
+      const desc = String(ack.description ?? "").trim();
+      if (desc) entry += ` — ${desc}`;
+      if (ack.url) entry += ` [Link](${ack.url})`;
+      lines.push(entry, "");
+    }
+  }
+
+  if (baseline) {
+    const metaBottom: string[] = [];
+    if (baseline.keywords?.length) {
+      metaBottom.push(baseline.keywords.map(kw => `\`${kw}\``).join(" "));
+    }
+    const dateItems: string[] = [];
+    if (baseline.createdAt) dateItems.push(`Created: ${baseline.createdAt}`);
+    if (baseline.updatedAt) dateItems.push(`Updated: ${baseline.updatedAt}`);
+    if (dateItems.length) metaBottom.push(dateItems.join(" · "));
+    if (metaBottom.length) lines.push("---", "", metaBottom.join("  \n"));
+  }
+
   return { path: pagePath, content: withToc(lines.join("\n")) };
 }
 
@@ -398,6 +497,24 @@ export function generatePatternPage(
 
   if (pattern.narratives?.length) {
     lines.push("", renderNarrativesToMd(pattern.narratives, 2, pagePath, citations));
+  }
+
+  // Alpha instance names
+  if (pattern.alphaInstanceNames?.length) {
+    lines.push("", "## Concern Instances", "");
+    for (const inst of pattern.alphaInstanceNames) {
+      const instDesc = practiceElementDescriptionForDisplay(inst);
+      lines.push(`- **${inst.name}** (${display("Alpha", inst.alphaName)})${instDesc ? `: ${instDesc}` : ""}`);
+    }
+  }
+
+  // Work product instance names
+  if (pattern.workProductInstanceNames?.length) {
+    lines.push("", "## Work Product Instances", "");
+    for (const inst of pattern.workProductInstanceNames) {
+      const instDesc = practiceElementDescriptionForDisplay(inst);
+      lines.push(`- **${inst.name}** (${display("WorkProduct", inst.workProductName)})${instDesc ? `: ${instDesc}` : ""}`);
+    }
   }
 
   const views = [...pattern.patternViews].sort((a, b) => (a.seq ?? 0) - (b.seq ?? 0));
@@ -457,15 +574,35 @@ export function generatePatternPage(
   // Pattern view details
   for (const v of views) {
     const proseTexts = patternViewNarrativeContextProseTexts(v);
-    if (proseTexts.length) {
-      lines.push("", `### ${display("PatternView", v.name)}`, "");
+    const hasExtras = v.activitySpaces?.length || v.activities?.length || v.alphaInstances?.length;
+    if (proseTexts.length || hasExtras) {
+      lines.push("", `### ${display("PatternView", v.name)}`);
       const vDesc = practiceElementDescriptionForDisplay(v);
-      if (vDesc) lines.push(vDesc, "");
-      for (let i = 0; i < proseTexts.length; i++) {
-        lines.push(`${i + 1}. ${stripHtml(proseTexts[i])}`);
+      if (vDesc) lines.push("", vDesc);
+      if (proseTexts.length) {
+        lines.push("");
+        for (let i = 0; i < proseTexts.length; i++) {
+          lines.push(`${i + 1}. ${stripHtml(proseTexts[i])}`);
+        }
+      }
+      if (v.activitySpaces?.length) {
+        lines.push("", "**Activity Spaces:** " + v.activitySpaces.map((as) => display("ActivitySpace", as)).join(", "));
+      }
+      if (v.activities?.length) {
+        lines.push("", "**Activities:** " + v.activities.map((a) => display("Activity", a)).join(", "));
+      }
+      if (v.alphaInstances?.length) {
+        lines.push("", "**Instance Outcomes:**", "");
+        for (const inst of v.alphaInstances) {
+          const instDesc = practiceElementDescriptionForDisplay(inst);
+          lines.push(`- **${inst.name}**${inst.stateName ? ` — ${inst.stateName}` : ""}${instDesc ? `: ${instDesc}` : ""}`);
+        }
       }
     }
   }
+
+  const tagsMd = renderTagsToMd(pattern.tags);
+  if (tagsMd) lines.push("", tagsMd);
 
   lines.push("");
   return { path: pagePath, content: withToc(lines.join("\n")) };
@@ -519,7 +656,11 @@ export function generateAlphaPage(
   if (alphaInstances.length) {
     lines.push("", "## Common Examples", "");
     for (const inst of alphaInstances) {
-      lines.push(`- **${inst.name}:** ${inst.description ?? ""}`);
+      let line = `- **${inst.name}:** ${inst.description ?? ""}`;
+      if (inst.links?.length) {
+        line += " " + inst.links.map((l: any) => l.uri ? `[${l.name}](${l.uri})` : l.name).join(", ");
+      }
+      lines.push(line);
     }
   }
 
@@ -557,6 +698,29 @@ export function generateAlphaPage(
     }
   }
 
+  // Supporting alphas
+  if (alpha.supportingAlphas?.length) {
+    lines.push("", "## Supporting Concerns", "");
+    for (const sa of alpha.supportingAlphas) {
+      const saObj = baseline.alphas.find((a) => a.name === sa);
+      if (saObj) {
+        const saPath = elementPath("alpha", sa, saObj.focusName);
+        lines.push(`- ${mdLink(display("Alpha", sa), pagePath, saPath)}`);
+      } else {
+        lines.push(`- ${display("Alpha", sa)}`);
+      }
+    }
+  }
+
+  // Variants
+  if (alpha.variants?.length) {
+    lines.push("", "## Variants", "");
+    for (const variant of alpha.variants) {
+      const vDesc = practiceElementDescriptionForDisplay(variant);
+      lines.push(`- **${display("Alpha", variant.name)}**${vDesc ? `: ${vDesc}` : ""}`);
+    }
+  }
+
   // States table
   const states = [...alpha.states].sort((a, b) => (a.seq ?? 0) - (b.seq ?? 0));
   if (states.length) {
@@ -570,6 +734,14 @@ export function generateAlphaPage(
       const stateDesc = practiceElementDescriptionForDisplay(state);
       if (stateDesc) lines.push("", stateDesc);
 
+      if (state.narratives?.length) {
+        lines.push("", renderNarrativesToMd(state.narratives, 4, pagePath, citations));
+      }
+
+      if (state.contributesToState) {
+        lines.push("", `**Contributes to:** ${display("State", state.contributesToState)}`);
+      }
+
       const stateBgMd = renderBackgroundMd(state.background, 4, baseline, display, pagePath, workProducts);
       if (stateBgMd) lines.push("", stateBgMd);
 
@@ -581,6 +753,9 @@ export function generateAlphaPage(
         lines.push("", "**Checklist:**", "");
         for (const item of checklist) {
           lines.push(`- [ ] **${item.name}**${item.description ? `: ${item.description}` : ""}`);
+          if (item.narratives?.length) {
+            lines.push("", renderNarrativesToMd(item.narratives, 5, pagePath, citations));
+          }
           const itemTestMd = renderTestCompactMd(item.test);
           if (itemTestMd) lines.push("", itemTestMd);
           const itemExMd = renderExamplesMd(item.examples, 5);
@@ -618,7 +793,7 @@ export function generateAlphaPage(
             ? mdLinkWithAnchor(display("LevelOfDetail", ev.levelOfDetailName), pagePath, wpPath, anchor)
             : display("LevelOfDetail", ev.levelOfDetailName);
           lines.push(
-            `- ${mdLink(display("WorkProduct", ev.workProductName), pagePath, wpPath)} — ${lodText}`,
+            `- ${mdLink(qualifiedWpName(ev.workProductName, display, workProducts), pagePath, wpPath)} — ${lodText}`,
           );
         }
       }
@@ -626,6 +801,9 @@ export function generateAlphaPage(
       lines.push("");
     }
   }
+
+  const tagsMd = renderTagsToMd(alpha.tags);
+  if (tagsMd) lines.push("", tagsMd);
 
   return { path: pagePath, content: withToc(lines.join("\n")) };
 }
@@ -713,8 +891,29 @@ export function generateActivitySpacePage(
     }
   }
 
+  // Involves
+  if (space.involves?.length) {
+    lines.push("", "## Involves", "");
+    for (const pgName of space.involves) {
+      const pgPath = elementPath("personaGroup", pgName);
+      lines.push(`- ${mdLink(display("PersonaGroup", pgName), pagePath, pgPath)}`);
+    }
+  }
+
+  // Required Competencies
+  if (space.requiredCompetencies?.length) {
+    lines.push("", "## Required Competencies", "");
+    for (const cn of space.requiredCompetencies) {
+      const compPath = elementPath("competency", cn);
+      lines.push(`- ${mdLink(display("Competency", cn), pagePath, compPath)}`);
+    }
+  }
+
   const bgMd = renderBackgroundMd(space.background, 2, baseline, display, pagePath, workProducts);
   if (bgMd) lines.push("", bgMd);
+
+  const tagsMd = renderTagsToMd(space.tags);
+  if (tagsMd) lines.push("", tagsMd);
 
   lines.push("");
   return { path: pagePath, content: withToc(lines.join("\n")) };
@@ -767,7 +966,7 @@ export function generateActivityPage(
         ? mdLinkWithAnchor(display("LevelOfDetail", wo.levelOfDetailName), pagePath, wpPath, anchor)
         : display("LevelOfDetail", wo.levelOfDetailName);
       lines.push(
-        `- ${mdLink(display("WorkProduct", wo.workProductName), pagePath, wpPath)} — ${lodText}`,
+        `- ${mdLink(qualifiedWpName(wo.workProductName, display, workProducts), pagePath, wpPath)} — ${lodText}`,
       );
     }
   }
@@ -809,6 +1008,9 @@ export function generateActivityPage(
   const exMd = renderExamplesMd(activity.examples, 2);
   if (exMd) lines.push("", exMd);
 
+  const tagsMd = renderTagsToMd(activity.tags);
+  if (tagsMd) lines.push("", tagsMd);
+
   lines.push("");
   return { path: pagePath, content: withToc(lines.join("\n")) };
 }
@@ -826,6 +1028,23 @@ export function generateWorkProductPage(
   const lines: string[] = [`# ${iconPrefix}${displayName}`];
   const desc = practiceElementDescriptionForDisplay(wp);
   if (desc) lines.push("", desc);
+  if (wp.partOf) {
+    const parentPath = elementPath("workProduct", wp.partOf);
+    lines.push("", `**Part of:** ${mdLink(display("WorkProduct", wp.partOf), pagePath, parentPath)}`);
+  }
+  const childWps = (baseline.workProducts ?? []).filter((w) => w.partOf === wp.name);
+  if (childWps.length) {
+    lines.push("", "## Includes", "");
+    for (const child of childWps) {
+      const childPath = elementPath("workProduct", child.name);
+      const childDesc = practiceElementDescriptionForDisplay(child);
+      lines.push(`- ${mdLink(display("WorkProduct", child.name), pagePath, childPath)}${childDesc ? ` — ${childDesc}` : ""}`);
+    }
+  }
+
+  const templatePath = `docs/templates/${slugify(wp.name)}.md`;
+  lines.push("", mdLink("Download document template", pagePath, templatePath));
+
   const citations = (baseline.citations ?? []) as Citation[];
 
   if (wp.narratives?.length) {
@@ -839,7 +1058,11 @@ export function generateWorkProductPage(
   if (wpInstances.length) {
     lines.push("", "## Common Examples", "");
     for (const inst of wpInstances) {
-      lines.push(`- **${inst.name}:** ${inst.description ?? ""}`);
+      let line = `- **${inst.name}:** ${inst.description ?? ""}`;
+      if (inst.links?.length) {
+        line += " " + inst.links.map((l: any) => l.uri ? `[${l.name}](${l.uri})` : l.name).join(", ");
+      }
+      lines.push(line);
     }
   }
 
@@ -855,6 +1078,10 @@ export function generateWorkProductPage(
       const lodDesc = practiceElementDescriptionForDisplay(lod);
       if (lodDesc) lines.push("", lodDesc);
 
+      if (lod.narratives?.length) {
+        lines.push("", renderNarrativesToMd(lod.narratives, 4, pagePath, citations));
+      }
+
       const lodBgMd = renderBackgroundMd(lod.background, 4, baseline, display, pagePath, [wp]);
       if (lodBgMd) lines.push("", lodBgMd);
 
@@ -866,6 +1093,9 @@ export function generateWorkProductPage(
         lines.push("", "**Checklist:**", "");
         for (const item of checklist) {
           lines.push(`- [ ] **${item.name}**${item.description ? `: ${item.description}` : ""}`);
+          if (item.narratives?.length) {
+            lines.push("", renderNarrativesToMd(item.narratives, 5, pagePath, citations));
+          }
           const itemTestMd = renderTestCompactMd(item.test);
           if (itemTestMd) lines.push("", itemTestMd);
           const itemExMd = renderExamplesMd(item.examples, 5);
@@ -911,6 +1141,9 @@ export function generateWorkProductPage(
     }
   }
 
+  const tagsMd = renderTagsToMd(wp.tags);
+  if (tagsMd) lines.push("", tagsMd);
+
   return { path: pagePath, content: withToc(lines.join("\n")) };
 }
 
@@ -941,6 +1174,9 @@ export function generatePersonaGroupPage(
       lines.push(`- ${mdLink(display("Persona", p.name), pagePath, pPath)}`);
     }
   }
+
+  const tagsMd = renderTagsToMd((group as any).tags);
+  if (tagsMd) lines.push("", tagsMd);
 
   lines.push("");
   return { path: pagePath, content: withToc(lines.join("\n")) };
@@ -973,6 +1209,9 @@ export function generatePersonaPage(
     }
   }
 
+  const tagsMd = renderTagsToMd(persona.tags);
+  if (tagsMd) lines.push("", tagsMd);
+
   lines.push("");
   return { path: pagePath, content: withToc(lines.join("\n")) };
 }
@@ -997,6 +1236,9 @@ export function generateCompetencyPage(
       lines.push(`| ${lv.level} | ${lv.name} | ${lvDesc} |`);
     }
   }
+
+  const tagsMd = renderTagsToMd(competency.tags);
+  if (tagsMd) lines.push("", tagsMd);
 
   lines.push("");
   return { path: pagePath, content: withToc(lines.join("\n")) };

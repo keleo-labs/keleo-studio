@@ -19,9 +19,12 @@ import { practiceElementDescriptionForDisplay } from "@/lib/ir";
 import { PatternTable } from "./PatternTable";
 import { OverviewDiagram } from "./OverviewDiagram";
 import { AliasedName } from "../common/AliasedName";
+import { WorkProductQualifiedName } from "../common/WorkProductQualifiedName";
 import { AlphaStateTable } from "./AlphaStateTable";
 import { WorkProductLODTable } from "./WorkProductLODTable";
 import { BackgroundBlock, TestBlock, ExamplesBlock } from "./GherkinBlock";
+import { NarrativesBlock } from "./NarrativesBlock";
+import { ElementTagsBadges } from "./ElementTagsBadges";
 
 interface ElementDetailsPanelProps {
   selectedElement: {
@@ -41,100 +44,42 @@ interface ElementDetailsPanelProps {
   onSetSelectedElement?: (element: string | null) => void;
 }
 
-// Helper function to render narratives
-function renderNarratives(narratives: any[], baseline: PracticeBaseline) {
+
+function CollapsibleSection({ title, count, children }: { title: string; count: number; children: React.ReactNode }) {
+  const [expanded, setExpanded] = useState(false);
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-      {narratives.map((narrative: any, idx: number) => (
-        <div key={idx}>
-          <Title headingLevel="h3" size="md" style={{ marginBottom: "0.5rem", fontWeight: 600 }}>
-            {narrative.name}
-          </Title>
-          <p style={{ fontSize: "0.875rem", lineHeight: "1.6", color: "var(--pf-v6-global--Color--100)", marginBottom: "0.75rem" }}>
-            {narrative.description}
-          </p>
-          {narrative.narrativeContexts && narrative.narrativeContexts.length > 0 && (
-            <ol style={{
-              paddingLeft: "1.5rem",
-              listStyleType: "decimal",
-              margin: 0,
-              marginBottom: "0.75rem",
-            }}>
-              {narrative.narrativeContexts.map((ctx: any, ctxIdx: number) => {
-                const contextText = ctx.context || "";
-                // Detect if context contains markup (HTML tags) or multiple lines
-                const hasMarkup = /<[^>]+>/.test(contextText);
-                const hasLineBreaks = contextText.includes('\n');
-
-                return (
-                  <li
-                    key={ctxIdx}
-                    style={{
-                      fontSize: "0.75rem",
-                      lineHeight: "1.6",
-                      color: "var(--pf-v6-global--Color--100)",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    {hasMarkup ? (
-                      <div dangerouslySetInnerHTML={{ __html: contextText }} />
-                    ) : hasLineBreaks ? (
-                      contextText.split('\n').map((line, lineIdx) => (
-                        <div key={lineIdx}>{line}</div>
-                      ))
-                    ) : (
-                      contextText
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
-          )}
-          {narrative.citationNames && narrative.citationNames.length > 0 && (
-            <div style={{ marginTop: "0.75rem" }}>
-              <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)", marginBottom: "0.5rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                Further Reading
-              </div>
-              <ul style={{ listStyleType: "disc", paddingLeft: "1.5rem", margin: 0 }}>
-                {narrative.citationNames.map((citationName: string, citIdx: number) => {
-                  const citation = baseline.citations?.find((c: any) => c.name === citationName);
-                  if (!citation) return null;
-
-                  const formattedAuthors = citation.authors?.join(", ") || "";
-                  const citationText = `${citation.name} (${formattedAuthors}, ${citation.date})`;
-
-                  return (
-                    <li key={citIdx} style={{ marginBottom: "0.375rem" }}>
-                      {citation.url ? (
-                        <a
-                          href={citation.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            fontSize: "0.75rem",
-                            color: "var(--pf-v6-global--link--Color)",
-                            textDecoration: "none",
-                            display: "flex",
-                            alignItems: "baseline",
-                            gap: "0.25rem",
-                          }}
-                        >
-                          <span>{citationText}</span>
-                          <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: "0.625rem" }} />
-                        </a>
-                      ) : (
-                        <span style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--100)" }}>
-                          {citationText}
-                        </span>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
-        </div>
-      ))}
+    <div style={{ marginTop: "1rem" }}>
+      <button
+        onClick={() => setExpanded(!expanded)}
+        style={{
+          background: "none",
+          border: "none",
+          padding: 0,
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: "0.375rem",
+          fontSize: "0.75rem",
+          fontWeight: 600,
+          color: "var(--pf-v6-global--Color--200)",
+          marginBottom: expanded ? "0.5rem" : 0,
+        }}
+      >
+        <span style={{ transform: expanded ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.15s", display: "inline-block" }}>
+          &#9654;
+        </span>
+        {title}
+        <span style={{
+          fontSize: "0.625rem",
+          backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+          borderRadius: "8px",
+          padding: "0.0625rem 0.375rem",
+          fontWeight: 400,
+        }}>
+          {count}
+        </span>
+      </button>
+      {expanded && children}
     </div>
   );
 }
@@ -368,6 +313,76 @@ function DownloadStaticSiteButton({ libraryId }: { libraryId: string }) {
   );
 }
 
+function DownloadTemplateButton({ libraryId, wpName }: { libraryId: string; wpName: string }) {
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownload = async () => {
+    if (downloading) return;
+    setDownloading(true);
+    try {
+      const res = await fetch(`/api/documents/${libraryId}/work-product-template?wp=${encodeURIComponent(wpName)}`);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: "Download failed" }));
+        alert(err.error || "Download failed");
+        return;
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const disposition = res.headers.get("Content-Disposition");
+      const filenameMatch = disposition?.match(/filename="(.+)"/);
+      a.download = filenameMatch?.[1] ?? "template.md";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch {
+      alert("Download failed");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
+  return (
+    <div style={{ marginTop: "1.5rem" }}>
+      <button
+        onClick={handleDownload}
+        disabled={downloading}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.5rem",
+          padding: "0.5rem 1rem",
+          backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+          border: "1px solid var(--pf-v6-global--BorderColor--100)",
+          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+          cursor: downloading ? "wait" : "pointer",
+          fontSize: "0.8125rem",
+          fontWeight: 500,
+          color: "var(--pf-v6-global--Color--100)",
+          opacity: downloading ? 0.6 : 1,
+          transition: "all 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          if (!downloading) {
+            e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+          }
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--100)";
+        }}
+      >
+        <i className={downloading ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-file-lines"} style={{ fontSize: "0.875rem" }} />
+        <span>{downloading ? "Generating template…" : "Download document template"}</span>
+      </button>
+      <div style={{ marginTop: "0.375rem", fontSize: "0.7rem", color: "var(--pf-v6-global--Color--200)" }}>
+        Generates a Markdown template with guidance from this work product's practice definition.
+      </div>
+    </div>
+  );
+}
+
 export function ElementDetailsPanel({
   selectedElement,
   baseline,
@@ -584,6 +599,37 @@ export function ElementDetailsPanel({
                   >
                     {description}
                   </p>
+                  {type === "workProduct" && data.partOf && (
+                    <div
+                      onClick={() => onSetSelectedElement && onSetSelectedElement(data.partOf)}
+                      style={{
+                        marginTop: "0.5rem",
+                        fontSize: "0.8125rem",
+                        color: "var(--pf-v6-global--Color--200)",
+                        cursor: onSetSelectedElement ? "pointer" : "default",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.25rem",
+                      }}
+                    >
+                      Part of:{" "}
+                      <span
+                        style={{
+                          fontWeight: 600,
+                          color: onSetSelectedElement ? "var(--pf-v6-global--link--Color)" : "var(--pf-v6-global--Color--100)",
+                          transition: "text-decoration 0.2s",
+                        }}
+                        onMouseEnter={(e) => {
+                          if (onSetSelectedElement) e.currentTarget.style.textDecoration = "underline";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.textDecoration = "none";
+                        }}
+                      >
+                        {data.partOf}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 {(() => {
                   // Skip for references view
@@ -668,10 +714,25 @@ export function ElementDetailsPanel({
               </div>
             </div>
 
+            {/* Introduction / References: Version and authors at top */}
+            {(type === "introduction" || type === "references") && (baseline.version || baseline.schemaVersion || (baseline.authors && baseline.authors.length > 0)) && (
+              <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginBottom: "1rem" }}>
+                {baseline.version && (
+                  <span>Version {baseline.version}{baseline.schemaVersion && <span style={{ fontStyle: "italic" }}> (schema {baseline.schemaVersion})</span>}</span>
+                )}
+                {!baseline.version && baseline.schemaVersion && (
+                  <span style={{ fontStyle: "italic" }}>Schema {baseline.schemaVersion}</span>
+                )}
+                {baseline.authors && baseline.authors.length > 0 && (
+                  <span>{baseline.authors.join(", ")}</span>
+                )}
+              </div>
+            )}
+
             {/* Introduction view: Narratives then dependency diagram */}
             {type === "introduction" && data.narratives && data.narratives.length > 0 && (
               <div style={{ marginTop: "2rem", marginBottom: "2rem" }}>
-                {renderNarratives(data.narratives, baseline)}
+                <NarrativesBlock narratives={data.narratives} baseline={baseline} />
               </div>
             )}
 
@@ -688,9 +749,71 @@ export function ElementDetailsPanel({
               </div>
             )}
 
+            {/* Introduction: Acknowledgements */}
+            {type === "introduction" && baseline.acknowledgements && baseline.acknowledgements.length > 0 && (
+              <div style={{ marginTop: "2rem" }}>
+                <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                  Acknowledgements
+                </Title>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  {baseline.acknowledgements.map((ack: any, idx: number) => (
+                    <div key={idx} style={{ fontSize: "0.875rem", lineHeight: "1.6", color: "var(--pf-v6-global--Color--100)" }}>
+                      <span style={{ fontWeight: 600 }}>{ack.name}</span>
+                      {ack.description && (
+                        <span style={{ color: "var(--pf-v6-global--Color--200)" }}> — {ack.description}</span>
+                      )}
+                      {ack.url && (
+                        <a
+                          href={ack.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            marginLeft: "0.375rem",
+                            color: "var(--pf-v6-global--link--Color)",
+                            textDecoration: "none",
+                            fontSize: "0.75rem",
+                          }}
+                        >
+                          <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: "0.625rem" }} />
+                        </a>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Download as static site button - shown at bottom of introduction */}
             {type === "introduction" && libraryId && (
               <DownloadStaticSiteButton libraryId={libraryId} />
+            )}
+
+            {/* Introduction / References: Keywords and dates at bottom */}
+            {(type === "introduction" || type === "references") && (
+              <div style={{ marginTop: "2rem", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
+                {baseline.keywords && baseline.keywords.length > 0 && (
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.375rem", marginBottom: "0.75rem" }}>
+                    {baseline.keywords.map((kw, idx) => (
+                      <span key={idx} style={{
+                        padding: "0.125rem 0.5rem",
+                        backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                        borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                        border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                      }}>
+                        {kw}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <div style={{ display: "flex", gap: "1.5rem" }}>
+                  {baseline.createdAt && (
+                    <span>Created: {new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(new Date(baseline.createdAt))}</span>
+                  )}
+                  {baseline.updatedAt && (
+                    <span>Updated: {new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(new Date(baseline.updatedAt))}</span>
+                  )}
+                </div>
+              </div>
             )}
 
             {/* References view: Alphabetically sorted citations */}
@@ -699,7 +822,7 @@ export function ElementDetailsPanel({
             {/* Narratives first (with contexts and citations) */}
             {data.narratives && data.narratives.length > 0 && (
               <div style={{ marginBottom: "2.5rem" }}>
-                {renderNarratives(data.narratives, baseline)}
+                <NarrativesBlock narratives={data.narratives} baseline={baseline} />
               </div>
             )}
 
@@ -784,6 +907,37 @@ export function ElementDetailsPanel({
             </div>
           )}
 
+          {/* Pattern-specific: Instance names */}
+          {type === "pattern" && data.alphaInstanceNames && data.alphaInstanceNames.length > 0 && (
+            <CollapsibleSection title="Concern Instances" count={data.alphaInstanceNames.length}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                {data.alphaInstanceNames.map((instance: any, idx: number) => (
+                  <div key={idx} style={{ fontSize: "0.8125rem" }}>
+                    <span style={{ fontWeight: 600 }}>{instance.name}</span>
+                    {instance.description && (
+                      <span style={{ color: "var(--pf-v6-global--Color--200)" }}> — {instance.description}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </CollapsibleSection>
+          )}
+
+          {type === "pattern" && data.workProductInstanceNames && data.workProductInstanceNames.length > 0 && (
+            <CollapsibleSection title="Work Product Instances" count={data.workProductInstanceNames.length}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                {data.workProductInstanceNames.map((instance: any, idx: number) => (
+                  <div key={idx} style={{ fontSize: "0.8125rem" }}>
+                    <span style={{ fontWeight: 600 }}>{instance.name}</span>
+                    {instance.description && (
+                      <span style={{ color: "var(--pf-v6-global--Color--200)" }}> — {instance.description}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </CollapsibleSection>
+          )}
+
           {/* Pattern-specific: Full-width table view */}
           {type === "pattern" && hasPatternViews && (
           <div style={{ marginTop: "2rem" }}>
@@ -823,7 +977,7 @@ export function ElementDetailsPanel({
             <>
               {/* Left column: Narratives - 55% (skip for introduction since it's shown above) */}
               <div style={{ flex: "0 0 55%", minWidth: 0 }}>
-                {hasNarratives && type !== "introduction" && renderNarratives(data.narratives, baseline)}
+                {hasNarratives && type !== "introduction" && <NarrativesBlock narratives={data.narratives} baseline={baseline} />}
 
                 {/* ActivitySpace background prerequisites */}
                 {type === "activitySpace" && data.background && (
@@ -833,6 +987,67 @@ export function ElementDetailsPanel({
                       baseline={baseline}
                       onNavigateToElement={(name) => onSetSecondaryElement(name)}
                     />
+                  </div>
+                )}
+
+                {/* ActivitySpace: Required Competencies */}
+                {type === "activitySpace" && data.requiredCompetencies && data.requiredCompetencies.length > 0 && (
+                  <div style={{ marginTop: "1.5rem", marginBottom: "1.5rem" }}>
+                    <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                      Required Competencies
+                    </Title>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.375rem" }}>
+                      {data.requiredCompetencies.map((comp: string, idx: number) => (
+                        <span
+                          key={idx}
+                          style={{
+                            fontSize: "0.75rem",
+                            padding: "0.375rem 0.75rem",
+                            borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                            backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                            color: "var(--pf-v6-global--Color--100)",
+                            border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                          }}
+                        >
+                          {comp}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* ActivitySpace: Involves (persona groups) */}
+                {type === "activitySpace" && data.involves && data.involves.length > 0 && (
+                  <div style={{ marginTop: "1.5rem", marginBottom: "1.5rem" }}>
+                    <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                      Involves
+                    </Title>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.375rem" }}>
+                      {data.involves.map((groupName: string, idx: number) => (
+                        <button
+                          key={idx}
+                          onClick={() => onSetSecondaryElement(groupName)}
+                          style={{
+                            fontSize: "0.75rem",
+                            padding: "0.375rem 0.75rem",
+                            borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                            backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                            color: "var(--pf-v6-global--Color--100)",
+                            border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                            cursor: "pointer",
+                            transition: "all 0.2s",
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = "var(--pf-v6-global--link--Color)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = "var(--pf-v6-global--BorderColor--100)";
+                          }}
+                        >
+                          {groupName}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
 
@@ -1033,8 +1248,8 @@ export function ElementDetailsPanel({
                                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flex: 1, minWidth: 0 }}>
                                   {wpAsset && <IconAsset asset={wpAsset} size={16} style={{ flexShrink: 0 }} />}
                                   <div style={{ fontSize: "0.8125rem", minWidth: 0 }}>
-                                    <div style={{ fontWeight: 600 }}>{wp.workProductName}</div>
-                                    <div style={{ color: "var(--pf-v6-global--Color--200)" }}>→ {wp.levelOfDetailName}</div>
+                                    <WorkProductQualifiedName wpName={wp.workProductName} workProducts={baseline.workProducts} layout="stacked" />
+                                    <div style={{ color: "var(--pf-v6-global--Color--200)" }}>→ <AliasedName kind="levelOfDetail" name={wp.levelOfDetailName} browse={false} /></div>
                                   </div>
                                 </div>
                                 {isSelected && (
@@ -1236,6 +1451,92 @@ export function ElementDetailsPanel({
                 </div>
               )}
 
+              {/* Alpha-specific: Supporting Alphas */}
+              {type === "alpha" && data.supportingAlphas && data.supportingAlphas.length > 0 && (
+                <div style={{ flex: "0 0 45%", minWidth: "15rem", paddingRight: "2rem" }}>
+                  <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                    Supporting Concerns
+                  </Title>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                    {data.supportingAlphas.map((alphaName: string, idx: number) => {
+                      const supportingAlpha = baseline.alphas.find((a) => a.name === alphaName);
+                      const saAssetRef = supportingAlpha?.assetNames?.find((a: any) => a.type === "icon");
+                      const saAsset = saAssetRef ? findAsset(saAssetRef.assetName, assets) : null;
+
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => onSetSecondaryElement(alphaName)}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            padding: "0.75rem",
+                            border: "2px solid var(--pf-v6-global--BorderColor--100)",
+                            borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                            backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                            cursor: "pointer",
+                            textAlign: "left",
+                            width: "100%",
+                            transition: "all 0.2s",
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--100)";
+                          }}
+                        >
+                          {saAsset && <IconAsset asset={saAsset} size={16} style={{ flexShrink: 0 }} />}
+                          <div style={{ fontSize: "0.8125rem", fontWeight: 600 }}>
+                            <AliasedName kind="alpha" name={alphaName} browse={false} />
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Alpha-specific: Variants */}
+              {type === "alpha" && data.variants && data.variants.length > 0 && (
+                <div style={{ flex: "0 0 45%", minWidth: "15rem", paddingRight: "2rem" }}>
+                  <CollapsibleSection title="Variants" count={data.variants.length}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                      {data.variants.map((variant: any) => {
+                        const variantDesc = practiceElementDescriptionForDisplay(variant);
+                        const variantAssetRef = variant.assetNames?.find((a: any) => a.type === "icon");
+                        const variantAsset = variantAssetRef ? findAsset(variantAssetRef.assetName, assets) : null;
+
+                        return (
+                          <div
+                            key={variant.name}
+                            style={{
+                              padding: "0.75rem",
+                              border: "2px solid var(--pf-v6-global--BorderColor--100)",
+                              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                              backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                            }}
+                          >
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: variantDesc ? "0.25rem" : 0 }}>
+                              {variantAsset && <IconAsset asset={variantAsset} size={16} style={{ flexShrink: 0 }} />}
+                              <span style={{ fontSize: "0.8125rem", fontWeight: 600 }}>
+                                <AliasedName kind="alpha" name={variant.name} browse={false} />
+                              </span>
+                            </div>
+                            {variantDesc && (
+                              <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", lineHeight: 1.5 }}>
+                                {variantDesc}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </CollapsibleSection>
+                </div>
+              )}
+
               {hasActivities && (
                 <div style={{ flex: "0 0 45%", minWidth: "15rem", paddingRight: "2rem" }}>
                   {renderActivitiesList(data, assets, onSetSecondaryElement)}
@@ -1257,6 +1558,70 @@ export function ElementDetailsPanel({
               selectedElement={secondaryElementName}
               onSelectElement={onSetSecondaryElement}
             />
+          )}
+
+          {/* WorkProduct-specific: Child work products (those declaring partOf this WP) */}
+          {type === "workProduct" && (() => {
+            const children = baseline.workProducts?.filter((wp) => wp.partOf === data.name) ?? [];
+            if (!children.length) return null;
+
+            return (
+              <div style={{ marginTop: "2rem" }}>
+                <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                  Includes
+                </Title>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  {children.map((child) => {
+                    const childAssetRef = child.assetNames?.find((a: any) => a.type === "icon");
+                    const childAsset = childAssetRef ? findAsset(childAssetRef.assetName, assets) : null;
+                    const childDesc = practiceElementDescriptionForDisplay(child);
+
+                    return (
+                      <button
+                        key={child.name}
+                        onClick={() => onSetSelectedElement && onSetSelectedElement(child.name)}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: "0.5rem",
+                          padding: "0.75rem",
+                          border: "2px solid var(--pf-v6-global--BorderColor--100)",
+                          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                          backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          width: "100%",
+                          transition: "all 0.2s",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--100)";
+                        }}
+                      >
+                        {childAsset && <IconAsset asset={childAsset} size={16} style={{ flexShrink: 0, marginTop: "0.125rem" }} />}
+                        <div style={{ fontSize: "0.8125rem", flex: 1, minWidth: 0 }}>
+                          <div style={{ fontWeight: 600 }}>
+                            <AliasedName kind="workProduct" name={child.name} browse={false} />
+                          </div>
+                          {childDesc && (
+                            <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginTop: "0.25rem", lineHeight: 1.5 }}>
+                              {childDesc}
+                            </div>
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* WorkProduct-specific: Download template button */}
+          {type === "workProduct" && libraryId && (
+            <DownloadTemplateButton libraryId={libraryId} wpName={data.name} />
           )}
 
           {/* WorkProduct-specific: LOD table - shown at bottom after narratives */}
@@ -1488,6 +1853,7 @@ export function ElementDetailsPanel({
             </div>
           )}
 
+            <ElementTagsBadges tags={data.tags} />
           </>
         )}
       </div>

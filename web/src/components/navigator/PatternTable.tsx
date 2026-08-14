@@ -39,8 +39,7 @@ export function PatternTable({
 
   // Helper: Find ultimate root alpha recursively
   const findUltimateRoot = (alphaName: string, visited = new Set<string>()): string => {
-    if (visited.has(alphaName)) {
-      // Cycle detected - return current alpha as root
+    if (visited.has(alphaName) || visited.size > 20) {
       return alphaName;
     }
     visited.add(alphaName);

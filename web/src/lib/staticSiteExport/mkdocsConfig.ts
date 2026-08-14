@@ -136,6 +136,14 @@ export function generateMkdocsYaml(
     }
   }
 
+  // Templates
+  if (workProducts.length) {
+    lines.push(`  - Templates:`);
+    for (const wp of workProducts) {
+      lines.push(`    - ${yamlEscape(display("WorkProduct", wp.name))}: templates/${slugify(wp.name)}.md`);
+    }
+  }
+
   // Personas
   if (personaGroups.length) {
     lines.push(`  - Personas:`);

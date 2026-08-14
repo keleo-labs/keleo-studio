@@ -101,8 +101,8 @@ export function ChecklistStatesField({ value, onChange, availableChecklistNames 
           </select>
           <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
             <InlineTextField
-              value={item.evidenceUri || ""}
-              onChange={(val) => updateItem(idx, "evidenceUri", val)}
+              value={item.evidence?.uri || ""}
+              onChange={(val) => updateItem(idx, "evidence", val ? { name: "Evidence", uri: val } : undefined)}
               placeholder="Evidence URI"
             />
             <button

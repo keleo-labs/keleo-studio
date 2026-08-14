@@ -2,6 +2,7 @@ import type { PracticeBaseline, Asset } from "@/lib/types";
 import type { DisplayAliasFn } from "@/lib/practiceReport/generatePracticeReport";
 import type { DependencyDiagramLayout } from "@/lib/diagrams/dependencyTree";
 import { findIconAsset, renderIconHtml, collectFontCdnUrls } from "./fontIcons";
+import { GRAPH_DEPTH_LIMITS } from "@/lib/core/graphLimits";
 
 const CARD_WIDTH = 180;
 const CARD_HEIGHT = 48;
@@ -87,7 +88,13 @@ function buildAlphaTree(
   startX: number,
   startY: number,
   display: DisplayAliasFn,
+  visited?: Set<string>,
+  depth?: number,
 ): { nodes: AlphaNode[]; totalHeight: number } {
+  const seen = visited ?? new Set<string>();
+  const d = depth ?? 0;
+  if (d > GRAPH_DEPTH_LIMITS.alphaHierarchy) return { nodes: [], totalHeight: 0 };
+
   const mapsToChildren = allAlphas.filter((a) => a.mapsTo === parentName);
   const contributesToChildren = allAlphas.filter((a) => a.contributesTo === parentName);
   const children = [...mapsToChildren, ...contributesToChildren];
@@ -95,6 +102,9 @@ function buildAlphaTree(
   let currentY = startY;
 
   for (const alpha of children) {
+    if (seen.has(alpha.name)) continue;
+    seen.add(alpha.name);
+
     const node: AlphaNode = {
       name: alpha.name,
       displayName: display("Alpha", alpha.name),
@@ -113,6 +123,8 @@ function buildAlphaTree(
         startX + INDENT,
         currentY + CARD_HEIGHT + CARD_GAP,
         display,
+        seen,
+        d + 1,
       );
       node.children = childResult.nodes;
       currentY +=
@@ -307,8 +319,9 @@ function buildMultiColumnTree(
     if (!hasGrandchildren) {
       return { child, slotHeight: CARD_HEIGHT + CARD_GAP, maxDepth: 0 };
     }
+    const measureSeen = new Set<string>([rootAlphaName, child.name]);
     const { nodes: grandchildren, totalHeight: gcHeight } = buildAlphaTree(
-      child.name, allAlphas, INDENT, CARD_HEIGHT + CARD_GAP, display,
+      child.name, allAlphas, INDENT, CARD_HEIGHT + CARD_GAP, display, measureSeen, 2,
     );
     const maxDepth = 1 + Math.max(0, ...grandchildren.map(countDepth));
     return {
@@ -363,11 +376,12 @@ function buildMultiColumnTree(
 
       const hasGrandchildren = allAlphas.some(a => a.contributesTo === child.name || a.mapsTo === child.name);
       if (hasGrandchildren) {
+        const buildSeen = new Set<string>([rootAlphaName, child.name]);
         const childResult = buildAlphaTree(
           child.name, allAlphas,
           currentColX + 2 * INDENT,
           currentY + CARD_HEIGHT + CARD_GAP,
-          display,
+          display, buildSeen, 2,
         );
         node.children = childResult.nodes;
         currentY += CARD_HEIGHT + CARD_GAP + childResult.totalHeight + VERTICAL_PADDING;
