@@ -1,5 +1,6 @@
 import type { BrowseDependencyArtifact } from "@/lib/library/practiceDependencyResolution";
 import type { VersionWarning } from "@/lib/library/dependencyVersionCheck";
+import type { DependencyDiagramLayout } from "@/lib/diagrams/dependencyTree";
 
 export const RESOLVE_PRACTICE_FOR_RENDER_PATH = "/api/documents/resolve-for-render";
 
@@ -8,6 +9,7 @@ export type ResolvePracticeForRenderJson = {
   dependencyArtifacts?: BrowseDependencyArtifact[];
   versionWarnings?: VersionWarning[];
   schemaWarning?: string;
+  dependencyDiagramLayout?: DependencyDiagramLayout;
   error?: string;
 };
 
@@ -18,6 +20,7 @@ export type FetchResolvePracticeForRenderResult = {
   dependencyArtifacts: BrowseDependencyArtifact[];
   versionWarnings: VersionWarning[];
   schemaWarning?: string;
+  dependencyDiagramLayout?: DependencyDiagramLayout;
   error?: string;
 };
 
@@ -37,6 +40,7 @@ export async function fetchResolvePracticeForRender(doc: unknown): Promise<Fetch
     const dependencyArtifacts = Array.isArray(j?.dependencyArtifacts) ? j!.dependencyArtifacts! : emptyArtifacts;
     const versionWarnings = Array.isArray(j?.versionWarnings) ? j!.versionWarnings! : [];
     const schemaWarning = typeof j?.schemaWarning === "string" ? j.schemaWarning : undefined;
+    const dependencyDiagramLayout = j?.dependencyDiagramLayout ?? undefined;
     if (!res.ok) {
       return {
         ok: false,
@@ -44,6 +48,7 @@ export async function fetchResolvePracticeForRender(doc: unknown): Promise<Fetch
         dependencyArtifacts,
         versionWarnings,
         schemaWarning,
+        dependencyDiagramLayout,
         error: typeof j?.error === "string" ? j.error : `Library merge failed (${res.status}).`,
       };
     }
@@ -54,6 +59,7 @@ export async function fetchResolvePracticeForRender(doc: unknown): Promise<Fetch
       dependencyArtifacts,
       versionWarnings,
       schemaWarning,
+      dependencyDiagramLayout,
       error: typeof j?.error === "string" ? j.error : undefined,
     };
   } catch (e) {

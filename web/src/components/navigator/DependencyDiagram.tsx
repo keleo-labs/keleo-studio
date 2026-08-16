@@ -61,18 +61,34 @@ export function DependencyDiagram({
           </g>
         ))}
 
-        {/* Layer 2: Edges */}
+        {/* Layer 2: Edges — perpendicular-tangent bezier curves */}
         {layout.edges.map((edge) => {
           const dx = Math.abs(edge.x2 - edge.x1);
           const dy = Math.abs(edge.y2 - edge.y1);
-          let d: string;
-          if (dx >= dy) {
-            const midX = (edge.x1 + edge.x2) / 2;
-            d = `M ${edge.x1} ${edge.y1} C ${midX} ${edge.y1}, ${midX} ${edge.y2}, ${edge.x2} ${edge.y2}`;
-          } else {
-            const midY = (edge.y1 + edge.y2) / 2;
-            d = `M ${edge.x1} ${edge.y1} C ${edge.x1} ${midY}, ${edge.x2} ${midY}, ${edge.x2} ${edge.y2}`;
+          const span = Math.max(dx, dy, 1);
+          const offset = span * 0.45;
+
+          // Control point 1: offset from start in the exit direction
+          let cp1x = edge.x1;
+          let cp1y = edge.y1;
+          switch (edge.exitDir) {
+            case "right":  cp1x += offset; break;
+            case "left":   cp1x -= offset; break;
+            case "bottom": cp1y += offset; break;
+            case "top":    cp1y -= offset; break;
           }
+
+          // Control point 2: offset from end in the reverse of entry direction
+          let cp2x = edge.x2;
+          let cp2y = edge.y2;
+          switch (edge.entryDir) {
+            case "left":   cp2x -= offset; break;
+            case "right":  cp2x += offset; break;
+            case "top":    cp2y -= offset; break;
+            case "bottom": cp2y += offset; break;
+          }
+
+          const d = `M ${edge.x1} ${edge.y1} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${edge.x2} ${edge.y2}`;
           return (
             <path
               key={`edge-${edge.fromName}-${edge.toName}`}
@@ -162,21 +178,36 @@ export function DependencyDiagram({
                       flexShrink: 0,
                     }}
                   />
-                  <span
-                    style={{
-                      fontSize: "0.6875rem",
-                      fontWeight: 600,
-                      color: "var(--pf-v6-global--Color--100, #151515)",
-                      overflow: "hidden",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                      lineHeight: 1.3,
-                    }}
-                    title={node.name}
-                  >
-                    {node.name}
-                  </span>
+                  <div style={{ overflow: "hidden", minWidth: 0 }}>
+                    <span
+                      style={{
+                        fontSize: "0.6875rem",
+                        fontWeight: 600,
+                        color: "var(--pf-v6-global--Color--100, #151515)",
+                        overflow: "hidden",
+                        display: "-webkit-box",
+                        WebkitLineClamp: node.version ? 1 : 2,
+                        WebkitBoxOrient: "vertical",
+                        lineHeight: 1.3,
+                      }}
+                      title={node.name}
+                    >
+                      {node.name}
+                    </span>
+                    {node.version && (
+                      <span
+                        style={{
+                          display: "block",
+                          fontSize: "0.5625rem",
+                          color: "var(--pf-v6-global--Color--200, #6a6e73)",
+                          lineHeight: 1.2,
+                          marginTop: "1px",
+                        }}
+                      >
+                        v{node.version}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </foreignObject>
             </g>

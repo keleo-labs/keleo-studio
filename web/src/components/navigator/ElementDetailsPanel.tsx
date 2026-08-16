@@ -1,13 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Title } from "@patternfly/react-core";
 import type { PracticeBaseline, Asset } from "@/lib/types";
 import type { BrowseDependencyArtifact } from "@/lib/library/practiceDependencyResolution";
-import { buildLibraryLookupIndex } from "@/lib/library/practiceDependencyResolution";
-import type { LibraryLookupIndex } from "@/lib/library/practiceDependencyResolution";
-import { buildDependencyTree, computeDependencyLayout } from "@/lib/diagrams/dependencyTree";
+import type { DependencyDiagramLayout } from "@/lib/diagrams/dependencyTree";
 import { DependencyDiagram } from "./DependencyDiagram";
 import type {
   FocusGroup as AlphaScoreFocusGroup,
@@ -35,6 +33,7 @@ interface ElementDetailsPanelProps {
   baseline: PracticeBaseline;
   libraryId: string | null;
   dependencyArtifacts: BrowseDependencyArtifact[];
+  dependencyDiagramLayout?: DependencyDiagramLayout;
   mode: "concerns" | "activities";
   alphaScores: Map<string, AlphaScoreFocusGroup>;
   activitySpaceScores?: Map<string, ActivitySpaceFocusGroup>;
@@ -388,6 +387,7 @@ export function ElementDetailsPanel({
   baseline,
   libraryId,
   dependencyArtifacts,
+  dependencyDiagramLayout,
   mode,
   alphaScores,
   activitySpaceScores,
@@ -409,45 +409,46 @@ export function ElementDetailsPanel({
     onSetSecondaryElement(elementName);
   };
 
-  // State to hold the practice library ID lookup and library index for transitive deps
+  // Practice library ID lookup for generating links to other practices
   const [practiceLibraryIds, setPracticeLibraryIds] = useState<Record<string, string>>({});
-  const [libraryIndex, setLibraryIndex] = useState<LibraryLookupIndex | null>(null);
 
-  // Fetch library data when component mounts
   useEffect(() => {
-    async function fetchPracticeData() {
+    async function fetchPracticeIds() {
       try {
-        const response = await fetch('/api/documents?withBody=1');
-        if (!response.ok) {
-          console.error('Failed to fetch documents:', response.status);
-          return;
-        }
-        const data = await response.json();
+        const [flatRes, indexRes] = await Promise.all([
+          fetch('/api/documents?details=1'),
+          fetch('/api/library/index'),
+        ]);
 
         const idMap: Record<string, string> = {};
-        const bodies: unknown[] = [];
-        for (const doc of data.documents || []) {
-          if (doc.body?.name) {
-            idMap[doc.body.name] = doc.id;
-          }
-          if (doc.body) {
-            bodies.push(doc.body);
+
+        if (flatRes.ok) {
+          const data = await flatRes.json();
+          for (const doc of data.documents || []) {
+            if (doc.displayName) {
+              idMap[doc.displayName] = doc.id;
+            }
           }
         }
+
+        if (indexRes.ok) {
+          const indexData = await indexRes.json();
+          for (const entry of indexData.entries || []) {
+            if (entry.name && !idMap[entry.name]) {
+              idMap[entry.name] = `bundle:${entry.activeBundleSlug}/${entry.activeDocumentPath}`;
+            }
+          }
+        }
+
         setPracticeLibraryIds(idMap);
-        setLibraryIndex(buildLibraryLookupIndex(bodies));
       } catch (err) {
         console.error('Failed to fetch practice library data:', err);
       }
     }
-    fetchPracticeData();
+    fetchPracticeIds();
   }, []);
 
-  const diagramLayout = useMemo(() => {
-    if (!selectedElement || selectedElement.type !== "introduction" || !libraryIndex) return null;
-    const tree = buildDependencyTree(selectedElement.data, libraryIndex);
-    return computeDependencyLayout(tree);
-  }, [selectedElement, libraryIndex]);
+  const diagramLayout = selectedElement?.type === "introduction" ? dependencyDiagramLayout : undefined;
 
   if (!selectedElement) {
     return (
@@ -679,12 +680,6 @@ export function ElementDetailsPanel({
                   // Look up the practice's library ID by name
                   const practiceId = practiceLibraryIds[practiceName];
 
-                  console.log('Looking up practice:', {
-                    practiceName,
-                    foundId: practiceId,
-                    availableIds: Object.keys(practiceLibraryIds)
-                  });
-
                   // If practice not found in library, show name without edit button
                   if (!practiceId) {
                     return (
@@ -721,7 +716,14 @@ export function ElementDetailsPanel({
                         {practiceName}
                       </span>
                       <Link
-                        href={`/practice-author?libraryId=${encodeURIComponent(practiceId)}`}
+                        href={practiceId.startsWith('bundle:')
+                          ? (() => {
+                              const ref = practiceId.slice(7);
+                              const slashIdx = ref.indexOf('/');
+                              return `/navigator?bundle=${encodeURIComponent(ref.slice(0, slashIdx))}&path=${encodeURIComponent(ref.slice(slashIdx + 1))}&selected=__introduction__`;
+                            })()
+                          : `/practice-author?libraryId=${encodeURIComponent(practiceId)}`
+                        }
                         style={{
                           color: "var(--pf-v6-global--link--Color)",
                           textDecoration: "none",

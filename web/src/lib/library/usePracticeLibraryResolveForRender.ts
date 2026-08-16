@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { BrowseDependencyArtifact } from "@/lib/library/practiceDependencyResolution";
 import type { VersionWarning } from "@/lib/library/dependencyVersionCheck";
+import type { DependencyDiagramLayout } from "@/lib/diagrams/dependencyTree";
 import { fetchResolvePracticeForRender } from "@/lib/library/resolvePracticeForRenderApi";
 
 /**
@@ -15,11 +16,11 @@ export function usePracticeLibraryResolveForRender(
   enabled: boolean,
 ): {
   loading: boolean;
-  /** Populated when the last request succeeded; otherwise `undefined`. */
   resolved: unknown | undefined;
   dependencyArtifacts: BrowseDependencyArtifact[];
   versionWarnings: VersionWarning[];
   schemaWarning?: string;
+  dependencyDiagramLayout?: DependencyDiagramLayout;
   error: string | null;
 } {
   const [loading, setLoading] = useState(false);
@@ -27,6 +28,7 @@ export function usePracticeLibraryResolveForRender(
   const [dependencyArtifacts, setDependencyArtifacts] = useState<BrowseDependencyArtifact[]>([]);
   const [versionWarnings, setVersionWarnings] = useState<VersionWarning[]>([]);
   const [schemaWarning, setSchemaWarning] = useState<string | undefined>(undefined);
+  const [dependencyDiagramLayout, setDependencyDiagramLayout] = useState<DependencyDiagramLayout | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -36,6 +38,7 @@ export function usePracticeLibraryResolveForRender(
       setDependencyArtifacts([]);
       setVersionWarnings([]);
       setSchemaWarning(undefined);
+      setDependencyDiagramLayout(undefined);
       setError(null);
       return;
     }
@@ -46,6 +49,7 @@ export function usePracticeLibraryResolveForRender(
     setDependencyArtifacts([]);
     setVersionWarnings([]);
     setSchemaWarning(undefined);
+    setDependencyDiagramLayout(undefined);
     setLoading(true);
 
     void (async () => {
@@ -54,6 +58,7 @@ export function usePracticeLibraryResolveForRender(
       setDependencyArtifacts(result.dependencyArtifacts);
       setVersionWarnings(result.versionWarnings);
       setSchemaWarning(result.schemaWarning);
+      setDependencyDiagramLayout(result.dependencyDiagramLayout);
       setLoading(false);
       if (result.ok) {
         setResolved(result.resolved);
@@ -69,5 +74,5 @@ export function usePracticeLibraryResolveForRender(
     };
   }, [doc, enabled]);
 
-  return { loading, resolved, dependencyArtifacts, versionWarnings, schemaWarning, error };
+  return { loading, resolved, dependencyArtifacts, versionWarnings, schemaWarning, dependencyDiagramLayout, error };
 }

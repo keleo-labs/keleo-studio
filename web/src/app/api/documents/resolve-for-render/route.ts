@@ -11,6 +11,7 @@ import { classifyLibraryRoot } from "@/lib/library/classify";
 import { normalizePracticeBody } from "@/lib/core/normalizePractice";
 import { checkSchemaCompatibility } from "@/lib/core/schemaVersion";
 import { collectDependencyVersionWarnings } from "@/lib/library/dependencyVersionCheck";
+import { buildDependencyTree, computeDependencyLayout } from "@/lib/diagrams/dependencyTree";
 
 /**
  * POST JSON `{ doc }` — for Practice documents with `baselinePracticeName` and/or `practiceDependencyNames`,
@@ -48,6 +49,8 @@ export async function POST(req: Request) {
     const docObj = doc as Record<string, unknown>;
     const schemaCheck = checkSchemaCompatibility(docObj.schemaVersion as string | undefined);
     const versionWarnings = collectDependencyVersionWarnings(doc, index);
+    const depTree = buildDependencyTree(docObj, index);
+    const dependencyDiagramLayout = computeDependencyLayout(depTree);
 
     if (rootKind === "method" && methodNeedsLibraryResolution(doc)) {
       const resolved = resolveDocumentWithLibraryIndex(doc, index);
@@ -56,6 +59,7 @@ export async function POST(req: Request) {
         dependencyArtifacts: [],
         versionWarnings,
         schemaWarning: schemaCheck.warning,
+        dependencyDiagramLayout,
       });
     }
 
@@ -66,6 +70,7 @@ export async function POST(req: Request) {
       dependencyArtifacts,
       versionWarnings,
       schemaWarning: schemaCheck.warning,
+      dependencyDiagramLayout,
     });
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Resolution failed";

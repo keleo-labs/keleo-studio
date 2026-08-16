@@ -20,6 +20,10 @@ export function PracticeNavigatorClient() {
   const router = useRouter();
 
   const libraryId = params.get("libraryId");
+  const bundleSlug = params.get("bundle");
+  const bundlePath = params.get("path");
+  const hasDocument = !!(libraryId || (bundleSlug && bundlePath));
+
   const mode = (params.get("mode") || "concerns") as NavigatorMode;
   const selectedFocus = params.get("focus");
   const selectedElement = params.get("selected") || "__introduction__";
@@ -31,7 +35,7 @@ export function PracticeNavigatorClient() {
   const [docError, setDocError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!libraryId) {
+    if (!hasDocument) {
       setDocLoading(false);
       return;
     }
@@ -40,7 +44,11 @@ export function PracticeNavigatorClient() {
     setDocLoading(true);
     setDocError(null);
 
-    fetch(`/api/documents/${encodeURIComponent(libraryId)}`)
+    const url = libraryId
+      ? `/api/documents/${encodeURIComponent(libraryId)}`
+      : `/api/library/document?bundle=${encodeURIComponent(bundleSlug!)}&path=${encodeURIComponent(bundlePath!)}`;
+
+    fetch(url)
       .then(async (res) => {
         if (cancelled) return;
         if (!res.ok) {
@@ -59,7 +67,7 @@ export function PracticeNavigatorClient() {
     return () => {
       cancelled = true;
     };
-  }, [libraryId]);
+  }, [libraryId, bundleSlug, bundlePath, hasDocument]);
 
   // Determine if we need to resolve library dependencies
   const shouldResolve = useMemo(() => {
@@ -73,6 +81,7 @@ export function PracticeNavigatorClient() {
     dependencyArtifacts,
     versionWarnings: resolveVersionWarnings,
     schemaWarning: resolveSchemaWarning,
+    dependencyDiagramLayout,
     error: resolveError,
   } = usePracticeLibraryResolveForRender(doc, shouldResolve);
 
@@ -147,7 +156,7 @@ export function PracticeNavigatorClient() {
   };
 
   // Error states
-  if (!libraryId) {
+  if (!hasDocument) {
     return (
       <div style={{ padding: "2rem", textAlign: "center" }}>
         <Title headingLevel="h1" size="2xl">
@@ -219,6 +228,7 @@ export function PracticeNavigatorClient() {
         secondaryElement={secondaryElement}
         libraryId={libraryId}
         dependencyArtifacts={dependencyArtifacts}
+        dependencyDiagramLayout={dependencyDiagramLayout}
         versionWarnings={versionWarnings}
         schemaWarning={schemaWarning}
         alphaScores={alphaScores || new Map()}

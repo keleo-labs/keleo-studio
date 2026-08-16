@@ -1,33 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import type { FormEvent } from "react";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Title,
-  Card,
-  CardBody,
-  Button,
-  Label,
   Content,
   ContentVariants,
 } from "@patternfly/react-core";
 import { StarIcon, OutlinedStarIcon } from "@patternfly/react-icons";
-import { unzipSync, strFromU8 } from "fflate";
 import type { LibraryRootKind } from "@/lib/library/classify";
-import { displayNameForBody, rootKindExtension, storageKindForBody } from "@/lib/library/classify";
+import { rootKindExtension } from "@/lib/library/classify";
 import type { LibraryDocumentTags } from "@/lib/library/libraryDocumentTags";
-import type { JsonDocumentMeta } from "@/lib/storage/types";
 import { useLanguagePack } from "@/lib/display/languagePack";
 import { LibraryItemFocus } from "./LibraryItemFocus";
 import { loadDashboardConfig, saveDashboardConfig } from "@/lib/data/dashboardConfig";
 
-type EnrichedMeta = JsonDocumentMeta & {
-  libraryRootKind: LibraryRootKind;
+type EnrichedMeta = {
+  /** Flat-store document ID (if available) or synthetic bundle ref. */
+  id: string;
+  title: string;
+  kind: string;
   displayName: string;
+  libraryRootKind: LibraryRootKind;
   virtualFileCount: number;
   libraryTags: LibraryDocumentTags;
-  keywords?: string[];
+  keywords: string[];
+  updatedAt: string;
+  createdAt: string;
+  activeVersion?: string;
+  availableVersions?: string[];
+  bundleSlug?: string;
+  bundleDocumentPath?: string;
 };
 
 type FolderId = "all" | LibraryRootKind;
@@ -64,24 +67,6 @@ async function downloadFullLibraryBodiesJson(filenameStem: string): Promise<void
   URL.revokeObjectURL(url);
 }
 
-/** Fetches the stored document and downloads the JSON body (language document). */
-async function downloadLibraryDocumentJson(id: string, filenameBase: string): Promise<void> {
-  const res = await fetch(`/api/documents/${encodeURIComponent(id)}`);
-  if (!res.ok) {
-    throw new Error(`Download failed (${res.status})`);
-  }
-  const doc = (await res.json()) as { body?: unknown };
-  const text = JSON.stringify(doc.body ?? null, null, 2);
-  const blob = new Blob([text], { type: "application/json;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${slugFileBase(filenameBase)}.json`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-}
 
 function collectSortedUniqueTags(groups: string[][]): string[] {
   const s = new Set<string>();
@@ -172,40 +157,90 @@ export function LibraryBrowser() {
   const [dashboardConfigId, setDashboardConfigId] = useState<string>("");
   const [starredIds, setStarredIds] = useState<string[]>([]);
 
+  // Installed bundles
+  const [installedBundles, setInstalledBundles] = useState<Array<{ slug: string; name: string; version: string; description: string; documentCount: number }>>([]);
+  const [removingBundle, setRemovingBundle] = useState<string | null>(null);
+
   const refresh = useCallback(async () => {
     setLoading(true);
     setLoadError(null);
     setDownloadError(null);
     setDeleteError(null);
     try {
-      // Load library items with body to extract keywords
-      const res = await fetch("/api/documents?details=1&withBody=1");
-      if (!res.ok) {
-        setLoadError((await res.text()) || `HTTP ${res.status}`);
+      // Primary source: bundle library index (covers all bundles + workspace)
+      const [indexRes, docsRes, bundlesRes] = await Promise.all([
+        fetch("/api/library/index"),
+        fetch("/api/documents?details=1"),
+        fetch("/api/bundles"),
+      ]);
+
+      if (!indexRes.ok) {
+        setLoadError((await indexRes.text()) || `HTTP ${indexRes.status}`);
         setItems([]);
         return;
       }
-      const data = (await res.json()) as { documents?: Array<EnrichedMeta & { body?: unknown }> };
-      const allDocs = Array.isArray(data.documents) ? data.documents : [];
-      // Filter out dashboard-config documents - only show library items
-      const docs = allDocs.filter((d) => d.kind !== "dashboard-config");
+
+      const indexData = (await indexRes.json()) as {
+        entries?: Array<{
+          name: string;
+          documentType: LibraryRootKind;
+          description: string;
+          tags: LibraryDocumentTags;
+          keywords: string[];
+          elementCount: number;
+          activeVersion: string;
+          activeBundleSlug: string;
+          activeDocumentPath: string;
+          updatedAt: string;
+          createdAt: string;
+          versions: Array<{ version: string; bundleSlug: string; documentPath: string }>;
+        }>;
+        bundles?: typeof installedBundles;
+      };
+
+      // Cross-reference with flat store to get document IDs (for navigator links)
+      const flatDocs: Array<{ id: string; title: string; kind: string; displayName?: string; updatedAt?: string }> = [];
+      if (docsRes.ok) {
+        const docsData = (await docsRes.json()) as { documents?: typeof flatDocs };
+        if (Array.isArray(docsData.documents)) {
+          flatDocs.push(...docsData.documents.filter((d) => d.kind !== "dashboard-config"));
+        }
+      }
+      const flatByName = new Map<string, (typeof flatDocs)[0]>();
+      for (const d of flatDocs) {
+        const name = (d.displayName || d.title || "").trim().toLowerCase();
+        if (name) flatByName.set(name, d);
+      }
+
+      const entries = Array.isArray(indexData.entries) ? indexData.entries : [];
       setItems(
-        docs.map((d) => {
-          // Extract keywords from body
-          const keywords: string[] = [];
-          if (d.body && typeof d.body === "object") {
-            const bodyObj = d.body as Record<string, unknown>;
-            if (Array.isArray(bodyObj.keywords)) {
-              keywords.push(...bodyObj.keywords.filter((k): k is string => typeof k === "string"));
-            }
-          }
+        entries.map((e) => {
+          const nameKey = e.name.trim().toLowerCase();
+          const flat = flatByName.get(nameKey);
           return {
-            ...d,
-            libraryTags: d.libraryTags ?? { domainTags: [], lifecycleTags: [], organizationalTags: [] },
-            keywords,
+            id: flat?.id ?? `bundle:${e.activeBundleSlug}/${e.activeDocumentPath}`,
+            title: e.name,
+            kind: e.documentType,
+            displayName: e.name,
+            libraryRootKind: e.documentType,
+            virtualFileCount: e.elementCount,
+            libraryTags: e.tags ?? { domainTags: [], lifecycleTags: [], organizationalTags: [] },
+            keywords: e.keywords ?? [],
+            updatedAt: flat?.updatedAt || e.updatedAt || "",
+            createdAt: e.createdAt || "",
+            activeVersion: e.activeVersion,
+            availableVersions: e.versions.map((v) => v.version),
+            bundleSlug: e.activeBundleSlug,
+            bundleDocumentPath: e.activeDocumentPath,
           };
         }),
       );
+
+      // Set installed bundles for sidebar
+      if (bundlesRes.ok) {
+        const bundlesData = (await bundlesRes.json()) as { bundles?: typeof installedBundles };
+        setInstalledBundles(Array.isArray(bundlesData.bundles) ? bundlesData.bundles : []);
+      }
 
       // Load dashboard config for starring
       try {
@@ -214,7 +249,6 @@ export function LibraryBrowser() {
         setStarredIds(dashboardConfig.config.starredDocumentIds || []);
       } catch (e) {
         console.error("Failed to load dashboard config:", e);
-        // Continue without starring functionality
       }
     } catch (e) {
       setLoadError(e instanceof Error ? e.message : "Failed to load library");
@@ -368,26 +402,74 @@ export function LibraryBrowser() {
     }
   }
 
+  async function removeBundle(slug: string) {
+    if (slug === "_workspace") return;
+    setRemovingBundle(slug);
+    try {
+      const res = await fetch(`/api/bundles/${encodeURIComponent(slug)}`, { method: "DELETE" });
+      if (res.ok) {
+        await refresh();
+      }
+    } catch {
+      // ignore
+    } finally {
+      setRemovingBundle(null);
+    }
+  }
+
+  function isBundleRef(id: string): boolean {
+    return id.startsWith("bundle:");
+  }
+
+  function getNavigatorHref(item: EnrichedMeta): string {
+    if (isBundleRef(item.id) && item.bundleSlug && item.bundleDocumentPath) {
+      return `/navigator?bundle=${encodeURIComponent(item.bundleSlug)}&path=${encodeURIComponent(item.bundleDocumentPath)}`;
+    }
+    return `/navigator?libraryId=${encodeURIComponent(item.id)}`;
+  }
+
   function getEditHref(id: string): string {
     const item = items.find((it) => it.id === id);
     if (!item) return "#";
 
+    const idParam = isBundleRef(id) && item.bundleSlug && item.bundleDocumentPath
+      ? `bundle=${encodeURIComponent(item.bundleSlug)}&path=${encodeURIComponent(item.bundleDocumentPath)}`
+      : `libraryId=${encodeURIComponent(id)}`;
+
     if (item.libraryRootKind === "method") {
-      return `/method-builder?libraryId=${encodeURIComponent(id)}`;
+      return `/method-builder?${idParam}`;
     }
 
-    // For practices - go to practice editor
-    return `/practice-author?libraryId=${encodeURIComponent(id)}`;
+    return `/practice-author?${idParam}`;
+  }
+
+  function getDocumentApiUrl(item: EnrichedMeta): string {
+    if (isBundleRef(item.id) && item.bundleSlug && item.bundleDocumentPath) {
+      return `/api/library/document?bundle=${encodeURIComponent(item.bundleSlug)}&path=${encodeURIComponent(item.bundleDocumentPath)}`;
+    }
+    return `/api/documents/${encodeURIComponent(item.id)}`;
   }
 
   async function handleBulkDownload() {
     if (selectedIds.length === 0) return;
 
     if (selectedIds.length === 1) {
-      // Single item - use existing function
       const item = items.find((it) => it.id === selectedIds[0]);
       if (!item) return;
-      await downloadLibraryDocumentJson(item.id, item.displayName || item.title || item.id);
+      const url = getDocumentApiUrl(item);
+      const res = await fetch(url);
+      if (!res.ok) return;
+      const doc = (await res.json()) as { body?: unknown };
+      const text = JSON.stringify(doc.body ?? null, null, 2);
+      const blob = new Blob([text], { type: "application/json;charset=utf-8" });
+      const dl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = dl;
+      a.download = `${slugFileBase(item.displayName || item.title || item.id)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(dl);
       return;
     }
 
@@ -397,7 +479,7 @@ export function LibraryBrowser() {
 
     for (const item of selectedItems) {
       try {
-        const res = await fetch(`/api/documents/${encodeURIComponent(item.id)}`);
+        const res = await fetch(getDocumentApiUrl(item));
         if (res.ok) {
           const doc = await res.json();
           bodies.push(doc.body ?? null);
@@ -667,6 +749,74 @@ export function LibraryBrowser() {
               </div>
             </div>
           ) : null}
+
+          {/* Installed bundles */}
+          {installedBundles.filter(b => b.slug !== "_workspace").length > 0 ? (
+            <div style={{
+              marginTop: "2rem",
+              borderTop: "1px solid var(--pf-v6-global--BorderColor--100)",
+              paddingTop: "1.5rem",
+            }}>
+              <Title headingLevel="h3" size="md" style={{
+                textTransform: "uppercase",
+                color: "var(--pf-v6-global--Color--200)",
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                letterSpacing: "0.05em",
+              }}>Bundles</Title>
+              <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                {installedBundles.filter(b => b.slug !== "_workspace").map((bundle) => (
+                  <div
+                    key={bundle.slug}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      justifyContent: "space-between",
+                      gap: "0.5rem",
+                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                      border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                      backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                      padding: "0.5rem 0.625rem",
+                      fontSize: "0.75rem",
+                    }}
+                  >
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{
+                        fontWeight: 600,
+                        color: "var(--pf-v6-global--Color--100)",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}>
+                        {bundle.name}
+                      </div>
+                      <div style={{ color: "var(--pf-v6-global--Color--200)", fontFamily: "monospace", fontSize: "0.6875rem" }}>
+                        v{bundle.version} &middot; {bundle.documentCount} docs
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      disabled={removingBundle === bundle.slug}
+                      onClick={() => void removeBundle(bundle.slug)}
+                      style={{
+                        flexShrink: 0,
+                        border: "none",
+                        background: "none",
+                        cursor: removingBundle === bundle.slug ? "wait" : "pointer",
+                        fontSize: "0.6875rem",
+                        color: "var(--pf-v6-global--danger-color--100)",
+                        padding: "0.125rem 0.25rem",
+                      }}
+                      className="lib-btn-danger"
+                      title={`Remove bundle "${bundle.name}"`}
+                    >
+                      {removingBundle === bundle.slug ? "..." : "Remove"}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </aside>
 
         {/* Main file list */}
@@ -679,16 +829,10 @@ export function LibraryBrowser() {
             lineHeight: "1.6",
             color: "var(--pf-v6-global--Color--200)",
           }}>
-            Stored JSON is grouped like a file browser. Root documents use{" "}
-            <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.method</code>,{" "}
-            <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.baseline</code>, or{" "}
-            <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.practice</code>. Expand a row to see nested practice elements with
-            distinct pseudo-types (e.g. <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.focus</code>,{" "}
-            <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.alpha</code>, <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.activity</code>).
-            Use the <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>Add to library</strong> button to paste JSON or
-            upload a <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.json</code> file. You can import a single document or a JSON
-            array of methods, baseline practices, and/or extension practices—each array element is stored as its own library
-            item. When adding a method, its individual practices are automatically extracted and added separately to the library.
+            Upload <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.keleo</code> bundles or{" "}
+            <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.json</code> files to add practices, baselines, and methods to the library.
+            You can also drop files into the <code style={{ color: "var(--pf-v6-global--Color--100)" }}>data/inbox/</code> directory to auto-import
+            them on next load. Expand a row to see nested elements.
           </Content>
 
           <div style={{
@@ -1035,6 +1179,12 @@ export function LibraryBrowser() {
                       Elements {sortColumn === 'elements' && (sortDirection === 'asc' ? '↑' : '↓')}
                     </th>
                     <th
+                      className="hidden whitespace-nowrap md:table-cell"
+                      style={{ padding: "0.625rem 0.75rem", userSelect: "none" }}
+                    >
+                      Versions
+                    </th>
+                    <th
                       className="min-w-0 whitespace-nowrap lib-sort-header"
                       style={{ padding: "0.625rem 0.5rem", cursor: "pointer", userSelect: "none" }}
                       onClick={() => handleSort('updated')}
@@ -1048,7 +1198,7 @@ export function LibraryBrowser() {
                     const ext = rootKindExtension(row.libraryRootKind);
                     const base = slugFileBase(row.displayName);
                     const filename = `${base}.${ext}`;
-                    const navigatorHref = `/navigator?libraryId=${encodeURIComponent(row.id)}`;
+                    const navigatorHref = getNavigatorHref(row);
                     const open = expandedId === row.id;
                     const selected = selectedIds.includes(row.id);
                     return (
@@ -1180,6 +1330,39 @@ export function LibraryBrowser() {
                           <td className="hidden md:table-cell" style={{ padding: "0.5rem 0.75rem", fontFamily: "monospace", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
                             {row.virtualFileCount}
                           </td>
+                          <td className="hidden md:table-cell" style={{ padding: "0.5rem 0.75rem" }}>
+                            {row.availableVersions && row.availableVersions.length > 0 ? (
+                              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.25rem" }}>
+                                {row.availableVersions.map((v) => (
+                                  <span
+                                    key={v}
+                                    style={{
+                                      display: "inline-block",
+                                      borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                                      border: v === row.activeVersion
+                                        ? "1px solid var(--pf-v6-global--primary-color--100)"
+                                        : "1px solid var(--pf-v6-global--BorderColor--100)",
+                                      backgroundColor: v === row.activeVersion
+                                        ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, transparent)"
+                                        : "var(--pf-v6-global--BackgroundColor--100)",
+                                      padding: "0.0625rem 0.375rem",
+                                      fontSize: "0.6875rem",
+                                      fontFamily: "monospace",
+                                      color: v === row.activeVersion
+                                        ? "var(--pf-v6-global--primary-color--100)"
+                                        : "var(--pf-v6-global--Color--200)",
+                                      cursor: "pointer",
+                                    }}
+                                    title={`Version ${v}${v === row.activeVersion ? " (active)" : ""}`}
+                                  >
+                                    {v}
+                                  </span>
+                                ))}
+                              </div>
+                            ) : (
+                              <span style={{ fontFamily: "monospace", fontSize: "0.6875rem", color: "var(--pf-v6-global--Color--200)" }}>—</span>
+                            )}
+                          </td>
                           <td style={{ whiteSpace: "nowrap", padding: "0.5rem 0.75rem", fontFamily: "monospace", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
                             {formatDate(row.updatedAt)}
                           </td>
@@ -1189,8 +1372,8 @@ export function LibraryBrowser() {
                             borderBottom: "1px solid var(--pf-v6-global--BorderColor--100)",
                             backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
                           }}>
-                            <td colSpan={6} style={{ padding: 0 }}>
-                              <LibraryItemFocus documentId={row.id} />
+                            <td colSpan={7} style={{ padding: 0 }}>
+                              <LibraryItemFocus documentId={row.id} apiUrl={isBundleRef(row.id) ? getDocumentApiUrl(row) : undefined} />
                             </td>
                           </tr>
                         ) : null}
@@ -1209,24 +1392,22 @@ export function LibraryBrowser() {
 }
 
 function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: () => Promise<void> }) {
-  const [mode, setMode] = useState<"paste" | "file">("paste");
-  const [pasteText, setPasteText] = useState("");
-  const [pickedFile, setPickedFile] = useState<File | null>(null);
-  const [titleOverride, setTitleOverride] = useState("");
+  const [pickedFiles, setPickedFiles] = useState<File[]>([]);
   const [busy, setBusy] = useState(false);
-  const [saveProgress, setSaveProgress] = useState<string | null>(null);
+  const [progress, setProgress] = useState<string | null>(null);
+  const [results, setResults] = useState<Array<{ filename: string; ok: boolean; detail: string }>>([]);
   const [error, setError] = useState<string | null>(null);
+  const [dragOver, setDragOver] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!props.open) {
-      setMode("paste");
-      setPasteText("");
-      setPickedFile(null);
-      setTitleOverride("");
+      setPickedFiles([]);
       setError(null);
       setBusy(false);
-      setSaveProgress(null);
+      setProgress(null);
+      setResults([]);
+      setDragOver(false);
       if (fileRef.current) fileRef.current.value = "";
     }
   }, [props.open]);
@@ -1234,7 +1415,7 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
   useEffect(() => {
     if (!props.open) return;
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") props.onClose();
+      if (e.key === "Escape" && !busy) props.onClose();
     }
     document.addEventListener("keydown", onKeyDown);
     const prevOverflow = document.body.style.overflow;
@@ -1243,390 +1424,102 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = prevOverflow;
     };
-  }, [props.open, props.onClose]);
+  }, [props.open, props.onClose, busy]);
 
-  function parseJsonBodies(raw: string, _fileStem: string): Record<string, unknown>[] | string {
-    let parsed: unknown;
-    try {
-      parsed = JSON.parse(raw);
-    } catch (err) {
-      return err instanceof Error ? err.message : "Invalid JSON";
+  function addFiles(fileList: FileList | File[]) {
+    const incoming = Array.from(fileList).filter(
+      (f) => f.name.endsWith(".keleo") || f.name.endsWith(".json"),
+    );
+    if (incoming.length === 0) {
+      setError("Only .keleo and .json files are supported.");
+      return;
     }
-    if (Array.isArray(parsed)) {
-      if (parsed.length === 0) {
-        return "JSON array is empty. Add one or more method, baseline practice, or practice objects.";
-      }
-      const out: Record<string, unknown>[] = [];
-      for (let i = 0; i < parsed.length; i++) {
-        const item = parsed[i];
-        if (item === null || typeof item !== "object" || Array.isArray(item)) {
-          return `Item at index ${i} must be a JSON object (each entry should be one method, baseline practice, or practice document).`;
-        }
-        out.push(item as Record<string, unknown>);
-      }
-      return out;
-    }
-    if (parsed === null || typeof parsed !== "object") {
-      return "JSON must be an object or an array of objects at the root.";
-    }
-    return [parsed as Record<string, unknown>];
+    setError(null);
+    setPickedFiles((prev) => {
+      const existing = new Set(prev.map((f) => f.name));
+      return [...prev, ...incoming.filter((f) => !existing.has(f.name))];
+    });
   }
 
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+  function removeFile(name: string) {
+    setPickedFiles((prev) => prev.filter((f) => f.name !== name));
+  }
+
+  function handleDrop(e: React.DragEvent) {
     e.preventDefault();
+    setDragOver(false);
+    if (e.dataTransfer.files.length > 0) {
+      addFiles(e.dataTransfer.files);
+    }
+  }
+
+  async function handleUpload() {
+    if (pickedFiles.length === 0) return;
+    setBusy(true);
     setError(null);
+    setResults([]);
 
-    let bodies: Record<string, unknown>[];
-    let fileStem = "";
-    // Asset files extracted from .keleo packages: filename -> raw bytes
-    let keleoAssets: Map<string, Uint8Array> | null = null;
-    // Index of the entry-point document in bodies (assets are scoped to this doc)
-    let entryPointIndex = 0;
-
-    const isKeleoFile = mode === "file" && pickedFile?.name.toLowerCase().endsWith(".keleo");
-
-    if (mode === "paste") {
-      const raw = pasteText.trim();
-      if (!raw) {
-        setError("Paste JSON into the text area, or switch to file upload.");
-        return;
-      }
-      const result = parseJsonBodies(raw, "");
-      if (typeof result === "string") { setError(result); return; }
-      bodies = result;
-    } else if (!pickedFile) {
-      setError("Choose a file.");
-      return;
-    } else if (isKeleoFile) {
-      fileStem = pickedFile.name.replace(/\.keleo$/i, "").replace(/[-_]+/g, " ").trim();
-      let buf: ArrayBuffer;
-      try {
-        buf = await pickedFile.arrayBuffer();
-      } catch {
-        setError("Could not read the selected file.");
-        return;
-      }
-      try {
-        const zip = unzipSync(new Uint8Array(buf));
-        const manifestBytes = zip["manifest.json"];
-        if (!manifestBytes) { setError("Invalid .keleo package: no manifest.json found."); return; }
-        const manifest = JSON.parse(strFromU8(manifestBytes)) as {
-          documents?: Array<{ path: string; entryPoint?: boolean }>;
-        };
-        if (!Array.isArray(manifest.documents) || manifest.documents.length === 0) {
-          setError("Invalid .keleo package: manifest contains no documents.");
-          return;
-        }
-        bodies = [];
-        for (let i = 0; i < manifest.documents.length; i++) {
-          const entry = manifest.documents[i];
-          const docBytes = zip[entry.path];
-          if (!docBytes) continue;
-          const docBody = JSON.parse(strFromU8(docBytes)) as Record<string, unknown>;
-          if (entry.entryPoint) entryPointIndex = bodies.length;
-          bodies.push(docBody);
-        }
-        if (bodies.length === 0) {
-          setError("No documents could be read from the .keleo package.");
-          return;
-        }
-        // Collect non-document files (assets/ directory)
-        const assetEntries = Object.keys(zip).filter(
-          (k) => k.startsWith("assets/") && k !== "assets/" && !k.endsWith("/"),
-        );
-        if (assetEntries.length > 0) {
-          keleoAssets = new Map();
-          for (const assetPath of assetEntries) {
-            const filename = assetPath.slice("assets/".length);
-            keleoAssets.set(filename, zip[assetPath]);
-          }
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to read .keleo package.");
-        return;
-      }
-    } else {
-      fileStem = pickedFile.name.replace(/\.json$/i, "").replace(/[-_]+/g, " ").trim();
-      let raw: string;
-      try {
-        raw = await pickedFile.text();
-      } catch {
-        setError("Could not read the selected file.");
-        return;
-      }
-      if (!raw.trim()) {
-        setError("The file is empty.");
-        return;
-      }
-      const result = parseJsonBodies(raw, fileStem);
-      if (typeof result === "string") { setError(result); return; }
-      bodies = result;
+    const formData = new FormData();
+    for (const file of pickedFiles) {
+      formData.append("files", file);
     }
 
-    const titleTrim = titleOverride.trim();
+    setProgress(`Uploading ${pickedFiles.length} file${pickedFiles.length > 1 ? "s" : ""}…`);
 
-    setBusy(true);
-    setSaveProgress(null);
     try {
-      const failures: string[] = [];
-      let savedCount = 0;
-      let entryPointDocId: string | null = null;
+      const res = await fetch("/api/bundles", {
+        method: "POST",
+        body: formData,
+      });
 
-      // Fetch existing documents to check for duplicates by title AND kind (type)
-      setSaveProgress("Loading existing library items…");
-      const listRes = await fetch("/api/documents");
-      const listData = listRes.ok ? await listRes.json() : { documents: [] };
-      const existingDocs: Array<{ id: string; title: string; kind: string }> = Array.isArray(listData.documents) ? listData.documents : [];
-      // Map by "title|kind" to allow same title for different types
-      const titleKindToId = new Map(existingDocs.map(d => [`${d.title.toLowerCase()}|${d.kind}`, d.id]));
+      const data = await res.json() as {
+        results?: Array<{
+          filename: string;
+          ok: boolean;
+          bundle?: { name: string; documentCount: number };
+          document?: string;
+          error?: string;
+        }>;
+        error?: string;
+      };
 
-      for (let i = 0; i < bodies.length; i++) {
-        const body = bodies[i];
-        const inferredTitle = displayNameForBody(
-          body,
-          bodies.length > 1
-            ? fileStem
-              ? `${fileStem} (${i + 1})`
-              : `Imported ${i + 1}`
-            : fileStem || "Imported",
-        );
-        const title = bodies.length === 1 ? titleTrim || inferredTitle : inferredTitle;
-        const kind = storageKindForBody(body);
-
-        if (bodies.length > 1) {
-          setSaveProgress(`Saving ${i + 1} of ${bodies.length}…`);
-        }
-
-        // Check if document with same title AND kind already exists
-        const compositeKey = `${title.toLowerCase()}|${kind}`;
-        const existingId = titleKindToId.get(compositeKey);
-        let res: Response;
-
-        if (existingId) {
-          // Update existing document with same name and type
-          res = await fetch(`/api/documents/${encodeURIComponent(existingId)}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title, kind, body }),
-          });
-        } else {
-          // Create new document
-          res = await fetch("/api/documents", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title, kind, body }),
-          });
-        }
-
-        if (!res.ok) {
-          let msg = await res.text();
-          try {
-            const j = JSON.parse(msg) as { error?: string; issues?: Array<{ path?: string; message?: string }> };
-            if (j?.error) {
-              msg = j.error;
-              // If validation issues are provided, append them
-              if (j.issues && Array.isArray(j.issues) && j.issues.length > 0) {
-                // Deduplicate issues by creating unique key from path + message
-                const uniqueIssues = Array.from(
-                  new Map(
-                    j.issues.map((issue) => {
-                      const path = issue.path || "";
-                      const message = issue.message || "Invalid value";
-                      return [`${path}::${message}`, { path, message }];
-                    })
-                  ).values()
-                );
-
-                const issueList = uniqueIssues
-                  .slice(0, 8) // Show up to 8 unique issues
-                  .map((issue) => {
-                    // Convert empty or root paths to something readable
-                    let displayPath = issue.path;
-                    if (!displayPath || displayPath === "" || displayPath === "#" || displayPath === "/") {
-                      displayPath = "Document root";
-                    } else {
-                      // Make the path more readable: /alphas/2/states/0 -> alphas[2].states[0]
-                      displayPath = displayPath
-                        .replace(/^\//, "") // Remove leading slash
-                        .replace(/\/(\d+)/g, "[$1]") // Convert /2 to [2]
-                        .replace(/\//g, "."); // Convert / to .
-                    }
-                    return `<strong>${displayPath}</strong>: ${issue.message}`;
-                  });
-
-                const remaining = uniqueIssues.length > 8 ? `... and ${uniqueIssues.length - 8} more issue(s)` : "";
-
-                // Join with newlines and a special separator that we'll handle in display
-                msg = `${msg}||ISSUES||${issueList.join("||ISSUE||")}${remaining ? "||ISSUE||" + remaining : ""}`;
-              }
-            }
-          } catch {
-            // If response is HTML (server error page), provide a clean error message
-            if (msg.trim().startsWith("<!DOCTYPE") || msg.trim().startsWith("<html")) {
-              msg = "Server error";
-            }
-          }
-          failures.push(`#${i + 1} (${title}): ${msg || `HTTP ${res.status}`}`);
-        } else {
-          savedCount++;
-          if (!existingId) {
-            const newDoc = await res.json();
-            if (newDoc?.id) {
-              titleKindToId.set(compositeKey, newDoc.id);
-              if (i === entryPointIndex) entryPointDocId = newDoc.id;
-            }
-          } else if (i === entryPointIndex) {
-            entryPointDocId = existingId;
-          }
-        }
-
-        // If this is a Method with practices, extract and save each practice separately
-        if (kind === "method" && typeof body === "object" && body !== null) {
-          const methodBody = body as Record<string, unknown>;
-          const practices = methodBody.practices;
-
-          if (Array.isArray(practices) && practices.length > 0) {
-            setSaveProgress(`Extracting ${practices.length} practice(s) from ${title}…`);
-
-            // Get the method name from the body
-            const methodName = typeof body.name === "string" ? body.name : title;
-
-            for (let j = 0; j < practices.length; j++) {
-              const practice = practices[j];
-              if (practice && typeof practice === "object" && !Array.isArray(practice)) {
-                const practiceBody = practice as Record<string, unknown>;
-                const practiceName = typeof practiceBody.name === "string" ? practiceBody.name : `Practice ${j + 1}`;
-                const practiceTitle = `${practiceName} (from ${title})`;
-                const practiceKind = "practice";
-
-                // Add method name to practice keywords
-                const existingKeywords = Array.isArray(practiceBody.keywords)
-                  ? practiceBody.keywords.filter(k => typeof k === "string")
-                  : [];
-                const methodKeyword = methodName.trim();
-                const updatedKeywords = existingKeywords.includes(methodKeyword)
-                  ? existingKeywords
-                  : [...existingKeywords, methodKeyword];
-
-                // Create enriched practice body with method name in keywords
-                // Ensure 'kind' is set for standalone practice validation
-                const enrichedPractice = {
-                  ...practiceBody,
-                  kind: "practice",
-                  keywords: updatedKeywords
-                };
-
-                // Check if practice with same title AND kind already exists
-                const practiceCompositeKey = `${practiceTitle.toLowerCase()}|${practiceKind}`;
-                const existingPracticeId = titleKindToId.get(practiceCompositeKey);
-                let practiceRes: Response;
-
-                if (existingPracticeId) {
-                  // Update existing practice with same name and type
-                  practiceRes = await fetch(`/api/documents/${encodeURIComponent(existingPracticeId)}`, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      title: practiceTitle,
-                      kind: practiceKind,
-                      body: enrichedPractice
-                    }),
-                  });
-                } else {
-                  // Create new practice
-                  practiceRes = await fetch("/api/documents", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      title: practiceTitle,
-                      kind: practiceKind,
-                      body: enrichedPractice
-                    }),
-                  });
-                }
-
-                if (!practiceRes.ok) {
-                  let msg = await practiceRes.text();
-                  try {
-                    const j = JSON.parse(msg) as { error?: string };
-                    if (j?.error) msg = j.error;
-                  } catch {
-                    // If response is HTML (server error page), provide a clean error message
-                    if (msg.trim().startsWith("<!DOCTYPE") || msg.trim().startsWith("<html")) {
-                      msg = "Server error";
-                    }
-                  }
-                  failures.push(`Practice "${practiceName}": ${msg || `HTTP ${practiceRes.status}`}`);
-                } else {
-                  savedCount++;
-                  // Update the map with the new practice if it was created
-                  if (!existingPracticeId) {
-                    const newPractice = await practiceRes.json();
-                    if (newPractice?.id) {
-                      titleKindToId.set(practiceCompositeKey, newPractice.id);
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      // Upload assets from .keleo package
-      if (keleoAssets && keleoAssets.size > 0 && entryPointDocId) {
-        setSaveProgress(`Uploading ${keleoAssets.size} asset(s)…`);
-        const formData = new FormData();
-        for (const [filename, data] of keleoAssets) {
-          formData.append("file", new Blob([new Uint8Array(data)]), filename);
-        }
-        try {
-          const assetRes = await fetch(`/api/documents/${encodeURIComponent(entryPointDocId)}/assets`, {
-            method: "POST",
-            body: formData,
-          });
-          if (!assetRes.ok) {
-            failures.push(`Asset upload failed: HTTP ${assetRes.status}`);
-          }
-        } catch (err) {
-          failures.push(`Asset upload failed: ${err instanceof Error ? err.message : "unknown error"}`);
-        }
-      }
-
-      if (failures.length > 0) {
-        setError(
-          savedCount === 0
-            ? failures.join(" ")
-            : `Saved ${savedCount} item(s). Errors: ${failures.join(" ")}`,
-        );
-        if (savedCount > 0) {
-          setPasteText("");
-          setPickedFile(null);
-          setTitleOverride("");
-          if (fileRef.current) fileRef.current.value = "";
-          await props.onSaved();
-        }
+      if (data.error && !data.results) {
+        setError(data.error);
         return;
       }
 
-      setPasteText("");
-      setPickedFile(null);
-      setTitleOverride("");
-      if (fileRef.current) fileRef.current.value = "";
-      await props.onSaved();
-      props.onClose();
+      const fileResults = (data.results ?? []).map((r) => ({
+        filename: r.filename,
+        ok: r.ok,
+        detail: r.ok
+          ? r.bundle
+            ? `Installed bundle "${r.bundle.name}" (${r.bundle.documentCount} docs)`
+            : `Saved "${r.document}"`
+          : r.error ?? "Failed",
+      }));
+
+      setResults(fileResults);
+
+      const anyOk = fileResults.some((r) => r.ok);
+      if (anyOk) {
+        await props.onSaved();
+      }
+
+      if (fileResults.every((r) => r.ok)) {
+        setTimeout(() => props.onClose(), 800);
+      }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Save failed");
+      setError(err instanceof Error ? err.message : "Upload failed");
     } finally {
       setBusy(false);
-      setSaveProgress(null);
+      setProgress(null);
     }
   }
 
   if (!props.open) return null;
 
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }} className="sm:p-6">
+    <div style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}>
       <button
         type="button"
         aria-label="Close dialog"
@@ -1638,7 +1531,7 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
           border: "none",
           cursor: "pointer",
         }}
-        onClick={props.onClose}
+        onClick={() => !busy && props.onClose()}
       />
       <div
         role="dialog"
@@ -1648,9 +1541,9 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
           position: "relative",
           zIndex: 10,
           display: "flex",
-          maxHeight: "min(90vh, 40rem)",
+          maxHeight: "min(90vh, 36rem)",
           width: "100%",
-          maxWidth: "32rem",
+          maxWidth: "30rem",
           flexDirection: "column",
           borderRadius: "var(--pf-v6-global--BorderRadius--lg)",
           border: "1px solid var(--pf-v6-global--BorderColor--100)",
@@ -1659,22 +1552,22 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
         }}
         onMouseDown={(e) => e.stopPropagation()}
       >
+        {/* Header */}
         <div style={{
           display: "flex",
           flexShrink: 0,
-          alignItems: "flex-start",
+          alignItems: "center",
           justifyContent: "space-between",
           gap: "0.75rem",
           borderBottom: "1px solid var(--pf-v6-global--BorderColor--100)",
-          padding: "0.75rem 1rem",
-        }}
-        className="sm:px-5">
-          <Title headingLevel="h2" size="lg" style={{ letterSpacing: "-0.01em" }}>
+          padding: "0.75rem 1.25rem",
+        }}>
+          <Title headingLevel="h2" size="lg" id="library-upload-heading" style={{ letterSpacing: "-0.01em" }}>
             Add to library
           </Title>
           <button
             type="button"
-            onClick={props.onClose}
+            onClick={() => !busy && props.onClose()}
             style={{
               borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
               border: "1px solid transparent",
@@ -1683,233 +1576,204 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
               fontWeight: 600,
               color: "var(--pf-v6-global--Color--200)",
               backgroundColor: "transparent",
-              cursor: "pointer",
+              cursor: busy ? "not-allowed" : "pointer",
             }}
             className="lib-btn-secondary"
           >
             Close
           </button>
         </div>
-        <div style={{ minHeight: 0, flex: 1, overflowY: "auto", padding: "1rem" }} className="sm:px-5 sm:py-5">
-          <Content component={ContentVariants.p} style={{ fontSize: "0.75rem", lineHeight: 1.6, color: "var(--pf-v6-global--Color--200)" }}>
-            Paste valid JSON, pick a <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>.json</strong> file, or upload a{" "}
-            <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>.keleo</strong> package. JSON root value may be one document or a{" "}
-            <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>JSON array</strong> of documents—each element becomes its own
-            library item. A <code style={{ color: "var(--pf-v6-global--Color--100)" }}>.keleo</code> package imports all bundled documents and assets automatically.
-            Title defaults to each document&apos;s <code style={{ color: "var(--pf-v6-global--Color--100)" }}>name</code> (or the filename); optional
-            title below applies only when importing a <strong style={{ fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>single</strong>{" "}
-            object.
-          </Content>
-          <Content component={ContentVariants.p} style={{ marginTop: "0.5rem", fontSize: "0.75rem", lineHeight: 1.6, color: "var(--pf-v6-global--link--Color)" }}>
-            <strong style={{ fontWeight: 600 }}>Method extraction:</strong> When you add a Method to the library, the individual practices
-            from the method&apos;s <code style={{ color: "var(--pf-v6-global--Color--100)" }}>practices</code> array are automatically extracted and saved
-            separately to the library for easy reference and reuse.
-          </Content>
 
-          <form style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "1rem" }} onSubmit={(e) => void onSubmit(e)}>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }} role="group" aria-label="JSON source">
-          <button
-            type="button"
-            onClick={() => setMode("paste")}
+        {/* Body */}
+        <div style={{ minHeight: 0, flex: 1, overflowY: "auto", padding: "1.25rem" }}>
+          {/* Drop zone */}
+          <div
+            onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+            onDragLeave={() => setDragOver(false)}
+            onDrop={handleDrop}
+            onClick={() => fileRef.current?.click()}
             style={{
-              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-              border: mode === "paste" ? "1px solid var(--pf-v6-global--primary-color--100)" : "1px solid var(--pf-v6-global--BorderColor--100)",
-              padding: "0.375rem 0.75rem",
-              fontSize: "0.75rem",
-              fontWeight: 600,
-              transition: "all 0.2s ease",
-              backgroundColor: mode === "paste" ? "var(--pf-v6-global--primary-color--100)/15" : "transparent",
-              color: mode === "paste" ? "var(--pf-v6-global--Color--100)" : "var(--pf-v6-global--Color--200)",
+              border: `2px dashed ${dragOver ? "var(--pf-v6-global--primary-color--100)" : "var(--pf-v6-global--BorderColor--100)"}`,
+              borderRadius: "var(--pf-v6-global--BorderRadius--lg)",
+              padding: "2rem 1rem",
+              textAlign: "center",
               cursor: "pointer",
+              backgroundColor: dragOver
+                ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 5%, transparent)"
+                : "transparent",
+              transition: "all 0.15s ease",
             }}
-            className={mode === "paste" ? "active" : "lib-mode-btn"}
           >
-            Paste JSON
-          </button>
-          <button
-            type="button"
-            onClick={() => setMode("file")}
-            style={{
-              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-              border: mode === "file" ? "1px solid var(--pf-v6-global--primary-color--100)" : "1px solid var(--pf-v6-global--BorderColor--100)",
-              padding: "0.375rem 0.75rem",
-              fontSize: "0.75rem",
-              fontWeight: 600,
-              transition: "all 0.2s ease",
-              backgroundColor: mode === "file" ? "var(--pf-v6-global--primary-color--100)/15" : "transparent",
-              color: mode === "file" ? "var(--pf-v6-global--Color--100)" : "var(--pf-v6-global--Color--200)",
-              cursor: "pointer",
-            }}
-            className={mode === "file" ? "active" : "lib-mode-btn"}
-          >
-            Upload file
-          </button>
-        </div>
+            <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem", opacity: 0.5 }}>&#8593;</div>
+            <div style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--pf-v6-global--Color--100)" }}>
+              Drop files here or click to browse
+            </div>
+            <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginTop: "0.25rem" }}>
+              .keleo bundles and .json documents
+            </div>
+          </div>
 
-        {mode === "paste" ? (
-          <div>
-            <label htmlFor="library-paste-json" className="sr-only">
-              JSON to import
-            </label>
-            <textarea
-              id="library-paste-json"
-              value={pasteText}
-              onChange={(e) => setPasteText(e.target.value)}
-              placeholder='{ "name": "…", … } or [ { … }, { … } ]'
-              spellCheck={false}
-              rows={12}
+          <input
+            ref={fileRef}
+            type="file"
+            multiple
+            accept=".json,.keleo"
+            style={{ display: "none" }}
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                addFiles(e.target.files);
+              }
+              e.target.value = "";
+            }}
+          />
+
+          {/* File list */}
+          {pickedFiles.length > 0 && (
+            <div style={{ marginTop: "1rem" }}>
+              <div style={{
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+                color: "var(--pf-v6-global--Color--200)",
+                marginBottom: "0.5rem",
+              }}>
+                {pickedFiles.length} file{pickedFiles.length > 1 ? "s" : ""} selected
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                {pickedFiles.map((f) => {
+                  const result = results.find((r) => r.filename === f.name);
+                  return (
+                    <div
+                      key={f.name}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: "0.5rem",
+                        padding: "0.375rem 0.5rem",
+                        borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                        border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                        backgroundColor: result
+                          ? result.ok
+                            ? "color-mix(in srgb, var(--pf-v6-global--success-color--100) 8%, transparent)"
+                            : "color-mix(in srgb, var(--pf-v6-global--danger-color--100) 8%, transparent)"
+                          : "var(--pf-v6-global--BackgroundColor--100)",
+                        fontSize: "0.75rem",
+                      }}
+                    >
+                      <div style={{ minWidth: 0, flex: 1 }}>
+                        <div style={{
+                          fontFamily: "monospace",
+                          fontWeight: 600,
+                          color: "var(--pf-v6-global--Color--100)",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}>
+                          {f.name}
+                        </div>
+                        {result && (
+                          <div style={{
+                            fontSize: "0.6875rem",
+                            color: result.ok ? "var(--pf-v6-global--success-color--100)" : "var(--pf-v6-global--danger-color--100)",
+                            marginTop: "0.125rem",
+                          }}>
+                            {result.detail}
+                          </div>
+                        )}
+                      </div>
+                      {!busy && results.length === 0 && (
+                        <button
+                          type="button"
+                          onClick={(e) => { e.stopPropagation(); removeFile(f.name); }}
+                          style={{
+                            flexShrink: 0,
+                            border: "none",
+                            background: "none",
+                            cursor: "pointer",
+                            fontSize: "0.875rem",
+                            color: "var(--pf-v6-global--Color--200)",
+                            padding: "0 0.25rem",
+                            lineHeight: 1,
+                          }}
+                          title="Remove file"
+                        >
+                          &times;
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Error */}
+          {error && (
+            <div style={{
+              marginTop: "0.75rem",
+              fontSize: "0.75rem",
+              color: "var(--pf-v6-global--danger-color--100)",
+            }}>
+              {error}
+            </div>
+          )}
+
+          {/* Progress */}
+          {progress && (
+            <div style={{ marginTop: "0.75rem", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
+              {progress}
+            </div>
+          )}
+
+          {/* Actions */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: "0.75rem",
+            marginTop: "1.25rem",
+          }}>
+            <button
+              type="button"
+              onClick={() => !busy && props.onClose()}
+              disabled={busy}
               style={{
-                width: "100%",
-                resize: "vertical",
                 borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
                 border: "1px solid var(--pf-v6-global--BorderColor--100)",
-                backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
-                padding: "0.5rem 0.75rem",
-                fontFamily: "monospace",
-                fontSize: "0.75rem",
-                lineHeight: 1.6,
+                backgroundColor: "transparent",
+                padding: "0.5rem 1rem",
+                fontSize: "0.875rem",
+                fontWeight: 600,
                 color: "var(--pf-v6-global--Color--100)",
+                cursor: busy ? "not-allowed" : "pointer",
+                opacity: busy ? 0.5 : 1,
               }}
-              className="lib-input"
-            />
-          </div>
-        ) : (
-          <div>
-            <label htmlFor="library-file-json" style={{
-              display: "block",
-              fontSize: "0.75rem",
-              fontWeight: 600,
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-              color: "var(--pf-v6-global--Color--200)",
-            }}>
-              JSON or .keleo file
-            </label>
-            <input
-              ref={fileRef}
-              id="library-file-json"
-              type="file"
-              accept=".json,.keleo,application/json,text/json"
+              className="lib-btn-secondary"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              disabled={busy || pickedFiles.length === 0}
+              onClick={() => void handleUpload()}
               style={{
-                marginTop: "0.5rem",
-                display: "block",
-                width: "100%",
-                maxWidth: "28rem",
-                cursor: "pointer",
-                fontSize: "0.75rem",
-                color: "var(--pf-v6-global--Color--200)",
+                borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                border: "1px solid var(--pf-v6-global--primary-color--100)",
+                backgroundColor: "var(--pf-v6-global--primary-color--100)",
+                padding: "0.5rem 1rem",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                color: "white",
+                cursor: (busy || pickedFiles.length === 0) ? "not-allowed" : "pointer",
+                opacity: (busy || pickedFiles.length === 0) ? 0.5 : 1,
               }}
-              className="lib-file-input"
-              onChange={(e) => {
-                const f = e.target.files?.[0] ?? null;
-                setPickedFile(f);
-                setError(null);
-              }}
-            />
-            {pickedFile ? (
-              <p style={{ marginTop: "0.5rem", fontFamily: "monospace", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>Selected: {pickedFile.name}</p>
-            ) : null}
+              className="lib-btn-primary"
+            >
+              {busy ? "Uploading…" : `Upload ${pickedFiles.length > 0 ? `(${pickedFiles.length})` : ""}`}
+            </button>
           </div>
-        )}
-
-        <div>
-          <label htmlFor="library-title-override" style={{
-            display: "block",
-            fontSize: "0.75rem",
-            fontWeight: 600,
-            textTransform: "uppercase",
-            letterSpacing: "0.05em",
-            color: "var(--pf-v6-global--Color--200)",
-          }}>
-            Title <span style={{ fontWeight: 400, textTransform: "none", color: "var(--pf-v6-global--Color--200)" }}>(optional)</span>
-          </label>
-          <input
-            id="library-title-override"
-            type="text"
-            value={titleOverride}
-            onChange={(e) => setTitleOverride(e.target.value)}
-            placeholder="Single import only: overrides title when root is one object"
-            style={{
-              marginTop: "0.375rem",
-              width: "100%",
-              maxWidth: "28rem",
-              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-              border: "1px solid var(--pf-v6-global--BorderColor--100)",
-              backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
-              padding: "0.5rem 0.75rem",
-              fontSize: "0.875rem",
-              color: "var(--pf-v6-global--Color--100)",
-            }}
-            className="placeholder:text-[var(--pf-v6-global--Color--200)] focus:border-[var(--pf-v6-global--primary-color--100)] focus:outline-none focus:ring-2 focus:ring-[var(--pf-v6-global--primary-color--100)]/25"
-          />
-        </div>
-
-            {error ? (
-              <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--danger-color--100)" }}>
-                {error.includes("||ISSUES||") ? (
-                  // Format validation errors with bullet list
-                  (() => {
-                    const [mainError, issuesStr] = error.split("||ISSUES||");
-                    const issues = issuesStr ? issuesStr.split("||ISSUE||") : [];
-                    return (
-                      <>
-                        <div style={{ fontWeight: 600, marginBottom: "0.5rem" }}>{mainError}</div>
-                        {issues.length > 0 && (
-                          <ul style={{ margin: 0, paddingLeft: "1.25rem", listStyleType: "disc" }}>
-                            {issues.map((issue, idx) => (
-                              <li key={idx} style={{ marginBottom: "0.25rem" }} dangerouslySetInnerHTML={{ __html: issue }} />
-                            ))}
-                          </ul>
-                        )}
-                      </>
-                    );
-                  })()
-                ) : (
-                  // Plain error message
-                  error
-                )}
-              </div>
-            ) : null}
-            {saveProgress ? <p style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>{saveProgress}</p> : null}
-
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.75rem", paddingTop: "0.25rem" }}>
-              <button
-                type="button"
-                onClick={props.onClose}
-                style={{
-                  borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                  border: "1px solid var(--pf-v6-global--BorderColor--100)",
-                  backgroundColor: "transparent",
-                  padding: "0.5rem 1rem",
-                  fontSize: "0.875rem",
-                  fontWeight: 600,
-                  color: "var(--pf-v6-global--Color--100)",
-                  cursor: "pointer",
-                }}
-                className="lib-btn-secondary"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                disabled={busy}
-                style={{
-                  borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
-                  border: "1px solid var(--pf-v6-global--primary-color--100)",
-                  backgroundColor: "var(--pf-v6-global--primary-color--100)",
-                  padding: "0.5rem 1rem",
-                  fontSize: "0.875rem",
-                  fontWeight: 600,
-                  color: "white",
-                  cursor: busy ? "not-allowed" : "pointer",
-                  opacity: busy ? 0.5 : 1,
-                }}
-                className="lib-btn-primary"
-              >
-                {busy ? saveProgress || "Saving…" : "Save to library"}
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import type { Method, Practice, PracticeBaseline } from "@/lib/types";
+import { coerce, compare } from "semver";
 import { classifyLibraryRoot, type LibraryRootKind } from "@/lib/library/classify";
 import {
   activitySpaceIdentityKey,
@@ -657,7 +658,19 @@ function pickRicherPracticeBaseline(existing: PracticeBaseline | undefined, next
   const rn = baselineStructuralRichness(next);
   if (rn > re) return next;
   if (rn < re) return existing;
-  return existing;
+  return preferHigherVersion(existing, next) ?? existing;
+}
+
+function preferHigherVersion<T extends { version?: string }>(a: T, b: T): T | null {
+  const va = coerce(a.version);
+  const vb = coerce(b.version);
+  if (!va && !vb) return null;
+  if (!va) return b;
+  if (!vb) return a;
+  const cmp = compare(va, vb);
+  if (cmp < 0) return b;
+  if (cmp > 0) return a;
+  return null;
 }
 
 /**
@@ -803,7 +816,14 @@ export function buildLibraryLookupIndex(bodies: unknown[]): LibraryLookupIndex {
     } else if (kind === "practice") {
       const p = body as Practice;
       const n = String(p.name ?? "").trim();
-      if (n && !practiceByName.has(n)) practiceByName.set(n, p);
+      if (!n) continue;
+      const existing = practiceByName.get(n);
+      if (!existing) {
+        practiceByName.set(n, p);
+      } else {
+        const higher = preferHigherVersion(existing, p);
+        if (higher) practiceByName.set(n, higher);
+      }
     } else if (kind === "method") {
       const m = body as Method;
       methods.push(m);
