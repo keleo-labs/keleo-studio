@@ -57,6 +57,67 @@ function parseDragPayload(dt: DataTransfer): LibraryDragPayload | null {
   return null;
 }
 
+function bundleAwareDocUrl(id: string): string {
+  if (id.startsWith("bundle:")) {
+    const ref = id.slice(7);
+    const slashIdx = ref.indexOf("/");
+    return `/api/library/document?bundle=${encodeURIComponent(ref.slice(0, slashIdx))}&path=${encodeURIComponent(ref.slice(slashIdx + 1))}`;
+  }
+  return `/api/documents/${encodeURIComponent(id)}`;
+}
+
+async function fetchLibraryRowsDualSource(): Promise<LibraryRow[]> {
+  const [flatRes, indexRes] = await Promise.all([
+    fetch("/api/documents?details=1", { cache: "no-store" }),
+    fetch("/api/library/index", { cache: "no-store" }),
+  ]);
+
+  const rows: LibraryRow[] = [];
+  const seenNames = new Set<string>();
+
+  if (flatRes.ok) {
+    const data = (await flatRes.json()) as { documents?: LibraryRow[] };
+    const allDocs = Array.isArray(data.documents) ? data.documents : [];
+    for (const doc of allDocs) {
+      if (doc.kind === "dashboard-config") continue;
+      rows.push(doc);
+      if (doc.displayName) seenNames.add(doc.displayName);
+    }
+  }
+
+  if (indexRes.ok) {
+    const indexData = await indexRes.json();
+    for (const entry of (indexData.entries || []) as Array<{
+      name: string;
+      documentType: LibraryRootKind;
+      elementCount: number;
+      associatedBaselineName: string | null;
+      activeBundleSlug: string;
+      activeDocumentPath: string;
+    }>) {
+      if (seenNames.has(entry.name)) continue;
+      rows.push({
+        id: `bundle:${entry.activeBundleSlug}/${entry.activeDocumentPath}`,
+        title: entry.name,
+        kind: entry.documentType,
+        createdAt: "",
+        updatedAt: "",
+        libraryRootKind: entry.documentType,
+        displayName: entry.name,
+        virtualFileCount: entry.elementCount,
+        baselineNameForPracticeLink:
+          entry.documentType === "baselinePractice" || entry.documentType === "method"
+            ? (entry.associatedBaselineName ?? null)
+            : null,
+        practiceNameForDependencyLink:
+          entry.documentType === "practice" ? entry.name : null,
+      });
+    }
+  }
+
+  return rows;
+}
+
 function clonePractice(p: Practice): Practice {
   return typeof structuredClone === "function"
     ? structuredClone(p)
@@ -331,17 +392,8 @@ export function MethodBuilderClient() {
     setLibLoading(true);
     setLibError(null);
     try {
-      const res = await fetch("/api/documents?details=1", { cache: "no-store" });
-      if (!res.ok) {
-        setLibError((await res.text()) || `HTTP ${res.status}`);
-        setLibrary([]);
-        return;
-      }
-      const data = (await res.json()) as { documents?: LibraryRow[] };
-      const allDocs = Array.isArray(data.documents) ? data.documents : [];
-      // Filter out dashboard-config documents - only show library items
-      const libraryDocs = allDocs.filter((d) => d.kind !== "dashboard-config");
-      setLibrary(libraryDocs);
+      const rows = await fetchLibraryRowsDualSource();
+      setLibrary(rows);
     } catch (e) {
       setLibError(e instanceof Error ? e.message : "Failed to load library");
       setLibrary([]);
@@ -384,7 +436,7 @@ export function MethodBuilderClient() {
     setRefreshNote(null);
 
     (async () => {
-      const res = await fetch(`/api/documents/${encodeURIComponent(libraryIdFromUrl)}`, {
+      const res = await fetch(bundleAwareDocUrl(libraryIdFromUrl), {
         cache: "no-store",
       });
       if (cancelled) return;
@@ -412,7 +464,7 @@ export function MethodBuilderClient() {
       }
 
       const fetchBody = async (id: string): Promise<unknown | null> => {
-        const r = await fetch(`/api/documents/${encodeURIComponent(id)}`, { cache: "no-store" });
+        const r = await fetch(bundleAwareDocUrl(id), { cache: "no-store" });
         if (cancelled) return null;
         if (!r.ok) return null;
         const d = (await r.json()) as { body?: unknown };
@@ -431,17 +483,8 @@ export function MethodBuilderClient() {
 
       let rows: LibraryRow[] = [];
       if (hasBaselineRef || hasPracticeNames) {
-        const libRes = await fetch("/api/documents?details=1", { cache: "no-store" });
+        rows = await fetchLibraryRowsDualSource();
         if (cancelled) return;
-        if (!libRes.ok) {
-          setLoadEditError("Could not load library to resolve method references.");
-          setLoadEditBusy(false);
-          return;
-        }
-        const libData = (await libRes.json()) as { documents?: LibraryRow[] };
-        const allRows = Array.isArray(libData.documents) ? libData.documents : [];
-        // Filter out dashboard-config documents - only use library items
-        rows = allRows.filter((d) => d.kind !== "dashboard-config");
       }
 
       const composed = await composeMethodSlotsUsingLibrary({
@@ -474,9 +517,7 @@ export function MethodBuilderClient() {
   }, [library, libTab]);
 
   async function fetchDocumentBody(id: string): Promise<unknown | null> {
-    const res = await fetch(`/api/documents/${encodeURIComponent(id)}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(bundleAwareDocUrl(id), { cache: "no-store" });
     if (!res.ok) return null;
     const doc = (await res.json()) as { body?: unknown };
     return doc.body ?? null;
@@ -488,13 +529,7 @@ export function MethodBuilderClient() {
     setComposeError(null);
     setRefreshNote(null);
     try {
-      const res = await fetch("/api/documents?details=1", { cache: "no-store" });
-      if (!res.ok) {
-        setComposeError("Could not load the library index to refresh.");
-        return;
-      }
-      const data = (await res.json()) as { documents?: LibraryRow[] };
-      const rows = Array.isArray(data.documents) ? data.documents : [];
+      const rows = await fetchLibraryRowsDualSource();
       setLibrary(rows);
 
       const baselineReloadId = resolveBaselineReloadId(rows, baselineSlot, editingDocumentId);
@@ -643,15 +678,7 @@ export function MethodBuilderClient() {
 
       let rows: LibraryRow[] = [];
       if (hasBaselineRef || hasPracticeNames) {
-        const libRes = await fetch("/api/documents?details=1", { cache: "no-store" });
-        if (!libRes.ok) {
-          setComposeError("Could not load library index to resolve method references.");
-          return;
-        }
-        const libData = (await libRes.json()) as { documents?: LibraryRow[] };
-        const allRows = Array.isArray(libData.documents) ? libData.documents : [];
-        // Filter out dashboard-config documents - only use library items
-        rows = allRows.filter((d) => d.kind !== "dashboard-config");
+        rows = await fetchLibraryRowsDualSource();
       }
 
       const composed = await composeMethodSlotsUsingLibrary({
@@ -717,15 +744,7 @@ export function MethodBuilderClient() {
 
       let rows: LibraryRow[] = [];
       if (hasPracticeNames) {
-        const libRes = await fetch("/api/documents?details=1", { cache: "no-store" });
-        if (!libRes.ok) {
-          setComposeError("Could not load library index to resolve practice names.");
-          return;
-        }
-        const libData = (await libRes.json()) as { documents?: LibraryRow[] };
-        const allRows = Array.isArray(libData.documents) ? libData.documents : [];
-        // Filter out dashboard-config documents - only use library items
-        rows = allRows.filter((d) => d.kind !== "dashboard-config");
+        rows = await fetchLibraryRowsDualSource();
       }
 
       const built = await buildExtensionPracticeSlots({

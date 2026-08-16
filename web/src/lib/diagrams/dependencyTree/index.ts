@@ -4,6 +4,7 @@ export type {
   DependencyNodeKind,
   DependencyNode,
   DependencyTreeData,
+  EdgeDirection,
   LayoutNode,
   LayoutEdge,
   LayoutGroup,

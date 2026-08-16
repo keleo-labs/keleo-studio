@@ -12,6 +12,7 @@ export type DependencyNode = {
   name: string;
   kind: DependencyNodeKind;
   baselineName: string | null;
+  version: string | null;
   children: DependencyNode[];
 };
 
@@ -30,11 +31,14 @@ export type LayoutNode = {
   name: string;
   kind: DependencyNodeKind;
   baselineName: string | null;
+  version: string | null;
   x: number;
   y: number;
   width: number;
   height: number;
 };
+
+export type EdgeDirection = "right" | "left" | "top" | "bottom";
 
 export type LayoutEdge = {
   fromName: string;
@@ -43,6 +47,8 @@ export type LayoutEdge = {
   y1: number;
   x2: number;
   y2: number;
+  exitDir: EdgeDirection;
+  entryDir: EdgeDirection;
 };
 
 export type LayoutGroup = {
@@ -80,6 +86,7 @@ function buildPracticeNode(
     name: n,
     kind: "practice",
     baselineName: practice?.baselinePracticeName ?? null,
+    version: practice?.version ?? null,
     children: [],
   };
 
@@ -118,6 +125,7 @@ function buildBaselineNode(
     name: n,
     kind: "baselinePractice",
     baselineName: n,
+    version: (fromBaseline as any)?.version ?? (fromPractice as any)?.version ?? null,
     children: [],
   };
 
@@ -153,10 +161,12 @@ export function buildDependencyTree(
   const rootName = String(doc.name ?? "");
   visited.add(rootName);
 
+  const rootVersion = typeof doc.version === "string" ? doc.version : null;
   const root: DependencyNode = {
     name: rootName,
     kind: "root",
     baselineName: null,
+    version: rootVersion,
     children: [],
   };
 
@@ -253,6 +263,7 @@ type FlatNode = {
   name: string;
   kind: DependencyNodeKind;
   baselineName: string | null;
+  version: string | null;
   column: number;
   parentName: string | null;
 };
@@ -267,6 +278,7 @@ function flattenTree(
     name: node.name,
     kind: node.kind,
     baselineName: node.baselineName,
+    version: node.version,
     column,
     parentName,
   });
@@ -309,6 +321,7 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
       name: tree.root.name,
       kind: tree.root.kind,
       baselineName: tree.root.baselineName,
+      version: tree.root.version,
       x: 0,
       y: 0,
       width: NODE_WIDTH,
@@ -446,6 +459,7 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
           name: pos.node.name,
           kind: pos.node.kind,
           baselineName: pos.node.baselineName,
+          version: pos.node.version,
           x: pos.x,
           y: pos.y,
           width: NODE_WIDTH,
@@ -469,6 +483,7 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
       name: rootFlat.name,
       kind: rootFlat.kind,
       baselineName: rootFlat.baselineName,
+      version: rootFlat.version,
       x: 0,
       y: centerY - NODE_HEIGHT / 2,
       width: NODE_WIDTH,
@@ -490,6 +505,8 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
     let y1 = from.y + from.height / 2;
     let x2 = to.x;
     let y2 = to.y + to.height / 2;
+    let exitDir: EdgeDirection = "right";
+    let entryDir: EdgeDirection = "left";
 
     // Determine source and target groups
     const fgKey = from.kind === "baselinePractice" ? from.name : from.baselineName;
@@ -509,9 +526,11 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
           if (fg.y < tg.y) {
             x1 = midX; y1 = fg.y + fg.height;
             x2 = midX; y2 = tg.y;
+            exitDir = "bottom"; entryDir = "top";
           } else {
             x1 = midX; y1 = fg.y;
             x2 = midX; y2 = tg.y + tg.height;
+            exitDir = "top"; entryDir = "bottom";
           }
         } else {
           // Practice target: route node-to-node vertically
@@ -520,9 +539,11 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
           if (from.y < to.y) {
             x1 = fromCx; y1 = from.y + from.height;
             x2 = toCx; y2 = to.y;
+            exitDir = "bottom"; entryDir = "top";
           } else {
             x1 = fromCx; y1 = from.y;
             x2 = toCx; y2 = to.y + to.height;
+            exitDir = "top"; entryDir = "bottom";
           }
         }
       } else {
@@ -543,7 +564,7 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
       x1 = fg.x + fg.width; y1 = fg.y + fg.height / 2;
     }
 
-    return { fromName, toName, x1, y1, x2, y2 };
+    return { fromName, toName, x1, y1, x2, y2, exitDir, entryDir };
   }
 
   for (const fn of flat) {

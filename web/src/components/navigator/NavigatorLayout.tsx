@@ -5,6 +5,7 @@ import { Alert } from "@patternfly/react-core";
 import type { PracticeBaseline } from "@/lib/types";
 import type { BrowseDependencyArtifact } from "@/lib/library/practiceDependencyResolution";
 import type { VersionWarning } from "@/lib/library/dependencyVersionCheck";
+import type { DependencyDiagramLayout } from "@/lib/diagrams/dependencyTree";
 import type {
   FocusGroup as AlphaScoreFocusGroup,
   ActivitySpaceFocusGroup
@@ -36,6 +37,7 @@ interface NavigatorLayoutProps {
   secondaryElement: string | null;
   libraryId: string | null;
   dependencyArtifacts: BrowseDependencyArtifact[];
+  dependencyDiagramLayout?: DependencyDiagramLayout;
   versionWarnings?: VersionWarning[];
   schemaWarning?: string;
   alphaScores: Map<string, AlphaScoreFocusGroup>;
@@ -58,6 +60,7 @@ export function NavigatorLayout({
   secondaryElement,
   libraryId,
   dependencyArtifacts,
+  dependencyDiagramLayout,
   versionWarnings,
   schemaWarning,
   alphaScores,
@@ -105,20 +108,36 @@ export function NavigatorLayout({
     // If on the introduction page, attempt library fetch for any unresolved name
     // (covers direct practices, dependencies, baselines, and transitive deps)
     if (selectedElement === "__introduction__") {
-      // Fetch from library
+      // Fetch from flat store and bundle library
       const fetchPractice = async () => {
         try {
           const listResponse = await fetch('/api/documents?withBody=1');
-          if (!listResponse.ok) return;
+          if (listResponse.ok) {
+            const listData = await listResponse.json();
+            const practiceItem = listData.documents?.find((doc: any) => doc.body?.name === secondaryElement);
+            if (practiceItem?.body) {
+              setPracticeDocuments(prev => new Map(prev).set(secondaryElement, {
+                id: practiceItem.id,
+                body: practiceItem.body
+              }));
+              return;
+            }
+          }
 
-          const listData = await listResponse.json();
-          const practiceItem = listData.documents?.find((doc: any) => doc.body?.name === secondaryElement);
+          // Fall back to bundle library
+          const indexRes = await fetch('/api/library/index');
+          if (!indexRes.ok) return;
+          const indexData = await indexRes.json();
+          const entry = (indexData.entries || []).find((e: any) => e.name === secondaryElement);
+          if (!entry) return;
 
-          if (practiceItem?.body) {
-            // Store both id and body so we can navigate to the practice
+          const docRes = await fetch(`/api/library/document?bundle=${encodeURIComponent(entry.activeBundleSlug)}&path=${encodeURIComponent(entry.activeDocumentPath)}`);
+          if (!docRes.ok) return;
+          const docData = await docRes.json();
+          if (docData.body) {
             setPracticeDocuments(prev => new Map(prev).set(secondaryElement, {
-              id: practiceItem.id,
-              body: practiceItem.body
+              id: `bundle:${entry.activeBundleSlug}/${entry.activeDocumentPath}`,
+              body: docData.body
             }));
           }
         } catch (error) {
@@ -462,6 +481,7 @@ export function NavigatorLayout({
         baseline={baseline}
         libraryId={libraryId}
         dependencyArtifacts={dependencyArtifacts}
+        dependencyDiagramLayout={dependencyDiagramLayout}
         mode={mode}
         alphaScores={alphaScores}
         activitySpaceScores={activitySpaceScores}
