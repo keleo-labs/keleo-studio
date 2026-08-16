@@ -14,7 +14,7 @@ import {
   ToolbarItem,
   ToolbarGroup,
 } from "@patternfly/react-core";
-import { validateAgainstSchema } from "@/lib/core/validate";
+import type { ValidationIssue } from "@/lib/types";
 import { displayNameForBody } from "@/lib/library/classify";
 import { emptyProject } from "@/lib/data/practiceFormDefaults";
 import { JsonEditor } from "@/components/editors/JsonEditor";
@@ -90,7 +90,12 @@ function ProjectManagerPageInner() {
   }, []);
 
   const runValidation = useCallback(async (parsed: unknown) => {
-    const result = await validateAgainstSchema(parsed);
+    const res = await fetch("/api/validate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(parsed),
+    });
+    const result: { ok: boolean; issues: ValidationIssue[]; relaxedOk: boolean; relaxedIssues: ValidationIssue[] } = await res.json();
     setValidationIssues(!result.ok ? result.issues : !result.relaxedOk ? result.relaxedIssues : []);
   }, []);
 

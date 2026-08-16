@@ -2,7 +2,7 @@
   "kind": "practiceBaseline",
   "name": "Platform Adoption Essentials",
   "description": "The Platform Adoption Essentials baseline establishes the universal foundation for platform transformations, extending the Project Essentials baseline with platform-specific concerns across the three Areas of Concern.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "authors": [
     "Kernel Authors"
   ],
@@ -70,7 +70,8 @@
           "seq": 3,
           "checklist": []
         }
-      ]
+      ],
+      "kind": "alpha"
     },
     {
       "name": "Requirements",
@@ -136,7 +137,8 @@
           "assetName": "requirements-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "alpha"
     },
     {
       "name": "Platform",
@@ -214,7 +216,8 @@
           "type": "icon"
         }
       ],
-      "contributesTo": "Deliverable"
+      "contributesTo": "Deliverable",
+      "kind": "alpha"
     },
     {
       "name": "Platform Consumption Interface",
@@ -274,7 +277,8 @@
           "assetName": "platform-consumption-interface-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "alpha"
     },
     {
       "name": "Platform Asset",
@@ -347,7 +351,8 @@
           "type": "icon"
         }
       ],
-      "contributesTo": "Deliverable"
+      "contributesTo": "Deliverable",
+      "kind": "alpha"
     },
     {
       "name": "Platform Governance",
@@ -355,7 +360,7 @@
       "focusName": "Endeavor",
       "relatesTo": [
         {
-          "relationship": "constrains",
+          "relationship": "governed by",
           "alphaName": "Platform",
           "direction": "outgoing"
         },
@@ -395,7 +400,8 @@
           "assetName": "platform-governance-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "alpha"
     },
     {
       "name": "Platform Risk And Compliance",
@@ -449,7 +455,8 @@
           "assetName": "platform-risk-compliance-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "alpha"
     }
   ],
   "activitySpaces": [
@@ -471,7 +478,8 @@
           "assetName": "monitor-value-realization-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "activitySpace"
     },
     {
       "name": "Manage Platform Economics",
@@ -495,7 +503,8 @@
           "assetName": "manage-platform-economics-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "activitySpace"
     },
     {
       "name": "Establish Secure Guardrails",
@@ -524,7 +533,8 @@
           "assetName": "establish-secure-guardrails-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "activitySpace"
     },
     {
       "name": "Define Platform Capabilities",
@@ -560,7 +570,8 @@
           "assetName": "define-platform-capabilities-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "activitySpace"
     },
     {
       "name": "Architect and Build the Foundation",
@@ -592,7 +603,8 @@
           "assetName": "architect-build-foundation-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "activitySpace"
     },
     {
       "name": "Operate and Evolve the System",
@@ -617,7 +629,8 @@
           "assetName": "operate-evolve-system-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "activitySpace"
     },
     {
       "name": "Develop the Golden Paths",
@@ -649,7 +662,8 @@
           "assetName": "develop-golden-paths-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "activitySpace"
     },
     {
       "name": "Integrate Toolchain Services",
@@ -682,7 +696,8 @@
           "assetName": "integrate-toolchain-services-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "activitySpace"
     },
     {
       "name": "Implement Policy-as-Code",
@@ -707,7 +722,8 @@
           "assetName": "implement-policy-as-code-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "activitySpace"
     },
     {
       "name": "Decommission and Retire",
@@ -731,7 +747,8 @@
           "assetName": "decommission-retire-icon",
           "type": "icon"
         }
-      ]
+      ],
+      "kind": "activitySpace"
     }
   ],
   "competencies": [
@@ -881,7 +898,7 @@
     }
   ],
   "createdAt": "2023-10-25T00:00:00Z",
-  "updatedAt": "2026-08-11",
+  "updatedAt": "2026-08-16",
   "narrativeTypes": [
     {
       "name": "The Three-Act Structure & StoryBrand",
@@ -902,7 +919,8 @@
           "description": "Execution and outcome.",
           "howToUse": "Describe the call to action for the consumer to adopt the plan, and the successful outcome of doing so."
         }
-      ]
+      ],
+      "kind": "narrativeType"
     },
     {
       "name": "User story",
@@ -923,7 +941,8 @@
           "description": "This is the purpose. It explains the underlying problem the user is trying to solve or the value they hope to gain.",
           "howToUse": "Use this to justify the work. If you can’t find a compelling **So that** statement, the feature might not be worth building. It also helps developers suggest better technical solutions if they understand the ultimate goal."
         }
-      ]
+      ],
+      "kind": "narrativeType"
     },
     {
       "name": "Epic",
@@ -954,7 +973,8 @@
           "description": "The quantitative data points that will prove the Epic was a success after it is released.",
           "howToUse": "Use this to define the \"Definition of Done\" for the entire project. Instead of saying \"when the code is finished,\" use \"when the checkout conversion rate hits 5%.\""
         }
-      ]
+      ],
+      "kind": "narrativeType"
     },
     {
       "name": "Essay Narrative",
@@ -980,7 +1000,8 @@
           "description": "The closing section that synthesises the presented evidence and forms a direct response to the assignment title.",
           "howToUse": "Draw the threads of your argument together. Do not bring in new evidence in your concluding paragraphs or try to cram in ideas that you have not developed fully."
         }
-      ]
+      ],
+      "kind": "narrativeType"
     },
     {
       "name": "Report Narrative",
@@ -1016,7 +1037,8 @@
           "description": "Suggestions for a future course of action based on the evidence and conclusions.",
           "howToUse": "Make recommendations that solve problems or help to develop a new strategy. Make an effort to sound authoritative and certain in your choices."
         }
-      ]
+      ],
+      "kind": "narrativeType"
     },
     {
       "name": "SDLC",
@@ -1052,7 +1074,8 @@
           "description": "Operations and continuous improvement phase.",
           "howToUse": "Monitor, optimize, patch, and evolve the solution in production."
         }
-      ]
+      ],
+      "kind": "narrativeType"
     },
     {
       "name": "Build-Measure-Learn",
@@ -1073,7 +1096,8 @@
           "description": "Analyze and decide next iteration.",
           "howToUse": "Synthesize findings, validate or invalidate hypothesis, pivot or persevere."
         }
-      ]
+      ],
+      "kind": "narrativeType"
     },
     {
       "name": "Design-Build-Run-Optimize",
@@ -1099,7 +1123,8 @@
           "description": "Continuous improvement and evolution.",
           "howToUse": "Tune performance, reduce costs, enhance capabilities based on operational insights."
         }
-      ]
+      ],
+      "kind": "narrativeType"
     },
     {
       "name": "Crawl-Walk-Run",
@@ -1120,7 +1145,8 @@
           "description": "Mature, optimized operation.",
           "howToUse": "Full automation, enterprise scale, optimization focus, continuous evolution."
         }
-      ]
+      ],
+      "kind": "narrativeType"
     }
   ],
   "assets": [
@@ -1261,11 +1287,11 @@
       "fontWeight": "900"
     }
   ],
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "dependencyVersions": [
     {
       "documentName": "Project Essentials",
-      "versionRange": "^1.0.0"
+      "versionRange": "^1.0.3"
     }
   ]
 }

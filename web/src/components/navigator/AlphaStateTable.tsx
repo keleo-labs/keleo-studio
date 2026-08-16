@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { Title } from "@patternfly/react-core";
 import type { PracticeBaseline, Asset } from "@/lib/types";
 import { IconAsset } from "../common/IconAsset";
@@ -22,57 +23,53 @@ export function AlphaStateTable({
   selectedElement,
   onSelectElement,
 }: AlphaStateTableProps) {
-  const states = [...alpha.states].sort((a, b) => a.seq - b.seq);
+  const { states, activitiesByState, workProductsByState } = useMemo(() => {
+    const sorted = [...alpha.states].sort((a, b) => a.seq - b.seq);
 
-  // Gather activities that contribute to each state
-  const activitiesByState = new Map<string, any[]>();
-
-  // Check both activitySpaces and flat activities
-  const allActivities: any[] = [];
-
-  // Activities from activity spaces
-  baseline.activitySpaces?.forEach(space => {
-    space.activities?.forEach(activity => {
-      allActivities.push(activity);
+    const actByState = new Map<string, any[]>();
+    const allActivities: any[] = [];
+    baseline.activitySpaces?.forEach(space => {
+      space.activities?.forEach(activity => {
+        allActivities.push(activity);
+      });
     });
-  });
 
-  // Collect activities by state (deduplicated by activity name per state)
-  const seenActivityKeys = new Map<string, Set<string>>();
-  allActivities.forEach(activity => {
-    activity.contributesTo?.forEach((contrib: any) => {
-      if (contrib.alphaName === alpha.name) {
-        const seen = seenActivityKeys.get(contrib.stateName);
-        if (seen?.has(activity.name)) return;
-        if (!seen) seenActivityKeys.set(contrib.stateName, new Set([activity.name]));
-        else seen.add(activity.name);
-        const stateActivities = activitiesByState.get(contrib.stateName) || [];
-        stateActivities.push(activity);
-        activitiesByState.set(contrib.stateName, stateActivities);
-      }
-    });
-  });
-
-  // Gather work products that contribute to each state (deduplicated by wp+lod key)
-  const workProductsByState = new Map<string, Array<{workProduct: any, lod: any}>>();
-  const seenWPKeys = new Map<string, Set<string>>();
-
-  baseline.workProducts?.forEach(wp => {
-    wp.levelsOfDetail?.forEach((lod: any) => {
-      lod.contributesTo?.forEach((contrib: any) => {
+    const seenActivityKeys = new Map<string, Set<string>>();
+    allActivities.forEach(activity => {
+      activity.contributesTo?.forEach((contrib: any) => {
         if (contrib.alphaName === alpha.name) {
-          const key = `${wp.name}::${lod.name}`;
-          const seen = seenWPKeys.get(contrib.stateName);
-          if (seen?.has(key)) return;
-          if (!seen) seenWPKeys.set(contrib.stateName, new Set([key]));
-          else seen.add(key);
-          const stateWPs = workProductsByState.get(contrib.stateName) || [];
-          stateWPs.push({ workProduct: wp, lod });
-          workProductsByState.set(contrib.stateName, stateWPs);
+          const seen = seenActivityKeys.get(contrib.stateName);
+          if (seen?.has(activity.name)) return;
+          if (!seen) seenActivityKeys.set(contrib.stateName, new Set([activity.name]));
+          else seen.add(activity.name);
+          const stateActivities = actByState.get(contrib.stateName) || [];
+          stateActivities.push(activity);
+          actByState.set(contrib.stateName, stateActivities);
         }
       });
     });
-  });
+
+    const wpByState = new Map<string, Array<{workProduct: any, lod: any}>>();
+    const seenWPKeys = new Map<string, Set<string>>();
+    baseline.workProducts?.forEach(wp => {
+      wp.levelsOfDetail?.forEach((lod: any) => {
+        lod.contributesTo?.forEach((contrib: any) => {
+          if (contrib.alphaName === alpha.name) {
+            const key = `${wp.name}::${lod.name}`;
+            const seen = seenWPKeys.get(contrib.stateName);
+            if (seen?.has(key)) return;
+            if (!seen) seenWPKeys.set(contrib.stateName, new Set([key]));
+            else seen.add(key);
+            const stateWPs = wpByState.get(contrib.stateName) || [];
+            stateWPs.push({ workProduct: wp, lod });
+            wpByState.set(contrib.stateName, stateWPs);
+          }
+        });
+      });
+    });
+
+    return { states: sorted, activitiesByState: actByState, workProductsByState: wpByState };
+  }, [alpha, baseline]);
 
   const totalStates = states.length;
 
@@ -86,8 +83,8 @@ export function AlphaStateTable({
       }}>
         <colgroup>
           <col style={{ width: "100px" }} />
-          {states.map(() => (
-            <col key={Math.random()} style={{ width: `${100 / states.length}%` }} />
+          {states.map((s, i) => (
+            <col key={s.name ?? i} style={{ width: `${100 / states.length}%` }} />
           ))}
         </colgroup>
 

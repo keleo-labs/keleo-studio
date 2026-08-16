@@ -279,6 +279,31 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
   const flat: FlatNode[] = [];
   flattenTree(tree.root, 0, null, flat);
 
+  // Adjust columns so cross-edge targets are always to the right of their sources
+  {
+    const flatByName = new Map(flat.map((n) => [n.name, n]));
+    let adjusted = true;
+    while (adjusted) {
+      adjusted = false;
+      for (const ce of tree.crossEdges) {
+        const src = flatByName.get(ce.fromName);
+        const tgt = flatByName.get(ce.toName);
+        if (src && tgt && tgt.kind !== "baselinePractice" && tgt.kind !== "root" && tgt.column <= src.column) {
+          tgt.column = src.column + 1;
+          adjusted = true;
+        }
+      }
+      for (const fn of flat) {
+        if (!fn.parentName) continue;
+        const parent = flatByName.get(fn.parentName);
+        if (parent && fn.column <= parent.column) {
+          fn.column = parent.column + 1;
+          adjusted = true;
+        }
+      }
+    }
+  }
+
   if (flat.length <= 1) {
     const single: LayoutNode = {
       name: tree.root.name,
@@ -313,6 +338,16 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
     arr.push(n);
   }
 
+  // Include root in its baseline group so it's laid out with its group
+  if (rootFlat.baselineName) {
+    let arr = groupMap.get(rootFlat.baselineName);
+    if (!arr) {
+      arr = [];
+      groupMap.set(rootFlat.baselineName, arr);
+    }
+    arr.push(rootFlat);
+  }
+
   // Sort within each group: baselines first, then practices; stable order by column
   for (const [, nodes] of groupMap) {
     nodes.sort((a, b) => {
@@ -322,15 +357,12 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
     });
   }
 
-  // Min column among dep nodes (usually 1)
-  const minDepCol = Math.min(...depNodes.map((n) => n.column));
-
   // Compute group positions
   const layoutNodes: LayoutNode[] = [];
   const layoutEdges: LayoutEdge[] = [];
   const layoutGroups: LayoutGroup[] = [];
 
-  const groupXStart = NODE_WIDTH + ROOT_GAP;
+  const groupXStart = rootFlat.baselineName ? GROUP_PADDING_X : NODE_WIDTH + ROOT_GAP;
   let currentGroupY = 0;
 
   for (const [baselineName, nodes] of groupMap) {
@@ -348,10 +380,11 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
     // Find chain heads: practices whose parent is the root or whose parent is not in this group
     const chainHeads = practices.filter((p) => {
       if (assigned.has(p.name)) return false;
-      return !p.parentName || p.parentName === rootFlat.name || !practiceByName.has(p.parentName);
+      return !p.parentName || !practiceByName.has(p.parentName);
     });
 
     for (const head of chainHeads) {
+      if (assigned.has(head.name)) continue;
       const chain = [head];
       assigned.add(head.name);
       // Follow children within this group
@@ -377,13 +410,14 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
       }
     }
 
-    // Compute positions for nodes in this group
+    // Compute positions for nodes in this group (each group uses its own column origin)
     const groupNodePositions: { node: FlatNode; x: number; y: number }[] = [];
+    const groupMinCol = Math.min(...nodes.map((n) => n.column));
 
     for (let rowIdx = 0; rowIdx < rows.length; rowIdx++) {
       const row = rows[rowIdx];
       for (const node of row) {
-        const colOffset = node.column - minDepCol;
+        const colOffset = node.kind === "baselinePractice" ? 0 : node.column - groupMinCol;
         const x = groupXStart + GROUP_PADDING_X + colOffset * (NODE_WIDTH + COLUMN_GAP);
         const y = currentGroupY + GROUP_PADDING_Y + rowIdx * (NODE_HEIGHT + ROW_GAP);
         groupNodePositions.push({ node, x, y });
@@ -423,56 +457,110 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
     }
   }
 
-  // Position root node vertically centered relative to all dep nodes
-  const allDepYs = layoutNodes.map((n) => n.y + NODE_HEIGHT / 2);
-  const centerY =
-    allDepYs.length > 0
-      ? (Math.min(...allDepYs) + Math.max(...allDepYs)) / 2
-      : NODE_HEIGHT / 2;
+  // If root is not part of a baseline group, position it standalone (centered vertically)
+  if (!rootFlat.baselineName) {
+    const allDepYs = layoutNodes.map((n) => n.y + NODE_HEIGHT / 2);
+    const centerY =
+      allDepYs.length > 0
+        ? (Math.min(...allDepYs) + Math.max(...allDepYs)) / 2
+        : NODE_HEIGHT / 2;
 
-  const rootLayout: LayoutNode = {
-    name: rootFlat.name,
-    kind: rootFlat.kind,
-    baselineName: rootFlat.baselineName,
-    x: 0,
-    y: centerY - NODE_HEIGHT / 2,
-    width: NODE_WIDTH,
-    height: NODE_HEIGHT,
-  };
-  layoutNodes.unshift(rootLayout);
+    layoutNodes.unshift({
+      name: rootFlat.name,
+      kind: rootFlat.kind,
+      baselineName: rootFlat.baselineName,
+      x: 0,
+      y: centerY - NODE_HEIGHT / 2,
+      width: NODE_WIDTH,
+      height: NODE_HEIGHT,
+    });
+  }
 
-  // Build edges from parent→child relationships
+  // Build edges from parent→child and cross-edge relationships
   const nodeByName = new Map(layoutNodes.map((n) => [n.name, n]));
+  const groupByBaseline = new Map(layoutGroups.map((g) => [g.baselineName, g]));
+
+  function buildEdge(from: LayoutNode, to: LayoutNode, fromName: string, toName: string): LayoutEdge | null {
+    // Edges to a node's own baseline are implied by group containment
+    if (to.kind === "baselinePractice" && from.baselineName === to.name) {
+      return null;
+    }
+
+    let x1 = from.x + from.width;
+    let y1 = from.y + from.height / 2;
+    let x2 = to.x;
+    let y2 = to.y + to.height / 2;
+
+    // Determine source and target groups
+    const fgKey = from.kind === "baselinePractice" ? from.name : from.baselineName;
+    const fg = fgKey ? groupByBaseline.get(fgKey) : null;
+    const tgKey = to.kind === "baselinePractice" ? to.name : to.baselineName;
+    const tg = tgKey ? groupByBaseline.get(tgKey) : null;
+
+    if (fg && tg && fg !== tg) {
+      // Cross-group edge: detect if vertically stacked
+      const hOverlap = fg.x < tg.x + tg.width && tg.x < fg.x + fg.width;
+      if (hOverlap) {
+        if (to.kind === "baselinePractice") {
+          // Baseline target: route group-to-group via overlap midpoint
+          const oLeft = Math.max(fg.x, tg.x);
+          const oRight = Math.min(fg.x + fg.width, tg.x + tg.width);
+          const midX = (oLeft + oRight) / 2;
+          if (fg.y < tg.y) {
+            x1 = midX; y1 = fg.y + fg.height;
+            x2 = midX; y2 = tg.y;
+          } else {
+            x1 = midX; y1 = fg.y;
+            x2 = midX; y2 = tg.y + tg.height;
+          }
+        } else {
+          // Practice target: route node-to-node vertically
+          const fromCx = from.x + from.width / 2;
+          const toCx = to.x + to.width / 2;
+          if (from.y < to.y) {
+            x1 = fromCx; y1 = from.y + from.height;
+            x2 = toCx; y2 = to.y;
+          } else {
+            x1 = fromCx; y1 = from.y;
+            x2 = toCx; y2 = to.y + to.height;
+          }
+        }
+      } else {
+        // Horizontally separated groups
+        if (to.kind === "baselinePractice") {
+          x1 = fg.x + fg.width; y1 = fg.y + fg.height / 2;
+          x2 = tg.x; y2 = tg.y + tg.height / 2;
+        } else if (from.kind === "baselinePractice") {
+          x1 = fg.x + fg.width; y1 = fg.y + fg.height / 2;
+        }
+      }
+    } else if (to.kind === "baselinePractice") {
+      const targetGroup = groupByBaseline.get(to.name);
+      if (targetGroup) {
+        x2 = targetGroup.x; y2 = targetGroup.y + targetGroup.height / 2;
+      }
+    } else if (from.kind === "baselinePractice" && fg) {
+      x1 = fg.x + fg.width; y1 = fg.y + fg.height / 2;
+    }
+
+    return { fromName, toName, x1, y1, x2, y2 };
+  }
+
   for (const fn of flat) {
     if (!fn.parentName) continue;
     const from = nodeByName.get(fn.parentName);
     const to = nodeByName.get(fn.name);
     if (!from || !to) continue;
-
-    layoutEdges.push({
-      fromName: fn.parentName,
-      toName: fn.name,
-      x1: from.x + from.width,
-      y1: from.y + from.height / 2,
-      x2: to.x,
-      y2: to.y + to.height / 2,
-    });
+    const edge = buildEdge(from, to, fn.parentName, fn.name);
+    if (edge) layoutEdges.push(edge);
   }
 
-  // Add cross-edges for DAG dependencies not captured in the tree
   for (const ce of tree.crossEdges) {
     const from = nodeByName.get(ce.fromName);
     const to = nodeByName.get(ce.toName);
     if (!from || !to) continue;
-
-    layoutEdges.push({
-      fromName: ce.fromName,
-      toName: ce.toName,
-      x1: from.x + from.width,
-      y1: from.y + from.height / 2,
-      x2: to.x,
-      y2: to.y + to.height / 2,
-    });
+    const edge = buildEdge(from, to, ce.fromName, ce.toName);
+    if (edge) layoutEdges.push(edge);
   }
 
   // Viewport
@@ -481,20 +569,27 @@ export function computeDependencyLayout(tree: DependencyTreeData): DependencyDia
   const viewBoxWidth = Math.max(...allX) + 20;
   const viewBoxHeight = Math.max(...allY, ...layoutGroups.map((g) => g.y + g.height)) + 20;
 
-  // Ensure no negative y (root might be above dep nodes)
-  const minNodeY = Math.min(...layoutNodes.map((n) => n.y), ...layoutGroups.map((g) => g.y));
-  if (minNodeY < 10) {
-    const shift = 10 - minNodeY;
+  // Ensure no negative coordinates (group extension may push x/y below 0)
+  const minX = Math.min(...layoutNodes.map((n) => n.x), ...layoutGroups.map((g) => g.x));
+  if (minX < 10) {
+    const shift = 10 - minX;
+    for (const n of layoutNodes) n.x += shift;
+    for (const e of layoutEdges) { e.x1 += shift; e.x2 += shift; }
+    for (const g of layoutGroups) g.x += shift;
+  }
+  const minY = Math.min(...layoutNodes.map((n) => n.y), ...layoutGroups.map((g) => g.y));
+  if (minY < 10) {
+    const shift = 10 - minY;
     for (const n of layoutNodes) n.y += shift;
-    for (const e of layoutEdges) {
-      e.y1 += shift;
-      e.y2 += shift;
-    }
+    for (const e of layoutEdges) { e.y1 += shift; e.y2 += shift; }
     for (const g of layoutGroups) g.y += shift;
   }
 
-  // Recalculate viewport after shift
-  const finalMaxX = Math.max(...layoutNodes.map((n) => n.x + n.width));
+  // Recalculate viewport after shifts
+  const finalMaxX = Math.max(
+    ...layoutNodes.map((n) => n.x + n.width),
+    ...layoutGroups.map((g) => g.x + g.width),
+  );
   const finalMaxY = Math.max(
     ...layoutNodes.map((n) => n.y + n.height),
     ...layoutGroups.map((g) => g.y + g.height),

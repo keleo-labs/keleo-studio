@@ -63,8 +63,16 @@ export function DependencyDiagram({
 
         {/* Layer 2: Edges */}
         {layout.edges.map((edge) => {
-          const midX = (edge.x1 + edge.x2) / 2;
-          const d = `M ${edge.x1} ${edge.y1} C ${midX} ${edge.y1}, ${midX} ${edge.y2}, ${edge.x2} ${edge.y2}`;
+          const dx = Math.abs(edge.x2 - edge.x1);
+          const dy = Math.abs(edge.y2 - edge.y1);
+          let d: string;
+          if (dx >= dy) {
+            const midX = (edge.x1 + edge.x2) / 2;
+            d = `M ${edge.x1} ${edge.y1} C ${midX} ${edge.y1}, ${midX} ${edge.y2}, ${edge.x2} ${edge.y2}`;
+          } else {
+            const midY = (edge.y1 + edge.y2) / 2;
+            d = `M ${edge.x1} ${edge.y1} C ${edge.x1} ${midY}, ${edge.x2} ${midY}, ${edge.x2} ${edge.y2}`;
+          }
           return (
             <path
               key={`edge-${edge.fromName}-${edge.toName}`}
@@ -85,17 +93,21 @@ export function DependencyDiagram({
 
           const borderColor = isSelected
             ? "var(--pf-v6-global--primary-color--100, #0066cc)"
-            : isBaseline
+            : isRoot
               ? "var(--pf-v6-global--primary-color--100, #0066cc)"
-              : "var(--pf-v6-global--BorderColor--100, #d2d2d2)";
+              : isBaseline
+                ? "var(--pf-v6-global--primary-color--100, #0066cc)"
+                : "var(--pf-v6-global--BorderColor--100, #d2d2d2)";
 
           const fillColor = isSelected
-            ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100, #0066cc) 8%, white)"
-            : isBaseline
-              ? "var(--pf-v6-global--BackgroundColor--200, #f5f5f5)"
-              : "var(--pf-v6-global--BackgroundColor--100, #ffffff)";
+            ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100, #0066cc) 12%, white)"
+            : isRoot
+              ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100, #0066cc) 6%, white)"
+              : isBaseline
+                ? "var(--pf-v6-global--BackgroundColor--200, #f5f5f5)"
+                : "var(--pf-v6-global--BackgroundColor--100, #ffffff)";
 
-          const strokeWidth = isSelected ? 2.5 : isBaseline ? 2 : 1.5;
+          const strokeWidth = isSelected ? 2.5 : isRoot || isBaseline ? 2 : 1.5;
 
           const iconClass = isBaseline || isRoot
             ? "fa-solid fa-layer-group"

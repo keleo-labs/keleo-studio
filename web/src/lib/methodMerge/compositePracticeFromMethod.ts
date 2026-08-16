@@ -527,12 +527,13 @@ function mergeAlphas(
 }
 
 /**
- * Section 7.1: Inject cross-baseline `contributesTo` and `contributesToState` from Method.alphaBindings.
+ * Section 7.1: Inject cross-baseline `contributesTo`/`mapsTo` and `contributesToState` from Method.bindings.alphaBindings.
  * Must run BEFORE {@link aggregateSupportingAlphasFromContributesTo} so injected relationships
  * are picked up by the supporting-alpha aggregation pass.
  */
 function applyAlphaBindings(alphas: PracticeBaseline["alphas"], method: Record<string, unknown>): void {
-  const bindings = (method as any).alphaBindings;
+  const methodBindings = (method as any).bindings;
+  const bindings = methodBindings?.alphaBindings;
   if (!Array.isArray(bindings) || bindings.length === 0) return;
 
   const byName = new Map<string, (typeof alphas)[number]>();
@@ -541,24 +542,31 @@ function applyAlphaBindings(alphas: PracticeBaseline["alphas"], method: Record<s
   }
 
   for (const binding of bindings) {
-    if (!binding?.baselineAlpha?.alphaName) continue;
-    const targetKey = canonicalPracticeElementName(binding.baselineAlpha.alphaName);
+    if (!binding?.targetAlpha?.alphaName) continue;
+    const targetKey = canonicalPracticeElementName(binding.targetAlpha.alphaName);
     if (!targetKey) continue;
     const targetAlpha = byName.get(targetKey);
     if (!targetAlpha) continue;
 
-    const contributing = binding.contributingAlphas;
-    if (!Array.isArray(contributing)) continue;
+    const sources = binding.sourceAlphas;
+    if (!Array.isArray(sources)) continue;
+    const isVariant = binding.relationship === "variant";
 
-    for (const ca of contributing) {
+    for (const ca of sources) {
       if (!ca?.alphaName) continue;
       const contribKey = canonicalPracticeElementName(ca.alphaName);
       if (!contribKey) continue;
       const contribAlpha = byName.get(contribKey);
       if (!contribAlpha) continue;
 
-      if (!contribAlpha.contributesTo) {
-        contribAlpha.contributesTo = targetAlpha.name;
+      if (isVariant) {
+        if (!(contribAlpha as any).mapsTo) {
+          (contribAlpha as any).mapsTo = targetAlpha.name;
+        }
+      } else {
+        if (!contribAlpha.contributesTo) {
+          contribAlpha.contributesTo = targetAlpha.name;
+        }
       }
 
       if (Array.isArray(ca.stateContributions)) {
@@ -572,6 +580,51 @@ function applyAlphaBindings(alphas: PracticeBaseline["alphas"], method: Record<s
           if (state && !(state as any).contributesToState) {
             (state as any).contributesToState = sc.toState;
           }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Section 7.1b: Inject cross-baseline `partOf`/`mapsTo` from Method.bindings.workProductBindings.
+ * Must run BEFORE {@link aggregateVariantsFromMapsToForWorkProducts}.
+ */
+function applyWorkProductBindings(workProducts: any[], method: Record<string, unknown>): void {
+  const methodBindings = (method as any).bindings;
+  const bindings = methodBindings?.workProductBindings;
+  if (!Array.isArray(bindings) || bindings.length === 0) return;
+
+  const byName = new Map<string, any>();
+  for (const wp of workProducts ?? []) {
+    if (wp?.name) byName.set(canonicalPracticeElementName(wp.name) ?? "", wp);
+  }
+
+  for (const binding of bindings) {
+    if (!binding?.targetWorkProduct?.workProductName) continue;
+    const targetKey = canonicalPracticeElementName(binding.targetWorkProduct.workProductName);
+    if (!targetKey) continue;
+    const targetWp = byName.get(targetKey);
+    if (!targetWp) continue;
+
+    const sources = binding.sourceWorkProducts;
+    if (!Array.isArray(sources)) continue;
+    const isVariant = binding.relationship === "variant";
+
+    for (const swp of sources) {
+      if (!swp?.workProductName) continue;
+      const sourceKey = canonicalPracticeElementName(swp.workProductName);
+      if (!sourceKey) continue;
+      const sourceWp = byName.get(sourceKey);
+      if (!sourceWp) continue;
+
+      if (isVariant) {
+        if (!sourceWp.mapsTo) {
+          sourceWp.mapsTo = targetWp.name;
+        }
+      } else {
+        if (!sourceWp.partOf) {
+          sourceWp.partOf = targetWp.name;
         }
       }
     }
@@ -652,6 +705,42 @@ function aggregateVariantsFromMapsTo(
       }
     }
     if (merged.length) (parentAlpha as any).variants = merged;
+  }
+
+  return list;
+}
+
+function aggregateVariantsFromMapsToForWorkProducts(workProducts: any[]): any[] {
+  const list = (workProducts ?? []).map((wp: any) => clone(wp));
+  const byName = new Map<string, any>();
+  for (const wp of list) {
+    if (wp?.name) byName.set(String(wp.name), wp);
+  }
+
+  const variantsByParent = new Map<string, any[]>();
+  for (const wp of list) {
+    if (!wp?.name) continue;
+    const parent = typeof wp.mapsTo === "string" ? String(wp.mapsTo).trim() : "";
+    if (!parent || parent === String(wp.name)) continue;
+    if (!byName.has(parent)) continue;
+    const arr = variantsByParent.get(parent) ?? [];
+    if (!arr.some((v: any) => String(v.name) === String(wp.name))) arr.push(wp);
+    variantsByParent.set(parent, arr);
+  }
+
+  for (const [parentName, variants] of variantsByParent) {
+    const parentWp = byName.get(parentName);
+    if (!parentWp) continue;
+    const existing = Array.isArray(parentWp.variants) ? (parentWp.variants as any[]) : [];
+    const existingNames = new Set(existing.map((v: any) => String(v?.name ?? "")));
+    const merged = [...existing];
+    for (const v of variants) {
+      if (!existingNames.has(String(v.name))) {
+        merged.push(v);
+        existingNames.add(String(v.name));
+      }
+    }
+    if (merged.length) parentWp.variants = merged;
   }
 
   return list;
@@ -1524,6 +1613,11 @@ function mergeOneExtensionPracticeOntoOut(acc: ExtensionMergeAccumulator, overla
       : [],
   );
   if (mergedExtWpi.length) acc.out.workProductInstances = mergedExtWpi;
+  const mergedRefs = mergeKeyedPracticeOverlayRows(
+    Array.isArray(acc.out.references) ? (acc.out.references as any[]) : [],
+    Array.isArray((overlayPractice as any).references) ? ((overlayPractice as any).references as any[]) : [],
+  );
+  if (mergedRefs.length) acc.out.references = mergedRefs;
   const mergedAle = mergePracticeElementAliasLists([
     Array.isArray(acc.out.practiceElementAliases)
       ? (acc.out.practiceElementAliases as NonNullable<Practice["practiceElementAliases"]>)
@@ -1705,6 +1799,11 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
   applyAlphaBindings(out.alphas as PracticeBaseline["alphas"], method as Record<string, unknown>);
   out.alphas = aggregateSupportingAlphasFromContributesTo(out.alphas as PracticeBaseline["alphas"]);
   out.alphas = aggregateVariantsFromMapsTo(out.alphas as PracticeBaseline["alphas"]);
+
+  if (Array.isArray(out.workProducts) && (out.workProducts as any[]).length) {
+    applyWorkProductBindings(out.workProducts as any[], method as Record<string, unknown>);
+    out.workProducts = aggregateVariantsFromMapsToForWorkProducts(out.workProducts as any[]);
+  }
 
   propagateDerivedFocusNames(out as { alphas?: any[]; activitySpaces?: any[]; activities?: any[] });
   finalizeImplicitFocusPlaceholders(out as { activitySpaces?: any[]; alphas?: any[] });

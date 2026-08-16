@@ -664,6 +664,35 @@ export function generateAlphaPage(
     }
   }
 
+  // Reference Examples (curated AlphaInstance references matching this alpha)
+  const alphaRefs = ((baseline as any).references ?? []).filter(
+    (r: any) => r.alphaName === alpha.name,
+  );
+  if (alphaRefs.length) {
+    lines.push("", "## Reference Examples", "");
+    for (const ref of alphaRefs) {
+      let line = `- **${ref.name}**`;
+      if (ref.stateName) line += ` (${display("State", ref.stateName)})`;
+      if (ref.description) line += `: ${ref.description}`;
+      if (ref.links?.length) {
+        line += " " + ref.links.map((l: any) => l.uri ? `[${l.name}](${l.uri})` : l.name).join(", ");
+      }
+      lines.push(line);
+      if (ref.evidenceBy?.length) {
+        for (const ev of ref.evidenceBy) {
+          const wpPath = elementPath("workProduct", ev.workProductName);
+          let evLine = `    - ${mdLink(qualifiedWpName(ev.workProductName, display, workProducts), pagePath, wpPath)}`;
+          if (ev.levelOfDetailName) evLine += ` — ${display("LevelOfDetail", ev.levelOfDetailName)}`;
+          if (ev.description) evLine += `: ${ev.description}`;
+          if (ev.links?.length) {
+            evLine += " " + ev.links.map((l: any) => l.uri ? `[${l.name}](${l.uri})` : l.name).join(", ");
+          }
+          lines.push(evLine);
+        }
+      }
+    }
+  }
+
   // Related alphas
   if (alpha.relatesTo?.length) {
     lines.push("", "## Related Concerns", "");
@@ -1032,6 +1061,10 @@ export function generateWorkProductPage(
     const parentPath = elementPath("workProduct", wp.partOf);
     lines.push("", `**Part of:** ${mdLink(display("WorkProduct", wp.partOf), pagePath, parentPath)}`);
   }
+  if (wp.mapsTo) {
+    const parentPath = elementPath("workProduct", wp.mapsTo);
+    lines.push("", `**Maps to:** ${mdLink(display("WorkProduct", wp.mapsTo), pagePath, parentPath)}`);
+  }
   const childWps = (baseline.workProducts ?? []).filter((w) => w.partOf === wp.name);
   if (childWps.length) {
     lines.push("", "## Includes", "");
@@ -1039,6 +1072,13 @@ export function generateWorkProductPage(
       const childPath = elementPath("workProduct", child.name);
       const childDesc = practiceElementDescriptionForDisplay(child);
       lines.push(`- ${mdLink(display("WorkProduct", child.name), pagePath, childPath)}${childDesc ? ` — ${childDesc}` : ""}`);
+    }
+  }
+  if (wp.variants?.length) {
+    lines.push("", "## Variants", "");
+    for (const variant of wp.variants) {
+      const vDesc = practiceElementDescriptionForDisplay(variant);
+      lines.push(`- **${display("WorkProduct", variant.name)}**${vDesc ? `: ${vDesc}` : ""}`);
     }
   }
 
@@ -1061,6 +1101,33 @@ export function generateWorkProductPage(
       let line = `- **${inst.name}:** ${inst.description ?? ""}`;
       if (inst.links?.length) {
         line += " " + inst.links.map((l: any) => l.uri ? `[${l.name}](${l.uri})` : l.name).join(", ");
+      }
+      lines.push(line);
+    }
+  }
+
+  // Reference Examples (curated work product evidence from practice references)
+  const wpRefEvidence: { ref: any; ev: any }[] = [];
+  for (const ref of (baseline as any).references ?? []) {
+    for (const ev of ref.evidenceBy ?? []) {
+      if (ev.workProductName === wp.name) {
+        wpRefEvidence.push({ ref, ev });
+      }
+    }
+  }
+  if (wpRefEvidence.length) {
+    lines.push("", "## Reference Examples", "");
+    for (const { ref, ev } of wpRefEvidence) {
+      const alphaObj = baseline.alphas.find((a) => a.name === ref.alphaName);
+      const alphaFocus = alphaObj?.focusName ?? "";
+      const alphaPath = elementPath("alpha", ref.alphaName, alphaFocus);
+      let line = `- **${ev.name}**`;
+      if (ev.levelOfDetailName) line += ` (${display("LevelOfDetail", ev.levelOfDetailName)})`;
+      if (ev.description) line += `: ${ev.description}`;
+      line += ` — from ${mdLink(display("Alpha", ref.alphaName), pagePath, alphaPath)}`;
+      if (ref.stateName) line += ` at ${display("State", ref.stateName)}`;
+      if (ev.links?.length) {
+        line += " " + ev.links.map((l: any) => l.uri ? `[${l.name}](${l.uri})` : l.name).join(", ");
       }
       lines.push(line);
     }
