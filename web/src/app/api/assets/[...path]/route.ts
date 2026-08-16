@@ -37,7 +37,7 @@ export async function GET(_req: Request, ctx: Ctx) {
     return new NextResponse(null, { status: 404 });
   }
 
-  return new NextResponse(data, {
+  return new NextResponse(new Uint8Array(data), {
     headers: {
       "Content-Type": mimeFromFilename(filename),
       "Cache-Control": "public, max-age=31536000, immutable",

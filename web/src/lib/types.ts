@@ -113,8 +113,34 @@ export type ContributingAlpha = BaselineAlphaReference & {
 };
 
 export type AlphaBinding = {
-  baselineAlpha: BaselineAlphaReference;
-  contributingAlphas: ContributingAlpha[];
+  relationship: "contribution" | "variant";
+  targetAlpha: BaselineAlphaReference;
+  sourceAlphas: ContributingAlpha[];
+};
+
+export type BaselineWorkProductReference = {
+  baselineName: string;
+  workProductName: string;
+};
+
+export type LodContribution = {
+  fromLevelOfDetail: string;
+  toLevelOfDetail: string;
+};
+
+export type ContributingWorkProduct = BaselineWorkProductReference & {
+  lodContributions?: LodContribution[];
+};
+
+export type WorkProductBinding = {
+  relationship: "contribution" | "variant";
+  targetWorkProduct: BaselineWorkProductReference;
+  sourceWorkProducts: ContributingWorkProduct[];
+};
+
+export type Bindings = {
+  alphaBindings?: AlphaBinding[];
+  workProductBindings?: WorkProductBinding[];
 };
 
 export type AlphaInstanceStateReference = {
@@ -306,6 +332,8 @@ export type PracticeBaseline = PracticeElement & {
 
 export type WorkProduct = PracticeElement & {
   partOf?: string;
+  mapsTo?: string;
+  variants?: WorkProduct[];
   levelsOfDetail: (PracticeElement & {
     seq: number;
     checklist: (PracticeElement & {
@@ -379,6 +407,7 @@ export type Practice = PracticeElement & {
   acknowledgements?: Acknowledgement[];
   /** Visual assets referenced by practice elements. */
   assets?: Asset[];
+  references?: AlphaInstance[];
   schemaVersion?: string;
   dependencyVersions?: DocumentVersionConstraint[];
 };
@@ -402,8 +431,7 @@ export type Method = PracticeElement & {
   acknowledgements?: Acknowledgement[];
   /** Visual assets for the entire method (shared across practices). */
   assets?: Asset[];
-  /** Cross-baseline alpha contribution relationships injected during composition (Section 7.1 of merge spec). */
-  alphaBindings?: AlphaBinding[];
+  bindings?: Bindings;
   version?: string;
   authors?: string[];
   createdAt?: string;

@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { Title } from "@patternfly/react-core";
 import type { PracticeBaseline } from "@/lib/types";
 import type {
@@ -430,11 +431,82 @@ export function OverviewDiagram({
     return elements;
   };
 
-  if (mode === "concerns") {
-    // Separate root alphas from contributing alphas
-    const rootAlphas = (baseline.alphas || []).filter((a) => !a.contributesTo && !a.mapsTo);
+  // Activities mode types and builder (defined unconditionally for useMemo)
+  interface ActivityNode {
+    activity: typeof baseline.activitySpaces[0]["activities"][0];
+    x: number;
+    y: number;
+    score: number;
+  }
 
-    // Group root alphas by focus
+  interface ActivitySpaceTree {
+    activitySpace: typeof baseline.activitySpaces[0];
+    x: number;
+    y: number;
+    score: number;
+    activities: ActivityNode[];
+  }
+
+  const buildActivityTree = (
+    activitySpace: typeof baseline.activitySpaces[0],
+    startX: number,
+    startY: number,
+    spaceScoreEntry: any
+  ): { tree: ActivitySpaceTree; totalHeight: number } => {
+    const activities = activitySpace.activities || [];
+    const activityNodes: ActivityNode[] = [];
+    let currentY = startY + CARD_HEIGHT + CARD_GAP;
+
+    activities.forEach((activity) => {
+      let activityScore = 0;
+      if (spaceScoreEntry && spaceScoreEntry.activityScores) {
+        const actScoreEntry = spaceScoreEntry.activityScores.find(
+          (a: any) => a.activity.name === activity.name
+        );
+        if (actScoreEntry) {
+          activityScore = actScoreEntry.score;
+        }
+      }
+
+      activityNodes.push({
+        activity,
+        x: startX + INDENT,
+        y: currentY,
+        score: activityScore
+      });
+
+      currentY += CARD_HEIGHT + CARD_GAP;
+    });
+
+    const totalHeight = activities.length > 0
+      ? CARD_HEIGHT + CARD_GAP + (activities.length * (CARD_HEIGHT + CARD_GAP)) + VERTICAL_PADDING
+      : CARD_HEIGHT + CARD_GAP;
+
+    return {
+      tree: {
+        activitySpace,
+        x: startX,
+        y: startY,
+        score: 0,
+        activities: activityNodes
+      },
+      totalHeight
+    };
+  };
+
+  // Memoize concerns tree data (avoids recomputation on selection/hover changes)
+  type TreeData = {
+    rootAlpha: typeof baseline.alphas[0];
+    columns: Array<{ nodes: AlphaNode[]; parentX: number }>;
+    numColumns: number;
+    rootCardWidth: number;
+    score: number;
+    treeWidth: number;
+    treeHeight: number;
+  };
+
+  const concernsFocusGroups = useMemo(() => {
+    const rootAlphas = (baseline.alphas || []).filter((a) => !a.contributesTo && !a.mapsTo);
     const rootAlphasByFocus = new Map<string, typeof baseline.alphas>();
 
     for (const alpha of rootAlphas) {
@@ -445,23 +517,11 @@ export function OverviewDiagram({
       rootAlphasByFocus.get(focusName)!.push(alpha);
     }
 
-    // Sort root alphas by seq within each focus
     rootAlphasByFocus.forEach((alphas) => {
       alphas.sort((a, b) => (a.seq || 0) - (b.seq || 0));
     });
 
-    // Build tree structures for all focus groups
-    type TreeData = {
-      rootAlpha: typeof baseline.alphas[0];
-      columns: Array<{ nodes: AlphaNode[]; parentX: number }>;
-      numColumns: number;
-      rootCardWidth: number;
-      score: number;
-      treeWidth: number;
-      treeHeight: number;
-    };
-
-    const focusGroups: Array<{
+    const groups: Array<{
       focusName: string;
       focus: typeof baseline.focuses[0] | undefined;
       trees: TreeData[];
@@ -491,12 +551,81 @@ export function OverviewDiagram({
         });
       });
 
-      focusGroups.push({
+      groups.push({
         focusName,
         focus: baseline.focuses?.find((f) => f.name === focusName),
         trees
       });
     });
+
+    return groups;
+  }, [baseline, alphaScores]);
+
+  // Memoize activities tree data
+  const activityFocusGroups = useMemo(() => {
+    const activitySpacesByFocus = new Map<string, typeof baseline.activitySpaces>();
+    const activitySpaces = baseline.activitySpaces || [];
+
+    for (const space of activitySpaces) {
+      const focusName = space.focusName || "Other";
+      if (!activitySpacesByFocus.has(focusName)) {
+        activitySpacesByFocus.set(focusName, []);
+      }
+      activitySpacesByFocus.get(focusName)!.push(space);
+    }
+
+    activitySpacesByFocus.forEach((spaces) => {
+      spaces.sort((a, b) => (a.seq || 0) - (b.seq || 0));
+    });
+
+    const groups: Array<{
+      focusName: string;
+      focus: typeof baseline.focuses[0] | undefined;
+      trees: Array<{ spaceTree: ActivitySpaceTree; height: number; treeWidth: number }>;
+    }> = [];
+
+    Array.from(activitySpacesByFocus.entries()).forEach(([focusName, spaces]) => {
+      const trees: Array<{ spaceTree: ActivitySpaceTree; height: number; treeWidth: number }> = [];
+
+      spaces.forEach((space) => {
+        let spaceScore = 0;
+        let spaceScoreEntry = null;
+        if (activitySpaceScores) {
+          const focusGroup = activitySpaceScores.get(focusName);
+          if (focusGroup) {
+            const scoreEntry = focusGroup.activitySpaces.find(
+              (s) => s.activitySpace.name === space.name
+            );
+            if (scoreEntry) {
+              spaceScore = scoreEntry.score;
+              spaceScoreEntry = scoreEntry;
+            }
+          }
+        }
+
+        const { tree, totalHeight } = buildActivityTree(space, 0, 0, spaceScoreEntry);
+        tree.score = spaceScore;
+
+        const treeWidth = CARD_WIDTH + (space.activities && space.activities.length > 0 ? INDENT : 0);
+
+        trees.push({
+          spaceTree: tree,
+          height: totalHeight,
+          treeWidth,
+        });
+      });
+
+      groups.push({
+        focusName,
+        focus: baseline.focuses?.find((f) => f.name === focusName),
+        trees
+      });
+    });
+
+    return groups;
+  }, [baseline, activitySpaceScores]);
+
+  if (mode === "concerns") {
 
 
     return (
@@ -514,7 +643,7 @@ export function OverviewDiagram({
         </Title>
 
         {/* SVG-based alpha visualization */}
-        {focusGroups.map((group) => {
+        {concernsFocusGroups.map((group) => {
           return (
             <div key={group.focusName} style={{ marginBottom: "2rem" }}>
               <div style={{ marginBottom: "1rem" }}>
@@ -583,137 +712,10 @@ export function OverviewDiagram({
     );
   }
 
-  // Helper to count tree depth
   function countDepth(node: AlphaNode): number {
     if (node.children.length === 0) return 0;
     return 1 + Math.max(...node.children.map(countDepth));
   }
-
-  // Activities mode - build tree structure
-  interface ActivityNode {
-    activity: typeof baseline.activitySpaces[0]["activities"][0];
-    x: number;
-    y: number;
-    score: number;
-  }
-
-  interface ActivitySpaceTree {
-    activitySpace: typeof baseline.activitySpaces[0];
-    x: number;
-    y: number;
-    score: number;
-    activities: ActivityNode[];
-  }
-
-  const buildActivityTree = (
-    activitySpace: typeof baseline.activitySpaces[0],
-    startX: number,
-    startY: number,
-    spaceScoreEntry: any
-  ): { tree: ActivitySpaceTree; totalHeight: number } => {
-    const activities = activitySpace.activities || [];
-    const activityNodes: ActivityNode[] = [];
-    let currentY = startY + CARD_HEIGHT + CARD_GAP;
-
-    activities.forEach((activity) => {
-      // Look up score
-      let activityScore = 0;
-      if (spaceScoreEntry && spaceScoreEntry.activityScores) {
-        const actScoreEntry = spaceScoreEntry.activityScores.find(
-          (a: any) => a.activity.name === activity.name
-        );
-        if (actScoreEntry) {
-          activityScore = actScoreEntry.score;
-        }
-      }
-
-      activityNodes.push({
-        activity,
-        x: startX + INDENT,
-        y: currentY,
-        score: activityScore
-      });
-
-      currentY += CARD_HEIGHT + CARD_GAP;
-    });
-
-    const totalHeight = activities.length > 0
-      ? CARD_HEIGHT + CARD_GAP + (activities.length * (CARD_HEIGHT + CARD_GAP)) + VERTICAL_PADDING
-      : CARD_HEIGHT + CARD_GAP;
-
-    return {
-      tree: {
-        activitySpace,
-        x: startX,
-        y: startY,
-        score: 0,
-        activities: activityNodes
-      },
-      totalHeight
-    };
-  };
-
-  // Group activity spaces by focus
-  const activitySpacesByFocus = new Map<string, typeof baseline.activitySpaces>();
-
-  const activitySpaces = baseline.activitySpaces || [];
-  for (const space of activitySpaces) {
-    const focusName = space.focusName || "Other";
-    if (!activitySpacesByFocus.has(focusName)) {
-      activitySpacesByFocus.set(focusName, []);
-    }
-    activitySpacesByFocus.get(focusName)!.push(space);
-  }
-
-  // Sort activity spaces by seq within each focus
-  activitySpacesByFocus.forEach((spaces) => {
-    spaces.sort((a, b) => (a.seq || 0) - (b.seq || 0));
-  });
-
-  // Build trees for all activity spaces
-  const activityFocusGroups: Array<{
-    focusName: string;
-    focus: typeof baseline.focuses[0] | undefined;
-    trees: Array<{ spaceTree: ActivitySpaceTree; height: number; treeWidth: number }>;
-  }> = [];
-
-  Array.from(activitySpacesByFocus.entries()).forEach(([focusName, spaces]) => {
-    const trees: Array<{ spaceTree: ActivitySpaceTree; height: number; treeWidth: number }> = [];
-
-    spaces.forEach((space) => {
-      let spaceScore = 0;
-      let spaceScoreEntry = null;
-      if (activitySpaceScores) {
-        const focusGroup = activitySpaceScores.get(focusName);
-        if (focusGroup) {
-          const scoreEntry = focusGroup.activitySpaces.find(
-            (s) => s.activitySpace.name === space.name
-          );
-          if (scoreEntry) {
-            spaceScore = scoreEntry.score;
-            spaceScoreEntry = scoreEntry;
-          }
-        }
-      }
-
-      const { tree, totalHeight } = buildActivityTree(space, 0, 0, spaceScoreEntry);
-      tree.score = spaceScore;
-
-      const treeWidth = CARD_WIDTH + (space.activities && space.activities.length > 0 ? INDENT : 0);
-
-      trees.push({
-        spaceTree: tree,
-        height: totalHeight,
-        treeWidth,
-      });
-    });
-
-    activityFocusGroups.push({
-      focusName,
-      focus: baseline.focuses?.find((f) => f.name === focusName),
-      trees
-    });
-  });
 
   return (
     <div style={{ position: "relative" }}>

@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { classifyLibraryRoot, displayNameForBody, baselineNameForPracticeLink, practiceNameForDependencyLink, associatedBaselineName } from "@/lib/library/classify";
 import { libraryDocumentTags } from "@/lib/library/libraryDocumentTags";
 import { listVirtualElementFiles } from "@/lib/library/virtualElementFiles";
-import { extractAndPersistEmbeddedPractices } from "@/lib/library/extractEmbeddedPractices";
 import { getJsonDocumentStore } from "@/lib/storage/getStore";
 import type { JsonDocumentCreateInput, JsonDocumentKind } from "@/lib/storage/types";
 import { normalizePracticeBody } from "@/lib/core/normalizePractice";
@@ -102,16 +101,10 @@ export async function POST(req: Request) {
   try {
     const store = await getJsonDocumentStore();
 
-    // For methods with embedded practices, extract and persist them separately
-    let finalBody = normalizedBody;
-    if (o.kind === "method" && normalizedBody) {
-      finalBody = await extractAndPersistEmbeddedPractices(normalizedBody, store);
-    }
-
     const input: JsonDocumentCreateInput = {
       title,
       kind: o.kind,
-      body: finalBody,
+      body: normalizedBody,
     };
 
     const doc = await store.create(input);

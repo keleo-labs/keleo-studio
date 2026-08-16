@@ -239,6 +239,8 @@ export function LibraryBrowser() {
       baselinePractice: 0,
       practice: 0,
       project: 0,
+      changeRequest: 0,
+      changeSet: 0,
       unknown: 0,
     };
     for (const it of items) {
@@ -1576,7 +1578,7 @@ function LibraryAddModal(props: { open: boolean; onClose: () => void; onSaved: (
         setSaveProgress(`Uploading ${keleoAssets.size} asset(s)…`);
         const formData = new FormData();
         for (const [filename, data] of keleoAssets) {
-          formData.append("file", new Blob([data]), filename);
+          formData.append("file", new Blob([new Uint8Array(data)]), filename);
         }
         try {
           const assetRes = await fetch(`/api/documents/${encodeURIComponent(entryPointDocId)}/assets`, {

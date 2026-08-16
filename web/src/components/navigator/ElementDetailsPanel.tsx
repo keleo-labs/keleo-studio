@@ -630,6 +630,37 @@ export function ElementDetailsPanel({
                       </span>
                     </div>
                   )}
+                  {type === "workProduct" && data.mapsTo && (
+                    <div
+                      onClick={() => onSetSelectedElement && onSetSelectedElement(data.mapsTo)}
+                      style={{
+                        marginTop: "0.5rem",
+                        fontSize: "0.8125rem",
+                        color: "var(--pf-v6-global--Color--200)",
+                        cursor: onSetSelectedElement ? "pointer" : "default",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.25rem",
+                      }}
+                    >
+                      Maps to:{" "}
+                      <span
+                        style={{
+                          fontWeight: 600,
+                          color: onSetSelectedElement ? "var(--pf-v6-global--link--Color)" : "var(--pf-v6-global--Color--100)",
+                          transition: "text-decoration 0.2s",
+                        }}
+                        onMouseEnter={(e) => {
+                          if (onSetSelectedElement) e.currentTarget.style.textDecoration = "underline";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.textDecoration = "none";
+                        }}
+                      >
+                        <AliasedName kind="workProduct" name={data.mapsTo} browse={false} />
+                      </span>
+                    </div>
+                  )}
                 </div>
                 {(() => {
                   // Skip for references view
@@ -1071,6 +1102,88 @@ export function ElementDetailsPanel({
                   ) : null;
                 })()}
 
+                {/* Reference Examples (curated AlphaInstance references matching this alpha) */}
+                {type === "alpha" && (() => {
+                  const refs = ((baseline as any).references ?? []).filter((r: any) => r.alphaName === data.name);
+                  if (!refs.length) return null;
+                  return (
+                    <div style={{ marginTop: "2rem" }}>
+                      <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                        Reference Examples
+                      </Title>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                        {refs.map((ref: any) => (
+                          <div
+                            key={ref.name}
+                            style={{
+                              padding: "0.75rem",
+                              border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                              backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                            }}
+                          >
+                            <div style={{ fontWeight: 600, fontSize: "0.875rem", marginBottom: "0.25rem" }}>
+                              {ref.name}
+                            </div>
+                            {ref.stateName && (
+                              <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginBottom: "0.25rem" }}>
+                                State: {ref.stateName}
+                              </div>
+                            )}
+                            {ref.description && (
+                              <div style={{ fontSize: "0.8125rem", color: "var(--pf-v6-global--Color--100)", lineHeight: 1.5 }}>
+                                {ref.description}
+                              </div>
+                            )}
+                            {ref.links?.length > 0 && (
+                              <div style={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                                {ref.links.map((link: any, idx: number) => (
+                                  <a
+                                    key={idx}
+                                    href={link.uri}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--link--Color)" }}
+                                    title={link.description}
+                                  >
+                                    {link.name}
+                                  </a>
+                                ))}
+                              </div>
+                            )}
+                            {ref.evidenceBy?.length > 0 && (
+                              <div style={{ marginTop: "0.5rem", paddingLeft: "0.75rem", borderLeft: "2px solid var(--pf-v6-global--BorderColor--100)" }}>
+                                <div style={{ fontSize: "0.6875rem", textTransform: "uppercase", color: "var(--pf-v6-global--Color--200)", marginBottom: "0.25rem", fontWeight: 600, letterSpacing: "0.05em" }}>
+                                  Evidence
+                                </div>
+                                {ref.evidenceBy.map((ev: any) => (
+                                  <div key={ev.name} style={{ fontSize: "0.8125rem", marginBottom: "0.25rem" }}>
+                                    <span
+                                      style={{ fontWeight: 600, cursor: "pointer", color: "var(--pf-v6-global--link--Color)" }}
+                                      onClick={() => onSetSelectedElement && onSetSelectedElement(ev.workProductName)}
+                                    >
+                                      {ev.workProductName}
+                                    </span>
+                                    {ev.levelOfDetailName && <span style={{ color: "var(--pf-v6-global--Color--200)" }}> — {ev.levelOfDetailName}</span>}
+                                    {ev.description && <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>{ev.description}</div>}
+                                    {ev.links?.length > 0 && (
+                                      <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginTop: "0.125rem" }}>
+                                        {ev.links.map((link: any, idx: number) => (
+                                          <a key={idx} href={link.uri} target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.6875rem", color: "var(--pf-v6-global--link--Color)" }} title={link.description}>{link.name}</a>
+                                        ))}
+                                      </div>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })()}
+
                 {/* Common Examples (work product instances matching this work product) */}
                 {type === "workProduct" && (() => {
                   const examples = (baseline.workProductInstances ?? []).filter((i: any) => i.workProductName === data.name);
@@ -1089,6 +1202,70 @@ export function ElementDetailsPanel({
                       </ul>
                     </div>
                   ) : null;
+                })()}
+
+                {/* Reference Examples (curated work product evidence from practice references) */}
+                {type === "workProduct" && (() => {
+                  const wpRefs: { ref: any; ev: any }[] = [];
+                  for (const ref of (baseline as any).references ?? []) {
+                    for (const ev of ref.evidenceBy ?? []) {
+                      if (ev.workProductName === data.name) {
+                        wpRefs.push({ ref, ev });
+                      }
+                    }
+                  }
+                  if (!wpRefs.length) return null;
+                  return (
+                    <div style={{ marginTop: "2rem" }}>
+                      <Title headingLevel="h3" size="md" style={{ marginBottom: "0.75rem", fontWeight: 600 }}>
+                        Reference Examples
+                      </Title>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                        {wpRefs.map(({ ref, ev }, idx) => (
+                          <div
+                            key={`${ref.name}-${ev.name}-${idx}`}
+                            style={{
+                              padding: "0.75rem",
+                              border: "1px solid var(--pf-v6-global--BorderColor--100)",
+                              borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                              backgroundColor: "var(--pf-v6-global--BackgroundColor--200)",
+                            }}
+                          >
+                            <div style={{ fontWeight: 600, fontSize: "0.875rem", marginBottom: "0.25rem" }}>
+                              {ev.name}
+                            </div>
+                            {ev.levelOfDetailName && (
+                              <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginBottom: "0.25rem" }}>
+                                Level of Detail: {ev.levelOfDetailName}
+                              </div>
+                            )}
+                            {ev.description && (
+                              <div style={{ fontSize: "0.8125rem", color: "var(--pf-v6-global--Color--100)", lineHeight: 1.5 }}>
+                                {ev.description}
+                              </div>
+                            )}
+                            <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginTop: "0.375rem" }}>
+                              From:{" "}
+                              <span
+                                style={{ cursor: "pointer", color: "var(--pf-v6-global--link--Color)" }}
+                                onClick={() => onSetSelectedElement && onSetSelectedElement(ref.alphaName)}
+                              >
+                                {ref.alphaName}
+                              </span>
+                              {ref.stateName && ` — ${ref.stateName}`}
+                            </div>
+                            {ev.links?.length > 0 && (
+                              <div style={{ marginTop: "0.375rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                                {ev.links.map((link: any, linkIdx: number) => (
+                                  <a key={linkIdx} href={link.uri} target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--link--Color)" }} title={link.description}>{link.name}</a>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
                 })()}
 
                 {/* Activity-specific sections */}
@@ -1618,6 +1795,59 @@ export function ElementDetailsPanel({
               </div>
             );
           })()}
+
+          {/* WorkProduct-specific: Variants (WPs that declared mapsTo this WP) */}
+          {type === "workProduct" && data.variants && data.variants.length > 0 && (
+            <div style={{ marginTop: "2rem" }}>
+              <CollapsibleSection title="Variants" count={data.variants.length}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  {data.variants.map((variant: any) => {
+                    const variantAssetRef = variant.assetNames?.find((a: any) => a.type === "icon");
+                    const variantAsset = variantAssetRef ? findAsset(variantAssetRef.assetName, assets) : null;
+                    const variantDesc = practiceElementDescriptionForDisplay(variant);
+
+                    return (
+                      <button
+                        key={variant.name}
+                        onClick={() => onSetSelectedElement && onSetSelectedElement(variant.name)}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: "0.5rem",
+                          padding: "0.75rem",
+                          border: "2px solid var(--pf-v6-global--BorderColor--100)",
+                          borderRadius: "var(--pf-v6-global--BorderRadius--sm)",
+                          backgroundColor: "var(--pf-v6-global--BackgroundColor--100)",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          width: "100%",
+                          transition: "all 0.2s",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--200)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = "var(--pf-v6-global--BackgroundColor--100)";
+                        }}
+                      >
+                        {variantAsset && <IconAsset asset={variantAsset} size={16} style={{ flexShrink: 0, marginTop: "0.125rem" }} />}
+                        <div style={{ fontSize: "0.8125rem", flex: 1, minWidth: 0 }}>
+                          <div style={{ fontWeight: 600 }}>
+                            <AliasedName kind="workProduct" name={variant.name} browse={false} />
+                          </div>
+                          {variantDesc && (
+                            <div style={{ fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)", marginTop: "0.25rem", lineHeight: 1.5 }}>
+                              {variantDesc}
+                            </div>
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </CollapsibleSection>
+            </div>
+          )}
 
           {/* WorkProduct-specific: Download template button */}
           {type === "workProduct" && libraryId && (

@@ -674,18 +674,27 @@ export function generateDependencyDiagramSvg(layout: DependencyDiagramLayout): s
   }
 
   for (const edge of layout.edges) {
-    const midX = (edge.x1 + edge.x2) / 2;
+    const dx = Math.abs(edge.x2 - edge.x1);
+    const dy = Math.abs(edge.y2 - edge.y1);
+    let d: string;
+    if (dx >= dy) {
+      const midX = (edge.x1 + edge.x2) / 2;
+      d = `M ${edge.x1} ${edge.y1} C ${midX} ${edge.y1}, ${midX} ${edge.y2}, ${edge.x2} ${edge.y2}`;
+    } else {
+      const midY = (edge.y1 + edge.y2) / 2;
+      d = `M ${edge.x1} ${edge.y1} C ${edge.x1} ${midY}, ${edge.x2} ${midY}, ${edge.x2} ${edge.y2}`;
+    }
     parts.push(
-      `  <path d="M ${edge.x1} ${edge.y1} C ${midX} ${edge.y1}, ${midX} ${edge.y2}, ${edge.x2} ${edge.y2}" fill="none" stroke="rgba(102,102,102,0.6)" stroke-width="1.5" marker-end="url(#dep-arrow)" />`,
+      `  <path d="${d}" fill="none" stroke="rgba(102,102,102,0.6)" stroke-width="1.5" marker-end="url(#dep-arrow)" />`,
     );
   }
 
   for (const node of layout.nodes) {
     const isBaseline = node.kind === "baselinePractice";
     const isRoot = node.kind === "root";
-    const borderColor = isBaseline ? "#0066cc" : "#d2d2d2";
-    const fillColor = isBaseline ? "#f5f5f5" : "#ffffff";
-    const strokeWidth = isBaseline ? 2 : 1.5;
+    const borderColor = isRoot || isBaseline ? "#0066cc" : "#d2d2d2";
+    const fillColor = isRoot ? "#f0f0ff" : isBaseline ? "#f5f5f5" : "#ffffff";
+    const strokeWidth = isRoot || isBaseline ? 2 : 1.5;
     const iconColor = isBaseline || isRoot ? "#0066cc" : "#6a6e73";
 
     parts.push(

@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { Title } from "@patternfly/react-core";
 import type { PracticeBaseline, Asset } from "@/lib/types";
 import { IconAsset } from "../common/IconAsset";
@@ -23,107 +24,71 @@ export function PatternTable({
   onSelectAlpha,
   onSelectState,
 }: PatternTableProps) {
-  // Collect all unique alphas referenced in pattern views
-  const referencedAlphas = new Set<string>();
-  pattern.patternViews?.forEach((view: any) => {
-    view.alphaStates?.forEach((alphaState: any) => {
-      let alphaName;
-      if (typeof alphaState === "string") {
-        alphaName = alphaState.split(/→|->/)[0]?.trim();
-      } else {
-        alphaName = alphaState.alphaName;
-      }
-      if (alphaName) referencedAlphas.add(alphaName);
-    });
-  });
-
-  // Helper: Find ultimate root alpha recursively
-  const findUltimateRoot = (alphaName: string, visited = new Set<string>()): string => {
-    if (visited.has(alphaName) || visited.size > 20) {
-      return alphaName;
-    }
-    visited.add(alphaName);
-
-    const alpha = baseline.alphas.find((a) => a.name === alphaName);
-    if (!alpha || !alpha.contributesTo) {
-      return alphaName;
-    }
-
-    return findUltimateRoot(alpha.contributesTo, visited);
-  };
-
-  // Build alpha hierarchy (root alphas and their contributing alphas)
-  const alphaHierarchy: Array<{
-    root: any;
-    rootReferenced: boolean;
-    contributors: any[];
-  }> = [];
-
-  const processedAlphas = new Set<string>();
-
-  // First, find all contributing alphas that are referenced
-  const contributingAlphas = baseline.alphas.filter(
-    (alpha) => alpha.contributesTo && referencedAlphas.has(alpha.name)
-  );
-
-  // Group contributing alphas by their ULTIMATE root alpha (recursive)
-  const contributorsByRoot = new Map<string, any[]>();
-  contributingAlphas.forEach((alpha) => {
-    const rootName = findUltimateRoot(alpha.name);
-    if (!contributorsByRoot.has(rootName)) {
-      contributorsByRoot.set(rootName, []);
-    }
-    contributorsByRoot.get(rootName)!.push(alpha);
-  });
-
-  // Build hierarchy for each root alpha that has contributors
-  contributorsByRoot.forEach((contributors, rootName) => {
-    const rootAlpha = baseline.alphas.find((a) => a.name === rootName);
-    if (rootAlpha) {
-      alphaHierarchy.push({
-        root: rootAlpha,
-        rootReferenced: referencedAlphas.has(rootName),
-        contributors: contributors,
+  const { alphaHierarchy, totalColumns } = useMemo(() => {
+    const referencedAlphas = new Set<string>();
+    pattern.patternViews?.forEach((view: any) => {
+      view.alphaStates?.forEach((alphaState: any) => {
+        let alphaName;
+        if (typeof alphaState === "string") {
+          alphaName = alphaState.split(/→|->/)[0]?.trim();
+        } else {
+          alphaName = alphaState.alphaName;
+        }
+        if (alphaName) referencedAlphas.add(alphaName);
       });
-
-      processedAlphas.add(rootName);
-      contributors.forEach((c) => processedAlphas.add(c.name));
-    }
-  });
-
-  // Add root alphas that are referenced but have no contributing alphas
-  baseline.alphas.forEach((alpha) => {
-    if (!referencedAlphas.has(alpha.name)) return;
-    if (processedAlphas.has(alpha.name)) return;
-    if (alpha.contributesTo) return; // Skip contributing alphas
-
-    // This is a referenced root alpha with no contributors
-    alphaHierarchy.push({
-      root: alpha,
-      rootReferenced: true,
-      contributors: [],
     });
-    processedAlphas.add(alpha.name);
-  });
 
-  // Sort hierarchy: root alphas that are referenced come first,
-  // then root alphas with only contributors (not themselves referenced)
-  alphaHierarchy.sort((a, b) => {
-    // If both or neither are referenced, maintain original order
-    if (a.rootReferenced === b.rootReferenced) return 0;
-    // Referenced roots come first
-    return a.rootReferenced ? -1 : 1;
-  });
+    const findUltimateRoot = (alphaName: string, visited = new Set<string>()): string => {
+      if (visited.has(alphaName) || visited.size > 20) return alphaName;
+      visited.add(alphaName);
+      const alpha = baseline.alphas.find((a) => a.name === alphaName);
+      if (!alpha || !alpha.contributesTo) return alphaName;
+      return findUltimateRoot(alpha.contributesTo, visited);
+    };
 
-  // Calculate total column span (root alpha + contributors)
-  const totalColumns = alphaHierarchy.reduce(
-    (sum, item) => {
-      const rootCol = item.rootReferenced ? 1 : 0;
-      const contributorCols = item.contributors.length;
-      return sum + rootCol + contributorCols;
-    },
-    0
-  );
+    const hierarchy: Array<{ root: any; rootReferenced: boolean; contributors: any[] }> = [];
+    const processedAlphas = new Set<string>();
+
+    const contributingAlphas = baseline.alphas.filter(
+      (alpha) => alpha.contributesTo && referencedAlphas.has(alpha.name)
+    );
+
+    const contributorsByRoot = new Map<string, any[]>();
+    contributingAlphas.forEach((alpha) => {
+      const rootName = findUltimateRoot(alpha.name);
+      if (!contributorsByRoot.has(rootName)) contributorsByRoot.set(rootName, []);
+      contributorsByRoot.get(rootName)!.push(alpha);
+    });
+
+    contributorsByRoot.forEach((contributors, rootName) => {
+      const rootAlpha = baseline.alphas.find((a) => a.name === rootName);
+      if (rootAlpha) {
+        hierarchy.push({ root: rootAlpha, rootReferenced: referencedAlphas.has(rootName), contributors });
+        processedAlphas.add(rootName);
+        contributors.forEach((c) => processedAlphas.add(c.name));
+      }
+    });
+
+    baseline.alphas.forEach((alpha) => {
+      if (!referencedAlphas.has(alpha.name)) return;
+      if (processedAlphas.has(alpha.name)) return;
+      if (alpha.contributesTo) return;
+      hierarchy.push({ root: alpha, rootReferenced: true, contributors: [] });
+      processedAlphas.add(alpha.name);
+    });
+
+    hierarchy.sort((a, b) => {
+      if (a.rootReferenced === b.rootReferenced) return 0;
+      return a.rootReferenced ? -1 : 1;
+    });
+
+    const cols = hierarchy.reduce(
+      (sum, item) => sum + (item.rootReferenced ? 1 : 0) + item.contributors.length,
+      0
+    );
+
+    return { alphaHierarchy: hierarchy, totalColumns: cols };
+  }, [pattern, baseline]);
 
   // Helper to get states for an alpha in a pattern view
   const getStatesForAlpha = (view: any, alphaName: string): string[] => {

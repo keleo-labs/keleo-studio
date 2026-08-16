@@ -571,12 +571,12 @@ export function MethodBuilderClient() {
           kind: "method",
           name: nameTrim,
           description: descTrim,
-          baselinePractice: nextBaseline.baseline,
+          baselinePracticeName: nextBaseline.baseline.name,
         };
         if (methodTags && Object.keys(methodTags).length > 0) {
           methodBody.tags = methodTags;
         }
-        if (nextSlots.length) methodBody.practices = nextSlots.map((s) => s.practice);
+        if (nextSlots.length) methodBody.practiceNames = nextSlots.map((s) => s.practice.name);
         if (methodNarratives.length) methodBody.narratives = methodNarratives;
         const putRes = await fetch(`/api/documents/${encodeURIComponent(editingDocumentId)}`, {
           method: "PUT",
@@ -783,13 +783,13 @@ export function MethodBuilderClient() {
       kind: "method",
       name,
       description,
-      baselinePractice: baselineSlot.baseline,
+      baselinePracticeName: baselineSlot.baseline.name,
     };
     if (methodTags && Object.keys(methodTags).length > 0) {
       body.tags = methodTags;
     }
     if (practiceSlots.length) {
-      body.practices = practiceSlots.map((s) => s.practice);
+      body.practiceNames = practiceSlots.map((s) => s.practice.name);
     }
     if (methodNarratives.length) {
       body.narratives = methodNarratives;

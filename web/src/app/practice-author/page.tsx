@@ -19,7 +19,7 @@ import {
   Split,
   SplitItem,
 } from "@patternfly/react-core";
-import { validateAgainstSchema } from "@/lib/core/validate";
+import type { ValidationIssue } from "@/lib/types";
 import {
   asBaselineDocument,
   baselineWithPracticeActivities,
@@ -126,7 +126,12 @@ function PracticeAuthorPageInner() {
   }, []);
 
   const runValidation = useCallback(async (parsed: unknown) => {
-    const result = await validateAgainstSchema(parsed);
+    const res = await fetch("/api/validate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(parsed),
+    });
+    const result: { ok: boolean; issues: ValidationIssue[]; relaxedOk: boolean; relaxedIssues: ValidationIssue[] } = await res.json();
     setValidationIssues(!result.ok ? result.issues : !result.relaxedOk ? result.relaxedIssues : []);
     const b = asBaselineDocument(parsed);
     if (b) {

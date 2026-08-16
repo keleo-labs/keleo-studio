@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { Title } from "@patternfly/react-core";
 import type { PracticeBaseline, Asset } from "@/lib/types";
 import { IconAsset } from "../common/IconAsset";
@@ -23,27 +24,31 @@ export function WorkProductLODTable({
   onSelectElement,
   specificLevelOfDetail,
 }: WorkProductLODTableProps) {
-  const lods = [...workProduct.levelsOfDetail]
-    .filter((lod: any) => !specificLevelOfDetail || lod.name === specificLevelOfDetail)
-    .sort((a: any, b: any) => a.seq - b.seq);
+  const { lods, activitiesByLOD } = useMemo(() => {
+    const sorted = [...workProduct.levelsOfDetail]
+      .filter((lod: any) => !specificLevelOfDetail || lod.name === specificLevelOfDetail)
+      .sort((a: any, b: any) => a.seq - b.seq);
 
-  const allActivities: any[] = [];
-  baseline.activitySpaces?.forEach(space => {
-    space.activities?.forEach(activity => {
-      allActivities.push(activity);
+    const allActivities: any[] = [];
+    baseline.activitySpaces?.forEach(space => {
+      space.activities?.forEach(activity => {
+        allActivities.push(activity);
+      });
     });
-  });
 
-  const activitiesByLOD = new Map<string, any[]>();
-  allActivities.forEach(activity => {
-    activity.worksOn?.forEach((wo: any) => {
-      if (wo.workProductName === workProduct.name) {
-        const lodActivities = activitiesByLOD.get(wo.levelOfDetailName) || [];
-        lodActivities.push(activity);
-        activitiesByLOD.set(wo.levelOfDetailName, lodActivities);
-      }
+    const actByLOD = new Map<string, any[]>();
+    allActivities.forEach(activity => {
+      activity.worksOn?.forEach((wo: any) => {
+        if (wo.workProductName === workProduct.name) {
+          const lodActivities = actByLOD.get(wo.levelOfDetailName) || [];
+          lodActivities.push(activity);
+          actByLOD.set(wo.levelOfDetailName, lodActivities);
+        }
+      });
     });
-  });
+
+    return { lods: sorted, activitiesByLOD: actByLOD };
+  }, [workProduct, baseline, specificLevelOfDetail]);
 
   const totalLODs = lods.length;
 
