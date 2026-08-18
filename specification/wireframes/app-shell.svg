@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+  <!-- Background -->
+  <rect width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="480" y="24" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">Application Shell Layout</text>
+
+  <!-- === Collapsed Sidebar (left) === -->
+  <rect x="20" y="40" width="60" height="460" rx="4" fill="#f0f0f0" stroke="#cccccc" stroke-width="1"/>
+  <text x="50" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">60px</text>
+
+  <!-- Nav items (collapsed - icon placeholders) -->
+  <rect x="32" y="72" width="36" height="32" rx="3" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="50" y="93" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9">Dash</text>
+
+  <rect x="32" y="112" width="36" height="32" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="50" y="133" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="#666666">Meth</text>
+
+  <rect x="32" y="152" width="36" height="32" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="50" y="173" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="#666666">Nav</text>
+
+  <rect x="32" y="192" width="36" height="32" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="50" y="213" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="#666666">Auth</text>
+
+  <rect x="32" y="232" width="36" height="32" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="50" y="253" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="#666666">Proj</text>
+
+  <rect x="32" y="272" width="36" height="32" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="50" y="293" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="#666666">Lib</text>
+
+  <!-- Divider -->
+  <line x1="30" y1="316" x2="70" y2="316" stroke="#dddddd" stroke-width="1"/>
+
+  <rect x="32" y="328" width="36" height="32" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="50" y="349" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="#666666">Pref</text>
+
+  <!-- Collapse toggle -->
+  <rect x="32" y="460" width="36" height="24" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="50" y="476" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#666666">&gt;&gt;</text>
+
+  <!-- Border separator -->
+  <line x1="80" y1="40" x2="80" y2="500" stroke="#cccccc" stroke-width="1"/>
+
+  <!-- Main content area (collapsed sidebar view) -->
+  <rect x="84" y="40" width="390" height="460" rx="4" fill="#f8f8f8" stroke="#cccccc" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="279" y="270" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#999999">Main Content Area</text>
+  <text x="279" y="290" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#999999">flex: 1, min-width: 0</text>
+
+  <text x="240" y="44" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333">Desktop -- Collapsed Sidebar</text>
+
+  <!-- === Expanded Sidebar (right side, second diagram) === -->
+  <rect x="500" y="40" width="220" height="460" rx="4" fill="#f0f0f0" stroke="#cccccc" stroke-width="1"/>
+  <text x="610" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">220px</text>
+
+  <!-- Nav items (expanded - with labels) -->
+  <rect x="512" y="72" width="196" height="34" rx="3" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="526" y="94" font-family="system-ui, sans-serif" font-size="12" fill="#4a90d9">Dashboard</text>
+
+  <rect x="512" y="114" width="196" height="34" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="526" y="136" font-family="system-ui, sans-serif" font-size="12" fill="#666666">Method Builder</text>
+
+  <rect x="512" y="156" width="196" height="34" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="526" y="178" font-family="system-ui, sans-serif" font-size="12" fill="#666666">Practice Navigator</text>
+
+  <rect x="512" y="198" width="196" height="34" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="526" y="220" font-family="system-ui, sans-serif" font-size="12" fill="#666666">Practice Author</text>
+
+  <rect x="512" y="240" width="196" height="34" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="526" y="262" font-family="system-ui, sans-serif" font-size="12" fill="#666666">Project Manager</text>
+
+  <rect x="512" y="282" width="196" height="34" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="526" y="304" font-family="system-ui, sans-serif" font-size="12" fill="#666666">Manage Library</text>
+
+  <!-- Divider -->
+  <line x1="512" y1="328" x2="708" y2="328" stroke="#dddddd" stroke-width="1"/>
+
+  <rect x="512" y="340" width="196" height="34" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="526" y="362" font-family="system-ui, sans-serif" font-size="12" fill="#666666">Preferences</text>
+
+  <!-- Collapse toggle -->
+  <rect x="512" y="460" width="196" height="24" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="610" y="476" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#666666">&lt;&lt; Collapse</text>
+
+  <!-- Border separator -->
+  <line x1="720" y1="40" x2="720" y2="500" stroke="#cccccc" stroke-width="1"/>
+
+  <!-- Main content area (expanded sidebar view) -->
+  <rect x="724" y="40" width="220" height="460" rx="4" fill="#f8f8f8" stroke="#cccccc" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="834" y="270" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#999999">Main Content</text>
+  <text x="834" y="288" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999">Area</text>
+
+  <text x="680" y="44" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333">Desktop -- Expanded Sidebar</text>
+
+  <!-- Responsive breakpoint annotation -->
+  <rect x="20" y="510" width="924" height="24" rx="3" fill="#fffbe6" stroke="#e6d88a" stroke-width="1"/>
+  <text x="480" y="526" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Responsive: Desktop (>= 1024px) -- sidebar sticky, collapsible. Mobile (&lt; 1024px) -- sidebar hidden, hamburger toggle opens as fixed overlay with backdrop.</text>
+</svg>

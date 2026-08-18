@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="260" viewBox="0 0 700 260">
+  <rect width="700" height="260" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="20" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">TagsField — Structured Tag Editor</text>
+
+  <!-- Table container -->
+  <rect x="20" y="50" width="660" height="180" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
+
+  <!-- Table header -->
+  <rect x="24" y="54" width="652" height="28" fill="#f0f0f0" rx="3"/>
+  <text x="40" y="72" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#666666">Type</text>
+  <text x="220" y="72" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#666666">Value</text>
+  <text x="560" y="72" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#666666">Actions</text>
+  <line x1="24" y1="84" x2="676" y2="84" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Row 1 -->
+  <rect x="24" y="86" width="652" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <rect x="36" y="92" width="160" height="22" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="44" y="107" font-family="system-ui, sans-serif" font-size="10" fill="#333333">domain ▼</text>
+  <rect x="220" y="92" width="310" height="22" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="228" y="107" font-family="system-ui, sans-serif" font-size="10" fill="#333333">agile</text>
+  <rect x="556" y="92" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="567" y="107" font-family="system-ui, sans-serif" font-size="10" fill="#666666" text-anchor="middle">↑</text>
+  <rect x="584" y="92" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="595" y="107" font-family="system-ui, sans-serif" font-size="10" fill="#666666" text-anchor="middle">↓</text>
+  <rect x="612" y="92" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="623" y="107" font-family="system-ui, sans-serif" font-size="10" fill="#666666" text-anchor="middle">×</text>
+
+  <!-- Row 2 -->
+  <rect x="24" y="120" width="652" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <rect x="36" y="126" width="160" height="22" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="44" y="141" font-family="system-ui, sans-serif" font-size="10" fill="#333333">lifecycle ▼</text>
+  <rect x="220" y="126" width="310" height="22" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="228" y="141" font-family="system-ui, sans-serif" font-size="10" fill="#333333">methodology</text>
+  <rect x="556" y="126" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="567" y="141" font-family="system-ui, sans-serif" font-size="10" fill="#666666" text-anchor="middle">↑</text>
+  <rect x="584" y="126" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="595" y="141" font-family="system-ui, sans-serif" font-size="10" fill="#666666" text-anchor="middle">↓</text>
+  <rect x="612" y="126" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="623" y="141" font-family="system-ui, sans-serif" font-size="10" fill="#666666" text-anchor="middle">×</text>
+
+  <!-- Row 3 -->
+  <rect x="24" y="154" width="652" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <rect x="36" y="160" width="160" height="22" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="44" y="175" font-family="system-ui, sans-serif" font-size="10" fill="#333333">organisational ▼</text>
+  <rect x="220" y="160" width="310" height="22" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="228" y="175" font-family="system-ui, sans-serif" font-size="10" fill="#333333">planning</text>
+  <rect x="556" y="160" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="567" y="175" font-family="system-ui, sans-serif" font-size="10" fill="#666666" text-anchor="middle">↑</text>
+  <rect x="584" y="160" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="595" y="175" font-family="system-ui, sans-serif" font-size="10" fill="#666666" text-anchor="middle">↓</text>
+  <rect x="612" y="160" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="623" y="175" font-family="system-ui, sans-serif" font-size="10" fill="#666666" text-anchor="middle">×</text>
+
+  <!-- Add button -->
+  <rect x="24" y="192" width="90" height="26" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="69" y="209" font-family="system-ui, sans-serif" font-size="11" fill="#333333" text-anchor="middle">+ Add Tag</text>
+
+  <!-- Annotation -->
+  <text x="20" y="250" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Type dropdown selects from: domain, lifecycle, organisational.  Accepts both structured and legacy string array formats.</text>
+</svg>

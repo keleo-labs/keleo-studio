@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="1000" height="520">
+  <rect width="1000" height="520" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="16" y="28" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">Work Product LOD Table</text>
+  <text x="16" y="44" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Full-width table below work product narrative content. Cells are clickable.</text>
+
+  <!-- Table container -->
+  <rect x="16" y="56" width="968" height="450" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
+
+  <!-- Column headers -->
+  <rect x="17" y="57" width="240" height="32" fill="#f0f0f0" rx="4"/>
+  <text x="137" y="78" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333" text-anchor="middle">LOD 1</text>
+
+  <rect x="258" y="57" width="240" height="32" fill="#f0f0f0" rx="4"/>
+  <text x="378" y="78" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333" text-anchor="middle">LOD 2</text>
+
+  <rect x="499" y="57" width="240" height="32" fill="#f0f0f0" rx="4"/>
+  <text x="619" y="78" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333" text-anchor="middle">LOD 3</text>
+
+  <rect x="740" y="57" width="243" height="32" fill="#f0f0f0" rx="4"/>
+  <text x="862" y="78" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333" text-anchor="middle">LOD 4</text>
+
+  <!-- Header divider -->
+  <line x1="16" y1="90" x2="984" y2="90" stroke="#cccccc" stroke-width="1"/>
+
+  <!-- Row 1: LOD Name Tiles -->
+  <rect x="24" y="98" width="226" height="34" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <circle cx="44" cy="115" r="12" fill="#c5ddf5"/>
+  <text x="44" y="119" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#333333" text-anchor="middle">1</text>
+  <text x="64" y="119" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Identified</text>
+
+  <rect x="265" y="98" width="226" height="34" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2" rx="4"/>
+  <circle cx="285" cy="115" r="12" fill="#9dc4ed"/>
+  <text x="285" y="119" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#333333" text-anchor="middle">2</text>
+  <text x="305" y="119" font-family="system-ui, sans-serif" font-size="11" fill="#4a90d9" font-weight="bold">Outlined</text>
+
+  <rect x="506" y="98" width="226" height="34" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <circle cx="526" cy="115" r="12" fill="#6fa8e0"/>
+  <text x="526" y="119" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="546" y="119" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Detailed</text>
+
+  <rect x="747" y="98" width="229" height="34" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <circle cx="767" cy="115" r="12" fill="#4a90d9"/>
+  <text x="767" y="119" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="787" y="119" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Complete</text>
+
+  <!-- Divider -->
+  <line x1="24" y1="140" x2="976" y2="140" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Row 2: Description -->
+  <text x="24" y="158" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#999999">DESCRIPTION</text>
+
+  <rect x="24" y="164" width="226" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="32" y="184" font-family="system-ui, sans-serif" font-size="10" fill="#666666">Work product is named...</text>
+
+  <rect x="265" y="164" width="226" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="273" y="184" font-family="system-ui, sans-serif" font-size="10" fill="#666666">Key sections outlined...</text>
+
+  <rect x="506" y="164" width="226" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="514" y="184" font-family="system-ui, sans-serif" font-size="10" fill="#666666">All sections populated...</text>
+
+  <rect x="747" y="164" width="229" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="755" y="184" font-family="system-ui, sans-serif" font-size="10" fill="#666666">Reviewed and approved...</text>
+
+  <!-- Divider -->
+  <line x1="24" y1="204" x2="976" y2="204" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Row 3: Prerequisites -->
+  <text x="24" y="222" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#999999">PREREQUISITES</text>
+
+  <rect x="24" y="228" width="226" height="26" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="32" y="246" font-family="system-ui, sans-serif" font-size="10" fill="#666666">None</text>
+
+  <rect x="265" y="228" width="226" height="26" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="273" y="233" width="120" height="18" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="9"/>
+  <text x="333" y="246" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Requirements : Bounded</text>
+
+  <rect x="506" y="228" width="226" height="26" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="514" y="233" width="128" height="18" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="9"/>
+  <text x="578" y="246" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Requirements : Coherent</text>
+
+  <rect x="747" y="228" width="229" height="26" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="755" y="233" width="136" height="18" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="9"/>
+  <text x="823" y="246" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Requirements : Acceptable</text>
+
+  <!-- Divider -->
+  <line x1="24" y1="262" x2="976" y2="262" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Row 4: Contributes To -->
+  <text x="24" y="280" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#999999">CONTRIBUTES TO</text>
+
+  <rect x="24" y="286" width="226" height="26" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="32" y="291" width="132" height="18" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="9"/>
+  <text x="98" y="304" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Requirements : Recognized</text>
+
+  <rect x="265" y="286" width="226" height="26" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="273" y="291" width="120" height="18" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="9"/>
+  <text x="333" y="304" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Requirements : Bounded</text>
+
+  <rect x="506" y="286" width="226" height="26" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="514" y="291" width="128" height="18" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="9"/>
+  <text x="578" y="304" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Requirements : Coherent</text>
+
+  <rect x="747" y="286" width="229" height="26" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="755" y="291" width="136" height="18" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="9"/>
+  <text x="823" y="304" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Requirements : Acceptable</text>
+
+  <!-- Divider -->
+  <line x1="24" y1="320" x2="976" y2="320" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Row 5: Developed By -->
+  <text x="24" y="338" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#999999">DEVELOPED BY</text>
+
+  <rect x="24" y="344" width="100" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="74" y="359" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Explore Scope</text>
+
+  <rect x="265" y="344" width="86" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="308" y="359" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Shape Work</text>
+
+  <rect x="506" y="344" width="100" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="556" y="359" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Analyse Needs</text>
+
+  <rect x="747" y="344" width="80" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="787" y="359" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Validate</text>
+
+  <!-- Divider -->
+  <line x1="24" y1="374" x2="976" y2="374" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Row 6: Checklist -->
+  <text x="24" y="392" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#999999">CHECKLIST</text>
+
+  <rect x="24" y="398" width="226" height="60" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="32" y="406" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="48" y="416" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Name assigned</text>
+  <rect x="32" y="422" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="48" y="432" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Purpose stated</text>
+  <rect x="32" y="438" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="48" y="448" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Owner identified</text>
+
+  <rect x="265" y="398" width="226" height="60" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="273" y="406" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="289" y="416" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Structure defined</text>
+  <rect x="273" y="422" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="289" y="432" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Key sections listed</text>
+  <rect x="273" y="438" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="289" y="448" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Template exists</text>
+
+  <rect x="506" y="398" width="226" height="60" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="514" y="406" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="530" y="416" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Content complete</text>
+  <rect x="514" y="422" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="530" y="432" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Cross-refs valid</text>
+  <rect x="514" y="438" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="530" y="448" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Reviewed once</text>
+
+  <rect x="747" y="398" width="229" height="60" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="755" y="406" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="771" y="416" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Approved by owner</text>
+  <rect x="755" y="422" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="771" y="432" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Version controlled</text>
+  <rect x="755" y="438" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="771" y="448" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Distributed</text>
+
+  <!-- Annotation -->
+  <text x="16" y="490" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Clicking any LOD tile, prerequisite badge, contributes-to badge, or activity badge opens the secondary panel.</text>
+  <text x="16" y="504" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">LOD 2 shown as selected (blue border). Numbered circles use progressive blue shading.</text>
+</svg>

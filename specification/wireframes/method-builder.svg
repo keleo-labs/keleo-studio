@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="740" viewBox="0 0 960 740">
+  <rect width="960" height="740" fill="#ffffff"/>
+
+  <!-- Left panel: Library -->
+  <rect x="20" y="20" width="250" height="700" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
+  <text x="40" y="48" font-family="system-ui, sans-serif" font-size="14" fill="#333333" font-weight="bold">Library</text>
+
+  <!-- Filter tabs -->
+  <rect x="30" y="58" width="230" height="30" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <!-- All tab (active) -->
+  <rect x="30" y="58" width="78" height="30" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2" rx="3"/>
+  <text x="69" y="78" font-family="system-ui, sans-serif" font-size="11" fill="#4a90d9" font-weight="bold" text-anchor="middle">All</text>
+  <!-- Baselines tab -->
+  <text x="148" y="78" font-family="system-ui, sans-serif" font-size="11" fill="#666666" text-anchor="middle">Baselines</text>
+  <!-- Practices tab -->
+  <text x="228" y="78" font-family="system-ui, sans-serif" font-size="11" fill="#666666" text-anchor="middle">Practices</text>
+
+  <!-- Library items -->
+  <!-- Item 1: Baseline -->
+  <rect x="30" y="100" width="230" height="44" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="48" y="120" font-family="system-ui, sans-serif" font-size="12" fill="#999999">&#8801;</text>
+  <text x="66" y="120" font-family="system-ui, sans-serif" font-size="11" fill="#333333" font-weight="bold">Essence Kernel</text>
+  <rect x="66" y="126" width="55" height="14" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="7"/>
+  <text x="93" y="136" font-family="system-ui, sans-serif" font-size="8" fill="#4a90d9" text-anchor="middle">baseline</text>
+
+  <!-- Item 2: Practice -->
+  <rect x="30" y="150" width="230" height="44" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="48" y="170" font-family="system-ui, sans-serif" font-size="12" fill="#999999">&#8801;</text>
+  <text x="66" y="170" font-family="system-ui, sans-serif" font-size="11" fill="#333333" font-weight="bold">Scrum</text>
+  <rect x="66" y="176" width="55" height="14" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1" rx="7"/>
+  <text x="93" y="186" font-family="system-ui, sans-serif" font-size="8" fill="#66bb6a" text-anchor="middle">practice</text>
+
+  <!-- Item 3: Practice -->
+  <rect x="30" y="200" width="230" height="44" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="48" y="220" font-family="system-ui, sans-serif" font-size="12" fill="#999999">&#8801;</text>
+  <text x="66" y="220" font-family="system-ui, sans-serif" font-size="11" fill="#333333" font-weight="bold">User Story</text>
+  <rect x="66" y="226" width="55" height="14" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1" rx="7"/>
+  <text x="93" y="236" font-family="system-ui, sans-serif" font-size="8" fill="#66bb6a" text-anchor="middle">practice</text>
+
+  <!-- Item 4: Practice -->
+  <rect x="30" y="250" width="230" height="44" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="48" y="270" font-family="system-ui, sans-serif" font-size="12" fill="#999999">&#8801;</text>
+  <text x="66" y="270" font-family="system-ui, sans-serif" font-size="11" fill="#333333" font-weight="bold">Definition of Done</text>
+  <rect x="66" y="276" width="55" height="14" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1" rx="7"/>
+  <text x="93" y="286" font-family="system-ui, sans-serif" font-size="8" fill="#66bb6a" text-anchor="middle">practice</text>
+
+  <!-- Item 5: Method -->
+  <rect x="30" y="300" width="230" height="44" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="48" y="320" font-family="system-ui, sans-serif" font-size="12" fill="#999999">&#8801;</text>
+  <text x="66" y="320" font-family="system-ui, sans-serif" font-size="11" fill="#333333" font-weight="bold">Agile Method</text>
+  <rect x="66" y="326" width="55" height="14" fill="#f3e5f5" stroke="#ab47bc" stroke-width="1" rx="7"/>
+  <text x="93" y="336" font-family="system-ui, sans-serif" font-size="8" fill="#ab47bc" text-anchor="middle">method</text>
+
+  <!-- More items placeholder -->
+  <text x="145" y="372" font-family="system-ui, sans-serif" font-size="12" fill="#999999" text-anchor="middle">...</text>
+
+  <!-- Scrollbar -->
+  <rect x="264" y="100" width="4" height="280" fill="#eeeeee" rx="2"/>
+  <rect x="264" y="100" width="4" height="100" fill="#cccccc" rx="2"/>
+
+  <!-- Drag arrow from library to composition -->
+  <line x1="270" y1="170" x2="305" y2="170" stroke="#4a90d9" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <polygon points="305,166 315,170 305,174" fill="#4a90d9"/>
+  <text x="293" y="162" font-family="system-ui, sans-serif" font-size="8" fill="#4a90d9" text-anchor="middle">drag</text>
+
+  <!-- Right panel: Composition surface -->
+  <rect x="290" y="20" width="650" height="700" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
+
+  <!-- Header: Name and Description -->
+  <rect x="300" y="30" width="630" height="80" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="315" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Method Name</text>
+  <rect x="415" y="38" width="500" height="22" fill="#f5f5f5" stroke="#dddddd" stroke-width="1" rx="2"/>
+  <text x="425" y="54" font-family="system-ui, sans-serif" font-size="11" fill="#333333">My Agile Method</text>
+
+  <text x="315" y="82" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Description</text>
+  <rect x="415" y="68" width="500" height="30" fill="#f5f5f5" stroke="#dddddd" stroke-width="1" rx="2"/>
+  <text x="425" y="86" font-family="system-ui, sans-serif" font-size="10" fill="#666666">An agile development method combining...</text>
+
+  <!-- Baseline slot -->
+  <rect x="300" y="124" width="630" height="90" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="315" y="148" font-family="system-ui, sans-serif" font-size="13" fill="#333333" font-weight="bold">Baseline</text>
+  <text x="400" y="148" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">drop a baseline practice or method here</text>
+
+  <!-- Placed baseline item -->
+  <rect x="310" y="156" width="610" height="44" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2" rx="4"/>
+  <text x="330" y="176" font-family="system-ui, sans-serif" font-size="12" fill="#333333" font-weight="bold">Essence Kernel</text>
+  <rect x="330" y="182" width="55" height="14" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="7"/>
+  <text x="357" y="192" font-family="system-ui, sans-serif" font-size="8" fill="#4a90d9" text-anchor="middle">baseline</text>
+
+  <!-- Extension practices slot -->
+  <rect x="300" y="228" width="630" height="240" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="315" y="252" font-family="system-ui, sans-serif" font-size="13" fill="#333333" font-weight="bold">Extension Practices</text>
+  <text x="470" y="252" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">drop extension practices here</text>
+
+  <!-- Extension item 1 -->
+  <rect x="310" y="264" width="610" height="44" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="328" y="284" font-family="system-ui, sans-serif" font-size="12" fill="#999999">&#8801;</text>
+  <text x="346" y="284" font-family="system-ui, sans-serif" font-size="12" fill="#333333">Scrum</text>
+  <rect x="346" y="290" width="55" height="14" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1" rx="7"/>
+  <text x="373" y="300" font-family="system-ui, sans-serif" font-size="8" fill="#66bb6a" text-anchor="middle">practice</text>
+  <!-- Delete button -->
+  <rect x="890" y="272" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="901" y="287" font-family="system-ui, sans-serif" font-size="13" fill="#999999" text-anchor="middle">&#215;</text>
+
+  <!-- Extension item 2 -->
+  <rect x="310" y="316" width="610" height="44" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="328" y="336" font-family="system-ui, sans-serif" font-size="12" fill="#999999">&#8801;</text>
+  <text x="346" y="336" font-family="system-ui, sans-serif" font-size="12" fill="#333333">User Story</text>
+  <rect x="346" y="342" width="55" height="14" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1" rx="7"/>
+  <text x="373" y="352" font-family="system-ui, sans-serif" font-size="8" fill="#66bb6a" text-anchor="middle">practice</text>
+  <rect x="890" y="324" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="901" y="339" font-family="system-ui, sans-serif" font-size="13" fill="#999999" text-anchor="middle">&#215;</text>
+
+  <!-- Extension item 3 -->
+  <rect x="310" y="368" width="610" height="44" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="328" y="388" font-family="system-ui, sans-serif" font-size="12" fill="#999999">&#8801;</text>
+  <text x="346" y="388" font-family="system-ui, sans-serif" font-size="12" fill="#333333">Definition of Done</text>
+  <rect x="346" y="394" width="55" height="14" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1" rx="7"/>
+  <text x="373" y="404" font-family="system-ui, sans-serif" font-size="8" fill="#66bb6a" text-anchor="middle">practice</text>
+  <rect x="890" y="376" width="22" height="22" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="901" y="391" font-family="system-ui, sans-serif" font-size="13" fill="#999999" text-anchor="middle">&#215;</text>
+
+  <!-- Drop zone hint -->
+  <rect x="310" y="420" width="610" height="36" fill="#f8f8f8" stroke="#cccccc" stroke-width="1" rx="3" stroke-dasharray="4 2"/>
+  <text x="615" y="442" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic" text-anchor="middle">drop here to add more practices</text>
+
+  <!-- Tags section -->
+  <rect x="300" y="482" width="630" height="100" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="315" y="504" font-family="system-ui, sans-serif" font-size="13" fill="#333333" font-weight="bold">Tags</text>
+
+  <text x="315" y="524" font-family="system-ui, sans-serif" font-size="10" fill="#999999">Domain</text>
+  <rect x="400" y="510" width="180" height="22" fill="#f5f5f5" stroke="#dddddd" stroke-width="1" rx="2"/>
+
+  <text x="600" y="524" font-family="system-ui, sans-serif" font-size="10" fill="#999999">Lifecycle</text>
+  <rect x="660" y="510" width="180" height="22" fill="#f5f5f5" stroke="#dddddd" stroke-width="1" rx="2"/>
+
+  <text x="315" y="556" font-family="system-ui, sans-serif" font-size="10" fill="#999999">Organisational</text>
+  <rect x="400" y="542" width="180" height="22" fill="#f5f5f5" stroke="#dddddd" stroke-width="1" rx="2"/>
+
+  <!-- Narratives section (collapsed) -->
+  <rect x="300" y="596" width="630" height="36" fill="#e8e8e8" stroke="#cccccc" stroke-width="1" rx="4"/>
+  <text x="322" y="619" font-family="system-ui, sans-serif" font-size="13" fill="#333333">&#9654;</text>
+  <text x="340" y="619" font-family="system-ui, sans-serif" font-size="13" fill="#333333" font-weight="bold">Narratives</text>
+  <rect x="420" y="604" width="24" height="20" fill="#4a90d9" rx="10"/>
+  <text x="432" y="618" font-family="system-ui, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">2</text>
+
+  <!-- Actions bar -->
+  <rect x="300" y="650" width="630" height="50" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+
+  <rect x="310" y="660" width="180" height="30" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="400" y="680" font-family="system-ui, sans-serif" font-size="11" fill="#666666" text-anchor="middle">Clear baseline &amp; practices</text>
+
+  <rect x="690" y="660" width="130" height="30" fill="#4a90d9" stroke="#3a7bc8" stroke-width="1" rx="3"/>
+  <text x="755" y="680" font-family="system-ui, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">Review &amp; Save</text>
+
+  <rect x="830" y="660" width="90" height="30" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="875" y="680" font-family="system-ui, sans-serif" font-size="11" fill="#666666" text-anchor="middle">Refresh</text>
+</svg>

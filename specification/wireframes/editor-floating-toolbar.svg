@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="340" viewBox="0 0 800 340">
+  <rect width="800" height="340" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="20" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">Floating Toolbar — Sticky Sidebar</text>
+
+  <!-- Main editor area -->
+  <rect x="20" y="50" width="680" height="260" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
+  <text x="35" y="72" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#555555">Editor Fields</text>
+
+  <!-- Field rows -->
+  <rect x="28" y="82" width="664" height="30" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="40" y="101" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Name *</text>
+  <rect x="200" y="88" width="480" height="20" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="208" y="102" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Scrum Practice</text>
+
+  <rect x="28" y="114" width="664" height="30" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="40" y="133" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Description</text>
+  <rect x="200" y="120" width="480" height="20" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="208" y="134" font-family="system-ui, sans-serif" font-size="10" fill="#999999">An iterative framework...</text>
+
+  <!-- Focused field (highlighted) -->
+  <rect x="28" y="146" width="664" height="30" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="40" y="165" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Focus</text>
+  <rect x="200" y="152" width="480" height="20" fill="#ffffff" stroke="#4a90d9" stroke-width="1" rx="3"/>
+  <text x="208" y="166" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Value</text>
+
+  <rect x="28" y="178" width="664" height="30" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="40" y="197" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Version</text>
+  <rect x="200" y="184" width="480" height="20" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="208" y="198" font-family="system-ui, sans-serif" font-size="10" fill="#333333">1.0.0</text>
+
+  <rect x="28" y="210" width="664" height="30" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="40" y="229" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Keywords</text>
+  <rect x="200" y="216" width="480" height="20" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="208" y="230" font-family="system-ui, sans-serif" font-size="10" fill="#999999">agile, scrum</text>
+
+  <!-- Connection line from focused field to toolbar -->
+  <line x1="692" y1="161" x2="720" y2="161" stroke="#4a90d9" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <!-- Floating toolbar -->
+  <rect x="720" y="50" width="60" height="260" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
+  <text x="750" y="72" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#555555" text-anchor="middle">Tools</text>
+
+  <!-- Tool buttons -->
+  <!-- Copy path button -->
+  <rect x="730" y="82" width="40" height="36" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="750" y="98" font-family="system-ui, sans-serif" font-size="14" fill="#666666" text-anchor="middle">&#x1F4CB;</text>
+  <text x="750" y="112" font-family="system-ui, sans-serif" font-size="7" fill="#666666" text-anchor="middle">Path</text>
+
+  <!-- Field info button -->
+  <rect x="730" y="126" width="40" height="36" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="750" y="145" font-family="system-ui, sans-serif" font-size="16" fill="#666666" text-anchor="middle" font-weight="bold" font-style="italic">i</text>
+  <text x="750" y="156" font-family="system-ui, sans-serif" font-size="7" fill="#666666" text-anchor="middle">Info</text>
+
+  <!-- Inspect button (active, showing tooltip) -->
+  <rect x="730" y="170" width="40" height="36" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2" rx="3"/>
+  <text x="750" y="188" font-family="system-ui, sans-serif" font-size="14" fill="#4a90d9" text-anchor="middle">&#x1F50D;</text>
+  <text x="750" y="200" font-family="system-ui, sans-serif" font-size="7" fill="#4a90d9" text-anchor="middle">Inspect</text>
+
+  <!-- Tooltip popup from inspect button -->
+  <rect x="570" y="210" width="200" height="40" fill="#333333" stroke="#222222" stroke-width="1" rx="4"/>
+  <text x="585" y="228" font-family="system-ui, sans-serif" font-size="10" fill="#e0e0e0">Field path:</text>
+  <text x="585" y="242" font-family="system-ui, sans-serif" font-size="11" fill="#ffffff" font-family="monospace">alphas[0].focus</text>
+  <!-- Tooltip arrow -->
+  <polygon points="766,210 770,204 774,210" fill="#333333"/>
+
+  <!-- Annotations -->
+  <text x="720" y="280" font-family="system-ui, sans-serif" font-size="9" fill="#999999" font-style="italic" text-anchor="middle" transform="rotate(-90, 750, 280)">sticky</text>
+
+  <text x="20" y="330" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Toolbar is sticky and tracks the focused field.  150ms blur delay keeps it visible during field transitions.</text>
+</svg>

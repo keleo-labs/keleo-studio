@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="340" viewBox="0 0 800 340">
+  <rect width="800" height="340" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="20" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">PropertyRow — Two-Column Grid Layout</text>
+
+  <!-- Column width annotation -->
+  <line x1="20" y1="50" x2="220" y2="50" stroke="#999999" stroke-width="1" stroke-dasharray="4,2"/>
+  <line x1="220" y1="42" x2="220" y2="58" stroke="#999999" stroke-width="1"/>
+  <text x="120" y="46" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic" text-anchor="middle">200px fixed</text>
+  <line x1="220" y1="50" x2="780" y2="50" stroke="#999999" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="500" y="46" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic" text-anchor="middle">flexible width</text>
+
+  <!-- Container -->
+  <rect x="20" y="60" width="760" height="260" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
+
+  <!-- Row 1: Required text field -->
+  <rect x="24" y="64" width="752" height="40" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="40" y="88" font-family="system-ui, sans-serif" font-size="12" fill="#333333">Name</text>
+  <text x="68" y="88" font-family="system-ui, sans-serif" font-size="12" fill="#cc3333" font-weight="bold">*</text>
+  <rect x="224" y="72" width="540" height="24" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="232" y="88" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Enter name...</text>
+  <text x="700" y="100" font-family="system-ui, sans-serif" font-size="9" fill="#999999" font-style="italic">required field</text>
+
+  <!-- Row 2: Optional text field -->
+  <rect x="24" y="106" width="752" height="40" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="40" y="130" font-family="system-ui, sans-serif" font-size="12" fill="#333333">Description</text>
+  <rect x="224" y="114" width="540" height="24" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="232" y="130" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Optional description</text>
+
+  <!-- Row 3: Read-only field -->
+  <rect x="24" y="148" width="752" height="40" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="54" y="172" font-family="system-ui, sans-serif" font-size="12" fill="#333333">Baseline</text>
+  <!-- Lock icon -->
+  <text x="40" y="172" font-family="system-ui, sans-serif" font-size="11" fill="#999999">&#x1F512;</text>
+  <rect x="224" y="156" width="540" height="24" fill="#f5f5f5" stroke="#dddddd" stroke-width="1" rx="3" stroke-dasharray="4,2"/>
+  <text x="232" y="172" font-family="system-ui, sans-serif" font-size="11" fill="#666666" font-style="italic">Inherited baseline value</text>
+  <!-- Source badge -->
+  <rect x="680" y="158" width="60" height="18" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="8"/>
+  <text x="710" y="170" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">baseline</text>
+
+  <!-- Row 4: Full-width mode -->
+  <rect x="24" y="190" width="752" height="54" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="40" y="210" font-family="system-ui, sans-serif" font-size="12" fill="#333333">Extended Description</text>
+  <text x="194" y="210" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">(full-width mode)</text>
+  <rect x="40" y="218" width="724" height="22" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="48" y="233" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Value spans full width below label</text>
+
+  <!-- Row 5: With description text -->
+  <rect x="24" y="246" width="752" height="54" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="40" y="272" font-family="system-ui, sans-serif" font-size="12" fill="#333333">Focus</text>
+  <rect x="224" y="258" width="540" height="24" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="232" y="274" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Value</text>
+  <text x="224" y="294" font-family="system-ui, sans-serif" font-size="10" fill="#999999">The primary concern area this element addresses.</text>
+  <text x="700" y="294" font-family="system-ui, sans-serif" font-size="9" fill="#999999" font-style="italic">description</text>
+
+  <!-- Annotation -->
+  <text x="20" y="332" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Label column: 200px fixed.  Value column: stretches to fill available width.</text>
+</svg>

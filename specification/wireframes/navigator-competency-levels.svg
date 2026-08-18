@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200" width="1000" height="200">
+  <rect width="1000" height="200" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="16" y="28" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">Competency Skill Levels</text>
+  <text x="16" y="44" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Numbered progression cards. Clicking a level opens the secondary panel.</text>
+
+  <!-- Level 1: Assists -->
+  <rect x="16" y="60" width="182" height="110" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <circle cx="48" cy="88" r="16" fill="#d4ecd4"/>
+  <text x="48" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#2d7a2d" text-anchor="middle">1</text>
+  <text x="72" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333">Assists</text>
+  <line x1="28" y1="106" x2="186" y2="106" stroke="#eeeeee" stroke-width="1"/>
+  <text x="28" y="122" font-family="system-ui, sans-serif" font-size="10" fill="#666666">Demonstrates a basic</text>
+  <text x="28" y="134" font-family="system-ui, sans-serif" font-size="10" fill="#666666">understanding of the</text>
+  <text x="28" y="146" font-family="system-ui, sans-serif" font-size="10" fill="#666666">concepts involved.</text>
+
+  <!-- Level 2: Applies -->
+  <rect x="210" y="60" width="182" height="110" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <circle cx="242" cy="88" r="16" fill="#a8d8a8"/>
+  <text x="242" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#246824" text-anchor="middle">2</text>
+  <text x="266" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333">Applies</text>
+  <line x1="222" y1="106" x2="380" y2="106" stroke="#eeeeee" stroke-width="1"/>
+  <text x="222" y="122" font-family="system-ui, sans-serif" font-size="10" fill="#666666">Can apply the concepts</text>
+  <text x="222" y="134" font-family="system-ui, sans-serif" font-size="10" fill="#666666">independently to routine</text>
+  <text x="222" y="146" font-family="system-ui, sans-serif" font-size="10" fill="#666666">situations.</text>
+
+  <!-- Level 3: Masters (SELECTED) -->
+  <rect x="404" y="60" width="182" height="110" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2" rx="4"/>
+  <circle cx="436" cy="88" r="16" fill="#5aad5a"/>
+  <text x="436" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="460" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333">Masters</text>
+  <line x1="416" y1="106" x2="574" y2="106" stroke="#c0d8f0" stroke-width="1"/>
+  <text x="416" y="122" font-family="system-ui, sans-serif" font-size="10" fill="#666666">Has deep understanding</text>
+  <text x="416" y="134" font-family="system-ui, sans-serif" font-size="10" fill="#666666">and can handle complex</text>
+  <text x="416" y="146" font-family="system-ui, sans-serif" font-size="10" fill="#666666">non-routine situations.</text>
+
+  <!-- Level 4: Adapts -->
+  <rect x="598" y="60" width="182" height="110" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <circle cx="630" cy="88" r="16" fill="#338833"/>
+  <text x="630" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="654" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333">Adapts</text>
+  <line x1="610" y1="106" x2="768" y2="106" stroke="#eeeeee" stroke-width="1"/>
+  <text x="610" y="122" font-family="system-ui, sans-serif" font-size="10" fill="#666666">Can adapt and extend</text>
+  <text x="610" y="134" font-family="system-ui, sans-serif" font-size="10" fill="#666666">the concepts to new</text>
+  <text x="610" y="146" font-family="system-ui, sans-serif" font-size="10" fill="#666666">contexts and domains.</text>
+
+  <!-- Level 5: Innovates -->
+  <rect x="792" y="60" width="182" height="110" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <circle cx="824" cy="88" r="16" fill="#1a5c1a"/>
+  <text x="824" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="848" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333">Innovates</text>
+  <line x1="804" y1="106" x2="962" y2="106" stroke="#eeeeee" stroke-width="1"/>
+  <text x="804" y="122" font-family="system-ui, sans-serif" font-size="10" fill="#666666">Creates new approaches</text>
+  <text x="804" y="134" font-family="system-ui, sans-serif" font-size="10" fill="#666666">and advances the field</text>
+  <text x="804" y="146" font-family="system-ui, sans-serif" font-size="10" fill="#666666">beyond existing practice.</text>
+
+  <!-- Annotation -->
+  <text x="16" y="192" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Cards arranged in progression order. Gradient-coloured circles progress from light to dark green. Level 3 shown as selected.</text>
+</svg>

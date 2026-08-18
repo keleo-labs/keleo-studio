@@ -30,9 +30,20 @@ function hasNonemptyPracticeDependencies(o: Record<string, unknown>): boolean {
  * - `practices` (array) - full practice objects format
  * - `practiceNames` (array of strings) - string reference format
  */
+const SCHEMA_KIND_TO_ROOT_KIND: Record<string, LibraryRootKind> = {
+  practiceBaseline: "baselinePractice",
+  practice: "practice",
+  method: "method",
+  project: "project",
+};
+
 export function classifyLibraryRoot(body: unknown): LibraryRootKind {
   if (!body || typeof body !== "object") return "unknown";
   const o = body as Record<string, unknown>;
+
+  if (typeof o.kind === "string" && o.kind in SCHEMA_KIND_TO_ROOT_KIND) {
+    return SCHEMA_KIND_TO_ROOT_KIND[o.kind];
+  }
 
   // ChangeSet detection: presence of changeSetId discriminates
   if (typeof o.changeSetId === "string") return "changeSet";

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="680" viewBox="0 0 900 680">
+  <style>
+    text { font-family: system-ui, sans-serif; }
+  </style>
+
+  <!-- Title -->
+  <text x="450" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">Introduction View (Centre Panel)</text>
+
+  <!-- Warning alert banner (dashed, conditional) -->
+  <rect x="20" y="40" width="860" height="40" fill="#fff8e1" stroke="#e6a817" stroke-width="1" stroke-dasharray="4 2" rx="4"/>
+  <text x="36" y="55" font-size="11" font-weight="bold" fill="#e6a817">&#9888;</text>
+  <text x="52" y="56" font-size="11" fill="#333333">Schema version mismatch: document uses schema 1.8.0, current is 2.0.0</text>
+  <text x="844" y="72" text-anchor="end" font-size="10" fill="#999999" font-style="italic">conditional warning banner</text>
+
+  <!-- Main content area -->
+  <rect x="20" y="90" width="860" height="580" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+
+  <!-- Version + schema info row -->
+  <rect x="36" y="106" width="828" height="32" fill="#f5f5f5" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="48" y="126" font-size="11" fill="#333333">Version: 2.1.0</text>
+  <text x="180" y="126" font-size="11" fill="#999999">|</text>
+  <text x="196" y="126" font-size="11" fill="#333333">Schema: 2.0.0</text>
+  <text x="340" y="126" font-size="11" fill="#999999">|</text>
+  <text x="356" y="126" font-size="11" fill="#333333">Authors: J. Smith, A. Johnson</text>
+
+  <!-- Narratives -->
+  <text x="36" y="162" font-size="12" font-weight="bold" fill="#333333">Narratives</text>
+  <rect x="36" y="172" width="828" height="16" fill="#f5f5f5" rx="3"/>
+  <rect x="36" y="192" width="750" height="16" fill="#f5f5f5" rx="3"/>
+  <rect x="36" y="212" width="800" height="16" fill="#f5f5f5" rx="3"/>
+  <rect x="36" y="236" width="828" height="16" fill="#f5f5f5" rx="3"/>
+  <rect x="36" y="256" width="680" height="16" fill="#f5f5f5" rx="3"/>
+
+  <!-- Dependency Diagram -->
+  <text x="36" y="296" font-size="12" font-weight="bold" fill="#333333">Dependency Diagram</text>
+  <rect x="36" y="306" width="828" height="120" fill="#fafafa" stroke="#cccccc" stroke-width="1" stroke-dasharray="4 2" rx="4"/>
+  <text x="450" y="370" text-anchor="middle" font-size="12" fill="#999999" font-style="italic">Interactive Dependency Diagram</text>
+  <text x="450" y="390" text-anchor="middle" font-size="10" fill="#999999">(nodes are selectable -- opens secondary panel)</text>
+
+  <!-- Placeholder diagram nodes -->
+  <rect x="180" y="340" width="100" height="30" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="4"/>
+  <text x="230" y="360" text-anchor="middle" font-size="10" fill="#333333">Baseline</text>
+  <rect x="400" y="340" width="100" height="30" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="4"/>
+  <text x="450" y="360" text-anchor="middle" font-size="10" fill="#333333">Extension A</text>
+  <rect x="620" y="340" width="100" height="30" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="4"/>
+  <text x="670" y="360" text-anchor="middle" font-size="10" fill="#333333">Extension B</text>
+  <line x1="280" y1="355" x2="400" y2="355" stroke="#4a90d9" stroke-width="1" marker-end="url(#arrowhead)"/>
+  <line x1="500" y1="355" x2="620" y2="355" stroke="#4a90d9" stroke-width="1" marker-end="url(#arrowhead)"/>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4a90d9"/>
+    </marker>
+  </defs>
+
+  <!-- Acknowledgements -->
+  <text x="36" y="452" font-size="12" font-weight="bold" fill="#333333">Acknowledgements</text>
+  <rect x="36" y="462" width="828" height="24" fill="#f5f5f5" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="48" y="479" font-size="11" fill="#333333">J. Sutherland -- Original Scrum framework</text>
+  <rect x="36" y="490" width="828" height="24" fill="#f5f5f5" stroke="#dddddd" stroke-width="1" rx="3"/>
+  <text x="48" y="507" font-size="11" fill="#333333">K. Schwaber -- Co-creator of Scrum</text>
+
+  <!-- Download button -->
+  <rect x="36" y="530" width="200" height="34" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="136" y="552" text-anchor="middle" font-size="12" fill="#333333">Download Static Site</text>
+
+  <!-- Keywords -->
+  <text x="36" y="590" font-size="12" font-weight="bold" fill="#333333">Keywords</text>
+  <rect x="36" y="598" width="56" height="22" fill="#ffffff" stroke="#cccccc" stroke-width="1" rx="3"/>
+  <text x="64" y="613" text-anchor="middle" font-size="10" fill="#333333">agile</text>
+  <rect x="100" y="598" width="62" height="22" fill="#ffffff" stroke="#cccccc" stroke-width="1" rx="3"/>
+  <text x="131" y="613" text-anchor="middle" font-size="10" fill="#333333">scrum</text>
+  <rect x="170" y="598" width="72" height="22" fill="#ffffff" stroke="#cccccc" stroke-width="1" rx="3"/>
+  <text x="206" y="613" text-anchor="middle" font-size="10" fill="#333333">iterative</text>
+  <rect x="250" y="598" width="100" height="22" fill="#ffffff" stroke="#cccccc" stroke-width="1" rx="3"/>
+  <text x="300" y="613" text-anchor="middle" font-size="10" fill="#333333">development</text>
+
+  <!-- Dates -->
+  <text x="36" y="648" font-size="12" font-weight="bold" fill="#333333">Dates</text>
+  <text x="36" y="666" font-size="11" fill="#333333">Created: 15 Jan 2025</text>
+  <text x="220" y="666" font-size="11" fill="#999999">|</text>
+  <text x="236" y="666" font-size="11" fill="#333333">Updated: 10 Aug 2026</text>
+</svg>

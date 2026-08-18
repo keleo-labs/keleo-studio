@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520">
+  <!-- Backdrop overlay -->
+  <rect width="800" height="520" fill="#000000" opacity="0.3"/>
+
+  <!-- Title -->
+  <text x="400" y="20" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">Section Editor Modal</text>
+
+  <!-- Modal dialog -->
+  <rect x="100" y="36" width="600" height="470" rx="8" fill="#ffffff" stroke="#cccccc" stroke-width="1"/>
+  <text x="400" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#ffffff" font-style="italic">~600px wide</text>
+
+  <!-- Modal header -->
+  <text x="130" y="66" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#333333">Edit Section</text>
+  <!-- Close button -->
+  <rect x="660" y="48" width="24" height="24" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="672" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#666666">x</text>
+
+  <line x1="120" y1="78" x2="680" y2="78" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Section Name field -->
+  <text x="130" y="100" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333">Section Name</text>
+  <rect x="130" y="108" width="540" height="32" rx="3" fill="#ffffff" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="142" y="128" font-family="system-ui, sans-serif" font-size="12" fill="#999999">Starred Items</text>
+
+  <!-- Tab headers -->
+  <rect x="130" y="156" width="120" height="32" rx="3" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="190" y="176" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#4a90d9">Basic Filters</text>
+
+  <rect x="254" y="156" width="120" height="32" rx="3" fill="#f0f0f0" stroke="#cccccc" stroke-width="1"/>
+  <text x="314" y="176" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#666666">Filter by Tags</text>
+
+  <rect x="378" y="156" width="120" height="32" rx="3" fill="#f0f0f0" stroke="#cccccc" stroke-width="1"/>
+  <text x="438" y="176" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#666666">Sort &amp; Display</text>
+
+  <!-- Tab content area -->
+  <rect x="130" y="192" width="540" height="236" rx="4" fill="#f8f8f8" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Document type radio group -->
+  <text x="150" y="218" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333">Document Type</text>
+
+  <!-- Radio buttons -->
+  <circle cx="162" cy="238" r="7" fill="#ffffff" stroke="#bbbbbb" stroke-width="1.5"/>
+  <circle cx="162" cy="238" r="4" fill="#4a90d9"/>
+  <text x="176" y="242" font-family="system-ui, sans-serif" font-size="11" fill="#333333">All</text>
+
+  <circle cx="222" cy="238" r="7" fill="#ffffff" stroke="#bbbbbb" stroke-width="1.5"/>
+  <text x="236" y="242" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Practices only</text>
+
+  <circle cx="348" cy="238" r="7" fill="#ffffff" stroke="#bbbbbb" stroke-width="1.5"/>
+  <text x="362" y="242" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Baselines only</text>
+
+  <circle cx="476" cy="238" r="7" fill="#ffffff" stroke="#bbbbbb" stroke-width="1.5"/>
+  <text x="490" y="242" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Methods only</text>
+
+  <line x1="150" y1="256" x2="650" y2="256" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Baseline dropdown -->
+  <text x="150" y="278" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333">Baseline</text>
+  <rect x="150" y="286" width="260" height="28" rx="3" fill="#ffffff" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="162" y="304" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Select baseline...</text>
+  <text x="396" y="304" text-anchor="end" font-family="system-ui, sans-serif" font-size="10" fill="#666666">v</text>
+
+  <line x1="150" y1="324" x2="650" y2="324" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Show only starred -->
+  <rect x="150" y="336" width="16" height="16" rx="2" fill="#ffffff" stroke="#bbbbbb" stroke-width="1.5"/>
+  <text x="174" y="349" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Show only starred items</text>
+
+  <line x1="150" y1="364" x2="650" y2="364" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Name filter -->
+  <text x="150" y="384" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333">Name Filter</text>
+  <rect x="150" y="392" width="340" height="28" rx="3" fill="#ffffff" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="162" y="410" font-family="system-ui, sans-serif" font-size="11" fill="#999999">e.g. *scrum* or devops</text>
+
+  <!-- Modal footer -->
+  <line x1="120" y1="440" x2="680" y2="440" stroke="#dddddd" stroke-width="1"/>
+
+  <rect x="550" y="454" width="64" height="32" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="582" y="474" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Cancel</text>
+
+  <rect x="622" y="454" width="56" height="32" rx="3" fill="#4a90d9" stroke="#3a7bc8" stroke-width="1"/>
+  <text x="650" y="474" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#ffffff">Save</text>
+</svg>
