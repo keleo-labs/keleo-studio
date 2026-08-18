@@ -344,7 +344,14 @@ async function composeMethodSlotsUsingLibrary(params: {
 export function MethodBuilderClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const libraryIdFromUrl = searchParams.get("libraryId");
+  const libraryIdFromUrl = useMemo(() => {
+    const explicit = searchParams.get("libraryId");
+    if (explicit) return explicit;
+    const bundle = searchParams.get("bundle");
+    const path = searchParams.get("path");
+    if (bundle && path) return `bundle:${bundle}/${path}`;
+    return null;
+  }, [searchParams]);
 
   const [library, setLibrary] = useState<LibraryRow[]>([]);
   const [libLoading, setLibLoading] = useState(true);
