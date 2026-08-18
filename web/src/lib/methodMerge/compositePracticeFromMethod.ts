@@ -1720,6 +1720,27 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
     extensionPracticeLayers = expandMethodPracticeDependencies(extensionPracticeLayers, library);
   }
 
+  // Collect secondary baselines referenced by extension practices that extend a
+  // different baseline than the method's primary. These must be merged into the
+  // accumulator before their extension practices so the full alpha/focus set is present.
+  const secondaryBaselines: PracticeBaseline[] = [];
+  if (library) {
+    const primaryNorm = normalizeKernelPracticeName(baseline.name);
+    const seen = new Set<string>([primaryNorm]);
+    for (const p of extensionPracticeLayers) {
+      const bn = String((p as any).baselinePracticeName ?? "").trim();
+      if (!bn) continue;
+      const norm = normalizeKernelPracticeName(bn);
+      if (seen.has(norm)) continue;
+      seen.add(norm);
+      let secondaryBaseline = findBaselineInLibrary(library, bn);
+      if (secondaryBaseline) {
+        secondaryBaseline = resolveBaselineWithDependencies(secondaryBaseline, library);
+        secondaryBaselines.push(secondaryBaseline);
+      }
+    }
+  }
+
   /** Embedded baseline-shaped arrays on the Method baseline (optional overlays). */
   const baselineDoc = baseline as Record<string, unknown>;
   const methodDoc = method as Record<string, unknown>;
@@ -1780,9 +1801,13 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
   const layersUnknown = extensionPracticeLayers as unknown[];
   const prefixSpaceRows = [
     ...(baseline.activitySpaces ?? []),
+    ...secondaryBaselines.flatMap(sb => sb.activitySpaces ?? []),
     ...collectSecondaryBaselineActivitySpaceRows(layersUnknown, String(baseline.name ?? "")),
   ];
   const acc: ExtensionMergeAccumulator = { out, slotMap: toSpaceSlotMap(baseline.activitySpaces ?? [], [], baselinePracticeName) };
+  for (const sb of secondaryBaselines) {
+    mergeSecondaryBaselineKernel(acc, sb);
+  }
   mergePracticeArrayOntoOut(acc, layersUnknown);
   out.activitySpaces = slotMapToRows(
     acc.slotMap,
