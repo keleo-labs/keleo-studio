@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720">
+  <!-- Background -->
+  <rect width="1000" height="720" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="500" y="24" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">Dashboard Page Layout</text>
+
+  <!-- Content container (max-width ~1280px, centred) -->
+  <rect x="40" y="40" width="920" height="660" rx="4" fill="#ffffff" stroke="#cccccc" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="500" y="56" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">max-width: ~1280px, centred with padding</text>
+
+  <!-- === Header Area === -->
+  <rect x="60" y="64" width="880" height="90" rx="4" fill="#f0f0f0" stroke="#cccccc" stroke-width="1"/>
+  <text x="80" y="86" font-family="system-ui, sans-serif" font-size="10" fill="#999999">Subtitle label</text>
+  <text x="80" y="110" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#333333">Dashboard</text>
+  <text x="80" y="130" font-family="system-ui, sans-serif" font-size="12" fill="#666666">Descriptive tagline about the dashboard purpose</text>
+
+  <!-- New Section button (right-aligned) -->
+  <rect x="810" y="98" width="112" height="32" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="866" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#333333">+ New Section</text>
+
+  <!-- === Section 1 === -->
+  <rect x="60" y="170" width="880" height="240" rx="4" fill="#f0f0f0" stroke="#cccccc" stroke-width="1"/>
+
+  <!-- Section header row -->
+  <text x="80" y="196" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">Starred Items</text>
+  <!-- Count badge -->
+  <rect x="184" y="183" width="30" height="18" rx="9" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1"/>
+  <text x="199" y="196" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">(5)</text>
+
+  <!-- Action buttons -->
+  <rect x="800" y="181" width="24" height="22" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="812" y="196" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#666666">^</text>
+  <rect x="828" y="181" width="24" height="22" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="840" y="196" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#666666">v</text>
+  <rect x="856" y="181" width="24" height="22" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="868" y="197" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#666666">&#9998;</text>
+  <rect x="884" y="181" width="24" height="22" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="896" y="196" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#666666">x</text>
+
+  <!-- Card carousel -->
+  <rect x="76" y="210" width="848" height="184" rx="4" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="500" y="228" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">horizontal flex, overflow-x: scroll</text>
+
+  <!-- Card 1 -->
+  <rect x="90" y="236" width="190" height="144" rx="4" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <!-- Card header -->
+  <text x="102" y="256" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333">Scrum Practice</text>
+  <text x="256" y="256" text-anchor="end" font-family="system-ui, sans-serif" font-size="10" fill="#666666">&#9998; &#9733;</text>
+  <line x1="96" y1="264" x2="274" y2="264" stroke="#dddddd" stroke-width="1"/>
+  <!-- Description lines -->
+  <rect x="102" y="272" width="168" height="8" rx="2" fill="#f5f5f5"/>
+  <rect x="102" y="286" width="150" height="8" rx="2" fill="#f5f5f5"/>
+  <rect x="102" y="300" width="130" height="8" rx="2" fill="#f5f5f5"/>
+  <!-- Tag pills -->
+  <rect x="102" y="340" width="46" height="16" rx="8" fill="#e3f0ff" stroke="#4a90d9" stroke-width="0.5"/>
+  <text x="125" y="352" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="#4a90d9">Agile</text>
+  <rect x="154" y="340" width="56" height="16" rx="8" fill="#e3f0ff" stroke="#4a90d9" stroke-width="0.5"/>
+  <text x="182" y="352" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="#4a90d9">Team</text>
+
+  <!-- Card 2 -->
+  <rect x="294" y="236" width="190" height="144" rx="4" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="306" y="256" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333">DevOps Method</text>
+  <text x="460" y="256" text-anchor="end" font-family="system-ui, sans-serif" font-size="10" fill="#666666">&#9998; &#9734;</text>
+  <line x1="300" y1="264" x2="478" y2="264" stroke="#dddddd" stroke-width="1"/>
+  <rect x="306" y="272" width="168" height="8" rx="2" fill="#f5f5f5"/>
+  <rect x="306" y="286" width="140" height="8" rx="2" fill="#f5f5f5"/>
+  <rect x="306" y="300" width="160" height="8" rx="2" fill="#f5f5f5"/>
+  <rect x="306" y="340" width="52" height="16" rx="8" fill="#e3f0ff" stroke="#4a90d9" stroke-width="0.5"/>
+  <text x="332" y="352" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="#4a90d9">Cloud</text>
+
+  <!-- Card 3 -->
+  <rect x="498" y="236" width="190" height="144" rx="4" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="510" y="256" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333">SAFe Baseline</text>
+  <text x="664" y="256" text-anchor="end" font-family="system-ui, sans-serif" font-size="10" fill="#666666">&#9998; &#9733;</text>
+  <line x1="504" y1="264" x2="682" y2="264" stroke="#dddddd" stroke-width="1"/>
+  <rect x="510" y="272" width="168" height="8" rx="2" fill="#f5f5f5"/>
+  <rect x="510" y="286" width="155" height="8" rx="2" fill="#f5f5f5"/>
+  <rect x="510" y="300" width="145" height="8" rx="2" fill="#f5f5f5"/>
+  <rect x="510" y="340" width="66" height="16" rx="8" fill="#e3f0ff" stroke="#4a90d9" stroke-width="0.5"/>
+  <text x="543" y="352" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="#4a90d9">Enterprise</text>
+
+  <!-- Card 4 (partially visible - scroll indicator) -->
+  <rect x="702" y="236" width="190" height="144" rx="4" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="714" y="256" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333">Kanban Practice</text>
+  <text x="868" y="256" text-anchor="end" font-family="system-ui, sans-serif" font-size="10" fill="#666666">&#9998; &#9734;</text>
+  <line x1="708" y1="264" x2="886" y2="264" stroke="#dddddd" stroke-width="1"/>
+  <rect x="714" y="272" width="168" height="8" rx="2" fill="#f5f5f5"/>
+  <rect x="714" y="286" width="140" height="8" rx="2" fill="#f5f5f5"/>
+
+  <!-- Dimension annotation for cards -->
+  <line x1="90" y1="388" x2="90" y2="396" stroke="#999999" stroke-width="0.5"/>
+  <line x1="90" y1="394" x2="280" y2="394" stroke="#999999" stroke-width="0.5"/>
+  <line x1="280" y1="388" x2="280" y2="396" stroke="#999999" stroke-width="0.5"/>
+  <text x="185" y="406" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">266px width, min 160px height</text>
+
+  <!-- === Section 2 === -->
+  <rect x="60" y="426" width="880" height="256" rx="4" fill="#f0f0f0" stroke="#cccccc" stroke-width="1"/>
+
+  <!-- Section header row -->
+  <text x="80" y="452" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">Recent Methods</text>
+  <rect x="200" y="439" width="36" height="18" rx="9" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1"/>
+  <text x="218" y="452" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">(10)</text>
+
+  <!-- Action buttons -->
+  <rect x="800" y="437" width="24" height="22" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="812" y="452" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#666666">^</text>
+  <rect x="828" y="437" width="24" height="22" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="840" y="452" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#666666">v</text>
+  <rect x="856" y="437" width="24" height="22" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="868" y="453" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#666666">&#9998;</text>
+  <rect x="884" y="437" width="24" height="22" rx="3" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1"/>
+  <text x="896" y="452" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#666666">x</text>
+
+  <!-- Card carousel -->
+  <rect x="76" y="466" width="848" height="200" rx="4" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="500" y="484" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">horizontal flex, overflow-x: scroll</text>
+
+  <!-- Card placeholders in section 2 -->
+  <rect x="90" y="496" width="190" height="144" rx="4" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="185" y="572" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999">Document Card</text>
+
+  <rect x="294" y="496" width="190" height="144" rx="4" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="389" y="572" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999">Document Card</text>
+
+  <rect x="498" y="496" width="190" height="144" rx="4" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="593" y="572" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999">Document Card</text>
+
+  <rect x="702" y="496" width="190" height="144" rx="4" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="797" y="572" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#999999">Document Card</text>
+</svg>

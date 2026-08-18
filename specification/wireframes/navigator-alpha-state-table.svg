@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="1000" height="520">
+  <rect width="1000" height="520" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="16" y="28" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">Alpha State Table</text>
+  <text x="16" y="44" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Full-width table below alpha narrative content. Cells are clickable.</text>
+
+  <!-- Table container -->
+  <rect x="16" y="56" width="968" height="450" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
+
+  <!-- Column headers -->
+  <rect x="17" y="57" width="192" height="32" fill="#f0f0f0" rx="4"/>
+  <text x="113" y="78" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333" text-anchor="middle">State 1</text>
+
+  <rect x="210" y="57" width="192" height="32" fill="#f0f0f0" rx="4"/>
+  <text x="306" y="78" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333" text-anchor="middle">State 2</text>
+
+  <rect x="403" y="57" width="192" height="32" fill="#f0f0f0" rx="4"/>
+  <text x="499" y="78" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333" text-anchor="middle">State 3</text>
+
+  <rect x="596" y="57" width="192" height="32" fill="#f0f0f0" rx="4"/>
+  <text x="692" y="78" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333" text-anchor="middle">State 4</text>
+
+  <rect x="789" y="57" width="194" height="32" fill="#f0f0f0" rx="4"/>
+  <text x="886" y="78" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#333333" text-anchor="middle">State 5</text>
+
+  <!-- Header divider -->
+  <line x1="16" y1="90" x2="984" y2="90" stroke="#cccccc" stroke-width="1"/>
+
+  <!-- Row 1: State name tiles with numbered circles -->
+  <!-- Row label area (implied by content) -->
+
+  <!-- State 1 tile -->
+  <rect x="24" y="98" width="178" height="36" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <circle cx="44" cy="116" r="12" fill="#c5ddf5"/>
+  <text x="44" y="120" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#333333" text-anchor="middle">1</text>
+  <text x="64" y="120" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Recognized</text>
+
+  <!-- State 2 tile -->
+  <rect x="217" y="98" width="178" height="36" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <circle cx="237" cy="116" r="12" fill="#9dc4ed"/>
+  <text x="237" y="120" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#333333" text-anchor="middle">2</text>
+  <text x="257" y="120" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Bounded</text>
+
+  <!-- State 3 tile (SELECTED) -->
+  <rect x="410" y="98" width="178" height="36" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2" rx="4"/>
+  <circle cx="430" cy="116" r="12" fill="#6fa8e0"/>
+  <text x="430" y="120" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="450" y="120" font-family="system-ui, sans-serif" font-size="11" fill="#4a90d9" font-weight="bold">Coherent</text>
+
+  <!-- State 4 tile -->
+  <rect x="603" y="98" width="178" height="36" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <circle cx="623" cy="116" r="12" fill="#4a90d9"/>
+  <text x="623" y="120" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="643" y="120" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Acceptable</text>
+
+  <!-- State 5 tile -->
+  <rect x="796" y="98" width="186" height="36" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <circle cx="816" cy="116" r="12" fill="#2c6cb0"/>
+  <text x="816" y="120" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="836" y="120" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Addressed</text>
+
+  <!-- Divider -->
+  <line x1="24" y1="142" x2="976" y2="142" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Row 2: Description -->
+  <text x="24" y="160" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#999999">DESCRIPTION</text>
+
+  <rect x="24" y="166" width="178" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="32" y="186" font-family="system-ui, sans-serif" font-size="10" fill="#666666">The stakeholders have...</text>
+
+  <rect x="217" y="166" width="178" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="225" y="186" font-family="system-ui, sans-serif" font-size="10" fill="#666666">The scope is clearly...</text>
+
+  <rect x="410" y="166" width="178" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="418" y="186" font-family="system-ui, sans-serif" font-size="10" fill="#666666">The requirements are...</text>
+
+  <rect x="603" y="166" width="178" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="611" y="186" font-family="system-ui, sans-serif" font-size="10" fill="#666666">The requirements have...</text>
+
+  <rect x="796" y="166" width="186" height="32" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <text x="804" y="186" font-family="system-ui, sans-serif" font-size="10" fill="#666666">Enough requirements...</text>
+
+  <!-- Divider -->
+  <line x1="24" y1="206" x2="976" y2="206" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Row 3: Contributing Activities -->
+  <text x="24" y="224" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#999999">CONTRIBUTING ACTIVITIES</text>
+
+  <!-- Activity badges - State 1 -->
+  <rect x="24" y="232" width="90" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="69" y="247" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Explore Scope</text>
+
+  <!-- Activity badges - State 2 -->
+  <rect x="217" y="232" width="86" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="260" y="247" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Shape Work</text>
+
+  <!-- Activity badges - State 3 -->
+  <rect x="410" y="232" width="100" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="460" y="247" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Analyse Needs</text>
+  <rect x="516" y="232" width="68" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="550" y="247" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Review</text>
+
+  <!-- Activity badges - State 4 -->
+  <rect x="603" y="232" width="80" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="643" y="247" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Validate</text>
+
+  <!-- Activity badges - State 5 -->
+  <rect x="796" y="232" width="80" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="836" y="247" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Confirm</text>
+
+  <!-- Divider -->
+  <line x1="24" y1="262" x2="976" y2="262" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Row 4: Work Products -->
+  <text x="24" y="280" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#999999">WORK PRODUCTS</text>
+
+  <!-- WP badges - State 1 -->
+  <rect x="24" y="288" width="96" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="72" y="303" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Product Vision</text>
+
+  <!-- WP badges - State 2 -->
+  <rect x="217" y="288" width="100" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="267" y="303" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Scope Document</text>
+
+  <!-- WP badges - State 3 -->
+  <rect x="410" y="288" width="90" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="455" y="303" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Requirements</text>
+
+  <!-- WP badges - State 4 -->
+  <rect x="603" y="288" width="92" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="649" y="303" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Test Results</text>
+
+  <!-- WP badges - State 5 -->
+  <rect x="796" y="288" width="78" height="22" fill="#e3f0ff" stroke="#4a90d9" stroke-width="1" rx="11"/>
+  <text x="835" y="303" font-family="system-ui, sans-serif" font-size="9" fill="#4a90d9" text-anchor="middle">Sign-off</text>
+
+  <!-- Divider -->
+  <line x1="24" y1="318" x2="976" y2="318" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Row 5: Checklist Items -->
+  <text x="24" y="336" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#999999">CHECKLIST</text>
+
+  <!-- Checklist - State 1 -->
+  <rect x="24" y="344" width="178" height="76" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="32" y="352" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="48" y="362" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Stakeholders identified</text>
+  <rect x="32" y="368" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="48" y="378" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Need is clear</text>
+  <rect x="32" y="384" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="48" y="394" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Opportunity validated</text>
+  <rect x="32" y="400" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="48" y="410" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Solution envisioned</text>
+
+  <!-- Checklist - State 2 -->
+  <rect x="217" y="344" width="178" height="76" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="225" y="352" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="241" y="362" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Scope defined</text>
+  <rect x="225" y="368" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="241" y="378" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Boundaries set</text>
+  <rect x="225" y="384" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="241" y="394" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Priorities established</text>
+
+  <!-- Checklist - State 3 (selected column highlight) -->
+  <rect x="410" y="344" width="178" height="76" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="418" y="352" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="434" y="362" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Requirements coherent</text>
+  <rect x="418" y="368" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="434" y="378" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Conflicts resolved</text>
+  <rect x="418" y="384" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="434" y="394" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Traceability maintained</text>
+
+  <!-- Checklist - State 4 -->
+  <rect x="603" y="344" width="178" height="76" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="611" y="352" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="627" y="362" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Stakeholders agree</text>
+  <rect x="611" y="368" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="627" y="378" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Quality criteria met</text>
+  <rect x="611" y="384" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="627" y="394" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Tests pass</text>
+
+  <!-- Checklist - State 5 -->
+  <rect x="796" y="344" width="186" height="76" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
+  <rect x="804" y="352" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="820" y="362" font-family="system-ui, sans-serif" font-size="10" fill="#333333">All requirements met</text>
+  <rect x="804" y="368" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="820" y="378" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Acceptance confirmed</text>
+  <rect x="804" y="384" width="10" height="10" fill="none" stroke="#bbbbbb" stroke-width="1" rx="2"/>
+  <text x="820" y="394" font-family="system-ui, sans-serif" font-size="10" fill="#333333">Delivery signed off</text>
+
+  <!-- Annotation: clickable indicator -->
+  <text x="16" y="504" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Clicking any state tile, activity badge, or work product badge opens the secondary panel with that element's details.</text>
+  <text x="16" y="516" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">State 3 shown as selected (blue border). Numbered circles use progressive blue shading to indicate sequence.</text>
+</svg>

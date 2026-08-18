@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="680" viewBox="0 0 900 680">
+  <style>
+    text { font-family: system-ui, sans-serif; }
+  </style>
+
+  <!-- Title -->
+  <text x="450" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">Navigator Layout System</text>
+
+  <!-- ===== Two-column mode ===== -->
+  <text x="20" y="60" font-size="12" font-weight="bold" fill="#333333">Two-column mode</text>
+  <text x="20" y="75" font-size="10" fill="#999999" font-style="italic">secondary = null</text>
+
+  <!-- Outer container -->
+  <rect x="20" y="90" width="860" height="240" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
+
+  <!-- Left column: Sidebar -->
+  <rect x="20" y="90" width="200" height="240" fill="#ffffff" stroke="#cccccc" stroke-width="1" rx="4"/>
+  <text x="120" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#333333">Sidebar</text>
+  <text x="120" y="140" text-anchor="middle" font-size="10" fill="#999999" font-style="italic">sticky, full height</text>
+  <text x="120" y="160" text-anchor="middle" font-size="10" fill="#999999" font-style="italic">independent scroll</text>
+
+  <!-- Right border indicator -->
+  <line x1="220" y1="90" x2="220" y2="330" stroke="#cccccc" stroke-width="2"/>
+
+  <!-- Centre column: Element Details -->
+  <rect x="224" y="90" width="656" height="240" fill="#ffffff" stroke="#cccccc" stroke-width="1" rx="4"/>
+  <text x="552" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#333333">Element Details</text>
+  <text x="552" y="140" text-anchor="middle" font-size="10" fill="#999999" font-style="italic">scrollable, content max-width 80rem</text>
+
+  <!-- Content placeholder -->
+  <rect x="264" y="160" width="576" height="20" fill="#f5f5f5" rx="3"/>
+  <rect x="264" y="190" width="480" height="20" fill="#f5f5f5" rx="3"/>
+  <rect x="264" y="220" width="540" height="20" fill="#f5f5f5" rx="3"/>
+  <rect x="264" y="250" width="400" height="20" fill="#f5f5f5" rx="3"/>
+  <rect x="264" y="280" width="520" height="20" fill="#f5f5f5" rx="3"/>
+
+  <!-- Dimension annotations for 2-column -->
+  <line x1="20" y1="345" x2="220" y2="345" stroke="#999999" stroke-width="1"/>
+  <line x1="20" y1="340" x2="20" y2="350" stroke="#999999" stroke-width="1"/>
+  <line x1="220" y1="340" x2="220" y2="350" stroke="#999999" stroke-width="1"/>
+  <text x="120" y="360" text-anchor="middle" font-size="10" fill="#999999" font-style="italic">280px</text>
+
+  <line x1="224" y1="345" x2="880" y2="345" stroke="#999999" stroke-width="1"/>
+  <line x1="224" y1="340" x2="224" y2="350" stroke="#999999" stroke-width="1"/>
+  <line x1="880" y1="340" x2="880" y2="350" stroke="#999999" stroke-width="1"/>
+  <text x="552" y="360" text-anchor="middle" font-size="10" fill="#999999" font-style="italic">1fr</text>
+
+  <!-- ===== Three-column mode ===== -->
+  <text x="20" y="400" font-size="12" font-weight="bold" fill="#333333">Three-column mode</text>
+  <text x="20" y="415" font-size="10" fill="#999999" font-style="italic">secondary != null</text>
+
+  <!-- Outer container -->
+  <rect x="20" y="430" width="860" height="180" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
+
+  <!-- Left column: Sidebar -->
+  <rect x="20" y="430" width="200" height="180" fill="#ffffff" stroke="#cccccc" stroke-width="1" rx="4"/>
+  <text x="120" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#333333">Sidebar</text>
+  <text x="120" y="478" text-anchor="middle" font-size="10" fill="#999999" font-style="italic">sticky</text>
+
+  <!-- Right border -->
+  <line x1="220" y1="430" x2="220" y2="610" stroke="#cccccc" stroke-width="2"/>
+
+  <!-- Centre column -->
+  <rect x="224" y="430" width="440" height="180" fill="#ffffff" stroke="#cccccc" stroke-width="1" rx="4"/>
+  <text x="444" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#333333">Element Details</text>
+  <text x="444" y="478" text-anchor="middle" font-size="10" fill="#999999" font-style="italic">scrollable</text>
+
+  <!-- Content placeholder -->
+  <rect x="254" y="496" width="380" height="16" fill="#f5f5f5" rx="3"/>
+  <rect x="254" y="520" width="320" height="16" fill="#f5f5f5" rx="3"/>
+  <rect x="254" y="544" width="360" height="16" fill="#f5f5f5" rx="3"/>
+  <rect x="254" y="568" width="280" height="16" fill="#f5f5f5" rx="3"/>
+
+  <!-- Right column: Secondary Panel (dashed to show conditional) -->
+  <rect x="668" y="430" width="212" height="180" fill="#ffffff" stroke="#999999" stroke-width="1" stroke-dasharray="4 2" rx="4"/>
+  <text x="774" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#333333">Secondary Panel</text>
+  <text x="774" y="478" text-anchor="middle" font-size="10" fill="#999999" font-style="italic">sticky, conditional</text>
+
+  <!-- Secondary content placeholder -->
+  <rect x="684" y="496" width="180" height="16" fill="#f5f5f5" rx="3"/>
+  <rect x="684" y="520" width="150" height="16" fill="#f5f5f5" rx="3"/>
+  <rect x="684" y="544" width="170" height="16" fill="#f5f5f5" rx="3"/>
+
+  <!-- Dimension annotations for 3-column -->
+  <line x1="20" y1="625" x2="220" y2="625" stroke="#999999" stroke-width="1"/>
+  <line x1="20" y1="620" x2="20" y2="630" stroke="#999999" stroke-width="1"/>
+  <line x1="220" y1="620" x2="220" y2="630" stroke="#999999" stroke-width="1"/>
+  <text x="120" y="645" text-anchor="middle" font-size="10" fill="#999999" font-style="italic">280px</text>
+
+  <line x1="224" y1="625" x2="664" y2="625" stroke="#999999" stroke-width="1"/>
+  <line x1="224" y1="620" x2="224" y2="630" stroke="#999999" stroke-width="1"/>
+  <line x1="664" y1="620" x2="664" y2="630" stroke="#999999" stroke-width="1"/>
+  <text x="444" y="645" text-anchor="middle" font-size="10" fill="#999999" font-style="italic">1fr</text>
+
+  <line x1="668" y1="625" x2="880" y2="625" stroke="#999999" stroke-width="1"/>
+  <line x1="668" y1="620" x2="668" y2="630" stroke="#999999" stroke-width="1"/>
+  <line x1="880" y1="620" x2="880" y2="630" stroke="#999999" stroke-width="1"/>
+  <text x="774" y="645" text-anchor="middle" font-size="10" fill="#999999" font-style="italic">320px</text>
+</svg>

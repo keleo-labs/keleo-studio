@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="440" viewBox="0 0 700 440">
+  <rect width="700" height="440" fill="#ffffff"/>
+
+  <!-- Modal overlay background -->
+  <rect width="700" height="440" fill="#000000" opacity="0.3" rx="4"/>
+
+  <!-- Modal dialog -->
+  <rect x="100" y="30" width="500" height="380" fill="#ffffff" stroke="#cccccc" stroke-width="1" rx="8"/>
+
+  <!-- Modal header -->
+  <text x="130" y="65" font-family="system-ui, sans-serif" font-size="16" fill="#333333" font-weight="bold">Review &amp; Save Method</text>
+  <!-- Close button -->
+  <rect x="556" y="42" width="26" height="26" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="569" y="60" font-family="system-ui, sans-serif" font-size="14" fill="#666666" text-anchor="middle">&#215;</text>
+
+  <line x1="120" y1="80" x2="580" y2="80" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Summary listing -->
+  <rect x="120" y="92" width="460" height="210" fill="#f0f0f0" stroke="#dddddd" stroke-width="1" rx="4"/>
+
+  <!-- Name -->
+  <text x="140" y="117" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Method Name</text>
+  <text x="300" y="117" font-family="system-ui, sans-serif" font-size="11" fill="#333333" font-weight="bold">My Agile Method</text>
+
+  <line x1="130" y1="127" x2="570" y2="127" stroke="#eeeeee" stroke-width="1"/>
+
+  <!-- Description -->
+  <text x="140" y="147" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Description</text>
+  <text x="300" y="147" font-family="system-ui, sans-serif" font-size="11" fill="#333333">An agile development method com...</text>
+
+  <line x1="130" y1="157" x2="570" y2="157" stroke="#eeeeee" stroke-width="1"/>
+
+  <!-- Baseline -->
+  <text x="140" y="177" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Baseline</text>
+  <text x="300" y="177" font-family="system-ui, sans-serif" font-size="11" fill="#333333">Essence Kernel</text>
+
+  <line x1="130" y1="187" x2="570" y2="187" stroke="#eeeeee" stroke-width="1"/>
+
+  <!-- Extensions -->
+  <text x="140" y="207" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Extensions</text>
+  <text x="300" y="207" font-family="system-ui, sans-serif" font-size="11" fill="#333333">3 practices</text>
+
+  <line x1="130" y1="217" x2="570" y2="217" stroke="#eeeeee" stroke-width="1"/>
+
+  <!-- Tags -->
+  <text x="140" y="237" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Tags</text>
+  <text x="300" y="237" font-family="system-ui, sans-serif" font-size="11" fill="#333333">configured</text>
+
+  <line x1="130" y1="247" x2="570" y2="247" stroke="#eeeeee" stroke-width="1"/>
+
+  <!-- Narratives -->
+  <text x="140" y="267" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Narratives</text>
+  <text x="300" y="267" font-family="system-ui, sans-serif" font-size="11" fill="#333333">2</text>
+
+  <line x1="130" y1="280" x2="570" y2="280" stroke="#eeeeee" stroke-width="1"/>
+
+  <!-- Validation status -->
+  <text x="140" y="296" font-family="system-ui, sans-serif" font-size="11" fill="#999999">Validation</text>
+  <circle cx="308" cy="292" r="7" fill="#66bb6a"/>
+  <text x="308" y="296" font-family="system-ui, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">&#10003;</text>
+  <text x="322" y="296" font-family="system-ui, sans-serif" font-size="11" fill="#66bb6a" font-weight="bold">Valid</text>
+
+  <!-- Divider before buttons -->
+  <line x1="120" y1="320" x2="580" y2="320" stroke="#dddddd" stroke-width="1"/>
+
+  <!-- Required fields note -->
+  <text x="140" y="345" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Name and description are required to save.</text>
+
+  <!-- Buttons -->
+  <rect x="370" y="360" width="90" height="34" fill="#e8e8e8" stroke="#bbbbbb" stroke-width="1" rx="3"/>
+  <text x="415" y="382" font-family="system-ui, sans-serif" font-size="12" fill="#666666" text-anchor="middle">Cancel</text>
+
+  <rect x="470" y="360" width="110" height="34" fill="#4a90d9" stroke="#3a7bc8" stroke-width="1" rx="3"/>
+  <text x="525" y="382" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Save Method</text>
+</svg>
