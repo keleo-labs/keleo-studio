@@ -1,0 +1,238 @@
+{
+  "kind": "method",
+  "name": "Multiply RHEL with Server Cloud OS TDP",
+  "description": "Distributor-led Multiply RHEL campaign orchestration with Server Cloud OS TDP as the sales-play spine. Adopts the EMEA Partner Ecosystem Demand Generation Framework (Discover → Plan → Execute → Steer; TDP-anchored incremental pipeline through partners).",
+  "baselinePracticeName": "Partner Ecosystem Essentials",
+  "practiceNames": [
+    "Multiply RHEL",
+    "Server Cloud OS TDP"
+  ],
+  "alphaBindings": [
+    {
+      "baselineAlpha": {
+        "baselineName": "Partner Ecosystem Essentials",
+        "alphaName": "Partner Value"
+      },
+      "contributingAlphas": [
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Opportunity",
+          "stateContributions": [
+            {
+              "fromState": "Identified",
+              "toState": "Identified"
+            },
+            {
+              "fromState": "Qualified",
+              "toState": "Qualified"
+            },
+            {
+              "fromState": "Validated",
+              "toState": "Qualified"
+            },
+            {
+              "fromState": "Committed",
+              "toState": "Agreed"
+            },
+            {
+              "fromState": "Won",
+              "toState": "Delivered"
+            },
+            {
+              "fromState": "Expanding",
+              "toState": "Optimized"
+            }
+          ]
+        },
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Deal",
+          "stateContributions": [
+            {
+              "fromState": "Shaped",
+              "toState": "Qualified"
+            },
+            {
+              "fromState": "Proposed",
+              "toState": "Qualified"
+            },
+            {
+              "fromState": "Negotiated",
+              "toState": "Agreed"
+            },
+            {
+              "fromState": "Closed",
+              "toState": "Delivered"
+            },
+            {
+              "fromState": "Renewed",
+              "toState": "Optimized"
+            }
+          ]
+        },
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Sales Play",
+          "stateContributions": [
+            {
+              "fromState": "Selected",
+              "toState": "Identified"
+            },
+            {
+              "fromState": "Activated",
+              "toState": "Qualified"
+            },
+            {
+              "fromState": "Executing",
+              "toState": "Agreed"
+            },
+            {
+              "fromState": "Measured",
+              "toState": "Delivered"
+            },
+            {
+              "fromState": "Optimized",
+              "toState": "Optimized"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "baselineAlpha": {
+        "baselineName": "Partner Ecosystem Essentials",
+        "alphaName": "Partner Capability"
+      },
+      "contributingAlphas": [
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Technical Validation",
+          "stateContributions": [
+            {
+              "fromState": "Planned",
+              "toState": "Assessed"
+            },
+            {
+              "fromState": "Executing",
+              "toState": "Developing"
+            },
+            {
+              "fromState": "Evidenced",
+              "toState": "Developing"
+            },
+            {
+              "fromState": "Accepted",
+              "toState": "Capable"
+            },
+            {
+              "fromState": "Referenced",
+              "toState": "Scaling"
+            }
+          ]
+        },
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Solution Fit",
+          "stateContributions": [
+            {
+              "fromState": "Explored",
+              "toState": "Assessed"
+            },
+            {
+              "fromState": "Scoped",
+              "toState": "Assessed"
+            },
+            {
+              "fromState": "Designed",
+              "toState": "Developing"
+            },
+            {
+              "fromState": "Demonstrated",
+              "toState": "Capable"
+            },
+            {
+              "fromState": "Confirmed",
+              "toState": "Capable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "baselineAlpha": {
+        "baselineName": "Partner Ecosystem Essentials",
+        "alphaName": "Partner Relationship"
+      },
+      "contributingAlphas": [
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Customer Relationship",
+          "stateContributions": [
+            {
+              "fromState": "Initiated",
+              "toState": "Initiated"
+            },
+            {
+              "fromState": "Developing",
+              "toState": "Established"
+            },
+            {
+              "fromState": "Established",
+              "toState": "Active"
+            },
+            {
+              "fromState": "Strategic",
+              "toState": "Strategic"
+            },
+            {
+              "fromState": "Transformational",
+              "toState": "Renewing"
+            }
+          ]
+        },
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Customer",
+          "stateContributions": [
+            {
+              "fromState": "Targeted",
+              "toState": "Initiated"
+            },
+            {
+              "fromState": "Understood",
+              "toState": "Established"
+            },
+            {
+              "fromState": "Engaged",
+              "toState": "Active"
+            },
+            {
+              "fromState": "Trusting",
+              "toState": "Strategic"
+            },
+            {
+              "fromState": "Advocating",
+              "toState": "Renewing"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "EMEA Ecosystem Demand Generation Framework",
+      "description": "Source EMEA partner demand-gen framework (Discover–Plan–Execute–Steer) this method enacts.",
+      "authors": [
+        "Burak Borhan",
+        "Jan Wenger",
+        "Diana Micsoniu"
+      ],
+      "date": "2026-07-10",
+      "source": "Google Slides",
+      "url": "https://docs.google.com/presentation/d/1Ai3QuEt5pii6xWZrT096uRA4xYGyMSsuFEumHaqI9D8/edit?usp=sharing",
+      "kind": "citation"
+    }
+  ],
+  "schemaVersion": "2.0.0"
+}

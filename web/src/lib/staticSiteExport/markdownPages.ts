@@ -28,6 +28,33 @@ import { findIconAsset, renderIconHtml } from "./fontIcons";
 
 export type PageFile = { path: string; content: string };
 
+function buildAlphaFocusMap(baseline: PracticeBaseline): Map<string, string> {
+  const map = new Map<string, string>();
+  const groups = groupByFocus(baseline);
+  for (const g of groups) {
+    for (const alpha of g.alphas) {
+      map.set(alpha.name, g.focusName);
+    }
+  }
+  return map;
+}
+
+function resolveAlphaFocus(
+  alphaName: string,
+  baseline: PracticeBaseline,
+  fallback: string,
+  alphaFocusMap?: Map<string, string>,
+): string | null {
+  if (alphaFocusMap) {
+    const f = alphaFocusMap.get(alphaName);
+    if (f) return f;
+  }
+  const alpha = baseline.alphas.find((a) => a.name === alphaName);
+  if (alpha?.focusName) return alpha.focusName;
+  if (fallback) return fallback;
+  return null;
+}
+
 function stateAnchor(
   alphaName: string,
   stateName: string,
@@ -133,14 +160,17 @@ function renderBackgroundMd(
   if (bg.alphaStates?.length) {
     lines.push("", "**Required Concern States:**", "");
     for (const as of bg.alphaStates) {
-      const alphaObj = baseline.alphas.find((a) => a.name === as.alphaName);
-      const alphaFocus = alphaObj?.focusName ?? "";
-      const alphaPath = elementPath("alpha", as.alphaName, alphaFocus);
-      const anchor = stateAnchor(as.alphaName, as.stateName, baseline, display);
-      const stateText = anchor
-        ? mdLinkWithAnchor(display("State", as.stateName), fromPath, alphaPath, anchor)
-        : display("State", as.stateName);
-      lines.push(`- ${mdLink(display("Alpha", as.alphaName), fromPath, alphaPath)} — ${stateText}`);
+      const alphaFocus = resolveAlphaFocus(as.alphaName, baseline, "");
+      if (alphaFocus) {
+        const alphaPath = elementPath("alpha", as.alphaName, alphaFocus);
+        const anchor = stateAnchor(as.alphaName, as.stateName, baseline, display);
+        const stateText = anchor
+          ? mdLinkWithAnchor(display("State", as.stateName), fromPath, alphaPath, anchor)
+          : display("State", as.stateName);
+        lines.push(`- ${mdLink(display("Alpha", as.alphaName), fromPath, alphaPath)} — ${stateText}`);
+      } else {
+        lines.push(`- ${display("Alpha", as.alphaName)} — ${display("State", as.stateName)}`);
+      }
     }
   }
 
@@ -533,9 +563,9 @@ export function generatePatternPage(
     lines.push("", "## Pattern Matrix", "");
     // Table header — link each alpha to its page
     const headerCells = alphaList.map((a) => {
-      const alphaObj = baseline.alphas.find((al) => al.name === a);
-      if (alphaObj) {
-        const alphaPath = elementPath("alpha", a, alphaObj.focusName);
+      const focus = resolveAlphaFocus(a, baseline, "");
+      if (focus) {
+        const alphaPath = elementPath("alpha", a, focus);
         return mdLink(display("Alpha", a), pagePath, alphaPath);
       }
       return display("Alpha", a);
@@ -558,9 +588,11 @@ export function generatePatternPage(
             if (!sName) return "";
             const anchor = stateAnchor(alphaName, sName, baseline, display);
             if (anchor) {
-              const alphaObj = baseline.alphas.find((al) => al.name === alphaName);
-              const alphaPath = elementPath("alpha", alphaName, alphaObj?.focusName);
-              return mdLinkWithAnchor(display("State", sName), pagePath, alphaPath, anchor);
+              const focus = resolveAlphaFocus(alphaName, baseline, "");
+              if (focus) {
+                const alphaPath = elementPath("alpha", alphaName, focus);
+                return mdLinkWithAnchor(display("State", sName), pagePath, alphaPath, anchor);
+              }
             }
             return display("State", sName);
           })
@@ -899,14 +931,17 @@ export function generateActivitySpacePage(
   if (space.contributesTo?.length) {
     lines.push("", "## Contributes To", "");
     for (const ct of space.contributesTo) {
-      const alphaObj = baseline.alphas.find((a) => a.name === ct.alphaName);
-      const alphaFocus = alphaObj?.focusName ?? focusName;
-      const alphaPath = elementPath("alpha", ct.alphaName, alphaFocus);
-      const anchor = stateAnchor(ct.alphaName, ct.stateName, baseline, display);
-      const stateText = anchor
-        ? mdLinkWithAnchor(display("State", ct.stateName), pagePath, alphaPath, anchor)
-        : display("State", ct.stateName);
-      lines.push(`- ${mdLink(display("Alpha", ct.alphaName), pagePath, alphaPath)} — ${stateText}`);
+      const alphaFocus = resolveAlphaFocus(ct.alphaName, baseline, focusName);
+      if (alphaFocus) {
+        const alphaPath = elementPath("alpha", ct.alphaName, alphaFocus);
+        const anchor = stateAnchor(ct.alphaName, ct.stateName, baseline, display);
+        const stateText = anchor
+          ? mdLinkWithAnchor(display("State", ct.stateName), pagePath, alphaPath, anchor)
+          : display("State", ct.stateName);
+        lines.push(`- ${mdLink(display("Alpha", ct.alphaName), pagePath, alphaPath)} — ${stateText}`);
+      } else {
+        lines.push(`- ${display("Alpha", ct.alphaName)} — ${display("State", ct.stateName)}`);
+      }
     }
   }
 
@@ -974,14 +1009,17 @@ export function generateActivityPage(
   if (activity.contributesTo?.length) {
     lines.push("", "## Contributes To", "");
     for (const ct of activity.contributesTo) {
-      const alphaObj = baseline.alphas.find((a) => a.name === ct.alphaName);
-      const alphaFocus = alphaObj?.focusName ?? focusName;
-      const alphaPath = elementPath("alpha", ct.alphaName, alphaFocus);
-      const anchor = stateAnchor(ct.alphaName, ct.stateName, baseline, display);
-      const stateText = anchor
-        ? mdLinkWithAnchor(display("State", ct.stateName), pagePath, alphaPath, anchor)
-        : display("State", ct.stateName);
-      lines.push(`- ${mdLink(display("Alpha", ct.alphaName), pagePath, alphaPath)} — ${stateText}`);
+      const alphaFocus = resolveAlphaFocus(ct.alphaName, baseline, focusName);
+      if (alphaFocus) {
+        const alphaPath = elementPath("alpha", ct.alphaName, alphaFocus);
+        const anchor = stateAnchor(ct.alphaName, ct.stateName, baseline, display);
+        const stateText = anchor
+          ? mdLinkWithAnchor(display("State", ct.stateName), pagePath, alphaPath, anchor)
+          : display("State", ct.stateName);
+        lines.push(`- ${mdLink(display("Alpha", ct.alphaName), pagePath, alphaPath)} — ${stateText}`);
+      } else {
+        lines.push(`- ${display("Alpha", ct.alphaName)} — ${display("State", ct.stateName)}`);
+      }
     }
   }
 
@@ -1118,13 +1156,16 @@ export function generateWorkProductPage(
   if (wpRefEvidence.length) {
     lines.push("", "## Reference Examples", "");
     for (const { ref, ev } of wpRefEvidence) {
-      const alphaObj = baseline.alphas.find((a) => a.name === ref.alphaName);
-      const alphaFocus = alphaObj?.focusName ?? "";
-      const alphaPath = elementPath("alpha", ref.alphaName, alphaFocus);
+      const alphaFocus = resolveAlphaFocus(ref.alphaName, baseline, "");
       let line = `- **${ev.name}**`;
       if (ev.levelOfDetailName) line += ` (${display("LevelOfDetail", ev.levelOfDetailName)})`;
       if (ev.description) line += `: ${ev.description}`;
-      line += ` — from ${mdLink(display("Alpha", ref.alphaName), pagePath, alphaPath)}`;
+      if (alphaFocus) {
+        const alphaPath = elementPath("alpha", ref.alphaName, alphaFocus);
+        line += ` — from ${mdLink(display("Alpha", ref.alphaName), pagePath, alphaPath)}`;
+      } else {
+        line += ` — from ${display("Alpha", ref.alphaName)}`;
+      }
       if (ref.stateName) line += ` at ${display("State", ref.stateName)}`;
       if (ev.links?.length) {
         line += " " + ev.links.map((l: any) => l.uri ? `[${l.name}](${l.uri})` : l.name).join(", ");
@@ -1174,14 +1215,17 @@ export function generateWorkProductPage(
       if (lod.contributesTo?.length) {
         lines.push("", "**Contributes to:**", "");
         for (const ct of lod.contributesTo) {
-          const alphaObj = baseline.alphas.find((a) => a.name === ct.alphaName);
-          const alphaFocus = alphaObj?.focusName ?? "";
-          const alphaPath = elementPath("alpha", ct.alphaName, alphaFocus);
-          const anchor = stateAnchor(ct.alphaName, ct.stateName, baseline, display);
-          const stateText = anchor
-            ? mdLinkWithAnchor(display("State", ct.stateName), pagePath, alphaPath, anchor)
-            : display("State", ct.stateName);
-          lines.push(`- ${mdLink(display("Alpha", ct.alphaName), pagePath, alphaPath)} — ${stateText}`);
+          const alphaFocus = resolveAlphaFocus(ct.alphaName, baseline, "");
+          if (alphaFocus) {
+            const alphaPath = elementPath("alpha", ct.alphaName, alphaFocus);
+            const anchor = stateAnchor(ct.alphaName, ct.stateName, baseline, display);
+            const stateText = anchor
+              ? mdLinkWithAnchor(display("State", ct.stateName), pagePath, alphaPath, anchor)
+              : display("State", ct.stateName);
+            lines.push(`- ${mdLink(display("Alpha", ct.alphaName), pagePath, alphaPath)} — ${stateText}`);
+          } else {
+            lines.push(`- ${display("Alpha", ct.alphaName)} — ${display("State", ct.stateName)}`);
+          }
         }
       }
 

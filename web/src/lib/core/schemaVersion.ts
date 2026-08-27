@@ -1,4 +1,4 @@
-export const TOOL_SCHEMA_VERSION = "1.2.0";
+export const TOOL_SCHEMA_VERSION = "2.0.0";
 
 type SchemaCompatResult = {
   compatible: boolean;

@@ -1,0 +1,89 @@
+{
+  "kind": "method",
+  "name": "Red Hat Ecosystem Managed Partner",
+  "description": "Support PAMs and EcoSAs in developing and growing partner relationships by combining Red Hat Ecosystem partner practices with project management foundations.",
+  "baselinePracticeName": "Partner Ecosystem Essentials",
+  "practiceNames": [
+    "Technical Engagement Planning",
+    "Partner Success Planning",
+    "Partner Demand Generation",
+    "Value and Stakeholder Strategy",
+    "Delivery and Team Operations",
+    "Project Management Lifecycle"
+  ],
+  "alphaBindings": [
+    {
+      "baselineAlpha": {
+        "baselineName": "Partner Ecosystem Essentials",
+        "alphaName": "Partner Value"
+      },
+      "contributingAlphas": [
+        {
+          "baselineName": "Project Essentials",
+          "alphaName": "Opportunity",
+          "stateContributions": [
+            {
+              "fromState": "Initiated",
+              "toState": "Identified"
+            },
+            {
+              "fromState": "Value Established",
+              "toState": "Qualified"
+            },
+            {
+              "fromState": "Viable",
+              "toState": "Agreed"
+            },
+            {
+              "fromState": "Addressed",
+              "toState": "Delivered"
+            },
+            {
+              "fromState": "Benefit Accrued",
+              "toState": "Optimized"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "baselineAlpha": {
+        "baselineName": "Partner Ecosystem Essentials",
+        "alphaName": "Partner Capability"
+      },
+      "contributingAlphas": [
+        {
+          "baselineName": "Project Essentials",
+          "alphaName": "Deliverable",
+          "stateContributions": [
+            {
+              "fromState": "Envisioned",
+              "toState": "Assessed"
+            },
+            {
+              "fromState": "Shaped",
+              "toState": "Assessed"
+            },
+            {
+              "fromState": "Demonstrable",
+              "toState": "Developing"
+            },
+            {
+              "fromState": "Usable",
+              "toState": "Developing"
+            },
+            {
+              "fromState": "Ready",
+              "toState": "Capable"
+            },
+            {
+              "fromState": "Operational",
+              "toState": "Capable"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "2.0.0"
+}

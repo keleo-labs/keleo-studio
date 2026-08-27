@@ -1,0 +1,255 @@
+- generic [active] [ref=f13e1]:
+  - generic [ref=f13e2]:
+    - complementary [ref=f13e3]:
+      - navigation [ref=f13e4]:
+        - link [ref=f13e6] [cursor=pointer]:
+          - /url: /
+          - paragraph [ref=f13e7]: Adoption Framework
+          - heading "Dashboard" [level=1] [ref=f13e8]
+        - generic [ref=f13e9]:
+          - link " Home Dashboard" [ref=f13e11] [cursor=pointer]:
+            - /url: /
+            - generic [ref=f13e12]: 
+            - generic [ref=f13e13]:
+              - generic [ref=f13e14]: Home
+              - generic [ref=f13e15]: Dashboard
+          - link " Compose Method Builder" [ref=f13e17] [cursor=pointer]:
+            - /url: /method-builder
+            - generic [ref=f13e18]: 
+            - generic [ref=f13e19]:
+              - generic [ref=f13e20]: Compose
+              - generic [ref=f13e21]: Method Builder
+          - link " Explore Practice Navigator" [ref=f13e23] [cursor=pointer]:
+            - /url: /navigator
+            - generic [ref=f13e24]: 
+            - generic [ref=f13e25]:
+              - generic [ref=f13e26]: Explore
+              - generic [ref=f13e27]: Practice Navigator
+          - link " Author Practice Author" [ref=f13e29] [cursor=pointer]:
+            - /url: /practice-author
+            - generic [ref=f13e30]: 
+            - generic [ref=f13e31]:
+              - generic [ref=f13e32]: Author
+              - generic [ref=f13e33]: Practice Author
+          - link " Execute Project Manager" [ref=f13e35] [cursor=pointer]:
+            - /url: /project-manager
+            - generic [ref=f13e36]: 
+            - generic [ref=f13e37]:
+              - generic [ref=f13e38]: Execute
+              - generic [ref=f13e39]: Project Manager
+          - link " Library Manage Library" [ref=f13e41] [cursor=pointer]:
+            - /url: /library
+            - generic [ref=f13e42]: 
+            - generic [ref=f13e43]:
+              - generic [ref=f13e44]: Library
+              - generic [ref=f13e45]: Manage Library
+          - link " Settings Preferences" [ref=f13e48] [cursor=pointer]:
+            - /url: /preferences
+            - generic [ref=f13e49]: 
+            - generic [ref=f13e50]:
+              - generic [ref=f13e51]: Settings
+              - generic [ref=f13e52]: Preferences
+    - button "" [ref=f13e53] [cursor=pointer]
+    - main [ref=f13e55]:
+      - generic [ref=f13e70]:
+        - navigation "Practice navigator" [ref=f13e71]:
+          - button " Scrum Foundations" [ref=f13e73] [cursor=pointer]:
+            - generic [ref=f13e74]: 
+            - generic [ref=f13e75]: Scrum Foundations
+          - generic [ref=f13e76]:
+            - generic [ref=f13e77]: Patterns
+            - button "Sprint Lifecycle" [ref=f13e78] [cursor=pointer]
+            - button "Product Evolution Journey" [ref=f13e80] [cursor=pointer]
+            - button "Team Formation Journey" [ref=f13e82] [cursor=pointer]
+            - button "Agile Delivery Lifecycle" [ref=f13e84] [cursor=pointer]
+          - generic [ref=f13e87]:
+            - button "Concerns" [ref=f13e88] [cursor=pointer]
+            - button "Activities" [ref=f13e89] [cursor=pointer]
+          - button " Overview" [ref=f13e91] [cursor=pointer]:
+            - generic [ref=f13e92]: 
+            - generic [ref=f13e93]: Overview
+          - generic [ref=f13e94]:
+            - button "▸ Value" [ref=f13e96] [cursor=pointer]:
+              - generic [ref=f13e97]: ▸
+              - generic [ref=f13e98]: Value
+            - button "▸ Solution" [ref=f13e100] [cursor=pointer]:
+              - generic [ref=f13e101]: ▸
+              - generic [ref=f13e102]: Solution
+            - button "▸ Endeavor" [ref=f13e104] [cursor=pointer]:
+              - generic [ref=f13e105]: ▸
+              - generic [ref=f13e106]: Endeavor
+          - generic [ref=f13e108]:
+            - generic [ref=f13e109]: Work Products
+            - button "Product Backlog" [ref=f13e110] [cursor=pointer]
+            - button "Sprint Backlog" [ref=f13e112] [cursor=pointer]
+            - button "Increment" [ref=f13e114] [cursor=pointer]
+            - button "Done Criteria" [ref=f13e116] [cursor=pointer]
+            - button "Sprint Goal Statement" [ref=f13e118] [cursor=pointer]
+            - button "Product Goal Statement" [ref=f13e120] [cursor=pointer]
+            - button "Scrum Team Working Agreement" [ref=f13e122] [cursor=pointer]
+            - button "Product Backlog Document" [ref=f13e124] [cursor=pointer]
+            - button "Sprint Board" [ref=f13e126] [cursor=pointer]
+            - button "Team Charter" [ref=f13e128] [cursor=pointer]
+            - button "Definition of Done Specification" [ref=f13e130] [cursor=pointer]
+            - button "Retrospective Report" [ref=f13e132] [cursor=pointer]
+            - button "Release Plan" [ref=f13e134] [cursor=pointer]
+            - button "Project Status Dashboard" [ref=f13e136] [cursor=pointer]
+            - button "Lessons Learned Repository" [ref=f13e138] [cursor=pointer]
+          - generic [ref=f13e141]:
+            - generic [ref=f13e142]: Roles & Competencies
+            - generic [ref=f13e143]:
+              - generic [ref=f13e144]: PERSONA GROUPS
+              - button "▸  Scrum Team" [ref=f13e146] [cursor=pointer]:
+                - generic [ref=f13e147]: ▸
+                - generic "Icon representing the Scrum Team persona group" [ref=f13e148]: 
+                - generic [ref=f13e149]: Scrum Team
+              - button "▸ Delivery Team" [ref=f13e151] [cursor=pointer]:
+                - generic [ref=f13e152]: ▸
+                - generic [ref=f13e153]: Delivery Team
+              - button "▸ Project Leadership Team" [ref=f13e155] [cursor=pointer]:
+                - generic [ref=f13e156]: ▸
+                - generic [ref=f13e157]: Project Leadership Team
+            - generic [ref=f13e158]:
+              - generic [ref=f13e159]: COMPETENCIES
+              - button "Analysis" [ref=f13e160] [cursor=pointer]
+              - button "Leadership" [ref=f13e162] [cursor=pointer]
+              - button "Management" [ref=f13e164] [cursor=pointer]
+              - button "Stakeholder Representation" [ref=f13e166] [cursor=pointer]
+              - button "Communication" [ref=f13e168] [cursor=pointer]
+          - button " References" [ref=f13e172] [cursor=pointer]:
+            - generic [ref=f13e173]: 
+            - generic [ref=f13e174]: References
+        - main [ref=f13e176]:
+          - generic [ref=f13e177]:
+            - generic [ref=f13e179]:
+              - generic [ref=f13e180]:
+                - heading "Definition of Done Specification" [level=1] [ref=f13e181]
+                - paragraph [ref=f13e182]: A shared agreement specifying quality standards that work must meet to be considered complete.
+              - generic [ref=f13e183]:
+                - generic [ref=f13e184]: Delivery and Team Operations
+                - link "" [ref=f13e185] [cursor=pointer]:
+                  - /url: /practice-author?libraryId=23d228aa-22cc-4cfa-986f-399b662645c4
+            - table [ref=f13e188]:
+              - rowgroup [ref=f13e194]:
+                - row [ref=f13e195]:
+                  - cell "Level of Detail" [ref=f13e196]
+                  - cell [ref=f13e197]:
+                    - button "1 Basic Checklist" [ref=f13e198] [cursor=pointer]:
+                      - generic [ref=f13e199]: "1"
+                      - generic [ref=f13e200]: Basic Checklist
+                  - cell [ref=f13e201]:
+                    - button "2 Detailed Standard" [ref=f13e202] [cursor=pointer]:
+                      - generic [ref=f13e203]: "2"
+                      - generic [ref=f13e204]: Detailed Standard
+                  - cell [ref=f13e205]:
+                    - button "3 Integrated Standard" [ref=f13e206] [cursor=pointer]:
+                      - generic [ref=f13e207]: "3"
+                      - generic [ref=f13e208]: Integrated Standard
+                - row [ref=f13e209]:
+                  - cell "Description" [ref=f13e210]
+                  - cell "Simple list of completion criteria for work items." [ref=f13e211]
+                  - cell "Specific, measurable quality criteria enforced for every increment." [ref=f13e213]
+                  - cell "Definition of Done integrated with automation and continuous improvement." [ref=f13e215]
+                - row [ref=f13e217]:
+                  - cell "Contributes To" [ref=f13e218]
+                  - cell [ref=f13e219]:
+                    - button " Team Agreement → Drafted" [ref=f13e221] [cursor=pointer]:
+                      - generic "Icon representing the Team Agreement alpha" [ref=f13e222]: 
+                      - generic [ref=f13e223]:
+                        - generic [ref=f13e224]: Team Agreement
+                        - generic [ref=f13e225]: → Drafted
+                  - cell [ref=f13e226]:
+                    - generic [ref=f13e227]:
+                      - button " Team Agreement → Adopted" [ref=f13e228] [cursor=pointer]:
+                        - generic "Icon representing the Team Agreement alpha" [ref=f13e229]: 
+                        - generic [ref=f13e230]:
+                          - generic [ref=f13e231]: Team Agreement
+                          - generic [ref=f13e232]: → Adopted
+                      - button " Team Process (Way Of Working) → Foundation Established" [ref=f13e233] [cursor=pointer]:
+                        - generic "Way Of Working alpha icon representing practices, tools, and processes the team adopts" [ref=f13e234]: 
+                        - generic [ref=f13e235]:
+                          - generic [ref=f13e236]:
+                            - text: Team Process
+                            - generic [ref=f13e237]: (Way Of Working)
+                          - generic [ref=f13e238]: → Foundation Established
+                  - cell [ref=f13e239]:
+                    - generic [ref=f13e240]:
+                      - button " Team Agreement → Evolved" [ref=f13e241] [cursor=pointer]:
+                        - generic "Icon representing the Team Agreement alpha" [ref=f13e242]: 
+                        - generic [ref=f13e243]:
+                          - generic [ref=f13e244]: Team Agreement
+                          - generic [ref=f13e245]: → Evolved
+                      - button " Team Process (Way Of Working) → Working Well" [ref=f13e246] [cursor=pointer]:
+                        - generic "Way Of Working alpha icon representing practices, tools, and processes the team adopts" [ref=f13e247]: 
+                        - generic [ref=f13e248]:
+                          - generic [ref=f13e249]:
+                            - text: Team Process
+                            - generic [ref=f13e250]: (Way Of Working)
+                          - generic [ref=f13e251]: → Working Well
+                - row [ref=f13e252]:
+                  - cell "Developed By" [ref=f13e253]
+                  - cell [ref=f13e254]:
+                    - button " Define Definition of Done" [ref=f13e256] [cursor=pointer]:
+                      - generic "Icon representing the Definition of Done alpha as a quality gate" [ref=f13e257]: 
+                      - generic [ref=f13e258]: Define Definition of Done
+                  - cell [ref=f13e259]:
+                    - generic [ref=f13e260]:
+                      - button " Conduct Retrospective" [ref=f13e261] [cursor=pointer]:
+                        - generic "Icon for retrospective activity" [ref=f13e262]: 
+                        - generic [ref=f13e263]: Conduct Retrospective
+                      - button " Establish Working Agreements" [ref=f13e264] [cursor=pointer]:
+                        - generic "Icon for establishing working agreements activity" [ref=f13e265]: 
+                        - generic [ref=f13e266]: Establish Working Agreements
+                      - button " Define Definition of Done" [ref=f13e267] [cursor=pointer]:
+                        - generic "Icon representing the Definition of Done alpha as a quality gate" [ref=f13e268]: 
+                        - generic [ref=f13e269]: Define Definition of Done
+                  - cell "—" [ref=f13e270]
+                - row [ref=f13e273]:
+                  - cell "Checklist" [ref=f13e274]
+                  - cell " Basic criteria listed  Checklist informal  Starting point for quality discussion" [ref=f13e275]:
+                    - list [ref=f13e277]:
+                      - listitem [ref=f13e278]:
+                        - generic [ref=f13e279]: 
+                        - generic [ref=f13e280]: Basic criteria listed
+                      - listitem [ref=f13e281]:
+                        - generic [ref=f13e282]: 
+                        - generic [ref=f13e283]: Checklist informal
+                      - listitem [ref=f13e284]:
+                        - generic [ref=f13e285]: 
+                        - generic [ref=f13e286]: Starting point for quality discussion
+                  - cell " Criteria specific and measurable  Coverage spans multiple dimensions  Standard consistently enforced  Stakeholder acceptance obtained" [ref=f13e287]:
+                    - list [ref=f13e289]:
+                      - listitem [ref=f13e290]:
+                        - generic [ref=f13e291]: 
+                        - generic [ref=f13e292]: Criteria specific and measurable
+                      - listitem [ref=f13e293]:
+                        - generic [ref=f13e294]: 
+                        - generic [ref=f13e295]: Coverage spans multiple dimensions
+                      - listitem [ref=f13e296]:
+                        - generic [ref=f13e297]: 
+                        - generic [ref=f13e298]: Standard consistently enforced
+                      - listitem [ref=f13e299]:
+                        - generic [ref=f13e300]: 
+                        - generic [ref=f13e301]: Stakeholder acceptance obtained
+                  - cell " Criteria partially automated  Evolves based on retrospective insights  Compliance trends tracked  Contributes to organizational quality" [ref=f13e302]:
+                    - list [ref=f13e304]:
+                      - listitem [ref=f13e305]:
+                        - generic [ref=f13e306]: 
+                        - generic [ref=f13e307]: Criteria partially automated
+                      - listitem [ref=f13e308]:
+                        - generic [ref=f13e309]: 
+                        - generic [ref=f13e310]: Evolves based on retrospective insights
+                      - listitem [ref=f13e311]:
+                        - generic [ref=f13e312]: 
+                        - generic [ref=f13e313]: Compliance trends tracked
+                      - listitem [ref=f13e314]:
+                        - generic [ref=f13e315]: 
+                        - generic [ref=f13e316]: Contributes to organizational quality
+            - generic [ref=f13e317]:
+              - heading "Contains" [level=3] [ref=f13e69]
+              - button "Done Criteria A formal description of the quality measures required for the product's Increment." [ref=f13e319] [cursor=pointer]:
+                - generic [ref=f13e320]:
+                  - generic [ref=f13e321]: Done Criteria
+                  - generic [ref=f13e322]: A formal description of the quality measures required for the product's Increment.
+  - button "Open Next.js Dev Tools" [ref=f13e65] [cursor=pointer]
+  - alert [ref=f13e323]

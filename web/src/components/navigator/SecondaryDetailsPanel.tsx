@@ -299,25 +299,47 @@ export function SecondaryDetailsPanel({
                   const practiceBody = data.body || data;
                   const practiceName = practiceBody.name;
                   if (practiceName) {
+                    const navigateToPractice = (id: string) => {
+                      if (id.startsWith('bundle:')) {
+                        const ref = id.slice(7);
+                        const slashIdx = ref.indexOf('/');
+                        window.location.href = `/navigator?bundle=${encodeURIComponent(ref.slice(0, slashIdx))}&path=${encodeURIComponent(ref.slice(slashIdx + 1))}&selected=__introduction__`;
+                      } else {
+                        window.location.href = `/navigator?libraryId=${id}&selected=__introduction__`;
+                      }
+                    };
+
                     // Check if we already have the practice with an id
                     const practiceDoc = practiceDocuments?.get(practiceName);
                     if (practiceDoc?.id) {
-                      window.location.href = `/navigator?libraryId=${practiceDoc.id}&selected=__introduction__`;
+                      navigateToPractice(practiceDoc.id);
                       return;
                     }
 
-                    // Practice is embedded or not loaded - search library for it
+                    // Practice is embedded or not loaded - search flat store then bundle library
                     try {
                       const listResponse = await fetch('/api/documents?withBody=1');
                       if (listResponse.ok) {
                         const listData = await listResponse.json();
                         const libraryPractice = listData.documents?.find((doc: any) => doc.body?.name === practiceName);
                         if (libraryPractice?.id) {
-                          window.location.href = `/navigator?libraryId=${libraryPractice.id}&selected=__introduction__`;
-                        } else {
-                          alert(`Practice "${practiceName}" not found in library.`);
+                          navigateToPractice(libraryPractice.id);
+                          return;
                         }
                       }
+
+                      // Fall back to bundle library
+                      const indexRes = await fetch('/api/library/index');
+                      if (indexRes.ok) {
+                        const indexData = await indexRes.json();
+                        const entry = (indexData.entries || []).find((e: any) => e.name === practiceName);
+                        if (entry) {
+                          navigateToPractice(`bundle:${entry.activeBundleSlug}/${entry.activeDocumentPath}`);
+                          return;
+                        }
+                      }
+
+                      alert(`Practice "${practiceName}" not found in library.`);
                     } catch (error) {
                       console.error('Failed to search library for practice:', error);
                       alert('Failed to search library for practice.');

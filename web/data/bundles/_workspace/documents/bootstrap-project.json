@@ -1,0 +1,4905 @@
+{
+  "kind": "practice",
+  "name": "Bootstrap Project",
+  "description": "Instantiate and formalize a project from concept or in-flight state to a structured, execution-ready endeavor.",
+  "baselinePracticeName": "Project Essentials",
+  "practiceDependencyNames": [
+    "Value and Stakeholder Strategy",
+    "Delivery and Team Operations"
+  ],
+  "schemaVersion": "1.2.0",
+  "version": "1.2.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Project Essentials",
+      "versionRange": "^1.0.2"
+    },
+    {
+      "documentName": "Value and Stakeholder Strategy",
+      "versionRange": "^1.0.2"
+    },
+    {
+      "documentName": "Delivery and Team Operations",
+      "versionRange": "^1.0.2"
+    }
+  ],
+  "authors": [
+    "Claude Sonnet 4.5"
+  ],
+  "createdAt": "2026-08-13",
+  "updatedAt": "2026-08-14",
+  "keywords": [
+    "project bootstrap",
+    "inception",
+    "project initiation",
+    "stakeholder alignment",
+    "governance establishment",
+    "team formation",
+    "backlog creation",
+    "risk identification",
+    "readiness assessment",
+    "ways of working",
+    "greenfield setup",
+    "brownfield formalization"
+  ],
+  "tags": {
+    "domainTags": [
+      "Project Management",
+      "Inception",
+      "Governance",
+      "Stakeholder Management"
+    ],
+    "lifecycleTags": [
+      "Initiation",
+      "Planning",
+      "Assessment"
+    ],
+    "organizationalTags": [
+      "Project Team",
+      "PMO",
+      "Governance Board"
+    ]
+  },
+  "narratives": [
+    {
+      "name": "Bootstrapping Projects From Ambiguity to Execution Readiness",
+      "description": "Practice narrative describing the bootstrap journey from concept to structured endeavor.",
+      "narrativeTypeName": "The STAR Format",
+      "citationNames": [
+        "The Agile Samurai",
+        "Managing Successful Projects with PRINCE2",
+        "Performing a Project Premortem",
+        "Strategic Decisions"
+      ],
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Situation",
+          "context": "Organizations initiating new projects or formalizing in-flight efforts face ambiguity across all management concerns -- unclear opportunity definition, unidentified stakeholders, undefined governance, unformed teams, and unmanaged risks. Without structured inception, projects begin execution with unstated assumptions, misaligned expectations, and insufficient readiness."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Task",
+          "context": "Bootstrap the project from initial concept or informal effort to a manageable, value-driven endeavor ready for structured execution. This requires simultaneously advancing all seven baseline concerns from their initial states to a level sufficient for confident transition to delivery."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Action",
+          "context": "Apply a coordinated set of inception activities spanning situational assessment, stakeholder mapping, inception workshops, governance establishment, team formation, backlog creation, risk identification, and readiness evaluation. These activities operate across all three focuses (Value, Solution, Endeavor) to produce a holistic bootstrap that addresses both greenfield inception and brownfield formalization paths."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Result",
+          "context": "An execution-ready project with documented context, validated opportunity, aligned stakeholders, articulated objectives, envisioned deliverable, authorized work, formed team, established ways of working, seeded backlog, drafted team agreements, and identified risks. The project is ready for transition to delivery and ongoing management practices."
+        }
+      ]
+    }
+  ],
+  "assetNames": [
+    {
+      "assetName": "bootstrap-project-icon",
+      "type": "icon"
+    }
+  ],
+  "citations": [
+    {
+      "kind": "citation",
+      "name": "A Leader's Framework for Decision Making",
+      "description": "Introduces the Cynefin framework for domain classification and matching management approaches to problem complexity.",
+      "authors": [
+        "David J. Snowden",
+        "Mary E. Boone"
+      ],
+      "date": "2007",
+      "source": "Harvard Business Review",
+      "url": "https://hbr.org/2007/11/a-leaders-framework-for-decision-making"
+    },
+    {
+      "kind": "citation",
+      "name": "Wardley Maps",
+      "description": "Strategic mapping technique visualizing value chains and component evolution to inform build, buy, and outsource decisions.",
+      "authors": [
+        "Simon Wardley"
+      ],
+      "date": "2017",
+      "source": "Wardley Mapping (online book)",
+      "url": "https://learnwardleymapping.com/"
+    },
+    {
+      "kind": "citation",
+      "name": "The Agile Samurai",
+      "description": "Introduces the Agile Inception Deck framework with exercises for collaborative project visioning, scoping, and risk identification.",
+      "authors": [
+        "Jonathan Rasmusson"
+      ],
+      "date": "2010",
+      "source": "Pragmatic Bookshelf",
+      "url": "https://pragprog.com/titles/jtrap/the-agile-samurai/"
+    },
+    {
+      "kind": "citation",
+      "name": "Lean Inception",
+      "description": "Collaborative workshop approach for minimum viable scope definition combining vision, feature sequencing, and stakeholder alignment.",
+      "authors": [
+        "Paulo Caroli"
+      ],
+      "date": "2018",
+      "source": "Caroli.org",
+      "url": "https://caroli.org/en/book/"
+    },
+    {
+      "kind": "citation",
+      "name": "Strategize",
+      "description": "Product vision board framework and strategy guidance connecting vision, target groups, needs, features, and business goals.",
+      "authors": [
+        "Roman Pichler"
+      ],
+      "date": "2016",
+      "source": "Pichler Consulting",
+      "url": "https://www.romanpichler.com/books/strategize/"
+    },
+    {
+      "kind": "citation",
+      "name": "Stakeholder Relationship Management",
+      "description": "Comprehensive stakeholder identification, analysis, and engagement framework including systematic engagement methodologies.",
+      "authors": [
+        "Lynda Bourne"
+      ],
+      "date": "2009",
+      "source": "Gower Publishing",
+      "url": "https://www.stakeholder-management.com/"
+    },
+    {
+      "kind": "citation",
+      "name": "Toward a Theory of Stakeholder Identification and Salience",
+      "description": "Stakeholder salience framework assessing Power, Legitimacy, and Urgency to identify high-priority stakeholders.",
+      "authors": [
+        "Ronald K. Mitchell",
+        "Bradley R. Agle",
+        "Donna J. Wood"
+      ],
+      "date": "1997",
+      "source": "Academy of Management Review",
+      "url": "https://doi.org/10.2307/259247"
+    },
+    {
+      "kind": "citation",
+      "name": "Brain of the Firm",
+      "description": "Viable System Model organizational cybernetics framework ensuring all five governance functions exist within any viable organization.",
+      "authors": [
+        "Stafford Beer"
+      ],
+      "date": "1972",
+      "source": "John Wiley & Sons",
+      "url": "https://www.wiley.com/"
+    },
+    {
+      "kind": "citation",
+      "name": "Managing Successful Projects with PRINCE2",
+      "description": "PRINCE2 project management framework emphasizing management by exception, continued business justification, and governance tailoring.",
+      "authors": [
+        "Axelos"
+      ],
+      "date": "2023",
+      "source": "Axelos Global Best Practice",
+      "url": "https://www.axelos.com/certifications/propath/prince2-project-management"
+    },
+    {
+      "kind": "citation",
+      "name": "Who Has the D?",
+      "description": "RAPID decision framework clarifying decision roles: who Recommends, Agrees, Performs, provides Input, and Decides.",
+      "authors": [
+        "Paul Rogers",
+        "Marcia Blenko"
+      ],
+      "date": "2006",
+      "source": "Harvard Business Review",
+      "url": "https://hbr.org/2006/01/who-has-the-d-how-clear-decision-roles-enhance-organizational-performance"
+    },
+    {
+      "kind": "citation",
+      "name": "Management 3.0",
+      "description": "Modern management practices including delegation techniques and complexity-aware leadership for team empowerment.",
+      "authors": [
+        "Jurgen Appelo"
+      ],
+      "date": "2011",
+      "source": "Addison-Wesley",
+      "url": "https://management30.com/"
+    },
+    {
+      "kind": "citation",
+      "name": "User Story Mapping",
+      "description": "Story mapping technique with backbone and ribs structure for organizing work into a narrative user journey with release slicing.",
+      "authors": [
+        "Jeff Patton",
+        "Peter Economy"
+      ],
+      "date": "2014",
+      "source": "O'Reilly Media",
+      "url": "https://www.jpattonassociates.com/user-story-mapping/"
+    },
+    {
+      "kind": "citation",
+      "name": "Technical Debt Quadrant",
+      "description": "Technical debt classification framework with reckless/prudent and deliberate/inadvertent dimensions informing remediation priority.",
+      "authors": [
+        "Martin Fowler"
+      ],
+      "date": "2009",
+      "source": "MartinFowler.com",
+      "url": "https://martinfowler.com/bliki/TechnicalDebtQuadrant.html"
+    },
+    {
+      "kind": "citation",
+      "name": "Team Topologies",
+      "description": "Team design patterns and cognitive load management principles for organizing teams by interaction modes and value streams.",
+      "authors": [
+        "Matthew Skelton",
+        "Manuel Pais"
+      ],
+      "date": "2019",
+      "source": "IT Revolution Press",
+      "url": "https://teamtopologies.com/"
+    },
+    {
+      "kind": "citation",
+      "name": "The Fearless Organization",
+      "description": "Research and practices for creating psychological safety where teams can take interpersonal risks and speak openly.",
+      "authors": [
+        "Amy C. Edmondson"
+      ],
+      "date": "2018",
+      "source": "Wiley",
+      "url": "https://www.wiley.com/"
+    },
+    {
+      "kind": "citation",
+      "name": "Forming, Storming, Norming, Performing",
+      "description": "Team development stages model describing predictable progression through formation, conflict, norming, and high performance.",
+      "authors": [
+        "Bruce W. Tuckman"
+      ],
+      "date": "1965",
+      "source": "Psychological Bulletin",
+      "url": "https://doi.org/10.1037/h0022100"
+    },
+    {
+      "kind": "citation",
+      "name": "The Scrum Guide",
+      "description": "Official Scrum framework definition including roles, events, artifacts, and product goal as an overarching objective.",
+      "authors": [
+        "Ken Schwaber",
+        "Jeff Sutherland"
+      ],
+      "date": "2020",
+      "source": "Scrum.org",
+      "url": "https://scrumguides.org/"
+    },
+    {
+      "kind": "citation",
+      "name": "Agile Retrospectives",
+      "description": "Retrospective facilitation guide with formats, structures for gathering data and generating actionable improvements.",
+      "authors": [
+        "Esther Derby",
+        "Diana Larsen"
+      ],
+      "date": "2006",
+      "source": "Pragmatic Bookshelf",
+      "url": "https://pragprog.com/titles/dlret/agile-retrospectives/"
+    },
+    {
+      "kind": "citation",
+      "name": "PMI Agile Practice Guide",
+      "description": "Guide to agile approaches including lifecycle selection, tailoring guidance, and hybrid framework integration.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2017",
+      "source": "PMI",
+      "url": "https://www.pmi.org/pmbok-guide-standards/practice-guides/agile"
+    },
+    {
+      "kind": "citation",
+      "name": "Performing a Project Premortem",
+      "description": "Pre-mortem technique using prospective hindsight to surface risks by imagining failure and working backward to causes.",
+      "authors": [
+        "Gary Klein"
+      ],
+      "date": "2007",
+      "source": "Harvard Business Review",
+      "url": "https://hbr.org/2007/09/performing-a-project-premortem"
+    },
+    {
+      "kind": "citation",
+      "name": "Testing Business Ideas",
+      "description": "Assumption mapping framework plotting assumptions by importance versus evidence to prioritize validation experiments.",
+      "authors": [
+        "David J. Bland",
+        "Alexander Osterwalder"
+      ],
+      "date": "2019",
+      "source": "Wiley",
+      "url": "https://www.strategyzer.com/books/testing-business-ideas"
+    },
+    {
+      "kind": "citation",
+      "name": "Agile Estimating and Planning",
+      "description": "Story points, velocity-based forecasting, release planning, and economic prioritization techniques for agile delivery.",
+      "authors": [
+        "Mike Cohn"
+      ],
+      "date": "2005",
+      "source": "Prentice Hall",
+      "url": "https://www.mountaingoatsoftware.com/books/agile-estimating-and-planning"
+    },
+    {
+      "kind": "citation",
+      "name": "The Principles of Product Development Flow",
+      "description": "Economic frameworks for prioritization including cost of delay analysis and queueing theory applied to product development.",
+      "authors": [
+        "Donald G. Reinertsen"
+      ],
+      "date": "2009",
+      "source": "Celeritas Publishing",
+      "url": "https://www.lpinstitute.org/"
+    },
+    {
+      "kind": "citation",
+      "name": "Value Stream Mapping",
+      "description": "Lean technique for current-state analysis and waste identification in processes and delivery workflows.",
+      "authors": [
+        "Karen Martin",
+        "Mike Osterling"
+      ],
+      "date": "2013",
+      "source": "McGraw Hill",
+      "url": "https://www.mhprofessional.com/"
+    },
+    {
+      "kind": "citation",
+      "name": "The Lean Startup",
+      "description": "Build-Measure-Learn cycle, minimum viable product concept, validated learning, and rapid experimentation approaches.",
+      "authors": [
+        "Eric Ries"
+      ],
+      "date": "2011",
+      "source": "Crown Business",
+      "url": "http://theleanstartup.com/"
+    },
+    {
+      "kind": "citation",
+      "name": "The Hero's Journey",
+      "description": "Joseph Campbell's monomyth narrative framework describing transformation through departure, ordeal, and return.",
+      "authors": [
+        "Joseph Campbell"
+      ],
+      "date": "1949",
+      "source": "New World Library",
+      "url": "https://www.jcf.org/"
+    },
+    {
+      "kind": "citation",
+      "name": "Strategic Decisions",
+      "description": "Comprehensive survey of 30 strategic management models organized by strategic analysis, strategic decisions, and strategy implementation, demonstrating the breadth of analytical approaches available for each strategic concern.",
+      "authors": [
+        "Marcel Planellas",
+        "Anna Muni"
+      ],
+      "date": "2022",
+      "source": "LID Publishing",
+      "url": "https://www.lidpublishing.com/book/strategic-decisions/"
+    }
+  ],
+  "assets": [
+    {
+      "name": "bootstrap-project-icon",
+      "description": "Practice icon representing project bootstrap and inception",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rocket",
+      "fontWeight": "900"
+    },
+    {
+      "name": "project-context-icon",
+      "description": "Icon representing project environmental setting and situational context",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-map-location-dot",
+      "fontWeight": "900"
+    },
+    {
+      "name": "opportunity-icon",
+      "description": "Icon representing business opportunity and value proposition",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lightbulb",
+      "fontWeight": "900"
+    },
+    {
+      "name": "stakeholders-icon",
+      "description": "Icon representing stakeholder groups and engagement",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users",
+      "fontWeight": "900"
+    },
+    {
+      "name": "objectives-icon",
+      "description": "Icon representing project objectives and goals",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullseye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "deliverable-icon",
+      "description": "Icon representing the project deliverable output",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-box-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "work-icon",
+      "description": "Icon representing project work and execution",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-list-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-icon",
+      "description": "Icon representing the project team",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "way-of-working-icon",
+      "description": "Icon representing team processes and methodology",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "backlog-icon",
+      "description": "Icon representing the project backlog",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-list",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-agreement-icon",
+      "description": "Icon representing team social contracts and norms",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "project-risk-icon",
+      "description": "Icon representing project risks and uncertainties",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-triangle-exclamation",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-situational-assessment-icon",
+      "description": "Icon representing environmental scanning and situational analysis",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-compass",
+      "fontWeight": "900"
+    },
+    {
+      "name": "facilitate-inception-workshop-icon",
+      "description": "Icon representing collaborative inception workshop facilitation",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users-rectangle",
+      "fontWeight": "900"
+    },
+    {
+      "name": "map-stakeholder-landscape-icon",
+      "description": "Icon representing stakeholder identification and mapping",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-sitemap",
+      "fontWeight": "900"
+    },
+    {
+      "name": "establish-governance-framework-icon",
+      "description": "Icon representing governance and decision-making structures",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gavel",
+      "fontWeight": "900"
+    },
+    {
+      "name": "assess-current-state-brownfield-icon",
+      "description": "Icon representing current state analysis for brownfield projects",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-magnifying-glass-chart",
+      "fontWeight": "900"
+    },
+    {
+      "name": "form-and-onboard-team-icon",
+      "description": "Icon representing team assembly and onboarding",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-plus",
+      "fontWeight": "900"
+    },
+    {
+      "name": "define-ways-of-working-icon",
+      "description": "Icon representing methodology and process selection",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-route",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-pre-mortem-analysis-icon",
+      "description": "Icon representing prospective failure analysis for risk discovery",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-skull-crossbones",
+      "fontWeight": "900"
+    },
+    {
+      "name": "map-assumptions-for-validation-icon",
+      "description": "Icon representing assumption identification and validation planning",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-question",
+      "fontWeight": "900"
+    },
+    {
+      "name": "create-user-story-map-icon",
+      "description": "Icon representing user story mapping and backlog structuring",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-map",
+      "fontWeight": "900"
+    },
+    {
+      "name": "facilitate-working-agreements-workshop-icon",
+      "description": "Icon representing collaborative team agreement creation",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake-simple",
+      "fontWeight": "900"
+    },
+    {
+      "name": "prioritize-backlog-using-economic-framework-icon",
+      "description": "Icon representing economic prioritization of work items",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-ranking-star",
+      "fontWeight": "900"
+    },
+    {
+      "name": "evaluate-bootstrap-readiness-icon",
+      "description": "Icon representing readiness assessment and go/no-go evaluation",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "project-manager-icon",
+      "description": "Icon representing the project manager role",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-tie",
+      "fontWeight": "900"
+    },
+    {
+      "name": "product-owner-icon",
+      "description": "Icon representing the product owner role",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "scrum-master-agile-coach-icon",
+      "description": "Icon representing the scrum master or agile coach role",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-person-chalkboard",
+      "fontWeight": "900"
+    },
+    {
+      "name": "executive-sponsor-icon",
+      "description": "Icon representing the executive sponsor role",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-crown",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-member-icon",
+      "description": "Icon representing a team member contributor",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user",
+      "fontWeight": "900"
+    },
+    {
+      "name": "leadership-icon",
+      "description": "Icon representing the leadership persona group",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-roof",
+      "fontWeight": "900"
+    },
+    {
+      "name": "delivery-team-icon",
+      "description": "Icon representing the delivery team persona group",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-carry-box",
+      "fontWeight": "900"
+    },
+    {
+      "name": "governance-icon",
+      "description": "Icon representing the governance persona group",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-scale-balanced",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "kind": "alpha",
+      "name": "Project Context",
+      "description": "The project's environmental setting, domain characteristics, complexity profile, and situational factors shaping management approach.",
+      "focusName": "Value",
+      "contributesTo": "Opportunity",
+      "relatesTo": [
+        {
+          "relationship": "informs",
+          "alphaName": "Stakeholders",
+          "direction": "outgoing",
+          "description": "Environmental context identifies stakeholder categories and political dynamics requiring engagement."
+        },
+        {
+          "relationship": "shapes",
+          "alphaName": "Way Of Working",
+          "direction": "outgoing",
+          "description": "Domain classification and complexity profile determine appropriate development approach and governance intensity."
+        },
+        {
+          "relationship": "surfaces risks for",
+          "alphaName": "Project Risk",
+          "direction": "outgoing",
+          "description": "Environmental analysis reveals external threats and opportunities requiring risk management attention."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "project-context-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Unexamined",
+          "description": "Context is implicit or based on unstated assumptions.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Implicit Assumption Baseline",
+              "description": "Project context consists of unstated assumptions rather than documented analysis."
+            },
+            {
+              "seq": 2,
+              "name": "Environmental Constraint Obscurity",
+              "description": "Environmental constraints are unknown or undocumented."
+            },
+            {
+              "seq": 3,
+              "name": "Domain Classification Absence",
+              "description": "Work domain and complexity have not been classified."
+            },
+            {
+              "seq": 4,
+              "name": "Unvalidated Strategic Alignment",
+              "description": "Strategic alignment is asserted without validation evidence."
+            },
+            {
+              "seq": 5,
+              "name": "Organizational Readiness Deficit",
+              "description": "Organizational readiness has not been assessed."
+            },
+            {
+              "seq": 6,
+              "name": "Regulatory Landscape Gap",
+              "description": "Regulatory and compliance factors remain unexplored."
+            }
+          ]
+        },
+        {
+          "name": "Recognized",
+          "description": "Key contextual factors identified through initial scanning.",
+          "seq": 2,
+          "contributesToState": "Initiated",
+          "background": {
+            "given": [
+              "A project concept or directive exists requiring contextual understanding"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Opportunity",
+                "stateName": "Initiated"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "External Factor Identification",
+              "description": "Major external factors identified through environmental scanning."
+            },
+            {
+              "seq": 2,
+              "name": "Organizational Context Documentation",
+              "description": "Organizational setting, culture, and structural factors documented."
+            },
+            {
+              "seq": 3,
+              "name": "Domain Characteristic Observation",
+              "description": "Key domain characteristics observed and recorded."
+            },
+            {
+              "seq": 4,
+              "name": "Constraint Enumeration",
+              "description": "Known constraints listed with initial categorization."
+            },
+            {
+              "seq": 5,
+              "name": "Assumption Articulation",
+              "description": "Initial assumptions stated explicitly for subsequent validation."
+            },
+            {
+              "seq": 6,
+              "name": "Historical Knowledge Gathering",
+              "description": "Lessons from similar past projects gathered and reviewed."
+            }
+          ]
+        },
+        {
+          "name": "Analyzed",
+          "description": "Contextual factors systematically analyzed using appropriate frameworks.",
+          "seq": 3,
+          "contributesToState": "Determined",
+          "background": {
+            "given": [
+              "Key contextual factors have been identified and documented"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Project Context",
+                "stateName": "Recognized"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Domain Complexity Classification",
+              "description": "Work has been classified by complexity domain to inform management approach."
+            },
+            {
+              "seq": 2,
+              "name": "Component Evolution Assessment",
+              "description": "Key components have been mapped against evolutionary stages to inform sourcing decisions."
+            },
+            {
+              "seq": 3,
+              "name": "Organizational Readiness Assessment",
+              "description": "Organizational readiness assessed using structured change management frameworks."
+            },
+            {
+              "seq": 4,
+              "name": "Regulatory Compliance Analysis",
+              "description": "Regulatory and compliance requirements systematically analyzed and documented."
+            },
+            {
+              "seq": 5,
+              "name": "Historical Lessons Synthesis",
+              "description": "Lessons from similar projects synthesized into actionable recommendations."
+            },
+            {
+              "seq": 6,
+              "name": "Environmental Factor Analysis",
+              "description": "Comprehensive analysis of external factors affecting the project has been conducted."
+            },
+            {
+              "seq": 7,
+              "name": "Strategic Fit Validation",
+              "description": "Strategic alignment validated against organizational portfolio and investment criteria."
+            }
+          ]
+        },
+        {
+          "name": "Interpreted",
+          "description": "Context analysis informs actionable decisions about approach.",
+          "seq": 4,
+          "contributesToState": "Value Established",
+          "background": {
+            "given": [
+              "Contextual factors have been systematically analyzed"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Project Context",
+                "stateName": "Analyzed"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Management Approach Alignment",
+              "description": "Approach recommendations derived from domain and complexity classification."
+            },
+            {
+              "seq": 2,
+              "name": "Sourcing Strategy Determination",
+              "description": "Build, buy, or outsource decisions informed by component maturity analysis."
+            },
+            {
+              "seq": 3,
+              "name": "Change Management Quantification",
+              "description": "Change management requirements quantified from organizational readiness findings."
+            },
+            {
+              "seq": 4,
+              "name": "Compliance Constraint Translation",
+              "description": "Compliance requirements translated into concrete project constraints."
+            },
+            {
+              "seq": 5,
+              "name": "Risk Profile Contextualization",
+              "description": "Risk profile shaped by comprehensive environmental analysis."
+            },
+            {
+              "seq": 6,
+              "name": "Tailoring Decision Documentation",
+              "description": "Approach tailoring decisions documented with explicit rationale."
+            },
+            {
+              "seq": 7,
+              "name": "Living Context Reference",
+              "description": "Context analysis maintained as living reference for ongoing decision support."
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Establishing Project Context Through Situational Assessment",
+          "description": "How systematic context analysis prevents methodology misapplication.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "A Leader's Framework for Decision Making",
+            "Wardley Maps",
+            "Strategic Decisions"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Every project operates within an environmental setting that profoundly shapes which management approaches will succeed and which will fail. Understanding context -- domain complexity, organizational readiness, regulatory landscape, and strategic positioning -- before committing to a management approach prevents the common failure of applying inappropriate methodologies to misunderstood problems."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Planellas and Muni's survey of thirty strategic management models demonstrates that multiple analytical tools exist for each contextual concern, and the practitioner's task is selecting appropriate tools rather than defaulting to a single framework. Domain complexity classification helps teams distinguish ordered environments requiring structured approaches from complex environments requiring adaptive ones. Component evolution analysis reveals where commoditized solutions exist versus where custom development is justified. Organizational readiness assessment surfaces cultural, structural, and capability gaps that must be addressed before transformation can succeed."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When project context is made explicit through systematic analysis rather than left as unstated assumptions, teams make better decisions about governance intensity, development approach, and risk management, establishing a foundation for all subsequent bootstrap activities."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "alpha",
+      "name": "Opportunity",
+      "description": "The business drivers, needs, and circumstances that justify a project's existence and whose benefits must ultimately be confirmed through measurable outcomes.",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "opportunity-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "An opportunity has been identified and an initial assessment of its potential performed.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 13,
+              "name": "Project Mandate Documentation",
+              "description": "The project exists as a written directive, concept document, or charter draft that can be reviewed by stakeholders."
+            },
+            {
+              "seq": 14,
+              "name": "Project Type Classification",
+              "description": "The project is classified as greenfield or brownfield to inform the appropriate inception approach."
+            },
+            {
+              "seq": 15,
+              "name": "Project Identity Establishment",
+              "description": "The project has a working name used consistently in stakeholder communication."
+            },
+            {
+              "seq": 16,
+              "name": "Initial Scope Boundary Sketch",
+              "description": "High-level boundaries of project inclusions and exclusions are stated."
+            },
+            {
+              "seq": 17,
+              "name": "Target Beneficiary Identification",
+              "description": "Primary users, customers, or groups expected to benefit from the project are named."
+            }
+          ]
+        },
+        {
+          "name": "Determined",
+          "description": "The opportunity has been analyzed to determine whether it merits further investment.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 14,
+              "name": "Structured Discovery Completion",
+              "description": "Inception workshop or current-state assessment completed to generate shared understanding of the opportunity."
+            },
+            {
+              "seq": 15,
+              "name": "Value Proposition Validation",
+              "description": "Concise value proposition validated with key stakeholders through structured review."
+            },
+            {
+              "seq": 16,
+              "name": "Scope Boundary Definition",
+              "description": "Clear inclusions and exclusions documented collaboratively to prevent scope ambiguity."
+            },
+            {
+              "seq": 17,
+              "name": "Pre-Mortem Risk Discovery",
+              "description": "Pre-mortem exercise conducted where team imagines failure to surface hidden risks."
+            },
+            {
+              "seq": 18,
+              "name": "Assumption Inventory Completion",
+              "description": "Critical assumptions identified and assessed by importance versus supporting evidence."
+            },
+            {
+              "seq": 19,
+              "name": "Technical Debt Inventory",
+              "description": "For brownfield projects: existing technical debt assessed, categorized, and prioritized."
+            },
+            {
+              "seq": 20,
+              "name": "Governance Go/No-Go Decision",
+              "description": "Explicit governance decision to proceed, defer, or cancel has been made and documented."
+            }
+          ]
+        },
+        {
+          "name": "Value Established",
+          "description": "The value of pursuing the opportunity has been articulated, quantified, and agreed upon by stakeholders.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Viable",
+          "description": "A cost-benefit analysis confirms pursuing the opportunity is worthwhile.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Addressed",
+          "description": "The project has delivered sufficient results to address the opportunity.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Benefit Accrued",
+          "description": "Intended benefits realized and measured with value creation confirmed.",
+          "seq": 6,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "From Vague Need to Validated Investment Through Structured Bootstrap",
+          "description": "How bootstrap activities systematically validate opportunity before execution commitment.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Performing a Project Premortem",
+            "Testing Business Ideas",
+            "Managing Successful Projects with PRINCE2",
+            "Strategic Decisions"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "In the bootstrap context, opportunity management is the critical gate between organizational aspiration and committed investment. A project that begins without a clearly defined, validated opportunity risks consuming resources on a problem that was never properly understood or a solution that was never properly justified."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "The bootstrap practice focuses on the early opportunity states -- moving from initial identification through determination to viability. Techniques such as pre-mortem analysis, assumption mapping, and structured inception workshops provide the analytical rigor needed to distinguish genuine opportunities from organizational assumptions. Both greenfield and brownfield projects require this discipline, though the specific assessments differ: greenfield projects need vision validation and scope definition, while brownfield projects need current-state assessment and technical debt evaluation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When bootstrap activities systematically validate the opportunity before committing to full execution, organizations achieve higher project success rates and earlier identification of projects that should be deferred or cancelled, preserving investment capacity for higher-value endeavors."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "alpha",
+      "name": "Stakeholders",
+      "description": "The people, groups, and organizations that affect or are affected by the project and whose engagement and satisfaction must be actively managed.",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "stakeholders-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Recognized",
+          "description": "All stakeholder groups affected by or involved in the project are identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 13,
+              "name": "Stakeholder Discovery Workshop",
+              "description": "Cross-functional workshop conducted using systematic identification techniques."
+            },
+            {
+              "seq": 14,
+              "name": "Stakeholder Category Coverage",
+              "description": "All relevant stakeholder categories have been systematically identified and documented."
+            },
+            {
+              "seq": 15,
+              "name": "Hidden Influence Discovery",
+              "description": "Informal influencers, potential obstructors, and gatekeepers surfaced beyond obvious sponsors."
+            },
+            {
+              "seq": 16,
+              "name": "Stakeholder Register Creation",
+              "description": "Structured register documenting contacts, roles, interests, and influence created."
+            },
+            {
+              "seq": 17,
+              "name": "Adjacent Stakeholder Discovery",
+              "description": "Visual mapping of adjacent and downstream stakeholder groups with dependencies completed."
+            }
+          ]
+        },
+        {
+          "name": "Represented",
+          "description": "Stakeholder representatives have been designated for each key group.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 14,
+              "name": "Stakeholder Influence Assessment",
+              "description": "Stakeholders categorized by influence and interest to guide engagement strategy."
+            },
+            {
+              "seq": 15,
+              "name": "Critical Stakeholder Prioritization",
+              "description": "High-salience stakeholders identified and prioritized for proactive engagement."
+            },
+            {
+              "seq": 16,
+              "name": "Engagement Level Assessment",
+              "description": "Current versus desired engagement levels documented per stakeholder group."
+            },
+            {
+              "seq": 17,
+              "name": "Representative Designation",
+              "description": "Primary representatives designated with explicit authority for each major group."
+            },
+            {
+              "seq": 18,
+              "name": "Communication Plan Draft",
+              "description": "Initial communication plan drafted specifying content, frequency, and channels."
+            }
+          ]
+        },
+        {
+          "name": "Involved",
+          "description": "Stakeholders are actively participating in the project.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "In Agreement",
+          "description": "Stakeholders and the project team have reached agreement on expectations.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Satisfied for Deployment",
+          "description": "Stakeholders confirmed the deliverable meets expectations for deployment.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Satisfied in Use",
+          "description": "Stakeholders experiencing benefits in operational context.",
+          "seq": 6,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Comprehensive Stakeholder Discovery During Project Inception",
+          "description": "How systematic stakeholder discovery during bootstrap establishes the political foundation for project success.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Stakeholder Relationship Management",
+            "Toward a Theory of Stakeholder Identification and Salience",
+            "Strategic Decisions"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The bootstrap phase offers a unique and time-limited window to identify and engage stakeholders before project momentum makes course corrections costly. Stakeholders discovered during inception can shape the project's direction; stakeholders discovered during execution can only react to decisions already made."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Effective bootstrap stakeholder engagement combines multiple identification techniques -- organizational chart analysis, value chain mapping, and structured brainstorming -- to surface not only obvious sponsors and users but also hidden influencers, potential obstructors, and downstream groups who will be affected by project outcomes. Structured engagement assessment moves beyond simple identification to categorize stakeholders by influence, interest, and salience, enabling differentiated engagement strategies that allocate limited inception time to the highest-value interactions."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When stakeholder discovery and engagement are treated as a systematic discipline during bootstrap rather than an ad hoc effort, projects establish the political foundation and relationship capital needed for successful execution and adoption."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "alpha",
+      "name": "Objectives",
+      "description": "The specific, measurable goals that the project must achieve, bridging the broad opportunity and the detailed deliverable.",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "objectives-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Initial objectives have been identified from the opportunity and stakeholder needs.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 13,
+              "name": "Opportunity Driver Traceability",
+              "description": "Objectives explicitly linked to opportunity drivers and strategic context."
+            },
+            {
+              "seq": 14,
+              "name": "Stakeholder Input Reflection",
+              "description": "Objectives reflect input from key stakeholder groups gathered during inception."
+            },
+            {
+              "seq": 15,
+              "name": "Primary Success Measure Identified",
+              "description": "A single overarching success metric aligned to stakeholder value has been proposed."
+            },
+            {
+              "seq": 16,
+              "name": "Multi-Dimensional Coverage",
+              "description": "Objectives address both functional capabilities and non-functional quality dimensions."
+            },
+            {
+              "seq": 17,
+              "name": "Preliminary Success Criteria",
+              "description": "Each identified objective has preliminary success criteria proposed for refinement."
+            }
+          ]
+        },
+        {
+          "name": "Articulated",
+          "description": "Objectives have been refined into clear, SMART-aligned statements.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Prioritized",
+          "description": "Objectives analyzed for dependencies, conflicts, and relative importance.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Agreed",
+          "description": "Key stakeholders and team reached agreement on objectives and priorities.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Achieved",
+          "description": "Project has accomplished defined objectives with evidence documented.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Evaluated",
+          "description": "Objective achievement formally evaluated with lessons captured.",
+          "seq": 6,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Translating Opportunity Into Measurable Project Targets",
+          "description": "How bootstrap objective identification bridges validated opportunity and actionable project scope.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Strategize",
+            "The Agile Samurai"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "During bootstrap, objectives serve as the bridge between a validated opportunity and actionable project scope. Without clearly identified objectives, inception activities produce shared understanding that never converts into measurable commitments."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Bootstrap objective identification focuses on deriving goals from opportunity drivers and stakeholder needs rather than prescribing detailed requirements. The practice emphasizes establishing a primary success measure that provides focus for all subsequent planning, ensuring that the team and stakeholders share a common definition of what success looks like before committing resources to delivery. Objectives at this stage deliberately remain at the outcome level, with detailed requirements emerging during delivery practices."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When objectives are identified early with clear traceability to the opportunity and stakeholder needs, projects maintain strategic alignment throughout delivery, providing a stable reference point for scope decisions, trade-off negotiations, and progress evaluation."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "alpha",
+      "name": "Deliverable",
+      "description": "The tangible output that the project produces to address the opportunity and achieve its objectives.",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "deliverable-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Envisioned",
+          "description": "A vision for the deliverable exists with high-level characteristics understood.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 9,
+              "name": "Vision Articulation",
+              "description": "Product vision or value proposition describes the deliverable's purpose and target users."
+            },
+            {
+              "seq": 10,
+              "name": "High-Level Feature Discovery",
+              "description": "Initial feature set brainstormed and documented as user-facing capabilities."
+            },
+            {
+              "seq": 11,
+              "name": "Minimum Viable Scope Identified",
+              "description": "The smallest scope that delivers learning or value has been defined."
+            },
+            {
+              "seq": 12,
+              "name": "Initial Architecture Sketch",
+              "description": "High-level architecture sketch showing major components without detailed design."
+            },
+            {
+              "seq": 13,
+              "name": "Key Technology Proposals",
+              "description": "Major technology stack decisions proposed based on feasibility and organizational context."
+            },
+            {
+              "seq": 14,
+              "name": "Existing System Inventory",
+              "description": "For brownfield: catalog of existing applications, databases, services, and integrations."
+            },
+            {
+              "seq": 15,
+              "name": "Current Architecture Documentation",
+              "description": "For brownfield: as-is architecture diagrams representing the existing deliverable state."
+            },
+            {
+              "seq": 16,
+              "name": "Technology Stack Catalog",
+              "description": "For brownfield: complete technology inventory including versions and dependencies."
+            },
+            {
+              "seq": 17,
+              "name": "Stakeholder Pain Point Catalog",
+              "description": "For brownfield: current issues and frustrations catalogued from user and operational interviews."
+            },
+            {
+              "seq": 18,
+              "name": "Operational Documentation Baseline",
+              "description": "For brownfield: existing operational documentation and runbooks collected and inventoried."
+            }
+          ]
+        },
+        {
+          "name": "Shaped",
+          "description": "Architecture, structure, or design selected with key decisions made.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Demonstrable",
+          "description": "Key characteristics demonstrable through a working representation.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Usable",
+          "description": "Deliverable usable by target users for meaningful work.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Ready",
+          "description": "Deliverable ready for deployment with all criteria met.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Operational",
+          "description": "Deliverable deployed and functioning in intended environment.",
+          "seq": 6,
+          "checklist": []
+        },
+        {
+          "name": "Retired",
+          "description": "Deliverable decommissioned with lifecycle knowledge captured.",
+          "seq": 7,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Envisioning the Deliverable Through Greenfield and Brownfield Lenses",
+          "description": "How bootstrap creates shared deliverable vision through divergent inception paths.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Lean Inception",
+            "User Story Mapping",
+            "Technical Debt Quadrant"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "During bootstrap, the deliverable must progress from an abstract idea to a shared vision that the team, stakeholders, and governance can evaluate for feasibility and alignment. The path to this vision differs fundamentally between greenfield projects creating something new and brownfield projects formalizing or modernizing something existing."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Greenfield bootstrap focuses on vision articulation through techniques such as product vision boards and collaborative feature brainstorming, establishing the minimum viable scope that will demonstrate value with the least investment. Brownfield bootstrap focuses on documenting the current state -- inventorying existing systems, cataloguing technical debt, mapping architecture, and collecting operational knowledge from practitioners who maintain the existing deliverable. Both paths converge on a shared understanding of what the deliverable will look like and what constraints shape its development."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When the deliverable is envisioned through a structured bootstrap process, the team enters execution with a shared mental model rather than divergent assumptions, reducing costly rework and miscommunication during delivery."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "alpha",
+      "name": "Work",
+      "description": "The activities, effort, and tasks that the project team performs to achieve objectives and produce the deliverable.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "work-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "Work needed for the project acknowledged with initial authorization obtained.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 9,
+              "name": "Project Authorization Documentation",
+              "description": "Project charter or equivalent authorization document exists and is accessible."
+            },
+            {
+              "seq": 10,
+              "name": "Project Lead Assignment",
+              "description": "Individual assigned accountability for coordinating project work with explicit authority."
+            },
+            {
+              "seq": 11,
+              "name": "Initial Funding Allocation",
+              "description": "Funding allocated for at least initial planning and inception activities."
+            },
+            {
+              "seq": 12,
+              "name": "Organization-Wide Awareness",
+              "description": "Project existence and authorization communicated to relevant organizational units."
+            },
+            {
+              "seq": 13,
+              "name": "Target Timeline Establishment",
+              "description": "Target completion date or milestone deadlines established by governance."
+            }
+          ]
+        },
+        {
+          "name": "Prepared",
+          "description": "Work planned and organized with resources, estimates, and sequencing determined.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 10,
+              "name": "Initial Backlog Population",
+              "description": "Preliminary backlog created with sufficient work items to begin initial iterations."
+            },
+            {
+              "seq": 11,
+              "name": "Minimum Viable Scope Definition",
+              "description": "Minimum viable delivery scope identified through structured backlog analysis."
+            },
+            {
+              "seq": 12,
+              "name": "Initial Iteration Plan",
+              "description": "First iterations of work planned with items refined to ready state."
+            },
+            {
+              "seq": 13,
+              "name": "Effort Estimation Baseline",
+              "description": "Work effort estimated using an appropriate technique providing basis for forecasting."
+            },
+            {
+              "seq": 14,
+              "name": "Team Composition Requirements",
+              "description": "Required team roles, skills, and capacity identified based on work complexity."
+            },
+            {
+              "seq": 15,
+              "name": "Dependency and Sequencing Map",
+              "description": "Work dependencies and sequencing constraints identified and documented."
+            },
+            {
+              "seq": 16,
+              "name": "Completion Criteria Established",
+              "description": "Quality baseline defining minimum standards for completed work increments agreed by team and stakeholders."
+            }
+          ]
+        },
+        {
+          "name": "Started",
+          "description": "Work execution begun with team actively performing tasks.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Under Control",
+          "description": "Work proceeding within acceptable parameters with reliable forecasting.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Concluded",
+          "description": "Productive work substantially complete with deliverable produced.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Closed",
+          "description": "All project work formally closed with knowledge transfer complete.",
+          "seq": 6,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Authorizing and Preparing Work for Confident Execution",
+          "description": "How bootstrap transitions work from authorization to readiness.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Managing Successful Projects with PRINCE2",
+            "User Story Mapping",
+            "Agile Estimating and Planning"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The bootstrap practice's contribution to Work concerns the transition from authorization to readiness. Work must be formally initiated with clear mandate, then prepared through planning, estimation, and backlog creation before execution can begin with confidence."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Effective work preparation during bootstrap combines top-down governance authorization with bottom-up team planning. The project charter provides formal authorization and constraints, while story mapping and backlog creation translate the deliverable vision into executable work items. Completion criteria establish quality standards that prevent ambiguity during execution about what constitutes finished work. The bootstrap practice deliberately stops at the boundary of work preparation, leaving work execution and control to delivery practices."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When work is properly authorized and prepared during bootstrap, teams begin execution with clear mandate, realistic estimates, and a structured backlog rather than starting from an ambiguous directive that requires ongoing negotiation of scope and standards."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "alpha",
+      "name": "Team",
+      "description": "The group of people actively engaged in performing the project work.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "team-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Seeded",
+          "description": "Initial team composition defined with key roles and competencies identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 9,
+              "name": "Competency Requirement Derivation",
+              "description": "Competency requirements derived from deliverable complexity and work characteristics."
+            },
+            {
+              "seq": 10,
+              "name": "Team Structure Classification",
+              "description": "Team type determined based on value stream alignment and interaction mode requirements."
+            },
+            {
+              "seq": 11,
+              "name": "Team Size Calibration",
+              "description": "Target team size established using appropriate heuristic for the project context."
+            },
+            {
+              "seq": 12,
+              "name": "Responsibility Assignment Clarity",
+              "description": "Roles, responsibilities, decision rights, and accountability documented."
+            },
+            {
+              "seq": 13,
+              "name": "Skill Gap Identification",
+              "description": "Comparison of required competencies against available talent performed with gaps identified."
+            },
+            {
+              "seq": 14,
+              "name": "Cross-Functional Coverage Assessment",
+              "description": "Team composition assessed for coverage across all required disciplines."
+            },
+            {
+              "seq": 15,
+              "name": "Workload Capacity Assessment",
+              "description": "Team's capacity assessed to ensure work complexity does not exceed cognitive and throughput limits."
+            }
+          ]
+        },
+        {
+          "name": "Formed",
+          "description": "Team members assembled and beginning to work together.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 9,
+              "name": "Skill-Based Team Assignment",
+              "description": "Individuals assigned to roles based on competency match with skill gaps addressed."
+            },
+            {
+              "seq": 10,
+              "name": "Structured Onboarding Execution",
+              "description": "New members onboarded through structured process including tooling, orientation, and context."
+            },
+            {
+              "seq": 11,
+              "name": "Collaborative Agreement Creation",
+              "description": "Working agreements co-created covering hours, communication, norms, and decision-making."
+            },
+            {
+              "seq": 12,
+              "name": "Team Workspace Establishment",
+              "description": "Physical or virtual team workspace established with visibility into work progress."
+            },
+            {
+              "seq": 13,
+              "name": "Rapport-Building Activities",
+              "description": "Team-building activities conducted to build rapport and psychological safety."
+            },
+            {
+              "seq": 14,
+              "name": "Responsibility Communication",
+              "description": "Team members understand roles, responsibilities, and decision authority."
+            },
+            {
+              "seq": 15,
+              "name": "Communication Infrastructure",
+              "description": "Team communication channels configured and cadence established."
+            }
+          ]
+        },
+        {
+          "name": "Collaborating",
+          "description": "Team working together effectively with trust established.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Performing",
+          "description": "Team reached high performance, consistently delivering excellent results.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Adjourned",
+          "description": "Team's work complete with knowledge transferred and members transitioning.",
+          "seq": 5,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Building Teams for Bootstrap Through Deliberate Composition and Onboarding",
+          "description": "How deliberate team formation during bootstrap accelerates team development.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Team Topologies",
+            "The Fearless Organization",
+            "Forming, Storming, Norming, Performing"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Team formation during bootstrap sets the trajectory for all subsequent delivery. A team that is thoughtfully composed, properly onboarded, and given early opportunities to build trust will accelerate through development stages faster than one assembled by availability and left to self-organize without support."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Bootstrap team formation combines analytical competency mapping with deliberate culture-building. Competency requirements are derived from work complexity rather than organizational defaults, and team size is calibrated to cognitive capacity rather than budget availability alone. Structured onboarding ensures new members have tooling access, domain context, and relationship connections from day one. Early team-building activities and collaborative working agreement creation establish psychological safety that enables the candid communication essential for complex project work."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When team formation is treated as a deliberate design exercise during bootstrap rather than an administrative staffing task, projects build teams capable of sustained high performance rather than groups of individuals who must discover how to work together through trial and error."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "alpha",
+      "name": "Way Of Working",
+      "description": "The tailored practices, tools, processes, and governance the team adopts and adapts for effective project delivery.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "way-of-working-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Principles Established",
+          "description": "Fundamental principles and values guiding the team's way of working articulated and agreed.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 9,
+              "name": "Development Approach Selection",
+              "description": "An appropriate development approach selected matching project complexity and team capability."
+            },
+            {
+              "seq": 10,
+              "name": "Core Methodology Principles Adoption",
+              "description": "Core methodology principles reviewed, discussed, and adopted by the team as guiding values."
+            },
+            {
+              "seq": 11,
+              "name": "Governance Intensity Calibration",
+              "description": "Governance structure tailored to project risk and complexity with appropriate oversight levels."
+            },
+            {
+              "seq": 12,
+              "name": "Transparency Commitment",
+              "description": "Commitment to transparency, inspection, and adaptation principles agreed."
+            },
+            {
+              "seq": 13,
+              "name": "Improvement Mindset Establishment",
+              "description": "Team commits to structured reflection and actionable improvement experiments."
+            }
+          ]
+        },
+        {
+          "name": "Foundation Established",
+          "description": "Essential practices, tools, and infrastructure needed to begin work in place.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 9,
+              "name": "Iteration Cadence Established",
+              "description": "Work cadence set appropriate to project context and team capability."
+            },
+            {
+              "seq": 10,
+              "name": "Ceremony Schedule Definition",
+              "description": "Cadence and format for key team ceremonies established."
+            },
+            {
+              "seq": 11,
+              "name": "Completion Criteria Establishment",
+              "description": "Quality baseline defining minimum standards for completed work agreed."
+            },
+            {
+              "seq": 12,
+              "name": "Readiness Criteria Establishment",
+              "description": "Entry criteria for iteration work defined to ensure items meet minimum preparation standards."
+            },
+            {
+              "seq": 13,
+              "name": "Technical Practice Agreement",
+              "description": "Core technical practices selected and agreed by the team."
+            },
+            {
+              "seq": 14,
+              "name": "Tooling Configuration",
+              "description": "Essential tools configured and team access provisioned."
+            },
+            {
+              "seq": 15,
+              "name": "Continuous Improvement Mechanism Established",
+              "description": "A structured approach for team reflection and improvement adopted."
+            }
+          ]
+        },
+        {
+          "name": "In Use",
+          "description": "Team actively using established way of working in daily work.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "In Place",
+          "description": "Way of working fully operational and integrated into routines.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Working Well",
+          "description": "Way of working optimized through experience and continuous improvement.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Retired",
+          "description": "Way of working replaced or no longer needed with knowledge captured.",
+          "seq": 6,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Selecting and Establishing an Appropriate Project Methodology",
+          "description": "How context-driven methodology selection prevents bootstrap failures.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "A Leader's Framework for Decision Making",
+            "PMI Agile Practice Guide",
+            "The Scrum Guide",
+            "Agile Retrospectives"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The bootstrap phase must establish a way of working that fits the project's complexity, team capability, and organizational context. Premature commitment to a specific methodology without contextual assessment is a common bootstrap failure that creates friction throughout delivery."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Effective way of working establishment begins with domain complexity classification informing the selection of an appropriate development approach -- from predictive to adaptive or hybrid. The selection considers team experience, organizational culture, and governance requirements rather than defaulting to a single methodology. Once selected, the foundation is established through minimal but essential elements: work cadence, completion criteria, team ceremonies, and tooling. The principle of conscious minimalism applies -- establish what is needed to begin effective work, deferring practice refinement to the delivery phase when the team has empirical evidence of what works."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When the way of working is selected through deliberate analysis and established through minimal viable process, teams begin execution with a coherent methodology that supports their work rather than a prescriptive framework that constrains it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "alpha",
+      "name": "Backlog",
+      "description": "A dynamic, prioritized inventory of work items organizing and sequencing project delivery.",
+      "focusName": "Endeavor",
+      "contributesTo": "Work",
+      "assetNames": [
+        {
+          "assetName": "backlog-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Empty",
+          "description": "No structured backlog exists for the project.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Seeded",
+          "description": "Initial backlog items captured from objectives and stakeholder needs.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 7,
+              "name": "Story Writing Workshop Completion",
+              "description": "Collaborative workshop held producing initial backlog items from inception outputs."
+            },
+            {
+              "seq": 8,
+              "name": "Backlog Organization by Theme",
+              "description": "Work items organized into higher-level groupings providing structure and navigability."
+            },
+            {
+              "seq": 9,
+              "name": "Initial Priority Classification",
+              "description": "Backlog items classified by priority using an appropriate prioritization framework."
+            },
+            {
+              "seq": 10,
+              "name": "Minimum Viable Scope Identification",
+              "description": "Minimum viable delivery scope identified through structured backlog analysis."
+            },
+            {
+              "seq": 11,
+              "name": "Top Item Acceptance Criteria",
+              "description": "Highest-priority items have preliminary acceptance criteria written."
+            },
+            {
+              "seq": 12,
+              "name": "Backlog Accessibility",
+              "description": "Backlog visible and accessible to all team members and relevant stakeholders."
+            }
+          ]
+        },
+        {
+          "name": "Refined",
+          "description": "Backlog items progressively elaborated with estimates and acceptance criteria.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Flowing",
+          "description": "Items moving steadily through execution with predictable throughput.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Optimized",
+          "description": "Backlog management mature, lean, and producing maximum value flow.",
+          "seq": 5,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Seeding the Backlog From Inception Workshop to Structured Inventory",
+          "description": "How bootstrap converts shared understanding into actionable work items.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "User Story Mapping",
+            "Agile Estimating and Planning",
+            "The Principles of Product Development Flow"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The bootstrap practice transitions the deliverable vision from inception artifacts into a structured, prioritized backlog that the delivery team can execute against. A well-seeded backlog converts shared understanding into actionable work items."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Backlog seeding during bootstrap combines top-down vision decomposition with bottom-up story writing workshops. The inception deck's scope and trade-off decisions inform what belongs in the backlog, while collaborative story writing ensures the team understands and owns the work items they will execute. Initial prioritization applies economic frameworks to establish delivery sequencing, and minimum viable scope identification through story mapping identifies the thinnest end-to-end slice that delivers learning or demonstrable value."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When the backlog is seeded through structured inception activities rather than unstructured brainstorming, the delivery team inherits a coherent, prioritized inventory that connects directly to stakeholder needs and the validated opportunity."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "alpha",
+      "name": "Team Agreement",
+      "description": "Explicit social contracts and working norms defining how team members interact and collaborate.",
+      "focusName": "Endeavor",
+      "contributesTo": "Way Of Working",
+      "assetNames": [
+        {
+          "assetName": "team-agreement-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Absent",
+          "description": "No explicit team agreements exist.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Drafted",
+          "description": "Initial agreements proposed and documented through team discussion.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 8,
+              "name": "Working Agreements Workshop",
+              "description": "Facilitated session held where team collaboratively creates working norms."
+            },
+            {
+              "seq": 9,
+              "name": "Core Collaboration Hours",
+              "description": "Time windows for synchronous collaboration agreed."
+            },
+            {
+              "seq": 10,
+              "name": "Communication Channel Norms",
+              "description": "Agreement on which channels serve which purposes established."
+            },
+            {
+              "seq": 11,
+              "name": "Meeting Participation Expectations",
+              "description": "Norms for meeting participation documented."
+            },
+            {
+              "seq": 12,
+              "name": "Decision-Making Process Agreement",
+              "description": "Process for team decisions documented with escalation paths."
+            },
+            {
+              "seq": 13,
+              "name": "Conflict Resolution Approach",
+              "description": "Process for handling disagreements documented."
+            },
+            {
+              "seq": 14,
+              "name": "Agreement Visibility",
+              "description": "Working agreements documented in accessible, visible location."
+            }
+          ]
+        },
+        {
+          "name": "Adopted",
+          "description": "Agreements accepted, practiced, and enforced by the team.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Evolved",
+          "description": "Agreements regularly reviewed and improved through reflection.",
+          "seq": 4,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Establishing Explicit Social Contracts for Team Effectiveness",
+          "description": "How bootstrap creates behavioral foundations for productive collaboration.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "The Fearless Organization",
+            "Management 3.0"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Team agreements transform implicit expectations into explicit commitments, preventing the misunderstandings and friction that arise when team members operate under different assumptions about how to work together."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Effective bootstrap agreement creation requires facilitated workshops where all team members contribute to defining norms rather than having agreements imposed by management. The agreements cover practical concerns -- collaboration hours, communication channels, meeting expectations -- alongside cultural commitments such as decision-making processes and conflict resolution approaches. The bootstrap practice focuses on drafting agreements that are good enough to begin work, recognizing that agreements must be tested through practice before they can be refined through retrospective reflection during delivery."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When team agreements are explicitly created during bootstrap through inclusive facilitation, teams establish the behavioral foundation that enables psychological safety and productive collaboration from the first day of execution."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "alpha",
+      "name": "Project Risk",
+      "description": "Threats and opportunities requiring systematic identification, assessment, and management throughout the project lifecycle.",
+      "focusName": "Value",
+      "contributesTo": "Opportunity",
+      "assetNames": [
+        {
+          "assetName": "project-risk-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Unidentified",
+          "description": "Risks exist but have not been systematically surfaced.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Identified",
+          "description": "Risks systematically surfaced, described, and categorized.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 8,
+              "name": "Pre-Mortem Exercise Completion",
+              "description": "Pre-mortem exercise conducted where team imagines failure to surface latent risks."
+            },
+            {
+              "seq": 9,
+              "name": "Assumption Validation Mapping",
+              "description": "Critical assumptions identified and plotted by importance versus evidence for validation."
+            },
+            {
+              "seq": 10,
+              "name": "Comprehensive Category Coverage",
+              "description": "Risk identification covers technical, organizational, market, regulatory, and dependency categories."
+            },
+            {
+              "seq": 11,
+              "name": "Initial Risk Register",
+              "description": "Structured risk register created documenting each risk with description, category, and owner."
+            },
+            {
+              "seq": 12,
+              "name": "Individual-First Identification",
+              "description": "Risk identification includes individual reflection before group discussion to prevent groupthink."
+            },
+            {
+              "seq": 13,
+              "name": "Comprehensive Risk Inventory",
+              "description": "Identification processes produced a substantive risk inventory covering breadth of project concerns."
+            }
+          ]
+        },
+        {
+          "name": "Assessed",
+          "description": "Risks analyzed for probability, impact, and priority.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Actively Managed",
+          "description": "Risk responses executing with monitoring and adaptation in place.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Optimized",
+          "description": "Risk management mature, integrated, producing strategic advantage.",
+          "seq": 5,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Surfacing Project Risks Through Prospective Hindsight and Assumption Testing",
+          "description": "How bootstrap risk identification overcomes optimism bias through structured techniques.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Performing a Project Premortem",
+            "Testing Business Ideas",
+            "Strategic Decisions"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The bootstrap phase is the optimal time to identify project risks because team members and stakeholders have fresh perspectives unbiased by execution momentum. Risks surfaced during inception can be addressed proactively; risks discovered during execution require reactive intervention."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Bootstrap risk identification combines two complementary techniques: pre-mortem analysis, which uses prospective hindsight to surface risks that traditional brainstorming misses, and assumption mapping, which identifies the critical assumptions underlying the project's success and prioritizes them for validation. Research demonstrates that pre-mortem exercises surface significantly more risks than conventional risk brainstorming because imagining failure removes the optimism bias inherent in project planning. The combination of these techniques with comprehensive category coverage ensures that risks across technical, organizational, market, and regulatory domains are systematically surfaced."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When risk identification is conducted through structured techniques during bootstrap, projects enter execution with a comprehensive risk inventory and validation plan rather than discovering critical risks through costly failures during delivery."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "workProducts": [
+    {
+      "kind": "workProduct",
+      "name": "Project Charter",
+      "description": "Foundational document authorizing the project, defining purpose, scope, governance, and success criteria.",
+      "assetNames": [],
+      "levelsOfDetail": [
+        {
+          "name": "Executive Summary",
+          "description": "One-page overview capturing essential project information.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Project Name and Sponsor",
+              "description": "Project name, sponsor name, and authorization date recorded."
+            },
+            {
+              "seq": 2,
+              "name": "Problem Statement",
+              "description": "Business problem or opportunity summarized in one paragraph."
+            },
+            {
+              "seq": 3,
+              "name": "High-Level Scope",
+              "description": "Key deliverables and boundaries described at summary level."
+            },
+            {
+              "seq": 4,
+              "name": "Target Timeline",
+              "description": "Expected timeline and major milestones listed."
+            },
+            {
+              "seq": 5,
+              "name": "Key Stakeholders",
+              "description": "Primary stakeholder groups and their representatives named."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Initiated"
+            }
+          ]
+        },
+        {
+          "name": "Basic Charter",
+          "description": "Standard charter with business case, criteria, and governance sections.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Business Case Summary",
+              "description": "Business case rationale and expected benefits documented."
+            },
+            {
+              "seq": 2,
+              "name": "Success Criteria Definition",
+              "description": "Measurable success criteria defined for key objectives."
+            },
+            {
+              "seq": 3,
+              "name": "Governance Structure",
+              "description": "Decision-making structure, escalation paths, and reporting documented."
+            },
+            {
+              "seq": 4,
+              "name": "Risk Summary",
+              "description": "High-level risks with initial mitigation approaches noted."
+            },
+            {
+              "seq": 5,
+              "name": "Resource Requirements",
+              "description": "Budget, team size, and key resource needs estimated."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Determined"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive Charter",
+          "description": "Detailed charter integrating inception outputs and structured approach decisions.",
+          "seq": 3,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Inception Integration",
+              "description": "Inception workshop outputs integrated into charter sections."
+            },
+            {
+              "seq": 2,
+              "name": "Stakeholder Analysis Integration",
+              "description": "Stakeholder analysis findings incorporated with engagement strategy."
+            },
+            {
+              "seq": 3,
+              "name": "Approach Rationale",
+              "description": "Selected development approach documented with tailoring rationale."
+            },
+            {
+              "seq": 4,
+              "name": "Detailed Risk Register Reference",
+              "description": "Charter references detailed risk register with top risks summarized."
+            },
+            {
+              "seq": 5,
+              "name": "Change Management Provisions",
+              "description": "Charter change management process and version control established."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Value Established"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            }
+          ]
+        },
+        {
+          "name": "Living Baseline",
+          "description": "Continuously maintained reference with version control and change history.",
+          "seq": 4,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Version Control Active",
+              "description": "Charter maintained under version control with change history."
+            },
+            {
+              "seq": 2,
+              "name": "Regular Review Scheduled",
+              "description": "Scheduled reviews ensure charter remains aligned with project evolution."
+            },
+            {
+              "seq": 3,
+              "name": "Deviation Documentation",
+              "description": "Deviations from original charter documented with rationale."
+            },
+            {
+              "seq": 4,
+              "name": "Lessons Linked",
+              "description": "Charter references lessons learned from execution experience."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Work",
+              "stateName": "Under Control"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "The Project Charter as Authorization and Alignment Instrument",
+          "description": "How the project charter serves dual purposes of formal authorization and shared alignment.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Managing Successful Projects with PRINCE2",
+            "The Agile Samurai"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The project charter serves dual purposes during bootstrap: it provides formal authorization for the project to consume organizational resources, and it creates a shared reference document aligning all participants on purpose, scope, governance, and success criteria."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Effective project charters evolve from executive summary through comprehensive integration. The initial one-page summary enables rapid authorization, while subsequent elaboration incorporates inception workshop outputs, stakeholder analysis, and governance design. PRINCE2 emphasizes the project initiation document as the foundation for management by exception, enabling delegated authority within defined tolerances. The charter becomes a living baseline when it is maintained under version control and reviewed regularly against evolving project reality."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When the project charter is developed progressively through bootstrap activities rather than treated as a one-time administrative artifact, it serves as a continuously relevant alignment tool that supports governance decision-making throughout the project lifecycle."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "workProduct",
+      "name": "Context Map",
+      "description": "Visual representation of project environment including domain classification, stakeholder landscape, and organizational readiness.",
+      "assetNames": [],
+      "levelsOfDetail": [
+        {
+          "name": "Stakeholder Map",
+          "description": "Visual stakeholder identification with influence and interest dimensions.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Stakeholder Groups Visualized",
+              "description": "All identified stakeholder groups represented visually."
+            },
+            {
+              "seq": 2,
+              "name": "Influence Dimensions Shown",
+              "description": "Influence and interest dimensions indicated per group."
+            },
+            {
+              "seq": 3,
+              "name": "Relationship Lines Drawn",
+              "description": "Key relationships between stakeholder groups depicted."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Recognized"
+            },
+            {
+              "alphaName": "Project Context",
+              "stateName": "Recognized"
+            }
+          ]
+        },
+        {
+          "name": "Domain Assessment",
+          "description": "Complexity classification integrated with stakeholder view.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Domain Classification Recorded",
+              "description": "Work classified by complexity domain with management implications noted."
+            },
+            {
+              "seq": 2,
+              "name": "Stakeholder Overlay Complete",
+              "description": "Stakeholder map enhanced with domain context and constraints."
+            },
+            {
+              "seq": 3,
+              "name": "Constraint Integration",
+              "description": "Regulatory, technical, and organizational constraints mapped to domains."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Context",
+              "stateName": "Analyzed"
+            }
+          ]
+        },
+        {
+          "name": "Strategic Positioning",
+          "description": "Component evolution and strategic positioning analysis integrated.",
+          "seq": 3,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Component Maturity Mapped",
+              "description": "Key components assessed for evolutionary stage and strategic positioning."
+            },
+            {
+              "seq": 2,
+              "name": "Sourcing Implications Documented",
+              "description": "Build, buy, and outsource implications derived from analysis."
+            },
+            {
+              "seq": 3,
+              "name": "Strategy Alignment Visualized",
+              "description": "Strategic positioning connected to organizational portfolio priorities."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Context",
+              "stateName": "Analyzed"
+            },
+            {
+              "alphaName": "Project Context",
+              "stateName": "Interpreted"
+            }
+          ]
+        },
+        {
+          "name": "Integrated Context",
+          "description": "Comprehensive context integrating stakeholders, domain, strategy, and readiness.",
+          "seq": 4,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Multi-Dimensional Integration",
+              "description": "All context dimensions integrated into coherent reference artifact."
+            },
+            {
+              "seq": 2,
+              "name": "Decision Support Annotations",
+              "description": "Key findings annotated with actionable decision recommendations."
+            },
+            {
+              "seq": 3,
+              "name": "Living Reference Status",
+              "description": "Context map designated as living reference for ongoing updates."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Context",
+              "stateName": "Interpreted"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Mapping the Environmental Landscape to Inform Project Strategy",
+          "description": "How progressive context mapping creates the analytical foundation for approach tailoring.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Wardley Maps",
+            "A Leader's Framework for Decision Making",
+            "Strategic Decisions"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The context map makes the project's environmental setting visible and actionable. Without this visualization, contextual knowledge remains distributed across individual perspectives, preventing coherent strategic decisions about project approach."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "The context map evolves through progressive integration of analytical perspectives. It begins with stakeholder identification and relationship mapping, adds domain complexity classification to inform management approach selection, incorporates component evolution analysis to guide sourcing strategy, and culminates in a comprehensive view integrating organizational readiness assessment. Each layer adds decision-relevant information that shapes the project's bootstrap strategy. The variety of strategic analysis models available -- as catalogued by Planellas and Muni -- provides practitioners with choices about which analytical tools best fit their specific context."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When the context map is developed as a progressive, multi-layered artifact during bootstrap, it serves as the analytical foundation for all approach tailoring decisions and as a living reference that teams revisit when project circumstances change."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "workProduct",
+      "name": "Inception Deck",
+      "description": "Collaborative workshop output capturing shared vision, scope boundaries, trade-offs, and stakeholder alignment.",
+      "assetNames": [],
+      "levelsOfDetail": [
+        {
+          "name": "Vision Artifacts",
+          "description": "Core vision elements establishing project purpose and boundaries.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Value Proposition Statement",
+              "description": "Concise value proposition describing target users, needs, and differentiation."
+            },
+            {
+              "seq": 2,
+              "name": "Scope Boundary Declaration",
+              "description": "Clear inclusions and exclusions established collaboratively."
+            },
+            {
+              "seq": 3,
+              "name": "Neighbour Identification",
+              "description": "Adjacent stakeholders and systems identified with interaction expectations."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Objectives",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Envisioned"
+            }
+          ]
+        },
+        {
+          "name": "Scope and Trade-offs",
+          "description": "Scope definition with trade-off decisions and solution overview.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Trade-Off Decisions Documented",
+              "description": "Explicit trade-off decisions recorded with stakeholder agreement."
+            },
+            {
+              "seq": 2,
+              "name": "Solution Overview Created",
+              "description": "High-level solution concept depicted visually or narratively."
+            },
+            {
+              "seq": 3,
+              "name": "Scope Ambiguity Resolved",
+              "description": "Areas of scope ambiguity identified and resolved through facilitated discussion."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Objectives",
+              "stateName": "Articulated"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Shaped"
+            }
+          ]
+        },
+        {
+          "name": "Risks and Resources",
+          "description": "Full risk analysis, stakeholder mapping, and resource planning.",
+          "seq": 3,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Risk Inventory Integrated",
+              "description": "Pre-mortem and assumption mapping outputs integrated into inception deck."
+            },
+            {
+              "seq": 2,
+              "name": "Resource Requirements Estimated",
+              "description": "People, budget, and timeline requirements estimated and documented."
+            },
+            {
+              "seq": 3,
+              "name": "Stakeholder Alignment Confirmed",
+              "description": "Key stakeholders confirmed alignment with vision and trade-off decisions."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Represented"
+            }
+          ]
+        },
+        {
+          "name": "Living Reference",
+          "description": "Inception artifacts as continually referenced decision-making guide.",
+          "seq": 4,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Reference Status Established",
+              "description": "Inception deck designated as living reference for team decisions."
+            },
+            {
+              "seq": 2,
+              "name": "Accessibility Confirmed",
+              "description": "Artifacts accessible to all team members and key stakeholders."
+            },
+            {
+              "seq": 3,
+              "name": "Review Triggers Defined",
+              "description": "Conditions under which inception decisions should be revisited are documented."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Use"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Collaborative Inception as the Foundation for Project Alignment",
+          "description": "How inception workshops create shared alignment through collaborative exercises.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "The Agile Samurai",
+            "Lean Inception"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The inception deck is the tangible output of collaborative workshops that align stakeholders, team, and governance on what the project will deliver, what it will not deliver, and what trade-offs have been accepted. It transforms individual perspectives into shared commitments."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Effective inception workshops produce artifacts that answer the essential questions every project must resolve before execution: Why are we doing this? Who is it for? What does success look like? What are we not doing? What keeps us awake at night? Multiple workshop formats exist -- including Rasmusson's Agile Inception Deck, Caroli's Lean Inception, and custom facilitated designs -- each offering structured exercises for collaborative discovery. The choice of format matters less than the discipline of conducting the exercises with genuine stakeholder participation and documenting decisions in accessible, referable artifacts."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When inception deck artifacts are created through genuinely collaborative workshops and maintained as living references, they prevent the scope creep, misalignment, and unstated assumptions that undermine projects during delivery."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "workProduct",
+      "name": "Initial Backlog",
+      "description": "Prioritized inventory of work items organized to guide initial iteration planning and delivery sequencing.",
+      "assetNames": [],
+      "levelsOfDetail": [
+        {
+          "name": "Feature List",
+          "description": "High-level features without detailed acceptance criteria.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Features Enumerated",
+              "description": "High-level features listed from inception workshop outputs."
+            },
+            {
+              "seq": 2,
+              "name": "User-Facing Orientation",
+              "description": "Features expressed in terms of user capabilities."
+            },
+            {
+              "seq": 3,
+              "name": "Scope Coverage",
+              "description": "Feature list covers major areas of the deliverable vision."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Backlog",
+              "stateName": "Seeded"
+            }
+          ]
+        },
+        {
+          "name": "User Stories",
+          "description": "Backlog of structured work items with basic prioritization.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Consistent Format",
+              "description": "Work items follow a consistent structure across the backlog."
+            },
+            {
+              "seq": 2,
+              "name": "Priority Ordering",
+              "description": "Items ordered by priority using an established framework."
+            },
+            {
+              "seq": 3,
+              "name": "Stakeholder Input Reflected",
+              "description": "Items trace to identified stakeholder needs."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Backlog",
+              "stateName": "Seeded"
+            }
+          ]
+        },
+        {
+          "name": "Story Map",
+          "description": "Narrative-structured map with user journey backbone and release slicing.",
+          "seq": 3,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Backbone Identified",
+              "description": "Major user activities forming the narrative backbone sequenced."
+            },
+            {
+              "seq": 2,
+              "name": "Release Slices Defined",
+              "description": "Horizontal slices through the map defined as release increments."
+            },
+            {
+              "seq": 3,
+              "name": "Minimum Viable Scope Marked",
+              "description": "Thinnest end-to-end slice identified for first delivery."
+            },
+            {
+              "seq": 4,
+              "name": "Dependencies Visualized",
+              "description": "Cross-story dependencies and sequencing constraints visible."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Backlog",
+              "stateName": "Refined"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Shaped"
+            }
+          ]
+        },
+        {
+          "name": "Refined Backlog",
+          "description": "Economically prioritized backlog ready for iteration planning.",
+          "seq": 4,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Top Items Ready",
+              "description": "Highest-priority items refined with acceptance criteria and estimates."
+            },
+            {
+              "seq": 2,
+              "name": "Economic Prioritization Applied",
+              "description": "Priority ordering reflects value, effort, risk, and time-criticality."
+            },
+            {
+              "seq": 3,
+              "name": "Iteration Plan Derivable",
+              "description": "Sufficient ready items exist to plan initial iterations."
+            },
+            {
+              "seq": 4,
+              "name": "Dependency Resolution",
+              "description": "Dependencies between items resolved or sequenced appropriately."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Backlog",
+              "stateName": "Refined"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Progressive Backlog Development From Features to Execution-Ready Inventory",
+          "description": "How progressive backlog development during bootstrap creates execution-ready delivery inventory.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "User Story Mapping",
+            "Agile Estimating and Planning",
+            "The Principles of Product Development Flow"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The initial backlog translates the deliverable vision into structured, prioritized work items that the delivery team can plan against. Without a well-seeded backlog, the transition from inception to execution stalls as teams struggle to convert abstract vision into concrete work."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Backlog development during bootstrap follows a progressive pattern: features are first enumerated from inception outputs, then structured as work items with consistent format, then organized into a narrative story map revealing user journeys and release slicing opportunities, and finally economically prioritized using frameworks that balance value, effort, risk, and time-criticality. Story mapping is particularly valuable because it preserves the user narrative context that gets lost when work items exist only as flat prioritized lists, enabling teams to identify the minimum viable scope for first delivery."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When the backlog is progressively developed through structured bootstrap activities, the delivery team inherits a coherent, economically prioritized inventory that enables confident iteration planning from the first day of execution."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "workProduct",
+      "name": "Risk Register",
+      "description": "Living document tracking identified risks, mitigation plans, ownership, and status.",
+      "assetNames": [],
+      "levelsOfDetail": [
+        {
+          "name": "Risk List",
+          "description": "Identified risks without assessment or mitigation plans.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Risk Descriptions Documented",
+              "description": "Each risk described with cause-event-effect structure."
+            },
+            {
+              "seq": 2,
+              "name": "Category Assignment",
+              "description": "Risks categorized by type for organized management."
+            },
+            {
+              "seq": 3,
+              "name": "Ownership Designated",
+              "description": "Provisional risk owners assigned for each identified risk."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Assessed Register",
+          "description": "Risks assessed for probability, impact, and priority.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Probability Assessment",
+              "description": "Each risk assessed for likelihood of occurrence."
+            },
+            {
+              "seq": 2,
+              "name": "Impact Analysis",
+              "description": "Each risk assessed for potential impact on project objectives."
+            },
+            {
+              "seq": 3,
+              "name": "Priority Ranking",
+              "description": "Risks ranked by combined severity for response planning."
+            },
+            {
+              "seq": 4,
+              "name": "Trigger Identification",
+              "description": "Warning indicators identified for high-priority risks."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Assessed"
+            }
+          ]
+        },
+        {
+          "name": "Mitigated Register",
+          "description": "Risk response strategies with ownership and action plans.",
+          "seq": 3,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Response Strategies Defined",
+              "description": "Each prioritized risk has a defined response strategy."
+            },
+            {
+              "seq": 2,
+              "name": "Action Plans Documented",
+              "description": "Specific mitigation actions documented with owners and timelines."
+            },
+            {
+              "seq": 3,
+              "name": "Contingency Provisions",
+              "description": "Contingency plans exist for highest-impact risks."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Actively Managed"
+            }
+          ]
+        },
+        {
+          "name": "Active Management",
+          "description": "Continuously monitored and adapted risk management artifact.",
+          "seq": 4,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Regular Review Cadence",
+              "description": "Risk register reviewed at established intervals."
+            },
+            {
+              "seq": 2,
+              "name": "Emerging Risks Captured",
+              "description": "New risks added as they are identified during execution."
+            },
+            {
+              "seq": 3,
+              "name": "Response Effectiveness Tracked",
+              "description": "Mitigation action effectiveness monitored and adapted."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Building a Risk Register Through Structured Inception Techniques",
+          "description": "How pre-mortem and assumption mapping seed the risk register during bootstrap.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Performing a Project Premortem",
+            "Testing Business Ideas"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The risk register is seeded during bootstrap through structured techniques designed to overcome the optimism bias that suppresses risk identification during project inception."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Pre-mortem analysis and assumption mapping are the primary bootstrap techniques for populating the risk register. Pre-mortem exercises use prospective hindsight -- imagining the project has already failed -- to surface risks that team members intuitively sense but do not articulate in conventional brainstorming. Assumption mapping complements this by identifying the beliefs underlying the project's success hypothesis and prioritizing them for validation. Together, these techniques produce a comprehensive risk inventory that covers technical, organizational, market, and regulatory categories, providing the foundation for ongoing risk management during delivery."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When the risk register is seeded through structured inception techniques rather than perfunctory risk brainstorming, projects enter execution with awareness of their critical vulnerabilities and a validation plan for their most important assumptions."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "workProduct",
+      "name": "Bootstrap Readiness Report",
+      "description": "Comprehensive assessment documenting project readiness to transition from inception to delivery.",
+      "assetNames": [],
+      "levelsOfDetail": [
+        {
+          "name": "Checklist Completion",
+          "description": "Go/No-Go checklist against basic readiness criteria.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Readiness Criteria Defined",
+              "description": "Minimum readiness criteria defined across bootstrap concerns."
+            },
+            {
+              "seq": 2,
+              "name": "Binary Assessment Recorded",
+              "description": "Each criterion assessed as met or not met."
+            },
+            {
+              "seq": 3,
+              "name": "Go/No-Go Recommendation",
+              "description": "Overall recommendation recorded with rationale."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Viable"
+            }
+          ]
+        },
+        {
+          "name": "Concern Assessment",
+          "description": "Structured assessment across all bootstrap concerns.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Multi-Concern Coverage",
+              "description": "Assessment covers all eleven bootstrap alpha concerns."
+            },
+            {
+              "seq": 2,
+              "name": "State Achievement Mapped",
+              "description": "Current state of each alpha documented with evidence."
+            },
+            {
+              "seq": 3,
+              "name": "Risk-Readiness Correlation",
+              "description": "Relationship between risk profile and readiness gaps analyzed."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Viable"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            }
+          ]
+        },
+        {
+          "name": "Gap Remediation Plan",
+          "description": "Readiness report with prioritized gap closure action plan.",
+          "seq": 3,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Gaps Prioritized",
+              "description": "Readiness gaps ranked by impact on execution risk."
+            },
+            {
+              "seq": 2,
+              "name": "Remediation Actions Defined",
+              "description": "Specific actions to close each gap documented with owners."
+            },
+            {
+              "seq": 3,
+              "name": "Timeline for Resolution",
+              "description": "Expected resolution timeline for critical gaps established."
+            },
+            {
+              "seq": 4,
+              "name": "Conditional Proceed Criteria",
+              "description": "Conditions under which execution may proceed despite gaps defined."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Work",
+              "stateName": "Started"
+            }
+          ]
+        },
+        {
+          "name": "Progress Baseline",
+          "description": "Readiness assessment serving as baseline for ongoing project health.",
+          "seq": 4,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Baseline Snapshot Captured",
+              "description": "All alpha states at transition point documented as baseline."
+            },
+            {
+              "seq": 2,
+              "name": "Health Monitoring Criteria",
+              "description": "Ongoing health indicators derived from bootstrap assessment."
+            },
+            {
+              "seq": 3,
+              "name": "Trend Tracking Enabled",
+              "description": "Mechanisms for tracking progress against baseline established."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Work",
+              "stateName": "Under Control"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Evaluating Bootstrap Readiness Through Multi-Concern Assessment",
+          "description": "How structured readiness assessment enables informed transition decisions.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Managing Successful Projects with PRINCE2",
+            "PMI Agile Practice Guide"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The bootstrap readiness report provides the evidence-based assessment that governance needs to make an informed decision about transitioning from inception to execution. It prevents the common failure of beginning execution before the project is adequately prepared."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Readiness assessment examines all bootstrap concerns holistically rather than checking individual dimensions in isolation. Each alpha's current state is evaluated with evidence, gaps between achieved and required states are identified, and the aggregate risk profile is assessed to determine whether execution can proceed with acceptable risk. The gap remediation plan provides a structured path for addressing deficiencies, including conditional proceed criteria that allow execution to begin while specific gaps are being closed under monitoring. The progress baseline captured at transition serves as the reference point for ongoing project health monitoring during delivery."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When readiness is assessed through structured multi-concern evaluation rather than subjective confidence, organizations make better proceed/defer/cancel decisions and establish a baseline for tracking project health throughout execution."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "personas": [
+    {
+      "kind": "persona",
+      "name": "Project Manager",
+      "description": "Accountable for overall project success including planning, coordination, governance, and value delivery.",
+      "competencies": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Project Management",
+          "Governance"
+        ],
+        "lifecycleTags": [
+          "Initiation",
+          "Planning",
+          "Execution",
+          "Closure"
+        ],
+        "organizationalTags": [
+          "PMO"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "project-manager-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "kind": "persona",
+      "name": "Product Owner",
+      "description": "Maximizes product value through backlog management, stakeholder alignment, and acceptance decisions.",
+      "competencies": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Adapts"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Product Management",
+          "Backlog Management"
+        ],
+        "lifecycleTags": [
+          "Initiation",
+          "Planning",
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Project Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "product-owner-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "kind": "persona",
+      "name": "Scrum Master / Agile Coach",
+      "description": "Facilitates team effectiveness through process coaching, impediment removal, and practice guidance.",
+      "competencies": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Agile",
+          "Facilitation"
+        ],
+        "lifecycleTags": [
+          "Initiation",
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Project Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "scrum-master-agile-coach-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "kind": "persona",
+      "name": "Executive Sponsor",
+      "description": "Provides strategic direction, organizational authority, resource commitment, and governance oversight.",
+      "competencies": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Adapts"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Governance",
+          "Strategy"
+        ],
+        "lifecycleTags": [
+          "Initiation",
+          "Planning"
+        ],
+        "organizationalTags": [
+          "Executive"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "executive-sponsor-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "kind": "persona",
+      "name": "Team Member",
+      "description": "Performs technical work, participates in planning and retrospectives, and contributes to team agreements.",
+      "competencies": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Technical",
+          "Delivery"
+        ],
+        "lifecycleTags": [
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Project Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "team-member-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "personaGroups": [
+    {
+      "kind": "personaGroup",
+      "name": "Leadership",
+      "description": "Strategic decision-makers providing direction, authority, and resources.",
+      "personaNames": [
+        "Executive Sponsor",
+        "Project Manager"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Executive",
+          "PMO"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "leadership-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "kind": "personaGroup",
+      "name": "Delivery Team",
+      "description": "Individuals performing project work and creating deliverables.",
+      "personaNames": [
+        "Product Owner",
+        "Scrum Master / Agile Coach",
+        "Team Member"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Project Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "delivery-team-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "kind": "personaGroup",
+      "name": "Governance",
+      "description": "Oversight and accountability roles ensuring alignment and control.",
+      "personaNames": [
+        "Executive Sponsor",
+        "Project Manager",
+        "Product Owner"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "PMO",
+          "Governance Board"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "governance-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "kind": "activity",
+      "name": "Conduct Situational Assessment",
+      "description": "Analyze the project's environmental setting, complexity profile, and contextual constraints.",
+      "activitySpaceName": "Explore Possibilities",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "conduct-situational-assessment-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Project Context",
+          "stateName": "Recognized"
+        },
+        {
+          "alphaName": "Project Context",
+          "stateName": "Analyzed"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Determined"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Context Map",
+          "levelOfDetailName": "Domain Assessment"
+        },
+        {
+          "workProductName": "Context Map",
+          "levelOfDetailName": "Strategic Positioning"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Leadership",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Delivery Team",
+        "Leadership"
+      ],
+      "narratives": [
+        {
+          "name": "Situational Assessment for Project Context",
+          "description": "How systematic environmental analysis informs project approach decisions.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "A Leader's Framework for Decision Making",
+            "Wardley Maps",
+            "Strategic Decisions"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Situational assessment establishes the project's environmental context, enabling informed decisions about management approach, governance intensity, and risk profile before execution commitments are made."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin with environmental scanning to identify major external factors, then apply domain complexity classification to understand the nature of the work, followed by component evolution analysis to inform sourcing and investment decisions. Multiple analytical models exist for each concern -- select the ones most appropriate to the project's domain and organizational context. Validate findings with stakeholders who have operational knowledge of the environment."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Defaulting to a single analytical framework without considering alternatives. Treating situational assessment as a one-time exercise rather than a progressive analysis. Allowing executive assumptions about project context to substitute for systematic investigation."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Facilitate Inception Workshop",
+      "description": "Conduct collaborative visioning workshop producing shared understanding of purpose, scope, trade-offs, and priorities.",
+      "activitySpaceName": "Shape the Objectives",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "facilitate-inception-workshop-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Determined"
+        },
+        {
+          "alphaName": "Objectives",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Objectives",
+          "stateName": "Articulated"
+        },
+        {
+          "alphaName": "Deliverable",
+          "stateName": "Envisioned"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Involved"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Inception Deck",
+          "levelOfDetailName": "Vision Artifacts"
+        },
+        {
+          "workProductName": "Inception Deck",
+          "levelOfDetailName": "Scope and Trade-offs"
+        },
+        {
+          "workProductName": "Project Charter",
+          "levelOfDetailName": "Comprehensive Charter"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation",
+        "Communication",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Delivery Team",
+        "Leadership"
+      ],
+      "narratives": [
+        {
+          "name": "Facilitating Collaborative Inception for Project Alignment",
+          "description": "How inception workshops create shared alignment through collaborative exercises.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "The Agile Samurai",
+            "Lean Inception",
+            "Strategize"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "The inception workshop is the centerpiece bootstrap activity, producing shared alignment on project purpose, scope, trade-offs, and priorities through collaborative exercises that engage both the delivery team and key stakeholders."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Select an appropriate workshop format based on project context and facilitator experience. Conduct exercises that address vision, scope boundaries, trade-off decisions, stakeholder identification, and risk awareness. Ensure genuine participation from decision-makers, not just proxies. Document outputs in accessible artifacts that serve as living references. Multiple workshop formats exist for each inception concern; the facilitator should select exercises that fit the project's complexity and the participants' experience level."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Conducting inception exercises with too few stakeholders or without decision-making authority present. Treating inception as a one-day event rather than a structured series of collaborative sessions. Allowing the loudest voice to dominate rather than using facilitation techniques that ensure all perspectives are heard."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Map Stakeholder Landscape",
+      "description": "Systematically identify stakeholders, analyze influence dynamics, and design engagement strategies.",
+      "activitySpaceName": "Understand Stakeholder Needs",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "map-stakeholder-landscape-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Recognized"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Represented"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Involved"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Context Map",
+          "levelOfDetailName": "Stakeholder Map"
+        },
+        {
+          "workProductName": "Inception Deck",
+          "levelOfDetailName": "Risks and Resources"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation",
+        "Analysis",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Delivery Team",
+        "Leadership"
+      ],
+      "narratives": [
+        {
+          "name": "Systematic Stakeholder Discovery and Engagement Design",
+          "description": "How structured stakeholder mapping creates the political foundation for project success.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "Stakeholder Relationship Management",
+            "Toward a Theory of Stakeholder Identification and Salience"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Stakeholder landscape mapping systematically identifies all groups affected by or involved in the project, analyzes their influence dynamics, and designs differentiated engagement strategies that allocate limited inception time to highest-value interactions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin with systematic identification using organizational analysis, value chain mapping, and brainstorming to surface stakeholders beyond the obvious. Apply structured analysis techniques to categorize stakeholders by influence, interest, and salience. Design differentiated engagement strategies matching each segment's analysis results. Create visual stakeholder maps that make the landscape accessible to the entire team."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Identifying only supporters and ignoring potential obstructors. Treating stakeholder mapping as a document exercise rather than a relationship-building activity. Failing to update the stakeholder landscape as the project evolves and new groups emerge."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Establish Governance Framework",
+      "description": "Design decision-making structures, authority boundaries, escalation paths, and accountability mechanisms.",
+      "activitySpaceName": "Prepare To Do The Work",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "establish-governance-framework-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Viable"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Initiated"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Principles Established"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Project Charter",
+          "levelOfDetailName": "Basic Charter"
+        },
+        {
+          "workProductName": "Project Charter",
+          "levelOfDetailName": "Comprehensive Charter"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Leadership",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Leadership",
+        "Governance"
+      ],
+      "narratives": [
+        {
+          "name": "Calibrating Governance to Project Complexity",
+          "description": "How governance framework establishment creates appropriate autonomy with accountability.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "Managing Successful Projects with PRINCE2",
+            "Who Has the D?",
+            "Brain of the Firm"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Governance framework establishment creates the decision-making structures and accountability mechanisms that enable the project to operate with appropriate autonomy while maintaining organizational alignment and control."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Calibrate governance intensity to project complexity and risk. Define decision-making authority using structured decision frameworks that clarify who recommends, who inputs, and who decides for each decision type. Establish escalation paths with clear triggers and response timeframes. Document authority boundaries that enable team autonomy within defined tolerances. The governance framework should be the minimum effective structure, avoiding bureaucratic overhead that slows decision-making without adding value."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Applying uniform governance regardless of project complexity. Creating governance structures that require executive involvement in operational decisions. Failing to define escalation triggers, leaving the team unsure when to escalate versus when to decide independently."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Assess Current State (Brownfield)",
+      "description": "Document existing system state including architecture, technical debt, capability maturity, and gaps.",
+      "activitySpaceName": "Shape the Deliverable",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "assess-current-state-brownfield-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Deliverable",
+          "stateName": "Envisioned"
+        },
+        {
+          "alphaName": "Deliverable",
+          "stateName": "Shaped"
+        },
+        {
+          "alphaName": "Project Context",
+          "stateName": "Analyzed"
+        },
+        {
+          "alphaName": "Project Risk",
+          "stateName": "Identified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Bootstrap Readiness Report",
+          "levelOfDetailName": "Concern Assessment"
+        },
+        {
+          "workProductName": "Context Map",
+          "levelOfDetailName": "Integrated Context"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Delivery Team"
+      ],
+      "narratives": [
+        {
+          "name": "Documenting the Existing Landscape for Brownfield Projects",
+          "description": "How current-state assessment reveals the true landscape of existing systems and technical debt.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "Technical Debt Quadrant",
+            "Value Stream Mapping"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Brownfield assessment documents the existing state of systems, processes, and capabilities that the project will modify, modernize, or formalize, providing the baseline understanding needed for informed planning."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Inventory existing applications, databases, services, and integrations to create a comprehensive system catalog. Document current architecture through component and deployment diagrams. Assess technical debt by categorizing existing issues and quantifying remediation effort. Interview operational stakeholders to capture institutional knowledge, pain points, and workarounds not documented elsewhere. Catalogue operational runbooks and documentation to establish the knowledge baseline."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Relying solely on documentation without interviewing practitioners who maintain the systems. Underestimating technical debt by cataloguing only visible issues. Treating brownfield assessment as optional when the project involves existing systems."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Form and Onboard Team",
+      "description": "Assemble team with skill-based assignment, execute structured onboarding, and establish communication channels.",
+      "activitySpaceName": "Support the Team",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "form-and-onboard-team-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Team",
+          "stateName": "Formed"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Collaborating"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Principles Established"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Bootstrap Readiness Report",
+          "levelOfDetailName": "Checklist Completion"
+        },
+        {
+          "workProductName": "Project Charter",
+          "levelOfDetailName": "Executive Summary"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Communication",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Leadership"
+      ],
+      "narratives": [
+        {
+          "name": "Deliberate Team Composition and Structured Onboarding",
+          "description": "How deliberate team formation accelerates team development stages.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "Team Topologies",
+            "The Fearless Organization",
+            "Management 3.0"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Team formation and onboarding transforms a set of assigned individuals into a functioning team with shared context, established communication, and the initial trust needed for collaborative work."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Assign individuals to roles based on competency match against work requirements. Execute structured onboarding covering tooling access, domain context, codebase orientation, and key relationship introductions. Conduct initial team-building activities to establish rapport and begin building psychological safety. Configure physical or virtual workspace with visibility into work progress. Establish communication channels and meeting cadence before execution begins."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Staffing by availability rather than competency match. Skipping structured onboarding and expecting new members to self-orient. Neglecting team-building activities under time pressure, sacrificing team cohesion for perceived speed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Define Ways of Working",
+      "description": "Select development approach, establish ceremony cadence, define completion criteria, and configure tooling.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "define-ways-of-working-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Foundation Established"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "In Use"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Started"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Project Charter",
+          "levelOfDetailName": "Basic Charter"
+        },
+        {
+          "workProductName": "Bootstrap Readiness Report",
+          "levelOfDetailName": "Checklist Completion"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Delivery Team"
+      ],
+      "narratives": [
+        {
+          "name": "Context-Driven Methodology Selection and Establishment",
+          "description": "How minimal viable process establishment creates a coherent foundation for delivery.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "PMI Agile Practice Guide",
+            "The Scrum Guide",
+            "A Leader's Framework for Decision Making"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Defining ways of working establishes the minimal effective process that the team needs to begin execution, including development approach, work cadence, quality standards, and tooling."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Select the development approach informed by domain complexity classification and team experience. Establish iteration cadence appropriate to the project context. Define completion criteria specifying minimum quality standards. Configure ceremony schedule with formats appropriate to team size and distribution. Provision tooling and grant access. Apply conscious minimalism -- establish what is needed to begin, deferring refinement to delivery when empirical evidence is available."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Over-engineering the process before the team has experience with the work. Selecting a methodology based on organizational preference rather than project context analysis. Treating process definition as permanent rather than an initial hypothesis to be validated through practice."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Conduct Pre-Mortem Analysis",
+      "description": "Facilitate pre-mortem exercise where team imagines project failure and identifies causes, surfacing risks that conventional brainstorming misses.",
+      "activitySpaceName": "Assess and Monitor Value",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "conduct-pre-mortem-analysis-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Project Risk",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Value Established"
+        },
+        {
+          "alphaName": "Project Context",
+          "stateName": "Analyzed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Risk Register",
+          "levelOfDetailName": "Risk List"
+        },
+        {
+          "workProductName": "Risk Register",
+          "levelOfDetailName": "Assessed Register"
+        },
+        {
+          "workProductName": "Inception Deck",
+          "levelOfDetailName": "Risks and Resources"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Leadership",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Delivery Team",
+        "Leadership"
+      ],
+      "narratives": [
+        {
+          "name": "Using Prospective Hindsight to Surface Hidden Risks",
+          "description": "How pre-mortem analysis overcomes optimism bias in risk identification.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "Performing a Project Premortem"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Pre-mortem analysis uses prospective hindsight to surface project risks that conventional brainstorming techniques miss, producing a more comprehensive risk inventory by overcoming optimism bias inherent in project planning."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Ask the team to imagine the project has failed spectacularly, then individually list all the reasons why. Use individual silent brainstorming before group discussion to prevent groupthink and anchoring. Consolidate, categorize, and prioritize the identified risks. Integrate results into the risk register and inception deck risk artifacts. This technique surfaces risks that team members intuitively sense but would not raise in conventional risk identification sessions."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Conducting the pre-mortem with only optimistic participants who cannot imagine failure. Allowing group discussion to dominate individual reflection, suppressing minority viewpoints. Generating a risk list without follow-through on assessment and mitigation planning."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Map Assumptions for Validation",
+      "description": "Identify critical assumptions underlying project success and plot them by importance versus evidence to prioritize validation.",
+      "activitySpaceName": "Assess and Monitor Value",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "map-assumptions-for-validation-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Project Risk",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Value Established"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Risk Register",
+          "levelOfDetailName": "Assessed Register"
+        },
+        {
+          "workProductName": "Inception Deck",
+          "levelOfDetailName": "Risks and Resources"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Delivery Team"
+      ],
+      "narratives": [
+        {
+          "name": "Prioritizing Assumptions for Validation Through Structured Mapping",
+          "description": "How assumption mapping identifies the most critical beliefs requiring evidence.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "Testing Business Ideas",
+            "The Lean Startup"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Assumption mapping identifies the beliefs underlying the project's success hypothesis and prioritizes them for validation, ensuring that the most critical and least-evidenced assumptions receive attention before significant resources are committed."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Facilitate a session where the team identifies all assumptions underlying the project's expected success. Plot each assumption on a two-dimensional matrix of importance to success versus strength of supporting evidence. Assumptions that are highly important but poorly evidenced are the highest-priority candidates for validation experiments. Design lightweight validation approaches for the top assumptions and incorporate them into early delivery planning."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Confusing assumptions with risks -- assumptions are beliefs about things that must be true, while risks are things that might go wrong. Identifying assumptions at too high a level of abstraction to be validatable. Mapping assumptions without committing to validation experiments."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Create User Story Map",
+      "description": "Organize backlog into narrative structure showing user journey backbone, story details, and release slicing.",
+      "activitySpaceName": "Prepare To Do The Work",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "create-user-story-map-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Deliverable",
+          "stateName": "Shaped"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Prepared"
+        },
+        {
+          "alphaName": "Objectives",
+          "stateName": "Articulated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Initial Backlog",
+          "levelOfDetailName": "Story Map"
+        },
+        {
+          "workProductName": "Initial Backlog",
+          "levelOfDetailName": "Refined Backlog"
+        },
+        {
+          "workProductName": "Inception Deck",
+          "levelOfDetailName": "Scope and Trade-offs"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Delivery Team"
+      ],
+      "narratives": [
+        {
+          "name": "Narrative-Structured Backlog Organization Through Story Mapping",
+          "description": "How story mapping preserves user journey context while enabling release slicing.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "User Story Mapping"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "User story mapping transforms a flat list of work items into a narrative-structured map that preserves user journey context, reveals release slicing opportunities, and identifies the minimum viable scope for first delivery."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Identify the major user activities forming the narrative backbone and sequence them left to right. Break each backbone activity into detailed story items arranged vertically by priority. Draw horizontal lines to define release slices, each representing a coherent, deliverable increment. Identify the thinnest end-to-end slice as the minimum viable scope. Use the story map to validate scope coverage against objectives and identify missing capabilities."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Creating a story map without genuine user perspective input. Treating the map as a one-time exercise rather than a living artifact that evolves with understanding. Defining release slices that are technically complete but do not deliver recognizable user value."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Facilitate Working Agreements Workshop",
+      "description": "Guide team through collaborative creation of explicit social contracts covering collaboration, communication, and conflict resolution.",
+      "activitySpaceName": "Support the Team",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "facilitate-working-agreements-workshop-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Team",
+          "stateName": "Collaborating"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Performing"
+        },
+        {
+          "alphaName": "Team Agreement",
+          "stateName": "Drafted"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Project Charter",
+          "levelOfDetailName": "Executive Summary"
+        },
+        {
+          "workProductName": "Bootstrap Readiness Report",
+          "levelOfDetailName": "Concern Assessment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Delivery Team"
+      ],
+      "narratives": [
+        {
+          "name": "Creating Explicit Social Contracts Through Facilitated Workshops",
+          "description": "How inclusive facilitation creates behavioral norms before execution pressures test team cohesion.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "The Fearless Organization",
+            "Management 3.0"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "The working agreements workshop creates explicit social contracts that define how team members will interact, make decisions, and resolve disagreements, establishing behavioral norms before execution pressures test team cohesion."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Facilitate a structured session where all team members contribute to brainstorming, discussing, and agreeing on working norms. Cover collaboration hours, communication channel purposes, meeting expectations, decision-making processes, and conflict resolution approaches. Ensure all voices are included through techniques that prevent dominant personality bias. Document agreements in an accessible, visible location that the team can reference daily."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Allowing management to dictate agreements rather than facilitating team co-creation. Creating overly detailed agreements that become administrative burden. Failing to designate a time for reviewing and evolving agreements as the team matures."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Prioritize Backlog Using Economic Framework",
+      "description": "Apply weighted prioritization balancing business value, effort, risk, and time-criticality for economically sound delivery sequence.",
+      "activitySpaceName": "Prepare To Do The Work",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "prioritize-backlog-using-economic-framework-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Work",
+          "stateName": "Prepared"
+        },
+        {
+          "alphaName": "Objectives",
+          "stateName": "Prioritized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Initial Backlog",
+          "levelOfDetailName": "Refined Backlog"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Stakeholder Representation",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Delivery Team",
+        "Leadership"
+      ],
+      "narratives": [
+        {
+          "name": "Applying Economic Thinking to Backlog Prioritization",
+          "description": "How multi-factor economic prioritization maximizes value delivery per unit of investment.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "The Principles of Product Development Flow",
+            "Agile Estimating and Planning"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Economic backlog prioritization establishes delivery sequencing that maximizes value delivery per unit of investment by balancing multiple factors beyond simple business value ranking."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Apply a weighted prioritization framework that considers business value, implementation effort, risk reduction, and time-criticality (cost of delay). Engage both the product owner and key stakeholders in priority discussions to ensure diverse perspectives inform sequencing. Document the rationale for priority decisions to enable future re-evaluation as circumstances change. The choice of specific prioritization technique matters less than the discipline of applying economic thinking to delivery sequencing."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Prioritizing by business value alone without considering implementation dependencies and risk. Allowing the highest-paid person's opinion to override economic analysis. Re-prioritizing so frequently that the team cannot establish stable iteration commitments."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "activity",
+      "name": "Evaluate Bootstrap Readiness",
+      "description": "Assess project readiness to transition from inception to delivery, identify gaps, and make informed proceed/defer/cancel decision.",
+      "activitySpaceName": "Assess and Monitor Value",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "evaluate-bootstrap-readiness-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Viable"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Prepared"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Started"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Bootstrap Readiness Report",
+          "levelOfDetailName": "Concern Assessment"
+        },
+        {
+          "workProductName": "Bootstrap Readiness Report",
+          "levelOfDetailName": "Gap Remediation Plan"
+        },
+        {
+          "workProductName": "Bootstrap Readiness Report",
+          "levelOfDetailName": "Progress Baseline"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Leadership",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Delivery Team",
+        "Governance"
+      ],
+      "narratives": [
+        {
+          "name": "Evidence-Based Readiness Assessment for Informed Transition Decisions",
+          "description": "How multi-concern readiness evaluation enables informed proceed/defer/cancel decisions.",
+          "narrativeTypeName": "Technique",
+          "citationNames": [
+            "Managing Successful Projects with PRINCE2",
+            "PMI Agile Practice Guide"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Bootstrap readiness evaluation provides the evidence-based assessment that governance needs to make an informed proceed/defer/cancel decision about transitioning from inception to structured execution."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Assess each bootstrap concern (all eleven alphas) against expected minimum states for execution readiness. Identify gaps between achieved and required states with evidence. Calculate aggregate risk profile considering the combined effect of readiness gaps. Produce a recommendation with clear rationale. For gaps that do not prevent execution, define conditional proceed criteria with monitoring mechanisms. Establish the readiness assessment as a progress baseline for ongoing health tracking."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Treating readiness as binary (ready/not ready) rather than acknowledging conditional readiness with managed gaps. Allowing schedule pressure to bypass readiness assessment. Evaluating individual concerns in isolation without assessing the aggregate risk profile of combined gaps."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "kind": "pattern",
+      "name": "Project Bootstrap Journey",
+      "description": "End-to-end lifecycle for bootstrapping a project from concept to execution-ready endeavor.",
+      "narratives": [
+        {
+          "name": "The Bootstrap Transformation From Ambiguity to Readiness",
+          "description": "How the bootstrap journey transforms organizational aspiration into execution-ready managed endeavor.",
+          "narrativeTypeName": "The Hero's Journey",
+          "citationNames": [
+            "The Hero's Journey",
+            "The Agile Samurai",
+            "Managing Successful Projects with PRINCE2"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordinary World",
+              "context": "Organizations frequently initiate projects without structured inception, relying on informal understanding, assumed alignment, and untested assumptions. The bootstrap journey addresses this gap by providing a systematic path from ambiguous concept to execution-ready managed endeavor."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "The Call to Adventure",
+              "context": "A catalyst -- executive mandate, strategic imperative, or operational necessity -- drives systematic inception or formalization. The call requires structured discovery, stakeholder alignment, and readiness assessment before resources are committed to execution."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "The Ordeal",
+              "context": "The bootstrap team must navigate competing stakeholder priorities, reconcile greenfield ambitions with brownfield realities, surface uncomfortable risks through pre-mortem analysis, and build team cohesion under time pressure. The most challenging moments arise when analysis reveals that the opportunity is weaker than assumed or that organizational readiness is insufficient for the desired approach."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "The Return",
+              "context": "The project emerges from bootstrap as a transformed endeavor -- governance authorized, team formed and collaborating, ways of working established and in use, backlog refined and prioritized, risks assessed and managed, and context fully interpreted. The organization gains a reusable bootstrap pattern that improves future project initiation."
+            }
+          ]
+        }
+      ],
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Foundational conditions before bootstrap begins.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Recognized"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Envisioned"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            },
+            {
+              "alphaName": "Backlog",
+              "stateName": "Empty"
+            },
+            {
+              "alphaName": "Team Agreement",
+              "stateName": "Absent"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Unidentified"
+            },
+            {
+              "alphaName": "Project Context",
+              "stateName": "Unexamined"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordinary World",
+              "context": "The project exists as an idea, directive, or informal effort that has not been systematically incepted. Context is implicit, stakeholders are unengaged in structured ways, the approach is undefined, and risks are unexamined. Ambiguity, assumption, and informal management characterize the starting position."
+            }
+          ],
+          "activities": [
+            "Conduct Situational Assessment"
+          ]
+        },
+        {
+          "name": "Vision and Context Discovery",
+          "description": "Establish shared vision and map environmental context.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Determined"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Represented"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Envisioned"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            },
+            {
+              "alphaName": "Backlog",
+              "stateName": "Empty"
+            },
+            {
+              "alphaName": "Team Agreement",
+              "stateName": "Absent"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Unidentified"
+            },
+            {
+              "alphaName": "Project Context",
+              "stateName": "Recognized"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Call to Adventure",
+              "context": "A catalyst -- executive mandate, strategic imperative, or operational necessity -- drives systematic inception or formalization. The team begins structured discovery through situational assessment, stakeholder mapping, and inception workshops, replacing informal assumptions with documented, validated understanding. For brownfield projects, current-state assessment reveals the true landscape of existing systems, debt, and operational knowledge."
+            }
+          ],
+          "activities": [
+            "Conduct Situational Assessment",
+            "Facilitate Inception Workshop",
+            "Map Stakeholder Landscape",
+            "Assess Current State (Brownfield)"
+          ]
+        },
+        {
+          "name": "Structure and Readiness Building",
+          "description": "Establish governance, form team, define process, seed backlog, identify risks.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Value Established"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Involved"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Articulated"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Shaped"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Foundation Established"
+            },
+            {
+              "alphaName": "Backlog",
+              "stateName": "Seeded"
+            },
+            {
+              "alphaName": "Team Agreement",
+              "stateName": "Drafted"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Project Context",
+              "stateName": "Analyzed"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordeal",
+              "context": "The team navigates the most intensive phase of bootstrap, simultaneously establishing governance structures, forming and onboarding the team, defining ways of working, creating the initial backlog, identifying risks through pre-mortem and assumption mapping, and building team agreements. Competing priorities, stakeholder politics, and the tension between thoroughness and urgency create the ordeal that tests the team's cohesion and the organization's commitment to structured inception."
+            }
+          ],
+          "activities": [
+            "Establish Governance Framework",
+            "Form and Onboard Team",
+            "Define Ways of Working",
+            "Conduct Pre-Mortem Analysis",
+            "Map Assumptions for Validation",
+            "Create User Story Map",
+            "Facilitate Working Agreements Workshop",
+            "Prioritize Backlog Using Economic Framework"
+          ]
+        },
+        {
+          "name": "Validation and Readiness",
+          "description": "Assess readiness and authorize transition to execution.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Viable"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Involved"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Prioritized"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Shaped"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Started"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Use"
+            },
+            {
+              "alphaName": "Backlog",
+              "stateName": "Refined"
+            },
+            {
+              "alphaName": "Team Agreement",
+              "stateName": "Adopted"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Project Context",
+              "stateName": "Interpreted"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Return",
+              "context": "The project emerges from bootstrap as a transformed endeavor -- governance authorized, team formed and collaborating, ways of working established and in use, backlog refined and prioritized, risks assessed and managed, and context fully interpreted. The readiness evaluation confirms that the project has achieved sufficient maturity across all concerns to transition confidently from inception to structured delivery execution. Lessons from the bootstrap experience improve future project initiation."
+            }
+          ],
+          "activities": [
+            "Evaluate Bootstrap Readiness",
+            "Map Assumptions for Validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Project Charter",
+      "aliasName": "Project Brief"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Inception Deck",
+      "aliasName": "Agile Inception Deck"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Project Charter",
+      "aliasName": "Project Initiation Document"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Facilitate Inception Workshop",
+      "aliasName": "Kickoff"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Risk Register",
+      "aliasName": "Risk Log"
+    }
+  ],
+  "activitySpaces": []
+}

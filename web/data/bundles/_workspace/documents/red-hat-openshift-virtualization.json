@@ -1,0 +1,4832 @@
+{
+  "kind": "practice",
+  "name": "Red Hat OpenShift Virtualization",
+  "description": "Run and manage virtual machines alongside containers on OpenShift using Kubernetes-native tooling and KubeVirt operators.",
+  "baselinePracticeName": "IDP Essentials",
+  "practiceDependencyNames": [
+    "Platform Operations"
+  ],
+  "tags": {
+    "domainTags": [
+      "Virtualization",
+      "Infrastructure",
+      "Migration"
+    ],
+    "lifecycleTags": [
+      "Adoption",
+      "Migration",
+      "Operations"
+    ],
+    "organizationalTags": [
+      "Platform Team",
+      "Operations"
+    ]
+  },
+  "keywords": [
+    "kubevirt",
+    "openshift virtualization",
+    "virtual machine",
+    "KVM",
+    "CDI",
+    "containerized data importer",
+    "virt-handler",
+    "virt-controller",
+    "HyperConverged",
+    "live migration",
+    "MTV",
+    "migration toolkit",
+    "QEMU",
+    "virtctl",
+    "data volume",
+    "SR-IOV",
+    "multus",
+    "vGPU",
+    "mediated devices",
+    "OADP"
+  ],
+  "authors": [
+    "Red Hat"
+  ],
+  "createdAt": "2026-07-23",
+  "updatedAt": "2026-08-11",
+  "version": "1.0.0",
+  "narrativeTypes": [
+    {
+      "name": "Technique",
+      "description": "Practical implementation guidance structured as overview, technique steps, and common pitfalls.",
+      "assetNames": [
+        {
+          "assetName": "technique-narrative-type-icon",
+          "type": "icon"
+        }
+      ],
+      "narrativeElements": [
+        {
+          "name": "Overview",
+          "description": "High-level summary of the technique and its purpose.",
+          "howToUse": "Provide a 1-2 sentence overview of what the technique accomplishes and why it matters."
+        },
+        {
+          "name": "Technique",
+          "description": "Step-by-step implementation guidance.",
+          "howToUse": "Detail the specific technical steps, tools, and configurations required to implement the technique."
+        },
+        {
+          "name": "Common Pitfalls",
+          "description": "Frequent mistakes and how to avoid them.",
+          "howToUse": "List 2-3 common mistakes practitioners make and provide guidance on how to avoid them."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "The STAR Format",
+      "description": "Enforces a strict cause-and-effect relationship between context and outcomes, used for tactical execution reporting and capability demonstrations.",
+      "assetNames": [
+        {
+          "assetName": "star-format-narrative-type-icon",
+          "type": "icon"
+        }
+      ],
+      "narrativeElements": [
+        {
+          "name": "Situation",
+          "description": "The starting state before platform intervention.",
+          "howToUse": "Describe the baseline state, cognitive load distribution, or performance metrics before action is taken."
+        },
+        {
+          "name": "Task",
+          "description": "The specific platform challenge or need to address.",
+          "howToUse": "Frame the task through the developer experience lens: what gap, bottleneck, or friction needs to be resolved."
+        },
+        {
+          "name": "Action",
+          "description": "The platform intervention or capability delivered.",
+          "howToUse": "Detail the platform engineering activities performed, golden paths created, or governance mechanisms implemented."
+        },
+        {
+          "name": "Result",
+          "description": "The measurable outcome and value delivered.",
+          "howToUse": "Quantify results using platform metrics: adoption rate, time saved, cost optimization, performance improvement."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Essay Narrative",
+      "description": "A cohesive narrative format that guides the reader carefully through the evidence for and against a proposition before reaching a conclusion.",
+      "assetNames": [
+        {
+          "assetName": "essay-narrative-type-icon",
+          "type": "icon"
+        }
+      ],
+      "narrativeElements": [
+        {
+          "name": "Introduction",
+          "description": "The start of the essay used to contextualise the work and grab the attention of the reader.",
+          "howToUse": "Explain how the topic sits within the framework of the subject area as a whole. Outline the structure of your essay very briefly, but do not give your conclusions away on the first page."
+        },
+        {
+          "name": "Defining Key Concepts",
+          "description": "A section establishing the interpretation of central concepts without relying on dictionary definitions.",
+          "howToUse": "Relate in your own words how the terms you will be using are to be interpreted within the context of your essay."
+        },
+        {
+          "name": "Presenting Evidence",
+          "description": "The core discussion where secondary works are evaluated and viewpoints are balanced against each other.",
+          "howToUse": "Be selective in your choice of evidence and use signposting language to guide your reader. Quote sparingly, paraphrase occasionally, and summarise often to integrate other people's ideas into your own argument."
+        },
+        {
+          "name": "Conclusion",
+          "description": "The closing section that synthesises the presented evidence and forms a direct response to the assignment title.",
+          "howToUse": "Draw the threads of your argument together. Do not bring in new evidence in your concluding paragraphs or try to cram in ideas that you have not developed fully."
+        }
+      ],
+      "kind": "narrativeType"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform",
+      "aliasName": "OpenShift Virtualization Platform"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Asset",
+      "aliasName": "Virtual Machine"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Risk And Compliance",
+      "aliasName": "VM Security Posture"
+    }
+  ],
+  "citations": [
+    {
+      "name": "Red Hat OpenShift Container Platform 4.22 - Virtualization",
+      "description": "Comprehensive documentation for OpenShift Virtualization covering installation, VM management, networking, storage, and monitoring.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html-single/virtualization/index",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat OpenShift Container Platform 4.22 - Installing Virtualization",
+      "description": "Installation procedures for deploying the OpenShift Virtualization operator via OperatorHub.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/virtualization/installing",
+      "kind": "citation"
+    },
+    {
+      "name": "What is KubeVirt?",
+      "description": "Overview of KubeVirt as the open-source foundation enabling Kubernetes-native virtual machine management.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Topics",
+      "url": "https://www.redhat.com/en/topics/virtualization/what-is-kubevirt",
+      "kind": "citation"
+    },
+    {
+      "name": "OpenShift Virtualization: Containers, KVM, and Your VMs",
+      "description": "Blog explaining how OpenShift Virtualization brings VM workloads to Kubernetes using KVM and KubeVirt.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/openshift-virtualization-containers-kvm-and-your-vms",
+      "kind": "citation"
+    },
+    {
+      "name": "Storage Considerations for OpenShift Virtualization",
+      "description": "Developer article covering storage architecture, volume modes, CDI, and CSI integration for VM workloads.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2025/07/10/storage-considerations-openshift-virtualization",
+      "kind": "citation"
+    },
+    {
+      "name": "Storage and Data Protection for OpenShift Virtualization",
+      "description": "Developer article covering OADP backup, CSI snapshots, and data protection strategies for VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2024/10/10/storage-data-protection-openshift-virtualization",
+      "kind": "citation"
+    },
+    {
+      "name": "Disaster Recovery Approaches for Red Hat OpenShift Virtualization",
+      "description": "Blog covering Metro-DR, Regional-DR, and third-party storage DR approaches for VM workloads.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/disaster-recovery-approaches-red-hat-openshift-virtualization",
+      "kind": "citation"
+    },
+    {
+      "name": "Move Virtual Machines to OpenShift at Scale with Red Hat's Migration Toolkit for Virtualization",
+      "description": "Blog describing MTV capabilities for migrating VMs from VMware, RHV, and OpenStack.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/move-virtual-machines-openshift-scale-red-hats-migration-toolkit-virtualization",
+      "kind": "citation"
+    },
+    {
+      "name": "Migration Toolkit for Virtualization 2.6 - Installing and Using",
+      "description": "Official documentation for MTV installation, provider configuration, and migration plan execution.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.6/html-single/installing_and_using_the_migration_toolkit_for_virtualization/index",
+      "kind": "citation"
+    },
+    {
+      "name": "Monitoring OpenShift Virtualization at Scale with Red Hat Advanced Cluster Management",
+      "description": "Developer article on multi-cluster VM monitoring using RHACM dashboards and Prometheus federation.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2024/12/16/monitoring-openshift-virtualization-scale-red-hat-advanced-cluster-management",
+      "kind": "citation"
+    },
+    {
+      "name": "Backup and Restore of Virtual Machines within OpenShift",
+      "description": "Blog covering OADP-based VM backup and restore with kubevirt plugin and Data Mover.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/disaster-recovery-of-virtual-machines-within-openshift",
+      "kind": "citation"
+    },
+    {
+      "name": "OpenShift APIs for Data Protection 1.3 Data Mover",
+      "description": "Blog describing OADP 1.3 Data Mover capabilities for relocating CSI volume snapshots to remote storage.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/openshift-apis-data-protection-13-data-mover",
+      "kind": "citation"
+    },
+    {
+      "name": "Live Migrating VMs with OpenShift Virtualization",
+      "description": "Developer article on live migration mechanics, prerequisites, and PostCopy mode for large-memory VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2025/07/14/live-migrating-vms-openshift-virtualization",
+      "kind": "citation"
+    },
+    {
+      "name": "A Guide to High Availability/Disaster Recovery for Applications on OpenShift",
+      "description": "Blog covering HA and DR strategies for OpenShift workloads including eviction strategies and health checks.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/a-guide-to-high-availability/disaster-recovery-for-applications-on-openshift",
+      "kind": "citation"
+    },
+    {
+      "name": "Enabling vGPU in a Single Node using OpenShift Virtualization",
+      "description": "Blog on configuring NVIDIA vGPU mediated devices for GPU sharing across VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/enabling-vgpu-in-a-single-node-using-openshift-virtualization",
+      "kind": "citation"
+    },
+    {
+      "name": "Migration Toolkit for Virtualization 2.10 - Planning Your Migration",
+      "description": "Documentation covering cold and warm migration strategies, prerequisites, and planning guidance.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.10/html/planning_your_migration_to_red_hat_openshift_virtualization/assembly_cold-warm-migration_mtv",
+      "kind": "citation"
+    },
+    {
+      "name": "Configuring OpenShift Data Foundation Disaster Recovery for OpenShift Workloads",
+      "description": "Documentation for Metro-DR and Regional-DR configuration with ODF, RHACM, and DR operators.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.17/html-single/configuring_openshift_data_foundation_disaster_recovery_for_openshift_workloads/index",
+      "kind": "citation"
+    },
+    {
+      "name": "Automate VM Golden Image Management with OpenShift",
+      "description": "Developer article on automated golden image pipelines using OpenShift Pipelines and GitOps.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2025/06/03/automate-vm-golden-image-management-openshift",
+      "kind": "citation"
+    },
+    {
+      "name": "Enable Confidential Computing in OpenShift Virtualization",
+      "description": "Developer article on enabling confidential computing for VMs processing sensitive data.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2025/06/24/enable-confidential-computing-openshift-virtualization",
+      "kind": "citation"
+    },
+    {
+      "name": "Demystifying Multus",
+      "description": "Blog explaining Multus CNI for secondary network attachment in Kubernetes and VM networking.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/demystifying-multus",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "platform-icon",
+      "description": "Icon representing the unified OpenShift platform.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "virtualization-infrastructure-icon",
+      "description": "Icon representing the KubeVirt virtualization infrastructure stack.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-server",
+      "fontWeight": "900"
+    },
+    {
+      "name": "virtual-machine-workload-icon",
+      "description": "Icon representing virtual machine workloads.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-desktop",
+      "fontWeight": "900"
+    },
+    {
+      "name": "vm-storage-icon",
+      "description": "Icon representing VM storage configuration.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-database",
+      "fontWeight": "900"
+    },
+    {
+      "name": "vm-network-icon",
+      "description": "Icon representing VM network configuration.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-network-wired",
+      "fontWeight": "900"
+    },
+    {
+      "name": "kubevirt-architecture-diagram",
+      "description": "Official Red Hat diagram showing OpenShift Virtualization architecture and component relationships.",
+      "type": "diagram",
+      "url": "https://www.redhat.com/en/topics/virtualization/what-is-kubevirt"
+    },
+    {
+      "name": "mtv-architecture-diagram",
+      "description": "Migration Toolkit for Virtualization architecture showing source-to-target migration flow.",
+      "type": "diagram",
+      "url": "https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.10/html/planning_your_migration_to_red_hat_openshift_virtualization/assembly_cold-warm-migration_mtv"
+    },
+    {
+      "name": "install-operator-icon",
+      "description": "Icon representing operator installation and configuration activities.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-download",
+      "fontWeight": "900"
+    },
+    {
+      "name": "manage-templates-icon",
+      "description": "Icon representing VM template creation and management.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clone",
+      "fontWeight": "900"
+    },
+    {
+      "name": "provision-vms-icon",
+      "description": "Icon representing VM provisioning and deployment.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-play",
+      "fontWeight": "900"
+    },
+    {
+      "name": "configure-networking-icon",
+      "description": "Icon representing VM network configuration activities.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-plug",
+      "fontWeight": "900"
+    },
+    {
+      "name": "configure-storage-icon",
+      "description": "Icon representing VM storage configuration activities.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-hard-drive",
+      "fontWeight": "900"
+    },
+    {
+      "name": "live-migration-icon",
+      "description": "Icon representing live migration of running VMs between nodes.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-right-left",
+      "fontWeight": "900"
+    },
+    {
+      "name": "snapshots-backups-icon",
+      "description": "Icon representing snapshot and backup operations.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-camera",
+      "fontWeight": "900"
+    },
+    {
+      "name": "disaster-recovery-icon",
+      "description": "Icon representing disaster recovery infrastructure.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "workload-migration-icon",
+      "description": "Icon representing workload migration from legacy platforms.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-truck",
+      "fontWeight": "900"
+    },
+    {
+      "name": "monitoring-alerting-icon",
+      "description": "Icon representing monitoring and alerting configuration.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "security-controls-icon",
+      "description": "Icon representing security and compliance controls.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lock",
+      "fontWeight": "900"
+    },
+    {
+      "name": "performance-tuning-icon",
+      "description": "Icon representing VM performance tuning and optimization.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge-high",
+      "fontWeight": "900"
+    },
+    {
+      "name": "gpu-accelerator-icon",
+      "description": "Icon representing GPU and accelerator configuration.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microchip",
+      "fontWeight": "900"
+    },
+    {
+      "name": "high-availability-icon",
+      "description": "Icon representing high availability and resilience configuration.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-heart-pulse",
+      "fontWeight": "900"
+    },
+    {
+      "name": "technique-narrative-type-icon",
+      "description": "Technique narrative type icon for implementation guidance.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-screwdriver-wrench",
+      "fontWeight": "900"
+    },
+    {
+      "name": "star-format-narrative-type-icon",
+      "description": "STAR Format narrative type icon for cause-and-effect reporting.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-star",
+      "fontWeight": "900"
+    },
+    {
+      "name": "essay-narrative-type-icon",
+      "description": "Essay Narrative type icon for evidence-based argumentation.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-book-open",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Platform",
+      "description": "The unified system of infrastructure, compute resources, networking, storage, delivery pipelines, observability, and foundational services that provides the technical foundation for developer self-service, aligned with the CNCF Platform Engineering Maturity Model and designed to reduce developer cognitive load through progressive abstraction. In the IDP context, the platform is architected using recognized reference models (such as the Humanitec Five-Plane Architecture) with API-first design, continuous reconciliation, and infrastructure abstraction as core architectural principles.",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "platform-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Architecture Selected",
+          "description": "The IDP's architectural vision, structural layers, and technology strategy are formally selected and agreed upon. The architecture defines the platform's capability planes, integration boundaries, and technology choices.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Reference architecture documented",
+              "description": "The target platform architecture is documented using a recognized reference model. The Humanitec Five-Plane Architecture (Developer Control Plane, Integration/Delivery Plane, Monitoring/Logging Plane, Security Plane, Resource Plane) or equivalent provides the structural foundation.",
+              "seq": 1
+            },
+            {
+              "name": "API-first principles established",
+              "description": "API-first design principles are established: \"portals are faces, platforms are muscle.\" The platform's capabilities are exposed through stable APIs before any portal or CLI interface is built. The build sequence is API layer first, CLI second, portal third.",
+              "seq": 2
+            },
+            {
+              "name": "Control plane pattern adopted",
+              "description": "The Control Plane Pattern (declarative, continuously reconciled) is adopted as a core architectural principle. Control planes are self-healing and automatically correct drift, replacing one-time imperative execution with ongoing state management.",
+              "seq": 3
+            },
+            {
+              "name": "Technology decisions documented",
+              "description": "Technology selection criteria balance build-versus-buy, multi-cloud portability, operational complexity, and organizational skills. Approximately 90% of cloud services are commodities standardized enough for abstraction; the critical decision is where to draw the abstraction boundary.",
+              "seq": 4
+            },
+            {
+              "name": "Integration points mapped",
+              "description": "Integration points with existing infrastructure, tooling, and organizational systems are mapped. The architecture accounts for brownfield integration with existing CI/CD systems, identity providers, monitoring infrastructure, and source control platforms.",
+              "seq": 5
+            },
+            {
+              "name": "Virtualization Deployment Model Selected",
+              "description": "Virtualization operator deployment model is selected (HyperConverged vs component-level).",
+              "seq": 6
+            },
+            {
+              "name": "Hardware Requirements Validated",
+              "description": "Worker node hardware requirements are validated (bare metal with VT-x/AMD-V or compatible cloud).",
+              "seq": 7
+            },
+            {
+              "name": "CPU Architecture Support Confirmed",
+              "description": "Architecture supports target CPU architectures (AMD64, ARM64, s390x) as required.",
+              "seq": 8
+            },
+            {
+              "name": "Networking Model Selected",
+              "description": "VM networking model is selected (pod network, secondary networks, SR-IOV).",
+              "seq": 9
+            },
+            {
+              "name": "Storage Architecture Supports VMs",
+              "description": "Storage architecture supports block volume mode and RWX access for live migration.",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Baselined",
+          "description": "Core capabilities, architectural layers, and integration boundaries are defined with constraints and policies clearly documented. The platform's structural contract is established.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Layer boundaries defined",
+              "description": "Clear boundaries exist between architectural planes with defined responsibilities and interfaces. Each plane has explicit API contracts, security boundaries, and operational responsibilities.",
+              "seq": 1
+            },
+            {
+              "name": "API contracts specified",
+              "description": "API contracts between layers are specified and versioned. Interface stability commitments govern how APIs evolve. Breaking changes require explicit migration paths.",
+              "seq": 2
+            },
+            {
+              "name": "Infrastructure abstraction strategy defined",
+              "description": "Infrastructure abstraction strategy is defined: which cloud services to abstract (commodity services), where to expose native capabilities (differentiating services), and what specification format to use for workload definitions (Score-style or equivalent platform-agnostic format).",
+              "seq": 3
+            },
+            {
+              "name": "Multi-provider support designed",
+              "description": "The architecture supports multiple resource providers and multi-cloud deployment where organizationally required. Abstraction layers provide portability for commodity services while allowing direct access to differentiating provider-specific capabilities.",
+              "seq": 4
+            },
+            {
+              "name": "HyperConverged CR Baselined",
+              "description": "HyperConverged custom resource configuration is baselined with explicit operator settings.",
+              "seq": 5
+            },
+            {
+              "name": "Node Strategy Documented",
+              "description": "Node labeling and taint strategy is documented for VM-hosting workers.",
+              "seq": 6
+            },
+            {
+              "name": "VM Storage Classes Defined",
+              "description": "Storage classes are defined for VM workloads with appropriate provisioner configurations.",
+              "seq": 7
+            },
+            {
+              "name": "Network Architecture Documented",
+              "description": "Network architecture is documented including secondary network topology decisions.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "Core platform infrastructure is instantiated and operational, ready to support initial workloads. The platform's foundational capabilities are functional and validated.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Core services deployed",
+              "description": "Core platform services are deployed across target environments: compute orchestration, networking, storage, secrets management, and identity integration.",
+              "seq": 1
+            },
+            {
+              "name": "Plane integration validated",
+              "description": "Integration between architectural planes is functional and validated. The developer control plane successfully abstracts underlying infrastructure complexity. Continuous reconciliation maintains desired state for platform infrastructure.",
+              "seq": 2
+            },
+            {
+              "name": "First golden path operational",
+              "description": "At least one complete golden path (from project creation through production deployment) is operational and validated with the platform team's own workloads.",
+              "seq": 3
+            },
+            {
+              "name": "Performance baselines established",
+              "description": "Performance, availability, and scalability baselines are established for platform services. Initial SLOs are defined based on measured capability.",
+              "seq": 4
+            },
+            {
+              "name": "Virtualization Operator Installed",
+              "description": "OpenShift Virtualization operator is installed and HyperConverged CR is reconciling.",
+              "seq": 5
+            },
+            {
+              "name": "KubeVirt Pods Healthy",
+              "description": "virt-controller, virt-handler, and virt-api pods are healthy on all designated nodes.",
+              "seq": 6
+            },
+            {
+              "name": "CDI Deployed",
+              "description": "CDI operator is deployed and functional for disk image management.",
+              "seq": 7
+            },
+            {
+              "name": "Storage Profiles Configured",
+              "description": "Storage classes and default storage profiles are configured for VM workloads.",
+              "seq": 8
+            },
+            {
+              "name": "nmstate Deployed",
+              "description": "nmstate operator is deployed for declarative node network management.",
+              "seq": 9
+            }
+          ]
+        },
+        {
+          "name": "Ready",
+          "description": "The platform is fully operational with self-service capabilities enabling autonomous developer provisioning and deployment. The platform is ready for consumption by development teams beyond the platform team itself.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Self-service provisioning operational",
+              "description": "Self-service provisioning is operational for standard capability domains. Developers can independently provision infrastructure, create projects, and deploy applications without platform team involvement.",
+              "seq": 1
+            },
+            {
+              "name": "Developer portal functional",
+              "description": "The developer portal provides discovery (service catalog), documentation (searchable, versioned), and provisioning actions (golden path templates, self-service workflows).",
+              "seq": 2
+            },
+            {
+              "name": "Golden paths comprehensive",
+              "description": "Golden paths cover the highest-priority application types and deployment targets. Security guardrails and policy enforcement are integrated into golden paths.",
+              "seq": 3
+            },
+            {
+              "name": "Observability infrastructure operational",
+              "description": "Observability infrastructure provides unified visibility across platform infrastructure and consumer workloads: metrics, logs, traces, and cost allocation.",
+              "seq": 4
+            },
+            {
+              "name": "Platform SLOs defined",
+              "description": "Platform SLOs are defined and monitored for all developer-facing services: portal availability, provisioning latency, build time, deployment success rate, and API response time.",
+              "seq": 5
+            },
+            {
+              "name": "VM Operations Functional",
+              "description": "VM creation, start, stop, and deletion are functional through API and console.",
+              "seq": 6
+            },
+            {
+              "name": "Live Migration Validated",
+              "description": "Live migration is validated between nodes with shared storage.",
+              "seq": 7
+            },
+            {
+              "name": "RBAC Policies Applied",
+              "description": "RBAC policies control VM access across namespaces and projects.",
+              "seq": 8
+            },
+            {
+              "name": "SCCs Configured",
+              "description": "Security Context Constraints for virt-launcher pods are properly configured.",
+              "seq": 9
+            },
+            {
+              "name": "Resource Quotas Set",
+              "description": "Resource quotas (AAQ) are configured for VM workloads.",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Hosting Assets",
+          "description": "The platform is actively supporting production workloads at organizational scale with demonstrated reliability and developer adoption.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Multiple teams in production",
+              "description": "Multiple development teams deploy and operate production workloads on the platform. The platform supports diverse workload types (web applications, APIs, data services, background workers).",
+              "seq": 1
+            },
+            {
+              "name": "SLOs met",
+              "description": "Platform reliability meets or exceeds defined SLOs. Incident management procedures handle platform issues effectively. The platform team practices SRE principles.",
+              "seq": 2
+            },
+            {
+              "name": "Adoption targets progressing",
+              "description": "Developer adoption rate tracks toward organizational targets (80%+ for elite-performing platforms). Adoption is measured by active usage, not just account creation.",
+              "seq": 3
+            },
+            {
+              "name": "DORA improvements demonstrated",
+              "description": "DORA metrics demonstrate measurable delivery performance improvement compared to pre-platform baselines.",
+              "seq": 4
+            },
+            {
+              "name": "Cost management operational",
+              "description": "Cost management and optimization practices are operational. Infrastructure costs are attributed to consuming teams through chargeback or showback models.",
+              "seq": 5
+            },
+            {
+              "name": "Production VMs Running",
+              "description": "Production VMs are running with configured eviction strategies (LiveMigrate default).",
+              "seq": 6
+            },
+            {
+              "name": "Backup and Snapshots Operational",
+              "description": "VM backup and snapshot capabilities are operational for production workloads.",
+              "seq": 7
+            },
+            {
+              "name": "Monitoring Active",
+              "description": "Monitoring and alerting are active for virtualization components.",
+              "seq": 8
+            },
+            {
+              "name": "Node Remediation Active",
+              "description": "Machine health checks or Node Health Check Operator provide automated node remediation.",
+              "seq": 9
+            },
+            {
+              "name": "DR Infrastructure Deployed",
+              "description": "Disaster recovery infrastructure is deployed for critical VM workloads.",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Evolving",
+          "description": "The platform continuously adapts to emerging requirements, incorporates new capabilities, and optimizes based on operational data and developer feedback.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "TVP-guided expansion",
+              "description": "Platform capabilities expand based on demonstrated developer need following the TVP principle. New capabilities are added only when developer experience research demonstrates sufficient demand and value.",
+              "seq": 1
+            },
+            {
+              "name": "Technical debt managed",
+              "description": "Technical debt is proactively identified, tracked, and managed. Architectural decisions are revisited based on operational data, emerging technology, and changing organizational needs.",
+              "seq": 2
+            },
+            {
+              "name": "Community contributions integrated",
+              "description": "Community contributions (inner-source pull requests, golden path templates, documentation improvements) extend platform capabilities beyond the platform team's direct capacity.",
+              "seq": 3
+            },
+            {
+              "name": "AI capabilities integrated",
+              "description": "AI integration and emerging technology capabilities are incorporated into the platform. Per Gartner: 70% of enterprises will include GenAI capabilities in IDPs by 2027.",
+              "seq": 4
+            },
+            {
+              "name": "Organizational scale supported",
+              "description": "The platform scales to support growing organizational complexity: more teams, more workload types, more deployment targets, and more governance requirements.",
+              "seq": 5
+            },
+            {
+              "name": "CPU and NUMA Tuning Active",
+              "description": "CPU pinning, NUMA awareness, and huge pages are configured for performance-sensitive VMs.",
+              "seq": 6
+            },
+            {
+              "name": "GPU Passthrough Operational",
+              "description": "GPU/vGPU passthrough is operational for accelerated computing workloads.",
+              "seq": 7
+            },
+            {
+              "name": "Dedicated Migration Network",
+              "description": "Dedicated migration network minimizes impact on tenant workloads.",
+              "seq": 8
+            },
+            {
+              "name": "GitOps Configuration Management",
+              "description": "Platform configuration is managed through GitOps with automated drift detection.",
+              "seq": 9
+            },
+            {
+              "name": "Performance SLAs Tracked",
+              "description": "Performance SLAs are tracked and reported for VM workloads.",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Retiring",
+          "description": "The platform is being systematically decommissioned, with workloads migrated to successor platforms and infrastructure safely removed.",
+          "seq": 7,
+          "checklist": [
+            {
+              "name": "Migration plan documented",
+              "description": "A comprehensive migration plan documents the transition path for all hosted workloads, including target destination, migration approach, and timeline.",
+              "seq": 1
+            },
+            {
+              "name": "Workloads migrated",
+              "description": "Workload migration is executed with minimal disruption to consuming teams. Migration support (tooling, documentation, enabling team assistance) is provided.",
+              "seq": 2
+            },
+            {
+              "name": "Infrastructure reclaimed",
+              "description": "Infrastructure resources are systematically reclaimed and costs eliminated. Cloud accounts, subscriptions, and tooling licenses are decommissioned.",
+              "seq": 3
+            },
+            {
+              "name": "Knowledge preserved",
+              "description": "Knowledge transfer ensures organizational learning from the platform's lifecycle is preserved. Architectural decisions, operational practices, and lessons learned are documented for the successor platform.",
+              "seq": 4
+            },
+            {
+              "name": "Resources Released",
+              "description": "Infrastructure resources are released and reclaimed.",
+              "seq": 5
+            },
+            {
+              "name": "Data Archived",
+              "description": "Configuration data and operational records are archived per retention policies.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Extending Kubernetes with KubeVirt for Unified Workload Management",
+          "description": "How OpenShift Virtualization extends the Kubernetes platform to run VMs alongside containers on shared infrastructure.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "OpenShift Virtualization extends the Kubernetes platform with KubeVirt operators to run VMs alongside containers, consolidating both workload types on a single infrastructure with unified management tooling."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "The HyperConverged Operator deploys virt-controller, virt-handler, virt-api, and CDI as the foundational virtualization stack. Worker nodes require RHCOS with hardware virtualization extensions, while storage must support block volume mode and RWX access for live migration."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Organizations running dual virtualization and container stacks report 40-60% reduction in infrastructure costs after consolidation, with KVM-based virtualization delivering near-bare-metal performance validated through SPEC benchmarks."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "Platform maturity for virtualization follows the same progression as container workloads but adds VM-specific gates at each state for operator health, storage compatibility, and live migration readiness."
+            }
+          ],
+          "citationNames": [
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization",
+            "What is KubeVirt?"
+          ]
+        },
+        {
+          "name": "Consolidating VM and Container Workloads on Kubernetes",
+          "description": "Strategic context for adopting OpenShift Virtualization to unify VM and container workloads on a single platform.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations operating VM workloads on legacy virtualization platforms face growing infrastructure costs, operational fragmentation between VM and container stacks, and skills silos that slow modernization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Consolidate VM and container workloads onto a single Kubernetes-native platform with enterprise-grade live migration, disaster recovery, performance tuning, and a structured migration path from legacy hypervisors."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Deploy OpenShift Virtualization with KubeVirt to run VMs alongside containers, configure Multus secondary networks and CSI-backed persistent storage, establish golden image pipelines, implement OADP-based backup, and migrate workloads from VMware, RHV, and OpenStack using the Migration Toolkit for Virtualization."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Unified infrastructure reduces costs and operational complexity, enables self-service VM provisioning through templates and instance types, delivers near-bare-metal performance via CPU pinning, NUMA awareness, and GPU passthrough, and provides a clear modernization path from VMs to containers."
+            }
+          ],
+          "citationNames": [
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization",
+            "OpenShift Virtualization: Containers, KVM, and Your VMs"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Virtualization Infrastructure",
+      "description": "The KubeVirt operator stack and node configuration enabling Kubernetes-native VM hosting on OpenShift.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Virtual Machine Workload",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "provides foundation for",
+          "alphaName": "VM Network Configuration",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "virtualization-infrastructure-icon",
+          "type": "icon"
+        },
+        {
+          "assetName": "kubevirt-architecture-diagram",
+          "type": "diagram"
+        }
+      ],
+      "states": [
+        {
+          "name": "Operator Deployed",
+          "description": "HyperConverged Operator installed and reconciling core components.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Operator Installed",
+              "description": "OpenShift Virtualization operator is installed from OperatorHub.",
+              "seq": 1
+            },
+            {
+              "name": "HyperConverged CR Created",
+              "description": "HyperConverged custom resource is created in the openshift-cnv namespace.",
+              "seq": 2
+            },
+            {
+              "name": "Core Pods Running",
+              "description": "virt-controller, virt-handler, and virt-api pods are running and healthy.",
+              "seq": 3
+            },
+            {
+              "name": "CDI Operational",
+              "description": "CDI operator is deployed and functional.",
+              "seq": 4
+            },
+            {
+              "name": "DaemonSet Running",
+              "description": "The virt-handler DaemonSet is running on all designated worker nodes.",
+              "seq": 5
+            },
+            {
+              "name": "TLS Rotation Verified",
+              "description": "TLS certificate rotation is verified for KubeVirt and CDI components.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Nodes Configured",
+          "description": "Worker nodes validated and configured for VM hosting.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "RHCOS with Virtualization Extensions",
+              "description": "Worker nodes are running RHCOS with hardware virtualization extensions confirmed.",
+              "seq": 1
+            },
+            {
+              "name": "Node Labels and Taints Set",
+              "description": "Node labeling and taints designate VM-hosting nodes.",
+              "seq": 2
+            },
+            {
+              "name": "KVM Modules Loaded",
+              "description": "KVM kernel modules are loaded and functional on all worker nodes.",
+              "seq": 3
+            },
+            {
+              "name": "Network Configuration Validated",
+              "description": "Node network configuration is validated via nmstate operator.",
+              "seq": 4
+            },
+            {
+              "name": "Storage Accessible",
+              "description": "Storage classes are provisioned and accessible from worker nodes.",
+              "seq": 5
+            },
+            {
+              "name": "SCCs for virt-launcher",
+              "description": "Security Context Constraints for virt-launcher pods are properly configured.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Platform Operational",
+          "description": "Platform is running VMs in production with all subsystems functional.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "VM CRUD Functional",
+              "description": "VMs can be created, started, stopped, and deleted through the API and console.",
+              "seq": 1
+            },
+            {
+              "name": "Live Migration Functional",
+              "description": "Live migration is functional between nodes with shared storage.",
+              "seq": 2
+            },
+            {
+              "name": "Monitoring Active",
+              "description": "Monitoring and alerting are active for virtualization components.",
+              "seq": 3
+            },
+            {
+              "name": "RBAC Applied",
+              "description": "RBAC policies control VM access across namespaces and projects.",
+              "seq": 4
+            },
+            {
+              "name": "Quotas Configured",
+              "description": "Resource quotas (AAQ) are configured for VM workloads.",
+              "seq": 5
+            },
+            {
+              "name": "Alerts Active",
+              "description": "Default virtualization alerts are active and routing to appropriate channels.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Platform Optimized",
+          "description": "Platform tuned for performance and resilience with advanced features.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "CPU Pinning and NUMA",
+              "description": "CPU pinning and NUMA topology awareness are configured for performance-sensitive VMs.",
+              "seq": 1
+            },
+            {
+              "name": "Huge Pages Allocated",
+              "description": "Huge pages are allocated for memory-intensive workloads.",
+              "seq": 2
+            },
+            {
+              "name": "GPU Passthrough Configured",
+              "description": "GPU/vGPU passthrough is configured where required.",
+              "seq": 3
+            },
+            {
+              "name": "Dedicated Migration Network",
+              "description": "Dedicated migration network is established to minimize tenant workload impact.",
+              "seq": 4
+            },
+            {
+              "name": "Node Health Checks",
+              "description": "Node health checks are configured for automated remediation.",
+              "seq": 5
+            },
+            {
+              "name": "KSM Evaluated",
+              "description": "Kernel Samepage Merging (KSM) is evaluated for memory efficiency.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "HyperConverged Operator Stack from Deployment to Optimization",
+          "description": "Architecture and maturity progression of the KubeVirt operator stack across node configuration, operational validation, and performance tuning.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The virtualization infrastructure comprises the HyperConverged Operator, KubeVirt components (virt-controller, virt-handler, virt-api), and CDI, deployed on RHCOS worker nodes with hardware virtualization extensions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "HCO serves as the single entry point for deploying and reconciling all virtualization components. Worker nodes require bare metal or compatible cloud infrastructure with Intel VT-x or AMD-V extensions. The platform supports AMD64, ARM64, and IBM Z architectures with varying feature availability."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "TLS certificates rotate automatically (daily for KubeVirt, every 15 days for CDI, yearly for MAC pool), eliminating manual certificate management. GPU passthrough and vGPU support enable AI/ML and rendering workloads with near-bare-metal performance."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "Infrastructure maturity progresses from basic operator deployment through node configuration and operational validation to advanced optimization with GPU passthrough, NUMA awareness, and dedicated migration networks."
+            }
+          ],
+          "citationNames": [
+            "Red Hat OpenShift Container Platform 4.22 - Installing Virtualization",
+            "Enabling vGPU in a Single Node using OpenShift Virtualization"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Virtual Machine Workload",
+      "description": "Individual VM lifecycle from template creation through production operation and governance.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Asset",
+      "relatesTo": [
+        {
+          "relationship": "depends on",
+          "alphaName": "Virtualization Infrastructure",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "depends on",
+          "alphaName": "VM Storage Configuration",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "connected through",
+          "alphaName": "VM Network Configuration",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "virtual-machine-workload-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Templates Established",
+          "description": "VM creation templates, instance types, and golden images are available.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Instance Types Defined",
+              "description": "Instance types define resource profiles for common workload patterns.",
+              "seq": 1
+            },
+            {
+              "name": "Golden Images Imported",
+              "description": "Golden images for supported operating systems are imported and stored.",
+              "seq": 2
+            },
+            {
+              "name": "Templates Reference Boot Sources",
+              "description": "VM templates reference boot sources and OS-specific preferences.",
+              "seq": 3
+            },
+            {
+              "name": "Automatic Image Updates",
+              "description": "Automatic golden image updates are configured via CDI polling.",
+              "seq": 4
+            },
+            {
+              "name": "Windows Images Prepared",
+              "description": "Windows golden images are prepared using the UEFI installer pipeline where required.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "VMs Provisioned",
+          "description": "VMs are created and running with appropriate configurations.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "VMs From Templates",
+              "description": "VMs are deployed from approved templates or instance types.",
+              "seq": 1
+            },
+            {
+              "name": "Guest Agent Installed",
+              "description": "QEMU guest agent is installed and reporting guest OS information.",
+              "seq": 2
+            },
+            {
+              "name": "Storage Attached",
+              "description": "Storage volumes are attached via PVCs with appropriate access modes.",
+              "seq": 3
+            },
+            {
+              "name": "Networks Configured",
+              "description": "Network interfaces are configured for pod and required secondary networks.",
+              "seq": 4
+            },
+            {
+              "name": "Resource Limits Set",
+              "description": "Resource requests and limits are set for CPU and memory.",
+              "seq": 5
+            },
+            {
+              "name": "Naming Conventions",
+              "description": "VM names conform to naming conventions for migration compatibility.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Lifecycle Automated",
+          "description": "VM operations managed through automation and self-service workflows.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Self-Service Provisioning",
+              "description": "VM provisioning is available as self-service through console or GitOps pipelines.",
+              "seq": 1
+            },
+            {
+              "name": "Snapshot and Clone Operations",
+              "description": "Snapshot and clone operations are routinely used for environment replication.",
+              "seq": 2
+            },
+            {
+              "name": "Hot-Plug Capabilities",
+              "description": "Hot-plug capabilities enable adding NICs and storage without downtime.",
+              "seq": 3
+            },
+            {
+              "name": "Automated Golden Image Lifecycle",
+              "description": "Golden image lifecycle is automated with OpenShift Pipelines and GitOps.",
+              "seq": 4
+            },
+            {
+              "name": "CSI Snapshots Capture State",
+              "description": "CSI snapshots capture VM state including all attached volumes and metadata.",
+              "seq": 5
+            },
+            {
+              "name": "Filesystem Freezing",
+              "description": "QEMU guest agent filesystem freezing ensures snapshot consistency.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Lifecycle Governed",
+          "description": "VM lifecycle governed with policies, quotas, and compliance controls.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Application-Aware Quotas",
+              "description": "Application-aware quotas enforce resource limits per project and namespace.",
+              "seq": 1
+            },
+            {
+              "name": "RBAC Restrictions",
+              "description": "RBAC policies restrict VM operations based on team roles.",
+              "seq": 2
+            },
+            {
+              "name": "Decommissioning Processes",
+              "description": "VM decommissioning processes ensure proper cleanup of storage and network resources.",
+              "seq": 3
+            },
+            {
+              "name": "Compliance Scanning",
+              "description": "Compliance scanning validates VM configurations against security policies.",
+              "seq": 4
+            },
+            {
+              "name": "Backup Schedules",
+              "description": "OADP backup schedules protect critical VM workloads with retention policies.",
+              "seq": 5
+            },
+            {
+              "name": "Performance SLAs Defined",
+              "description": "Performance SLAs are defined and tracked for all VM workload tiers.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "VM Lifecycle from Golden Images to Governed Operations",
+          "description": "Lifecycle progression of VMs from template creation and golden image pipelines through provisioning to automated governance.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "VMs are created from templates, instance types, golden images, or raw VirtualMachine manifests, with instance types defining resource profiles and preferences defining OS-specific settings."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "Golden images are published as container disks and automatically updated by CDI. VM operations include start, stop, pause, restart, clone, snapshot, and live migration, managed through kubectl, virtctl CLI, or the OpenShift web console."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "The QEMU guest agent provides guest OS information, enables filesystem freezing for consistent snapshots, and reports network interface details. OADP with kubevirt plugin supports both containerized applications and VMs for backup and restore."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "VM lifecycle maturity progresses from template standardization through automated provisioning to governed operations with policy enforcement, backup automation, and compliance tracking."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Virtualization: Containers, KVM, and Your VMs",
+            "Automate VM Golden Image Management with OpenShift"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "VM Storage Configuration",
+      "description": "CDI-based storage provisioning, data import, and volume management for virtual machine workloads.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "enables persistence for",
+          "alphaName": "Virtual Machine Workload",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "integrates with",
+          "alphaName": "Virtualization Infrastructure",
+          "direction": "mutual"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "vm-storage-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Storage Provisioned",
+          "description": "Storage classes and PVCs are configured for VM disk provisioning.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "StorageClasses Defined",
+              "description": "StorageClasses are defined for VM workloads with appropriate provisioner and reclaim policies.",
+              "seq": 1
+            },
+            {
+              "name": "Block Volume Mode Default",
+              "description": "Block volume mode is configured as the default for VM disks.",
+              "seq": 2
+            },
+            {
+              "name": "CDI Operational",
+              "description": "CDI is operational and can import disk images from HTTP or registry sources.",
+              "seq": 3
+            },
+            {
+              "name": "PVCs Bound",
+              "description": "PVCs are successfully bound for VM boot and data disks.",
+              "seq": 4
+            },
+            {
+              "name": "Windows Storage Classes",
+              "description": "Dedicated storage classes are configured for Windows VMs where ODF is used.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Data Import Operational",
+          "description": "VM disk images are imported and managed through CDI pipelines.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Automated Golden Image Import",
+              "description": "Golden image import is automated via CDI polling from container registries.",
+              "seq": 1
+            },
+            {
+              "name": "Multiple Import Sources",
+              "description": "CDI import supports all required sources (HTTP, registry, S3, existing PVC).",
+              "seq": 2
+            },
+            {
+              "name": "CSI Volume Cloning",
+              "description": "CSI volume cloning is used as the primary cloning strategy.",
+              "seq": 3
+            },
+            {
+              "name": "DataVolumes Used",
+              "description": "Data volumes are used for declarative disk provisioning.",
+              "seq": 4
+            },
+            {
+              "name": "Smart Cloning Fallback",
+              "description": "Smart cloning is available as a fallback when CSI cloning is not supported.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Storage Performance Tuned",
+          "description": "Storage is optimized for VM workload requirements.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "RWX for Live Migration",
+              "description": "RWX access mode is configured for all VMs requiring live migration.",
+              "seq": 1
+            },
+            {
+              "name": "Block Mode Verified",
+              "description": "Block volume mode is verified for all production VM disks.",
+              "seq": 2
+            },
+            {
+              "name": "Storage Metrics Monitored",
+              "description": "Storage performance metrics are monitored via Prometheus.",
+              "seq": 3
+            },
+            {
+              "name": "Storage Live Migration",
+              "description": "Storage live migration is available for rebalancing between providers.",
+              "seq": 4
+            },
+            {
+              "name": "Snapshot Capabilities Verified",
+              "description": "Volume snapshot capabilities are verified for the configured CSI driver.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Storage Integrated",
+          "description": "Storage integrated with backup, recovery, and DR workflows.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "CSI Snapshots Routine",
+              "description": "CSI snapshots are routinely created for VM state capture.",
+              "seq": 1
+            },
+            {
+              "name": "OADP Integration",
+              "description": "OADP integration is operational for VM backup and restore.",
+              "seq": 2
+            },
+            {
+              "name": "ODF DR Capabilities",
+              "description": "OpenShift Data Foundation provides distributed storage with DR capabilities.",
+              "seq": 3
+            },
+            {
+              "name": "Capacity Planning",
+              "description": "Storage capacity planning accounts for snapshot retention and cloning overhead.",
+              "seq": 4
+            },
+            {
+              "name": "Multi-Disk Snapshot Support",
+              "description": "VolumeGroupSnapshot enables consistent multi-disk VM backups.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "CDI-Backed Persistent Storage for Virtual Machines",
+          "description": "Storage architecture using Kubernetes-native CSI primitives and CDI for VM disk image management, snapshots, and data protection.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "VMs use native Kubernetes storage primitives with CDI enabling disk image import from HTTP endpoints, container registries, S3 object stores, and existing PVC clones."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "Block volume mode provides significantly better performance than Filesystem mode for VM disks and is the default. RWX access mode is required for live migration, enabling multiple nodes to access the same persistent volume simultaneously."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "CDI supports multiple cloning strategies (CSI volume cloning preferred, smart cloning, host-assisted fallback) with storage live migration available from OpenShift Virtualization 4.17 for rebalancing between storage providers."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "VM storage maturity moves from basic provisioning through CDI-automated import and performance tuning to full integration with backup, snapshot, and disaster recovery workflows."
+            }
+          ],
+          "citationNames": [
+            "Storage Considerations for OpenShift Virtualization",
+            "Storage and Data Protection for OpenShift Virtualization"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "VM Network Configuration",
+      "description": "Network connectivity for VMs including pod networks, secondary networks, and high-performance networking.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "provides connectivity for",
+          "alphaName": "Virtual Machine Workload",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "integrates with",
+          "alphaName": "Virtualization Infrastructure",
+          "direction": "mutual"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "vm-network-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Basic Connectivity",
+          "description": "VMs have pod network access with default masquerade binding.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Pod Network Connected",
+              "description": "VMs connect to the cluster pod network via masquerade binding.",
+              "seq": 1
+            },
+            {
+              "name": "Cluster Communication",
+              "description": "VMs can communicate with other pods and services within the cluster.",
+              "seq": 2
+            },
+            {
+              "name": "DNS Resolution",
+              "description": "DNS resolution is functional for VMs through the cluster DNS service.",
+              "seq": 3
+            },
+            {
+              "name": "Basic Network Policies",
+              "description": "Basic network policies are applied to VM namespaces.",
+              "seq": 4
+            },
+            {
+              "name": "nmstate Deployed",
+              "description": "The nmstate operator is deployed for declarative node network management.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Secondary Networks Configured",
+          "description": "Multus-based secondary networks provide additional connectivity.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Multus NADs Configured",
+              "description": "Multus CNI is configured with NetworkAttachmentDefinitions for required network types.",
+              "seq": 1
+            },
+            {
+              "name": "OVN-Kubernetes Topologies",
+              "description": "OVN-Kubernetes localnet or layer2 topologies are configured for VM connectivity.",
+              "seq": 2
+            },
+            {
+              "name": "Linux Bridge Networks",
+              "description": "Linux bridge networks are established where physical network access is needed.",
+              "seq": 3
+            },
+            {
+              "name": "VMs Attached to Networks",
+              "description": "VMs are attached to appropriate secondary networks based on workload requirements.",
+              "seq": 4
+            },
+            {
+              "name": "NNCP Resources Defined",
+              "description": "NodeNetworkConfigurationPolicy resources define node-level network configurations.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Advanced Networking Active",
+          "description": "High-performance and specialized networking features are operational.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "SR-IOV Configured",
+              "description": "SR-IOV is configured for workloads requiring high bandwidth or low latency.",
+              "seq": 1
+            },
+            {
+              "name": "DPDK Workloads Running",
+              "description": "DPDK workloads are running over SR-IOV networks where applicable.",
+              "seq": 2
+            },
+            {
+              "name": "Hot-Plug NICs",
+              "description": "Hot-plug NIC operations are used for dynamic network reconfiguration.",
+              "seq": 3
+            },
+            {
+              "name": "Dedicated Migration Network",
+              "description": "A dedicated Multus network is established for live migration traffic.",
+              "seq": 4
+            },
+            {
+              "name": "External Access Configured",
+              "description": "External access is configured via Routes, LoadBalancer, or FQDN for secondary network VMs.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Networking Optimized",
+          "description": "Network architecture optimized for performance, security, and multi-tenancy.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Multi-Network Policies",
+              "description": "Multi-network policies enforce traffic isolation across VM workloads.",
+              "seq": 1
+            },
+            {
+              "name": "Performance Monitored",
+              "description": "Network performance is monitored and baselined with Prometheus metrics.",
+              "seq": 2
+            },
+            {
+              "name": "NUMA-Aligned NICs",
+              "description": "Network topology aligns with NUMA node placement for SR-IOV NICs.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-Tenant Isolation",
+              "description": "Network segmentation supports multi-tenant isolation requirements.",
+              "seq": 4
+            },
+            {
+              "name": "Migration Bandwidth Sized",
+              "description": "Migration network bandwidth is sized for concurrent migration workloads.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Pod and Secondary Network Connectivity for VMs",
+          "description": "Network architecture progressing from pod network masquerade through Multus secondary networks to SR-IOV high-performance connectivity.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "VMs connect to the default pod network via masquerade binding for basic SDN access, with secondary network attachment through Multus CNI enabling Linux bridge, OVN-Kubernetes, and SR-IOV connections."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "OVN-Kubernetes localnet topology is recommended for exposing VMs to physical networks, while layer2 topology provides overlay networking preserving IP addresses across live migration. SR-IOV enables high-bandwidth, low-latency networking for performance-critical workloads including DPDK."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Hot-plug support allows adding and removing secondary NICs without stopping VMs. Dedicated migration networks minimize live migration impact on tenant workloads, preventing bandwidth contention during memory-state transfer."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "VM networking maturity progresses from pod network connectivity through Multus secondary networks to SR-IOV high-performance networking and optimized multi-tenant network architectures."
+            }
+          ],
+          "citationNames": [
+            "Demystifying Multus",
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Virtualization Platform Configuration",
+      "description": "Declarative configuration defining the OpenShift Virtualization operator stack and node settings.",
+      "levelsOfDetail": [
+        {
+          "name": "Default Operator Installation",
+          "description": "Minimal operator installation with default settings.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Default HyperConverged CR",
+              "description": "HyperConverged CR is created with default values.",
+              "seq": 1
+            },
+            {
+              "name": "Default Feature Gates",
+              "description": "Default feature gates and operator settings are accepted.",
+              "seq": 2
+            },
+            {
+              "name": "No Custom Node Config",
+              "description": "No custom node labeling or taint configuration.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Operator Deployed"
+            }
+          ]
+        },
+        {
+          "name": "Defined",
+          "description": "Documented settings for all operator components.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Explicit HCO Settings",
+              "description": "HyperConverged CR includes explicit settings for all configurable parameters.",
+              "seq": 1
+            },
+            {
+              "name": "Node Labels and Taints",
+              "description": "Node labels and taints designate VM-hosting worker nodes.",
+              "seq": 2
+            },
+            {
+              "name": "Storage Classes Defined",
+              "description": "Storage classes are defined with appropriate provisioner configurations.",
+              "seq": 3
+            },
+            {
+              "name": "Network Config Documented",
+              "description": "Network configuration is documented through NNCP resources.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Nodes Configured"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Baselined"
+            }
+          ]
+        },
+        {
+          "name": "Tuned",
+          "description": "Performance-tuned configuration with advanced features.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "CPU and NUMA Settings",
+              "description": "CPU pinning, huge pages, and NUMA settings are defined for performance workloads.",
+              "seq": 1
+            },
+            {
+              "name": "Advanced Feature Gates",
+              "description": "Feature gates for advanced capabilities are enabled.",
+              "seq": 2
+            },
+            {
+              "name": "Migration Network Configured",
+              "description": "Dedicated migration network is configured via Multus.",
+              "seq": 3
+            },
+            {
+              "name": "GPU Device Configurations",
+              "description": "GPU/vGPU device configurations are specified.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Optimized"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Evolving"
+            }
+          ]
+        },
+        {
+          "name": "Automated",
+          "description": "GitOps-managed configuration with automated validation.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "GitOps Managed",
+              "description": "All configuration is managed through GitOps pipelines with version control.",
+              "seq": 1
+            },
+            {
+              "name": "Drift Detection",
+              "description": "Configuration drift detection and automated remediation are operational.",
+              "seq": 2
+            },
+            {
+              "name": "Automated Validation",
+              "description": "Configuration changes undergo automated validation before application.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-Cluster Overlays",
+              "description": "Environment-specific configurations use overlays for multi-cluster consistency.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Optimized"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "VM Template Library",
+      "description": "Reusable VM templates, instance types, and golden images for standardized provisioning.",
+      "levelsOfDetail": [
+        {
+          "name": "Default Templates",
+          "description": "Red Hat-provided default templates and golden images.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Default Templates Available",
+              "description": "Default RHEL and Fedora templates are available from the catalog.",
+              "seq": 1
+            },
+            {
+              "name": "Red Hat Golden Images",
+              "description": "Red Hat golden images are imported automatically by CDI.",
+              "seq": 2
+            },
+            {
+              "name": "No Custom Templates",
+              "description": "No custom templates or instance types are defined.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Templates Established"
+            }
+          ]
+        },
+        {
+          "name": "Custom Templates",
+          "description": "Organization-specific templates with defined instance types.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Custom Instance Types",
+              "description": "Custom instance types define resource profiles for organizational workload patterns.",
+              "seq": 1
+            },
+            {
+              "name": "VM Preferences",
+              "description": "VM preferences configure OS-specific settings for supported guest operating systems.",
+              "seq": 2
+            },
+            {
+              "name": "Custom Golden Images",
+              "description": "Custom golden images are created for organizational base OS standards.",
+              "seq": 3
+            },
+            {
+              "name": "Windows Golden Images",
+              "description": "Windows golden images are prepared using the UEFI installer pipeline.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Templates Established"
+            }
+          ]
+        },
+        {
+          "name": "Managed Library",
+          "description": "Template library with automated updates and governance.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Automated Updates",
+              "description": "Golden image updates are automated through OpenShift Pipelines.",
+              "seq": 1
+            },
+            {
+              "name": "Version Tracking",
+              "description": "Template versions are tracked and deprecated templates are archived.",
+              "seq": 2
+            },
+            {
+              "name": "Security Hardening",
+              "description": "Templates include security hardening and compliance settings.",
+              "seq": 3
+            },
+            {
+              "name": "Service Tier Mapping",
+              "description": "Instance types map to organizational service tiers.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Automated"
+            }
+          ]
+        },
+        {
+          "name": "Self-Service Catalog",
+          "description": "Self-service VM catalog with approval workflows.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Catalog with Documentation",
+              "description": "Service catalog exposes templates with documentation and cost estimates.",
+              "seq": 1
+            },
+            {
+              "name": "Approval Workflows",
+              "description": "Approval workflows gate resource-intensive VM provisioning.",
+              "seq": 2
+            },
+            {
+              "name": "Multi-Cluster Distribution",
+              "description": "Golden images are distributed across clusters via GitOps.",
+              "seq": 3
+            },
+            {
+              "name": "Policy Validation",
+              "description": "Template compliance is validated against organizational policies.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Governed"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Network Architecture Document",
+      "description": "Documentation of VM networking topology, policies, and configurations.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Diagram",
+          "description": "High-level pod network connectivity diagram.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Pod Network Topology",
+              "description": "Default pod network topology is documented.",
+              "seq": 1
+            },
+            {
+              "name": "Masquerade Binding",
+              "description": "Masquerade binding configuration is described.",
+              "seq": 2
+            },
+            {
+              "name": "Network Policies Listed",
+              "description": "Basic network policies are listed.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Network Configuration",
+              "stateName": "Basic Connectivity"
+            }
+          ]
+        },
+        {
+          "name": "Detailed Design",
+          "description": "Comprehensive design including secondary networks.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Secondary Network Topologies",
+              "description": "Secondary network topologies are documented.",
+              "seq": 1
+            },
+            {
+              "name": "NAD Catalog",
+              "description": "NetworkAttachmentDefinitions are cataloged with binding configurations.",
+              "seq": 2
+            },
+            {
+              "name": "Microsegmentation Policies",
+              "description": "Network policies for VM microsegmentation are defined.",
+              "seq": 3
+            },
+            {
+              "name": "NNCP Documentation",
+              "description": "NNCP resources for node network configuration are documented.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Network Configuration",
+              "stateName": "Secondary Networks Configured"
+            }
+          ]
+        },
+        {
+          "name": "Performance Architecture",
+          "description": "Network architecture with SR-IOV and optimization.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "SR-IOV Policies Documented",
+              "description": "SR-IOV policies and network configurations are documented with NUMA alignment.",
+              "seq": 1
+            },
+            {
+              "name": "DPDK Paths Mapped",
+              "description": "DPDK workload network paths are mapped.",
+              "seq": 2
+            },
+            {
+              "name": "Migration Network Sizing",
+              "description": "Dedicated migration network topology and bandwidth sizing are specified.",
+              "seq": 3
+            },
+            {
+              "name": "BGP Routing Documented",
+              "description": "BGP routing configuration is documented for VM workloads.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Network Configuration",
+              "stateName": "Advanced Networking Active"
+            }
+          ]
+        },
+        {
+          "name": "Automated Configuration",
+          "description": "Network configuration as code with automated validation.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Declarative Resources in Git",
+              "description": "All network configurations are managed through declarative resources in Git.",
+              "seq": 1
+            },
+            {
+              "name": "Automated Testing",
+              "description": "Network connectivity testing is automated for regression detection.",
+              "seq": 2
+            },
+            {
+              "name": "Performance Baselines",
+              "description": "Network performance baselines are established and monitored.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-Cluster Topology",
+              "description": "Multi-cluster network topology is documented with DR implications.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Network Configuration",
+              "stateName": "Networking Optimized"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Storage Configuration",
+      "description": "Storage architecture defining classes, provisioners, and volume configurations for VM workloads.",
+      "levelsOfDetail": [
+        {
+          "name": "Default Storage Classes",
+          "description": "Default storage classes configured for VM disks.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "VM Disk StorageClass",
+              "description": "Default StorageClass is designated for VM disk creation.",
+              "seq": 1
+            },
+            {
+              "name": "PVC Templates",
+              "description": "PVC templates are defined for boot and data disks.",
+              "seq": 2
+            },
+            {
+              "name": "Block Volume Mode",
+              "description": "Volume mode is set to Block for VM workloads.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Storage Configuration",
+              "stateName": "Storage Provisioned"
+            }
+          ]
+        },
+        {
+          "name": "Defined Architecture",
+          "description": "Storage architecture with multiple classes and CDI.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Performance Tiers",
+              "description": "Multiple storage classes address different performance tiers.",
+              "seq": 1
+            },
+            {
+              "name": "CDI Import Sources",
+              "description": "CDI import configurations support all required data sources.",
+              "seq": 2
+            },
+            {
+              "name": "Cloning Strategies",
+              "description": "Cloning strategies are documented.",
+              "seq": 3
+            },
+            {
+              "name": "Windows Storage Classes",
+              "description": "Windows-specific storage classes are defined for ODF environments.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Storage Configuration",
+              "stateName": "Data Import Operational"
+            }
+          ]
+        },
+        {
+          "name": "Snapshot-Enabled Performance Storage",
+          "description": "Storage tuned for performance with snapshot capabilities.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "RWX Access Mode",
+              "description": "RWX access mode is configured for live-migratable VMs.",
+              "seq": 1
+            },
+            {
+              "name": "Snapshot Classes Defined",
+              "description": "CSI snapshot classes are defined and tested.",
+              "seq": 2
+            },
+            {
+              "name": "Storage Live Migration",
+              "description": "Storage live migration is configured for rebalancing.",
+              "seq": 3
+            },
+            {
+              "name": "VolumeGroupSnapshot Validated",
+              "description": "VolumeGroupSnapshot support is validated for multi-disk VMs.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Storage Configuration",
+              "stateName": "Storage Performance Tuned"
+            }
+          ]
+        },
+        {
+          "name": "Integrated Platform",
+          "description": "Storage integrated with backup, DR, and capacity management.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "ODF DR Storage",
+              "description": "ODF provides distributed storage with DR capabilities.",
+              "seq": 1
+            },
+            {
+              "name": "Capacity Forecasting",
+              "description": "Storage capacity monitoring and forecasting are automated.",
+              "seq": 2
+            },
+            {
+              "name": "Performance SLAs",
+              "description": "Storage performance SLAs are tracked per workload class.",
+              "seq": 3
+            },
+            {
+              "name": "Automated Tiering",
+              "description": "Automated storage tiering optimizes cost and performance.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Storage Configuration",
+              "stateName": "Storage Integrated"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Migration Plan",
+      "description": "Structured plan for migrating VMs from legacy virtualization platforms to OpenShift Virtualization.",
+      "levelsOfDetail": [
+        {
+          "name": "Assessment",
+          "description": "Inventory and high-level migration approach.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Source VM Inventory",
+              "description": "Source VM inventory lists workloads, resources, and dependencies.",
+              "seq": 1
+            },
+            {
+              "name": "Migration Strategy Identified",
+              "description": "Migration strategy is identified per workload group.",
+              "seq": 2
+            },
+            {
+              "name": "Target Capacity Estimated",
+              "description": "Target environment capacity is estimated.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Templates Established"
+            }
+          ]
+        },
+        {
+          "name": "Detailed Plan",
+          "description": "Wave-by-wave migration schedule with rollback.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Migration Waves",
+              "description": "Migration waves group VMs by dependency and priority.",
+              "seq": 1
+            },
+            {
+              "name": "Pre-Migration Prerequisites",
+              "description": "Pre-migration prerequisites are documented per source platform.",
+              "seq": 2
+            },
+            {
+              "name": "Validation Criteria",
+              "description": "Validation criteria define success for each migrated VM.",
+              "seq": 3
+            },
+            {
+              "name": "Rollback Procedures",
+              "description": "Rollback procedures document recovery steps.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "VMs Provisioned"
+            }
+          ]
+        },
+        {
+          "name": "Automated Playbook",
+          "description": "Automation-driven migration with Ansible integration.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Ansible Playbooks",
+              "description": "Ansible playbooks automate migration plan creation and execution.",
+              "seq": 1
+            },
+            {
+              "name": "Automated Pre-Checks",
+              "description": "Automated pre-migration checks validate source VM readiness.",
+              "seq": 2
+            },
+            {
+              "name": "Post-Migration Validation",
+              "description": "Post-migration validation scripts verify functionality.",
+              "seq": 3
+            },
+            {
+              "name": "Migration Dashboards",
+              "description": "Migration dashboards track progress across waves.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Automated"
+            }
+          ]
+        },
+        {
+          "name": "Migration Factory",
+          "description": "Repeatable migration factory with continuous improvement.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Migration Templates",
+              "description": "Migration templates enable rapid onboarding of new source environments.",
+              "seq": 1
+            },
+            {
+              "name": "Performance Benchmarks",
+              "description": "Performance benchmarks compare pre- and post-migration behavior.",
+              "seq": 2
+            },
+            {
+              "name": "Process Optimization",
+              "description": "Migration metrics drive process optimization.",
+              "seq": 3
+            },
+            {
+              "name": "Modernization Assessment",
+              "description": "Modernization assessment identifies containerization candidates.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Governed"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Disaster Recovery Runbook",
+      "description": "Operational procedures for DR failover, failback, and recovery validation.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Procedures",
+          "description": "High-level failover and failback steps.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Failover Trigger Criteria",
+              "description": "Failover trigger criteria are listed.",
+              "seq": 1
+            },
+            {
+              "name": "Manual Failover Steps",
+              "description": "Manual failover steps are documented.",
+              "seq": 2
+            },
+            {
+              "name": "Failback Requirements",
+              "description": "Failback requirements are identified.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            }
+          ]
+        },
+        {
+          "name": "Detailed Runbook",
+          "description": "Step-by-step procedures with decision trees.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Decision Trees",
+              "description": "Decision trees guide failover decisions.",
+              "seq": 1
+            },
+            {
+              "name": "Metro-DR and Regional-DR",
+              "description": "Procedures cover Metro-DR and Regional-DR scenarios.",
+              "seq": 2
+            },
+            {
+              "name": "Data Integrity Validation",
+              "description": "Validation checks confirm data integrity after failover.",
+              "seq": 3
+            },
+            {
+              "name": "Communication Templates",
+              "description": "Communication templates notify stakeholders during DR events.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            }
+          ]
+        },
+        {
+          "name": "Tested Playbook",
+          "description": "DR procedures validated through regular testing.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "DR Test Results",
+              "description": "DR test results document achieved RTO and RPO metrics.",
+              "seq": 1
+            },
+            {
+              "name": "Known Issues Documented",
+              "description": "Known issues and workarounds are documented.",
+              "seq": 2
+            },
+            {
+              "name": "Automated Pre-Checks",
+              "description": "Automated pre-checks validate DR readiness before failover.",
+              "seq": 3
+            },
+            {
+              "name": "Hub Recovery Procedures",
+              "description": "Hub recovery procedures are documented and tested.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            }
+          ]
+        },
+        {
+          "name": "Automated DR Operations",
+          "description": "Automated DR with orchestrated failover.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Alert-Triggered Failover",
+              "description": "Automated failover is triggered by monitoring alerts.",
+              "seq": 1
+            },
+            {
+              "name": "Continuous DR Validation",
+              "description": "DR state is continuously validated through health checks.",
+              "seq": 2
+            },
+            {
+              "name": "DR SLA Reporting",
+              "description": "DR metrics are reported against defined SLAs.",
+              "seq": 3
+            },
+            {
+              "name": "Automated Failback",
+              "description": "Automated failback orchestrates return to primary.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Evolving"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Monitoring and Alerting Configuration",
+      "description": "Configuration defining metrics collection, alert rules, and dashboards for VM observability.",
+      "levelsOfDetail": [
+        {
+          "name": "Default Monitoring",
+          "description": "Default Prometheus metrics and alerts for VMs.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Default Alerts Active",
+              "description": "Default virtualization alerts are active.",
+              "seq": 1
+            },
+            {
+              "name": "Built-in Metrics",
+              "description": "Built-in Prometheus metrics are available for VM workloads.",
+              "seq": 2
+            },
+            {
+              "name": "Top Consumers Dashboard",
+              "description": "Top Consumers dashboard shows basic resource utilization.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Operational"
+            }
+          ]
+        },
+        {
+          "name": "Enhanced Monitoring",
+          "description": "Custom metrics, alerts, and dashboards.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Custom PromQL Queries",
+              "description": "Custom PromQL queries are defined for application-specific metrics.",
+              "seq": 1
+            },
+            {
+              "name": "Node-Exporter on VMs",
+              "description": "Node-exporter is deployed on VMs for guest OS metrics.",
+              "seq": 2
+            },
+            {
+              "name": "Custom Alerting Rules",
+              "description": "Custom alerting rules define thresholds for performance.",
+              "seq": 3
+            },
+            {
+              "name": "Performance Dashboards",
+              "description": "Dashboards visualize VM lifecycle and performance trends.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Automated"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Cluster Monitoring",
+          "description": "Centralized monitoring across clusters with RHACM.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "RHACM Dashboards",
+              "description": "RHACM dashboards aggregate VM metrics from managed clusters.",
+              "seq": 1
+            },
+            {
+              "name": "Cross-Cluster Alerting",
+              "description": "Cross-cluster alerting correlates events across environments.",
+              "seq": 2
+            },
+            {
+              "name": "Anomaly Detection Baselines",
+              "description": "Performance baselines detect anomalies across the VM fleet.",
+              "seq": 3
+            },
+            {
+              "name": "Capacity Forecasting",
+              "description": "Capacity forecasting uses historical data for resource planning.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Optimized"
+            }
+          ]
+        },
+        {
+          "name": "Observability Platform",
+          "description": "Full observability with automated analysis.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Anomaly Detection",
+              "description": "Anomaly detection identifies performance degradation before impact.",
+              "seq": 1
+            },
+            {
+              "name": "Alert-Driven Automation",
+              "description": "Alert-driven automation triggers remediation workflows.",
+              "seq": 2
+            },
+            {
+              "name": "Compliance Metrics",
+              "description": "Compliance metrics are integrated into observability dashboards.",
+              "seq": 3
+            },
+            {
+              "name": "OpenTelemetry Integration",
+              "description": "OpenTelemetry integration provides end-to-end trace correlation.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Governed"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Security and Compliance Report",
+      "description": "Assessment of security posture and compliance status for the virtualization platform.",
+      "levelsOfDetail": [
+        {
+          "name": "Security Checklist",
+          "description": "Checklist of security controls implemented.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "RBAC Roles Listed",
+              "description": "RBAC roles are listed for VM operations.",
+              "seq": 1
+            },
+            {
+              "name": "SCCs Documented",
+              "description": "SCCs for virt-launcher pods are documented.",
+              "seq": 2
+            },
+            {
+              "name": "Network Policies Listed",
+              "description": "Network policies are listed.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            }
+          ]
+        },
+        {
+          "name": "Security Assessment",
+          "description": "Detailed assessment with gap analysis.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Compliance Scan Results",
+              "description": "Compliance scan results document adherence to security profiles.",
+              "seq": 1
+            },
+            {
+              "name": "RBAC Role Mapping",
+              "description": "RBAC role assignments are mapped to organizational responsibilities.",
+              "seq": 2
+            },
+            {
+              "name": "Network Segmentation Validated",
+              "description": "Network segmentation is documented and validated.",
+              "seq": 3
+            },
+            {
+              "name": "TLS Rotation Status",
+              "description": "TLS certificate rotation status is verified.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            }
+          ]
+        },
+        {
+          "name": "Compliance Report",
+          "description": "Formal compliance report with remediation tracking.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Compliance Scores Tracked",
+              "description": "Compliance scores are tracked against defined security profiles.",
+              "seq": 1
+            },
+            {
+              "name": "Remediation Plans",
+              "description": "Remediation plans address identified gaps with timelines.",
+              "seq": 2
+            },
+            {
+              "name": "Audit Trails",
+              "description": "Audit trails document VM lifecycle events and access patterns.",
+              "seq": 3
+            },
+            {
+              "name": "Vulnerability Scans",
+              "description": "Vulnerability scan results cover guest OS and platform components.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            }
+          ]
+        },
+        {
+          "name": "Continuous Compliance",
+          "description": "Automated compliance with continuous validation.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Continuous Scanning",
+              "description": "Continuous compliance scanning detects and remediates violations.",
+              "seq": 1
+            },
+            {
+              "name": "Policy-as-Code",
+              "description": "Policy-as-code enforces security standards.",
+              "seq": 2
+            },
+            {
+              "name": "Security KPIs",
+              "description": "Security metrics and KPIs are reported to stakeholders.",
+              "seq": 3
+            },
+            {
+              "name": "Penetration Testing",
+              "description": "Penetration test results validate platform security posture.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Evolving"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Backup and Recovery Configuration",
+      "description": "Configuration of OADP, snapshot schedules, and recovery procedures for VM data protection.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial OADP Deployment",
+          "description": "OADP installed with basic backup capability.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "OADP Installed",
+              "description": "OADP operator is installed with kubevirt plugin.",
+              "seq": 1
+            },
+            {
+              "name": "Backup Storage Location",
+              "description": "Backup storage location is configured.",
+              "seq": 2
+            },
+            {
+              "name": "Manual Backup Documented",
+              "description": "Manual backup creation is documented.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "VMs Provisioned"
+            }
+          ]
+        },
+        {
+          "name": "Scheduled Backups",
+          "description": "Automated backup schedules with retention policies.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Backup Schedules Configured",
+              "description": "Backup schedules are configured for critical VM workloads.",
+              "seq": 1
+            },
+            {
+              "name": "Retention Policies",
+              "description": "Retention policies govern backup lifecycle.",
+              "seq": 2
+            },
+            {
+              "name": "Data Mover Configured",
+              "description": "Data Mover is configured for off-site backup storage.",
+              "seq": 3
+            },
+            {
+              "name": "Backup Monitoring",
+              "description": "Backup success is verified through monitoring.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Automated"
+            }
+          ]
+        },
+        {
+          "name": "Validated Recovery",
+          "description": "Recovery procedures tested with documented outcomes.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Restore Procedures Tested",
+              "description": "Restore procedures are documented and tested.",
+              "seq": 1
+            },
+            {
+              "name": "RTO and RPO Validated",
+              "description": "RTO and RPO metrics are measured and validated.",
+              "seq": 2
+            },
+            {
+              "name": "Recovery Drills Scheduled",
+              "description": "Recovery drills are scheduled and results documented.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-Cluster Restore",
+              "description": "Cross-cluster restore is validated for DR scenarios.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Governed"
+            }
+          ]
+        },
+        {
+          "name": "Automated Protection",
+          "description": "Policy-driven backup with automated recovery validation.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Auto-Classification",
+              "description": "Backup policies automatically classify and protect new VM workloads.",
+              "seq": 1
+            },
+            {
+              "name": "Automated Recovery Validation",
+              "description": "Recovery validation runs automatically after each backup.",
+              "seq": 2
+            },
+            {
+              "name": "Backup Compliance Reporting",
+              "description": "Backup compliance is reported against organizational policies.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-Disk Backups",
+              "description": "VolumeGroupSnapshot enables consistent multi-disk backups.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Storage Configuration",
+              "stateName": "Storage Integrated"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Performance Tuning Guide",
+      "description": "Documentation of performance optimization configurations and benchmarks for VM workloads.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Settings",
+          "description": "Default resource allocations and recommendations.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Instance Type Recommendations",
+              "description": "Recommended instance types for common workload profiles are listed.",
+              "seq": 1
+            },
+            {
+              "name": "Block Volume Mode Default",
+              "description": "Block volume mode is documented as the default storage configuration.",
+              "seq": 2
+            },
+            {
+              "name": "Resource Guidelines",
+              "description": "Basic resource request and limit guidelines are provided.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "VMs Provisioned"
+            }
+          ]
+        },
+        {
+          "name": "Tuning Configuration",
+          "description": "Documented tuning for CPU, memory, and I/O.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "CPU Pinning Configs",
+              "description": "CPU pinning configurations are documented per workload type.",
+              "seq": 1
+            },
+            {
+              "name": "Huge Page Strategies",
+              "description": "Huge page allocation strategies are defined.",
+              "seq": 2
+            },
+            {
+              "name": "NUMA-Aware Scheduling",
+              "description": "NUMA-aware scheduling configuration is documented.",
+              "seq": 3
+            },
+            {
+              "name": "SR-IOV and DPDK Configs",
+              "description": "SR-IOV and DPDK configurations are specified for I/O workloads.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Optimized"
+            }
+          ]
+        },
+        {
+          "name": "Performance Benchmarks",
+          "description": "Measured benchmarks validating tuning effectiveness.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Tuned vs Default Comparison",
+              "description": "Performance benchmarks compare tuned vs default configurations.",
+              "seq": 1
+            },
+            {
+              "name": "Workload Tuning Profiles",
+              "description": "Workload-specific tuning profiles are documented with test results.",
+              "seq": 2
+            },
+            {
+              "name": "GPU Performance Validation",
+              "description": "GPU/vGPU performance is validated against bare-metal equivalents.",
+              "seq": 3
+            },
+            {
+              "name": "Network Throughput Measured",
+              "description": "Network throughput and latency are measured for each network type.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Optimized"
+            }
+          ]
+        },
+        {
+          "name": "Automated Performance Management",
+          "description": "Automated performance testing and optimization.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Regression Testing",
+              "description": "Automated performance regression testing runs after configuration changes.",
+              "seq": 1
+            },
+            {
+              "name": "SLA Dashboards",
+              "description": "Performance dashboards track workload metrics against SLAs.",
+              "seq": 2
+            },
+            {
+              "name": "Tuning Recommendations",
+              "description": "Tuning recommendations are generated from monitoring data.",
+              "seq": 3
+            },
+            {
+              "name": "Capacity Planning",
+              "description": "Capacity planning uses performance data for resource forecasting.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Governed"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Platform Engineer",
+      "description": "Designs, builds, and maintains the OpenShift Virtualization platform infrastructure.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Platform Engineering",
+          "Infrastructure"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Platform Team"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Virtualization Administrator",
+      "description": "Manages day-to-day VM operations including provisioning, monitoring, and troubleshooting.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Virtualization",
+          "Operations"
+        ],
+        "lifecycleTags": [
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Operations Team"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Network Engineer",
+      "description": "Designs and implements network architecture for VM workloads across all network planes.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Networking"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Network Team"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Storage Engineer",
+      "description": "Designs and manages storage architecture for VM persistent volumes and data protection.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Storage"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Storage Team"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Migration Specialist",
+      "description": "Plans and executes VM migrations from legacy platforms to OpenShift Virtualization.",
+      "competencies": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Migration",
+          "Modernization"
+        ],
+        "lifecycleTags": [
+          "Migration"
+        ],
+        "organizationalTags": [
+          "Migration Team"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Security Engineer",
+      "description": "Implements security controls, compliance validation, and hardening for the virtualization platform.",
+      "competencies": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Security",
+          "Compliance"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Security Team"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Reliability Engineer",
+      "description": "Ensures VM workload availability through HA, DR, and performance optimization.",
+      "competencies": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Reliability",
+          "Business Continuity"
+        ],
+        "lifecycleTags": [
+          "Operations"
+        ],
+        "organizationalTags": [
+          "SRE Team"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Performance Engineer",
+      "description": "Optimizes VM performance through compute, memory, network, and I/O tuning.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Performance",
+          "Optimization"
+        ],
+        "lifecycleTags": [
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Performance Team"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Application Developer",
+      "description": "Deploys and manages application workloads running on VMs within OpenShift.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Application Development"
+        ],
+        "lifecycleTags": [
+          "Development",
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Application Team"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Infrastructure Architect",
+      "description": "Designs the overall virtualization strategy and infrastructure architecture.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Platform Strategic Alignment",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Architecture",
+          "Strategy"
+        ],
+        "lifecycleTags": [
+          "Adoption"
+        ],
+        "organizationalTags": [
+          "Architecture Team"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Virtualization Platform Team",
+      "description": "Builds and maintains the OpenShift Virtualization platform infrastructure and tooling.",
+      "personaNames": [
+        "Platform Engineer",
+        "Virtualization Administrator",
+        "Network Engineer",
+        "Storage Engineer"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Platform Engineering"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Migration Team",
+      "description": "Plans and executes VM migrations from legacy virtualization platforms.",
+      "personaNames": [
+        "Migration Specialist",
+        "Virtualization Administrator",
+        "Infrastructure Architect"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Migration Program"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Operations Team",
+      "description": "Manages day-to-day VM operations, monitoring, and incident response.",
+      "personaNames": [
+        "Virtualization Administrator",
+        "Reliability Engineer",
+        "Performance Engineer"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "IT Operations"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Security and Compliance Team",
+      "description": "Implements and validates security controls and compliance for the virtualization platform.",
+      "personaNames": [
+        "Security Engineer",
+        "Platform Engineer",
+        "Reliability Engineer"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Security Operations"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Application Team",
+      "description": "Deploys and manages application workloads running on VMs.",
+      "personaNames": [
+        "Application Developer",
+        "Virtualization Administrator"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Application Development"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Architecture Team",
+      "description": "Defines virtualization strategy, infrastructure design, and technology roadmap.",
+      "personaNames": [
+        "Infrastructure Architect",
+        "Platform Engineer",
+        "Network Engineer",
+        "Storage Engineer"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Enterprise Architecture"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Install and Configure Virtualization Operator",
+      "description": "Deploy the OpenShift Virtualization operator stack and configure worker nodes for VM hosting.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "install-operator-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Virtualization Infrastructure",
+          "stateName": "Operator Deployed"
+        },
+        {
+          "alphaName": "Virtualization Infrastructure",
+          "stateName": "Nodes Configured"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Provisioned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Virtualization Platform Configuration",
+          "levelOfDetailName": "Defined"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Virtualization Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Deploying the Virtualization Operator via OperatorHub",
+          "description": "How to deploy the HyperConverged Operator, create the custom resource, and validate KubeVirt component health on worker nodes.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Deploy the HyperConverged Operator from OperatorHub, create the HyperConverged custom resource, and validate that all KubeVirt components are healthy on designated worker nodes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Install the operator through OLM, configure the HyperConverged CR in the openshift-cnv namespace, validate node readiness by confirming RHCOS, hardware virtualization extensions, and KVM modules. Configure node labeling, storage classes, and the nmstate operator for network management. Verify virt-handler DaemonSet runs on all designated nodes and basic VM operations succeed."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Common mistakes include deploying on nodes without hardware virtualization extensions, which causes silent failures. Neglecting to configure storage classes before VM creation leads to PVC binding failures. Skipping SCCs review for virt-launcher pods creates security policy conflicts."
+            }
+          ],
+          "citationNames": [
+            "Red Hat OpenShift Container Platform 4.22 - Installing Virtualization",
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Create and Manage VM Templates",
+      "description": "Design instance types, preferences, and golden images for standardized VM provisioning.",
+      "activitySpaceName": "Develop the Golden Paths",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "manage-templates-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Virtual Machine Workload",
+          "stateName": "Templates Established"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "VM Template Library",
+          "levelOfDetailName": "Custom Templates"
+        },
+        {
+          "workProductName": "VM Template Library",
+          "levelOfDetailName": "Managed Library"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Virtualization Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Building Golden Image Pipelines for Self-Service Provisioning",
+          "description": "How to create instance types, configure CDI polling for golden image updates, and establish template governance with version tracking.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Define instance types for compute resource profiles, configure CDI for golden image polling, and establish template governance with version tracking and automated updates via OpenShift Pipelines."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Create VirtualMachineClusterInstancetype resources for cluster-wide profiles and configure CDI to poll container registries for Red Hat base images, or for custom golden images build a base VM, generalize it, and publish as a container disk. Automate golden image lifecycle with OpenShift Pipelines and GitOps for multi-cluster distribution, using the UEFI installer pipeline for Windows images."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Key pitfalls to avoid include not automating golden image updates, which leads to stale, unpatched base images. Creating too many instance types fragments standardization. Neglecting Windows golden image preparation with UEFI pipeline causes boot failures."
+            }
+          ],
+          "citationNames": [
+            "Automate VM Golden Image Management with OpenShift",
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Provision and Configure Virtual Machines",
+      "description": "Create, configure, and deploy VMs using templates, instance types, or manifests.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "provision-vms-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Virtual Machine Workload",
+          "stateName": "VMs Provisioned"
+        },
+        {
+          "alphaName": "Virtual Machine Workload",
+          "stateName": "Lifecycle Automated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "VM Template Library",
+          "levelOfDetailName": "Custom Templates"
+        },
+        {
+          "workProductName": "Virtualization Platform Configuration",
+          "levelOfDetailName": "Defined"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Virtualization Platform Team",
+        "Application Team"
+      ],
+      "narratives": [
+        {
+          "name": "Creating VMs from Templates, Instance Types, and Manifests",
+          "description": "How to provision VMs via the web console, instance types, or YAML manifests with storage, networking, and guest agent configuration.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Create VMs from templates via the web console, from instance types, or from VirtualMachine YAML manifests. Configure storage, networking, and guest agent, then validate boot and connectivity."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Select a template with an available boot source, customize resource allocations, attach storage volumes (boot disk from golden image, data disks as PVCs), and install the QEMU guest agent for guest OS visibility. Use virtctl CLI for VM-specific operations and enforce VM naming conventions (47 characters or fewer) for live migration compatibility."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Teams frequently encounter issues such as VM names exceeding 47 characters, which prevent live migration. Neglecting QEMU guest agent installation loses guest OS visibility and prevents consistent snapshots. Setting Filesystem volume mode instead of Block degrades performance significantly."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Virtualization: Containers, KVM, and Your VMs",
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure VM Networking",
+      "description": "Design and implement network connectivity for VMs across pod, secondary, and external networks.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "configure-networking-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "VM Network Configuration",
+          "stateName": "Basic Connectivity"
+        },
+        {
+          "alphaName": "VM Network Configuration",
+          "stateName": "Secondary Networks Configured"
+        },
+        {
+          "alphaName": "VM Network Configuration",
+          "stateName": "Advanced Networking Active"
+        },
+        {
+          "alphaName": "VM Network Configuration",
+          "stateName": "Networking Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Network Architecture Document",
+          "levelOfDetailName": "Detailed Design"
+        },
+        {
+          "workProductName": "Network Architecture Document",
+          "levelOfDetailName": "Performance Architecture"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Virtualization Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Attaching VMs to Pod and Secondary Networks with Multus",
+          "description": "How to configure pod network masquerade, Multus secondary networks with OVN-Kubernetes or Linux bridge, and SR-IOV for high-performance connectivity.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Configure pod network masquerade binding, establish Multus secondary networks with OVN-Kubernetes or Linux bridge topologies, deploy SR-IOV for high-performance workloads, and set up dedicated migration networks."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Define NetworkAttachmentDefinition resources for secondary networks, configure OVN-Kubernetes localnet topology with NNCP mapping to physical interfaces, and for SR-IOV install the operator with SriovNetworkNodePolicy for virtual functions. Enable hot-plug NIC support, configure external access via Routes or LoadBalancer Services, and align NIC placement with NUMA topology for optimal performance."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Critical risks in this area include choosing Filesystem-mode bridges when localnet topology would be more appropriate. Not configuring a dedicated migration network causes migration traffic to compete with production workloads. Misaligning SR-IOV NIC placement with NUMA topology degrades network performance by 10% or more."
+            }
+          ],
+          "citationNames": [
+            "Demystifying Multus",
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure VM Storage",
+      "description": "Design and implement storage architecture for VM persistent volumes, data import, and cloning.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "configure-storage-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "VM Storage Configuration",
+          "stateName": "Storage Provisioned"
+        },
+        {
+          "alphaName": "VM Storage Configuration",
+          "stateName": "Data Import Operational"
+        },
+        {
+          "alphaName": "VM Storage Configuration",
+          "stateName": "Storage Performance Tuned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Storage Configuration",
+          "levelOfDetailName": "Defined Architecture"
+        },
+        {
+          "workProductName": "Storage Configuration",
+          "levelOfDetailName": "Snapshot-Enabled Performance Storage"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Virtualization Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Configuring CSI Storage Classes and CDI Data Import",
+          "description": "How to configure storage classes with block volume mode, CDI for multi-source disk import, and RWX access for live migration support.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Define StorageClasses with block volume mode as default, configure CDI for data import from multiple sources, ensure RWX access mode for live migration, and validate CSI snapshot capabilities."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Create storage classes with block volume mode as default and configure DataVolume resources for declarative disk provisioning, with CDI selecting the most efficient cloning strategy (CSI cloning preferred, smart cloning, host-assisted fallback). Validate RWX access for live migration scenarios and configure VolumeSnapshotClass resources for snapshot and restore operations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Frequent errors include using Filesystem volume mode instead of Block for VM disks, which reduces I/O performance significantly. Not configuring RWX access mode prevents live migration. Ignoring storage live migration capabilities from OpenShift Virtualization 4.17 misses rebalancing opportunities."
+            }
+          ],
+          "citationNames": [
+            "Storage Considerations for OpenShift Virtualization",
+            "Storage and Data Protection for OpenShift Virtualization"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Perform Live Migration",
+      "description": "Move running VMs between nodes without downtime for maintenance, balancing, or failure prevention.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "live-migration-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Virtualization Infrastructure",
+          "stateName": "Platform Operational"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Hosting Assets"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Network Architecture Document",
+          "levelOfDetailName": "Detailed Design"
+        },
+        {
+          "workProductName": "Storage Configuration",
+          "levelOfDetailName": "Snapshot-Enabled Performance Storage"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Operations Team"
+      ],
+      "narratives": [
+        {
+          "name": "Migrating Running VMs Between Nodes Without Downtime",
+          "description": "How to initiate live migration via console, virtctl, or migration resources, configure dedicated migration networks, and manage PostCopy mode for large-memory VMs.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Initiate live migration through the console, virtctl CLI, or VirtualMachineInstanceMigration resources. Configure dedicated migration networks and manage CPU compatibility between nodes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Verify shared storage (RWX access) and compatible CPUs on source and destination nodes, using PostCopy mode for large-memory VMs to reduce migration time. Configure a dedicated Multus network for migration traffic, and for planned maintenance cordon the node to trigger migration via the LiveMigrate eviction strategy."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Common mistakes include attempting migration without RWX storage, which fails silently. VM names exceeding 47 characters block migration. Not sizing the migration network for concurrent migrations causes bandwidth exhaustion and prolonged migration times."
+            }
+          ],
+          "citationNames": [
+            "Live Migrating VMs with OpenShift Virtualization",
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Snapshots and Backups",
+      "description": "Establish VM snapshot capabilities and OADP-based backup and recovery procedures.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "snapshots-backups-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Virtual Machine Workload",
+          "stateName": "Lifecycle Automated"
+        },
+        {
+          "alphaName": "Virtual Machine Workload",
+          "stateName": "Lifecycle Governed"
+        },
+        {
+          "alphaName": "VM Storage Configuration",
+          "stateName": "Storage Integrated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Backup and Recovery Configuration",
+          "levelOfDetailName": "Scheduled Backups"
+        },
+        {
+          "workProductName": "Backup and Recovery Configuration",
+          "levelOfDetailName": "Validated Recovery"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Operations Team"
+      ],
+      "narratives": [
+        {
+          "name": "Protecting VM Data with OADP Snapshots and Backups",
+          "description": "How to configure VolumeSnapshotClass resources, deploy OADP with kubevirt and openshift plugins, and establish backup schedules with retention policies.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Configure VolumeSnapshotClass resources for CSI snapshots, deploy OADP with kubevirt and openshift plugins, establish backup schedules with retention policies, and validate restore procedures through regular drills."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Install OADP with kubevirt and openshift plugins, configure VolumeSnapshotClass resources and Data Protection Application with backup storage location, and enable Data Mover for off-site backup relocation. Set backup schedules using Backup custom resources with retention specifications, and ensure QEMU guest agent is installed for filesystem freezing during online snapshots."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Key pitfalls to avoid include using OADP versions below 1.3 with OpenShift Virtualization 4.14+, which causes compatibility failures. Neglecting Data Mover configuration leaves backups without off-site protection. Skipping guest agent installation produces inconsistent snapshot data."
+            }
+          ],
+          "citationNames": [
+            "Backup and Restore of Virtual Machines within OpenShift",
+            "OpenShift APIs for Data Protection 1.3 Data Mover"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement Disaster Recovery",
+      "description": "Deploy and configure cross-site DR infrastructure for VM workloads.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "disaster-recovery-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Hosting Assets"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Evolving"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Disaster Recovery Runbook",
+          "levelOfDetailName": "Detailed Runbook"
+        },
+        {
+          "workProductName": "Disaster Recovery Runbook",
+          "levelOfDetailName": "Tested Playbook"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Operations Team",
+        "Virtualization Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Implementing Metro-DR and Regional-DR for VM Workloads",
+          "description": "How to select and deploy Metro-DR (synchronous, zero data loss) or Regional-DR (asynchronous, geographic separation) infrastructure with RHACM and ODF.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Select Metro-DR (synchronous, zero data loss) or Regional-DR (asynchronous, geographic separation) based on recovery objectives, deploy RHACM hub with ODF and DR operators, and validate failover/failback through testing."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Deploy RHACM on a hub cluster with ODF Multicluster Orchestrator, configure storage replication (synchronous for Metro-DR within 10ms RTT, asynchronous for Regional-DR), and create DRPolicy and DRPlacementControl resources. Configure hub recovery with a passive hub for orchestrator resilience, and for third-party storage use storage-level replication with OADP metadata-only backups."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Teams frequently encounter issues such as network latency exceeding 10ms RTT between sites, which disqualifies Metro-DR. Not configuring hub recovery leaves the DR orchestrator as a single point of failure. Skipping regular DR drills means untested procedures fail during actual events."
+            }
+          ],
+          "citationNames": [
+            "Disaster Recovery Approaches for Red Hat OpenShift Virtualization",
+            "Configuring OpenShift Data Foundation Disaster Recovery for OpenShift Workloads"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Execute Workload Migration",
+      "description": "Migrate VMs from legacy virtualization platforms to OpenShift Virtualization using MTV.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "workload-migration-icon",
+          "type": "icon"
+        },
+        {
+          "assetName": "mtv-architecture-diagram",
+          "type": "diagram"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Virtual Machine Workload",
+          "stateName": "VMs Provisioned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Migration Plan",
+          "levelOfDetailName": "Detailed Plan"
+        },
+        {
+          "workProductName": "Migration Plan",
+          "levelOfDetailName": "Automated Playbook"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Migration Team"
+      ],
+      "narratives": [
+        {
+          "name": "Migrating Legacy VMs with the Migration Toolkit for Virtualization",
+          "description": "How to install MTV, configure source providers, create migration plans with cold and warm strategies, and execute wave-based VM migrations.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Install MTV operator, configure source provider connections, create migration plans grouping VMs by dependency and strategy (cold vs warm), execute wave-by-wave migration, and validate migrated VMs."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Install MTV from OperatorHub, create provider connections to source platforms (VMware vSphere, RHV, OpenStack), and for VMware create the VDDK image and enable CBT for warm migration support. Create migration plans grouping VMs by dependency and criticality, execute cold migration for downtime-tolerant VMs and warm migration for critical workloads, and increase NFC service memory on ESXi hosts for migrations exceeding 10 VMs per host."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Practitioners should watch for not enabling CBT on VMware VMs, which prevents warm migration. Migrating more than 10 VMs per ESXi host without increasing NFC service memory causes timeout failures. Skipping post-migration performance validation allows latent issues to reach production."
+            }
+          ],
+          "citationNames": [
+            "Move Virtual Machines to OpenShift at Scale with Red Hat's Migration Toolkit for Virtualization",
+            "Migration Toolkit for Virtualization 2.10 - Planning Your Migration"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Monitoring and Alerting",
+      "description": "Set up Prometheus metrics, alerting rules, and dashboards for VM observability.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "monitoring-alerting-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Virtualization Infrastructure",
+          "stateName": "Platform Operational"
+        },
+        {
+          "alphaName": "Virtualization Infrastructure",
+          "stateName": "Platform Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Monitoring and Alerting Configuration",
+          "levelOfDetailName": "Enhanced Monitoring"
+        },
+        {
+          "workProductName": "Monitoring and Alerting Configuration",
+          "levelOfDetailName": "Multi-Cluster Monitoring"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Operations Team"
+      ],
+      "narratives": [
+        {
+          "name": "Multi-Cluster VM Monitoring with Prometheus and RHACM",
+          "description": "How to leverage the Prometheus monitoring stack for VM metrics, deploy node-exporter for guest OS visibility, and configure RHACM dashboards for multi-cluster monitoring.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Leverage the pre-installed Prometheus monitoring stack for default VM metrics, deploy node-exporter on VMs for guest OS metrics, create custom alerting rules, and aggregate multi-cluster metrics via RHACM."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Verify default virtualization metrics are scraped (vCPU, memory, network I/O, storage I/O) and deploy node-exporter on VMs requiring guest OS metrics. Define custom PromQL queries and alerting rules with PrometheusRule resources, and configure RHACM for multi-cluster VM monitoring."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Critical risks in this area include not deploying the QEMU guest agent, which prevents guest OS metrics from being reported. Creating alerting rules without associated runbooks leads to unactionable alerts. Neglecting project-scoped monitoring RBAC exposes metrics across teams."
+            }
+          ],
+          "citationNames": [
+            "Monitoring OpenShift Virtualization at Scale with Red Hat Advanced Cluster Management",
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement Security Controls",
+      "description": "Configure RBAC, network policies, compliance scanning, and security hardening for VMs.",
+      "activitySpaceName": "Establish Secure Guardrails",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "security-controls-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Ready"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Hosting Assets"
+        },
+        {
+          "alphaName": "Virtual Machine Workload",
+          "stateName": "Lifecycle Governed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Security and Compliance Report",
+          "levelOfDetailName": "Security Assessment"
+        },
+        {
+          "workProductName": "Security and Compliance Report",
+          "levelOfDetailName": "Compliance Report"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Enforcing VM Security with RBAC and Confidential Computing",
+          "description": "How to define RBAC roles, deploy Compliance Operator scanning, implement network policies, and enable confidential computing for sensitive workloads.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Define RBAC roles for VM administrators, operators, and viewers. Deploy the Compliance Operator for security scanning, implement network policies for microsegmentation, and establish TLS certificate rotation verification."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Create cluster-level and namespace-level RBAC roles following least privilege, establish default-deny network policies per namespace, and restrict VM disk sources to approved registries through image pull policies. Deploy the Compliance Operator with ocp4-moderate scanning profiles and enable confidential computing for VMs processing sensitive data."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Frequent errors include overly permissive RBAC roles that allow unauthorized VM lifecycle operations. Not implementing default-deny network policies allows unrestricted inter-namespace VM communication. Deploying compliance scanning without remediation tracking gives false confidence in security posture."
+            }
+          ],
+          "citationNames": [
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization",
+            "Enable Confidential Computing in OpenShift Virtualization"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Tune VM Performance",
+      "description": "Optimize VM compute, memory, and I/O performance through advanced configuration.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "performance-tuning-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Virtualization Infrastructure",
+          "stateName": "Platform Optimized"
+        },
+        {
+          "alphaName": "Virtual Machine Workload",
+          "stateName": "Lifecycle Governed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Performance Tuning Guide",
+          "levelOfDetailName": "Tuning Configuration"
+        },
+        {
+          "workProductName": "Performance Tuning Guide",
+          "levelOfDetailName": "Performance Benchmarks"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Operations Team"
+      ],
+      "narratives": [
+        {
+          "name": "Tuning VM Performance with CPU Pinning and NUMA Awareness",
+          "description": "How to configure CPU pinning, NUMA topology awareness, huge pages, and I/O tuning to achieve near-bare-metal performance for VMs.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Establish performance baselines with default configurations, configure CPU pinning and NUMA awareness for compute optimization, allocate huge pages for memory-intensive workloads, and tune I/O through SR-IOV and storage configuration."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Configure dedicatedCpuPlacement for CPU pinning and deploy the NUMA Resources Operator with secondary scheduler for NUMA-aware scheduling. Allocate 2MB or 1GB huge pages on worker nodes, enable emulator thread isolation for guaranteed QoS, and configure SR-IOV, DPDK, or GPU/vGPU passthrough for I/O and compute-intensive workloads."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Common mistakes include configuring CPU pinning without NUMA awareness, which nullifies cache efficiency gains. Allocating huge pages without sufficient free memory on nodes causes OOM conditions. Cross-NUMA memory access from NUMA misalignment imposes a 10% or greater performance penalty."
+            }
+          ],
+          "citationNames": [
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization",
+            "Live Migrating VMs with OpenShift Virtualization"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure GPU and Accelerator Access",
+      "description": "Set up PCI passthrough and vGPU sharing for GPU-accelerated VM workloads.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "gpu-accelerator-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Virtualization Infrastructure",
+          "stateName": "Platform Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Virtualization Platform Configuration",
+          "levelOfDetailName": "Tuned"
+        },
+        {
+          "workProductName": "Performance Tuning Guide",
+          "levelOfDetailName": "Performance Benchmarks"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Virtualization Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Enabling vGPU and PCI Passthrough for Accelerated Computing",
+          "description": "How to configure PCI passthrough for dedicated GPU access or vGPU mediated devices for GPU sharing across VMs.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Configure PCI passthrough for dedicated GPU access or vGPU mediated devices for GPU sharing. Validate GPU performance against bare-metal benchmarks and establish resource quotas."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Enable IOMMU in BIOS and cluster configuration, then for PCI passthrough create HostDevice resources with node affinity rules, or for vGPU install the NVIDIA vGPU-KVM host driver and configure mediated device types supporting up to 16 vGPUs per physical GPU. Configure GPU resource quotas to prevent over-allocation and validate GPU access within guest OS against bare-metal performance benchmarks."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Critical risks in this area include not obtaining the NVIDIA vGPU-KVM host driver separately from NVIDIA, as Red Hat does not bundle it. Not enabling IOMMU causes passthrough configuration to fail silently. Over-allocating vGPUs per physical GPU degrades performance for all sharing VMs."
+            }
+          ],
+          "citationNames": [
+            "Enabling vGPU in a Single Node using OpenShift Virtualization",
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure High Availability",
+      "description": "Establish VM availability mechanisms including eviction strategies, health checks, and remediation.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "high-availability-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Virtualization Infrastructure",
+          "stateName": "Platform Operational"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Hosting Assets"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Virtualization Platform Configuration",
+          "levelOfDetailName": "Defined"
+        },
+        {
+          "workProductName": "Monitoring and Alerting Configuration",
+          "levelOfDetailName": "Enhanced Monitoring"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Operations Team",
+        "Virtualization Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Configuring VM Eviction Strategies and Node Health Remediation",
+          "description": "How to set LiveMigrate eviction strategies, configure machine health checks for automated node remediation, and distribute VMs across failure domains.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Set LiveMigrate eviction strategy for migratable VMs, configure machine health checks for automated node remediation, establish pod disruption budgets, and validate HA through failure simulation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Set LiveMigrate as the default eviction strategy for migratable VMs and LiveMigrateIfPossible for VMs that may not always be migratable, ensuring RWX storage for all VMs requiring migration. Deploy machine health checks (IPI) or the Node Health Check Operator (non-IPI) for automated node remediation, and configure pod disruption budgets and anti-affinity rules to distribute critical VMs across failure domains."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Key pitfalls to avoid include using the None eviction strategy on migratable VMs, which causes unnecessary downtime during node maintenance. Single-node OpenShift does not support HA, live migration, or pod disruption budgets. Not configuring anti-affinity rules concentrates critical VMs on single failure domains."
+            }
+          ],
+          "citationNames": [
+            "A Guide to High Availability/Disaster Recovery for Applications on OpenShift",
+            "Red Hat OpenShift Container Platform 4.22 - Virtualization"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Virtualization Platform Lifecycle",
+      "description": "Coordinated establishment of the virtualization platform from operator installation through production optimization.",
+      "narrativeTypeName": "Design-Build-Run-Optimize",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "OpenShift cluster provisioned and ready for virtualization.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "VM Network Configuration",
+              "stateName": "Basic Connectivity"
+            },
+            {
+              "alphaName": "VM Storage Configuration",
+              "stateName": "Storage Provisioned"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Templates Established"
+            },
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Operator Deployed"
+            }
+          ],
+          "activities": [],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "An operational OpenShift cluster with appropriate worker nodes, storage providers, and network infrastructure is the prerequisite for deploying the virtualization stack."
+            }
+          ]
+        },
+        {
+          "name": "Foundation",
+          "description": "Deploy virtualization operators and establish basic infrastructure.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Operator Deployed"
+            },
+            {
+              "alphaName": "VM Storage Configuration",
+              "stateName": "Storage Provisioned"
+            },
+            {
+              "alphaName": "VM Network Configuration",
+              "stateName": "Basic Connectivity"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Templates Established"
+            }
+          ],
+          "activities": [
+            "Install and Configure Virtualization Operator",
+            "Configure VM Storage",
+            "Configure VM Networking"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "The foundation phase deploys the HyperConverged Operator, configures storage classes with block volume mode, and establishes pod network connectivity for VMs."
+            }
+          ]
+        },
+        {
+          "name": "Enablement",
+          "description": "Configure nodes, templates, security, and secondary networks.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Nodes Configured"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Templates Established"
+            },
+            {
+              "alphaName": "VM Storage Configuration",
+              "stateName": "Data Import Operational"
+            },
+            {
+              "alphaName": "VM Network Configuration",
+              "stateName": "Secondary Networks Configured"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            }
+          ],
+          "activities": [
+            "Install and Configure Virtualization Operator",
+            "Create and Manage VM Templates",
+            "Configure VM Storage",
+            "Configure VM Networking",
+            "Implement Security Controls"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "Worker nodes are validated and configured, golden images are imported via CDI, secondary networks are established through Multus, and RBAC policies are defined for VM operations."
+            }
+          ]
+        },
+        {
+          "name": "Production",
+          "description": "Run production VMs with HA, backup, and monitoring.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Operational"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "VMs Provisioned"
+            },
+            {
+              "alphaName": "VM Storage Configuration",
+              "stateName": "Storage Performance Tuned"
+            },
+            {
+              "alphaName": "VM Network Configuration",
+              "stateName": "Advanced Networking Active"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            }
+          ],
+          "activities": [
+            "Provision and Configure Virtual Machines",
+            "Perform Live Migration",
+            "Configure Snapshots and Backups",
+            "Configure High Availability",
+            "Configure Monitoring and Alerting",
+            "Execute Workload Migration"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Run",
+              "context": "Production VMs are provisioned from templates, live migration and HA ensure availability, OADP protects workloads with scheduled backups, and SR-IOV enables high-performance networking for demanding workloads."
+            }
+          ]
+        },
+        {
+          "name": "Optimization",
+          "description": "Tune performance, automate lifecycle, and govern operations.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Optimized"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Governed"
+            },
+            {
+              "alphaName": "VM Storage Configuration",
+              "stateName": "Storage Integrated"
+            },
+            {
+              "alphaName": "VM Network Configuration",
+              "stateName": "Networking Optimized"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Evolving"
+            }
+          ],
+          "activities": [
+            "Tune VM Performance",
+            "Configure GPU and Accelerator Access",
+            "Implement Disaster Recovery",
+            "Configure Monitoring and Alerting",
+            "Implement Security Controls",
+            "Configure Snapshots and Backups"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Optimize",
+              "context": "CPU pinning, NUMA awareness, and GPU passthrough deliver near-bare-metal performance. DR infrastructure is validated through drills, self-service VM provisioning is governed by quotas and compliance policies, and observability provides multi-cluster visibility with automated remediation."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "IDP Essentials",
+      "versionRange": "^1.0.0"
+    },
+    {
+      "documentName": "Platform Operations",
+      "versionRange": "^2.0.0"
+    }
+  ],
+  "activitySpaces": []
+}

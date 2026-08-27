@@ -1,0 +1,4060 @@
+{
+  "kind": "practice",
+  "name": "Value and Stakeholder Strategy",
+  "description": "Ensures projects are grounded in validated opportunity, driven by measurable objectives, and governed by systematic stakeholder, risk, and benefits management.",
+  "baselinePracticeName": "Project Essentials",
+  "version": "1.0.2",
+  "authors": [
+    "Keleo"
+  ],
+  "createdAt": "2026-07-25",
+  "updatedAt": "2026-08-13",
+  "tags": {
+    "domainTags": [
+      "Business Case",
+      "Stakeholder Management",
+      "Risk Management",
+      "Benefits Realization",
+      "OKR"
+    ],
+    "lifecycleTags": [
+      "Initiation",
+      "Planning",
+      "Benefits Realization",
+      "Governance"
+    ],
+    "organizationalTags": [
+      "PMO",
+      "Governance Board",
+      "Sponsor"
+    ]
+  },
+  "keywords": [
+    "project management",
+    "business case",
+    "stakeholder engagement",
+    "OKR",
+    "risk management",
+    "benefits realization",
+    "value proposition",
+    "ROI",
+    "SMART objectives",
+    "stakeholder analysis",
+    "risk register",
+    "opportunity assessment",
+    "investment justification",
+    "MoSCoW prioritization",
+    "cost-benefit analysis"
+  ],
+  "citations": [
+    {
+      "name": "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+      "description": "The PMBOK Guide Seventh Edition establishes principles-based project management with performance domains and a value delivery system.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2021",
+      "source": "Project Management Institute",
+      "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok",
+      "kind": "citation"
+    },
+    {
+      "name": "PMBOK Guide -- Eighth Edition",
+      "description": "The eighth edition introduces five focus areas and forty non-prescriptive processes for adaptive project management.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2026",
+      "source": "Project Management Institute",
+      "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok",
+      "kind": "citation"
+    },
+    {
+      "name": "Measure What Matters",
+      "description": "Introduces the OKR framework for connecting strategic objectives to measurable key results across organizational levels.",
+      "authors": [
+        "John Doerr"
+      ],
+      "date": "2018",
+      "source": "Portfolio/Penguin",
+      "url": "https://www.whatmatters.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "Managing Successful Projects with PRINCE2",
+      "description": "Provides a structured project management method built around continued business justification, with emphasis on business case and benefits management.",
+      "authors": [
+        "Axelos"
+      ],
+      "date": "2017",
+      "source": "The Stationery Office",
+      "url": "https://www.axelos.com/certifications/propath/prince2-project-management",
+      "kind": "citation"
+    },
+    {
+      "name": "ISO 31000:2018 Risk Management Guidelines",
+      "description": "International standard providing principles, framework, and process for managing risk across all types of organizations and activities.",
+      "authors": [
+        "International Organization for Standardization"
+      ],
+      "date": "2018",
+      "source": "International Organization for Standardization",
+      "url": "https://www.iso.org/iso-31000-risk-management.html",
+      "kind": "citation"
+    },
+    {
+      "name": "Individual Competence Baseline Version 4.0",
+      "description": "Defines project management competence elements across people, practice, and perspective domains with progressive proficiency levels.",
+      "authors": [
+        "International Project Management Association"
+      ],
+      "date": "2015",
+      "source": "International Project Management Association",
+      "url": "https://www.ipma.world/individuals/standard/",
+      "kind": "citation"
+    },
+    {
+      "name": "Lean Thinking",
+      "description": "Establishes principles for identifying value, mapping value streams, and eliminating waste in organizational processes.",
+      "authors": [
+        "James P. Womack",
+        "Daniel T. Jones"
+      ],
+      "date": "1996",
+      "source": "Free Press/Simon & Schuster",
+      "url": "https://www.lean.org/",
+      "kind": "citation"
+    },
+    {
+      "name": "Disciplined Agile Delivery",
+      "description": "Provides a decision framework for choosing right-sized project management approaches based on context, including prioritization techniques.",
+      "authors": [
+        "Scott W. Ambler",
+        "Mark Lines"
+      ],
+      "date": "2012",
+      "source": "IBM Press",
+      "url": "https://www.pmi.org/disciplined-agile",
+      "kind": "citation"
+    },
+    {
+      "name": "The Scrum Guide",
+      "description": "Defines the Scrum framework including the Product Owner role as the critical bridge between stakeholder needs and team execution.",
+      "authors": [
+        "Ken Schwaber",
+        "Jeff Sutherland"
+      ],
+      "date": "2020",
+      "source": "Scrum.org",
+      "url": "https://scrumguides.org/",
+      "kind": "citation"
+    },
+    {
+      "name": "Agile Retrospectives: Making Good Teams Great",
+      "description": "Provides structured approaches for team reflection and continuous improvement through facilitated retrospective sessions.",
+      "authors": [
+        "Esther Derby",
+        "Diana Larsen"
+      ],
+      "date": "2006",
+      "source": "Pragmatic Bookshelf",
+      "url": "https://pragprog.com/titles/dlret/agile-retrospectives/",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "opportunity-icon",
+      "description": "Font Awesome icon representing the Opportunity alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lightbulb",
+      "fontWeight": "900"
+    },
+    {
+      "name": "stakeholders-icon",
+      "description": "Font Awesome icon representing the Stakeholders alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users",
+      "fontWeight": "900"
+    },
+    {
+      "name": "objectives-icon",
+      "description": "Font Awesome icon representing the Objectives alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullseye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "project-risk-icon",
+      "description": "Font Awesome icon representing the Project Risk alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-realization-plan-icon",
+      "description": "Font Awesome icon representing the Benefits Realization Plan alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "develop-business-case-icon",
+      "description": "Font Awesome icon representing the Develop Business Case activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-invoice-dollar",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-opportunity-assessment-icon",
+      "description": "Font Awesome icon representing the Conduct Opportunity Assessment activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-magnifying-glass-chart",
+      "fontWeight": "900"
+    },
+    {
+      "name": "perform-stakeholder-analysis-icon",
+      "description": "Font Awesome icon representing the Perform Stakeholder Analysis activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users-viewfinder",
+      "fontWeight": "900"
+    },
+    {
+      "name": "facilitate-stakeholder-engagement-workshop-icon",
+      "description": "Font Awesome icon representing the Facilitate Stakeholder Engagement Workshop activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "define-strategic-okrs-icon",
+      "description": "Font Awesome icon representing the Define Strategic OKRs activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-crosshairs",
+      "fontWeight": "900"
+    },
+    {
+      "name": "prioritize-objectives-icon",
+      "description": "Font Awesome icon representing the Prioritize Objectives activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrow-down-wide-short",
+      "fontWeight": "900"
+    },
+    {
+      "name": "perform-risk-identification-icon",
+      "description": "Font Awesome icon representing the Perform Risk Identification activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-triangle-exclamation",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-risk-assessment-icon",
+      "description": "Font Awesome icon representing the Conduct Risk Assessment activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge-high",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-benefits-realization-plan-icon",
+      "description": "Font Awesome icon representing the Design Benefits Realization Plan activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-map",
+      "fontWeight": "900"
+    },
+    {
+      "name": "track-benefits-realization-icon",
+      "description": "Font Awesome icon representing the Track Benefits Realization activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-column",
+      "fontWeight": "900"
+    },
+    {
+      "name": "monitor-and-manage-risks-icon",
+      "description": "Font Awesome icon representing the Monitor and Manage Risks activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-eye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "confirm-stakeholder-acceptance-icon",
+      "description": "Font Awesome icon representing the Confirm Stakeholder Acceptance activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-circle-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "business-case-document-icon",
+      "type": "font-character",
+      "description": "Business Case Document icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-invoice-dollar",
+      "fontWeight": "900"
+    },
+    {
+      "name": "stakeholder-register-icon",
+      "type": "font-character",
+      "description": "Stakeholder Register icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-address-book",
+      "fontWeight": "900"
+    },
+    {
+      "name": "stakeholder-engagement-plan-icon",
+      "type": "font-character",
+      "description": "Stakeholder Engagement Plan icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "okr-framework-document-icon",
+      "type": "font-character",
+      "description": "OKR Framework Document icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullseye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "risk-register-icon",
+      "type": "font-character",
+      "description": "Risk Register icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-triangle-exclamation",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-realization-map-icon",
+      "type": "font-character",
+      "description": "Benefits Realization Map icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "evaluate-objective-achievement-icon",
+      "type": "font-character",
+      "description": "Evaluate Objective Achievement icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-check-circle",
+      "fontWeight": "900"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Define Strategic OKRs",
+      "aliasName": "Set Project OKRs"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Prioritize Objectives",
+      "aliasName": "MoSCoW Prioritization"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "OKR Framework Document",
+      "aliasName": "Objectives and Key Results"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Benefits Realization Map",
+      "aliasName": "Benefits Management Approach"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Project Risk",
+      "aliasName": "Uncertainty"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Opportunity",
+      "description": "The business drivers, needs, and circumstances that justify a project's existence and whose benefits must ultimately be confirmed through measurable outcomes.",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "opportunity-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "An opportunity has been identified and an initial assessment of its potential performed. The project concept has crystallized from a vague awareness of need into a named, communicable idea with an identified champion.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Business problem named and scoped",
+              "description": "The business problem or need is described with sufficient clarity for stakeholders to discuss it meaningfully and distinguish it from other potential investments.",
+              "seq": 8
+            },
+            {
+              "name": "Strategic drivers documented",
+              "description": "The strategic drivers connecting the opportunity to organizational objectives or market conditions are articulated in writing.",
+              "seq": 9
+            },
+            {
+              "name": "Initial value hypothesis stated",
+              "description": "An initial hypothesis about the opportunity's value, feasibility, and constraints is stated explicitly for validation.",
+              "seq": 10
+            },
+            {
+              "name": "Portfolio context assessed",
+              "description": "The opportunity has been assessed in the context of the broader investment portfolio to confirm it merits attention relative to competing demands.",
+              "seq": 11
+            },
+            {
+              "name": "Opportunity champion engaged",
+              "description": "An identified sponsor or champion has committed to advocate for the opportunity through governance processes.",
+              "seq": 12
+            }
+          ]
+        },
+        {
+          "name": "Determined",
+          "description": "The opportunity has been analyzed to determine whether it merits further investment. The problem or need is clearly defined with supporting evidence, solution alternatives explored, and feasibility assessed.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Evidence-based problem definition complete",
+              "description": "The problem or need is defined with supporting evidence from stakeholder interviews, market analysis, or operational data.",
+              "seq": 9
+            },
+            {
+              "name": "Alternative solutions compared",
+              "description": "At least two solution alternatives have been explored at a conceptual level to prevent premature commitment to a single path.",
+              "seq": 10
+            },
+            {
+              "name": "Value stream impact mapped",
+              "description": "The opportunity's contribution to end-to-end value delivery for customers and the organization is identified through value stream analysis.",
+              "seq": 11
+            },
+            {
+              "name": "Order-of-magnitude investment estimated",
+              "description": "The opportunity is understood well enough to estimate effort and investment at an order-of-magnitude level for portfolio comparison.",
+              "seq": 12
+            },
+            {
+              "name": "Feasibility dimensions assessed",
+              "description": "Feasibility across technical, organizational, and economic dimensions has been assessed, identifying potential showstoppers.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Value Established",
+          "description": "The value of pursuing the opportunity has been articulated, quantified, and agreed upon by stakeholders. Success criteria are defined and a business case produced.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Financial analysis completed",
+              "description": "The value of addressing the opportunity has been quantified using ROI, NPV, payback period, or equivalent measurable outcomes.",
+              "seq": 9
+            },
+            {
+              "name": "Sensitivity analysis performed",
+              "description": "Key assumptions in the financial projections have been tested through sensitivity analysis demonstrating robustness.",
+              "seq": 10
+            },
+            {
+              "name": "Essential vs desirable outcomes distinguished",
+              "description": "Desired outcomes are articulated with a clear distinction between essential outcomes that must be achieved and desirable outcomes that add value.",
+              "seq": 11
+            },
+            {
+              "name": "Business case formally reviewed",
+              "description": "A business case has been produced and formally reviewed by governance decision-makers, providing a defensible investment rationale.",
+              "seq": 12
+            },
+            {
+              "name": "Value risks to realization identified",
+              "description": "Risks that could prevent value realization have been identified at a high level with their potential impact on the value proposition assessed.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Viable",
+          "description": "A cost-benefit analysis confirms pursuing the opportunity is worthwhile. Funding secured, governance authorities have formally authorized pursuit, and a credible plan exists.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Cost-benefit subjected to critical review",
+              "description": "The cost-benefit analysis has been subjected to critical review and sensitivity testing by independent assessors.",
+              "seq": 9
+            },
+            {
+              "name": "Budget allocated with spending authority",
+              "description": "Funding has been secured through appropriate authorization channels with budget allocated and spending authority delegated.",
+              "seq": 10
+            },
+            {
+              "name": "Portfolio-level viability confirmed",
+              "description": "The opportunity remains aligned with current organizational priorities through portfolio-level review and confirmation.",
+              "seq": 11
+            },
+            {
+              "name": "Value delivery checkpoints established",
+              "description": "A credible plan connects project milestones to value delivery checkpoints within acceptable timeframes.",
+              "seq": 12
+            },
+            {
+              "name": "Organizational capacity confirmed",
+              "description": "Organizational capacity in terms of people, skills, infrastructure, and management attention is confirmed as available.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Addressed",
+          "description": "The project has delivered sufficient results to address the opportunity. The solution adequately responds to the identified need and stakeholder feedback confirms it.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Solution tested against original problem",
+              "description": "The solution produced has been confirmed through testing against the original problem definition and success criteria.",
+              "seq": 8
+            },
+            {
+              "name": "Formal stakeholder acceptance documented",
+              "description": "Stakeholder feedback confirms the solution addresses their needs, with formal acceptance documented.",
+              "seq": 9
+            },
+            {
+              "name": "Residual gaps assigned to owners",
+              "description": "Residual gaps are identified, accepted by stakeholders, and documented with plans and assigned owners for future addressing.",
+              "seq": 10
+            },
+            {
+              "name": "Transition to operations arranged",
+              "description": "The deliverable is deployed or ready for deployment with transition arrangements agreed and support structures in place.",
+              "seq": 11
+            },
+            {
+              "name": "Follow-up items tracked",
+              "description": "Follow-up actions, enhancements, and remaining work items are identified and assigned to appropriate owners with agreed timelines.",
+              "seq": 12
+            }
+          ]
+        },
+        {
+          "name": "Benefit Accrued",
+          "description": "The intended benefits have been realized and measured, with value creation confirmed through objective evidence. Lessons about opportunity management are captured.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Measurable value confirmed with evidence",
+              "description": "Measurable value has been confirmed through defined success metrics with documented evidence that can withstand independent scrutiny.",
+              "seq": 8
+            },
+            {
+              "name": "ROI threshold met or variance explained",
+              "description": "Return on investment meets or exceeds the threshold established in the business case, or variance is understood and accepted by governance.",
+              "seq": 9
+            },
+            {
+              "name": "Investment decision-making improved",
+              "description": "The organization has updated its investment decision-making processes based on the experience and results of this project.",
+              "seq": 10
+            },
+            {
+              "name": "Benefit realization data contributed to knowledge base",
+              "description": "Benefit realization data contributes to the organizational knowledge base, providing reference cases for future opportunity assessment.",
+              "seq": 11
+            },
+            {
+              "name": "Opportunity management lessons shared",
+              "description": "Lessons learned about opportunity identification, assessment, pursuit, and value realization are captured and shared.",
+              "seq": 12
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Continuous Opportunity Validation and Value Realization",
+          "description": "Presents opportunity management as a continuous discipline of validation from initial identification through confirmed benefit realization.",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Every project exists to close a gap between the current organizational state and a desired future state valuable enough to justify investment. The Opportunity alpha tracks whether that gap remains clearly defined, honestly assessed, and continuously validated from initial identification through confirmed benefit realization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "PMBOK 7th Edition emphasizes evaluating projects for their contribution to business value including financial returns, social impact, and strategic positioning. PRINCE2 structures the entire lifecycle around continued business justification, requiring the business case to be revisited at every stage boundary with the discipline to stop projects that no longer justify their investment. Modern project management extends opportunity assessment to include value stream analysis, lean thinking about value from the customer's perspective, and portfolio-level evaluation ensuring organizational resources flow to their highest-value uses. The opportunity must withstand the sunk cost fallacy that kills more projects through prolonged life support than outright failure."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When opportunity management is practiced as a continuous discipline rather than a one-time authorization exercise, organizations achieve better investment decisions, earlier identification of failing projects, and a compounding capability advantage from each project's lessons improving future investment choices."
+            }
+          ],
+          "citationNames": [
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "Managing Successful Projects with PRINCE2",
+            "Lean Thinking"
+          ]
+        },
+        {
+          "name": "Value and Stakeholder Strategy Journey",
+          "description": "The transformational arc from opportunity identification through stakeholder alignment, objective definition, and confirmed benefits delivery.",
+          "narrativeTypeName": "The Hero's Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordinary World",
+              "context": "Organizations undertake projects to address business needs, but without disciplined value strategy many projects drift from their original purpose, stakeholders disengage, objectives remain vague, risks accumulate unmanaged, and delivered solutions fail to produce the benefits that justified the investment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "The Call to Adventure",
+              "context": "A business opportunity emerges that demands structured attention -- a gap between current capability and strategic aspiration that is compelling enough to justify investment. Stakeholders must be identified, objectives defined, risks assessed, and benefits planned before the organization can commit resources with confidence."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "The Ordeal",
+              "context": "Navigating competing stakeholder priorities, conflicting objectives, evolving risk landscapes, and shifting organizational strategy requires analytical rigor, transparent negotiation, and the discipline to continuously reassess whether the opportunity still justifies investment. The most difficult moments come when evidence suggests the original business case has eroded but organizational momentum resists honest reassessment."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "The Return",
+              "context": "When value strategy is managed as a continuous discipline, projects achieve stakeholder alignment, deliver against measurable objectives, manage risks proactively, and confirm benefits through evidence. The organization builds institutional capability for making better investment decisions on future projects."
+            }
+          ],
+          "citationNames": [
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "Managing Successful Projects with PRINCE2",
+            "Measure What Matters"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Stakeholders",
+      "description": "The people, groups, and organizations that affect or are affected by the project and whose engagement and satisfaction must be actively managed throughout the project lifecycle.",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "stakeholders-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Recognized",
+          "description": "All stakeholder groups affected by or involved in the project are identified with categories, interests, influence levels, and potential risks documented.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Systematic identification techniques applied",
+              "description": "Stakeholder identification has used organizational chart analysis, value stream mapping, and reverse brainstorming to ensure comprehensive coverage.",
+              "seq": 8
+            },
+            {
+              "name": "Influence-interest assessment structured",
+              "description": "An initial assessment of stakeholder influence and interest has been performed using a structured approach such as an influence-interest grid.",
+              "seq": 9
+            },
+            {
+              "name": "Indirect stakeholders identified",
+              "description": "Indirectly affected stakeholders including operational support teams, adjacent system users, and regulatory bodies are identified.",
+              "seq": 10
+            },
+            {
+              "name": "Stakeholder ecosystem documented",
+              "description": "The stakeholder landscape is documented as a living document accessible to the project team for ongoing update.",
+              "seq": 11
+            },
+            {
+              "name": "Political dynamics noted",
+              "description": "Potential risks arising from stakeholder relationships, including opposition, conflicting interests, and political dynamics, are noted for proactive management.",
+              "seq": 12
+            }
+          ]
+        },
+        {
+          "name": "Represented",
+          "description": "Stakeholder representatives have been designated for each key group and mechanisms for stakeholder input are established. Representatives are authorized to speak for their constituents.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Representatives genuinely representative",
+              "description": "Selection criteria ensure representatives genuinely speak for their constituents rather than serving as nominal proxies.",
+              "seq": 9
+            },
+            {
+              "name": "Decision-making authority defined",
+              "description": "Representatives are authorized to speak for and make decisions on behalf of their stakeholder groups within defined boundaries.",
+              "seq": 10
+            },
+            {
+              "name": "Replacement process established",
+              "description": "The process for replacing or supplementing representatives if needed is defined, preventing single points of failure.",
+              "seq": 11
+            },
+            {
+              "name": "Collaboration cadence agreed",
+              "description": "The approach for collaboration among representatives is agreed, including meeting cadence, communication channels, and escalation paths.",
+              "seq": 12
+            },
+            {
+              "name": "Time commitment organizational support confirmed",
+              "description": "Representatives understand the time commitment involved and have organizational support for their participation.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Involved",
+          "description": "Stakeholders are actively participating in the project, providing timely feedback, contributing to decisions, and receiving appropriate information.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Feedback visibly influencing decisions",
+              "description": "Stakeholder input is visibly influencing project decisions, with clear traceability between feedback received and actions taken.",
+              "seq": 9
+            },
+            {
+              "name": "Regular demonstrations occurring",
+              "description": "Regular engagement activities including reviews, demonstrations, and collaborative workshops are occurring per the agreed engagement plan.",
+              "seq": 10
+            },
+            {
+              "name": "Involvement impediments actively addressed",
+              "description": "Impediments to stakeholder involvement have been identified and are being actively addressed through relationship management.",
+              "seq": 11
+            },
+            {
+              "name": "Two-way communication verified",
+              "description": "Two-way communication is functioning effectively with stakeholders both receiving information and providing feedback.",
+              "seq": 12
+            },
+            {
+              "name": "Independent progress assessment possible",
+              "description": "Stakeholders understand the project's progress and can independently assess whether their needs are being addressed.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "In Agreement",
+          "description": "Stakeholders and the project team have reached agreement on expectations, priorities, and acceptance criteria. Conflicts have been resolved through transparent negotiation.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Conflicts resolved with documented rationale",
+              "description": "Conflicts between stakeholder groups have been surfaced through transparent processes and resolved through negotiation with documented rationale.",
+              "seq": 9
+            },
+            {
+              "name": "Trade-off decisions accepted by all parties",
+              "description": "Priorities have been negotiated and agreed where stakeholder needs conflict, with all affected parties understanding the trade-off rationale.",
+              "seq": 10
+            },
+            {
+              "name": "Acceptance criteria measurable and testable",
+              "description": "Acceptance criteria reflecting stakeholder expectations are documented in measurable, testable terms and formally agreed.",
+              "seq": 11
+            },
+            {
+              "name": "Change management process for expectations agreed",
+              "description": "The process for managing changes to agreed expectations is understood and accepted, including how new needs will be evaluated.",
+              "seq": 12
+            },
+            {
+              "name": "Team understanding of needs confirmed",
+              "description": "Stakeholders have confidence that the project team genuinely understands their needs and is committed to delivering against agreements.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Satisfied for Deployment",
+          "description": "Stakeholders have confirmed the deliverable meets their expectations sufficiently for deployment. Gaps are acknowledged and transition arrangements agreed.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Formal deployment review completed",
+              "description": "Stakeholders have confirmed through formal review that the deliverable meets their minimum expectations for deployment.",
+              "seq": 9
+            },
+            {
+              "name": "Deferred items documented with plans",
+              "description": "Gaps between original expectations and actual delivery have been acknowledged, documented, and formally accepted with future plans.",
+              "seq": 10
+            },
+            {
+              "name": "Training and documentation readiness confirmed",
+              "description": "User-facing documentation, training materials, and support resources meet stakeholder expectations for enabling effective use.",
+              "seq": 11
+            },
+            {
+              "name": "Support structures verified",
+              "description": "Support and operational stakeholders are prepared for the transition with the resources and processes needed to sustain the deliverable.",
+              "seq": 12
+            },
+            {
+              "name": "Rollback provisions accepted",
+              "description": "Rollback or contingency arrangements are understood and accepted by stakeholders providing appropriate risk mitigation.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Satisfied in Use",
+          "description": "Stakeholders are experiencing the benefits of the delivered solution in their operational context. The solution is used effectively and issues are managed through support processes.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Adoption rates meet expectations",
+              "description": "The delivered solution is being used effectively by intended users with adoption rates meeting or exceeding expectations.",
+              "seq": 9
+            },
+            {
+              "name": "User satisfaction measured and threshold met",
+              "description": "User satisfaction is measured through repeatable methods and meets or exceeds agreed thresholds.",
+              "seq": 10
+            },
+            {
+              "name": "Operational feedback loop functioning",
+              "description": "Feedback from operational use has been gathered through structured mechanisms, assessed for action potential, and acted upon.",
+              "seq": 11
+            },
+            {
+              "name": "Stakeholder engagement lessons captured",
+              "description": "Lessons learned from stakeholder engagement throughout the project have been captured and shared with the organization.",
+              "seq": 12
+            },
+            {
+              "name": "Social capital preserved for future endeavors",
+              "description": "Stakeholder relationships remain positive and constructive, creating social capital for future organizational endeavors.",
+              "seq": 13
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Progressive Stakeholder Engagement and Relationship Building",
+          "description": "Presents stakeholder management as a progressive relationship-building discipline that determines project success through systematic engagement.",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Stakeholder management is a core project management discipline that directly determines project success or failure, with research consistently demonstrating that stakeholder misalignment is among the top causes of project failure."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Effective stakeholder management requires understanding that stakeholders are a complex ecosystem of individuals and groups with different interests, influence levels, and definitions of success. Tools such as influence-interest grids, power-impact matrices, and salience models enable differentiated engagement strategies for each segment. Agile approaches transform the stakeholder relationship from periodic consultation to continuous collaboration, with the Product Owner serving as the critical bridge between stakeholder needs and team execution. Stakeholder satisfaction evolves as understanding deepens, organizational circumstances change, and the project progresses, requiring regular demonstrations, transparent reporting, and genuine responsiveness to maintain the confidence that enables team autonomy."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When stakeholder engagement is managed as a progressive, relationship-building discipline, projects achieve higher adoption rates, fewer post-deployment surprises, and stronger organizational support, turning stakeholders into advocates rather than critics."
+            }
+          ],
+          "citationNames": [
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "Individual Competence Baseline Version 4.0",
+            "The Scrum Guide"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Objectives",
+      "description": "The specific, measurable goals that the project must achieve, bridging the broad opportunity and the detailed deliverable through SMART-aligned targets that guide planning, execution, and evaluation.",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "objectives-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Initial objectives have been identified from the opportunity and stakeholder needs as broad goal statements.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Objectives expressed as outcomes not specifications",
+              "description": "Objectives are expressed in terms of outcomes and impacts rather than detailed deliverable specifications, maintaining focus on why.",
+              "seq": 8
+            },
+            {
+              "name": "Traceability to opportunity elements established",
+              "description": "The relationship between each objective and the business opportunity is clear and traceable, ensuring no objective exists without strategic justification.",
+              "seq": 9
+            },
+            {
+              "name": "Initial out-of-scope boundaries stated",
+              "description": "Initial boundary conditions defining what is explicitly out of scope have been identified to prevent scope creep.",
+              "seq": 10
+            },
+            {
+              "name": "Source of each objective documented",
+              "description": "The source of each objective can be traced to a specific stakeholder need, opportunity element, or strategic driver.",
+              "seq": 11
+            },
+            {
+              "name": "Key assumptions underlying objectives documented",
+              "description": "Key assumptions underlying the objectives have been identified and documented explicitly for subsequent validation.",
+              "seq": 12
+            }
+          ]
+        },
+        {
+          "name": "Articulated",
+          "description": "Objectives have been refined into clear, SMART-aligned statements with measurable success criteria.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "SMART criteria applied to each objective",
+              "description": "Each objective is stated in specific, measurable, achievable, relevant, and time-bound terms avoiding ambiguous language.",
+              "seq": 9
+            },
+            {
+              "name": "Measurement methods and data sources specified",
+              "description": "Success criteria for each objective include target values, measurement methods, data sources, and measurement frequency.",
+              "seq": 10
+            },
+            {
+              "name": "Requirements-objectives distinction clear",
+              "description": "The distinction between objectives as goals and requirements as specifications is clear to the team and all stakeholders.",
+              "seq": 11
+            },
+            {
+              "name": "Achievability within constraints confirmed",
+              "description": "Objectives are assessed for achievability within known constraints of time, cost, capability, technology, and organizational readiness.",
+              "seq": 12
+            },
+            {
+              "name": "Time-bound milestones associated",
+              "description": "Time-bound targets or milestones are associated with each objective, creating urgency and enabling progress tracking.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Prioritized",
+          "description": "Objectives have been analyzed for dependencies, conflicts, and relative importance with a clear priority ordering established.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "MoSCoW or equivalent categorization applied",
+              "description": "Each objective is categorized by criticality using MoSCoW or equivalent framework, enabling explicit conversations about must-deliver versus desired.",
+              "seq": 9
+            },
+            {
+              "name": "Cost of delay analysis performed",
+              "description": "Objectives have been assessed for relative priority using value, risk, cost of delay, strategic importance, and technical dependencies.",
+              "seq": 10
+            },
+            {
+              "name": "Dependency map created",
+              "description": "Dependencies between objectives are identified, mapped, and factored into sequencing decisions to prevent scheduling conflicts.",
+              "seq": 11
+            },
+            {
+              "name": "Conflict resolution approaches defined",
+              "description": "Conflicts between objectives have been surfaced explicitly and resolution approaches defined through stakeholder negotiation.",
+              "seq": 12
+            },
+            {
+              "name": "Phased delivery plan enabled",
+              "description": "The prioritized objectives provide a basis for phased or incremental delivery planning, enabling early value delivery.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Agreed",
+          "description": "Key stakeholders and the team have reached agreement on objectives, priorities, and achievement criteria with change management processes established.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Formal stakeholder agreement documented",
+              "description": "Stakeholders and the team have reached explicit agreement on project objectives and their relative priorities through formal approval.",
+              "seq": 9
+            },
+            {
+              "name": "Objectives baselined for change control",
+              "description": "Objectives are baselined for change control while permitting requirements-level refinement within agreed boundaries.",
+              "seq": 10
+            },
+            {
+              "name": "Objective change management process agreed",
+              "description": "Change management processes for objectives are established, understood, and accepted, including evaluation of new objectives.",
+              "seq": 11
+            },
+            {
+              "name": "Effort and timeline implications understood by all",
+              "description": "All parties understand the implications of agreed objectives in terms of effort, timeline, resource requirements, and risk exposure.",
+              "seq": 12
+            },
+            {
+              "name": "Trade-off rationale accessible",
+              "description": "Trade-offs between competing objectives have been negotiated and resolved with documented rationale accessible to all parties.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Achieved",
+          "description": "The project has accomplished its defined objectives with success criteria met or exceeded and evidence documented.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Evidence withstands independent verification",
+              "description": "Evidence of achievement is documented in a form that permits independent verification and organizational learning.",
+              "seq": 9
+            },
+            {
+              "name": "Unachieved objectives documented with impact",
+              "description": "Any objectives that were not fully achieved are documented with explanation of variance, impact assessment, and future action recommendations.",
+              "seq": 10
+            },
+            {
+              "name": "Achievement validated through acceptance processes",
+              "description": "Achievement has been validated through agreed acceptance processes including testing, review, and demonstration.",
+              "seq": 11
+            },
+            {
+              "name": "Objective data available for benefits tracking",
+              "description": "Objective achievement data is available for benefits realization tracking and organizational portfolio reporting.",
+              "seq": 12
+            },
+            {
+              "name": "Opportunity-objective relationship validated",
+              "description": "The relationship between achieved objectives and the original opportunity has been validated, confirming business need is addressed.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Evaluated",
+          "description": "Objective achievement has been formally evaluated against success criteria with lessons captured for organizational learning.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Independent evaluation completed",
+              "description": "The quality and completeness of objective achievement has been assessed by independent reviewers or governance bodies.",
+              "seq": 9
+            },
+            {
+              "name": "Variance root causes analyzed",
+              "description": "Variance between planned and actual achievement is analyzed to identify systemic issues in estimation, scoping, or environmental factors.",
+              "seq": 10
+            },
+            {
+              "name": "Objective-setting framework effectiveness evaluated",
+              "description": "The effectiveness of the objective-setting framework used by the project is evaluated, identifying what worked and what should be improved.",
+              "seq": 11
+            },
+            {
+              "name": "Organizational benchmarks contributed",
+              "description": "The objective evaluation contributes to organizational benchmarks for project performance, enriching data for future estimation.",
+              "seq": 12
+            },
+            {
+              "name": "Success and failure patterns identified",
+              "description": "Success patterns and failure patterns are identified for organizational learning and future project improvement.",
+              "seq": 13
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "From Strategic Direction to Measurable Achievement",
+          "description": "Presents objectives management as a progressive discipline from identification through post-delivery evaluation and organizational learning.",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Objectives are the translation layer between a broad business opportunity and the specific, actionable scope of project work, and without well-defined objectives projects drift as accumulated effort fails to converge on a coherent outcome."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "The OKR framework provides a powerful mechanism for cascading organizational strategy into project-level objectives. Objectives define qualitative aspirations that are significant, concrete, action-oriented, and inspirational, while Key Results define quantitative measures confirming achievement. The discipline of limiting each objective to three to five key results prevents measurement overload while ensuring comprehensive coverage. Prioritization through MoSCoW forces explicit trade-off decisions, while the Kano Model offers nuanced distinction between basic expectations, performance differentiators, and delighters. PMBOK 8th Edition emphasizes that objectives should be revisited continuously, not merely set at inception and measured at closure, reflecting the reality that understanding of what the project should achieve evolves through delivery."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When objectives are managed as a progressive discipline from identification through post-delivery evaluation, projects achieve greater alignment between stakeholder expectations and delivered outcomes, providing clear direction, measurable accountability, and evidence-based assessment informing future investment decisions."
+            }
+          ],
+          "citationNames": [
+            "Measure What Matters",
+            "PMBOK Guide -- Eighth Edition",
+            "Disciplined Agile Delivery"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Project Risk",
+      "description": "Threats and opportunities requiring systematic identification, assessment, and management throughout the project lifecycle.",
+      "focusName": "Value",
+      "contributesTo": "Opportunity",
+      "assetNames": [
+        {
+          "assetName": "project-risk-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "influences",
+          "alphaName": "Objectives",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "informs",
+          "alphaName": "Work",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Unidentified",
+          "description": "Risks exist but have not been systematically surfaced.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Project initiated without risk identification",
+              "description": "The project has been initiated but systematic risk identification has not yet been performed.",
+              "seq": 1
+            },
+            {
+              "name": "General uncertainty areas noted informally",
+              "description": "The team may be aware of general areas of uncertainty but has not performed structured analysis to identify specific risks.",
+              "seq": 2
+            },
+            {
+              "name": "No risk register exists",
+              "description": "No risk register or equivalent risk documentation exists, leaving the project exposed to unanticipated threats.",
+              "seq": 3
+            },
+            {
+              "name": "Risk management processes undefined",
+              "description": "Risk management processes have not been defined, meaning the team has no agreed approach for risk handling.",
+              "seq": 4
+            },
+            {
+              "name": "Organizational risk appetite uncommunicated",
+              "description": "The organizational risk appetite and tolerance levels relevant to the project have not been communicated to the project team.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Identified",
+          "description": "Risks systematically surfaced, described, and categorized.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Structured identification techniques applied",
+              "description": "Systematic risk identification has been performed using brainstorming, checklists, assumption analysis, SWOT, or risk breakdown structures.",
+              "seq": 1
+            },
+            {
+              "name": "Cause-event-effect statements documented",
+              "description": "Each identified risk has been described with a clear statement of cause, risk event, and potential effect on project objectives.",
+              "seq": 2
+            },
+            {
+              "name": "Risks categorized by type",
+              "description": "Risks are categorized by type including technical, organizational, external, project management, and commercial categories.",
+              "seq": 3
+            },
+            {
+              "name": "Both threats and opportunities identified",
+              "description": "Both threats and opportunities have been identified, ensuring the team considers positive risks alongside negative ones.",
+              "seq": 4
+            },
+            {
+              "name": "Risk register created and accessible",
+              "description": "A risk register exists and is accessible to the project team and stakeholders.",
+              "seq": 5
+            },
+            {
+              "name": "Risk owners designated",
+              "description": "Risk owners have been designated for each identified risk, establishing accountability for ongoing monitoring.",
+              "seq": 6
+            },
+            {
+              "name": "Iterative identification committed",
+              "description": "The risk identification process is understood to be iterative, with ongoing identification throughout the project lifecycle.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Assessed",
+          "description": "Risks analyzed for probability, impact, and priority.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Probability and impact assessed",
+              "description": "Each identified risk has been assessed for probability of occurrence and potential impact using qualitative or quantitative techniques.",
+              "seq": 1
+            },
+            {
+              "name": "Risks prioritized by severity",
+              "description": "Risks have been prioritized based on their assessed severity, creating a clear view of which risks require immediate attention.",
+              "seq": 2
+            },
+            {
+              "name": "Risk interdependencies understood",
+              "description": "The interdependencies between risks are understood, including how one risk's materialization might trigger or amplify others.",
+              "seq": 3
+            },
+            {
+              "name": "Overall risk exposure assessed",
+              "description": "The overall risk exposure of the project has been assessed, providing governance with a portfolio view of project uncertainty.",
+              "seq": 4
+            },
+            {
+              "name": "Triggers and warning indicators identified",
+              "description": "Risk triggers and early warning indicators have been identified for high-priority risks, enabling proactive monitoring.",
+              "seq": 5
+            },
+            {
+              "name": "Assessment methodology appropriate",
+              "description": "The assessment methodology is appropriate for the project's size, complexity, and organizational context.",
+              "seq": 6
+            },
+            {
+              "name": "Assessment results communicated to stakeholders",
+              "description": "Assessment results are communicated to stakeholders and governance authorities at the appropriate level of detail.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Actively Managed",
+          "description": "Risk responses executing with monitoring and adaptation in place.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Response strategies defined for high-priority risks",
+              "description": "Response strategies have been defined for all high-priority risks using avoid, transfer, mitigate, accept, exploit, share, or enhance.",
+              "seq": 1
+            },
+            {
+              "name": "Response actions executing by risk owners",
+              "description": "Risk response actions are being executed by designated risk owners according to agreed plans, with progress tracked.",
+              "seq": 2
+            },
+            {
+              "name": "Regular risk reviews occurring",
+              "description": "Regular risk reviews are occurring at appropriate frequency, reassessing existing risks and identifying new risks.",
+              "seq": 3
+            },
+            {
+              "name": "Triggers actively monitored",
+              "description": "Risk triggers and early warning indicators are being monitored actively, enabling timely response.",
+              "seq": 4
+            },
+            {
+              "name": "Contingency plans exist for high-impact risks",
+              "description": "Contingency plans exist for high-impact risks, providing the team with pre-planned responses.",
+              "seq": 5
+            },
+            {
+              "name": "Risk profile communicated to governance",
+              "description": "The project's risk profile is communicated regularly to governance authorities through honest, complete, and actionable reports.",
+              "seq": 6
+            },
+            {
+              "name": "Risk-aware culture demonstrated",
+              "description": "The team demonstrates a risk-aware culture where all members actively identify and communicate emerging risks.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Risk management is mature, integrated, and producing strategic advantage.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Risk integrated into decision-making",
+              "description": "Risk management is fully integrated into project decision-making, with risk considerations informing planning and change management routinely.",
+              "seq": 1
+            },
+            {
+              "name": "Risk approach refined through experience",
+              "description": "The project's risk management approach has been refined through experience, with lessons from risk events incorporated.",
+              "seq": 2
+            },
+            {
+              "name": "Opportunities exploited for project benefit",
+              "description": "Opportunities identified through risk management have been exploited for project benefit, demonstrating strategic value.",
+              "seq": 3
+            },
+            {
+              "name": "Organizational risk knowledge enriched",
+              "description": "Risk management data from the project contributes to organizational risk knowledge, improving future risk management.",
+              "seq": 4
+            },
+            {
+              "name": "Balanced risk awareness without risk aversion",
+              "description": "The team maintains appropriate risk awareness without excessive risk aversion, making informed decisions balancing risk with opportunity.",
+              "seq": 5
+            },
+            {
+              "name": "Residual risks documented and transferred",
+              "description": "Residual risks at project closure are documented and transferred to appropriate owners with full context and recommended responses.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Systematic Risk Management Under Uncertainty",
+          "description": "Presents risk management as a discipline of thinking systematically about threats and opportunities, evolving from compliance to strategic advantage.",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Project risk management is the discipline of thinking systematically about what might go wrong and what might go better than expected, then taking deliberate action to reduce threats and exploit opportunities."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "ISO 31000 defines risk as the effect of uncertainty on objectives, encompassing both threats and opportunities. PMBOK 7th Edition frames risk through the Uncertainty Performance Domain, recognizing that effective risk management enables informed decision-making under uncertainty. PRINCE2 embeds risk management as one of its seven themes, emphasizing risk appetite as a governance-level decision constraining project-level responses. Agile approaches address risk inherently through short iterations and frequent delivery, reducing the time horizon of uncertainty, but this does not eliminate the need for explicit risk management -- agile projects face unique risks including technical debt accumulation, scope creep through backlog expansion, and the temptation to defer architectural decisions."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When risk management matures from a compliance exercise to an integrated strategic discipline, organizations not only protect value but actively discover and exploit opportunities that improve project outcomes beyond original expectations."
+            }
+          ],
+          "citationNames": [
+            "ISO 31000:2018 Risk Management Guidelines",
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "Managing Successful Projects with PRINCE2"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Benefits Realization Plan",
+      "description": "The plan for confirming that project outcomes deliver the intended business value through measurement and accountability.",
+      "focusName": "Value",
+      "contributesTo": "Opportunity",
+      "assetNames": [
+        {
+          "assetName": "benefits-realization-plan-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "validates",
+          "alphaName": "Deliverable",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "reports to",
+          "alphaName": "Stakeholders",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Undefined",
+          "description": "Benefits expected but no formal realization plan exists.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Business case identifies expected benefits",
+              "description": "The project's business case identifies expected benefits, but no structured plan exists for measurement and confirmation.",
+              "seq": 1
+            },
+            {
+              "name": "Benefit expectations expressed generally",
+              "description": "Benefit expectations are expressed in general terms without specific metrics, measurement methods, or target values.",
+              "seq": 2
+            },
+            {
+              "name": "Accountability for benefits unassigned",
+              "description": "Accountability for benefits realization is not clearly assigned, with no designated benefits owner responsible for tracking.",
+              "seq": 3
+            },
+            {
+              "name": "Delivery-to-benefit transition unplanned",
+              "description": "The transition from project delivery to benefit realization has not been planned, leaving a gap between handover and value confirmation.",
+              "seq": 4
+            },
+            {
+              "name": "Stakeholders lack assessment framework",
+              "description": "Stakeholders have expectations about project value but lack a framework for assessing whether those expectations are being met.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Designed",
+          "description": "Benefits plan defined with metrics, baselines, and accountability.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Specific measurable benefits identified",
+              "description": "A benefits realization plan identifies specific, measurable benefits linked to the business case and objectives.",
+              "seq": 1
+            },
+            {
+              "name": "Baseline measurements taken",
+              "description": "Baseline measurements have been taken for each benefit area, establishing the starting point for progress measurement.",
+              "seq": 2
+            },
+            {
+              "name": "Target values and timelines defined",
+              "description": "Target values and timelines for benefit realization are defined, specifying when and how much benefit is expected.",
+              "seq": 3
+            },
+            {
+              "name": "Measurement methods and data sources specified",
+              "description": "Measurement methods and data sources are specified for each benefit, ensuring objective assessment.",
+              "seq": 4
+            },
+            {
+              "name": "Benefits owners designated",
+              "description": "A benefits owner has been designated for each major benefit stream, with clear accountability for tracking and reporting.",
+              "seq": 5
+            },
+            {
+              "name": "Dependencies mapped",
+              "description": "Dependencies between project delivery and benefit realization are mapped, including organizational changes, adoption, and cultural shifts.",
+              "seq": 6
+            },
+            {
+              "name": "Plan reviewed and approved by governance",
+              "description": "The benefits realization plan is reviewed and approved by governance authorities and key stakeholders.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Active",
+          "description": "Benefits being actively tracked and managed toward realization.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Benefits measurement active and collecting data",
+              "description": "Benefits measurement is active, with data being collected and analyzed according to defined methods and frequencies.",
+              "seq": 1
+            },
+            {
+              "name": "Progress reported to governance",
+              "description": "Benefits realization progress is reported to governance authorities and stakeholders at agreed intervals with honest assessment.",
+              "seq": 2
+            },
+            {
+              "name": "Deviations analyzed with corrective actions",
+              "description": "Deviations from expected trajectories are identified early and analyzed for root causes with corrective actions defined.",
+              "seq": 3
+            },
+            {
+              "name": "Benefits owners actively managing enablers",
+              "description": "Benefits owners are actively managing the dependencies and enablers required for benefit realization, not merely tracking passively.",
+              "seq": 4
+            },
+            {
+              "name": "Delivery-benefit timeline monitored",
+              "description": "The relationship between project delivery milestones and expected benefit emergence is monitored and validated.",
+              "seq": 5
+            },
+            {
+              "name": "Emerging unplanned benefits captured",
+              "description": "Emerging benefits not originally planned are identified and documented, capturing unexpected value alongside planned benefits.",
+              "seq": 6
+            },
+            {
+              "name": "Stakeholders receiving regular benefits communication",
+              "description": "Stakeholders receive regular communication about benefits realization progress, maintaining confidence and engagement.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Confirmed",
+          "description": "Benefits verified as realized with evidence documented and lessons captured.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Planned benefits measured and confirmed",
+              "description": "Planned benefits have been measured against baseline values and confirmed as realized, with quantitative evidence.",
+              "seq": 1
+            },
+            {
+              "name": "Variance analyzed and accepted",
+              "description": "Variance between planned and actual benefits is analyzed, explained, and accepted by governance authorities.",
+              "seq": 2
+            },
+            {
+              "name": "Data documented for organizational learning",
+              "description": "Benefits realization data is documented in a form that enables organizational learning and improves future business case quality.",
+              "seq": 3
+            },
+            {
+              "name": "Lessons about benefits management captured",
+              "description": "Lessons learned about benefits planning, measurement, and realization are captured and shared with the organization.",
+              "seq": 4
+            },
+            {
+              "name": "Business case updated with actual results",
+              "description": "The business case is formally updated with actual results, providing a complete record of investment versus return.",
+              "seq": 5
+            },
+            {
+              "name": "Ongoing monitoring transferred to operational owners",
+              "description": "Ongoing monitoring requirements for sustained benefit realization are defined and handed over to operational benefit owners.",
+              "seq": 6
+            },
+            {
+              "name": "Benefits methodology enhanced from experience",
+              "description": "The organization's benefits management methodology is enhanced based on the experience of this project.",
+              "seq": 7
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Closing the Gap Between Delivery and Business Value",
+          "description": "Presents benefits realization planning as the bridge between project delivery and confirmed business value through measurement and accountability.",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Benefits realization planning bridges the gap between project delivery and business value, addressing the common failure mode where projects deliver specified outputs yet fail to produce intended business benefits because no one planned for, measured, or managed the transition from deliverable to benefit."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "PRINCE2 addresses this explicitly through its Benefits Management Approach, requiring projects to define not just what they will deliver but how the delivered solution will produce measurable benefits and who will be accountable. The OKR framework provides a practical mechanism for connecting project activities to benefit measurement, with Objectives defining qualitative benefits and Key Results providing quantitative confirmation. Benefits realization is inherently collaborative, requiring partnership between the project team, business owners, and organizational governance, because realizing benefits requires business change, user adoption, process modification, and often cultural shift extending beyond the project team's direct control."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "When benefits realization is planned, measured, and managed with the same rigor applied to scope, schedule, and budget, organizations close the loop between investment and value, creating accountability that improves both current project outcomes and future investment decision-making quality."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Projects with PRINCE2",
+            "Measure What Matters",
+            "PMBOK Guide -- Eighth Edition"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Business Case Document",
+      "description": "A structured justification for project investment linking opportunity assessment to expected benefits.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Basic problem statement and high-level value proposition.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Business problem described qualitatively",
+              "description": "The business problem or opportunity is described in general terms with a qualitative assessment of potential value.",
+              "seq": 1
+            },
+            {
+              "name": "Strategic alignment asserted",
+              "description": "Strategic alignment is asserted but not systematically demonstrated through traceability to organizational goals.",
+              "seq": 2
+            },
+            {
+              "name": "Order-of-magnitude estimates provided",
+              "description": "Cost and benefit estimates are order-of-magnitude, based on analogous experience or expert judgment.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Formatted business case with quantified costs, benefits, and alternatives.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Costs and benefits quantified",
+              "description": "Costs and benefits are quantified using financial analysis techniques such as ROI, NPV, or payback period.",
+              "seq": 1
+            },
+            {
+              "name": "Solution alternatives analyzed",
+              "description": "At least two solution alternatives are analyzed with comparative evaluation criteria.",
+              "seq": 2
+            },
+            {
+              "name": "Strategic alignment demonstrated",
+              "description": "Strategic alignment is demonstrated through explicit linkage to organizational strategic objectives.",
+              "seq": 3
+            },
+            {
+              "name": "Major risks identified",
+              "description": "Major risks to the business case are identified with qualitative probability and impact assessment.",
+              "seq": 4
+            },
+            {
+              "name": "Governance review ready",
+              "description": "The document follows organizational business case templates and is suitable for formal governance review.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Value Established"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive",
+          "description": "Detailed business case with sensitivity analysis and benefits planning.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Sensitivity testing performed",
+              "description": "Financial analysis includes sensitivity testing demonstrating how key assumptions affect viability.",
+              "seq": 1
+            },
+            {
+              "name": "Benefits realization planning included",
+              "description": "Benefits realization planning identifies specific benefit streams, measurement methods, baselines, and accountable owners.",
+              "seq": 2
+            },
+            {
+              "name": "Quantitative risk analysis included",
+              "description": "Risk analysis includes quantitative assessment and contingency allocation.",
+              "seq": 3
+            },
+            {
+              "name": "Stakeholder impact analysis complete",
+              "description": "Stakeholder impact analysis covers all affected groups with differentiated impact assessments.",
+              "seq": 4
+            },
+            {
+              "name": "Complete decision-support package",
+              "description": "The business case provides a complete decision-support package for governance authorization.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Viable"
+            }
+          ]
+        },
+        {
+          "name": "Dynamic",
+          "description": "Living business case updated throughout the project with actual data.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Living document maintained",
+              "description": "The business case is maintained as a living document, updated at stage boundaries with actual cost, schedule, and benefit data.",
+              "seq": 1
+            },
+            {
+              "name": "Forecast-to-completion analysis active",
+              "description": "Forecast-to-completion analysis compares original projections with emerging actuals, providing early divergence warning.",
+              "seq": 2
+            },
+            {
+              "name": "Benefits tracking integrated",
+              "description": "Benefits realization tracking is integrated, showing progress toward expected benefits alongside delivery progress.",
+              "seq": 3
+            },
+            {
+              "name": "Continuous viability check functioning",
+              "description": "The document serves as a continuous viability check supporting ongoing investment decisions.",
+              "seq": 4
+            },
+            {
+              "name": "Maintenance lessons captured",
+              "description": "Lessons from business case maintenance are captured for organizational methodology improvement.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Benefit Accrued"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "business-case-document-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Sustaining Investment Confidence Through Living Justification",
+          "description": "How continuous business case maintenance anchors project viability decisions.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "Managing Successful Projects with PRINCE2",
+            "PMBOK Guide -- Eighth Edition"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Projects exist because an organization identified a gap between its current state and a desired future state valuable enough to justify investment. The business case document transforms this recognition into a structured justification that connects opportunity assessment to expected benefits, providing governance bodies with the evidence they need for informed investment decisions. Without a disciplined approach to business case development, organizations risk committing resources based on optimism rather than analysis, exposing themselves to the sunk cost fallacy that prolongs failing initiatives."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "PRINCE2 structures the entire project lifecycle around the continued business justification principle, requiring that the business case be revisited at every stage boundary. If the opportunity no longer justifies the investment, the project should be stopped. This discipline transforms the business case from a one-time authorization document into a living viability assessment that evolves alongside project reality. Quantified cost-benefit analysis using techniques such as ROI, NPV, and payback period provides the analytical foundation, while sensitivity testing demonstrates how key assumptions affect viability under different scenarios. The PMBOK Guide emphasizes that projects should be evaluated not just for their ability to produce outputs but for their contribution to business value, including financial returns, social impact, and strategic positioning."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "A mature business case serves as a continuous viability check throughout the project lifecycle, comparing original projections with emerging actuals and providing early warning of divergence. By maintaining the business case as a living document updated at stage boundaries with actual cost, schedule, and benefit data, organizations create the transparency needed for honest governance conversations. The lessons captured through business case maintenance contribute to organizational methodology improvement, building institutional knowledge that strengthens future investment decisions."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stakeholder Register",
+      "description": "A comprehensive record of stakeholder groups, their interests, influence, and engagement strategies.",
+      "levelsOfDetail": [
+        {
+          "name": "Identification",
+          "description": "List of stakeholder groups with basic categorization.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Stakeholder groups listed",
+              "description": "Stakeholder groups are listed with names, categories, and brief descriptions of their interest in the project.",
+              "seq": 1
+            },
+            {
+              "name": "Contact information recorded",
+              "description": "Basic contact information or organizational affiliation is recorded for each group.",
+              "seq": 2
+            },
+            {
+              "name": "Sufficient for initial planning",
+              "description": "The register is sufficient for initial communication planning but lacks depth for differentiated engagement.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Recognized"
+            }
+          ]
+        },
+        {
+          "name": "Analyzed",
+          "description": "Stakeholder analysis with influence, interest, and engagement assessment.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Influence and interest assessed",
+              "description": "Each stakeholder group is assessed for influence level, interest level, and current disposition using structured frameworks.",
+              "seq": 1
+            },
+            {
+              "name": "Communication preferences documented",
+              "description": "Communication preferences, frequency expectations, and preferred channels are documented for each group.",
+              "seq": 2
+            },
+            {
+              "name": "Power-interest classifications applied",
+              "description": "Power-interest or influence-impact classifications enable differentiated engagement strategies.",
+              "seq": 3
+            },
+            {
+              "name": "Relationships and conflicts identified",
+              "description": "Key relationships, alliances, and potential conflicts between stakeholder groups are identified.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Represented"
+            }
+          ]
+        },
+        {
+          "name": "Strategic",
+          "description": "Full engagement strategy with tailored approaches and feedback mechanisms.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Differentiated strategies documented",
+              "description": "Differentiated engagement strategies are documented for each stakeholder group with specific actions and frequencies.",
+              "seq": 1
+            },
+            {
+              "name": "Relationship risk assessment complete",
+              "description": "Risk assessment for each stakeholder relationship identifies potential issues and preventive measures.",
+              "seq": 2
+            },
+            {
+              "name": "Feedback mechanisms defined",
+              "description": "Feedback mechanisms are defined for each group, specifying how input will be gathered and responded to.",
+              "seq": 3
+            },
+            {
+              "name": "Engagement success metrics tracked",
+              "description": "Success metrics for stakeholder engagement are defined and tracked.",
+              "seq": 4
+            },
+            {
+              "name": "Register maintained as living document",
+              "description": "The register is a living document updated regularly as stakeholder dynamics evolve.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "In Agreement"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "stakeholder-register-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Mapping the Human Landscape of Project Success",
+          "description": "How systematic stakeholder identification and analysis prevents engagement failures.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "Individual Competence Baseline Version 4.0",
+            "PMBOK Guide -- Eighth Edition"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Stakeholder misalignment ranks consistently among the top causes of project failure, not because the technology failed or the plan was flawed, but because the people whose support was essential were not adequately identified, engaged, or satisfied. The stakeholder register addresses this risk by providing a comprehensive record of stakeholder groups, their interests, influence, and engagement strategies. PMBOK Seventh Edition elevates stakeholder engagement from a knowledge area to a performance domain, reflecting its centrality to value delivery."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Effective stakeholder management requires understanding that stakeholders are not a monolithic group but a complex ecosystem of individuals and groups with different interests, influence levels, communication preferences, and definitions of success. The register must map this ecosystem using structured approaches such as influence-interest grids, power-impact matrices, and salience models, then enable differentiated engagement strategies for each stakeholder segment. Key relationships, alliances, and potential conflicts between stakeholder groups must be captured alongside individual assessments. One-size-fits-all communication is a common cause of stakeholder disengagement, making the analytical depth of the register a critical determinant of engagement effectiveness."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "The stakeholder register functions as a living document that evolves as understanding deepens and stakeholder dynamics shift throughout the project lifecycle. Success metrics for stakeholder engagement provide feedback on whether differentiated strategies are working, while regular updates ensure the register reflects the current reality rather than initial assumptions. By treating the register as a strategic management tool rather than an administrative checklist, project teams build the stakeholder intelligence needed to navigate the human dimension of project delivery."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stakeholder Engagement Plan",
+      "description": "A structured plan defining how stakeholder groups will be engaged throughout the project lifecycle.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial Approach",
+          "description": "High-level engagement approach with communication channels identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Communication channels identified",
+              "description": "Primary communication channels for each stakeholder group are identified and established.",
+              "seq": 1
+            },
+            {
+              "name": "Engagement cadence proposed",
+              "description": "Initial engagement cadence is proposed based on stakeholder influence and interest levels.",
+              "seq": 2
+            },
+            {
+              "name": "Approach documented and shared",
+              "description": "The engagement approach is documented and shared with the project team.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Represented"
+            }
+          ]
+        },
+        {
+          "name": "Active Plan",
+          "description": "Detailed engagement plan with scheduled activities and feedback loops.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Engagement activities scheduled",
+              "description": "Specific engagement activities are scheduled including reviews, demonstrations, workshops, and consultations.",
+              "seq": 1
+            },
+            {
+              "name": "Feedback mechanisms operational",
+              "description": "Feedback collection mechanisms are operational with defined response and action processes.",
+              "seq": 2
+            },
+            {
+              "name": "Engagement effectiveness monitored",
+              "description": "Engagement effectiveness is monitored through stakeholder satisfaction indicators.",
+              "seq": 3
+            },
+            {
+              "name": "Plan adapts to evolving needs",
+              "description": "The plan adapts to evolving stakeholder needs and project phase requirements.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Involved"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive",
+          "description": "Full engagement strategy with acceptance processes and satisfaction tracking.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Acceptance processes defined",
+              "description": "Formal acceptance processes are defined for each stakeholder group with clear criteria and governance mechanisms.",
+              "seq": 1
+            },
+            {
+              "name": "Post-deployment monitoring planned",
+              "description": "Post-deployment satisfaction monitoring is planned with measurement methods and thresholds.",
+              "seq": 2
+            },
+            {
+              "name": "Engagement lessons captured systematically",
+              "description": "Stakeholder engagement lessons are captured systematically throughout the project.",
+              "seq": 3
+            },
+            {
+              "name": "Transition arrangements planned",
+              "description": "Transition arrangements for operational stakeholder relationships are planned and agreed.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Satisfied for Deployment"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "stakeholder-engagement-plan-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "From Periodic Consultation to Continuous Collaboration",
+          "description": "How structured engagement transforms stakeholder relationships into project assets.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "PMBOK Guide -- Eighth Edition",
+            "Individual Competence Baseline Version 4.0",
+            "The Scrum Guide"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Stakeholder satisfaction is not static; it evolves as stakeholders gain deeper understanding of what is being built, as organizational circumstances change, and as the project progresses through its lifecycle. A structured engagement plan moves beyond ad hoc communication to define deliberate strategies for each stakeholder segment, ensuring that the right people receive the right information through the right channels at the right time. Regular demonstrations, transparent reporting, and genuine responsiveness to feedback are essential for maintaining the confidence that enables project teams to work with appropriate autonomy."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Agile approaches fundamentally transform the stakeholder relationship from periodic consultation to continuous collaboration. The Scrum Guide positions the Product Owner as the critical bridge between stakeholder needs and team execution, serving as the single accountable individual responsible for maximizing the value of the product. Differentiated engagement strategies must specify actions, frequencies, responsible parties, and feedback mechanisms for each stakeholder group. Risk assessment for each stakeholder relationship identifies potential issues and preventive measures, while escalation paths ensure that emerging stakeholder concerns reach decision-makers before they become project threats."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "An effective engagement plan creates a virtuous cycle where stakeholder confidence enables greater project autonomy and faster decision-making. By defining how stakeholder input will be gathered, processed, and responded to, the plan establishes the feedback loops that keep the project aligned with evolving stakeholder expectations. The engagement plan must itself be subject to regular review and adaptation, reflecting the recognition that the stakeholder landscape is dynamic and that yesterday's engagement approach may not serve tomorrow's project needs."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "OKR Framework Document",
+      "description": "A structured set of Objectives and Key Results connecting strategy to measurable project outcomes.",
+      "levelsOfDetail": [
+        {
+          "name": "Draft Objectives",
+          "description": "Initial objectives listed without measurable key results.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Qualitative objectives articulated",
+              "description": "Qualitative objectives are articulated that describe what the project intends to achieve.",
+              "seq": 1
+            },
+            {
+              "name": "Directional statements without targets",
+              "description": "Objectives are directional statements without specific measurable targets.",
+              "seq": 2
+            },
+            {
+              "name": "Strategy alignment implied",
+              "description": "Alignment to organizational strategy is implied but not explicitly demonstrated.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Objectives",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Structured OKRs",
+          "description": "Objectives paired with specific, measurable key results.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Key results defined per objective",
+              "description": "Each objective has three to five measurable key results with specific target values.",
+              "seq": 1
+            },
+            {
+              "name": "Key results objectively assessable",
+              "description": "Key results are quantifiable and objectively assessable without subjective interpretation.",
+              "seq": 2
+            },
+            {
+              "name": "Time horizons specified",
+              "description": "Time horizons are specified for each key result, typically aligned with project phases.",
+              "seq": 3
+            },
+            {
+              "name": "OKR cascade established",
+              "description": "OKRs cascade from organizational strategy through project-level to team-level where applicable.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Objectives",
+              "stateName": "Articulated"
+            }
+          ]
+        },
+        {
+          "name": "Active OKRs",
+          "description": "OKRs with tracking mechanisms, baseline data, and progress reporting.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Baselines established",
+              "description": "Baseline measurements are established for each key result as the starting point for progress measurement.",
+              "seq": 1
+            },
+            {
+              "name": "Tracking mechanisms operational",
+              "description": "Tracking mechanisms including dashboards and reporting cadences are operational.",
+              "seq": 2
+            },
+            {
+              "name": "Progress reported with trajectory",
+              "description": "Progress toward key results is reported regularly, with trajectory analysis indicating whether targets will be met.",
+              "seq": 3
+            },
+            {
+              "name": "OKR reviews occurring",
+              "description": "OKR reviews occur at defined intervals, enabling course correction based on emerging data.",
+              "seq": 4
+            },
+            {
+              "name": "Benefit realization relationship monitored",
+              "description": "The relationship between key result progress and actual benefit realization is monitored.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Objectives",
+              "stateName": "Agreed"
+            }
+          ]
+        },
+        {
+          "name": "Optimized OKRs",
+          "description": "OKRs integrated into continuous improvement with retrospective analysis.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Historical data analyzed",
+              "description": "Historical OKR data is analyzed to improve future objective-setting accuracy and key result calibration.",
+              "seq": 1
+            },
+            {
+              "name": "Stretch goals calibrated empirically",
+              "description": "Stretch goals are calibrated based on empirical achievement data, balancing ambition with realism.",
+              "seq": 2
+            },
+            {
+              "name": "Organizational learning contributed",
+              "description": "OKR outcomes feed into organizational learning, contributing to benchmarks for future projects.",
+              "seq": 3
+            },
+            {
+              "name": "Framework itself continuously improved",
+              "description": "The OKR framework is itself subject to continuous improvement based on team experience.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Objectives",
+              "stateName": "Evaluated"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "okr-framework-document-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Bridging Strategic Intent and Delivery Through Measurable Outcomes",
+          "description": "How objectives and key results translate strategy into verifiable project progress.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Measure What Matters",
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "PMBOK Guide -- Eighth Edition"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Without well-defined objectives, projects drift: the team works hard but the accumulated effort does not converge on a coherent outcome. Objectives are the translation layer between a broad business opportunity and the specific, actionable scope of project work. The OKR framework provides a powerful mechanism for cascading organizational strategy into project-level objectives, ensuring every unit of project effort contributes demonstrably to business goals rather than drifting toward technically interesting but strategically irrelevant work."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Objectives define qualitative aspirations that are significant, concrete, action-oriented, and inspirational. Key Results define quantitative measures that confirm the objective is being achieved; they must be specific, time-bound, aggressive yet realistic, and measurable without subjective judgment. The discipline of limiting each objective to three to five key results prevents measurement overload while ensuring comprehensive coverage. Unlike traditional project metrics that measure output, OKR-based measurement focuses on outcomes: the changes in business performance, customer behaviour, or organizational capability that the project's deliverables enable. Baseline measurements establish the starting point for progress measurement, while tracking mechanisms including dashboards and reporting cadences make trajectory visible."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Objectives should be revisited continuously, not merely set at project inception and measured at closure, reflecting the reality that understanding of what the project should achieve evolves as the team learns through delivery. Historical OKR data improves future objective-setting accuracy and key result calibration, creating a feedback loop that strengthens organizational capability over time. The OKR framework itself should be subject to continuous improvement, with teams refining their approach to objective-setting and measurement based on empirical experience."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Risk Register",
+      "description": "A comprehensive record of identified risks with assessment, response plans, and monitoring status.",
+      "levelsOfDetail": [
+        {
+          "name": "Identification List",
+          "description": "Basic list of identified risks with brief descriptions.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Risks listed with descriptions",
+              "description": "Risks are listed with descriptive titles and brief cause-event-effect statements.",
+              "seq": 1
+            },
+            {
+              "name": "Risks categorized by type",
+              "description": "Risks are categorized by type but not yet assessed for probability or impact.",
+              "seq": 2
+            },
+            {
+              "name": "Starting point for analysis",
+              "description": "The list serves as a starting point for analysis but is not yet a management tool.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Assessed Register",
+          "description": "Risks assessed for probability, impact, and priority with owners assigned.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Probability and impact assessed",
+              "description": "Each risk is assessed for probability and impact using qualitative scales with consistent criteria.",
+              "seq": 1
+            },
+            {
+              "name": "Risks ranked by priority",
+              "description": "Risk priority is calculated and risks are ranked to focus attention on the most significant items.",
+              "seq": 2
+            },
+            {
+              "name": "Risk owners designated",
+              "description": "Risk owners are designated for each identified risk with clear accountability.",
+              "seq": 3
+            },
+            {
+              "name": "Triggers identified for high-priority risks",
+              "description": "Triggers and early warning indicators are identified for high-priority risks.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Assessed"
+            }
+          ]
+        },
+        {
+          "name": "Managed Register",
+          "description": "Full risk management with response strategies, contingency plans, and tracking.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Response strategies defined",
+              "description": "Response strategies are defined for all high-priority risks with specific actions, responsible parties, and timelines.",
+              "seq": 1
+            },
+            {
+              "name": "Contingency plans documented",
+              "description": "Contingency plans and fallback positions are documented for risks with the highest potential impact.",
+              "seq": 2
+            },
+            {
+              "name": "Risk status actively tracked",
+              "description": "Risk status is actively tracked and updated at defined review cadences.",
+              "seq": 3
+            },
+            {
+              "name": "Risk history maintained",
+              "description": "The register includes a risk history showing how risks have evolved over time.",
+              "seq": 4
+            },
+            {
+              "name": "Risk exposure trends visible",
+              "description": "Overall risk exposure trends are visible, enabling governance reporting on project risk trajectory.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Actively Managed"
+            }
+          ]
+        },
+        {
+          "name": "Integrated Register",
+          "description": "Risk register integrated with project planning, reporting, and organizational risk management.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Responses integrated into project plan",
+              "description": "Risk responses are integrated into the project schedule and resource plan with contingency reserves allocated.",
+              "seq": 1
+            },
+            {
+              "name": "Organizational risk reporting fed",
+              "description": "Risk data feeds into organizational risk reporting and portfolio-level risk analysis.",
+              "seq": 2
+            },
+            {
+              "name": "Risk management lessons captured",
+              "description": "Lessons from risk management are captured and contribute to organizational risk knowledge.",
+              "seq": 3
+            },
+            {
+              "name": "Risk management maturity demonstrated",
+              "description": "The register demonstrates the project's risk management maturity through complete, honest records.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "risk-register-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Transforming Uncertainty Into Managed Exposure",
+          "description": "How structured risk identification and response planning protect project viability.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "ISO 31000:2018 Risk Management Guidelines",
+            "Managing Successful Projects with PRINCE2",
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Every project operates under uncertainty, and the difference between projects that navigate uncertainty successfully and those that are derailed by it lies in the discipline of systematic risk identification, assessment, and response planning. The risk register transforms vague anxiety about what might go wrong into a structured inventory of identified risks with assessed probability, impact, designated owners, and defined response strategies. ISO 31000 provides the foundational framework, establishing that risk management should be integrated into all organizational activities, including project delivery."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "PRINCE2 structures risk management around a cycle of identification, assessment, planning, implementation, and communication, requiring that risk status be reviewed at every stage boundary. Each risk requires a clear cause-event-effect statement that enables precise assessment and targeted response planning. Probability and impact assessment using consistent qualitative or quantitative scales enables prioritization, ensuring attention and resources flow to the most significant threats. Response strategies must be specific enough to be actionable, with designated owners who accept accountability for execution. Triggers and early warning indicators for high-priority risks enable proactive intervention before risks materialize into issues."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "A mature risk register provides governance authorities with visibility into overall risk exposure trends, enabling informed decisions about project continuation, escalation, or termination. Risk responses integrated into the project schedule and resource plan ensure that risk management is not a parallel activity but an embedded dimension of project planning. The risk history showing how risks have evolved, been resolved, or materialized over time contributes to organizational risk knowledge, improving the accuracy of risk identification and assessment on future projects."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Benefits Realization Map",
+      "description": "A visual and analytical tool linking project deliverables to measurable business benefits.",
+      "levelsOfDetail": [
+        {
+          "name": "Conceptual",
+          "description": "High-level linkage between deliverables and expected benefits.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Deliverables linked to benefits",
+              "description": "Major deliverables are listed alongside the benefits they are expected to enable.",
+              "seq": 1
+            },
+            {
+              "name": "Qualitative linkage described",
+              "description": "The linkage between deliverables and benefits is described qualitatively without specific measurement.",
+              "seq": 2
+            },
+            {
+              "name": "Narrative justification provided",
+              "description": "The map provides a narrative justification for project outputs but is not yet a measurement tool.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Undefined"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Benefits mapped with metrics, baselines, and measurement methods.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Benefits quantified with targets",
+              "description": "Specific benefits are identified with quantified target values and measurement methods.",
+              "seq": 1
+            },
+            {
+              "name": "Baselines established or planned",
+              "description": "Baseline measurements are established or planned for each benefit area.",
+              "seq": 2
+            },
+            {
+              "name": "Causal chain documented",
+              "description": "The causal chain from deliverable to enabler to benefit is documented.",
+              "seq": 3
+            },
+            {
+              "name": "Accountability assigned",
+              "description": "Accountability for benefit realization is assigned to named individuals or roles.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Designed"
+            }
+          ]
+        },
+        {
+          "name": "Active",
+          "description": "Benefits map with active tracking, variance analysis, and corrective actions.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Benefits actively tracked against targets",
+              "description": "Benefit realization is actively tracked against targets with regular governance reporting.",
+              "seq": 1
+            },
+            {
+              "name": "Variance analysis performed",
+              "description": "Variance analysis identifies where benefits are tracking above or below expectations with root cause analysis.",
+              "seq": 2
+            },
+            {
+              "name": "Corrective actions executing",
+              "description": "Corrective actions are defined and executed when benefit realization diverges significantly from plan.",
+              "seq": 3
+            },
+            {
+              "name": "Map maintained as living document",
+              "description": "The map is maintained as a living document, updated with actual data and revised projections.",
+              "seq": 4
+            },
+            {
+              "name": "Data shared with portfolio management",
+              "description": "Benefits realization data is shared with organizational portfolio management for investment decision support.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Confirmed"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "benefits-realization-map-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Closing the Gap Between Delivery Completion and Value Confirmation",
+          "description": "How benefits mapping connects project outputs to measurable business outcomes.",
+          "narrativeTypeName": "Essay",
+          "citationNames": [
+            "Managing Successful Projects with PRINCE2",
+            "Measure What Matters",
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Many projects deliver their specified outputs on time and on budget yet fail to produce the intended business benefits because no one planned for, measured, or managed the transition from deliverable to benefit. Benefits realization mapping addresses this systemic gap by establishing explicit causal chains from project deliverables through enablers to measurable business outcomes. PRINCE2 explicitly requires that projects define not just what they will deliver but how the delivered solution will produce measurable benefits and who will be accountable for ensuring those benefits materialize."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "The causal chain from deliverable to enabler to benefit must be documented with sufficient rigour to support measurement and accountability. Specific benefits require quantified target values, baseline measurements, and defined measurement methods that enable objective assessment rather than subjective claims. Accountability for benefit realization must be assigned to named individuals or roles, because realizing benefits requires business change, user adoption, process modification, and often cultural shift that extend beyond the project team's direct control. The OKR framework provides a practical mechanism for connecting project activities to benefit measurement, with objectives defining the qualitative benefit and key results providing the quantitative confirmation of realization."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Active tracking of benefit realization against targets enables early identification of variance and root cause analysis when benefits diverge from projections. Corrective actions defined in response to variance ensure that benefit realization remains a managed process rather than a hopeful outcome. Benefits realization data shared with organizational portfolio management strengthens future investment decision-making, creating a learning cycle that improves the organization's ability to predict and deliver genuine business value from its project investments."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "name": "Develop Business Case",
+      "description": "Analyze the business opportunity and create a structured investment justification document.",
+      "activitySpaceName": "Explore Possibilities",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "develop-business-case-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Value Established"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Viable"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Business Case Document",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "Benefits Realization Map",
+          "levelOfDetailName": "Conceptual"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Creating Investment Justification Through Structured Analysis",
+          "description": "Technique guidance for producing the investment justification that connects business opportunity to organizational strategy.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity produces the investment justification that connects the identified business opportunity to organizational strategy, quantifies expected value, and provides governance authorities with the information needed for funding authorization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin by gathering data about the business problem from stakeholder interviews, market analysis, operational data, and strategic planning documents. Frame the business case around the gap between current and desired state, quantifying both the cost of inaction and expected value of action. Use financial analysis techniques appropriate to context such as ROI, NPV, or payback period, while acknowledging that strategic positioning, risk reduction, and compliance may require qualitative assessment. Structure for the governance audience with executive-level value propositions, financial analysis, risk assessment, and comparative evaluation including at least two alternatives and the null option. Apply sensitivity analysis to test projection robustness. Treat the business case as a living document revisited at every major milestone per PRINCE2's continued business justification principle."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Creating a one-time authorization artifact that is filed and forgotten rather than maintained as a living viability check. Failing to include at least two alternatives including the null option, presenting advocacy rather than analysis. Omitting sensitivity analysis, which leaves the business case vulnerable to single-assumption failures. Quantifying only financial benefits while ignoring strategic, risk reduction, and compliance value that may be equally significant."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Projects with PRINCE2",
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Conduct Opportunity Assessment",
+      "description": "Evaluate the viability and strategic alignment of the business opportunity through structured analysis.",
+      "activitySpaceName": "Assess and Monitor Value",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "conduct-opportunity-assessment-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Initiated"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Determined"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Business Case Document",
+          "levelOfDetailName": "Initial"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Validating Business Opportunities Through Structured Evaluation",
+          "description": "Technique guidance for performing the initial evaluation of a business opportunity to determine whether it merits further investment.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity performs the initial evaluation of a business opportunity, establishing whether a need or problem exists with sufficient substance and strategic alignment to merit further investment in detailed analysis and business case development."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Identify the business problem, need, or strategic gap through stakeholder conversations and environmental scanning. Articulate the business context and strategic drivers connecting the opportunity to organizational objectives. Identify an initial sponsor who will advocate through governance processes. Outline the preliminary scope in terms of affected stakeholder groups and potential magnitude of impact. Assess feasibility across technical, organizational, and economic dimensions. Document initial assumptions explicitly for validation. Assess the opportunity in the portfolio context to confirm it merits attention relative to competing demands."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Conflating enthusiasm for an idea with validated business need. Skipping feasibility assessment and proceeding directly to solution design. Failing to distinguish the opportunity from overlapping initiatives, creating confusion about identity and accountability. Ignoring portfolio context, leading to resource competition with higher-value investments."
+            }
+          ],
+          "citationNames": [
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "Lean Thinking"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Perform Stakeholder Analysis",
+      "description": "Systematically identify and analyze all stakeholder groups, their interests, influence, and engagement needs.",
+      "activitySpaceName": "Understand Stakeholder Needs",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "perform-stakeholder-analysis-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Recognized"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Represented"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Stakeholder Register",
+          "levelOfDetailName": "Identification"
+        },
+        {
+          "workProductName": "Stakeholder Register",
+          "levelOfDetailName": "Analyzed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation",
+        "Analysis",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Building Comprehensive Stakeholder Understanding",
+          "description": "Technique guidance for systematically identifying and analyzing stakeholder groups through structured frameworks and empathetic analysis.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity produces a comprehensive understanding of the stakeholder ecosystem through systematic identification, classification, and empathetic analysis of each stakeholder group's interests, influence, and engagement needs."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin with broad identification using organizational chart analysis, value stream mapping, and reverse brainstorming. For each group, document interests, expectations, current attitude, influence level, and potential impact. Use structured frameworks such as the power-interest grid to classify stakeholders into engagement quadrants. Develop empathy by understanding each group's perspective, pressures, and definition of success. Document in a stakeholder register serving as a living reference. Update regularly as new stakeholders emerge, relationships evolve, and project impact clarifies. Pay particular attention to indirectly affected stakeholders including operational support teams, adjacent system users, and regulatory bodies."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Treating stakeholder identification as a one-time exercise rather than an ongoing discipline. Focusing only on obvious stakeholders with formal authority while overlooking indirectly affected groups. Applying one-size-fits-all engagement rather than differentiated strategies based on influence-interest analysis. Performing mechanical stakeholder mapping without developing genuine empathy for each group's perspective."
+            }
+          ],
+          "citationNames": [
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "Individual Competence Baseline Version 4.0"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Facilitate Stakeholder Engagement Workshop",
+      "description": "Design and facilitate collaborative workshops to align stakeholder expectations and build shared understanding.",
+      "activitySpaceName": "Ensure Stakeholder Satisfaction",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "facilitate-stakeholder-engagement-workshop-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Involved"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "In Agreement"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Stakeholder Register",
+          "levelOfDetailName": "Strategic"
+        },
+        {
+          "workProductName": "Stakeholder Engagement Plan",
+          "levelOfDetailName": "Active Plan"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation",
+        "Communication",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team",
+        "Stakeholder Advisory Group"
+      ],
+      "narratives": [
+        {
+          "name": "Collaborative Alignment Through Facilitated Workshops",
+          "description": "Technique guidance for creating stakeholder alignment through structured facilitation that equalizes participation and surfaces conflicts transparently.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity creates alignment and shared understanding among diverse stakeholder groups through structured facilitation that equalizes participation, surfaces conflicts transparently, and produces co-created artifacts building shared ownership."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Design each workshop with clear purpose, desired outcomes, participant list, and facilitation plan. Use techniques that equalize participation such as silent brainstorming, round-robin contribution, dot voting, and affinity mapping. Structure alignment workshops around building shared understanding of the project's purpose, constraints, and success criteria. Use visual techniques such as context diagrams, stakeholder maps, and impact matrices to create shared artifacts. When conflicts emerge, use structured dialogue to ensure all perspectives are heard and underlying interests, not just positions, are surfaced. Follow up within 24 hours with a summary documenting what was discussed, decided, what remains unresolved, and committed actions."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Allowing workshops to be dominated by the most senior or vocal participants while important perspectives go unheard. Designing workshops that present pre-built artifacts rather than co-creating them, which builds compliance rather than ownership. Failing to follow through on workshop action items, which is the fastest way to erode stakeholder confidence. Treating stakeholder engagement as performative rather than genuine, which stakeholders detect and respond to with disengagement."
+            }
+          ],
+          "citationNames": [
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "Individual Competence Baseline Version 4.0"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Define Strategic OKRs",
+      "description": "Establish Objectives and Key Results that connect project activities to measurable strategic outcomes.",
+      "activitySpaceName": "Shape the Objectives",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "define-strategic-okrs-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Objectives",
+          "stateName": "Articulated"
+        },
+        {
+          "alphaName": "Objectives",
+          "stateName": "Prioritized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "OKR Framework Document",
+          "levelOfDetailName": "Structured OKRs"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Leadership",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Cascading Strategy Into Measurable Project Outcomes",
+          "description": "Technique guidance for translating strategic context into SMART-aligned Objectives and Key Results providing clear project direction.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity translates strategic context into SMART-aligned Objectives and Key Results that provide clear direction for planning, unambiguous criteria for measuring success, and a stable foundation for scope management."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Start with strategic context by understanding organizational objectives the project serves. Align project OKRs directly to organizational OKRs through explicit cascading. Limit each project to three to five objectives maximum. Write objectives that are qualitative, inspiring, concrete, and action-oriented. For each objective, define three to five key results that are specific, measurable, time-bound, and ambitious but achievable. Ensure every key result is objectively assessable with no room for subjective disagreement. Calibrate ambition appropriately, distinguishing committed OKRs at 90-100 percent confidence from aspirational OKRs at 60-70 percent expected achievement. Review OKRs at defined intervals, typically quarterly, adjusting as circumstances evolve."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Writing output-oriented key results rather than outcome-oriented ones. Pursuing too many objectives simultaneously, diluting focus and reducing achievement probability. Failing to distinguish committed from aspirational targets, leading governance to treat stretch goals as guaranteed commitments. Setting key results that are not objectively assessable, enabling subjective interpretation of achievement."
+            }
+          ],
+          "citationNames": [
+            "Measure What Matters",
+            "PMBOK Guide -- Eighth Edition"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Prioritize Objectives",
+      "description": "Apply MoSCoW or equivalent prioritization to establish clear objective ordering and scope boundaries.",
+      "activitySpaceName": "Shape the Objectives",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "prioritize-objectives-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Objectives",
+          "stateName": "Prioritized"
+        },
+        {
+          "alphaName": "Objectives",
+          "stateName": "Agreed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "OKR Framework Document",
+          "levelOfDetailName": "Structured OKRs"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Stakeholder Representation",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team",
+        "Stakeholder Advisory Group"
+      ],
+      "narratives": [
+        {
+          "name": "Resolving Competing Demands Through Structured Prioritization",
+          "description": "Technique guidance for resolving competing objective demands through structured prioritization producing agreed ordering for resource allocation.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity resolves competing objective demands through structured prioritization, producing an agreed ordering that guides resource allocation, phased delivery, and scope trade-off decisions throughout the project."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Gather key stakeholders with scope and priority authority. Present the full set of objectives and associated key results. Define MoSCoW categories clearly: Must Have means the project has failed without it, Should Have means the project remains viable without it, Could Have means desirable if capacity permits, and Won't Have means explicitly excluded for this cycle. For each objective, apply the decision test progressively. Ensure Must Haves do not exceed approximately 60 percent of estimated capacity, preserving flexibility for emergence. Document the prioritization decision with clear rationale and trade-off discussions. Communicate the prioritization and reasoning to the broader team. Revisit when significant context changes occur."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Allowing everything to be classified as Must Have, which eliminates prioritization entirely. Making prioritization decisions without documenting rationale, preventing future teams from understanding trade-off logic. Failing to communicate the reasoning behind prioritization to the broader team, creating confusion about why certain work takes precedence. Treating prioritization as a one-time event rather than revisiting when the project context changes significantly."
+            }
+          ],
+          "citationNames": [
+            "Disciplined Agile Delivery",
+            "PMBOK Guide -- Eighth Edition"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Perform Risk Identification",
+      "description": "Systematically surface, describe, and categorize project risks using structured identification techniques.",
+      "activitySpaceName": "Assess and Monitor Value",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "perform-risk-identification-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Project Risk",
+          "stateName": "Identified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Risk Register",
+          "levelOfDetailName": "Identification List"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Surfacing Threats and Opportunities Systematically",
+          "description": "Technique guidance for establishing the risk inventory by systematically surfacing threats and opportunities using complementary identification techniques.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity establishes the risk inventory by systematically surfacing threats and opportunities across all project dimensions using complementary identification techniques that prevent blind spots."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Use multiple complementary techniques. Brainstorming with the project team surfaces risks visible from the execution level. Assumption analysis examines each documented assumption, asking what happens if it is wrong. Checklist review against organizational risk categories ensures common risk areas are not overlooked. SWOT analysis examines strengths, weaknesses, opportunities, and threats from a strategic perspective. Expert interviews surface risks based on historical pattern recognition. For each identified risk, document a clear cause-event-effect statement. Categorize by type including technical, organizational, external, project management, and commercial categories. Identify both threats and opportunities. Designate risk owners establishing accountability."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Relying on a single identification technique, which creates blind spots that complementary methods would reveal. Focusing exclusively on threats while ignoring opportunities. Conducting risk identification once and treating the risk register as complete rather than iterative. Failing to designate risk owners, leaving risks as orphans that no one monitors."
+            }
+          ],
+          "citationNames": [
+            "ISO 31000:2018 Risk Management Guidelines",
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Conduct Risk Assessment",
+      "description": "Analyze identified risks for probability, impact, interdependencies, and overall project risk exposure.",
+      "activitySpaceName": "Assess and Monitor Value",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "conduct-risk-assessment-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Project Risk",
+          "stateName": "Assessed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Risk Register",
+          "levelOfDetailName": "Assessed Register"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Transforming Risk Inventory Into Actionable Intelligence",
+          "description": "Technique guidance for transforming a risk inventory into a prioritized, actionable risk profile through probability-impact assessment.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity transforms a risk inventory into a prioritized, actionable risk profile by assessing the probability and impact of each identified risk, analyzing interdependencies, and establishing a clear view of overall project risk exposure."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "For each identified risk, perform qualitative analysis assessing probability and impact using consistent scales with defined criteria for calibration across assessors. Multiply probability by impact to determine risk priority and create a ranked list. Analyze risk interdependencies to understand how one risk's materialization might trigger or amplify others. Assess overall project risk exposure to provide governance with a portfolio view of uncertainty. Identify risk triggers and early warning indicators for high-priority risks. For high-priority risks on complex projects, consider quantitative techniques such as Monte Carlo simulation, decision tree analysis, or expected monetary value calculation. Develop response strategies using avoid, transfer, mitigate, accept for threats and exploit, share, enhance, accept for opportunities."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Using inconsistent assessment scales across different assessors, producing unreliable priority rankings. Treating risks as independent when interdependencies exist that could produce cascade effects. Performing assessment as a compliance exercise producing reports no one reads rather than a decision-support activity informing governance. Omitting quantitative analysis for high-value projects where the investment in rigor would be justified."
+            }
+          ],
+          "citationNames": [
+            "ISO 31000:2018 Risk Management Guidelines",
+            "Managing Successful Projects with PRINCE2"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Monitor and Manage Risks",
+      "description": "Continuously track identified risks, execute response plans, and identify emerging risks throughout the project.",
+      "activitySpaceName": "Assess and Monitor Value",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "monitor-and-manage-risks-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Project Risk",
+          "stateName": "Actively Managed"
+        },
+        {
+          "alphaName": "Project Risk",
+          "stateName": "Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Risk Register",
+          "levelOfDetailName": "Managed Register"
+        },
+        {
+          "workProductName": "Risk Register",
+          "levelOfDetailName": "Integrated Register"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Analysis",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Maintaining Risk Discipline Through Continuous Review",
+          "description": "Technique guidance for maintaining ongoing risk management through regular review cycles, trigger monitoring, and honest governance reporting.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity maintains the ongoing discipline of risk management through regular review cycles, trigger monitoring, response execution, and honest governance reporting that keeps the project's risk profile current and actionable."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Establish a regular risk review cadence appropriate to the project's risk profile. Each review should assess current status of registered risks, evaluate whether response strategies are effective, identify emerging risks, and update the risk register. Monitor risk triggers between formal reviews, integrating risk awareness into daily coordination. Track risk response action completion alongside other project work, preventing risk mitigation from becoming a secondary priority under delivery pressure. Report risk status to governance honestly and completely, including overall risk profile trends, top risk changes, materialized risks with actual versus assessed impact, and response action status. At project closure, document the risk management experience as lessons learned."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Allowing risk reviews to lapse under delivery pressure, creating the illusion of managed risk while risks accumulate unmonitored. Reporting only managed risks to governance while concealing emerging and residual risks. Treating risk mitigation actions as optional during execution sprints when they compete with delivery work. Maintaining a risk register that looks comprehensive on paper but has not been genuinely updated, creating false confidence."
+            }
+          ],
+          "citationNames": [
+            "ISO 31000:2018 Risk Management Guidelines",
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Design Benefits Realization Plan",
+      "description": "Create a structured plan for measuring and confirming that project outcomes deliver intended value.",
+      "activitySpaceName": "Assess and Monitor Value",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "design-benefits-realization-plan-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Benefits Realization Plan",
+          "stateName": "Designed"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Value Established"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Benefits Realization Map",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "Business Case Document",
+          "levelOfDetailName": "Comprehensive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Management",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team",
+        "Stakeholder Advisory Group"
+      ],
+      "narratives": [
+        {
+          "name": "Building the Measurement Framework for Value Confirmation",
+          "description": "Technique guidance for creating the measurement framework that confirms whether project deliverables produce the business benefits justifying investment.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity creates the measurement framework that will confirm whether the project's deliverables produce the business benefits that justified the investment, establishing baselines, targets, accountability, and the causal chain from output to outcome to benefit."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin by connecting the plan to the business case and objectives. Map each benefit to specific deliverables, organizational changes, and measurable outcomes. Address the full chain from project output to business benefit, identifying enabling changes beyond the project's direct control such as process adoption, behavioral change, or organizational restructuring. For each benefit, define specific measurable indicators with baseline values, target values, measurement methods, data sources, and measurement frequency. Distinguish between leading indicators for early course correction and lagging indicators for definitive confirmation. Assign a benefits owner for each major benefit stream with organizational authority to ensure realization conditions are established and maintained. Extend the plan beyond project closure with measurement continuing for a defined post-delivery period."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Assuming project delivery automatically produces benefits without planning for the organizational changes required. Defining benefits in terms too vague to measure, making confirmation impossible. Placing benefits ownership entirely within the project team rather than with business managers who control the operational environment. Failing to establish baseline measurements before the project begins making changes, making improvement unmeasurable."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Projects with PRINCE2",
+            "Measure What Matters"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Track Benefits Realization",
+      "description": "Monitor benefit indicators, analyze realization progress, and manage corrective actions.",
+      "activitySpaceName": "Assess and Monitor Value",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "track-benefits-realization-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Benefits Realization Plan",
+          "stateName": "Active"
+        },
+        {
+          "alphaName": "Benefits Realization Plan",
+          "stateName": "Confirmed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Benefits Realization Map",
+          "levelOfDetailName": "Active"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Management",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team",
+        "Stakeholder Advisory Group"
+      ],
+      "narratives": [
+        {
+          "name": "Evidence-Based Benefit Monitoring and Management",
+          "description": "Technique guidance for executing the ongoing measurement cycle that confirms whether project outcomes produce intended business value.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity executes the ongoing measurement and management cycle that confirms whether project outcomes are producing the intended business value, providing governance with evidence-based benefit realization assessment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Execute measurement activities at specified frequencies, collecting data from defined sources and comparing actual values against targets and baselines. Calculate benefit realization progress and analyze trajectory to forecast whether targets will be met. When benefit realization deviates from plan, perform root cause analysis distinguishing between delivery issues, adoption issues, environmental changes, and planning issues, as each requires different corrective response. Report progress to governance and stakeholders including both quantitative data and qualitative confidence assessment. At project closure, produce a final benefits realization assessment comparing actual versus planned benefits, explaining variances, and identifying actions for sustained realization. Transfer ongoing monitoring responsibilities to operational benefits owners."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Tracking benefits passively by collecting data without analyzing trajectory or taking corrective action. Failing to distinguish root causes of benefit deviation, applying delivery fixes to adoption problems or vice versa. Stopping benefit tracking at project closure rather than continuing through the full realization period. Reporting benefits in an overly optimistic manner to governance, undermining the credibility of the measurement process."
+            }
+          ],
+          "citationNames": [
+            "Measure What Matters",
+            "Managing Successful Projects with PRINCE2"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Confirm Stakeholder Acceptance",
+      "description": "Manage the formal stakeholder acceptance process for deployment and monitor post-deployment satisfaction.",
+      "activitySpaceName": "Ensure Stakeholder Satisfaction",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "confirm-stakeholder-acceptance-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Satisfied for Deployment"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Satisfied in Use"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Stakeholder Engagement Plan",
+          "levelOfDetailName": "Comprehensive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Stakeholder Advisory Group"
+      ],
+      "narratives": [
+        {
+          "name": "Managing Formal Acceptance and Post-Deployment Satisfaction",
+          "description": "Technique guidance for managing the transition from stakeholder agreement to formal deployment acceptance and sustained satisfaction monitoring.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity manages the transition from stakeholder agreement on expectations to formal acceptance for deployment and then monitors post-deployment satisfaction, completing the stakeholder engagement lifecycle."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Conduct formal reviews with stakeholder representatives confirming the deliverable meets minimum expectations for deployment. Document any gaps between expectations and delivery with explicit acceptance and plans for deferred items. Confirm transition arrangements including timing, sequencing, training, documentation, and support structures. Verify that support and operational stakeholders are prepared for the transition. After deployment, monitor user satisfaction through structured mechanisms, measuring adoption rates, collecting operational feedback, and tracking satisfaction against agreed thresholds. Capture stakeholder engagement lessons for organizational learning."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Rushing through acceptance to meet deployment timelines without genuinely confirming stakeholder satisfaction. Failing to document deferred gaps, leaving stakeholders with unaddressed expectations and no resolution path. Treating deployment acceptance as the end of stakeholder engagement rather than the beginning of operational satisfaction monitoring. Assuming initial positive feedback at deployment represents sustained satisfaction without conducting follow-up measurement."
+            }
+          ],
+          "citationNames": [
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "Individual Competence Baseline Version 4.0"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Identify Initial Objectives",
+      "description": "Derive initial project objectives from the business opportunity and stakeholder needs assessment.",
+      "activitySpaceName": "Shape the Objectives",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "define-strategic-okrs-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Objectives",
+          "stateName": "Identified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "OKR Framework Document",
+          "levelOfDetailName": "Draft Objectives"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Project Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Translating Opportunity Into Initial Project Goals",
+          "description": "Technique guidance for translating the broad business opportunity and stakeholder needs into an initial set of outcome-focused project objectives.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity translates the broad business opportunity and stakeholder needs into an initial set of project objectives expressed as desired outcomes, establishing the foundation for subsequent SMART refinement and prioritization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Review the opportunity assessment and stakeholder analysis to identify the key outcomes the project must achieve. Express each objective in terms of outcomes and impacts rather than detailed deliverable specifications, maintaining focus on why the project exists. For each objective, establish traceability to the originating stakeholder need or opportunity element. Document key assumptions underlying each objective explicitly for subsequent validation. Identify initial out-of-scope boundaries to prevent scope creep from vague definitions. Ensure the objectives are distinguishable and non-overlapping, providing a clear set of goals rather than redundant statements."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Defining objectives as deliverable specifications rather than business outcomes, prematurely constraining solution options. Failing to trace objectives to their originating stakeholder need or opportunity element, creating objectives without strategic justification. Omitting scope boundaries, allowing scope creep from the very beginning of the project."
+            }
+          ],
+          "citationNames": [
+            "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+            "PMBOK Guide -- Eighth Edition"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Evaluate Objective Achievement",
+      "description": "Formally evaluate objective achievement against success criteria with independent review and lessons capture.",
+      "activitySpaceName": "Shape the Objectives",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Objectives",
+          "stateName": "Achieved"
+        },
+        {
+          "alphaName": "Objectives",
+          "stateName": "Evaluated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "OKR Framework Document",
+          "levelOfDetailName": "Optimized OKRs"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Stakeholder Advisory Group"
+      ],
+      "narratives": [
+        {
+          "name": "Formal Assessment of Objective Fulfillment",
+          "description": "Technique guidance for formally evaluating whether the project achieved its defined objectives through evidence-based assessment and organizational learning.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "This activity completes the objective management lifecycle by formally evaluating whether the project achieved its defined objectives, analyzing variance between planned and actual achievement, and capturing actionable lessons for organizational improvement."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Conduct formal evaluation against success criteria defined during the Articulated and Agreed states, gathering evidence supporting each achievement claim through test results, demonstrations, metrics, and stakeholder confirmations. Document any objectives not fully achieved with explanation of variance, impact assessment, and recommendations for future action. Submit the evaluation for independent review by governance bodies rather than self-assessment alone. Analyze variance to identify systemic issues in estimation, scoping, or environmental factors. Evaluate the effectiveness of the objective-setting framework itself. Capture success patterns and failure patterns for organizational learning. Contribute evaluation results to organizational benchmarks informing future project estimation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Allowing the project team to self-certify objective achievement without independent verification. Treating evaluation as a formality rather than a genuine assessment that identifies systemic improvement opportunities. Focusing only on whether objectives were achieved without analyzing why variance occurred, missing root causes that affect future projects."
+            }
+          ],
+          "citationNames": [
+            "PMBOK Guide -- Eighth Edition",
+            "Individual Competence Baseline Version 4.0"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "evaluate-objective-achievement-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "personas": [
+    {
+      "name": "Business Analyst",
+      "description": "Translates business needs into structured requirements and facilitates stakeholder alignment.",
+      "competencies": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Basic"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Business Case",
+          "Stakeholder Management",
+          "Requirements"
+        ],
+        "lifecycleTags": [
+          "Initiation",
+          "Planning"
+        ],
+        "organizationalTags": [
+          "Project Team",
+          "PMO"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Sponsor or Executive",
+      "description": "Provides strategic direction, funding authorization, and governance oversight for the project.",
+      "competencies": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Governance",
+          "Strategy",
+          "Investment"
+        ],
+        "lifecycleTags": [
+          "Initiation",
+          "Governance Gates",
+          "Closure"
+        ],
+        "organizationalTags": [
+          "Governance Board",
+          "Steering Committee"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Project Manager",
+      "description": "Accountable for planning, executing, and closing the project to deliver intended value.",
+      "competencies": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Project Management",
+          "Governance",
+          "Risk Management"
+        ],
+        "lifecycleTags": [
+          "Initiation",
+          "Planning",
+          "Execution",
+          "Closure"
+        ],
+        "organizationalTags": [
+          "Project Leadership",
+          "PMO"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Risk Manager",
+      "description": "Coordinates risk identification, assessment, and response management across the project.",
+      "competencies": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Risk Management",
+          "Governance",
+          "Compliance"
+        ],
+        "lifecycleTags": [
+          "Initiation",
+          "Planning",
+          "Execution",
+          "Monitoring"
+        ],
+        "organizationalTags": [
+          "PMO",
+          "Governance Board"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Project Leadership Team",
+      "description": "The core leadership group responsible for strategic direction, governance, and key decision-making.",
+      "personaNames": [
+        "Project Manager",
+        "Business Analyst",
+        "Sponsor or Executive"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Governance",
+          "Strategic Direction",
+          "Investment Decisions"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Stakeholder Advisory Group",
+      "description": "A representative body of key stakeholders providing feedback, validation, and acceptance decisions.",
+      "personaNames": [
+        "Business Analyst",
+        "Sponsor or Executive",
+        "Risk Manager"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Stakeholder Engagement",
+          "Acceptance",
+          "Feedback"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Value Discovery to Benefits Realization Journey",
+      "description": "A journey from opportunity identification through stakeholder alignment, objective definition, and confirmed benefits delivery.",
+      "narrativeTypeName": "The Hero's Journey",
+      "patternViews": [
+        {
+          "name": "Opportunity Recognition",
+          "description": "An opportunity emerges and stakeholders are identified.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Recognized"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Unidentified"
+            },
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Undefined"
+            }
+          ],
+          "activities": [
+            "Conduct Opportunity Assessment",
+            "Perform Stakeholder Analysis",
+            "Identify Initial Objectives"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordinary World",
+              "context": "The organization operates within its established business environment where latent needs, unengaged stakeholders, and unmeasured value delivery coexist alongside routine operations. Business problems may be tolerated because they have always existed, and potential value goes unrealized because no one has framed the gap as an actionable opportunity."
+            }
+          ]
+        },
+        {
+          "name": "Value Definition",
+          "description": "Opportunity crystallizes with engaged stakeholders and a compelling case.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Value Established"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Represented"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Articulated"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Designed"
+            }
+          ],
+          "activities": [
+            "Develop Business Case",
+            "Perform Stakeholder Analysis",
+            "Define Strategic OKRs",
+            "Perform Risk Identification",
+            "Design Benefits Realization Plan"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Call to Adventure",
+              "context": "A stakeholder identifies a gap between current capability and strategic aspiration. The opportunity crystallizes from vague organizational dissatisfaction into a defined problem statement with identified beneficiaries, estimated impact, and a champion willing to advocate for investment. The business case transforms the opportunity from an abstract possibility into a funded mandate with committed sponsors, clear success criteria, and quantified expected benefits."
+            }
+          ]
+        },
+        {
+          "name": "Strategic Alignment",
+          "description": "Stakeholders navigate conflicting priorities to reach alignment.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Viable"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "In Agreement"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Agreed"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Active"
+            }
+          ],
+          "activities": [
+            "Facilitate Stakeholder Engagement Workshop",
+            "Prioritize Objectives",
+            "Conduct Risk Assessment",
+            "Track Benefits Realization"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordeal",
+              "context": "Stakeholders navigate conflicting priorities, competing stakeholder needs, evolving risk landscapes, and shifting organizational strategy. The business case faces continuous challenges to its viability. The most dangerous moment is when the opportunity has partially eroded, requiring analytical discipline and leadership courage to recommend continuation, pivoting, or termination based on evidence rather than organizational momentum."
+            }
+          ]
+        },
+        {
+          "name": "Value Delivery",
+          "description": "The project delivers results addressing the opportunity.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Addressed"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Satisfied for Deployment"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Achieved"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Actively Managed"
+            },
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Active"
+            }
+          ],
+          "activities": [
+            "Confirm Stakeholder Acceptance",
+            "Evaluate Objective Achievement",
+            "Monitor and Manage Risks",
+            "Track Benefits Realization"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Return",
+              "context": "The delivered solution addresses the opportunity, and measurable benefits begin to emerge. Stakeholders experience the value they were promised as tangible improvement in their operational environment. Risk management matures into an integrated discipline producing strategic advantage alongside threat mitigation."
+            }
+          ]
+        },
+        {
+          "name": "Benefits Confirmation",
+          "description": "Benefits confirmed and organizational knowledge enriched.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Benefit Accrued"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Satisfied in Use"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Evaluated"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Confirmed"
+            }
+          ],
+          "activities": [
+            "Track Benefits Realization",
+            "Confirm Stakeholder Acceptance",
+            "Evaluate Objective Achievement",
+            "Monitor and Manage Risks"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Return",
+              "context": "Benefits are confirmed through objective measurement, stakeholders are experiencing sustained value, and the organization captures lessons about opportunity identification, assessment, and value realization that improve investment decision-making maturity across successive projects. The risk management experience enriches organizational risk knowledge, and the benefits realization data provides reference cases for future opportunity assessment."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "schemaVersion": "1.2.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Project Essentials",
+      "versionRange": "^1.0.2"
+    }
+  ],
+  "activitySpaces": []
+}

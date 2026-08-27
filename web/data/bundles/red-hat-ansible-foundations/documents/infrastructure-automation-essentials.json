@@ -1,0 +1,4295 @@
+{
+  "kind": "practiceBaseline",
+  "name": "Infrastructure Automation Essentials",
+  "description": "Domain adaptation of Platform Adoption Essentials for infrastructure automation and Infrastructure as Code (IaC) practices. Provides vendor-agnostic terminology mapping and extends the baseline with managed asset lifecycle and governance concerns.",
+  "version": "1.0.1",
+  "authors": [
+    "Keleo"
+  ],
+  "createdAt": "2026-07-11T00:00:00Z",
+  "updatedAt": "2026-08-16",
+  "keywords": [
+    "infrastructure automation",
+    "infrastructure as code",
+    "IaC",
+    "configuration management",
+    "desired state",
+    "drift detection",
+    "idempotency",
+    "convergence"
+  ],
+  "baselinePracticeNames": [
+    "Platform Adoption Essentials"
+  ],
+  "focuses": [
+    {
+      "name": "Value",
+      "description": "Focuses on business justification, financial management, and organizational alignment."
+    },
+    {
+      "name": "Solution",
+      "description": "Encapsulates the design, provisioning, optimization, and the hosted items running on the platform foundation."
+    },
+    {
+      "name": "Endeavor",
+      "description": "Governs the execution of the transformation, encompassing people, processes, and policies."
+    }
+  ],
+  "narrativeTypes": [
+    {
+      "name": "The STAR Format",
+      "description": "Enforces a strict cause-and-effect relationship between context and outcomes (Situation, Task, Action, Result).",
+      "narrativeElements": [
+        {
+          "name": "Situation",
+          "description": "The context or background of the challenge.",
+          "howToUse": "Describe the specific situation, context, or baseline state before action is taken."
+        },
+        {
+          "name": "Task",
+          "description": "The specific challenge, objective, or requirement.",
+          "howToUse": "Outline the specific task, problem, or goal that needs to be addressed."
+        },
+        {
+          "name": "Action",
+          "description": "The specific steps or interventions performed.",
+          "howToUse": "Detail the methodology, activities, or steps taken to address the task."
+        },
+        {
+          "name": "Result",
+          "description": "The outcome, impact, or value achieved.",
+          "howToUse": "Summarize the measurable results, outcomes, or state changes achieved from the actions."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "The Hero's Journey",
+      "description": "Highly effective for macro-level lifecycle orchestrations (platform adoptions, transformations).",
+      "narrativeElements": [
+        {
+          "name": "The Ordinary World",
+          "description": "The starting point before the transformation.",
+          "howToUse": "Describe the current, pre-platform state of the organization."
+        },
+        {
+          "name": "The Call to Adventure",
+          "description": "The catalyst for change.",
+          "howToUse": "Outline the business opportunity, crisis, or driver that necessitates the platform transformation."
+        },
+        {
+          "name": "The Ordeal",
+          "description": "The core transformation challenges and execution.",
+          "howToUse": "Detail the complex adoption activities, migrations, and challenges faced during implementation."
+        },
+        {
+          "name": "The Return",
+          "description": "The new operational baseline and realized value.",
+          "howToUse": "Describe the successful adoption, the accrual of benefits, and the new optimized way of working."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "The Three-Act Structure & StoryBrand",
+      "description": "Positions the consumer as the Hero and the Platform Engineering team as the Guide utilizing the defined approach.",
+      "narrativeElements": [
+        {
+          "name": "Act I: The Hero and the Problem",
+          "description": "Identifying the consumer and their pain points.",
+          "howToUse": "Identify the primary consumer (the Hero) and detail the specific friction or problem they face."
+        },
+        {
+          "name": "Act II: The Guide and the Plan",
+          "description": "The platform team offers a solution.",
+          "howToUse": "Introduce the Platform Engineering team as the Guide who provides a clear, paved-path approach or plan."
+        },
+        {
+          "name": "Act III: Call to Action and Success",
+          "description": "Execution and outcome.",
+          "howToUse": "Describe the call to action for the consumer to adopt the plan, and the successful outcome of doing so."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Micro-Narratives (ABT)",
+      "description": "Shorter frameworks (And/But/Therefore) designed for rapid, highly persuasive daily execution updates.",
+      "narrativeElements": [
+        {
+          "name": "And (Context)",
+          "description": "The current situation and baseline facts.",
+          "howToUse": "State the current agreed-upon context, background, and baseline facts."
+        },
+        {
+          "name": "But (Conflict)",
+          "description": "The problem, challenge, or contradiction.",
+          "howToUse": "Introduce the specific problem, blocker, challenge, or contradiction encountered."
+        },
+        {
+          "name": "Therefore (Resolution)",
+          "description": "The action taken or conclusion reached.",
+          "howToUse": "State the specific action taken, decision made, or conclusion reached to resolve the conflict."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "User story",
+      "description": "A brief, informal explanation of a software feature written from the perspective of the end user.",
+      "narrativeElements": [
+        {
+          "name": "As a [role]",
+          "description": "This identifies the specific persona or role interacting with the feature.",
+          "howToUse": "Use this to define constraints. Instead of saying \"user,\" say \"First-time Visitor\" or \"System Administrator.\" This helps the developers understand if the UI should be \"idiot-proof\" or \"power-user focused.\""
+        },
+        {
+          "name": "I want to [perform some action]",
+          "description": "This is the intent or the feature itself. It describes the action the user wants to take within the software.",
+          "howToUse": "Keep this focused on the what, not the how. Avoid mentioning specific UI elements. Focus on the functional capability you are giving them."
+        },
+        {
+          "name": "So that [I can achieve some goal]",
+          "description": "This is the purpose. It explains the underlying problem the user is trying to solve or the value they hope to gain.",
+          "howToUse": "Use this to justify the work. If you cannot find a compelling So that statement, the feature might not be worth building. It also helps developers suggest better technical solutions if they understand the ultimate goal."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Epic",
+      "description": "A well-structured Epic provides a north star for the team, ensuring everyone knows why a large project exists and what success looks like.",
+      "narrativeElements": [
+        {
+          "name": "Summary",
+          "description": "A clear, punchy title and a one-sentence elevator pitch that describes the high-level initiative.",
+          "howToUse": "Treat this as the project's identity. Use it in stakeholder meetings and roadmap views to provide an instant understanding of what is being built without getting bogged down in details."
+        },
+        {
+          "name": "Strategic Intent",
+          "description": "This section explains how this Epic aligns with the company's broader business goals or quarterly objectives (OKRs).",
+          "howToUse": "Use this to justify the budget and resource allocation. If you can't link the Epic back to a specific business value, it shouldn't be an Epic."
+        },
+        {
+          "name": "User Personas",
+          "description": "A list of the primary and secondary users who will be impacted by this large-scale change.",
+          "howToUse": "Use this to keep the scope focused. When brainstorming features, ask: Does this specific feature serve the personas listed in the Epic? If not, it belongs in a different Epic."
+        },
+        {
+          "name": "High-Level Requirements",
+          "description": "These are not detailed stories yet, but rather the broad capabilities the system must have once the Epic is finished.",
+          "howToUse": "Use these as themes to help you brainstorm the individual User Stories later. They serve as the framework for your backlog."
+        },
+        {
+          "name": "Success Metrics",
+          "description": "The quantitative data points that will prove the Epic was a success after it is released.",
+          "howToUse": "Use this to define the Definition of Done for the entire project. Instead of saying when the code is finished, use when the checkout conversion rate hits 5%."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Lifecycle",
+      "description": "A standard lifecycle orchestration framework to map progression phases.",
+      "narrativeElements": [
+        {
+          "name": "Prerequisites",
+          "description": "Conditions required before starting the lifecycle.",
+          "howToUse": "Define the Phase 0 or preparation steps, including baseline checks or prerequisite states, that must be achieved before the main lifecycle begins."
+        },
+        {
+          "name": "Lifecycle Phase",
+          "description": "An active stage of lifecycle execution.",
+          "howToUse": "Detail the active state transitions, required work products, and activities for this specific phase of the lifecycle progression."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Essay Narrative",
+      "description": "A cohesive narrative format that guides the reader carefully through the evidence for and against a proposition before reaching a conclusion.",
+      "narrativeElements": [
+        {
+          "name": "Introduction",
+          "description": "The start of the essay used to contextualise the work and grab the attention of the reader.",
+          "howToUse": "Explain how the topic sits within the framework of the subject area as a whole. Outline the structure of your essay very briefly, but do not give your conclusions away on the first page."
+        },
+        {
+          "name": "Defining Key Concepts",
+          "description": "A section establishing the interpretation of central concepts without relying on dictionary definitions.",
+          "howToUse": "Relate in your own words how the terms you will be using are to be interpreted within the context of your essay."
+        },
+        {
+          "name": "Presenting Evidence",
+          "description": "The core discussion where secondary works are evaluated and viewpoints are balanced against each other.",
+          "howToUse": "Be selective in your choice of evidence and use signposting language to guide your reader. Quote sparingly, paraphrase occasionally, and summarise often to integrate other people's ideas into your own argument."
+        },
+        {
+          "name": "Conclusion",
+          "description": "The closing section that synthesises the presented evidence and forms a direct response to the assignment title.",
+          "howToUse": "Draw the threads of your argument together. Do not bring in new evidence in your concluding paragraphs or try to cram in ideas that you have not developed fully."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Report Narrative",
+      "description": "A formal, informative structure broken down into sections and sub-sections to order and communicate relevant information in an easily navigable way.",
+      "narrativeElements": [
+        {
+          "name": "Executive Summary",
+          "description": "A stand-alone summary of the entire report's purpose, methodology, findings, conclusions, and recommendations.",
+          "howToUse": "This should be the last thing that you write. Keep it concise (usually a paragraph or two and always less than a page) to enable the reader to make an informed decision about whether they want to read the report itself."
+        },
+        {
+          "name": "Introduction",
+          "description": "Explains the rationale for undertaking the work reported on, the background, and the scope of the report.",
+          "howToUse": "State what the report is about, define how it meets the requirements of the brief, and explain your research methods."
+        },
+        {
+          "name": "Methods",
+          "description": "A clear description of how the investigation was carried out and why specific methods were chosen.",
+          "howToUse": "Write this section concisely but thoroughly. Provide step-by-step details in such a way that a reader could replicate the research you have done."
+        },
+        {
+          "name": "Results and Findings",
+          "description": "A purely factual presentation of the research data using text, graphs, tables, or diagrams.",
+          "howToUse": "Present the findings of your research as simply as possible. Save your interpretation of the results for the Discussion section."
+        },
+        {
+          "name": "Discussion",
+          "description": "The section that brings everything together by showing how the findings relate to the purpose of the report and previous research.",
+          "howToUse": "Interpret the results, showing how they respond to the brief explained in the introduction. Mention if there were any problems or unexpected results and how they were solved."
+        },
+        {
+          "name": "Recommendations",
+          "description": "Suggestions for a future course of action based on the evidence and conclusions.",
+          "howToUse": "Make recommendations that solve problems or help to develop a new strategy. Make an effort to sound authoritative and certain in your choices."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "SDLC",
+      "description": "Software Development Lifecycle pattern for systematic technical delivery from requirements through maintenance.",
+      "narrativeElements": [
+        {
+          "name": "Plan",
+          "description": "Requirements gathering and project planning phase.",
+          "howToUse": "Define objectives, scope, requirements, and success criteria for the initiative."
+        },
+        {
+          "name": "Design",
+          "description": "Architecture and detailed design phase.",
+          "howToUse": "Establish technical architecture, design patterns, and implementation approach."
+        },
+        {
+          "name": "Build",
+          "description": "Implementation and construction phase.",
+          "howToUse": "Develop, configure, and assemble the solution components."
+        },
+        {
+          "name": "Test",
+          "description": "Validation and quality assurance phase.",
+          "howToUse": "Verify functionality, performance, security, and integration through testing."
+        },
+        {
+          "name": "Deploy",
+          "description": "Release and deployment phase.",
+          "howToUse": "Roll out to production environment with appropriate deployment strategy."
+        },
+        {
+          "name": "Maintain",
+          "description": "Operations and continuous improvement phase.",
+          "howToUse": "Monitor, optimize, patch, and evolve the solution in production."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "PDCA",
+      "description": "Plan-Do-Check-Act cycle (Deming Cycle) for continuous improvement and iterative refinement.",
+      "narrativeElements": [
+        {
+          "name": "Plan",
+          "description": "Establish objectives and processes.",
+          "howToUse": "Identify improvement opportunity, analyze current state, and plan intervention."
+        },
+        {
+          "name": "Do",
+          "description": "Implement the plan on small scale.",
+          "howToUse": "Execute the planned change or experiment in controlled environment."
+        },
+        {
+          "name": "Check",
+          "description": "Measure and evaluate results.",
+          "howToUse": "Assess outcomes against objectives, identify gaps and learnings."
+        },
+        {
+          "name": "Act",
+          "description": "Standardize or iterate based on learnings.",
+          "howToUse": "Scale successful changes, adjust plan based on findings, repeat cycle."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Build-Measure-Learn",
+      "description": "Lean Startup cycle for validating assumptions through rapid experimentation and feedback.",
+      "narrativeElements": [
+        {
+          "name": "Build",
+          "description": "Create minimum viable solution.",
+          "howToUse": "Develop smallest increment that can test key hypothesis or assumption."
+        },
+        {
+          "name": "Measure",
+          "description": "Collect data and feedback.",
+          "howToUse": "Instrument, observe, and gather quantitative and qualitative evidence."
+        },
+        {
+          "name": "Learn",
+          "description": "Analyze and decide next iteration.",
+          "howToUse": "Synthesize findings, validate or invalidate hypothesis, pivot or persevere."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Design-Build-Run-Optimize",
+      "description": "Architectural lifecycle for infrastructure and platform engineering spanning conception through continuous improvement.",
+      "narrativeElements": [
+        {
+          "name": "Design",
+          "description": "Architecture definition and planning.",
+          "howToUse": "Define architecture, topology, technology choices, and capacity planning."
+        },
+        {
+          "name": "Build",
+          "description": "Provisioning and configuration.",
+          "howToUse": "Deploy infrastructure, configure systems, establish integrations and connectivity."
+        },
+        {
+          "name": "Run",
+          "description": "Operations and steady-state management.",
+          "howToUse": "Monitor health, respond to incidents, maintain availability and performance."
+        },
+        {
+          "name": "Optimize",
+          "description": "Continuous improvement and evolution.",
+          "howToUse": "Tune performance, reduce costs, enhance capabilities based on operational insights."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Crawl-Walk-Run",
+      "description": "Maturity progression model for incremental capability building and adoption.",
+      "narrativeElements": [
+        {
+          "name": "Crawl",
+          "description": "Initial capability establishment.",
+          "howToUse": "Establish foundational capability with limited scope, manual processes, learning focus."
+        },
+        {
+          "name": "Walk",
+          "description": "Capability refinement and scaling.",
+          "howToUse": "Expand scope, introduce automation, standardize processes, build confidence."
+        },
+        {
+          "name": "Run",
+          "description": "Mature, optimized operation.",
+          "howToUse": "Full automation, enterprise scale, optimization focus, continuous evolution."
+        }
+      ],
+      "kind": "narrativeType"
+    }
+  ],
+  "competencies": [
+    {
+      "name": "Analysis",
+      "description": "The ability to understand infrastructure needs, assess automation tool options, make informed decisions about automation strategy, and conduct coverage gap analysis across the infrastructure estate.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands basic infrastructure automation needs and can parse user feedback about provisioning pain points.",
+          "level": 1,
+          "competencyName": "Analysis"
+        },
+        {
+          "name": "Applies",
+          "description": "Can map simple infrastructure consumer requirements to existing automation capabilities and identify basic friction points in provisioning workflows.",
+          "level": 2,
+          "competencyName": "Analysis"
+        },
+        {
+          "name": "Masters",
+          "description": "Can independently translate complex stakeholder needs into actionable automation requirements, conduct coverage gap analyses, and define the boundaries of the thinnest viable automation platform.",
+          "level": 3,
+          "competencyName": "Analysis"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can analyze shifting enterprise infrastructure landscapes to identify new automation opportunities, evaluate multi-cloud strategies, and assess organizational readiness for advanced automation maturity.",
+          "level": 4,
+          "competencyName": "Analysis"
+        },
+        {
+          "name": "Innovating",
+          "description": "Pioneers new analytical methods for infrastructure automation value stream mapping, IaC maturity assessment, and enterprise capability evaluation.",
+          "level": 5,
+          "competencyName": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Engineering",
+      "description": "The ability to design, build, and implement infrastructure automation solutions. Encompasses IaC authoring (HCL, YAML, Ruby DSL, Puppet DSL), module development, testing strategies (Terratest, Molecule, InSpec, Test Kitchen), CI/CD pipeline construction for infrastructure code, state management design, and multi-tool integration architecture.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands fundamental IaC concepts (desired state, idempotency, convergence) and can read basic automation code (playbooks, manifests, .tf files).",
+          "level": 1,
+          "competencyName": "Engineering"
+        },
+        {
+          "name": "Applies",
+          "description": "Can implement basic infrastructure automation using established modules and patterns. Can write simple playbooks, Terraform configurations, or manifests based on documented guidance.",
+          "level": 2,
+          "competencyName": "Engineering"
+        },
+        {
+          "name": "Masters",
+          "description": "Can independently develop reusable modules, design automation workflows, and build CI/CD pipelines for infrastructure code. Understands state management, testing strategies, and multi-environment promotion.",
+          "level": 3,
+          "competencyName": "Engineering"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can architect complex, multi-tool automation systems spanning multiple cloud providers. Resolves systemic integration challenges, designs module library architectures, and establishes organizational automation standards.",
+          "level": 4,
+          "competencyName": "Engineering"
+        },
+        {
+          "name": "Innovating",
+          "description": "Develops novel automation paradigms, contributes to open-source automation tools, and shapes industry direction for infrastructure automation practices.",
+          "level": 5,
+          "competencyName": "Engineering"
+        }
+      ]
+    },
+    {
+      "name": "Leadership",
+      "description": "The ability to inspire, guide, and motivate automation teams. Encompasses championing the cultural transformation from manual to automated operations, establishing psychological safety for complex automation efforts, and leading organizational change for IaC adoption.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Can participate effectively in automation team environments and support overarching automation goals.",
+          "level": 1,
+          "competencyName": "Leadership"
+        },
+        {
+          "name": "Applies",
+          "description": "Can guide small automation squads and foster adherence to established IaC practices and coding standards.",
+          "level": 2,
+          "competencyName": "Leadership"
+        },
+        {
+          "name": "Masters",
+          "description": "Can inspire automation teams to embrace IaC-first culture, champion blameless post-mortems for automation failures, and establish psychological safety for complex infrastructure changes.",
+          "level": 3,
+          "competencyName": "Leadership"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can lead large-scale cultural transformations from manual to automated operations, overcoming deep organizational resistance to codified infrastructure and self-service models.",
+          "level": 4,
+          "competencyName": "Leadership"
+        },
+        {
+          "name": "Innovating",
+          "description": "Acts as an industry-recognized visionary, shaping the global discourse on infrastructure automation culture, team design, and organizational transformation.",
+          "level": 5,
+          "competencyName": "Leadership"
+        }
+      ]
+    },
+    {
+      "name": "Management",
+      "description": "The ability to plan, organize, and coordinate automation work. Encompasses delivery cycle management, capacity allocation, cross-functional coordination, IaC maturity roadmap management, and governance of automation initiatives.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands basic task tracking, automation work item management, and team coordination.",
+          "level": 1,
+          "competencyName": "Management"
+        },
+        {
+          "name": "Applies",
+          "description": "Can manage the delivery of discrete automation capabilities and organize daily operational workflows for infrastructure code development.",
+          "level": 2,
+          "competencyName": "Management"
+        },
+        {
+          "name": "Masters",
+          "description": "Can independently orchestrate cross-functional automation delivery cycles, balance technical debt against feature velocity, and manage automation platform service-level agreements.",
+          "level": 3,
+          "competencyName": "Management"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can adapt delivery structures across highly matrixed environments, transitioning organizations from project-based to product-centric automation platform lifecycles.",
+          "level": 4,
+          "competencyName": "Management"
+        },
+        {
+          "name": "Innovating",
+          "description": "Develops novel management and operational frameworks that redefine how enterprises deliver infrastructure automation services at scale.",
+          "level": 5,
+          "competencyName": "Management"
+        }
+      ]
+    },
+    {
+      "name": "Platform Security And Compliance Enforcement",
+      "description": "The ability to design, implement, and automate security policies (OPA, Sentinel, Kyverno), access controls (RBAC, ABAC), and compliance checks (CIS, SOC 2, PCI-DSS) within the automation platform and managed infrastructure.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands basic IaC security principles (secrets management, state encryption) and compliance requirements (CIS benchmarks, regulatory frameworks).",
+          "level": 1,
+          "competencyName": "Platform Security And Compliance Enforcement"
+        },
+        {
+          "name": "Applies",
+          "description": "Can configure basic security settings for automation platforms, implement access controls, and run security scanning tools based on documented procedures.",
+          "level": 2,
+          "competencyName": "Platform Security And Compliance Enforcement"
+        },
+        {
+          "name": "Masters",
+          "description": "Can independently design comprehensive security architectures for automation systems, author Policy-as-Code rules, and automate compliance auditing across infrastructure estates.",
+          "level": 3,
+          "competencyName": "Platform Security And Compliance Enforcement"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can adapt security strategies to address novel threats in multi-cloud automation environments, design graduated policy enforcement, and architect zero-trust automation pipelines.",
+          "level": 4,
+          "competencyName": "Platform Security And Compliance Enforcement"
+        },
+        {
+          "name": "Innovating",
+          "description": "Develops new paradigms for infrastructure automation security, proactive threat hunting in IaC code, and AI-driven compliance enforcement.",
+          "level": 5,
+          "competencyName": "Platform Security And Compliance Enforcement"
+        }
+      ]
+    },
+    {
+      "name": "Platform Strategic Alignment",
+      "description": "The ability to align automation capabilities and roadmap with broader business goals, economic models (FinOps), and enterprise architecture strategies. Encompasses connecting automation investment to business outcomes and ensuring the automation platform evolves with organizational needs.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands the high-level business drivers for infrastructure automation (cost reduction, compliance, speed).",
+          "level": 1,
+          "competencyName": "Platform Strategic Alignment"
+        },
+        {
+          "name": "Applies",
+          "description": "Can articulate how specific automation capabilities support identified business opportunities and operational improvements.",
+          "level": 2,
+          "competencyName": "Platform Strategic Alignment"
+        },
+        {
+          "name": "Masters",
+          "description": "Can develop and manage automation platform roadmaps that demonstrably drive business value, ROI, and operational efficiency improvements.",
+          "level": 3,
+          "competencyName": "Platform Strategic Alignment"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can pivot automation strategy in response to shifting organizational needs, cloud provider changes, or regulatory landscape evolution.",
+          "level": 4,
+          "competencyName": "Platform Strategic Alignment"
+        },
+        {
+          "name": "Innovating",
+          "description": "Pioneers new automation business models, FinOps strategies, or economic frameworks that redefine enterprise infrastructure value.",
+          "level": 5,
+          "competencyName": "Platform Strategic Alignment"
+        }
+      ]
+    },
+    {
+      "name": "Site Reliability",
+      "description": "The ability to apply software engineering principles to infrastructure operations, ensuring automation system reliability, managed infrastructure availability, and operational performance. Encompasses drift detection and remediation, SLO design for managed infrastructure, incident response for automation failures, self-healing system design, and disaster recovery automation.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands basic monitoring concepts, SLIs/SLOs, and incident response procedures for automated infrastructure.",
+          "level": 1,
+          "competencyName": "Site Reliability"
+        },
+        {
+          "name": "Applies",
+          "description": "Can implement monitoring and alerting for automation systems, participate in incident response, and execute drift remediation runbooks.",
+          "level": 2,
+          "competencyName": "Site Reliability"
+        },
+        {
+          "name": "Masters",
+          "description": "Can independently design drift detection and remediation workflows, define SLOs for managed infrastructure, and lead complex incident resolutions involving automation failures.",
+          "level": 3,
+          "competencyName": "Site Reliability"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can architect self-healing infrastructure systems, implement predictive maintenance, and establish enterprise-wide reliability practices for automated infrastructure estates.",
+          "level": 4,
+          "competencyName": "Site Reliability"
+        },
+        {
+          "name": "Innovating",
+          "description": "Develops novel approaches to infrastructure reliability, autonomous remediation, or predictive infrastructure management.",
+          "level": 5,
+          "competencyName": "Site Reliability"
+        }
+      ]
+    },
+    {
+      "name": "Stakeholder Representation",
+      "description": "The ability to gather, communicate, and balance the needs of infrastructure consumers (developers, SREs, security teams, operators) and accurately represent their views to the automation platform team.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands the different consumer personas utilizing the automation platform (developers, SREs, operators, security engineers).",
+          "level": 1,
+          "competencyName": "Stakeholder Representation"
+        },
+        {
+          "name": "Applies",
+          "description": "Can effectively gather and advocate for the needs of a specific infrastructure consumer team.",
+          "level": 2,
+          "competencyName": "Stakeholder Representation"
+        },
+        {
+          "name": "Masters",
+          "description": "Can accurately balance competing requirements from security, networking, operations, and developer teams to ensure the automation interface remains frictionless and effective.",
+          "level": 3,
+          "competencyName": "Stakeholder Representation"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can negotiate complex political landscapes, aligning executive objectives with the daily operational realities of the infrastructure automation workforce.",
+          "level": 4,
+          "competencyName": "Stakeholder Representation"
+        },
+        {
+          "name": "Innovating",
+          "description": "Creates novel enterprise feedback loops and representation models that radically democratize automation platform evolution.",
+          "level": 5,
+          "competencyName": "Stakeholder Representation"
+        }
+      ]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Opportunity",
+      "description": "The foundational business drivers for the infrastructure automation transformation. In IaC, opportunities include cost reduction through automation (MTTR reduction, error elimination), compliance mandate fulfillment (SOC 2, PCI-DSS, CIS), digital transformation enablement, and operational resilience improvement.",
+      "focusName": "Value",
+      "relatesTo": [
+        {
+          "alphaName": "Stakeholders",
+          "relationship": "identified by",
+          "direction": "incoming"
+        },
+        {
+          "alphaName": "Requirements",
+          "relationship": "produces",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Value And Economics",
+          "relationship": "justifies",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "The desire to adopt infrastructure automation is identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Business drivers for infrastructure automation are identified (cost reduction, error elimination, compliance, speed)",
+              "description": "Business drivers for infrastructure automation are identified (cost reduction, error elimination, compliance, speed)",
+              "seq": 1
+            },
+            {
+              "name": "Current manual infrastructure management pain points are documented",
+              "description": "Current manual infrastructure management pain points are documented",
+              "seq": 2
+            },
+            {
+              "name": "Initial scope of automation opportunity is outlined (cloud, on-premises, hybrid)",
+              "description": "Initial scope of automation opportunity is outlined (cloud, on-premises, hybrid)",
+              "seq": 3
+            },
+            {
+              "name": "Executive sponsor for the automation initiative is identified",
+              "description": "Executive sponsor for the automation initiative is identified",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Determined",
+          "description": "The value and parameters of the automation investment are quantified.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Current operational costs are baselined (incident frequency, MTTR, provisioning time, manual effort hours)",
+              "description": "Current operational costs are baselined (incident frequency, MTTR, provisioning time, manual effort hours)",
+              "seq": 1
+            },
+            {
+              "name": "Projected ROI from automation is quantified with specific metrics",
+              "description": "Projected ROI from automation is quantified with specific metrics",
+              "seq": 2
+            },
+            {
+              "name": "Target automation scope is defined (which infrastructure domains, which tools)",
+              "description": "Target automation scope is defined (which infrastructure domains, which tools)",
+              "seq": 3
+            },
+            {
+              "name": "Risk assessment of NOT automating is documented (compliance gaps, error rates, talent retention)",
+              "description": "Risk assessment of NOT automating is documented (compliance gaps, error rates, talent retention)",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Value Established",
+          "description": "The automation platform's value is accepted by sponsors.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Business case approved by executive stakeholders with quantified benefits",
+              "description": "Business case approved by executive stakeholders with quantified benefits",
+              "seq": 1
+            },
+            {
+              "name": "Automation initiative formally funded with allocated budget and timeline",
+              "description": "Automation initiative formally funded with allocated budget and timeline",
+              "seq": 2
+            },
+            {
+              "name": "Success metrics and KPIs agreed upon (deployment frequency, MTTR, error rate, coverage percentage)",
+              "description": "Success metrics and KPIs agreed upon (deployment frequency, MTTR, error rate, coverage percentage)",
+              "seq": 3
+            },
+            {
+              "name": "Stakeholder alignment confirmed across operations, development, security, and management",
+              "description": "Stakeholder alignment confirmed across operations, development, security, and management",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Viable",
+          "description": "The business case demonstrates a viable return on automation investment.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Pilot or proof-of-concept validates automation feasibility for target infrastructure",
+              "description": "Pilot or proof-of-concept validates automation feasibility for target infrastructure",
+              "seq": 1
+            },
+            {
+              "name": "Technical risks identified and mitigated (tool compatibility, skill gaps, integration challenges)",
+              "description": "Technical risks identified and mitigated (tool compatibility, skill gaps, integration challenges)",
+              "seq": 2
+            },
+            {
+              "name": "Resource plan confirmed (team size, training budget, tooling licenses)",
+              "description": "Resource plan confirmed (team size, training budget, tooling licenses)",
+              "seq": 3
+            },
+            {
+              "name": "Go/no-go decision documented with clear criteria met",
+              "description": "Go/no-go decision documented with clear criteria met",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Addressed",
+          "description": "The opportunity is actively being addressed by the automation platform.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Automation platform operational and managing production infrastructure",
+              "description": "Automation platform operational and managing production infrastructure",
+              "seq": 1
+            },
+            {
+              "name": "Initial value metrics are being collected and reported",
+              "description": "Initial value metrics are being collected and reported",
+              "seq": 2
+            },
+            {
+              "name": "Stakeholders receive regular progress updates with measurable outcomes",
+              "description": "Stakeholders receive regular progress updates with measurable outcomes",
+              "seq": 3
+            },
+            {
+              "name": "Early adopter teams are successfully using automation capabilities",
+              "description": "Early adopter teams are successfully using automation capabilities",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Benefit Accrued",
+          "description": "The expected benefits from infrastructure automation are being consistently realized.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "ROI targets met or exceeded based on established KPIs",
+              "description": "ROI targets met or exceeded based on established KPIs",
+              "seq": 1
+            },
+            {
+              "name": "Operational metrics demonstrate sustained improvement (reduced incidents, faster provisioning, lower costs)",
+              "description": "Operational metrics demonstrate sustained improvement (reduced incidents, faster provisioning, lower costs)",
+              "seq": 2
+            },
+            {
+              "name": "Automation adoption has expanded beyond initial scope to additional infrastructure domains",
+              "description": "Automation adoption has expanded beyond initial scope to additional infrastructure domains",
+              "seq": 3
+            },
+            {
+              "name": "Continuous improvement cycle established for ongoing value optimization",
+              "description": "Continuous improvement cycle established for ongoing value optimization",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Platform Value And Economics",
+      "description": "The financial and outcome-based justification and accounting for infrastructure automation investment. Encompasses ROI modeling, TCO analysis comparing manual vs. automated operations, FinOps integration, cost avoidance calculations, operational efficiency metrics, and chargeback/showback models.",
+      "focusName": "Value",
+      "relatesTo": [
+        {
+          "alphaName": "Platform",
+          "relationship": "identifies ROI for",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "relationship": "communicates value to",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Modeled",
+          "description": "Financial needs and potential values of automation investment are recognized.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Initial cost-benefit analysis includes tooling costs, training investment, and projected savings",
+              "description": "Initial cost-benefit analysis includes tooling costs, training investment, and projected savings",
+              "seq": 1
+            },
+            {
+              "name": "Cost of current manual operations quantified (labor hours, error remediation, downtime costs)",
+              "description": "Cost of current manual operations quantified (labor hours, error remediation, downtime costs)",
+              "seq": 2
+            },
+            {
+              "name": "Projected savings from automation modeled (reduced MTTR, eliminated errors, faster provisioning)",
+              "description": "Projected savings from automation modeled (reduced MTTR, eliminated errors, faster provisioning)",
+              "seq": 3
+            },
+            {
+              "name": "Financial model includes both direct costs and opportunity costs of delayed automation",
+              "description": "Financial model includes both direct costs and opportunity costs of delayed automation",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Allocated",
+          "description": "Costs and benefits are logically modeled with chargeback/showback mechanisms.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Budget formally allocated for automation platform infrastructure, tooling licenses, and training",
+              "description": "Budget formally allocated for automation platform infrastructure, tooling licenses, and training",
+              "seq": 1
+            },
+            {
+              "name": "Chargeback or showback model defined for automation services consumed by teams",
+              "description": "Chargeback or showback model defined for automation services consumed by teams",
+              "seq": 2
+            },
+            {
+              "name": "FinOps practices integrated for infrastructure cost optimization and resource right-sizing",
+              "description": "FinOps practices integrated for infrastructure cost optimization and resource right-sizing",
+              "seq": 3
+            },
+            {
+              "name": "Cost allocation tags defined and enforced through automation policies",
+              "description": "Cost allocation tags defined and enforced through automation policies",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Sustained",
+          "description": "The economic model is approved and validated by actual operational data.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "ROI demonstrated through measurable metrics (reduced MTTR, fewer incidents, faster provisioning)",
+              "description": "ROI demonstrated through measurable metrics (reduced MTTR, fewer incidents, faster provisioning)",
+              "seq": 1
+            },
+            {
+              "name": "Ongoing operational costs are within projected budget with positive net benefit",
+              "description": "Ongoing operational costs are within projected budget with positive net benefit",
+              "seq": 2
+            },
+            {
+              "name": "Financial reporting automated through infrastructure cost dashboards and alerts",
+              "description": "Financial reporting automated through infrastructure cost dashboards and alerts",
+              "seq": 3
+            },
+            {
+              "name": "Economic model reviewed and approved for continued investment by finance and management",
+              "description": "Economic model reviewed and approved for continued investment by finance and management",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Stakeholders",
+      "description": "The individuals, groups, or organizations affected by or able to affect the infrastructure automation initiative. Key stakeholder groups: operations teams (reduced toil), development teams (self-service infrastructure), security teams (automated compliance), management (reduced costs), finance (cost transparency), and audit/compliance functions (machine-readable evidence).",
+      "focusName": "Value",
+      "relatesTo": [
+        {
+          "alphaName": "Requirements",
+          "relationship": "produces",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform",
+          "relationship": "funds",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Team",
+          "relationship": "provides feedback to",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Recognized",
+          "description": "Key stakeholders for the infrastructure automation initiative are identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "All stakeholder groups cataloged (operations, development, security, management, finance, audit)",
+              "description": "All stakeholder groups cataloged (operations, development, security, management, finance, audit)",
+              "seq": 1
+            },
+            {
+              "name": "Stakeholder influence and interest levels assessed",
+              "description": "Stakeholder influence and interest levels assessed",
+              "seq": 2
+            },
+            {
+              "name": "Communication plan for each stakeholder group drafted",
+              "description": "Communication plan for each stakeholder group drafted",
+              "seq": 3
+            },
+            {
+              "name": "Initial stakeholder concerns and expectations documented",
+              "description": "Initial stakeholder concerns and expectations documented",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Represented",
+          "description": "Stakeholder representatives are designated for the automation initiative.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Named representatives from each stakeholder group designated",
+              "description": "Named representatives from each stakeholder group designated",
+              "seq": 1
+            },
+            {
+              "name": "Feedback channels established (surveys, office hours, Slack channels, review boards)",
+              "description": "Feedback channels established (surveys, office hours, Slack channels, review boards)",
+              "seq": 2
+            },
+            {
+              "name": "Representative authority and decision-making scope defined",
+              "description": "Representative authority and decision-making scope defined",
+              "seq": 3
+            },
+            {
+              "name": "Regular touchpoints scheduled for stakeholder input",
+              "description": "Regular touchpoints scheduled for stakeholder input",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Involved",
+          "description": "Stakeholders actively participate in the automation initiative.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Stakeholders contributing requirements and priorities for automation capabilities",
+              "description": "Stakeholders contributing requirements and priorities for automation capabilities",
+              "seq": 1
+            },
+            {
+              "name": "User research conducted with infrastructure consumers to understand Jobs-to-be-Done",
+              "description": "User research conducted with infrastructure consumers to understand Jobs-to-be-Done",
+              "seq": 2
+            },
+            {
+              "name": "Stakeholder feedback incorporated into automation platform roadmap",
+              "description": "Stakeholder feedback incorporated into automation platform roadmap",
+              "seq": 3
+            },
+            {
+              "name": "Cross-functional working groups established for automation standards",
+              "description": "Cross-functional working groups established for automation standards",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "In Agreement",
+          "description": "Stakeholder expectations for infrastructure automation are aligned.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Stakeholders agree on automation scope, priorities, and timeline",
+              "description": "Stakeholders agree on automation scope, priorities, and timeline",
+              "seq": 1
+            },
+            {
+              "name": "Service level expectations for automation capabilities defined and accepted",
+              "description": "Service level expectations for automation capabilities defined and accepted",
+              "seq": 2
+            },
+            {
+              "name": "Governance model agreed upon by security, compliance, and operations stakeholders",
+              "description": "Governance model agreed upon by security, compliance, and operations stakeholders",
+              "seq": 3
+            },
+            {
+              "name": "Resource allocation and team structure approved by all stakeholder groups",
+              "description": "Resource allocation and team structure approved by all stakeholder groups",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Satisfied for Deployment",
+          "description": "Stakeholders approve deployment of automation capabilities to production.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Security team has validated automation platform security posture and access controls",
+              "description": "Security team has validated automation platform security posture and access controls",
+              "seq": 1
+            },
+            {
+              "name": "Operations team confirms automation readiness for production infrastructure",
+              "description": "Operations team confirms automation readiness for production infrastructure",
+              "seq": 2
+            },
+            {
+              "name": "Compliance team validates policy enforcement mechanisms meet regulatory requirements",
+              "description": "Compliance team validates policy enforcement mechanisms meet regulatory requirements",
+              "seq": 3
+            },
+            {
+              "name": "Management approves go-live based on demonstrated pilot results",
+              "description": "Management approves go-live based on demonstrated pilot results",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Satisfied in Use",
+          "description": "Stakeholders are satisfied with the operational automation platform.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Infrastructure consumers report improved provisioning speed and self-service satisfaction",
+              "description": "Infrastructure consumers report improved provisioning speed and self-service satisfaction",
+              "seq": 1
+            },
+            {
+              "name": "Operations teams report reduced toil and incident frequency",
+              "description": "Operations teams report reduced toil and incident frequency",
+              "seq": 2
+            },
+            {
+              "name": "Security and compliance teams confirm automated policy enforcement is effective",
+              "description": "Security and compliance teams confirm automated policy enforcement is effective",
+              "seq": 3
+            },
+            {
+              "name": "Management receives regular value reports demonstrating sustained ROI",
+              "description": "Management receives regular value reports demonstrating sustained ROI",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Platform Risk And Compliance",
+      "description": "The security posture, risk assessment, and compliance mitigation maturity of the infrastructure automation system and the infrastructure it manages. Encompasses secrets management, credential rotation, encrypted state backends, least-privilege IAM policies, audit trails, compliance framework mappings (CIS, SOC 2, PCI-DSS, HIPAA), and security scanning integration (Checkov, tfsec, Bridgecrew, Snyk IaC).",
+      "focusName": "Value",
+      "relatesTo": [
+        {
+          "alphaName": "Opportunity",
+          "relationship": "impacts",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Requirements",
+          "relationship": "influences",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Governance",
+          "relationship": "informs",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "relationship": "enforced by",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Basic security risks and compliance needs for infrastructure automation are cataloged.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "IaC-specific security risks identified (credential exposure, state file leakage, overprivileged service accounts)",
+              "description": "IaC-specific security risks identified (credential exposure, state file leakage, overprivileged service accounts)",
+              "seq": 1
+            },
+            {
+              "name": "Applicable compliance frameworks cataloged (CIS benchmarks, SOC 2, PCI-DSS, HIPAA, FedRAMP)",
+              "description": "Applicable compliance frameworks cataloged (CIS benchmarks, SOC 2, PCI-DSS, HIPAA, FedRAMP)",
+              "seq": 2
+            },
+            {
+              "name": "Initial risk register established for automation platform and managed infrastructure",
+              "description": "Initial risk register established for automation platform and managed infrastructure",
+              "seq": 3
+            },
+            {
+              "name": "Security ownership and responsibilities assigned for automation code and infrastructure",
+              "description": "Security ownership and responsibilities assigned for automation code and infrastructure",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Assessed",
+          "description": "Detailed risk assessment matrices and compliance mappings are documented.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Comprehensive risk assessment covers automation code, state management, credentials, and managed infrastructure",
+              "description": "Comprehensive risk assessment covers automation code, state management, credentials, and managed infrastructure",
+              "seq": 1
+            },
+            {
+              "name": "Compliance gap analysis maps current automation practices against required framework controls",
+              "description": "Compliance gap analysis maps current automation practices against required framework controls",
+              "seq": 2
+            },
+            {
+              "name": "Infrastructure code analyzed for security vulnerabilities using static analysis tools",
+              "description": "Infrastructure code analyzed for security vulnerabilities using static analysis tools",
+              "seq": 3
+            },
+            {
+              "name": "Threat model created for automation platform attack vectors (supply chain, credential theft, state tampering)",
+              "description": "Threat model created for automation platform attack vectors (supply chain, credential theft, state tampering)",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Mitigated",
+          "description": "Security controls for infrastructure automation are implemented and operational.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Secrets management integrated (HashiCorp Vault, AWS Secrets Manager) with automated credential rotation",
+              "description": "Secrets management integrated (HashiCorp Vault, AWS Secrets Manager) with automated credential rotation",
+              "seq": 1
+            },
+            {
+              "name": "State backends encrypted at rest and in transit with access controls enforced",
+              "description": "State backends encrypted at rest and in transit with access controls enforced",
+              "seq": 2
+            },
+            {
+              "name": "Least-privilege IAM policies implemented for automation service accounts",
+              "description": "Least-privilege IAM policies implemented for automation service accounts",
+              "seq": 3
+            },
+            {
+              "name": "Security scanning integrated into CI/CD pipeline (Checkov, tfsec, Bridgecrew, Snyk IaC)",
+              "description": "Security scanning integrated into CI/CD pipeline (Checkov, tfsec, Bridgecrew, Snyk IaC)",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Automated",
+          "description": "Automated compliance auditing and security posture checks operate without manual intervention.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Continuous compliance scanning runs automatically (InSpec profiles, AWS Config rules, Azure Policy)",
+              "description": "Continuous compliance scanning runs automatically (InSpec profiles, AWS Config rules, Azure Policy)",
+              "seq": 1
+            },
+            {
+              "name": "Security scanning gates enforce policy in all deployment pipelines",
+              "description": "Security scanning gates enforce policy in all deployment pipelines",
+              "seq": 2
+            },
+            {
+              "name": "Real-time policy enforcement via OPA/Sentinel/Kyverno blocks non-compliant infrastructure changes",
+              "description": "Real-time policy enforcement via OPA/Sentinel/Kyverno blocks non-compliant infrastructure changes",
+              "seq": 3
+            },
+            {
+              "name": "Compliance evidence generation produces machine-readable audit artifacts automatically",
+              "description": "Compliance evidence generation produces machine-readable audit artifacts automatically",
+              "seq": 4
+            },
+            {
+              "name": "Compliance drift detected and remediated without manual intervention",
+              "description": "Compliance drift detected and remediated without manual intervention",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Requirements",
+      "description": "The capabilities, features, and constraints that the infrastructure automation system must satisfy. Includes supported platforms/cloud providers, performance requirements, security requirements, compliance requirements, integration requirements (CI/CD, monitoring, ITSM, CMDB), and operational requirements (drift detection frequency, remediation SLOs, self-service provisioning SLAs).",
+      "focusName": "Solution",
+      "relatesTo": [
+        {
+          "alphaName": "Platform",
+          "relationship": "guides design of",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Work",
+          "relationship": "defines scope for",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Consumption Interface",
+          "relationship": "guides design of",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Managed Asset",
+          "relationship": "specifies",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Conceived",
+          "description": "The need for infrastructure automation capabilities is identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Initial requirements gathered around supported platforms, scale targets, and integration needs",
+              "description": "Initial requirements gathered around supported platforms, scale targets, and integration needs",
+              "seq": 1
+            },
+            {
+              "name": "Target infrastructure scope identified (cloud providers, on-premises, hybrid, multi-cloud)",
+              "description": "Target infrastructure scope identified (cloud providers, on-premises, hybrid, multi-cloud)",
+              "seq": 2
+            },
+            {
+              "name": "Key automation capability needs documented (provisioning, configuration, compliance, drift detection)",
+              "description": "Key automation capability needs documented (provisioning, configuration, compliance, drift detection)",
+              "seq": 3
+            },
+            {
+              "name": "Stakeholder input on requirements priorities collected",
+              "description": "Stakeholder input on requirements priorities collected",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Bounded",
+          "description": "The scope of automation requirements is defined.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Scope boundaries established (which infrastructure domains automated first, phased rollout plan)",
+              "description": "Scope boundaries established (which infrastructure domains automated first, phased rollout plan)",
+              "seq": 1
+            },
+            {
+              "name": "Constraints identified (budget, timeline, compliance mandates, existing tool investments)",
+              "description": "Constraints identified (budget, timeline, compliance mandates, existing tool investments)",
+              "seq": 2
+            },
+            {
+              "name": "Non-functional requirements defined (performance, scalability, availability, security)",
+              "description": "Non-functional requirements defined (performance, scalability, availability, security)",
+              "seq": 3
+            },
+            {
+              "name": "Integration requirements scoped (CI/CD pipelines, monitoring systems, ITSM platforms, CMDB)",
+              "description": "Integration requirements scoped (CI/CD pipelines, monitoring systems, ITSM platforms, CMDB)",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Coherent",
+          "description": "Automation requirements are clear, consistent, and prioritized.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Requirements dependencies mapped and conflicts resolved",
+              "description": "Requirements dependencies mapped and conflicts resolved",
+              "seq": 1
+            },
+            {
+              "name": "Automation capabilities mapped to business outcomes with traceability",
+              "description": "Automation capabilities mapped to business outcomes with traceability",
+              "seq": 2
+            },
+            {
+              "name": "Requirements prioritized using MoSCoW or similar framework",
+              "description": "Requirements prioritized using MoSCoW or similar framework",
+              "seq": 3
+            },
+            {
+              "name": "Acceptance criteria defined for each requirement with measurable outcomes",
+              "description": "Acceptance criteria defined for each requirement with measurable outcomes",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Acceptable",
+          "description": "All stakeholder groups agree requirements meet their needs and are achievable.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Operations, security, development, and management stakeholders approve requirement set",
+              "description": "Operations, security, development, and management stakeholders approve requirement set",
+              "seq": 1
+            },
+            {
+              "name": "Requirements validated as achievable within stated constraints (budget, timeline, team capacity)",
+              "description": "Requirements validated as achievable within stated constraints (budget, timeline, team capacity)",
+              "seq": 2
+            },
+            {
+              "name": "Trade-offs between competing requirements explicitly documented and accepted",
+              "description": "Trade-offs between competing requirements explicitly documented and accepted",
+              "seq": 3
+            },
+            {
+              "name": "Requirements baseline formally approved and change control process established",
+              "description": "Requirements baseline formally approved and change control process established",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Addressed",
+          "description": "The automation platform satisfies established requirements.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Core automation capabilities operational and meeting defined SLOs",
+              "description": "Core automation capabilities operational and meeting defined SLOs",
+              "seq": 1
+            },
+            {
+              "name": "Integration requirements fulfilled (CI/CD, monitoring, ITSM connected)",
+              "description": "Integration requirements fulfilled (CI/CD, monitoring, ITSM connected)",
+              "seq": 2
+            },
+            {
+              "name": "Security and compliance requirements validated through testing and audit",
+              "description": "Security and compliance requirements validated through testing and audit",
+              "seq": 3
+            },
+            {
+              "name": "Performance requirements met under expected load conditions",
+              "description": "Performance requirements met under expected load conditions",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Fulfilled",
+          "description": "All requirements are successfully delivered and operational.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "All MoSCoW requirements delivered per agreed scope",
+              "description": "All MoSCoW requirements delivered per agreed scope",
+              "seq": 1
+            },
+            {
+              "name": "Automation platform feature-complete for current scope and delivering sustained value",
+              "description": "Automation platform feature-complete for current scope and delivering sustained value",
+              "seq": 2
+            },
+            {
+              "name": "Stakeholder acceptance confirmed through formal review",
+              "description": "Stakeholder acceptance confirmed through formal review",
+              "seq": 3
+            },
+            {
+              "name": "Requirements traceability matrix complete showing all requirements addressed",
+              "description": "Requirements traceability matrix complete showing all requirements addressed",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Platform",
+      "description": "The unified system of automation tools, execution engines, state management backends, module registries, CI/CD pipelines, and integrations that provide the technical foundation for managing infrastructure through code. Includes control nodes/servers (Ansible control nodes, Puppet servers, Terraform Cloud workspaces, Chef servers, Salt masters), their configurations, and the operational infrastructure supporting automated provisioning and configuration management.",
+      "focusName": "Solution",
+      "relatesTo": [
+        {
+          "alphaName": "Team",
+          "relationship": "built by",
+          "direction": "incoming"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "relationship": "hosts",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Consumption Interface",
+          "relationship": "exposes",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Governance",
+          "relationship": "governed by",
+          "direction": "incoming"
+        },
+        {
+          "alphaName": "Managed Asset",
+          "relationship": "manages",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Architecture Selected",
+          "description": "The foundational automation architecture is formally selected and agreed upon.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Automation toolchain selected based on requirements (e.g., Terraform + Ansible, Puppet Enterprise)",
+              "description": "Automation toolchain selected based on requirements (e.g., Terraform + Ansible, Puppet Enterprise)",
+              "seq": 1
+            },
+            {
+              "name": "Execution model decided (push/pull, agent/agentless) with documented rationale",
+              "description": "Execution model decided (push/pull, agent/agentless) with documented rationale",
+              "seq": 2
+            },
+            {
+              "name": "State management strategy determined (remote backends, workspace isolation, state locking)",
+              "description": "State management strategy determined (remote backends, workspace isolation, state locking)",
+              "seq": 3
+            },
+            {
+              "name": "Integration architecture with CI/CD pipeline formally designed",
+              "description": "Integration architecture with CI/CD pipeline formally designed",
+              "seq": 4
+            },
+            {
+              "name": "Target infrastructure scope defined (cloud providers, on-premises, hybrid)",
+              "description": "Target infrastructure scope defined (cloud providers, on-premises, hybrid)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Baselined",
+          "description": "Core automation capabilities are logically mapped with constraints and integration points defined.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Module library structure, naming conventions, and directory layout defined",
+              "description": "Module library structure, naming conventions, and directory layout defined",
+              "seq": 1
+            },
+            {
+              "name": "Branching strategy for automation code established (trunk-based, GitFlow, environment branches)",
+              "description": "Branching strategy for automation code established (trunk-based, GitFlow, environment branches)",
+              "seq": 2
+            },
+            {
+              "name": "State backend configured and tested (S3, Consul, PuppetDB, Terraform Cloud)",
+              "description": "State backend configured and tested (S3, Consul, PuppetDB, Terraform Cloud)",
+              "seq": 3
+            },
+            {
+              "name": "Environment topology defined (dev, staging, production with promotion workflow)",
+              "description": "Environment topology defined (dev, staging, production with promotion workflow)",
+              "seq": 4
+            },
+            {
+              "name": "Automation coding standards documented (HCL style, YAML formatting, variable naming)",
+              "description": "Automation coding standards documented (HCL style, YAML formatting, variable naming)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "The automation control plane is instantiated and ready to support development.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Control nodes/servers running and accessible (Ansible control nodes, Puppet server, Terraform Cloud)",
+              "description": "Control nodes/servers running and accessible (Ansible control nodes, Puppet server, Terraform Cloud)",
+              "seq": 1
+            },
+            {
+              "name": "CI/CD pipelines configured for automation code (plan, validate, apply stages)",
+              "description": "CI/CD pipelines configured for automation code (plan, validate, apply stages)",
+              "seq": 2
+            },
+            {
+              "name": "Module registries accessible (private registry, Terraform Registry, Ansible Galaxy, Puppet Forge)",
+              "description": "Module registries accessible (private registry, Terraform Registry, Ansible Galaxy, Puppet Forge)",
+              "seq": 3
+            },
+            {
+              "name": "Authentication and access control configured (RBAC, SSO integration)",
+              "description": "Authentication and access control configured (RBAC, SSO integration)",
+              "seq": 4
+            },
+            {
+              "name": "Development environment operational for automation code authoring and testing",
+              "description": "Development environment operational for automation code authoring and testing",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Ready",
+          "description": "The automation platform is fully operational with self-service and governance capabilities.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Self-service interfaces deployed and accessible to consuming teams",
+              "description": "Self-service interfaces deployed and accessible to consuming teams",
+              "seq": 1
+            },
+            {
+              "name": "Role-based access control enforced with least-privilege principles",
+              "description": "Role-based access control enforced with least-privilege principles",
+              "seq": 2
+            },
+            {
+              "name": "Policy enforcement integrated into deployment pipelines (OPA, Sentinel, Kyverno)",
+              "description": "Policy enforcement integrated into deployment pipelines (OPA, Sentinel, Kyverno)",
+              "seq": 3
+            },
+            {
+              "name": "Teams can independently author, test, and deploy automation code",
+              "description": "Teams can independently author, test, and deploy automation code",
+              "seq": 4
+            },
+            {
+              "name": "Monitoring and alerting configured for automation platform health",
+              "description": "Monitoring and alerting configured for automation platform health",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Hosting Assets",
+          "description": "The automation platform is actively managing production infrastructure at scale.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Multiple teams using the platform to provision, configure, and maintain production infrastructure",
+              "description": "Multiple teams using the platform to provision, configure, and maintain production infrastructure",
+              "seq": 1
+            },
+            {
+              "name": "Drift detection running on schedule for all managed infrastructure",
+              "description": "Drift detection running on schedule for all managed infrastructure",
+              "seq": 2
+            },
+            {
+              "name": "Operational metrics collected and reported (execution success rates, drift frequency, remediation time)",
+              "description": "Operational metrics collected and reported (execution success rates, drift frequency, remediation time)",
+              "seq": 3
+            },
+            {
+              "name": "Incident response procedures established for automation platform failures",
+              "description": "Incident response procedures established for automation platform failures",
+              "seq": 4
+            },
+            {
+              "name": "Capacity planning addresses growing scale of managed infrastructure",
+              "description": "Capacity planning addresses growing scale of managed infrastructure",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Evolving",
+          "description": "The automation platform continuously improves through data-driven optimization.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Telemetry-driven optimization identifies and resolves performance bottlenecks",
+              "description": "Telemetry-driven optimization identifies and resolves performance bottlenecks",
+              "seq": 1
+            },
+            {
+              "name": "Automation platform upgraded to latest stable versions with minimal disruption",
+              "description": "Automation platform upgraded to latest stable versions with minimal disruption",
+              "seq": 2
+            },
+            {
+              "name": "Legacy automation approaches progressively migrated to current standards",
+              "description": "Legacy automation approaches progressively migrated to current standards",
+              "seq": 3
+            },
+            {
+              "name": "AI-assisted recommendations integrated for module optimization and resource right-sizing",
+              "description": "AI-assisted recommendations integrated for module optimization and resource right-sizing",
+              "seq": 4
+            },
+            {
+              "name": "Platform evolution roadmap maintained with stakeholder input",
+              "description": "Platform evolution roadmap maintained with stakeholder input",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Retiring",
+          "description": "The automation platform is being systematically decommissioned.",
+          "seq": 7,
+          "checklist": [
+            {
+              "name": "Successor automation platform identified and validated",
+              "description": "Successor automation platform identified and validated",
+              "seq": 1
+            },
+            {
+              "name": "Managed infrastructure migrated to successor platform with validation",
+              "description": "Managed infrastructure migrated to successor platform with validation",
+              "seq": 2
+            },
+            {
+              "name": "Automation code archived or ported to successor platform format",
+              "description": "Automation code archived or ported to successor platform format",
+              "seq": 3
+            },
+            {
+              "name": "Decommissioning timeline communicated to all consuming teams",
+              "description": "Decommissioning timeline communicated to all consuming teams",
+              "seq": 4
+            },
+            {
+              "name": "Post-decommissioning verification confirms no orphaned resources or dependencies",
+              "description": "Post-decommissioning verification confirms no orphaned resources or dependencies",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Platform Consumption Interface",
+      "description": "The means by which consumers discover, trigger, and consume automation capabilities. Includes CLI tools (terraform, ansible-playbook, puppet, knife, salt), web UIs (Terraform Cloud, AAP, Puppet Enterprise Console, Chef Automate), APIs, self-service portals (ServiceNow integrations, internal developer portals), GitOps interfaces (pull request workflows), and documentation/runbook repositories.",
+      "focusName": "Solution",
+      "relatesTo": [
+        {
+          "alphaName": "Platform",
+          "relationship": "enables access to",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "relationship": "facilitates deployment of",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "relationship": "drives adoption through",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Envisioned",
+          "description": "The desired automation interface is conceptualized based on consumer needs.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Consumer needs assessment completed (CLI, web portal, API, GitOps workflow preferences)",
+              "description": "Consumer needs assessment completed (CLI, web portal, API, GitOps workflow preferences)",
+              "seq": 1
+            },
+            {
+              "name": "Interface modality decided based on consumer personas (developers vs. operators vs. managers)",
+              "description": "Interface modality decided based on consumer personas (developers vs. operators vs. managers)",
+              "seq": 2
+            },
+            {
+              "name": "Self-service requirements gathered from infrastructure consumers",
+              "description": "Self-service requirements gathered from infrastructure consumers",
+              "seq": 3
+            },
+            {
+              "name": "Interface architecture conceptualized (standalone portal, integrated IDP, GitOps-native)",
+              "description": "Interface architecture conceptualized (standalone portal, integrated IDP, GitOps-native)",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Scoped",
+          "description": "Interface capabilities are defined with guardrails and feedback mechanisms.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Automation workflows to be exposed through the interface identified and prioritized",
+              "description": "Automation workflows to be exposed through the interface identified and prioritized",
+              "seq": 1
+            },
+            {
+              "name": "Input parameters, guardrails, and validation rules defined for each workflow",
+              "description": "Input parameters, guardrails, and validation rules defined for each workflow",
+              "seq": 2
+            },
+            {
+              "name": "Consumer feedback mechanisms designed (approval workflows, status notifications, cost estimates)",
+              "description": "Consumer feedback mechanisms designed (approval workflows, status notifications, cost estimates)",
+              "seq": 3
+            },
+            {
+              "name": "Documentation and onboarding requirements scoped",
+              "description": "Documentation and onboarding requirements scoped",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Available",
+          "description": "The automation interface is accessible to consuming teams.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "CLI tools, web portals, or API endpoints deployed and operational",
+              "description": "CLI tools, web portals, or API endpoints deployed and operational",
+              "seq": 1
+            },
+            {
+              "name": "User documentation, quickstart guides, and runbooks published",
+              "description": "User documentation, quickstart guides, and runbooks published",
+              "seq": 2
+            },
+            {
+              "name": "Authentication and authorization integrated with organizational identity provider",
+              "description": "Authentication and authorization integrated with organizational identity provider",
+              "seq": 3
+            },
+            {
+              "name": "Initial consumer onboarding completed with guided walkthroughs",
+              "description": "Initial consumer onboarding completed with guided walkthroughs",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Self Service",
+          "description": "Consumers can independently discover, configure, and trigger automation workflows.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Golden path templates enable common provisioning patterns without specialist assistance",
+              "description": "Golden path templates enable common provisioning patterns without specialist assistance",
+              "seq": 1
+            },
+            {
+              "name": "Service catalog provides searchable, categorized automation capabilities",
+              "description": "Service catalog provides searchable, categorized automation capabilities",
+              "seq": 2
+            },
+            {
+              "name": "Consumer can provision infrastructure through approved workflows end-to-end",
+              "description": "Consumer can provision infrastructure through approved workflows end-to-end",
+              "seq": 3
+            },
+            {
+              "name": "Automated guardrails prevent non-compliant configurations without manual review",
+              "description": "Automated guardrails prevent non-compliant configurations without manual review",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "The interface dynamically adapts based on usage telemetry and minimizes cognitive load.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Usage telemetry drives interface improvements and feature prioritization",
+              "description": "Usage telemetry drives interface improvements and feature prioritization",
+              "seq": 1
+            },
+            {
+              "name": "Intelligent recommendations auto-complete common patterns and suggest optimizations",
+              "description": "Intelligent recommendations auto-complete common patterns and suggest optimizations",
+              "seq": 2
+            },
+            {
+              "name": "Consumer satisfaction metrics consistently high (NPS, task completion rates)",
+              "description": "Consumer satisfaction metrics consistently high (NPS, task completion rates)",
+              "seq": 3
+            },
+            {
+              "name": "Interface continuously refined based on consumer feedback loops",
+              "description": "Interface continuously refined based on consumer feedback loops",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Platform Asset",
+      "description": "The individual reusable automation code units -- modules, roles, collections, cookbooks, formulas, providers -- that practitioners create, publish, and compose to automate specific infrastructure patterns. These are the codified building blocks of infrastructure automation, analogous to software libraries in application development.",
+      "focusName": "Solution",
+      "relatesTo": [
+        {
+          "alphaName": "Platform Value And Economics",
+          "relationship": "realizes",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Opportunity",
+          "relationship": "addresses",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform",
+          "relationship": "consumes",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Managed Asset",
+          "relationship": "defines",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "The need for a specific automation artifact is identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Recurring infrastructure pattern identified that warrants codification as a reusable module",
+              "description": "Recurring infrastructure pattern identified that warrants codification as a reusable module",
+              "seq": 1
+            },
+            {
+              "name": "Organizational requirement for standardized automation of a specific resource type documented",
+              "description": "Organizational requirement for standardized automation of a specific resource type documented",
+              "seq": 2
+            },
+            {
+              "name": "Existing community modules evaluated for suitability (Terraform Registry, Ansible Galaxy, Puppet Forge)",
+              "description": "Existing community modules evaluated for suitability (Terraform Registry, Ansible Galaxy, Puppet Forge)",
+              "seq": 3
+            },
+            {
+              "name": "Build-vs-reuse decision documented with rationale",
+              "description": "Build-vs-reuse decision documented with rationale",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Specified",
+          "description": "The automation artifact's interface, dependencies, and expected behaviors are defined.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Input variables, output values, and default parameters explicitly defined",
+              "description": "Input variables, output values, and default parameters explicitly defined",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies on other modules, providers, or platform versions declared",
+              "description": "Dependencies on other modules, providers, or platform versions declared",
+              "seq": 2
+            },
+            {
+              "name": "Supported platforms and cloud providers documented",
+              "description": "Supported platforms and cloud providers documented",
+              "seq": 3
+            },
+            {
+              "name": "Expected behaviors and edge cases specified with acceptance criteria",
+              "description": "Expected behaviors and edge cases specified with acceptance criteria",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "The automation artifact is developed, tested, and published.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Automation code authored following organizational coding standards",
+              "description": "Automation code authored following organizational coding standards",
+              "seq": 1
+            },
+            {
+              "name": "Unit and integration tests passing (Terratest, Molecule, InSpec, Test Kitchen)",
+              "description": "Unit and integration tests passing (Terratest, Molecule, InSpec, Test Kitchen)",
+              "seq": 2
+            },
+            {
+              "name": "Artifact published to module registry (private or public)",
+              "description": "Artifact published to module registry (private or public)",
+              "seq": 3
+            },
+            {
+              "name": "Version tagged and release notes documented",
+              "description": "Version tagged and release notes documented",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Integrated",
+          "description": "The automation artifact is successfully integrated into automation workflows.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Artifact integrated into consuming team codebases and CI/CD pipelines",
+              "description": "Artifact integrated into consuming team codebases and CI/CD pipelines",
+              "seq": 1
+            },
+            {
+              "name": "Compatibility with organizational standards validated (naming, tagging, security)",
+              "description": "Compatibility with organizational standards validated (naming, tagging, security)",
+              "seq": 2
+            },
+            {
+              "name": "Integration tests passing in target environments",
+              "description": "Integration tests passing in target environments",
+              "seq": 3
+            },
+            {
+              "name": "Consumer documentation updated with integration examples",
+              "description": "Consumer documentation updated with integration examples",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Operational",
+          "description": "The automation artifact is in active use across multiple teams and projects.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Usage metrics collected (download counts, deployment frequency, consuming teams)",
+              "description": "Usage metrics collected (download counts, deployment frequency, consuming teams)",
+              "seq": 1
+            },
+            {
+              "name": "Issue tracking and bug reporting workflow established",
+              "description": "Issue tracking and bug reporting workflow established",
+              "seq": 2
+            },
+            {
+              "name": "Version management and backward compatibility policy in place",
+              "description": "Version management and backward compatibility policy in place",
+              "seq": 3
+            },
+            {
+              "name": "Support channel available for consuming teams",
+              "description": "Support channel available for consuming teams",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Value Yielding",
+          "description": "The automation artifact demonstrably delivers measurable organizational value.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Adoption metrics prove value (reduced provisioning time, eliminated errors, enforced standards)",
+              "description": "Adoption metrics prove value (reduced provisioning time, eliminated errors, enforced standards)",
+              "seq": 1
+            },
+            {
+              "name": "Artifact actively reduces toil across multiple teams",
+              "description": "Artifact actively reduces toil across multiple teams",
+              "seq": 2
+            },
+            {
+              "name": "ROI quantified through operational metrics",
+              "description": "ROI quantified through operational metrics",
+              "seq": 3
+            },
+            {
+              "name": "Artifact recognized as organizational standard for its infrastructure pattern",
+              "description": "Artifact recognized as organizational standard for its infrastructure pattern",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Retiring",
+          "description": "The automation artifact is being deprecated and replaced.",
+          "seq": 7,
+          "checklist": [
+            {
+              "name": "Successor artifact identified and validated as replacement",
+              "description": "Successor artifact identified and validated as replacement",
+              "seq": 1
+            },
+            {
+              "name": "Consumer migration plan communicated with timeline and guidance",
+              "description": "Consumer migration plan communicated with timeline and guidance",
+              "seq": 2
+            },
+            {
+              "name": "Deprecation warnings added to artifact documentation and registry listing",
+              "description": "Deprecation warnings added to artifact documentation and registry listing",
+              "seq": 3
+            },
+            {
+              "name": "Retired artifact archived after all consumers migrated",
+              "description": "Retired artifact archived after all consumers migrated",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Work",
+      "description": "The activities required to build, operate, and maintain the infrastructure automation system and the infrastructure it manages. Encompasses automation code development, platform operations, drift remediation, incident response, module development, policy authoring, and continuous improvement activities.",
+      "focusName": "Endeavor",
+      "relatesTo": [
+        {
+          "alphaName": "Platform",
+          "relationship": "produces",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Consumption Interface",
+          "relationship": "produces",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "relationship": "delivers",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "Automation work is requested and acknowledged.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Work item created in tracking system with clear description and acceptance criteria",
+              "description": "Work item created in tracking system with clear description and acceptance criteria",
+              "seq": 1
+            },
+            {
+              "name": "Work categorized by type (new capability, bug fix, drift remediation, maintenance, enhancement)",
+              "description": "Work categorized by type (new capability, bug fix, drift remediation, maintenance, enhancement)",
+              "seq": 2
+            },
+            {
+              "name": "Initial effort estimate provided",
+              "description": "Initial effort estimate provided",
+              "seq": 3
+            },
+            {
+              "name": "Work item linked to relevant requirements or incidents",
+              "description": "Work item linked to relevant requirements or incidents",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Prepared",
+          "description": "Automation work is ready to begin with all prerequisites met.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Dependencies identified and resolved (access, credentials, environment availability)",
+              "description": "Dependencies identified and resolved (access, credentials, environment availability)",
+              "seq": 1
+            },
+            {
+              "name": "Acceptance criteria refined with testable conditions",
+              "description": "Acceptance criteria refined with testable conditions",
+              "seq": 2
+            },
+            {
+              "name": "Work item sized and assigned to team member(s)",
+              "description": "Work item sized and assigned to team member(s)",
+              "seq": 3
+            },
+            {
+              "name": "Development environment and testing infrastructure available",
+              "description": "Development environment and testing infrastructure available",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Started",
+          "description": "Automation work is in progress.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Automation code development actively underway",
+              "description": "Automation code development actively underway",
+              "seq": 1
+            },
+            {
+              "name": "Feature branch created and linked to work item",
+              "description": "Feature branch created and linked to work item",
+              "seq": 2
+            },
+            {
+              "name": "Regular progress updates provided to team",
+              "description": "Regular progress updates provided to team",
+              "seq": 3
+            },
+            {
+              "name": "Blockers identified and escalated promptly",
+              "description": "Blockers identified and escalated promptly",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Under Control",
+          "description": "Automation work is proceeding predictably toward completion.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Work progressing according to estimates with no significant scope changes",
+              "description": "Work progressing according to estimates with no significant scope changes",
+              "seq": 1
+            },
+            {
+              "name": "Tests passing and code review feedback addressed",
+              "description": "Tests passing and code review feedback addressed",
+              "seq": 2
+            },
+            {
+              "name": "Integration with existing automation code validated",
+              "description": "Integration with existing automation code validated",
+              "seq": 3
+            },
+            {
+              "name": "Risk of delay identified and mitigated",
+              "description": "Risk of delay identified and mitigated",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Concluded",
+          "description": "Automation work deliverables are complete and validated.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "All acceptance criteria met and verified",
+              "description": "All acceptance criteria met and verified",
+              "seq": 1
+            },
+            {
+              "name": "Code reviewed, approved, and merged to main branch",
+              "description": "Code reviewed, approved, and merged to main branch",
+              "seq": 2
+            },
+            {
+              "name": "Deployed to target environment(s) successfully",
+              "description": "Deployed to target environment(s) successfully",
+              "seq": 3
+            },
+            {
+              "name": "Documentation updated (module docs, runbooks, architecture diagrams)",
+              "description": "Documentation updated (module docs, runbooks, architecture diagrams)",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Closed",
+          "description": "All work activities are officially complete with lessons captured.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Work item closed in tracking system with final status",
+              "description": "Work item closed in tracking system with final status",
+              "seq": 1
+            },
+            {
+              "name": "Retrospective feedback captured for process improvement",
+              "description": "Retrospective feedback captured for process improvement",
+              "seq": 2
+            },
+            {
+              "name": "Knowledge artifacts updated (runbooks, decision records, module documentation)",
+              "description": "Knowledge artifacts updated (runbooks, decision records, module documentation)",
+              "seq": 3
+            },
+            {
+              "name": "Metrics recorded (cycle time, effort, quality)",
+              "description": "Metrics recorded (cycle time, effort, quality)",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Team",
+      "description": "The group of individuals responsible for the infrastructure automation system's success. Team structures may follow centralized, federated, platform team, or embedded models. Key roles include Automation Engineer, Infrastructure Architect, Site Reliability Engineer, Security/Compliance Engineer, and Platform Engineer.",
+      "focusName": "Endeavor",
+      "relatesTo": [
+        {
+          "alphaName": "Work",
+          "relationship": "performs",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "relationship": "applies",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "relationship": "manages",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Seeded",
+          "description": "Initial automation team members are identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Core team roles identified (Automation Engineer, Infrastructure Architect, SRE)",
+              "description": "Core team roles identified (Automation Engineer, Infrastructure Architect, SRE)",
+              "seq": 1
+            },
+            {
+              "name": "Initial team members recruited or assigned with relevant IaC skills",
+              "description": "Initial team members recruited or assigned with relevant IaC skills",
+              "seq": 2
+            },
+            {
+              "name": "Team charter drafted with mission, scope, and responsibilities",
+              "description": "Team charter drafted with mission, scope, and responsibilities",
+              "seq": 3
+            },
+            {
+              "name": "Reporting structure and stakeholder relationships defined",
+              "description": "Reporting structure and stakeholder relationships defined",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Formed",
+          "description": "The automation team structure is established.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Team structure defined (centralized platform team, federated, embedded, or hybrid model)",
+              "description": "Team structure defined (centralized platform team, federated, embedded, or hybrid model)",
+              "seq": 1
+            },
+            {
+              "name": "Roles and responsibilities documented for each team member",
+              "description": "Roles and responsibilities documented for each team member",
+              "seq": 2
+            },
+            {
+              "name": "Communication channels established (Slack, standup cadence, documentation wiki)",
+              "description": "Communication channels established (Slack, standup cadence, documentation wiki)",
+              "seq": 3
+            },
+            {
+              "name": "Interaction modes with consuming teams defined (X-as-a-Service, collaboration, facilitation)",
+              "description": "Interaction modes with consuming teams defined (X-as-a-Service, collaboration, facilitation)",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Collaborating",
+          "description": "Automation team members work together effectively.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Code review practices established and consistently followed",
+              "description": "Code review practices established and consistently followed",
+              "seq": 1
+            },
+            {
+              "name": "Knowledge sharing sessions (pair programming, brown bags, internal tech talks) regular",
+              "description": "Knowledge sharing sessions (pair programming, brown bags, internal tech talks) regular",
+              "seq": 2
+            },
+            {
+              "name": "Cross-functional collaboration with security, operations, and development teams effective",
+              "description": "Cross-functional collaboration with security, operations, and development teams effective",
+              "seq": 3
+            },
+            {
+              "name": "Team norms and working agreements documented and followed",
+              "description": "Team norms and working agreements documented and followed",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Performing",
+          "description": "The automation team consistently delivers value at a sustainable pace.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Team delivery velocity predictable and meeting commitments",
+              "description": "Team delivery velocity predictable and meeting commitments",
+              "seq": 1
+            },
+            {
+              "name": "Team autonomously handles complex automation challenges without external escalation",
+              "description": "Team autonomously handles complex automation challenges without external escalation",
+              "seq": 2
+            },
+            {
+              "name": "Continuous improvement culture embedded with regular retrospectives and action items",
+              "description": "Continuous improvement culture embedded with regular retrospectives and action items",
+              "seq": 3
+            },
+            {
+              "name": "Team members developing T-shaped skills across automation domains",
+              "description": "Team members developing T-shaped skills across automation domains",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Adjourned",
+          "description": "The automation team is disbanded or repurposed.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Knowledge transfer completed to successor teams or documentation",
+              "description": "Knowledge transfer completed to successor teams or documentation",
+              "seq": 1
+            },
+            {
+              "name": "Automation platform ownership transitioned with documented runbooks",
+              "description": "Automation platform ownership transitioned with documented runbooks",
+              "seq": 2
+            },
+            {
+              "name": "Team members reassigned with career development considerations",
+              "description": "Team members reassigned with career development considerations",
+              "seq": 3
+            },
+            {
+              "name": "Lessons learned documented for organizational benefit",
+              "description": "Lessons learned documented for organizational benefit",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Way Of Working",
+      "description": "The tailored set of practices, tools, operational workflows, and industry alignments used by infrastructure automation teams. Encompasses the full development lifecycle for infrastructure code: coding standards, branching strategies, review processes, testing methodologies, deployment procedures, incident response runbooks, drift management workflows, and continuous improvement practices. Industry alignments include GitOps, SRE, DevSecOps, and Platform Engineering principles.",
+      "focusName": "Endeavor",
+      "relatesTo": [
+        {
+          "alphaName": "Work",
+          "relationship": "guides",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Governance",
+          "relationship": "incorporates",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "relationship": "informs",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Principles Established",
+          "description": "Principles and industry alignments for infrastructure automation are established.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Core automation principles defined (IaC-first, version control everything, peer review all changes, test before apply)",
+              "description": "Core automation principles defined (IaC-first, version control everything, peer review all changes, test before apply)",
+              "seq": 1
+            },
+            {
+              "name": "Industry alignment strategy identified (GitOps, SRE, DevSecOps, Platform Engineering)",
+              "description": "Industry alignment strategy identified (GitOps, SRE, DevSecOps, Platform Engineering)",
+              "seq": 2
+            },
+            {
+              "name": "Least-privilege access principles established for automation service accounts",
+              "description": "Least-privilege access principles established for automation service accounts",
+              "seq": 3
+            },
+            {
+              "name": "Cultural values documented (blameless post-mortems, continuous learning, automation over manual)",
+              "description": "Cultural values documented (blameless post-mortems, continuous learning, automation over manual)",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Foundation Established",
+          "description": "Key automation practices, workflow models, and definitions are selected.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Branching strategy for infrastructure code defined and documented",
+              "description": "Branching strategy for infrastructure code defined and documented",
+              "seq": 1
+            },
+            {
+              "name": "Code review process established (required reviewers, approval rules, automated checks)",
+              "description": "Code review process established (required reviewers, approval rules, automated checks)",
+              "seq": 2
+            },
+            {
+              "name": "Testing framework selected and configured (unit, integration, compliance, security scanning)",
+              "description": "Testing framework selected and configured (unit, integration, compliance, security scanning)",
+              "seq": 3
+            },
+            {
+              "name": "Deployment pipeline defined with environment promotion workflow (plan, review, apply)",
+              "description": "Deployment pipeline defined with environment promotion workflow (plan, review, apply)",
+              "seq": 4
+            },
+            {
+              "name": "Incident response and drift management procedures drafted",
+              "description": "Incident response and drift management procedures drafted",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "In Use",
+          "description": "Team members are using established automation practices in daily work.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Automation code goes through defined CI/CD pipelines consistently",
+              "description": "Automation code goes through defined CI/CD pipelines consistently",
+              "seq": 1
+            },
+            {
+              "name": "Code reviews conducted for all infrastructure changes",
+              "description": "Code reviews conducted for all infrastructure changes",
+              "seq": 2
+            },
+            {
+              "name": "Tests run before deployment with results visible to reviewers",
+              "description": "Tests run before deployment with results visible to reviewers",
+              "seq": 3
+            },
+            {
+              "name": "Initial adoption metrics gathered (pipeline usage, review turnaround, test coverage)",
+              "description": "Initial adoption metrics gathered (pipeline usage, review turnaround, test coverage)",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "In Place",
+          "description": "Automation practices are fully integrated into daily team activities.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "All infrastructure changes flow through CI/CD pipelines (no manual apply)",
+              "description": "All infrastructure changes flow through CI/CD pipelines (no manual apply)",
+              "seq": 1
+            },
+            {
+              "name": "Policy enforcement active in all deployment pipelines",
+              "description": "Policy enforcement active in all deployment pipelines",
+              "seq": 2
+            },
+            {
+              "name": "Drift detection runs on defined schedule with remediation workflows triggered",
+              "description": "Drift detection runs on defined schedule with remediation workflows triggered",
+              "seq": 3
+            },
+            {
+              "name": "Incident response follows established runbooks with blameless post-mortems",
+              "description": "Incident response follows established runbooks with blameless post-mortems",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Working Well",
+          "description": "Automation practices are highly efficient, automated, and demonstrably successful.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Continuous improvement loops refine workflows based on operational data and retrospectives",
+              "description": "Continuous improvement loops refine workflows based on operational data and retrospectives",
+              "seq": 1
+            },
+            {
+              "name": "Toil systematically measured and reduced through automation",
+              "description": "Toil systematically measured and reduced through automation",
+              "seq": 2
+            },
+            {
+              "name": "Practices metrics demonstrate consistent improvement (cycle time, error rates, recovery time)",
+              "description": "Practices metrics demonstrate consistent improvement (cycle time, error rates, recovery time)",
+              "seq": 3
+            },
+            {
+              "name": "Team recognized as a reference model for automation practices within the organization",
+              "description": "Team recognized as a reference model for automation practices within the organization",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Retired",
+          "description": "The automation way of working is no longer needed due to organizational change.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Successor practices identified and validated",
+              "description": "Successor practices identified and validated",
+              "seq": 1
+            },
+            {
+              "name": "Knowledge and documentation transferred to successor approach",
+              "description": "Knowledge and documentation transferred to successor approach",
+              "seq": 2
+            },
+            {
+              "name": "Retirement rationale documented with lessons learned",
+              "description": "Retirement rationale documented with lessons learned",
+              "seq": 3
+            },
+            {
+              "name": "Team members transitioned to successor practices",
+              "description": "Team members transitioned to successor practices",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Platform Governance",
+      "description": "The automated controls, policies, and guardrails that constrain how infrastructure automation is used. Encompasses Policy-as-Code frameworks (OPA/Rego, Sentinel, Kyverno), role-based access controls, approval workflows for infrastructure changes, audit logging, change management automation, and compliance reporting mechanisms.",
+      "focusName": "Endeavor",
+      "relatesTo": [
+        {
+          "alphaName": "Platform",
+          "relationship": "governed by",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "relationship": "enforces policies on",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "relationship": "mitigates",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "relationship": "extended by",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Scoped",
+          "description": "The need for automation governance is recognized and initial scope defined.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Governance domains identified (security, cost, compliance, naming, blast radius, change management)",
+              "description": "Governance domains identified (security, cost, compliance, naming, blast radius, change management)",
+              "seq": 1
+            },
+            {
+              "name": "Initial governance scope defined based on organizational risk appetite",
+              "description": "Initial governance scope defined based on organizational risk appetite",
+              "seq": 2
+            },
+            {
+              "name": "Governance stakeholders identified (security, compliance, operations, management)",
+              "description": "Governance stakeholders identified (security, compliance, operations, management)",
+              "seq": 3
+            },
+            {
+              "name": "Governance framework selection initiated (OPA/Rego, Sentinel, Kyverno, custom)",
+              "description": "Governance framework selection initiated (OPA/Rego, Sentinel, Kyverno, custom)",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Documented",
+          "description": "Governance policies are codified and documented.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Policies codified as Policy-as-Code rules (OPA Rego, Sentinel, Kyverno YAML)",
+              "description": "Policies codified as Policy-as-Code rules (OPA Rego, Sentinel, Kyverno YAML)",
+              "seq": 1
+            },
+            {
+              "name": "Policies version-controlled in dedicated repository with peer review",
+              "description": "Policies version-controlled in dedicated repository with peer review",
+              "seq": 2
+            },
+            {
+              "name": "Policy documentation published with rationale, scope, and enforcement level",
+              "description": "Policy documentation published with rationale, scope, and enforcement level",
+              "seq": 3
+            },
+            {
+              "name": "Policies deployed in advisory mode for initial data gathering and false positive identification",
+              "description": "Policies deployed in advisory mode for initial data gathering and false positive identification",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Audited",
+          "description": "Governance policies are actively enforced and audited.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Policies actively enforced in CI/CD pipelines with violations blocked or flagged by severity",
+              "description": "Policies actively enforced in CI/CD pipelines with violations blocked or flagged by severity",
+              "seq": 1
+            },
+            {
+              "name": "Every infrastructure change evaluated against codified policies before deployment",
+              "description": "Every infrastructure change evaluated against codified policies before deployment",
+              "seq": 2
+            },
+            {
+              "name": "Compliance evidence automatically generated for audit purposes",
+              "description": "Compliance evidence automatically generated for audit purposes",
+              "seq": 3
+            },
+            {
+              "name": "Policy effectiveness metrics tracked (violation rates, false positives, overrides)",
+              "description": "Policy effectiveness metrics tracked (violation rates, false positives, overrides)",
+              "seq": 4
+            },
+            {
+              "name": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory)",
+              "description": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Managed Asset",
+      "description": "An individual infrastructure resource -- a server, virtual machine, container, network device, cloud resource, database, DNS record, certificate, or any other discrete infrastructure component -- tracked through its complete lifecycle from discovery through decommissioning. Represents the thing being managed by the automation system, as opposed to the automation system itself (Platform) or the automation code used to manage it (Platform Asset).",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "managed-asset-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "alphaName": "Platform",
+          "relationship": "governed by",
+          "direction": "incoming"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "relationship": "defined by",
+          "direction": "incoming"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "relationship": "governed by",
+          "direction": "incoming"
+        },
+        {
+          "alphaName": "Requirements",
+          "relationship": "specified by",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Discovered",
+          "description": "Asset identified in the environment through automated or manual discovery.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Asset identified through cloud provider API enumeration, network scanning, CMDB integration, or manual inventory",
+              "description": "Asset identified through cloud provider API enumeration, network scanning, CMDB integration, or manual inventory",
+              "seq": 1
+            },
+            {
+              "name": "Resource metadata captured (type, location, owner, approximate cost, current configuration)",
+              "description": "Resource metadata captured (type, location, owner, approximate cost, current configuration)",
+              "seq": 2
+            },
+            {
+              "name": "Asset registered in infrastructure inventory or CMDB",
+              "description": "Asset registered in infrastructure inventory or CMDB",
+              "seq": 3
+            },
+            {
+              "name": "Ownership assigned and accountability established",
+              "description": "Ownership assigned and accountability established",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Defined",
+          "description": "Desired state formally declared in automation code.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "IaC definition written (Terraform resource block, Ansible playbook task, Puppet resource declaration, Chef resource, Salt state)",
+              "description": "IaC definition written (Terraform resource block, Ansible playbook task, Puppet resource declaration, Chef resource, Salt state)",
+              "seq": 1
+            },
+            {
+              "name": "Parameters specified and dependencies declared",
+              "description": "Parameters specified and dependencies declared",
+              "seq": 2
+            },
+            {
+              "name": "Resource relationship to other managed assets codified in automation code",
+              "description": "Resource relationship to other managed assets codified in automation code",
+              "seq": 3
+            },
+            {
+              "name": "Code exists in version control and has been peer-reviewed",
+              "description": "Code exists in version control and has been peer-reviewed",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "Asset created or brought under automation management per its code definition.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Initial provisioning executed (terraform apply, ansible-playbook, puppet agent) or existing resource imported (terraform import)",
+              "description": "Initial provisioning executed (terraform apply, ansible-playbook, puppet agent) or existing resource imported (terraform import)",
+              "seq": 1
+            },
+            {
+              "name": "Post-provisioning verification confirms resource matches declared state",
+              "description": "Post-provisioning verification confirms resource matches declared state",
+              "seq": 2
+            },
+            {
+              "name": "Resource tagged with standard metadata (owner, cost center, environment, automation-managed)",
+              "description": "Resource tagged with standard metadata (owner, cost center, environment, automation-managed)",
+              "seq": 3
+            },
+            {
+              "name": "State tracking updated to include this resource (state file, CMDB, inventory)",
+              "description": "State tracking updated to include this resource (state file, CMDB, inventory)",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Operational",
+          "description": "Asset healthy and serving its intended purpose under automation management.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Monitoring active with SLI/SLO tracking for this resource",
+              "description": "Monitoring active with SLI/SLO tracking for this resource",
+              "seq": 1
+            },
+            {
+              "name": "Drift detection enabled with scheduled enforcement cycles",
+              "description": "Drift detection enabled with scheduled enforcement cycles",
+              "seq": 2
+            },
+            {
+              "name": "Resource integrated into observability systems (metrics, logs, traces)",
+              "description": "Resource integrated into observability systems (metrics, logs, traces)",
+              "seq": 3
+            },
+            {
+              "name": "Operational health metrics (availability, performance, utilization) collected and evaluated",
+              "description": "Operational health metrics (availability, performance, utilization) collected and evaluated",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Scaling",
+          "description": "Asset adapting to demand through automated or planned scaling mechanisms.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Auto-scaling policies active and responding to load metrics (for cloud-native assets)",
+              "description": "Auto-scaling policies active and responding to load metrics (for cloud-native assets)",
+              "seq": 1
+            },
+            {
+              "name": "Horizontal or vertical scaling triggered by defined thresholds",
+              "description": "Horizontal or vertical scaling triggered by defined thresholds",
+              "seq": 2
+            },
+            {
+              "name": "Capacity planning documented with growth projections (for static assets)",
+              "description": "Capacity planning documented with growth projections (for static assets)",
+              "seq": 3
+            },
+            {
+              "name": "Scaling events logged and correlated with demand metrics",
+              "description": "Scaling events logged and correlated with demand metrics",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Decommissioning",
+          "description": "Asset being systematically retired or destroyed.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Workloads drained and connections terminated gracefully",
+              "description": "Workloads drained and connections terminated gracefully",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies updated in automation code (references removed, DNS records modified)",
+              "description": "Dependencies updated in automation code (references removed, DNS records modified)",
+              "seq": 2
+            },
+            {
+              "name": "Resource destroyed through automation (terraform destroy, puppet node deactivate) or physically decommissioned",
+              "description": "Resource destroyed through automation (terraform destroy, puppet node deactivate) or physically decommissioned",
+              "seq": 3
+            },
+            {
+              "name": "State file cleaned up and resource removed from inventory, monitoring, and cost tracking",
+              "description": "State file cleaned up and resource removed from inventory, monitoring, and cost tracking",
+              "seq": 4
+            },
+            {
+              "name": "Post-decommissioning verification confirms complete removal",
+              "description": "Post-decommissioning verification confirms complete removal",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "narratives": [
+        {
+          "name": "Managed Asset Lifecycle",
+          "description": "Lifecycle narrative describing the progression of a managed infrastructure resource from discovery through decommissioning.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Before a managed asset can begin its lifecycle journey, the automation platform must be at least at the Provisioned state, with CI/CD pipelines operational and module registries accessible. Automation requirements must be at least at the Bounded state, defining which infrastructure resources are in scope for automation management. At least one automation artifact (module, role, cookbook) must be available for the resource type being managed."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The managed asset is discovered through cloud API enumeration, network scanning, or manual identification. Its desired state is formally declared in automation code (Terraform resource block, Ansible task, Puppet resource declaration). The automation code is peer-reviewed, tested, and applied to create the resource or import an existing resource into automation state management. Post-provisioning verification confirms the resource matches its declared configuration. This phase transitions the asset through Discovered, Defined, and Provisioned states."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The managed asset enters steady-state operation with monitoring, drift detection, and configuration enforcement active. SLI/SLO tracking ensures operational health. The asset adapts to demand through auto-scaling policies (for cloud-native resources) or capacity planning (for static resources). Drift deviations are detected and remediated through automated or guided workflows. This phase covers the Operational and Scaling states."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "When the managed asset is no longer needed, it enters systematic retirement. Workloads are drained, dependencies updated in automation code, and the resource is destroyed through automation tools (terraform destroy, puppet node deactivate). State files are cleaned up, monitoring alerts suppressed, and cost tracking updated. Post-decommissioning verification confirms complete removal from all systems. This phase covers the Decommissioning state."
+            }
+          ],
+          "citationNames": [
+            "JISEM Five-Stage IaC Maturity Model",
+            "Ken Muse Five-Level IaC Maturity Model",
+            "Gomboc IaC Maturity Curve",
+            "CNCF Autonomous Infrastructure Vision",
+            "ITIC Hourly Cost of Downtime Study",
+            "IBM NeuralWired AIOps ROI Data",
+            "Cisco Networking Research 2025",
+            "Red Hat Ansible Documentation",
+            "HashiCorp Terraform Documentation",
+            "Puppet Enterprise Documentation",
+            "Chef Infra Documentation",
+            "SaltStack Salt Documentation"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Asset Governance",
+      "description": "The portfolio-level maturity of how managed assets are governed across the infrastructure estate. Tracks the organizational journey from ad-hoc, manual infrastructure management to fully autonomous, self-healing operations. Explicitly NOT about individual asset lifecycle (that is Managed Asset) -- this is about the maturity and sophistication of the governance system applied across the entire infrastructure portfolio.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "asset-governance-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "alphaName": "Platform Governance",
+          "relationship": "extends",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Managed Asset",
+          "relationship": "governed by",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "relationship": "enforces",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "relationship": "informed by",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Unmanaged",
+          "description": "Infrastructure exists but is not under IaC control.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Resources provisioned manually, through ad-hoc scripts, or via cloud console click-ops",
+              "description": "Resources provisioned manually, through ad-hoc scripts, or via cloud console click-ops",
+              "seq": 1
+            },
+            {
+              "name": "No comprehensive inventory of infrastructure assets exists",
+              "description": "No comprehensive inventory of infrastructure assets exists",
+              "seq": 2
+            },
+            {
+              "name": "No defined ownership or lifecycle management for infrastructure resources",
+              "description": "No defined ownership or lifecycle management for infrastructure resources",
+              "seq": 3
+            },
+            {
+              "name": "Shadow IT and zombie resources are common and untracked",
+              "description": "Shadow IT and zombie resources are common and untracked",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Inventoried",
+          "description": "Assets cataloged with attributes and metadata captured.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Discovery tools active and scanning infrastructure estate (cloud APIs, network scans, CMDB agents)",
+              "description": "Discovery tools active and scanning infrastructure estate (cloud APIs, network scans, CMDB agents)",
+              "seq": 1
+            },
+            {
+              "name": "Resource ownership assigned with basic metadata recorded (type, location, cost, owner, creation date)",
+              "description": "Resource ownership assigned with basic metadata recorded (type, location, cost, owner, creation date)",
+              "seq": 2
+            },
+            {
+              "name": "Coverage gap analysis quantifies percentage of infrastructure under management",
+              "description": "Coverage gap analysis quantifies percentage of infrastructure under management",
+              "seq": 3
+            },
+            {
+              "name": "The organization can reliably answer What infrastructure do we have?",
+              "description": "The organization can reliably answer What infrastructure do we have?",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Codified",
+          "description": "Desired state declared in IaC for all significant managed assets.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Significant majority of infrastructure defined in version-controlled automation code",
+              "description": "Significant majority of infrastructure defined in version-controlled automation code",
+              "seq": 1
+            },
+            {
+              "name": "New resources provisioned through code by default (IaC-first policy)",
+              "description": "New resources provisioned through code by default (IaC-first policy)",
+              "seq": 2
+            },
+            {
+              "name": "Existing resources progressively imported into state management",
+              "description": "Existing resources progressively imported into state management",
+              "seq": 3
+            },
+            {
+              "name": "Infrastructure code serves as the authoritative source of truth for configuration",
+              "description": "Infrastructure code serves as the authoritative source of truth for configuration",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Converged",
+          "description": "Actual state matches desired state across the infrastructure portfolio.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Drift detection runs on defined schedules (hourly for volatile, daily for stable environments)",
+              "description": "Drift detection runs on defined schedules (hourly for volatile, daily for stable environments)",
+              "seq": 1
+            },
+            {
+              "name": "Deviations identified, classified by severity, and remediated through defined workflows",
+              "description": "Deviations identified, classified by severity, and remediated through defined workflows",
+              "seq": 2
+            },
+            {
+              "name": "Reconciliation windows collect drift events for batched review and remediation",
+              "description": "Reconciliation windows collect drift events for batched review and remediation",
+              "seq": 3
+            },
+            {
+              "name": "Gap between declared and actual state systematically minimized across the estate",
+              "description": "Gap between declared and actual state systematically minimized across the estate",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Governed",
+          "description": "Policy-as-Code enforced across the entire infrastructure estate.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Every change evaluated against codified organizational, security, and compliance policies",
+              "description": "Every change evaluated against codified organizational, security, and compliance policies",
+              "seq": 1
+            },
+            {
+              "name": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory)",
+              "description": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory)",
+              "seq": 2
+            },
+            {
+              "name": "Automated compliance reporting generates evidence for audits",
+              "description": "Automated compliance reporting generates evidence for audits",
+              "seq": 3
+            },
+            {
+              "name": "Cost governance, security baselines, and regulatory requirements machine-enforced via OPA/Sentinel/Kyverno",
+              "description": "Cost governance, security baselines, and regulatory requirements machine-enforced via OPA/Sentinel/Kyverno",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Self-Healing",
+          "description": "Auto-remediation active with autonomous convergence within defined boundaries.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "AI-driven anomaly detection identifies emerging problems before they cause incidents",
+              "description": "AI-driven anomaly detection identifies emerging problems before they cause incidents",
+              "seq": 1
+            },
+            {
+              "name": "Automated remediation resolves known failure patterns (tiered: auto-fix low-risk, auto-ticket medium-risk, page-human high-risk)",
+              "description": "Automated remediation resolves known failure patterns (tiered: auto-fix low-risk, auto-ticket medium-risk, page-human high-risk)",
+              "seq": 2
+            },
+            {
+              "name": "Predictive maintenance anticipates and prevents failures proactively",
+              "description": "Predictive maintenance anticipates and prevents failures proactively",
+              "seq": 3
+            },
+            {
+              "name": "Event-driven correction and zero-touch operations are the norm within defined operational boundaries",
+              "description": "Event-driven correction and zero-touch operations are the norm within defined operational boundaries",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "narratives": [
+        {
+          "name": "Asset Governance Maturity Progression",
+          "description": "Crawl-Walk-Run narrative describing the organizational journey from unmanaged infrastructure to self-healing autonomous operations.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "The organization begins with infrastructure in an Unmanaged state -- resources provisioned manually, no comprehensive inventory, shadow IT prevalent. The first step is achieving Inventoried status by deploying discovery tools, cataloging assets with metadata, assigning ownership, and quantifying the coverage gap. As the inventory matures, codification begins: infrastructure definitions are written, existing resources imported into state management, and IaC-first policies established. The organization progresses through Unmanaged, Inventoried, and Codified states."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "With infrastructure codified, the focus shifts to convergence and governance. Drift detection runs on schedule across the estate, deviations are classified and remediated systematically, and the gap between declared and actual state is minimized. Policy-as-Code is deployed at portfolio scale with graduated enforcement. Compliance reporting becomes automated, generating audit evidence without manual effort. The organization progresses through Converged and Governed states."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "At the highest maturity level, the infrastructure estate becomes self-sustaining. AI-driven anomaly detection identifies emerging problems proactively. Automated remediation resolves known failure patterns within defined operational boundaries (tiered: auto-fix for low-risk, auto-ticket for medium-risk, page-human for high-risk). Predictive maintenance anticipates failures before they occur. The organization achieves Self-Healing state -- zero-touch operations within operational guardrails."
+            }
+          ],
+          "citationNames": [
+            "JISEM Five-Stage IaC Maturity Model",
+            "Ken Muse Five-Level IaC Maturity Model",
+            "Gomboc IaC Maturity Curve",
+            "CNCF Autonomous Infrastructure Vision",
+            "ITIC Hourly Cost of Downtime Study",
+            "IBM NeuralWired AIOps ROI Data",
+            "Cisco Networking Research 2025",
+            "Red Hat Ansible Documentation",
+            "HashiCorp Terraform Documentation",
+            "Puppet Enterprise Documentation",
+            "Chef Infra Documentation",
+            "SaltStack Salt Documentation"
+          ]
+        }
+      ]
+    }
+  ],
+  "activitySpaces": [
+    {
+      "name": "Explore Possibilities",
+      "description": "Exploring opportunities for infrastructure automation adoption. Identifies business drivers for IaC investment including cost reduction, error elimination, compliance mandate fulfillment, and operational resilience improvement.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Initiated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Strategic Alignment"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Assess and Monitor Value",
+      "description": "Quantifying ROI of automation investment through rigorous business analysis. Maps automation capabilities to organizational value streams, models cost avoidance (MTTR reduction, error elimination, toil reduction), and secures executive sponsorship for the automation initiative.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Determined"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Value Established"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Viable"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Strategic Alignment",
+        "Analysis"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Monitor Value Realization",
+      "description": "Tracking automation KPIs including deployment frequency, MTTR, provisioning speed, error rates, drift metrics, and infrastructure cost optimization to proactively manage bottlenecks and demonstrate continuous ROI from automation investment.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Addressed"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Benefit Accrued"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Value Yielding"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Analysis"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Manage Platform Economics",
+      "description": "Defining chargeback/showback models for automation services, optimizing automation infrastructure costs through FinOps practices, right-sizing provisioned resources, and transitioning from CapEx to OpEx for infrastructure spending.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Value And Economics",
+          "stateName": "Allocated"
+        },
+        {
+          "alphaName": "Platform Value And Economics",
+          "stateName": "Sustained"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Strategic Alignment",
+        "Management"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Understand Stakeholder Needs",
+      "description": "Conducting user research with infrastructure consumers (developers, SREs, operators), understanding Jobs-to-be-Done for self-service infrastructure provisioning, and ensuring the automation platform demonstrates value through product management practices.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Represented"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Involved"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "In Agreement"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation",
+        "Analysis"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Ensure Stakeholder Satisfaction",
+      "description": "Internal marketing of automation capabilities, training programs for IaC skills development, support channels for consuming teams, and adoption campaigns to drive voluntary adoption of infrastructure automation practices.",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Satisfied for Deployment"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Satisfied in Use"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation",
+        "Leadership"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Establish Secure Guardrails",
+      "description": "Implementing security-specific controls for infrastructure automation including secrets management integration (HashiCorp Vault, AWS Secrets Manager), credential rotation automation, least-privilege IAM policy design, security scanning in CI/CD pipelines (Checkov, tfsec, Bridgecrew, Snyk IaC), state file encryption, and network security for automation traffic.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Assessed"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Mitigated"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Automated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Define Platform Capabilities",
+      "description": "Distilling automation requirements into actionable capabilities and defining the thinnest viable automation platform. Translates stakeholder feedback into prioritized requirements that balance automation scope with organizational readiness.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Requirements",
+          "stateName": "Bounded"
+        },
+        {
+          "alphaName": "Requirements",
+          "stateName": "Coherent"
+        },
+        {
+          "alphaName": "Requirements",
+          "stateName": "Acceptable"
+        },
+        {
+          "alphaName": "Requirements",
+          "stateName": "Addressed"
+        },
+        {
+          "alphaName": "Requirements",
+          "stateName": "Fulfilled"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Platform Strategic Alignment"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Architect and Build the Foundation",
+      "description": "Designing, provisioning, and initially configuring the automation platform. Includes selecting automation tools, designing the control plane architecture, configuring state backends, establishing CI/CD pipelines for infrastructure code, and instantiating the automation infrastructure.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Architecture Selected"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Baselined"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Provisioned"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Ready"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Operate and Evolve the System",
+      "description": "Day-2 operations of the automation platform and the infrastructure it manages. Encompasses drift detection, automated remediation, operational monitoring, performance tuning, and evolutionary upgrades to the automation system.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Hosting Assets"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Evolving"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Develop the Golden Paths",
+      "description": "Creating reusable automation patterns, self-service templates, and consumption interfaces that enable non-specialist infrastructure provisioning. In IaC, golden paths manifest as pre-approved Terraform module compositions, Ansible playbook templates, self-service catalog items, and GitOps workflow templates.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Consumption Interface",
+          "stateName": "Scoped"
+        },
+        {
+          "alphaName": "Platform Consumption Interface",
+          "stateName": "Available"
+        },
+        {
+          "alphaName": "Platform Consumption Interface",
+          "stateName": "Self Service"
+        },
+        {
+          "alphaName": "Platform Consumption Interface",
+          "stateName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Integrate Toolchain Services",
+      "description": "Developing, testing, publishing, and managing the lifecycle of individual automation artifacts (modules, roles, cookbooks, formulas, providers). Includes module development, unit/integration testing, artifact publication to registries, version management, and consumer migration during upgrades.",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Specified"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Provisioned"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Integrated"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Operational"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Provision Managed Assets",
+      "description": "The discovery, definition, and provisioning of individual infrastructure resources. Spans from initial asset identification (through automated discovery or manual inventory) through declaring desired state in automation code to successfully applying that code to create or import the resource under automation management.",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "provision-managed-assets-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Managed Asset",
+          "stateName": "Discovered"
+        },
+        {
+          "alphaName": "Managed Asset",
+          "stateName": "Defined"
+        },
+        {
+          "alphaName": "Managed Asset",
+          "stateName": "Provisioned"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Operate Managed Assets",
+      "description": "The operational management and scaling of provisioned infrastructure resources. Covers the steady-state operation of managed assets (monitoring, health checks, drift enforcement at the individual asset level) and their dynamic adaptation to changing demand (auto-scaling, capacity adjustment).",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "operate-managed-assets-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Managed Asset",
+          "stateName": "Operational"
+        },
+        {
+          "alphaName": "Managed Asset",
+          "stateName": "Scaling"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Decommission Managed Assets",
+      "description": "The systematic retirement and destruction of infrastructure resources that are no longer needed. Includes graceful workload draining, dependency updates, state cleanup, resource destruction, and post-decommissioning verification.",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "decommission-managed-assets-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Managed Asset",
+          "stateName": "Decommissioning"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Prepare To Do The Work",
+      "description": "Planning and preparing automation development work. Includes sprint/iteration planning, backlog grooming, dependency identification, and ensuring development environments and testing infrastructure are available for automation code development.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Work",
+          "stateName": "Prepared"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Leadership"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Manage Work Execution",
+      "description": "Coordinating automation development delivery cycles, tracking velocity, allocating engineering capacity, and ensuring predictable delivery of automation capabilities without dictating specific execution frameworks.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Work",
+          "stateName": "Started"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Under Control"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Concluded"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Support the Team",
+      "description": "Defining team structures for automation at scale. Includes determining team interaction modes (centralized, federated, platform team, embedded), establishing X-as-a-Service boundaries, and continuously assessing cognitive load on automation teams using Team Topologies principles.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Team",
+          "stateName": "Formed"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Collaborating"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Performing"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Management"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Stop The Work",
+      "description": "Planning team dissolution, knowledge transfer, and member reassignment when automation initiatives conclude or teams are repurposed. Ensures automation platform ownership is transitioned smoothly with documented runbooks and support materials.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Team",
+          "stateName": "Adjourned"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Management"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Establish Way Of Working",
+      "description": "Defining incident response procedures for automation failures, instituting blameless post-mortems, standardizing CI/CD methodologies for infrastructure code, establishing drift management workflows, and fostering a continuous-learning culture within the automation team.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Foundation Established"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "In Use"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "In Place"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Working Well"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Management"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Implement Policy-as-Code",
+      "description": "Codifying, testing, deploying, and enforcing governance policies for infrastructure automation. Includes policy authoring in OPA Rego, Sentinel, or Kyverno YAML; policy testing and validation; graduated deployment (advisory, soft-mandatory, hard-mandatory); policy library curation; and compliance framework mapping.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Governance",
+          "stateName": "Documented"
+        },
+        {
+          "alphaName": "Platform Governance",
+          "stateName": "Audited"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Stop The Work",
+      "description": "Concluding and closing automation initiatives. Ensures all work items are resolved, lessons learned captured, and organizational knowledge preserved for future automation efforts.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Work",
+          "stateName": "Closed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Decommission and Retire",
+      "description": "Safely decommissioning obsolete automation systems, retiring deprecated automation artifacts, and removing older operational processes. Ensures managed infrastructure is migrated, automation code is archived or ported, and technical debt is minimized during transitions.",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Retiring"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Retiring"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Retired"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Management"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Assess Asset Governance Maturity",
+      "description": "The assessment and improvement of infrastructure estate governance from unmanaged resources through systematic inventory and codification. Covers the early-to-mid maturity journey where organizations move from having undiscovered, unmanaged infrastructure to having a complete inventory of assets defined in automation code.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "assess-asset-governance-maturity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Inventoried"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Codified"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Management"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Enforce Asset Compliance",
+      "description": "The convergence and policy enforcement across the infrastructure estate at portfolio scale. Covers the mid-to-late maturity journey where organizations move from having codified assets to actively enforcing declared state and policy compliance across the entire portfolio.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "enforce-asset-compliance-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Converged"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Governed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Management"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Enable Autonomous Operations",
+      "description": "The development and validation of self-healing infrastructure capabilities. Covers the most advanced maturity stage where organizations implement AI-driven anomaly detection, automated root cause analysis, and autonomous remediation to create a self-sustaining infrastructure estate.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "enable-autonomous-operations-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Self-Healing"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "kind": "activitySpace"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "Infrastructure Automation Maturity Journey",
+      "description": "Baseline-level narrative describing the Infrastructure Automation Essentials maturity journey using a Crawl-Walk-Run progression.",
+      "narrativeTypeName": "Crawl-Walk-Run",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Crawl",
+          "context": "The organization begins its infrastructure automation journey by establishing foundational capabilities. Manual infrastructure management pain points are documented and quantified. An automation toolchain is selected based on requirements (Terraform, Ansible, Puppet, Chef, or Salt). The first automation engineers are identified and trained. Initial automation code is authored for a pilot set of infrastructure resources, demonstrating the basic value of desired-state declaration, idempotency, and version-controlled infrastructure. The automation platform is provisioned with basic CI/CD pipelines and module registries. Early wins build organizational confidence and stakeholder buy-in. Asset Governance transitions from Unmanaged to Inventoried as discovery tools catalog existing infrastructure."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Walk",
+          "context": "With foundational capabilities proven, the organization scales automation practices across teams and infrastructure domains. Reusable automation artifacts (modules, roles, cookbooks) are developed and published to internal registries. Self-service interfaces enable non-specialist infrastructure provisioning through golden path templates. Policy-as-Code governance is implemented with graduated enforcement (advisory, then mandatory). Drift detection runs on schedule across managed infrastructure, and remediation workflows are established. The majority of infrastructure is codified and managed through automation. Team structures mature from ad-hoc to formal platform teams with defined interaction modes. Asset Governance progresses through Codified and Converged states."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Run",
+          "context": "The organization operates at full automation maturity with enterprise-scale infrastructure managed through code. Policy-as-Code enforcement is universal, with automated compliance reporting generating audit evidence. The automation platform continuously evolves through telemetry-driven optimization and AI-assisted recommendations. Self-healing capabilities automatically detect anomalies, diagnose root causes, and remediate known failure patterns within defined operational boundaries. Predictive maintenance anticipates and prevents infrastructure failures. The cultural transformation from manual to automated operations is fully embedded, with IaC-first as the default approach. Asset Governance achieves Governed and Self-Healing states, representing the pinnacle of infrastructure automation maturity."
+        }
+      ],
+      "citationNames": [
+        "JISEM Five-Stage IaC Maturity Model",
+        "Ken Muse Five-Level IaC Maturity Model",
+        "Gomboc IaC Maturity Curve",
+        "CNCF Autonomous Infrastructure Vision",
+        "ITIC Hourly Cost of Downtime Study",
+        "IBM NeuralWired AIOps ROI Data",
+        "Cisco Networking Research 2025",
+        "Red Hat Ansible Documentation",
+        "HashiCorp Terraform Documentation",
+        "Puppet Enterprise Documentation",
+        "Chef Infra Documentation",
+        "SaltStack Salt Documentation"
+      ]
+    },
+    {
+      "name": "Infrastructure Automation Transformation",
+      "description": "Baseline-level narrative providing a concise STAR overview of the Infrastructure Automation Essentials value proposition.",
+      "narrativeTypeName": "The STAR Format",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Situation",
+          "context": "Enterprise organizations manage thousands of infrastructure resources across cloud, on-premises, and hybrid environments. Manual infrastructure management through console click-ops, ad-hoc scripts, and undocumented tribal knowledge leads to configuration drift, security vulnerabilities, compliance failures, and costly outages. Human error accounts for approximately 80% of IT outages, and the average cost of unplanned downtime exceeds $300,000 per hour. Only 13% of organizations report achieving IaC maturity, while 98% recognize the need for more IaC expertise."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Task",
+          "context": "Establish a comprehensive, vendor-agnostic framework for infrastructure automation that enables organizations to systematically transition from manual infrastructure management to automated, code-driven operations. The framework must address the complete automation lifecycle from tool selection through self-healing infrastructure, encompassing provisioning, configuration management, drift detection, policy enforcement, and autonomous remediation."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Action",
+          "context": "Infrastructure Automation Essentials adapts the Platform Adoption Essentials kernel for the IaC domain through alias-driven terminology mapping and targeted extensions. Eight PAK alphas are aliased to IaC-specific terms (e.g., Platform becomes Automation Platform, Platform Asset becomes Automation Artifact). Two new alphas -- Managed Asset and Asset Governance -- address the lifecycle of individual infrastructure resources and portfolio-level governance maturity respectively. Six new activity spaces provide the execution boundaries for the new concerns. The framework is tool-agnostic, supporting Terraform, Ansible, Puppet, Chef, Salt, and emerging tools through universal automation abstractions."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Result",
+          "context": "Organizations adopting Infrastructure Automation Essentials gain a structured framework for measuring and advancing their automation maturity. The progressive state models enable data-driven maturity assessment, targeted improvement planning, and quantifiable progress tracking. Extension practices built on this baseline can address specific tool implementations (e.g., Terraform-specific practices, Ansible-specific practices) while maintaining structural compatibility with the broader platform engineering ecosystem through the PAK foundation."
+        }
+      ],
+      "citationNames": [
+        "JISEM Five-Stage IaC Maturity Model",
+        "Ken Muse Five-Level IaC Maturity Model",
+        "Gomboc IaC Maturity Curve",
+        "CNCF Autonomous Infrastructure Vision",
+        "ITIC Hourly Cost of Downtime Study",
+        "IBM NeuralWired AIOps ROI Data",
+        "Cisco Networking Research 2025",
+        "Red Hat Ansible Documentation",
+        "HashiCorp Terraform Documentation",
+        "Puppet Enterprise Documentation",
+        "Chef Infra Documentation",
+        "SaltStack Salt Documentation"
+      ]
+    },
+    {
+      "name": "Infrastructure Automation Essentials Citations",
+      "description": "Report narrative summarizing the authoritative sources synthesized in the Infrastructure Automation Essentials baseline.",
+      "narrativeTypeName": "Report Narrative",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Executive Summary",
+          "context": "Infrastructure Automation Essentials synthesizes knowledge from the following authoritative sources spanning infrastructure automation tools, IaC maturity models, industry frameworks, and operational best practices. All sources have been cross-referenced and validated for accuracy."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Introduction",
+          "context": "Sources are organized into five categories: (1) Tool Documentation and Architecture -- official documentation for Ansible, Terraform, Chef, Puppet, and SaltStack; (2) IaC Maturity Models -- frameworks from JISEM, Ken Muse, Gomboc, Gary Stafford, and AWS; (3) Industry Frameworks -- CNCF autonomous infrastructure vision, GitOps principles, SRE practices, DevSecOps models; (4) Quantitative Research -- ITIC, Splunk, Cisco, IBM/NeuralWired studies on automation ROI; (5) Policy-as-Code -- OPA, Sentinel, and Kyverno documentation and best practices."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Results and Findings",
+          "context": "Key references include: JISEM Five-Stage IaC Maturity Model (December 2025), validated across finance, telecommunications, and government sectors; Ken Muse Five-Level IaC Maturity Model (January 2025) defining Initial through Optimizing levels; Gomboc IaC Maturity Curve (2025) from Ad-Hoc to Self-Correcting; CNCF Autonomous Infrastructure Vision (October 2025); ITIC Hourly Cost of Downtime Study establishing $300K+ per hour for mid-size enterprises; IBM/NeuralWired AIOps ROI Data (2026) demonstrating 300% ROI at Level 4 maturity; Cisco Networking Research (2025) finding 77% of organizations experienced major outages; Red Hat Ansible Documentation and Ansible Automation Platform Architecture Guide; HashiCorp Terraform Documentation and Terraform Cloud Architecture; Puppet Puppet Enterprise Documentation; Chef Chef Infra Documentation; SaltStack Salt Documentation."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Discussion",
+          "context": "The sources demonstrate strong convergence in the infrastructure automation domain around GitOps workflows, Policy-as-Code enforcement, platform engineering integration, and AI-assisted automation. Multiple independent maturity models align on similar progression stages (manual, codified, converged, governed, autonomous), providing cross-validation for the Asset Governance alpha states. The quantitative research consistently shows significant ROI from automation investment, with error reduction of 60-75%, MTTR improvements of 40-87%, and projected 300% ROI within 18 months at advanced maturity levels."
+        },
+        {
+          "seq": 5,
+          "narrativeElementName": "Recommendations",
+          "context": "Extension practices built on Infrastructure Automation Essentials should reference tool-specific documentation as primary sources. Future baseline revisions should incorporate emerging research on AI-driven infrastructure autonomy, particularly as the CNCF autonomous infrastructure vision materializes. Annual review of the Asset Governance maturity model against industry maturity data is recommended to ensure continued alignment with organizational realities."
+        }
+      ],
+      "citationNames": [
+        "JISEM Five-Stage IaC Maturity Model",
+        "Ken Muse Five-Level IaC Maturity Model",
+        "Gomboc IaC Maturity Curve",
+        "CNCF Autonomous Infrastructure Vision",
+        "ITIC Hourly Cost of Downtime Study",
+        "IBM NeuralWired AIOps ROI Data",
+        "Cisco Networking Research 2025",
+        "Red Hat Ansible Documentation",
+        "HashiCorp Terraform Documentation",
+        "Puppet Enterprise Documentation",
+        "Chef Infra Documentation",
+        "SaltStack Salt Documentation"
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "JISEM Five-Stage IaC Maturity Model",
+      "description": "Five-stage maturity model for Infrastructure as Code validated across finance, telecommunications, and government sectors.",
+      "authors": [
+        "JISEM"
+      ],
+      "date": "2025-12",
+      "source": "Journal of Information Systems Engineering and Management",
+      "kind": "citation"
+    },
+    {
+      "name": "Ken Muse Five-Level IaC Maturity Model",
+      "description": "Five-level IaC maturity model defining Initial through Optimizing levels for infrastructure automation practices.",
+      "authors": [
+        "Muse, K."
+      ],
+      "date": "2025-01",
+      "source": "https://www.kenmuse.com",
+      "kind": "citation"
+    },
+    {
+      "name": "Gomboc IaC Maturity Curve",
+      "description": "IaC maturity curve from Ad-Hoc to Self-Correcting stages for infrastructure automation governance.",
+      "authors": [
+        "Gomboc"
+      ],
+      "date": "2025",
+      "source": "Gomboc.ai",
+      "kind": "citation"
+    },
+    {
+      "name": "CNCF Autonomous Infrastructure Vision",
+      "description": "Cloud Native Computing Foundation vision for autonomous infrastructure management and operations.",
+      "authors": [
+        "Cloud Native Computing Foundation"
+      ],
+      "date": "2025-10",
+      "source": "https://www.cncf.io",
+      "kind": "citation"
+    },
+    {
+      "name": "ITIC Hourly Cost of Downtime Study",
+      "description": "Quantitative study establishing $300K+ per hour downtime cost for mid-size enterprises.",
+      "authors": [
+        "ITIC"
+      ],
+      "date": "2024",
+      "source": "ITIC Research",
+      "kind": "citation"
+    },
+    {
+      "name": "IBM NeuralWired AIOps ROI Data",
+      "description": "Research demonstrating 300% ROI at Level 4 automation maturity through AIOps integration.",
+      "authors": [
+        "IBM",
+        "NeuralWired"
+      ],
+      "date": "2026",
+      "source": "IBM Research",
+      "kind": "citation"
+    },
+    {
+      "name": "Cisco Networking Research 2025",
+      "description": "Research finding 77% of organizations experienced major outages, supporting automation investment case.",
+      "authors": [
+        "Cisco Systems"
+      ],
+      "date": "2025",
+      "source": "Cisco Research",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat Ansible Documentation",
+      "description": "Official documentation for Ansible automation platform including architecture guides and best practices.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "https://docs.ansible.com",
+      "kind": "citation"
+    },
+    {
+      "name": "HashiCorp Terraform Documentation",
+      "description": "Official documentation for Terraform infrastructure as code tool and Terraform Cloud architecture.",
+      "authors": [
+        "HashiCorp"
+      ],
+      "date": "2025",
+      "source": "https://developer.hashicorp.com/terraform",
+      "kind": "citation"
+    },
+    {
+      "name": "Puppet Enterprise Documentation",
+      "description": "Official documentation for Puppet configuration management and infrastructure automation platform.",
+      "authors": [
+        "Puppet"
+      ],
+      "date": "2025",
+      "source": "https://www.puppet.com/docs",
+      "kind": "citation"
+    },
+    {
+      "name": "Chef Infra Documentation",
+      "description": "Official documentation for Chef infrastructure automation and configuration management platform.",
+      "authors": [
+        "Progress Chef"
+      ],
+      "date": "2025",
+      "source": "https://docs.chef.io",
+      "kind": "citation"
+    },
+    {
+      "name": "SaltStack Salt Documentation",
+      "description": "Official documentation for SaltStack event-driven infrastructure automation platform.",
+      "authors": [
+        "VMware SaltStack"
+      ],
+      "date": "2025",
+      "source": "https://docs.saltproject.io",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "managed-asset-icon",
+      "description": "Managed Asset alpha icon - infrastructure resources under automation management",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-server",
+      "fontWeight": "900"
+    },
+    {
+      "name": "asset-governance-icon",
+      "description": "Asset Governance alpha icon - portfolio-level infrastructure governance maturity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "provision-managed-assets-icon",
+      "description": "Provision Managed Assets activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cloud-arrow-up",
+      "fontWeight": "900"
+    },
+    {
+      "name": "operate-managed-assets-icon",
+      "description": "Operate Managed Assets activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-heart-pulse",
+      "fontWeight": "900"
+    },
+    {
+      "name": "decommission-managed-assets-icon",
+      "description": "Decommission Managed Assets activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-power-off",
+      "fontWeight": "900"
+    },
+    {
+      "name": "assess-asset-governance-maturity-icon",
+      "description": "Assess Asset Governance Maturity activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-magnifying-glass-chart",
+      "fontWeight": "900"
+    },
+    {
+      "name": "enforce-asset-compliance-icon",
+      "description": "Enforce Asset Compliance activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gavel",
+      "fontWeight": "900"
+    },
+    {
+      "name": "enable-autonomous-operations-icon",
+      "description": "Enable Autonomous Operations activity space icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-robot",
+      "fontWeight": "900"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform",
+      "aliasName": "Automation Platform"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Asset",
+      "aliasName": "Automation Artifact"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Consumption Interface",
+      "aliasName": "Automation Interface"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Governance",
+      "aliasName": "Automation Governance"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Value And Economics",
+      "aliasName": "Automation Value And Economics"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Risk And Compliance",
+      "aliasName": "Automation Risk And Compliance"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Requirements",
+      "aliasName": "Automation Requirements"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Way Of Working",
+      "aliasName": "Automation Practice"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Architect and Build the Foundation",
+      "aliasName": "Define Automation Foundation"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Operate and Evolve the System",
+      "aliasName": "Enforce and Remediate"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Develop the Golden Paths",
+      "aliasName": "Develop Automation Patterns"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Integrate Toolchain Services",
+      "aliasName": "Integrate Automation Artifacts"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Implement Policy-as-Code",
+      "aliasName": "Implement Automation Policy"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Establish Secure Guardrails",
+      "aliasName": "Establish Automation Guardrails"
+    },
+    {
+      "practiceElementType": "Competency",
+      "practiceElementName": "Engineering",
+      "aliasName": "Automation Engineering"
+    },
+    {
+      "practiceElementType": "Competency",
+      "practiceElementName": "Site Reliability",
+      "aliasName": "Infrastructure Reliability"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Platform Adoption Essentials",
+      "versionRange": "^2.0.1"
+    }
+  ]
+}

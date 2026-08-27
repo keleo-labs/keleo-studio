@@ -36,6 +36,8 @@ interface NavigatorLayoutProps {
   selectedElement: string | null;
   secondaryElement: string | null;
   libraryId: string | null;
+  bundleSlug?: string | null;
+  bundlePath?: string | null;
   dependencyArtifacts: BrowseDependencyArtifact[];
   dependencyDiagramLayout?: DependencyDiagramLayout;
   versionWarnings?: VersionWarning[];
@@ -59,6 +61,8 @@ export function NavigatorLayout({
   selectedElement,
   secondaryElement,
   libraryId,
+  bundleSlug,
+  bundlePath,
   dependencyArtifacts,
   dependencyDiagramLayout,
   versionWarnings,
@@ -480,6 +484,8 @@ export function NavigatorLayout({
         selectedElement={selectedElementData}
         baseline={baseline}
         libraryId={libraryId}
+        bundleSlug={bundleSlug}
+        bundlePath={bundlePath}
         dependencyArtifacts={dependencyArtifacts}
         dependencyDiagramLayout={dependencyDiagramLayout}
         mode={mode}

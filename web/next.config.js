@@ -47,8 +47,7 @@ const nextConfig = {
     return config;
   },
   turbopack: {
-    // Hint if you run next dev/build --turbopack (Nest PostCSS still breaks there in some workspaces)
-    root: appDir,
+    root: path.join(appDir, ".."),
     resolveAlias: postcssPeerAliasMap(),
   },
 };

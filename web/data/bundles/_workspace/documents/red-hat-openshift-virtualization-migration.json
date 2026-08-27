@@ -1,0 +1,4815 @@
+{
+  "kind": "practice",
+  "name": "Red Hat OpenShift Virtualization Migration",
+  "description": "Migrate virtual machines at scale from legacy virtualization platforms to Red Hat OpenShift Virtualization using the Migration Toolkit for Virtualization.",
+  "version": "1.0.0",
+  "baselinePracticeName": "IDP Essentials",
+  "practiceDependencyNames": [
+    "Red Hat OpenShift Virtualization"
+  ],
+  "authors": [
+    "Red Hat"
+  ],
+  "createdAt": "2026-07-23",
+  "updatedAt": "2026-08-11",
+  "keywords": [
+    "MTV",
+    "migration toolkit for virtualization",
+    "forklift",
+    "virt-v2v",
+    "CDI",
+    "VDDK",
+    "cold migration",
+    "warm migration",
+    "live migration",
+    "cutover",
+    "CBT",
+    "changed block tracking",
+    "migration plan",
+    "network map",
+    "storage map",
+    "provider",
+    "deep inspection",
+    "storage copy offload",
+    "migration factory",
+    "must-gather"
+  ],
+  "tags": {
+    "domainTags": [
+      "Virtualization",
+      "Migration",
+      "Infrastructure"
+    ],
+    "lifecycleTags": [
+      "Migration",
+      "Adoption"
+    ],
+    "organizationalTags": [
+      "Migration Team",
+      "Infrastructure Team"
+    ]
+  },
+  "narratives": [
+    {
+      "name": "Migrating Virtual Machines to OpenShift Virtualization at Scale",
+      "description": "How organizations migrate VM estates from legacy platforms to OpenShift Virtualization using MTV.",
+      "narrativeTypeName": "The STAR Format",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Situation",
+          "context": "Organizations operating hundreds to thousands of virtual machines on legacy virtualization platforms face escalating licensing costs, vendor lock-in risk, and the strategic imperative to consolidate onto a Kubernetes-native platform that manages both VMs and containers with unified tooling."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Task",
+          "context": "Migrate the entire VM estate from legacy platforms to Red Hat OpenShift Virtualization using the Migration Toolkit for Virtualization, minimizing business disruption through structured assessment, pilot validation, wave-based execution, and automated post-migration verification."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Action",
+          "context": "Implement a six-phase migration lifecycle spanning source environment assessment with compatibility analysis and deep inspection, multi-provider connection configuration with VDDK acceleration, network and storage mapping design, migration plan engineering with VM cohort grouping, pipeline execution with cold, warm, and live migration types, and post-migration validation with performance baseline comparison."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Result",
+          "context": "Hundreds to thousands of VMs are migrated to OpenShift Virtualization with sustained throughput of 80 VMs per 41 minutes across 8 hosts, achieving enterprise target success rates with migrated workloads validated for boot integrity, network connectivity, storage correctness, and application functionality."
+        }
+      ],
+      "citationNames": [
+        "Planning your migration to Red Hat OpenShift Virtualization",
+        "Migration Toolkit for Virtualization"
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "Planning your migration to Red Hat OpenShift Virtualization",
+      "description": "Comprehensive guide covering MTV architecture, supported providers, compatibility matrices, and migration planning procedures for MTV 2.12.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.12/html/planning_your_migration_to_red_hat_openshift_virtualization/index"
+    },
+    {
+      "name": "Migrating your virtual machines to Red Hat OpenShift Virtualization",
+      "description": "Step-by-step migration execution guide covering provider configuration, mapping creation, plan engineering, execution, hooks, and troubleshooting for MTV 2.12.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.12/html/migrating_your_virtual_machines_to_red_hat_openshift_virtualization/index"
+    },
+    {
+      "name": "Migration Toolkit for Virtualization",
+      "description": "Product overview page describing MTV capabilities, migration factory approach with Ansible Automation Platform, and migration at-scale benchmarks.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Developers",
+      "url": "https://developers.redhat.com/products/mtv"
+    },
+    {
+      "name": "Move Virtual Machines to OpenShift at Scale with Red Hat's Migration Toolkit for Virtualization",
+      "description": "Blog post detailing MTV performance benchmarks, storage copy offload capabilities, and migration factory architecture for enterprise-scale migrations.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/move-virtual-machines-openshift-scale-red-hats-migration-toolkit-virtualization"
+    },
+    {
+      "name": "Migration Toolkit for Virtualization FAQs from the Field",
+      "description": "Field-tested answers to common MTV deployment questions covering provider configuration, troubleshooting, and at-scale operational guidance.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/migration-toolkit-virtualization-faqs-field"
+    },
+    {
+      "name": "Red Hat OpenShift Container Platform 4.22 - Virtualization",
+      "description": "OpenShift Virtualization documentation covering KubeVirt operator architecture, VM lifecycle management, networking, storage, and live migration capabilities.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html-single/virtualization/index"
+    },
+    {
+      "name": "VMware Virtual Disk Development Kit Documentation",
+      "description": "VDDK SDK documentation for VMware disk access API used by MTV for accelerated disk transfer from vSphere environments.",
+      "authors": [
+        "VMware"
+      ],
+      "date": "2024",
+      "source": "VMware Documentation"
+    },
+    {
+      "name": "Open Policy Agent Documentation",
+      "description": "OPA and Rego policy language documentation used for MTV custom validation rule development.",
+      "authors": [
+        "Styra"
+      ],
+      "date": "2026",
+      "source": "Open Policy Agent",
+      "url": "https://www.openpolicyagent.org/docs/latest/"
+    },
+    {
+      "name": "Red Hat Ansible Automation Platform Documentation",
+      "description": "AAP documentation covering workflow templates, survey forms, credential management, and job orchestration used for migration factory automation.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/"
+    },
+    {
+      "name": "KubeVirt User Guide - Live Migration",
+      "description": "KubeVirt live migration documentation covering inter-cluster VM migration capabilities used by MTV for OpenShift-to-OpenShift migrations.",
+      "authors": [
+        "KubeVirt Community"
+      ],
+      "date": "2025",
+      "source": "KubeVirt Documentation",
+      "url": "https://kubevirt.io/user-guide/compute/live_migration/"
+    }
+  ],
+  "assets": [
+    {
+      "name": "migration-readiness-icon",
+      "description": "Icon representing migration readiness assessment and VM compatibility analysis",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "source-provider-icon",
+      "description": "Icon representing source virtualization provider connections and integration",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-plug",
+      "fontWeight": "900"
+    },
+    {
+      "name": "migration-plan-icon",
+      "description": "Icon representing migration plan engineering and network/storage mapping",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-map",
+      "fontWeight": "900"
+    },
+    {
+      "name": "migration-execution-icon",
+      "description": "Icon representing migration pipeline execution and factory operations",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-truck-moving",
+      "fontWeight": "900"
+    },
+    {
+      "name": "virtual-machine-workload-icon",
+      "description": "Icon representing virtual machine workload lifecycle",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-server",
+      "fontWeight": "900"
+    },
+    {
+      "name": "virtualization-infrastructure-icon",
+      "description": "Icon representing virtualization infrastructure and operator stack",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "mtv-architecture-diagram",
+      "description": "MTV architecture diagram showing the relationship between ForkliftController, inventory service, validation service, and provider connections",
+      "type": "diagram",
+      "url": "https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.12/html/planning_your_migration_to_red_hat_openshift_virtualization/index"
+    },
+    {
+      "name": "migration-pipeline-diagram",
+      "description": "Diagram showing the five-stage per-VM migration pipeline from Initialize through VM Creation",
+      "type": "diagram",
+      "url": "https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.12/html/migrating_your_virtual_machines_to_red_hat_openshift_virtualization/index"
+    },
+    {
+      "name": "assess-source-icon",
+      "description": "Icon representing source environment assessment and discovery",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-magnifying-glass",
+      "fontWeight": "900"
+    },
+    {
+      "name": "configure-providers-icon",
+      "description": "Icon representing provider connection configuration",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-plug-circle-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "create-network-mappings-icon",
+      "description": "Icon representing network mapping creation",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-network-wired",
+      "fontWeight": "900"
+    },
+    {
+      "name": "create-storage-mappings-icon",
+      "description": "Icon representing storage mapping creation",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-database",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-plans-icon",
+      "description": "Icon representing migration plan design and engineering",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-compass-drafting",
+      "fontWeight": "900"
+    },
+    {
+      "name": "execute-plans-icon",
+      "description": "Icon representing migration plan execution",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-play",
+      "fontWeight": "900"
+    },
+    {
+      "name": "validate-workloads-icon",
+      "description": "Icon representing post-migration workload validation",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-circle-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "configure-hooks-icon",
+      "description": "Icon representing migration hook configuration",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-link",
+      "fontWeight": "900"
+    },
+    {
+      "name": "optimize-performance-icon",
+      "description": "Icon representing migration performance optimization",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge-high",
+      "fontWeight": "900"
+    },
+    {
+      "name": "implement-factory-icon",
+      "description": "Icon representing migration factory implementation",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-industry",
+      "fontWeight": "900"
+    },
+    {
+      "name": "define-validation-rules-icon",
+      "description": "Icon representing custom OPA validation rule development",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "troubleshoot-failures-icon",
+      "description": "Icon representing migration failure troubleshooting",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-wrench",
+      "fontWeight": "900"
+    },
+    {
+      "name": "monitor-progress-icon",
+      "description": "Icon representing migration progress monitoring",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "optimize-providers-icon",
+      "description": "Icon representing source provider integration optimization",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-plug-circle-bolt",
+      "fontWeight": "900"
+    },
+    {
+      "name": "migration-lifecycle-icon",
+      "description": "Icon representing the VM migration lifecycle pattern",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-spin",
+      "fontWeight": "900"
+    },
+    {
+      "name": "migration-wave-icon",
+      "description": "Icon representing the migration wave execution pattern",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rotate",
+      "fontWeight": "900"
+    },
+    {
+      "name": "star-format-narrative-type-icon",
+      "description": "STAR Format narrative type icon for cause-and-effect reporting.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-star",
+      "fontWeight": "900"
+    },
+    {
+      "name": "essay-narrative-type-icon",
+      "description": "Essay Narrative type icon for evidence-based argumentation.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-book-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "technique-narrative-type-icon",
+      "description": "Technique narrative type icon for implementation guidance.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-screwdriver-wrench",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-build-run-optimize-narrative-type-icon",
+      "description": "Design-Build-Run-Optimize narrative type icon for iterative lifecycle progression.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-spin",
+      "fontWeight": "900"
+    },
+    {
+      "name": "pdca-narrative-type-icon",
+      "description": "PDCA narrative type icon for continuous improvement cycles.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-rotate",
+      "fontWeight": "900"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Source Provider Configuration",
+      "aliasName": "Source Provider"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Migration Execution",
+      "aliasName": "Migration Pipeline"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Migration Plan Specification",
+      "aliasName": "ForkliftPlan"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Migration Mapping Configuration",
+      "aliasName": "NetworkMap/StorageMap"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Source Environment Inventory",
+      "aliasName": "VM Inventory"
+    }
+  ],
+  "narrativeTypes": [
+    {
+      "name": "The STAR Format",
+      "description": "Enforces a strict cause-and-effect relationship between context and outcomes, used for tactical execution reporting and capability demonstrations.",
+      "assetNames": [
+        {
+          "assetName": "star-format-narrative-type-icon",
+          "type": "icon"
+        }
+      ],
+      "narrativeElements": [
+        {
+          "name": "Situation",
+          "description": "The starting state before platform intervention.",
+          "howToUse": "Describe the baseline state, cognitive load distribution, or performance metrics before action is taken."
+        },
+        {
+          "name": "Task",
+          "description": "The specific platform challenge or need to address.",
+          "howToUse": "Frame the task through the developer experience lens: what gap, bottleneck, or friction needs to be resolved."
+        },
+        {
+          "name": "Action",
+          "description": "The platform intervention or capability delivered.",
+          "howToUse": "Detail the platform engineering activities performed, golden paths created, or governance mechanisms implemented."
+        },
+        {
+          "name": "Result",
+          "description": "The measurable outcome and value delivered.",
+          "howToUse": "Quantify results using platform metrics: adoption rate, time saved, cost optimization, performance improvement."
+        }
+      ]
+    },
+    {
+      "name": "Essay Narrative",
+      "description": "A cohesive narrative format that guides the reader carefully through the evidence for and against a proposition before reaching a conclusion.",
+      "assetNames": [
+        {
+          "assetName": "essay-narrative-type-icon",
+          "type": "icon"
+        }
+      ],
+      "narrativeElements": [
+        {
+          "name": "Introduction",
+          "description": "The start of the essay used to contextualise the work and grab the attention of the reader.",
+          "howToUse": "Explain how the topic sits within the framework of the subject area as a whole."
+        },
+        {
+          "name": "Defining Key Concepts",
+          "description": "A section establishing the interpretation of central concepts without relying on dictionary definitions.",
+          "howToUse": "Relate in your own words how the terms you will be using are to be interpreted within the context of your essay."
+        },
+        {
+          "name": "Presenting Evidence",
+          "description": "The core discussion where secondary works are evaluated and viewpoints are balanced against each other.",
+          "howToUse": "Be selective in your choice of evidence and use signposting language to guide your reader."
+        },
+        {
+          "name": "Conclusion",
+          "description": "The closing section that synthesises the presented evidence and forms a direct response to the assignment title.",
+          "howToUse": "Draw the threads of your argument together. Do not bring in new evidence in your concluding paragraphs."
+        }
+      ]
+    },
+    {
+      "name": "Technique",
+      "description": "Practical implementation guidance structured as overview, technique steps, and common pitfalls.",
+      "assetNames": [
+        {
+          "assetName": "technique-narrative-type-icon",
+          "type": "icon"
+        }
+      ],
+      "narrativeElements": [
+        {
+          "name": "Overview",
+          "description": "High-level summary of the technique and its purpose.",
+          "howToUse": "Provide a 1-2 sentence overview of what the technique accomplishes and why it matters."
+        },
+        {
+          "name": "Technique",
+          "description": "Step-by-step implementation guidance.",
+          "howToUse": "Detail the specific technical steps, tools, and configurations required to implement the technique."
+        },
+        {
+          "name": "Common Pitfalls",
+          "description": "Frequent mistakes and how to avoid them.",
+          "howToUse": "List 2-3 common mistakes practitioners make and provide guidance on how to avoid them."
+        }
+      ]
+    },
+    {
+      "name": "Design-Build-Run-Optimize",
+      "description": "Architectural lifecycle for infrastructure and platform engineering spanning conception through continuous improvement.",
+      "assetNames": [
+        {
+          "assetName": "design-build-run-optimize-narrative-type-icon",
+          "type": "icon"
+        }
+      ],
+      "narrativeElements": [
+        {
+          "name": "Design",
+          "description": "Architecture definition and planning.",
+          "howToUse": "Define architecture, topology, technology choices, and capacity planning."
+        },
+        {
+          "name": "Build",
+          "description": "Provisioning and configuration.",
+          "howToUse": "Deploy infrastructure, configure systems, establish integrations and connectivity."
+        },
+        {
+          "name": "Run",
+          "description": "Operations and steady-state management.",
+          "howToUse": "Monitor health, respond to incidents, maintain availability and performance."
+        },
+        {
+          "name": "Optimize",
+          "description": "Continuous improvement and evolution.",
+          "howToUse": "Tune performance, reduce costs, enhance capabilities based on operational insights."
+        }
+      ]
+    },
+    {
+      "name": "PDCA",
+      "description": "Plan-Do-Check-Act cycle (Deming Cycle) for continuous improvement and iterative refinement.",
+      "assetNames": [
+        {
+          "assetName": "pdca-narrative-type-icon",
+          "type": "icon"
+        }
+      ],
+      "narrativeElements": [
+        {
+          "name": "Plan",
+          "description": "Establish objectives and processes.",
+          "howToUse": "Identify improvement opportunity, analyze current state, and plan intervention."
+        },
+        {
+          "name": "Do",
+          "description": "Implement the plan on small scale.",
+          "howToUse": "Execute the planned change or experiment in controlled environment."
+        },
+        {
+          "name": "Check",
+          "description": "Measure and evaluate results.",
+          "howToUse": "Assess outcomes against objectives, identify gaps and learnings."
+        },
+        {
+          "name": "Act",
+          "description": "Standardize or iterate based on learnings.",
+          "howToUse": "Scale successful changes, adjust plan based on findings, repeat cycle."
+        }
+      ]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Virtual Machine Workload",
+      "description": "Individual VM lifecycle from template creation through production operation and governance.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Asset",
+      "assetNames": [
+        {
+          "assetName": "virtual-machine-workload-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Migration-Enriched VM Workload Lifecycle",
+          "description": "How migrated VMs transform from vendor-specific configurations to Kubernetes-native resources.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Virtual machine workloads migrated from legacy virtualization platforms to OpenShift Virtualization undergo a transformation from vendor-specific VM configurations to Kubernetes-native VirtualMachine custom resources, with disk formats converted through the virt-v2v pipeline and drivers replaced with VirtIO equivalents."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "The migration process preserves the VM's logical identity while transforming its infrastructure binding from source-platform hypervisor APIs to the KubeVirt virtualization stack, with persistent storage shifting from source datastores to Kubernetes PersistentVolumeClaims and networking transitioning to OVN-Kubernetes pod networks."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "MTV's validated migration pipeline has demonstrated throughput of 80 VMs in 41 minutes across 8 ESXi hosts and 800 VMs in 57 minutes through multi-plan parallelism, with support for individual disks up to 6TB and programs of up to 5,000 VMs."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "The migration-enriched VM workload lifecycle ensures that migrated VMs achieve full operational parity with their source platform configurations, with automated validation confirming boot integrity, network connectivity, storage correctness, and application functionality."
+            }
+          ],
+          "citationNames": [
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization",
+            "Move Virtual Machines to OpenShift at Scale with Red Hat's Migration Toolkit for Virtualization"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "name": "Templates Established",
+          "description": "VM creation templates, instance types, and golden images are available.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Target instance types accommodate migrated VM profiles",
+              "description": "Target VM instance types accommodate migrated VM resource profiles.",
+              "seq": 1
+            },
+            {
+              "name": "VirtIO Driver Inclusion",
+              "description": "Golden images include VirtIO drivers for all supported guest OS versions.",
+              "seq": 2
+            },
+            {
+              "name": "Template configurations align with source VMs",
+              "description": "VM template configurations align with source VM capabilities.",
+              "seq": 3
+            },
+            {
+              "name": "Namespace resource quotas accommodate volumes",
+              "description": "Target namespace resource quotas accommodate planned migration volumes.",
+              "seq": 4
+            },
+            {
+              "name": "QEMU guest agent packages available",
+              "description": "QEMU guest agent packages are available for post-migration injection.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "VMs Provisioned",
+          "description": "VMs are created and running with appropriate configurations.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Migrated VMs boot with correct allocations",
+              "description": "Migrated VMs boot successfully with correct resource allocations.",
+              "seq": 1
+            },
+            {
+              "name": "VirtIO drivers operational",
+              "description": "VirtIO block and network drivers are operational in migrated guest OS.",
+              "seq": 2
+            },
+            {
+              "name": "QEMU guest agent reporting correctly",
+              "description": "QEMU guest agent reports guest OS information correctly.",
+              "seq": 3
+            },
+            {
+              "name": "Source platform agents removed",
+              "description": "Source platform guest agents are removed or disabled.",
+              "seq": 4
+            },
+            {
+              "name": "Network connectivity verified",
+              "description": "Post-migration network connectivity is verified for all mapped interfaces.",
+              "seq": 5
+            },
+            {
+              "name": "Storage integrity confirmed",
+              "description": "Storage integrity is confirmed through filesystem and application-level checks.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Lifecycle Automated",
+          "description": "VM operations managed through automation and self-service workflows.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Configuration management registration automated",
+              "description": "Migrated VM registration with configuration management systems is automated.",
+              "seq": 1
+            },
+            {
+              "name": "DNS updates execute automatically",
+              "description": "Post-migration DNS record updates execute without manual intervention.",
+              "seq": 2
+            },
+            {
+              "name": "Monitoring agent deployment automated",
+              "description": "Monitoring agent deployment is automated for migrated VMs.",
+              "seq": 3
+            },
+            {
+              "name": "Automated Application Smoke Tests",
+              "description": "Application smoke tests run automatically after each VM migration completes.",
+              "seq": 4
+            },
+            {
+              "name": "Migration progress reporting automated",
+              "description": "Migration progress reporting generates dashboards and status notifications automatically.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Lifecycle Governed",
+          "description": "VM lifecycle governed with policies, quotas, and compliance controls.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Validation results auditable",
+              "description": "Migration validation results are auditable through MTV API and metrics.",
+              "seq": 1
+            },
+            {
+              "name": "Decommissioning follows change management",
+              "description": "Source VM decommissioning follows approved change management procedures.",
+              "seq": 2
+            },
+            {
+              "name": "Performance baselines confirm parity",
+              "description": "Post-migration performance baselines confirm parity with pre-migration metrics.",
+              "seq": 3
+            },
+            {
+              "name": "Completion metrics demonstrate objectives",
+              "description": "Migration program completion metrics demonstrate achieved business objectives.",
+              "seq": 4
+            },
+            {
+              "name": "Lessons learned documented",
+              "description": "Lessons learned from migration program are documented for future reference.",
+              "seq": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Virtualization Infrastructure",
+      "description": "The KubeVirt operator stack and node configuration enabling Kubernetes-native VM hosting on OpenShift.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "assetNames": [
+        {
+          "assetName": "virtualization-infrastructure-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "MTV Operator Stack and Migration Infrastructure",
+          "description": "How the MTV operator ecosystem extends KubeVirt for VM migration operations.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The virtualization infrastructure supporting VM migration extends beyond the base KubeVirt operator stack to include the MTV operator ecosystem comprising the ForkliftController, inventory service, validation service, and migration controller."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "MTV operates as a Kubernetes operator deployed alongside the HyperConverged operator, with the ForkliftController CR serving as the primary configuration surface for migration parameters including concurrency limits, VDDK init image references, and transfer network selections."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "The MTV operator integrates with the OpenShift monitoring stack through ServiceMonitor resources, exposing migration-specific Prometheus metrics including mtv_plans_status, mtv_migration_duration_seconds, and mtv_workload_migrations_status_total."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "A properly configured virtualization infrastructure with the MTV operator stack, adequate transfer network bandwidth, and optimized storage provisioning provides the foundation for achieving enterprise-scale migration throughput."
+            }
+          ],
+          "citationNames": [
+            "Planning your migration to Red Hat OpenShift Virtualization",
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "name": "Operator Deployed",
+          "description": "HyperConverged Operator installed and reconciling core components.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "MTV operator installed",
+              "description": "MTV operator is installed from OperatorHub on the target cluster.",
+              "seq": 1
+            },
+            {
+              "name": "ForkliftController CR deployed",
+              "description": "ForkliftController CR is deployed in the openshift-mtv namespace.",
+              "seq": 2
+            },
+            {
+              "name": "Inventory service operational",
+              "description": "MTV inventory service is operational and ready for provider connections.",
+              "seq": 3
+            },
+            {
+              "name": "Validation service running",
+              "description": "MTV validation service is running and healthy.",
+              "seq": 4
+            },
+            {
+              "name": "Migration controller deployed",
+              "description": "MTV migration controller is deployed with appropriate resource allocations.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Nodes Configured",
+          "description": "Worker nodes validated and configured for VM hosting.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Transfer network provisioned",
+              "description": "Transfer network is provisioned with sufficient bandwidth for migration traffic.",
+              "seq": 1
+            },
+            {
+              "name": "Worker node compute capacity sufficient",
+              "description": "Worker nodes have compute capacity for concurrent virt-v2v conversion pods.",
+              "seq": 2
+            },
+            {
+              "name": "Storage provisioner configured",
+              "description": "Storage provisioner is configured with appropriate StorageClasses for migrated VM disks.",
+              "seq": 3
+            },
+            {
+              "name": "Container registry accessible",
+              "description": "Container registry is accessible for VDDK init image and hook playbook images.",
+              "seq": 4
+            },
+            {
+              "name": "Network connectivity to source verified",
+              "description": "Network connectivity from worker nodes to source platform hosts is verified.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Platform Operational",
+          "description": "Platform is running VMs in production with all subsystems functional.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Prometheus metrics scraped",
+              "description": "MTV Prometheus metrics endpoints are scraped by the monitoring stack.",
+              "seq": 1
+            },
+            {
+              "name": "Grafana dashboards operational",
+              "description": "Migration-specific Grafana dashboards are operational.",
+              "seq": 2
+            },
+            {
+              "name": "Alerting rules detect anomalies",
+              "description": "Alerting rules detect stalled migrations and pipeline anomalies.",
+              "seq": 3
+            },
+            {
+              "name": "Must-gather procedures documented",
+              "description": "Must-gather diagnostic collection procedures are documented and tested.",
+              "seq": 4
+            },
+            {
+              "name": "Troubleshooting runbook accessible",
+              "description": "Migration troubleshooting runbook is accessible to the migration team.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Platform Optimized",
+          "description": "Platform tuned for performance and resilience with advanced features.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Storage copy offload configured",
+              "description": "Storage copy offload is configured for supported storage vendor combinations.",
+              "seq": 1
+            },
+            {
+              "name": "Dedicated Transfer Network Isolation",
+              "description": "Dedicated Multus transfer network isolates migration traffic from production.",
+              "seq": 2
+            },
+            {
+              "name": "AIO buffering tuned",
+              "description": "AIO buffering is tuned for the target storage subsystem characteristics.",
+              "seq": 3
+            },
+            {
+              "name": "Concurrent plans without contention",
+              "description": "Multiple concurrent migration plans execute without resource contention.",
+              "seq": 4
+            },
+            {
+              "name": "Migration capacity scales to factory level",
+              "description": "Migration capacity scales to support factory-level throughput requirements.",
+              "seq": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Migration Readiness",
+      "description": "Systematic assessment and compatibility validation of source VMs for migration readiness.",
+      "focusName": "Solution",
+      "contributesTo": "Virtual Machine Workload",
+      "relatesTo": [
+        {
+          "relationship": "assessed through",
+          "alphaName": "Source Provider Configuration",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "informs",
+          "alphaName": "Migration Planning",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "validated by",
+          "alphaName": "Migration Execution",
+          "direction": "incoming"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "migration-readiness-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Multi-Layered VM Assessment and Compatibility Analysis",
+          "description": "How MTV's multi-layered assessment provides progressively higher confidence in migration readiness.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Migration readiness assessment transforms an unknown source VM estate into a quantified, risk-scored, compatibility-analyzed inventory that serves as the foundation for all subsequent migration planning decisions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "MTV's multi-layered assessment progresses from metadata-level inventory through validation-service compatibility analysis to deep inspection with guest OS filesystem examination, with each layer providing progressively higher confidence in migration readiness predictions."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "The assessment process evaluates VMs against provider-specific compatibility matrices covering seven supported source platforms including VMware vSphere 6.5 through 8.0 Update 3, Red Hat Virtualization, OpenStack, OVA, Microsoft Hyper-V, AWS EC2, and OpenShift Virtualization."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "A thorough migration readiness assessment prevents mid-migration failures by identifying and remediating compatibility issues before plan execution, ensuring execution capacity is focused on VMs that will migrate successfully."
+            }
+          ],
+          "citationNames": [
+            "Planning your migration to Red Hat OpenShift Virtualization",
+            "Migration Toolkit for Virtualization FAQs from the Field"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "name": "Source Cataloged",
+          "description": "Source VMs inventoried with resource profiles and metadata.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "MTV operator installed on target cluster",
+              "description": "MTV operator is installed on the target OpenShift cluster.",
+              "seq": 1
+            },
+            {
+              "name": "Source provider connection established",
+              "description": "Source provider connection is established with inventory synchronization.",
+              "seq": 2
+            },
+            {
+              "name": "All source VMs visible",
+              "description": "All source VMs are visible with CPU, memory, and disk details.",
+              "seq": 3
+            },
+            {
+              "name": "Guest OS information collected",
+              "description": "Guest operating system information is collected for all VMs.",
+              "seq": 4
+            },
+            {
+              "name": "Network and storage metadata captured",
+              "description": "Network attachment and storage configuration metadata is captured.",
+              "seq": 5
+            },
+            {
+              "name": "VM power state recorded",
+              "description": "VM power state at inventory time is recorded per VM.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Compatibility Analyzed",
+          "description": "VMs assessed for migration readiness with issues identified.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Validation service analysis complete",
+              "description": "MTV validation service has analyzed all VMs against compatibility rules.",
+              "seq": 1
+            },
+            {
+              "name": "VMs classified by readiness",
+              "description": "VMs are classified as ready, conditionally ready, or not ready.",
+              "seq": 2
+            },
+            {
+              "name": "Issues documented with remediation",
+              "description": "Compatibility issues are documented with remediation guidance per VM.",
+              "seq": 3
+            },
+            {
+              "name": "Provider prerequisites validated",
+              "description": "Provider-specific prerequisites are validated per VM.",
+              "seq": 4
+            },
+            {
+              "name": "Guest OS support confirmed",
+              "description": "Guest OS support is confirmed against the MTV compatibility matrix.",
+              "seq": 5
+            },
+            {
+              "name": "Encrypted volumes identified",
+              "description": "Encrypted volumes are identified with handling procedures defined.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Deep Inspection Complete",
+          "description": "Guest OS-level analysis provides application-aware migration readiness.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Deep inspection executed",
+              "description": "Deep inspection is configured and executed on candidate VMs.",
+              "seq": 1
+            },
+            {
+              "name": "Applications and services detected",
+              "description": "Installed applications and services are detected within guest OS.",
+              "seq": 2
+            },
+            {
+              "name": "Dependencies mapped",
+              "description": "Application dependencies and inter-VM relationships are mapped.",
+              "seq": 3
+            },
+            {
+              "name": "Custom OPA rules assess compatibility",
+              "description": "Custom OPA validation rules assess application-specific compatibility.",
+              "seq": 4
+            },
+            {
+              "name": "Risk assessment combines findings",
+              "description": "Migration risk assessment combines metadata and deep inspection findings.",
+              "seq": 5
+            },
+            {
+              "name": "Application team sign-off obtained",
+              "description": "Application team sign-off is obtained for migration candidates.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Migration Scope Defined",
+          "description": "Final migration scope established with prioritized VM cohorts.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "VMs grouped into cohorts",
+              "description": "Migration candidates are grouped into cohorts by application and priority.",
+              "seq": 1
+            },
+            {
+              "name": "Strategy assigned per cohort",
+              "description": "Migration strategy is assigned per cohort based on downtime tolerance.",
+              "seq": 2
+            },
+            {
+              "name": "Exclusions documented",
+              "description": "VMs excluded from migration have documented justification.",
+              "seq": 3
+            },
+            {
+              "name": "Target capacity validated",
+              "description": "Target cluster capacity is validated against aggregate resource requirements.",
+              "seq": 4
+            },
+            {
+              "name": "Timeline established",
+              "description": "Migration timeline is established with wave sequencing and milestones.",
+              "seq": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Source Provider Configuration",
+      "description": "Configuration and management of connections between MTV and source virtualization platforms.",
+      "focusName": "Solution",
+      "contributesTo": "Virtualization Infrastructure",
+      "relatesTo": [
+        {
+          "relationship": "enables discovery of",
+          "alphaName": "Migration Readiness",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "provides data path for",
+          "alphaName": "Migration Execution",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "referenced by",
+          "alphaName": "Migration Planning",
+          "direction": "incoming"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "source-provider-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Multi-Provider Connection Management",
+          "description": "How MTV manages authenticated access to source VM inventories across seven provider types.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Source provider configuration establishes the bridge between legacy virtualization platforms and the MTV migration controller, enabling secure authenticated access to source VM inventories and disk data."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "MTV implements source platform connectivity through Provider custom resources, each carrying provider-type-specific credential references with seven distinct provider types each requiring unique connection parameters and authentication mechanisms."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Provider health is continuously monitored through Provider CR conditions and Kubernetes events, with the inventory service periodically synchronizing the VM catalog and validating credential freshness to surface connection failures proactively."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "Well-configured and validated source provider connections form the essential data path for all migration operations, and their ongoing health directly determines the migration program's ability to discover, assess, plan, and execute VM migrations."
+            }
+          ],
+          "citationNames": [
+            "Planning your migration to Red Hat OpenShift Virtualization",
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "name": "Provider Connected",
+          "description": "Source provider CR is created and inventory synchronization begins.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Provider CR created",
+              "description": "Provider CR is created with valid endpoint URL and credentials Secret.",
+              "seq": 1
+            },
+            {
+              "name": "CA Certificate Validation",
+              "description": "CA certificate validation succeeds for the source platform connection.",
+              "seq": 2
+            },
+            {
+              "name": "Inventory synchronization begins",
+              "description": "MTV inventory service begins synchronizing the VM catalog.",
+              "seq": 3
+            },
+            {
+              "name": "Provider CR status Ready",
+              "description": "Provider CR status shows a Ready condition with no errors.",
+              "seq": 4
+            },
+            {
+              "name": "Network connectivity verified",
+              "description": "Network connectivity between target cluster and source platform is verified.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Provider Validated",
+          "description": "Provider connection verified with full inventory and feature availability.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Complete inventory synchronized",
+              "description": "Complete VM inventory is synchronized and accessible through MTV.",
+              "seq": 1
+            },
+            {
+              "name": "Provider-specific features validated",
+              "description": "Provider-specific features are validated including VDDK for VMware and CBT confirmation.",
+              "seq": 2
+            },
+            {
+              "name": "Source version within compatibility matrix",
+              "description": "Source platform version is confirmed within the supported compatibility matrix.",
+              "seq": 3
+            },
+            {
+              "name": "Credential permissions verified",
+              "description": "Credential permissions are verified as sufficient for migration operations.",
+              "seq": 4
+            },
+            {
+              "name": "Transfer network connectivity tested",
+              "description": "Transfer network connectivity is tested between source and target.",
+              "seq": 5
+            },
+            {
+              "name": "VDDK init image configured for VMware",
+              "description": "For VMware, VDDK init image is built, pushed, and referenced.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Multi-Provider Operational",
+          "description": "Multiple source providers connected and managed simultaneously.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Multiple provider types connected",
+              "description": "Multiple Provider CRs of different types are created and healthy.",
+              "seq": 1
+            },
+            {
+              "name": "Aggregated inventory searchable",
+              "description": "Inventory from all providers is aggregated and searchable.",
+              "seq": 2
+            },
+            {
+              "name": "Plans reference any provider",
+              "description": "Migration plans can reference VMs from any connected source provider.",
+              "seq": 3
+            },
+            {
+              "name": "Credential rotation established",
+              "description": "Provider credential rotation procedures are established and tested.",
+              "seq": 4
+            },
+            {
+              "name": "Health monitoring alerts on failures",
+              "description": "Provider health monitoring generates alerts on connection failures.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Provider Integration Optimized",
+          "description": "Provider connections tuned for performance and reliability.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Sync intervals balanced",
+              "description": "Inventory synchronization intervals balance freshness with source platform load.",
+              "seq": 1
+            },
+            {
+              "name": "Parallel disk transfer configured",
+              "description": "Multiple ESXi host connections support parallel disk transfer.",
+              "seq": 2
+            },
+            {
+              "name": "NFC memory increased",
+              "description": "NFC service memory is increased on ESXi hosts for high concurrency.",
+              "seq": 3
+            },
+            {
+              "name": "Source impact monitored",
+              "description": "Source platform resource impact during migration is monitored and bounded.",
+              "seq": 4
+            },
+            {
+              "name": "Troubleshooting documented per provider",
+              "description": "Provider troubleshooting procedures are documented per provider type.",
+              "seq": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Migration Planning",
+      "description": "Network and storage mapping design plus migration plan engineering for VM cohort execution.",
+      "focusName": "Solution",
+      "contributesTo": "Virtual Machine Workload",
+      "relatesTo": [
+        {
+          "relationship": "based on",
+          "alphaName": "Migration Readiness",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "executed by",
+          "alphaName": "Migration Execution",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "depends on",
+          "alphaName": "Source Provider Configuration",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "migration-plan-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Network and Storage Mapping with Plan Engineering",
+          "description": "How network and storage translation rules combine with VM grouping to form executable migration plans.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Migration planning bridges the gap between readiness assessment and pipeline execution by translating the assessed VM population into executable migration plans with precise network and storage mapping rules."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "NetworkMap CRs define per-source-network translation rules, StorageMap CRs define per-datastore translation rules, and Plan CRs combine these mappings with VM selections, migration type, and hook configurations into the atomic unit of migration execution with a hard limit of 500 VMs or 500 disks per plan."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Network and storage mappings are reusable across multiple plans enabling standardized translation rules, with PVC name templates using Go template syntax maintaining organizational naming standards and User Defined Networks supported as targets from MTV 2.7."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "Thorough mapping design and plan engineering validated through pilot migrations eliminates the majority of execution-time failures by catching configuration mismatches before they affect production migration waves."
+            }
+          ],
+          "citationNames": [
+            "Planning your migration to Red Hat OpenShift Virtualization",
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "name": "Mappings Designed",
+          "description": "Network and storage translation rules documented from source to target.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Source networks inventoried",
+              "description": "Source networks are inventoried and categorized by function.",
+              "seq": 1
+            },
+            {
+              "name": "Target network topology mapped",
+              "description": "Target network topology is mapped with NetworkAttachmentDefinitions.",
+              "seq": 2
+            },
+            {
+              "name": "Source datastores inventoried",
+              "description": "Source datastores and storage domains are inventoried with performance tiers.",
+              "seq": 3
+            },
+            {
+              "name": "Target StorageClasses identified",
+              "description": "Target StorageClasses are identified with provisioners and access modes.",
+              "seq": 4
+            },
+            {
+              "name": "Mapping design reviewed",
+              "description": "Mapping design is reviewed by network and storage teams for correctness.",
+              "seq": 5
+            },
+            {
+              "name": "Transfer network strategy documented",
+              "description": "Transfer network strategy is documented for pod network or dedicated Multus.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Plans Structured",
+          "description": "Migration plan CRs created with all configurations specified.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "NetworkMap CRs created",
+              "description": "NetworkMap CRs are created with source-to-target network translations.",
+              "seq": 1
+            },
+            {
+              "name": "StorageMap CRs created",
+              "description": "StorageMap CRs are created with source-to-target storage translations.",
+              "seq": 2
+            },
+            {
+              "name": "Plan CRs specify all parameters",
+              "description": "Plan CRs specify source provider, destination namespace, and VM selections.",
+              "seq": 3
+            },
+            {
+              "name": "Hooks attached",
+              "description": "Pre/post migration hooks are attached where automation is required.",
+              "seq": 4
+            },
+            {
+              "name": "Migration Plan Validation",
+              "description": "Plan validation passes with no errors for all created plans.",
+              "seq": 5
+            },
+            {
+              "name": "VM grouping rationale documented",
+              "description": "VM grouping rationale documents partitioning strategy per plan.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Plans Piloted",
+          "description": "Representative plans executed to validate configuration and performance.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Pilot plan executed per migration type",
+              "description": "At least one plan per migration type is executed with a small VM subset.",
+              "seq": 1
+            },
+            {
+              "name": "Pilot completes with all VMs validated",
+              "description": "Pilot plan execution completes with all VMs migrated and validated.",
+              "seq": 2
+            },
+            {
+              "name": "Throughput measured against timeline",
+              "description": "Migration throughput is measured and compared against timeline requirements.",
+              "seq": 3
+            },
+            {
+              "name": "Network connectivity verified",
+              "description": "Network connectivity is verified for all mapping combinations.",
+              "seq": 4
+            },
+            {
+              "name": "Storage integrity confirmed",
+              "description": "Storage integrity is confirmed for all storage mapping combinations.",
+              "seq": 5
+            },
+            {
+              "name": "Configurations adjusted from pilot",
+              "description": "Plan configurations are adjusted based on pilot results.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Plans Production-Ready",
+          "description": "All migration plans validated, sequenced, and ready for execution.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Comprehensive Plan Validation",
+              "description": "All plans pass validation with no outstanding configuration issues.",
+              "seq": 1
+            },
+            {
+              "name": "Execution schedule communicated",
+              "description": "Plan execution schedule is communicated with maintenance windows.",
+              "seq": 2
+            },
+            {
+              "name": "Rollback procedures documented",
+              "description": "Rollback procedures are documented for each plan.",
+              "seq": 3
+            },
+            {
+              "name": "Concurrency limits configured",
+              "description": "Concurrency limits are configured based on pilot performance data.",
+              "seq": 4
+            },
+            {
+              "name": "Execution order accounts for dependencies",
+              "description": "Plan execution order accounts for cross-plan dependencies.",
+              "seq": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Migration Execution",
+      "description": "Pipeline execution, performance optimization, validation, troubleshooting, and factory automation for at-scale VM migration.",
+      "focusName": "Solution",
+      "contributesTo": "Virtual Machine Workload",
+      "relatesTo": [
+        {
+          "relationship": "executes",
+          "alphaName": "Migration Planning",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "depends on",
+          "alphaName": "Source Provider Configuration",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "validates",
+          "alphaName": "Migration Readiness",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "migration-execution-icon",
+          "type": "icon"
+        },
+        {
+          "assetName": "mtv-architecture-diagram",
+          "type": "illustrative"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Pipeline Execution and Migration Factory Operations",
+          "description": "How the migration pipeline evolves from pilot validation to automated factory operations.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Migration execution encompasses the full operational lifecycle of VM migration from pipeline configuration through pilot validation, production-scale operation, factory automation, and continuous performance optimization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "The migration pipeline supports three strategies (cold with scheduled downtime, warm with CBT-based incremental copy, and live for OpenShift-to-OpenShift), with the controller_max_vm_inflight parameter governing concurrency and pre/post hooks providing Ansible playbook extensibility."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Performance benchmarks establish 10 concurrent VMs per ESXi host as optimal density, while storage copy offload for ten supported vendors typically reduces disk transfer time by 50-80% for large disks."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "The progressive maturity from pilot validation through at-scale operations to factory automation represents the core value delivery mechanism, with each stage building on the validated foundation of the previous stage."
+            }
+          ],
+          "citationNames": [
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization",
+            "Move Virtual Machines to OpenShift at Scale with Red Hat's Migration Toolkit for Virtualization",
+            "Migration Toolkit for Virtualization"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "name": "Pipeline Configured",
+          "description": "Migration execution infrastructure ready to process VMs.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "ForkliftController CR deployed",
+              "description": "ForkliftController CR is deployed with appropriate resource allocations.",
+              "seq": 1
+            },
+            {
+              "name": "Concurrency parameter set",
+              "description": "The controller_max_vm_inflight parameter is set based on cluster capacity.",
+              "seq": 2
+            },
+            {
+              "name": "Conversion pod templates configured",
+              "description": "Virt-v2v conversion pod templates are configured with resource requests.",
+              "seq": 3
+            },
+            {
+              "name": "Transfer bandwidth provisioned",
+              "description": "Transfer network bandwidth is provisioned for expected concurrent load.",
+              "seq": 4
+            },
+            {
+              "name": "Target cluster capacity sufficient",
+              "description": "Target cluster has sufficient compute, storage, and network capacity.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Pilot Validated",
+          "description": "Migration pipeline verified through successful pilot VM migrations.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Cold migration completes successfully",
+              "description": "Cold migration pipeline completes successfully for representative VMs.",
+              "seq": 1
+            },
+            {
+              "name": "Warm migration verified",
+              "description": "Warm migration completes with precopy and cutover for VMware or RHV.",
+              "seq": 2
+            },
+            {
+              "name": "Virt-v2v conversion installs drivers",
+              "description": "Virt-v2v conversion installs VirtIO drivers and QEMU guest agent.",
+              "seq": 3
+            },
+            {
+              "name": "Migrated VMs boot correctly",
+              "description": "Migrated VMs boot on target cluster with correct resource allocations.",
+              "seq": 4
+            },
+            {
+              "name": "Duration aligns with expectations",
+              "description": "Migration duration per VM aligns with timeline expectations.",
+              "seq": 5
+            },
+            {
+              "name": "Troubleshooting procedures refined",
+              "description": "Troubleshooting procedures are refined based on pilot findings.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "At-Scale Operating",
+          "description": "Multiple plans execute concurrently migrating VMs at production scale.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Parallel plans without contention",
+              "description": "Multiple migration plans execute in parallel without resource contention.",
+              "seq": 1
+            },
+            {
+              "name": "Concurrency limits distribute load",
+              "description": "Concurrency limits distribute migration load across source hosts.",
+              "seq": 2
+            },
+            {
+              "name": "Cutover windows coordinated",
+              "description": "Warm migration cutover windows are coordinated with application teams.",
+              "seq": 3
+            },
+            {
+              "name": "Failed VMs diagnosed without affecting others",
+              "description": "Failed VM migrations are diagnosed and retried without affecting others.",
+              "seq": 4
+            },
+            {
+              "name": "Progress dashboards show real-time status",
+              "description": "Migration progress dashboards show real-time status across all plans.",
+              "seq": 5
+            },
+            {
+              "name": "Post-migration validation per VM",
+              "description": "Post-migration validation confirms workload integrity per VM.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Factory Automated",
+          "description": "AAP integration enables automated migration lifecycle management.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "AAP workflow templates orchestrate lifecycle",
+              "description": "AAP workflow templates orchestrate migration plan lifecycle.",
+              "seq": 1
+            },
+            {
+              "name": "Self-service migration requests",
+              "description": "Self-service migration request workflows accept application team submissions.",
+              "seq": 2
+            },
+            {
+              "name": "Automated assessment reports",
+              "description": "Automated assessment generates migration readiness reports.",
+              "seq": 3
+            },
+            {
+              "name": "Automated post-migration validation",
+              "description": "Post-migration validation runs automatically as workflow steps.",
+              "seq": 4
+            },
+            {
+              "name": "Notifications and approvals managed",
+              "description": "Migration notifications and approvals managed through AAP.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Continuously Optimized",
+          "description": "Migration throughput optimized through offload and metrics-driven improvement.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Storage copy offload accelerates transfer",
+              "description": "Storage copy offload accelerates disk transfer for supported vendors.",
+              "seq": 1
+            },
+            {
+              "name": "Throughput meets benchmarks",
+              "description": "Migration throughput meets or exceeds benchmark targets.",
+              "seq": 2
+            },
+            {
+              "name": "Delta copy cycles tuned",
+              "description": "Warm migration delta copy cycles are tuned to minimize cutover.",
+              "seq": 3
+            },
+            {
+              "name": "Automated remediation recommendations",
+              "description": "Pipeline failures are diagnosed with automated remediation recommendations.",
+              "seq": 4
+            },
+            {
+              "name": "Factory metrics track KPIs",
+              "description": "Factory metrics track throughput, success rates, and cycle times.",
+              "seq": 5
+            },
+            {
+              "name": "Continuous improvement cycle active",
+              "description": "Continuous improvement cycle refines processes based on metrics.",
+              "seq": 6
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Source Environment Inventory",
+      "description": "Catalog of source VMs with resource profiles, compatibility analysis, and migration readiness.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Inventory",
+          "description": "List of source VMs with basic resource metadata.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "VM names and resources listed",
+              "description": "VM names, guest OS, CPU count, and memory listed per provider.",
+              "seq": 1
+            },
+            {
+              "name": "Disk sizes recorded",
+              "description": "Disk count and sizes recorded per VM with total storage footprint.",
+              "seq": 2
+            },
+            {
+              "name": "Network attachments listed",
+              "description": "Network attachments listed without mapping analysis.",
+              "seq": 3
+            },
+            {
+              "name": "Provider and location documented",
+              "description": "Source provider type and data center location documented.",
+              "seq": 4
+            },
+            {
+              "name": "Power state captured",
+              "description": "VM power state at time of inventory captured.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Source Cataloged"
+            }
+          ]
+        },
+        {
+          "name": "Compatibility Assessment",
+          "description": "Inventory enriched with validation results and compatibility status.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Validation results recorded per VM",
+              "description": "MTV validation results recorded per VM with severity classification.",
+              "seq": 1
+            },
+            {
+              "name": "Issues documented with remediation",
+              "description": "Compatibility issues documented with specific remediation guidance.",
+              "seq": 2
+            },
+            {
+              "name": "Provider prerequisites validated",
+              "description": "Provider prerequisites validated per VM for VMware Tools, CBT, and VDDK.",
+              "seq": 3
+            },
+            {
+              "name": "Guest OS compatibility confirmed",
+              "description": "Guest OS compatibility confirmed against the MTV support matrix.",
+              "seq": 4
+            },
+            {
+              "name": "Special configurations flagged",
+              "description": "Encrypted volumes and special configurations flagged with handling.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Compatibility Analyzed"
+            }
+          ]
+        },
+        {
+          "name": "Application-Aware Inventory",
+          "description": "Inventory includes deep inspection results with dependency mapping.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Applications and services identified",
+              "description": "Deep inspection results identify installed applications and services.",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies mapped",
+              "description": "Inter-VM dependencies mapped showing application relationships.",
+              "seq": 2
+            },
+            {
+              "name": "Team ownership assigned",
+              "description": "Application team ownership assigned per VM with contact information.",
+              "seq": 3
+            },
+            {
+              "name": "Risk scoring applied",
+              "description": "Migration risk scoring combines metadata and deep inspection findings.",
+              "seq": 4
+            },
+            {
+              "name": "Strategy recommendation assigned",
+              "description": "Migration strategy recommendation assigned per VM with rationale.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Deep Inspection Complete"
+            }
+          ]
+        },
+        {
+          "name": "Migration-Ready Inventory",
+          "description": "Inventory with wave assignments, timelines, and validation criteria.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "VMs assigned to waves",
+              "description": "VMs assigned to migration waves with sequencing documented.",
+              "seq": 1
+            },
+            {
+              "name": "Plan assignments documented",
+              "description": "Migration plan assignments documented with partitioning rationale.",
+              "seq": 2
+            },
+            {
+              "name": "Pre-migration tasks identified",
+              "description": "Pre-migration preparation tasks identified per VM.",
+              "seq": 3
+            },
+            {
+              "name": "Validation criteria defined",
+              "description": "Post-migration validation criteria defined per application group.",
+              "seq": 4
+            },
+            {
+              "name": "Living document maintained",
+              "description": "Inventory maintained as living document with status tracking.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Migration Scope Defined"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Structured"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Provider Connection Configuration",
+      "description": "Documentation of source and destination provider CRs, credentials, and connectivity.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Provider Setup",
+          "description": "Single source provider connected with default settings.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Provider CR documented",
+              "description": "Provider CR YAML documented with endpoint URL and Secret reference.",
+              "seq": 1
+            },
+            {
+              "name": "CA certificate stored",
+              "description": "CA certificate stored and referenced for secure communication.",
+              "seq": 2
+            },
+            {
+              "name": "Health status verified",
+              "description": "Provider health status verified as Ready.",
+              "seq": 3
+            },
+            {
+              "name": "Inventory sync confirmed",
+              "description": "Basic connectivity confirms inventory synchronization.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Provider Connected"
+            }
+          ]
+        },
+        {
+          "name": "Validated Provider Configuration",
+          "description": "Provider connections verified with feature and performance testing.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Features validated",
+              "description": "Provider features validated including VDDK init image and CBT capability.",
+              "seq": 1
+            },
+            {
+              "name": "Transfer network documented",
+              "description": "Transfer network configuration documented with bandwidth specs.",
+              "seq": 2
+            },
+            {
+              "name": "Permissions verified",
+              "description": "Credential permissions verified for all migration operations.",
+              "seq": 3
+            },
+            {
+              "name": "Version compatibility confirmed",
+              "description": "Provider version compatibility confirmed against MTV support matrix.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Provider Validated"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Provider Configuration",
+          "description": "Multiple providers configured with standardized connection patterns.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Multiple provider types documented",
+              "description": "Multiple Provider CRs of different types documented.",
+              "seq": 1
+            },
+            {
+              "name": "Credential rotation established",
+              "description": "Credential rotation procedures established with rotation intervals.",
+              "seq": 2
+            },
+            {
+              "name": "Monitoring detects failures",
+              "description": "Provider monitoring and alerting detects connection failures.",
+              "seq": 3
+            },
+            {
+              "name": "Performance baselines established",
+              "description": "Per-provider performance baselines established for throughput.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Multi-Provider Operational"
+            }
+          ]
+        },
+        {
+          "name": "Managed Provider Infrastructure",
+          "description": "Provider configurations managed through GitOps with automated lifecycle.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "GitOps managed",
+              "description": "Provider CRs and Secrets managed through GitOps pipelines.",
+              "seq": 1
+            },
+            {
+              "name": "Automated health checks",
+              "description": "Automated health checks validate connectivity on schedule.",
+              "seq": 2
+            },
+            {
+              "name": "Change management followed",
+              "description": "Configuration changes follow change management approval.",
+              "seq": 3
+            },
+            {
+              "name": "Decommissioning procedures defined",
+              "description": "Decommissioning procedures clean up resources after migration.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Provider Integration Optimized"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Migration Mapping Configuration",
+      "description": "NetworkMap and StorageMap CRs defining source-to-target translation rules.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Mappings",
+          "description": "Simple network and storage mappings for single-provider migration.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "NetworkMap to pod network",
+              "description": "NetworkMap CR maps source networks to the default pod network.",
+              "seq": 1
+            },
+            {
+              "name": "StorageMap to default StorageClass",
+              "description": "StorageMap CR maps source storage to a single default StorageClass.",
+              "seq": 2
+            },
+            {
+              "name": "Transfer uses pod network",
+              "description": "Transfer network uses the default pod network.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Mappings Designed"
+            }
+          ]
+        },
+        {
+          "name": "Detailed Mappings",
+          "description": "Per-network and per-datastore mappings with transfer network.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Per-source-network mappings defined",
+              "description": "NetworkMap includes per-source-network mappings to appropriate targets.",
+              "seq": 1
+            },
+            {
+              "name": "Datastores mapped by tier",
+              "description": "StorageMap maps datastores to target StorageClasses by performance tier.",
+              "seq": 2
+            },
+            {
+              "name": "Dedicated transfer network configured",
+              "description": "Dedicated Multus transfer network configured for migration traffic.",
+              "seq": 3
+            },
+            {
+              "name": "PVC name templates set",
+              "description": "PVC name templates match organizational naming standards.",
+              "seq": 4
+            },
+            {
+              "name": "UDN targets configured",
+              "description": "UDN targets configured where User Defined Networks required.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Mappings Designed"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Structured"
+            }
+          ]
+        },
+        {
+          "name": "Validated Mappings",
+          "description": "Mappings tested through pilot migrations with verification results.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Network mappings verified through pilots",
+              "description": "Each network mapping verified through pilot VM connectivity testing.",
+              "seq": 1
+            },
+            {
+              "name": "Storage mappings verified through pilots",
+              "description": "Each storage mapping verified through pilot data integrity validation.",
+              "seq": 2
+            },
+            {
+              "name": "Edge cases documented",
+              "description": "Edge case handling documented for multi-NIC and mixed storage.",
+              "seq": 3
+            },
+            {
+              "name": "Transfer performance meets requirements",
+              "description": "Transfer network performance meets migration throughput requirements.",
+              "seq": 4
+            },
+            {
+              "name": "Troubleshooting guidance documented",
+              "description": "Mapping troubleshooting guidance documented.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Piloted"
+            }
+          ]
+        },
+        {
+          "name": "Standardized Mapping Library",
+          "description": "Reusable mapping templates managed through GitOps.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Templates per provider type",
+              "description": "Standard mapping templates published per source provider type.",
+              "seq": 1
+            },
+            {
+              "name": "Overlays manage variations",
+              "description": "Environment-specific mapping variations managed through overlays.",
+              "seq": 2
+            },
+            {
+              "name": "Validation automated in CI/CD",
+              "description": "Mapping validation automated as part of plan CI/CD.",
+              "seq": 3
+            },
+            {
+              "name": "Change history tracked",
+              "description": "Mapping change history tracked with rationale documentation.",
+              "seq": 4
+            },
+            {
+              "name": "Reuse reduces configuration time",
+              "description": "Mapping reuse across waves reduces per-plan configuration time.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Production-Ready"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Factory Automated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Migration Plan Specification",
+      "description": "Migration plan CRs with VM grouping, strategy selection, and execution parameters.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Plan",
+          "description": "Single migration plan with manual VM selection and defaults.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Plan CR specifies source and VMs",
+              "description": "Plan CR specifies source provider, namespace, and selected VMs.",
+              "seq": 1
+            },
+            {
+              "name": "Mappings referenced",
+              "description": "Network and storage mappings referenced from existing CRs.",
+              "seq": 2
+            },
+            {
+              "name": "Migration type set",
+              "description": "Migration type set (cold or warm) for the plan.",
+              "seq": 3
+            },
+            {
+              "name": "Default settings accepted",
+              "description": "Default concurrency and resource settings accepted.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Structured"
+            }
+          ]
+        },
+        {
+          "name": "Structured Plan",
+          "description": "Plan with documented grouping rationale and configured parameters.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Grouping rationale documented",
+              "description": "VM grouping rationale documents why specific VMs are in this plan.",
+              "seq": 1
+            },
+            {
+              "name": "Strategy rationale documented",
+              "description": "Migration type selection rationale documents downtime trade-off.",
+              "seq": 2
+            },
+            {
+              "name": "Scheduling constraints configured",
+              "description": "Transfer network and scheduling constraints configured.",
+              "seq": 3
+            },
+            {
+              "name": "Hooks attached with purposes",
+              "description": "Pre/post migration hooks attached with documented purposes.",
+              "seq": 4
+            },
+            {
+              "name": "Plan validation passes",
+              "description": "Plan validation passes with all warnings addressed.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Structured"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Piloted"
+            }
+          ]
+        },
+        {
+          "name": "Orchestrated Plan Set",
+          "description": "Multiple plans with sequencing, dependencies, and coordination.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Plans within 500-VM limits",
+              "description": "Multi-plan partitioning distributes VMs within 500-VM limits.",
+              "seq": 1
+            },
+            {
+              "name": "Execution sequence documented",
+              "description": "Plan execution sequence accounts for cross-plan dependencies.",
+              "seq": 2
+            },
+            {
+              "name": "Concurrency tuned per plan",
+              "description": "Concurrency limits tuned per plan based on source host capacity.",
+              "seq": 3
+            },
+            {
+              "name": "Maintenance windows documented",
+              "description": "Maintenance windows documented with application team coordination.",
+              "seq": 4
+            },
+            {
+              "name": "Rollback procedures documented",
+              "description": "Rollback procedures documented per plan.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Production-Ready"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "At-Scale Operating"
+            }
+          ]
+        },
+        {
+          "name": "Factory Plan Templates",
+          "description": "Templatized plan specifications for automated factory operations.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Templates enable automated creation",
+              "description": "Plan templates enable automated creation from inventory data.",
+              "seq": 1
+            },
+            {
+              "name": "AAP integration automates lifecycle",
+              "description": "AAP workflow integration automates plan creation and execution.",
+              "seq": 2
+            },
+            {
+              "name": "Archiving policies manage lifecycle",
+              "description": "Plan archiving and retention policies manage lifecycle.",
+              "seq": 3
+            },
+            {
+              "name": "Performance metrics tracked",
+              "description": "Plan performance metrics tracked for continuous improvement.",
+              "seq": 4
+            },
+            {
+              "name": "Version-controlled specifications",
+              "description": "Plan specifications version-controlled with change history.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Factory Automated"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Continuously Optimized"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Migration Validation Ruleset",
+      "description": "OPA/Rego policies defining custom pre-migration validation criteria.",
+      "levelsOfDetail": [
+        {
+          "name": "Default Rules",
+          "description": "MTV built-in validation rules applied without customization.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Default compatibility rules active",
+              "description": "Default compatibility rules check guest OS, disk format, and network.",
+              "seq": 1
+            },
+            {
+              "name": "Provider-specific rules validate prerequisites",
+              "description": "Provider-specific rules validate source platform prerequisites.",
+              "seq": 2
+            },
+            {
+              "name": "Results visible per VM",
+              "description": "Rule evaluation results visible in MTV console per VM.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Compatibility Analyzed"
+            }
+          ]
+        },
+        {
+          "name": "Custom Policy Set",
+          "description": "Organization-specific Rego policies extending built-in validation.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Custom Rego rules enforce standards",
+              "description": "Custom Rego rules enforce organizational migration standards.",
+              "seq": 1
+            },
+            {
+              "name": "Rules tested with expected outcomes",
+              "description": "Rules tested against sample VM metadata with expected outcomes.",
+              "seq": 2
+            },
+            {
+              "name": "Rules deployed to validation service",
+              "description": "Custom rules deployed to MTV validation service configuration.",
+              "seq": 3
+            },
+            {
+              "name": "Both built-in and custom evaluated",
+              "description": "Validation results include both built-in and custom evaluations.",
+              "seq": 4
+            },
+            {
+              "name": "Rule documentation explains purpose",
+              "description": "Custom rule documentation explains purpose and remediation.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Deep Inspection Complete"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive Validation Suite",
+          "description": "Multi-layer validation covering metadata, inspection, and requirements.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Rules incorporate deep inspection",
+              "description": "Rules incorporate deep inspection findings for application-aware validation.",
+              "seq": 1
+            },
+            {
+              "name": "Conditional rules per classification",
+              "description": "Conditional rules apply different criteria based on VM classification.",
+              "seq": 2
+            },
+            {
+              "name": "Rule versioning tracks evolution",
+              "description": "Rule versioning tracks policy evolution across MTV releases.",
+              "seq": 3
+            },
+            {
+              "name": "Regression testing validates rules",
+              "description": "Automated regression testing validates rules against known samples.",
+              "seq": 4
+            },
+            {
+              "name": "Effectiveness metrics tracked",
+              "description": "Rule effectiveness metrics track false positive and negative rates.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Migration Scope Defined"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "At-Scale Operating"
+            }
+          ]
+        },
+        {
+          "name": "Automated Compliance Gate",
+          "description": "Validation rules integrated into automated pipeline as quality gates.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Rules in CI/CD pipeline",
+              "description": "Validation rules execute as part of migration plan CI/CD.",
+              "seq": 1
+            },
+            {
+              "name": "Failures block until remediated",
+              "description": "Rule failures block execution until remediated or exception-approved.",
+              "seq": 2
+            },
+            {
+              "name": "Compliance reporting aggregates results",
+              "description": "Compliance reporting aggregates results across the program.",
+              "seq": 3
+            },
+            {
+              "name": "Rule updates deploy via GitOps",
+              "description": "Rule updates deploy automatically through GitOps pipeline.",
+              "seq": 4
+            },
+            {
+              "name": "Audit trail documents exceptions",
+              "description": "Audit trail documents all validation exceptions and approvals.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Factory Automated"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Continuously Optimized"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Migration Runbook",
+      "description": "Operational procedures for migration execution, troubleshooting, and recovery.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Procedures",
+          "description": "Step-by-step instructions for creating and executing a plan.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Operator installation documented",
+              "description": "MTV operator installation steps documented.",
+              "seq": 1
+            },
+            {
+              "name": "Provider connection documented",
+              "description": "Provider connection creation steps documented.",
+              "seq": 2
+            },
+            {
+              "name": "Plan creation documented",
+              "description": "Migration plan creation wizard steps documented.",
+              "seq": 3
+            },
+            {
+              "name": "Basic troubleshooting provided",
+              "description": "Basic troubleshooting checklist provided.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Pipeline Configured"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive Runbook",
+          "description": "Detailed procedures covering all scenarios with troubleshooting.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Per-migration-type procedures",
+              "description": "Procedures documented for each migration type (cold, warm, live).",
+              "seq": 1
+            },
+            {
+              "name": "Provider-specific setup procedures",
+              "description": "Provider-specific setup procedures per supported source platform.",
+              "seq": 2
+            },
+            {
+              "name": "Failure modes cataloged",
+              "description": "Common failure modes and remediation steps cataloged.",
+              "seq": 3
+            },
+            {
+              "name": "Cancel and restart procedures",
+              "description": "Cancel and restart procedures documented with decision criteria.",
+              "seq": 4
+            },
+            {
+              "name": "Must-gather procedures included",
+              "description": "Must-gather collection and support case procedures included.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Pilot Validated"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "At-Scale Operating"
+            }
+          ]
+        },
+        {
+          "name": "Scale-Ready Runbook",
+          "description": "Procedures optimized for at-scale operations with tuning guidance.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Multi-plan coordination procedures",
+              "description": "Multi-plan execution coordination procedures for wave management.",
+              "seq": 1
+            },
+            {
+              "name": "Performance tuning guidance",
+              "description": "Performance tuning for concurrency, NFC memory, and AIO settings.",
+              "seq": 2
+            },
+            {
+              "name": "Storage offload configuration",
+              "description": "Storage copy offload configuration for supported vendors.",
+              "seq": 3
+            },
+            {
+              "name": "Cutover coordination procedures",
+              "description": "Warm migration cutover coordination procedures documented.",
+              "seq": 4
+            },
+            {
+              "name": "Escalation procedures defined",
+              "description": "Escalation procedures with severity levels and response timeframes.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "At-Scale Operating"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Continuously Optimized"
+            }
+          ]
+        },
+        {
+          "name": "Automated Runbook",
+          "description": "Runbook procedures automated through Ansible with self-service.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Procedures encoded as playbooks",
+              "description": "Runbook procedures encoded as Ansible playbooks.",
+              "seq": 1
+            },
+            {
+              "name": "Self-service workflows operational",
+              "description": "Self-service migration request workflows operational.",
+              "seq": 2
+            },
+            {
+              "name": "Automated diagnostics",
+              "description": "Automated diagnostic playbooks collect and analyze failure data.",
+              "seq": 3
+            },
+            {
+              "name": "Updates managed through VCS",
+              "description": "Runbook updates managed through version control with review.",
+              "seq": 4
+            },
+            {
+              "name": "Effectiveness metrics tracked",
+              "description": "Runbook effectiveness metrics track resolution time and escalation.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Factory Automated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Migration Performance Report",
+      "description": "Analysis of migration throughput, duration, and resource utilization metrics.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Metrics",
+          "description": "Raw migration duration and data transfer statistics.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Per-VM duration recorded",
+              "description": "Per-VM migration duration recorded with start and end timestamps.",
+              "seq": 1
+            },
+            {
+              "name": "Data transferred documented",
+              "description": "Total data transferred per plan documented in gigabytes.",
+              "seq": 2
+            },
+            {
+              "name": "Success and failure counts tracked",
+              "description": "Success and failure counts tracked per wave with failure categories.",
+              "seq": 3
+            },
+            {
+              "name": "Source and type tagged",
+              "description": "Source provider and migration type tagged per migration record.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Pilot Validated"
+            }
+          ]
+        },
+        {
+          "name": "Performance Analysis",
+          "description": "Analyzed metrics with throughput calculations and bottleneck ID.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Throughput calculated",
+              "description": "Throughput calculated as VMs per hour segmented by type and size.",
+              "seq": 1
+            },
+            {
+              "name": "Duration distributions visualized",
+              "description": "Duration distributions visualized by VM size and migration type.",
+              "seq": 2
+            },
+            {
+              "name": "Per-stage breakdown identified",
+              "description": "Per-stage duration breakdown identifies dominant time contributors.",
+              "seq": 3
+            },
+            {
+              "name": "Bottleneck analysis complete",
+              "description": "Bottleneck analysis identifies source, network, or storage constraints.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-wave improvement trends",
+              "description": "Performance comparisons across waves show improvement trends.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "At-Scale Operating"
+            }
+          ]
+        },
+        {
+          "name": "Predictive Analysis",
+          "description": "Historical metrics used for forecasting and capacity planning.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Statistical models predict times",
+              "description": "Statistical models predict per-wave completion times by VM size.",
+              "seq": 1
+            },
+            {
+              "name": "Resource models inform sizing",
+              "description": "Resource utilization models inform cluster sizing for migration load.",
+              "seq": 2
+            },
+            {
+              "name": "Scaling limits identified",
+              "description": "Throughput degradation analysis identifies scaling limits.",
+              "seq": 3
+            },
+            {
+              "name": "Timeline projections updated",
+              "description": "Migration timeline projections updated weekly based on velocity.",
+              "seq": 4
+            },
+            {
+              "name": "Cutover predictions inform scheduling",
+              "description": "Warm migration cutover predictions inform window scheduling.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Continuously Optimized"
+            }
+          ]
+        },
+        {
+          "name": "Optimization Report",
+          "description": "Comprehensive report with optimization recommendations and benchmarks.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Benchmarks against reference configs",
+              "description": "Benchmarks compare actual against Red Hat reference configurations.",
+              "seq": 1
+            },
+            {
+              "name": "Offload impact quantified",
+              "description": "Storage offload impact quantified per vendor against standard transfer.",
+              "seq": 2
+            },
+            {
+              "name": "ROI analysis calculated",
+              "description": "ROI analysis calculates cost per VM migrated and time savings.",
+              "seq": 3
+            },
+            {
+              "name": "Recommendations incorporate lessons",
+              "description": "Recommendations incorporate lessons learned and configuration templates.",
+              "seq": 4
+            },
+            {
+              "name": "Report published to stakeholders",
+              "description": "Report published to stakeholders with executive summary.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Continuously Optimized"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Governed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Migration Automation Playbook",
+      "description": "Ansible playbooks and AAP workflow templates for hook and factory automation.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Hook Playbooks",
+          "description": "Simple pre/post-migration playbooks for common tasks.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Pre-migration playbook stops services",
+              "description": "Pre-migration playbook stops application services gracefully.",
+              "seq": 1
+            },
+            {
+              "name": "Post-migration playbook registers VM",
+              "description": "Post-migration playbook registers VM with configuration management.",
+              "seq": 2
+            },
+            {
+              "name": "Playbooks parameterized",
+              "description": "Playbooks parameterized with variables for VM-specific values.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Pilot Validated"
+            }
+          ]
+        },
+        {
+          "name": "Application-Specific Playbooks",
+          "description": "Playbooks tailored to application categories with error handling.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Category playbooks handle specifics",
+              "description": "Application-category playbooks handle specific preparation needs.",
+              "seq": 1
+            },
+            {
+              "name": "Error handling reports diagnostics",
+              "description": "Error handling ensures hook failures report diagnostic information.",
+              "seq": 2
+            },
+            {
+              "name": "Idempotency checks included",
+              "description": "Playbooks include idempotency checks for safe re-execution.",
+              "seq": 3
+            },
+            {
+              "name": "Variables documented",
+              "description": "Variables documented with required and optional parameters.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "At-Scale Operating"
+            }
+          ]
+        },
+        {
+          "name": "AAP Workflow Templates",
+          "description": "AAP workflows orchestrating migration lifecycle.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Workflows chain lifecycle stages",
+              "description": "AAP workflows chain assessment, planning, execution, and validation.",
+              "seq": 1
+            },
+            {
+              "name": "Survey forms collect parameters",
+              "description": "Survey forms collect migration request parameters.",
+              "seq": 2
+            },
+            {
+              "name": "Approval nodes gate execution",
+              "description": "Approval nodes gate execution pending stakeholder sign-off.",
+              "seq": 3
+            },
+            {
+              "name": "Notifications communicate status",
+              "description": "Notification templates communicate migration status.",
+              "seq": 4
+            },
+            {
+              "name": "Credential management uses vault",
+              "description": "Credential management uses AAP vault for secure access.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Factory Automated"
+            }
+          ]
+        },
+        {
+          "name": "Migration Factory Automation",
+          "description": "End-to-end automated factory with self-service and metrics.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Self-service portal accepts submissions",
+              "description": "Self-service migration request portal accepts submissions.",
+              "seq": 1
+            },
+            {
+              "name": "Automated assessment generates reports",
+              "description": "Automated assessment generates readiness reports.",
+              "seq": 2
+            },
+            {
+              "name": "Automated plan creation from inventory",
+              "description": "Automated plan creation uses inventory data and mapping templates.",
+              "seq": 3
+            },
+            {
+              "name": "Continuous pipeline processes waves",
+              "description": "Continuous execution pipeline processes waves on schedule.",
+              "seq": 4
+            },
+            {
+              "name": "Factory dashboard tracks KPIs",
+              "description": "Factory metrics dashboard tracks throughput and quality.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Factory Automated"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Continuously Optimized"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "personas": [
+    {
+      "name": "Migration Engineer",
+      "description": "Plans and executes VM migrations using MTV, managing the end-to-end migration lifecycle.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Migration",
+          "Virtualization"
+        ],
+        "lifecycleTags": [
+          "Migration",
+          "Adoption"
+        ],
+        "organizationalTags": [
+          "Migration Team"
+        ]
+      }
+    },
+    {
+      "name": "Migration Architect",
+      "description": "Designs migration strategies, factory processes, and governance for enterprise programs.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Platform Strategic Alignment",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Architecture",
+          "Migration"
+        ],
+        "lifecycleTags": [
+          "Migration",
+          "Adoption"
+        ],
+        "organizationalTags": [
+          "Architecture Team",
+          "Migration Team"
+        ]
+      }
+    },
+    {
+      "name": "Migration Automation Engineer",
+      "description": "Develops Ansible automation for migration hooks, AAP workflows, and factory operations.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Automation",
+          "Migration"
+        ],
+        "lifecycleTags": [
+          "Migration",
+          "Adoption"
+        ],
+        "organizationalTags": [
+          "Automation Team",
+          "Migration Team"
+        ]
+      }
+    },
+    {
+      "name": "Source Platform Administrator",
+      "description": "Manages source virtualization platforms and provides access for migration operations.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Infrastructure",
+          "Virtualization"
+        ],
+        "lifecycleTags": [
+          "Migration"
+        ],
+        "organizationalTags": [
+          "Infrastructure Team"
+        ]
+      }
+    },
+    {
+      "name": "Application Migration Coordinator",
+      "description": "Coordinates migration activities with application teams and validates workload functionality.",
+      "competencies": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Application Management"
+        ],
+        "lifecycleTags": [
+          "Migration",
+          "Adoption"
+        ],
+        "organizationalTags": [
+          "Application Team",
+          "Migration Team"
+        ]
+      }
+    },
+    {
+      "name": "Migration Program Manager",
+      "description": "Manages the overall migration program including planning, tracking, and stakeholder reporting.",
+      "competencies": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Program Management"
+        ],
+        "lifecycleTags": [
+          "Migration"
+        ],
+        "organizationalTags": [
+          "Migration Program Office"
+        ]
+      }
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Migration Engineering Team",
+      "description": "Executes VM migrations from source platforms to OpenShift Virtualization using MTV.",
+      "personaNames": [
+        "Migration Engineer",
+        "Migration Automation Engineer",
+        "Source Platform Administrator"
+      ],
+      "tags": {
+        "domainTags": [
+          "Migration"
+        ],
+        "lifecycleTags": [
+          "Migration"
+        ],
+        "organizationalTags": [
+          "Migration Operations"
+        ]
+      }
+    },
+    {
+      "name": "Migration Program Office",
+      "description": "Governs the migration program including strategy, planning, and stakeholder management.",
+      "personaNames": [
+        "Migration Architect",
+        "Migration Program Manager",
+        "Application Migration Coordinator"
+      ],
+      "tags": {
+        "domainTags": [
+          "Program Management"
+        ],
+        "lifecycleTags": [
+          "Migration"
+        ],
+        "organizationalTags": [
+          "Program Governance"
+        ]
+      }
+    },
+    {
+      "name": "Migration Factory Team",
+      "description": "Operates the automated migration factory for continuous at-scale VM migration.",
+      "personaNames": [
+        "Migration Engineer",
+        "Migration Automation Engineer",
+        "Migration Architect",
+        "Migration Program Manager"
+      ],
+      "tags": {
+        "domainTags": [
+          "Migration",
+          "Automation"
+        ],
+        "lifecycleTags": [
+          "Migration"
+        ],
+        "organizationalTags": [
+          "Migration Factory Operations"
+        ]
+      }
+    }
+  ],
+  "activities": [
+    {
+      "name": "Assess Source Environment",
+      "description": "Inventory source VMs, analyze compatibility, and determine migration readiness per workload.",
+      "activitySpaceName": "Define Platform Capabilities",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "assess-source-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Readiness",
+          "stateName": "Source Cataloged"
+        },
+        {
+          "alphaName": "Migration Readiness",
+          "stateName": "Compatibility Analyzed"
+        },
+        {
+          "alphaName": "Migration Readiness",
+          "stateName": "Deep Inspection Complete"
+        },
+        {
+          "alphaName": "Migration Readiness",
+          "stateName": "Migration Scope Defined"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Source Environment Inventory",
+          "levelOfDetailName": "Compatibility Assessment"
+        },
+        {
+          "workProductName": "Source Environment Inventory",
+          "levelOfDetailName": "Application-Aware Inventory"
+        },
+        {
+          "workProductName": "Migration Validation Ruleset",
+          "levelOfDetailName": "Default Rules"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team",
+        "Migration Program Office"
+      ],
+      "narratives": [
+        {
+          "name": "VM Inventory Discovery and Compatibility Classification",
+          "description": "How to discover, classify, and assess source VMs for migration readiness using MTV.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Install the MTV operator, create Provider CRs for each source platform, and use the validation service to classify VMs as ready, conditionally ready, or not ready based on guest OS compatibility, disk format, and provider-specific prerequisites."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Create Provider CRs with platform-specific credentials stored as Kubernetes Secrets, enable inventory synchronization, and review VMs through the MTV console noting resource profiles and configurations. Enable deep inspection for application-aware analysis, then assign VMs to migration cohorts based on application affinity, dependency ordering, criticality tier, and migration strategy."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Common mistakes include failing to validate VMware VDDK version compatibility and NFC memory settings before assessment, overlooking the 47-character VM naming constraint for Kubernetes resources, and attempting to assess the entire VM estate at once rather than progressively by provider type."
+            }
+          ],
+          "citationNames": [
+            "Planning your migration to Red Hat OpenShift Virtualization",
+            "Migration Toolkit for Virtualization FAQs from the Field"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Configure Source Providers",
+      "description": "Establish and validate connections between MTV and source virtualization platforms.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "configure-providers-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Source Provider Configuration",
+          "stateName": "Provider Connected"
+        },
+        {
+          "alphaName": "Source Provider Configuration",
+          "stateName": "Provider Validated"
+        },
+        {
+          "alphaName": "Source Provider Configuration",
+          "stateName": "Multi-Provider Operational"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Provider Connection Configuration",
+          "levelOfDetailName": "Validated Provider Configuration"
+        },
+        {
+          "workProductName": "Provider Connection Configuration",
+          "levelOfDetailName": "Multi-Provider Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Multi-Provider Connection Establishment and Validation",
+          "description": "How to configure and validate MTV connections to source virtualization platforms.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Establish authenticated connections between MTV and each source virtualization platform, with seven provider types each requiring distinct connection parameters, credential formats, and validation procedures."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Gather platform-specific credentials and CA certificates, create Kubernetes Secrets and Provider CRs, then monitor CR status conditions for Ready state. For VMware, build and push the VDDK init image; validate connectivity from worker nodes and test with a non-production VM migration."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Key pitfalls to avoid include using credentials with insufficient permissions that allow inventory sync but fail during disk access, building VDDK init images incompatible with the source vCenter version, and not establishing credential rotation procedures for long-running programs."
+            }
+          ],
+          "citationNames": [
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization",
+            "Planning your migration to Red Hat OpenShift Virtualization"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Create Migration Network Mappings",
+      "description": "Define NetworkMap CRs translating source VM networks to target OpenShift networks.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "create-network-mappings-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Planning",
+          "stateName": "Mappings Designed"
+        },
+        {
+          "alphaName": "Migration Planning",
+          "stateName": "Plans Structured"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Migration Mapping Configuration",
+          "levelOfDetailName": "Detailed Mappings"
+        },
+        {
+          "workProductName": "Migration Mapping Configuration",
+          "levelOfDetailName": "Validated Mappings"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Source-to-Target Network Translation Design",
+          "description": "How to design NetworkMap CRs translating source networks to OpenShift equivalents.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Translate source VM network configurations to target OpenShift networking equivalents, mapping each source port group or logical network to either the pod network, a Multus-based secondary network, or explicitly ignored for infrastructure networks replaced by Kubernetes equivalents."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Inventory source networks by function and VLAN assignments, map application networks to Multus-based secondary networks and standard connectivity to the pod network, and configure a dedicated Multus transfer network for at-scale migrations. Create NetworkMap CRs through the MTV console or kubectl and validate through pilot migrations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Teams frequently encounter issues such as mapping all source networks to the pod network without analyzing VLAN access requirements, neglecting to configure a dedicated transfer network which causes migration traffic to saturate production workloads, and not verifying target NetworkAttachmentDefinitions exist before referencing them."
+            }
+          ],
+          "citationNames": [
+            "Planning your migration to Red Hat OpenShift Virtualization",
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Create Migration Storage Mappings",
+      "description": "Define StorageMap CRs translating source VM storage to target OpenShift StorageClasses.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "create-storage-mappings-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Planning",
+          "stateName": "Mappings Designed"
+        },
+        {
+          "alphaName": "Migration Planning",
+          "stateName": "Plans Structured"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Migration Mapping Configuration",
+          "levelOfDetailName": "Detailed Mappings"
+        },
+        {
+          "workProductName": "Migration Mapping Configuration",
+          "levelOfDetailName": "Validated Mappings"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Source-to-Target Storage Translation Design",
+          "description": "How to design StorageMap CRs translating source storage to target StorageClasses.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Translate source VM storage configurations to target OpenShift StorageClasses with appropriate access modes and volume modes, ensuring migrated VM disks land on storage with equivalent or better performance characteristics."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Inventory source storage entities by performance tier, select target StorageClasses with Block volume mode for optimal I/O performance, and configure RWX access for VMs requiring post-migration live migration. Configure storage copy offload for supported VMware vendor combinations and PVC name templates using Go template syntax."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Critical risks in this area include selecting Filesystem volume mode instead of Block which causes significant I/O performance degradation, choosing RWO access for VMs needing live migration which requires disruptive re-provisioning later, and not configuring storage copy offload when source and target vendors support it."
+            }
+          ],
+          "citationNames": [
+            "Planning your migration to Red Hat OpenShift Virtualization",
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Design Migration Plans",
+      "description": "Group VMs into migration plans, select strategies, and configure execution parameters.",
+      "activitySpaceName": "Prepare To Do The Work",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "design-plans-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Planning",
+          "stateName": "Plans Structured"
+        },
+        {
+          "alphaName": "Migration Planning",
+          "stateName": "Plans Piloted"
+        },
+        {
+          "alphaName": "Migration Planning",
+          "stateName": "Plans Production-Ready"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Migration Plan Specification",
+          "levelOfDetailName": "Structured Plan"
+        },
+        {
+          "workProductName": "Migration Plan Specification",
+          "levelOfDetailName": "Orchestrated Plan Set"
+        },
+        {
+          "workProductName": "Source Environment Inventory",
+          "levelOfDetailName": "Migration-Ready Inventory"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team",
+        "Migration Program Office"
+      ],
+      "narratives": [
+        {
+          "name": "VM Cohort Partitioning and Strategy Assignment",
+          "description": "How to partition VMs into executable migration plans with appropriate strategies.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Transform the assessed VM population into executable Plan CRs, partitioning VMs into cohorts respecting the 500-VM/500-disk limit, grouping by application dependency, and assigning cold, warm, or live migration strategies based on downtime tolerance."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Partition VMs by application dependency, source host, priority tier, migration type, and maintenance window. Create plans through the MTV console or API with VM selection, mapping references, hook configurations, and scheduling constraints. Set controller_max_vm_inflight based on cluster capacity, establish execution sequence, and run plan validation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Practitioners should watch for plans exceeding the 500-VM or 500-disk limit, setting controller_max_vm_inflight too high which causes resource contention that reduces throughput, and not documenting cross-plan dependencies which leads to application connectivity failures when dependent VMs migrate before prerequisites."
+            }
+          ],
+          "citationNames": [
+            "Planning your migration to Red Hat OpenShift Virtualization",
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Execute Migration Plans",
+      "description": "Run migration plans, monitor per-VM pipeline progress, and manage execution lifecycle.",
+      "activitySpaceName": "Manage Work Execution",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "execute-plans-icon",
+          "type": "icon"
+        },
+        {
+          "assetName": "migration-pipeline-diagram",
+          "type": "illustrative"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "Pipeline Configured"
+        },
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "Pilot Validated"
+        },
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "At-Scale Operating"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Migration Plan Specification",
+          "levelOfDetailName": "Structured Plan"
+        },
+        {
+          "workProductName": "Migration Performance Report",
+          "levelOfDetailName": "Basic Metrics"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Five-Stage Pipeline Execution and Lifecycle Management",
+          "description": "How to drive VMs through the migration pipeline and manage execution lifecycle.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Drive VMs through the five-stage pipeline (Initialize, DiskTransfer, ImageConversion, PostHook, VM Creation) by creating Migration CRs, with the controller processing multiple VMs concurrently up to the controller_max_vm_inflight limit."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Initiate execution through the MTV console or kubectl, monitor per-VM pipeline stage progress and Prometheus metrics, manage warm migration cutovers within maintenance windows, and handle failures through per-VM cancel and plan restart operations. Preserve source VMs until application team completes validation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Frequent errors include starting production plans without completing pilot validation, not monitoring warm migration precopy cycle counts against the 28-snapshot CBT limit, and cancelling entire plans when only individual VMs have failed which loses completed migration progress."
+            }
+          ],
+          "citationNames": [
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization",
+            "Move Virtual Machines to OpenShift at Scale with Red Hat's Migration Toolkit for Virtualization"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Validate Migrated Workloads",
+      "description": "Verify migrated VM functionality, connectivity, performance, and application health.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "validate-workloads-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "Pilot Validated"
+        },
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "At-Scale Operating"
+        },
+        {
+          "alphaName": "Virtual Machine Workload",
+          "stateName": "VMs Provisioned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Source Environment Inventory",
+          "levelOfDetailName": "Application-Aware Inventory"
+        },
+        {
+          "workProductName": "Migration Performance Report",
+          "levelOfDetailName": "Performance Analysis"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team",
+        "Migration Program Office"
+      ],
+      "narratives": [
+        {
+          "name": "Post-Migration Verification and Application Sign-Off",
+          "description": "How to validate migrated VMs for functionality, connectivity, and performance parity.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Validate each migrated VM through a structured sequence confirming boot integrity, network connectivity, storage correctness, application functionality, and performance parity against pre-migration baselines."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Confirm VirtualMachine CR creation with expected resources, verify network connectivity to cluster services and external endpoints, run filesystem integrity checks and database consistency validation, and compare performance metrics against pre-migration baselines. Obtain formal application team sign-off and maintain a soak period before source decommissioning."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Common mistakes include performing only boot verification without validating network connectivity to application dependencies, not comparing post-migration storage performance against pre-migration baselines, and rushing application sign-off without adequate soak time for periodic batch processing discovery."
+            }
+          ],
+          "citationNames": [
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Configure Migration Hooks",
+      "description": "Develop and attach pre/post-migration Ansible playbooks to migration plans.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "configure-hooks-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "Pilot Validated"
+        },
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "At-Scale Operating"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Migration Automation Playbook",
+          "levelOfDetailName": "Basic Hook Playbooks"
+        },
+        {
+          "workProductName": "Migration Automation Playbook",
+          "levelOfDetailName": "Application-Specific Playbooks"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Pre/Post-Migration Ansible Playbook Development",
+          "description": "How to develop and attach Ansible playbooks extending the MTV migration pipeline.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Create Ansible playbooks that execute at defined pipeline points (pre-migration before disk transfer, post-migration after VM creation) for source VM preparation, target environment integration, and automated validation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Implement hooks as containerized Ansible playbooks with idempotent tasks, error handling via rescue blocks, and timeout awareness. Pre-hooks typically stop services and record state; post-hooks register VMs with configuration management, update DNS, and run smoke tests. Each plan supports one pre and one post hook."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Key pitfalls to avoid include writing non-idempotent playbooks that fail on retry after transient errors, embedding credentials in container images instead of mounting Kubernetes Secrets, and implementing long-running validation without timeout guards which blocks the pipeline indefinitely."
+            }
+          ],
+          "citationNames": [
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization",
+            "Red Hat Ansible Automation Platform Documentation"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Optimize Migration Performance",
+      "description": "Tune concurrency, enable storage offload, and configure transfer optimizations.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "optimize-performance-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "At-Scale Operating"
+        },
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "Continuously Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Migration Performance Report",
+          "levelOfDetailName": "Performance Analysis"
+        },
+        {
+          "workProductName": "Migration Performance Report",
+          "levelOfDetailName": "Predictive Analysis"
+        },
+        {
+          "workProductName": "Migration Runbook",
+          "levelOfDetailName": "Scale-Ready Runbook"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Concurrency Tuning and Storage Offload Configuration",
+          "description": "How to progressively tune migration throughput from default settings to optimized performance.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Progressively tune the migration pipeline through concurrency optimization, storage offload enablement, and transfer network isolation to achieve maximum sustainable throughput while maintaining platform stability."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Establish a performance baseline with default settings, then iteratively tune controller_max_vm_inflight targeting 10 VMs per ESXi host, increase NFC memory to 1GB or higher, and configure storage copy offload for supported vendors. Deploy a dedicated Multus transfer network and re-measure after each optimization."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Teams frequently encounter issues such as increasing concurrency without monitoring source host resources which causes NFC memory exhaustion, enabling storage copy offload without end-to-end validation which leads to silent fallback to standard transfer, and not provisioning sufficient transfer network bandwidth for sustained concurrent load."
+            }
+          ],
+          "citationNames": [
+            "Move Virtual Machines to OpenShift at Scale with Red Hat's Migration Toolkit for Virtualization",
+            "Migration Toolkit for Virtualization FAQs from the Field"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Implement Migration Factory",
+      "description": "Establish automated migration process combining MTV with Ansible Automation Platform.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "implement-factory-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "Factory Automated"
+        },
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "Continuously Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Migration Automation Playbook",
+          "levelOfDetailName": "AAP Workflow Templates"
+        },
+        {
+          "workProductName": "Migration Automation Playbook",
+          "levelOfDetailName": "Migration Factory Automation"
+        },
+        {
+          "workProductName": "Migration Plan Specification",
+          "levelOfDetailName": "Factory Plan Templates"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Migration Factory Team"
+      ],
+      "narratives": [
+        {
+          "name": "AAP Workflow Automation for Continuous Migration",
+          "description": "How to build a migration factory combining MTV with Ansible Automation Platform.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Connect individual migration activities into a continuous automated pipeline through Ansible Automation Platform, transforming migration from a project-based activity into an operational capability with self-service interfaces."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Build four factory components: self-service migration requests through AAP survey forms, automated assessment and planning through MTV API interaction, automated execution and monitoring through workflow templates with status polling, and automated validation and closure with application team notification. Track factory KPIs including cycle time, throughput, and first-pass success rate."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Critical risks in this area include automating the entire lifecycle before establishing reliable manual procedures, building monolithic AAP workflows that are difficult to debug when individual steps fail, and focusing on throughput metrics without tracking quality metrics like first-pass success rate."
+            }
+          ],
+          "citationNames": [
+            "Migration Toolkit for Virtualization",
+            "Red Hat Ansible Automation Platform Documentation"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Define Custom Validation Rules",
+      "description": "Create OPA/Rego policies for organization-specific pre-migration validation criteria.",
+      "activitySpaceName": "Implement Policy-as-Code",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "define-validation-rules-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Readiness",
+          "stateName": "Deep Inspection Complete"
+        },
+        {
+          "alphaName": "Migration Readiness",
+          "stateName": "Migration Scope Defined"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Migration Validation Ruleset",
+          "levelOfDetailName": "Custom Policy Set"
+        },
+        {
+          "workProductName": "Migration Validation Ruleset",
+          "levelOfDetailName": "Comprehensive Validation Suite"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "OPA/Rego Policy Development for Migration Compliance",
+          "description": "How to extend MTV validation with organization-specific OPA/Rego policies.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Extend MTV built-in compatibility checks with organization-specific OPA/Rego policies addressing naming conventions, labeling requirements, resource thresholds, software compatibility, and migration strategy constraints."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Write Rego policies evaluating structured VM metadata against organizational rules producing pass, warning, or critical results with remediation messages. Create comprehensive test suites covering pass, warning, and critical scenarios, test with OPA CLI, and deploy through ConfigMaps mounted into the validation service pod."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Practitioners should watch for overly strict rules that block legitimate migration candidates without preventing actual failures, not testing boundary conditions such as names exactly at the 47-character limit, and neglecting rule lifecycle management which accumulates obsolete rules for decommissioned source platforms."
+            }
+          ],
+          "citationNames": [
+            "Open Policy Agent Documentation",
+            "Planning your migration to Red Hat OpenShift Virtualization"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Troubleshoot Migration Failures",
+      "description": "Diagnose, remediate, and recover from failed VM migrations using structured procedures.",
+      "activitySpaceName": "Manage Work Execution",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "troubleshoot-failures-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "At-Scale Operating"
+        },
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "Continuously Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Migration Runbook",
+          "levelOfDetailName": "Comprehensive Runbook"
+        },
+        {
+          "workProductName": "Migration Runbook",
+          "levelOfDetailName": "Scale-Ready Runbook"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Six-Step Diagnostic Workflow and Recovery Procedures",
+          "description": "How to systematically diagnose and recover from migration failures using MTV diagnostics.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Follow MTV's six-step troubleshooting workflow progressing from plan-level status through VM pipeline stage identification to pod-level diagnostic detail, with cancel/restart operations for efficient recovery."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Check Migration CR status, review per-VM pipeline stage and error messages, examine conversion pod logs for virt-v2v output, check ForkliftController logs for orchestration issues, validate source provider connectivity, and run must-gather for Red Hat support. Use per-VM cancel to remove individual failures without affecting others, and plan restart to retry."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Frequent errors include skipping the structured workflow and going directly to must-gather collection, not checking conversion pod logs for ImageConversion failures where the most diagnostic detail exists, and cancelling entire plans when only individual VMs have failed."
+            }
+          ],
+          "citationNames": [
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization",
+            "Migration Toolkit for Virtualization FAQs from the Field"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Monitor Migration Progress",
+      "description": "Track migration metrics, generate reports, and provide visibility into program progress.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "monitor-progress-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "At-Scale Operating"
+        },
+        {
+          "alphaName": "Migration Execution",
+          "stateName": "Continuously Optimized"
+        },
+        {
+          "alphaName": "Virtual Machine Workload",
+          "stateName": "Lifecycle Governed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Migration Performance Report",
+          "levelOfDetailName": "Performance Analysis"
+        },
+        {
+          "workProductName": "Migration Performance Report",
+          "levelOfDetailName": "Predictive Analysis"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team",
+        "Migration Program Office"
+      ],
+      "narratives": [
+        {
+          "name": "Prometheus Metrics and Migration Program Dashboards",
+          "description": "How to implement multi-level migration monitoring with MTV Prometheus metrics and Grafana dashboards.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Provide multi-level visibility through MTV Prometheus metrics, custom Grafana dashboards, automated alerting, and regular reporting at daily, weekly, and wave-completion cadences."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Configure MTV metrics scraping via ServiceMonitor resources, create Grafana dashboards for operations and executive views, and configure alerting for critical conditions such as stalled plans and provider failures. Generate daily and weekly reports with trend analysis, timeline projections, and risk assessment."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Common mistakes include not verifying metrics availability after operator installation and discovering gaps during production migration, building dashboards focused on throughput without quality metrics, and setting alert thresholds too aggressively which causes alert fatigue from normal duration variance."
+            }
+          ],
+          "citationNames": [
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization",
+            "Planning your migration to Red Hat OpenShift Virtualization"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Optimize Source Provider Integration",
+      "description": "Tune provider connections for multi-provider operations and optimize performance.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "optimize-providers-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Source Provider Configuration",
+          "stateName": "Multi-Provider Operational"
+        },
+        {
+          "alphaName": "Source Provider Configuration",
+          "stateName": "Provider Integration Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Provider Connection Configuration",
+          "levelOfDetailName": "Multi-Provider Configuration"
+        },
+        {
+          "workProductName": "Provider Connection Configuration",
+          "levelOfDetailName": "Managed Provider Infrastructure"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Migration Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Multi-Provider Operations and Performance Tuning",
+          "description": "How to optimize multi-provider operations and credential lifecycle management.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Extend initial provider configuration to support concurrent multi-provider operations, credential lifecycle management, inventory synchronization tuning, and per-host transfer optimization for sustained throughput."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Configure multiple Provider CRs simultaneously with independent credentials, establish credential rotation coordinated with source administrators, tune inventory synchronization intervals, and configure multiple ESXi host connections for parallel disk transfer. Implement GitOps management for Provider CRs where security policies permit."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Key pitfalls to avoid include not coordinating credential rotation timing with active migration plans which causes mid-migration failures, failing to increase NFC service memory before high-concurrency waves, and neglecting provider decommissioning procedures after source platform migration completes."
+            }
+          ],
+          "citationNames": [
+            "Planning your migration to Red Hat OpenShift Virtualization",
+            "Migrating your virtual machines to Red Hat OpenShift Virtualization"
+          ]
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "VM Migration Lifecycle",
+      "description": "End-to-end coordination of migration from assessment through validation and optimization.",
+      "narrativeTypeName": "Design-Build-Run-Optimize",
+      "assetNames": [
+        {
+          "assetName": "migration-lifecycle-icon",
+          "type": "icon"
+        }
+      ],
+      "patternViews": [
+        {
+          "name": "Design - Assess and Map",
+          "description": "Discover source environment, analyze compatibility, and design mappings.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Source Cataloged"
+            },
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Compatibility Analyzed"
+            },
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Provider Connected"
+            },
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Provider Validated"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Mappings Designed"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Pipeline Configured"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Templates Established"
+            },
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Operator Deployed"
+            }
+          ],
+          "activities": [
+            "Assess Source Environment",
+            "Configure Source Providers",
+            "Create Migration Network Mappings",
+            "Create Migration Storage Mappings"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "The migration team establishes connectivity to source platforms, discovers and catalogs the VM estate with compatibility analysis, designs network and storage translation mappings, and configures the MTV pipeline infrastructure on the target cluster."
+            }
+          ]
+        },
+        {
+          "name": "Build - Plan and Pilot",
+          "description": "Create migration plans, configure hooks, and validate through pilots.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Deep Inspection Complete"
+            },
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Migration Scope Defined"
+            },
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Multi-Provider Operational"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Structured"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Piloted"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Pilot Validated"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "VMs Provisioned"
+            },
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Nodes Configured"
+            }
+          ],
+          "activities": [
+            "Design Migration Plans",
+            "Execute Migration Plans",
+            "Configure Migration Hooks",
+            "Define Custom Validation Rules",
+            "Validate Migrated Workloads"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "The migration team engineers plans with VM cohort groupings, develops hook playbooks, defines custom OPA validation rules, and executes pilot plans to validate the complete pipeline end-to-end before production-scale execution."
+            }
+          ]
+        },
+        {
+          "name": "Run - Execute at Scale",
+          "description": "Execute production migration waves with monitoring and troubleshooting.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Migration Scope Defined"
+            },
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Multi-Provider Operational"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Production-Ready"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "At-Scale Operating"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Automated"
+            },
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Operational"
+            }
+          ],
+          "activities": [
+            "Execute Migration Plans",
+            "Validate Migrated Workloads",
+            "Troubleshoot Migration Failures",
+            "Monitor Migration Progress",
+            "Optimize Migration Performance"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Run",
+              "context": "The migration team executes production waves at scale, coordinating warm migration cutovers, diagnosing failures through the structured troubleshooting workflow, validating migrated workloads, and tracking program progress through metrics dashboards."
+            }
+          ]
+        },
+        {
+          "name": "Optimize - Scale and Automate",
+          "description": "Optimize throughput, establish factory operations, and finalize the program.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Migration Scope Defined"
+            },
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Provider Integration Optimized"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Production-Ready"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Factory Automated"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Continuously Optimized"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Governed"
+            },
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Optimized"
+            }
+          ],
+          "activities": [
+            "Optimize Migration Performance",
+            "Implement Migration Factory",
+            "Monitor Migration Progress",
+            "Optimize Source Provider Integration"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Optimize",
+              "context": "The migration team optimizes throughput through storage offload and concurrency tuning, establishes the migration factory with AAP for continuous processing, and finalizes the program with comprehensive reporting and source platform decommissioning."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Migration Wave Execution",
+      "description": "Repeatable pattern for executing a single migration wave from preparation through review.",
+      "narrativeTypeName": "PDCA",
+      "assetNames": [
+        {
+          "assetName": "migration-wave-icon",
+          "type": "icon"
+        }
+      ],
+      "patternViews": [
+        {
+          "name": "Plan - Wave Preparation",
+          "description": "Final pre-execution checks and stakeholder coordination for the wave.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Migration Scope Defined"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Production-Ready"
+            },
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "At-Scale Operating"
+            },
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Multi-Provider Operational"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Templates Established"
+            },
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Operational"
+            }
+          ],
+          "activities": [
+            "Assess Source Environment",
+            "Define Custom Validation Rules"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "The migration team performs final pre-execution checks, validates source provider connections, confirms maintenance windows with application teams, and runs updated validation rules against the wave's VM population."
+            }
+          ]
+        },
+        {
+          "name": "Do - Migration Execution",
+          "description": "Execute migration plans, manage concurrency, and handle failures.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "At-Scale Operating"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Production-Ready"
+            },
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Multi-Provider Operational"
+            },
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Migration Scope Defined"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "VMs Provisioned"
+            },
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Operational"
+            }
+          ],
+          "activities": [
+            "Execute Migration Plans",
+            "Troubleshoot Migration Failures",
+            "Monitor Migration Progress"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Do",
+              "context": "The migration team executes the wave's plans, monitoring per-VM pipeline progress, managing concurrency settings, coordinating warm migration cutovers during maintenance windows, and diagnosing failures through the six-step troubleshooting workflow."
+            }
+          ]
+        },
+        {
+          "name": "Check - Validation",
+          "description": "Validate migrated VMs for functionality, connectivity, and performance.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "At-Scale Operating"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Production-Ready"
+            },
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Multi-Provider Operational"
+            },
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Migration Scope Defined"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Automated"
+            },
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Operational"
+            }
+          ],
+          "activities": [
+            "Validate Migrated Workloads",
+            "Monitor Migration Progress"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Check",
+              "context": "The migration team validates each migrated VM through the structured sequence, records validation results, obtains application team sign-off, and transitions VM status from migrated to validated in the tracking system."
+            }
+          ]
+        },
+        {
+          "name": "Act - Review and Improve",
+          "description": "Review wave results, apply lessons learned, and refine processes.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Migration Execution",
+              "stateName": "Continuously Optimized"
+            },
+            {
+              "alphaName": "Migration Planning",
+              "stateName": "Plans Production-Ready"
+            },
+            {
+              "alphaName": "Source Provider Configuration",
+              "stateName": "Provider Integration Optimized"
+            },
+            {
+              "alphaName": "Migration Readiness",
+              "stateName": "Migration Scope Defined"
+            },
+            {
+              "alphaName": "Virtual Machine Workload",
+              "stateName": "Lifecycle Governed"
+            },
+            {
+              "alphaName": "Virtualization Infrastructure",
+              "stateName": "Platform Optimized"
+            }
+          ],
+          "activities": [
+            "Optimize Migration Performance",
+            "Monitor Migration Progress"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Act",
+              "context": "The migration team reviews wave results, analyzes failure patterns for systemic prevention, adjusts tuning settings based on measured data, updates the runbook with new solutions, and communicates completion status to stakeholders."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "IDP Essentials",
+      "versionRange": "^1.0.0"
+    },
+    {
+      "documentName": "Red Hat OpenShift Virtualization",
+      "versionRange": "^1.0.0"
+    }
+  ],
+  "activitySpaces": []
+}

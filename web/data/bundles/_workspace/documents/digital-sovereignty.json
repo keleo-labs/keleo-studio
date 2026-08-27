@@ -1,0 +1,2013 @@
+{
+  "kind": "practice",
+  "name": "Digital Sovereignty",
+  "description": "Positions Red Hat for digital sovereignty engagements through sovereignty readiness assessment, regulatory advisory, and sovereignty-specific solution positioning.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceDependencyNames": [
+    "Sales Play Framework"
+  ],
+  "tags": {
+    "domainTags": [
+      "Digital Sovereignty",
+      "Regulatory Compliance",
+      "Data Control",
+      "Supply Chain Transparency"
+    ],
+    "lifecycleTags": [
+      "Discovery",
+      "Assessment",
+      "Validation",
+      "Advisory"
+    ],
+    "organizationalTags": [
+      "Field Sales",
+      "Sovereignty Specialists",
+      "Government Sales",
+      "Regulated Industries"
+    ]
+  },
+  "keywords": [
+    "digital-sovereignty",
+    "readiness-assessment",
+    "regulatory-compliance",
+    "data-jurisdiction",
+    "sovereignty-advisory",
+    "open-source-transparency",
+    "sovereignty-workshop",
+    "GDPR",
+    "NIS2",
+    "AI-Act"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.6",
+  "citations": [
+    {
+      "name": "Digital Sovereignty Sales Play",
+      "description": "Complete sovereignty play with Customer Lens, Readiness Assessment tool, sovereignty personas, and value driver framework.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DC36BVHgbpfTH89WJdqTH7JXj9D8"
+    },
+    {
+      "name": "Digital Sovereignty Strategy Shorts Episode 12",
+      "description": "Executive discussion on digital sovereignty strategy and Red Hat's positioning in the sovereignty landscape.",
+      "authors": [
+        "Chris Wright",
+        "Andrew Brown"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)"
+    },
+    {
+      "name": "Digital Sovereignty Power Hour",
+      "description": "Deep-dive enablement session covering sovereignty readiness assessment methodology, regulatory frameworks, and solution positioning.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CUGFnZSBSSFNI%252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//"
+    },
+    {
+      "name": "Keeping SAP Core Clean with ROSA",
+      "description": "Architecture guide presenting a strong regulated environment story with focus on control, stability, and regulated environments.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/34-keeping-the-sap-core-clean-with-rosa"
+    },
+    {
+      "name": "Near Zero Downtime Maintenance for SAP",
+      "description": "Architecture guide demonstrating how to keep systems running and reduce downtime with reliability and compliance expectations.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/11-near-zero-downtime-maintenance-for-sap"
+    },
+    {
+      "name": "Achieving Data Resiliency with Red Hat and Accenture",
+      "description": "Architecture guide with a strong continuity under pressure message, supporting continuity across regulated environments. Supports strategic sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/53-achieving-data-resiliency-red-hat-accenture"
+    },
+    {
+      "name": "Service Continuity with Partner Ecosystem",
+      "description": "Architecture guide explaining partner-led resilience with Accenture, Dynatrace, Red Hat and Trilio, focused on keeping services running even under disruption. Supports strategic sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/76-service-continuity-partners-accenture-dynatrace-red-hat-trilio"
+    },
+    {
+      "name": "Mission Critical Application Platform",
+      "description": "Architecture guide demonstrating isolation and resilience through virtualization, key to sovereignty. Supports technology, strategic, legal, and jurisdictional sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/51-mission-critical-platform"
+    },
+    {
+      "name": "Red Hat OpenShift Virtualization Demo",
+      "description": "Interactive video demo presenting a clean on-premises and controlled environment story for restricted or isolated environments.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/57-openshift-virtualization-demo"
+    },
+    {
+      "name": "InstructLab Demo",
+      "description": "Interactive video demo showcasing sovereign AI by demonstrating AI training inside customer environment — data stays inside.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/63-instructlab-demo"
+    },
+    {
+      "name": "Virtualization Installation Trilio Virt Partner Demo",
+      "description": "Interactive video demo aligned with protected workloads showing resilience for regulated workloads. Supports strategic sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/60-virtualization-installation-trilio-demo"
+    },
+    {
+      "name": "How to Download and Setup InstructLab",
+      "description": "Interactive experience showing local setup of InstructLab for sovereign AI model training.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/88-how-to-download-setup-instructlab"
+    },
+    {
+      "name": "Confidential Containers on ARO",
+      "description": "Interactive video demo demonstrating a core sovereignty requirement for confidential computing. Supports security and compliance sovereignty, legal and jurisdictional sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/120-confidential-containers-aro-demo"
+    },
+    {
+      "name": "Red Hat Trusted Application Pipeline Demo",
+      "description": "Interactive video demo of the Trusted Application Pipeline supporting supply chain sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/66-red-hat-trusted-application-pipeline-demo"
+    }
+  ],
+  "assets": [
+    {
+      "name": "sovereignty-readiness-icon",
+      "description": "Visual icon representing digital sovereignty and regulatory compliance assessment.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sovereignty-advisory-icon",
+      "description": "Visual icon representing sovereignty advisory expertise and seller readiness.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-shield",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sovereignty-assessment-icon",
+      "description": "Visual icon representing the sovereignty readiness assessment tool and workshop.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "Digital Sovereignty Practice Intent",
+      "description": "The end-to-end narrative of the Digital Sovereignty practice from regulatory discovery through sovereignty transformation.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Discover",
+          "context": "Organizations face escalating digital sovereignty demands driven by overlapping regulatory frameworks (GDPR, AI Act, NIS2), geopolitical supply chain risks, and growing awareness that hyperscaler dependencies can compromise data jurisdiction and operational autonomy."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Validate",
+          "context": "The Sovereignty Readiness Assessment -- a 15-minute self-service tool evaluating maturity across seven domains -- provides an objective baseline that transforms abstract sovereignty concerns into measurable gaps. The Readiness Appraisal Workshop deepens this into a collaborative, cross-functional maturity evaluation with an actionable transformation roadmap."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Propose",
+          "context": "Red Hat's open hybrid cloud architecture provides structural sovereignty advantages -- code auditability, transparent supply chains, no hidden dependencies, and workload portability across sovereign environments -- that proprietary platforms cannot match."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Negotiate",
+          "context": "Sovereignty solution positioning connects regulatory requirements to Red Hat's architecture through on-premise deployment, sovereign cloud partnerships, in-region hosting, and data residency controls, addressing each customer's specific jurisdiction and compliance context."
+        },
+        {
+          "seq": 5,
+          "narrativeElementName": "Close",
+          "context": "Sovereignty deals advance through clear next steps including architecture reviews, pilot deployments in sovereign environments, and compliance validation against applicable regulatory frameworks."
+        },
+        {
+          "seq": 6,
+          "narrativeElementName": "Expand",
+          "context": "Continuous sovereignty monitoring and evolving regulatory landscapes create ongoing advisory relationships that expand Red Hat's footprint as new sovereignty requirements emerge across additional workloads and geographies."
+        }
+      ],
+      "citationNames": [
+        "Digital Sovereignty Sales Play",
+        "Digital Sovereignty Power Hour"
+      ]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Digital Sovereignty",
+      "description": "A sovereignty-focused sales play tracking regulatory mapping, readiness assessment, and sovereignty solution positioning.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "drives",
+          "alphaName": "Sovereignty Readiness",
+          "direction": "outgoing",
+          "description": "The sovereignty play drives customer-specific readiness assessment and solution positioning progression."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "sovereignty-readiness-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Selected",
+          "description": "The sovereignty play has been scoped with regulatory context and positioning.",
+          "seq": 1,
+          "contributesToState": "Selected",
+          "background": {
+            "given": [
+              "Digital sovereignty has been identified as a strategic go-to-market priority",
+              "Regulatory landscape analysis (GDPR, AI Act, NIS2) has been conducted"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Sovereignty Customer Lens articulated",
+              "description": "Sovereignty Customer Lens articulated with regulatory drivers, data jurisdiction pain, and vendor independence outcomes.",
+              "seq": 1
+            },
+            {
+              "name": "Sovereignty personas profiled",
+              "description": "Sovereignty personas profiled (Business Leader, Procurement/Vendor Strategy, CTO/Platform Engineering) with sovereignty-specific discovery questions.",
+              "seq": 2
+            },
+            {
+              "name": "Sovereignty value drivers structured",
+              "description": "Sovereignty value drivers structured around transparency, data control, and open-source auditability.",
+              "seq": 3
+            },
+            {
+              "name": "Readiness Assessment tool scoped",
+              "description": "Sovereignty Readiness Assessment tool scoped and integrated in 15-minute self-service format.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-cutting sovereignty applicability mapped",
+              "description": "Cross-cutting sovereignty applicability mapped to Container Management and AI Platform tactics.",
+              "seq": 5
+            },
+            {
+              "name": "Sovereignty-specific KPIs defined",
+              "description": "Sovereignty-specific KPIs defined including sovereignty-tagged pipeline, readiness assessment volume, and workshop conversion rate.",
+              "seq": 6
+            },
+            {
+              "name": "Regulatory framework coverage validated",
+              "description": "Regulatory framework coverage validated across applicable jurisdictions (EU, APAC, Americas).",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Activated",
+          "description": "Sovereignty play content and readiness assessment tools deployed for field use.",
+          "seq": 2,
+          "contributesToState": "Activated",
+          "background": {
+            "given": [
+              "Sovereignty play strategy is designed with Customer Lens, personas, and value drivers",
+              "Readiness Assessment tool is operational and accessible"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Readiness Assessment tool deployed",
+              "description": "Sovereignty Readiness Assessment tool deployed and accessible to field sellers.",
+              "seq": 1
+            },
+            {
+              "name": "Workshop materials prepared",
+              "description": "Readiness Appraisal Workshop materials prepared in half-day and full-day formats.",
+              "seq": 2
+            },
+            {
+              "name": "Sovereignty seller enablement delivered",
+              "description": "Sovereignty-specific seller enablement delivered including regulatory framework training.",
+              "seq": 3
+            },
+            {
+              "name": "Sovereignty customer references assembled",
+              "description": "Sovereignty customer references assembled (Phoenix Systems, NxtGen, Emirates NBD).",
+              "seq": 4
+            },
+            {
+              "name": "Sovereignty tagging configured",
+              "description": "Sovereignty tagging and CRM classification configured for deal tracking.",
+              "seq": 5
+            },
+            {
+              "name": "Services engagement pathways documented",
+              "description": "Red Hat Services for Digital Sovereignty engagement pathways documented.",
+              "seq": 6
+            },
+            {
+              "name": "Sovereign cloud partner solutions catalogued",
+              "description": "Sovereign cloud partner solutions (on-premise, sovereign cloud, in-region hosting) catalogued.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Executing",
+          "description": "Field organization actively executing sovereignty play engagements.",
+          "seq": 3,
+          "contributesToState": "Executing",
+          "checklist": [
+            {
+              "name": "Readiness Assessments conducted",
+              "description": "Sovereignty Readiness Assessments being conducted with customers in self-service and guided formats.",
+              "seq": 1
+            },
+            {
+              "name": "Readiness Appraisal Workshops delivered",
+              "description": "Readiness Appraisal Workshops delivered to qualified prospects.",
+              "seq": 2
+            },
+            {
+              "name": "Sovereignty personas engaged",
+              "description": "Sovereignty personas engaged with regulatory-specific discovery questions.",
+              "seq": 3
+            },
+            {
+              "name": "Open-source transparency demonstrated",
+              "description": "Open-source transparency and code auditability advantages demonstrated to sovereignty stakeholders.",
+              "seq": 4
+            },
+            {
+              "name": "Sovereignty solution positioning active",
+              "description": "Sovereignty solution positioning connecting customer regulatory requirements to Red Hat architecture.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Measured",
+          "description": "Sovereignty play outcomes tracked against sovereignty-specific KPIs.",
+          "seq": 4,
+          "contributesToState": "Measured",
+          "checklist": [
+            {
+              "name": "Sovereignty-tagged pipeline tracked",
+              "description": "Sovereignty-tagged pipeline tracked against play targets.",
+              "seq": 1
+            },
+            {
+              "name": "Assessment conversion rate measured",
+              "description": "Readiness Assessment completion rate and conversion to workshop measured.",
+              "seq": 2
+            },
+            {
+              "name": "Workshop-to-deal conversion analyzed",
+              "description": "Workshop-to-deal conversion rate analyzed.",
+              "seq": 3
+            },
+            {
+              "name": "Deal classification accuracy validated",
+              "description": "Sovereignty deal classification accuracy validated.",
+              "seq": 4
+            },
+            {
+              "name": "Regional engagement patterns analyzed",
+              "description": "Regional sovereignty engagement patterns analyzed across EU, APAC, and Americas regulatory contexts.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Sovereignty play strategy refined based on field performance and regulatory evolution.",
+          "seq": 5,
+          "contributesToState": "Optimized",
+          "background": {
+            "given": [
+              "Sovereignty play performance data has been collected and analyzed",
+              "Regulatory landscape changes have been monitored"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Assessment domains updated",
+              "description": "Readiness Assessment domains updated to reflect new regulatory requirements.",
+              "seq": 1
+            },
+            {
+              "name": "Customer references refreshed",
+              "description": "Sovereignty customer references refreshed with latest displacement and compliance success stories.",
+              "seq": 2
+            },
+            {
+              "name": "Regulatory coverage expanded",
+              "description": "Regulatory framework coverage expanded based on emerging jurisdictional requirements.",
+              "seq": 3
+            },
+            {
+              "name": "Value driver narratives refined",
+              "description": "Sovereignty value driver narratives refined based on field effectiveness data.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-play sovereignty positioning optimized",
+              "description": "Cross-play sovereignty positioning optimized with sovereignty messaging integrated into other plays.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Digital Sovereignty Play Context and Rationale",
+          "description": "Why the Digital Sovereignty Play matters for addressing regulatory and data jurisdiction demands.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations worldwide face a convergence of regulatory mandates (GDPR, AI Act, NIS2), geopolitical supply chain risks, and growing recognition that hyperscaler dependencies compromise data jurisdiction and operational autonomy, creating urgent demand for sovereignty-aware technology strategies."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The Digital Sovereignty Play must equip sellers with structured tools -- a self-service Readiness Assessment, a collaborative Readiness Appraisal Workshop, and sovereignty-specific Customer Lens -- that transform abstract compliance concerns into actionable, measurable sovereignty programs connected to Red Hat's open hybrid cloud architecture."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Sellers apply the sovereignty Customer Lens to identify regulatory drivers, assess maturity through the seven-domain Readiness Assessment, facilitate cross-functional Readiness Appraisal Workshops that produce actionable roadmaps, and position Red Hat's code auditability, supply chain transparency, and workload portability as structural sovereignty advantages."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Organizations gain objective sovereignty baselines, prioritized transformation roadmaps, and clear pathways to sovereign infrastructure through Red Hat's open hybrid cloud platform, with ongoing monitoring that sustains compliance as regulatory landscapes evolve."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play",
+            "Digital Sovereignty Power Hour",
+            "Keeping SAP Core Clean with ROSA",
+            "Near Zero Downtime Maintenance for SAP",
+            "Achieving Data Resiliency with Red Hat and Accenture",
+            "Service Continuity with Partner Ecosystem",
+            "Mission Critical Application Platform",
+            "Red Hat OpenShift Virtualization Demo",
+            "InstructLab Demo",
+            "Virtualization Installation Trilio Virt Partner Demo",
+            "How to Download and Setup InstructLab",
+            "Confidential Containers on ARO",
+            "Red Hat Trusted Application Pipeline Demo"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Play"
+    },
+    {
+      "name": "Sovereignty Readiness",
+      "description": "Customer-specific sovereignty maturity assessment progression from initial context evaluation through comprehensive readiness appraisal to transformation initiation.",
+      "focusName": "Sales Execution",
+      "contributesTo": "Digital Sovereignty",
+      "relatesTo": [],
+      "assetNames": [
+        {
+          "assetName": "sovereignty-readiness-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Sovereignty Context Assessed",
+          "description": "Customer's sovereignty drivers, regulatory landscape, and current maturity evaluated.",
+          "seq": 1,
+          "contributesToState": "Selected",
+          "background": {
+            "given": [
+              "Customer operates in a regulated industry or sovereignty-sensitive geography",
+              "Seller has completed sovereignty training at minimum awareness level"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Primary sovereignty driver identified",
+              "description": "Primary sovereignty driver identified from regulatory compliance, data control, vendor independence, or geopolitical risk.",
+              "seq": 1
+            },
+            {
+              "name": "Applicable regulatory frameworks mapped",
+              "description": "Applicable regulatory frameworks mapped including GDPR, AI Act, NIS2, and industry-specific requirements.",
+              "seq": 2
+            },
+            {
+              "name": "Data control posture assessed",
+              "description": "Current data control and jurisdiction posture assessed at overview level.",
+              "seq": 3
+            },
+            {
+              "name": "Supply chain requirements understood",
+              "description": "Supply chain transparency requirements understood.",
+              "seq": 4
+            },
+            {
+              "name": "Initial maturity baseline established",
+              "description": "Initial sovereignty maturity baseline established through preliminary assessment.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Readiness Assessment Completed",
+          "description": "Seven-domain self-service Readiness Assessment completed providing objective sovereignty baseline.",
+          "seq": 2,
+          "contributesToState": "Executing",
+          "background": {
+            "given": [
+              "Sovereignty context has been assessed with regulatory drivers identified",
+              "Readiness Assessment tool is accessible and seller is trained on facilitation"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Seven domains assessed",
+              "description": "Seven sovereignty domain areas assessed using the self-service tool.",
+              "seq": 1
+            },
+            {
+              "name": "Automated scoring generated",
+              "description": "Automated scoring and maturity baseline generated per domain.",
+              "seq": 2
+            },
+            {
+              "name": "Gap identification completed",
+              "description": "Gap identification completed at domain level with priority ranking.",
+              "seq": 3
+            },
+            {
+              "name": "Discovery questions used",
+              "description": "Conversation-starter questions linked to each domain score used for discovery.",
+              "seq": 4
+            },
+            {
+              "name": "Workshop recommended",
+              "description": "Follow-up workshop recommended based on maturity level and gap severity.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Readiness Appraisal Conducted",
+          "description": "Comprehensive half-day Readiness Appraisal Workshop completed with cross-functional team.",
+          "seq": 3,
+          "contributesToState": "Executing",
+          "background": {
+            "given": [
+              "Self-service Readiness Assessment completed with identified gaps",
+              "Cross-functional team participation confirmed across IT, security, compliance, procurement, and business leadership"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Workshop delivered",
+              "description": "Readiness Appraisal Workshop delivered in half-day or full-day format with cross-functional participation.",
+              "seq": 1
+            },
+            {
+              "name": "Capability-level evaluation completed",
+              "description": "Capability-level maturity evaluation completed across all sovereignty domains with evidence-based scoring.",
+              "seq": 2
+            },
+            {
+              "name": "Priority gaps identified",
+              "description": "Priority sovereignty gaps identified with specific remediation recommendations.",
+              "seq": 3
+            },
+            {
+              "name": "Transformation roadmap developed",
+              "description": "Actionable transformation roadmap developed collaboratively with customer stakeholders.",
+              "seq": 4
+            },
+            {
+              "name": "Executive summary produced",
+              "description": "Executive summary with strategic recommendations produced.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Sovereignty Solution Positioned",
+          "description": "Red Hat's sovereignty approach positioned against customer's regulatory and jurisdiction requirements.",
+          "seq": 4,
+          "contributesToState": "Executing",
+          "background": {
+            "given": [
+              "Readiness Appraisal has identified specific sovereignty gaps and priorities",
+              "Customer stakeholders have agreed on transformation priorities"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Open-source transparency demonstrated",
+              "description": "Open-source transparency advantage demonstrated including code auditability, no hidden dependencies, and transparent supply chain.",
+              "seq": 1
+            },
+            {
+              "name": "Hybrid cloud sovereignty shown",
+              "description": "Hybrid cloud sovereignty capabilities shown including data residency, jurisdiction control, and workload portability.",
+              "seq": 2
+            },
+            {
+              "name": "Infrastructure options presented",
+              "description": "Sovereign infrastructure options presented (on-premise, sovereign cloud, in-region hosting) matched to customer requirements.",
+              "seq": 3
+            },
+            {
+              "name": "Customer references matched",
+              "description": "Sovereignty customer references matched to customer's industry, geography, and challenge profile.",
+              "seq": 4
+            },
+            {
+              "name": "Services engagement presented",
+              "description": "Red Hat Services for Digital Sovereignty engagement options presented.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Sovereignty Transformation Initiated",
+          "description": "Customer engagement progressed to sovereignty solution implementation with agreed next steps.",
+          "seq": 5,
+          "contributesToState": "Measured",
+          "background": {
+            "given": [
+              "Sovereignty solution positioning resonates with customer requirements",
+              "Key stakeholders have validated the sovereignty transformation approach"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Next steps agreed",
+              "description": "Next steps agreed including sovereignty architecture review, pilot deployment, and compliance validation.",
+              "seq": 1
+            },
+            {
+              "name": "Sovereignty tagging applied",
+              "description": "Sovereignty tagging applied to sales campaign and deal registered with sovereignty classification.",
+              "seq": 2
+            },
+            {
+              "name": "Services engaged",
+              "description": "Red Hat Services for Digital Sovereignty engaged for implementation support.",
+              "seq": 3
+            },
+            {
+              "name": "Long-term roadmap discussed",
+              "description": "Long-term sovereignty roadmap discussed connecting current gaps to phased transformation.",
+              "seq": 4
+            },
+            {
+              "name": "Continuous monitoring outlined",
+              "description": "Continuous sovereignty monitoring approach outlined for ongoing compliance tracking.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Sovereignty Readiness Context and Rationale",
+          "description": "Why structured sovereignty assessment progression matters for customer engagement depth.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "A customer in a regulated industry or sovereignty-sensitive geography faces escalating requirements around data control, regulatory compliance, and supply chain transparency, but lacks objective visibility into their current sovereignty maturity and the gaps requiring attention."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The sovereignty readiness journey must transform abstract compliance concerns into a measurable baseline through structured assessment tools, then deepen understanding through collaborative appraisal workshops that produce actionable roadmaps connecting sovereignty gaps to Red Hat's open hybrid cloud capabilities."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Beginning with the 15-minute self-service Readiness Assessment across seven domains, the journey progresses through seller-guided interpretation and discovery, then into a comprehensive half-day Readiness Appraisal Workshop with cross-functional participation, producing an evidence-based transformation roadmap."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "The customer gains an objective sovereignty baseline, a prioritized gap analysis, an actionable transformation roadmap, and a clear pathway to sovereign infrastructure through Red Hat's platform -- with ongoing monitoring sustaining compliance as regulations evolve."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play",
+            "Digital Sovereignty Power Hour",
+            "Keeping SAP Core Clean with ROSA",
+            "Near Zero Downtime Maintenance for SAP",
+            "Achieving Data Resiliency with Red Hat and Accenture",
+            "Service Continuity with Partner Ecosystem",
+            "Mission Critical Application Platform",
+            "Red Hat OpenShift Virtualization Demo",
+            "InstructLab Demo",
+            "Virtualization Installation Trilio Virt Partner Demo",
+            "How to Download and Setup InstructLab",
+            "Confidential Containers on ARO",
+            "Red Hat Trusted Application Pipeline Demo"
+          ]
+        }
+      ]
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Sovereignty Readiness Assessment",
+      "description": "Structured evaluation tool providing an objective snapshot of an organization's sovereignty posture across key domains.",
+      "assetNames": [
+        {
+          "assetName": "sovereignty-assessment-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Self-Service Assessment",
+          "description": "Basic 15-minute questionnaire providing sovereignty baseline.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Seven domains assessed",
+              "description": "Seven sovereignty domain areas assessed with standardized questions.",
+              "seq": 1
+            },
+            {
+              "name": "Automated scoring generated",
+              "description": "Automated scoring and maturity baseline generated per domain.",
+              "seq": 2
+            },
+            {
+              "name": "Maturity level assigned",
+              "description": "Basic maturity level assigned per domain.",
+              "seq": 3
+            },
+            {
+              "name": "Domain-level gaps identified",
+              "description": "Gap identification completed at domain level.",
+              "seq": 4
+            },
+            {
+              "name": "Conversation starters linked",
+              "description": "Conversation-starter questions linked to each domain score.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sovereignty Readiness",
+              "stateName": "Readiness Assessment Completed"
+            }
+          ]
+        },
+        {
+          "name": "Guided Assessment",
+          "description": "Seller-facilitated assessment with contextualized interpretation.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Discovery conversation framework applied",
+              "description": "Assessment questions used as discovery conversation framework with customer.",
+              "seq": 1
+            },
+            {
+              "name": "Industry and geography context applied",
+              "description": "Results interpreted in context of customer's industry and geography.",
+              "seq": 2
+            },
+            {
+              "name": "Regulatory alignment mapped",
+              "description": "Regulatory alignment mapped to assessment findings.",
+              "seq": 3
+            },
+            {
+              "name": "Priority gaps identified",
+              "description": "Priority gaps identified with initial remediation suggestions.",
+              "seq": 4
+            },
+            {
+              "name": "Workshop recommendation provided",
+              "description": "Follow-up workshop recommended based on maturity level.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sovereignty Readiness",
+              "stateName": "Readiness Assessment Completed"
+            },
+            {
+              "alphaName": "Digital Sovereignty",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "Workshop Appraisal",
+          "description": "Comprehensive half-day workshop-driven maturity evaluation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Cross-functional participation achieved",
+              "description": "Cross-functional team participation with multiple organizational perspectives.",
+              "seq": 1
+            },
+            {
+              "name": "Capability-level evaluation completed",
+              "description": "Capability-level maturity evaluation completed across all sovereignty domains.",
+              "seq": 2
+            },
+            {
+              "name": "Evidence-based scoring applied",
+              "description": "Evidence-based scoring with documentation requirements.",
+              "seq": 3
+            },
+            {
+              "name": "Transformation roadmap developed",
+              "description": "Actionable transformation roadmap developed collaboratively.",
+              "seq": 4
+            },
+            {
+              "name": "Executive summary produced",
+              "description": "Executive summary with strategic recommendations produced.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sovereignty Readiness",
+              "stateName": "Readiness Appraisal Conducted"
+            },
+            {
+              "alphaName": "Digital Sovereignty",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "Continuous Sovereignty Monitor",
+          "description": "Ongoing sovereignty posture tracking and compliance monitoring.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Posture dashboards operational",
+              "description": "Automated sovereignty posture dashboards operational.",
+              "seq": 1
+            },
+            {
+              "name": "Regulatory change analysis conducted",
+              "description": "Regulatory change impact analysis conducted on schedule.",
+              "seq": 2
+            },
+            {
+              "name": "Continuous compliance monitoring active",
+              "description": "Continuous compliance monitoring against applicable sovereignty standards.",
+              "seq": 3
+            },
+            {
+              "name": "Trend analysis documented",
+              "description": "Trend analysis and maturity progression tracking documented.",
+              "seq": 4
+            },
+            {
+              "name": "Executive ROI reporting produced",
+              "description": "Executive reporting on sovereignty investment ROI produced.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sovereignty Readiness",
+              "stateName": "Sovereignty Transformation Initiated"
+            },
+            {
+              "alphaName": "Digital Sovereignty",
+              "stateName": "Measured"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Sovereignty Readiness Assessment Value Story",
+          "description": "Why structured sovereignty assessment across progressive depth levels drives better customer outcomes.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations struggle to objectively assess their sovereignty posture because sovereignty spans technical, regulatory, organizational, and supply chain dimensions that lack standardized measurement frameworks. Without a structured assessment, sovereignty investments are driven by anecdote and fear rather than evidence."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Sovereignty Readiness Assessment provides four depth levels -- from a 15-minute self-service baseline through seller-guided discovery to comprehensive workshop appraisal and ongoing monitoring -- each producing increasingly actionable sovereignty insights matched to the customer's engagement depth."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A completed sovereignty assessment provides an objective maturity baseline, identifies priority gaps with remediation recommendations, and produces a transformation roadmap that connects sovereignty requirements to Red Hat's open hybrid cloud architecture."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play"
+          ]
+        }
+      ]
+    }
+  ],
+  "workProductInstances": [
+    {
+      "name": "Sovereignty Play Execution Guide",
+      "description": "Play Execution Guide specialized for the Digital Sovereignty play context.",
+      "workProductName": "Sales Play Execution Guide"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Sovereignty Advisor",
+      "description": "Specialized advisor guiding customers through sovereignty readiness assessment, regulatory compliance, and sovereignty architecture decisions.",
+      "competencies": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Relationship Building",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Digital Sovereignty",
+          "Regulatory Compliance",
+          "Government"
+        ],
+        "lifecycleTags": [
+          "Assessment",
+          "Advisory",
+          "Architecture Design"
+        ],
+        "organizationalTags": [
+          "Specialist Sales",
+          "Consulting"
+        ]
+      }
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Sovereignty Advisory Team",
+      "description": "Specialized team focused on digital sovereignty customer engagements combining sovereignty expertise with commercial coordination.",
+      "personaNames": [
+        "Sovereignty Advisor"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Specialist Sales",
+          "Government",
+          "Regulated Industries"
+        ]
+      }
+    }
+  ],
+  "activities": [
+    {
+      "name": "Apply Sovereignty Customer Lens",
+      "description": "Assess customer's sovereignty context using the play's structured lens for regulatory drivers, data jurisdiction, and sovereignty maturity.",
+      "activitySpaceName": "Discover Customer Needs",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Customer operates in a regulated industry or sovereignty-sensitive geography",
+          "Seller has completed sovereignty awareness training"
+        ]
+      },
+      "test": {
+        "name": "Sovereignty Customer Lens application verification",
+        "description": "Verifies that sovereignty context assessment produces actionable regulatory and maturity insights.",
+        "given": [
+          "Customer faces increasing regulatory requirements around data sovereignty and supply chain transparency"
+        ],
+        "when": [
+          "Seller initiates sovereignty discovery conversation using the sovereignty Customer Lens framework"
+        ],
+        "then": [
+          "Primary sovereignty driver identified from play's driver taxonomy (regulatory compliance, data control, vendor independence, geopolitical risk)",
+          "Applicable regulatory frameworks mapped to customer's operating jurisdictions",
+          "Initial sovereignty maturity baseline established through preliminary assessment"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Sovereignty Readiness",
+          "stateName": "Sovereignty Context Assessed"
+        },
+        {
+          "alphaName": "Digital Sovereignty",
+          "stateName": "Selected"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sovereignty Readiness Assessment",
+          "levelOfDetailName": "Self-Service Assessment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "involves": [
+        "Sovereignty Advisory Team"
+      ],
+      "narratives": [
+        {
+          "name": "Sovereignty Customer Lens Application Guidance",
+          "description": "How to assess sovereignty context using structured discovery techniques.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sovereignty concerns manifest differently across industries, geographies, and regulatory environments, making it difficult for sellers to identify the specific sovereignty drivers relevant to each customer without a structured assessment framework."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Begin by mapping the customer's operating jurisdictions to applicable regulatory frameworks (GDPR, AI Act, NIS2). Identify the primary sovereignty driver -- whether regulatory compliance, data control, vendor independence, or geopolitical risk. Use the Readiness Assessment's initial questions to establish a preliminary maturity baseline."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A completed sovereignty context assessment provides the foundation for deeper engagement by identifying which sovereignty domains require attention and matching customer concerns to Red Hat's sovereignty capabilities."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Engage Sovereignty Stakeholders",
+      "description": "Engage sovereignty-specific decision-makers with tailored messaging around regulatory compliance, data control, and vendor independence.",
+      "activitySpaceName": "Manage Customer Relationships",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Sovereignty context has been assessed with regulatory drivers identified",
+          "At least one sovereignty stakeholder persona identified in the account"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sovereignty Readiness",
+            "stateName": "Sovereignty Context Assessed"
+          }
+        ]
+      },
+      "test": {
+        "name": "Sovereignty stakeholder engagement verification",
+        "description": "Verifies that sovereignty personas are engaged with tailored discovery and messaging.",
+        "given": [
+          "Sovereignty Customer Lens has been applied with pain points and regulatory context identified"
+        ],
+        "when": [
+          "Seller initiates persona-specific engagement with sovereignty stakeholders"
+        ],
+        "then": [
+          "Business Leader (CIO/CTO/CISO) engaged on compliance risk and operational resilience",
+          "Procurement/Vendor Strategy engaged on vendor lock-in avoidance and transparency",
+          "CTO/Platform Engineering engaged on consistent platform operation across sovereign environments"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Digital Sovereignty",
+          "stateName": "Executing"
+        },
+        {
+          "alphaName": "Sovereignty Readiness",
+          "stateName": "Sovereignty Context Assessed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Relationship Building"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Relationship Building",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Sovereignty Advisory Team"
+      ],
+      "narratives": [
+        {
+          "name": "Sovereignty Stakeholder Engagement Guidance",
+          "description": "How to engage diverse sovereignty stakeholders with tailored messaging.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sovereignty decisions involve diverse stakeholders with distinct perspectives -- business leaders focus on compliance risk, procurement teams on vendor independence, and platform engineers on operational consistency across sovereign environments."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Engage each sovereignty persona with tailored discovery questions from the sovereignty play's persona profiles. Business Leaders respond to compliance risk framing and operational resilience arguments. Procurement responds to transparent pricing, open-source licensing, and vendor independence evidence. Platform Engineering responds to consistent hybrid cloud operation across sovereign deployments."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Multi-stakeholder engagement ensures sovereignty solution positioning addresses all decision-maker perspectives, building consensus for sovereignty transformation investment."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Conduct Sovereignty Self-Assessment",
+      "description": "Facilitate the 15-minute self-service Readiness Assessment to evaluate sovereignty posture across seven domains and establish an objective maturity baseline.",
+      "activitySpaceName": "Discover Customer Needs",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Sovereignty context assessed with regulatory drivers identified",
+          "Readiness Assessment tool is accessible and seller trained on facilitation"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sovereignty Readiness",
+            "stateName": "Sovereignty Context Assessed"
+          }
+        ]
+      },
+      "test": {
+        "name": "Self-assessment completion verification",
+        "description": "Verifies that the self-service assessment produces an actionable sovereignty baseline.",
+        "given": [
+          "Customer engagement has identified digital sovereignty as a priority concern"
+        ],
+        "when": [
+          "Seller facilitates the 15-minute self-service Readiness Assessment with customer stakeholders"
+        ],
+        "then": [
+          "Seven sovereignty domains assessed with maturity scores",
+          "Gap identification completed at domain level",
+          "Assessment results used as discovery conversation framework"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Sovereignty Readiness",
+          "stateName": "Readiness Assessment Completed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sovereignty Readiness Assessment",
+          "levelOfDetailName": "Self-Service Assessment"
+        },
+        {
+          "workProductName": "Sovereignty Readiness Assessment",
+          "levelOfDetailName": "Guided Assessment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Sovereignty Advisory Team"
+      ],
+      "narratives": [
+        {
+          "name": "Sovereignty Self-Assessment Guidance",
+          "description": "How to facilitate the self-service Readiness Assessment effectively.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Customers often have vague sovereignty concerns driven by regulatory headlines but lack structured visibility into their actual sovereignty posture and specific gaps requiring attention."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The 15-minute self-service Readiness Assessment evaluates sovereignty posture across seven key domains, producing automated scoring and a maturity baseline. Each assessment question creates a natural discovery conversation opportunity. When gaps emerge, use findings to recommend the comprehensive Readiness Appraisal Workshop for deeper evaluation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "The completed self-assessment provides customers with an objective sovereignty snapshot and sellers with structured discovery data that frames the deeper sovereignty advisory conversation."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Facilitate Sovereignty Readiness Workshop",
+      "description": "Deliver the comprehensive half-day Readiness Appraisal Workshop to evaluate sovereignty maturity at capability level and produce an actionable transformation roadmap.",
+      "activitySpaceName": "Articulate Business Value",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Self-service Readiness Assessment completed with identified gaps warranting deeper evaluation",
+          "Cross-functional team participation confirmed"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sovereignty Readiness",
+            "stateName": "Readiness Assessment Completed"
+          }
+        ]
+      },
+      "test": {
+        "name": "Sovereignty workshop delivery verification",
+        "description": "Verifies that the workshop produces capability-level evaluation and actionable roadmap.",
+        "given": [
+          "Self-service assessment has revealed sovereignty gaps in specific domains"
+        ],
+        "when": [
+          "Sovereignty advisor facilitates half-day or full-day Readiness Appraisal Workshop with cross-functional team"
+        ],
+        "then": [
+          "Capability-level maturity evaluation completed across all sovereignty domains with evidence-based scoring",
+          "Priority sovereignty gaps identified with specific remediation recommendations",
+          "Actionable transformation roadmap developed collaboratively with customer stakeholders"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Sovereignty Readiness",
+          "stateName": "Readiness Appraisal Conducted"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sovereignty Readiness Assessment",
+          "levelOfDetailName": "Workshop Appraisal"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Sovereignty Advisory Team"
+      ],
+      "narratives": [
+        {
+          "name": "Sovereignty Workshop Delivery Guidance",
+          "description": "How to facilitate the comprehensive Readiness Appraisal Workshop.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Self-service assessments provide a useful baseline but lack the depth and cross-functional perspective needed to identify capability-level gaps and build organizational commitment for sovereignty transformation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Schedule a half-day or full-day collaborative session with cross-functional representation (IT, security, compliance, procurement, business leadership). Guide the team through capability-level maturity evaluation across all sovereignty domains using evidence-based scoring. Facilitate collaborative development of an actionable transformation roadmap with prioritized remediation recommendations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "The workshop produces an executive summary with strategic recommendations, a prioritized gap analysis with remediation pathways, and a collaboratively-developed transformation roadmap that builds organizational ownership of the sovereignty journey."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play",
+            "Digital Sovereignty Power Hour"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Position Sovereignty Solution",
+      "description": "Position Red Hat's open hybrid cloud architecture against customer's specific sovereignty requirements, connecting regulatory gaps to solution capabilities.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Readiness Appraisal completed with identified sovereignty gaps and priorities",
+          "Customer stakeholders have agreed on transformation priorities"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sovereignty Readiness",
+            "stateName": "Readiness Appraisal Conducted"
+          }
+        ]
+      },
+      "test": {
+        "name": "Sovereignty solution positioning verification",
+        "description": "Verifies that solution positioning connects sovereignty gaps to Red Hat capabilities.",
+        "given": [
+          "Readiness Appraisal has identified specific sovereignty gaps requiring remediation"
+        ],
+        "when": [
+          "Seller positions Red Hat's sovereignty approach against customer's documented requirements"
+        ],
+        "then": [
+          "Open-source transparency advantage demonstrated with code auditability and supply chain transparency evidence",
+          "Sovereign infrastructure options mapped to customer's specific jurisdiction requirements",
+          "Customer references matched to customer's industry, geography, and sovereignty challenge profile"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Sovereignty Readiness",
+          "stateName": "Sovereignty Solution Positioned"
+        },
+        {
+          "alphaName": "Digital Sovereignty",
+          "stateName": "Executing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Comprehensive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Value Articulation",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Sovereignty Advisory Team"
+      ],
+      "narratives": [
+        {
+          "name": "Sovereignty Solution Positioning Guidance",
+          "description": "How to position Red Hat's sovereignty approach against customer requirements.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Customers evaluating sovereignty solutions face a complex landscape of deployment options (on-premise, sovereign cloud, in-region hosting) and vendor claims that are difficult to validate without deep technical and regulatory expertise."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Position Red Hat's structural sovereignty advantages -- code auditability (no hidden dependencies), transparent supply chain, workload portability across sovereign environments, and open-source development model that protects against vendor lock-in. Match sovereign infrastructure options to the customer's specific jurisdiction and compliance requirements. Use sovereignty customer references (Phoenix Systems, NxtGen, Emirates NBD) to demonstrate proven outcomes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "The customer understands how Red Hat's architecture addresses their specific sovereignty requirements and has a clear pathway to sovereign infrastructure implementation."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play",
+            "Digital Sovereignty Strategy Shorts Episode 12"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Advance Sovereignty Deal",
+      "description": "Progress sovereignty engagement to implementation through agreed next steps, sovereignty deal classification, and Red Hat Services engagement.",
+      "activitySpaceName": "Manage the Deal",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Sovereignty solution has been positioned and resonates with customer requirements",
+          "Key stakeholders have validated the sovereignty approach"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sovereignty Readiness",
+            "stateName": "Sovereignty Solution Positioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "Sovereignty deal advancement verification",
+        "description": "Verifies that sovereignty engagement progresses to concrete implementation next steps.",
+        "given": [
+          "Sovereignty solution positioning resonates with customer's regulatory and jurisdiction requirements"
+        ],
+        "when": [
+          "Seller and customer agree on sovereignty transformation next steps"
+        ],
+        "then": [
+          "Concrete next steps agreed (architecture review, pilot deployment, compliance validation)",
+          "Deal registered with sovereignty classification and tagging applied to sales campaign",
+          "Red Hat Services for Digital Sovereignty engaged for implementation support"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Sovereignty Readiness",
+          "stateName": "Sovereignty Transformation Initiated"
+        },
+        {
+          "alphaName": "Digital Sovereignty",
+          "stateName": "Executing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sovereignty Readiness Assessment",
+          "levelOfDetailName": "Continuous Sovereignty Monitor"
+        }
+      ],
+      "requiredCompetencies": [
+        "Deal Orchestration",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Sovereignty Advisory Team"
+      ],
+      "narratives": [
+        {
+          "name": "Sovereignty Deal Advancement Guidance",
+          "description": "How to progress sovereignty engagements to implementation.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sovereignty engagements risk stalling between assessment and implementation when next steps are not clearly defined, sovereignty tagging is not applied for deal tracking, and services engagement pathways are not established."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Agree on concrete next steps (sovereignty architecture review, pilot deployment in sovereign environment, compliance validation against applicable frameworks). Apply sovereignty tagging to the sales campaign for tracking. Register the deal with sovereignty classification. Engage Red Hat Services for Digital Sovereignty implementation support. Discuss the long-term sovereignty roadmap connecting current gaps to phased transformation milestones."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "The sovereignty engagement transitions from advisory to implementation with clear milestones, services support, and continuous monitoring that sustains compliance as regulatory landscapes evolve."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Coach Sovereignty Practice",
+      "description": "Share sovereignty best practices, mentor other sellers on advisory methodology, and contribute to sovereignty play optimization from field experience.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Seller has demonstrated sovereignty advisory expertise across multiple engagements",
+          "Active mentoring of other sellers is producing measurable impact"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Digital Sovereignty",
+          "stateName": "Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement",
+        "Customer Discovery",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Sovereignty Advisory Team"
+      ],
+      "narratives": [
+        {
+          "name": "Sovereignty Practice Coaching Guidance",
+          "description": "How expert sellers multiply sovereignty advisory capacity through coaching.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sovereignty advisory expertise concentrates in a few specialists, creating a bottleneck that limits the organization's sovereignty engagement capacity."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Expert sovereignty sellers lead peer coaching sessions on workshop facilitation technique, document sovereignty best practices from field experience, and contribute to play optimization through improvement recommendations for the Readiness Assessment tool, workshop materials, and sovereignty positioning content."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Coaching multiplies sovereignty advisory capacity across the organization while field-generated insights drive continuous improvement of the sovereignty play's assessment tools and positioning content."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Activate Sovereignty Play Content",
+      "description": "Deploy sovereignty play content, readiness assessment tools, and enablement materials for field organization use.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Sovereignty play strategy designed with Customer Lens, personas, and value drivers",
+          "Readiness Assessment tool operational"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Digital Sovereignty Play",
+            "stateName": "Selected"
+          }
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Digital Sovereignty",
+          "stateName": "Activated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sovereignty Readiness Assessment",
+          "levelOfDetailName": "Self-Service Assessment"
+        },
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Comprehensive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Sovereignty Advisory Team"
+      ],
+      "narratives": [
+        {
+          "name": "Sovereignty Play Activation Guidance",
+          "description": "How to deploy sovereignty play content and tools for field readiness.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sovereignty play content includes specialized tools (Readiness Assessment, Workshop materials) that require deliberate deployment and enablement to ensure field adoption."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Deploy the Readiness Assessment tool with access instructions and facilitation guides. Prepare workshop materials in half-day and full-day formats. Deliver sovereignty-specific enablement including regulatory framework training. Configure sovereignty tagging and CRM classification for deal tracking."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "The field organization has operational sovereignty play content, trained facilitators, and deal tracking infrastructure enabling consistent sovereignty engagement execution."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Measure Sovereignty Play Performance",
+      "description": "Track sovereignty-specific KPIs including assessment volume, workshop conversion, sovereignty-tagged pipeline, and regional engagement patterns.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Sovereignty play activated and field executing sovereignty engagements",
+          "Sovereignty measurement infrastructure operational"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Digital Sovereignty Play",
+            "stateName": "Executing"
+          }
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Digital Sovereignty",
+          "stateName": "Measured"
+        },
+        {
+          "alphaName": "Digital Sovereignty",
+          "stateName": "Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Sovereignty Advisory Team"
+      ],
+      "narratives": [
+        {
+          "name": "Sovereignty Performance Measurement Guidance",
+          "description": "How to measure and optimize sovereignty play effectiveness.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sovereignty play effectiveness requires measurement beyond standard pipeline metrics -- assessment completion rates, workshop conversion, sovereignty deal classification accuracy, and regional regulatory context all influence play optimization decisions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Implement sovereignty-specific measurement tracking readiness assessment volume, assessment-to-workshop conversion rate, workshop-to-deal conversion, sovereignty-tagged pipeline against targets, and regional engagement patterns (EU vs. APAC vs. Americas regulatory context). Analyze sovereignty deal classification accuracy and seller adoption patterns."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sovereignty performance data drives targeted optimization -- updating assessment domains for new regulations, refreshing customer references, expanding geographical coverage, and refining sovereignty value driver narratives based on field effectiveness."
+            }
+          ],
+          "citationNames": [
+            "Digital Sovereignty Sales Play"
+          ]
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Digital Sovereignty Advisory Journey",
+      "description": "Lifecycle pattern coordinating sovereignty engagements from initial context assessment through readiness appraisal to sovereignty transformation.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Customer in regulated or sovereignty-sensitive context.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Digital Sovereignty",
+              "stateName": "Selected"
+            }
+          ],
+          "activities": [],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "A customer operating in a regulated industry or sovereignty-sensitive geography has been identified as requiring sovereignty advisory engagement, and the seller has completed foundational sovereignty training."
+            }
+          ]
+        },
+        {
+          "name": "Awareness & Context",
+          "description": "Identify sovereignty drivers and assess regulatory context.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Digital Sovereignty",
+              "stateName": "Activated"
+            },
+            {
+              "alphaName": "Sovereignty Readiness",
+              "stateName": "Sovereignty Context Assessed"
+            },
+            {
+              "alphaName": "Sovereignty Readiness",
+              "stateName": "Readiness Assessment Completed"
+            }
+          ],
+          "activities": [
+            "Apply Sovereignty Customer Lens",
+            "Conduct Sovereignty Self-Assessment"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The sovereignty context assessment begins with mapping regulatory drivers (GDPR, AI Act, NIS2) to the customer's operating jurisdictions, followed by the 15-minute self-service Readiness Assessment that provides an objective baseline across seven sovereignty domains."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Validate",
+              "context": "Assessment results are validated with the customer and interpreted in context of their specific industry, geography, and strategic priorities, identifying which sovereignty domains warrant deeper evaluation."
+            }
+          ]
+        },
+        {
+          "name": "Engagement & Assessment",
+          "description": "Engage stakeholders and conduct deep sovereignty appraisal.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Sovereignty Readiness",
+              "stateName": "Readiness Appraisal Conducted"
+            }
+          ],
+          "activities": [
+            "Engage Sovereignty Stakeholders",
+            "Facilitate Sovereignty Readiness Workshop"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Propose",
+              "context": "Sovereignty stakeholders across functions (Business Leader, Procurement, CTO/Platform Engineering) are engaged with tailored discovery addressing their specific sovereignty perspective, building toward the comprehensive Readiness Appraisal Workshop."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Negotiate",
+              "context": "The half-day Readiness Appraisal Workshop produces capability-level maturity evaluation, evidence-based scoring, and a collaboratively-developed transformation roadmap with prioritized remediation recommendations."
+            }
+          ]
+        },
+        {
+          "name": "Solution & Advancement",
+          "description": "Position sovereignty solutions and advance to transformation.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Sovereignty Readiness",
+              "stateName": "Sovereignty Solution Positioned"
+            },
+            {
+              "alphaName": "Sovereignty Readiness",
+              "stateName": "Sovereignty Transformation Initiated"
+            },
+            {
+              "alphaName": "Digital Sovereignty",
+              "stateName": "Executing"
+            }
+          ],
+          "activities": [
+            "Position Sovereignty Solution",
+            "Advance Sovereignty Deal"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Close",
+              "context": "Red Hat's sovereignty approach is positioned against the customer's documented requirements, demonstrating open-source transparency, hybrid cloud sovereignty capabilities, and sovereign infrastructure options matched to their jurisdiction."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Expand",
+              "context": "The sovereignty engagement advances to implementation with agreed architecture reviews, pilot deployments, compliance validation, and continuous monitoring that sustains compliance as regulatory landscapes evolve and new sovereignty requirements emerge."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "practiceElementAliases": [],
+  "schemaVersion": "1.4.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.0"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.0"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard Digital Sovereignty",
+      "description": "Reference Digital Sovereignty play instance with customer-facing and qualification materials",
+      "alphaName": "Digital Sovereignty",
+      "stateName": "Activated",
+      "links": [
+        {
+          "name": "Digital Sovereignty Sales Play Hub Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DC36BVHgbpfTH89WJdqTH7JXj9D8"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Standard Sales Play Execution Guide",
+          "description": "Standard instance of Sales Play Execution Guide with curated enablement content",
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Structured",
+          "links": [
+            {
+              "name": "Sovereignty Customer Facing Intro pitch deck (Source)",
+              "uri": "https://docs.google.com/presentation/d/1r5xIEbAyb3Vf0I8ViSfLWHynbMzgk2nj2ZfHNzfM43g/edit"
+            },
+            {
+              "name": "Sovereignty Customer Facing Intro pitch deck",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCX9hW3GdXqh2GhBXhjXh2WMDM7B"
+            },
+            {
+              "name": "Persona and Discovery Questions Sovereignty (Source)",
+              "uri": "https://docs.google.com/presentation/d/10YAjx9jjsJ8RHNJDAcRmYxJQpZ1OheyOGFCQgBf_3nk/edit"
+            },
+            {
+              "name": "Persona and Discovery Questions Sovereignty",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCGFmmfpbc2Bg89T9Wgq673FcpHP"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

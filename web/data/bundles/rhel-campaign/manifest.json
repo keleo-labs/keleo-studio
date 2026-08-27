@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "rhel-campaign",
+    "version": "1.0.0",
+    "description": "rhel-campaign",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/partner-demand-generation.json",
+      "documentType": "practice",
+      "documentName": "Partner Demand Generation",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0",
+        "description": "Structured approach to creating incremental qualified pipeline through partner-driven campaigns aligned to technology decision points.",
+        "tags": {
+          "domainTags": [
+            "Marketing",
+            "Sales",
+            "Partner Management"
+          ],
+          "lifecycleTags": [
+            "Campaign Execution",
+            "Pipeline Generation"
+          ],
+          "organizationalTags": [
+            "Partner Marketing",
+            "Partner Account Management",
+            "Partner Operations"
+          ]
+        },
+        "keywords": [
+          "demand gen",
+          "demand generation",
+          "pipeline generation",
+          "partner-sourced",
+          "partner-influenced",
+          "TDP",
+          "sales play",
+          "campaign",
+          "MDF",
+          "co-marketing",
+          "PAM",
+          "DPAM",
+          "EcoSA",
+          "partner marketing",
+          "incremental pipeline",
+          "logo acquisition",
+          "cross-sell",
+          "upsell",
+          "RACI",
+          "attribution"
+        ],
+        "elementCount": 66,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-07-06T00:00:00Z",
+        "createdAt": "2026-07-06T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/rhel-campaign.json",
+      "documentType": "practice",
+      "documentName": "RHEL Campaign",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "Distributor-led campaign practice that surfaces net-new RHEL pipeline from free and community Linux workloads through a two-tier channel cascade, conversation starter methodology, and signal-matched sales plays.",
+        "tags": {
+          "domainTags": [
+            "Channel Sales",
+            "Demand Generation",
+            "Linux Migration",
+            "Enterprise Security"
+          ],
+          "lifecycleTags": [
+            "Campaign Execution",
+            "Partner Enablement",
+            "Pipeline Generation"
+          ],
+          "organizationalTags": [
+            "Distributor Operations",
+            "Reseller Programs",
+            "Partner Ecosystem"
+          ]
+        },
+        "keywords": [
+          "RHEL",
+          "Red Hat Enterprise Linux",
+          "distributor campaign",
+          "cascade model",
+          "conversation starter",
+          "sales play",
+          "CentOS migration",
+          "free Linux displacement",
+          "pipeline generation",
+          "reseller activation",
+          "channel enablement",
+          "post-quantum cryptography",
+          "CVE vulnerability",
+          "AI foundation",
+          "deal registration",
+          "TCO calculator",
+          "bootcamp",
+          "co-sell",
+          "MDF",
+          "multi-tier channel"
+        ],
+        "elementCount": 224,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-31"
+      }
+    },
+    {
+      "path": "documents/partner-ecosystem-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Partner Ecosystem Essentials",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "A minimal baseline practice for engaging with partner ecosystems, covering partner lifecycle management, value realization, capability building, trust cultivation, and governance.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "partner ecosystem",
+          "alliance management",
+          "partner relationship",
+          "trust building",
+          "partnership governance",
+          "partner value"
+        ],
+        "elementCount": 180,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-06-15T00:00:00Z"
+      }
+    }
+  ]
+}

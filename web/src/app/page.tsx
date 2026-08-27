@@ -54,39 +54,56 @@ export default function DashboardPage() {
         setConfigId(dashboardConfigDoc.id);
         setConfig(dashboardConfigDoc.config);
 
-        // Load documents
-        const documentsResponse = await fetch("/api/documents?details=1", {
-          cache: "no-store",
-        });
+        // Load documents from flat store + bundle library index
+        const [documentsResponse, indexResponse] = await Promise.all([
+          fetch("/api/documents?details=1", { cache: "no-store" }),
+          fetch("/api/library/index", { cache: "no-store" }),
+        ]);
 
         if (cancelled) return;
+
+        const flatDocs: EnrichedMeta[] = [];
+        const flatDocNames = new Set<string>();
 
         if (documentsResponse.ok) {
           const data = await documentsResponse.json();
           if (cancelled) return;
-
-          const allDocs = data.documents || [];
-          console.log(`[Dashboard Page] Loaded ${allDocs.length} total documents`);
-
-          // Filter out dashboard-config documents
-          const docs = allDocs.filter(
-            (doc: EnrichedMeta) => doc.kind !== "dashboard-config"
-          );
-
-          console.log(`[Dashboard Page] After filtering: ${docs.length} library documents`);
-          if (allDocs.length !== docs.length) {
-            console.log(`[Dashboard Page] Filtered out ${allDocs.length - docs.length} dashboard-config documents`);
+          for (const doc of data.documents || []) {
+            if (doc.kind === "dashboard-config") continue;
+            flatDocs.push(doc);
+            if (doc.title) flatDocNames.add(doc.title);
           }
+        }
 
-          setDocuments(docs);
-
-          // Calculate scores for all documents
-          const scoreMap = new Map<string, number>();
-          for (const doc of docs) {
-            const score = calculateSimpleCompletenessScore(doc);
-            scoreMap.set(doc.id, score);
+        // Add bundle-only entries not already in the flat store
+        if (indexResponse.ok) {
+          const indexData = await indexResponse.json();
+          if (cancelled) return;
+          for (const entry of indexData.entries || []) {
+            if (flatDocNames.has(entry.name)) continue;
+            flatDocs.push({
+              id: `bundle:${entry.activeBundleSlug}/${entry.activeDocumentPath}`,
+              title: entry.name,
+              kind: entry.documentType,
+              createdAt: "",
+              updatedAt: "",
+              libraryRootKind: entry.documentType,
+              displayName: entry.name,
+              description: entry.description,
+              virtualFileCount: entry.elementCount,
+              associatedBaselineName: entry.associatedBaselineName,
+              libraryTags: entry.tags,
+            });
           }
-          setScores(scoreMap);
+        }
+
+        setDocuments(flatDocs);
+
+        // Calculate scores for all documents
+        const scoreMap = new Map<string, number>();
+        for (const doc of flatDocs) {
+          const score = calculateSimpleCompletenessScore({ body: doc.body });
+          scoreMap.set(doc.id, score);
         }
 
         // Mark as loaded only after successful completion

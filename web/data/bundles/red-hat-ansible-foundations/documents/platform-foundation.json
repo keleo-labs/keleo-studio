@@ -1,0 +1,3002 @@
+{
+  "kind": "practice",
+  "name": "Platform Foundation",
+  "description": "Deploy and operate platform gateway, automation controller, execution environments, automation mesh, and dynamic inventory infrastructure.",
+  "baselinePracticeName": "Infrastructure Automation Essentials",
+  "tags": {
+    "domainTags": [
+      "Infrastructure",
+      "Architecture",
+      "DevOps"
+    ],
+    "lifecycleTags": [
+      "Adoption",
+      "Optimization"
+    ],
+    "organizationalTags": [
+      "Platform Team"
+    ]
+  },
+  "keywords": [
+    "ansible",
+    "automation platform",
+    "platform gateway",
+    "automation controller",
+    "execution environments",
+    "automation mesh",
+    "dynamic inventory",
+    "containerized deployment",
+    "hybrid cloud",
+    "AAP",
+    "rootless podman"
+  ],
+  "authors": [
+    "Keleo"
+  ],
+  "createdAt": "2026-07-24",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.1",
+  "citations": [
+    {
+      "name": "Red Hat Ansible Automation Platform 2.7 Documentation",
+      "description": "Official documentation covering platform architecture, installation, configuration, and operations for AAP 2.7.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/",
+      "kind": "citation"
+    },
+    {
+      "name": "AAP 2.7 What's New",
+      "description": "Release notes detailing new features including Platform Gateway, Visual EE Builder, Development Workspaces, and MCP Server integration.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/pdfs/aap-whats-new-2-7-pdf.pdf",
+      "kind": "citation"
+    },
+    {
+      "name": "Automation Execution Environments Overview",
+      "description": "Technical overview of containerized ansible runtimes including architecture, build process, and lifecycle management.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Technologies",
+      "url": "https://www.redhat.com/en/technologies/management/ansible/automation-execution-environments",
+      "kind": "citation"
+    },
+    {
+      "name": "Automation Mesh Explained: Scalability for Hybrid Cloud",
+      "description": "Architecture guide for distributed execution networks using Receptor protocol across hybrid cloud infrastructure.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/automation-mesh-explained-scalability-and-reliability-hybrid-cloud-edge",
+      "kind": "citation"
+    },
+    {
+      "name": "How to Use Dynamic Inventories in Ansible Automation",
+      "description": "Developer guide for configuring dynamic inventory plugins for cloud provider host discovery.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2023",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2023/09/04/how-use-dynamic-inventories-ansible-automation",
+      "kind": "citation"
+    },
+    {
+      "name": "Guide to Multi-Homed Inventory Management",
+      "description": "Comprehensive guide for managing inventories across multiple cloud providers and infrastructure sources.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2026/01/26/guide-multi-homed-inventory-management-red-hat-ansible-automation-platform",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "platform-gateway-icon",
+      "description": "Icon representing the platform gateway unified entry point.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-door-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "execution-environment-icon",
+      "description": "Icon representing containerized execution environments.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-box",
+      "fontWeight": "900"
+    },
+    {
+      "name": "automation-mesh-icon",
+      "description": "Icon representing the distributed automation mesh network topology.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-network-wired",
+      "fontWeight": "900"
+    },
+    {
+      "name": "inventory-source-icon",
+      "description": "Icon representing dynamic inventory discovery sources.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-magnifying-glass-chart",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-topology-diagram",
+      "description": "Architecture diagram showing AAP 2.7 component relationships including gateway, controller, hub, EDA, and mesh topology.",
+      "type": "diagram",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Platform",
+      "description": "The unified system of automation tools, execution engines, state management backends, module registries, CI/CD pipelines, and integrations that provide the technical foundation for managing infrastructure through code. Includes control nodes/servers (Ansible control nodes, Puppet servers, Terraform Cloud workspaces, Chef servers, Salt masters), their configurations, and the operational infrastructure supporting automated provisioning and configuration management.",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "platform-gateway-icon",
+          "type": "icon"
+        },
+        {
+          "assetName": "platform-topology-diagram",
+          "type": "diagram"
+        }
+      ],
+      "states": [
+        {
+          "name": "Architecture Selected",
+          "description": "The foundational automation architecture is formally selected and agreed upon.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Automation toolchain selected based on requirements (e.g., Terraform + Ansible, Puppet Enterprise)",
+              "description": "Automation toolchain selected based on requirements (e.g., Terraform + Ansible, Puppet Enterprise)",
+              "seq": 1
+            },
+            {
+              "name": "Execution model decided (push/pull, agent/agentless) with documented rationale",
+              "description": "Execution model decided (push/pull, agent/agentless) with documented rationale",
+              "seq": 2
+            },
+            {
+              "name": "State management strategy determined (remote backends, workspace isolation, state locking)",
+              "description": "State management strategy determined (remote backends, workspace isolation, state locking)",
+              "seq": 3
+            },
+            {
+              "name": "Integration architecture with CI/CD pipeline formally designed",
+              "description": "Integration architecture with CI/CD pipeline formally designed",
+              "seq": 4
+            },
+            {
+              "name": "Target infrastructure scope defined (cloud providers, on-premises, hybrid)",
+              "description": "Target infrastructure scope defined (cloud providers, on-premises, hybrid)",
+              "seq": 5
+            },
+            {
+              "name": "Containerized deployment on RHEL 9.6+ or OpenShift operator model documented and approved",
+              "description": "Containerized deployment on RHEL 9.6+ or OpenShift operator model documented and approved",
+              "seq": 6
+            },
+            {
+              "name": "Growth vs enterprise topology decision recorded with justification for scale requirements",
+              "description": "Growth vs enterprise topology decision recorded with justification for scale requirements",
+              "seq": 7
+            },
+            {
+              "name": "Platform gateway placement and high availability strategy defined",
+              "description": "Platform gateway placement and high availability strategy defined",
+              "seq": 8
+            },
+            {
+              "name": "Hosting platform selected from supported options (RHEL bare metal, RHEL VM, OpenShift 4.14-4.22)",
+              "description": "Hosting platform selected from supported options (RHEL bare metal, RHEL VM, OpenShift 4.14-4.22)",
+              "seq": 9
+            },
+            {
+              "name": "Integration points with existing identity management systems identified (LDAP, SAML, OIDC, TACACS+)",
+              "description": "Integration points with existing identity management systems identified (LDAP, SAML, OIDC, TACACS+)",
+              "seq": 10
+            }
+          ],
+          "narratives": [
+            {
+              "name": "Architecture Selection Context",
+              "description": "Context for AAP 2.7 architecture selection decisions.",
+              "narrativeTypeName": "Micro-Narratives (ABT)",
+              "narrativeContexts": [
+                {
+                  "seq": 1,
+                  "narrativeElementName": "And (Context)",
+                  "context": "Organization decides to adopt Red Hat Ansible Automation Platform 2.7 for enterprise infrastructure automation."
+                },
+                {
+                  "seq": 2,
+                  "narrativeElementName": "But (Conflict)",
+                  "context": "AAP 2.7 requires containerized-only deployment, and the team must choose between growth topology (single VM) and enterprise topology (multi-VM with external PostgreSQL and HAProxy)."
+                },
+                {
+                  "seq": 3,
+                  "narrativeElementName": "Therefore (Resolution)",
+                  "context": "Architecture review selects deployment model based on scale requirements, identifies RHEL 9.6+ hosting, and plans platform gateway as unified entry point for all AAP services."
+                }
+              ],
+              "citationNames": [
+                "Red Hat Ansible Automation Platform 2.7 Documentation",
+                "AAP 2.7 What's New"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Baselined",
+          "description": "Core automation capabilities are logically mapped with constraints and integration points defined.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Module library structure, naming conventions, and directory layout defined",
+              "description": "Module library structure, naming conventions, and directory layout defined",
+              "seq": 1
+            },
+            {
+              "name": "Branching strategy for automation code established (trunk-based, GitFlow, environment branches)",
+              "description": "Branching strategy for automation code established (trunk-based, GitFlow, environment branches)",
+              "seq": 2
+            },
+            {
+              "name": "State backend configured and tested (S3, Consul, PuppetDB, Terraform Cloud)",
+              "description": "State backend configured and tested (S3, Consul, PuppetDB, Terraform Cloud)",
+              "seq": 3
+            },
+            {
+              "name": "Environment topology defined (dev, staging, production with promotion workflow)",
+              "description": "Environment topology defined (dev, staging, production with promotion workflow)",
+              "seq": 4
+            },
+            {
+              "name": "Automation coding standards documented (HCL style, YAML formatting, variable naming)",
+              "description": "Automation coding standards documented (HCL style, YAML formatting, variable naming)",
+              "seq": 5
+            },
+            {
+              "name": "Platform gateway routing configuration specified (API paths to controller, hub, EDA controller)",
+              "description": "Platform gateway routing configuration specified (API paths to controller, hub, EDA controller)",
+              "seq": 6
+            },
+            {
+              "name": "PostgreSQL shared data store configuration defined for enterprise topology",
+              "description": "PostgreSQL shared data store configuration defined for enterprise topology",
+              "seq": 7
+            },
+            {
+              "name": "TLS certificate management strategy documented for gateway and mesh endpoints",
+              "description": "TLS certificate management strategy documented for gateway and mesh endpoints",
+              "seq": 8
+            },
+            {
+              "name": "Subscription manifest requirements validated against organizational entitlements",
+              "description": "Subscription manifest requirements validated against organizational entitlements",
+              "seq": 9
+            },
+            {
+              "name": "Configuration as Code approach selected for programmatic gateway management",
+              "description": "Configuration as Code approach selected for programmatic gateway management",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "The automation control plane is instantiated and ready to support development.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Control nodes/servers running and accessible (Ansible control nodes, Puppet server, Terraform Cloud)",
+              "description": "Control nodes/servers running and accessible (Ansible control nodes, Puppet server, Terraform Cloud)",
+              "seq": 1
+            },
+            {
+              "name": "CI/CD pipelines configured for automation code (plan, validate, apply stages)",
+              "description": "CI/CD pipelines configured for automation code (plan, validate, apply stages)",
+              "seq": 2
+            },
+            {
+              "name": "Module registries accessible (private registry, Terraform Registry, Ansible Galaxy, Puppet Forge)",
+              "description": "Module registries accessible (private registry, Terraform Registry, Ansible Galaxy, Puppet Forge)",
+              "seq": 3
+            },
+            {
+              "name": "Authentication and access control configured (RBAC, SSO integration)",
+              "description": "Authentication and access control configured (RBAC, SSO integration)",
+              "seq": 4
+            },
+            {
+              "name": "Development environment operational for automation code authoring and testing",
+              "description": "Development environment operational for automation code authoring and testing",
+              "seq": 5
+            },
+            {
+              "name": "Platform gateway deployed and serving as authenticated entry point with TLS",
+              "description": "Platform gateway deployed and serving as authenticated entry point with TLS",
+              "seq": 6
+            },
+            {
+              "name": "Automation controller containers operational on target infrastructure using containerized installer",
+              "description": "Automation controller containers operational on target infrastructure using containerized installer",
+              "seq": 7
+            },
+            {
+              "name": "Identity provider integration tested through gateway authentication (SSO validated)",
+              "description": "Identity provider integration tested through gateway authentication (SSO validated)",
+              "seq": 8
+            },
+            {
+              "name": "Backend service connectivity verified (controller, hub, EDA controller reachable through gateway)",
+              "description": "Backend service connectivity verified (controller, hub, EDA controller reachable through gateway)",
+              "seq": 9
+            },
+            {
+              "name": "Initial administrative credentials configured and subscription manifest applied",
+              "description": "Initial administrative credentials configured and subscription manifest applied",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Ready",
+          "description": "The automation platform is fully operational with self-service and governance capabilities.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Self-service interfaces deployed and accessible to consuming teams",
+              "description": "Self-service interfaces deployed and accessible to consuming teams",
+              "seq": 1
+            },
+            {
+              "name": "Role-based access control enforced with least-privilege principles",
+              "description": "Role-based access control enforced with least-privilege principles",
+              "seq": 2
+            },
+            {
+              "name": "Policy enforcement integrated into deployment pipelines (OPA, Sentinel, Kyverno)",
+              "description": "Policy enforcement integrated into deployment pipelines (OPA, Sentinel, Kyverno)",
+              "seq": 3
+            },
+            {
+              "name": "Teams can independently author, test, and deploy automation code",
+              "description": "Teams can independently author, test, and deploy automation code",
+              "seq": 4
+            },
+            {
+              "name": "Monitoring and alerting configured for automation platform health",
+              "description": "Monitoring and alerting configured for automation platform health",
+              "seq": 5
+            },
+            {
+              "name": "API routing operational through gateway for all endpoints (/api/v2/, /api/galaxy/, /api/eda/, /api/gateway/)",
+              "description": "API routing operational through gateway for all endpoints (/api/v2/, /api/galaxy/, /api/eda/, /api/gateway/)",
+              "seq": 6
+            },
+            {
+              "name": "API rate limiting configured preventing abuse or accidental overload",
+              "description": "API rate limiting configured preventing abuse or accidental overload",
+              "seq": 7
+            },
+            {
+              "name": "Health check endpoints monitoring backend service availability through gateway",
+              "description": "Health check endpoints monitoring backend service availability through gateway",
+              "seq": 8
+            },
+            {
+              "name": "Multiple teams executing automation workflows through controller daily",
+              "description": "Multiple teams executing automation workflows through controller daily",
+              "seq": 9
+            },
+            {
+              "name": "Backup and recovery procedures tested using setup.sh or operator backup mechanism",
+              "description": "Backup and recovery procedures tested using setup.sh or operator backup mechanism",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Hosting Assets",
+          "description": "The automation platform is actively managing production infrastructure at scale.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Multiple teams using the platform to provision, configure, and maintain production infrastructure",
+              "description": "Multiple teams using the platform to provision, configure, and maintain production infrastructure",
+              "seq": 1
+            },
+            {
+              "name": "Drift detection running on schedule for all managed infrastructure",
+              "description": "Drift detection running on schedule for all managed infrastructure",
+              "seq": 2
+            },
+            {
+              "name": "Operational metrics collected and reported (execution success rates, drift frequency, remediation time)",
+              "description": "Operational metrics collected and reported (execution success rates, drift frequency, remediation time)",
+              "seq": 3
+            },
+            {
+              "name": "Incident response procedures established for automation platform failures",
+              "description": "Incident response procedures established for automation platform failures",
+              "seq": 4
+            },
+            {
+              "name": "Capacity planning addresses growing scale of managed infrastructure",
+              "description": "Capacity planning addresses growing scale of managed infrastructure",
+              "seq": 5
+            },
+            {
+              "name": "SLA-defined uptime and availability targets met over 30-day period",
+              "description": "SLA-defined uptime and availability targets met over 30-day period",
+              "seq": 6
+            },
+            {
+              "name": "Monitoring dashboards provide visibility into job success rates and queue depth",
+              "description": "Monitoring dashboards provide visibility into job success rates and queue depth",
+              "seq": 7
+            },
+            {
+              "name": "Capacity planning metrics available (concurrent job limits, inventory size, instance group utilization)",
+              "description": "Capacity planning metrics available (concurrent job limits, inventory size, instance group utilization)",
+              "seq": 8
+            },
+            {
+              "name": "Security posture validated (CVE scanning, compliance scans, rootless Podman hardening)",
+              "description": "Security posture validated (CVE scanning, compliance scans, rootless Podman hardening)",
+              "seq": 9
+            },
+            {
+              "name": "Automation mesh distributing jobs across multiple execution nodes in production",
+              "description": "Automation mesh distributing jobs across multiple execution nodes in production",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Evolving",
+          "description": "The automation platform continuously improves through data-driven optimization.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Telemetry-driven optimization identifies and resolves performance bottlenecks",
+              "description": "Telemetry-driven optimization identifies and resolves performance bottlenecks",
+              "seq": 1
+            },
+            {
+              "name": "Automation platform upgraded to latest stable versions with minimal disruption",
+              "description": "Automation platform upgraded to latest stable versions with minimal disruption",
+              "seq": 2
+            },
+            {
+              "name": "Legacy automation approaches progressively migrated to current standards",
+              "description": "Legacy automation approaches progressively migrated to current standards",
+              "seq": 3
+            },
+            {
+              "name": "AI-assisted recommendations integrated for module optimization and resource right-sizing",
+              "description": "AI-assisted recommendations integrated for module optimization and resource right-sizing",
+              "seq": 4
+            },
+            {
+              "name": "Platform evolution roadmap maintained with stakeholder input",
+              "description": "Platform evolution roadmap maintained with stakeholder input",
+              "seq": 5
+            },
+            {
+              "name": "Platform upgrade procedures validated for sequential path (2.5 to 2.6 to 2.7)",
+              "description": "Platform upgrade procedures validated for sequential path (2.5 to 2.6 to 2.7)",
+              "seq": 6
+            },
+            {
+              "name": "Gateway high availability deployed with multiple instances behind load balancer",
+              "description": "Gateway high availability deployed with multiple instances behind load balancer",
+              "seq": 7
+            },
+            {
+              "name": "Zero-downtime rolling deployment procedures tested for gateway upgrades",
+              "description": "Zero-downtime rolling deployment procedures tested for gateway upgrades",
+              "seq": 8
+            },
+            {
+              "name": "Performance metrics track gateway request latency, throughput, and error rates",
+              "description": "Performance metrics track gateway request latency, throughput, and error rates",
+              "seq": 9
+            },
+            {
+              "name": "Disaster recovery procedures documented and validated for platform components",
+              "description": "Disaster recovery procedures documented and validated for platform components",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Retiring",
+          "description": "The automation platform is being systematically decommissioned.",
+          "seq": 7,
+          "checklist": [
+            {
+              "name": "Successor automation platform identified and validated",
+              "description": "Successor automation platform identified and validated",
+              "seq": 1
+            },
+            {
+              "name": "Managed infrastructure migrated to successor platform with validation",
+              "description": "Managed infrastructure migrated to successor platform with validation",
+              "seq": 2
+            },
+            {
+              "name": "Automation code archived or ported to successor platform format",
+              "description": "Automation code archived or ported to successor platform format",
+              "seq": 3
+            },
+            {
+              "name": "Decommissioning timeline communicated to all consuming teams",
+              "description": "Decommissioning timeline communicated to all consuming teams",
+              "seq": 4
+            },
+            {
+              "name": "Post-decommissioning verification confirms no orphaned resources or dependencies",
+              "description": "Post-decommissioning verification confirms no orphaned resources or dependencies",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Platform Lifecycle",
+          "description": "Lifecycle narrative for the automation platform infrastructure.",
+          "narrativeTypeName": "Design-Build-Run-Optimize",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "AAP 2.7 exclusively supports containerized deployment, requiring selection between growth topology (single VM) and enterprise topology (separate VMs for gateway, controller, hub, EDA, execution nodes with external PostgreSQL and HAProxy)."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Build",
+              "context": "Platform gateway is deployed as the sole entry point, with containerized installer managing rootless Podman containers on RHEL 9.6+ or operator-based deployment on OpenShift 4.14-4.22."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Platform operates with centralized authentication through gateway, distributed job execution through automation mesh, and continuous monitoring of backend service health and performance."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Optimize",
+              "context": "Platform evolves through sequential upgrades, high availability expansion, performance tuning based on telemetry, and progressive hardening of security posture."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Ansible Automation Platform 2.7 Documentation"
+          ]
+        },
+        {
+          "name": "Platform Foundation Overview",
+          "description": "Lifecycle narrative for the platform foundation practice.",
+          "narrativeTypeName": "Design-Build-Run-Optimize",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "Organizations select containerized deployment topology (growth or enterprise) for AAP 2.7, designing platform gateway as unified entry point with authentication, API routing, and RBAC across controller, hub, and EDA controller services."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Build",
+              "context": "Platform engineers deploy gateway and controller as rootless Podman containers on RHEL 9.6+, build custom execution environments using ansible-builder or Visual EE Builder, and configure automation mesh with hop and execution nodes spanning hybrid cloud infrastructure."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Production workloads execute through distributed mesh topology with dynamic inventory discovering cloud infrastructure resources, while platform gateway centralizes authentication and API routing across all platform services."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Optimize",
+              "context": "Mesh topology expands to new regions, execution environment images are optimized for size and security, inventory sync performance is tuned, and platform gateway high availability ensures continuous access."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Ansible Automation Platform 2.7 Documentation"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Execution Environment",
+      "description": "Containerized ansible runtime providing hermetic, portable execution contexts.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "runs on",
+          "alphaName": "Platform",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "packages",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Platform Governance",
+          "direction": "incoming"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "execution-environment-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Default EE Available",
+          "description": "Red Hat provided execution environments accessible and validated.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Default EE images pulled from Red Hat registry and cached locally",
+              "description": "Default EE images pulled from Red Hat registry and cached locally",
+              "seq": 1
+            },
+            {
+              "name": "Job templates successfully reference and launch using default EE",
+              "description": "Job templates successfully reference and launch using default EE",
+              "seq": 2
+            },
+            {
+              "name": "Platform team understands default EE contents (ansible-core version, bundled collections)",
+              "description": "Platform team understands default EE contents (ansible-core version, bundled collections)",
+              "seq": 3
+            },
+            {
+              "name": "Dependency gaps identified that will require custom EE builds",
+              "description": "Dependency gaps identified that will require custom EE builds",
+              "seq": 4
+            },
+            {
+              "name": "Default EE version alignment verified against ansible-core version requirements",
+              "description": "Default EE version alignment verified against ansible-core version requirements",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Custom EE Build Pipeline",
+          "description": "Organization builds tailored execution environments for specific use cases.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "ansible-builder CLI installed or Visual EE Builder configured in automation hub",
+              "description": "ansible-builder CLI installed or Visual EE Builder configured in automation hub",
+              "seq": 1
+            },
+            {
+              "name": "Custom EE definition files created specifying collections and Python/system dependencies",
+              "description": "Custom EE definition files created specifying collections and Python/system dependencies",
+              "seq": 2
+            },
+            {
+              "name": "Container registry configured for EE image publishing (Quay, automation hub)",
+              "description": "Container registry configured for EE image publishing (Quay, automation hub)",
+              "seq": 3
+            },
+            {
+              "name": "Build automation pipeline generates EE images from source definition repositories",
+              "description": "Build automation pipeline generates EE images from source definition repositories",
+              "seq": 4
+            },
+            {
+              "name": "Custom EEs successfully referenced from job templates and executed on controller",
+              "description": "Custom EEs successfully referenced from job templates and executed on controller",
+              "seq": 5
+            },
+            {
+              "name": "Tagging and versioning strategy established for EE lifecycle management",
+              "description": "Tagging and versioning strategy established for EE lifecycle management",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "EE Governance and Certification",
+          "description": "Execution environments follow security and quality certification standards.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "CVE scanning integrated into EE build pipeline with remediation SLAs defined",
+              "description": "CVE scanning integrated into EE build pipeline with remediation SLAs defined",
+              "seq": 1
+            },
+            {
+              "name": "Digital signature and content verification enforced for production-trusted EEs",
+              "description": "Digital signature and content verification enforced for production-trusted EEs",
+              "seq": 2
+            },
+            {
+              "name": "Approved EE catalog published with usage guidance and team assignments",
+              "description": "Approved EE catalog published with usage guidance and team assignments",
+              "seq": 3
+            },
+            {
+              "name": "Drift detection identifies unauthorized modifications to production EE images",
+              "description": "Drift detection identifies unauthorized modifications to production EE images",
+              "seq": 4
+            },
+            {
+              "name": "EE rebuild triggers automated on dependency updates or upstream security patches",
+              "description": "EE rebuild triggers automated on dependency updates or upstream security patches",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized EE Distribution",
+          "description": "Execution environments efficiently distributed across mesh infrastructure.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Multi-site container registry replication reduces image pull latency for remote nodes",
+              "description": "Multi-site container registry replication reduces image pull latency for remote nodes",
+              "seq": 1
+            },
+            {
+              "name": "EE image layering optimized minimizing duplicate content across EE variants",
+              "description": "EE image layering optimized minimizing duplicate content across EE variants",
+              "seq": 2
+            },
+            {
+              "name": "Automated pruning removes obsolete EE versions from all registries",
+              "description": "Automated pruning removes obsolete EE versions from all registries",
+              "seq": 3
+            },
+            {
+              "name": "Usage analytics identify underutilized EEs for deprecation review",
+              "description": "Usage analytics identify underutilized EEs for deprecation review",
+              "seq": 4
+            },
+            {
+              "name": "EE lifecycle tied to ansible-core version with documented update cadence",
+              "description": "EE lifecycle tied to ansible-core version with documented update cadence",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Execution Environment Maturity",
+          "description": "Maturity progression for execution environment management.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Teams begin with Red Hat provided default execution environments, identifying dependency gaps that necessitate custom builds as automation use cases expand beyond built-in capabilities."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "Custom EE build pipelines produce tailored runtime images using ansible-builder CLI or Visual EE Builder UI, published to container registries with semantic versioning and integrated into CI/CD workflows."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Certified EE catalog governs production execution with CVE scanning, digital signatures, automated rebuilds on security patches, and optimized multi-site distribution minimizing pull latency across hybrid infrastructure."
+            }
+          ],
+          "citationNames": [
+            "Automation Execution Environments Overview"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Automation Mesh",
+      "description": "Distributed peer-to-peer execution network enabling hybrid cloud scalability.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "distributes execution for",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "automation-mesh-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Single-Site Cluster",
+          "description": "Execution nodes co-located without multi-site mesh topology.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Execution nodes registered to single controller instance on local network",
+              "description": "Execution nodes registered to single controller instance on local network",
+              "seq": 1
+            },
+            {
+              "name": "Ansible jobs successfully distributed across local execution node pool",
+              "description": "Ansible jobs successfully distributed across local execution node pool",
+              "seq": 2
+            },
+            {
+              "name": "Basic load balancing operational across instance groups",
+              "description": "Basic load balancing operational across instance groups",
+              "seq": 3
+            },
+            {
+              "name": "Network connectivity assumptions documented (low latency, high bandwidth, single site)",
+              "description": "Network connectivity assumptions documented (low latency, high bandwidth, single site)",
+              "seq": 4
+            },
+            {
+              "name": "Instance groups configured organizing execution nodes by capability or workload",
+              "description": "Instance groups configured organizing execution nodes by capability or workload",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Multi-Site Mesh Connected",
+          "description": "Hop nodes bridge network boundaries enabling distributed execution.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Hop nodes deployed in intermediate network zones routing mesh traffic on port 27199",
+              "description": "Hop nodes deployed in intermediate network zones routing mesh traffic on port 27199",
+              "seq": 1
+            },
+            {
+              "name": "Execution nodes successfully register through hop node relay connections",
+              "description": "Execution nodes successfully register through hop node relay connections",
+              "seq": 2
+            },
+            {
+              "name": "Cross-site job execution validated with acceptable latency profiles",
+              "description": "Cross-site job execution validated with acceptable latency profiles",
+              "seq": 3
+            },
+            {
+              "name": "TLS/mTLS encryption verified for all Receptor mesh communication paths",
+              "description": "TLS/mTLS encryption verified for all Receptor mesh communication paths",
+              "seq": 4
+            },
+            {
+              "name": "Mesh topology diagram documents node relationships and routing paths",
+              "description": "Mesh topology diagram documents node relationships and routing paths",
+              "seq": 5
+            },
+            {
+              "name": "Receptor protocol bidirectional connectivity confirmed across all network zones",
+              "description": "Receptor protocol bidirectional connectivity confirmed across all network zones",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Hybrid Cloud Resilient",
+          "description": "Mesh spans cloud providers and on-premises with fault tolerance.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Execution nodes operational in multiple cloud providers (AWS, Azure, GCP) and on-premises",
+              "description": "Execution nodes operational in multiple cloud providers (AWS, Azure, GCP) and on-premises",
+              "seq": 1
+            },
+            {
+              "name": "Failover tested with automation continuing during single-site network outage",
+              "description": "Failover tested with automation continuing during single-site network outage",
+              "seq": 2
+            },
+            {
+              "name": "Mesh routing automatically adapts to node availability changes",
+              "description": "Mesh routing automatically adapts to node availability changes",
+              "seq": 3
+            },
+            {
+              "name": "Capacity management balances job distribution across heterogeneous infrastructure",
+              "description": "Capacity management balances job distribution across heterogeneous infrastructure",
+              "seq": 4
+            },
+            {
+              "name": "Compliance requirements validated (data residency, network isolation, FIPS where required)",
+              "description": "Compliance requirements validated (data residency, network isolation, FIPS where required)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Globally Distributed",
+          "description": "Automation mesh operates across continents with localized execution.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Regional execution nodes deployed in 3+ geographic regions with local inventory",
+              "description": "Regional execution nodes deployed in 3+ geographic regions with local inventory",
+              "seq": 1
+            },
+            {
+              "name": "Latency-based routing optimizes job placement to nearest capable nodes",
+              "description": "Latency-based routing optimizes job placement to nearest capable nodes",
+              "seq": 2
+            },
+            {
+              "name": "Edge location execution nodes manage IoT and remote site automation",
+              "description": "Edge location execution nodes manage IoT and remote site automation",
+              "seq": 3
+            },
+            {
+              "name": "Mesh telemetry provides global visibility into distributed execution health",
+              "description": "Mesh telemetry provides global visibility into distributed execution health",
+              "seq": 4
+            },
+            {
+              "name": "Disaster recovery procedures tested for complete regional failure scenarios",
+              "description": "Disaster recovery procedures tested for complete regional failure scenarios",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Automation Mesh Maturity",
+          "description": "Maturity progression for automation mesh topology.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Initial deployment co-locates execution nodes with the controller on a single site, distributing jobs across a local pool with basic capacity management and instance group organization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "Hop nodes bridge network boundaries using Receptor protocol on port 27199, enabling execution nodes in remote datacenters and cloud regions to register through TLS/mTLS-encrypted relay paths."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Globally distributed mesh spans continents with latency-based routing, automatic failover, edge location support, and comprehensive telemetry providing visibility into distributed execution health across hybrid infrastructure."
+            }
+          ],
+          "citationNames": [
+            "Automation Mesh Explained: Scalability for Hybrid Cloud"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Inventory Source",
+      "description": "Dynamic host discovery mechanism automating infrastructure asset identification.",
+      "focusName": "Solution",
+      "contributesTo": "Managed Asset",
+      "relatesTo": [
+        {
+          "relationship": "feeds",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "inventory-source-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Static Inventory Defined",
+          "description": "Host lists manually entered and organized into basic groups.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Inventory created with manually entered hostnames or IP addresses",
+              "description": "Inventory created with manually entered hostnames or IP addresses",
+              "seq": 1
+            },
+            {
+              "name": "Hosts organized into functional groups (web servers, databases, load balancers)",
+              "description": "Hosts organized into functional groups (web servers, databases, load balancers)",
+              "seq": 2
+            },
+            {
+              "name": "Inventory variables defined for connection parameters (SSH user, port, key)",
+              "description": "Inventory variables defined for connection parameters (SSH user, port, key)",
+              "seq": 3
+            },
+            {
+              "name": "Job templates successfully target static inventory groups for automation",
+              "description": "Job templates successfully target static inventory groups for automation",
+              "seq": 4
+            },
+            {
+              "name": "Host count and group structure documented for operational reference",
+              "description": "Host count and group structure documented for operational reference",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Cloud Provider Discovery",
+          "description": "Dynamic inventory plugins automatically discover cloud infrastructure.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Cloud provider credentials configured in controller (AWS, Azure, GCP, VMware)",
+              "description": "Cloud provider credentials configured in controller (AWS, Azure, GCP, VMware)",
+              "seq": 1
+            },
+            {
+              "name": "Dynamic inventory sources syncing on defined schedule (hourly, daily)",
+              "description": "Dynamic inventory sources syncing on defined schedule (hourly, daily)",
+              "seq": 2
+            },
+            {
+              "name": "Host discovery successful with metadata enrichment from provider APIs",
+              "description": "Host discovery successful with metadata enrichment from provider APIs",
+              "seq": 3
+            },
+            {
+              "name": "Cloud-specific host variables automatically populated (tags, properties, region)",
+              "description": "Cloud-specific host variables automatically populated (tags, properties, region)",
+              "seq": 4
+            },
+            {
+              "name": "Inventory sync failures monitored with alerting on discovery interruption",
+              "description": "Inventory sync failures monitored with alerting on discovery interruption",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Constructed Grouping",
+          "description": "Dynamic groups created from host metadata using Jinja2 logic.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Constructed inventory plugins configured with grouping templates",
+              "description": "Constructed inventory plugins configured with grouping templates",
+              "seq": 1
+            },
+            {
+              "name": "Hosts automatically grouped by attributes (OS, datacenter, environment, VLAN)",
+              "description": "Hosts automatically grouped by attributes (OS, datacenter, environment, VLAN)",
+              "seq": 2
+            },
+            {
+              "name": "Group membership updates automatically on each inventory sync cycle",
+              "description": "Group membership updates automatically on each inventory sync cycle",
+              "seq": 3
+            },
+            {
+              "name": "Complex group logic validated (multiple conditions, variable transformations)",
+              "description": "Complex group logic validated (multiple conditions, variable transformations)",
+              "seq": 4
+            },
+            {
+              "name": "Keyed groups enable flexible ad-hoc targeting patterns for automation",
+              "description": "Keyed groups enable flexible ad-hoc targeting patterns for automation",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Multi-Source Aggregation",
+          "description": "Unified inventory view aggregates multiple discovery sources.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Smart inventory combines hosts from 3+ inventory sources into unified view",
+              "description": "Smart inventory combines hosts from 3+ inventory sources into unified view",
+              "seq": 1
+            },
+            {
+              "name": "Duplicate host resolution strategy documented and enforced across sources",
+              "description": "Duplicate host resolution strategy documented and enforced across sources",
+              "seq": 2
+            },
+            {
+              "name": "Cross-source metadata merged without variable conflicts",
+              "description": "Cross-source metadata merged without variable conflicts",
+              "seq": 3
+            },
+            {
+              "name": "Inventory size and sync performance metrics tracked and optimized",
+              "description": "Inventory size and sync performance metrics tracked and optimized",
+              "seq": 4
+            },
+            {
+              "name": "Automated pruning removes stale or decommissioned hosts from inventory",
+              "description": "Automated pruning removes stale or decommissioned hosts from inventory",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Inventory Source Maturity",
+          "description": "Maturity progression for inventory source management.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Teams begin with static inventories of manually entered hostnames organized into functional groups, sufficient for initial automation targeting but unsustainable as infrastructure scales beyond manual tracking."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "Dynamic inventory plugins auto-discover cloud infrastructure from provider APIs (AWS EC2, Azure RM, VMware vCenter), with constructed inventory grouping hosts by metadata attributes using Jinja2 templates."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Smart inventories aggregate hosts from multiple discovery sources into a unified view with duplicate resolution, automated pruning of decommissioned hosts, and performance-optimized sync caching for large-scale infrastructure estates."
+            }
+          ],
+          "citationNames": [
+            "How to Use Dynamic Inventories in Ansible Automation",
+            "Guide to Multi-Homed Inventory Management"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "alphaInstances": [
+    {
+      "name": "RHEL Containerized Platform",
+      "description": "AAP 2.7 deployed as rootless Podman containers on RHEL 9.6+ hosts.",
+      "alphaName": "Platform"
+    },
+    {
+      "name": "OpenShift Operator Platform",
+      "description": "AAP 2.7 deployed via operator on OpenShift 4.14-4.22 clusters.",
+      "alphaName": "Platform"
+    },
+    {
+      "name": "AWS EC2 Inventory",
+      "description": "Discovers EC2 instances from specific AWS regions with tag-based filtering.",
+      "alphaName": "Inventory Source"
+    },
+    {
+      "name": "VMware vCenter Inventory",
+      "description": "Reads VM metadata from ESXi hosts organized by datacenter hierarchy.",
+      "alphaName": "Inventory Source"
+    },
+    {
+      "name": "Kubernetes Inventory",
+      "description": "Discovers pods, services, and nodes from OpenShift or vanilla Kubernetes clusters.",
+      "alphaName": "Inventory Source"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Platform Topology Design",
+      "description": "Architecture documentation defining platform deployment model, topology, and operations.",
+      "levelsOfDetail": [
+        {
+          "name": "Conceptual Diagram",
+          "description": "High-level block diagram of platform components and network zones.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Major components identified (gateway, controller, hub, EDA controller, database, execution nodes)",
+              "description": "Major components identified (gateway, controller, hub, EDA controller, database, execution nodes)",
+              "seq": 1
+            },
+            {
+              "name": "Network zones illustrated (management, automation, target infrastructure)",
+              "description": "Network zones illustrated (management, automation, target infrastructure)",
+              "seq": 2
+            },
+            {
+              "name": "Deployment platform noted (RHEL 9.6+ containerized or OpenShift operator)",
+              "description": "Deployment platform noted (RHEL 9.6+ containerized or OpenShift operator)",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Architecture Selected"
+            }
+          ]
+        },
+        {
+          "name": "Logical Architecture",
+          "description": "Detailed component relationships, sizing, and integration points.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Component specifications include compute, memory, and storage requirements",
+              "description": "Component specifications include compute, memory, and storage requirements",
+              "seq": 1
+            },
+            {
+              "name": "Platform gateway routing configuration documented for all API paths",
+              "description": "Platform gateway routing configuration documented for all API paths",
+              "seq": 2
+            },
+            {
+              "name": "High availability architecture defined (2x gateways, 2x controllers, external PostgreSQL)",
+              "description": "High availability architecture defined (2x gateways, 2x controllers, external PostgreSQL)",
+              "seq": 3
+            },
+            {
+              "name": "Network connectivity requirements quantified (bandwidth, latency, port 27199 for mesh)",
+              "description": "Network connectivity requirements quantified (bandwidth, latency, port 27199 for mesh)",
+              "seq": 4
+            },
+            {
+              "name": "Growth vs enterprise topology selection justified with capacity calculations",
+              "description": "Growth vs enterprise topology selection justified with capacity calculations",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Baselined"
+            }
+          ]
+        },
+        {
+          "name": "Deployment Manifest",
+          "description": "Executable deployment configuration with installer inventory and variables.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Containerized installer inventory file defines all platform component hosts",
+              "description": "Containerized installer inventory file defines all platform component hosts",
+              "seq": 1
+            },
+            {
+              "name": "Installation variables configure database, TLS, gateway routing, and identity provider",
+              "description": "Installation variables configure database, TLS, gateway routing, and identity provider",
+              "seq": 2
+            },
+            {
+              "name": "Secrets management approach documented (Vault integration, credential storage)",
+              "description": "Secrets management approach documented (Vault integration, credential storage)",
+              "seq": 3
+            },
+            {
+              "name": "Deployment automation playbooks reference all configuration files",
+              "description": "Deployment automation playbooks reference all configuration files",
+              "seq": 4
+            },
+            {
+              "name": "Validation test cases verify successful installation of each service",
+              "description": "Validation test cases verify successful installation of each service",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            }
+          ]
+        },
+        {
+          "name": "Production-Validated Runbook",
+          "description": "Comprehensive operational documentation with proven procedures.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Installation runbook tested end-to-end in production-like environment",
+              "description": "Installation runbook tested end-to-end in production-like environment",
+              "seq": 1
+            },
+            {
+              "name": "Backup and recovery procedures documented using setup.sh -b/-r",
+              "description": "Backup and recovery procedures documented using setup.sh -b/-r",
+              "seq": 2
+            },
+            {
+              "name": "Upgrade procedures validated for sequential path (2.5 to 2.6 to 2.7)",
+              "description": "Upgrade procedures validated for sequential path (2.5 to 2.6 to 2.7)",
+              "seq": 3
+            },
+            {
+              "name": "Troubleshooting guide includes common failure modes and resolutions",
+              "description": "Troubleshooting guide includes common failure modes and resolutions",
+              "seq": 4
+            },
+            {
+              "name": "Monitoring integration provides health dashboards and alerting rules",
+              "description": "Monitoring integration provides health dashboards and alerting rules",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Execution Environment Specification",
+      "description": "Container image specifications defining ansible runtime dependencies and build process.",
+      "levelsOfDetail": [
+        {
+          "name": "Default EE Reference",
+          "description": "Documentation listing Red Hat provided default execution environments.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Table of default EEs with contents (ansible-core version, bundled collections)",
+              "description": "Table of default EEs with contents (ansible-core version, bundled collections)",
+              "seq": 1
+            },
+            {
+              "name": "Usage notes identify appropriate default EE for each common use case",
+              "description": "Usage notes identify appropriate default EE for each common use case",
+              "seq": 2
+            },
+            {
+              "name": "Known limitations documented (missing collections, unsupported module versions)",
+              "description": "Known limitations documented (missing collections, unsupported module versions)",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Execution Environment",
+              "stateName": "Default EE Available"
+            }
+          ]
+        },
+        {
+          "name": "Custom EE Requirements",
+          "description": "Specification of collections and dependencies for custom EE builds.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Collection requirements listed with version constraints (requirements.yml)",
+              "description": "Collection requirements listed with version constraints (requirements.yml)",
+              "seq": 1
+            },
+            {
+              "name": "Python package dependencies documented (requirements.txt)",
+              "description": "Python package dependencies documented (requirements.txt)",
+              "seq": 2
+            },
+            {
+              "name": "System package dependencies identified (bindep.txt)",
+              "description": "System package dependencies identified (bindep.txt)",
+              "seq": 3
+            },
+            {
+              "name": "Custom plugins or modules included with directory structure mapping",
+              "description": "Custom plugins or modules included with directory structure mapping",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Execution Environment",
+              "stateName": "Custom EE Build Pipeline"
+            }
+          ]
+        },
+        {
+          "name": "EE Build Definition",
+          "description": "ansible-builder definition file with automated build pipeline configuration.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "execution-environment.yml complete with four-stage build instructions",
+              "description": "execution-environment.yml complete with four-stage build instructions",
+              "seq": 1
+            },
+            {
+              "name": "Build automation integrated into CI/CD pipeline or Visual EE Builder workflow",
+              "description": "Build automation integrated into CI/CD pipeline or Visual EE Builder workflow",
+              "seq": 2
+            },
+            {
+              "name": "Container registry publication workflow documented with push credentials",
+              "description": "Container registry publication workflow documented with push credentials",
+              "seq": 3
+            },
+            {
+              "name": "Image tagging strategy supports semantic versioning and rollback",
+              "description": "Image tagging strategy supports semantic versioning and rollback",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Execution Environment",
+              "stateName": "Custom EE Build Pipeline"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            }
+          ]
+        },
+        {
+          "name": "Certified EE Catalog",
+          "description": "Governed catalog of approved EEs with security scanning integration.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "CVE scanning integrated with automated rebuild triggers on security patches",
+              "description": "CVE scanning integrated with automated rebuild triggers on security patches",
+              "seq": 1
+            },
+            {
+              "name": "Digital signatures applied and verified for all production-trusted EEs",
+              "description": "Digital signatures applied and verified for all production-trusted EEs",
+              "seq": 2
+            },
+            {
+              "name": "Usage analytics identify active vs stale EEs for deprecation decisions",
+              "description": "Usage analytics identify active vs stale EEs for deprecation decisions",
+              "seq": 3
+            },
+            {
+              "name": "Performance benchmarking compares EE image sizes across variants",
+              "description": "Performance benchmarking compares EE image sizes across variants",
+              "seq": 4
+            },
+            {
+              "name": "Lifecycle policy ties EE versions to ansible-core release cadence",
+              "description": "Lifecycle policy ties EE versions to ansible-core release cadence",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Execution Environment",
+              "stateName": "EE Governance and Certification"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Mesh Topology Map",
+      "description": "Network diagram illustrating mesh node types, routing paths, and connectivity.",
+      "levelsOfDetail": [
+        {
+          "name": "Node Inventory",
+          "description": "Listing of all mesh nodes with type and location attributes.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Node hostname, IP address, and type (hybrid, control, execution, hop) recorded",
+              "description": "Node hostname, IP address, and type (hybrid, control, execution, hop) recorded",
+              "seq": 1
+            },
+            {
+              "name": "Geographic location or datacenter identified for each node",
+              "description": "Geographic location or datacenter identified for each node",
+              "seq": 2
+            },
+            {
+              "name": "Node compute capacity and current utilization documented",
+              "description": "Node compute capacity and current utilization documented",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Mesh",
+              "stateName": "Single-Site Cluster"
+            }
+          ]
+        },
+        {
+          "name": "Logical Topology",
+          "description": "Diagram showing node relationships, routing, and network boundaries.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Visual topology map illustrates node connections and routing paths",
+              "description": "Visual topology map illustrates node connections and routing paths",
+              "seq": 1
+            },
+            {
+              "name": "Network zones and security boundaries marked with port 27199 requirements",
+              "description": "Network zones and security boundaries marked with port 27199 requirements",
+              "seq": 2
+            },
+            {
+              "name": "Peer relationships documented showing Receptor communication patterns",
+              "description": "Peer relationships documented showing Receptor communication patterns",
+              "seq": 3
+            },
+            {
+              "name": "Routing logic explains how jobs reach execution nodes via instance groups",
+              "description": "Routing logic explains how jobs reach execution nodes via instance groups",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Mesh",
+              "stateName": "Multi-Site Mesh Connected"
+            }
+          ]
+        },
+        {
+          "name": "Tested Configuration",
+          "description": "Deployed mesh configuration with validated connectivity and failover.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Mesh configuration files version controlled in Git repository",
+              "description": "Mesh configuration files version controlled in Git repository",
+              "seq": 1
+            },
+            {
+              "name": "TLS/mTLS certificate distribution automated and validated",
+              "description": "TLS/mTLS certificate distribution automated and validated",
+              "seq": 2
+            },
+            {
+              "name": "Connectivity validation tests confirm all routing paths operational",
+              "description": "Connectivity validation tests confirm all routing paths operational",
+              "seq": 3
+            },
+            {
+              "name": "Failover scenarios tested with documented recovery behavior",
+              "description": "Failover scenarios tested with documented recovery behavior",
+              "seq": 4
+            },
+            {
+              "name": "Latency measurements quantify cross-site execution performance",
+              "description": "Latency measurements quantify cross-site execution performance",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Mesh",
+              "stateName": "Hybrid Cloud Resilient"
+            }
+          ]
+        },
+        {
+          "name": "Resilient Global Mesh",
+          "description": "Production-hardened multi-region mesh with monitoring and DR.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Automated node provisioning integrates with infrastructure-as-code tooling",
+              "description": "Automated node provisioning integrates with infrastructure-as-code tooling",
+              "seq": 1
+            },
+            {
+              "name": "Health monitoring dashboards visualize mesh status and job distribution",
+              "description": "Health monitoring dashboards visualize mesh status and job distribution",
+              "seq": 2
+            },
+            {
+              "name": "Capacity planning forecasts node additions based on growth trends",
+              "description": "Capacity planning forecasts node additions based on growth trends",
+              "seq": 3
+            },
+            {
+              "name": "Disaster recovery procedures tested for complete regional failure",
+              "description": "Disaster recovery procedures tested for complete regional failure",
+              "seq": 4
+            },
+            {
+              "name": "FIPS compliance validated for all mesh communication paths",
+              "description": "FIPS compliance validated for all mesh communication paths",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Mesh",
+              "stateName": "Globally Distributed"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Dynamic Inventory Configuration",
+      "description": "Inventory source definitions enabling automated infrastructure asset discovery.",
+      "levelsOfDetail": [
+        {
+          "name": "Manual Host List",
+          "description": "Static inventory with manually entered hostnames and groups.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Inventory file or controller UI populated with known hostnames",
+              "description": "Inventory file or controller UI populated with known hostnames",
+              "seq": 1
+            },
+            {
+              "name": "Hosts organized into basic functional groups (web, database, network)",
+              "description": "Hosts organized into basic functional groups (web, database, network)",
+              "seq": 2
+            },
+            {
+              "name": "Connection variables defined for SSH or WinRM access parameters",
+              "description": "Connection variables defined for SSH or WinRM access parameters",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Static Inventory Defined"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Static Inventory Defined"
+            }
+          ]
+        },
+        {
+          "name": "Cloud Provider Integration",
+          "description": "Dynamic inventory plugins configured for cloud infrastructure discovery.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Cloud provider credentials configured in controller (AWS, Azure, GCP, VMware)",
+              "description": "Cloud provider credentials configured in controller (AWS, Azure, GCP, VMware)",
+              "seq": 1
+            },
+            {
+              "name": "Inventory source sync schedule defined with appropriate frequency",
+              "description": "Inventory source sync schedule defined with appropriate frequency",
+              "seq": 2
+            },
+            {
+              "name": "Basic filtering applied to limit discovered hosts to relevant scope",
+              "description": "Basic filtering applied to limit discovered hosts to relevant scope",
+              "seq": 3
+            },
+            {
+              "name": "Host variables populated from cloud provider metadata and tags",
+              "description": "Host variables populated from cloud provider metadata and tags",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Cloud Provider Discovery"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Static Inventory Defined"
+            }
+          ]
+        },
+        {
+          "name": "Constructed Groups",
+          "description": "Dynamic grouping logic using Jinja2 templates and metadata attributes.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Constructed inventory plugins group hosts by dynamic attributes",
+              "description": "Constructed inventory plugins group hosts by dynamic attributes",
+              "seq": 1
+            },
+            {
+              "name": "Keyed groups enable complex multi-dimensional host organization",
+              "description": "Keyed groups enable complex multi-dimensional host organization",
+              "seq": 2
+            },
+            {
+              "name": "Group membership updates automatically on each inventory sync",
+              "description": "Group membership updates automatically on each inventory sync",
+              "seq": 3
+            },
+            {
+              "name": "Variable transformations normalize data across heterogeneous sources",
+              "description": "Variable transformations normalize data across heterogeneous sources",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Constructed Grouping"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Constructed Grouping"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Source Smart Inventory",
+          "description": "Unified inventory aggregating multiple discovery sources.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Smart inventory combines hosts from 3+ sources into single view",
+              "description": "Smart inventory combines hosts from 3+ sources into single view",
+              "seq": 1
+            },
+            {
+              "name": "Duplicate host resolution handles conflicts across sources",
+              "description": "Duplicate host resolution handles conflicts across sources",
+              "seq": 2
+            },
+            {
+              "name": "Performance optimization caches inventory sync data appropriately",
+              "description": "Performance optimization caches inventory sync data appropriately",
+              "seq": 3
+            },
+            {
+              "name": "Automated pruning removes stale or decommissioned hosts",
+              "description": "Automated pruning removes stale or decommissioned hosts",
+              "seq": 4
+            },
+            {
+              "name": "Usage analytics track inventory size and sync performance trends",
+              "description": "Usage analytics track inventory size and sync performance trends",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Multi-Source Aggregation"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Multi-Source Aggregation"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "workProductInstances": [
+    {
+      "name": "AWS EC2 Inventory Configuration",
+      "description": "Inventory source discovering EC2 instances from specific AWS regions with tag-based filtering.",
+      "workProductName": "Dynamic Inventory Configuration"
+    },
+    {
+      "name": "VMware vCenter Inventory Configuration",
+      "description": "Inventory source reading VM metadata from ESXi hosts organized by datacenter hierarchy.",
+      "workProductName": "Dynamic Inventory Configuration"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Platform Engineer",
+      "description": "Designs, deploys, and operates automation platform infrastructure.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Infrastructure",
+          "Architecture"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Platform Team"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Platform Engineer Role",
+          "description": "Role context for the platform engineer persona.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Enterprise requires production-grade automation platform with hybrid cloud distributed execution, centralized authentication, and governed runtime environments."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Deploy and configure AAP 2.7 with platform gateway, automation mesh spanning multiple datacenters, custom execution environments, and dynamic inventory integration."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Select enterprise topology, deploy containerized platform using rootless Podman, configure gateway with SSO integration, build mesh with hop nodes, establish EE build pipeline."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Operational automation platform with distributed execution, certified runtimes, automated infrastructure discovery, and centralized governance through platform gateway."
+            }
+          ]
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Cloud Operations Engineer",
+      "description": "Manages cloud infrastructure integration and dynamic inventory sources.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Cloud",
+          "Infrastructure"
+        ],
+        "lifecycleTags": [
+          "Adoption"
+        ],
+        "organizationalTags": [
+          "Cloud Operations Team"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Cloud Operations Engineer Role",
+          "description": "Role context for the cloud operations engineer persona.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organization operates infrastructure across multiple cloud providers and on-premises datacenters requiring unified visibility and automated management."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Configure dynamic inventory plugins for each cloud provider, establish constructed grouping logic, and aggregate into unified smart inventories."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Integrate AWS EC2, Azure RM, VMware vCenter, and Kubernetes inventory plugins with appropriate credentials, sync schedules, and metadata enrichment."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Unified multi-source inventory provides real-time visibility into all managed infrastructure assets with automated grouping and stale host pruning."
+            }
+          ]
+        }
+      ],
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Platform Engineering Team",
+      "description": "Team deploying and operating the automation platform infrastructure.",
+      "personaNames": [
+        "Platform Engineer",
+        "Cloud Operations Engineer"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Platform Team"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Deploy AAP Gateway and Controller",
+      "description": "Install and configure platform gateway with automation controller on target infrastructure.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Architecture Selected"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Provisioned"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Ready"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Platform Topology Design",
+          "levelOfDetailName": "Deployment Manifest"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "platform-gateway-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Gateway and Controller Deployment",
+          "description": "Lifecycle for deploying AAP gateway and controller.",
+          "narrativeTypeName": "Design-Build-Run-Optimize",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "Select deployment topology (growth single-VM or enterprise multi-VM) and plan platform gateway placement as unified entry point for all AAP interactions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Build",
+              "context": "Deploy containerized installer on RHEL 9.6+ using rootless Podman, configure platform gateway with TLS, identity provider integration (LDAP, SAML, OIDC, TACACS+), and API routing to backend services."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Validate gateway routing to controller (/api/v2/), hub (/api/galaxy/), EDA (/api/eda/), apply subscription manifest, configure audit logging, and verify authentication workflows."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Optimize",
+              "context": "Deploy high availability with multiple gateway instances behind HAProxy, configure monitoring and health check endpoints, and establish backup procedures using setup.sh."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Ansible Automation Platform 2.7 Documentation",
+            "AAP 2.7 What's New"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Build Custom Execution Environments",
+      "description": "Create containerized ansible runtimes with specialized collection dependencies.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Execution Environment",
+          "stateName": "Custom EE Build Pipeline"
+        },
+        {
+          "alphaName": "Execution Environment",
+          "stateName": "EE Governance and Certification"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Execution Environment Specification",
+          "levelOfDetailName": "EE Build Definition"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Custom EE Build Process",
+          "description": "Lifecycle for building custom execution environments.",
+          "narrativeTypeName": "Design-Build-Run-Optimize",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "Identify required ansible content collections, Python dependencies, and system packages for custom execution environment definitions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Build",
+              "context": "Build custom EEs using ansible-builder CLI with execution-environment.yml or Visual EE Builder UI, executing four-stage process (Base, Galaxy, Builder, Final) to produce optimized container images."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Publish EE images to container registry (Quay, automation hub), reference from job templates, and integrate CVE scanning with remediation SLAs."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Optimize",
+              "context": "Apply digital signatures for content verification, optimize image layering across variants, automate rebuilds on security patches, and monitor usage analytics for deprecation decisions."
+            }
+          ],
+          "citationNames": [
+            "Automation Execution Environments Overview"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Mesh Topology",
+      "description": "Deploy and connect mesh nodes forming distributed execution network.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Mesh",
+          "stateName": "Multi-Site Mesh Connected"
+        },
+        {
+          "alphaName": "Automation Mesh",
+          "stateName": "Hybrid Cloud Resilient"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Hosting Assets"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Mesh Topology Map",
+          "levelOfDetailName": "Tested Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Mesh Topology Configuration",
+          "description": "Lifecycle for configuring automation mesh topology.",
+          "narrativeTypeName": "Design-Build-Run-Optimize",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "Plan mesh topology identifying hop node placement in intermediate network zones, execution node co-location with target infrastructure, and node type selection (hybrid, control, execution, hop)."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Build",
+              "context": "Deploy Receptor instances on hop nodes with TLS/mTLS certificates, register execution nodes through hop relays, configure instance groups organizing nodes by capability or location."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Validate cross-site job execution with acceptable latency, test failover during network partitions, verify FIPS compliance where required, and load test concurrent job capacity."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Optimize",
+              "context": "Expand mesh to new regions, implement latency-based routing, add edge location nodes for IoT automation, and configure telemetry for global execution health visibility."
+            }
+          ],
+          "citationNames": [
+            "Automation Mesh Explained: Scalability for Hybrid Cloud"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Integrate Dynamic Inventory Sources",
+      "description": "Configure cloud provider inventory plugins for automated host discovery.",
+      "activitySpaceName": "Provision Managed Assets",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Inventory Source",
+          "stateName": "Cloud Provider Discovery"
+        },
+        {
+          "alphaName": "Inventory Source",
+          "stateName": "Constructed Grouping"
+        },
+        {
+          "alphaName": "Inventory Source",
+          "stateName": "Static Inventory Defined"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Dynamic Inventory Configuration",
+          "levelOfDetailName": "Cloud Provider Integration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Dynamic Inventory Integration",
+          "description": "Lifecycle for integrating dynamic inventory sources.",
+          "narrativeTypeName": "Design-Build-Run-Optimize",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "Identify cloud provider inventory plugins needed (AWS EC2, Azure RM, GCP, VMware vCenter, Kubernetes) and plan credential configuration for API access."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Build",
+              "context": "Configure inventory sources in controller with provider credentials, sync schedules, filtering rules, and variable enrichment mapping cloud metadata to ansible variables."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Validate host discovery, configure constructed inventory plugins for dynamic grouping by metadata attributes (OS, datacenter, VLAN), and monitor sync failures with alerting."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Optimize",
+              "context": "Aggregate multiple sources into smart inventories, implement duplicate host resolution, optimize caching for large environments, and automate pruning of stale hosts."
+            }
+          ],
+          "citationNames": [
+            "How to Use Dynamic Inventories in Ansible Automation",
+            "Guide to Multi-Homed Inventory Management"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Baseline Platform Configuration",
+      "description": "Establish routing configuration, data store design, and baseline platform settings.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Baselined"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Platform Topology Design",
+          "levelOfDetailName": "Logical Architecture"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Baseline Configuration Context",
+          "description": "Context for establishing baseline platform configuration.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "The platform architecture has been selected with deployment topology and hosting platform decisions documented."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Platform gateway routing paths, PostgreSQL shared data store configuration, TLS certificate management, and Configuration as Code approach remain undefined."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Define platform gateway API routing configuration, configure external PostgreSQL for enterprise topology, establish TLS certificate management, and select Configuration as Code tooling for programmatic management."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Ansible Automation Platform 2.7 Documentation"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Evolve Platform Infrastructure",
+      "description": "Upgrade, harden, and continuously improve platform components.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Evolving"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Platform Topology Design",
+          "levelOfDetailName": "Production-Validated Runbook"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Platform Evolution Cycle",
+          "description": "Continuous improvement cycle for platform infrastructure.",
+          "narrativeTypeName": "PDCA",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Identify platform upgrade path (2.5 to 2.6 to 2.7), plan gateway high availability expansion, and evaluate telemetry for performance optimization opportunities."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Do",
+              "context": "Execute sequential upgrades with zero-downtime rolling deployment, deploy additional gateway instances behind load balancer, and implement performance tuning."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Check",
+              "context": "Validate upgrade success, confirm gateway request latency and throughput meet targets, verify disaster recovery procedures, and assess security posture."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Act",
+              "context": "Document upgrade procedures in runbook, standardize HA deployment pattern, update monitoring dashboards, and plan next improvement cycle."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Ansible Automation Platform 2.7 Documentation"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Decommission Automation Platform",
+      "description": "Systematically retire platform components with workload migration.",
+      "activitySpaceName": "Decommission and Retire",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Retiring"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Platform Topology Design",
+          "levelOfDetailName": "Production-Validated Runbook"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Platform Decommission Context",
+          "description": "Context for platform decommissioning decisions.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "The automation platform has served its purpose and a replacement or consolidation decision has been made."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Active workloads, inventory data, credentials, and job history must be preserved or migrated before platform components can be safely removed."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Execute decommission runbook: migrate workloads to replacement platform, export critical data, drain mesh nodes, remove containers, clean up certificates and credentials."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Ansible Automation Platform 2.7 Documentation"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Provision Default Execution Environments",
+      "description": "Pull and validate Red Hat provided execution environments for initial use.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Execution Environment",
+          "stateName": "Default EE Available"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Execution Environment Specification",
+          "levelOfDetailName": "Default EE Reference"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Default EE Provisioning Context",
+          "description": "Context for provisioning default execution environments.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "The automation platform is provisioned and ready to execute automation workloads."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Execution environments must be available and validated before job templates can run, and the team needs to understand default EE contents and limitations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Pull default EE images from Red Hat registry, cache locally, validate job template execution against default EEs, document contents, and identify dependency gaps requiring custom builds."
+            }
+          ],
+          "citationNames": [
+            "Automation Execution Environments Overview"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Optimize EE Distribution",
+      "description": "Improve execution environment distribution efficiency across mesh infrastructure.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Execution Environment",
+          "stateName": "Optimized EE Distribution"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Execution Environment Specification",
+          "levelOfDetailName": "Certified EE Catalog"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "EE Distribution Optimization Context",
+          "description": "Context for optimizing execution environment distribution.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Execution environments are certified with security scanning and digital signatures, and the platform serves multiple sites and regions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Image pull latency, registry replication overhead, duplicate content across EE variants, and lifecycle management of obsolete images create operational friction."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Implement multi-site registry replication, optimize image layering to minimize duplication, automate pruning of obsolete versions, and tie EE lifecycle to ansible-core version cadence."
+            }
+          ],
+          "citationNames": [
+            "Automation Execution Environments Overview"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Provision Initial Mesh Cluster",
+      "description": "Deploy initial execution nodes co-located with controller for local distribution.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Mesh",
+          "stateName": "Single-Site Cluster"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Mesh Topology Map",
+          "levelOfDetailName": "Node Inventory"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Initial Mesh Cluster Context",
+          "description": "Context for provisioning initial mesh cluster.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "The automation controller is provisioned and ready to distribute execution workloads."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Execution nodes must be registered, instance groups configured, and basic load balancing established before automation can scale beyond the controller host."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Register execution nodes to the controller, configure instance groups organizing nodes by capability, validate job distribution across the local pool, and document network connectivity assumptions."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Ansible Automation Platform 2.7 Documentation"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Scale Mesh to Global Distribution",
+      "description": "Expand automation mesh to global scale with edge locations and latency routing.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Mesh",
+          "stateName": "Globally Distributed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Mesh Topology Map",
+          "levelOfDetailName": "Resilient Global Mesh"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Global Mesh Scaling Context",
+          "description": "Context for scaling mesh to global distribution.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Automation mesh is resilient across hybrid cloud with failover tested and compliance validated."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Global-scale automation requires regional execution nodes, latency-based routing, edge location support, and comprehensive distributed telemetry."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Deploy regional execution nodes in 3+ geographic regions, implement latency-based routing, add edge nodes for IoT automation, configure global mesh telemetry, and test disaster recovery for regional failures."
+            }
+          ],
+          "citationNames": [
+            "Automation Mesh Explained: Scalability for Hybrid Cloud"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Aggregate Multi-Source Inventories",
+      "description": "Unify multiple inventory sources into smart inventories with optimization.",
+      "activitySpaceName": "Operate Managed Assets",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Inventory Source",
+          "stateName": "Multi-Source Aggregation"
+        },
+        {
+          "alphaName": "Inventory Source",
+          "stateName": "Multi-Source Aggregation"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Dynamic Inventory Configuration",
+          "levelOfDetailName": "Multi-Source Smart Inventory"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Multi-Source Inventory Aggregation Context",
+          "description": "Context for aggregating multi-source inventories.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Multiple cloud provider inventory sources are syncing and constructed groups organize hosts by metadata attributes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Hosts from different sources may overlap, sync performance degrades at scale, and decommissioned hosts persist as stale entries."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Configure smart inventories aggregating 3+ sources, implement duplicate host resolution, optimize inventory caching, automate stale host pruning, and track sync performance metrics."
+            }
+          ],
+          "citationNames": [
+            "Guide to Multi-Homed Inventory Management"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Platform Foundation Lifecycle",
+      "description": "Coordinated lifecycle from platform architecture through production operations and evolution.",
+      "narrativeTypeName": "Design-Build-Run-Optimize",
+      "assetNames": [
+        {
+          "assetName": "platform-topology-diagram",
+          "type": "diagram"
+        }
+      ],
+      "patternViews": [
+        {
+          "name": "Design",
+          "description": "Architecture definition, topology planning, and initial provisioning.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Architecture Selected"
+            },
+            {
+              "alphaName": "Execution Environment",
+              "stateName": "Default EE Available"
+            },
+            {
+              "alphaName": "Automation Mesh",
+              "stateName": "Single-Site Cluster"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Static Inventory Defined"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Static Inventory Defined"
+            }
+          ],
+          "activities": [
+            "Deploy AAP Gateway and Controller",
+            "Provision Default Execution Environments",
+            "Provision Initial Mesh Cluster"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "Select containerized deployment topology (growth or enterprise), plan platform gateway as unified entry point, provision initial execution nodes co-located with controller, pull default EEs, and populate initial static inventory with known hosts."
+            }
+          ]
+        },
+        {
+          "name": "Build",
+          "description": "Platform provisioning, mesh extension, and dynamic integration.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Baselined"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Execution Environment",
+              "stateName": "Custom EE Build Pipeline"
+            },
+            {
+              "alphaName": "Automation Mesh",
+              "stateName": "Multi-Site Mesh Connected"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Cloud Provider Discovery"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Static Inventory Defined"
+            }
+          ],
+          "activities": [
+            "Baseline Platform Configuration",
+            "Deploy AAP Gateway and Controller",
+            "Build Custom Execution Environments",
+            "Configure Mesh Topology",
+            "Integrate Dynamic Inventory Sources"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "Deploy platform gateway and controller as rootless Podman containers, configure platform baseline settings and routing, extend mesh to multi-site with hop nodes, build custom EEs via ansible-builder, and integrate dynamic inventory plugins for cloud infrastructure discovery."
+            }
+          ]
+        },
+        {
+          "name": "Run",
+          "description": "Production operations, governance, and steady-state management.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            },
+            {
+              "alphaName": "Execution Environment",
+              "stateName": "EE Governance and Certification"
+            },
+            {
+              "alphaName": "Automation Mesh",
+              "stateName": "Hybrid Cloud Resilient"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Constructed Grouping"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Constructed Grouping"
+            }
+          ],
+          "activities": [
+            "Deploy AAP Gateway and Controller",
+            "Build Custom Execution Environments",
+            "Configure Mesh Topology",
+            "Integrate Dynamic Inventory Sources"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Run",
+              "context": "Platform operates at production scale with hybrid cloud resilient mesh, certified execution environments with CVE scanning and digital signatures, constructed inventory grouping hosts by metadata, and gateway providing unified access with monitoring and health checks."
+            }
+          ]
+        },
+        {
+          "name": "Optimize",
+          "description": "Continuous improvement, global scaling, and lifecycle evolution.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Execution Environment",
+              "stateName": "Optimized EE Distribution"
+            },
+            {
+              "alphaName": "Automation Mesh",
+              "stateName": "Globally Distributed"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Multi-Source Aggregation"
+            },
+            {
+              "alphaName": "Inventory Source",
+              "stateName": "Multi-Source Aggregation"
+            }
+          ],
+          "activities": [
+            "Evolve Platform Infrastructure",
+            "Optimize EE Distribution",
+            "Scale Mesh to Global Distribution",
+            "Aggregate Multi-Source Inventories"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Optimize",
+              "context": "Platform evolves through sequential upgrades with zero-downtime deployment, mesh scales globally with latency-based routing and edge support, EE distribution is optimized with registry replication and image layering, and multi-source smart inventories provide unified infrastructure visibility."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform",
+      "aliasName": "Automation Platform"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Managed Asset",
+      "aliasName": "Managed Infrastructure Resource"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Architect and Build the Foundation",
+      "aliasName": "Deploy and Configure Platform"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Provision Managed Assets",
+      "aliasName": "Discover Infrastructure Assets"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Operate Managed Assets",
+      "aliasName": "Manage Discovered Infrastructure"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Integrate Toolchain Services",
+      "aliasName": "Integrate Execution Runtime"
+    },
+    {
+      "practiceElementType": "Competency",
+      "practiceElementName": "Engineering",
+      "aliasName": "Automation Engineering"
+    },
+    {
+      "practiceElementType": "Competency",
+      "practiceElementName": "Site Reliability",
+      "aliasName": "Infrastructure Reliability"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Infrastructure Automation Essentials",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

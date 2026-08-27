@@ -1,0 +1,390 @@
+{
+  "kind": "practice",
+  "name": "Team Topologies Lifecycle",
+  "description": "Orchestration practice coordinating team structure design with organizational evolution through Team Topologies patterns and terminology unification.",
+  "baselinePracticeName": "Platform Adoption Essentials",
+  "practiceDependencyNames": [
+    "Team Structure & Cognitive Load",
+    "Organizational Evolution & Sensing"
+  ],
+  "tags": {
+    "domainTags": [
+      "Organizational Design",
+      "Platform Engineering"
+    ],
+    "lifecycleTags": [
+      "Adoption",
+      "Evolution"
+    ],
+    "organizationalTags": [
+      "Executive Leadership"
+    ]
+  },
+  "keywords": [
+    "team topology lifecycle",
+    "organizational evolution",
+    "topology coordination",
+    "TVP adoption",
+    "interaction patterns"
+  ],
+  "authors": [
+    "Matthew Skelton",
+    "Manuel Pais"
+  ],
+  "createdAt": "2026-07-10",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.1",
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Platform",
+      "practiceElementName": "Platform",
+      "aliasName": "TVP"
+    },
+    {
+      "practiceElementType": "Platform",
+      "practiceElementName": "Platform",
+      "aliasName": "Thinnest Viable Platform"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Team",
+      "aliasName": "Topology"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Team",
+      "aliasName": "Team Topology Design"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Team Agreement",
+      "aliasName": "Team API"
+    },
+    {
+      "practiceElementType": "Pattern",
+      "practiceElementName": "Platform as Product Adoption",
+      "aliasName": "X-as-a-Service"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Support the Team",
+      "aliasName": "Interaction Mode"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "Orchestration Practice Intent",
+      "description": "Explanation of Team Topologies Lifecycle orchestration role coordinating team design with organizational evolution.",
+      "narrativeTypeName": "Essay",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Introduction",
+          "context": "Team Topologies Lifecycle orchestrates two complementary value streams: Team Structure & Cognitive Load practice focuses on team design, boundaries, and interaction modes; Organizational Evolution & Sensing practice governs topology adaptation through continuous organizational sensing and incremental evolution."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Body",
+          "context": "This orchestration practice unifies Team Topologies terminology across both practices through canonical aliases (TVP, Team API, Interaction Mode, Topology) and coordinates progression through two primary lifecycle patterns: Team Topology Evolution Journey aligns team formation with organizational change sensing across five views, while Platform as Product Adoption coordinates platform maturation with team readiness through self-service capability development."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Conclusion",
+          "context": "The orchestration enables organizations to progress both team structure design and continuous topology evolution in coordinated fashion, ensuring that team boundaries evolve in response to sensing signals and platform capabilities mature alongside team interaction patterns."
+        }
+      ],
+      "citationNames": [
+        "Team Topologies Book",
+        "Platform Engineering Approach"
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Team Topology Evolution Journey",
+      "description": "Coordinates team formation and organizational change progression across five evolutionary views, aligning team structure design with continuous sensing and adaptation.",
+      "patternViews": [
+        {
+          "name": "Topology Foundation",
+          "description": "Establish initial team structure with cognitive load assessment and organizational change recognition.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            }
+          ],
+          "activitySpaces": [
+            "Structure Organizational Topologies"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Teams are seeded with appropriate size (5-9 people) and cognitive load boundaries, while organizational need for topology evolution is recognized through bottleneck identification."
+            }
+          ]
+        },
+        {
+          "name": "Interaction Design",
+          "description": "Define team interaction modes and develop organizational change strategy for topology adaptation.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            }
+          ],
+          "activitySpaces": [
+            "Structure Organizational Topologies",
+            "Enable Organizational Change"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Body",
+              "context": "Teams establish explicit interaction modes (Collaboration, X-as-a-Service, Facilitating) while change plans map communication pathways for continuous topology adaptation."
+            }
+          ]
+        },
+        {
+          "name": "Platform-Team Integration",
+          "description": "Align platform readiness with team performance and enable organizational change execution.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            }
+          ],
+          "activitySpaces": [
+            "Architect and Build the Foundation",
+            "Structure Organizational Topologies",
+            "Enable Organizational Change"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Body",
+              "context": "Platform achieves autonomous developer self-service while teams consistently deliver value, enabled by playbooks addressing behavioral pushback to topology changes."
+            }
+          ]
+        },
+        {
+          "name": "Self-Service Maturation",
+          "description": "Optimize platform consumption interface while sustaining team performance and embedding organizational change.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Consumption Interface",
+              "stateName": "Self Service"
+            },
+            {
+              "alphaName": "Platform Consumption Interface",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            }
+          ],
+          "activitySpaces": [
+            "Develop the Golden Paths",
+            "Structure Organizational Topologies",
+            "Enable Organizational Change"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Body",
+              "context": "Platform interface dynamically adapts to minimize cognitive load through deep telemetry while comprehensive change management toolkits ensure sustained topology evolution capability."
+            }
+          ]
+        },
+        {
+          "name": "Continuous Evolution",
+          "description": "Sustain platform evolution with ongoing topology adaptation and embedded organizational change capability.",
+          "seq": 5,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            }
+          ],
+          "activitySpaces": [
+            "Operate and Evolve the System",
+            "Structure Organizational Topologies"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Conclusion",
+              "context": "Platform autonomously adapts through predictive scaling and continuous feedback while teams serve as sensors detecting topology adjustment needs, with change management embedded as organizational capability."
+            }
+          ]
+        }
+      ],
+      "narrativeTypeName": "Essay",
+      "kind": "pattern"
+    },
+    {
+      "name": "Platform as Product Adoption",
+      "description": "Coordinates platform maturation with team readiness through progressive self-service capability development aligned with interaction mode evolution.",
+      "patternViews": [
+        {
+          "name": "Platform Vision & Team Formation",
+          "description": "Envision platform consumption interface while forming teams with clear ownership boundaries.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Consumption Interface",
+              "stateName": "Envisioned"
+            },
+            {
+              "alphaName": "Platform Consumption Interface",
+              "stateName": "Scoped"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            }
+          ],
+          "activitySpaces": [
+            "Develop the Golden Paths",
+            "Structure Organizational Topologies"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Platform interface capabilities are defined to reduce cognitive load while teams establish stable membership and ownership boundaries, setting foundation for product-centric platform approach."
+            }
+          ]
+        },
+        {
+          "name": "Self-Service Availability & Team Collaboration",
+          "description": "Make platform interface accessible while teams establish explicit interaction modes for consumption.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Consumption Interface",
+              "stateName": "Available"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            }
+          ],
+          "activitySpaces": [
+            "Develop the Golden Paths",
+            "Structure Organizational Topologies"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Body",
+              "context": "Platform interface becomes accessible to consumers while teams define interaction modes (X-as-a-Service for platform consumption, Facilitating for adoption support), enabling voluntary platform adoption."
+            }
+          ]
+        },
+        {
+          "name": "Autonomous Self-Service & Team Performance",
+          "description": "Enable independent platform consumption while teams consistently deliver value through reduced cognitive load.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Consumption Interface",
+              "stateName": "Self Service"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            }
+          ],
+          "activitySpaces": [
+            "Develop the Golden Paths",
+            "Structure Organizational Topologies",
+            "Operate and Evolve the System"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Body",
+              "context": "Consumers independently use platform interface without handoffs while teams perform at high level, demonstrating platform-as-product success through measurable cognitive load reduction and value delivery."
+            }
+          ]
+        }
+      ],
+      "narrativeTypeName": "Essay",
+      "kind": "pattern"
+    }
+  ],
+  "citations": [
+    {
+      "name": "Team Topologies Book",
+      "description": "Foundational book on organizing teams for fast flow by Matthew Skelton and Manuel Pais.",
+      "authors": [
+        "Matthew Skelton",
+        "Manuel Pais"
+      ],
+      "date": "2019",
+      "source": "IT Revolution Press",
+      "url": "https://teamtopologies.com/book",
+      "kind": "citation"
+    },
+    {
+      "name": "Platform Engineering Approach",
+      "description": "Integration of Team Topologies with platform engineering strategy and developer experience optimization.",
+      "authors": [
+        "Matthew Skelton",
+        "Manuel Pais"
+      ],
+      "date": "2026",
+      "source": "Team Topologies",
+      "url": "https://teamtopologies.com/platform-engineering",
+      "kind": "citation"
+    },
+    {
+      "name": "Platform Manifesto",
+      "description": "Six principles for platform as product approach including teams over tools and adoption over mandates.",
+      "authors": [
+        "Team Topologies Community"
+      ],
+      "date": "2025",
+      "source": "Team Topologies",
+      "url": "https://teamtopologies.com/platform-manifesto",
+      "kind": "citation"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Platform Adoption Essentials",
+      "versionRange": "^2.0.1"
+    },
+    {
+      "documentName": "Team Structure & Cognitive Load",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Organizational Evolution & Sensing",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

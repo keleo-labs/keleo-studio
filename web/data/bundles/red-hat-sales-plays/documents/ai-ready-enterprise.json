@@ -1,0 +1,2188 @@
+{
+  "kind": "practice",
+  "name": "AI-Ready Enterprise",
+  "description": "Positions Red Hat for AI infrastructure deals by applying the AI-Ready Enterprise Customer Lens, engaging AI-focused personas, and orchestrating AI-relevant TDPs into coherent solution narratives.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceDependencyNames": [
+    "Sales Play Framework",
+    "Server Cloud OS TDP",
+    "App Platform TDP",
+    "Automation TDP",
+    "AI Platform TDP"
+  ],
+  "tags": {
+    "domainTags": [
+      "AI/ML Infrastructure",
+      "Hybrid Cloud",
+      "Platform Engineering"
+    ],
+    "lifecycleTags": [
+      "Discovery",
+      "Validation",
+      "Proposal"
+    ],
+    "organizationalTags": [
+      "Field Sales",
+      "Technical Sales",
+      "AI Specialist Sales"
+    ]
+  },
+  "keywords": [
+    "ai-ready-enterprise",
+    "ai-infrastructure",
+    "gpu-optimization",
+    "model-governance",
+    "ai-platform",
+    "hybrid-ai",
+    "open-source-ai",
+    "four-tdp-stack",
+    "ai-maturity",
+    "production-ai"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.11",
+  "citations": [
+    {
+      "name": "AI-Ready Enterprise Sales Play",
+      "description": "Complete Sales Play documenting Customer Lens, persona frameworks, value drivers, TDP alignment, and content architecture for AI infrastructure positioning.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//",
+      "kind": "citation"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//",
+      "kind": "citation"
+    },
+    {
+      "name": "Sales Play Revamp",
+      "description": "Documentation of the sales play framework restructuring including three-level hierarchy and bidirectional navigation design.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//",
+      "kind": "citation"
+    },
+    {
+      "name": "Event Driven Automation",
+      "description": "Architecture guide demonstrating event-driven automation patterns where triggers initiate automated responses. Supports operationalizing AI and automating Day-2 operations.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/27-event-driven-automation",
+      "kind": "citation"
+    },
+    {
+      "name": "Self-Healing Infrastructure",
+      "description": "Architecture guide showing how to reduce manual fixes and catch issues earlier through self-healing patterns. Supports operationalizing AI and automating Day-2 operations.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/17-self-healing-infrastructure",
+      "kind": "citation"
+    },
+    {
+      "name": "Scalable and Cost Efficient Enterprise AI with Model as a Service",
+      "description": "Architecture guide demonstrating the value of using Model as a Service (MaaS) to reduce GPU costs while running AI efficiently. Supports running AI efficiently and controlling cost, and establishing a standardized and secure foundation to run AI across the business.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/82-model-as-a-service",
+      "kind": "citation"
+    },
+    {
+      "name": "Self-Service Provisioning for Data Scientists",
+      "description": "Interactive video demo showing how OpenShift AI provides a flexible and scalable platform where data scientists can train, test, and deploy models across hybrid cloud environments. Supports establishing a standardized and secure foundation to run AI across the business.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/74-self-service-provisioning-data-scientists-demo",
+      "kind": "citation"
+    },
+    {
+      "name": "Event-Driven Ansible with Event Streams",
+      "description": "Interactive video demo demonstrating real-time automation using event-driven Ansible with event streams and AI-driven triggers.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/80-event-driven-ansible-event-streams-demo",
+      "kind": "citation"
+    },
+    {
+      "name": "Ansible Lightspeed 90-Day Trial Demo",
+      "description": "Interactive experience showcasing AI-assisted automation creation through Ansible Lightspeed, the most accessible AI example for day-to-day work.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/55-ansible-lightspeed-trial-demo",
+      "kind": "citation"
+    },
+    {
+      "name": "Chat with Your Data Using RAG",
+      "description": "Interactive experience demonstrating retrieval-augmented generation (RAG) with private enterprise data, a common AI use case. Supports using enterprise data securely at scale for predictive and generative AI.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/127-chat-with-your-data-using-rag-red-hat-ai-interactive-experience",
+      "kind": "citation"
+    },
+    {
+      "name": "Trusted Application Pipeline for AI Applications",
+      "description": "Interactive video demo showing how developers can quickly and easily create AI apps using CI/CD pipelines and templates. Supports building and deploying AI-powered apps and agents.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/69-trusted-application-pipeline-ai-demo",
+      "kind": "citation"
+    },
+    {
+      "name": "Introduction to Red Hat AI Inference Server",
+      "description": "Interactive experience providing a simple introduction to running AI models anywhere across hybrid environments. Supports running AI efficiently and controlling cost.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/89-intro-red-hat-ai-inference-server-demo",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "ai-ready-enterprise-play-icon",
+      "description": "Visual icon representing the AI-Ready Enterprise sales play concept.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ai-play-execution-playbook-icon",
+      "description": "Visual icon representing the AI-Ready Enterprise execution playbook work product.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-book-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ai-customer-reference-icon",
+      "description": "Visual icon representing AI-focused customer reference evidence.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-award",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ai-performance-dashboard-icon",
+      "description": "Visual icon representing the AI-Ready Enterprise performance tracking dashboard.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "AI-Ready Enterprise",
+      "description": "Tracks the AI-Ready Enterprise play's positioning lifecycle from customer lens application through deal advancement.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "orchestrates",
+          "alphaName": "Technical Decision Point",
+          "direction": "outgoing",
+          "description": "This play orchestrates four TDPs (Server/Cloud OS, App Platform, Automation, AI Platform) into a coherent AI infrastructure stack narrative."
+        },
+        {
+          "relationship": "informs",
+          "alphaName": "Competitive Position",
+          "direction": "outgoing",
+          "description": "Play-level AI positioning informs competitive differentiation strategies against proprietary AI platforms and cloud-native alternatives."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "ai-ready-enterprise-play-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Selected",
+          "description": "The AI-Ready Enterprise customer situation is understood through the play's structured lens.",
+          "seq": 1,
+          "contributesToState": "Selected",
+          "background": {
+            "given": [
+              "Seller has completed AI-Ready Enterprise play awareness training",
+              "Customer account has been identified as having AI/ML strategic initiatives"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "AI maturity level assessed",
+              "description": "Customer's AI maturity level assessed (POC, pilot, scaling, production).",
+              "seq": 1,
+              "test": {
+                "name": "AI Customer Lens application verification",
+                "description": "Verifies that the Customer Lens framework identifies the customer's specific AI maturity pain and maps it to desired outcomes.",
+                "given": [
+                  "Customer has fragmented AI infrastructure with multiple disconnected tools and environments"
+                ],
+                "when": [
+                  "Seller applies the Customer Lens framework identifying their specific AI maturity pain (POC-to-production gap, spiraling GPU costs, or model governance concerns)"
+                ],
+                "then": [
+                  "Customer articulates desired outcomes in terms of production AI at scale, reduced infrastructure costs, and consistent security across AI workloads"
+                ]
+              }
+            },
+            {
+              "name": "Primary pain identified",
+              "description": "Primary pain identified from play's pain taxonomy (infrastructure fragmentation, security, skills gaps, cost).",
+              "seq": 2
+            },
+            {
+              "name": "Desired outcomes mapped",
+              "description": "Desired outcomes mapped to play's outcome framework (scale AI, reduce costs, improve security, avoid lock-in).",
+              "seq": 3
+            },
+            {
+              "name": "Business impact quantified",
+              "description": "Business impact quantified using play's impact categories (faster innovation, lower cost, reduced risk, greater flexibility).",
+              "seq": 4
+            },
+            {
+              "name": "Customer examples matched",
+              "description": "Real-world customer examples matched to customer's industry and challenge profile.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Activated",
+          "description": "Key AI decision-makers are engaged with persona-tailored messaging and discovery questions.",
+          "seq": 2,
+          "contributesToState": "Activated",
+          "background": {
+            "given": [
+              "Customer Lens has been applied with AI-specific pain and outcomes identified",
+              "At least one target AI persona has been identified in the account"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "CIO/VP Digital Transformation engaged",
+              "description": "CIO/VP Digital Transformation engaged on balancing AI investment with existing IT operations.",
+              "seq": 1
+            },
+            {
+              "name": "CTO/Head of AI/ML engaged",
+              "description": "CTO/Head of AI/ML engaged on infrastructure readiness for production AI workloads.",
+              "seq": 2
+            },
+            {
+              "name": "VP/Dir of Infrastructure engaged",
+              "description": "VP/Dir of Infrastructure engaged on modernizing infrastructure to support AI demands.",
+              "seq": 3
+            },
+            {
+              "name": "Discovery questions documented",
+              "description": "Persona-specific discovery questions asked and responses documented.",
+              "seq": 4
+            },
+            {
+              "name": "Current reality validated",
+              "description": "Customer's current reality validated against play's challenge taxonomy.",
+              "seq": 5
+            },
+            {
+              "name": "Champion identified",
+              "description": "Champion identified among engaged personas.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Executing",
+          "description": "The AI-Ready Enterprise play is actively being executed with TDP alignment and value articulation in customer engagements.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Applicable TDPs identified",
+              "description": "Applicable TDPs identified from the four powering this play (Server/Cloud OS, App Platform, Automation, AI Platform).",
+              "seq": 1
+            },
+            {
+              "name": "TDP positioning briefs reviewed",
+              "description": "TDP-specific positioning briefs reviewed for relevant AI technology areas.",
+              "seq": 2
+            },
+            {
+              "name": "Sales tactics matched",
+              "description": "Sales tactics matched to customer's specific AI technology challenges.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-TDP solution narrative constructed",
+              "description": "Multi-TDP AI solution narrative constructed connecting infrastructure, platform, and AI layers.",
+              "seq": 4
+            },
+            {
+              "name": "Competitive alternatives assessed",
+              "description": "Competitive alternatives assessed using TDP-level competitive intelligence.",
+              "seq": 5
+            },
+            {
+              "name": "Cost value driver quantified",
+              "description": "Cost value driver quantified (infrastructure consolidation, operational efficiency, GPU utilization improvement).",
+              "seq": 6
+            },
+            {
+              "name": "Complexity value driver demonstrated",
+              "description": "Complexity value driver demonstrated (unified AI platform, consistent hybrid operations, built-in security).",
+              "seq": 7
+            },
+            {
+              "name": "Choice value driver positioned",
+              "description": "Choice value driver positioned (open-source AI stack, no vendor lock-in, workload portability across clouds).",
+              "seq": 8
+            },
+            {
+              "name": "Customer reference stories shared",
+              "description": "Customer reference stories shared matching customer's industry and AI deployment scale.",
+              "seq": 9
+            },
+            {
+              "name": "Business case constructed",
+              "description": "Business case constructed with quantified AI infrastructure impact metrics.",
+              "seq": 10
+            }
+          ],
+          "contributesToState": "Executing",
+          "background": {
+            "given": [
+              "At least one AI persona is engaged with validated pain points",
+              "TDP alignment is established with relevant AI technology areas identified"
+            ]
+          }
+        },
+        {
+          "name": "Measured",
+          "description": "Customer engagement has progressed to active AI infrastructure evaluation or proposal stage.",
+          "seq": 4,
+          "contributesToState": "Measured",
+          "background": {
+            "given": [
+              "Value proposition is articulated and resonates with at least one champion"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Next steps agreed",
+              "description": "Customer has agreed to next steps (AI workload technical validation, executive briefing, or proof of value).",
+              "seq": 1
+            },
+            {
+              "name": "Content engagement tracked",
+              "description": "Content sharing with engagement tracking shows active customer interaction with AI materials.",
+              "seq": 2
+            },
+            {
+              "name": "Multi-stakeholder buy-in demonstrated",
+              "description": "Multi-stakeholder buy-in demonstrated across technical and business AI personas.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive differentiation defended",
+              "description": "Competitive differentiation defended against proprietary AI platforms and cloud-native alternatives.",
+              "seq": 4
+            },
+            {
+              "name": "Deal registered and attributed",
+              "description": "Deal registered and pipeline attributed to AI-Ready Enterprise play.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "AI-Ready Enterprise play strategy and content are continuously refined based on performance data and market evolution.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "AI TDP Content Refresh Cycle",
+              "description": "AI-domain TDP content refreshed with latest analyst recognitions, customer AI deployment wins, and competitive positioning updates.",
+              "seq": 1
+            },
+            {
+              "name": "AI Tactic Performance Optimization",
+              "description": "Underperforming AI tactics redesigned based on engagement data, conversion metrics, and evolving customer AI maturity patterns.",
+              "seq": 2
+            },
+            {
+              "name": "AI Framework Alignment Refinement",
+              "description": "Framework alignment refined with new AI TDP-tactic mappings added and ineffective AI positioning connections retired.",
+              "seq": 3
+            },
+            {
+              "name": "AI Selling Best Practice Codification",
+              "description": "Cross-level best practices from top AI sellers codified and shared as recommended AI selling motions.",
+              "seq": 4
+            },
+            {
+              "name": "AI Market Intelligence Integration",
+              "description": "Predictive analytics and AI market intelligence enable forward-looking play performance forecasting and early warning indicators.",
+              "seq": 5
+            }
+          ],
+          "contributesToState": "Optimized"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "AI-Ready Enterprise Play Context and Rationale",
+          "description": "Why the AI-Ready Enterprise Play alpha matters within the sales play framework.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Enterprise customers face a critical gap between AI proof-of-concept success and production AI deployment at scale, driven by infrastructure fragmentation across disconnected tools, spiraling GPU costs, and inconsistent security posture across AI workloads."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The AI-Ready Enterprise play equips sellers to position Red Hat's open hybrid AI platform as the trusted foundation for production AI, orchestrating four TDPs (Server/Cloud OS, App Platform, Automation, AI Platform) into a coherent infrastructure stack that addresses cost, complexity, and choice concerns."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Sellers apply the Customer Lens to assess AI maturity, engage CIO/CTO/VP Infrastructure personas with tailored discovery frameworks, align the four-TDP AI stack to the customer's technology decisions, and articulate value through quantified business impact evidence from reference deployments."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Customers achieve a clear path from AI proof-of-concept to production, with reduced GPU infrastructure costs, simplified multi-environment AI operations, and freedom from proprietary AI platform lock-in through Red Hat's open-source approach."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play",
+            "Sales Plays, TDPs and Sales Tactics",
+            "Event Driven Automation",
+            "Self-Healing Infrastructure",
+            "Scalable and Cost Efficient Enterprise AI with Model as a Service",
+            "Self-Service Provisioning for Data Scientists",
+            "Event-Driven Ansible with Event Streams",
+            "Ansible Lightspeed 90-Day Trial Demo",
+            "Chat with Your Data Using RAG",
+            "Trusted Application Pipeline for AI Applications",
+            "Introduction to Red Hat AI Inference Server"
+          ]
+        },
+        {
+          "name": "AI-Ready Enterprise Practice Intent",
+          "description": "The end-to-end narrative of the AI-Ready Enterprise play from market discovery through deal advancement and expansion.",
+          "narrativeTypeName": "Sales Engagement Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "Enterprise customers struggle to move AI initiatives beyond proof-of-concept due to infrastructure fragmentation, spiraling GPU costs, security concerns across AI workloads, and skills gaps in production AI operations."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Validate",
+              "context": "The AI-Ready Enterprise play structures Red Hat's AI positioning around three value drivers -- Cost (reduce infrastructure and GPU expenses through consolidation), Complexity (simplify AI deployment with a unified platform across hybrid environments), and Choice (avoid vendor lock-in with an open-source AI stack) -- validated through customer reference evidence from production AI deployments."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Propose",
+              "context": "The play orchestrates four TDPs (Server/Cloud OS, App Platform, Automation, AI Platform) into a coherent AI infrastructure stack narrative, enabling sellers to present an integrated solution from infrastructure foundation through AI model serving."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Negotiate",
+              "context": "Sellers engage CIO/VP Digital Transformation, CTO/Head of AI/ML, and VP/Dir of Infrastructure personas with persona-tailored discovery questions and value propositions, building multi-stakeholder alignment around production AI infrastructure investment."
+            },
+            {
+              "seq": 5,
+              "narrativeElementName": "Close",
+              "context": "Technical validation through AI workload demonstrations and proof-of-value exercises confirms platform fit, with competitive differentiation defended against proprietary AI platforms and cloud-native alternatives."
+            },
+            {
+              "seq": 6,
+              "narrativeElementName": "Expand",
+              "context": "AI infrastructure deployments expand as organizations scale from pilot AI workloads to enterprise-wide production AI, with subscription growth driven by increasing GPU node count, model deployment volume, and automation scope."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Play",
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "AI-Ready Enterprise Playbook",
+      "description": "AI-specific play execution document covering AI Customer Lens, AI personas, AI value drivers, and four-TDP AI stack alignment.",
+      "assetNames": [
+        {
+          "assetName": "ai-play-execution-playbook-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "AI Customer Lens applied with maturity assessment and pain mapping.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "AI maturity level documented",
+              "description": "Customer's AI maturity level documented (POC, pilot, scaling, production).",
+              "seq": 1
+            },
+            {
+              "name": "Infrastructure fragmentation pain identified",
+              "description": "Infrastructure fragmentation pain points identified and prioritized.",
+              "seq": 2
+            },
+            {
+              "name": "AI-specific desired outcomes mapped",
+              "description": "AI-specific desired outcomes mapped (scale AI, reduce GPU costs, secure AI workloads).",
+              "seq": 3
+            },
+            {
+              "name": "Industry-relevant references identified",
+              "description": "Industry-relevant AI customer references identified for sharing.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Selected"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "AI persona engagement profiles completed with discovery responses.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "CIO engagement documented",
+              "description": "CIO/VP Digital Transformation engagement documented with AI investment priorities.",
+              "seq": 1
+            },
+            {
+              "name": "CTO engagement documented",
+              "description": "CTO/Head of AI/ML engagement documented with infrastructure readiness assessment.",
+              "seq": 2
+            },
+            {
+              "name": "VP Infrastructure engagement documented",
+              "description": "VP/Dir of Infrastructure engagement documented with modernization requirements.",
+              "seq": 3
+            },
+            {
+              "name": "Discovery responses recorded",
+              "description": "Discovery question responses recorded and champion identified.",
+              "seq": 4
+            },
+            {
+              "name": "Engagement sequence planned",
+              "description": "Multi-stakeholder engagement sequence planned.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Activated"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive",
+          "description": "Four-TDP AI stack aligned with value drivers articulated.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Four-TDP narrative constructed",
+              "description": "Four-TDP AI stack narrative constructed (Server/Cloud OS + App Platform + Automation + AI Platform).",
+              "seq": 1
+            },
+            {
+              "name": "TDP positioning briefs reviewed",
+              "description": "TDP-specific positioning briefs reviewed and customer-relevant content selected.",
+              "seq": 2
+            },
+            {
+              "name": "Value drivers articulated",
+              "description": "Three value drivers (Cost, Complexity, Choice) articulated with AI-specific evidence.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive positioning prepared",
+              "description": "Competitive positioning prepared against identified alternatives.",
+              "seq": 4
+            },
+            {
+              "name": "Business case constructed",
+              "description": "Business case constructed with quantified AI infrastructure impact.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Complete deal documentation with engagement tracking and pipeline attribution.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Deal registered",
+              "description": "Deal registered with AI-Ready Enterprise play attribution.",
+              "seq": 1
+            },
+            {
+              "name": "Next steps documented",
+              "description": "Next steps documented (technical validation, executive briefing, proof of value).",
+              "seq": 2
+            },
+            {
+              "name": "Content engagement metrics captured",
+              "description": "Content engagement metrics captured and analyzed.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive displacement documented",
+              "description": "Competitive displacement evidence documented for TDP evidence bases.",
+              "seq": 4
+            },
+            {
+              "name": "Performance data contributed",
+              "description": "Performance data contributed to AI play optimization analytics.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Measured"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "AI-Ready Enterprise Execution Playbook Value",
+          "description": "Why the AI-Ready Enterprise Execution Playbook matters for structured AI play execution.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "AI infrastructure deals require documentation that bridges the gap between general play execution and AI-specific customer engagement, tracking AI maturity assessment, four-TDP alignment, and AI-specific competitive positioning."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The AI-Ready Enterprise Execution Playbook progresses from Customer Lens documentation through persona profiling to four-TDP solution alignment and deal documentation, providing a structured trail of AI engagement evidence."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A fully documented AI play execution provides data that feeds into AI play performance analytics, enabling optimization of AI-specific messaging, TDP alignment combinations, and persona engagement approaches."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Play Execution Guide",
+      "kind": "workProduct"
+    },
+    {
+      "name": "AI Customer Reference Package",
+      "description": "Collection of AI-specific customer success evidence including production AI deployment stories, infrastructure consolidation metrics, and GPU optimization results.",
+      "assetNames": [
+        {
+          "assetName": "ai-customer-reference-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "References Identified",
+          "description": "AI customer references catalogued by industry and deployment type.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Production deployment references identified",
+              "description": "AI production deployment customer references identified by industry vertical.",
+              "seq": 1
+            },
+            {
+              "name": "Reference stories categorized",
+              "description": "Reference stories categorized by AI maturity stage (POC-to-production, scaling, enterprise-wide).",
+              "seq": 2
+            },
+            {
+              "name": "Permission and sharing guidelines documented",
+              "description": "Permission and sharing guidelines documented for each reference.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Selected"
+            }
+          ]
+        },
+        {
+          "name": "References Structured",
+          "description": "Customer reference stories formatted with quantified outcomes and persona alignment.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Quantified business outcomes included",
+              "description": "Each reference story includes quantified business outcomes (cost reduction, time-to-production, GPU utilization).",
+              "seq": 1
+            },
+            {
+              "name": "References tagged to personas",
+              "description": "Reference stories tagged to target persona pain points for contextual sharing.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive displacement references identified",
+              "description": "Competitive displacement references identified where applicable.",
+              "seq": 3
+            },
+            {
+              "name": "Matching guidance provided",
+              "description": "Industry and scale matching guidance provided for seller use.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "References Validated",
+          "description": "Customer references field-tested with effectiveness data informing selection guidance.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Reference effectiveness rated",
+              "description": "Reference effectiveness rated by customer engagement and conversion impact.",
+              "seq": 1
+            },
+            {
+              "name": "Reference stories refreshed",
+              "description": "Reference stories refreshed with latest customer outcomes and deployments.",
+              "seq": 2
+            },
+            {
+              "name": "New AI customer wins added",
+              "description": "New AI customer wins from play execution added to the evidence base.",
+              "seq": 3
+            },
+            {
+              "name": "Usage analytics guide recommendations",
+              "description": "Reference usage analytics guide recommended sharing by persona and industry.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Measured"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "AI Customer Reference Package Value",
+          "description": "Why AI-specific customer references are essential for credible AI infrastructure positioning.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "AI infrastructure positioning requires credible evidence of production AI deployments at scale, not just product feature claims, to resonate with CIO and CTO personas evaluating AI platform investments."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The AI Customer Reference Package provides structured, persona-aligned customer success evidence with quantified outcomes from production AI deployments, organized for contextual sharing during the AI play engagement lifecycle."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers using validated AI customer references achieve higher engagement rates and faster deal advancement by substantiating value driver claims with real-world evidence matched to the prospect's industry and AI maturity stage."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "AI Dashboard",
+      "description": "AI play-specific performance tracking covering pipeline attribution, four-TDP contribution analysis, and AI play execution quality metrics.",
+      "assetNames": [
+        {
+          "assetName": "ai-performance-dashboard-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Basic",
+          "description": "AI play KPIs identified with baseline targets established.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Pipeline generation targets defined",
+              "description": "AI play pipeline generation targets defined.",
+              "seq": 1
+            },
+            {
+              "name": "Seller adoption targets established",
+              "description": "AI play seller adoption targets established.",
+              "seq": 2
+            },
+            {
+              "name": "Four-TDP tracking configured",
+              "description": "Four-TDP contribution tracking configured.",
+              "seq": 3
+            },
+            {
+              "name": "Reporting cadence established",
+              "description": "Reporting cadence and review schedule established.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Level",
+          "description": "Multi-level AI play metrics actively tracked with dashboards.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Pipeline and revenue tracked",
+              "description": "AI play pipeline and revenue tracked against targets.",
+              "seq": 1
+            },
+            {
+              "name": "Per-TDP contribution measured",
+              "description": "Per-TDP contribution to AI play pipeline measured.",
+              "seq": 2
+            },
+            {
+              "name": "Persona engagement tracked",
+              "description": "AI persona engagement rates and content usage tracked.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive win/loss captured",
+              "description": "AI-specific competitive win/loss data captured.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Measured"
+            }
+          ]
+        },
+        {
+          "name": "Correlated",
+          "description": "Cross-level AI play analytics producing optimization recommendations.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "TDP combination effectiveness analyzed",
+              "description": "Four-TDP combination effectiveness analyzed for AI play engagements.",
+              "seq": 1
+            },
+            {
+              "name": "Persona engagement patterns correlated",
+              "description": "AI persona engagement patterns correlated with deal conversion.",
+              "seq": 2
+            },
+            {
+              "name": "Optimization recommendations generated",
+              "description": "AI play optimization recommendations generated from performance data.",
+              "seq": 3
+            },
+            {
+              "name": "Best practices codified",
+              "description": "Best AI selling practices codified from top performer analysis.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Measured"
+            }
+          ]
+        },
+        {
+          "name": "Predictive",
+          "description": "AI play performance dashboard with predictive analytics, trend forecasting, and automated recommendation generation for play optimization.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Predictive Analytics Integration",
+              "description": "Dashboard incorporates predictive models for AI play pipeline forecasting and conversion probability.",
+              "seq": 1
+            },
+            {
+              "name": "Automated Optimization Recommendations",
+              "description": "System generates data-driven recommendations for AI play improvement based on historical performance patterns.",
+              "seq": 2
+            },
+            {
+              "name": "Cross-Play Intelligence Correlation",
+              "description": "Dashboard correlates AI play performance with related TDP and tactic metrics for holistic insights.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "AI Play Performance Dashboard Value",
+          "description": "Why AI play-specific performance tracking enables data-driven optimization.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "AI infrastructure sales require tracking not just pipeline metrics but also four-TDP combination effectiveness, AI persona engagement quality, and AI-specific competitive dynamics."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The AI Play Performance Dashboard tracks AI play execution across three levels -- play pipeline, per-TDP contribution, and AI tactic conversion -- enabling data-driven optimization of AI-specific positioning and engagement approaches."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "AI play managers use performance insights to refine AI Customer Lens frameworks, optimize four-TDP stack narratives, refresh AI persona engagement approaches, and identify which AI seller readiness investments produce the greatest pipeline impact."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "mapsTo": "Play Performance Dashboard",
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "AI Play Seller",
+      "description": "Field seller executing the AI-Ready Enterprise play with AI-specific customer engagement and four-TDP solution positioning.",
+      "competencies": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "AI/ML Infrastructure",
+          "Go-to-Market Strategy"
+        ],
+        "lifecycleTags": [
+          "Discovery",
+          "Validation",
+          "Proposal"
+        ],
+        "organizationalTags": [
+          "Field Sales",
+          "AI Specialist Sales"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "AI TDP Specialist",
+      "description": "Technology specialist providing deep AI platform positioning, including AI Platform TDP expertise and multi-TDP AI solution architecture.",
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "AI/ML Infrastructure",
+          "Technical Sales"
+        ],
+        "lifecycleTags": [
+          "Technical Validation",
+          "Demonstration",
+          "Proof of Value"
+        ],
+        "organizationalTags": [
+          "Technical Sales",
+          "AI Specialist Sales"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "AI Enablement Manager",
+      "description": "Develops and delivers AI-Ready Enterprise play-specific seller enablement programs and AI readiness measurement.",
+      "competencies": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "AI/ML Infrastructure",
+          "Sales Enablement"
+        ],
+        "lifecycleTags": [
+          "Enablement Design",
+          "Delivery",
+          "Measurement"
+        ],
+        "organizationalTags": [
+          "Sales Enablement",
+          "AI Specialist Sales"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "AI Play Execution Team",
+      "description": "Cross-functional team executing the AI-Ready Enterprise play, combining AI-specific sales strategy with four-TDP technical depth.",
+      "personaNames": [
+        "AI Play Seller",
+        "AI TDP Specialist",
+        "AI Enablement Manager"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Field Sales",
+          "AI Specialist Sales",
+          "Customer Engagement"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Apply AI Customer Lens",
+      "description": "Apply the AI-Ready Enterprise Customer Lens to understand customer AI maturity, infrastructure pain, and desired outcomes.",
+      "activitySpaceName": "Discover Customer Needs",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Customer account has been identified with AI/ML strategic initiatives",
+          "AI-Ready Enterprise play content is available to the seller"
+        ]
+      },
+      "test": {
+        "name": "AI Customer Lens application scenario",
+        "description": "Verifies that a new AI-relevant engagement triggers proper Customer Lens application with documented outcomes.",
+        "when": [
+          "New customer engagement is identified as relevant to AI infrastructure positioning"
+        ],
+        "then": [
+          "Customer's AI maturity level is assessed and documented",
+          "Infrastructure fragmentation pain is identified and prioritized",
+          "Desired AI outcomes are mapped to play's outcome framework"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI-Ready Enterprise",
+          "stateName": "Selected"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Initial"
+        },
+        {
+          "workProductName": "AI Customer Reference Package",
+          "levelOfDetailName": "References Identified"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "involves": [
+        "AI Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Applying the AI Customer Lens",
+          "description": "How to systematically assess a customer's AI maturity and infrastructure pain using the AI-Ready Enterprise Customer Lens.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Enterprise customers evaluating AI infrastructure investments face a complex landscape of disconnected AI tools, GPU cost management challenges, and uncertainty about production readiness."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Apply the AI-Ready Enterprise Customer Lens to systematically assess the customer's AI maturity (POC, pilot, scaling, production), identify specific pain points, and map desired outcomes to the play's structured framework."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Review the play's pain taxonomy covering infrastructure fragmentation, security concerns, skills gaps, and cost escalation, then validate which pains resonate with the customer's specific AI situation using discovery questions."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A documented Customer Lens analysis that identifies the customer's AI maturity stage, prioritized pain points, and desired outcomes, with matched industry references ready for sharing."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Engage AI Personas",
+      "description": "Engage CIO/Digital Transformation, CTO/AI-ML, and VP/Infrastructure personas with AI-tailored discovery questions and messaging.",
+      "activitySpaceName": "Manage Customer Relationships",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "AI Customer Lens has been applied with pain and outcomes identified",
+          "At least one target AI persona has been identified in the account"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "AI-Ready Enterprise",
+            "stateName": "Selected"
+          }
+        ]
+      },
+      "test": {
+        "name": "AI persona engagement scenario",
+        "description": "Verifies that persona-specific discovery generates productive conversations and champion identification.",
+        "when": [
+          "Discovery identifies specific individuals matching the AI-Ready Enterprise persona profiles in the account"
+        ],
+        "then": [
+          "Persona-specific AI discovery questions generate productive conversations about AI infrastructure needs",
+          "Champion identified among engaged AI decision-makers"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI-Ready Enterprise",
+          "stateName": "Activated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Relationship Building"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Relationship Building",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "AI Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Engaging AI Decision-Makers",
+          "description": "How to engage multiple AI personas using structured profiles and tailored discovery frameworks.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "AI infrastructure decisions involve multiple stakeholders with distinct priorities -- CIOs balancing AI investment with IT operations, CTOs evaluating infrastructure readiness for production AI, and infrastructure VPs managing modernization demands."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Engage each AI persona using the play's structured profiles that define what they care about, their current reality, the impacts they face, tailored discovery questions, and what wins them over."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Sequence multi-persona engagement starting with the technical influencer (CTO/AI-ML), validating with the infrastructure owner (VP/Infrastructure), and engaging the economic buyer (CIO/Digital Transformation) with quantified value arguments."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Multi-stakeholder alignment around AI infrastructure investment with a champion identified who can advocate internally for the Red Hat AI platform approach."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Align AI TDP Stack",
+      "description": "Map customer's AI technology decision landscape to the four-TDP AI infrastructure stack and construct a coherent multi-TDP solution narrative.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Persona engagement has revealed specific AI technology decisions under evaluation",
+          "At least one AI persona is engaged with validated pain points"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "AI-Ready Enterprise",
+            "stateName": "Activated"
+          }
+        ]
+      },
+      "test": {
+        "name": "AI TDP stack alignment scenario",
+        "description": "Verifies that customer technology areas are mapped to the four-TDP stack and presented as an integrated narrative.",
+        "when": [
+          "Customer conversations identify AI technology areas matching TDP domains (infrastructure, platform, automation, AI model serving)"
+        ],
+        "then": [
+          "Four-TDP AI stack narrative connects Server/Cloud OS (foundation) to App Platform (runtime) to Automation (operations) to AI Platform (model serving)",
+          "Customer understands the integrated AI infrastructure approach rather than seeing disconnected product pitches"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI-Ready Enterprise",
+          "stateName": "Executing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Comprehensive"
+        },
+        {
+          "workProductName": "AI Dashboard",
+          "levelOfDetailName": "Basic"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "AI Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Aligning the Four-TDP AI Stack",
+          "description": "How to construct a layered AI infrastructure solution narrative from the four TDPs powering the AI-Ready Enterprise play.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "AI infrastructure requires multiple technology layers working together -- from the operating system foundation through application runtime to automation and AI platform services -- but customers often evaluate these in isolation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Align the four TDPs powering the AI-Ready Enterprise play to the customer's specific technology decision landscape, constructing a layered solution narrative that presents an integrated AI infrastructure stack."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Connect Server/Cloud OS (infrastructure foundation optimized for AI workloads) to App Platform (AI application runtime and Kubernetes for AI) to Automation (operational AI and automated infrastructure management) to AI Platform (model serving, training, and inference), with each layer addressing specific customer technology decisions."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Customer sees a coherent AI infrastructure architecture rather than four separate products, with each TDP addressing a specific layer of their AI deployment requirements."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Articulate AI Value Drivers",
+      "description": "Present Red Hat's AI infrastructure value using the three-pillar framework -- Cost, Complexity, and Choice -- with AI-specific evidence.",
+      "activitySpaceName": "Articulate Business Value",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "TDP alignment is established with relevant AI technology areas identified",
+          "Customer has expressed interest in understanding Red Hat's specific AI infrastructure value"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "AI-Ready Enterprise",
+            "stateName": "Executing"
+          }
+        ]
+      },
+      "test": {
+        "name": "AI value driver articulation scenario",
+        "description": "Verifies that all three value drivers are articulated with quantified evidence and the customer can repeat them internally.",
+        "when": [
+          "Discovery transitions to value articulation and the customer needs to understand why Red Hat's AI infrastructure approach is superior"
+        ],
+        "then": [
+          "Three value drivers are articulated with AI-specific, quantified evidence",
+          "Customer can articulate the cost, complexity, and choice benefits internally to their organization"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI-Ready Enterprise",
+          "stateName": "Executing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Comprehensive"
+        },
+        {
+          "workProductName": "AI Customer Reference Package",
+          "levelOfDetailName": "References Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Value Articulation",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "AI Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Articulating AI Infrastructure Value",
+          "description": "How to present Red Hat's AI value through the Cost, Complexity, and Choice framework with quantified evidence.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "AI infrastructure investments compete for budget with many priorities, and customers need quantified business justification beyond technology capability claims to secure funding."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Articulate Red Hat's AI infrastructure value through three consistent drivers tailored to the AI domain, each with domain-specific evidence and customer reference substantiation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "For Cost, quantify GPU utilization improvement and infrastructure consolidation savings. For Complexity, demonstrate unified AI platform operations across hybrid environments with built-in security. For Choice, position open-source AI stack advantages including workload portability and freedom from proprietary AI platform lock-in."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Customer has a defensible business case connecting AI infrastructure investment to quantified cost reduction, operational simplification, and strategic flexibility outcomes."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Advance AI Deal",
+      "description": "Convert validated AI infrastructure value into deal commitment, next steps, and pipeline attribution.",
+      "activitySpaceName": "Manage the Deal",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "AI value proposition has been articulated and resonates with at least one champion",
+          "Multi-stakeholder buy-in is developing across AI personas"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "AI-Ready Enterprise",
+            "stateName": "Executing"
+          }
+        ]
+      },
+      "test": {
+        "name": "AI deal advancement scenario",
+        "description": "Verifies that champion readiness signals lead to deal registration, documented next steps, and pipeline attribution.",
+        "when": [
+          "Customer champion signals readiness to move to formal evaluation, executive briefing, or proof of value"
+        ],
+        "then": [
+          "Deal is registered with AI-Ready Enterprise play attribution",
+          "Next steps are agreed and documented (technical validation, executive briefing, proof of value)",
+          "Pipeline is attributed to the AI-Ready Enterprise play for performance tracking"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI-Ready Enterprise",
+          "stateName": "Measured"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Optimized"
+        },
+        {
+          "workProductName": "AI Dashboard",
+          "levelOfDetailName": "Multi-Level"
+        }
+      ],
+      "requiredCompetencies": [
+        "Deal Orchestration",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "AI Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Advancing AI Infrastructure Deals",
+          "description": "How to convert validated AI value into concrete deal commitment and pipeline attribution.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "AI infrastructure deals often stall between value recognition and formal commitment because stakeholders have competing priorities and procurement processes for AI investments are still maturing."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Convert the validated AI value proposition and multi-stakeholder alignment into concrete next steps, deal registration, and pipeline attribution."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Secure agreement on next steps (technical validation of AI workloads, executive briefing on AI infrastructure strategy, or proof of value for production AI deployment), register the deal with AI-Ready Enterprise attribution, and track content engagement analytics."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Deal is actively progressing with pipeline attributed to the AI-Ready Enterprise play, providing performance data for play optimization and contributing to AI play execution analytics."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Measure AI Play Performance",
+      "description": "Track AI play-specific metrics across play, TDP, and tactic levels and generate optimization insights.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "AI-Ready Enterprise play has been activated and is generating field execution data",
+          "Performance measurement infrastructure is operational"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "AI-Ready Enterprise",
+            "stateName": "Executing"
+          }
+        ]
+      },
+      "test": {
+        "name": "AI play performance measurement scenario",
+        "description": "Verifies that sufficient execution data produces actionable optimization insights.",
+        "when": [
+          "Sufficient AI play execution data has accumulated for meaningful analysis"
+        ],
+        "then": [
+          "Four-TDP combination effectiveness analyzed for AI play engagements",
+          "AI persona engagement patterns correlated with deal conversion",
+          "Optimization recommendations generated for AI play refinement"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI-Ready Enterprise",
+          "stateName": "Measured"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "AI Dashboard",
+          "levelOfDetailName": "Multi-Level"
+        },
+        {
+          "workProductName": "AI Dashboard",
+          "levelOfDetailName": "Correlated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "AI Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Measuring AI Play Effectiveness",
+          "description": "How multi-level performance measurement enables data-driven optimization of the AI-Ready Enterprise play.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "AI play effectiveness requires tracking not just pipeline generation but also four-TDP contribution analysis, AI persona engagement quality, and AI-specific competitive dynamics."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement multi-level AI play performance measurement covering play-level pipeline, per-TDP contribution, AI persona engagement, and AI tactic conversion metrics."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Track AI play pipeline against targets, analyze four-TDP combination effectiveness, correlate AI persona engagement with deal conversion, perform cohort analysis by region and seller experience, and generate optimization recommendations."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Data-driven AI play optimization enables continuous refinement of AI Customer Lens, four-TDP stack narratives, persona engagement frameworks, and AI seller readiness investments."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "AI-Ready Enterprise Execution Lifecycle",
+      "description": "End-to-end lifecycle coordinating how an AI-Ready Enterprise engagement progresses from customer lens through deal advancement.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Initial conditions before AI play execution begins.",
+          "seq": 0,
+          "alphaStates": [],
+          "activities": [],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The AI-Ready Enterprise play is identified as relevant to a customer account with AI/ML strategic initiatives, and the assigned seller has completed baseline AI play awareness training."
+            }
+          ]
+        },
+        {
+          "name": "Discovery",
+          "description": "Apply AI Customer Lens and engage AI personas.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Selected"
+            },
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Activated"
+            }
+          ],
+          "activities": [
+            "Apply AI Customer Lens",
+            "Engage AI Personas"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The seller applies the AI Customer Lens to assess the customer's AI maturity and infrastructure pain, then engages CIO, CTO, and VP Infrastructure personas with tailored discovery frameworks to build multi-stakeholder understanding of AI infrastructure needs."
+            }
+          ]
+        },
+        {
+          "name": "Technology Alignment",
+          "description": "Map AI technology decisions to four-TDP stack.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Executing"
+            }
+          ],
+          "activities": [
+            "Align AI TDP Stack"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Validate",
+              "context": "The four-TDP AI infrastructure stack (Server/Cloud OS, App Platform, Automation, AI Platform) is aligned to the customer's specific technology decisions, constructing a coherent layered solution narrative from infrastructure foundation through AI model serving."
+            }
+          ]
+        },
+        {
+          "name": "Value and Validation",
+          "description": "Articulate AI value drivers and validate solution fit.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Executing"
+            }
+          ],
+          "activities": [
+            "Articulate AI Value Drivers"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Propose",
+              "context": "Red Hat's AI infrastructure value is articulated through three drivers -- Cost (GPU utilization, infrastructure consolidation), Complexity (unified AI platform, consistent hybrid operations), and Choice (open-source AI, no vendor lock-in) -- substantiated with quantified customer reference evidence."
+            }
+          ]
+        },
+        {
+          "name": "Deal Advancement",
+          "description": "Convert validated AI value into deal commitment.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "AI-Ready Enterprise",
+              "stateName": "Measured"
+            }
+          ],
+          "activities": [
+            "Advance AI Deal",
+            "Measure AI Play Performance"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Close",
+              "context": "The AI infrastructure opportunity is converted from validated value proposition to formal deal commitment, with pipeline attributed to the AI-Ready Enterprise play and performance data feeding into play optimization analytics."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Technical Decision Point",
+      "aliasName": "TDP"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Server Cloud OS TDP",
+      "versionRange": "^1.0.9"
+    },
+    {
+      "documentName": "App Platform TDP",
+      "versionRange": "^1.0.9"
+    },
+    {
+      "documentName": "Automation TDP",
+      "versionRange": "^1.0.9"
+    },
+    {
+      "documentName": "AI Platform TDP",
+      "versionRange": "^1.0.7"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard AI-Ready Enterprise",
+      "description": "Reference AI-Ready Enterprise play instance with customer-facing and qualification materials",
+      "alphaName": "AI-Ready Enterprise",
+      "stateName": "Activated",
+      "links": [
+        {
+          "name": "AI-Ready Enterprise Sales Play Hub Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCXc2jTBRBPBT87XCg2D776hGRdP"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Standard AI-Ready Enterprise Execution Playbook",
+          "description": "Standard instance of AI-Ready Enterprise Execution Playbook with curated enablement content",
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Comprehensive",
+          "links": [
+            {
+              "name": "AI-Ready Enterprise Customer Facing Intro Pitch Deck (Source)",
+              "uri": "https://docs.google.com/presentation/d/1Mlhl0gJHw63NExJbrzZU5bjpm4Vyl4b_OEw1Unv4ffU/edit"
+            },
+            {
+              "name": "AI-Ready Enterprise Customer Facing Intro Pitch Deck",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCmg33qHmD3JD82F6CJGb63BCCCV"
+            },
+            {
+              "name": "Personas and Discovery Questions AI-Ready Enterprise (Source)",
+              "uri": "https://docs.google.com/presentation/d/1jbnnqZaSSWIFm_e-LL9AoCW0rFuqxj4KOXI2bDDv4jQ/edit"
+            },
+            {
+              "name": "Personas and Discovery Questions AI-Ready Enterprise",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCmXjJdVbQWQQ87X6XMjMXbdPFG3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Red Hat Go-to-Market Framework",
+      "description": "Framework documentation defining the three-level go-to-market structure (Sales Plays, TDPs, Sales Tactics) and the play revamp architecture that positions AI-Ready Enterprise within the broader sales motion.",
+      "alphaName": "AI-Ready Enterprise",
+      "stateName": "Selected",
+      "links": [
+        {
+          "name": "Sales Plays, TDPs and Sales Tactics",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//"
+        },
+        {
+          "name": "Sales Play Revamp",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "AI-Ready Enterprise Framework Overview",
+          "description": "Initial framework documentation showing how the AI-Ready Enterprise play fits within the three-level go-to-market hierarchy.",
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Initial",
+          "links": [
+            {
+              "name": "Sales Plays, TDPs and Sales Tactics",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AI-Ready Enterprise Play Guide",
+      "description": "Complete Sales Play documenting Customer Lens, persona frameworks, value drivers, TDP alignment, and content architecture for AI infrastructure positioning.",
+      "alphaName": "AI-Ready Enterprise",
+      "stateName": "Activated",
+      "links": [
+        {
+          "name": "AI-Ready Enterprise Sales Play",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "AI-Ready Enterprise Execution Guide",
+          "description": "Comprehensive playbook with customer lens application, persona-tailored messaging, discovery questions, and TDP alignment for engaging AI decision-makers.",
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Comprehensive",
+          "links": [
+            {
+              "name": "AI-Ready Enterprise Sales Play",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ansible Lightspeed AI Assistant",
+      "description": "Interactive trial showcasing AI-assisted automation creation through Ansible Lightspeed, demonstrating the most accessible AI entry point for day-to-day operations work.",
+      "alphaName": "AI-Ready Enterprise",
+      "stateName": "Activated",
+      "links": [
+        {
+          "name": "Ansible Lightspeed 90-Day Trial Demo",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/55-ansible-lightspeed-trial-demo"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Ansible Lightspeed Trial Artifact",
+          "description": "Entry-level AI automation demo providing hands-on experience with AI-assisted playbook creation for initial prospect engagement.",
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Initial",
+          "links": [
+            {
+              "name": "Ansible Lightspeed 90-Day Trial Demo",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/55-ansible-lightspeed-trial-demo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Event-Driven AI Automation",
+      "description": "Architecture guide and demo demonstrating event-driven automation patterns where triggers initiate automated responses, including real-time automation using event streams and AI-driven triggers.",
+      "alphaName": "AI-Ready Enterprise",
+      "stateName": "Executing",
+      "links": [
+        {
+          "name": "Event Driven Automation Architecture Guide",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/27-event-driven-automation"
+        },
+        {
+          "name": "Event-Driven Ansible with Event Streams Demo",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/80-event-driven-ansible-event-streams-demo"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Event-Driven Automation Pattern Guide",
+          "description": "Structured architecture pattern showing event-driven automation for operationalizing AI and automating Day-2 operations.",
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Structured",
+          "links": [
+            {
+              "name": "Event Driven Automation Architecture Guide",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/27-event-driven-automation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Self-Healing Infrastructure",
+      "description": "Architecture guide showing how to reduce manual fixes and catch issues earlier through self-healing patterns, supporting AI-driven operationalization and Day-2 automation.",
+      "alphaName": "AI-Ready Enterprise",
+      "stateName": "Executing",
+      "links": [
+        {
+          "name": "Self-Healing Infrastructure Architecture Guide",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/17-self-healing-infrastructure"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Self-Healing Infrastructure Pattern Guide",
+          "description": "Structured architecture pattern for reducing manual intervention through automated self-healing, a key AI infrastructure capability.",
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Structured",
+          "links": [
+            {
+              "name": "Self-Healing Infrastructure Architecture Guide",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/17-self-healing-infrastructure"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Enterprise AI Cost Optimization",
+      "description": "Architecture guide and demo demonstrating cost-efficient AI deployment through Model as a Service (MaaS) to reduce GPU costs, and an introduction to running AI models anywhere with the Red Hat AI Inference Server.",
+      "alphaName": "AI-Ready Enterprise",
+      "stateName": "Executing",
+      "links": [
+        {
+          "name": "Scalable and Cost Efficient Enterprise AI with MaaS",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/82-model-as-a-service"
+        },
+        {
+          "name": "Introduction to Red Hat AI Inference Server",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/89-intro-red-hat-ai-inference-server-demo"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "AI Cost Optimization Architecture Guide",
+          "description": "Structured guide demonstrating Model as a Service patterns for reducing GPU costs while running AI efficiently across hybrid environments.",
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Structured",
+          "links": [
+            {
+              "name": "Scalable and Cost Efficient Enterprise AI with MaaS",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/82-model-as-a-service"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "OpenShift AI Data Science Platform",
+      "description": "Interactive demo showing how OpenShift AI provides a flexible and scalable platform where data scientists can self-provision environments to train, test, and deploy models across hybrid cloud environments.",
+      "alphaName": "AI-Ready Enterprise",
+      "stateName": "Executing",
+      "links": [
+        {
+          "name": "Self-Service Provisioning for Data Scientists Demo",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/74-self-service-provisioning-data-scientists-demo"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "OpenShift AI Platform Demo",
+          "description": "Comprehensive demonstration of the standardized AI foundation showing self-service provisioning, model training, testing, and deployment across hybrid cloud.",
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Comprehensive",
+          "links": [
+            {
+              "name": "Self-Service Provisioning for Data Scientists Demo",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/74-self-service-provisioning-data-scientists-demo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Enterprise RAG with Private Data",
+      "description": "Interactive experience demonstrating retrieval-augmented generation (RAG) with private enterprise data, illustrating a common AI use case for using enterprise data securely at scale.",
+      "alphaName": "AI-Ready Enterprise",
+      "stateName": "Executing",
+      "links": [
+        {
+          "name": "Chat with Your Data Using RAG",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/127-chat-with-your-data-using-rag-red-hat-ai-interactive-experience"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "RAG Enterprise Data Demo",
+          "description": "Comprehensive interactive experience showing RAG implementation with private enterprise data for predictive and generative AI use cases.",
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Comprehensive",
+          "links": [
+            {
+              "name": "Chat with Your Data Using RAG",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/127-chat-with-your-data-using-rag-red-hat-ai-interactive-experience"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Trusted AI Application Pipeline",
+      "description": "Interactive demo showing how developers can quickly create AI applications using CI/CD pipelines and templates, supporting the build and deploy phase of AI-powered apps and agents.",
+      "alphaName": "AI-Ready Enterprise",
+      "stateName": "Executing",
+      "links": [
+        {
+          "name": "Trusted Application Pipeline for AI Applications Demo",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/69-trusted-application-pipeline-ai-demo"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "AI Application Pipeline Demo",
+          "description": "Comprehensive demonstration of CI/CD pipeline patterns and templates for building and deploying AI-powered applications.",
+          "workProductName": "AI-Ready Enterprise Playbook",
+          "levelOfDetailName": "Comprehensive",
+          "links": [
+            {
+              "name": "Trusted Application Pipeline for AI Applications Demo",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/69-trusted-application-pipeline-ai-demo"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2942 @@
+{
+  "name": "App Platform TDP",
+  "description": "Provides developer platform positioning with three tactics covering app optimization, developer experience/platform engineering, and secure software supply chain.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceDependencyNames": [
+    "Sales Play Framework"
+  ],
+  "tags": {
+    "domainTags": [
+      "Application Platform",
+      "Developer Experience",
+      "Platform Engineering",
+      "Software Supply Chain",
+      "Application Modernization"
+    ],
+    "lifecycleTags": [
+      "Technical Validation",
+      "Platform Design",
+      "Developer Onboarding"
+    ],
+    "organizationalTags": [
+      "Technical Sales",
+      "Solution Architecture",
+      "Developer Advocacy"
+    ]
+  },
+  "keywords": [
+    "application-platform",
+    "developer-experience",
+    "platform-engineering",
+    "software-supply-chain",
+    "openshift",
+    "application-modernization",
+    "internal-developer-platform",
+    "CI-CD",
+    "container-platform",
+    "developer-productivity"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.7",
+  "citations": [
+    {
+      "name": "Application Platform TDP",
+      "description": "Complete TDP documentation for application platform positioning including developer experience, platform engineering, and software supply chain content.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCh88j3md62BjGTP48Jc3gPTJDbj"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//"
+    },
+    {
+      "name": "AI-Ready Enterprise Sales Play",
+      "description": "Sales Play demonstrating Customer Lens, persona frameworks, value drivers, TDP alignment, and content architecture for AI infrastructure positioning.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCXc2jTBRBPBT87XCg2D776hGRdP"
+    },
+    {
+      "name": "Build and Run Applications Sales Play",
+      "description": "Sales Play for application modernization and developer productivity positioning with TDP and tactic alignment.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DC6gmDb7XBm2jGfHWR4XMCXFm6MV"
+    }
+  ],
+  "assets": [
+    {
+      "name": "app-platform-domain-icon",
+      "description": "Visual icon representing the application platform technology domain within the TDP framework.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "optimize-apps-tactic-icon",
+      "description": "Visual icon representing the Optimize Traditional Apps tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-rotate",
+      "fontWeight": "900"
+    },
+    {
+      "name": "devx-platform-eng-tactic-icon",
+      "description": "Visual icon representing the Developer Experience and Platform Engineering tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-laptop-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "secure-supply-chain-tactic-icon",
+      "description": "Visual icon representing the Secure Software Supply Chain tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "app-platform-competitive-icon",
+      "description": "Visual icon representing application platform competitive positioning analysis.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-scale-balanced",
+      "fontWeight": "900"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "App Platform TDP Practice Intent",
+      "description": "The end-to-end narrative of how the Application Platform TDP progresses from landscape assessment through tactic execution to platform decision.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Discover",
+          "context": "Enterprise customers face a convergence of application platform challenges -- modernizing legacy applications while building cloud-native capabilities, creating productive developer experiences without sacrificing governance, and securing the software supply chain from source to deployment. The Application Platform TDP addresses these through three focused tactics that equip sellers to engage credibly across these distinct but related technology decisions."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Validate",
+          "context": "The practice's value is validated through its alignment of Red Hat OpenShift's platform capabilities to three measurable customer outcomes: accelerated application delivery through modernization, improved developer productivity through platform engineering, and reduced supply chain risk through trusted build pipelines. Each tactic provides structured What to Say/Share/Show content tailored to both business and technical decision makers."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Propose",
+          "context": "Sellers activate the Application Platform TDP by assessing customer application landscapes, identifying which tactic matches the customer's primary challenge, and executing structured conversations with audience-appropriate evidence. Technical validation demonstrates developer onboarding, application modernization approaches, and supply chain security features."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Negotiate",
+          "context": "Active field engagement reveals which tactic-customer combinations drive highest conversion, enabling targeted content refinement and competitive positioning updates against cloud PaaS alternatives and competing container platforms."
+        },
+        {
+          "seq": 5,
+          "narrativeElementName": "Close",
+          "context": "Performance data validates tactic effectiveness and informs content optimization. Developer experience demonstrations and platform engineering proof-of-value results feed back into the evidence base. Win stories strengthen positioning for subsequent engagements."
+        },
+        {
+          "seq": 6,
+          "narrativeElementName": "Expand",
+          "context": "Mature Application Platform TDP execution expands through cross-TDP solution narratives connecting to AI Platform, Automation, and Server/Cloud OS, creating integrated platform stories for complex enterprise engagements."
+        }
+      ],
+      "citationNames": [
+        "Application Platform TDP",
+        "Sales Plays, TDPs and Sales Tactics"
+      ]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Application Platform",
+      "description": "The progression of application platform positioning from landscape assessment through strategy definition to technology decision in customer engagements.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "decomposes into",
+          "alphaName": "Optimize Traditional Apps",
+          "direction": "outgoing",
+          "description": "Domain encompasses the application modernization tactic addressing legacy app optimization challenges."
+        },
+        {
+          "relationship": "decomposes into",
+          "alphaName": "Developer Experience and Platform Engineering",
+          "direction": "outgoing",
+          "description": "Domain encompasses the developer experience tactic addressing internal developer platform and platform engineering challenges."
+        },
+        {
+          "relationship": "decomposes into",
+          "alphaName": "Secure Software Supply Chain",
+          "direction": "outgoing",
+          "description": "Domain encompasses the supply chain security tactic addressing build-to-deploy pipeline security challenges."
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Application Platform Competitive Position",
+          "direction": "outgoing",
+          "description": "Domain positioning draws on competitive intelligence specific to application platform alternatives."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "app-platform-domain-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Customer's application portfolio and development practices evaluated.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "background": {
+            "given": [
+              "Sales Play engagement has identified Application Platform as a relevant TDP"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Sales Play",
+                "stateName": "Selected"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Application portfolio characterized",
+              "description": "Application portfolio characterized across legacy monoliths, modernized, and cloud-native categories.",
+              "seq": 1
+            },
+            {
+              "name": "Development practices assessed",
+              "description": "Development practices assessed including CI/CD maturity, deployment frequency, and test automation.",
+              "seq": 2
+            },
+            {
+              "name": "Developer experience pain points identified",
+              "description": "Developer experience pain points identified covering environment provisioning and toolchain complexity.",
+              "seq": 3
+            },
+            {
+              "name": "Supply chain security maturity evaluated",
+              "description": "Supply chain security maturity evaluated against industry benchmarks.",
+              "seq": 4
+            },
+            {
+              "name": "Relevant tactic identified",
+              "description": "Relevant tactic identified from the three application platform options based on customer's primary challenge.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Qualified",
+          "description": "Application platform approach and modernization pathway defined.",
+          "seq": 2,
+          "contributesToState": "Qualified",
+          "background": {
+            "given": [
+              "Application landscape assessment has been completed with portfolio characterization"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Platform engineering strategy outlined",
+              "description": "Platform engineering strategy outlined covering IDP architecture and self-service capabilities.",
+              "seq": 1
+            },
+            {
+              "name": "Application modernization priorities identified",
+              "description": "Application modernization priorities identified with approach selection per application.",
+              "seq": 2
+            },
+            {
+              "name": "Supply chain security requirements defined",
+              "description": "Supply chain security requirements defined including SBOM and vulnerability scanning needs.",
+              "seq": 3
+            },
+            {
+              "name": "Developer productivity metrics baselined",
+              "description": "Developer productivity metrics baselined for improvement measurement.",
+              "seq": 4
+            },
+            {
+              "name": "Integration with existing toolchains planned",
+              "description": "Integration with existing toolchains and development workflows planned.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Positioned",
+          "description": "Customer engaged with specific application platform tactic content.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "background": {
+            "given": [
+              "Platform strategy has been defined with customer agreement on the approach"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Specific tactic selected",
+              "description": "Specific tactic selected and customer challenge framing applied to the conversation.",
+              "seq": 1
+            },
+            {
+              "name": "Developer experience demonstrations planned",
+              "description": "Developer experience demonstrations planned for the customer's technology stack.",
+              "seq": 2
+            },
+            {
+              "name": "Technical content delivered",
+              "description": "Technical content delivered to appropriate audience segments using What to Say/Share/Show structure.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive positioning prepared",
+              "description": "Competitive positioning prepared against application platform alternatives.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Relevant customer references from similar application platform journeys shared.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Demonstrated",
+          "description": "Application platform capabilities validated through proof activities.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "background": {
+            "given": [
+              "Tactic engagement has generated confirmed customer interest in technical validation"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Developer onboarding improvements demonstrated",
+              "description": "Developer onboarding and productivity improvements demonstrated with measurable outcomes.",
+              "seq": 1
+            },
+            {
+              "name": "Application modernization approach validated",
+              "description": "Application modernization approach validated against customer's specific application portfolio.",
+              "seq": 2
+            },
+            {
+              "name": "Supply chain security features proven",
+              "description": "Supply chain security features proven including signing, scanning, and attestation capabilities.",
+              "seq": 3
+            },
+            {
+              "name": "CI/CD workflow integration confirmed",
+              "description": "Integration with customer's existing CI/CD workflows and toolchain confirmed.",
+              "seq": 4
+            },
+            {
+              "name": "Performance and scalability requirements met",
+              "description": "Performance and scalability requirements met for target workload scenarios.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Customer commits to Red Hat application platform solution.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "background": {
+            "given": [
+              "Technical validation has been completed with documented results meeting success criteria"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Application platform solution selected",
+              "description": "Application platform solution selected with subscription model agreed.",
+              "seq": 1
+            },
+            {
+              "name": "Adoption roadmap established",
+              "description": "Adoption roadmap and subscription sizing established with phased rollout plan.",
+              "seq": 2
+            },
+            {
+              "name": "Win attributed to App Platform TDP",
+              "description": "Win attributed to Application Platform TDP in CRM and reporting systems.",
+              "seq": 3
+            },
+            {
+              "name": "Developer enablement plan established",
+              "description": "Developer enablement plan established for customer's development teams.",
+              "seq": 4
+            },
+            {
+              "name": "Expansion roadmap documented",
+              "description": "Expansion roadmap to additional teams and applications documented.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Application Platform Domain Context and Rationale",
+          "description": "Why the Application Platform Domain alpha matters within the TDP framework.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Enterprise customers face compounding application platform challenges -- legacy application portfolios limiting agility, developer teams slowed by manual operations and inconsistent environments, and increasing regulatory pressure on software supply chain security. Without a structured positioning approach, sellers struggle to identify which of these concerns is the customer's primary driver and how to connect technology capabilities to business outcomes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Application Platform Domain structures seller engagement around a progressive assessment-to-decision journey. Starting with application landscape characterization, sellers identify which of three tactics matches the customer's primary challenge, then execute structured conversations with domain-specific credentials, customer proof, and competitive positioning. Technical validation demonstrates platform capabilities against the customer's specific requirements."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Structured application platform positioning enables sellers to engage credibly across diverse developer and platform engineering scenarios, from legacy modernization to internal developer platform creation to supply chain security. Win attribution tracks domain effectiveness and enables continuous content optimization."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "mapsTo": "Technical Decision Point"
+    },
+    {
+      "name": "Optimize Traditional Apps",
+      "description": "Tactic progression for the customer challenge of modernizing and optimizing traditional applications for cloud-native platforms.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "supported by",
+          "alphaName": "Technical Decision Point",
+          "direction": "incoming",
+          "description": "Tactic leverages Application Platform TDP's credentials and customer proof for application modernization conversations."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "optimize-apps-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Customer's application modernization challenge articulated and tactic content prepared.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "checklist": [
+            {
+              "name": "Customer challenge articulated",
+              "description": "Customer challenge articulated around legacy application complexity, operational overhead, and modernization barriers.",
+              "seq": 1
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for application modernization decision (VP Applications, CTO, Platform Engineering Lead).",
+              "seq": 2
+            },
+            {
+              "name": "Initial What to Say messaging drafted",
+              "description": "Initial What to Say messaging drafted addressing monolith-to-microservices and lift-and-shift approaches.",
+              "seq": 3
+            },
+            {
+              "name": "Supporting TDP alignment documented",
+              "description": "Supporting TDP alignment documented linking to Application Platform credentials.",
+              "seq": 4
+            },
+            {
+              "name": "Impact of legacy approaches quantified",
+              "description": "Impact of maintaining legacy approaches quantified with recognizable modernization scenarios.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented modernization content published and accessible to sellers.",
+          "seq": 2,
+          "contributesToState": "Qualified",
+          "checklist": [
+            {
+              "name": "BDM content finalized",
+              "description": "What to Say content finalized for business audiences emphasizing application velocity and operational cost reduction.",
+              "seq": 1
+            },
+            {
+              "name": "TDM content finalized",
+              "description": "What to Say content finalized for technical audiences covering containerization strategies, migration tooling, and runtime optimization.",
+              "seq": 2
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share materials curated including modernization case studies, assessment guides, and analyst reports.",
+              "seq": 3
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering application analysis, migration assisted tooling, and deployed application management.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references matched",
+              "description": "Customer references matched to application modernization outcomes with quantified results.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Sellers actively using optimize apps tactic in customer conversations.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Challenge framing used in conversations",
+              "description": "Challenge framing used to open conversations about application portfolio modernization needs.",
+              "seq": 1
+            },
+            {
+              "name": "Audience-appropriate content deployed",
+              "description": "Audience-appropriate content deployed differentiating between executive strategy and technical implementation discussions.",
+              "seq": 2
+            },
+            {
+              "name": "Assessment tools demonstrated",
+              "description": "Application assessment tools and migration utilities demonstrated to qualified prospects.",
+              "seq": 3
+            },
+            {
+              "name": "Discovery generating qualification data",
+              "description": "Discovery generating qualification data on portfolio size, modernization timeline, and budget.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-TDP navigation established",
+              "description": "Cross-TDP navigation to Server/Cloud OS or Container Management established when customer needs span domains.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive and technical objections addressed with evidence-based responses.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "checklist": [
+            {
+              "name": "Common objections addressed",
+              "description": "Common objections around modernization risk, team readiness, and migration complexity addressed with structured responses.",
+              "seq": 1
+            },
+            {
+              "name": "Competitive alternatives positioned",
+              "description": "Competitive alternatives (cloud PaaS, alternative container platforms) positioned with differentiation evidence.",
+              "seq": 2
+            },
+            {
+              "name": "Migration tooling demonstrated",
+              "description": "Migration tooling and assessment capabilities demonstrated to reduce perceived modernization risk.",
+              "seq": 3
+            },
+            {
+              "name": "Customer references from comparable journeys shared",
+              "description": "Customer references from comparable modernization journeys shared with quantified outcomes.",
+              "seq": 4
+            },
+            {
+              "name": "Technical validation plan proposed",
+              "description": "Technical validation plan proposed with clear success criteria aligned to customer's modernization goals.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Tactic execution demonstrably created or advanced qualified opportunities for application modernization.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunities attributed to tactic",
+              "description": "Opportunities attributed to Optimize Traditional Apps tactic tracked in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Modernization approach validated",
+              "description": "Modernization approach validated through proof activities with documented results.",
+              "seq": 2
+            },
+            {
+              "name": "Content engagement correlated",
+              "description": "Engagement tracking shows content sharing activity correlated with opportunity progression.",
+              "seq": 3
+            },
+            {
+              "name": "Services positioned",
+              "description": "Services positioned for modernization assessment, migration execution, and developer enablement.",
+              "seq": 4
+            },
+            {
+              "name": "Win stories documented",
+              "description": "Win stories from this tactic documented for the evidence base.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Optimize Traditional Apps Tactic Context and Rationale",
+          "description": "Why the Optimize Traditional Apps tactic matters for application platform positioning.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations with large portfolios of traditional applications on legacy platforms face mounting operational costs, limited agility, and growing security exposure. Development teams spend excessive time on infrastructure concerns rather than business features, and modernization initiatives stall due to perceived risk and complexity."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Optimize Traditional Apps tactic equips sellers to frame the modernization challenge from the customer's perspective, presenting Red Hat OpenShift as the platform that reduces modernization risk through assessment tooling, migration utilities, and proven approaches ranging from lift-and-shift to refactoring."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers who use this tactic establish credibility by demonstrating understanding of the customer's modernization barriers before positioning solutions, converting more effectively than product-led approaches."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP",
+            "Build and Run Applications Sales Play"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic"
+    },
+    {
+      "name": "Developer Experience and Platform Engineering",
+      "description": "Tactic progression for the customer challenge of building internal developer platforms that improve developer productivity while maintaining enterprise governance.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "supported by",
+          "alphaName": "Technical Decision Point",
+          "direction": "incoming",
+          "description": "Tactic leverages Application Platform TDP's credentials and customer proof for developer platform conversations."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "devx-platform-eng-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Customer's developer experience and platform engineering challenge articulated.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "checklist": [
+            {
+              "name": "Customer challenge articulated",
+              "description": "Customer challenge articulated around developer toil, environment inconsistency, and manual operations slowing delivery velocity.",
+              "seq": 1
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for platform engineering decisions (CTO Platform Engineering, VP Engineering, Developer Lead).",
+              "seq": 2
+            },
+            {
+              "name": "Initial What to Say messaging drafted",
+              "description": "Initial What to Say messaging drafted addressing internal developer platform vision and self-service developer experiences.",
+              "seq": 3
+            },
+            {
+              "name": "Supporting TDP alignment documented",
+              "description": "Supporting TDP alignment documented linking to Application Platform credentials and Automation TDP for CI/CD.",
+              "seq": 4
+            },
+            {
+              "name": "Impact of poor developer experience quantified",
+              "description": "Impact of poor developer experience quantified using recognizable productivity and retention scenarios.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented platform engineering content published and accessible.",
+          "seq": 2,
+          "contributesToState": "Qualified",
+          "checklist": [
+            {
+              "name": "BDM content finalized",
+              "description": "What to Say content finalized for business audiences emphasizing developer productivity, retention, and time-to-market improvements.",
+              "seq": 1
+            },
+            {
+              "name": "TDM content finalized",
+              "description": "What to Say content finalized for technical audiences covering IDP architecture, golden paths, self-service catalogs, and guardrails.",
+              "seq": 2
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share materials curated including platform engineering case studies, Backstage/developer portal references, and analyst reports.",
+              "seq": 3
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering developer onboarding, self-service provisioning, and golden path templates.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references matched",
+              "description": "Customer references matched to developer experience transformation outcomes with quantified productivity gains.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Sellers actively using DevX and Platform Engineering tactic in customer conversations.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Challenge framing used in conversations",
+              "description": "Challenge framing used to open conversations about developer productivity and platform team scaling challenges.",
+              "seq": 1
+            },
+            {
+              "name": "Audience-appropriate content deployed",
+              "description": "Audience-appropriate content deployed differentiating between executive business case and technical architecture discussions.",
+              "seq": 2
+            },
+            {
+              "name": "Developer portal demonstrations delivered",
+              "description": "Developer portal and self-service catalog demonstrations delivered to qualified platform engineering teams.",
+              "seq": 3
+            },
+            {
+              "name": "Discovery generating qualification data",
+              "description": "Discovery generating qualification data on developer count, platform team maturity, and toolchain complexity.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-TDP navigation established",
+              "description": "Cross-TDP navigation to Automation for CI/CD orchestration established when customer needs include operational automation.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive and organizational objections addressed with evidence.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "checklist": [
+            {
+              "name": "Build-vs-buy objections addressed",
+              "description": "Objections around build-vs-buy, platform team staffing, and organizational readiness addressed with structured responses.",
+              "seq": 1
+            },
+            {
+              "name": "Competitive alternatives positioned",
+              "description": "Competitive alternatives (cloud-native PaaS, alternative developer platforms) positioned with differentiation evidence.",
+              "seq": 2
+            },
+            {
+              "name": "Platform engineering maturity model used",
+              "description": "Platform engineering maturity model used to frame customer's current state and target improvement trajectory.",
+              "seq": 3
+            },
+            {
+              "name": "Developer onboarding metrics shared",
+              "description": "Developer onboarding time reduction and self-service adoption metrics from customer references shared.",
+              "seq": 4
+            },
+            {
+              "name": "Technical validation plan proposed",
+              "description": "Technical validation plan proposed demonstrating developer onboarding, golden path execution, and governance integration.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Tactic execution demonstrably created or advanced qualified opportunities for developer platforms.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunities attributed to tactic",
+              "description": "Opportunities attributed to DevX and Platform Engineering tactic tracked in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Developer platform approach validated",
+              "description": "Developer platform approach validated through proof-of-value with documented developer productivity improvements.",
+              "seq": 2
+            },
+            {
+              "name": "Content engagement correlated",
+              "description": "Engagement tracking shows content sharing activity correlated with opportunity progression.",
+              "seq": 3
+            },
+            {
+              "name": "Services positioned",
+              "description": "Services positioned for platform engineering advisory, developer portal implementation, and golden path design.",
+              "seq": 4
+            },
+            {
+              "name": "Win stories documented",
+              "description": "Win stories from this tactic documenting developer experience transformation added to evidence base.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "DevX and Platform Engineering Tactic Context and Rationale",
+          "description": "Why the Developer Experience and Platform Engineering tactic matters for application platform positioning.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Development teams are slowed by inconsistent environments, manual provisioning, and fragmented toolchains. Platform teams are overwhelmed by ticket-driven service delivery and cannot scale their support model. The gap between developer expectations and enterprise reality widens as organizations grow."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Developer Experience and Platform Engineering tactic equips sellers to frame the internal developer platform opportunity, presenting Red Hat OpenShift as the foundation for self-service developer experiences with golden paths, automated guardrails, and enterprise governance built in."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers using this tactic establish credibility by demonstrating understanding of platform team scaling challenges and developer productivity barriers, converting through demonstrable developer onboarding improvements and self-service adoption metrics."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP",
+            "Build and Run Applications Sales Play"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic"
+    },
+    {
+      "name": "Secure Software Supply Chain",
+      "description": "Tactic progression for the customer challenge of securing the software build-to-deploy pipeline including SBOM, vulnerability scanning, and trusted build processes.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "supported by",
+          "alphaName": "Technical Decision Point",
+          "direction": "incoming",
+          "description": "Tactic leverages Application Platform TDP's credentials and customer proof for supply chain security conversations."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "secure-supply-chain-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Customer's software supply chain security challenge articulated and tactic content prepared.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "checklist": [
+            {
+              "name": "Customer challenge articulated",
+              "description": "Customer challenge articulated around supply chain vulnerabilities, regulatory compliance pressure, and lack of build pipeline visibility.",
+              "seq": 1
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for supply chain security decisions (CISO, VP Engineering, Security Architecture Lead).",
+              "seq": 2
+            },
+            {
+              "name": "Initial What to Say messaging drafted",
+              "description": "Initial What to Say messaging drafted addressing SBOM requirements, vulnerability scanning, and trusted build pipelines.",
+              "seq": 3
+            },
+            {
+              "name": "Supporting TDP alignment documented",
+              "description": "Supporting TDP alignment documented linking to Application Platform and Container Management for runtime security.",
+              "seq": 4
+            },
+            {
+              "name": "Impact of supply chain breaches quantified",
+              "description": "Impact of supply chain breaches quantified using industry incidents and regulatory penalty scenarios.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented supply chain security content published and accessible.",
+          "seq": 2,
+          "contributesToState": "Qualified",
+          "checklist": [
+            {
+              "name": "BDM content finalized",
+              "description": "What to Say content finalized for business audiences emphasizing regulatory compliance, risk reduction, and supply chain transparency.",
+              "seq": 1
+            },
+            {
+              "name": "TDM content finalized",
+              "description": "What to Say content finalized for technical audiences covering signing, attestation, SBOM generation, vulnerability scanning integration.",
+              "seq": 2
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share materials curated including supply chain security frameworks, compliance guides, and analyst reports on software composition analysis.",
+              "seq": 3
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering trusted build pipeline, artifact signing, vulnerability scanning, and SBOM generation.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references matched",
+              "description": "Customer references matched to supply chain security outcomes with quantified risk reduction metrics.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Sellers actively using Secure Software Supply Chain tactic in customer conversations.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Challenge framing used in conversations",
+              "description": "Challenge framing used to open conversations about software supply chain risk and regulatory compliance requirements.",
+              "seq": 1
+            },
+            {
+              "name": "Audience-appropriate content deployed",
+              "description": "Audience-appropriate content deployed differentiating between executive compliance concerns and technical pipeline security discussions.",
+              "seq": 2
+            },
+            {
+              "name": "Pipeline security demonstrations delivered",
+              "description": "Trusted build pipeline and SBOM demonstrations delivered to qualified security and engineering teams.",
+              "seq": 3
+            },
+            {
+              "name": "Discovery generating qualification data",
+              "description": "Discovery generating qualification data on supply chain compliance requirements, current scanning tooling, and incident history.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-TDP navigation established",
+              "description": "Cross-TDP navigation to Container Management for runtime security established when customer needs span build-time and runtime.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive and implementation objections addressed with evidence.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "checklist": [
+            {
+              "name": "Scanning tool objections addressed",
+              "description": "Objections around existing scanning tools, integration complexity, and developer workflow impact addressed with structured responses.",
+              "seq": 1
+            },
+            {
+              "name": "Competitive alternatives positioned",
+              "description": "Competitive alternatives (standalone supply chain security tools, cloud-integrated scanning) positioned with platform advantage differentiation.",
+              "seq": 2
+            },
+            {
+              "name": "Trusted content provenance positioned",
+              "description": "Red Hat's trusted content and certified base image provenance positioned as unique differentiator.",
+              "seq": 3
+            },
+            {
+              "name": "Regulatory compliance mapping demonstrated",
+              "description": "Regulatory compliance mapping demonstrated against customer's specific framework requirements.",
+              "seq": 4
+            },
+            {
+              "name": "Technical validation plan proposed",
+              "description": "Technical validation plan proposed demonstrating end-to-end supply chain security from source to runtime.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Tactic execution demonstrably created or advanced qualified opportunities for supply chain security.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunities attributed to tactic",
+              "description": "Opportunities attributed to Secure Software Supply Chain tactic tracked in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Supply chain security validated",
+              "description": "Supply chain security capabilities validated through proof activities with documented compliance alignment.",
+              "seq": 2
+            },
+            {
+              "name": "Content engagement correlated",
+              "description": "Engagement tracking shows content sharing activity correlated with opportunity progression.",
+              "seq": 3
+            },
+            {
+              "name": "Services positioned",
+              "description": "Services positioned for supply chain security assessment, pipeline implementation, and compliance certification support.",
+              "seq": 4
+            },
+            {
+              "name": "Win stories documented",
+              "description": "Win stories from this tactic documenting supply chain security transformation added to evidence base.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Secure Software Supply Chain Tactic Context and Rationale",
+          "description": "Why the Secure Software Supply Chain tactic matters for application platform positioning.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Software supply chain attacks have escalated from theoretical risk to board-level concern. Organizations face increasing regulatory requirements for software composition transparency, vulnerability management, and provenance attestation. Most development pipelines lack visibility into the dependencies and components flowing through build processes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Secure Software Supply Chain tactic equips sellers to frame supply chain security as both a risk management imperative and a regulatory compliance enabler, presenting Red Hat's trusted content, certified images, and integrated pipeline security as the foundation for a verifiable software supply chain."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers using this tactic establish urgency through industry incident data and regulatory requirements, then demonstrate Red Hat's unique position as both the platform provider and the trusted content source, converting through demonstrable compliance alignment and pipeline security proof."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP",
+            "Build and Run Applications Sales Play"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic"
+    },
+    {
+      "name": "Application Platform Competitive Position",
+      "description": "The domain-specific competitive standing in application platform evaluations against cloud PaaS alternatives and competing container platforms.",
+      "focusName": "Solution Alignment",
+      "contributesTo": "Competitive Position",
+      "relatesTo": [
+        {
+          "relationship": "informs",
+          "alphaName": "Application Platform",
+          "direction": "outgoing",
+          "description": "Competitive intelligence specific to application platforms informs domain positioning throughout the customer engagement."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "app-platform-competitive-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Landscape Identified",
+          "description": "Key application platform competitors identified for the customer's evaluation context.",
+          "seq": 1,
+          "contributesToState": "Assessed",
+          "checklist": [
+            {
+              "name": "Cloud PaaS alternatives identified",
+              "description": "Cloud PaaS alternatives identified (AWS EKS/ECS, Azure AKS, Google GKE/Cloud Run) with positioning context.",
+              "seq": 1
+            },
+            {
+              "name": "Alternative container platforms identified",
+              "description": "Alternative container platforms identified (Rancher/SUSE, VMware Tanzu, Docker) with market positioning.",
+              "seq": 2
+            },
+            {
+              "name": "Developer platform alternatives identified",
+              "description": "Developer platform alternatives identified (Heroku, Platform.sh, internal builds) with scope comparison.",
+              "seq": 3
+            },
+            {
+              "name": "Analyst reports catalogued",
+              "description": "Analyst reports and market studies catalogued for application platform and container management domains.",
+              "seq": 4
+            },
+            {
+              "name": "Internal intelligence sources established",
+              "description": "Internal competitive intelligence sources established for application platform win/loss reporting.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Differentiators Mapped",
+          "description": "Red Hat application platform differentiators mapped against each competitor category.",
+          "seq": 2,
+          "contributesToState": "Mapped",
+          "checklist": [
+            {
+              "name": "Differentiation matrices created",
+              "description": "Per-competitor differentiation matrices created covering enterprise readiness, multi-cloud portability, and integrated security.",
+              "seq": 1
+            },
+            {
+              "name": "Developer experience advantages articulated",
+              "description": "Developer experience advantages articulated against cloud-specific and alternative container platforms.",
+              "seq": 2
+            },
+            {
+              "name": "Supply chain security differentiation documented",
+              "description": "Supply chain security differentiation documented highlighting trusted content and certified image provenance.",
+              "seq": 3
+            },
+            {
+              "name": "Platform engineering capabilities compared",
+              "description": "Platform engineering capabilities compared including self-service, golden paths, and governance integration.",
+              "seq": 4
+            },
+            {
+              "name": "TCO comparisons prepared",
+              "description": "Total cost of ownership and operational complexity comparisons prepared for business decision makers.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Positioning Deployed",
+          "description": "Competitive positioning content deployed in customer-facing application platform conversations.",
+          "seq": 3,
+          "contributesToState": "Differentiated",
+          "checklist": [
+            {
+              "name": "Competitive positioning embedded in tactics",
+              "description": "Application platform competitive positioning embedded in all three tactic conversation guides.",
+              "seq": 1
+            },
+            {
+              "name": "Competitive messaging available",
+              "description": "What to Say competitive messaging available for both cloud PaaS and alternative container platform scenarios.",
+              "seq": 2
+            },
+            {
+              "name": "Displacement stories included",
+              "description": "Displacement stories from cloud PaaS and alternative platform migrations included in evidence base.",
+              "seq": 3
+            },
+            {
+              "name": "Technical comparison demonstrations prepared",
+              "description": "Technical comparison demonstrations prepared highlighting multi-cloud flexibility and developer productivity advantages.",
+              "seq": 4
+            },
+            {
+              "name": "Analyst recognition current",
+              "description": "Analyst recognition and market leadership positioning current in Application Platform TDP brief.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Objections Defended",
+          "description": "Application platform competitive challenges addressed with evidence-based responses.",
+          "seq": 4,
+          "contributesToState": "Defended",
+          "checklist": [
+            {
+              "name": "Cloud PaaS arguments addressed",
+              "description": "Cloud PaaS convenience and integration arguments addressed with portability, governance, and total cost evidence.",
+              "seq": 1
+            },
+            {
+              "name": "Alternative platform arguments addressed",
+              "description": "Alternative container platform simplicity arguments addressed with enterprise readiness and ecosystem breadth evidence.",
+              "seq": 2
+            },
+            {
+              "name": "Build-your-own arguments addressed",
+              "description": "Build-your-own platform arguments addressed with platform team scaling data and time-to-value comparisons.",
+              "seq": 3
+            },
+            {
+              "name": "Demonstrations highlight differentiators",
+              "description": "Technical demonstrations structured to highlight specific competitive differentiators for the customer's evaluation criteria.",
+              "seq": 4
+            },
+            {
+              "name": "Win/loss data analyzed",
+              "description": "Win/loss data specific to application platform evaluations analyzed for positioning refinement.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Platform Preferred",
+          "description": "Red Hat application platform selected as preferred vendor in the customer's evaluation.",
+          "seq": 5,
+          "contributesToState": "Preferred",
+          "checklist": [
+            {
+              "name": "Displacement stories documented",
+              "description": "Competitive displacement stories from application platform wins documented for evidence base.",
+              "seq": 1
+            },
+            {
+              "name": "Customer can articulate differentiation",
+              "description": "Customer can articulate Red Hat's application platform differentiation to their internal stakeholders.",
+              "seq": 2
+            },
+            {
+              "name": "Field-generated insights integrated",
+              "description": "Field-generated competitive insights from application platform evaluations captured and integrated into content.",
+              "seq": 3
+            },
+            {
+              "name": "Analyst recognition updated",
+              "description": "Analyst recognition and award updates reflected in Application Platform TDP positioning brief.",
+              "seq": 4
+            },
+            {
+              "name": "Positioning effectiveness informs refinement",
+              "description": "Competitive positioning effectiveness data informs continuous content refinement.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Application Platform Competitive Position Context and Rationale",
+          "description": "Why multi-level competitive intelligence is essential for application platform positioning.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Application platform evaluations involve a diverse competitive landscape spanning cloud-native PaaS offerings, alternative container platforms, and internal platform builds. Each competitor category requires distinct positioning approaches -- cloud PaaS competitors emphasize convenience and integration, container alternatives emphasize simplicity, and internal builds emphasize customization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Cloud providers offer deeply integrated PaaS solutions (AWS EKS/ECS, Azure AKS, Google GKE) with strong cloud-specific tooling. Alternative container platforms (Rancher, Tanzu) offer simplified management for specific deployment models. Internal developer platform builds offer maximum customization but require significant platform team investment."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Red Hat's application platform advantage lies at the intersection of enterprise readiness, multi-cloud portability, integrated security (including trusted software supply chain), and developer experience. The platform provides the foundation for internal developer platforms with golden paths and governance built in, avoiding cloud lock-in while delivering enterprise-grade operations across any infrastructure."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ]
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "App Platform Brief",
+      "description": "Application platform-specific positioning document providing seller credentials, developer platform proof, and audience-segmented engagement content.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Basic application platform domain overview with market context.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Domain boundaries defined",
+              "description": "Application platform domain boundaries defined covering application modernization, developer experience, and supply chain security.",
+              "seq": 1
+            },
+            {
+              "name": "Market trends identified",
+              "description": "Market trends identified including platform engineering adoption, developer productivity focus, and supply chain regulations.",
+              "seq": 2
+            },
+            {
+              "name": "Product mapping documented",
+              "description": "Red Hat OpenShift product mapping to application platform capabilities documented.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Platform",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Credentialed",
+          "description": "Positioning brief with seller credentials and audience-segmented messaging.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Seller credentials documented",
+              "description": "Seller credentials documented including analyst recognitions, certifications, and market leadership in container platforms.",
+              "seq": 1
+            },
+            {
+              "name": "Customer wins compiled",
+              "description": "Customer wins compiled with quantified developer productivity and modernization outcomes organized by industry.",
+              "seq": 2
+            },
+            {
+              "name": "BDM messaging drafted",
+              "description": "BDM messaging drafted covering application velocity, developer retention, and supply chain compliance value propositions.",
+              "seq": 3
+            },
+            {
+              "name": "TDM messaging drafted",
+              "description": "TDM messaging drafted covering platform architecture, developer experience features, and pipeline security capabilities.",
+              "seq": 4
+            },
+            {
+              "name": "Supporting Sales Plays identified",
+              "description": "Supporting Sales Plays identified (AI-Ready Enterprise, Build and Run Applications) with alignment documented.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Platform",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Differentiators Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Content-Complete",
+          "description": "Full What to Say/Share/Show content with three tactic alignments.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "What to Say finalized",
+              "description": "What to Say presentations and talking points finalized for both audience types across three application platform scenarios.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share curated",
+              "description": "What to Share analyst reports, developer productivity studies, and supply chain security whitepapers curated.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show prepared",
+              "description": "What to Show demonstrations prepared for developer onboarding, application modernization, and pipeline security.",
+              "seq": 3
+            },
+            {
+              "name": "Services and partner solutions documented",
+              "description": "Services and partner solutions for application platform implementations documented.",
+              "seq": 4
+            },
+            {
+              "name": "Tactic conversation guides linked",
+              "description": "Three tactic conversation guides linked with bidirectional navigation validated.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Platform",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Positioned"
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Performance-enriched positioning brief with field-validated content.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Win rate data incorporated",
+              "description": "Win rate data by competitor and application platform scenario incorporated into positioning.",
+              "seq": 1
+            },
+            {
+              "name": "Demonstration effectiveness rated",
+              "description": "Demonstration effectiveness ratings guide proof activity selection for developer platform evaluations.",
+              "seq": 2
+            },
+            {
+              "name": "Customer references refreshed",
+              "description": "Customer references refreshed with latest developer productivity and modernization success stories.",
+              "seq": 3
+            },
+            {
+              "name": "Field feedback informs updates",
+              "description": "Field feedback on messaging effectiveness across three tactics informs content updates.",
+              "seq": 4
+            },
+            {
+              "name": "Competitive intelligence current",
+              "description": "Competitive intelligence reflects latest analyst evaluations and cloud platform announcements.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Platform",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Platform Preferred"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "App Platform Positioning Brief Rationale",
+          "description": "Why the positioning brief is essential for structured application platform seller engagement.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Application platform sellers need structured positioning that addresses three distinct but related customer challenges with technology-specific credentials and evidence. Generic platform messaging fails to establish credibility in these specialized conversations."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The App Platform Positioning Brief provides progressive depth from market overview through credentialed positioning to complete engagement content, organizing application platform-specific credentials, customer proof, and competitive positioning by audience type and tactic scenario."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers using the fully developed positioning brief can engage credibly in any of the three application platform tactic conversations with appropriate credentials, evidence, and competitive differentiation."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP"
+          ]
+        }
+      ],
+      "mapsTo": "TDP Positioning Brief"
+    },
+    {
+      "name": "App Platform Guide",
+      "description": "Customer challenge-focused conversation execution document for an application platform tactic scenario.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Customer challenge identified with initial application platform messaging.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Customer challenge articulated",
+              "description": "Customer challenge articulated specific to the tactic scenario (modernization, developer experience, or supply chain).",
+              "seq": 1
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas for this application platform challenge identified with priority ranking.",
+              "seq": 2
+            },
+            {
+              "name": "Differentiated approach outlined",
+              "description": "Initial differentiated approach outlined connecting the customer's challenge to OpenShift capabilities.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Optimize Traditional Apps",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Developer Experience and Platform Engineering",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Secure Software Supply Chain",
+              "stateName": "Prepared"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Conversation guide with audience-segmented messaging and evidence.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Executive-level messaging drafted",
+              "description": "Executive-level messaging with business impact framing specific to the application platform challenge.",
+              "seq": 1
+            },
+            {
+              "name": "Technical-level messaging drafted",
+              "description": "Technical-level messaging with architecture, developer experience, and security capability detail.",
+              "seq": 2
+            },
+            {
+              "name": "Evaluator-level messaging drafted",
+              "description": "Evaluator-level messaging with proof and validation guidance for application platform scenarios.",
+              "seq": 3
+            },
+            {
+              "name": "Customer reference stories matched",
+              "description": "Customer reference stories matched to the specific tactic challenge with quantified outcomes.",
+              "seq": 4
+            },
+            {
+              "name": "Discovery questions tailored",
+              "description": "Discovery questions tailored to each audience level for the application platform context.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Optimize Traditional Apps",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Developer Experience and Platform Engineering",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Secure Software Supply Chain",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Positioning Deployed"
+            }
+          ]
+        },
+        {
+          "name": "Deployment-Ready",
+          "description": "Complete conversation guide with engagement tracking and cross-TDP navigation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Content sharing with tracking enabled",
+              "description": "Content sharing materials with engagement tracking enabled for application platform assets.",
+              "seq": 1
+            },
+            {
+              "name": "Follow-up sequences defined",
+              "description": "Follow-up sequences and cadence guidance tailored to application platform evaluation cycles.",
+              "seq": 2
+            },
+            {
+              "name": "Objection handling documented",
+              "description": "Objection handling specific to each application platform tactic challenge scenario.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-TDP references documented",
+              "description": "Cross-reference to Application Platform TDP credentials and related TDPs documented.",
+              "seq": 4
+            },
+            {
+              "name": "Conversion criteria defined",
+              "description": "Conversion criteria defined for advancing from tactic engagement to technical validation.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Optimize Traditional Apps",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Developer Experience and Platform Engineering",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Secure Software Supply Chain",
+              "stateName": "Engaged"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Data-driven conversation guide with conversion analytics and refined messaging.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Conversion rate data analyzed",
+              "description": "Conversion rate data by segment, region, and seller experience for application platform scenarios.",
+              "seq": 1
+            },
+            {
+              "name": "A/B tested messaging integrated",
+              "description": "A/B tested messaging variations integrated for each tactic's challenge framing.",
+              "seq": 2
+            },
+            {
+              "name": "Engagement analytics informing selection",
+              "description": "Customer engagement analytics informing content selection and presentation sequence.",
+              "seq": 3
+            },
+            {
+              "name": "Best practice behaviors codified",
+              "description": "Best practice seller behaviors for application platform conversations codified.",
+              "seq": 4
+            },
+            {
+              "name": "New customer wins added",
+              "description": "New customer wins from tactic execution strengthen the evidence base.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Optimize Traditional Apps",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Developer Experience and Platform Engineering",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Secure Software Supply Chain",
+              "stateName": "Proven"
+            }
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic Conversation Guide"
+    },
+    {
+      "name": "App Platform Competitive Battle Card",
+      "description": "Application platform-specific competitive intelligence providing head-to-head analysis against cloud PaaS and container platform alternatives.",
+      "levelsOfDetail": [
+        {
+          "name": "Competitive Overview",
+          "description": "Identification of application platform competitive alternatives.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Cloud PaaS competitors listed",
+              "description": "Cloud PaaS competitors listed with market positioning (AWS, Azure, GCP managed Kubernetes and PaaS).",
+              "seq": 1
+            },
+            {
+              "name": "Alternative container platforms listed",
+              "description": "Alternative container platforms listed with positioning (Rancher/SUSE, VMware Tanzu).",
+              "seq": 2
+            },
+            {
+              "name": "High-level differentiation articulated",
+              "description": "High-level differentiation articulated for application platform domain.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Landscape Identified"
+            }
+          ]
+        },
+        {
+          "name": "Structured Analysis",
+          "description": "Organized competitive analysis with head-to-head comparisons.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Feature comparison completed",
+              "description": "Feature-by-feature comparison across developer experience, multi-cloud support, and security capabilities.",
+              "seq": 1
+            },
+            {
+              "name": "Objection handling documented",
+              "description": "Competitor-specific objection handling for cloud PaaS convenience and alternative platform simplicity arguments.",
+              "seq": 2
+            },
+            {
+              "name": "Displacement triggers identified",
+              "description": "Displacement triggers identified including cloud cost overruns, multi-cloud requirements, and compliance mandates.",
+              "seq": 3
+            },
+            {
+              "name": "Win stories compiled",
+              "description": "Win stories against each competitor category compiled with quantified outcomes.",
+              "seq": 4
+            },
+            {
+              "name": "TCO analysis framework prepared",
+              "description": "Total cost of ownership analysis framework for application platform evaluation scenarios.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Differentiators Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Strategy-Enriched",
+          "description": "Complete battle card with displacement strategies for application platform.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Displacement strategies documented",
+              "description": "Detailed displacement strategies for cloud PaaS to OpenShift migrations documented.",
+              "seq": 1
+            },
+            {
+              "name": "Co-existence approaches documented",
+              "description": "Co-existence approaches for hybrid and multi-cloud application platform scenarios documented.",
+              "seq": 2
+            },
+            {
+              "name": "Pricing strategy guidance included",
+              "description": "Pricing and commercial strategy guidance for application platform deals.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive discovery questions included",
+              "description": "Competitive trap-setting discovery questions for application platform evaluations.",
+              "seq": 4
+            },
+            {
+              "name": "Third-party data included",
+              "description": "Analyst and third-party comparative data for container platform and developer platform categories included.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Positioning Deployed"
+            },
+            {
+              "alphaName": "Application Platform",
+              "stateName": "Positioned"
+            }
+          ]
+        },
+        {
+          "name": "Intelligence-Driven",
+          "description": "Continuously updated battle card with application platform win/loss analytics.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Win/loss data analyzed",
+              "description": "Win/loss data by competitor and application platform scenario analyzed and current.",
+              "seq": 1
+            },
+            {
+              "name": "Emerging threats tracked",
+              "description": "Emerging competitive threats from cloud provider announcements and new entrants tracked.",
+              "seq": 2
+            },
+            {
+              "name": "Response playbooks maintained",
+              "description": "Competitive response playbooks for major cloud platform announcements maintained.",
+              "seq": 3
+            },
+            {
+              "name": "Field feedback integrated",
+              "description": "Field feedback on competitive dynamics in application platform evaluations integrated.",
+              "seq": 4
+            },
+            {
+              "name": "Predictive modeling operational",
+              "description": "Predictive competitive outcome modeling for application platform opportunities operational.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Platform Preferred"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "personas": [
+    {
+      "name": "App Platform TDP Specialist",
+      "description": "Technology domain expert responsible for application platform positioning, developer experience demonstrations, and tactic execution.",
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Application Platform",
+          "Developer Experience",
+          "Platform Engineering"
+        ],
+        "lifecycleTags": [
+          "Technical Validation",
+          "Demonstration",
+          "Proof of Value"
+        ],
+        "organizationalTags": [
+          "Technical Sales",
+          "Solution Architecture"
+        ]
+      }
+    },
+    {
+      "name": "App Platform Content Owner",
+      "description": "Responsible for building and maintaining application platform TDP content including tactic conversation guides and competitive intelligence.",
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Application Platform",
+          "Content Strategy"
+        ],
+        "lifecycleTags": [
+          "Content Design",
+          "Production",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Product Marketing",
+          "Sales Enablement"
+        ]
+      }
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "App Platform TDP Team",
+      "description": "Team responsible for building, maintaining, and executing application platform TDP positioning across all three tactic scenarios.",
+      "personaNames": [
+        "App Platform TDP Specialist",
+        "App Platform Content Owner"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Technical Sales",
+          "Product Marketing"
+        ]
+      }
+    }
+  ],
+  "activities": [
+    {
+      "name": "Assess Application Platform Landscape",
+      "description": "Evaluate customer's application portfolio, development practices, and platform maturity to identify the most relevant application platform tactic.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Sales Play engagement has identified Application Platform as a relevant TDP"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sales Play",
+            "stateName": "Selected"
+          }
+        ]
+      },
+      "test": {
+        "name": "Application Platform Landscape Assessment",
+        "description": "Validates that landscape assessment produces tactic selection and portfolio characterization.",
+        "given": [
+          "Customer has indicated application modernization, developer productivity, or supply chain security as areas of interest"
+        ],
+        "when": [
+          "Initial discovery reveals the customer's application portfolio composition and development practice maturity"
+        ],
+        "then": [
+          "Application portfolio is characterized with clear prioritization of modernization candidates",
+          "Developer experience pain points are mapped to specific platform engineering improvement opportunities",
+          "The most relevant tactic is identified from the three application platform options"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Application Platform",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Identified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "App Platform Brief",
+          "levelOfDetailName": "Initial"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "App Platform TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Assess Application Platform Landscape Guidance",
+          "description": "How to conduct effective application platform landscape assessment for tactic selection.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Application platform evaluations involve diverse customer scenarios -- some organizations need to modernize legacy monoliths, others need to build internal developer platforms, and others face supply chain security mandates. Without structured assessment, sellers may position the wrong tactic or miss the customer's primary concern entirely."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The assessment evaluates the customer's application portfolio composition, development practice maturity, and supply chain security posture to identify which of the three application platform tactics best matches their primary challenge."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A focused assessment produces clear tactic selection, enabling the seller to engage with the most relevant challenge framing, evidence, and demonstration content rather than attempting to cover all three scenarios in a single engagement."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Define Application Platform Strategy",
+      "description": "Work with customer stakeholders to define the application platform approach, modernization pathway, and platform engineering architecture.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Application landscape assessment has been completed with portfolio characterization"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Application Platform Domain",
+            "stateName": "Identified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Application Platform Strategy Definition",
+        "description": "Validates that strategy definition produces actionable platform approach with measurable baselines.",
+        "given": [
+          "Customer's application portfolio and development practices have been assessed"
+        ],
+        "when": [
+          "Strategy workshop or follow-up sessions are conducted with platform and development leadership"
+        ],
+        "then": [
+          "Platform engineering strategy is outlined with IDP architecture and self-service capabilities defined",
+          "Application modernization priorities are identified with approach selection per application category",
+          "Developer productivity baselines are established for improvement measurement"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Application Platform",
+          "stateName": "Qualified"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Qualified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "App Platform Brief",
+          "levelOfDetailName": "Credentialed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "App Platform TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Define Application Platform Strategy Guidance",
+          "description": "How to collaborate with customer stakeholders on application platform strategy definition.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Without a defined platform strategy, application modernization initiatives lack direction and developer experience improvements lack architectural foundation. Customers need structured guidance to translate their assessment findings into an actionable platform approach."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Platform strategy definition works with customer stakeholders to outline the IDP architecture, prioritize modernization candidates by approach, define supply chain security requirements, and establish productivity baselines. The strategy connects assessment findings to Red Hat OpenShift's specific capabilities."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A defined platform strategy provides the foundation for tactic-level engagement, enabling the seller to demonstrate specific capabilities against the customer's agreed-upon approach rather than generic platform features."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP",
+            "Build and Run Applications Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Execute App Platform Tactic Conversation",
+      "description": "Deliver customer challenge-focused conversations using one of the three application platform tactic guides with audience-segmented content.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Platform strategy has been defined and the relevant tactic has been selected"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Application Platform Domain",
+            "stateName": "Qualified"
+          }
+        ]
+      },
+      "test": {
+        "name": "App Platform Tactic Conversation Execution",
+        "description": "Validates that tactic conversation execution produces customer engagement and qualification data.",
+        "given": [
+          "Customer has agreed to a topic-specific deep-dive conversation aligned to one of the three application platform tactics"
+        ],
+        "when": [
+          "Seller prepares for the tactic conversation by reviewing challenge framing and selecting audience-appropriate content"
+        ],
+        "then": [
+          "Customer challenge framing opens the conversation establishing relevance before positioning solutions",
+          "Audience-appropriate demonstrations are delivered covering developer experience, modernization approach, or supply chain security",
+          "Discovery generates qualifying information on timeline, budget, and competitive alternatives"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Application Platform",
+          "stateName": "Positioned"
+        },
+        {
+          "alphaName": "Optimize Traditional Apps",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Developer Experience and Platform Engineering",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Secure Software Supply Chain",
+          "stateName": "Engaged"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "App Platform Guide",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "App Platform Guide",
+          "levelOfDetailName": "Deployment-Ready"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery",
+        "Competitive Intelligence"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "App Platform TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Execute App Platform Tactic Conversation Guidance",
+          "description": "How to deliver challenge-focused application platform tactic conversations effectively.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Product-led application platform pitches fail because they position features before establishing the customer's specific challenge. Developers and platform engineers respond to solutions that address their daily pain, not to product capability overviews."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Each tactic conversation opens with customer challenge framing, uses audience-segmented messaging and evidence, and includes demonstrations directly relevant to the specific challenge. The seller navigates between tactic content and Application Platform TDP credentials seamlessly."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Challenge-first tactic conversations convert more effectively because they establish relevance and urgency before positioning platform capabilities, enabling deeper customer engagement and clearer qualification."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Position App Platform Competitively",
+      "description": "Build and present competitive positioning for application platform evaluations against cloud PaaS and alternative container platforms.",
+      "activitySpaceName": "Differentiate Competitively",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Customer has identified competitive alternatives they are evaluating for application platform"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Application Platform Domain",
+            "stateName": "Positioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "App Platform Competitive Positioning",
+        "description": "Validates that competitive positioning produces differentiation evidence and displacement strategy.",
+        "given": [
+          "Customer is actively evaluating application platform alternatives (cloud PaaS, alternative container platforms, or internal builds)"
+        ],
+        "when": [
+          "Competitive dynamics become active in the application platform evaluation"
+        ],
+        "then": [
+          "Differentiation narrative acknowledges competitor strengths while highlighting Red Hat's multi-cloud portability, integrated security, and developer experience advantages",
+          "Displacement or co-existence strategy is documented when migrating from cloud PaaS or alternative platforms",
+          "Competitive positioning is maintained through the deal cycle as competitors respond"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Application Platform Competitive Position",
+          "stateName": "Differentiators Mapped"
+        },
+        {
+          "alphaName": "Application Platform Competitive Position",
+          "stateName": "Positioning Deployed"
+        },
+        {
+          "alphaName": "Application Platform Competitive Position",
+          "stateName": "Objections Defended"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "App Platform Competitive Battle Card",
+          "levelOfDetailName": "Structured Analysis"
+        },
+        {
+          "workProductName": "App Platform Competitive Battle Card",
+          "levelOfDetailName": "Strategy-Enriched"
+        }
+      ],
+      "requiredCompetencies": [
+        "Competitive Intelligence",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "App Platform TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Position App Platform Competitively Guidance",
+          "description": "How to build and deploy competitive positioning in application platform evaluations.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Application platform competitive landscapes vary by customer context -- some evaluate Red Hat against cloud-native PaaS, others against alternative container platforms, and others against internal platform builds. Each scenario requires distinct competitive positioning approaches."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Cloud PaaS offerings provide deep cloud-specific integration and managed convenience. Alternative container platforms offer simplified management for specific deployment models. Internal builds offer maximum customization at the cost of significant platform team investment."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Red Hat's application platform advantage combines enterprise-grade operations with multi-cloud portability, integrated developer experience with governance, and trusted software supply chain with platform-integrated security -- addressing the gaps in each competitive alternative."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Validate App Platform Technology Fit",
+      "description": "Conduct technical proof activities to validate Red Hat's application platform fit for the customer's developer experience, modernization, or supply chain requirements.",
+      "activitySpaceName": "Validate Technically",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Tactic-level engagement has generated customer interest in technical validation of application platform capabilities"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Application Platform Domain",
+            "stateName": "Positioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "App Platform Technology Validation",
+        "description": "Validates that technical proof activities demonstrate measurable platform fit for the customer scenario.",
+        "given": [
+          "Customer has requested proof of application platform capabilities for their specific scenario"
+        ],
+        "when": [
+          "Technical validation scope and success criteria are agreed with the customer's evaluation team"
+        ],
+        "then": [
+          "Developer onboarding and productivity improvements are demonstrated with measurable time reductions",
+          "Application modernization approach is validated against the customer's specific application portfolio",
+          "Supply chain security capabilities are proven with end-to-end pipeline demonstration"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Application Platform",
+          "stateName": "Demonstrated"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Demonstrated"
+        },
+        {
+          "alphaName": "Optimize Traditional Apps",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "Developer Experience and Platform Engineering",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "Secure Software Supply Chain",
+          "stateName": "Converted"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "App Platform Brief",
+          "levelOfDetailName": "Content-Complete"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "App Platform TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Validate App Platform Technology Fit Guidance",
+          "description": "How to structure and execute technical validation for application platform scenarios.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Application platform evaluations require proof that goes beyond feature demonstrations. Customers need to see developer onboarding improvements, modernization feasibility for their specific applications, and supply chain security integration with their existing toolchains."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Technical validation is structured around the specific tactic scenario -- developer onboarding and golden path execution for DevX, migration assessment and containerization for Optimize Apps, or pipeline security and SBOM generation for Supply Chain. Success criteria are aligned to the customer's business outcomes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Structured technical validation produces documented results that the customer champion can use to justify the platform decision internally, accelerating procurement cycles and strengthening deal commitment."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Build App Platform TDP Content",
+      "description": "Assemble application platform-specific seller credentials, customer proof, and structured engagement content for all three tactic scenarios.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "test": {
+        "name": "App Platform TDP Content Assembly",
+        "description": "Validates that content building produces comprehensive positioning materials across all three tactics.",
+        "given": [
+          "Application platform technology domain has been scoped with three tactic scenarios defined"
+        ],
+        "when": [
+          "Content development cycle begins for Application Platform TDP positioning materials"
+        ],
+        "then": [
+          "Seller credentials for application platform domain are documented with analyst recognitions and certifications",
+          "Customer wins across modernization, developer experience, and supply chain security are catalogued",
+          "Three tactic conversation guides are developed with audience-segmented content"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Application Platform",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Application Platform",
+          "stateName": "Qualified"
+        },
+        {
+          "alphaName": "Optimize Traditional Apps",
+          "stateName": "Prepared"
+        },
+        {
+          "alphaName": "Optimize Traditional Apps",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Developer Experience and Platform Engineering",
+          "stateName": "Prepared"
+        },
+        {
+          "alphaName": "Developer Experience and Platform Engineering",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Secure Software Supply Chain",
+          "stateName": "Prepared"
+        },
+        {
+          "alphaName": "Secure Software Supply Chain",
+          "stateName": "Deployed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "App Platform Brief",
+          "levelOfDetailName": "Initial"
+        },
+        {
+          "workProductName": "App Platform Brief",
+          "levelOfDetailName": "Credentialed"
+        },
+        {
+          "workProductName": "App Platform Brief",
+          "levelOfDetailName": "Content-Complete"
+        },
+        {
+          "workProductName": "App Platform Guide",
+          "levelOfDetailName": "Initial"
+        },
+        {
+          "workProductName": "App Platform Guide",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "App Platform Guide",
+          "levelOfDetailName": "Deployment-Ready"
+        },
+        {
+          "workProductName": "App Platform Competitive Battle Card",
+          "levelOfDetailName": "Competitive Overview"
+        },
+        {
+          "workProductName": "App Platform Competitive Battle Card",
+          "levelOfDetailName": "Structured Analysis"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Sales Enablement",
+        "Competitive Intelligence"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "App Platform TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Build App Platform TDP Content Guidance",
+          "description": "How to systematically build application platform TDP content across three tactic scenarios.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Application platform sellers need comprehensive positioning materials covering three distinct tactic scenarios, each with its own competitive landscape, customer proof requirements, and technical demonstration needs. Ad hoc content creation leads to inconsistent positioning."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "TDP content building follows the systematic approach from the parent practice -- domain definition, credential assembly, customer win documentation, audience-segmented messaging, and demonstration preparation -- applied to each of the three application platform tactic scenarios."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Complete application platform TDP content enables any seller to engage credibly across all three tactic scenarios with appropriate credentials, evidence, and competitive differentiation."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Optimize App Platform TDP Performance",
+      "description": "Refine application platform TDP content and tactic effectiveness based on performance data, field feedback, and competitive dynamics.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Application platform engagement data has been collected across all three tactic scenarios",
+          "Field feedback on tactic effectiveness and competitive dynamics has been gathered"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Application Platform Domain",
+            "stateName": "Demonstrated"
+          }
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Application Platform",
+          "stateName": "Validated"
+        },
+        {
+          "alphaName": "Optimize Traditional Apps",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "Developer Experience and Platform Engineering",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "Secure Software Supply Chain",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "Application Platform Competitive Position",
+          "stateName": "Platform Preferred"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "App Platform Brief",
+          "levelOfDetailName": "Validated"
+        },
+        {
+          "workProductName": "App Platform Guide",
+          "levelOfDetailName": "Optimized"
+        },
+        {
+          "workProductName": "App Platform Competitive Battle Card",
+          "levelOfDetailName": "Intelligence-Driven"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "App Platform TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Optimize App Platform TDP Performance Guidance",
+          "description": "How to continuously refine application platform TDP content based on performance data.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Application platform positioning that is not continuously refined loses effectiveness as cloud providers announce new capabilities, developer tooling evolves, and supply chain security standards mature. Static tactic content fails to reflect current competitive realities."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Optimization examines per-tactic conversion data, competitive win/loss patterns, and field feedback to identify specific improvements. Underperforming tactics are redesigned, competitive positioning is refreshed with latest analyst evaluations, and new customer wins are added to evidence bases."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Continuous optimization sustains application platform TDP effectiveness across market cycles, ensuring that credentials, competitive positioning, and tactic content reflect current technology landscape and customer expectations."
+            }
+          ],
+          "citationNames": [
+            "Application Platform TDP"
+          ]
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "App Platform Technical Engagement Journey",
+      "description": "Pattern coordinating how an application platform TDP engagement progresses from landscape assessment through tactic execution to platform decision.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Sales Play engagement has identified Application Platform as relevant.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Selected"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The application platform engagement journey begins when a Sales Play engagement identifies application modernization, developer experience, or software supply chain security as areas requiring technology-specific depth and TDP-level positioning."
+            }
+          ]
+        },
+        {
+          "name": "Assessment",
+          "description": "Customer application landscape evaluated and tactic identified.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Application Platform",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Landscape Identified"
+            }
+          ],
+          "activities": [
+            "Assess Application Platform Landscape",
+            "Build App Platform TDP Content"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Validate",
+              "context": "Assessment evaluates the customer's application portfolio, development practices, and supply chain maturity to identify which of the three application platform tactics best matches their primary challenge. Competitive landscape is mapped to prepare for technology-specific positioning."
+            }
+          ]
+        },
+        {
+          "name": "Positioning and Credentialing",
+          "description": "Application platform credentials established and platform strategy defined.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Application Platform",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Differentiators Mapped"
+            },
+            {
+              "alphaName": "Optimize Traditional Apps",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Developer Experience and Platform Engineering",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Secure Software Supply Chain",
+              "stateName": "Deployed"
+            }
+          ],
+          "activities": [
+            "Define Application Platform Strategy",
+            "Position App Platform Competitively"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Propose",
+              "context": "Red Hat's application platform credentials are established through seller credentials, analyst recognition, and customer success stories. The platform strategy is defined collaboratively with the customer, connecting their specific challenges to OpenShift's capabilities across modernization, developer experience, and supply chain security."
+            }
+          ]
+        },
+        {
+          "name": "Tactic Execution",
+          "description": "Customer engaged with challenge-focused conversations and competitive positioning deployed.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Application Platform",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Positioning Deployed"
+            },
+            {
+              "alphaName": "Optimize Traditional Apps",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Developer Experience and Platform Engineering",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Secure Software Supply Chain",
+              "stateName": "Engaged"
+            }
+          ],
+          "activities": [
+            "Execute App Platform Tactic Conversation",
+            "Position App Platform Competitively"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Negotiate",
+              "context": "Tactic execution delivers customer challenge-focused conversations with audience-segmented content. Competitive positioning is deployed against cloud PaaS alternatives and competing container platforms. Cross-TDP navigation to Automation or Container Management is established when the customer's needs span technology domains."
+            }
+          ]
+        },
+        {
+          "name": "Validation and Decision",
+          "description": "Application platform capabilities validated and platform decision secured.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Application Platform",
+              "stateName": "Demonstrated"
+            },
+            {
+              "alphaName": "Application Platform",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Objections Defended"
+            },
+            {
+              "alphaName": "Application Platform Competitive Position",
+              "stateName": "Platform Preferred"
+            },
+            {
+              "alphaName": "Optimize Traditional Apps",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Developer Experience and Platform Engineering",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Secure Software Supply Chain",
+              "stateName": "Proven"
+            }
+          ],
+          "activities": [
+            "Validate App Platform Technology Fit",
+            "Optimize App Platform TDP Performance"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Close",
+              "context": "Technical validation demonstrates application platform capabilities against the customer's specific requirements -- developer onboarding improvements, modernization feasibility, or supply chain security compliance. Results are documented for the customer's internal decision process."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Expand",
+              "context": "Post-decision, the engagement expands through adoption roadmap execution, expansion to additional teams and applications, and cross-TDP solution narratives connecting application platform to AI infrastructure, automation, and infrastructure modernization for broader organizational impact."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Application Platform",
+      "aliasName": "Application Platform Domain"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Developer Experience and Platform Engineering",
+      "aliasName": "DevX & Platform Engineering"
+    }
+  ],
+  "kind": "practice",
+  "schemaVersion": "1.4.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.0"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.0"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard Application Platform",
+      "description": "Reference Application Platform alpha instance with customer-facing and assessment materials",
+      "alphaName": "Application Platform",
+      "stateName": "Positioned",
+      "links": [
+        {
+          "name": "Application Platform TDP Sales Hub Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCh88j3md62BjGTP48Jc3gPTJDbj"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Standard App Platform Positioning Brief",
+          "description": "Standard instance of App Platform Positioning Brief with curated enablement content",
+          "workProductName": "App Platform Brief",
+          "levelOfDetailName": "Content-Complete",
+          "links": [
+            {
+              "name": "Customer Presentation - Application Platform TDP - CY26 (Source)",
+              "uri": "https://docs.google.com/presentation/d/18JGXeLCgED-hT3dQGpSSp0-gTPYixqFD45u_msmu4nA/edit"
+            },
+            {
+              "name": "Customer Presentation - Application Platform TDP - CY26",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCX6gHdmcq2jj8QBcXCgFJjV2GGd"
+            },
+            {
+              "name": "Cheatsheet - Application Platform TDP - CY26 (Source)",
+              "uri": "https://docs.google.com/presentation/d/1oqRDkspChDPbCnvr18SiZgTHUdW0PFf94an8PKGtgwo/edit"
+            },
+            {
+              "name": "Cheatsheet - Application Platform TDP - CY26",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCqbRJXppJ3fcGmJCW69HghmPFQV"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard Developer Experience and Platform Engineering",
+      "description": "Reference Developer Experience and Platform Engineering tactic with sales enablement",
+      "alphaName": "Developer Experience and Platform Engineering",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Developer Experience and Platform Engineering Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCVgdHRfcfHqH8HJF7jPCM3PBTFV"
+        }
+      ]
+    },
+    {
+      "name": "Standard Optimize Traditional Apps",
+      "description": "Reference Optimize Traditional Apps tactic with sales enablement",
+      "alphaName": "Optimize Traditional Apps",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Optimize Traditional Apps Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCPdb9RqQb9MDGmCcBbXDpDjPdMj"
+        }
+      ]
+    },
+    {
+      "name": "Standard Secure Software Supply Chain",
+      "description": "Reference Secure Software Supply Chain tactic with sales enablement",
+      "alphaName": "Secure Software Supply Chain",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Secure Software Supply Chain Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCBf67fM2TjbGGTXpQP6DJbBcTXG"
+        }
+      ]
+    }
+  ]
+}

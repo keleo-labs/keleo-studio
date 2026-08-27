@@ -1,0 +1,568 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "programme-management-foundations",
+    "version": "1.0.0",
+    "description": "programme-management-foundations",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/programme-management-foundations.json",
+      "documentType": "method",
+      "documentName": "Programme Management Foundations",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Comprehensive methodology combining 5 practices.",
+        "tags": {
+          "domainTags": [
+            "Architecture",
+            "Benefits Management",
+            "Cross-Practice Coordination",
+            "Delivery Management",
+            "Dependency Management",
+            "Governance",
+            "Integration",
+            "Knowledge Management",
+            "Lifecycle Management",
+            "Organizational Design",
+            "Portfolio Management",
+            "Programme Management",
+            "Strategic Planning",
+            "Team Structure"
+          ],
+          "lifecycleTags": [
+            "Closure",
+            "Definition",
+            "Delivery",
+            "Evolution",
+            "Execution",
+            "Formation",
+            "Operation",
+            "Planning",
+            "Review",
+            "Transition"
+          ],
+          "organizationalTags": [
+            "Cross-Team",
+            "Portfolio Governance",
+            "Programme Board",
+            "Programme Delivery",
+            "Programme Leadership",
+            "Programme Management Office"
+          ]
+        },
+        "keywords": [],
+        "elementCount": 792,
+        "associatedBaselineName": "Programme Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": ""
+      }
+    },
+    {
+      "path": "documents/delivery-and-team-operations.json",
+      "documentType": "practice",
+      "documentName": "Delivery and Team Operations",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.4",
+        "description": "Coordinates agile delivery execution, team formation, backlog management, and continuous improvement practices.",
+        "tags": {
+          "domainTags": [
+            "Agile Delivery",
+            "Work Management",
+            "Team Development",
+            "Continuous Improvement"
+          ],
+          "lifecycleTags": [
+            "Planning",
+            "Execution",
+            "Retrospection",
+            "Closure"
+          ],
+          "organizationalTags": [
+            "Delivery Team",
+            "Project Leadership Team"
+          ]
+        },
+        "keywords": [
+          "agile delivery",
+          "scrum",
+          "kanban",
+          "sprint planning",
+          "backlog refinement",
+          "team charter",
+          "definition of done",
+          "retrospective",
+          "daily standup",
+          "continuous improvement",
+          "WIP limits",
+          "release planning",
+          "user story",
+          "iteration",
+          "velocity",
+          "team agreement",
+          "working agreement",
+          "sprint review",
+          "flow management",
+          "psychological safety"
+        ],
+        "elementCount": 269,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-25"
+      }
+    },
+    {
+      "path": "documents/integrated-capability-delivery.json",
+      "documentType": "practice",
+      "documentName": "Integrated Capability Delivery",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "Coordinating multi-team delivery through programme increments with architectural runway management and systematic integration.",
+        "tags": {
+          "domainTags": [
+            "Delivery Management",
+            "Architecture",
+            "Integration"
+          ],
+          "lifecycleTags": [
+            "Planning",
+            "Execution",
+            "Review"
+          ],
+          "organizationalTags": [
+            "Cross-Team",
+            "Programme Delivery"
+          ]
+        },
+        "keywords": [
+          "programme increment",
+          "PI planning",
+          "architectural runway",
+          "capability integration",
+          "system demo",
+          "inspect and adapt",
+          "enabler",
+          "feature",
+          "WSJF",
+          "solution train",
+          "continuous integration",
+          "cross-team delivery",
+          "cadenced delivery",
+          "dependency resolution",
+          "integration roadmap",
+          "technical enablement",
+          "intentional architecture",
+          "emergent design"
+        ],
+        "elementCount": 182,
+        "associatedBaselineName": "Programme Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-28"
+      }
+    },
+    {
+      "path": "documents/programme-coordination-and-governance.json",
+      "documentType": "practice",
+      "documentName": "Programme Coordination and Governance",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "Managing cross-project dependencies, structuring delivery through tranches, and establishing programme governance.",
+        "tags": {
+          "domainTags": [
+            "Programme Management",
+            "Governance",
+            "Dependency Management"
+          ],
+          "lifecycleTags": [
+            "Definition",
+            "Delivery",
+            "Transition"
+          ],
+          "organizationalTags": [
+            "Programme Management Office",
+            "Programme Board"
+          ]
+        },
+        "keywords": [
+          "programme governance",
+          "tranche",
+          "MSP",
+          "dependency management",
+          "programme board",
+          "stage gate",
+          "programme risk",
+          "adaptive roadmap",
+          "portfolio kanban",
+          "flight levels",
+          "PRINCE2 programme",
+          "tollgate",
+          "programme office",
+          "cross-project coordination",
+          "decision architecture"
+        ],
+        "elementCount": 194,
+        "associatedBaselineName": "Programme Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-28"
+      }
+    },
+    {
+      "path": "documents/programme-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Programme Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "The Programme Essentials baseline establishes the foundational framework for managing coordinated multi-project initiatives that deliver strategic benefits through cross-project orchestration, benefits realization, and organizational transformation.",
+        "tags": {
+          "domainTags": [
+            "Programme Management",
+            "Benefits Management",
+            "Governance",
+            "Stakeholder Management",
+            "Organizational Change",
+            "Coordination",
+            "Team Design"
+          ],
+          "lifecycleTags": [
+            "Programme Definition",
+            "Programme Delivery",
+            "Tranche Management",
+            "Benefits Realization",
+            "Programme Closure"
+          ],
+          "organizationalTags": [
+            "Programme Management Office",
+            "Programme Board",
+            "Executive Leadership",
+            "Business Change Network",
+            "Team-of-Teams"
+          ]
+        },
+        "keywords": [
+          "programme management",
+          "benefits realization",
+          "cross-project coordination",
+          "governance",
+          "organizational change",
+          "roadmap",
+          "team-of-teams",
+          "dependency management",
+          "strategic alignment",
+          "tranche management"
+        ],
+        "elementCount": 592,
+        "associatedBaselineName": "Programme Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    },
+    {
+      "path": "documents/programme-management-lifecycle.json",
+      "documentType": "practice",
+      "documentName": "Programme Management Lifecycle",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "Orchestrates programme lifecycle coordination across all domain practices.",
+        "tags": {
+          "domainTags": [
+            "Programme Management",
+            "Lifecycle Management",
+            "Cross-Practice Coordination"
+          ],
+          "lifecycleTags": [
+            "Definition",
+            "Delivery",
+            "Transition",
+            "Closure"
+          ],
+          "organizationalTags": [
+            "Programme Leadership",
+            "Programme Management Office"
+          ]
+        },
+        "keywords": [
+          "programme lifecycle",
+          "cross-practice coordination",
+          "programme definition",
+          "programme transition",
+          "benefits transition",
+          "orchestration",
+          "lifecycle management",
+          "programme closure",
+          "adaptive governance",
+          "integrated delivery",
+          "programme phases",
+          "tranches",
+          "delivery coordination",
+          "organizational change"
+        ],
+        "elementCount": 9,
+        "associatedBaselineName": "Programme Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-28"
+      }
+    },
+    {
+      "path": "documents/project-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Project Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "The Project Essentials baseline establishes the universal foundation for project management, organized into three areas of concern: Value, Solution, and Endeavor.",
+        "tags": {
+          "domainTags": [
+            "Project Management",
+            "Agile",
+            "Governance",
+            "Stakeholder Management",
+            "Team Management"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Execution",
+            "Closure",
+            "Benefits Realization"
+          ],
+          "organizationalTags": [
+            "Project Team",
+            "PMO",
+            "Governance Board",
+            "Stakeholder Community"
+          ]
+        },
+        "keywords": [
+          "project management",
+          "agile",
+          "PMBOK",
+          "Essence",
+          "SMART objectives",
+          "team",
+          "stakeholders",
+          "way of working"
+        ],
+        "elementCount": 455,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    },
+    {
+      "path": "documents/project-management-lifecycle.json",
+      "documentType": "practice",
+      "documentName": "Project Management Lifecycle",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "Orchestrates the adaptive project lifecycle coordinating value strategy with delivery operations across all project concerns.",
+        "tags": {
+          "domainTags": [
+            "Lifecycle Management",
+            "Governance",
+            "Phase Gate",
+            "Adaptive Delivery"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Execution",
+            "Monitoring",
+            "Closure"
+          ],
+          "organizationalTags": [
+            "PMO",
+            "Governance Board",
+            "Project Leadership Team"
+          ]
+        },
+        "keywords": [
+          "project lifecycle",
+          "adaptive",
+          "initiation",
+          "planning",
+          "execution",
+          "monitoring",
+          "closing",
+          "phase gate",
+          "iterative",
+          "incremental",
+          "hybrid",
+          "project phases",
+          "lifecycle management",
+          "governance",
+          "stage gate"
+        ],
+        "elementCount": 0,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-25"
+      }
+    },
+    {
+      "path": "documents/strategic-value-and-benefits.json",
+      "documentType": "practice",
+      "documentName": "Strategic Value and Benefits",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "Manages programme investment rationale, benefits realization, and strategic value delivery.",
+        "tags": {
+          "domainTags": [
+            "Benefits Management",
+            "Portfolio Management",
+            "Strategic Planning"
+          ],
+          "lifecycleTags": [
+            "Definition",
+            "Delivery",
+            "Transition"
+          ],
+          "organizationalTags": [
+            "Programme Leadership",
+            "Portfolio Governance"
+          ]
+        },
+        "keywords": [
+          "benefits management",
+          "lean portfolio management",
+          "WSJF",
+          "value stream",
+          "benefits realization",
+          "benefits dependency",
+          "strategic investment",
+          "programme business case",
+          "MSP benefits",
+          "portfolio kanban",
+          "cost of delay",
+          "benefits chain",
+          "value stream funding",
+          "investment horizons",
+          "dis-benefits"
+        ],
+        "elementCount": 227,
+        "associatedBaselineName": "Programme Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-28"
+      }
+    },
+    {
+      "path": "documents/team-of-teams-operations.json",
+      "documentType": "practice",
+      "documentName": "Team of Teams Operations",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "Designing, forming, and evolving programme team structures with cognitive load optimization and cross-team knowledge sharing.",
+        "tags": {
+          "domainTags": [
+            "Organizational Design",
+            "Team Structure",
+            "Knowledge Management"
+          ],
+          "lifecycleTags": [
+            "Formation",
+            "Operation",
+            "Evolution"
+          ],
+          "organizationalTags": [
+            "Programme Delivery",
+            "Cross-Team"
+          ]
+        },
+        "keywords": [
+          "agile release train",
+          "ART",
+          "team of teams",
+          "community of practice",
+          "CoP",
+          "cognitive load",
+          "team topologies",
+          "interaction modes",
+          "scrum of scrums",
+          "inspect and adapt",
+          "PI sync",
+          "stream-aligned",
+          "enabling team",
+          "facilitating",
+          "x-as-a-service",
+          "collaboration mode",
+          "flight levels",
+          "programme coordination",
+          "team design",
+          "knowledge sharing"
+        ],
+        "elementCount": 175,
+        "associatedBaselineName": "Programme Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-28"
+      }
+    },
+    {
+      "path": "documents/value-and-stakeholder-strategy.json",
+      "documentType": "practice",
+      "documentName": "Value and Stakeholder Strategy",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.4",
+        "description": "Ensures projects are grounded in validated opportunity, driven by measurable objectives, and governed by systematic stakeholder, risk, and benefits management.",
+        "tags": {
+          "domainTags": [
+            "Business Case",
+            "Stakeholder Management",
+            "Risk Management",
+            "Benefits Realization",
+            "OKR"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Benefits Realization",
+            "Governance"
+          ],
+          "organizationalTags": [
+            "PMO",
+            "Governance Board",
+            "Sponsor"
+          ]
+        },
+        "keywords": [
+          "project management",
+          "business case",
+          "stakeholder engagement",
+          "OKR",
+          "risk management",
+          "benefits realization",
+          "value proposition",
+          "ROI",
+          "SMART objectives",
+          "stakeholder analysis",
+          "risk register",
+          "opportunity assessment",
+          "investment justification",
+          "MoSCoW prioritization",
+          "cost-benefit analysis"
+        ],
+        "elementCount": 227,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-25"
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "packageName": "Project Management Foundations",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

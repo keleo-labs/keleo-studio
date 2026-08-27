@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "multiply-rhel-with-server-cloud-os-tdp",
+    "version": "1.0.0",
+    "description": "multiply-rhel-with-server-cloud-os-tdp",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/multiply-rhel-with-server-cloud-os-tdp.json",
+      "documentType": "method",
+      "documentName": "Multiply RHEL with Server Cloud OS TDP",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "0.0.0",
+        "description": "Distributor-led Multiply RHEL campaign orchestration with Server Cloud OS TDP as the sales-play spine. Adopts the EMEA Partner Ecosystem Demand Generation Framework (Discover → Plan → Execute → Steer; TDP-anchored incremental pipeline through partners).",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [],
+        "elementCount": 0,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "",
+        "createdAt": ""
+      }
+    },
+    {
+      "path": "documents/server-cloud-os-tdp.json",
+      "documentType": "practice",
+      "documentName": "Server Cloud OS TDP",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.8",
+        "description": "Provides deep RHEL technology positioning with four embedded sales tactics covering OS standardization, cloud migration, security management, and new app deployment.",
+        "tags": {
+          "domainTags": [
+            "Operating Systems",
+            "Cloud Infrastructure",
+            "Linux",
+            "Edge Computing"
+          ],
+          "lifecycleTags": [
+            "Technical Validation",
+            "Solution Design",
+            "Deployment"
+          ],
+          "organizationalTags": [
+            "Technical Sales",
+            "RHEL Specialists",
+            "Solution Architecture"
+          ]
+        },
+        "keywords": [
+          "rhel",
+          "server-os",
+          "cloud-os",
+          "os-standardization",
+          "cloud-migration",
+          "rhel-security",
+          "linux",
+          "operating-system",
+          "infrastructure-foundation",
+          "os-modernization"
+        ],
+        "elementCount": 207,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "packageName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "packageName": "Sales Play Framework",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

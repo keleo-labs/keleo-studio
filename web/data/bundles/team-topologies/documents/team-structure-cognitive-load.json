@@ -1,0 +1,2865 @@
+{
+  "kind": "practice",
+  "name": "Team Structure & Cognitive Load",
+  "description": "Team design framework focused on cognitive load management, team types, and interaction modes to enable fast flow through intentional organizational structure.",
+  "version": "1.0.1",
+  "baselinePracticeName": "Platform Adoption Essentials",
+  "authors": [
+    "Matthew Skelton",
+    "Manuel Pais",
+    "Ed Seymour (Practice JSON Generator)"
+  ],
+  "createdAt": "2026-07-10",
+  "updatedAt": "2026-08-16",
+  "keywords": [
+    "team topology",
+    "cognitive load",
+    "team types",
+    "team structure",
+    "stream-aligned team",
+    "platform team",
+    "enabling team",
+    "complicated subsystem team",
+    "interaction modes",
+    "team API",
+    "organizational design",
+    "team effectiveness"
+  ],
+  "tags": {
+    "domainTags": [
+      "Organizational Design",
+      "Team Effectiveness",
+      "Platform Engineering"
+    ],
+    "lifecycleTags": [
+      "Adoption",
+      "Evolution"
+    ],
+    "organizationalTags": [
+      "Executive Leadership",
+      "Platform Team",
+      "Stream-Aligned Team",
+      "Enabling Team"
+    ]
+  },
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Persona",
+      "practiceElementName": "Stream-Aligned Team Lead",
+      "aliasName": "Product Team Lead"
+    },
+    {
+      "practiceElementType": "Persona",
+      "practiceElementName": "Platform Team Lead",
+      "aliasName": "Platform Product Manager"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Cognitive Load",
+      "aliasName": "Mental Bandwidth"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Team Interaction Mode",
+      "aliasName": "Interaction Pattern"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Team Topology Map",
+      "aliasName": "Organizational Topology Diagram"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Team",
+      "description": "People working together with a shared mission.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "team-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "performs",
+          "alphaName": "Work",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "applies",
+          "alphaName": "Way Of Working",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Seeded",
+          "description": "Team membership is identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Team size within bounds",
+              "description": "5-9 people based on Dunbar's number for effective working relationships.",
+              "seq": 1
+            },
+            {
+              "name": "Team type designated",
+              "description": "Team explicitly classified as Stream-Aligned, Platform, Enabling, or Complicated-Subsystem.",
+              "seq": 2
+            },
+            {
+              "name": "Cognitive load capacity assessed",
+              "description": "Maximum 1 complex domain or 2-3 simple domains initially scoped for team.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Formed",
+          "description": "Team members are working together.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Stability commitment established",
+              "description": "Team membership stable for weeks-to-months allowing shared context development.",
+              "seq": 1
+            },
+            {
+              "name": "Ownership boundaries clear",
+              "description": "Every system part owned by exactly one team with no split ownership creating coupling.",
+              "seq": 2
+            },
+            {
+              "name": "Team API initiated",
+              "description": "Basic team interface including contact information and communication norms defined.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Collaborating",
+          "description": "Team demonstrates effective collaboration.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Interaction modes explicit",
+              "description": "Relationships with other teams defined as Collaboration, X-as-a-Service, or Facilitating.",
+              "seq": 1
+            },
+            {
+              "name": "Value stream aligned",
+              "description": "(For stream-aligned teams) Owns end-to-end business domain slice without hand-offs.",
+              "seq": 2
+            },
+            {
+              "name": "Platform capabilities identified",
+              "description": "(For platform teams) Self-service offerings scoped based on stream team cognitive load reduction.",
+              "seq": 3
+            },
+            {
+              "name": "Team API documented",
+              "description": "Code interfaces, versioning, practices, communication norms, work visibility specified.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Performing",
+          "description": "Team delivers value effectively.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Cognitive load optimized",
+              "description": "Team reports feeling effective and able to respond timely without overwhelm.",
+              "seq": 1
+            },
+            {
+              "name": "Fast flow demonstrated",
+              "description": "(Stream-aligned) Shipping small improvements frequently without dependency bottlenecks.",
+              "seq": 2
+            },
+            {
+              "name": "DevEx excellence",
+              "description": "(Platform) Measurable adoption and satisfaction from consuming teams, 25%+ context switching reduction.",
+              "seq": 3
+            },
+            {
+              "name": "Autonomy achieved",
+              "description": "(Enabled teams) Successfully built capability and can operate independently.",
+              "seq": 4
+            },
+            {
+              "name": "Team as sensor",
+              "description": "Performance metrics provide organizational health signals driving topology evolution.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Adjourned",
+          "description": "Team mission is complete and dissolved or transitioned.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Enabling mission complete",
+              "description": "(Enabling teams) Capability adoption achieved, team rotates to new challenge.",
+              "seq": 1
+            },
+            {
+              "name": "Topology evolution justified",
+              "description": "Team restructuring or boundary changes triggered by organizational sensing signals.",
+              "seq": 2
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Team Alpha Narrative",
+          "description": "Team Topologies context for baseline Team alpha",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Team Topologies treats the team as the fundamental unit of delivery, not individuals, with team-first thinking applied to all design decisions including software boundaries and cognitive load limits."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Four team types provide simplified vocabulary: stream-aligned teams own value streams end-to-end, platform teams reduce cognitive load via self-service, enabling teams temporarily boost capabilities, complicated-subsystem teams handle specialist complexity. Teams interact through three explicit modes (Collaboration, X-as-a-Service, Facilitating) with Team APIs defining interfaces. Cognitive load management ensures teams sized and scoped within human bandwidth limits (5-9 people, maximum 1 complex or 2-3 simple domains). Teams function as organizational sensors with performance metrics signaling when topology evolution needed."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Effective teams require stability (weeks-to-months), clear ownership boundaries, explicit interaction modes, and continuous cognitive load optimization to deliver fast flow and serve as foundation for intentional architecture through Conway's Law."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies Book",
+            "Team Topologies Key Concepts",
+            "Cognitive Load Reduction Article"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Way Of Working",
+      "description": "The tailored practices and processes the team follows.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "way-of-working-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "guides",
+          "alphaName": "Work",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Principles Established",
+          "description": "Core principles and values are agreed.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Interaction mode vocabulary adopted",
+              "description": "Three interaction modes (Collaboration, X-as-a-Service, Facilitating) understood as only valid patterns.",
+              "seq": 1
+            },
+            {
+              "name": "Team-first thinking agreed",
+              "description": "Teams as fundamental unit, not individuals, with team boundaries and cognitive load prioritized.",
+              "seq": 2
+            },
+            {
+              "name": "Conway's Law awareness",
+              "description": "Recognition that team communication structure will shape software architecture.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Foundation Established",
+          "description": "Essential practices are in place.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Team APIs specified",
+              "description": "How teams interact (code, versioning, practices, communication) explicitly documented.",
+              "seq": 1
+            },
+            {
+              "name": "Interaction modes assigned",
+              "description": "Every inter-team relationship has explicit mode (not ambiguous collaborate effectively).",
+              "seq": 2
+            },
+            {
+              "name": "Continuous delivery enabled",
+              "description": "Small safe changes, test-first development, operability practices support fast flow.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "In Use",
+          "description": "Practices are being applied.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Collaboration time-bounded",
+              "description": "Discovery-phase collaboration has clear goals and duration, limited to one collaboration per team.",
+              "seq": 1
+            },
+            {
+              "name": "X-as-a-Service providing value",
+              "description": "Service-providing teams deliver excellent DevEx with clear APIs and self-service.",
+              "seq": 2
+            },
+            {
+              "name": "Facilitating builds autonomy",
+              "description": "Enabling teams working toward consumer self-sufficiency, not permanent dependency.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "In Place",
+          "description": "Practices are established and being used well.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Interaction modes evolve strategically",
+              "description": "Collaboration transitions to X-as-a-Service as systems stabilize, facilitating leads to disengagement.",
+              "seq": 1
+            },
+            {
+              "name": "You Built It You Run It",
+              "description": "Continuity of care with teams owning full lifecycle prevents repeated mistakes.",
+              "seq": 2
+            },
+            {
+              "name": "Intermittent collaboration",
+              "description": "Research-backed pattern of intermittent (not constant) collaboration for innovation applied.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Continuously Improving",
+          "description": "Practices are being inspected and adapted.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Interaction effectiveness measured",
+              "description": "Tracking cognitive load costs, adoption rates, dependency wait times for mode optimization.",
+              "seq": 1
+            },
+            {
+              "name": "Organizational sensing informing practices",
+              "description": "Team performance signals drive way of working adjustments and topology evolution.",
+              "seq": 2
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Way Of Working Narrative",
+          "description": "Team Topologies context for baseline Way Of Working alpha",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Team Topologies defines only three ways teams should interact, eliminating ambiguous coordination mandates and providing clear vocabulary for team relationships."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Collaboration mode suits discovery with high bandwidth but high cognitive cost, time-bounded with clear goals. X-as-a-Service provides predictable low-interaction consumption with DevEx focus, requiring well-defined boundaries. Facilitating empowers teams toward self-sufficiency through coaching, not execution. Modes evolve over time as teams mature and systems stabilize, with interaction effectiveness measured to optimize cognitive load. Team APIs formalize interaction surfaces including code interfaces, versioning, practices, and communication norms. Supporting practices include continuous delivery, test-first development, and You Built It You Run It ownership."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Explicit interaction modes with strategic evolution enable fast flow by minimizing wasteful coordination while preserving necessary collaboration, with organizational sensing driving continuous improvement."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies Book",
+            "Team Topologies Key Concepts"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Work",
+      "description": "The activities required to build, operate, and maintain the platform.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "work-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "performed by",
+          "alphaName": "Team",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Cognitive Load",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "Work is requested.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Prepared",
+          "description": "Work is ready to begin.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Started",
+          "description": "Work is in progress.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Under Control",
+          "description": "Work is proceeding predictably.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Concluded",
+          "description": "Work is finished.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Closed",
+          "description": "All work activities are officially complete.",
+          "seq": 6,
+          "checklist": []
+        }
+      ],
+      "kind": "alpha",
+      "narratives": [
+        {
+          "name": "Practice Overview Narrative",
+          "description": "High-level practice context using Hero's Journey framework",
+          "narrativeTypeName": "Hero's Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Ordinary World",
+              "context": "Organizations struggle with static hierarchical teams causing bottlenecks, dependencies, and misalignment between communication structures and system architecture."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Call to Adventure",
+              "context": "Recognition that team structure determines software architecture and value flow speed, requiring intentional organizational design using four fundamental team types."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Tests and Allies",
+              "context": "Teams optimize cognitive load through domain boundaries and platform abstraction, with explicit interaction modes (Collaboration, X-as-a-Service, Facilitating) defining how teams work together."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Transformation",
+              "context": "Team APIs formalize interaction surfaces, enabling teams to function as sensors providing performance signals that drive continuous topology evolution through small incremental changes."
+            },
+            {
+              "seq": 5,
+              "narrativeElementName": "Return with Elixir",
+              "context": "Sustained team effectiveness with demonstrable productivity gains through cognitive load optimization, clear ownership boundaries, and architecture aligned with team structure."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies Book",
+            "Team Topologies Key Concepts"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Platform Risk And Compliance",
+      "description": "Measures the business risk evaluation, security posture validation, and compliance mitigation maturity.",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "platform-risk-compliance-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Team",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Basic security risks and compliance needs are listed.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Assessed",
+          "description": "Detailed risk assessment matrices and compliance mappings are documented.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Mitigated",
+          "description": "Scenario-based behavioral guides mitigate specific user risks.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Automated",
+          "description": "Automated compliance auditing and security posture checks are in place.",
+          "seq": 4,
+          "checklist": []
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Cognitive Load",
+      "description": "The mental bandwidth capacity of teams and strategies to optimize complexity exposure.",
+      "focusName": "Endeavor",
+      "contributesTo": "Team",
+      "assetNames": [
+        {
+          "assetName": "cognitive-load-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Team Topology Design",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Work",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "influences",
+          "alphaName": "Way Of Working",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Unmanaged Load",
+          "description": "Cognitive load not explicitly recognized or measured.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Teams continually assigned new responsibilities",
+              "description": "Additions without removals taxing mental bandwidth incrementally.",
+              "seq": 1
+            },
+            {
+              "name": "No capacity assessment",
+              "description": "Team bandwidth and domain complexity not evaluated before assignment.",
+              "seq": 2
+            },
+            {
+              "name": "Performance attributed to skill gaps",
+              "description": "Ineffectiveness blamed on competency not overload.",
+              "seq": 3
+            },
+            {
+              "name": "Frequent context switching",
+              "description": "Teams jumping between multiple unrelated domains.",
+              "seq": 4
+            },
+            {
+              "name": "Overwhelm reported but ignored",
+              "description": "Team complaints dismissed as execution issues.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Load Awareness",
+          "description": "Organization recognizes cognitive load as design constraint.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Effectiveness question asked",
+              "description": "Leadership queries teams: Do you feel effective and able to respond timely?",
+              "seq": 1
+            },
+            {
+              "name": "Load concepts introduced",
+              "description": "Intrinsic, extraneous, germane cognitive load distinction understood.",
+              "seq": 2
+            },
+            {
+              "name": "Overload symptoms recognized",
+              "description": "Slow decisions and errors identified as capacity issues not skill problems.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Domain Boundaries Established",
+          "description": "Team scopes limited to manageable complexity using domain heuristics.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Domain heuristic applied",
+              "description": "Maximum 1 complex domain or 2-3 simple domains per team enforced.",
+              "seq": 1
+            },
+            {
+              "name": "Complexity assessed",
+              "description": "Domain complexity evaluated before team assignment.",
+              "seq": 2
+            },
+            {
+              "name": "Boundaries align with capacity",
+              "description": "Team scope matches available mental bandwidth.",
+              "seq": 3
+            },
+            {
+              "name": "Removals when additions made",
+              "description": "Responsibilities removed when new ones added to maintain balance.",
+              "seq": 4
+            },
+            {
+              "name": "Platform abstractions identified",
+              "description": "Infrastructure concerns targeted for platform reduction of extraneous load.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Active Load Reduction",
+          "description": "Systematic strategies deployed to minimize cognitive overhead.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Platform abstracts complexity",
+              "description": "Infrastructure provisioning, monitoring, deployment handled by platform.",
+              "seq": 1
+            },
+            {
+              "name": "Consistent UX reduces learning",
+              "description": "Platform services provide uniform interfaces minimizing load.",
+              "seq": 2
+            },
+            {
+              "name": "Tooling rationalized",
+              "description": "Tool variety reduced eliminating duplication overhead.",
+              "seq": 3
+            },
+            {
+              "name": "Team APIs reduce integration cost",
+              "description": "Clear interfaces minimize cognitive expense of cross-team work.",
+              "seq": 4
+            },
+            {
+              "name": "25% context switching reduction",
+              "description": "Measurable decrease in domain-jumping demonstrated.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Continuous Optimization",
+          "description": "Ongoing monitoring and adjustment maintaining optimal cognitive load.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Regular assessments conducted",
+              "description": "Periodic cognitive load evaluations track team health.",
+              "seq": 1
+            },
+            {
+              "name": "Thresholds trigger adjustments",
+              "description": "Load exceeding limits prompts team boundary changes.",
+              "seq": 2
+            },
+            {
+              "name": "Platform prioritized by impact",
+              "description": "Capabilities ranked by cognitive load reduction potential.",
+              "seq": 3
+            },
+            {
+              "name": "Domain mastery maintained",
+              "description": "Teams sustain expertise in assigned areas without dilution.",
+              "seq": 4
+            },
+            {
+              "name": "Productivity sustained",
+              "description": "20%+ effectiveness improvements maintained over time.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Cognitive Load Narrative",
+          "description": "Cognitive load management in Team Topologies",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Teams have finite cognitive capacity that gets exhausted when responsibilities exceed working memory limits, with three types of load (intrinsic task complexity, extraneous environment overhead, germane productive learning) requiring active management."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Cognitive load management applies domain heuristics (maximum 1 complex or 2-3 simple domains per team), platform abstraction as primary reduction mechanism for extraneous load (infrastructure concerns), consistent UX across services to minimize learning overhead, and regular assessments asking 'Do you feel effective and able to respond timely?' Overloaded teams make poor decisions and move slowly despite competence, with symptoms including context switching, inability to maintain mastery, and ineffectiveness despite skill. Platform teams measure success primarily through cognitive load reduction on stream teams (target 25% context switching decrease, 20% productivity gains)."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Sustained cognitive load optimization requires continuous monitoring, threshold-based triggers for team boundary adjustments, and platform evolution prioritized by load reduction impact, enabling teams to maintain mastery and effectiveness."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies Book",
+            "Cognitive Load Reduction Article"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Team Topology Design",
+      "description": "The capability to architect organizational team structure using four fundamental types, fracture planes, and boundary principles.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "team-topology-design-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Cognitive Load",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "implements",
+          "alphaName": "Team Interaction Mode",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Static Organizational Structure",
+          "description": "Traditional hierarchical teams organized by technology layers or functions.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Org chart drives design",
+              "description": "Team structure follows hierarchy without considering work flow.",
+              "seq": 1
+            },
+            {
+              "name": "Development QA Operations silos",
+              "description": "Separate teams by function with hand-offs between them.",
+              "seq": 2
+            },
+            {
+              "name": "Project-based reshuffling",
+              "description": "Teams frequently reconstituted for project assignments.",
+              "seq": 3
+            },
+            {
+              "name": "Cognitive load not considered",
+              "description": "No explicit recognition of team bandwidth limits.",
+              "seq": 4
+            },
+            {
+              "name": "Communication not intentional",
+              "description": "Team interaction structure not deliberately designed.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "DevOps Transitional",
+          "description": "Initial cross-functional collaboration with dedicated bridging teams.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "DevOps team established",
+              "description": "Dedicated team created as transitional bridge structure.",
+              "seq": 1
+            },
+            {
+              "name": "Conway's Law awareness emerging",
+              "description": "Beginning recognition of communication-architecture link.",
+              "seq": 2
+            },
+            {
+              "name": "Some cross-functional teams",
+              "description": "Initial product teams combining dev and ops formed.",
+              "seq": 3
+            },
+            {
+              "name": "Flow focus emerging",
+              "description": "Value stream thinking beginning but not systematic.",
+              "seq": 4
+            },
+            {
+              "name": "Dependencies still blocking",
+              "description": "Inter-team wait times create significant bottlenecks.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Four Team Types Defined",
+          "description": "Organization explicitly adopts fundamental team topology vocabulary.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Stream-aligned teams established",
+              "description": "Value stream teams own end-to-end delivery.",
+              "seq": 1
+            },
+            {
+              "name": "Platform teams providing self-service",
+              "description": "Dedicated teams abstract infrastructure complexity.",
+              "seq": 2
+            },
+            {
+              "name": "Enabling teams facilitating adoption",
+              "description": "Temporary capability-building teams rotating across needs.",
+              "seq": 3
+            },
+            {
+              "name": "Complicated-subsystem teams for specialists",
+              "description": "Deep expertise teams handling complex components.",
+              "seq": 4
+            },
+            {
+              "name": "Hybrid types avoided",
+              "description": "Clear type assignment, no ambiguous hybrid roles.",
+              "seq": 5
+            },
+            {
+              "name": "Cognitive load actively managed",
+              "description": "Team scope decisions consider bandwidth limits.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Explicit Interaction Modes",
+          "description": "Team relationships defined through Collaboration, X-as-a-Service, or Facilitating modes.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Every relationship has mode",
+              "description": "All inter-team interactions explicitly classified.",
+              "seq": 1
+            },
+            {
+              "name": "Collaboration time-bounded",
+              "description": "Discovery collaborations have clear goals and duration.",
+              "seq": 2
+            },
+            {
+              "name": "XaaS with DevEx focus",
+              "description": "Service consumption via well-designed interfaces.",
+              "seq": 3
+            },
+            {
+              "name": "Facilitating targets autonomy",
+              "description": "Coaching relationships aim for consumer self-sufficiency.",
+              "seq": 4
+            },
+            {
+              "name": "Topology diagrams annotated",
+              "description": "Team maps show types and interaction modes visibly.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Sensing and Evolving",
+          "description": "Continuous topology adaptation through organizational sensing mechanisms.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Teams as sensors",
+              "description": "Performance metrics monitored as organizational health signals.",
+              "seq": 1
+            },
+            {
+              "name": "Evolution triggers defined",
+              "description": "Specific signals (capacity, cadence, dependencies) prompt changes.",
+              "seq": 2
+            },
+            {
+              "name": "Incremental adjustments",
+              "description": "Small monthly changes replace massive reorganizations.",
+              "seq": 3
+            },
+            {
+              "name": "Team boundaries negotiable",
+              "description": "Direct team-based proposals not just top-down mandates.",
+              "seq": 4
+            },
+            {
+              "name": "Interaction modes evolve",
+              "description": "Strategic transitions (Collaboration to XaaS) as systems mature.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Self-Steering Organization",
+          "description": "Mature cybernetic system with predictable evolution and architecture co-evolution.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Operational feedback drives priorities",
+              "description": "Production metrics systematically inform development roadmaps.",
+              "seq": 1
+            },
+            {
+              "name": "Continuity of care standard",
+              "description": "Teams own full lifecycle as normal practice.",
+              "seq": 2
+            },
+            {
+              "name": "Reverse Conway Maneuver consistent",
+              "description": "Architecture designed by intentional team structure repeatedly.",
+              "seq": 3
+            },
+            {
+              "name": "High autonomy with alignment",
+              "description": "Teams self-organize within strategic guardrails.",
+              "seq": 4
+            },
+            {
+              "name": "Predictable market adaptation",
+              "description": "Organization reliably adjusts to environment changes.",
+              "seq": 5
+            },
+            {
+              "name": "Architecture-organization co-evolution",
+              "description": "Technical and organizational structures evolve together continuously.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Team Topology Design Narrative",
+          "description": "Topology design capability progression",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Team Topologies provides simplified organizational vocabulary with four fundamental types (Stream-Aligned, Platform, Enabling, Complicated-Subsystem) as alternative to traditional hierarchies, designed to optimize value flow and software architecture through intentional communication structures."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Topology design applies fracture planes to define team boundaries with Domain-Driven Design bounded contexts as primary split, plus regulatory compliance, change cadence, team location, risk profile, performance isolation, technology (cautiously), and user personas as additional fracture planes. Team boundaries must align with cognitive capacity using domain heuristics (maximum 1 complex or 2-3 simple domains per team), avoiding monolithic anti-patterns. Organizational sensing enables continuous evolution through small incremental adjustments monthly based on triggers (software exceeding capacity, delivery cadence degradation, complex service dependencies) rather than massive annual reorganizations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Mature topology design achieves predictable architectural outcomes through deliberate team structure, sustained fast flow with minimal dependencies, and self-steering adaptation to environment changes as competitive advantage."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies Key Concepts",
+            "Team Topologies Book"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Team Interaction Mode",
+      "description": "The explicit pattern defining how two teams interdepend through Collaboration, X-as-a-Service, or Facilitating.",
+      "focusName": "Endeavor",
+      "contributesTo": "Way Of Working",
+      "assetNames": [
+        {
+          "assetName": "team-interaction-mode-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "reduces",
+          "alphaName": "Cognitive Load",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Undefined Interactions",
+          "description": "Team relationships unspecified leading to coordination confusion.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "No explicit definition",
+              "description": "How teams work together left unspecified and ambiguous.",
+              "seq": 1
+            },
+            {
+              "name": "Vague mandates",
+              "description": "Generic directives like 'collaborate effectively' without specifics.",
+              "seq": 2
+            },
+            {
+              "name": "Mode uncertainty",
+              "description": "Teams unsure whether to work closely or consume as service.",
+              "seq": 3
+            },
+            {
+              "name": "Interaction costs ignored",
+              "description": "Meeting overhead and synchronization burden not considered.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Mode Awareness",
+          "description": "Organization introduces three interaction mode vocabulary.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Three modes defined",
+              "description": "Collaboration, X-as-a-Service, Facilitating explicitly described.",
+              "seq": 1
+            },
+            {
+              "name": "Relationships labeled",
+              "description": "Teams begin naming relationships with mode vocabulary.",
+              "seq": 2
+            },
+            {
+              "name": "Discovery versus consumption",
+              "description": "Distinction between Collaboration (discovery) and XaaS (consumption) understood.",
+              "seq": 3
+            },
+            {
+              "name": "Facilitating as empowerment",
+              "description": "Recognized as capability building not execution by facilitator.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Explicit Mode Assignment",
+          "description": "Every inter-team relationship assigned specific interaction mode.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Topology diagrams annotated",
+              "description": "Team maps show interaction modes on relationship lines.",
+              "seq": 1
+            },
+            {
+              "name": "Mode selection considers purpose",
+              "description": "Choice based on discovery needs, cognitive load, and maturity.",
+              "seq": 2
+            },
+            {
+              "name": "Collaboration time-bounded",
+              "description": "Discovery collaborations have clear goals and duration limits.",
+              "seq": 3
+            },
+            {
+              "name": "XaaS has defined APIs",
+              "description": "Service consumption via well-documented interfaces with DevEx focus.",
+              "seq": 4
+            },
+            {
+              "name": "Facilitating has capability objectives",
+              "description": "Coaching relationships target specific autonomy building goals.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Strategic Mode Evolution",
+          "description": "Interaction modes shift intentionally based on team maturity and system stability.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Discovery phases use Collaboration",
+              "description": "New capability exploration via high-bandwidth close work.",
+              "seq": 1
+            },
+            {
+              "name": "Established transitions to XaaS",
+              "description": "Mature capabilities shift to service consumption as boundaries stabilize.",
+              "seq": 2
+            },
+            {
+              "name": "Facilitating leads to disengagement",
+              "description": "Enabling teams rotate away as consumer autonomy achieved.",
+              "seq": 3
+            },
+            {
+              "name": "Transitions planned",
+              "description": "Mode evolution communicated and scheduled, not accidental.",
+              "seq": 4
+            },
+            {
+              "name": "Conway's Law effects understood",
+              "description": "Architecture impacts of each mode recognized and leveraged.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized Interaction Patterns",
+          "description": "Organization masters interaction mode selection and evolution for flow.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Intermittent collaboration applied",
+              "description": "Research-backed intermittent (not constant) collaboration for innovation.",
+              "seq": 1
+            },
+            {
+              "name": "Platform DevEx excellence",
+              "description": "XaaS services provide outstanding developer experience minimizing interaction cost.",
+              "seq": 2
+            },
+            {
+              "name": "Measurable autonomy improvements",
+              "description": "Facilitating demonstrably increases consumer team self-sufficiency.",
+              "seq": 3
+            },
+            {
+              "name": "Dependency wait times eliminated",
+              "description": "Appropriate modes remove team-blocking bottlenecks.",
+              "seq": 4
+            },
+            {
+              "name": "Interaction as organizational sensor",
+              "description": "Pattern changes signal topology evolution needs.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Team Interaction Mode Narrative",
+          "description": "Three interaction modes framework",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Only three ways teams should interact, eliminating ambiguous coordination mandates and providing clear vocabulary for team relationships with different cognitive load costs and suitable contexts."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Collaboration mode suits discovery of new things (APIs, practices, technologies) with working closely together for defined period, high bandwidth but high cost, time-bounded with clear goals, limited to one collaboration per team at a time, leading to blurred boundaries and blended software responsibilities through Conway's Law. X-as-a-Service mode enables consuming well-defined component with minimal interaction, clear ownership boundaries, predictable delivery, low cognitive load on consumer, requiring well-chosen service boundaries and excellent DevEx (usability, reliability, versioning, documentation). Facilitating mode involves one team helping another learn/adopt practices/overcome impediments, empowerment focus making teams self-sufficient, no direct system building by facilitator, typical for enabling teams assisting stream-aligned teams."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Explicit interaction modes with strategic evolution enable fast flow by minimizing wasteful coordination while preserving necessary collaboration, with modes serving as organizational sensors signaling topology adjustment needs."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies Book",
+            "Team Topologies Key Concepts"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "alphaInstances": [
+    {
+      "name": "Stream-Aligned Team",
+      "description": "Team aligned to a flow of work from a segment of the business domain, owning end-to-end delivery.",
+      "alphaName": "Team"
+    },
+    {
+      "name": "Platform Team",
+      "description": "Team providing internal services to reduce cognitive load on stream-aligned teams via self-service capabilities.",
+      "alphaName": "Team"
+    },
+    {
+      "name": "Enabling Team",
+      "description": "Team assisting other teams to overcome obstacles and discover new capabilities, facilitating learning and adoption.",
+      "alphaName": "Team"
+    },
+    {
+      "name": "Complicated Subsystem Team",
+      "description": "Team responsible for building and maintaining a part of the system that requires specialist knowledge.",
+      "alphaName": "Team"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Team Topology Map",
+      "description": "Visual diagram showing team types, boundaries, and interaction modes with evolution over time.",
+      "tags": {
+        "domainTags": [
+          "Organizational Design"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Evolution"
+        ],
+        "organizationalTags": [
+          "Executive Leadership",
+          "Platform Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "topology-map-template",
+          "type": "template"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Team Inventory",
+          "description": "Simple list of teams and their types.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Team names identified",
+              "description": "List of all teams with names documented.",
+              "seq": 1
+            },
+            {
+              "name": "Team types classified",
+              "description": "Each team labeled as Stream-Aligned, Platform, Enabling, or Complicated-Subsystem.",
+              "seq": 2
+            },
+            {
+              "name": "Text-based or simple table format",
+              "description": "Inventory captured in accessible document format.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "DevOps Transitional"
+            }
+          ]
+        },
+        {
+          "name": "Basic Topology Diagram",
+          "description": "Visual representation with teams and basic connections.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Teams shown as labeled boxes",
+              "description": "Visual boxes with team names and types indicated.",
+              "seq": 1
+            },
+            {
+              "name": "Lines connecting teams",
+              "description": "Relationship lines showing which teams interact.",
+              "seq": 2
+            },
+            {
+              "name": "Team ownership boundaries visible",
+              "description": "Clear visual delineation of what each team owns.",
+              "seq": 3
+            },
+            {
+              "name": "Static snapshot",
+              "description": "Point-in-time view without temporal information.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Four Team Types Defined"
+            },
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Domain Boundaries Established"
+            }
+          ]
+        },
+        {
+          "name": "Annotated Interaction Diagram",
+          "description": "Diagram with explicit interaction modes and direction of flow.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Interaction modes labeled",
+              "description": "Collaboration, X-as-a-Service, Facilitating modes shown on relationship lines.",
+              "seq": 1
+            },
+            {
+              "name": "Direction of value flow shown",
+              "description": "Arrows or layout showing left-to-right value flow.",
+              "seq": 2
+            },
+            {
+              "name": "Legend explaining symbols",
+              "description": "Key provided for interaction mode symbols and team type indicators.",
+              "seq": 3
+            },
+            {
+              "name": "Team API boundaries indicated",
+              "description": "Interface points clearly marked on diagram.",
+              "seq": 4
+            },
+            {
+              "name": "Platform consumer relationships clear",
+              "description": "Which stream teams consume which platform capabilities visible.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Explicit Interaction Modes"
+            },
+            {
+              "alphaName": "Team Interaction Mode",
+              "stateName": "Explicit Mode Assignment"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            }
+          ]
+        },
+        {
+          "name": "Evolution Timeline",
+          "description": "Multiple diagrams showing topology changes over time.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Snapshot-in-time diagrams with dates",
+              "description": "Series of topology diagrams each labeled with effective date.",
+              "seq": 1
+            },
+            {
+              "name": "Evolution path shown",
+              "description": "Past, current, and planned future states visible.",
+              "seq": 2
+            },
+            {
+              "name": "Rationale for changes documented",
+              "description": "Why each topology change was made explained.",
+              "seq": 3
+            },
+            {
+              "name": "Triggers for evolution noted",
+              "description": "Organizational sensing signals that prompted changes identified.",
+              "seq": 4
+            },
+            {
+              "name": "Interaction mode transitions visible",
+              "description": "Changes in how teams interact over time shown.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Sensing and Evolving"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Cognitive Load Assessment",
+      "description": "Evaluation of team mental bandwidth and domain complexity.",
+      "tags": {
+        "domainTags": [
+          "Team Effectiveness",
+          "Organizational Design"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Platform Team",
+          "Stream-Aligned Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "cognitive-load-assessment-template",
+          "type": "template"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Qualitative Survey",
+          "description": "Simple team self-assessment of cognitive load.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Effectiveness question asked",
+              "description": "Teams asked: 'Do you feel effective and able to respond timely?'",
+              "seq": 1
+            },
+            {
+              "name": "Subjective responses collected",
+              "description": "Team feedback on feeling overwhelmed or effective captured.",
+              "seq": 2
+            },
+            {
+              "name": "High-level load concerns identified",
+              "description": "Major pain points in team bandwidth documented.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Load Awareness"
+            }
+          ]
+        },
+        {
+          "name": "Domain Complexity Inventory",
+          "description": "Catalog of domains assigned to each team with complexity ratings.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Domains listed per team",
+              "description": "All business/technical domains each team handles documented.",
+              "seq": 1
+            },
+            {
+              "name": "Complexity rated",
+              "description": "Each domain classified as simple or complex.",
+              "seq": 2
+            },
+            {
+              "name": "Heuristic applied",
+              "description": "Maximum 1 complex or 2-3 simple domains per team verified.",
+              "seq": 3
+            },
+            {
+              "name": "Load type classification",
+              "description": "Load categorized as intrinsic, extraneous, or germane.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Domain Boundaries Established"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            }
+          ]
+        },
+        {
+          "name": "Quantified Load Analysis",
+          "description": "Structured assessment with measurable dimensions.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Context-switching frequency measured",
+              "description": "How often teams switch between different problem domains tracked.",
+              "seq": 1
+            },
+            {
+              "name": "Tools and systems counted",
+              "description": "Number of distinct technologies team must master documented.",
+              "seq": 2
+            },
+            {
+              "name": "Integration points quantified",
+              "description": "Count of external system dependencies requiring team attention.",
+              "seq": 3
+            },
+            {
+              "name": "Responsibility scope documented",
+              "description": "Full catalog of what team is accountable for maintaining.",
+              "seq": 4
+            },
+            {
+              "name": "Comparison to capacity limits",
+              "description": "Assessment against cognitive bandwidth thresholds performed.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Active Load Reduction"
+            },
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Four Team Types Defined"
+            }
+          ]
+        },
+        {
+          "name": "Continuous Monitoring",
+          "description": "Ongoing tracking of cognitive load indicators and trends.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Regular pulse surveys",
+              "description": "Periodic team effectiveness checks scheduled and executed.",
+              "seq": 1
+            },
+            {
+              "name": "Productivity metrics tracked",
+              "description": "Velocity, cycle time, quality monitored over time.",
+              "seq": 2
+            },
+            {
+              "name": "Load increases tracked",
+              "description": "When responsibilities added, cognitive impact measured.",
+              "seq": 3
+            },
+            {
+              "name": "Platform abstractions measured",
+              "description": "Load reduction from platform capabilities quantified.",
+              "seq": 4
+            },
+            {
+              "name": "Thresholds defined",
+              "description": "Trigger points for interventions established.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Continuous Optimization"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Team API Documentation",
+      "description": "Specification of how teams interact including code interfaces, practices, and communication norms.",
+      "tags": {
+        "domainTags": [
+          "Ways of Working",
+          "Team Effectiveness"
+        ],
+        "lifecycleTags": [
+          "Adoption"
+        ],
+        "organizationalTags": [
+          "All Teams"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "team-api-template",
+          "type": "template"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Contact Information",
+          "description": "Basic details on reaching the team.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Team name and members listed",
+              "description": "Current team roster documented.",
+              "seq": 1
+            },
+            {
+              "name": "Communication channels identified",
+              "description": "Slack channels, email lists, issue trackers noted.",
+              "seq": 2
+            },
+            {
+              "name": "Meeting schedule noted",
+              "description": "Standing meetings and availability windows documented.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            }
+          ]
+        },
+        {
+          "name": "Interface Catalog",
+          "description": "Inventory of team's technical interfaces.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Runtime endpoints listed",
+              "description": "REST APIs, GraphQL, gRPC services documented.",
+              "seq": 1
+            },
+            {
+              "name": "Library and client packages identified",
+              "description": "Consumable code artifacts cataloged.",
+              "seq": 2
+            },
+            {
+              "name": "Versioning approach documented",
+              "description": "How team manages API versions specified.",
+              "seq": 3
+            },
+            {
+              "name": "Basic API reference available",
+              "description": "Core endpoints and usage documented.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            },
+            {
+              "alphaName": "Team Interaction Mode",
+              "stateName": "Explicit Mode Assignment"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive Team API",
+          "description": "Complete specification of team interaction surface.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Code interfaces with detailed documentation",
+              "description": "Request/response formats, error handling, authentication specified.",
+              "seq": 1
+            },
+            {
+              "name": "Versioning and compatibility guarantees",
+              "description": "Deprecation policies and migration paths documented.",
+              "seq": 2
+            },
+            {
+              "name": "Wiki and how-to guides",
+              "description": "Integration patterns and troubleshooting guides available.",
+              "seq": 3
+            },
+            {
+              "name": "Practices and principles articulated",
+              "description": "Code review expectations, testing standards, operational principles stated.",
+              "seq": 4
+            },
+            {
+              "name": "Communication norms specified",
+              "description": "Response time expectations and escalation paths defined.",
+              "seq": 5
+            },
+            {
+              "name": "Work visibility mechanisms described",
+              "description": "How others can see team's current work and priorities.",
+              "seq": 6
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Place"
+            },
+            {
+              "alphaName": "Team Interaction Mode",
+              "stateName": "Strategic Mode Evolution"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "activitySpaces": [
+    {
+      "name": "Support the Team",
+      "description": "Define clear team interaction modes, establish X-as-a-Service boundaries, and continuously assess cognitive load using Team Topologies principles.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "structure-organizational-topologies-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Team",
+          "stateName": "Formed"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Collaborating"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Performing"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Management"
+      ],
+      "involves": [
+        "Executive Leadership",
+        "Platform Team",
+        "Stream-Aligned Team"
+      ],
+      "activities": [
+        {
+          "name": "Design Team Topology",
+          "description": "Architect organizational team structure using four fundamental types and boundary principles.",
+          "tags": {
+            "domainTags": [
+              "Organizational Design",
+              "Architecture"
+            ],
+            "lifecycleTags": [
+              "Adoption"
+            ],
+            "organizationalTags": [
+              "Executive Leadership",
+              "Platform Team"
+            ]
+          },
+          "assetNames": [
+            {
+              "assetName": "design-activity-icon",
+              "type": "icon"
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Four Team Types Defined"
+            },
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Explicit Interaction Modes"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            }
+          ],
+          "focusName": "Endeavor",
+          "requiredCompetencies": [
+            "Organizational Design",
+            "Domain-Driven Design",
+            "Systems Thinking"
+          ],
+          "recommendedCompetencyLevels": [
+            {
+              "competencyName": "Organizational Design",
+              "competencyLevelName": "Applies"
+            },
+            {
+              "competencyName": "Domain-Driven Design",
+              "competencyLevelName": "Applies"
+            },
+            {
+              "competencyName": "Systems Thinking",
+              "competencyLevelName": "Applies"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "Team Topology Map",
+              "levelOfDetailName": "Annotated Interaction Diagram"
+            },
+            {
+              "workProductName": "Cognitive Load Assessment",
+              "levelOfDetailName": "Domain Complexity Inventory"
+            }
+          ],
+          "involves": [
+            "Executive Leadership"
+          ]
+        },
+        {
+          "name": "Define Team Interaction Modes",
+          "description": "Explicitly specify how teams interdepend using Collaboration, X-as-a-Service, or Facilitating patterns.",
+          "tags": {
+            "domainTags": [
+              "Organizational Design",
+              "Ways of Working"
+            ],
+            "lifecycleTags": [
+              "Adoption"
+            ],
+            "organizationalTags": [
+              "All Teams"
+            ]
+          },
+          "assetNames": [
+            {
+              "assetName": "define-activity-icon",
+              "type": "icon"
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Team Interaction Mode",
+              "stateName": "Explicit Mode Assignment"
+            },
+            {
+              "alphaName": "Team Interaction Mode",
+              "stateName": "Strategic Mode Evolution"
+            },
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Explicit Interaction Modes"
+            }
+          ],
+          "focusName": "Endeavor",
+          "requiredCompetencies": [
+            "Organizational Design",
+            "Collaboration Practices",
+            "Systems Thinking"
+          ],
+          "recommendedCompetencyLevels": [
+            {
+              "competencyName": "Organizational Design",
+              "competencyLevelName": "Applies"
+            },
+            {
+              "competencyName": "Collaboration Practices",
+              "competencyLevelName": "Applies"
+            },
+            {
+              "competencyName": "Systems Thinking",
+              "competencyLevelName": "Basic"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "Team Topology Map",
+              "levelOfDetailName": "Annotated Interaction Diagram"
+            }
+          ],
+          "involves": [
+            "Platform Team",
+            "Stream-Aligned Team"
+          ]
+        },
+        {
+          "name": "Assess Cognitive Load",
+          "description": "Evaluate team mental bandwidth capacity and identify overload risks or reduction opportunities.",
+          "tags": {
+            "domainTags": [
+              "Team Effectiveness",
+              "Platform Engineering"
+            ],
+            "lifecycleTags": [
+              "Adoption",
+              "Optimization"
+            ],
+            "organizationalTags": [
+              "Platform Team",
+              "Stream-Aligned Team"
+            ]
+          },
+          "assetNames": [
+            {
+              "assetName": "assess-activity-icon",
+              "type": "icon"
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Load Awareness"
+            },
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Domain Boundaries Established"
+            },
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Active Load Reduction"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            }
+          ],
+          "focusName": "Endeavor",
+          "requiredCompetencies": [
+            "Team Effectiveness Assessment",
+            "Systems Thinking",
+            "Platform Engineering"
+          ],
+          "recommendedCompetencyLevels": [
+            {
+              "competencyName": "Team Effectiveness Assessment",
+              "competencyLevelName": "Applies"
+            },
+            {
+              "competencyName": "Systems Thinking",
+              "competencyLevelName": "Applies"
+            },
+            {
+              "competencyName": "Platform Engineering",
+              "competencyLevelName": "Basic"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "Cognitive Load Assessment",
+              "levelOfDetailName": "Quantified Load Analysis"
+            },
+            {
+              "workProductName": "Team Topology Map",
+              "levelOfDetailName": "Basic Topology Diagram"
+            }
+          ],
+          "involves": [
+            "Platform Team",
+            "Stream-Aligned Team"
+          ]
+        },
+        {
+          "name": "Define Team API",
+          "description": "Specify team interaction surface including code interfaces, practices, and communication norms.",
+          "tags": {
+            "domainTags": [
+              "Ways of Working",
+              "API Design"
+            ],
+            "lifecycleTags": [
+              "Adoption"
+            ],
+            "organizationalTags": [
+              "All Teams"
+            ]
+          },
+          "assetNames": [
+            {
+              "assetName": "define-activity-icon",
+              "type": "icon"
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Team Interaction Mode",
+              "stateName": "Explicit Mode Assignment"
+            }
+          ],
+          "focusName": "Endeavor",
+          "requiredCompetencies": [
+            "API Design",
+            "Technical Writing",
+            "Developer Experience Design",
+            "Communication"
+          ],
+          "recommendedCompetencyLevels": [
+            {
+              "competencyName": "API Design",
+              "competencyLevelName": "Applies"
+            },
+            {
+              "competencyName": "Technical Writing",
+              "competencyLevelName": "Applies"
+            },
+            {
+              "competencyName": "Developer Experience Design",
+              "competencyLevelName": "Applies"
+            },
+            {
+              "competencyName": "Communication",
+              "competencyLevelName": "Applies"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "Team API Documentation",
+              "levelOfDetailName": "Comprehensive Team API"
+            }
+          ],
+          "involves": [
+            "Platform Team",
+            "Stream-Aligned Team"
+          ]
+        }
+      ],
+      "kind": "activitySpace"
+    }
+  ],
+  "competencies": [
+    {
+      "name": "Technical Coaching",
+      "description": "Ability to teach, mentor, and facilitate capability building in technical teams.",
+      "assetNames": [
+        {
+          "assetName": "collaboration-icon",
+          "type": "icon"
+        }
+      ],
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands coaching differs from teaching and doing; can provide basic peer guidance.",
+          "level": 1,
+          "competencyName": "Technical Coaching"
+        },
+        {
+          "name": "Applies",
+          "description": "Mentors junior team members and facilitates learning with some structure.",
+          "level": 2,
+          "competencyName": "Technical Coaching"
+        },
+        {
+          "name": "Masters",
+          "description": "Coaches teams to capability adoption through facilitation, removing obstacles, and enabling autonomy.",
+          "level": 3,
+          "competencyName": "Technical Coaching"
+        },
+        {
+          "name": "Adapts",
+          "description": "Designs coaching programs and leads enabling teams with measurable capability improvements.",
+          "level": 4,
+          "competencyName": "Technical Coaching"
+        },
+        {
+          "name": "Innovating",
+          "description": "Innovates coaching methods and trains other coaches with broad industry impact.",
+          "level": 5,
+          "competencyName": "Technical Coaching"
+        }
+      ]
+    }
+  ],
+  "personas": [
+    {
+      "name": "Organizational Designer",
+      "description": "Leader responsible for team structure design and organizational evolution.",
+      "tags": {
+        "domainTags": [
+          "Organizational Design"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Evolution"
+        ],
+        "organizationalTags": [
+          "Executive Leadership"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "organizational-designer-icon",
+          "type": "icon"
+        }
+      ],
+      "competencies": [
+        {
+          "competencyName": "Organizational Design",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Systems Thinking",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Domain-Driven Design",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Stream-Aligned Team Lead",
+      "description": "Lead of value stream team owning end-to-end business domain delivery.",
+      "tags": {
+        "domainTags": [
+          "Product Management",
+          "Team Leadership"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Stream-Aligned Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "stream-team-lead-icon",
+          "type": "icon"
+        }
+      ],
+      "competencies": [
+        {
+          "competencyName": "Team Effectiveness Assessment",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Domain-Driven Design",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Platform Team Lead",
+      "description": "Lead of platform team providing self-service capabilities to reduce cognitive load.",
+      "tags": {
+        "domainTags": [
+          "Platform Engineering",
+          "Product Management"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Platform Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "platform-team-lead-icon",
+          "type": "icon"
+        }
+      ],
+      "competencies": [
+        {
+          "competencyName": "Platform Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Developer Experience Design",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Team Effectiveness Assessment",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Enabling Team Coach",
+      "description": "Member of enabling team facilitating capability adoption and team autonomy.",
+      "tags": {
+        "domainTags": [
+          "Technical Coaching",
+          "Change Management"
+        ],
+        "lifecycleTags": [
+          "Adoption"
+        ],
+        "organizationalTags": [
+          "Enabling Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "enabling-coach-icon",
+          "type": "icon"
+        }
+      ],
+      "competencies": [
+        {
+          "competencyName": "Technical Coaching",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Collaboration Practices",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Executive Leadership",
+      "description": "Senior leaders responsible for organizational strategy and structure.",
+      "personaNames": [
+        "Organizational Designer"
+      ],
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Platform Team",
+      "description": "Team providing self-service capabilities to accelerate stream-aligned teams.",
+      "personaNames": [
+        "Platform Team Lead"
+      ],
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Stream-Aligned Team",
+      "description": "Team aligned to flow of work from business domain segment.",
+      "personaNames": [
+        "Stream-Aligned Team Lead"
+      ],
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Enabling Team",
+      "description": "Team assisting other teams to overcome obstacles and adopt capabilities.",
+      "personaNames": [
+        "Enabling Team Coach"
+      ],
+      "kind": "personaGroup"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Team Topology Evolution Journey",
+      "description": "Multi-phase pattern coordinating team structure maturation from static silos to dynamic self-steering organization.",
+      "tags": {
+        "domainTags": [
+          "Organizational Design",
+          "Team Effectiveness"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Evolution",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Executive Leadership",
+          "All Teams"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "topology-evolution-pattern",
+          "type": "diagram"
+        }
+      ],
+      "narrativeTypeName": "Crawl-Walk-Run",
+      "patternViews": [
+        {
+          "name": "Static Organization",
+          "description": "Starting state with fixed hierarchical teams and no topology awareness.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Static Organizational Structure"
+            },
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Unmanaged Load"
+            },
+            {
+              "alphaName": "Team Interaction Mode",
+              "stateName": "Undefined Interactions"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            },
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Initiated"
+            }
+          ],
+          "activitySpaces": [
+            "Structure Organizational Topologies"
+          ],
+          "activities": [
+            "Assess Cognitive Load"
+          ]
+        },
+        {
+          "name": "Four Team Types Adopted",
+          "description": "Organization explicitly adopts Team Topologies vocabulary and begins cognitive load management.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Four Team Types Defined"
+            },
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Domain Boundaries Established"
+            },
+            {
+              "alphaName": "Team Interaction Mode",
+              "stateName": "Mode Awareness"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            },
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Initiated"
+            }
+          ],
+          "activitySpaces": [
+            "Structure Organizational Topologies"
+          ],
+          "activities": [
+            "Design Team Topology",
+            "Assess Cognitive Load"
+          ]
+        },
+        {
+          "name": "Explicit Interaction Modes",
+          "description": "Teams define clear interaction patterns and Team APIs, enabling effective collaboration.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Explicit Interaction Modes"
+            },
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Active Load Reduction"
+            },
+            {
+              "alphaName": "Team Interaction Mode",
+              "stateName": "Explicit Mode Assignment"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            },
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Initiated"
+            }
+          ],
+          "activitySpaces": [
+            "Structure Organizational Topologies"
+          ],
+          "activities": [
+            "Define Team Interaction Modes",
+            "Define Team API",
+            "Assess Cognitive Load"
+          ]
+        },
+        {
+          "name": "Sensing and Evolving",
+          "description": "Organization establishes feedback mechanisms for continuous topology adaptation.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Sensing and Evolving"
+            },
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Continuous Optimization"
+            },
+            {
+              "alphaName": "Team Interaction Mode",
+              "stateName": "Strategic Mode Evolution"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Initiated"
+            }
+          ],
+          "activitySpaces": [
+            "Structure Organizational Topologies"
+          ],
+          "activities": [
+            "Assess Cognitive Load"
+          ]
+        },
+        {
+          "name": "Self-Steering Organization",
+          "description": "Mature cybernetic system with predictable evolution and architecture co-evolution.",
+          "seq": 5,
+          "alphaStates": [
+            {
+              "alphaName": "Team Topology Design",
+              "stateName": "Self-Steering Organization"
+            },
+            {
+              "alphaName": "Cognitive Load",
+              "stateName": "Continuous Optimization"
+            },
+            {
+              "alphaName": "Team Interaction Mode",
+              "stateName": "Optimized Interaction Patterns"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Initiated"
+            }
+          ],
+          "activitySpaces": [
+            "Structure Organizational Topologies"
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "narrativeTypes": [
+    {
+      "name": "Essay",
+      "description": "Standard three-part essay structure for narrative documentation.",
+      "narrativeElements": [
+        {
+          "name": "Introduction",
+          "description": "Opening context and thesis statement.",
+          "howToUse": "Provide high-level overview and main point."
+        },
+        {
+          "name": "Body",
+          "description": "Detailed explanation and supporting evidence.",
+          "howToUse": "Elaborate on key concepts with examples and rationale."
+        },
+        {
+          "name": "Conclusion",
+          "description": "Summary and final takeaway.",
+          "howToUse": "Reinforce main points and provide closure."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Hero's Journey",
+      "description": "Classic storytelling structure for transformation narratives.",
+      "narrativeElements": [
+        {
+          "name": "Ordinary World",
+          "description": "Current state before transformation.",
+          "howToUse": "Describe status quo and pain points."
+        },
+        {
+          "name": "Call to Adventure",
+          "description": "Catalyst for change and new opportunity.",
+          "howToUse": "Articulate the transformation trigger."
+        },
+        {
+          "name": "Tests and Allies",
+          "description": "Challenges faced and support gained.",
+          "howToUse": "Describe obstacles and enablers."
+        },
+        {
+          "name": "Transformation",
+          "description": "Key change and new capabilities acquired.",
+          "howToUse": "Articulate the fundamental shift."
+        },
+        {
+          "name": "Return with Elixir",
+          "description": "Sustainable benefits and new steady state.",
+          "howToUse": "Describe lasting value and outcomes."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Crawl-Walk-Run",
+      "description": "Progressive maturity framework for capability development.",
+      "narrativeElements": [
+        {
+          "name": "Crawl",
+          "description": "Initial learning and basic capability.",
+          "howToUse": "Describe foundational state and early steps."
+        },
+        {
+          "name": "Walk",
+          "description": "Growing competence and expanding application.",
+          "howToUse": "Articulate intermediate capabilities."
+        },
+        {
+          "name": "Run",
+          "description": "Mastery and optimized performance.",
+          "howToUse": "Describe advanced state and sustained excellence."
+        }
+      ],
+      "kind": "narrativeType"
+    }
+  ],
+  "citations": [
+    {
+      "name": "Team Topologies Book",
+      "description": "Foundational book on organizing teams for fast flow by Matthew Skelton and Manuel Pais.",
+      "authors": [
+        "Matthew Skelton",
+        "Manuel Pais"
+      ],
+      "date": "2019",
+      "source": "IT Revolution Press",
+      "url": "https://teamtopologies.com/book",
+      "kind": "citation"
+    },
+    {
+      "name": "Team Topologies Key Concepts",
+      "description": "Website documentation of core Team Topologies framework elements and principles.",
+      "authors": [
+        "Matthew Skelton",
+        "Manuel Pais"
+      ],
+      "date": "2025",
+      "source": "Team Topologies",
+      "url": "https://teamtopologies.com/key-concepts",
+      "kind": "citation"
+    },
+    {
+      "name": "Cognitive Load Reduction Article",
+      "description": "Application of Team Topologies principles to reduce cognitive load and prevent burnout.",
+      "authors": [
+        "SoftwareSeni"
+      ],
+      "date": "2024",
+      "source": "SoftwareSeni",
+      "url": "https://www.softwareseni.com/applying-team-topologies-to-reduce-cognitive-load-and-burnout/",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "team-icon",
+      "type": "font-character",
+      "description": "Team alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users",
+      "fontWeight": "900"
+    },
+    {
+      "name": "way-of-working-icon",
+      "type": "font-character",
+      "description": "Way Of Working alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "work-icon",
+      "type": "font-character",
+      "description": "Work alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-tasks",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-risk-compliance-icon",
+      "type": "font-character",
+      "description": "Platform Risk And Compliance alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "cognitive-load-icon",
+      "type": "font-character",
+      "description": "Cognitive Load alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-topology-design-icon",
+      "type": "font-character",
+      "description": "Team Topology Design alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-sitemap",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-interaction-mode-icon",
+      "type": "font-character",
+      "description": "Team Interaction Mode alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-diagram-project",
+      "fontWeight": "900"
+    },
+    {
+      "name": "structure-organizational-topologies-icon",
+      "type": "font-character",
+      "description": "Structure Organizational Topologies activity space icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-network-wired",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-activity-icon",
+      "type": "font-character",
+      "description": "Design activity type icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-pencil-ruler",
+      "fontWeight": "900"
+    },
+    {
+      "name": "define-activity-icon",
+      "type": "font-character",
+      "description": "Define activity type icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-list-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "assess-activity-icon",
+      "type": "font-character",
+      "description": "Assess activity type icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "topology-map-template",
+      "type": "template",
+      "description": "Template for creating Team Topology Map diagrams",
+      "url": "https://teamtopologies.com/key-concepts"
+    },
+    {
+      "name": "cognitive-load-assessment-template",
+      "type": "template",
+      "description": "Template for conducting team cognitive load assessments"
+    },
+    {
+      "name": "team-api-template",
+      "type": "template",
+      "description": "Template documenting Team API components (code, versioning, practices, communication, visibility)",
+      "url": "https://github.com/TeamTopologies/Team-API-template"
+    },
+    {
+      "name": "topology-evolution-pattern",
+      "type": "diagram",
+      "description": "Visual representation of team topology evolution journey",
+      "url": "https://teamtopologies.com/industry-examples"
+    },
+    {
+      "name": "organizational-design-icon",
+      "type": "font-character",
+      "description": "Organizational Design competency icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-building",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ddd-icon",
+      "type": "font-character",
+      "description": "Domain-Driven Design competency icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cube",
+      "fontWeight": "900"
+    },
+    {
+      "name": "systems-thinking-icon",
+      "type": "font-character",
+      "description": "Systems Thinking competency icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-project-diagram",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-effectiveness-icon",
+      "type": "font-character",
+      "description": "Team Effectiveness Assessment competency icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-engineering-icon",
+      "type": "font-character",
+      "description": "Platform Engineering competency icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "api-design-icon",
+      "type": "font-character",
+      "description": "API Design competency icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "technical-writing-icon",
+      "type": "font-character",
+      "description": "Technical Writing competency icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-lines",
+      "fontWeight": "900"
+    },
+    {
+      "name": "devex-icon",
+      "type": "font-character",
+      "description": "Developer Experience Design competency icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-laptop-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "communication-icon",
+      "type": "font-character",
+      "description": "Communication competency icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-comments",
+      "fontWeight": "900"
+    },
+    {
+      "name": "collaboration-icon",
+      "type": "font-character",
+      "description": "Collaboration Practices competency icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "organizational-designer-icon",
+      "type": "font-character",
+      "description": "Organizational Designer persona icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chess-king",
+      "fontWeight": "900"
+    },
+    {
+      "name": "stream-team-lead-icon",
+      "type": "font-character",
+      "description": "Stream-Aligned Team Lead persona icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-tie",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-team-lead-icon",
+      "type": "font-character",
+      "description": "Platform Team Lead persona icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-gear",
+      "fontWeight": "900"
+    },
+    {
+      "name": "enabling-coach-icon",
+      "type": "font-character",
+      "description": "Enabling Team Coach persona icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chalkboard-user",
+      "fontWeight": "900"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Platform Adoption Essentials",
+      "versionRange": "^2.0.1"
+    }
+  ]
+}

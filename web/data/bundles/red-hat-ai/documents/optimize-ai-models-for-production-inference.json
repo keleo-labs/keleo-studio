@@ -1,0 +1,2227 @@
+{
+  "kind": "practice",
+  "name": "Optimize AI Models for Production Inference",
+  "description": "Prepare large language models for production deployment through quantization, validation, and performance optimization.",
+  "baselinePracticeName": "IDP Essentials",
+  "tags": {
+    "domainTags": [
+      "Machine Learning",
+      "Model Engineering",
+      "AI Infrastructure"
+    ],
+    "lifecycleTags": [
+      "Development",
+      "Optimization",
+      "Validation"
+    ],
+    "organizationalTags": [
+      "ML Engineering",
+      "Data Science"
+    ]
+  },
+  "keywords": [
+    "AI",
+    "LLM",
+    "machine learning",
+    "quantization",
+    "compression",
+    "sparsity",
+    "INT4",
+    "INT8",
+    "FP8",
+    "NVFP4",
+    "model optimization",
+    "vLLM",
+    "safetensors",
+    "AWQ",
+    "GPTQ",
+    "SparseGPT",
+    "LLM Compressor"
+  ],
+  "authors": [
+    "Red Hat, Inc."
+  ],
+  "createdAt": "2026-06-23",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.1",
+  "practiceDependencyNames": [
+    "Application Development",
+    "Platform Operations",
+    "Security & Compliance",
+    "Observability"
+  ],
+  "citations": [
+    {
+      "name": "Red Hat AI Inference 3.5 Getting Started Guide",
+      "description": "Comprehensive guide for deploying and configuring Red Hat AI Inference services.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Customer Portal",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ai/3.5",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat AI Model Optimization Toolkit Documentation",
+      "description": "Technical documentation for quantization and compression techniques using LLM Compressor.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat AI Inference 3.5, Red Hat Customer Portal",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ai/3.5",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat AI Validated Models",
+      "description": "List of validated models and hardware configurations for Red Hat AI.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat AI 3, Red Hat Customer Portal",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ai/3",
+      "kind": "citation"
+    },
+    {
+      "name": "vLLM Server Arguments Reference",
+      "description": "Complete reference for vLLM inference server configuration parameters.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat AI Inference 3.5, Red Hat Customer Portal",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ai/3.5",
+      "kind": "citation"
+    },
+    {
+      "name": "Viewing AI Inference Metrics",
+      "description": "Guide to accessing and interpreting Prometheus-compatible inference metrics.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat AI Inference 3.5, Red Hat Customer Portal",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ai/3.5",
+      "kind": "citation"
+    },
+    {
+      "name": "AI Inference Metrics Reference",
+      "description": "Complete reference for all available inference performance and resource metrics.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat AI Inference 3.5, Red Hat Customer Portal",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ai/3.5",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "ai-model-icon",
+      "description": "Icon representing AI model and machine learning artifacts",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "model-optimization-icon",
+      "description": "Icon for model optimization and compression capabilities",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge-high",
+      "fontWeight": "900"
+    },
+    {
+      "name": "quantize-activity-icon",
+      "description": "Icon for quantization activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-compress",
+      "fontWeight": "900"
+    },
+    {
+      "name": "validate-activity-icon",
+      "description": "Icon for validation activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benchmark-activity-icon",
+      "description": "Icon for benchmarking activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-stopwatch",
+      "fontWeight": "900"
+    },
+    {
+      "name": "configure-activity-icon",
+      "description": "Icon for configuration activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gear",
+      "fontWeight": "900"
+    },
+    {
+      "name": "publish-activity-icon",
+      "description": "Icon for publishing activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-upload",
+      "fontWeight": "900"
+    },
+    {
+      "name": "select-activity-icon",
+      "description": "Icon for model selection activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-hand-pointer",
+      "fontWeight": "900"
+    },
+    {
+      "name": "strategy-activity-icon",
+      "description": "Icon for optimization strategy activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chess",
+      "fontWeight": "900"
+    }
+  ],
+  "narrativeTypes": [
+    {
+      "name": "Technique",
+      "description": "A narrative framework for describing how to perform a specific technical activity, including overview, step-by-step technique, and common pitfalls to avoid.",
+      "narrativeElements": [
+        {
+          "name": "Overview",
+          "description": "High-level summary of the technique and its purpose.",
+          "howToUse": "Provide a concise 1-2 sentence description of what the technique accomplishes and why it matters in the model optimization context."
+        },
+        {
+          "name": "Technique",
+          "description": "Detailed step-by-step instructions for executing the technique.",
+          "howToUse": "Describe the specific steps, tools, configurations, and decision points involved. Include concrete parameters, thresholds, and tool names relevant to AI model optimization."
+        },
+        {
+          "name": "Common Pitfalls",
+          "description": "Frequently encountered mistakes and how to avoid them.",
+          "howToUse": "List the most common errors practitioners make when performing this technique and provide guidance on avoiding them."
+        }
+      ],
+      "kind": "narrativeType"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "AI Model",
+      "description": "Large language model progressing from selection through production-ready optimization",
+      "focusName": "Solution",
+      "contributesTo": "Platform Asset",
+      "assetNames": [
+        {
+          "assetName": "ai-model-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "uses",
+          "alphaName": "Requirements",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "evidenced by",
+          "alphaName": "Platform Asset",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Model Selected",
+          "description": "Production model identified with baseline performance documented",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Model architecture documented",
+              "description": "Model architecture and size documented such as Llama 70B or Mixtral 8x7B",
+              "seq": 1
+            },
+            {
+              "name": "Source model identified",
+              "description": "Source model location and version identified in HuggingFace repository or registry",
+              "seq": 2
+            },
+            {
+              "name": "Baseline accuracy established",
+              "description": "Baseline accuracy metrics established on representative test datasets",
+              "seq": 3
+            },
+            {
+              "name": "Target hardware specified",
+              "description": "Target hardware platform specified including GPU type, memory, and count",
+              "seq": 4
+            },
+            {
+              "name": "Performance requirements defined",
+              "description": "Performance requirements defined for latency P99 and throughput tokens per second",
+              "seq": 5
+            },
+            {
+              "name": "Workload characteristics documented",
+              "description": "Use case and workload characteristics documented including prompt lengths and generation patterns",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Optimization Strategy Defined",
+          "description": "Quantization approach selected based on accuracy and performance requirements",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Quantization format chosen",
+              "description": "Quantization format chosen from INT4, INT8, FP8, or NVFP4 with rationale",
+              "seq": 1
+            },
+            {
+              "name": "Accuracy thresholds established",
+              "description": "Accuracy tolerance thresholds established such as 3% degradation maximum",
+              "seq": 2
+            },
+            {
+              "name": "Performance goals set",
+              "description": "Target latency and throughput goals set for production workload",
+              "seq": 3
+            },
+            {
+              "name": "Memory constraints identified",
+              "description": "Memory constraints identified based on available GPU memory per accelerator",
+              "seq": 4
+            },
+            {
+              "name": "Validation methodology defined",
+              "description": "Validation methodology defined with test datasets, metrics, and acceptance criteria",
+              "seq": 5
+            },
+            {
+              "name": "Toolkit configured",
+              "description": "Optimization toolkit configured with LLM Compressor and appropriate parameters",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Model Quantized",
+          "description": "Model compressed using selected quantization technique with initial validation",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Quantization executed",
+              "description": "Quantization process executed successfully without errors",
+              "seq": 1
+            },
+            {
+              "name": "Artifacts generated",
+              "description": "Quantized model artifacts generated in safetensors format",
+              "seq": 2
+            },
+            {
+              "name": "Size reduction measured",
+              "description": "Model size reduction achieved and measured such as 70B to 35GB",
+              "seq": 3
+            },
+            {
+              "name": "Initial validation completed",
+              "description": "Initial accuracy validation completed against baseline metrics",
+              "seq": 4
+            },
+            {
+              "name": "Format verified",
+              "description": "Quantized model format verified as compatible with vLLM runtime",
+              "seq": 5
+            },
+            {
+              "name": "Metadata documented",
+              "description": "Model metadata documented including quantization parameters, toolkit version, and timestamp",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Model Validated",
+          "description": "Optimized model meets accuracy thresholds on representative datasets",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Accuracy measured",
+              "description": "Accuracy metrics measured against baseline including perplexity, BLEU, and task-specific scores",
+              "seq": 1
+            },
+            {
+              "name": "Thresholds satisfied",
+              "description": "Tolerance thresholds satisfied with degradation within acceptable limits",
+              "seq": 2
+            },
+            {
+              "name": "Test dataset processed",
+              "description": "Representative test dataset processed covering diverse use case scenarios",
+              "seq": 3
+            },
+            {
+              "name": "Edge cases evaluated",
+              "description": "Edge cases evaluated including long contexts, specialized vocabulary, and challenging prompts",
+              "seq": 4
+            },
+            {
+              "name": "Validation report generated",
+              "description": "Validation report generated with statistical analysis",
+              "seq": 5
+            },
+            {
+              "name": "Model approved",
+              "description": "Model approved for performance testing by ML engineering team",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Model Performance Verified",
+          "description": "Optimized model achieves production performance targets on hardware",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Latency measurements meet requirements",
+              "description": "Latency measurements meet requirements for P50, P90, and P99 percentiles",
+              "seq": 1
+            },
+            {
+              "name": "Throughput targets achieved",
+              "description": "Throughput targets achieved for requests per second and tokens per second at target concurrency",
+              "seq": 2
+            },
+            {
+              "name": "Resource utilization optimized",
+              "description": "Resource utilization optimized for GPU memory usage and compute efficiency",
+              "seq": 3
+            },
+            {
+              "name": "Benchmarks documented",
+              "description": "Performance benchmarks documented with methodology and results",
+              "seq": 4
+            },
+            {
+              "name": "Production sign-off received",
+              "description": "Model ready for production deployment with sign-off",
+              "seq": 5
+            },
+            {
+              "name": "Artifacts retained",
+              "description": "Optimization process artifacts retained including configuration, datasets, and reports",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Context and Rationale",
+          "description": "Why AI model optimization matters for production deployment",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Large language models require optimization to run efficiently on production hardware with acceptable latency and throughput, enabling cost-effective inference at scale."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Quantization techniques reduce model size and computational requirements by lowering precision from FP32/FP16 to INT8/INT4 formats, achieving 50-75% compression while preserving accuracy within 1-5% of baseline through careful calibration and validation processes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Production-ready optimized models enable organizations to deploy LLM capabilities cost-efficiently while meeting performance SLAs for inference latency and throughput."
+            }
+          ],
+          "citationNames": [
+            "Red Hat AI Model Optimization Toolkit Documentation",
+            "Red Hat AI Validated Models"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Machine Learning",
+          "Model Engineering"
+        ],
+        "lifecycleTags": [
+          "Development",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "alpha"
+    },
+    {
+      "name": "Model Optimization",
+      "description": "Capability maturity for optimizing AI models through quantization and compression",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "assetNames": [
+        {
+          "assetName": "model-optimization-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "AI Model",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Toolkit Available",
+          "description": "LLM Compressor and optimization tools installed and accessible",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Toolkit installed",
+              "description": "LLM Compressor toolkit installed with required dependencies including Python environment and CUDA libraries",
+              "seq": 1
+            },
+            {
+              "name": "Repository access configured",
+              "description": "Access to model repositories configured for HuggingFace and OCI registries",
+              "seq": 2
+            },
+            {
+              "name": "GPU resources allocated",
+              "description": "GPU resources allocated for optimization workloads",
+              "seq": 3
+            },
+            {
+              "name": "Documentation accessible",
+              "description": "Documentation and examples accessible to ML engineers",
+              "seq": 4
+            },
+            {
+              "name": "Toolkit validated",
+              "description": "Toolkit version validated against supported models",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimization Pipeline Configured",
+          "description": "Automated pipeline for quantization workflows with validation steps",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Pipeline automation configured",
+              "description": "Pipeline automation configured using CI/CD or workflow orchestration",
+              "seq": 1
+            },
+            {
+              "name": "Validation integrated",
+              "description": "Validation datasets and metrics integrated into pipeline",
+              "seq": 2
+            },
+            {
+              "name": "Artifact storage configured",
+              "description": "Artifact storage configured with model registry and versioning",
+              "seq": 3
+            },
+            {
+              "name": "Quality gates defined",
+              "description": "Quality gates defined with acceptance criteria and approvals",
+              "seq": 4
+            },
+            {
+              "name": "Pipeline tested",
+              "description": "Pipeline tested with representative model",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Automated Workflow Established",
+          "description": "Continuous optimization with automated validation and benchmarking",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Optimization automated",
+              "description": "Automated optimization triggered by new model versions or configuration changes",
+              "seq": 1
+            },
+            {
+              "name": "Validation automated",
+              "description": "Validation and benchmarking integrated into workflow",
+              "seq": 2
+            },
+            {
+              "name": "Promotion automated",
+              "description": "Artifact promotion automated based on quality gates",
+              "seq": 3
+            },
+            {
+              "name": "Monitoring configured",
+              "description": "Monitoring and alerting configured for optimization jobs",
+              "seq": 4
+            },
+            {
+              "name": "Feedback loops established",
+              "description": "Feedback loops established for continuous improvement",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Context and Rationale",
+          "description": "Why model optimization as a platform capability matters",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Model optimization capabilities enable organizations to systematically compress and validate AI models for production deployment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Establishing optimization as a platform capability through tooling, pipelines, and workflows ensures consistent, repeatable model compression processes with integrated validation and quality gates."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Automated optimization capabilities accelerate AI model deployment while maintaining quality standards and enabling continuous improvement."
+            }
+          ],
+          "citationNames": [
+            "Red Hat AI Model Optimization Toolkit Documentation"
+          ]
+        },
+        {
+          "name": "Practice Intent",
+          "description": "Model optimization practice objectives and outcomes",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations deploy large language models requiring significant computational resources and GPU memory, limiting production scalability and increasing infrastructure costs."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "ML engineering teams must optimize models for production inference through quantization techniques that reduce size and computational requirements while maintaining acceptable accuracy thresholds."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Teams execute systematic quantization workflows using Red Hat AI Model Optimization Toolkit, validate accuracy against baseline metrics, and benchmark performance on target hardware to generate production-ready model artifacts."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Production-ready compressed models achieve 50-75% size reduction with minimal accuracy degradation, enabling cost-efficient deployment and meeting performance SLAs for inference latency and throughput."
+            }
+          ],
+          "citationNames": [
+            "Red Hat AI Inference 3.5 Getting Started Guide",
+            "Red Hat AI Model Optimization Toolkit Documentation",
+            "Red Hat AI Validated Models"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Model Engineering",
+          "Platform Engineering"
+        ],
+        "lifecycleTags": [
+          "Optimization",
+          "Automation"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "alpha"
+    }
+  ],
+  "alphaInstances": [
+    {
+      "name": "Production LLM",
+      "description": "Primary production language model optimized for inference serving",
+      "alphaName": "AI Model",
+      "narratives": [
+        {
+          "name": "Instance Context",
+          "description": "Production LLM instance purpose and lifecycle",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "The production LLM instance represents the optimized model serving live inference traffic."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "This instance progresses through quantization, validation, and performance verification to ensure production readiness."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Production LLM instance provides the foundation for inference service deployment."
+            }
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Machine Learning"
+        ],
+        "lifecycleTags": [
+          "Production"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      }
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Model Optimization Requirements",
+      "description": "Documented requirements for AI model optimization including performance targets and quality thresholds",
+      "levelsOfDetail": [
+        {
+          "name": "Initial Scope",
+          "description": "Basic model selection criteria and use case identification",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Use case documented",
+              "description": "Target use case and application context documented",
+              "seq": 1
+            },
+            {
+              "name": "Model type identified",
+              "description": "Model architecture type and parameter count identified",
+              "seq": 2
+            },
+            {
+              "name": "Basic constraints listed",
+              "description": "Basic hardware and performance constraints listed",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Selected"
+            },
+            {
+              "alphaName": "Requirements",
+              "stateName": "Bounded"
+            }
+          ]
+        },
+        {
+          "name": "Optimization Strategy",
+          "description": "Detailed optimization approach with quantization parameters and validation criteria",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Quantization format specified",
+              "description": "Target quantization format and rationale specified",
+              "seq": 1
+            },
+            {
+              "name": "Accuracy thresholds defined",
+              "description": "Acceptable accuracy degradation thresholds defined",
+              "seq": 2
+            },
+            {
+              "name": "Performance targets set",
+              "description": "Target latency and throughput metrics set",
+              "seq": 3
+            },
+            {
+              "name": "Validation methodology documented",
+              "description": "Test datasets and validation methodology documented",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Optimization Strategy Defined"
+            },
+            {
+              "alphaName": "Requirements",
+              "stateName": "Coherent"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Work Product Purpose",
+          "description": "Model optimization requirements as foundation for systematic compression",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Model optimization requirements establish clear criteria for model selection, compression strategy, and quality validation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Progressive refinement from initial scope through detailed optimization strategy ensures systematic approach to model compression aligned with business and technical requirements."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Well-defined requirements enable data-driven optimization decisions and clear validation criteria."
+            }
+          ],
+          "citationNames": [
+            "Red Hat AI Model Optimization Toolkit Documentation"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Model Engineering"
+        ],
+        "lifecycleTags": [
+          "Planning"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "workProduct"
+    },
+    {
+      "name": "Quantized Model Artifact",
+      "description": "Compressed AI model using INT4, INT8, FP8, or NVFP4 quantization format",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Quantization",
+          "description": "Model quantized using default parameters without validation",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Quantization format applied",
+              "description": "Single quantization format applied such as INT4, INT8, FP8, or NVFP4",
+              "seq": 1
+            },
+            {
+              "name": "Default settings used",
+              "description": "Default quantization toolkit settings used",
+              "seq": 2
+            },
+            {
+              "name": "Metadata captured",
+              "description": "Basic model metadata captured including format, size, and timestamp",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Quantized"
+            }
+          ]
+        },
+        {
+          "name": "Validated Quantization",
+          "description": "Quantized model with accuracy validation against baseline",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Format selected",
+              "description": "Quantization format selected based on requirements",
+              "seq": 1
+            },
+            {
+              "name": "Accuracy measured",
+              "description": "Accuracy metrics measured against tolerance",
+              "seq": 2
+            },
+            {
+              "name": "Dataset validated",
+              "description": "Test dataset validation completed",
+              "seq": 3
+            },
+            {
+              "name": "Parameters documented",
+              "description": "Quantization parameters documented",
+              "seq": 4
+            },
+            {
+              "name": "Report generated",
+              "description": "Validation report generated",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Validated"
+            }
+          ]
+        },
+        {
+          "name": "Performance Optimized",
+          "description": "Quantized model optimized for target hardware with benchmarks",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Hardware optimizations applied",
+              "description": "Hardware-specific optimizations applied",
+              "seq": 1
+            },
+            {
+              "name": "Benchmarks executed",
+              "description": "Performance benchmarks executed",
+              "seq": 2
+            },
+            {
+              "name": "Latency measured",
+              "description": "Latency and throughput measured",
+              "seq": 3
+            },
+            {
+              "name": "Utilization characterized",
+              "description": "Resource utilization characterized",
+              "seq": 4
+            },
+            {
+              "name": "Decisions documented",
+              "description": "Optimization decisions documented",
+              "seq": 5
+            },
+            {
+              "name": "Results published",
+              "description": "Benchmark results published",
+              "seq": 6
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Performance Verified"
+            }
+          ]
+        },
+        {
+          "name": "Production Validated",
+          "description": "Fully validated quantized model meeting production quality standards",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Comprehensive validation completed",
+              "description": "Comprehensive accuracy validation completed",
+              "seq": 1
+            },
+            {
+              "name": "Performance targets verified",
+              "description": "Production performance targets verified",
+              "seq": 2
+            },
+            {
+              "name": "Model card created",
+              "description": "Model card documentation created",
+              "seq": 3
+            },
+            {
+              "name": "Methodology documented",
+              "description": "Validation methodology documented",
+              "seq": 4
+            },
+            {
+              "name": "Sign-off completed",
+              "description": "Sign-off process completed",
+              "seq": 5
+            },
+            {
+              "name": "Model registered",
+              "description": "Model registered in catalog",
+              "seq": 6
+            },
+            {
+              "name": "Instructions included",
+              "description": "Deployment instructions included",
+              "seq": 7
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Performance Verified"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Operational"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Work Product Purpose",
+          "description": "Quantized model artifacts as production-ready AI assets",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Quantized model artifacts represent compressed LLMs optimized for production inference with documented quality validation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Progressive levels of detail ensure models advance from basic compression through validation and performance optimization to production-ready artifacts meeting quality standards."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Production-validated quantized models enable cost-efficient inference deployment with documented quality assurance."
+            }
+          ],
+          "citationNames": [
+            "Red Hat AI Model Optimization Toolkit Documentation"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Machine Learning",
+          "Model Engineering"
+        ],
+        "lifecycleTags": [
+          "Development",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "workProduct"
+    },
+    {
+      "name": "Performance Benchmark Report",
+      "description": "Documented inference latency, throughput, and resource utilization measurements",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Metrics",
+          "description": "Simple latency and throughput measurements",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Latency recorded",
+              "description": "Average latency recorded",
+              "seq": 1
+            },
+            {
+              "name": "Throughput measured",
+              "description": "Requests per second measured",
+              "seq": 2
+            },
+            {
+              "name": "Scenario executed",
+              "description": "Single test scenario executed",
+              "seq": 3
+            },
+            {
+              "name": "Results documented",
+              "description": "Results documented in text",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Quantized"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive Benchmarks",
+          "description": "Multiple metrics across scenarios with percentile analysis",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Percentiles measured",
+              "description": "Latency percentiles P50, P90, and P99 measured",
+              "seq": 1
+            },
+            {
+              "name": "Scenarios tested",
+              "description": "Multiple workload scenarios tested",
+              "seq": 2
+            },
+            {
+              "name": "GPU tracked",
+              "description": "GPU utilization tracked",
+              "seq": 3
+            },
+            {
+              "name": "Memory measured",
+              "description": "Memory consumption measured",
+              "seq": 4
+            },
+            {
+              "name": "Tables formatted",
+              "description": "Results formatted in tables",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Validated"
+            }
+          ]
+        },
+        {
+          "name": "Comparative Analysis",
+          "description": "Benchmarks with baseline comparisons and trend analysis",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Baseline compared",
+              "description": "Comparison to baseline performance",
+              "seq": 1
+            },
+            {
+              "name": "Optimization analyzed",
+              "description": "Before and after optimization analysis",
+              "seq": 2
+            },
+            {
+              "name": "Trends analyzed",
+              "description": "Trend analysis over time",
+              "seq": 3
+            },
+            {
+              "name": "Efficiency calculated",
+              "description": "Cost efficiency metrics calculated",
+              "seq": 4
+            },
+            {
+              "name": "Charts included",
+              "description": "Visualization charts included",
+              "seq": 5
+            },
+            {
+              "name": "Summary provided",
+              "description": "Executive summary provided",
+              "seq": 6
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Performance Verified"
+            }
+          ]
+        },
+        {
+          "name": "Production Performance Report",
+          "description": "Comprehensive report with methodology, analysis, and recommendations",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Methodology documented",
+              "description": "Detailed methodology documented",
+              "seq": 1
+            },
+            {
+              "name": "Significance analyzed",
+              "description": "Statistical significance analysis",
+              "seq": 2
+            },
+            {
+              "name": "Optimization analyzed",
+              "description": "Resource utilization optimization analysis",
+              "seq": 3
+            },
+            {
+              "name": "Bottlenecks identified",
+              "description": "Bottleneck identification",
+              "seq": 4
+            },
+            {
+              "name": "Recommendations provided",
+              "description": "Optimization recommendations provided",
+              "seq": 5
+            },
+            {
+              "name": "Planning inputs generated",
+              "description": "Capacity planning inputs generated",
+              "seq": 6
+            },
+            {
+              "name": "Report published",
+              "description": "Report approved and published",
+              "seq": 7
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Performance Verified"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Value Yielding"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Work Product Purpose",
+          "description": "Performance benchmarks as quantitative validation",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Performance benchmark reports provide quantitative evidence of model optimization effectiveness and production readiness."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Progressive benchmarking from basic metrics through comprehensive analysis to production reports ensures systematic performance validation with statistical rigor."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Production performance reports enable data-driven deployment decisions and capacity planning."
+            }
+          ],
+          "citationNames": [
+            "Viewing AI Inference Metrics",
+            "AI Inference Metrics Reference"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Performance Engineering",
+          "Model Engineering"
+        ],
+        "lifecycleTags": [
+          "Validation",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "workProduct"
+    }
+  ],
+  "workProductInstances": [
+    {
+      "name": "Llama 70B INT4 Model",
+      "description": "Llama 70B parameter model quantized to INT4 format for production inference",
+      "workProductName": "Quantized Model Artifact",
+      "tags": {
+        "domainTags": [
+          "Machine Learning"
+        ],
+        "lifecycleTags": [
+          "Production"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      }
+    },
+    {
+      "name": "Mixtral 8x7B INT8 Model",
+      "description": "Mixtral 8x7B mixture-of-experts model quantized to INT8 format",
+      "workProductName": "Quantized Model Artifact",
+      "tags": {
+        "domainTags": [
+          "Machine Learning"
+        ],
+        "lifecycleTags": [
+          "Production"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      }
+    },
+    {
+      "name": "Production Inference Benchmark",
+      "description": "Comprehensive benchmark report for production inference performance validation",
+      "workProductName": "Performance Benchmark Report",
+      "tags": {
+        "domainTags": [
+          "Performance Engineering"
+        ],
+        "lifecycleTags": [
+          "Validation"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      }
+    }
+  ],
+  "personas": [
+    {
+      "name": "ML Engineer",
+      "description": "Develops, optimizes, and validates AI models for production deployment",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Machine Learning",
+          "Data Science"
+        ],
+        "lifecycleTags": [
+          "Development",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Engineering"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "AI Infrastructure Specialist",
+      "description": "Configures and optimizes inference infrastructure for AI model serving",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "AI Infrastructure",
+          "Performance"
+        ],
+        "lifecycleTags": [
+          "Deployment",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Engineering"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "ML Engineering Team",
+      "description": "Develops, optimizes, and validates AI models for production",
+      "personaNames": [
+        "ML Engineer"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Engineering",
+          "Data Science"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Select Production Model",
+      "description": "Identify and document production AI model with baseline performance characteristics",
+      "activitySpaceName": "Define Platform Capabilities",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "select-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "AI Model",
+          "stateName": "Model Selected"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Model Optimization Requirements",
+          "levelOfDetailName": "Initial Scope"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "ML Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Perform",
+          "description": "Model selection technique and best practices",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Model selection establishes the foundation for optimization efforts by identifying appropriate model architecture and validating baseline performance."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin by gathering use case requirements including task type for text generation, completion, or chat, performance constraints for latency and throughput, and accuracy expectations. Evaluate candidate models from validated model catalog considering model architecture such as decoder-only or mixture-of-experts, parameter count from 7B to 70B+, and baseline performance metrics. Document source model location in HuggingFace repository or model registry, version, and license. Establish baseline accuracy metrics by running representative test datasets. Specify target hardware platform including GPU type, memory, and count based on model size and performance requirements. Document use case and expected workload characteristics including prompt lengths and generation patterns."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid selecting models without validating hardware compatibility and memory requirements. Do not skip baseline performance measurement which provides quantitative optimization targets. Validate model license compatibility with production use case."
+            }
+          ],
+          "citationNames": [
+            "Red Hat AI Validated Models"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Machine Learning"
+        ],
+        "lifecycleTags": [
+          "Planning"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "activity"
+    },
+    {
+      "name": "Define Optimization Strategy",
+      "description": "Select quantization approach and establish validation methodology based on requirements",
+      "activitySpaceName": "Define Platform Capabilities",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "strategy-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "AI Model",
+          "stateName": "Optimization Strategy Defined"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Model Optimization Requirements",
+          "levelOfDetailName": "Optimization Strategy"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "ML Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Perform",
+          "description": "Optimization strategy definition technique",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Defining optimization strategy ensures systematic approach to model compression aligned with performance and quality requirements."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Analyze model architecture and baseline performance to determine appropriate quantization format. Choose INT4 for maximum compression with 4x reduction and moderate accuracy impact of 3-5% degradation, INT8 for balanced performance with 2x reduction and 1-3% degradation, FP8 for hardware-optimized scenarios on supported accelerators, or NVFP4 for extreme compression needs. Establish accuracy tolerance thresholds based on business requirements and use case sensitivity. Set target latency and throughput goals for production workload considering SLA requirements. Identify memory constraints based on available GPU memory per accelerator. Define validation methodology specifying test datasets with representative samples covering use case diversity, accuracy metrics such as perplexity and task-specific scores, and acceptance criteria. Configure optimization toolkit LLM Compressor with selected parameters and calibration dataset."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid selecting quantization format without considering hardware support and accuracy-performance tradeoffs. Do not establish unrealistic accuracy thresholds that prevent any compression. Validate toolkit version compatibility with target model architecture."
+            }
+          ],
+          "citationNames": [
+            "Red Hat AI Model Optimization Toolkit Documentation",
+            "Red Hat AI Validated Models"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Model Engineering"
+        ],
+        "lifecycleTags": [
+          "Planning"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "activity"
+    },
+    {
+      "name": "Quantize Language Model",
+      "description": "Execute quantization process to compress model using optimization toolkit",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "quantize-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "AI Model",
+          "stateName": "Model Quantized"
+        },
+        {
+          "alphaName": "Model Optimization",
+          "stateName": "Optimization Pipeline Configured"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Quantized Model Artifact",
+          "levelOfDetailName": "Validated Quantization"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "ML Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Perform",
+          "description": "Model quantization execution technique",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Organizations initiate model quantization by selecting an appropriate quantization format based on requirements for size reduction, inference performance, and acceptable accuracy degradation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin by loading the source model from HuggingFace or model repositories, configure the LLM Compressor with target quantization format INT4, INT8, FP8, or NVFP4, calibration dataset, and accuracy tolerance thresholds. Execute quantization transformations systematically while monitoring accuracy impact. The toolkit applies quantization to model weights, achieving 50-75% size reduction depending on format. Generate quantized model artifacts in safetensors format compatible with vLLM runtime. Document quantization parameters, toolkit version, and execution metadata."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid selecting quantization format without considering hardware support and accuracy impact. Do not skip calibration datasets which optimize quantization parameters. Validate compatibility with vLLM runtime early to prevent deployment failures."
+            }
+          ],
+          "citationNames": [
+            "Red Hat AI Model Optimization Toolkit Documentation",
+            "Red Hat AI Validated Models"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Model Engineering"
+        ],
+        "lifecycleTags": [
+          "Development"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "activity"
+    },
+    {
+      "name": "Validate Quantized Model",
+      "description": "Execute test suite comparing quantized model outputs against baseline for accuracy verification",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "validate-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "AI Model",
+          "stateName": "Model Validated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Quantized Model Artifact",
+          "levelOfDetailName": "Validated Quantization"
+        },
+        {
+          "workProductName": "Performance Benchmark Report",
+          "levelOfDetailName": "Comprehensive Benchmarks"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "ML Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Perform",
+          "description": "Model validation technique",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Validating quantized model accuracy ensures compression techniques preserve model quality within acceptable tolerances before production deployment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Establish comprehensive test dataset representing diversity of production inputs including typical use cases, edge cases, and challenging scenarios. Document appropriate accuracy metrics such as perplexity for language models, BLEU scores for translation, and task-specific accuracy. Execute baseline measurements running original unquantized model against test dataset, recording detailed accuracy metrics and output quality. Run quantized model against identical test dataset using same metrics. Compare quantized model metrics against baseline with statistical analysis, allowing small accuracy degradation of 1-3% for INT8 and 3-5% for INT4 based on compression ratios. Identify specific scenarios where quantization causes noticeable degradation. Generate comprehensive validation report with recommendation for production deployment or further optimization."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid using non-representative test datasets that miss edge cases. Do not accept accuracy degradation exceeding business-defined thresholds. Validate statistical significance of differences rather than relying on single metric comparisons."
+            }
+          ],
+          "citationNames": [
+            "Red Hat AI Model Optimization Toolkit Documentation"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Model Engineering",
+          "Quality Assurance"
+        ],
+        "lifecycleTags": [
+          "Validation"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "activity"
+    },
+    {
+      "name": "Benchmark Inference Performance",
+      "description": "Measure latency, throughput, and resource utilization under representative workload conditions",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "benchmark-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "AI Model",
+          "stateName": "Model Performance Verified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Performance Benchmark Report",
+          "levelOfDetailName": "Comparative Analysis"
+        },
+        {
+          "workProductName": "Quantized Model Artifact",
+          "levelOfDetailName": "Performance Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "ML Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Perform",
+          "description": "Performance benchmarking technique",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Comprehensive inference performance benchmarking provides quantitative data on service capabilities, identifies optimization opportunities, and validates that deployments meet SLA requirements."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Define representative workload scenarios accurately reflecting production usage patterns including typical request sizes, prompt lengths, generation token counts, and request arrival patterns. Warm up inference service to ensure model caching and optimizations reach steady state before measurements. Execute benchmarks submitting requests at controlled rates while measuring latency at percentiles P50, P90, P95, and P99, throughput as requests per second and tokens per second, and resource utilization including GPU utilization, GPU memory consumption, and batch processing efficiency. Gradually increase concurrent request load to identify saturation point and optimal batch sizes. For distributed deployments, measure how performance scales with additional GPUs. Generate comprehensive performance reports documenting measured capabilities, comparing results against SLA requirements, identifying bottlenecks, and providing optimization recommendations. Calculate cost per request and cost per generated token for cost optimization."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid cold start measurements that include model loading time. Do not use non-representative workload patterns that miss production diversity. Validate steady-state performance rather than transient spikes."
+            }
+          ],
+          "citationNames": [
+            "Viewing AI Inference Metrics",
+            "AI Inference Metrics Reference"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Performance Engineering"
+        ],
+        "lifecycleTags": [
+          "Validation"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "activity"
+    },
+    {
+      "name": "Configure vLLM Integration",
+      "description": "Configure vLLM runtime parameters for optimized model loading and inference",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "configure-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Model Optimization",
+          "stateName": "Optimization Pipeline Configured"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Quantized Model Artifact",
+          "levelOfDetailName": "Performance Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "ML Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Perform",
+          "description": "vLLM configuration technique",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Configuring vLLM integration ensures quantized models load correctly with optimal runtime parameters for inference performance."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Configure model loading settings specifying model path in HuggingFace repository, local filesystem, or OCI registry, model format including HuggingFace, vLLM native, or OCI modelcar, and tokenizer configuration. Set runtime parameters governing inference performance including tensor-parallel-size for distributing model weights across multiple GPUs, gpu-memory-utilization controlling GPU memory allocation typically 0.8-0.9, and maximum sequence length max-model-len and batch size max-num-batched-tokens impacting throughput and latency. Configure KV cache quantization kv-cache-dtype to reduce memory consumption. Validate configuration by starting vLLM service and confirming model loads successfully without errors, responds correctly to test inference requests, and achieves expected performance characteristics."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid tensor parallelism configurations exceeding available GPU count. Do not set memory utilization too high over 0.95 causing out-of-memory failures. Validate quantization format compatibility with vLLM runtime version."
+            }
+          ],
+          "citationNames": [
+            "vLLM Server Arguments Reference",
+            "Red Hat AI Inference 3.5 Getting Started Guide"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "AI Infrastructure"
+        ],
+        "lifecycleTags": [
+          "Integration"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "activity"
+    },
+    {
+      "name": "Publish Optimized Model",
+      "description": "Register validated optimized model in catalog with metadata and deployment instructions",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "publish-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Operational"
+        },
+        {
+          "alphaName": "Model Optimization",
+          "stateName": "Automated Workflow Established"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Quantized Model Artifact",
+          "levelOfDetailName": "Production Validated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "ML Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Perform",
+          "description": "Model publishing technique",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Publishing optimized models to catalog enables reuse, versioning, and standardized deployment across environments."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Register quantized model artifact in model registry with comprehensive metadata including model architecture, quantization format, validation results, performance benchmarks, and deployment instructions. Create model card documentation describing use case, accuracy validation, performance characteristics, and hardware requirements. Tag model with semantic version and link to baseline model. Configure access controls for model artifacts. Generate deployment templates or configurations for consuming teams. Validate catalog entry completeness and accessibility."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid incomplete metadata that prevents teams from understanding model capabilities. Do not skip versioning which prevents rollback scenarios. Validate artifact accessibility from target deployment environments."
+            }
+          ],
+          "citationNames": [
+            "Red Hat AI Validated Models"
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Model Engineering",
+          "Platform Engineering"
+        ],
+        "lifecycleTags": [
+          "Deployment"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Model Optimization Journey",
+      "description": "Complete lifecycle from model selection through production-ready optimization",
+      "narrativeTypeName": "SDLC",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Model identified and requirements established",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Requirements",
+              "stateName": "Conceived"
+            },
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Selected"
+            },
+            {
+              "alphaName": "Model Optimization",
+              "stateName": "Toolkit Available"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Production LLM",
+              "description": "Production LLM in selected state",
+              "alphaName": "AI Model",
+              "stateName": "Model Selected",
+              "evidenceBy": [
+                {
+                  "name": "Model Selection Document",
+                  "description": "Documentation of selected model and requirements",
+                  "workProductName": "Model Optimization Requirements",
+                  "levelOfDetailName": "Initial Scope"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Select Production Model"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Organization identifies need for optimized AI model serving production use case with specific performance and accuracy requirements."
+            }
+          ]
+        },
+        {
+          "name": "Strategy",
+          "description": "Optimization approach and validation methodology defined",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Optimization Strategy Defined"
+            },
+            {
+              "alphaName": "Requirements",
+              "stateName": "Coherent"
+            },
+            {
+              "alphaName": "Model Optimization",
+              "stateName": "Toolkit Available"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Production LLM",
+              "description": "Production LLM with optimization strategy defined",
+              "alphaName": "AI Model",
+              "stateName": "Optimization Strategy Defined",
+              "evidenceBy": [
+                {
+                  "name": "Optimization Requirements",
+                  "description": "Coherent optimization requirements and strategy",
+                  "workProductName": "Model Optimization Requirements",
+                  "levelOfDetailName": "Optimization Strategy"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Define Optimization Strategy"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "ML engineering team selects quantization format, establishes accuracy thresholds, and defines validation methodology aligned with production requirements."
+            }
+          ]
+        },
+        {
+          "name": "Optimization",
+          "description": "Model quantized and validated for accuracy",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Quantized"
+            },
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Validated"
+            },
+            {
+              "alphaName": "Model Optimization",
+              "stateName": "Optimization Pipeline Configured"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Production LLM",
+              "description": "Production LLM validated after quantization",
+              "alphaName": "AI Model",
+              "stateName": "Model Validated",
+              "evidenceBy": [
+                {
+                  "name": "Llama 70B INT4 Model",
+                  "description": "Validated quantized model artifact",
+                  "workProductName": "Quantized Model Artifact",
+                  "levelOfDetailName": "Validated Quantization"
+                },
+                {
+                  "name": "Production Inference Benchmark",
+                  "description": "Comprehensive benchmark report",
+                  "workProductName": "Performance Benchmark Report",
+                  "levelOfDetailName": "Comprehensive Benchmarks"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Quantize Language Model",
+            "Validate Quantized Model",
+            "Configure vLLM Integration"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "Quantization toolkit compresses model using selected format, validation suite confirms accuracy within tolerance thresholds, and vLLM integration validates runtime compatibility."
+            }
+          ]
+        },
+        {
+          "name": "Performance Validation",
+          "description": "Optimized model verified against performance targets",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "AI Model",
+              "stateName": "Model Performance Verified"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Operational"
+            },
+            {
+              "alphaName": "Model Optimization",
+              "stateName": "Optimization Pipeline Configured"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Production LLM",
+              "description": "Production LLM with performance verified",
+              "alphaName": "AI Model",
+              "stateName": "Model Performance Verified",
+              "evidenceBy": [
+                {
+                  "name": "Llama 70B INT4 Model",
+                  "description": "Performance optimized model artifact",
+                  "workProductName": "Quantized Model Artifact",
+                  "levelOfDetailName": "Performance Optimized"
+                },
+                {
+                  "name": "Production Inference Benchmark",
+                  "description": "Comparative analysis benchmark report",
+                  "workProductName": "Performance Benchmark Report",
+                  "levelOfDetailName": "Comparative Analysis"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Benchmark Inference Performance",
+            "Publish Optimized Model"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Test",
+              "context": "Comprehensive benchmarking validates optimized model achieves latency and throughput targets on production hardware, confirming readiness for deployment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Deploy",
+              "context": "Validated model published to catalog with metadata and deployment instructions, enabling consumption by inference platform."
+            }
+          ]
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Model Engineering"
+        ],
+        "lifecycleTags": [
+          "Development",
+          "Optimization",
+          "Validation"
+        ],
+        "organizationalTags": [
+          "ML Engineering"
+        ]
+      },
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Quantized Model Artifact",
+      "aliasName": "Compressed Model"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Performance Benchmark Report",
+      "aliasName": "Inference Benchmark"
+    },
+    {
+      "practiceElementType": "Persona",
+      "practiceElementName": "ML Engineer",
+      "aliasName": "Model Optimization Engineer"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Quantize Language Model",
+      "aliasName": "Compress Model"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Configure vLLM Integration",
+      "aliasName": "Configure Inference Runtime"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "IDP Essentials",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Application Development",
+      "versionRange": "^2.0.1"
+    },
+    {
+      "documentName": "Platform Operations",
+      "versionRange": "^2.0.1"
+    },
+    {
+      "documentName": "Security & Compliance",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Observability",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

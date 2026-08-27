@@ -1,0 +1,217 @@
+{
+  "kind": "method",
+  "name": "Red Hat OpenShift Foundations",
+  "description": "Enterprise Kubernetes platform methodology covering cloud-native application development, SRE-driven platform operations, defense-in-depth security, and comprehensive observability on Red Hat OpenShift Container Platform.",
+  "baselinePracticeName": "IDP Essentials",
+  "practiceNames": [
+    "Application Development",
+    "Platform Operations",
+    "Security & Compliance",
+    "Observability"
+  ],
+  "tags": {
+    "domainTags": [
+      "Platform Engineering",
+      "Application Development",
+      "Security",
+      "Observability",
+      "Site Reliability Engineering",
+      "Container Platform"
+    ],
+    "lifecycleTags": [
+      "Adoption",
+      "Implementation",
+      "Operations",
+      "Optimization"
+    ],
+    "organizationalTags": [
+      "Platform Team",
+      "Development Teams",
+      "Security Team",
+      "SRE Team"
+    ]
+  },
+  "narratives": [
+    {
+      "name": "Method Overview",
+      "description": "Red Hat OpenShift Foundations methodology narrative.",
+      "narrativeTypeName": "The Three-Act Structure and StoryBrand",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Act I: The Hero and the Problem",
+          "context": "Platform engineers and developers face enterprise container platform challenges requiring developer velocity, operational reliability, security compliance, and system observability across diverse hybrid cloud infrastructure."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Act II: The Guide and the Plan",
+          "context": "Red Hat OpenShift provides an integrated internal developer platform with self-service golden paths, SRE-driven automation, zero-trust security guardrails, and unified observability stacks that reduce cognitive load and accelerate delivery."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Act III: Call to Action and Success",
+          "context": "Teams adopt OpenShift Foundations practices progressively from manual operations through automated self-service, achieving AI-assisted developer platforms, fleet-wide orchestration, adaptive security posture, and correlated multi-tenant observability at enterprise scale."
+        }
+      ],
+      "citationNames": [
+        "14 Best Practices for Developing Applications on OpenShift",
+        "Capacity Management and Overcommitment Best Practices in Red Hat OpenShift",
+        "Enhanced Observability in Red Hat OpenShift 4.16",
+        "Foundations of OpenShift",
+        "Guide to Observability with Red Hat OpenShift 4.18",
+        "OpenShift Administration I: Operating a Production Cluster (DO180)",
+        "OpenShift Administration II: Configuring a Production Cluster (DO280)",
+        "OpenShift Networking and Cluster Access Best Practices",
+        "OpenShift Security Best Practices for Kubernetes Cluster Design",
+        "Operating OpenShift the SRE Way",
+        "The Ultimate Guide to OpenShift Update for Cluster Administrators",
+        "Understanding Persistent Storage",
+        "What's New in OpenShift 4.21 for Developers",
+        "What's New in Red Hat OpenShift Monitoring 4.14, Logging 5.8, and Distributed Tracing 2.9"
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "14 Best Practices for Developing Applications on OpenShift",
+      "description": "Best practices guide for cloud-native application development patterns on OpenShift.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2023",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/14-best-practices-for-developing-applications-on-openshift"
+    },
+    {
+      "name": "Capacity Management and Overcommitment Best Practices in Red Hat OpenShift",
+      "description": "Best practices for capacity planning, ClusterAutoscaler, and resource optimization",
+      "authors": [
+        "Red Hat Blog"
+      ],
+      "date": "2026",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/capacity-management-overcommitment-best-practices-openshift"
+    },
+    {
+      "name": "Enhanced Observability in Red Hat OpenShift 4.16",
+      "description": "New observability features including Cluster Observability Operator and enhanced UI plugins.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/enhanced-observability-in-red-hat-openshift-4.16"
+    },
+    {
+      "name": "Foundations of OpenShift",
+      "description": "Comprehensive 12-module learning path covering OpenShift fundamentals from deployment to operations.",
+      "authors": [
+        "Red Hat Developer"
+      ],
+      "date": "2026",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/learn/openshift/foundations-openshift"
+    },
+    {
+      "name": "Guide to Observability with Red Hat OpenShift 4.18",
+      "description": "Comprehensive guide to OpenShift observability stack covering monitoring, logging, and tracing capabilities.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/guide-observability-red-hat-openshift-418"
+    },
+    {
+      "name": "OpenShift Administration I: Operating a Production Cluster (DO180)",
+      "description": "Official Red Hat training on OpenShift cluster operations and administration",
+      "authors": [
+        "Red Hat Training"
+      ],
+      "date": "2026",
+      "source": "Red Hat Training",
+      "url": "https://www.redhat.com/en/services/training/red-hat-openshift-administration-i-operating-a-production-cluster"
+    },
+    {
+      "name": "OpenShift Administration II: Configuring a Production Cluster (DO280)",
+      "description": "Advanced OpenShift administration covering GitOps, automation, and Day-2 operations",
+      "authors": [
+        "Red Hat Training"
+      ],
+      "date": "2026",
+      "source": "Red Hat Training",
+      "url": "https://www.redhat.com/en/services/training/red-hat-openshift-administration-ii-configuring-a-production-cluster"
+    },
+    {
+      "name": "OpenShift Networking and Cluster Access Best Practices",
+      "description": "Network security, access control, and service mesh integration best practices.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2023",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/openshift-networking-and-cluster-access-best-practices"
+    },
+    {
+      "name": "OpenShift Security Best Practices for Kubernetes Cluster Design",
+      "description": "Comprehensive security architecture guidance for OpenShift cluster design and hardening.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2023",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/openshift-security-best-practices-for-kubernetes-cluster-design"
+    },
+    {
+      "name": "Operating OpenShift the SRE Way",
+      "description": "SRE practices for OpenShift including automation philosophy, alerting strategy, and toil reduction.",
+      "authors": [
+        "Red Hat Developer"
+      ],
+      "date": "2023",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2023/12/28/operating-openshift-sre-way"
+    },
+    {
+      "name": "The Ultimate Guide to OpenShift Update for Cluster Administrators",
+      "description": "Comprehensive guide to OpenShift cluster updates including z-stream and y-stream upgrades, rollback, and Sigstore verification",
+      "authors": [
+        "Red Hat Blog"
+      ],
+      "date": "2026",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/the-ultimate-guide-to-openshift-update-for-cluster-administrators"
+    },
+    {
+      "name": "Understanding Persistent Storage",
+      "description": "OpenShift persistent storage architecture, CSI drivers, and storage class configuration",
+      "authors": [
+        "Red Hat Documentation"
+      ],
+      "date": "2026",
+      "source": "OpenShift Container Platform 4.8 Documentation",
+      "url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/storage/understanding-persistent-storage"
+    },
+    {
+      "name": "What's New in OpenShift 4.21 for Developers",
+      "description": "Developer-focused feature updates including Developer Hub, Lightspeed AI, and Dev Spaces enhancements.",
+      "authors": [
+        "Burr Sutter"
+      ],
+      "date": "2026",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2026/02/03/whats-new-developers-openshift-4-21"
+    },
+    {
+      "name": "What's New in Red Hat OpenShift Monitoring 4.14, Logging 5.8, and Distributed Tracing 2.9",
+      "description": "Updates to observability stack including multi-tenant monitoring and OpenTelemetry enhancements.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2023",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/whats-new-in-red-hat-openshift-monitoring-4.14-logging-5.8-and-distributed-tracing-2.9"
+    }
+  ],
+  "version": "1.0.0"
+}

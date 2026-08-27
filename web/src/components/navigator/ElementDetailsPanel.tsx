@@ -23,6 +23,7 @@ import { WorkProductLODTable } from "./WorkProductLODTable";
 import { BackgroundBlock, TestBlock, ExamplesBlock } from "./GherkinBlock";
 import { NarrativesBlock } from "./NarrativesBlock";
 import { ElementTagsBadges } from "./ElementTagsBadges";
+import { classifyLibraryRoot } from "@/lib/library/classify";
 
 interface ElementDetailsPanelProps {
   selectedElement: {
@@ -32,6 +33,8 @@ interface ElementDetailsPanelProps {
   } | null;
   baseline: PracticeBaseline;
   libraryId: string | null;
+  bundleSlug?: string | null;
+  bundlePath?: string | null;
   dependencyArtifacts: BrowseDependencyArtifact[];
   dependencyDiagramLayout?: DependencyDiagramLayout;
   mode: "concerns" | "activities";
@@ -242,14 +245,17 @@ function renderActivitiesList(
 }
 
 
-function DownloadStaticSiteButton({ libraryId }: { libraryId: string }) {
+function DownloadStaticSiteButton({ libraryId, bundleSlug, bundlePath }: { libraryId?: string | null; bundleSlug?: string | null; bundlePath?: string | null }) {
   const [downloading, setDownloading] = useState(false);
 
   const handleDownload = async () => {
     if (downloading) return;
     setDownloading(true);
     try {
-      const res = await fetch(`/api/documents/${libraryId}/static-site`);
+      const endpoint = libraryId
+        ? `/api/documents/${encodeURIComponent(libraryId)}/static-site`
+        : `/api/library/static-site?bundle=${encodeURIComponent(bundleSlug!)}&path=${encodeURIComponent(bundlePath!)}`;
+      const res = await fetch(endpoint);
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: "Download failed" }));
         alert(err.error || "Download failed");
@@ -386,6 +392,8 @@ export function ElementDetailsPanel({
   selectedElement,
   baseline,
   libraryId,
+  bundleSlug,
+  bundlePath,
   dependencyArtifacts,
   dependencyDiagramLayout,
   mode,
@@ -669,7 +677,57 @@ export function ElementDetailsPanel({
                     return null;
                   }
 
-                  // Get the practice name - either from sourcePracticeName or baseline
+                  // Introduction page: edit link for the current document using component props
+                  if (type === "introduction") {
+                    const docKind = classifyLibraryRoot(data);
+                    const docName = data.name || baseline.name;
+                    const hasDocRef = !!(libraryId || (bundleSlug && bundlePath));
+                    if (!hasDocRef || !docName) return null;
+
+                    const idParam = bundleSlug && bundlePath
+                      ? `bundle=${encodeURIComponent(bundleSlug)}&path=${encodeURIComponent(bundlePath)}`
+                      : `libraryId=${encodeURIComponent(libraryId!)}`;
+                    const editTarget = docKind === "method" ? "method-builder" : "practice-author";
+
+                    return (
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem",
+                          fontSize: "0.75rem",
+                          fontStyle: "italic",
+                          alignSelf: "flex-start",
+                          marginTop: "0.25rem",
+                        }}
+                      >
+                        <span style={{ color: "var(--pf-v6-global--Color--200)" }}>
+                          {docName}
+                        </span>
+                        <Link
+                          href={`/${editTarget}?${idParam}`}
+                          style={{
+                            color: "var(--pf-v6-global--link--Color)",
+                            textDecoration: "none",
+                            display: "flex",
+                            alignItems: "center",
+                            transition: "color 0.2s",
+                          }}
+                          title={`Edit ${docName}`}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.color = "var(--pf-v6-global--primary-color--200)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.color = "var(--pf-v6-global--link--Color)";
+                          }}
+                        >
+                          <i className="fa-solid fa-pen-to-square" style={{ fontSize: "0.75rem" }} />
+                        </Link>
+                      </div>
+                    );
+                  }
+
+                  // Element detail views: show source practice with link
                   const sourcePracticeName = data.sourcePracticeName;
                   const practiceName = sourcePracticeName || baseline.name;
 
@@ -817,8 +875,8 @@ export function ElementDetailsPanel({
             )}
 
             {/* Download as static site button - shown at bottom of introduction */}
-            {type === "introduction" && libraryId && (
-              <DownloadStaticSiteButton libraryId={libraryId} />
+            {type === "introduction" && (libraryId || (bundleSlug && bundlePath)) && (
+              <DownloadStaticSiteButton libraryId={libraryId} bundleSlug={bundleSlug} bundlePath={bundlePath} />
             )}
 
             {/* Introduction / References: Keywords and dates at bottom */}

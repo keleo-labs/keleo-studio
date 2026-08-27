@@ -1,0 +1,1490 @@
+{
+  "kind": "method",
+  "name": "Programme Management Foundations",
+  "description": "Comprehensive programme management methodology for multi-project coordination and benefits realization",
+  "baselinePracticeName": "Programme Essentials",
+  "practiceNames": [
+    "Value and Stakeholder Strategy",
+    "Delivery and Team Operations",
+    "Project Management Lifecycle",
+    "Strategic Value and Benefits",
+    "Integrated Capability Delivery",
+    "Team of Teams Operations",
+    "Programme Coordination and Governance",
+    "Programme Management Lifecycle"
+  ],
+  "tags": {
+    "domainTags": [
+      "Adaptive Delivery",
+      "Agile Delivery",
+      "Architecture",
+      "Benefits Management",
+      "Benefits Realization",
+      "Business Case",
+      "Continuous Improvement",
+      "Cross-Practice Coordination",
+      "Delivery Management",
+      "Dependency Management",
+      "Governance",
+      "Integration",
+      "Knowledge Management",
+      "Lifecycle Management",
+      "OKR",
+      "Organizational Design",
+      "Phase Gate",
+      "Portfolio Management",
+      "Programme Management",
+      "Risk Management",
+      "Stakeholder Management",
+      "Strategic Planning",
+      "Team Development",
+      "Team Structure",
+      "Work Management"
+    ],
+    "lifecycleTags": [
+      "Benefits Realization",
+      "Closure",
+      "Definition",
+      "Delivery",
+      "Evolution",
+      "Execution",
+      "Formation",
+      "Governance",
+      "Initiation",
+      "Monitoring",
+      "Operation",
+      "Planning",
+      "Retrospection",
+      "Review",
+      "Transition"
+    ],
+    "organizationalTags": [
+      "Cross-Team",
+      "Delivery Team",
+      "Governance Board",
+      "PMO",
+      "Portfolio Governance",
+      "Programme Board",
+      "Programme Delivery",
+      "Programme Leadership",
+      "Programme Management Office",
+      "Project Leadership Team",
+      "Sponsor"
+    ]
+  },
+  "narratives": [
+    {
+      "name": "Programme as Strategic Value Engine",
+      "description": "How organizations transform from isolated project delivery to coordinated programme management that realizes strategic benefits.",
+      "narrativeTypeName": "The Hero's Journey",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "The Ordinary World",
+          "context": "Organizations manage projects independently, each pursuing local objectives without strategic coordination. Benefits remain unrealized because no mechanism exists to integrate deliverables across project boundaries into coherent organizational capabilities."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "The Call to Adventure",
+          "context": "Strategic imperatives demand coordinated delivery spanning multiple teams and value streams. Leadership recognizes that individual project success does not guarantee programme-level benefit realization, requiring deliberate governance, dependency management, and organizational change."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "The Ordeal",
+          "context": "Programme teams navigate cross-project dependencies, integrate capabilities through programme increments, establish team-of-teams coordination with agile release trains, and sustain adaptive governance while managing organizational change across tranches of delivery."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "The Return",
+          "context": "Organizations achieve sustained strategic benefits through mature programme management capabilities, communities of practice that transcend programme boundaries, and adaptive governance frameworks that balance oversight with team autonomy."
+        }
+      ],
+      "citationNames": [
+        "SAFe 6.0 Framework",
+        "Managing Successful Programmes",
+        "The Standard for Program Management"
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+      "description": "The PMBOK Guide Seventh Edition establishes principles-based project management with performance domains and a value delivery system.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2021",
+      "source": "Project Management Institute",
+      "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok",
+      "kind": "citation"
+    },
+    {
+      "name": "PMBOK Guide -- Eighth Edition",
+      "description": "The eighth edition introduces five focus areas and forty non-prescriptive processes for adaptive project management.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2026",
+      "source": "Project Management Institute",
+      "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok",
+      "kind": "citation"
+    },
+    {
+      "name": "Measure What Matters",
+      "description": "Introduces the OKR framework for connecting strategic objectives to measurable key results across organizational levels.",
+      "authors": [
+        "John Doerr"
+      ],
+      "date": "2018",
+      "source": "Portfolio/Penguin",
+      "url": "https://www.whatmatters.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "Managing Successful Projects with PRINCE2",
+      "description": "Provides a structured project management method built around continued business justification, with emphasis on business case and benefits management.",
+      "authors": [
+        "Axelos"
+      ],
+      "date": "2017",
+      "source": "The Stationery Office",
+      "url": "https://www.axelos.com/certifications/propath/prince2-project-management",
+      "kind": "citation"
+    },
+    {
+      "name": "ISO 31000:2018 Risk Management Guidelines",
+      "description": "International standard providing principles, framework, and process for managing risk across all types of organizations and activities.",
+      "authors": [
+        "International Organization for Standardization"
+      ],
+      "date": "2018",
+      "source": "International Organization for Standardization",
+      "url": "https://www.iso.org/iso-31000-risk-management.html",
+      "kind": "citation"
+    },
+    {
+      "name": "Individual Competence Baseline Version 4.0",
+      "description": "Defines project management competence elements across people, practice, and perspective domains with progressive proficiency levels.",
+      "authors": [
+        "International Project Management Association"
+      ],
+      "date": "2015",
+      "source": "International Project Management Association",
+      "url": "https://www.ipma.world/individuals/standard/",
+      "kind": "citation"
+    },
+    {
+      "name": "Lean Thinking",
+      "description": "Establishes principles for identifying value, mapping value streams, and eliminating waste in organizational processes.",
+      "authors": [
+        "James P. Womack",
+        "Daniel T. Jones"
+      ],
+      "date": "1996",
+      "source": "Free Press/Simon & Schuster",
+      "url": "https://www.lean.org/",
+      "kind": "citation"
+    },
+    {
+      "name": "Disciplined Agile Delivery",
+      "description": "Provides a decision framework for choosing right-sized project management approaches based on context, including prioritization techniques.",
+      "authors": [
+        "Scott W. Ambler",
+        "Mark Lines"
+      ],
+      "date": "2012",
+      "source": "IBM Press",
+      "url": "https://www.pmi.org/disciplined-agile",
+      "kind": "citation"
+    },
+    {
+      "name": "The Scrum Guide",
+      "description": "Defines the Scrum framework including the Product Owner role as the critical bridge between stakeholder needs and team execution.",
+      "authors": [
+        "Ken Schwaber",
+        "Jeff Sutherland"
+      ],
+      "date": "2020",
+      "source": "Scrum.org",
+      "url": "https://scrumguides.org/",
+      "kind": "citation"
+    },
+    {
+      "name": "Agile Retrospectives: Making Good Teams Great",
+      "description": "Provides structured approaches for team reflection and continuous improvement through facilitated retrospective sessions.",
+      "authors": [
+        "Esther Derby",
+        "Diana Larsen"
+      ],
+      "date": "2006",
+      "source": "Pragmatic Bookshelf",
+      "url": "https://pragprog.com/titles/dlret/agile-retrospectives/",
+      "kind": "citation"
+    },
+    {
+      "name": "Kanban: Successful Evolutionary Change for Your Technology Business",
+      "description": "Foundational text on Kanban method for knowledge work including WIP limits, flow management, and evolutionary process improvement.",
+      "authors": [
+        "David J. Anderson"
+      ],
+      "date": "2010",
+      "source": "Blue Hole Press",
+      "url": "https://www.amazon.com/Kanban-Successful-Evolutionary-Technology-Business/dp/0984521402",
+      "kind": "citation"
+    },
+    {
+      "name": "The Fearless Organization",
+      "description": "Research-based framework for building psychological safety in teams to enable innovation, learning, and high performance.",
+      "authors": [
+        "Amy C. Edmondson"
+      ],
+      "date": "2019",
+      "source": "Wiley",
+      "url": "https://fearlessorganization.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "User Story Mapping",
+      "description": "Technique for organizing user stories into a two-dimensional map that connects user experience narrative to delivery planning.",
+      "authors": [
+        "Jeff Patton"
+      ],
+      "date": "2014",
+      "source": "O'Reilly Media",
+      "url": "https://www.jpattonassociates.com/user-story-mapping/",
+      "kind": "citation"
+    },
+    {
+      "name": "Servant Leadership",
+      "description": "Foundational text on the servant leadership philosophy where leaders serve the needs of their teams first.",
+      "authors": [
+        "Robert K. Greenleaf"
+      ],
+      "date": "2002",
+      "source": "Paulist Press",
+      "url": "https://www.greenleaf.org/",
+      "kind": "citation"
+    },
+    {
+      "name": "The Essence of Software Engineering",
+      "description": "Introduces the Essence kernel and language for describing software engineering methods using alphas, activity spaces, and patterns.",
+      "authors": [
+        "Ivar Jacobson",
+        "Pan-Wei Ng",
+        "Paul E. McMahon",
+        "Ian Spence",
+        "Svante Lidman"
+      ],
+      "date": "2013",
+      "source": "Addison-Wesley",
+      "url": "https://www.ivarjacobson.com/publications/books/essence-software-engineering",
+      "kind": "citation"
+    },
+    {
+      "name": "Managing Successful Programmes",
+      "description": "Comprehensive framework for programme management with detailed benefits management themes and organizational change governance.",
+      "authors": [
+        "AXELOS Limited"
+      ],
+      "date": "2020",
+      "source": "The Stationery Office",
+      "kind": "citation"
+    },
+    {
+      "name": "SAFe 6.0 Framework",
+      "description": "Scaled agile framework including lean portfolio management, WSJF prioritization, and value stream funding models.",
+      "authors": [
+        "Scaled Agile Inc."
+      ],
+      "date": "2023",
+      "source": "Scaled Agile, Inc.",
+      "url": "https://framework.scaledagile.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "The Standard for Program Management",
+      "description": "PMI standard organizing benefits management into identification, analysis, planning, delivery, transition, and sustainment phases.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2017",
+      "source": "Project Management Institute",
+      "kind": "citation"
+    },
+    {
+      "name": "Benefits Management",
+      "description": "Foundational text on increasing business value through systematic benefits identification, planning, and realization.",
+      "authors": [
+        "John Ward",
+        "Elizabeth Daniel"
+      ],
+      "date": "2012",
+      "source": "John Wiley & Sons",
+      "kind": "citation"
+    },
+    {
+      "name": "The Principles of Product Development Flow",
+      "description": "Economic framework for product development including cost of delay analysis and queuing theory applied to portfolio prioritization.",
+      "authors": [
+        "Donald Reinertsen"
+      ],
+      "date": "2009",
+      "source": "Celeritas Publishing",
+      "kind": "citation"
+    },
+    {
+      "name": "SAFe 5.0 Distilled",
+      "description": "Practitioner guide to the Scaled Agile Framework with detailed lean portfolio management and WSJF guidance.",
+      "authors": [
+        "Dean Leffingwell"
+      ],
+      "date": "2020",
+      "source": "Addison-Wesley Professional",
+      "kind": "citation"
+    },
+    {
+      "name": "Black Swan Farming",
+      "description": "Original source for Cost of Delay Divided by Duration prioritization methodology applied to portfolio sequencing.",
+      "authors": [
+        "Joshua Arnold"
+      ],
+      "date": "2012",
+      "source": "Black Swan Farming",
+      "url": "https://blackswanfarming.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "Project to Product",
+      "description": "Framework for value stream management connecting programme delivery structures to customer outcomes through flow metrics.",
+      "authors": [
+        "Mik Kersten"
+      ],
+      "date": "2018",
+      "source": "IT Revolution Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Large-Scale Scrum: More with LeSS",
+      "description": "Guide to scaling Scrum through simplification using feature teams and shared backlogs.",
+      "authors": [
+        "Craig Larman",
+        "Bas Vodde"
+      ],
+      "date": "2016",
+      "source": "Addison-Wesley Professional",
+      "kind": "citation"
+    },
+    {
+      "name": "The Nexus Guide",
+      "description": "Definitive guide to scaling Scrum with Nexus integration framework.",
+      "authors": [
+        "Ken Schwaber"
+      ],
+      "date": "2018",
+      "source": "Scrum.org",
+      "url": "https://www.scrum.org/resources/online-nexus-guide",
+      "kind": "citation"
+    },
+    {
+      "name": "Continuous Architecture",
+      "description": "Approach to sustainable architecture in agile and cloud-centric environments.",
+      "authors": [
+        "Murat Erder",
+        "Pierre Pureur"
+      ],
+      "date": "2016",
+      "source": "Morgan Kaufmann",
+      "kind": "citation"
+    },
+    {
+      "name": "The Software Architect Elevator",
+      "description": "Redefining the architect's role in digital enterprise transformation.",
+      "authors": [
+        "Gregor Hohpe"
+      ],
+      "date": "2017",
+      "source": "O'Reilly Media",
+      "kind": "citation"
+    },
+    {
+      "name": "The Standard for Program Management, 4th Edition",
+      "description": "PMI standard defining programme management principles, practices, and lifecycle.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2017",
+      "source": "Project Management Institute",
+      "kind": "citation"
+    },
+    {
+      "name": "Team Topologies: Organizing Business and Technology Teams for Fast Flow",
+      "description": "Framework for team design using four team types and three interaction modes with cognitive load as primary constraint.",
+      "authors": [
+        "Matthew Skelton",
+        "Manuel Pais"
+      ],
+      "date": "2019",
+      "source": "IT Revolution Press",
+      "url": "https://teamtopologies.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "Communities of Practice: Learning, Meaning, and Identity",
+      "description": "Foundational theory of communities of practice as social learning systems with domain, community, and practice pillars.",
+      "authors": [
+        "Etienne Wenger"
+      ],
+      "date": "1998",
+      "source": "Cambridge University Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Cultivating Communities of Practice: A Guide to Managing Knowledge",
+      "description": "Practical guide for establishing, nurturing, and sustaining communities of practice in organizations.",
+      "authors": [
+        "Etienne Wenger",
+        "Richard McDermott",
+        "William Snyder"
+      ],
+      "date": "2002",
+      "source": "Harvard Business Review Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Rethinking Agile: Why Agile Teams Have Nothing to Do with Business Agility",
+      "description": "Flight Levels framework distinguishing operative, coordination, and strategic decision levels.",
+      "authors": [
+        "Klaus Leopold"
+      ],
+      "date": "2018",
+      "source": "LEANability Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Rethinking Agile",
+      "description": "Flight Levels approach to business agility with multi-level decision architecture and coordination boards.",
+      "authors": [
+        "Klaus Leopold"
+      ],
+      "date": "2018",
+      "source": "LEANability Press",
+      "kind": "citation"
+    },
+    {
+      "name": "The Standard for Program Management, 5th Edition",
+      "description": "Updated PMI standard with revised programme governance and lifecycle management guidance.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2024",
+      "source": "Project Management Institute",
+      "url": "https://www.pmi.org/standards/program-management-fifth-edition",
+      "kind": "citation"
+    },
+    {
+      "name": "Team of Teams",
+      "description": "Cross-functional coordination principles for complex organizational delivery.",
+      "authors": [
+        "Stanley McChrystal"
+      ],
+      "date": "2015",
+      "source": "Portfolio/Penguin",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "opportunity-icon",
+      "description": "Font Awesome icon representing the Opportunity alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lightbulb",
+      "fontWeight": "900"
+    },
+    {
+      "name": "stakeholders-icon",
+      "description": "Font Awesome icon representing the Stakeholders alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users",
+      "fontWeight": "900"
+    },
+    {
+      "name": "objectives-icon",
+      "description": "Font Awesome icon representing the Objectives alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullseye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "project-risk-icon",
+      "description": "Font Awesome icon representing the Project Risk alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-realization-plan-icon",
+      "description": "Font Awesome icon representing the Benefits Realization Plan alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "develop-business-case-icon",
+      "description": "Font Awesome icon representing the Develop Business Case activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-invoice-dollar",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-opportunity-assessment-icon",
+      "description": "Font Awesome icon representing the Conduct Opportunity Assessment activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-magnifying-glass-chart",
+      "fontWeight": "900"
+    },
+    {
+      "name": "perform-stakeholder-analysis-icon",
+      "description": "Font Awesome icon representing the Perform Stakeholder Analysis activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users-viewfinder",
+      "fontWeight": "900"
+    },
+    {
+      "name": "facilitate-stakeholder-engagement-workshop-icon",
+      "description": "Font Awesome icon representing the Facilitate Stakeholder Engagement Workshop activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "define-strategic-okrs-icon",
+      "description": "Font Awesome icon representing the Define Strategic OKRs activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-crosshairs",
+      "fontWeight": "900"
+    },
+    {
+      "name": "prioritize-objectives-icon",
+      "description": "Font Awesome icon representing the Prioritize Objectives activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrow-down-wide-short",
+      "fontWeight": "900"
+    },
+    {
+      "name": "perform-risk-identification-icon",
+      "description": "Font Awesome icon representing the Perform Risk Identification activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-triangle-exclamation",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-risk-assessment-icon",
+      "description": "Font Awesome icon representing the Conduct Risk Assessment activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge-high",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-benefits-realization-plan-icon",
+      "description": "Font Awesome icon representing the Design Benefits Realization Plan activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-map",
+      "fontWeight": "900"
+    },
+    {
+      "name": "track-benefits-realization-icon",
+      "description": "Font Awesome icon representing the Track Benefits Realization activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-column",
+      "fontWeight": "900"
+    },
+    {
+      "name": "monitor-and-manage-risks-icon",
+      "description": "Font Awesome icon representing the Monitor and Manage Risks activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-eye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "confirm-stakeholder-acceptance-icon",
+      "description": "Font Awesome icon representing the Confirm Stakeholder Acceptance activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-circle-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "business-case-document-icon",
+      "type": "font-character",
+      "description": "Business Case Document icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-invoice-dollar",
+      "fontWeight": "900"
+    },
+    {
+      "name": "stakeholder-register-icon",
+      "type": "font-character",
+      "description": "Stakeholder Register icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-address-book",
+      "fontWeight": "900"
+    },
+    {
+      "name": "stakeholder-engagement-plan-icon",
+      "type": "font-character",
+      "description": "Stakeholder Engagement Plan icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "okr-framework-document-icon",
+      "type": "font-character",
+      "description": "OKR Framework Document icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullseye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "risk-register-icon",
+      "type": "font-character",
+      "description": "Risk Register icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-triangle-exclamation",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-realization-map-icon",
+      "type": "font-character",
+      "description": "Benefits Realization Map icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "evaluate-objective-achievement-icon",
+      "type": "font-character",
+      "description": "Evaluate Objective Achievement icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-check-circle",
+      "fontWeight": "900"
+    },
+    {
+      "name": "deliverable-practice-icon",
+      "description": "Icon representing the Deliverable alpha in this practice context",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-box-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "work-practice-icon",
+      "description": "Icon representing the Work alpha in this practice context",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-tasks",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-practice-icon",
+      "description": "Icon representing the Team alpha in this practice context",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "way-of-working-practice-icon",
+      "description": "Icon representing the Way Of Working alpha in this practice context",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-route",
+      "fontWeight": "900"
+    },
+    {
+      "name": "backlog-icon",
+      "description": "Icon representing the Backlog alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-list-ol",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-agreement-icon",
+      "description": "Icon representing the Team Agreement alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sprint-planning-icon",
+      "description": "Icon for sprint planning activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-calendar-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "daily-standup-icon",
+      "description": "Icon for daily standup activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users-rectangle",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sprint-review-icon",
+      "description": "Icon for sprint review activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-display",
+      "fontWeight": "900"
+    },
+    {
+      "name": "retrospective-icon",
+      "description": "Icon for retrospective activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-rotate",
+      "fontWeight": "900"
+    },
+    {
+      "name": "backlog-refinement-icon",
+      "description": "Icon for backlog refinement activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-filter",
+      "fontWeight": "900"
+    },
+    {
+      "name": "release-planning-icon",
+      "description": "Icon for release planning activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rocket",
+      "fontWeight": "900"
+    },
+    {
+      "name": "wip-management-icon",
+      "description": "Icon for WIP management activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge-high",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-building-icon",
+      "description": "Icon for team building activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-plus",
+      "fontWeight": "900"
+    },
+    {
+      "name": "working-agreements-icon",
+      "description": "Icon for establishing working agreements activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-signature",
+      "fontWeight": "900"
+    },
+    {
+      "name": "product-vision-icon",
+      "description": "Icon for shaping product vision activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lightbulb",
+      "fontWeight": "900"
+    },
+    {
+      "name": "definition-of-done-icon",
+      "description": "Icon for defining definition of done activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "workflow-visualization-icon",
+      "description": "Icon for workflow visualization activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-column",
+      "fontWeight": "900"
+    },
+    {
+      "name": "project-closure-icon",
+      "description": "Icon for project closure activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-flag-checkered",
+      "fontWeight": "900"
+    },
+    {
+      "name": "lessons-learned-icon",
+      "description": "Icon for lessons learned activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-graduation-cap",
+      "fontWeight": "900"
+    },
+    {
+      "name": "delivery-progress-icon",
+      "description": "Icon for delivery progress monitoring activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-formation-icon",
+      "description": "Icon for team formation activities",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users-gear",
+      "fontWeight": "900"
+    },
+    {
+      "name": "continuous-improvement-icon",
+      "description": "Icon for continuous improvement review activity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-circle-up",
+      "fontWeight": "900"
+    },
+    {
+      "name": "product-backlog-document-icon",
+      "type": "font-character",
+      "description": "Product Backlog Document icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-list",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sprint-board-icon",
+      "type": "font-character",
+      "description": "Sprint Board icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-columns",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-charter-icon",
+      "type": "font-character",
+      "description": "Team Charter icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-shield",
+      "fontWeight": "900"
+    },
+    {
+      "name": "definition-of-done-specification-icon",
+      "type": "font-character",
+      "description": "Definition of Done Specification icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-check-double",
+      "fontWeight": "900"
+    },
+    {
+      "name": "retrospective-report-icon",
+      "type": "font-character",
+      "description": "Retrospective Report icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rotate-left",
+      "fontWeight": "900"
+    },
+    {
+      "name": "release-plan-icon",
+      "type": "font-character",
+      "description": "Release Plan icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-truck-fast",
+      "fontWeight": "900"
+    },
+    {
+      "name": "project-status-dashboard-icon",
+      "type": "font-character",
+      "description": "Project Status Dashboard icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge",
+      "fontWeight": "900"
+    },
+    {
+      "name": "lessons-learned-repository-icon",
+      "type": "font-character",
+      "description": "Lessons Learned Repository icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-book-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "adaptive-lifecycle-icon",
+      "description": "Font Awesome icon representing the Adaptive Project Lifecycle pattern",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-circle-nodes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "initiate-envision-icon",
+      "description": "Font Awesome icon representing the Initiate and Envision phase",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lightbulb",
+      "fontWeight": "900"
+    },
+    {
+      "name": "plan-prepare-icon",
+      "description": "Font Awesome icon representing the Plan and Prepare phase",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-compass-drafting",
+      "fontWeight": "900"
+    },
+    {
+      "name": "execute-deliver-icon",
+      "description": "Font Awesome icon representing the Execute and Deliver phase",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "monitor-adapt-icon",
+      "description": "Font Awesome icon representing the Monitor and Adapt phase",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "close-realize-icon",
+      "description": "Font Awesome icon representing the Close and Realize phase",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-flag-checkered",
+      "fontWeight": "900"
+    },
+    {
+      "name": "strategic-investment-icon",
+      "description": "Icon representing strategic investment and portfolio value management.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-icon",
+      "description": "Icon representing benefits management, tracking, and realization.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullseye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "value-stream-icon",
+      "description": "Icon representing value stream identification and flow-based investment allocation.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-stream",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-chain-diagram",
+      "description": "Benefits dependency chain diagram showing the flow from project outputs through capabilities and outcomes to strategic benefits.",
+      "type": "diagram",
+      "path": "assets/diagrams/benefits-dependency-chain.svg",
+      "mimeType": "image/svg+xml"
+    },
+    {
+      "name": "develop-strategic-investment-thesis-icon",
+      "type": "font-character",
+      "description": "Develop Strategic Investment Thesis icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-invoice-dollar",
+      "fontWeight": "900"
+    },
+    {
+      "name": "map-benefits-dependencies-icon",
+      "type": "font-character",
+      "description": "Map Benefits Dependencies icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-diagram-project",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-portfolio-prioritization-icon",
+      "type": "font-character",
+      "description": "Conduct Portfolio Prioritization icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-ranking-star",
+      "fontWeight": "900"
+    },
+    {
+      "name": "transition-programme-benefits-icon",
+      "type": "font-character",
+      "description": "Transition Programme Benefits icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-right-left",
+      "fontWeight": "900"
+    },
+    {
+      "name": "engage-benefits-stakeholders-icon",
+      "type": "font-character",
+      "description": "Engage Benefits Stakeholders icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users",
+      "fontWeight": "900"
+    },
+    {
+      "name": "confirm-stakeholder-benefits-satisfaction-icon",
+      "type": "font-character",
+      "description": "Confirm Stakeholder Benefits Satisfaction icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "strategic-investment-case-icon",
+      "type": "font-character",
+      "description": "Strategic Investment Case icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-contract",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-dependency-network-icon",
+      "type": "font-character",
+      "description": "Benefits Dependency Network icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-share-nodes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "capability-integration-icon",
+      "description": "Visual identity icon for the Integrated Capability Delivery practice.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-puzzle-piece",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-increment-icon",
+      "description": "Visual identity icon for the Programme Increment alpha.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-rotate",
+      "fontWeight": "900"
+    },
+    {
+      "name": "architectural-runway-icon",
+      "description": "Visual identity icon for the Architectural Runway alpha.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-road",
+      "fontWeight": "900"
+    },
+    {
+      "name": "safe-pi-planning-reference",
+      "description": "SAFe PI Planning reference diagram showing the collaborative planning event structure.",
+      "type": "diagram",
+      "url": "https://scaledagileframework.com/pi-planning/"
+    },
+    {
+      "name": "adr-template-nygard",
+      "description": "Architecture Decision Record template by Michael Nygard defining the standard ADR format.",
+      "type": "template",
+      "url": "https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/templates/decision-record-template-by-michael-nygard/index.md"
+    },
+    {
+      "name": "deliverable-icon",
+      "type": "font-character",
+      "description": "Deliverable icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-box-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-programme-increment-planning-icon",
+      "type": "font-character",
+      "description": "Conduct Programme Increment Planning icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-calendar-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "manage-architectural-runway-icon",
+      "type": "font-character",
+      "description": "Manage Architectural Runway icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-road",
+      "fontWeight": "900"
+    },
+    {
+      "name": "integrate-capabilities-across-projects-icon",
+      "type": "font-character",
+      "description": "Integrate Capabilities Across Projects icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-puzzle-piece",
+      "fontWeight": "900"
+    },
+    {
+      "name": "demonstrate-programme-increment-icon",
+      "type": "font-character",
+      "description": "Demonstrate Programme Increment icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-play-circle",
+      "fontWeight": "900"
+    },
+    {
+      "name": "evaluate-architectural-effectiveness-icon",
+      "type": "font-character",
+      "description": "Evaluate Architectural Effectiveness icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microscope",
+      "fontWeight": "900"
+    },
+    {
+      "name": "assess-increment-delivery-readiness-icon",
+      "type": "font-character",
+      "description": "Assess Increment Delivery Readiness icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge-high",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-increment-plan-icon",
+      "type": "font-character",
+      "description": "Programme Increment Plan icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-list",
+      "fontWeight": "900"
+    },
+    {
+      "name": "architectural-decision-record-icon",
+      "type": "font-character",
+      "description": "Architectural Decision Record icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-stamp",
+      "fontWeight": "900"
+    },
+    {
+      "name": "integration-roadmap-icon",
+      "type": "font-character",
+      "description": "Integration Roadmap icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-map",
+      "fontWeight": "900"
+    },
+    {
+      "name": "art-team-topology-icon",
+      "description": "Icon representing the Agile Release Train team-of-teams structure.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "community-practice-icon",
+      "description": "Icon representing a Community of Practice knowledge sharing structure.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-comments",
+      "fontWeight": "900"
+    },
+    {
+      "name": "cognitive-load-icon",
+      "description": "Icon representing cognitive load assessment and team capacity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-interaction-modes-diagram",
+      "description": "Diagram showing Team Topologies three interaction modes (collaboration, x-as-a-service, facilitating).",
+      "type": "diagram",
+      "url": "https://teamtopologies.com/key-concepts"
+    },
+    {
+      "name": "art-blueprint-icon",
+      "description": "Icon representing the ART Configuration Blueprint organizational design document.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-sitemap",
+      "fontWeight": "900"
+    },
+    {
+      "name": "work-icon",
+      "type": "font-character",
+      "description": "Work icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-list-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-icon",
+      "type": "font-character",
+      "description": "Team icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "way-of-working-icon",
+      "type": "font-character",
+      "description": "Way Of Working icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "configure-agile-release-train-icon",
+      "type": "font-character",
+      "description": "Configure Agile Release Train icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-train",
+      "fontWeight": "900"
+    },
+    {
+      "name": "launch-and-operate-art-events-icon",
+      "type": "font-character",
+      "description": "Launch and Operate ART Events icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rocket",
+      "fontWeight": "900"
+    },
+    {
+      "name": "establish-communities-of-practice-icon",
+      "type": "font-character",
+      "description": "Establish Communities of Practice icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users-rectangle",
+      "fontWeight": "900"
+    },
+    {
+      "name": "assess-and-manage-cognitive-load-icon",
+      "type": "font-character",
+      "description": "Assess and Manage Cognitive Load icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-team-interaction-modes-icon",
+      "type": "font-character",
+      "description": "Design Team Interaction Modes icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-left-right",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-inspect-and-adapt-icon",
+      "type": "font-character",
+      "description": "Conduct Inspect and Adapt icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-magnifying-glass",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sustain-community-autonomy-icon",
+      "type": "font-character",
+      "description": "Sustain Community Autonomy icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-hand-holding-heart",
+      "fontWeight": "900"
+    },
+    {
+      "name": "transition-team-of-teams-structure-icon",
+      "type": "font-character",
+      "description": "Transition Team-of-Teams Structure icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-right-left",
+      "fontWeight": "900"
+    },
+    {
+      "name": "community-of-practice-charter-icon",
+      "type": "font-character",
+      "description": "Community of Practice Charter icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-shield",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-icon",
+      "description": "Visual icon representing the coordinated programme entity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-sitemap",
+      "fontWeight": "900"
+    },
+    {
+      "name": "roadmap-icon",
+      "description": "Visual icon representing the strategic roadmap and delivery sequencing",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-gantt",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-governance-icon",
+      "description": "Visual icon representing programme governance and oversight",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gavel",
+      "fontWeight": "900"
+    },
+    {
+      "name": "dependency-management-icon",
+      "description": "Visual icon representing cross-project dependency management",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-diagram-project",
+      "fontWeight": "900"
+    },
+    {
+      "name": "tranche-icon",
+      "description": "Visual icon representing delivery tranches and phased execution",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-layer-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "map-and-resolve-cross-project-dependencies-icon",
+      "type": "font-character",
+      "description": "Map and Resolve Cross-Project Dependencies icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-diagram-project",
+      "fontWeight": "900"
+    },
+    {
+      "name": "plan-and-execute-tranches-icon",
+      "type": "font-character",
+      "description": "Plan and Execute Tranches icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-layer-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "establish-programme-governance-icon",
+      "type": "font-character",
+      "description": "Establish Programme Governance icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-scale-balanced",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-programme-reviews-icon",
+      "type": "font-character",
+      "description": "Conduct Programme Reviews icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-question",
+      "fontWeight": "900"
+    },
+    {
+      "name": "manage-programme-risk-icon",
+      "type": "font-character",
+      "description": "Manage Programme Risk icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "optimize-dependency-practices-icon",
+      "type": "font-character",
+      "description": "Optimize Dependency Practices icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "transition-governance-and-coordination-icon",
+      "type": "font-character",
+      "description": "Transition Governance and Coordination icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-right-left",
+      "fontWeight": "900"
+    },
+    {
+      "name": "dependency-register-icon",
+      "type": "font-character",
+      "description": "Dependency Register icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-table-list",
+      "fontWeight": "900"
+    },
+    {
+      "name": "tranche-plan-icon",
+      "type": "font-character",
+      "description": "Tranche Plan icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bars-staggered",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-governance-framework-icon",
+      "type": "font-character",
+      "description": "Programme Governance Framework icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-landmark",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-lifecycle-icon",
+      "description": "Visual icon representing the overarching programme lifecycle and cross-practice coordination.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-spin",
+      "fontWeight": "900"
+    },
+    {
+      "name": "cross-practice-coordination-icon",
+      "description": "Visual icon representing coordination across multiple programme domain practices.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-to-dot",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-transition-icon",
+      "description": "Visual icon representing the transition of programme benefits to operational management.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-hand-holding-dollar",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-definition-icon",
+      "description": "Visual icon representing formal programme establishment and definition activities.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-signature",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-director-icon",
+      "type": "font-character",
+      "description": "Programme Director icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-tie",
+      "fontWeight": "900"
+    }
+  ]
+}

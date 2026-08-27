@@ -73,7 +73,14 @@ function PracticeAuthorPageInner() {
   const { packId, t } = useLanguagePack();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const libraryId = searchParams.get("libraryId");
+  const libraryId = useMemo(() => {
+    const explicit = searchParams.get("libraryId");
+    if (explicit) return explicit;
+    const bundle = searchParams.get("bundle");
+    const path = searchParams.get("path");
+    if (bundle && path) return `bundle:${bundle}/${path}`;
+    return null;
+  }, [searchParams]);
 
   const isLibrarySession = Boolean(libraryId);
 
@@ -208,7 +215,14 @@ function PracticeAuthorPageInner() {
       typeof window !== "undefined" && new URLSearchParams(window.location.search).get("editor") === "json";
     void (async () => {
       try {
-        const res = await fetch(`/api/documents/${encodeURIComponent(id)}`);
+        const docUrl = id.startsWith("bundle:")
+          ? (() => {
+              const ref = id.slice(7);
+              const slashIdx = ref.indexOf("/");
+              return `/api/library/document?bundle=${encodeURIComponent(ref.slice(0, slashIdx))}&path=${encodeURIComponent(ref.slice(slashIdx + 1))}`;
+            })()
+          : `/api/documents/${encodeURIComponent(id)}`;
+        const res = await fetch(docUrl);
         if (!res.ok) {
           if (!cancelled) {
             setValidationIssues([{ path: "", message: `Library document not found (${res.status})` }]);
@@ -255,8 +269,54 @@ function PracticeAuthorPageInner() {
 
     setLibrarySaveBusy(true);
     setLibrarySaveError(null);
+
+    const isBundleSource = Boolean(libraryId) && libraryId!.startsWith("bundle:");
+    const isFlatStoreUpdate = Boolean(libraryId) && !isBundleSource;
+
     try {
-      if (!libraryId) {
+      // For bundle sources, find existing workspace copy by name to avoid duplicates
+      let existingWorkspaceId: string | null = null;
+      let existingWorkspaceVersion: string | null = null;
+      if (isBundleSource) {
+        const docName = displayNameForBody(bodyToSave, "Practice");
+        try {
+          const listRes = await fetch("/api/documents?details=1", { cache: "no-store" });
+          if (listRes.ok) {
+            const listData = (await listRes.json()) as { documents?: Array<{ id: string; displayName?: string; kind: string }> };
+            const match = (listData.documents ?? []).find(
+              (d) => d.kind !== "dashboard-config" && d.displayName === docName,
+            );
+            if (match) {
+              existingWorkspaceId = match.id;
+              const wsRes = await fetch(`/api/documents/${encodeURIComponent(match.id)}`, { cache: "no-store" });
+              if (wsRes.ok) {
+                const wsDoc = (await wsRes.json()) as { body?: Record<string, unknown> };
+                existingWorkspaceVersion = typeof wsDoc.body?.version === "string" ? wsDoc.body.version : null;
+              }
+            }
+          }
+        } catch { /* proceed without dedup info */ }
+      }
+
+      // Compute workspace version for bundle-sourced saves
+      if (isBundleSource) {
+        const sourceVer = typeof bodyToSave.version === "string" ? bodyToSave.version : null;
+        const baseVer = sourceVer?.replace(/-workspace\.\d+$/, "") || "0.0.0";
+        if (existingWorkspaceVersion) {
+          const wsMatch = existingWorkspaceVersion.match(/^(.+)-workspace\.(\d+)$/);
+          bodyToSave.version = wsMatch
+            ? `${wsMatch[1]}-workspace.${Number(wsMatch[2]) + 1}`
+            : `${baseVer}-workspace.1`;
+        } else {
+          bodyToSave.version = `${baseVer}-workspace.1`;
+        }
+      }
+
+      const willUpdate = isFlatStoreUpdate || existingWorkspaceId !== null;
+      const targetId = isFlatStoreUpdate ? libraryId! : existingWorkspaceId;
+
+      if (!willUpdate && !libraryId) {
+        // Brand-new document (no library source)
         const title = displayNameForBody(bodyToSave, "Practice");
         const storageKind = storageKindForBody(bodyToSave);
         const res = await fetch("/api/documents", {
@@ -270,9 +330,7 @@ function PracticeAuthorPageInner() {
           try {
             const j = JSON.parse(txt) as { error?: string };
             if (j?.error) msg = j.error;
-          } catch {
-            /* keep txt */
-          }
+          } catch { /* keep txt */ }
           setLibrarySaveError(msg || `${res.status}`);
           return;
         }
@@ -285,10 +343,47 @@ function PracticeAuthorPageInner() {
         return;
       }
 
-      const res = await fetch(`/api/documents/${encodeURIComponent(libraryId)}`, {
-        method: "PUT",
+      if (willUpdate && targetId) {
+        // Update existing flat-store document (or existing workspace copy)
+        const res = await fetch(`/api/documents/${encodeURIComponent(targetId)}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ body: bodyToSave }),
+        });
+        if (!res.ok) {
+          const txt = await res.text().catch(() => "");
+          let msg = txt;
+          try {
+            const j = JSON.parse(txt) as { error?: string };
+            if (j?.error) msg = j.error;
+          } catch { /* keep txt */ }
+          setLibrarySaveError(msg || `${res.status}`);
+          return;
+        }
+        setDoc(bodyToSave);
+        setOriginalDoc(bodyToSave);
+        setKind(inferPracticeDocKind(bodyToSave));
+        setJsonDraft(JSON.stringify(bodyToSave, null, 2));
+        const yamlResult = jsonToYaml(bodyToSave);
+        if (yamlResult.ok) {
+          setYamlDraft(yamlResult.yaml);
+        }
+        void runValidation(bodyToSave);
+        setLibraryDirty(false);
+        // Redirect to flat-store ID so subsequent saves update in place
+        if (isBundleSource) {
+          router.replace(`/practice-author?libraryId=${encodeURIComponent(targetId)}`);
+        }
+        return;
+      }
+
+      // Bundle source, no existing workspace — create new flat-store copy
+      const title = displayNameForBody(bodyToSave, "Practice");
+      const storageKind = storageKindForBody(bodyToSave);
+      const res = await fetch("/api/documents", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ body: bodyToSave }),
+        body: JSON.stringify({ title, kind: storageKind, body: bodyToSave }),
       });
       if (!res.ok) {
         const txt = await res.text().catch(() => "");
@@ -296,22 +391,16 @@ function PracticeAuthorPageInner() {
         try {
           const j = JSON.parse(txt) as { error?: string };
           if (j?.error) msg = j.error;
-        } catch {
-          /* keep txt */
-        }
+        } catch { /* keep txt */ }
         setLibrarySaveError(msg || `${res.status}`);
         return;
       }
-      setDoc(bodyToSave);
-      setOriginalDoc(bodyToSave);
-      setKind(inferPracticeDocKind(bodyToSave));
-      setJsonDraft(JSON.stringify(bodyToSave, null, 2));
-      const yamlResult = jsonToYaml(bodyToSave);
-      if (yamlResult.ok) {
-        setYamlDraft(yamlResult.yaml);
+      const created = (await res.json()) as { id?: string };
+      if (!created.id) {
+        setLibrarySaveError(t.saveMissingDocumentId);
+        return;
       }
-      void runValidation(bodyToSave);
-      setLibraryDirty(false);
+      router.replace(`/practice-author?libraryId=${encodeURIComponent(created.id)}`);
     } catch (e: unknown) {
       setLibrarySaveError(e instanceof Error ? e.message : "Save failed");
     } finally {
@@ -378,7 +467,14 @@ function PracticeAuthorPageInner() {
     setLibraryDiscardBusy(true);
     setLibraryDiscardError(null);
     try {
-      const res = await fetch(`/api/documents/${encodeURIComponent(libraryId)}`);
+      const discardUrl = libraryId.startsWith("bundle:")
+        ? (() => {
+            const ref = libraryId.slice(7);
+            const slashIdx = ref.indexOf("/");
+            return `/api/library/document?bundle=${encodeURIComponent(ref.slice(0, slashIdx))}&path=${encodeURIComponent(ref.slice(slashIdx + 1))}`;
+          })()
+        : `/api/documents/${encodeURIComponent(libraryId)}`;
+      const res = await fetch(discardUrl);
       if (!res.ok) {
         setLibraryDiscardError(`${t.discardFailed} (${res.status})`);
         return;

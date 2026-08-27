@@ -10,8 +10,7 @@ import { checkSchemaCompatibility } from "@/lib/core/schemaVersion";
 import type { PracticeBaseline } from "@/lib/types";
 import { NavigatorLayout } from "@/components/navigator/NavigatorLayout";
 import { PracticeElementAliasesProvider } from "@/components/common/AliasedName";
-import { useAlphaScores } from "@/hooks/useAlphaScores";
-import { useActivityScores } from "@/hooks/useActivityScores";
+import { calculateAlphaScores, calculateActivitySpaceScores } from "@/lib/analysis/methodFocus";
 
 type NavigatorMode = "concerns" | "activities";
 
@@ -102,17 +101,18 @@ export function PracticeNavigatorClient() {
     return groupByFocus(baseline);
   }, [baseline]);
 
-  // Use server-side pre-computed scores (cached)
-  const { scoresByFocus: alphaScores, loading: alphaScoresLoading } = useAlphaScores(
-    libraryId || undefined,
-    true
-  );
-  const { scoresByFocus: activitySpaceScores, loading: activityScoresLoading } = useActivityScores(
-    libraryId || undefined,
-    true
-  );
+  // Compute scores client-side from the already-loaded document
+  const alphaScores = useMemo(() => {
+    if (!sourceDoc || !baseline || groupedByFocus.length === 0) return new Map();
+    return calculateAlphaScores(sourceDoc, baseline, groupedByFocus);
+  }, [sourceDoc, baseline, groupedByFocus]);
 
-  const loading = docLoading || (shouldResolve && resolveLoading) || alphaScoresLoading || activityScoresLoading;
+  const activitySpaceScores = useMemo(() => {
+    if (!sourceDoc || !baseline || groupedByFocus.length === 0) return new Map();
+    return calculateActivitySpaceScores(sourceDoc, baseline, groupedByFocus);
+  }, [sourceDoc, baseline, groupedByFocus]);
+
+  const loading = docLoading || (shouldResolve && resolveLoading);
   const error = docError || resolveError;
 
   const versionWarnings = shouldResolve ? resolveVersionWarnings : [];
@@ -227,12 +227,14 @@ export function PracticeNavigatorClient() {
         selectedElement={selectedElement}
         secondaryElement={secondaryElement}
         libraryId={libraryId}
+        bundleSlug={bundleSlug}
+        bundlePath={bundlePath}
         dependencyArtifacts={dependencyArtifacts}
         dependencyDiagramLayout={dependencyDiagramLayout}
         versionWarnings={versionWarnings}
         schemaWarning={schemaWarning}
-        alphaScores={alphaScores || new Map()}
-        activitySpaceScores={activitySpaceScores || new Map()}
+        alphaScores={alphaScores}
+        activitySpaceScores={activitySpaceScores}
         onSetMode={setMode}
         onSetSelectedFocus={setSelectedFocus}
         onSetSelectedElement={setSelectedElement}

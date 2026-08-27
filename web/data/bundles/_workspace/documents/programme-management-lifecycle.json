@@ -1,0 +1,1326 @@
+{
+  "kind": "practice",
+  "name": "Programme Management Lifecycle",
+  "description": "Orchestrates programme lifecycle coordination across all domain practices.",
+  "baselinePracticeName": "Programme Essentials",
+  "practiceDependencyNames": [
+    "Strategic Value and Benefits",
+    "Integrated Capability Delivery",
+    "Team of Teams Operations",
+    "Programme Coordination and Governance"
+  ],
+  "tags": {
+    "domainTags": [
+      "Programme Management",
+      "Lifecycle Management",
+      "Cross-Practice Coordination"
+    ],
+    "lifecycleTags": [
+      "Definition",
+      "Delivery",
+      "Transition",
+      "Closure"
+    ],
+    "organizationalTags": [
+      "Programme Leadership",
+      "Programme Management Office"
+    ]
+  },
+  "keywords": [
+    "programme lifecycle",
+    "cross-practice coordination",
+    "programme definition",
+    "programme transition",
+    "benefits transition",
+    "orchestration",
+    "lifecycle management",
+    "programme closure",
+    "adaptive governance",
+    "integrated delivery",
+    "programme phases",
+    "tranches",
+    "delivery coordination",
+    "organizational change"
+  ],
+  "authors": [
+    "Claude"
+  ],
+  "createdAt": "2026-07-28",
+  "updatedAt": "2026-08-13",
+  "version": "1.0.2",
+  "assetNames": [
+    {
+      "assetName": "programme-lifecycle-icon",
+      "type": "icon"
+    }
+  ],
+  "narrativeTypes": [
+    {
+      "name": "Technique",
+      "description": "A structured three-part narrative framework for communicating how to perform specific activities, combining overview context with step-by-step guidance and risk awareness.",
+      "narrativeElements": [
+        {
+          "name": "Overview",
+          "description": "Establishes the purpose and context of the technique.",
+          "howToUse": "Describe what the activity accomplishes and why it matters. Connect to the broader practice value proposition."
+        },
+        {
+          "name": "Technique",
+          "description": "Provides step-by-step guidance on how to perform the activity effectively.",
+          "howToUse": "Describe the approach with enough specificity to be actionable. Reference established frameworks, tools, or methods. Include timing, participants, and expected outputs."
+        },
+        {
+          "name": "Common Pitfalls",
+          "description": "Identifies frequent mistakes and how to avoid them.",
+          "howToUse": "Describe specific anti-patterns practitioners commonly encounter. Explain why each pitfall is harmful and what to do instead."
+        }
+      ],
+      "kind": "narrativeType"
+    }
+  ],
+  "citations": [
+    {
+      "name": "Managing Successful Programmes",
+      "description": "Comprehensive programme management framework covering governance, benefits, and lifecycle themes.",
+      "authors": [
+        "AXELOS Limited"
+      ],
+      "date": "2020",
+      "source": "The Stationery Office",
+      "kind": "citation"
+    },
+    {
+      "name": "The Standard for Program Management",
+      "description": "PMI standard defining programme performance domains and lifecycle management.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2017",
+      "source": "Project Management Institute",
+      "kind": "citation"
+    },
+    {
+      "name": "SAFe 6.0 Framework",
+      "description": "Scaled Agile Framework for enterprise agile delivery and programme coordination.",
+      "authors": [
+        "Scaled Agile Inc."
+      ],
+      "date": "2023",
+      "source": "Scaled Agile, Inc.",
+      "url": "https://framework.scaledagile.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "Team of Teams",
+      "description": "Cross-functional coordination principles for complex organizational delivery.",
+      "authors": [
+        "Stanley McChrystal"
+      ],
+      "date": "2015",
+      "source": "Portfolio/Penguin",
+      "kind": "citation"
+    },
+    {
+      "name": "Rethinking Agile",
+      "description": "Flight Levels framework for multi-level organisational agility and coordination.",
+      "authors": [
+        "Klaus Leopold"
+      ],
+      "date": "2018",
+      "source": "LEANability Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Benefits Management",
+      "description": "Framework for increasing business value through systematic benefits realization.",
+      "authors": [
+        "John Ward",
+        "Elizabeth Daniel"
+      ],
+      "date": "2012",
+      "source": "John Wiley & Sons",
+      "kind": "citation"
+    },
+    {
+      "name": "Disciplined Agile Delivery",
+      "description": "Context-sensitive agile delivery framework for enterprise programme coordination.",
+      "authors": [
+        "Scott Ambler",
+        "Mark Lines"
+      ],
+      "date": "2012",
+      "source": "IBM Press",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "programme-lifecycle-icon",
+      "description": "Visual icon representing the overarching programme lifecycle and cross-practice coordination.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-spin",
+      "fontWeight": "900"
+    },
+    {
+      "name": "cross-practice-coordination-icon",
+      "description": "Visual icon representing coordination across multiple programme domain practices.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-to-dot",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-transition-icon",
+      "description": "Visual icon representing the transition of programme benefits to operational management.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-hand-holding-dollar",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-definition-icon",
+      "description": "Visual icon representing formal programme establishment and definition activities.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-signature",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-director-icon",
+      "type": "font-character",
+      "description": "Programme Director icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-tie",
+      "fontWeight": "900"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "Orchestrating the Programme Journey from Vision to Sustained Value",
+      "description": "How the programme management lifecycle coordinates four domain practices through a coherent journey from strategic vision to sustained organizational value.",
+      "narrativeTypeName": "The Hero's Journey",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "The Ordinary World",
+          "context": "Organizations initiating multi-project programmes face fragmented management disciplines where strategic investment, capability delivery, team coordination, and governance operate as independent concerns, creating gaps between strategic intent and operational execution that undermine programme value delivery."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "The Call to Adventure",
+          "context": "The programme management lifecycle establishes a unifying orchestration framework that synchronizes all domain practices through shared phases, coordinated milestones, and cross-practice activities, ensuring that strategic investment decisions inform delivery planning, team formation supports governance needs, and benefits transition sustains realized value."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "The Ordeal",
+          "context": "Orchestrating four domain practices through a coherent lifecycle demands continuous balancing between strategic patience and delivery urgency, between governance rigour and team autonomy, and between comprehensive coordination and proportionate overhead, with the constant risk that coordination mechanisms become bureaucratic rather than enabling."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "The Return",
+          "context": "The programme achieves its strategic objectives through a coordinated lifecycle where practices reinforce rather than impede each other, benefits are realized and sustained beyond programme closure, organizational learning from the programme experience is captured, and the orchestration model itself becomes an institutional asset for future programmes."
+        }
+      ],
+      "citationNames": [
+        "Managing Successful Programmes",
+        "The Standard for Program Management",
+        "SAFe 6.0 Framework",
+        "Team of Teams"
+      ]
+    }
+  ],
+  "alphas": [],
+  "workProducts": [],
+  "personas": [
+    {
+      "name": "Programme Director",
+      "description": "Senior leader accountable for orchestrating the programme lifecycle across all domain practices.",
+      "competencies": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Programme Management"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Delivery",
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "kind": "persona",
+      "assetNames": [
+        {
+          "assetName": "programme-director-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Programme Leadership Team",
+      "description": "Cross-functional leadership group responsible for programme lifecycle coordination and cross-practice integration.",
+      "personaNames": [
+        "Programme Director"
+      ],
+      "tags": {
+        "domainTags": [
+          "Programme Management"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Delivery",
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Define Programme",
+      "description": "Establish programme governance, scope, business case, and organizational structure.",
+      "activitySpaceName": "Define the Programme",
+      "focusName": "Coordination",
+      "assetNames": [
+        {
+          "assetName": "programme-definition-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Programme",
+          "stateName": "Conceived"
+        },
+        {
+          "alphaName": "Programme",
+          "stateName": "Defined"
+        },
+        {
+          "alphaName": "Strategic Investment Thesis",
+          "stateName": "Funded"
+        },
+        {
+          "alphaName": "Agile Release Train",
+          "stateName": "Conceived"
+        },
+        {
+          "alphaName": "Tranche",
+          "stateName": "Scoped"
+        },
+        {
+          "alphaName": "Programme Governance",
+          "stateName": "Mandated"
+        },
+        {
+          "alphaName": "Roadmap",
+          "stateName": "Envisioned"
+        }
+      ],
+      "worksOn": [],
+      "requiredCompetencies": [
+        "Leadership",
+        "Management",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Programme Leadership Team"
+      ],
+      "tags": {
+        "domainTags": [
+          "Programme Management",
+          "Governance"
+        ],
+        "lifecycleTags": [
+          "Definition"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Translating Strategic Investment into Operational Programme Structure",
+          "description": "Technique for establishing the programme through governance design, scope definition, and organizational structuring.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Programme definition transforms the strategic investment thesis into an actionable programme with defined governance, scope, management approach, and organisational structure, bridging the gap between portfolio-level strategy and coordinated multi-project delivery."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin by establishing the programme charter with formal authorisation, scope boundaries, and governance authority. Design the governance framework specifying decision-making structures, reporting requirements, and oversight mechanisms using MSP governance themes or PMI performance domains as reference. Select the management approach: fixed cadence, continuous flow, or hybrid. Design the initial team-of-teams structure selecting the organisational model based on programme context. Establish the programme's relationship to portfolio management defining how it receives strategic direction and reports progress. Determine the funding model and scope the first tranche to create a concrete starting point for coordinated delivery."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Defining the programme in isolation from portfolio strategy, leading to misalignment with organisational priorities. Over-specifying governance structures before understanding coordination needs, creating bureaucratic overhead that impedes rather than enables delivery. Selecting a scaling framework before understanding programme context, leading to framework-driven rather than context-driven coordination."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "The Standard for Program Management",
+            "Rethinking Agile"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Coordinate Cross-Practice Delivery",
+      "description": "Orchestrate delivery across programme practices ensuring coherent value delivery.",
+      "activitySpaceName": "Coordinate Delivery",
+      "focusName": "Coordination",
+      "assetNames": [
+        {
+          "assetName": "cross-practice-coordination-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Programme",
+          "stateName": "Delivering"
+        },
+        {
+          "alphaName": "Programme Increment",
+          "stateName": "Executing"
+        },
+        {
+          "alphaName": "Tranche",
+          "stateName": "Delivering"
+        },
+        {
+          "alphaName": "Cross-Project Dependency",
+          "stateName": "Managed"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Under Control"
+        },
+        {
+          "alphaName": "Deliverable",
+          "stateName": "Demonstrable"
+        }
+      ],
+      "worksOn": [],
+      "requiredCompetencies": [
+        "Integration",
+        "Management",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Programme Leadership Team"
+      ],
+      "tags": {
+        "domainTags": [
+          "Programme Management",
+          "Cross-Practice Coordination"
+        ],
+        "lifecycleTags": [
+          "Delivery"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Weaving Four Domain Practices into Coherent Programme Delivery",
+          "description": "Technique for integrating strategic value management, capability delivery, team operations, and governance into unified programme coordination.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Cross-practice coordination ensures that strategic value management, capability delivery, team operations, and programme governance function as an integrated system rather than isolated workstreams, with coordination overhead proportionate to the coordination value produced."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Establish a shared programme increment cadence ensuring all practices synchronise on the same rhythm. Implement cross-practice dependency management that identifies dependencies between practice areas beyond those within individual practices. Conduct integrated governance reviews assessing programme health across all four domains simultaneously using shared metrics providing a holistic view of programme performance. Use SAFe Solution Train mechanisms for large programmes or lighter mechanisms through shared governance forums and integrated dashboards for smaller programmes. Apply Disciplined Agile context-sensitive guidance to calibrate coordination intensity to programme coupling."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Applying heavyweight coordination mechanisms to loosely coupled practices, wasting effort without improving outcomes. Allowing coordination meetings to become status reporting sessions rather than decision-making and dependency resolution forums. Failing to adjust coordination intensity as the programme matures, maintaining early-stage overhead during steady-state delivery."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Disciplined Agile Delivery",
+            "Rethinking Agile"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Orchestrate Programme Benefits Transition",
+      "description": "Coordinate the transition of realized benefits and ongoing measurement to operational management across all programme practices.",
+      "activitySpaceName": "Lead Organizational Change",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "benefits-transition-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Benefits",
+          "stateName": "Sustained"
+        },
+        {
+          "alphaName": "Benefits Dependency Map",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Tranche",
+          "stateName": "Transitioned"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Satisfied in Use"
+        },
+        {
+          "alphaName": "Programme",
+          "stateName": "Transitioning"
+        }
+      ],
+      "worksOn": [],
+      "requiredCompetencies": [
+        "Change Leadership",
+        "Management",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Leadership Team"
+      ],
+      "tags": {
+        "domainTags": [
+          "Benefits Management",
+          "Organizational Change"
+        ],
+        "lifecycleTags": [
+          "Transition",
+          "Closure"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Embedding Programme Value into Operational Ownership",
+          "description": "Technique for transitioning realized programme benefits into sustained operational management with accountable ownership.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Benefit transition moves realized benefits from programme management to operational management, ensuring benefits are sustained beyond programme closure through operational embedding rather than merely delivered as project outputs."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin transition planning well before programme closure. Assign a named operational owner for each benefit who will be accountable for sustainment after the programme closes. Transfer measurement mechanisms to operational reporting systems. Embed business change activities including training, process changes, organisational adjustments, and cultural shifts rather than merely delivering them. For each benefit, develop sustainment plans specifying how it will be protected from erosion through ongoing measurement, accountable ownership, and integration into business-as-usual operations. Address residual benefits that have not yet materialised at programme closure with specific plans accepted by operational management."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Assuming that delivering capabilities automatically produces benefits without requiring deliberate organisational adoption and change activities. Closing the programme before operational owners have accepted and are resourced for benefit sustainment. Failing to plan for residual benefits that emerge after programme closure, leaving unrealised value without accountability."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "Benefits Management",
+            "The Standard for Program Management"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Adaptive Programme Lifecycle",
+      "description": "Overarching lifecycle orchestrating all 19 alphas across the programme journey.",
+      "narrativeTypeName": "Lifecycle",
+      "assetNames": [
+        {
+          "assetName": "programme-lifecycle-icon",
+          "type": "icon"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Programme Management",
+          "Lifecycle Management"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Delivery",
+          "Transition",
+          "Closure"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "patternViews": [
+        {
+          "name": "Identify and Envision",
+          "description": "Programme opportunity identified and initial vision established.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Recognized"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Hypothesized"
+            },
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Envisioned"
+            },
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Envisioned"
+            },
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            },
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Conceived"
+            },
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Programme",
+              "stateName": "Conceived"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Envisioned"
+            },
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Mandated"
+            },
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Surfaced"
+            },
+            {
+              "alphaName": "Tranche",
+              "stateName": "Scoped"
+            }
+          ],
+          "activities": [
+            "Define Programme"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "A strategic opportunity requiring coordinated multi-project delivery has been identified with an executive sponsor engaged, an initial investment hypothesis articulated, and portfolio governance informed. This prerequisites phase establishes the minimum conditions for programme definition to begin."
+            }
+          ],
+          "tags": {
+            "domainTags": [
+              "Programme Management"
+            ],
+            "lifecycleTags": [
+              "Definition"
+            ],
+            "organizationalTags": [
+              "Programme Leadership"
+            ]
+          }
+        },
+        {
+          "name": "Define and Organize",
+          "description": "Programme formally defined with governance, teams, and roadmap.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Determined"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Represented"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Mapped"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Evidenced"
+            },
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Structured"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Articulated"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Shaped"
+            },
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Envisioned"
+            },
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Designed"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Foundation Established"
+            },
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Formed"
+            },
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Chartered"
+            },
+            {
+              "alphaName": "Programme",
+              "stateName": "Defined"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Structured"
+            },
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Established"
+            },
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Analyzed"
+            },
+            {
+              "alphaName": "Tranche",
+              "stateName": "Scoped"
+            }
+          ],
+          "activities": [
+            "Define Programme"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The programme is formally defined with a comprehensive business case, governance structures established, the team-of-teams designed with ART or equivalent structure formed, benefits dependency networks mapped, the roadmap structured into tranches, and cross-project dependencies analyzed. This phase transforms the strategic opportunity into an actionable programme with all four domain practices activated and coordinated."
+            }
+          ],
+          "tags": {
+            "domainTags": [
+              "Programme Management"
+            ],
+            "lifecycleTags": [
+              "Definition"
+            ],
+            "organizationalTags": [
+              "Programme Leadership"
+            ]
+          }
+        },
+        {
+          "name": "Plan and Mobilize",
+          "description": "First tranche mobilized, teams launching, increment planning begins.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Value Established"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Involved"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Planned"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Baselined"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Prioritized"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Demonstrable"
+            },
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Planned"
+            },
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Started"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Use"
+            },
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Launching"
+            },
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Active"
+            },
+            {
+              "alphaName": "Programme",
+              "stateName": "Organized"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Established"
+            },
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Analyzed"
+            },
+            {
+              "alphaName": "Tranche",
+              "stateName": "Mobilized"
+            }
+          ],
+          "activities": [
+            "Coordinate Cross-Practice Delivery"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The programme becomes operationally active with the first tranche mobilized, teams beginning coordinated work through the ART or equivalent delivery structure, the first programme increment planned with cross-team objectives and dependencies, and the architectural runway provisioned with initial enablers. Benefits realization planning is complete with baseline measurements established, and governance is functioning at operational cadence."
+            }
+          ],
+          "tags": {
+            "domainTags": [
+              "Programme Management"
+            ],
+            "lifecycleTags": [
+              "Delivery"
+            ],
+            "organizationalTags": [
+              "Programme Leadership"
+            ]
+          }
+        },
+        {
+          "name": "Execute and Integrate",
+          "description": "Active delivery through increments with coordination and integration.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Viable"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "In Agreement"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Emerging"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Funded"
+            },
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Tracking"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Agreed"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Usable"
+            },
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Extending"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Under Control"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Place"
+            },
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Active"
+            },
+            {
+              "alphaName": "Programme",
+              "stateName": "Delivering"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Operating"
+            },
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Managed"
+            },
+            {
+              "alphaName": "Tranche",
+              "stateName": "Delivering"
+            }
+          ],
+          "activities": [
+            "Coordinate Cross-Practice Delivery"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The programme is in full coordinated delivery with programme increments executing on cadence, teams performing with mature coordination mechanisms, dependencies actively managed and resolved, and benefits beginning to emerge as capabilities are delivered and adopted. Cross-practice coordination ensures that strategic value management, capability delivery, team operations, and governance function as an integrated system."
+            }
+          ],
+          "tags": {
+            "domainTags": [
+              "Programme Management"
+            ],
+            "lifecycleTags": [
+              "Delivery"
+            ],
+            "organizationalTags": [
+              "Programme Leadership"
+            ]
+          }
+        },
+        {
+          "name": "Realize and Adapt",
+          "description": "Benefits emerging, governance optimizing, roadmap adapting.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Addressed"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Satisfied for Deployment"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Realized"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Confirmed"
+            },
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Tracking"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Achieved"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Ready"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Operational"
+            },
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Integrated"
+            },
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Extending"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Concluded"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Working Well"
+            },
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Embedded"
+            },
+            {
+              "alphaName": "Programme",
+              "stateName": "Transitioning"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Adapting"
+            },
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Minimized"
+            },
+            {
+              "alphaName": "Tranche",
+              "stateName": "Reviewed"
+            }
+          ],
+          "activities": [
+            "Coordinate Cross-Practice Delivery",
+            "Transition Programme Benefits"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The programme enters the realization phase where the majority of planned benefits are confirmed as achieved, the investment thesis is validated through measurable delivery outcomes, governance mechanisms are optimized through experience, and the roadmap adapts based on delivered results and emerging strategic information. The programme begins its transition with capabilities becoming operational and team structures evolving through continuous inspection and adaptation."
+            }
+          ],
+          "tags": {
+            "domainTags": [
+              "Programme Management"
+            ],
+            "lifecycleTags": [
+              "Transition"
+            ],
+            "organizationalTags": [
+              "Programme Leadership"
+            ]
+          }
+        },
+        {
+          "name": "Transition and Sustain",
+          "description": "Programme transitioning, benefits sustained, teams adjourned.",
+          "seq": 5,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Benefit Accrued"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Satisfied in Use"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Sustained"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Evolved"
+            },
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Evaluated"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Retired"
+            },
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Evaluated"
+            },
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Closed"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Adjourned"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Retired"
+            },
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Self-Sustaining"
+            },
+            {
+              "alphaName": "Programme",
+              "stateName": "Closed"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Fulfilled"
+            },
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Transitioned"
+            },
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Tranche",
+              "stateName": "Transitioned"
+            }
+          ],
+          "activities": [
+            "Transition Programme Benefits"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The programme formally transitions and closes with realized benefits embedded in operational management through sustainment plans, governance structures dissolved with practices documented as organisational assets, teams adjourned with capabilities and relationships preserved, and the programme's total strategic value contribution confirmed. Organisational learning from the programme lifecycle informs future programme design and the investment thesis is retrospectively validated."
+            }
+          ],
+          "tags": {
+            "domainTags": [
+              "Programme Management"
+            ],
+            "lifecycleTags": [
+              "Transition",
+              "Closure"
+            ],
+            "organizationalTags": [
+              "Programme Leadership"
+            ]
+          }
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Programme Increment",
+      "aliasName": "PI"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Agile Release Train",
+      "aliasName": "ART"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Community of Practice",
+      "aliasName": "CoP"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Strategic Investment Thesis",
+      "aliasName": "Programme Business Case"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Cross-Project Dependency",
+      "aliasName": "Programme Impediment"
+    }
+  ],
+  "schemaVersion": "1.2.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Programme Essentials",
+      "versionRange": "^1.0.2"
+    },
+    {
+      "documentName": "Strategic Value and Benefits",
+      "versionRange": "^1.0.2"
+    },
+    {
+      "documentName": "Integrated Capability Delivery",
+      "versionRange": "^1.0.2"
+    },
+    {
+      "documentName": "Team of Teams Operations",
+      "versionRange": "^1.0.2"
+    },
+    {
+      "documentName": "Programme Coordination and Governance",
+      "versionRange": "^1.0.2"
+    }
+  ],
+  "activitySpaces": []
+}

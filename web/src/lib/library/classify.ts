@@ -5,7 +5,10 @@ export type LibraryRootKind = "method" | "baselinePractice" | "practice" | "proj
 
 /** Maps document shape to the persisted {@link JsonDocumentKind} for POST /api/documents. */
 export function storageKindForBody(body: unknown): JsonDocumentKind {
-  const root = classifyLibraryRoot(body);
+  return storageKindForLibraryRootKind(classifyLibraryRoot(body));
+}
+
+export function storageKindForLibraryRootKind(root: LibraryRootKind): JsonDocumentKind {
   if (root === "method") return "method";
   if (root === "practice" || root === "baselinePractice") return "practice";
   if (root === "project") return "project";

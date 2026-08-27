@@ -1,0 +1,2409 @@
+{
+  "kind": "practice",
+  "name": "Security & Compliance",
+  "description": "Defense-in-depth security controls and regulatory compliance for OpenShift platform and workloads.",
+  "baselinePracticeName": "IDP Essentials",
+  "tags": {
+    "domainTags": [
+      "Security",
+      "Compliance",
+      "Networking",
+      "Supply Chain Security"
+    ],
+    "lifecycleTags": [
+      "Adoption",
+      "Operations",
+      "Governance"
+    ],
+    "organizationalTags": [
+      "Security Team",
+      "Platform Team",
+      "Compliance"
+    ]
+  },
+  "keywords": [
+    "SCC",
+    "security context constraints",
+    "RBAC",
+    "role-based access control",
+    "network policy",
+    "mTLS",
+    "service mesh",
+    "istio",
+    "compliance operator",
+    "CIS benchmark",
+    "SBOM",
+    "software bill of materials",
+    "sigstore",
+    "cosign",
+    "trusted artifact signer",
+    "zero trust",
+    "ambient mesh"
+  ],
+  "authors": [
+    "Red Hat"
+  ],
+  "createdAt": "2026-07-14",
+  "updatedAt": "2026-07-14",
+  "version": "1.0.0",
+  "narratives": [
+    {
+      "name": "Security & Compliance Overview",
+      "description": "PDCA continuous improvement cycle for platform security posture management",
+      "narrativeTypeName": "PDCA",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Plan",
+          "context": "Security architecture begins with assessing threat landscape, regulatory requirements, and organizational risk tolerance, establishing baseline controls and zero-trust principles aligned to the IDP Essentials security posture model."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Do",
+          "context": "Implementation progresses through layered defenses: foundational identity and secrets management, shift-left pipeline integration, network isolation via policies, runtime protection via SCCs and mesh encryption, and supply chain integrity via cryptographic signing."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Check",
+          "context": "Continuous verification ensures security posture through automated compliance scanning, policy-as-code enforcement, signature validation, and audit logging aligned to regulatory frameworks and CNCF maturity assessment."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Act",
+          "context": "Refinement closes gaps identified through security reviews, advancing toward adaptive security with ambient mesh, post-quantum cryptography, zero-trust architecture, and threat-intelligence-driven policy evolution."
+        }
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "OpenShift Security Best Practices for Kubernetes Cluster Design",
+      "description": "Comprehensive security architecture guidance for OpenShift cluster design and hardening.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2023",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/openshift-security-best-practices-for-kubernetes-cluster-design"
+    },
+    {
+      "name": "OpenShift Networking and Cluster Access Best Practices",
+      "description": "Network security, access control, and service mesh integration best practices.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2023",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/openshift-networking-and-cluster-access-best-practices"
+    },
+    {
+      "name": "14 Best Practices for Developing Applications on OpenShift",
+      "description": "Application-level security practices including image security and supply chain.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/14-best-practices-for-developing-applications-on-openshift"
+    },
+    {
+      "name": "What's New in OpenShift 4.21 for Developers",
+      "description": "Supply chain security features including Trusted Artifact Signer and Sigstore integration.",
+      "authors": [
+        "Burr Sutter"
+      ],
+      "date": "2026",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2026/02/03/whats-new-developers-openshift-4-21"
+    }
+  ],
+  "assets": [
+    {
+      "name": "platform-risk-compliance-icon",
+      "description": "Risk and compliance management icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-icon",
+      "description": "Platform infrastructure icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "application-security-icon",
+      "description": "Application security posture icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lock",
+      "fontWeight": "900"
+    },
+    {
+      "name": "network-security-icon",
+      "description": "Network security architecture icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-network-wired",
+      "fontWeight": "900"
+    },
+    {
+      "name": "network-policy-icon",
+      "description": "Network policy activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-filter",
+      "fontWeight": "900"
+    },
+    {
+      "name": "service-mesh-icon",
+      "description": "Service mesh deployment icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-diagram-project",
+      "fontWeight": "900"
+    },
+    {
+      "name": "scc-icon",
+      "description": "Security Context Constraints icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-shield",
+      "fontWeight": "900"
+    },
+    {
+      "name": "signing-icon",
+      "description": "Cryptographic image signing icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-certificate",
+      "fontWeight": "900"
+    },
+    {
+      "name": "compliance-scanning-icon",
+      "description": "Compliance scanning activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-magnifying-glass-chart",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Platform Risk And Compliance",
+      "description": "The comprehensive security architecture embedding identity management, access control, supply chain integrity, policy enforcement, and compliance automation into the platform.",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "platform-risk-compliance-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Assessed",
+          "description": "Security risks and compliance requirements systematically identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Threat landscape assessed",
+              "description": "Threat landscape assessed for container platform security risks including container breakout, lateral movement, and supply chain compromise.",
+              "seq": 1
+            },
+            {
+              "name": "Regulatory requirements documented",
+              "description": "Regulatory requirements documented including FIPS, STIGs, CIS Kubernetes benchmarks, and industry-specific mandates.",
+              "seq": 2
+            },
+            {
+              "name": "Security control gaps identified",
+              "description": "Security control gaps identified against CIS Kubernetes benchmarks using Compliance Operator.",
+              "seq": 3
+            },
+            {
+              "name": "Data classification defined",
+              "description": "Data classification requirements defined for workloads running on OpenShift clusters.",
+              "seq": 4
+            },
+            {
+              "name": "Compliance frameworks mapped",
+              "description": "Compliance frameworks mapped to OpenShift-native capabilities including SCCs, NetworkPolicy, and OAuth.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Foundational",
+          "description": "Core identity, access control, and secrets management established.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "OAuth integrated",
+              "description": "OAuth integrated with enterprise identity provider replacing kube-admin account.",
+              "seq": 1
+            },
+            {
+              "name": "RBAC least-privilege enforced",
+              "description": "RBAC policies enforce least-privilege access across namespaces and cluster resources.",
+              "seq": 2
+            },
+            {
+              "name": "etcd encryption enabled",
+              "description": "etcd encryption at rest enabled with weekly key rotation schedule.",
+              "seq": 3
+            },
+            {
+              "name": "Secrets management integrated",
+              "description": "Secrets management integrated with external vault or encryption at rest configuration.",
+              "seq": 4
+            },
+            {
+              "name": "Private cluster deployed",
+              "description": "Private cluster topology deployed with restricted API and ingress endpoints.",
+              "seq": 5
+            },
+            {
+              "name": "Dedicated VPC configured",
+              "description": "Dedicated VPC per cluster with restricted firewall rules and bastion host access.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Shift-Left",
+          "description": "Security controls embedded into development and delivery pipelines.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "SCCs enforced",
+              "description": "Security Context Constraints enforced restricting privileged container access across all namespaces.",
+              "seq": 1
+            },
+            {
+              "name": "Deny-by-default networking",
+              "description": "Network policies implement deny-by-default posture with explicit allow rules for required traffic flows.",
+              "seq": 2
+            },
+            {
+              "name": "Mutual TLS enforced",
+              "description": "Mutual TLS enforced for service-to-service communication via service mesh.",
+              "seq": 3
+            },
+            {
+              "name": "Audit logs forwarded",
+              "description": "Audit logs forwarded to SIEM or compliance logging system with retention policies.",
+              "seq": 4
+            },
+            {
+              "name": "Pipeline scanning gates",
+              "description": "Image vulnerability scanning gates integrated into CI/CD pipelines failing builds above severity threshold.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Automated Governance",
+          "description": "Policy-as-code and supply chain security automate comprehensive governance.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Compliance Operator enforcement",
+              "description": "Compliance Operator scans automatically enforce CIS benchmarks with remediation workflows.",
+              "seq": 1
+            },
+            {
+              "name": "ImagePolicy signature validation",
+              "description": "ImagePolicy APIs validate cryptographic signatures before Kubernetes admission.",
+              "seq": 2
+            },
+            {
+              "name": "Supply chain verification",
+              "description": "Continuous supply chain verification via Rekor transparency logs for all deployed artifacts.",
+              "seq": 3
+            },
+            {
+              "name": "Automated remediation",
+              "description": "Automated remediation workflows for common security violations using policy-as-code.",
+              "seq": 4
+            },
+            {
+              "name": "Security metrics integrated",
+              "description": "Security metrics integrated into SRE dashboards and SLO tracking with error budget awareness.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Adaptive Security",
+          "description": "Security posture proactively adapts to emerging threats and regulations.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Post-quantum cryptography enabled",
+              "description": "Post-quantum cryptography enabled for future-proofing encrypted communications.",
+              "seq": 1
+            },
+            {
+              "name": "Ambient mesh deployed",
+              "description": "Ambient service mesh reduces sidecar overhead while maintaining FIPS 140-2 compliant zero-trust.",
+              "seq": 2
+            },
+            {
+              "name": "Workload identity federation",
+              "description": "Zero Trust Workload Identity Manager federates service identities across clusters and environments.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-cluster mesh",
+              "description": "Multi-cluster service mesh with multiprimary topology provides consistent security across fleet.",
+              "seq": 4
+            },
+            {
+              "name": "Runtime threat detection",
+              "description": "Runtime threat detection via eBPF or equivalent monitors anomalous container behavior.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Platform Risk And Compliance Technique",
+          "description": "Security posture management technique for OpenShift platforms",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "OpenShift security posture evolves from initial assessment through foundational identity controls, shift-left pipeline integration, automated governance, to adaptive security, following the IDP Essentials principle that the secure path should be the easy path."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin with Compliance Operator baseline scans and threat landscape assessment, establish foundational identity and secrets management, integrate security controls into CI/CD golden paths, advance to policy-as-code enforcement with supply chain verification, culminating in adaptive security with threat intelligence and zero-trust architecture."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid treating security as post-deployment hardening; integrate controls into platform provisioning and developer golden paths to prevent security friction that drives shadow IT adoption."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Security Best Practices for Kubernetes Cluster Design"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Platform",
+      "description": "The unified system of infrastructure, compute resources, networking, storage, delivery pipelines, observability, and foundational services providing the technical foundation.",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "platform-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Architecture Selected",
+          "description": "Architectural vision and technology strategy formally selected.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Private cluster topology selected",
+              "description": "Private cluster topology selected with internal API and ingress endpoints.",
+              "seq": 1
+            },
+            {
+              "name": "etcd encryption configured",
+              "description": "etcd encryption at rest enabled in installation configuration.",
+              "seq": 2
+            },
+            {
+              "name": "FIPS cryptography selected",
+              "description": "FIPS-validated cryptography selected when regulatory compliance requires.",
+              "seq": 3
+            },
+            {
+              "name": "Authorized networks defined",
+              "description": "Master authorized networks defined restricting API server access to trusted sources.",
+              "seq": 4
+            },
+            {
+              "name": "Bastion host planned",
+              "description": "Bastion host architecture planned for SSH access control with per-user accounts.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Baselined",
+          "description": "Core capabilities and integration boundaries defined with constraints documented.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "etcd keys rotated",
+              "description": "etcd encryption keys rotated on weekly schedule.",
+              "seq": 1
+            },
+            {
+              "name": "Dedicated VPC configured",
+              "description": "Dedicated VPC per cluster configured with restricted firewall rules.",
+              "seq": 2
+            },
+            {
+              "name": "OAuth integrated",
+              "description": "OAuth integrated with enterprise identity provider.",
+              "seq": 3
+            },
+            {
+              "name": "Certificate rotation automated",
+              "description": "Certificate rotation automated for cluster certificates.",
+              "seq": 4
+            },
+            {
+              "name": "kube-admin removed",
+              "description": "kube-admin account removed after proper authentication configured.",
+              "seq": 5
+            },
+            {
+              "name": "Infrastructure nodes separated",
+              "description": "Infrastructure nodes separate platform services from application workloads.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "Core platform infrastructure instantiated and operational.",
+          "seq": 3,
+          "checklist": []
+        },
+        {
+          "name": "Ready",
+          "description": "Platform fully operational with self-service capabilities.",
+          "seq": 4,
+          "checklist": []
+        },
+        {
+          "name": "Hosting Assets",
+          "description": "Platform actively supporting production workloads at scale.",
+          "seq": 5,
+          "checklist": []
+        },
+        {
+          "name": "Evolving",
+          "description": "Platform continuously adapts and incorporates new capabilities.",
+          "seq": 6,
+          "checklist": []
+        },
+        {
+          "name": "Retiring",
+          "description": "Platform being systematically decommissioned with workloads migrated.",
+          "seq": 7,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Platform Security Hardening Technique",
+          "description": "Platform security hardening technique for OpenShift infrastructure",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Platform security hardening progresses alongside platform provisioning, with security controls embedded into architecture selection and baseline configuration phases."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "During architecture selection, choose private cluster topology, enable etcd encryption, and plan FIPS compliance. At baseline, integrate OAuth, automate certificate rotation, separate infrastructure nodes, and remove default admin accounts."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid deferring security hardening to post-provisioning; etcd encryption and FIPS mode must be enabled during installation and cannot be retroactively applied."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Security Best Practices for Kubernetes Cluster Design"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Application Security Posture",
+      "description": "Application-level security maturity from baseline image security through cryptographic supply chain verification.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Asset",
+      "assetNames": [
+        {
+          "assetName": "application-security-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "depends on",
+          "alphaName": "Requirements",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "validated by",
+          "alphaName": "Platform Governance",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "influences",
+          "alphaName": "Platform Risk And Compliance",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Baseline Image Security",
+          "description": "Applications use trusted base images under restricted SCCs.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Trusted base images sourced",
+              "description": "Base images sourced from Red Hat or approved vendors with provenance verified.",
+              "seq": 1
+            },
+            {
+              "name": "Restricted SCC compatible",
+              "description": "Applications compatible with restricted SCC prohibiting root execution and requiring arbitrary UID support.",
+              "seq": 2
+            },
+            {
+              "name": "Latest patches applied",
+              "description": "Latest base image versions used with all security patches applied.",
+              "seq": 3
+            },
+            {
+              "name": "Vulnerability scanning integrated",
+              "description": "Image vulnerability scanning integrated into build process with reporting.",
+              "seq": 4
+            },
+            {
+              "name": "No hardcoded secrets",
+              "description": "No hardcoded secrets or credentials present in container images.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Build-Time Security",
+          "description": "Multi-stage builds and automated scanning reduce attack surface.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Multi-stage Dockerfiles",
+              "description": "Multi-stage Dockerfiles separate build dependencies from minimal runtime images.",
+              "seq": 1
+            },
+            {
+              "name": "Minimal runtime images",
+              "description": "Runtime images contain only necessary application binaries and dependencies.",
+              "seq": 2
+            },
+            {
+              "name": "Build scanning gates",
+              "description": "Automated vulnerability scanning fails builds exceeding severity threshold.",
+              "seq": 3
+            },
+            {
+              "name": "Image signing implemented",
+              "description": "Image signing with Trusted Artifact Signer implemented for all production images.",
+              "seq": 4
+            },
+            {
+              "name": "SBOM generated",
+              "description": "Build process generates Software Bill of Materials (SBOM) for traceability.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Runtime Protection",
+          "description": "Network policies, TLS, and RBAC secure running applications.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "NetworkPolicy restricts traffic",
+              "description": "NetworkPolicy objects restrict pod-to-pod traffic to explicitly required flows.",
+              "seq": 1
+            },
+            {
+              "name": "TLS configured",
+              "description": "TLS certificates configured for inter-service communication.",
+              "seq": 2
+            },
+            {
+              "name": "Least-privilege service accounts",
+              "description": "Service accounts follow least-privilege RBAC model with minimal permissions.",
+              "seq": 3
+            },
+            {
+              "name": "External configuration used",
+              "description": "ConfigMaps and Secrets used for external configuration instead of environment variables.",
+              "seq": 4
+            },
+            {
+              "name": "Resource quotas enforced",
+              "description": "Resource quotas prevent denial of service through resource exhaustion.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Supply Chain Verification",
+          "description": "Cryptographic verification ensures only signed artifacts deployed.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "SBOM published",
+              "description": "SBOM generated and published for all container images in production.",
+              "seq": 1
+            },
+            {
+              "name": "Provenance attestation",
+              "description": "Provenance attestation tracks build process inputs and metadata.",
+              "seq": 2
+            },
+            {
+              "name": "ImagePolicy validation",
+              "description": "ImagePolicy APIs validate cryptographic signatures before Kubernetes admission.",
+              "seq": 3
+            },
+            {
+              "name": "Rekor verification",
+              "description": "Continuous verification of deployed artifacts via Rekor transparency logs.",
+              "seq": 4
+            },
+            {
+              "name": "ML model transparency",
+              "description": "Model Transparency Library protects AI/ML model deployments.",
+              "seq": 5
+            },
+            {
+              "name": "Sigstore payload validation",
+              "description": "Sigstore integration validates OpenShift core payload during cluster upgrades.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Application Security Posture Technique",
+          "description": "Application security maturity progression technique",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Application security maturity progresses from baseline container security through build-time controls and runtime protection to comprehensive supply chain verification with cryptographic proofs."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Start with restricted SCCs and trusted base images, add multi-stage builds with scanning gates, implement network segmentation and encrypted communication, culminate with Sigstore-based verification and continuous transparency logging."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid treating image scanning as sufficient security; runtime protection and supply chain verification are critical for defense-in-depth against sophisticated supply chain attacks."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift",
+            "What's New in OpenShift 4.21 for Developers"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Network Security Architecture",
+      "description": "Network-level security maturity from basic isolation through zero-trust mesh.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "assetNames": [
+        {
+          "assetName": "network-security-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "depends on",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "protects",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "enforces policies from",
+          "alphaName": "Platform Governance",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Basic Network Isolation",
+          "description": "Load balancers secured and network access restricted.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "LoadBalancerSourceRanges configured",
+              "description": "LoadBalancerSourceRanges configured for control plane and data plane endpoints.",
+              "seq": 1
+            },
+            {
+              "name": "Master authorized networks",
+              "description": "Master authorized networks restrict Kubernetes API access to trusted CIDR ranges.",
+              "seq": 2
+            },
+            {
+              "name": "OAuth integrated",
+              "description": "OAuth server integrated with enterprise identity provider for cluster authentication.",
+              "seq": 3
+            },
+            {
+              "name": "Default service accounts reviewed",
+              "description": "Default service accounts reviewed with unnecessary permissions removed.",
+              "seq": 4
+            },
+            {
+              "name": "Certificate rotation planned",
+              "description": "Cluster certificates validated with automated rotation schedule planned.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Zero-Trust Networking",
+          "description": "NetworkPolicy objects enforce deny-by-default with allow rules.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Default deny-all applied",
+              "description": "Default deny-all NetworkPolicy applied to all production namespaces.",
+              "seq": 1
+            },
+            {
+              "name": "Explicit allow rules defined",
+              "description": "Additive NetworkPolicy objects permit only explicitly required connections.",
+              "seq": 2
+            },
+            {
+              "name": "Policies validated",
+              "description": "Ingress and egress rules tested and validated in non-production environments.",
+              "seq": 3
+            },
+            {
+              "name": "Violations monitored",
+              "description": "Network policy violations logged and monitored with alerting configured.",
+              "seq": 4
+            },
+            {
+              "name": "API gateway enforced",
+              "description": "3scale API Gateway enforces authentication and throttling for external API access.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Service Mesh Integration",
+          "description": "Mutual TLS and traffic management via OpenShift Service Mesh.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Service Mesh deployed",
+              "description": "OpenShift Service Mesh deployed with Istio control plane.",
+              "seq": 1
+            },
+            {
+              "name": "Sidecar injection enabled",
+              "description": "Sidecars automatically injected for mesh-enabled namespaces.",
+              "seq": 2
+            },
+            {
+              "name": "Mutual TLS enforced",
+              "description": "Mutual TLS enforces encrypted pod-to-pod communication.",
+              "seq": 3
+            },
+            {
+              "name": "Traffic policies implemented",
+              "description": "Traffic policies implement canary and blue-green deployment strategies.",
+              "seq": 4
+            },
+            {
+              "name": "Kiali visualization active",
+              "description": "Kiali provides service mesh visualization and troubleshooting.",
+              "seq": 5
+            },
+            {
+              "name": "Post-quantum support enabled",
+              "description": "Post-quantum cryptography support enabled for future-proofing.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Advanced Security Posture",
+          "description": "Ambient mode, Zero Trust Workload Identity, external integration.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Ambient mode deployed",
+              "description": "Ambient mode reduces sidecar overhead with FIPS 140-2 cryptography support.",
+              "seq": 1
+            },
+            {
+              "name": "Workload identity federation",
+              "description": "Zero Trust Workload Identity Manager federates service identities across environments.",
+              "seq": 2
+            },
+            {
+              "name": "External workloads integrated",
+              "description": "External workloads including VMs and legacy systems integrated into service mesh.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-cluster mesh",
+              "description": "Multi-cluster service mesh with multiprimary topology for consistent security.",
+              "seq": 4
+            },
+            {
+              "name": "Automated certificate rotation",
+              "description": "Certificate rotation fully automated with short-lived certificates.",
+              "seq": 5
+            },
+            {
+              "name": "Network observability enabled",
+              "description": "Network observability enabled with User Defined Networks support.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Network Security Architecture Technique",
+          "description": "Network security progression technique from isolation to zero-trust",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Network security architecture evolves from perimeter-based isolation to comprehensive zero-trust model with cryptographic identity verification and continuous traffic inspection."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Progress from basic ingress/egress controls through NetworkPolicy segmentation, add service mesh for mutual TLS and identity-based authorization, advance to ambient mesh eliminating sidecar overhead while maintaining zero-trust principles."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid assuming Kubernetes defaults are secure; deny-by-default NetworkPolicy is critical to prevent lateral movement during container compromise."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Networking and Cluster Access Best Practices",
+            "OpenShift Security Best Practices for Kubernetes Cluster Design"
+          ]
+        }
+      ]
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Network Security Policy",
+      "description": "Kubernetes NetworkPolicy and service mesh policy resources restricting traffic with deny-by-default posture.",
+      "levelsOfDetail": [
+        {
+          "name": "No Policies",
+          "description": "Default allow-all networking with unrestricted communication.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Unrestricted pod communication",
+              "description": "All pods can communicate without restriction across namespaces.",
+              "seq": 1
+            },
+            {
+              "name": "Large attack surface",
+              "description": "Large attack surface exists from any compromised pod.",
+              "seq": 2
+            },
+            {
+              "name": "No traffic flow visibility",
+              "description": "No visibility into required traffic flows between services.",
+              "seq": 3
+            },
+            {
+              "name": "Compliance gaps exist",
+              "description": "Compliance gaps exist for network segmentation requirements.",
+              "seq": 4
+            },
+            {
+              "name": "Simple troubleshooting",
+              "description": "Simple troubleshooting with no network blocks to diagnose.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Network Security Architecture",
+              "stateName": "Basic Network Isolation"
+            }
+          ]
+        },
+        {
+          "name": "Deny-By-Default Baseline",
+          "description": "Default deny-all policy requires explicit allow rules.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Deny-all applied",
+              "description": "Deny-all NetworkPolicy applied to all production namespaces.",
+              "seq": 1
+            },
+            {
+              "name": "Deployment blocked without flows",
+              "description": "Application deployment blocked until required traffic flows mapped.",
+              "seq": 2
+            },
+            {
+              "name": "Connection documentation forced",
+              "description": "Forces teams to understand and document required connections.",
+              "seq": 3
+            },
+            {
+              "name": "Attack surface reduced",
+              "description": "Significantly reduces attack surface for lateral movement.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Network Security Architecture",
+              "stateName": "Zero-Trust Networking"
+            }
+          ]
+        },
+        {
+          "name": "Application-Specific Policies",
+          "description": "NetworkPolicy objects permit only required service flows.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Ingress label selectors",
+              "description": "Ingress rules allow traffic from specific pod label selectors only.",
+              "seq": 1
+            },
+            {
+              "name": "Egress restrictions",
+              "description": "Egress rules restrict external destinations by CIDR or DNS name.",
+              "seq": 2
+            },
+            {
+              "name": "DNS resolution permitted",
+              "description": "DNS resolution explicitly permitted to kube-dns on port 53.",
+              "seq": 3
+            },
+            {
+              "name": "Policies tested pre-production",
+              "description": "Policies tested in non-production before production deployment.",
+              "seq": 4
+            },
+            {
+              "name": "Violations logged",
+              "description": "Policy violations logged for troubleshooting and audit review.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Network Security Architecture",
+              "stateName": "Zero-Trust Networking"
+            }
+          ]
+        },
+        {
+          "name": "Service Mesh Traffic Management",
+          "description": "Istio VirtualServices and AuthorizationPolicies for control.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Mutual TLS encryption",
+              "description": "Mutual TLS encrypts all service mesh traffic automatically.",
+              "seq": 1
+            },
+            {
+              "name": "Identity-based access control",
+              "description": "AuthorizationPolicy enforces identity-based access control.",
+              "seq": 2
+            },
+            {
+              "name": "Traffic splitting configured",
+              "description": "VirtualService implements traffic splitting and routing rules.",
+              "seq": 3
+            },
+            {
+              "name": "Fault injection enabled",
+              "description": "Fault injection capabilities test application resilience under mesh.",
+              "seq": 4
+            },
+            {
+              "name": "Kiali traffic visualization",
+              "description": "Kiali visualizes traffic flows and policy enforcement status.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Network Security Architecture",
+              "stateName": "Service Mesh Integration"
+            }
+          ]
+        },
+        {
+          "name": "Zero Trust Network Architecture",
+          "description": "Ambient mesh with identity-based authorization.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Ambient mode active",
+              "description": "Ambient mode eliminates sidecar performance overhead.",
+              "seq": 1
+            },
+            {
+              "name": "Workload identity federation",
+              "description": "Zero Trust Workload Identity Manager federates service identities.",
+              "seq": 2
+            },
+            {
+              "name": "External systems integrated",
+              "description": "External VMs and legacy systems integrated into mesh security.",
+              "seq": 3
+            },
+            {
+              "name": "Post-quantum cryptography",
+              "description": "Post-quantum cryptography protects against future quantum threats.",
+              "seq": 4
+            },
+            {
+              "name": "Continuous verification",
+              "description": "Continuous traffic verification and audit logging enabled.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Network Security Architecture",
+              "stateName": "Advanced Security Posture"
+            },
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Automated Governance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Security Audit Report",
+      "description": "Assessment of cluster security posture against best practices and compliance requirements.",
+      "levelsOfDetail": [
+        {
+          "name": "Manual Checklist",
+          "description": "Manual security best practices review.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Best practices checklist",
+              "description": "Checklist based on Red Hat security best practices documentation.",
+              "seq": 1
+            },
+            {
+              "name": "Manual verification",
+              "description": "Manual verification of cluster configurations against benchmarks.",
+              "seq": 2
+            },
+            {
+              "name": "Findings documented",
+              "description": "Findings documented in spreadsheet or security report.",
+              "seq": 3
+            },
+            {
+              "name": "No automation",
+              "description": "No automation or continuous monitoring capability.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Assessed"
+            }
+          ]
+        },
+        {
+          "name": "Automated Scanning",
+          "description": "Compliance Operator scans for misconfigurations.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Compliance Operator configured",
+              "description": "OpenShift Compliance Operator configured with CIS Kubernetes benchmarks.",
+              "seq": 1
+            },
+            {
+              "name": "Pipeline scanning integrated",
+              "description": "Image scanning integrated into CI/CD pipelines with severity gating.",
+              "seq": 2
+            },
+            {
+              "name": "Vulnerability reports automated",
+              "description": "Vulnerability reports generated automatically on defined schedule.",
+              "seq": 3
+            },
+            {
+              "name": "Critical findings remediated",
+              "description": "Critical findings require remediation before production deployment.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Foundational"
+            },
+            {
+              "alphaName": "Application Security Posture",
+              "stateName": "Build-Time Security"
+            }
+          ]
+        },
+        {
+          "name": "Continuous Compliance",
+          "description": "Policy-as-Code enforces compliance with remediation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Admission policies enforced",
+              "description": "Open Policy Agent or Gatekeeper enforces admission policies.",
+              "seq": 1
+            },
+            {
+              "name": "Non-compliant resources blocked",
+              "description": "Admission control prevents non-compliant resource creation.",
+              "seq": 2
+            },
+            {
+              "name": "Compliance dashboard active",
+              "description": "Real-time compliance dashboard shows security posture.",
+              "seq": 3
+            },
+            {
+              "name": "Automated remediation workflows",
+              "description": "Automated remediation workflows for known violations.",
+              "seq": 4
+            },
+            {
+              "name": "Audit trail maintained",
+              "description": "Audit trail maintained for all policy decisions and exceptions.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Shift-Left"
+            },
+            {
+              "alphaName": "Platform Governance",
+              "stateName": "Audited"
+            }
+          ]
+        },
+        {
+          "name": "Supply Chain Security",
+          "description": "SBOM and provenance attestation for all artifacts.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "SBOM generated",
+              "description": "Software Bill of Materials (SBOM) generated for all container images.",
+              "seq": 1
+            },
+            {
+              "name": "Provenance attestation",
+              "description": "Provenance attestation verifies build integrity and inputs.",
+              "seq": 2
+            },
+            {
+              "name": "Unsigned images blocked",
+              "description": "ImagePolicy APIs prevent unsigned images from deployment.",
+              "seq": 3
+            },
+            {
+              "name": "Rekor monitoring active",
+              "description": "Continuous monitoring via Rekor transparency log.",
+              "seq": 4
+            },
+            {
+              "name": "End-to-end vulnerability tracking",
+              "description": "Vulnerability tracking from source code through runtime deployment.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Security Posture",
+              "stateName": "Supply Chain Verification"
+            },
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Automated Governance"
+            }
+          ]
+        },
+        {
+          "name": "Zero Trust Security",
+          "description": "Comprehensive zero trust with continuous verification.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Service-to-service mTLS",
+              "description": "Mutual TLS enforced for all service-to-service communication.",
+              "seq": 1
+            },
+            {
+              "name": "Identity-based authorization",
+              "description": "Identity-based authorization via service mesh AuthorizationPolicies.",
+              "seq": 2
+            },
+            {
+              "name": "Runtime threat detection",
+              "description": "Runtime threat detection via eBPF or equivalent technology.",
+              "seq": 3
+            },
+            {
+              "name": "Incident response automated",
+              "description": "Automated incident response workflows integrated with SIEM.",
+              "seq": 4
+            },
+            {
+              "name": "Compliance certifications maintained",
+              "description": "Compliance certifications maintained (SOC2, ISO27001, etc.).",
+              "seq": 5
+            },
+            {
+              "name": "Security SLOs tracked",
+              "description": "Security metrics integrated into SRE SLOs and error budgets.",
+              "seq": 6
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Network Security Architecture",
+              "stateName": "Advanced Security Posture"
+            },
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Adaptive Security"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Security Pipeline Configuration",
+      "description": "Security-focused pipeline configuration for signing, scanning, and attestation.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Security Pipeline",
+          "description": "Pipeline with basic security scanning configured.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Vulnerability scanning configured",
+              "description": "Container image vulnerability scanning configured in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Manual production approvals",
+              "description": "Manual approvals required for production deployments.",
+              "seq": 2
+            },
+            {
+              "name": "Pipeline logs retained",
+              "description": "Basic pipeline execution logs retained for audit.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Security Posture",
+              "stateName": "Baseline Image Security"
+            }
+          ]
+        },
+        {
+          "name": "Supply Chain Secured Pipeline",
+          "description": "Cryptographic signing and attestation throughout pipeline.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "SBOM generated at build",
+              "description": "SBOM generated for all container images during build stage.",
+              "seq": 1
+            },
+            {
+              "name": "Provenance attestation tracks builds",
+              "description": "Provenance attestation tracks build inputs and process metadata.",
+              "seq": 2
+            },
+            {
+              "name": "Sigstore signing implemented",
+              "description": "Images signed with Trusted Artifact Signer (Sigstore) after build.",
+              "seq": 3
+            },
+            {
+              "name": "Rekor transparency logging",
+              "description": "Rekor transparency log records all signatures immutably.",
+              "seq": 4
+            },
+            {
+              "name": "Admission signature validation",
+              "description": "ImagePolicy APIs validate signatures before Kubernetes admission.",
+              "seq": 5
+            },
+            {
+              "name": "Continuous image verification",
+              "description": "Continuous verification monitors deployed image signatures.",
+              "seq": 6
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Security Posture",
+              "stateName": "Supply Chain Verification"
+            },
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Automated Governance"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "personas": [
+    {
+      "name": "Platform Security Engineer",
+      "description": "Implements security controls and ensures compliance for platform and workloads.",
+      "competencies": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Security",
+          "Compliance",
+          "Networking"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Operations",
+          "Governance"
+        ],
+        "organizationalTags": [
+          "Security",
+          "Compliance"
+        ]
+      }
+    },
+    {
+      "name": "Security Architect",
+      "description": "Designs security architecture and zero-trust network security patterns for OpenShift.",
+      "competencies": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Platform Strategic Alignment",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Security",
+          "Architecture",
+          "Networking"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Architecture",
+          "Security"
+        ]
+      }
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Security and Compliance Team",
+      "description": "Team ensuring security controls and regulatory compliance across platform.",
+      "personaNames": [
+        "Platform Security Engineer",
+        "Security Architect"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Security",
+          "Compliance"
+        ]
+      }
+    }
+  ],
+  "activities": [
+    {
+      "name": "Assess Security Posture",
+      "description": "Assess current platform security posture against threat landscape and compliance requirements.",
+      "activitySpaceName": "Establish Secure Guardrails",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Assessed"
+        },
+        {
+          "alphaName": "Network Security Architecture",
+          "stateName": "Basic Network Isolation"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Security Audit Report",
+          "levelOfDetailName": "Manual Checklist"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Assess Security Posture Technique",
+          "description": "Technique for security posture assessment",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Security posture assessment establishes the baseline understanding of risks, compliance gaps, and threat vectors specific to the OpenShift container platform environment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Conduct threat landscape analysis for container platform risks including container breakout, lateral movement, and supply chain compromise. Map regulatory requirements (FIPS, STIGs, CIS Kubernetes) to OpenShift capabilities. Run initial Compliance Operator scans against CIS benchmarks. Document security control gaps and prioritize remediation based on risk severity."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid treating security assessment as a one-time activity; establish baseline metrics that enable continuous posture tracking and trend analysis."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Security Best Practices for Kubernetes Cluster Design"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Establish Foundational Security Controls",
+      "description": "Implement core identity, access control, and secrets management as foundational security.",
+      "activitySpaceName": "Establish Secure Guardrails",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Foundational"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Architecture Selected"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Security Audit Report",
+          "levelOfDetailName": "Automated Scanning"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Foundational Security Controls Technique",
+          "description": "Technique for establishing foundational security controls",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Foundational security controls establish the P0 security priorities: identity management, access control, secrets management, and encryption that must be in place before shift-left practices."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Integrate OAuth with enterprise identity provider and remove kube-admin account. Configure RBAC policies for least-privilege access. Enable etcd encryption at rest with key rotation. Deploy centralized secrets management. Configure private cluster topology with bastion host access."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Do not skip foundational controls to rush to advanced capabilities; identity and access management gaps undermine all subsequent security layers."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Security Best Practices for Kubernetes Cluster Design"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Implement Security Network Policies",
+      "description": "Define NetworkPolicy resources to restrict pod-to-pod traffic with deny-by-default posture.",
+      "activitySpaceName": "Establish Secure Guardrails",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "network-policy-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Network Security Architecture",
+          "stateName": "Zero-Trust Networking"
+        },
+        {
+          "alphaName": "Application Security Posture",
+          "stateName": "Runtime Protection"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Shift-Left"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Network Security Policy",
+          "levelOfDetailName": "Application-Specific Policies"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Network Policy Implementation Technique",
+          "description": "Technique for implementing deny-by-default network policies",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "OpenShift networking defaults to allowing all pod-to-pod communication, creating a large attack surface if a pod is compromised. NetworkPolicy resources restrict traffic to only required flows, embodying zero-trust networking principles."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin by understanding application communication requirements through traffic analysis or architecture documentation. Start with deny-by-default baseline by creating NetworkPolicy with empty ingress array, then create additive policies permitting specific flows using label selectors. Always permit DNS traffic to kube-dns on port 53."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Test policies in non-production before applying to production, as overly restrictive rules can break applications. Monitor NetworkPolicy behavior using flow logs and document policies alongside deployment manifests in Git for GitOps workflows."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Networking and Cluster Access Best Practices"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Deploy Service Mesh for mTLS",
+      "description": "Deploy OpenShift Service Mesh (Istio) to enforce mutual TLS for service communication.",
+      "activitySpaceName": "Establish Secure Guardrails",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "service-mesh-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Network Security Architecture",
+          "stateName": "Service Mesh Integration"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Shift-Left"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Network Security Policy",
+          "levelOfDetailName": "Service Mesh Traffic Management"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Service Mesh Deployment Technique",
+          "description": "Technique for deploying service mesh with mutual TLS",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "OpenShift Service Mesh provides mutual TLS encryption and identity-based authorization for microservices communication, advancing beyond network-layer segmentation to application-layer security."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Install OpenShift Service Mesh operator and create ServiceMeshControlPlane. Enable automatic sidecar injection. Configure PeerAuthentication for strict mutual TLS. Define AuthorizationPolicy resources. Use Kiali for service topology visualization."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Service mesh introduces performance overhead from sidecar proxies; monitor resource usage and consider ambient mode. Ensure certificate rotation is automated to prevent expiration-related outages."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Networking and Cluster Access Best Practices"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Configure Security Context Constraints",
+      "description": "Configure and enforce SCCs to restrict container privileges and capabilities.",
+      "activitySpaceName": "Establish Secure Guardrails",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "scc-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Application Security Posture",
+          "stateName": "Baseline Image Security"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Shift-Left"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Security Audit Report",
+          "levelOfDetailName": "Continuous Compliance"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "SCC Configuration Technique",
+          "description": "Technique for configuring Security Context Constraints",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Security Context Constraints prevent privilege escalation and limit container capabilities by enforcing policies on pod security settings, ensuring containers run with minimal privileges."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Use restricted SCC as default for all applications. Review application requirements to determine if restricted SCC is sufficient. Document SCC exceptions with security review and approval process. Audit service account to SCC bindings regularly."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Applications expecting to run as root will fail under restricted SCC; modify applications to support arbitrary UID rather than granting privileged access."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Security Best Practices for Kubernetes Cluster Design"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Implement Cryptographic Image Signing",
+      "description": "Deploy Trusted Artifact Signer and configure ImagePolicy for signature verification.",
+      "activitySpaceName": "Secure Software Supply Chain",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "signing-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Application Security Posture",
+          "stateName": "Supply Chain Verification"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Automated Governance"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Security Pipeline Configuration",
+          "levelOfDetailName": "Supply Chain Secured Pipeline"
+        },
+        {
+          "workProductName": "Security Audit Report",
+          "levelOfDetailName": "Supply Chain Security"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Image Signing Technique",
+          "description": "Technique for implementing cryptographic image signing",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Cryptographic signing with Sigstore ensures only verified, attested artifacts are deployed, protecting against supply chain attacks by validating artifact provenance and integrity."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Deploy Trusted Artifact Signer operator. Configure CI/CD pipelines to sign images and generate SBOM and provenance attestations. Store signatures in Rekor transparency log. Define ImagePolicy resources. Configure admission webhook to validate signatures before pod creation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Key management is critical; use hardware security modules or cloud KMS for signing key protection. Ensure Rekor is highly available to prevent deployment outages."
+            }
+          ],
+          "citationNames": [
+            "What's New in OpenShift 4.21 for Developers"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Conduct Compliance Scanning",
+      "description": "Configure Compliance Operator to scan against CIS benchmarks and regulatory requirements.",
+      "activitySpaceName": "Implement Policy-as-Code",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "compliance-scanning-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Foundational"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Automated Governance"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Security Audit Report",
+          "levelOfDetailName": "Automated Scanning"
+        },
+        {
+          "workProductName": "Security Audit Report",
+          "levelOfDetailName": "Continuous Compliance"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Compliance Scanning Technique",
+          "description": "Technique for continuous compliance scanning",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Compliance Operator automates security posture assessment against industry benchmarks (CIS Kubernetes, PCI-DSS, NIST), eliminating manual reviews and enabling continuous verification."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Install Compliance Operator from OperatorHub. Create ScanSettingBinding resources specifying compliance profiles. Schedule scans automatically. Review ComplianceCheckResult objects. Apply ComplianceRemediation resources. Export reports for audit."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Not all compliance checks can be automatically remediated; manual review and risk acceptance processes are required for exceptions."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Security Best Practices for Kubernetes Cluster Design"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Harden Platform Security Architecture",
+      "description": "Apply defense-in-depth controls to platform infrastructure including encryption and isolation.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Baselined"
+        },
+        {
+          "alphaName": "Network Security Architecture",
+          "stateName": "Basic Network Isolation"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Security Audit Report",
+          "levelOfDetailName": "Automated Scanning"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Platform Hardening Technique",
+          "description": "Technique for platform security architecture hardening",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Platform hardening establishes defense-in-depth by applying security controls at infrastructure, network, and access layers during baseline configuration."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Enable etcd encryption with key rotation, configure dedicated VPC with firewall rules, integrate OAuth with enterprise IdP, automate certificate rotation, remove kube-admin account, separate infrastructure nodes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "etcd encryption and FIPS mode must be enabled during installation; they cannot be retroactively applied to existing clusters."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Security Best Practices for Kubernetes Cluster Design"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Advance to Adaptive Security",
+      "description": "Evolve security to adaptive model with threat intelligence, zero-trust identity, and ambient mesh.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Adaptive Security"
+        },
+        {
+          "alphaName": "Network Security Architecture",
+          "stateName": "Advanced Security Posture"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Network Security Policy",
+          "levelOfDetailName": "Zero Trust Network Architecture"
+        },
+        {
+          "workProductName": "Security Audit Report",
+          "levelOfDetailName": "Zero Trust Security"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Adaptive Security Technique",
+          "description": "Technique for advancing to adaptive security posture",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Adaptive security advances the platform beyond static controls to a proactive model that evolves with emerging threats, regulations, and technology vectors."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Deploy ambient service mesh for sidecar-less zero-trust. Implement Zero Trust Workload Identity Manager. Enable post-quantum cryptography. Integrate external workloads into mesh. Establish threat intelligence feeds driving policy evolution."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Ambient mesh and post-quantum cryptography are emerging technologies; validate compatibility and monitor for performance regressions during transition."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Networking and Cluster Access Best Practices"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Integrate Build-Time Security Controls",
+      "description": "Implement multi-stage builds, vulnerability scanning gates, and image signing in pipelines.",
+      "activitySpaceName": "Secure Software Supply Chain",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Security Posture",
+          "stateName": "Build-Time Security"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "stateName": "Shift-Left"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Security Pipeline Configuration",
+          "levelOfDetailName": "Basic Security Pipeline"
+        },
+        {
+          "workProductName": "Security Audit Report",
+          "levelOfDetailName": "Automated Scanning"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Build-Time Security Technique",
+          "description": "Technique for integrating build-time security controls",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Build-time security shifts vulnerability detection left by integrating scanning gates and multi-stage builds into CI/CD pipelines."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Implement multi-stage Dockerfiles separating build and runtime. Configure vulnerability scanning to fail builds exceeding severity threshold. Integrate image signing with Trusted Artifact Signer. Generate SBOM during build."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Overly strict scanning gates can block legitimate deployments; establish severity thresholds and exception workflows balancing security with velocity."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Security Maturity Lifecycle",
+      "description": "Progressive security posture enhancement from assessment through adaptive security using PDCA improvement.",
+      "narrativeTypeName": "PDCA",
+      "patternViews": [
+        {
+          "name": "Security Assessment",
+          "description": "Assess security posture and identify compliance gaps.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Architecture Selected"
+            },
+            {
+              "alphaName": "Network Security Architecture",
+              "stateName": "Basic Network Isolation"
+            },
+            {
+              "alphaName": "Application Security Posture",
+              "stateName": "Baseline Image Security"
+            }
+          ],
+          "activities": [
+            "Assess Security Posture",
+            "Configure Security Context Constraints"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Security maturity begins with assessing current posture, identifying gaps against regulatory requirements and CIS benchmarks, establishing baseline image security controls, and planning network isolation strategy."
+            }
+          ]
+        },
+        {
+          "name": "Foundational Controls",
+          "description": "Establish identity, access, and secrets management.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Foundational"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Baselined"
+            }
+          ],
+          "activities": [
+            "Establish Foundational Security Controls",
+            "Harden Platform Security Architecture",
+            "Conduct Compliance Scanning"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Foundational security establishes P0 priorities: SSO with MFA, least-privilege RBAC, centralized secrets management, etcd encryption, and private cluster configuration as prerequisites for shift-left practices."
+            }
+          ]
+        },
+        {
+          "name": "Shift-Left Security",
+          "description": "Embed security controls into pipelines and runtime.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Shift-Left"
+            },
+            {
+              "alphaName": "Application Security Posture",
+              "stateName": "Build-Time Security"
+            },
+            {
+              "alphaName": "Application Security Posture",
+              "stateName": "Runtime Protection"
+            },
+            {
+              "alphaName": "Network Security Architecture",
+              "stateName": "Zero-Trust Networking"
+            },
+            {
+              "alphaName": "Network Security Architecture",
+              "stateName": "Service Mesh Integration"
+            }
+          ],
+          "activities": [
+            "Integrate Build-Time Security Controls",
+            "Implement Security Network Policies",
+            "Deploy Service Mesh for mTLS"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Do",
+              "context": "Security controls are operationalized through build-time scanning gates, deny-by-default NetworkPolicies, service mesh mutual TLS, and SCC enforcement, shifting security left into development and delivery pipelines."
+            }
+          ]
+        },
+        {
+          "name": "Automated Governance",
+          "description": "Automate supply chain security and policy enforcement.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Automated Governance"
+            },
+            {
+              "alphaName": "Application Security Posture",
+              "stateName": "Supply Chain Verification"
+            }
+          ],
+          "activities": [
+            "Implement Cryptographic Image Signing",
+            "Conduct Compliance Scanning"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Check",
+              "context": "Automated governance verifies artifact integrity through SBOM generation, Sigstore signing, ImagePolicy admission validation, and continuous compliance scanning with policy-as-code enforcement."
+            }
+          ]
+        },
+        {
+          "name": "Adaptive Security",
+          "description": "Achieve adaptive zero-trust with continuous evolution.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Risk And Compliance",
+              "stateName": "Adaptive Security"
+            },
+            {
+              "alphaName": "Network Security Architecture",
+              "stateName": "Advanced Security Posture"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            }
+          ],
+          "activities": [
+            "Advance to Adaptive Security",
+            "Conduct Compliance Scanning"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Act",
+              "context": "Adaptive security achieved through ambient mesh eliminating sidecar overhead, Zero Trust Workload Identity federating identities, post-quantum cryptography, threat-intelligence-driven policy evolution, and continuous compliance automation."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Risk And Compliance",
+      "aliasName": "Platform Security Posture"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform",
+      "aliasName": "Internal Developer Platform"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Network Security Policy",
+      "aliasName": "NetworkPolicy"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Security Audit Report",
+      "aliasName": "Compliance Scan Report"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Deploy Service Mesh for mTLS",
+      "aliasName": "Deploy OpenShift Service Mesh"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Implement Security Network Policies",
+      "aliasName": "Implement NetworkPolicies"
+    }
+  ],
+  "activitySpaces": []
+}

@@ -1,0 +1,466 @@
+{
+  "kind": "practice",
+  "name": "Partner Demand Generation",
+  "description": "Structured approach to creating incremental qualified pipeline through partner-driven campaigns aligned to technology decision points.",
+  "baselinePracticeName": "Partner Ecosystem Essentials",
+  "version": "1.0",
+  "authors": [
+    "Red Hat EMEA Partner Ecosystem Leadership",
+    "Ed Seymour"
+  ],
+  "createdAt": "2026-07-06T00:00:00Z",
+  "updatedAt": "2026-07-06T00:00:00Z",
+  "keywords": [
+    "demand gen",
+    "demand generation",
+    "pipeline generation",
+    "partner-sourced",
+    "partner-influenced",
+    "TDP",
+    "sales play",
+    "campaign",
+    "MDF",
+    "co-marketing",
+    "PAM",
+    "DPAM",
+    "EcoSA",
+    "partner marketing",
+    "incremental pipeline",
+    "logo acquisition",
+    "cross-sell",
+    "upsell",
+    "RACI",
+    "attribution"
+  ],
+  "tags": {
+    "domainTags": [
+      "Marketing",
+      "Sales",
+      "Partner Management"
+    ],
+    "lifecycleTags": [
+      "Campaign Execution",
+      "Pipeline Generation"
+    ],
+    "organizationalTags": [
+      "Partner Marketing",
+      "Partner Account Management",
+      "Partner Operations"
+    ]
+  },
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Partner Value",
+      "aliasName": "Pipeline Value"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Partner Capability",
+      "aliasName": "Campaign Readiness"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Target Account List",
+      "aliasName": "Account Intelligence"
+    }
+  ],
+  "competencies": [
+    {
+      "name": "Campaign Design and Marketing Strategy",
+      "description": "Ability to design structured marketing campaigns with goals, target profiles, content strategy, and measurement frameworks.",
+      "levels": [
+        {
+          "name": "Aware",
+          "description": "Understands campaign components and basic marketing principles.",
+          "level": 1,
+          "competencyName": "Campaign Design and Marketing Strategy"
+        },
+        {
+          "name": "Applies",
+          "description": "Designs simple campaigns with guidance using templates and frameworks.",
+          "level": 2,
+          "competencyName": "Campaign Design and Marketing Strategy"
+        },
+        {
+          "name": "Masters",
+          "description": "Designs complex multi-channel campaigns independently with measurable outcomes.",
+          "level": 3,
+          "competencyName": "Campaign Design and Marketing Strategy"
+        },
+        {
+          "name": "Adapts",
+          "description": "Innovates campaign approaches for novel markets and optimizes based on data.",
+          "level": 4,
+          "competencyName": "Campaign Design and Marketing Strategy"
+        },
+        {
+          "name": "Leads",
+          "description": "Defines campaign frameworks and best practices adopted across organization.",
+          "level": 5,
+          "competencyName": "Campaign Design and Marketing Strategy"
+        }
+      ]
+    },
+    {
+      "name": "Market and Competitive Analysis",
+      "description": "Ability to analyze market triggers, competitive landscape, and addressable opportunities for campaign targeting.",
+      "levels": [
+        {
+          "name": "Aware",
+          "description": "Understands market triggers and competitive positioning basics.",
+          "level": 1,
+          "competencyName": "Market and Competitive Analysis"
+        },
+        {
+          "name": "Applies",
+          "description": "Conducts basic market analysis using frameworks and templates.",
+          "level": 2,
+          "competencyName": "Market and Competitive Analysis"
+        },
+        {
+          "name": "Masters",
+          "description": "Performs comprehensive competitive analysis and market opportunity assessment.",
+          "level": 3,
+          "competencyName": "Market and Competitive Analysis"
+        },
+        {
+          "name": "Adapts",
+          "description": "Identifies emerging market trends and competitive threats proactively.",
+          "level": 4,
+          "competencyName": "Market and Competitive Analysis"
+        },
+        {
+          "name": "Leads",
+          "description": "Drives strategic market intelligence and competitive strategy organizationally.",
+          "level": 5,
+          "competencyName": "Market and Competitive Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Sales and Go-to-Market Strategy",
+      "description": "Ability to align campaigns to sales motions, partner GTM models, and revenue targets.",
+      "levels": [
+        {
+          "name": "Aware",
+          "description": "Understands sales process stages and GTM concepts.",
+          "level": 1,
+          "competencyName": "Sales and Go-to-Market Strategy"
+        },
+        {
+          "name": "Applies",
+          "description": "Aligns campaigns to existing sales plays and partner models.",
+          "level": 2,
+          "competencyName": "Sales and Go-to-Market Strategy"
+        },
+        {
+          "name": "Masters",
+          "description": "Designs GTM strategies for campaigns across partner types and verticals.",
+          "level": 3,
+          "competencyName": "Sales and Go-to-Market Strategy"
+        },
+        {
+          "name": "Adapts",
+          "description": "Innovates partner GTM models for new markets and buyer journeys.",
+          "level": 4,
+          "competencyName": "Sales and Go-to-Market Strategy"
+        },
+        {
+          "name": "Leads",
+          "description": "Defines organizational partner GTM strategy and frameworks.",
+          "level": 5,
+          "competencyName": "Sales and Go-to-Market Strategy"
+        }
+      ]
+    },
+    {
+      "name": "Campaign Execution and Channel Management",
+      "description": "Ability to execute multi-channel campaigns coordinating events, digital, partner sellers, and inside sales.",
+      "levels": [
+        {
+          "name": "Aware",
+          "description": "Understands channel types and basic execution mechanics.",
+          "level": 1,
+          "competencyName": "Campaign Execution and Channel Management"
+        },
+        {
+          "name": "Applies",
+          "description": "Executes campaigns in 1-2 channels with close supervision.",
+          "level": 2,
+          "competencyName": "Campaign Execution and Channel Management"
+        },
+        {
+          "name": "Masters",
+          "description": "Orchestrates multi-channel campaigns independently with strong results.",
+          "level": 3,
+          "competencyName": "Campaign Execution and Channel Management"
+        },
+        {
+          "name": "Adapts",
+          "description": "Optimizes channel mix based on performance data and audience behavior.",
+          "level": 4,
+          "competencyName": "Campaign Execution and Channel Management"
+        },
+        {
+          "name": "Leads",
+          "description": "Defines channel strategy and omnichannel execution frameworks organizationally.",
+          "level": 5,
+          "competencyName": "Campaign Execution and Channel Management"
+        }
+      ]
+    },
+    {
+      "name": "Sales Process and Pipeline Development",
+      "description": "Ability to qualify leads, progress opportunities through sales stages, and develop pipeline.",
+      "levels": [
+        {
+          "name": "Aware",
+          "description": "Understands BANT qualification and sales stages.",
+          "level": 1,
+          "competencyName": "Sales Process and Pipeline Development"
+        },
+        {
+          "name": "Applies",
+          "description": "Qualifies leads using BANT and hands off to sales appropriately.",
+          "level": 2,
+          "competencyName": "Sales Process and Pipeline Development"
+        },
+        {
+          "name": "Masters",
+          "description": "Develops pipeline systematically with high qualification and conversion rates.",
+          "level": 3,
+          "competencyName": "Sales Process and Pipeline Development"
+        },
+        {
+          "name": "Adapts",
+          "description": "Optimizes qualification criteria and hand-off processes based on data.",
+          "level": 4,
+          "competencyName": "Sales Process and Pipeline Development"
+        },
+        {
+          "name": "Leads",
+          "description": "Defines pipeline development methodologies and standards organizationally.",
+          "level": 5,
+          "competencyName": "Sales Process and Pipeline Development"
+        }
+      ]
+    },
+    {
+      "name": "Content Development and Marketing Communications",
+      "description": "Ability to create campaign content including presentations, demos, battle cards, and email templates.",
+      "levels": [
+        {
+          "name": "Aware",
+          "description": "Understands content types and messaging principles.",
+          "level": 1,
+          "competencyName": "Content Development and Marketing Communications"
+        },
+        {
+          "name": "Applies",
+          "description": "Creates basic content using templates with editorial support.",
+          "level": 2,
+          "competencyName": "Content Development and Marketing Communications"
+        },
+        {
+          "name": "Masters",
+          "description": "Develops comprehensive content libraries tailored to target audiences.",
+          "level": 3,
+          "competencyName": "Content Development and Marketing Communications"
+        },
+        {
+          "name": "Adapts",
+          "description": "Innovates content formats and messaging for maximum engagement.",
+          "level": 4,
+          "competencyName": "Content Development and Marketing Communications"
+        },
+        {
+          "name": "Leads",
+          "description": "Defines content strategy and messaging frameworks organizationally.",
+          "level": 5,
+          "competencyName": "Content Development and Marketing Communications"
+        }
+      ]
+    },
+    {
+      "name": "Technical Solution Positioning",
+      "description": "Ability to articulate technical value propositions, conduct demos, and validate solution fit.",
+      "levels": [
+        {
+          "name": "Aware",
+          "description": "Understands technical product capabilities and basic value propositions.",
+          "level": 1,
+          "competencyName": "Technical Solution Positioning"
+        },
+        {
+          "name": "Applies",
+          "description": "Delivers standard demos and positions solutions to common use cases.",
+          "level": 2,
+          "competencyName": "Technical Solution Positioning"
+        },
+        {
+          "name": "Masters",
+          "description": "Positions solutions to complex requirements and conducts technical discovery.",
+          "level": 3,
+          "competencyName": "Technical Solution Positioning"
+        },
+        {
+          "name": "Adapts",
+          "description": "Adapts positioning for novel use cases and competitive scenarios.",
+          "level": 4,
+          "competencyName": "Technical Solution Positioning"
+        },
+        {
+          "name": "Leads",
+          "description": "Defines solution positioning strategy and technical messaging frameworks.",
+          "level": 5,
+          "competencyName": "Technical Solution Positioning"
+        }
+      ]
+    },
+    {
+      "name": "Program and Project Management",
+      "description": "Ability to plan, coordinate, and execute campaign programs with RACI clarity and timeline management.",
+      "levels": [
+        {
+          "name": "Aware",
+          "description": "Understands project phases and basic planning concepts.",
+          "level": 1,
+          "competencyName": "Program and Project Management"
+        },
+        {
+          "name": "Applies",
+          "description": "Manages simple campaigns with RACI and timeline tracking.",
+          "level": 2,
+          "competencyName": "Program and Project Management"
+        },
+        {
+          "name": "Masters",
+          "description": "Manages complex multi-stakeholder campaigns with strong governance.",
+          "level": 3,
+          "competencyName": "Program and Project Management"
+        },
+        {
+          "name": "Adapts",
+          "description": "Optimizes program management approaches for scale and efficiency.",
+          "level": 4,
+          "competencyName": "Program and Project Management"
+        },
+        {
+          "name": "Leads",
+          "description": "Defines program management frameworks and governance models organizationally.",
+          "level": 5,
+          "competencyName": "Program and Project Management"
+        }
+      ]
+    },
+    {
+      "name": "CRM Systems and Data Management",
+      "description": "Ability to manage CRM data quality, pipeline reporting, campaign attribution tracking, and dashboard development.",
+      "levels": [
+        {
+          "name": "Aware",
+          "description": "Understands CRM data structures and basic reporting.",
+          "level": 1,
+          "competencyName": "CRM Systems and Data Management"
+        },
+        {
+          "name": "Applies",
+          "description": "Maintains CRM data quality and generates standard reports.",
+          "level": 2,
+          "competencyName": "CRM Systems and Data Management"
+        },
+        {
+          "name": "Masters",
+          "description": "Designs attribution models and builds automated dashboards.",
+          "level": 3,
+          "competencyName": "CRM Systems and Data Management"
+        },
+        {
+          "name": "Adapts",
+          "description": "Integrates CRM with marketing automation and analytics platforms.",
+          "level": 4,
+          "competencyName": "CRM Systems and Data Management"
+        },
+        {
+          "name": "Leads",
+          "description": "Defines CRM architecture and data governance standards organizationally.",
+          "level": 5,
+          "competencyName": "CRM Systems and Data Management"
+        }
+      ]
+    },
+    {
+      "name": "Customer Needs Analysis",
+      "description": "Ability to discover customer pain points, validate needs, and qualify opportunities using discovery methodologies.",
+      "levels": [
+        {
+          "name": "Aware",
+          "description": "Understands discovery questions and needs validation concepts.",
+          "level": 1,
+          "competencyName": "Customer Needs Analysis"
+        },
+        {
+          "name": "Applies",
+          "description": "Conducts basic needs analysis using structured frameworks.",
+          "level": 2,
+          "competencyName": "Customer Needs Analysis"
+        },
+        {
+          "name": "Masters",
+          "description": "Uncovers latent needs and validates requirements comprehensively.",
+          "level": 3,
+          "competencyName": "Customer Needs Analysis"
+        },
+        {
+          "name": "Adapts",
+          "description": "Adapts discovery approaches for complex stakeholder landscapes.",
+          "level": 4,
+          "competencyName": "Customer Needs Analysis"
+        },
+        {
+          "name": "Leads",
+          "description": "Defines discovery methodologies and needs analysis frameworks organizationally.",
+          "level": 5,
+          "competencyName": "Customer Needs Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Knowledge Management and Documentation",
+      "description": "Ability to capture learnings, document best practices, and create reusable playbooks.",
+      "levels": [
+        {
+          "name": "Aware",
+          "description": "Understands documentation standards and knowledge repositories.",
+          "level": 1,
+          "competencyName": "Knowledge Management and Documentation"
+        },
+        {
+          "name": "Applies",
+          "description": "Documents activities and captures basic learnings systematically.",
+          "level": 2,
+          "competencyName": "Knowledge Management and Documentation"
+        },
+        {
+          "name": "Masters",
+          "description": "Creates comprehensive playbooks and knowledge assets from experience.",
+          "level": 3,
+          "competencyName": "Knowledge Management and Documentation"
+        },
+        {
+          "name": "Adapts",
+          "description": "Designs knowledge management systems and taxonomies.",
+          "level": 4,
+          "competencyName": "Knowledge Management and Documentation"
+        },
+        {
+          "name": "Leads",
+          "description": "Defines knowledge management strategy and organizational learning frameworks.",
+          "level": 5,
+          "competencyName": "Knowledge Management and Documentation"
+        }
+      ]
+    }
+  ]
+}

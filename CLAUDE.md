@@ -367,6 +367,7 @@ Debug by checking intermediate merge results in `compositePracticeFromMethod.ts`
 6. **Validate all changes** - use `validate-schema.js` before committing
 7. **Keep visualizations separate** - data transformation ≠ rendering logic
 8. **Follow TypeScript strict mode** - no implicit `any`, no null/undefined confusion
+9. **Keep specifications in sync** - when changing behaviour, UI, APIs, or data structures, update the corresponding module in `specification/` to reflect the change. Specifications are the reimplementation-grade reference for this system; stale specs are worse than no specs. Specifications describe *what* and *why* at a technology-agnostic level — specific technical choices (frameworks, libraries, tools) belong in `specification/technical-decisions.md` with purpose and design notes, not embedded in behavioural specs
 
 ---
 

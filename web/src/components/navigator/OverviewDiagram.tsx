@@ -21,22 +21,21 @@ interface OverviewDiagramProps {
   selectedElement: string | null;
 }
 
-// Helper function to get background color based on score (works for both alphas and activities)
+const SCORE_COLORS: readonly string[] = [
+  "#ffffff",  // 0 — no coverage
+  "#EDF4FA",  // 1
+  "#D2E4F4",  // 2
+  "#BEE1F4",  // 3
+  "#8BC8F7",  // 4
+  "#519DE9",  // 5 — full coverage
+];
+
 function getScoreBackgroundColor(score: number, isSelected: boolean): string {
   if (isSelected) {
     return "color-mix(in srgb, var(--pf-v6-global--primary-color--100) 10%, #ffffff)";
   }
-
-  // 0 - white, 1 - light blue, 2 - mid blue, 3+ - dark blue
-  if (score === 0) {
-    return "#ffffff";
-  } else if (score === 1) {
-    return "#E7F1FA"; // Light blue
-  } else if (score === 2) {
-    return "#BEE1F4"; // Mid blue
-  } else {
-    return "#73BCF7"; // Dark blue
-  }
+  const clamped = Math.max(0, Math.min(score, SCORE_COLORS.length - 1));
+  return SCORE_COLORS[clamped];
 }
 
 function splitIntoBalancedColumns<T extends { slotHeight: number }>(

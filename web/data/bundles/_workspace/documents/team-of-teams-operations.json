@@ -1,0 +1,2986 @@
+{
+  "kind": "practice",
+  "name": "Team of Teams Operations",
+  "description": "Designing, forming, and evolving programme team structures with cognitive load optimization and cross-team knowledge sharing.",
+  "baselinePracticeName": "Programme Essentials",
+  "practiceDependencyNames": [
+    "Project Management Foundations"
+  ],
+  "tags": {
+    "domainTags": [
+      "Organizational Design",
+      "Team Structure",
+      "Knowledge Management"
+    ],
+    "lifecycleTags": [
+      "Formation",
+      "Operation",
+      "Evolution"
+    ],
+    "organizationalTags": [
+      "Programme Delivery",
+      "Cross-Team"
+    ]
+  },
+  "keywords": [
+    "agile release train",
+    "ART",
+    "team of teams",
+    "community of practice",
+    "CoP",
+    "cognitive load",
+    "team topologies",
+    "interaction modes",
+    "scrum of scrums",
+    "inspect and adapt",
+    "PI sync",
+    "stream-aligned",
+    "enabling team",
+    "facilitating",
+    "x-as-a-service",
+    "collaboration mode",
+    "flight levels",
+    "programme coordination",
+    "team design",
+    "knowledge sharing"
+  ],
+  "authors": [
+    "Ed Seymour"
+  ],
+  "createdAt": "2026-07-28",
+  "updatedAt": "2026-08-13",
+  "version": "1.0.2",
+  "citations": [
+    {
+      "name": "Team Topologies: Organizing Business and Technology Teams for Fast Flow",
+      "description": "Framework for team design using four team types and three interaction modes with cognitive load as primary constraint.",
+      "authors": [
+        "Matthew Skelton",
+        "Manuel Pais"
+      ],
+      "date": "2019",
+      "source": "IT Revolution Press",
+      "url": "https://teamtopologies.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "SAFe 6.0 Framework",
+      "description": "Comprehensive scaled agile framework defining Agile Release Train structure, PI Planning, and programme-level coordination.",
+      "authors": [
+        "Scaled Agile Inc."
+      ],
+      "date": "2023",
+      "source": "Scaled Agile, Inc.",
+      "url": "https://framework.scaledagile.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "Communities of Practice: Learning, Meaning, and Identity",
+      "description": "Foundational theory of communities of practice as social learning systems with domain, community, and practice pillars.",
+      "authors": [
+        "Etienne Wenger"
+      ],
+      "date": "1998",
+      "source": "Cambridge University Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Cultivating Communities of Practice: A Guide to Managing Knowledge",
+      "description": "Practical guide for establishing, nurturing, and sustaining communities of practice in organizations.",
+      "authors": [
+        "Etienne Wenger",
+        "Richard McDermott",
+        "William Snyder"
+      ],
+      "date": "2002",
+      "source": "Harvard Business Review Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Large-Scale Scrum: More with LeSS",
+      "description": "Scaling framework using feature teams, shared backlogs, and lightweight coordination mechanisms.",
+      "authors": [
+        "Craig Larman",
+        "Bas Vodde"
+      ],
+      "date": "2016",
+      "source": "Addison-Wesley Professional",
+      "kind": "citation"
+    },
+    {
+      "name": "The Nexus Guide",
+      "description": "Framework for scaling Scrum with 3-9 teams using an Integration Team and cross-team refinement.",
+      "authors": [
+        "Ken Schwaber"
+      ],
+      "date": "2018",
+      "source": "Scrum.org",
+      "url": "https://www.scrum.org/resources/online-nexus-guide",
+      "kind": "citation"
+    },
+    {
+      "name": "Rethinking Agile: Why Agile Teams Have Nothing to Do with Business Agility",
+      "description": "Flight Levels framework distinguishing operative, coordination, and strategic decision levels.",
+      "authors": [
+        "Klaus Leopold"
+      ],
+      "date": "2018",
+      "source": "LEANability Press",
+      "kind": "citation"
+    },
+    {
+      "name": "SAFe 5.0 Distilled",
+      "description": "Condensed reference for SAFe framework including ART configuration and programme-level events.",
+      "authors": [
+        "Dean Leffingwell"
+      ],
+      "date": "2020",
+      "source": "Addison-Wesley Professional",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "art-team-topology-icon",
+      "description": "Icon representing the Agile Release Train team-of-teams structure.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "community-practice-icon",
+      "description": "Icon representing a Community of Practice knowledge sharing structure.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-comments",
+      "fontWeight": "900"
+    },
+    {
+      "name": "cognitive-load-icon",
+      "description": "Icon representing cognitive load assessment and team capacity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-interaction-modes-diagram",
+      "description": "Diagram showing Team Topologies three interaction modes (collaboration, x-as-a-service, facilitating).",
+      "type": "diagram",
+      "url": "https://teamtopologies.com/key-concepts"
+    },
+    {
+      "name": "art-blueprint-icon",
+      "description": "Icon representing the ART Configuration Blueprint organizational design document.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-sitemap",
+      "fontWeight": "900"
+    },
+    {
+      "name": "work-icon",
+      "type": "font-character",
+      "description": "Work icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-list-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-icon",
+      "type": "font-character",
+      "description": "Team icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "way-of-working-icon",
+      "type": "font-character",
+      "description": "Way Of Working icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "configure-agile-release-train-icon",
+      "type": "font-character",
+      "description": "Configure Agile Release Train icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-train",
+      "fontWeight": "900"
+    },
+    {
+      "name": "launch-and-operate-art-events-icon",
+      "type": "font-character",
+      "description": "Launch and Operate ART Events icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rocket",
+      "fontWeight": "900"
+    },
+    {
+      "name": "establish-communities-of-practice-icon",
+      "type": "font-character",
+      "description": "Establish Communities of Practice icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users-rectangle",
+      "fontWeight": "900"
+    },
+    {
+      "name": "assess-and-manage-cognitive-load-icon",
+      "type": "font-character",
+      "description": "Assess and Manage Cognitive Load icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-team-interaction-modes-icon",
+      "type": "font-character",
+      "description": "Design Team Interaction Modes icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-left-right",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-inspect-and-adapt-icon",
+      "type": "font-character",
+      "description": "Conduct Inspect and Adapt icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-magnifying-glass",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sustain-community-autonomy-icon",
+      "type": "font-character",
+      "description": "Sustain Community Autonomy icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-hand-holding-heart",
+      "fontWeight": "900"
+    },
+    {
+      "name": "transition-team-of-teams-structure-icon",
+      "type": "font-character",
+      "description": "Transition Team-of-Teams Structure icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-right-left",
+      "fontWeight": "900"
+    },
+    {
+      "name": "community-of-practice-charter-icon",
+      "type": "font-character",
+      "description": "Community of Practice Charter icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-shield",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Work",
+      "description": "The coordination, oversight, and integration activities performed at the programme level to ensure constituent projects deliver coherent capabilities and benefits.",
+      "focusName": "Endeavor",
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "Programme coordination scope defined and distinguished.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Coordination scope distinguished",
+              "description": "Team-of-teams coordination scope is distinguished from project-level work items.",
+              "seq": 1
+            },
+            {
+              "name": "Programme events identified",
+              "description": "Programme-level events and ceremonies are identified and time-boxed.",
+              "seq": 2
+            },
+            {
+              "name": "Coordination overhead budgeted",
+              "description": "Coordination overhead budget is estimated and agreed with programme governance.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Prepared",
+          "description": "Programme work organized with coordination mechanisms operational.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Event calendar published",
+              "description": "Coordination event calendar is published with clear facilitator assignments.",
+              "seq": 1
+            },
+            {
+              "name": "Communication channels operational",
+              "description": "Cross-team communication channels and collaboration tools are operational.",
+              "seq": 2
+            },
+            {
+              "name": "Dependency visualization established",
+              "description": "Programme board or equivalent dependency visualization is established.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Started",
+          "description": "Coordination events running and producing value.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Synchronization events running",
+              "description": "Synchronization events are running at defined cadence with team representation.",
+              "seq": 1
+            },
+            {
+              "name": "Impediments surfaced and resolved",
+              "description": "Cross-team impediments are being surfaced and resolved through coordination mechanisms.",
+              "seq": 2
+            },
+            {
+              "name": "Programme metrics collected",
+              "description": "Programme-level metrics are being collected and shared across teams.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Under Control",
+          "description": "Coordination maximizes value with minimum overhead.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Overhead proportionate to value",
+              "description": "Coordination overhead is measured and confirmed proportionate to value delivered.",
+              "seq": 1
+            },
+            {
+              "name": "Events produce actionable outcomes",
+              "description": "Teams report that coordination events produce actionable outcomes.",
+              "seq": 2
+            },
+            {
+              "name": "Predictable delivery cadence",
+              "description": "Flow metrics demonstrate predictable cross-team delivery cadence.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Concluded",
+          "description": "Programme coordination concluded with successor arrangements.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Coordination events concluded",
+              "description": "Team-of-teams coordination events are formally concluded with successor arrangements identified.",
+              "seq": 1
+            },
+            {
+              "name": "Knowledge transfer documented",
+              "description": "Knowledge transfer from programme coordination to operational coordination is documented.",
+              "seq": 2
+            }
+          ]
+        },
+        {
+          "name": "Closed",
+          "description": "All work formally closed with lessons captured.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Operating model lessons captured",
+              "description": "Team-of-teams operating model lessons are captured as organizational assets.",
+              "seq": 1
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Coordinating Programme Work Through Team-of-Teams Events",
+          "description": "How programme-level coordination work bridges project efforts into coherent delivery.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Programme-level work encompasses coordination, oversight, and integration activities that bridge individual project efforts into a coherent delivery stream."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Without deliberate distinction between programme-level and project-level work, coordination activities either consume excessive team time or remain insufficient to resolve cross-team impediments."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Establishing a clear coordination event calendar, measuring overhead against value delivered, and continuously refining the coordination model ensures programme work maximizes flow without burdening delivery teams."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Rethinking Agile: Why Agile Teams Have Nothing to Do with Business Agility"
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "work-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Team",
+      "description": "The organizational structure of multiple coordinated teams that operate as a unified programme delivery unit while maintaining individual team autonomy and managing cognitive load.",
+      "focusName": "Endeavor",
+      "states": [
+        {
+          "name": "Seeded",
+          "description": "Team-of-teams structure designed with cognitive load distribution.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Team types classified",
+              "description": "Team types are classified using Team Topologies vocabulary (stream-aligned, enabling, complicated subsystem, platform).",
+              "seq": 1
+            },
+            {
+              "name": "Cognitive load confirmed manageable",
+              "description": "Cognitive load assessment confirms team responsibilities are manageable without burnout risk.",
+              "seq": 2
+            },
+            {
+              "name": "Value stream alignment established",
+              "description": "Value stream alignment is established linking each team to a delivery value stream.",
+              "seq": 3
+            },
+            {
+              "name": "Interaction modes defined",
+              "description": "Initial interaction modes between teams are defined (collaboration, x-as-a-service, facilitating).",
+              "seq": 4
+            },
+            {
+              "name": "Organizational model selected",
+              "description": "Team-of-teams organizational model is selected (ART, LeSS, Nexus, or custom).",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Formed",
+          "description": "Teams staffed and establishing working relationships.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Cross-functional teams staffed",
+              "description": "Individual teams are staffed with cross-functional members capable of end-to-end delivery.",
+              "seq": 1
+            },
+            {
+              "name": "Leadership roles filled",
+              "description": "Leadership roles including train engineer and product management are filled.",
+              "seq": 2
+            },
+            {
+              "name": "Shared workspaces established",
+              "description": "Communication channels and shared workspaces are established for the team-of-teams.",
+              "seq": 3
+            },
+            {
+              "name": "Event calendar specified",
+              "description": "An initial event calendar specifies planning, synchronization, and demonstration cadences.",
+              "seq": 4
+            },
+            {
+              "name": "Interaction modes communicated",
+              "description": "Team interaction modes are communicated and understood by all teams.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Collaborating",
+          "description": "Teams working together with integrated coordination results.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Integration results visible",
+              "description": "Cross-team coordination events produce visible integration results.",
+              "seq": 1
+            },
+            {
+              "name": "Coordination information flowing",
+              "description": "Teams provide and receive coordination information through established mechanisms.",
+              "seq": 2
+            },
+            {
+              "name": "Shared identity developing",
+              "description": "The team-of-teams is developing shared identity and collective ownership of programme outcomes.",
+              "seq": 3
+            },
+            {
+              "name": "Friction points addressed",
+              "description": "Initial coordination friction points are identified and being addressed.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Performing",
+          "description": "Team-of-teams delivering integrated value predictably.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Stable velocity and quality",
+              "description": "The team-of-teams delivers integrated value with stable velocity and quality trends.",
+              "seq": 1
+            },
+            {
+              "name": "Proactive dependency management",
+              "description": "Dependency management is proactive with most dependencies resolved before blocking delivery.",
+              "seq": 2
+            },
+            {
+              "name": "Adaptive composition",
+              "description": "Teams adapt composition and interaction modes based on evolving needs without disrupting delivery.",
+              "seq": 3
+            },
+            {
+              "name": "Innovation activities regular",
+              "description": "Innovation and improvement activities are regular features of the delivery cadence.",
+              "seq": 4
+            },
+            {
+              "name": "Stakeholder confidence",
+              "description": "Business stakeholders express confidence in the team-of-teams' delivery ability.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Adjourned",
+          "description": "Team-of-teams transitioned with capabilities preserved.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Capabilities preserved",
+              "description": "Team capabilities and knowledge are preserved through documentation and personnel redeployment.",
+              "seq": 1
+            },
+            {
+              "name": "Relationships transitioned",
+              "description": "Relationships and collaboration patterns are transitioned to successor organizational structures.",
+              "seq": 2
+            },
+            {
+              "name": "CoP memberships continue",
+              "description": "Community of practice memberships continue beyond programme team dissolution.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Building High-Performing Programme Delivery Teams Through Deliberate Design",
+          "description": "The transformation journey from accidental team assembly to deliberate team-of-teams architecture.",
+          "narrativeTypeName": "The Hero's Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordinary World",
+              "context": "Programmes traditionally assemble teams by functional expertise or project assignment, resulting in high coordination overhead, cognitive overload, and unpredictable delivery as teams struggle to integrate across boundaries."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "The Call to Adventure",
+              "context": "Team Topologies and scaled agile frameworks offer a deliberate approach where team types, sizes, and interaction modes are designed around cognitive load constraints and value stream alignment, transforming team structure from accident to architecture."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "The Ordeal",
+              "context": "Forming and launching the team-of-teams requires overcoming resistance to team boundary changes, establishing new coordination cadences, and developing trust across formerly independent teams that must now deliver together."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "The Return",
+              "context": "The high-performing team-of-teams delivers integrated value predictably, evolves its topology through data-driven inspect and adapt, and contributes organizational learning that informs future programme team design."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies: Organizing Business and Technology Teams for Fast Flow",
+            "SAFe 6.0 Framework"
+          ]
+        },
+        {
+          "name": "From Isolated Project Teams to High-Performing Programme Delivery",
+          "description": "Practice narrative describing the journey from traditional hierarchical teams to optimized team-of-teams structures.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Programmes require multiple teams to deliver integrated value, but traditional hierarchical structures create coordination bottlenecks, cognitive overload, and knowledge silos that impede flow and predictability."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Design and evolve a team-of-teams structure that balances team autonomy with programme-level coordination, using cognitive load as the primary design constraint and establishing cross-team knowledge sharing mechanisms."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Apply Team Topologies vocabulary to classify team types and interaction modes, configure Agile Release Train or equivalent structures, establish communities of practice for knowledge sharing, and continuously assess cognitive load to inform team boundary decisions through regular inspect and adapt sessions."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A high-performing team-of-teams delivers integrated value predictably, adapts its topology based on data-driven cognitive load assessment, and sustains learning through self-governing communities of practice that outlive individual programme participation."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies: Organizing Business and Technology Teams for Fast Flow",
+            "SAFe 6.0 Framework",
+            "Communities of Practice: Learning, Meaning, and Identity"
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "team-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Way Of Working",
+      "description": "The programme operating model that defines how multiple teams coordinate, communicate, govern their collective delivery effort, and accommodate diverse team-level ways of working.",
+      "focusName": "Endeavor",
+      "states": [
+        {
+          "name": "Principles Established",
+          "description": "Programme operating model principles agreed by leadership.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Autonomy boundaries defined",
+              "description": "Team autonomy boundaries are defined specifying decisions teams make independently versus programme-level.",
+              "seq": 1
+            },
+            {
+              "name": "Coordination philosophy selected",
+              "description": "Coordination philosophy (lightweight vs. heavyweight) is selected based on programme context.",
+              "seq": 2
+            },
+            {
+              "name": "Improvement cadence agreed",
+              "description": "Continuous improvement cadence and mechanisms are agreed at programme level.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Foundation Established",
+          "description": "Operating model defined with coordination processes and events.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Coordination cadence defined",
+              "description": "Programme increment or equivalent coordination cadence is defined and communicated.",
+              "seq": 1
+            },
+            {
+              "name": "Cross-team events established",
+              "description": "Cross-team coordination events (sync, demo, retrospective) are established with facilitators.",
+              "seq": 2
+            },
+            {
+              "name": "CoP structures initiated",
+              "description": "Community of practice structures are initiated for cross-cutting knowledge domains.",
+              "seq": 3
+            },
+            {
+              "name": "Interaction modes documented",
+              "description": "Team interaction modes are documented and communicated to all teams.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "In Use",
+          "description": "Teams using operating model with coordinated results.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Events producing value",
+              "description": "Teams participate in coordination events and report they produce value.",
+              "seq": 1
+            },
+            {
+              "name": "CoP meetings active",
+              "description": "Community of practice meetings occur on cadence with active participation.",
+              "seq": 2
+            },
+            {
+              "name": "Interaction modes functioning",
+              "description": "Interaction modes between teams are functioning as designed.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "In Place",
+          "description": "Operating model refined for optimal coordination effectiveness.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Events refined from feedback",
+              "description": "Coordination events have been refined based on inspect and adapt feedback.",
+              "seq": 1
+            },
+            {
+              "name": "CoP outputs influencing decisions",
+              "description": "Communities of practice outputs are influencing programme practices and decisions.",
+              "seq": 2
+            },
+            {
+              "name": "Interaction mode transitions occurring",
+              "description": "Interaction mode transitions (collaboration to x-as-a-service) are occurring as teams mature.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Working Well",
+          "description": "Operating model documented as reusable organizational asset.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Operating model documented",
+              "description": "The operating model including coordination events, interaction modes, and CoP structures is documented as reusable.",
+              "seq": 1
+            },
+            {
+              "name": "CoPs self-sustaining",
+              "description": "Communities of practice are self-sustaining with organic membership renewal.",
+              "seq": 2
+            },
+            {
+              "name": "Topology evolution captured",
+              "description": "Team topology evolution practices are captured as organizational learning.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Retired",
+          "description": "Operating model archived with knowledge transferred.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Documentation archived",
+              "description": "Operating model documentation is archived as an organizational asset.",
+              "seq": 1
+            },
+            {
+              "name": "CoP knowledge transferred",
+              "description": "Knowledge from communities of practice is transferred to successor structures.",
+              "seq": 2
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Evolving the Programme Operating Model Through Communities and Coordination",
+          "description": "How the programme operating model evolves through continuous improvement cycles.",
+          "narrativeTypeName": "PDCA",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "The programme operating model is designed by selecting coordination mechanisms, defining team interaction modes, and establishing communities of practice based on programme context, team distribution, and delivery complexity."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Do",
+              "context": "Teams adopt the operating model, participating in coordination events, engaging in communities of practice, and operating according to defined interaction modes while the programme monitors adoption and effectiveness."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Check",
+              "context": "Inspect and adapt sessions assess whether the operating model produces coordination value proportionate to its overhead, whether communities deliver knowledge sharing benefits, and whether interaction modes are appropriate."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Act",
+              "context": "The operating model is refined through team topology changes, coordination event modifications, community evolution, and interaction mode transitions based on cognitive load data and flow metrics."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Rethinking Agile: Why Agile Teams Have Nothing to Do with Business Agility"
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "way-of-working-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Agile Release Train",
+      "description": "A long-lived team-of-teams structure delivering value through coordinated planning and fixed-cadence delivery.",
+      "focusName": "Endeavor",
+      "contributesTo": "Team",
+      "assetNames": [
+        {
+          "assetName": "art-team-topology-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "coordinates",
+          "alphaName": "Work",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "operates according to",
+          "alphaName": "Way Of Working",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Community of Practice",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Conceived",
+          "description": "ART purpose, scope, and value stream alignment identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Value stream identified",
+              "description": "The value stream the ART will serve is identified with boundaries defined.",
+              "seq": 1
+            },
+            {
+              "name": "Organizational construct selected",
+              "description": "The organizational construct is selected from available models (ART, LeSS, Nexus, custom).",
+              "seq": 2
+            },
+            {
+              "name": "Team count estimated",
+              "description": "Team count and required skill profiles are estimated based on programme scope.",
+              "seq": 3
+            },
+            {
+              "name": "Leadership roles identified",
+              "description": "Key leadership roles are identified (train engineer, product management, system architecture).",
+              "seq": 4
+            },
+            {
+              "name": "Relationship to other structures defined",
+              "description": "Relationship to other programme organizational structures is defined.",
+              "seq": 5
+            },
+            {
+              "name": "Cadence proposed",
+              "description": "Initial cadence and event structure are proposed.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Formed",
+          "description": "Teams staffed, roles assigned, and initial events established.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Teams staffed cross-functionally",
+              "description": "Individual teams are staffed with cross-functional members.",
+              "seq": 1
+            },
+            {
+              "name": "Team types defined",
+              "description": "Team types are defined using Team Topologies vocabulary.",
+              "seq": 2
+            },
+            {
+              "name": "Leadership roles filled",
+              "description": "Leadership roles are filled including train engineer and product management.",
+              "seq": 3
+            },
+            {
+              "name": "Event calendar established",
+              "description": "An initial event calendar establishes planning, synchronization, and demonstration cadence.",
+              "seq": 4
+            },
+            {
+              "name": "Interaction modes defined",
+              "description": "Team interaction modes are defined (collaboration, x-as-a-service, facilitating).",
+              "seq": 5
+            },
+            {
+              "name": "Cognitive load confirmed",
+              "description": "Cognitive load assessment confirms team responsibilities are manageable.",
+              "seq": 6
+            },
+            {
+              "name": "Communication channels established",
+              "description": "Communication channels and shared workspaces are established.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Launching",
+          "description": "First planning cycle conducted and delivery cadence established.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "First planning event conducted",
+              "description": "First planning event (PI Planning or equivalent) conducted with all teams.",
+              "seq": 1
+            },
+            {
+              "name": "Teams committed to objectives",
+              "description": "Teams have committed to objectives for the first increment with dependencies identified.",
+              "seq": 2
+            },
+            {
+              "name": "Synchronization events running",
+              "description": "Synchronization events are running at defined cadence.",
+              "seq": 3
+            },
+            {
+              "name": "Integration producing results",
+              "description": "Integration mechanisms are producing visible cross-team results.",
+              "seq": 4
+            },
+            {
+              "name": "Shared identity developing",
+              "description": "The team-of-teams is developing shared identity and collective ownership.",
+              "seq": 5
+            },
+            {
+              "name": "Friction points identified",
+              "description": "Initial coordination friction points are identified and being addressed.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Performing",
+          "description": "ART delivering predictable value with mature coordination.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Predictable integrated delivery",
+              "description": "Integrated value is delivered predictably with stable velocity and quality trends.",
+              "seq": 1
+            },
+            {
+              "name": "Efficient coordination",
+              "description": "Cross-team coordination mechanisms are efficient with minimal overhead.",
+              "seq": 2
+            },
+            {
+              "name": "Proactive dependency management",
+              "description": "Dependency management is proactive with most dependencies resolved before blocking.",
+              "seq": 3
+            },
+            {
+              "name": "Trust enabling collaboration",
+              "description": "Teams have developed trust enabling effective collaboration without excessive process.",
+              "seq": 4
+            },
+            {
+              "name": "Adaptive composition",
+              "description": "The ART adapts composition and interaction modes based on evolving needs.",
+              "seq": 5
+            },
+            {
+              "name": "Stakeholder confidence",
+              "description": "Business stakeholders express confidence in delivery predictability.",
+              "seq": 6
+            },
+            {
+              "name": "Regular innovation",
+              "description": "Innovation and improvement are regular features of the delivery cadence.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Evolving",
+          "description": "Team topology optimized through continuous inspection and adaptation.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Meaningful inspect and adapt",
+              "description": "Inspect and adapt sessions produce meaningful improvements to team structure and process.",
+              "seq": 1
+            },
+            {
+              "name": "Data-driven topology changes",
+              "description": "Team topology changes are driven by cognitive load assessment and flow metrics.",
+              "seq": 2
+            },
+            {
+              "name": "Capability transfer completed",
+              "description": "Enabling teams have transferred capabilities to stream-aligned teams.",
+              "seq": 3
+            },
+            {
+              "name": "CoP contributions extending learning",
+              "description": "The ART has contributed to communities of practice extending learning beyond its boundaries.",
+              "seq": 4
+            },
+            {
+              "name": "Organizational learning informing design",
+              "description": "Organizational learning informs design of future programme delivery structures.",
+              "seq": 5
+            },
+            {
+              "name": "Continuous performance improvement",
+              "description": "Performance metrics show continuous improvement in velocity, quality, and satisfaction.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Scaling Delivery Through Deliberate Team-of-Teams Architecture",
+          "description": "The journey from coordination challenges to high-performing team-of-teams delivery.",
+          "narrativeTypeName": "The Hero's Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordinary World",
+              "context": "Organizations attempting to scale delivery beyond a single team face coordination challenges as handoffs multiply, integration fails, and cognitive load overwhelms individual teams trying to manage too many concerns simultaneously."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "The Call to Adventure",
+              "context": "The Agile Release Train or equivalent team-of-teams structure provides a deliberate organizational architecture that aligns teams to value streams, manages cognitive load through team topology design, and establishes coordination events that create flow across team boundaries."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "The Ordeal",
+              "context": "Launching the ART requires overcoming resistance to new organizational structures, establishing trust across teams that have not previously collaborated, and calibrating coordination events to produce value without becoming ritualistic overhead."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "The Return",
+              "context": "The performing ART delivers integrated value predictably, evolves its topology through data-driven inspect and adapt, and produces organizational learning that enables future programmes to form effective team-of-teams structures more rapidly."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Team Topologies: Organizing Business and Technology Teams for Fast Flow",
+            "Large-Scale Scrum: More with LeSS"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Community of Practice",
+      "description": "Cross-cutting knowledge sharing structures enabling learning and standards across programme teams.",
+      "focusName": "Endeavor",
+      "contributesTo": "Way Of Working",
+      "assetNames": [
+        {
+          "assetName": "community-practice-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "spans boundaries of",
+          "alphaName": "Agile Release Train",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "shares knowledge with",
+          "alphaName": "Team",
+          "direction": "mutual"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Knowledge domain and sharing need recognized across teams.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Knowledge domain identified",
+              "description": "A knowledge domain where cross-team sharing would provide programme value is identified.",
+              "seq": 1
+            },
+            {
+              "name": "Potential members identified",
+              "description": "Potential members with expertise or interest are identified across programme teams.",
+              "seq": 2
+            },
+            {
+              "name": "Knowledge gap assessed",
+              "description": "The gap between current knowledge distribution and desired capability is assessed.",
+              "seq": 3
+            },
+            {
+              "name": "Existing communities reviewed",
+              "description": "Existing communities are reviewed to avoid duplication and identify partnerships.",
+              "seq": 4
+            },
+            {
+              "name": "Champion identified",
+              "description": "An initial champion or sponsor is identified to invest effort in establishment.",
+              "seq": 5
+            },
+            {
+              "name": "Expected value articulated",
+              "description": "Expected value is articulated in terms of knowledge sharing or standards development.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Chartered",
+          "description": "Purpose, membership, cadence, and governance defined.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Charter documented",
+              "description": "A community charter documents domain, purpose, membership criteria, and operating model.",
+              "seq": 1
+            },
+            {
+              "name": "Core members committed",
+              "description": "Core members have committed to regular participation with facilitator and curator roles assigned.",
+              "seq": 2
+            },
+            {
+              "name": "Meeting cadence balanced",
+              "description": "Meeting cadence and format balance engagement with delivery commitments.",
+              "seq": 3
+            },
+            {
+              "name": "Asynchronous channels established",
+              "description": "Communication channels for asynchronous knowledge sharing are established.",
+              "seq": 4
+            },
+            {
+              "name": "Governance relationship defined",
+              "description": "The community's relationship to programme governance is defined.",
+              "seq": 5
+            },
+            {
+              "name": "Success measures defined",
+              "description": "Success measures are defined to assess community value delivery.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Active",
+          "description": "Regular meetings producing knowledge assets and shared standards.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Meetings on cadence",
+              "description": "Meetings occur on cadence with consistent core member attendance.",
+              "seq": 1
+            },
+            {
+              "name": "Knowledge assets created",
+              "description": "Knowledge assets (guidelines, templates, reference implementations) are being created and shared.",
+              "seq": 2
+            },
+            {
+              "name": "Members report learning value",
+              "description": "Members report that participation provides learning and professional development value.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-team problems resolved",
+              "description": "Cross-team problems are surfaced and resolved through community collaboration.",
+              "seq": 4
+            },
+            {
+              "name": "Organic membership growth",
+              "description": "New members join through organic interest and word-of-mouth.",
+              "seq": 5
+            },
+            {
+              "name": "Shared vocabulary developed",
+              "description": "The community has developed shared vocabulary and practices reflecting the practice pillar.",
+              "seq": 6
+            },
+            {
+              "name": "Knowledge accessible to non-members",
+              "description": "Knowledge produced is accessible to non-members through a shared repository.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Embedded",
+          "description": "Community outputs influencing programme practices and decisions.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Standards adopted across teams",
+              "description": "Standards produced by the community are adopted across programme teams.",
+              "seq": 1
+            },
+            {
+              "name": "Governance references community expertise",
+              "description": "Programme governance references community expertise for domain decisions.",
+              "seq": 2
+            },
+            {
+              "name": "Members serve as consultants",
+              "description": "Community members serve as consultants to teams on domain topics.",
+              "seq": 3
+            },
+            {
+              "name": "Systemic improvements identified",
+              "description": "The community contributes to programme inspect and adapt by identifying systemic improvements.",
+              "seq": 4
+            },
+            {
+              "name": "Measurable quality improvement",
+              "description": "Community outputs have measurably improved quality or consistency across the programme.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Self-Sustaining",
+          "description": "Community operates autonomously with organic membership renewal.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Value without external sponsorship",
+              "description": "The community attracts new members and produces value without external sponsorship.",
+              "seq": 1
+            },
+            {
+              "name": "Organic leadership rotation",
+              "description": "Leadership rotates organically with new facilitators emerging from membership.",
+              "seq": 2
+            },
+            {
+              "name": "Adaptive focus and format",
+              "description": "The community adapts focus and format in response to changing needs.",
+              "seq": 3
+            },
+            {
+              "name": "Organizational asset recognition",
+              "description": "Knowledge produced is recognized as an organizational asset outliving programme participation.",
+              "seq": 4
+            },
+            {
+              "name": "Operating model documented as template",
+              "description": "The operating model is documented as a template for establishing new communities.",
+              "seq": 5
+            },
+            {
+              "name": "High autonomy and purpose",
+              "description": "Members report high levels of autonomy, mastery, and purpose from participation.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Cultivating Cross-Team Knowledge Networks That Outlive Programme Boundaries",
+          "description": "How voluntary communities of practice create sustainable cross-team learning environments.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Programme teams operating within ART boundaries develop deep expertise within their domains but lack mechanisms to share knowledge, establish common standards, and solve problems that span team boundaries."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Establish voluntary communities of practice that create genuine social learning environments where practitioners deepen expertise through ongoing interaction, following Wenger's framework of shared domain, community relationships, and practice repertoire."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Identify knowledge domains with cross-team value, recruit champion facilitators, establish minimum viable operating models with regular cadence, and create conditions for early wins that demonstrate value while allowing organic growth through genuine practitioner interest rather than mandated participation."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Self-sustaining communities produce knowledge assets, shared standards, and cross-team problem-solving capabilities that improve programme delivery quality and create organizational assets that persist beyond the programme's lifetime."
+            }
+          ],
+          "citationNames": [
+            "Communities of Practice: Learning, Meaning, and Identity",
+            "Cultivating Communities of Practice: A Guide to Managing Knowledge"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "ART Configuration Blueprint",
+      "description": "Organizational design specifying team structure, interaction modes, and coordination mechanisms.",
+      "assetNames": [
+        {
+          "assetName": "art-blueprint-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Conceptual",
+          "description": "Team-of-teams structure outlined with team types identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Value stream identified",
+              "description": "Value stream served by the team-of-teams is identified and bounded.",
+              "seq": 1
+            },
+            {
+              "name": "Team count estimated",
+              "description": "Approximate team count and size range are estimated.",
+              "seq": 2
+            },
+            {
+              "name": "Team types classified",
+              "description": "Team types are classified using Team Topologies vocabulary.",
+              "seq": 3
+            },
+            {
+              "name": "Leadership roles outlined",
+              "description": "Initial leadership roles and responsibilities are outlined.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Conceived"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            }
+          ]
+        },
+        {
+          "name": "Designed",
+          "description": "Detailed team compositions, interaction modes, and cognitive load assessment.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Team missions defined",
+              "description": "Each team's mission, scope, and membership are defined.",
+              "seq": 1
+            },
+            {
+              "name": "Interaction modes specified",
+              "description": "Interaction modes between teams are specified (collaboration, x-as-a-service, facilitating).",
+              "seq": 2
+            },
+            {
+              "name": "Cognitive load confirmed",
+              "description": "Cognitive load assessment confirms team responsibilities are manageable.",
+              "seq": 3
+            },
+            {
+              "name": "Key roles staffed",
+              "description": "Key roles within and across teams are staffed with named individuals.",
+              "seq": 4
+            },
+            {
+              "name": "Event calendar specified",
+              "description": "Event calendar specifies planning, synchronization, and demonstration cadences.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Formed"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            }
+          ]
+        },
+        {
+          "name": "Operating",
+          "description": "Living configuration with performance tracking and evolution history.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Performance metrics tracked",
+              "description": "Team performance metrics are tracked including velocity, quality, and satisfaction.",
+              "seq": 1
+            },
+            {
+              "name": "Interaction mode effectiveness assessed",
+              "description": "Interaction mode effectiveness is assessed with evolution recommendations.",
+              "seq": 2
+            },
+            {
+              "name": "Cognitive load reassessed",
+              "description": "Cognitive load is periodically reassessed with boundary adjustments when needed.",
+              "seq": 3
+            },
+            {
+              "name": "Configuration changes documented",
+              "description": "Configuration changes are documented with rationale and impact assessment.",
+              "seq": 4
+            },
+            {
+              "name": "Input to inspect and adapt",
+              "description": "The blueprint serves as input to inspect and adapt sessions.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Team topology fully calibrated with patterns documented.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Data-driven topology changes",
+              "description": "Team topology changes are data-driven based on flow metrics and cognitive load.",
+              "seq": 1
+            },
+            {
+              "name": "Design patterns documented",
+              "description": "Team-of-teams design patterns are documented as organizational assets.",
+              "seq": 2
+            },
+            {
+              "name": "Smooth interaction transitions",
+              "description": "Interaction mode transitions are smooth and well-understood.",
+              "seq": 3
+            },
+            {
+              "name": "Stable performance trends",
+              "description": "The blueprint demonstrates stable or improving performance trends.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Working Well"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Designing Team Architecture Through Cognitive Load and Flow Optimization",
+          "description": "How the ART Configuration Blueprint captures deliberate organizational design decisions.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "The ART Configuration Blueprint captures the deliberate organizational design of the team-of-teams, specifying team types, interaction modes, and coordination mechanisms using Team Topologies vocabulary."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Without a living document that evolves with the programme, team structures become fossilized, cognitive load accumulates unaddressed, and interaction modes persist beyond their usefulness."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Maintaining the blueprint as a living artifact with regular performance tracking, cognitive load reassessment, and design pattern documentation ensures the team topology continuously adapts to optimize flow and delivery effectiveness."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies: Organizing Business and Technology Teams for Fast Flow"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Community of Practice Charter",
+      "description": "Founding document defining a community's purpose, domain, membership, and operating model.",
+      "levelsOfDetail": [
+        {
+          "name": "Proposal",
+          "description": "Initial case for the community with domain and value.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Knowledge domain defined",
+              "description": "Knowledge domain is defined with boundaries distinguishing it from adjacent domains.",
+              "seq": 1
+            },
+            {
+              "name": "Gap articulated",
+              "description": "The gap or need the community will address is articulated.",
+              "seq": 2
+            },
+            {
+              "name": "Founding members identified",
+              "description": "Potential founding members are identified.",
+              "seq": 3
+            },
+            {
+              "name": "Expected value described",
+              "description": "Expected value to members and the programme is described.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Established",
+          "description": "Full charter with membership, cadence, roles, and channels.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Purpose and scope documented",
+              "description": "Purpose statement, domain definition, and scope boundaries are documented.",
+              "seq": 1
+            },
+            {
+              "name": "Membership commitments defined",
+              "description": "Core membership commitments and expectations are defined.",
+              "seq": 2
+            },
+            {
+              "name": "Roles assigned",
+              "description": "Facilitator, knowledge curator, and other roles are assigned.",
+              "seq": 3
+            },
+            {
+              "name": "Cadence and channels specified",
+              "description": "Meeting cadence, format, and communication channels are specified.",
+              "seq": 4
+            },
+            {
+              "name": "Governance relationship defined",
+              "description": "The community's relationship to programme governance is defined.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Chartered"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Foundation Established"
+            }
+          ]
+        },
+        {
+          "name": "Mature",
+          "description": "Charter with knowledge assets, impact metrics, and succession.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Knowledge assets catalogued",
+              "description": "A catalogue of knowledge assets produced by the community is maintained.",
+              "seq": 1
+            },
+            {
+              "name": "Impact metrics demonstrate value",
+              "description": "Impact metrics demonstrate the community's value to members and the programme.",
+              "seq": 2
+            },
+            {
+              "name": "Succession plans in place",
+              "description": "Membership and leadership succession plans ensure continuity.",
+              "seq": 3
+            },
+            {
+              "name": "Charter periodically reviewed",
+              "description": "The charter is periodically reviewed and updated based on community evolution.",
+              "seq": 4
+            },
+            {
+              "name": "Inter-community relationships documented",
+              "description": "Relationships with other communities of practice are documented.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Active"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Place"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Chartering Communities for Sustainable Cross-Team Learning",
+          "description": "How well-crafted charters create conditions for communities to progress and thrive.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "The Community of Practice Charter establishes the foundational contract for a cross-team learning community, defining domain, purpose, membership, and operating model following the three pillars framework."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Communities without clear charters often drift in purpose, lose participation, or become captured by organizational mandates that undermine the voluntary social learning that makes them effective."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "A well-crafted charter that balances structure with organic growth, includes success measures, and evolves through regular review creates conditions for communities to progress from initial proposal through active knowledge production to self-sustaining organizational assets."
+            }
+          ],
+          "citationNames": [
+            "Communities of Practice: Learning, Meaning, and Identity",
+            "Cultivating Communities of Practice: A Guide to Managing Knowledge"
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "community-of-practice-charter-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Cognitive Load Assessment",
+      "description": "Structured evaluation of team cognitive burden informing team boundary and responsibility decisions.",
+      "assetNames": [
+        {
+          "assetName": "cognitive-load-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Team responsibilities catalogued with complexity indicators.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Domains of responsibility listed",
+              "description": "Each team's domains of responsibility are listed.",
+              "seq": 1
+            },
+            {
+              "name": "Domain complexity rated",
+              "description": "Domain complexity is qualitatively rated (simple, complicated, complex).",
+              "seq": 2
+            },
+            {
+              "name": "Cognitive load types distinguished",
+              "description": "Types of cognitive load (intrinsic, extraneous, germane) are distinguished per team.",
+              "seq": 3
+            },
+            {
+              "name": "Overwhelmed teams flagged",
+              "description": "Teams reporting overwhelm or stretch are flagged.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Formed"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            }
+          ]
+        },
+        {
+          "name": "Analyzed",
+          "description": "Detailed load analysis with team boundary recommendations.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Quantitative assessment completed",
+              "description": "Cognitive load is assessed quantitatively using surveys and dependency counts.",
+              "seq": 1
+            },
+            {
+              "name": "Overload factors identified",
+              "description": "Teams exceeding load thresholds are identified with specific overload factors.",
+              "seq": 2
+            },
+            {
+              "name": "Boundary change recommendations documented",
+              "description": "Recommendations for team splitting, scope reduction, or platform team creation are documented.",
+              "seq": 3
+            },
+            {
+              "name": "Change impact assessed",
+              "description": "Impact of proposed changes on delivery flow and organizational structure is assessed.",
+              "seq": 4
+            },
+            {
+              "name": "Interaction mode changes identified",
+              "description": "Interaction mode changes that could reduce extraneous load are identified.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            }
+          ]
+        },
+        {
+          "name": "Managed",
+          "description": "Ongoing monitoring with regular reassessment and adaptation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Regular reassessment",
+              "description": "Cognitive load is reassessed at regular intervals aligned with topology reviews.",
+              "seq": 1
+            },
+            {
+              "name": "Boundary changes tracked",
+              "description": "Changes to team boundaries are tracked with impact on cognitive load measured.",
+              "seq": 2
+            },
+            {
+              "name": "Enabling teams deployed",
+              "description": "Enabling teams are deployed to reduce germane load through capability transfer.",
+              "seq": 3
+            },
+            {
+              "name": "Platform teams absorbing load",
+              "description": "Platform teams absorb extraneous load through service provision.",
+              "seq": 4
+            },
+            {
+              "name": "Embedded in continuous improvement",
+              "description": "Cognitive load management is embedded in continuous improvement practices.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Managing Cognitive Load as the Primary Team Design Constraint",
+          "description": "How systematic cognitive load assessment drives team boundary decisions.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Team Topologies identifies cognitive load as the primary constraint for team design, distinguishing intrinsic load (domain complexity), extraneous load (tools, infrastructure, coordination), and germane load (productive learning and improvement)."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Without systematic assessment, teams accumulate responsibilities beyond their cognitive capacity, leading to burnout, quality degradation, and coordination breakdowns that are attributed to team performance rather than structural overload."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Regular cognitive load assessment using quantitative surveys, dependency counts, and domain complexity ratings provides the data-driven foundation for team boundary decisions, enabling structural solutions rather than motivational interventions."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies: Organizing Business and Technology Teams for Fast Flow"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Release Train Engineer",
+      "description": "Chief facilitator of coordination events, impediment resolution, and delivery flow for the team-of-teams.",
+      "competencies": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Delivery Management",
+          "Facilitation"
+        ],
+        "lifecycleTags": [
+          "Operation"
+        ],
+        "organizationalTags": [
+          "Programme Delivery"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Community of Practice Lead",
+      "description": "Facilitator and knowledge curator who nurtures cross-team learning within a knowledge domain.",
+      "competencies": [
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Knowledge Management",
+          "Community Building"
+        ],
+        "lifecycleTags": [
+          "Ongoing"
+        ],
+        "organizationalTags": [
+          "Cross-Cutting"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Agile Coach (Programme Level)",
+      "description": "Programme-level coach guiding teams and leaders in scaled agile practice adoption and improvement.",
+      "competencies": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Coaching",
+          "Agile Transformation"
+        ],
+        "lifecycleTags": [
+          "Full Lifecycle"
+        ],
+        "organizationalTags": [
+          "Enabling"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Agile Release Train Team",
+      "description": "The long-lived team-of-teams delivering value within a programme value stream.",
+      "personaNames": [
+        "Release Train Engineer",
+        "Agile Coach (Programme Level)"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [
+          "Operation"
+        ],
+        "organizationalTags": [
+          "Programme Delivery",
+          "Cross-Functional"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Community of Practice Group",
+      "description": "Cross-cutting knowledge sharing group spanning team boundaries within a domain.",
+      "personaNames": [
+        "Community of Practice Lead",
+        "Agile Coach (Programme Level)"
+      ],
+      "tags": {
+        "domainTags": [
+          "Knowledge Management"
+        ],
+        "lifecycleTags": [
+          "Ongoing"
+        ],
+        "organizationalTags": [
+          "Cross-Cutting"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Configure Agile Release Train",
+      "description": "Design the team-of-teams structure with team types, interaction modes, and cognitive load distribution.",
+      "activitySpaceName": "Support the Team",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Agile Release Train",
+          "stateName": "Conceived"
+        },
+        {
+          "alphaName": "Agile Release Train",
+          "stateName": "Formed"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Seeded"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Initiated"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Principles Established"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "ART Configuration Blueprint",
+          "levelOfDetailName": "Conceptual"
+        },
+        {
+          "workProductName": "ART Configuration Blueprint",
+          "levelOfDetailName": "Designed"
+        },
+        {
+          "workProductName": "Cognitive Load Assessment",
+          "levelOfDetailName": "Initial"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Integration",
+        "Change Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Agile Release Train Team"
+      ],
+      "narratives": [
+        {
+          "name": "Designing Team-of-Teams Structure Through Deliberate Topology Selection",
+          "description": "How to configure team-of-teams structure using Team Topologies and cognitive load principles.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Programme scope, value stream identification, and strategic direction must be established before configuring the team-of-teams structure, with cognitive load principles understood by leadership."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Configuration begins with identifying the value stream to be served, selecting the organizational model (ART, LeSS, Nexus, or custom), and applying Team Topologies vocabulary to classify team types and define interaction modes, using cognitive load as the primary design constraint to ensure each team's scope is manageable."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies: Organizing Business and Technology Teams for Fast Flow",
+            "SAFe 6.0 Framework",
+            "Large-Scale Scrum: More with LeSS",
+            "The Nexus Guide"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "configure-agile-release-train-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Launch and Operate ART Events",
+      "description": "Establish and facilitate recurring coordination events for planning, synchronization, and demonstration.",
+      "activitySpaceName": "Manage Work Execution",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Agile Release Train",
+          "stateName": "Launching"
+        },
+        {
+          "alphaName": "Agile Release Train",
+          "stateName": "Performing"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Started"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Under Control"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "In Use"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "ART Configuration Blueprint",
+          "levelOfDetailName": "Designed"
+        },
+        {
+          "workProductName": "ART Configuration Blueprint",
+          "levelOfDetailName": "Operating"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Communication",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Agile Release Train Team"
+      ],
+      "narratives": [
+        {
+          "name": "Operating the Team-of-Teams Coordination Cadence",
+          "description": "How to facilitate programme-level coordination events for maximum value.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "The team-of-teams must be formed with roles assigned, event calendar published, and coordination tools operational before launching the event cadence."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The Release Train Engineer facilitates programme-level events including PI Planning or equivalent quarterly planning, system demonstrations per iteration, synchronization events weekly or bi-weekly, and inspect and adapt sessions, ensuring each event produces coordination value proportionate to the time invested and reforming or eliminating ritualistic events that fail to produce decisions or information flow."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Large-Scale Scrum: More with LeSS",
+            "The Nexus Guide",
+            "Rethinking Agile: Why Agile Teams Have Nothing to Do with Business Agility"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "launch-and-operate-art-events-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Establish Communities of Practice",
+      "description": "Create and nurture cross-cutting knowledge sharing communities spanning programme team boundaries.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Community of Practice",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Community of Practice",
+          "stateName": "Chartered"
+        },
+        {
+          "alphaName": "Community of Practice",
+          "stateName": "Active"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Foundation Established"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Community of Practice Charter",
+          "levelOfDetailName": "Proposal"
+        },
+        {
+          "workProductName": "Community of Practice Charter",
+          "levelOfDetailName": "Established"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Communication",
+        "Change Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Community of Practice Group"
+      ],
+      "narratives": [
+        {
+          "name": "Creating Conditions for Voluntary Cross-Team Learning Communities",
+          "description": "How to establish communities of practice that create genuine social learning environments.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Knowledge domains where cross-team sharing would provide meaningful programme value must be identified, with enthusiastic champions willing to invest effort in the community's early stages."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Establishment follows the three pillars framework by clearly defining the domain, building genuine community relationships through voluntary participation, and developing a shared practice repertoire, with programme leadership creating conditions for success by providing time, space, and visibility while resisting the temptation to mandate participation that would undermine the social learning dynamic."
+            }
+          ],
+          "citationNames": [
+            "Communities of Practice: Learning, Meaning, and Identity",
+            "Cultivating Communities of Practice: A Guide to Managing Knowledge",
+            "SAFe 6.0 Framework"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "establish-communities-of-practice-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Assess and Manage Cognitive Load",
+      "description": "Evaluate team cognitive burden and adjust boundaries, responsibilities, and interaction modes.",
+      "activitySpaceName": "Support the Team",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Agile Release Train",
+          "stateName": "Formed"
+        },
+        {
+          "alphaName": "Agile Release Train",
+          "stateName": "Evolving"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Collaborating"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Performing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Cognitive Load Assessment",
+          "levelOfDetailName": "Initial"
+        },
+        {
+          "workProductName": "Cognitive Load Assessment",
+          "levelOfDetailName": "Analyzed"
+        },
+        {
+          "workProductName": "Cognitive Load Assessment",
+          "levelOfDetailName": "Managed"
+        },
+        {
+          "workProductName": "ART Configuration Blueprint",
+          "levelOfDetailName": "Designed"
+        },
+        {
+          "workProductName": "ART Configuration Blueprint",
+          "levelOfDetailName": "Operating"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Analysis",
+        "Integration"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Agile Release Train Team"
+      ],
+      "narratives": [
+        {
+          "name": "Using Cognitive Load Assessment to Drive Team Topology Decisions",
+          "description": "How to use cognitive load as the primary constraint for team boundary decisions.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "The cognitive load framework (intrinsic, extraneous, germane) must be understood by leadership, and team responsibility inventories must be available for assessment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Assessment begins by mapping each team's domains and rating complexity, then evaluating total load including dependencies and tool overhead, with structural solutions applied when load exceeds capacity: splitting team responsibilities, creating platform teams to absorb extraneous load, deploying enabling teams to accelerate capability development, or simplifying interaction modes from collaboration to x-as-a-service to reduce coordination overhead."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies: Organizing Business and Technology Teams for Fast Flow"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "assess-and-manage-cognitive-load-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Design Team Interaction Modes",
+      "description": "Define and evolve how programme teams interact using collaboration, x-as-a-service, and facilitating patterns.",
+      "activitySpaceName": "Support the Team",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "team-interaction-modes-diagram",
+          "type": "diagram"
+        },
+        {
+          "assetName": "design-team-interaction-modes-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Agile Release Train",
+          "stateName": "Formed"
+        },
+        {
+          "alphaName": "Agile Release Train",
+          "stateName": "Evolving"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "In Use"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "In Place"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "ART Configuration Blueprint",
+          "levelOfDetailName": "Designed"
+        },
+        {
+          "workProductName": "ART Configuration Blueprint",
+          "levelOfDetailName": "Operating"
+        },
+        {
+          "workProductName": "Cognitive Load Assessment",
+          "levelOfDetailName": "Analyzed"
+        },
+        {
+          "workProductName": "Cognitive Load Assessment",
+          "levelOfDetailName": "Managed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Integration",
+        "Change Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Agile Release Train Team"
+      ],
+      "narratives": [
+        {
+          "name": "Evolving Team Interaction Patterns for Optimal Flow and Cognitive Load",
+          "description": "How to design and evolve team interaction modes across the programme.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "The team-of-teams structure must be configured with team types identified, and the three interaction modes (collaboration, x-as-a-service, facilitating) must be understood by leadership and teams."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Interaction mode design proceeds holistically across the full matrix of team-to-team interactions, ensuring no team is overwhelmed by too many collaboration relationships, platform teams have sufficient capacity for all consumers, and a common evolution pattern applies where teams begin with collaboration for new capabilities then transition to x-as-a-service once interfaces stabilize, with enabling teams facilitating the transition."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies: Organizing Business and Technology Teams for Fast Flow"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Conduct Inspect and Adapt",
+      "description": "Facilitate structured reflection and improvement at programme level following each delivery increment.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Agile Release Train",
+          "stateName": "Evolving"
+        },
+        {
+          "alphaName": "Community of Practice",
+          "stateName": "Embedded"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "In Place"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Working Well"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "ART Configuration Blueprint",
+          "levelOfDetailName": "Operating"
+        },
+        {
+          "workProductName": "Community of Practice Charter",
+          "levelOfDetailName": "Mature"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Analysis",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Agile Release Train Team",
+        "Community of Practice Group"
+      ],
+      "narratives": [
+        {
+          "name": "Driving Continuous Improvement Through Structured Programme Reflection",
+          "description": "How to conduct inspect and adapt sessions for programme-level improvement.",
+          "narrativeTypeName": "PDCA",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Inspect and adapt sessions are planned at the end of each programme increment, combining quantitative measurement of planned versus actual objectives with structured problem-solving to address systemic issues."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Do",
+              "context": "The session comprises the PI System Demo showcasing integrated work, quantitative assessment of velocity trends and quality metrics, and a structured problem-solving workshop using root cause analysis to identify improvement actions."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Check",
+              "context": "Systemic issues are distinguished from team-level issues, with improvements requiring cross-team coordination or organizational change escalated to programme governance, and team topology review conducted using cognitive load assessment and flow metrics."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Act",
+              "context": "Concrete improvement actions are prioritized, included in the next increment's backlog, and tracked to completion, with team topology changes driven by data rather than organizational politics and community of practice insights informing cross-cutting improvements."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Large-Scale Scrum: More with LeSS",
+            "The Nexus Guide"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "conduct-inspect-and-adapt-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Sustain Community Autonomy",
+      "description": "Nurture community self-governance with organic leadership rotation and autonomous adaptation.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Community of Practice",
+          "stateName": "Self-Sustaining"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Working Well"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Community of Practice Charter",
+          "levelOfDetailName": "Mature"
+        }
+      ],
+      "requiredCompetencies": [
+        "Communication",
+        "Leadership",
+        "Change Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Community of Practice Group"
+      ],
+      "narratives": [
+        {
+          "name": "Enabling Communities to Thrive Beyond Sponsorship",
+          "description": "How to shift from external sponsorship to community self-governance.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "The community must have reached the Embedded state with demonstrated value to the programme and active participation, and programme leadership must be willing to shift from sponsorship to stewardship."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Sustaining community autonomy involves facilitating leadership rotation so new facilitators emerge organically, documenting the community's operating model as a reusable template, ensuring knowledge assets are recognized as organizational assets that outlive programme participation, and gradually withdrawing external sponsorship as the community demonstrates self-governance capability."
+            }
+          ],
+          "citationNames": [
+            "Cultivating Communities of Practice: A Guide to Managing Knowledge"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "sustain-community-autonomy-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Transition Team-of-Teams Structure",
+      "description": "Orderly transition of team-of-teams structure preserving knowledge, relationships, and practices.",
+      "activitySpaceName": "Stop The Work",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Team",
+          "stateName": "Adjourned"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Concluded"
+        },
+        {
+          "alphaName": "Work",
+          "stateName": "Closed"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Retired"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "ART Configuration Blueprint",
+          "levelOfDetailName": "Optimized"
+        },
+        {
+          "workProductName": "Cognitive Load Assessment",
+          "levelOfDetailName": "Managed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Management",
+        "Change Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Agile Release Train Team"
+      ],
+      "narratives": [
+        {
+          "name": "Preserving Organizational Learning Through Deliberate Team Transition",
+          "description": "How to transition team-of-teams structure while preserving organizational learning.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Programme closure decision must be confirmed through governance, with successor organizational structures identified and community of practice transition plans in place."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Transitioning the team-of-teams involves documenting the operating model and team topology patterns as reusable organizational assets, transferring coordination practices to successor structures, ensuring community of practice memberships continue beyond programme dissolution, redeploying team members with attention to preserving collaboration relationships, and formally closing programme-level coordination events and workspaces."
+            }
+          ],
+          "citationNames": [
+            "Team Topologies: Organizing Business and Technology Teams for Fast Flow"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "transition-team-of-teams-structure-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Team-of-Teams Formation Journey",
+      "description": "Coordinated progression from team design through formation and launch to high-performing evolution.",
+      "narrativeTypeName": "The Hero's Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Value stream identified and team structure designed.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Conceived"
+            },
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Initiated"
+            }
+          ],
+          "activities": [
+            "Configure Agile Release Train"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordinary World",
+              "context": "The programme has identified its value streams and begun designing the team-of-teams structure, selecting the organizational model and applying cognitive load principles to ensure the planned team topology is sustainable before committing to formation."
+            }
+          ]
+        },
+        {
+          "name": "The Ordinary World",
+          "description": "Teams formed with roles, interaction modes, and communities.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Formed"
+            },
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Chartered"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Foundation Established"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Configure Agile Release Train",
+            "Design Team Interaction Modes",
+            "Establish Communities of Practice",
+            "Assess and Manage Cognitive Load"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordinary World",
+              "context": "Teams are staffed and formed within the designed topology, interaction modes are defined and communicated, community charters are established for key knowledge domains, and the coordination event calendar is published, establishing the known world from which the team-of-teams will launch into coordinated delivery."
+            }
+          ]
+        },
+        {
+          "name": "The Call to Adventure",
+          "description": "First planning cycle conducted and delivery cadence launched.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Launching"
+            },
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Active"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Use"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Started"
+            }
+          ],
+          "activities": [
+            "Launch and Operate ART Events",
+            "Establish Communities of Practice"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Call to Adventure",
+              "context": "The team-of-teams launches into coordinated delivery with its first planning event, teams commit to objectives and begin synchronizing through established coordination events, communities of practice begin producing knowledge assets, and the programme operating model transitions from defined to actively used."
+            }
+          ]
+        },
+        {
+          "name": "The Ordeal",
+          "description": "Teams overcome coordination challenges and build mature patterns.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Embedded"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Place"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Under Control"
+            }
+          ],
+          "activities": [
+            "Launch and Operate ART Events",
+            "Assess and Manage Cognitive Load",
+            "Conduct Inspect and Adapt"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordeal",
+              "context": "The team-of-teams confronts the genuine challenges of cross-team coordination including dependency bottlenecks, cognitive overload, and integration failures, developing trust and mature delivery patterns through structured inspect and adapt sessions that produce meaningful improvements while community outputs begin influencing programme practices and decisions."
+            }
+          ]
+        },
+        {
+          "name": "The Return",
+          "description": "Team topology optimized and communities self-sustaining.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Agile Release Train",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Community of Practice",
+              "stateName": "Self-Sustaining"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Working Well"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Under Control"
+            }
+          ],
+          "activities": [
+            "Conduct Inspect and Adapt",
+            "Design Team Interaction Modes",
+            "Assess and Manage Cognitive Load",
+            "Sustain Community Autonomy"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Return",
+              "context": "The team-of-teams returns from the ordeal of formation transformed into a high-performing delivery unit that evolves its topology through data-driven cognitive load assessment and flow metrics, with self-sustaining communities of practice producing organizational learning assets that inform future programme team design and the operating model documented for reuse."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Agile Release Train",
+      "aliasName": "ART"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Community of Practice",
+      "aliasName": "CoP"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "ART Configuration Blueprint",
+      "aliasName": "Team Topology Blueprint"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Configure Agile Release Train",
+      "aliasName": "Design Team-of-Teams Structure"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Launch and Operate ART Events",
+      "aliasName": "Run Coordination Events"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Conduct Inspect and Adapt",
+      "aliasName": "Programme Retrospective"
+    }
+  ],
+  "schemaVersion": "1.2.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Programme Essentials",
+      "versionRange": "^1.0.2"
+    },
+    {
+      "documentName": "Project Management Foundations",
+      "versionRange": "^1.0.2"
+    }
+  ],
+  "activitySpaces": []
+}

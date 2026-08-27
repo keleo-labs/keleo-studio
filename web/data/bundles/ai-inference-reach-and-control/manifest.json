@@ -1,0 +1,262 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "ai-inference-reach-and-control",
+    "version": "1.0.0",
+    "description": "ai-inference-reach-and-control",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/ai-inference-reach-and-control.json",
+      "documentType": "practice",
+      "documentName": "AI Inference Reach and Control",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.2",
+        "description": "Extend AI inference from managed API consumption to production-scale self-hosted infrastructure with enterprise control, complementing hyperscaler services with consistent, governed inference across hybrid environments.",
+        "tags": {
+          "domainTags": [
+            "AI Infrastructure",
+            "Inference Optimization",
+            "Hybrid Cloud",
+            "FinOps",
+            "API Governance",
+            "MLOps"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Expansion",
+            "Optimization",
+            "Operations"
+          ],
+          "organizationalTags": [
+            "Platform Engineering",
+            "MLOps",
+            "Security",
+            "Finance"
+          ]
+        },
+        "keywords": [
+          "ai-inference",
+          "hybrid-inference",
+          "token-economics",
+          "model-serving",
+          "vllm",
+          "kserve",
+          "openai-compatible",
+          "inference-sovereignty",
+          "gpu-optimization",
+          "llm-d",
+          "disaggregated-inference",
+          "prefix-cache",
+          "workload-tiering",
+          "api-governance",
+          "rhaie",
+          "connectivity-link",
+          "model-quantization",
+          "gitops-inference",
+          "self-hosted-inference",
+          "inference-expansion"
+        ],
+        "elementCount": 213,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-29"
+      }
+    },
+    {
+      "path": "documents/idp-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "IDP Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "A foundational baseline practice for Internal Developer Platforms that establishes the universal concerns, activity spaces, competencies, and narrative frameworks governing how organizations design, build, operate, and evolve developer-centric platform capabilities.",
+        "tags": {
+          "domainTags": [
+            "Platform Engineering",
+            "Developer Experience",
+            "DevOps",
+            "Site Reliability Engineering",
+            "Security",
+            "FinOps",
+            "Cloud Native"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Maturity",
+            "Optimization",
+            "Evolution"
+          ],
+          "organizationalTags": [
+            "Platform Team",
+            "Engineering",
+            "Security",
+            "Finance"
+          ]
+        },
+        "keywords": [
+          "internal-developer-platform",
+          "platform-engineering",
+          "developer-experience",
+          "cognitive-load",
+          "self-service",
+          "golden-paths",
+          "devops",
+          "site-reliability",
+          "team-topologies",
+          "platform-as-product"
+        ],
+        "elementCount": 469,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-13T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/platform-adoption-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Platform Adoption Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "The Platform Adoption Essentials baseline establishes the universal foundation for platform transformations, extending the Project Essentials baseline with platform-specific concerns across the three Areas of Concern.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "platform",
+          "adoption",
+          "kernel"
+        ],
+        "elementCount": 125,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2023-10-25T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/project-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Project Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "The Project Essentials baseline establishes the universal foundation for project management, organized into three areas of concern: Value, Solution, and Endeavor.",
+        "tags": {
+          "domainTags": [
+            "Project Management",
+            "Agile",
+            "Governance",
+            "Stakeholder Management",
+            "Team Management"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Execution",
+            "Closure",
+            "Benefits Realization"
+          ],
+          "organizationalTags": [
+            "Project Team",
+            "PMO",
+            "Governance Board",
+            "Stakeholder Community"
+          ]
+        },
+        "keywords": [
+          "project management",
+          "agile",
+          "PMBOK",
+          "Essence",
+          "SMART objectives",
+          "team",
+          "stakeholders",
+          "way of working"
+        ],
+        "elementCount": 455,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    },
+    {
+      "path": "documents/deploy-and-scale-ai-inference-on-kubernetes.json",
+      "documentType": "practice",
+      "documentName": "Deploy and Scale AI Inference on Kubernetes",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Build and operate enterprise-grade LLM inference infrastructure on Kubernetes platforms.",
+        "tags": {
+          "domainTags": [
+            "AI Infrastructure",
+            "Kubernetes",
+            "GPU Computing",
+            "Inference",
+            "Platform Engineering"
+          ],
+          "lifecycleTags": [
+            "Deployment",
+            "Operations",
+            "Scaling",
+            "Integration"
+          ],
+          "organizationalTags": [
+            "Platform Engineering",
+            "SRE",
+            "ML Engineering"
+          ]
+        },
+        "keywords": [
+          "inference",
+          "serving",
+          "distributed",
+          "llm-d",
+          "vLLM",
+          "KServe",
+          "Kubernetes",
+          "OpenShift",
+          "Istio",
+          "GPU",
+          "TPU",
+          "accelerator",
+          "scaling",
+          "Helm",
+          "KV cache",
+          "prefill-decode",
+          "endpoint picker",
+          "LLMInferenceService"
+        ],
+        "elementCount": 298,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-06-23"
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "packageName": "Application Development",
+      "versionRange": "^2.0.1"
+    },
+    {
+      "packageName": "Platform Operations",
+      "versionRange": "^2.0.1"
+    },
+    {
+      "packageName": "Security & Compliance",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "packageName": "Observability",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

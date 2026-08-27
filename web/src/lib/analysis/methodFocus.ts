@@ -175,11 +175,12 @@ export function calculateAlphaScores(
 
       // 6.1: Narrative Coverage (max 2 points)
       const narratives = Array.isArray(alpha.narratives) ? alpha.narratives : [];
-      let nScore = 1;
-      for (const narrative of narratives) {
-        nScore += 1;
+      let nScore = 0;
+      if (narratives.length >= 2) {
+        nScore = 2;
+      } else if (narratives.length === 1) {
+        nScore = 1;
       }
-      if (nScore > 1) nScore = 2;
       score += nScore;
       maxScore += 2;
 
@@ -187,17 +188,16 @@ export function calculateAlphaScores(
       const states = Array.isArray(alpha.states) ? alpha.states : [];
       let stateScore = 0;
       const stateCount = states.length;
-      for (const state of states) {
-        const checklist = Array.isArray(state.checklist) ? state.checklist : [];
-        if (checklist.length > 0) {
-          stateScore += 1;
-        }
-      }
       if (stateCount > 0) {
-        stateScore = Math.floor(stateScore / stateCount);
+        let statesWithChecklist = 0;
+        for (const state of states) {
+          const checklist = Array.isArray(state.checklist) ? state.checklist : [];
+          if (checklist.length > 0) {
+            statesWithChecklist += 1;
+          }
+        }
+        stateScore = Math.round((4 * statesWithChecklist) / stateCount);
       }
-      // Cap at 4
-      if (stateScore > 4) stateScore = 4;
       score += stateScore;
       maxScore += 4;
 
@@ -205,7 +205,6 @@ export function calculateAlphaScores(
       let wpScore = 0;
       for (const wp of workProducts) {
         const lods = Array.isArray(wp.levelsOfDetail) ? wp.levelsOfDetail : [];
-        let hasContribution = false;
         for (const lod of lods) {
           const contributesTo = Array.isArray(lod.contributesTo) ? lod.contributesTo : [];
           const contributesToThisAlpha = contributesTo.some((contrib: any) => {
@@ -213,16 +212,12 @@ export function calculateAlphaScores(
             return contribAlphaName === alphaName;
           });
           if (contributesToThisAlpha) {
-            hasContribution = true;
+            wpScore += 1;
             break;
           }
         }
-        if (hasContribution) {
-          wpScore += 1;
-          break; // Only count once per work product
-        }
       }
-      if (wpScore > 1) wpScore = 2;
+      if (wpScore > 2) wpScore = 2;
       score += wpScore;
       maxScore += 2;
 
@@ -236,10 +231,9 @@ export function calculateAlphaScores(
         });
         if (contributesToThisAlpha) {
           aScore += 1;
-          break; // Only count once per activity
         }
       }
-      if (aScore > 1) aScore = 2;
+      if (aScore > 2) aScore = 2;
       score += aScore;
       maxScore += 2;
 
@@ -321,15 +315,12 @@ export function calculateAlphaScores(
 
 /**
  * Calculates activity space coverage scores for a practice or method.
- * Only scores properties that are ADDED BY the extension practice,
- * not those that already exist in the baseline.
+ * Scores intrinsic coverage of each activity space based on the content
+ * present in the grouped (merged) structure.
  *
- * Compares the GROUPED structure (merged activities) against the BASELINE structure
- * to identify what's new.
- *
- * @param _doc - The merged/resolved document (unused, kept for API consistency)
- * @param baseline - The pure baseline document (before merge)
- * @param grouped - The grouped merged structure (from groupByFocus)
+ * @param _doc - The source document (unused, kept for API consistency)
+ * @param baseline - The baseline document
+ * @param grouped - The grouped structure (from groupByFocus)
  * @returns Map of focus names to their activity spaces with calculated scores
  */
 export function calculateActivitySpaceScores(
@@ -341,189 +332,118 @@ export function calculateActivitySpaceScores(
     return new Map();
   }
 
-  // Build baseline activity space map from the PURE baseline (before merge)
-  const baselineActivitySpaceMap = new Map<string, any>();
-  const baselineActivitySpaces = baseline.activitySpaces ?? [];
-  for (const activitySpace of baselineActivitySpaces) {
-    const spaceName = String(activitySpace.name ?? "").trim();
-    baselineActivitySpaceMap.set(spaceName, activitySpace);
+  // Collect all activity spaces from the grouped structure
+  const spaceEntries: Array<{ space: any; focusName: string }> = [];
+  for (const focus of grouped) {
+    const focusName = String(focus.focusName ?? "").trim();
+    const spaces = focus.activitySpaces ?? [];
+    for (const space of spaces) {
+      spaceEntries.push({ space, focusName });
+    }
   }
 
-
-  // Initialize scores for all baseline activity spaces
   const scores = new Map<string, ActivitySpaceScore>();
 
-  // First, set all baseline activity spaces to score 0
-  for (const [spaceName, baselineSpace] of baselineActivitySpaceMap) {
-    const focusName = String(baselineSpace.focusName ?? "").trim();
-    scores.set(spaceName, {
-      activitySpace: baselineSpace,
-      focusName,
-      score: 0,
-      activityScores: []
-    });
-  }
-
-  // Now score each baseline activity space by comparing grouped (merged) vs baseline
-  for (const [spaceName, baselineSpace] of baselineActivitySpaceMap) {
+  for (const { space, focusName } of spaceEntries) {
+    const spaceName = String(space.name ?? "").trim();
     let score = 0;
     let maxScore = 0;
 
-    // Find the merged activity space from the grouped structure
-    let mergedSpace: any = null;
-    for (const focus of grouped) {
-      const spaces = focus.activitySpaces ?? [];
-      mergedSpace = spaces.find((s: any) => String(s.name ?? "").trim() === spaceName);
-      if (mergedSpace) break;
-    }
-
-
-    // 1. Narrative Coverage (max 2 points) - only count narratives ADDED by extension
-    const mergedNarratives = mergedSpace && Array.isArray(mergedSpace.narratives)
-      ? mergedSpace.narratives
-      : [];
-    const baselineNarratives = Array.isArray(baselineSpace.narratives) ? baselineSpace.narratives : [];
-    const addedNarrativesCount = Math.max(0, mergedNarratives.length - baselineNarratives.length);
+    // 1. Narrative Coverage (max 2 points)
+    const narratives = Array.isArray(space.narratives) ? space.narratives : [];
     let nScore = 0;
-    if (addedNarrativesCount > 0) {
+    if (narratives.length >= 2) {
+      nScore = 2;
+    } else if (narratives.length === 1) {
       nScore = 1;
-      if (addedNarrativesCount > 1) {
-        nScore = 2;
-      }
     }
     score += nScore;
     maxScore += 2;
 
-    // 2. Activity Count Coverage (max 3 points) - only count activities ADDED by extension
-    const mergedSpaceActivities = mergedSpace && Array.isArray(mergedSpace.activities)
-      ? mergedSpace.activities
-      : [];
-    const baselineSpaceActivities = Array.isArray(baselineSpace.activities) ? baselineSpace.activities : [];
-    const addedActivitiesCount = Math.max(0, mergedSpaceActivities.length - baselineSpaceActivities.length);
+    // 2. Activity Count (max 3 points)
+    const activities = Array.isArray(space.activities) ? space.activities : [];
     let activityCountScore = 0;
-    if (addedActivitiesCount >= 5) {
+    if (activities.length >= 5) {
       activityCountScore = 3;
-    } else if (addedActivitiesCount >= 3) {
+    } else if (activities.length >= 3) {
       activityCountScore = 2;
-    } else if (addedActivitiesCount >= 1) {
+    } else if (activities.length >= 1) {
       activityCountScore = 1;
     }
     score += activityCountScore;
     maxScore += 3;
 
-    // 3. Alpha Contribution Coverage (max 2 points) - only count NEW alpha contributions
-    const mergedContributesTo = mergedSpace && Array.isArray(mergedSpace.contributesTo)
-      ? mergedSpace.contributesTo
-      : [];
-    const baselineContributesTo = Array.isArray(baselineSpace.contributesTo) ? baselineSpace.contributesTo : [];
-    const baselineAlphaSet = new Set(
-      baselineContributesTo.map((c: any) => `${c.alphaName}:${c.stateName}`)
+    // 3. Alpha Contribution Coverage (max 2 points)
+    const contributesTo = Array.isArray(space.contributesTo) ? space.contributesTo : [];
+    const distinctAlphas = new Set(
+      contributesTo.map((c: any) => String(c.alphaName ?? "").trim()).filter(Boolean)
     );
-    const addedAlphas = new Set<string>();
-    for (const contrib of mergedContributesTo) {
-      const key = `${contrib.alphaName}:${contrib.stateName}`;
-      if (!baselineAlphaSet.has(key)) {
-        addedAlphas.add(String(contrib.alphaName ?? "").trim());
-      }
-    }
     let alphaContribScore = 0;
-    if (addedAlphas.size >= 2) {
+    if (distinctAlphas.size >= 2) {
       alphaContribScore = 2;
-    } else if (addedAlphas.size === 1) {
+    } else if (distinctAlphas.size === 1) {
       alphaContribScore = 1;
     }
     score += alphaContribScore;
     maxScore += 2;
 
-    // 4. Competency Diversity (max 2 points) - only count NEW competencies
-    const mergedCompetencies = mergedSpace && Array.isArray(mergedSpace.requiredCompetencies)
-      ? mergedSpace.requiredCompetencies
+    // 4. Competency Diversity (max 2 points)
+    const competencies = Array.isArray(space.requiredCompetencies)
+      ? space.requiredCompetencies
       : [];
-    const baselineCompetencies = Array.isArray(baselineSpace.requiredCompetencies)
-      ? baselineSpace.requiredCompetencies
-      : [];
-    const baselineCompSet = new Set(baselineCompetencies.map((c: string) => c.trim()));
-    const addedCompetencies = new Set<string>();
-    for (const comp of mergedCompetencies) {
-      const compName = String(comp ?? "").trim();
-      if (compName && !baselineCompSet.has(compName)) {
-        addedCompetencies.add(compName);
-      }
-    }
+    const distinctCompetencies = new Set(
+      competencies.map((c: any) => String(c ?? "").trim()).filter(Boolean)
+    );
     let competencyScore = 0;
-    if (addedCompetencies.size >= 3) {
+    if (distinctCompetencies.size >= 3) {
       competencyScore = 2;
-    } else if (addedCompetencies.size === 2) {
+    } else if (distinctCompetencies.size >= 1) {
       competencyScore = 1;
     }
     score += competencyScore;
     maxScore += 2;
 
-    // 5. PersonaGroup Involvement (max 1 point) - only count NEW personas
-    const mergedInvolves = mergedSpace && Array.isArray(mergedSpace.involves)
-      ? mergedSpace.involves
-      : [];
-    const baselineInvolves = Array.isArray(baselineSpace.involves) ? baselineSpace.involves : [];
-    const baselineInvolvesSet = new Set(baselineInvolves.map((p: string) => p.trim()));
-    const addedPersonas = mergedInvolves.filter((p: string) =>
-      !baselineInvolvesSet.has(String(p ?? "").trim())
-    );
-    const personaScore = addedPersonas.length > 0 ? 1 : 0;
+    // 5. Persona Involvement (max 1 point)
+    const involves = Array.isArray(space.involves) ? space.involves : [];
+    const personaScore = involves.length > 0 ? 1 : 0;
     score += personaScore;
     maxScore += 1;
 
-    // 6. Normalize score to 0-5 range
-    const normalizedScore = maxScore > 0 ? Math.round((5 * score) / maxScore) : 0;
+    // Normalize to 0-5
+    let normalizedScore = maxScore > 0 ? Math.round((5 * score) / maxScore) : 0;
 
-    // Update the score for this activity space
-    const existing = scores.get(spaceName);
-    if (existing) {
-      existing.score = normalizedScore;
-
-      // Calculate scores for nested activities (comparing merged vs baseline)
-      // Only score activities that were ADDED (not in baseline)
-      const baselineActivityNames = new Set(
-        baselineSpaceActivities.map((a: any) => String(a.name ?? "").trim())
-      );
-      const addedActivities = mergedSpaceActivities.filter(
-        (a: any) => !baselineActivityNames.has(String(a.name ?? "").trim())
-      );
-
-      for (const addedActivity of addedActivities) {
-        const activityScore = calculateSingleActivityScore(addedActivity, baselineSpace);
-        existing.activityScores = existing.activityScores || [];
-        existing.activityScores.push({ activity: addedActivity, score: activityScore });
-      }
-
-      // Average activity space score with average of nested activity scores
-      if (existing.activityScores.length > 0) {
-        const totalActivityScore = existing.activityScores.reduce((sum, act) => sum + act.score, 0);
-        const avgActivityScore = Math.round(totalActivityScore / existing.activityScores.length);
-        // Combine space's direct score with average activity score
-        existing.score = Math.round((existing.score + avgActivityScore) / 2);
-      }
+    // Score nested activities
+    const activityScores: Array<{ activity: any; score: number }> = [];
+    for (const activity of activities) {
+      const actScore = calculateSingleActivityScore(activity);
+      activityScores.push({ activity, score: actScore });
     }
+
+    // Average space score with mean activity score
+    if (activityScores.length > 0) {
+      const totalActivityScore = activityScores.reduce((sum, a) => sum + a.score, 0);
+      const avgActivityScore = Math.round(totalActivityScore / activityScores.length);
+      normalizedScore = Math.round((normalizedScore + avgActivityScore) / 2);
+    }
+
+    scores.set(spaceName, {
+      activitySpace: space,
+      focusName,
+      score: normalizedScore,
+      activityScores,
+    });
   }
 
   // Group by focus for display
-  // Build focus map from both baseline and grouped structures
   const focusMap = new Map<string, any>();
-
-  // Add focuses from baseline
   const baselineFocuses = baseline.focuses ?? [];
   for (const focus of baselineFocuses) {
-    const focusName = String(focus.name ?? "").trim();
-    if (focusName && !focusMap.has(focusName)) {
-      focusMap.set(focusName, focus);
-    }
+    const fn = String(focus.name ?? "").trim();
+    if (fn && !focusMap.has(fn)) focusMap.set(fn, focus);
   }
-
-  // Add focuses from grouped (may have additional focuses from extensions)
   for (const groupedFocus of grouped) {
-    const focusName = String(groupedFocus.focusName ?? "");
-    if (!focusMap.has(focusName)) {
-      focusMap.set(focusName, groupedFocus.focus);
-    }
+    const fn = String(groupedFocus.focusName ?? "");
+    if (!focusMap.has(fn)) focusMap.set(fn, groupedFocus.focus);
   }
 
   const byFocus = new Map<string, ActivitySpaceFocusGroup>();
@@ -546,118 +466,56 @@ export function calculateActivitySpaceScores(
 }
 
 /**
- * Helper function to calculate a score for a single activity.
- * Only scores properties that are ADDED by the source activity,
- * not those that already exist in a baseline activity with the same name.
+ * Calculate an intrinsic coverage score for a single activity.
  *
- * @param activity - The source activity to score
- * @param baselineSpace - The baseline activity space (to check for existing activities)
+ * @param activity - The activity to score
  * @returns Normalized score (0-5)
  */
-function calculateSingleActivityScore(activity: any, baselineSpace: any): number {
+function calculateSingleActivityScore(activity: any): number {
   let score = 0;
   let maxScore = 0;
 
-  // Find if this activity exists in the baseline
-  const activityName = String(activity.name ?? "").trim();
-  const baselineActivities = Array.isArray(baselineSpace.activities) ? baselineSpace.activities : [];
-  const baselineActivity = baselineActivities.find(
-    (a: any) => String(a.name ?? "").trim() === activityName
-  );
-
-  // 1. Narrative Coverage (max 2 points) - only count ADDED narratives
+  // 1. Narrative Coverage (max 2 points)
   const narratives = Array.isArray(activity.narratives) ? activity.narratives : [];
-  const baselineNarratives = baselineActivity && Array.isArray(baselineActivity.narratives)
-    ? baselineActivity.narratives
-    : [];
-  const addedNarrativesCount = narratives.length - baselineNarratives.length;
-  let nScore = 0;
-  if (addedNarrativesCount > 0) {
-    nScore = 1;
-    if (addedNarrativesCount > 1) {
-      nScore = 2;
-    }
-  } else if (!baselineActivity && narratives.length > 0) {
-    // If this is a completely new activity (not in baseline), score its narratives
-    nScore = narratives.length >= 2 ? 2 : 1;
+  if (narratives.length >= 2) {
+    score += 2;
+  } else if (narratives.length === 1) {
+    score += 1;
   }
-  score += nScore;
   maxScore += 2;
 
-  // 2. Alpha State Contribution (max 3 points) - only count NEW contributions
+  // 2. Alpha State Contribution (max 3 points)
   const contributesTo = Array.isArray(activity.contributesTo) ? activity.contributesTo : [];
-  const baselineContributesTo = baselineActivity && Array.isArray(baselineActivity.contributesTo)
-    ? baselineActivity.contributesTo
-    : [];
-  const baselineContribSet = new Set(
-    baselineContributesTo.map((c: any) => `${c.alphaName}:${c.stateName}`)
-  );
-  const addedContribs = contributesTo.filter((c: any) => {
-    const key = `${c.alphaName}:${c.stateName}`;
-    return !baselineContribSet.has(key);
-  });
-  let alphaContribScore = 0;
-  const contribCount = baselineActivity ? addedContribs.length : contributesTo.length;
-  if (contribCount >= 3) {
-    alphaContribScore = 3;
-  } else if (contribCount === 2) {
-    alphaContribScore = 2;
-  } else if (contribCount === 1) {
-    alphaContribScore = 1;
+  if (contributesTo.length >= 3) {
+    score += 3;
+  } else if (contributesTo.length === 2) {
+    score += 2;
+  } else if (contributesTo.length === 1) {
+    score += 1;
   }
-  score += alphaContribScore;
   maxScore += 3;
 
-  // 3. Work Product Contribution (max 3 points) - only count NEW work products
+  // 3. Work Product Contribution (max 3 points)
   const worksOn = Array.isArray(activity.worksOn) ? activity.worksOn : [];
-  const baselineWorksOn = baselineActivity && Array.isArray(baselineActivity.worksOn)
-    ? baselineActivity.worksOn
-    : [];
-  const baselineWorksOnSet = new Set(
-    baselineWorksOn.map((w: any) => `${w.workProductName}:${w.levelOfDetailName}`)
-  );
-  const addedWorksOn = worksOn.filter((w: any) => {
-    const key = `${w.workProductName}:${w.levelOfDetailName}`;
-    return !baselineWorksOnSet.has(key);
-  });
-  let workProductScore = 0;
-  const worksOnCount = baselineActivity ? addedWorksOn.length : worksOn.length;
-  if (worksOnCount >= 3) {
-    workProductScore = 3;
-  } else if (worksOnCount === 2) {
-    workProductScore = 2;
-  } else if (worksOnCount === 1) {
-    workProductScore = 1;
+  if (worksOn.length >= 3) {
+    score += 3;
+  } else if (worksOn.length === 2) {
+    score += 2;
+  } else if (worksOn.length === 1) {
+    score += 1;
   }
-  score += workProductScore;
   maxScore += 3;
 
-  // 4. Recommended Competency Levels (max 2 points) - only count NEW levels
-  const recommendedCompetencyLevels = Array.isArray(activity.recommendedCompetencyLevels)
+  // 4. Recommended Competency Levels (max 2 points)
+  const compLevels = Array.isArray(activity.recommendedCompetencyLevels)
     ? activity.recommendedCompetencyLevels
     : [];
-  const baselineCompLevels = baselineActivity && Array.isArray(baselineActivity.recommendedCompetencyLevels)
-    ? baselineActivity.recommendedCompetencyLevels
-    : [];
-  const baselineCompLevelSet = new Set(
-    baselineCompLevels.map((c: any) => `${c.competencyName}:${c.competencyLevelName}`)
-  );
-  const addedCompLevels = recommendedCompetencyLevels.filter((c: any) => {
-    const key = `${c.competencyName}:${c.competencyLevelName}`;
-    return !baselineCompLevelSet.has(key);
-  });
-  let competencyLevelScore = 0;
-  const compLevelCount = baselineActivity ? addedCompLevels.length : recommendedCompetencyLevels.length;
-  if (compLevelCount >= 2) {
-    competencyLevelScore = 2;
-  } else if (compLevelCount === 1) {
-    competencyLevelScore = 1;
+  if (compLevels.length >= 2) {
+    score += 2;
+  } else if (compLevels.length === 1) {
+    score += 1;
   }
-  score += competencyLevelScore;
   maxScore += 2;
 
-  // 5. Normalize score to 0-5 range
-  const normalizedScore = maxScore > 0 ? Math.round((5 * score) / maxScore) : 0;
-
-  return normalizedScore;
+  return maxScore > 0 ? Math.round((5 * score) / maxScore) : 0;
 }

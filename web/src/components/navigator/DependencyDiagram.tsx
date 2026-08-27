@@ -1,5 +1,6 @@
 "use client";
 
+import { computeEdgePath, computeNodeStyle } from "@/lib/diagrams/dependencyTree";
 import type { DependencyDiagramLayout } from "@/lib/diagrams/dependencyTree";
 
 interface DependencyDiagramProps {
@@ -62,84 +63,28 @@ export function DependencyDiagram({
         ))}
 
         {/* Layer 2: Edges — perpendicular-tangent bezier curves */}
-        {layout.edges.map((edge) => {
-          const dx = Math.abs(edge.x2 - edge.x1);
-          const dy = Math.abs(edge.y2 - edge.y1);
-          const span = Math.max(dx, dy, 1);
-          const offset = span * 0.45;
-
-          // Control point 1: offset from start in the exit direction
-          let cp1x = edge.x1;
-          let cp1y = edge.y1;
-          switch (edge.exitDir) {
-            case "right":  cp1x += offset; break;
-            case "left":   cp1x -= offset; break;
-            case "bottom": cp1y += offset; break;
-            case "top":    cp1y -= offset; break;
-          }
-
-          // Control point 2: offset from end in the reverse of entry direction
-          let cp2x = edge.x2;
-          let cp2y = edge.y2;
-          switch (edge.entryDir) {
-            case "left":   cp2x -= offset; break;
-            case "right":  cp2x += offset; break;
-            case "top":    cp2y -= offset; break;
-            case "bottom": cp2y += offset; break;
-          }
-
-          const d = `M ${edge.x1} ${edge.y1} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${edge.x2} ${edge.y2}`;
-          return (
-            <path
-              key={`edge-${edge.fromName}-${edge.toName}`}
-              d={d}
-              fill="none"
-              stroke="rgba(102,102,102,0.6)"
-              strokeWidth={1.5}
-              markerEnd="url(#dep-arrow)"
-            />
-          );
-        })}
+        {layout.edges.map((edge) => (
+          <path
+            key={`edge-${edge.fromName}-${edge.toName}`}
+            d={computeEdgePath(edge)}
+            fill="none"
+            stroke="rgba(102,102,102,0.6)"
+            strokeWidth={1.5}
+            markerEnd="url(#dep-arrow)"
+          />
+        ))}
 
         {/* Layer 3: Node cards */}
         {layout.nodes.map((node) => {
           const isSelected = selectedElement === node.name;
-          const isBaseline = node.kind === "baselinePractice";
-          const isRoot = node.kind === "root";
-
-          const borderColor = isSelected
-            ? "var(--pf-v6-global--primary-color--100, #0066cc)"
-            : isRoot
-              ? "var(--pf-v6-global--primary-color--100, #0066cc)"
-              : isBaseline
-                ? "var(--pf-v6-global--primary-color--100, #0066cc)"
-                : "var(--pf-v6-global--BorderColor--100, #d2d2d2)";
-
-          const fillColor = isSelected
-            ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100, #0066cc) 12%, white)"
-            : isRoot
-              ? "color-mix(in srgb, var(--pf-v6-global--primary-color--100, #0066cc) 6%, white)"
-              : isBaseline
-                ? "var(--pf-v6-global--BackgroundColor--200, #f5f5f5)"
-                : "var(--pf-v6-global--BackgroundColor--100, #ffffff)";
-
-          const strokeWidth = isSelected ? 2.5 : isRoot || isBaseline ? 2 : 1.5;
-
-          const iconClass = isBaseline || isRoot
-            ? "fa-solid fa-layer-group"
-            : "fa-solid fa-puzzle-piece";
-
-          const iconColor =
-            isBaseline || isRoot
-              ? "var(--pf-v6-global--primary-color--100, #0066cc)"
-              : "var(--pf-v6-global--Color--200, #6a6e73)";
+          const style = computeNodeStyle(node, isSelected);
 
           return (
             <g
               key={`node-${node.name}`}
               style={{ cursor: "pointer" }}
               onClick={() => {
-                if (isRoot) return;
+                if (node.kind === "root") return;
                 onSelectElement(isSelected ? null : node.name);
               }}
             >
@@ -150,9 +95,9 @@ export function DependencyDiagram({
                 height={node.height}
                 rx={4}
                 ry={4}
-                fill={fillColor}
-                stroke={borderColor}
-                strokeWidth={strokeWidth}
+                fill={style.fillColor}
+                stroke={style.borderColor}
+                strokeWidth={style.strokeWidth}
               />
               <foreignObject
                 x={node.x}
@@ -171,10 +116,10 @@ export function DependencyDiagram({
                   }}
                 >
                   <i
-                    className={iconClass}
+                    className={style.isBaselineOrRoot ? "fa-solid fa-layer-group" : "fa-solid fa-puzzle-piece"}
                     style={{
                       fontSize: "0.75rem",
-                      color: iconColor,
+                      color: style.iconColor,
                       flexShrink: 0,
                     }}
                   />
@@ -183,7 +128,7 @@ export function DependencyDiagram({
                       style={{
                         fontSize: "0.6875rem",
                         fontWeight: 600,
-                        color: "var(--pf-v6-global--Color--100, #151515)",
+                        color: "#151515",
                         overflow: "hidden",
                         display: "-webkit-box",
                         WebkitLineClamp: node.version ? 1 : 2,
@@ -199,7 +144,7 @@ export function DependencyDiagram({
                         style={{
                           display: "block",
                           fontSize: "0.5625rem",
-                          color: "var(--pf-v6-global--Color--200, #6a6e73)",
+                          color: "#6a6e73",
                           lineHeight: 1.2,
                           marginTop: "1px",
                         }}

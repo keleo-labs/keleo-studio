@@ -1,0 +1,3153 @@
+{
+  "kind": "practice",
+  "name": "Programme Coordination and Governance",
+  "description": "Managing cross-project dependencies, structuring delivery through tranches, and establishing programme governance.",
+  "baselinePracticeName": "Programme Essentials",
+  "practiceDependencyNames": [
+    "Project Management Foundations"
+  ],
+  "tags": {
+    "domainTags": [
+      "Programme Management",
+      "Governance",
+      "Dependency Management"
+    ],
+    "lifecycleTags": [
+      "Definition",
+      "Delivery",
+      "Transition"
+    ],
+    "organizationalTags": [
+      "Programme Management Office",
+      "Programme Board"
+    ]
+  },
+  "keywords": [
+    "programme governance",
+    "tranche",
+    "MSP",
+    "dependency management",
+    "programme board",
+    "stage gate",
+    "programme risk",
+    "adaptive roadmap",
+    "portfolio kanban",
+    "flight levels",
+    "PRINCE2 programme",
+    "tollgate",
+    "programme office",
+    "cross-project coordination",
+    "decision architecture"
+  ],
+  "authors": [
+    "Claude"
+  ],
+  "createdAt": "2026-07-28",
+  "updatedAt": "2026-08-13",
+  "version": "1.0.2",
+  "citations": [
+    {
+      "name": "Managing Successful Programmes",
+      "description": "Comprehensive framework for programme management covering governance themes, tranche-based delivery, and benefits realization.",
+      "authors": [
+        "AXELOS Limited"
+      ],
+      "date": "2020",
+      "source": "The Stationery Office",
+      "kind": "citation"
+    },
+    {
+      "name": "The Standard for Program Management, 4th Edition",
+      "description": "PMI standard covering programme governance, stakeholder engagement, benefits management, and lifecycle management.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2017",
+      "source": "Project Management Institute",
+      "kind": "citation"
+    },
+    {
+      "name": "SAFe 6.0 Framework",
+      "description": "Scaled Agile Framework covering programme increment planning, programme boards, and dependency visualization.",
+      "authors": [
+        "Scaled Agile Inc."
+      ],
+      "date": "2023",
+      "source": "Scaled Agile, Inc.",
+      "url": "https://framework.scaledagile.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "Rethinking Agile",
+      "description": "Flight Levels approach to business agility with multi-level decision architecture and coordination boards.",
+      "authors": [
+        "Klaus Leopold"
+      ],
+      "date": "2018",
+      "source": "LEANability Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Large-Scale Scrum: More with LeSS",
+      "description": "LeSS framework emphasizing dependency elimination through feature teams and shared product backlogs.",
+      "authors": [
+        "Craig Larman",
+        "Bas Vodde"
+      ],
+      "date": "2016",
+      "source": "Addison-Wesley Professional",
+      "kind": "citation"
+    },
+    {
+      "name": "The Nexus Guide",
+      "description": "Definitive guide to scaling Scrum with cross-team refinement and integration team concepts.",
+      "authors": [
+        "Ken Schwaber"
+      ],
+      "date": "2018",
+      "source": "Scrum.org",
+      "url": "https://www.scrum.org/resources/online-nexus-guide",
+      "kind": "citation"
+    },
+    {
+      "name": "Disciplined Agile Delivery",
+      "description": "Context-sensitive framework for enterprise agile delivery with choice-based governance approaches.",
+      "authors": [
+        "Scott Ambler",
+        "Mark Lines"
+      ],
+      "date": "2012",
+      "source": "IBM Press",
+      "kind": "citation"
+    },
+    {
+      "name": "The Standard for Program Management, 5th Edition",
+      "description": "Updated PMI standard with revised programme governance and lifecycle management guidance.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2024",
+      "source": "Project Management Institute",
+      "url": "https://www.pmi.org/standards/program-management-fifth-edition",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "programme-icon",
+      "description": "Visual icon representing the coordinated programme entity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-sitemap",
+      "fontWeight": "900"
+    },
+    {
+      "name": "roadmap-icon",
+      "description": "Visual icon representing the strategic roadmap and delivery sequencing",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-gantt",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-governance-icon",
+      "description": "Visual icon representing programme governance and oversight",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gavel",
+      "fontWeight": "900"
+    },
+    {
+      "name": "dependency-management-icon",
+      "description": "Visual icon representing cross-project dependency management",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-diagram-project",
+      "fontWeight": "900"
+    },
+    {
+      "name": "tranche-icon",
+      "description": "Visual icon representing delivery tranches and phased execution",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-layer-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "map-and-resolve-cross-project-dependencies-icon",
+      "type": "font-character",
+      "description": "Map and Resolve Cross-Project Dependencies icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-diagram-project",
+      "fontWeight": "900"
+    },
+    {
+      "name": "plan-and-execute-tranches-icon",
+      "type": "font-character",
+      "description": "Plan and Execute Tranches icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-layer-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "establish-programme-governance-icon",
+      "type": "font-character",
+      "description": "Establish Programme Governance icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-scale-balanced",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-programme-reviews-icon",
+      "type": "font-character",
+      "description": "Conduct Programme Reviews icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-question",
+      "fontWeight": "900"
+    },
+    {
+      "name": "manage-programme-risk-icon",
+      "type": "font-character",
+      "description": "Manage Programme Risk icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "optimize-dependency-practices-icon",
+      "type": "font-character",
+      "description": "Optimize Dependency Practices icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "transition-governance-and-coordination-icon",
+      "type": "font-character",
+      "description": "Transition Governance and Coordination icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-right-left",
+      "fontWeight": "900"
+    },
+    {
+      "name": "dependency-register-icon",
+      "type": "font-character",
+      "description": "Dependency Register icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-table-list",
+      "fontWeight": "900"
+    },
+    {
+      "name": "tranche-plan-icon",
+      "type": "font-character",
+      "description": "Tranche Plan icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bars-staggered",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-governance-framework-icon",
+      "type": "font-character",
+      "description": "Programme Governance Framework icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-landmark",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Programme",
+      "description": "The coordinated group of related projects and activities managed as a unified entity to achieve strategic objectives and deliver benefits unattainable through individual project management.",
+      "focusName": "Coordination",
+      "assetNames": [
+        {
+          "assetName": "programme-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Conceived",
+          "description": "A programme idea identified with strategic context and sponsor.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Programme concept articulated",
+              "description": "Programme concept articulated with strategic drivers and expected scope documented.",
+              "seq": 1
+            },
+            {
+              "name": "Executive sponsor identified",
+              "description": "Executive sponsor identified with authority to commit organizational resources.",
+              "seq": 2
+            },
+            {
+              "name": "Governance requirements assessed",
+              "description": "Initial governance requirements assessed including decision authority and oversight needs.",
+              "seq": 3
+            },
+            {
+              "name": "Dependency landscape surveyed",
+              "description": "Preliminary dependency landscape between potential constituent projects surveyed.",
+              "seq": 4
+            },
+            {
+              "name": "Programme viability assessed",
+              "description": "Programme viability assessed against organizational capacity for coordinated delivery.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Defined",
+          "description": "Programme formally defined with governance, scope, and management approach.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Programme charter established",
+              "description": "Programme charter established with formal authorization, scope, and resource commitments.",
+              "seq": 1
+            },
+            {
+              "name": "Governance framework specified",
+              "description": "Governance framework specifies decision-making structures, reporting, and oversight mechanisms.",
+              "seq": 2
+            },
+            {
+              "name": "Management approach defined",
+              "description": "Management approach defined selecting cadence model such as PI-based, Kanban, or hybrid.",
+              "seq": 3
+            },
+            {
+              "name": "Initial tranche structure planned",
+              "description": "Initial tranche structure planned with first tranche scope and exit criteria outlined.",
+              "seq": 4
+            },
+            {
+              "name": "Dependency identification process designed",
+              "description": "Cross-project dependency identification process designed and ready to activate.",
+              "seq": 5
+            },
+            {
+              "name": "Decision architecture defined",
+              "description": "Decision architecture defined distinguishing strategic, coordination, and operational decisions.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Organized",
+          "description": "Programme operationally active with governance functioning and delivery underway.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Governance bodies operating",
+              "description": "Governance bodies constituted and operating at mandated cadence.",
+              "seq": 1
+            },
+            {
+              "name": "Dependency tracking active",
+              "description": "Cross-project dependency tracking mechanisms active and producing visible outputs.",
+              "seq": 2
+            },
+            {
+              "name": "First tranche mobilized",
+              "description": "First tranche mobilized with constituent projects initiated and resourced.",
+              "seq": 3
+            },
+            {
+              "name": "Coordination events established",
+              "description": "Programme coordination events established and delivering value.",
+              "seq": 4
+            },
+            {
+              "name": "Escalation paths functioning",
+              "description": "Escalation paths from project to programme to portfolio governance tested and functioning.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Delivering",
+          "description": "Programme actively delivering benefits through coordinated project execution.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Tranches executing against milestones",
+              "description": "Tranches executing with progress tracked against milestones and exit criteria.",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies actively managed",
+              "description": "Cross-project dependencies actively managed with resolution strategies executing.",
+              "seq": 2
+            },
+            {
+              "name": "Governance reviews conducted",
+              "description": "Governance reviews conducted on cadence with data-driven decisions documented.",
+              "seq": 3
+            },
+            {
+              "name": "Programme-level risks managed",
+              "description": "Programme-level risks spanning project boundaries identified and managed.",
+              "seq": 4
+            },
+            {
+              "name": "Coordination overhead proportionate",
+              "description": "Coordination overhead measured and confirmed proportionate to value delivered.",
+              "seq": 5
+            },
+            {
+              "name": "Decision gates conducted",
+              "description": "Decision gates within tranches conducted with governance authorities informed.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Transitioning",
+          "description": "Programme transitioning benefits to operations and winding down structures.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Remaining tranches reviewed",
+              "description": "Remaining tranches reviewed against exit criteria with closure decisions made.",
+              "seq": 1
+            },
+            {
+              "name": "Governance preparing for dissolution",
+              "description": "Governance structures preparing for orderly dissolution with responsibilities transferred.",
+              "seq": 2
+            },
+            {
+              "name": "Residual dependencies transferred",
+              "description": "Residual dependencies assessed and ownership transferred to operational management.",
+              "seq": 3
+            },
+            {
+              "name": "Coordination practices documented",
+              "description": "Programme coordination practices documented as organizational assets for reuse.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Closed",
+          "description": "Programme formally closed with benefits confirmed and learning captured.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Governance bodies dissolved",
+              "description": "All governance bodies formally dissolved with final reports delivered.",
+              "seq": 1
+            },
+            {
+              "name": "Dependency lessons documented",
+              "description": "Dependency management practices and lessons documented for organizational reuse.",
+              "seq": 2
+            },
+            {
+              "name": "Tranche outcomes summarized",
+              "description": "Tranche outcomes summarized with cumulative benefit realization confirmed.",
+              "seq": 3
+            },
+            {
+              "name": "Administrative closure completed",
+              "description": "Administrative closure completed including financial reconciliation and resource release.",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Orchestrating Strategic Delivery Through Coordinated Programme Governance",
+          "description": "How coordinated programme governance enables integrated strategic delivery across multiple projects.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations pursue strategic objectives that require coordinated delivery across multiple interdependent projects, where individual project management cannot achieve the integrated capabilities and benefits that justify the programme investment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The programme must establish governance that balances strategic oversight with team autonomy, structure delivery through progressive tranches, and ensure cross-project coordination produces integrated results rather than fragmented outputs."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Programme leadership defines governance frameworks with distributed decision authority, sequences delivery into capability-releasing tranches with exit criteria, and implements dependency management processes that make cross-project interactions transparent and resolvable."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "The programme delivers integrated strategic capabilities through coordinated multi-project delivery, with governance providing reliable assurance and dependency management enabling predictable flow across project boundaries."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "The Standard for Program Management, 4th Edition"
+          ]
+        },
+        {
+          "name": "Programme Coordination and Governance Overview",
+          "description": "Practice overview describing the coordination and governance approach for programme delivery.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Programmes managing multiple interdependent projects face two fundamental coordination challenges: invisible dependencies that cascade across project boundaries, and monolithic delivery that overwhelms organizational change capacity. Without structured governance and delivery sequencing, programmes devolve into collections of independent projects that fail to deliver integrated strategic value."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The programme establishes governance frameworks that balance strategic oversight with team autonomy, structures delivery into progressive tranches that match delivery pace to organizational absorption capacity, and systematically manages cross-project dependencies through proactive identification, analysis, and structural reduction. MSP's tranche model, SAFe's programme boards, and Flight Levels' decision architecture converge on a coordination approach that makes dependencies transparent, sequences delivery into manageable waves, and distributes decision authority across strategic, coordination, and operational levels."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "SAFe 6.0 Framework",
+            "Rethinking Agile"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Roadmap",
+      "description": "The strategic plan that sequences programme increments, tranches, and milestones to deliver capabilities and realize benefits progressively over time, balancing ambition with organizational change capacity.",
+      "focusName": "Coordination",
+      "assetNames": [
+        {
+          "assetName": "roadmap-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Envisioned",
+          "description": "High-level roadmap articulates strategic direction and capability milestones.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Capability milestones sequenced",
+              "description": "Strategic capability milestones identified and sequenced in alignment with programme objectives.",
+              "seq": 1
+            },
+            {
+              "name": "Tranche boundaries defined",
+              "description": "Initial tranche boundaries defined based on coherent capability groupings.",
+              "seq": 2
+            },
+            {
+              "name": "Change capacity considered",
+              "description": "Organizational change capacity considered when scoping tranche size and sequencing.",
+              "seq": 3
+            },
+            {
+              "name": "Dependency clusters surveyed",
+              "description": "Key dependency clusters between anticipated projects surveyed at roadmap level.",
+              "seq": 4
+            },
+            {
+              "name": "Benefit milestones mapped",
+              "description": "Benefit realization milestones mapped to tranche boundaries.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Roadmap detailed into planned tranches with scope, resources, and gates.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Tranche scope and gates defined",
+              "description": "Each tranche has defined scope, constituent projects, exit criteria, and decision gates.",
+              "seq": 1
+            },
+            {
+              "name": "Resource requirements estimated",
+              "description": "Resource requirements estimated per tranche including staffing, budget, and infrastructure.",
+              "seq": 2
+            },
+            {
+              "name": "Cross-tranche dependencies mapped",
+              "description": "Cross-tranche dependencies mapped with sequencing constraints explicit.",
+              "seq": 3
+            },
+            {
+              "name": "Benefit targets assigned",
+              "description": "Benefit realization targets assigned to specific tranches with measurement baselines.",
+              "seq": 4
+            },
+            {
+              "name": "Learning objectives identified",
+              "description": "Learning objectives per tranche identify what the programme expects to discover.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Executing",
+          "description": "Roadmap actively followed with current tranche underway and tracked.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Current tranche executing",
+              "description": "Current tranche executing with progress tracked at both project and tranche level.",
+              "seq": 1
+            },
+            {
+              "name": "Coordination events producing results",
+              "description": "Tranche-level coordination events producing integrated results across projects.",
+              "seq": 2
+            },
+            {
+              "name": "Dependency resolution tracked",
+              "description": "Dependency resolution within current tranche is actively managed and tracked.",
+              "seq": 3
+            },
+            {
+              "name": "Benefit indicators monitored",
+              "description": "Benefit emergence indicators monitored within the current tranche.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Adapting",
+          "description": "Roadmap actively adapted based on results and emerging information.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Tranche outcomes inform adjustments",
+              "description": "Tranche outcomes inform adjustments to subsequent tranche scope and sequencing.",
+              "seq": 1
+            },
+            {
+              "name": "Lessons incorporated",
+              "description": "Lessons learned from completed tranches incorporated into future tranche planning.",
+              "seq": 2
+            },
+            {
+              "name": "Strategic changes reflected",
+              "description": "Strategic changes reflected in roadmap adjustments with governance approval.",
+              "seq": 3
+            },
+            {
+              "name": "Dependency patterns leveraged",
+              "description": "Dependency patterns from earlier tranches used to improve future tranche design.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Fulfilled",
+          "description": "Roadmap substantially completed with capability milestones achieved.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "All tranches completed",
+              "description": "All planned tranches completed with exit criteria formally assessed.",
+              "seq": 1
+            },
+            {
+              "name": "Strategic objectives achieved",
+              "description": "Cumulative benefit realization confirms strategic objectives substantially achieved.",
+              "seq": 2
+            },
+            {
+              "name": "Residual items transferred",
+              "description": "Residual roadmap items transferred to operational management or future programmes.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Sequencing Strategic Value Through Tranche-Based Delivery Planning",
+          "description": "How the roadmap sequences strategic value delivery through progressive tranches.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Programmes must deliver complex strategic capabilities through coordinated multi-project delivery, and the roadmap structures this delivery into progressive tranches that release coherent capability increments aligned with benefit realization milestones."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Roadmaps face constant pressure from changing strategy, emerging dependencies, and the gap between the rate of delivery and the organization's capacity to absorb change, requiring active adaptation rather than rigid plan adherence."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "The roadmap is treated as an adaptive strategic instrument with tranche boundaries, exit criteria, and learning objectives that enable data-driven replanning while maintaining strategic direction and benefit realization trajectory."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "SAFe 6.0 Framework"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Programme Governance",
+      "description": "The framework of decision-making authority, accountability, oversight, and control that ensures the programme delivers strategic value within acceptable risk parameters and maintains alignment with organizational strategy.",
+      "focusName": "Coordination",
+      "assetNames": [
+        {
+          "assetName": "programme-governance-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Mandated",
+          "description": "Governance principles, authority structures, and key roles defined.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Governance principles articulated",
+              "description": "Governance principles articulate philosophy of programme oversight and decision-making.",
+              "seq": 1
+            },
+            {
+              "name": "Decision rights allocated",
+              "description": "Decision rights allocated distinguishing strategic, programme, and project-level authorities.",
+              "seq": 2
+            },
+            {
+              "name": "Key governance roles assigned",
+              "description": "Key governance roles including sponsor, steering committee, programme manager, and PMO formally assigned.",
+              "seq": 3
+            },
+            {
+              "name": "Organizational governance relationship defined",
+              "description": "Relationship between programme governance and organizational governance defined.",
+              "seq": 4
+            },
+            {
+              "name": "Decision architecture established",
+              "description": "Flight Levels decision architecture distinguishing Level 1, 2, and 3 decisions established.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Established",
+          "description": "Governance structures active with reviews and risk management functioning.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Governance bodies constituted",
+              "description": "Governance bodies constituted with composition, terms of reference, and meeting cadence.",
+              "seq": 1
+            },
+            {
+              "name": "Reporting requirements specified",
+              "description": "Reporting requirements specify what information is reported, to whom, and when.",
+              "seq": 2
+            },
+            {
+              "name": "Escalation paths defined",
+              "description": "Escalation paths defined for how issues move between governance levels.",
+              "seq": 3
+            },
+            {
+              "name": "Stage gate criteria established",
+              "description": "Stage gate criteria established for key programme decisions including tranche transitions.",
+              "seq": 4
+            },
+            {
+              "name": "Risk governance specified",
+              "description": "Risk governance specifies how programme-level risks are identified, assessed, and managed.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Operating",
+          "description": "Governance driving value through data-driven decision-making.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Decisions documented with rationale",
+              "description": "Governance decisions documented with rationale, alternatives considered, and outcome.",
+              "seq": 1
+            },
+            {
+              "name": "Data-driven reviews conducted",
+              "description": "Data-driven reviews use programme metrics and trend analysis rather than status reports alone.",
+              "seq": 2
+            },
+            {
+              "name": "Strategic alignment assessed",
+              "description": "Governance assesses strategic alignment, benefit realization, risk posture, and resource utilization.",
+              "seq": 3
+            },
+            {
+              "name": "Dependency escalations handled",
+              "description": "Cross-project dependency escalations handled efficiently through governance channels.",
+              "seq": 4
+            },
+            {
+              "name": "Tranche gate reviews conducted",
+              "description": "Governance provides tranche decision gate reviews with informed continuation decisions.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Governance provides reliable assurance with maximum effectiveness.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Governance processes streamlined",
+              "description": "Governance processes streamlined to provide maximum oversight with minimum overhead.",
+              "seq": 1
+            },
+            {
+              "name": "Governance practices documented",
+              "description": "Governance practices documented as organizational standards for future programmes.",
+              "seq": 2
+            },
+            {
+              "name": "Stakeholder confidence maintained",
+              "description": "Stakeholder confidence in governance measured and consistently maintained.",
+              "seq": 3
+            },
+            {
+              "name": "Compliance monitored",
+              "description": "Compliance with governance requirements across the programme monitored and confirmed.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Transitioned",
+          "description": "Governance dissolved with responsibilities transferred to operations.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Governance bodies dissolved",
+              "description": "Governance bodies formally dissolved with final governance report delivered.",
+              "seq": 1
+            },
+            {
+              "name": "Oversight responsibilities transferred",
+              "description": "Residual oversight responsibilities transferred to operational management structures.",
+              "seq": 2
+            },
+            {
+              "name": "Governance lessons documented",
+              "description": "Governance lessons and practices documented as organizational assets.",
+              "seq": 3
+            },
+            {
+              "name": "Authority transition confirmed",
+              "description": "Transition of governance authority to operational owners confirmed.",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Establishing Decision Architecture for Programme Assurance",
+          "description": "How distributed decision architecture enables effective programme governance and assurance.",
+          "narrativeTypeName": "PDCA",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Programme governance is designed with distributed decision authority across strategic, coordination, and operational levels, defining governance bodies, reporting cadence, escalation paths, and stage gate criteria that balance oversight with team autonomy."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Do",
+              "context": "Governance bodies operate at mandated cadence, conducting reviews that assess strategic alignment, benefit realization, risk posture, and cross-project coordination effectiveness using data-driven metrics rather than status reports alone."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Check",
+              "context": "Governance effectiveness is periodically assessed through self-evaluation or independent review, measuring whether governance decisions are timely, well-informed, and proportionate in overhead to the assurance value they provide."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Act",
+              "context": "Governance processes are refined based on effectiveness assessments, with practices documented as organizational standards and decision architecture adapted as the programme matures through tranches."
+            }
+          ],
+          "citationNames": [
+            "Rethinking Agile",
+            "The Standard for Program Management, 4th Edition"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Cross-Project Dependency",
+      "description": "Interdependencies between programme projects requiring coordination, tracking, and resolution.",
+      "focusName": "Coordination",
+      "contributesTo": "Programme",
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Roadmap",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "escalated through",
+          "alphaName": "Programme Governance",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "spans",
+          "alphaName": "Work",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "dependency-management-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Surfaced",
+          "description": "Dependencies identified, catalogued, and visible across projects.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Identification process established",
+              "description": "Systematic process for identifying dependencies across programme projects established and operating.",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies catalogued",
+              "description": "All known dependencies catalogued with source project, target project, and nature documented.",
+              "seq": 2
+            },
+            {
+              "name": "Dependencies classified by type",
+              "description": "Dependencies classified by type: task, resource, knowledge, or product/component.",
+              "seq": 3
+            },
+            {
+              "name": "Dependency owners assigned",
+              "description": "Each dependency has a named owner responsible for tracking and driving resolution.",
+              "seq": 4
+            },
+            {
+              "name": "Dependencies visualized",
+              "description": "Visual dependency map or programme board makes dependencies visible to all teams.",
+              "seq": 5
+            },
+            {
+              "name": "Multiple identification cadences",
+              "description": "Dependency identification runs at multiple cadences: during planning and continuously during execution.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Analyzed",
+          "description": "Dependencies risk-assessed with resolution pathways identified.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Impact assessment completed",
+              "description": "Each dependency assessed for probability of causing delay and magnitude of impact.",
+              "seq": 1
+            },
+            {
+              "name": "Critical path dependencies identified",
+              "description": "Critical path dependencies threatening programme milestones identified and escalated.",
+              "seq": 2
+            },
+            {
+              "name": "Transitive dependencies mapped",
+              "description": "Transitive dependencies creating cascade risks identified through network analysis.",
+              "seq": 3
+            },
+            {
+              "name": "Resolution options identified",
+              "description": "Resolution options identified including elimination, mitigation, and acceptance strategies.",
+              "seq": 4
+            },
+            {
+              "name": "Resource conflicts assessed",
+              "description": "Resource dependencies assessed against capacity plans to identify conflicts.",
+              "seq": 5
+            },
+            {
+              "name": "External dependencies identified",
+              "description": "External dependencies outside programme control identified with risk mitigation strategies.",
+              "seq": 6
+            },
+            {
+              "name": "Structural reduction assessed",
+              "description": "Total dependency load assessed to determine whether structural changes could reduce density.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Managed",
+          "description": "Resolution strategies executing with active tracking and escalation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Resolution strategies assigned",
+              "description": "Resolution strategies assigned with owners, timelines, and success criteria defined.",
+              "seq": 1
+            },
+            {
+              "name": "Status reviewed at coordination events",
+              "description": "Dependency status reviewed at programme coordination events with blockers escalated.",
+              "seq": 2
+            },
+            {
+              "name": "Cross-team commitments tracked",
+              "description": "Cross-team commitments related to dependency resolution tracked against delivery.",
+              "seq": 3
+            },
+            {
+              "name": "New dependencies immediately assessed",
+              "description": "New dependencies discovered during execution immediately added and assessed.",
+              "seq": 4
+            },
+            {
+              "name": "Resolution metrics tracked",
+              "description": "Resolution metrics track ratio of resolved to open dependencies and average resolution time.",
+              "seq": 5
+            },
+            {
+              "name": "Affected teams notified",
+              "description": "Teams affected by dependencies notified proactively of status changes.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Minimized",
+          "description": "Structural changes reducing total dependency count across programme.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Team topology changes reduce dependencies",
+              "description": "Team topology changes have reduced dependencies by aligning team and delivery boundaries.",
+              "seq": 1
+            },
+            {
+              "name": "Architectural decoupling achieved",
+              "description": "Architectural changes have decoupled components reducing technical dependencies.",
+              "seq": 2
+            },
+            {
+              "name": "Feature team adoption internalized dependencies",
+              "description": "Feature team adoption has internalized dependencies within teams where appropriate.",
+              "seq": 3
+            },
+            {
+              "name": "Shared services replace point-to-point",
+              "description": "Shared services and platform capabilities replace point-to-point integration dependencies.",
+              "seq": 4
+            },
+            {
+              "name": "Dependency count declining",
+              "description": "Total dependency count shows a declining trend across successive planning cycles.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Dependency management is predictive, efficient, and continuously improving.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Predictive identification enabled",
+              "description": "Historical patterns enable predictive identification of likely dependencies before materialization.",
+              "seq": 1
+            },
+            {
+              "name": "Automated tracking operational",
+              "description": "Automated dependency tracking provides real-time visibility without manual overhead.",
+              "seq": 2
+            },
+            {
+              "name": "Approach documented for reuse",
+              "description": "Programme dependency management approach documented as organizational practice for reuse.",
+              "seq": 3
+            },
+            {
+              "name": "Teams independently manage routine dependencies",
+              "description": "Teams independently manage routine dependencies with programme intervention only for exceptions.",
+              "seq": 4
+            },
+            {
+              "name": "Practices refined through retrospective",
+              "description": "Dependency management practices refined through regular retrospective analysis.",
+              "seq": 5
+            },
+            {
+              "name": "Overhead proportionate to risk",
+              "description": "Cost of dependency management overhead measured and confirmed proportionate to risk mitigated.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "From Invisible Blockers to Predictive Dependency Orchestration",
+          "description": "How dependency management evolves from reactive tracking to predictive orchestration.",
+          "narrativeTypeName": "The Hero's Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "The Ordinary World",
+              "context": "Programme teams work on interdependent projects where invisible dependencies create surprise blockers, cascade delays, and integration failures that undermine coordinated delivery."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "The Call to Adventure",
+              "context": "The programme commits to making dependencies transparent through systematic identification, visual boards, and structured coordination events that surface the hidden web of cross-project interactions."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "The Ordeal",
+              "context": "Managing dependencies at scale reveals deeply entangled project structures requiring structural changes to team topologies, architectural decoupling, and shifts from component teams to feature teams to fundamentally reduce dependency density."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "The Return",
+              "context": "The programme achieves predictive dependency management where historical patterns inform proactive identification, automated tracking reduces overhead, and teams independently manage routine dependencies as an organizational practice."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Large-Scale Scrum: More with LeSS",
+            "The Nexus Guide"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Tranche",
+      "description": "A structured project group delivering coherent capability increments within the programme roadmap.",
+      "focusName": "Coordination",
+      "contributesTo": "Roadmap",
+      "relatesTo": [
+        {
+          "relationship": "delivers capabilities to",
+          "alphaName": "Deliverable",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Cross-Project Dependency",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "reviewed by",
+          "alphaName": "Programme Governance",
+          "direction": "incoming"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "tranche-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Scoped",
+          "description": "Tranche boundaries, objectives, and exit criteria formally defined.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Tranche scope defined",
+              "description": "Tranche scope defines which programme capabilities will be delivered and benefits will emerge.",
+              "seq": 1
+            },
+            {
+              "name": "Constituent projects identified",
+              "description": "Constituent projects identified with scope, deliverables, and interdependencies documented.",
+              "seq": 2
+            },
+            {
+              "name": "Exit criteria specified",
+              "description": "Exit criteria specify conditions that must be met before tranche completion.",
+              "seq": 3
+            },
+            {
+              "name": "Decision gates defined",
+              "description": "Decision gates within and at tranche conclusion defined with governance authority assigned.",
+              "seq": 4
+            },
+            {
+              "name": "Resource requirements estimated",
+              "description": "Resource requirements estimated including staffing, budget, and infrastructure needs.",
+              "seq": 5
+            },
+            {
+              "name": "Tranche timeline established",
+              "description": "Tranche timeline established with milestones aligned to governance review points.",
+              "seq": 6
+            },
+            {
+              "name": "Learning objectives identified",
+              "description": "Learning objectives identify what the programme expects to learn for future tranches.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Mobilized",
+          "description": "Projects initiated with resources assigned and coordination active.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Projects formally initiated",
+              "description": "Constituent projects formally initiated with project managers assigned and governance established.",
+              "seq": 1
+            },
+            {
+              "name": "Resources allocated",
+              "description": "Resources allocated based on tranche plan with capacity confirmed for duration.",
+              "seq": 2
+            },
+            {
+              "name": "Coordination mechanisms established",
+              "description": "Cross-project coordination mechanisms specific to this tranche established and operating.",
+              "seq": 3
+            },
+            {
+              "name": "Schedule integrated with roadmap",
+              "description": "Tranche schedule integrated with programme roadmap with inter-tranche dependencies explicit.",
+              "seq": 4
+            },
+            {
+              "name": "Benefit targets confirmed",
+              "description": "Benefit realization targets confirmed with measurement baselines established.",
+              "seq": 5
+            },
+            {
+              "name": "Stakeholders engaged",
+              "description": "Affected stakeholders informed of upcoming changes with engagement plan active.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Delivering",
+          "description": "Projects executing with coordination and benefit tracking active.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Projects executing within plan",
+              "description": "Constituent projects executing within tranche plan with progress tracked at both levels.",
+              "seq": 1
+            },
+            {
+              "name": "Integrated results produced",
+              "description": "Cross-project coordination producing integrated results with dependencies actively managed.",
+              "seq": 2
+            },
+            {
+              "name": "Benefit emergence monitored",
+              "description": "Benefit metrics collected and early indicators of benefit emergence monitored.",
+              "seq": 3
+            },
+            {
+              "name": "Risks managed through governance",
+              "description": "Tranche-level risks and issues managed through programme governance with escalation clear.",
+              "seq": 4
+            },
+            {
+              "name": "Change activities preparing",
+              "description": "Organizational change activities preparing affected areas for capability changes.",
+              "seq": 5
+            },
+            {
+              "name": "Decision gates conducted on schedule",
+              "description": "Decision gates within tranche conducted on schedule with informed decisions.",
+              "seq": 6
+            },
+            {
+              "name": "Progress reported to governance",
+              "description": "Tranche progress reported to governance with variance analysis and forecast updates.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Reviewed",
+          "description": "Tranche outcomes assessed against exit criteria and benefit targets.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Exit criteria assessed",
+              "description": "All exit criteria formally assessed with evidence of achievement or explanation of shortfalls.",
+              "seq": 1
+            },
+            {
+              "name": "Benefit realization measured",
+              "description": "Benefit realization measured against planned targets with variance analysis.",
+              "seq": 2
+            },
+            {
+              "name": "Change readiness confirmed",
+              "description": "Organizational change readiness for delivered capabilities confirmed.",
+              "seq": 3
+            },
+            {
+              "name": "Lessons learned captured",
+              "description": "Lessons learned captured covering delivery effectiveness and coordination quality.",
+              "seq": 4
+            },
+            {
+              "name": "Business case updated",
+              "description": "Business case updated to reflect actual tranche costs and realized benefits.",
+              "seq": 5
+            },
+            {
+              "name": "Continuation decision made",
+              "description": "Governance makes informed continuation decision based on tranche results.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Transitioned",
+          "description": "Capabilities handed over with lessons informing future planning.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Capabilities transitioned",
+              "description": "Capabilities formally transitioned to operational ownership with support arrangements established.",
+              "seq": 1
+            },
+            {
+              "name": "Business changes adopted",
+              "description": "Business changes enabled by tranche capabilities being adopted by target organization.",
+              "seq": 2
+            },
+            {
+              "name": "Benefit responsibility transferred",
+              "description": "Benefit realization responsibility transferred to named operational benefit owners.",
+              "seq": 3
+            },
+            {
+              "name": "Resources released",
+              "description": "Resources released from completed tranche available for redeployment to subsequent tranches.",
+              "seq": 4
+            },
+            {
+              "name": "Lessons incorporated",
+              "description": "Lessons incorporated into planning assumptions and approaches for future tranches.",
+              "seq": 5
+            },
+            {
+              "name": "Roadmap updated",
+              "description": "Programme roadmap updated based on tranche outcomes and emerging strategic changes.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Delivering Strategic Change Through Progressive Capability Waves",
+          "description": "How tranches structure progressive delivery that balances ambition with organizational absorption capacity.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Programmes that attempt to deliver all strategic capabilities simultaneously overwhelm organizational change capacity, creating resistance, integration failures, and benefit realization gaps that undermine the programme investment thesis."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Delivery must be structured into progressive tranches that release coherent capability increments, each sized to balance the rate of delivery with the organization's capacity to absorb, adopt, and sustain change."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Each tranche is scoped with exit criteria and learning objectives, mobilized with resources and coordination mechanisms, executed with governance oversight, and reviewed against benefit targets before capabilities are transitioned to operational ownership."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "The programme delivers integrated strategic value through manageable waves of change, with each tranche building on lessons learned and enabling data-driven decisions about programme continuation, adaptation, or closure."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "Disciplined Agile Delivery"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Dependency Register",
+      "description": "Comprehensive catalogue of cross-project dependencies with status, ownership, and resolution tracking.",
+      "levelsOfDetail": [
+        {
+          "name": "Catalogue",
+          "description": "Dependencies listed with source, target, type, and owner.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Dependencies uniquely identified",
+              "description": "Each dependency uniquely identified with source project, target project, and dependency nature.",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies classified",
+              "description": "Dependencies classified by type: task, resource, knowledge, or product/component.",
+              "seq": 2
+            },
+            {
+              "name": "Owner assigned",
+              "description": "Named owner assigned to each dependency for tracking and resolution.",
+              "seq": 3
+            },
+            {
+              "name": "Basic status tracking",
+              "description": "Basic status tracking indicates open, in progress, or resolved per dependency.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Surfaced"
+            }
+          ]
+        },
+        {
+          "name": "Assessed",
+          "description": "Dependencies risk-assessed with resolution strategies and timelines.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Impact probability assessed",
+              "description": "Each dependency assessed for probability of delay and magnitude of impact.",
+              "seq": 1
+            },
+            {
+              "name": "Critical path dependencies flagged",
+              "description": "Critical path dependencies identified and flagged for priority resolution.",
+              "seq": 2
+            },
+            {
+              "name": "Resolution strategies assigned",
+              "description": "Resolution strategies including eliminate, mitigate, and accept assigned with actions and timelines.",
+              "seq": 3
+            },
+            {
+              "name": "Transitive chains mapped",
+              "description": "Transitive dependency chains mapped showing cascade risk.",
+              "seq": 4
+            },
+            {
+              "name": "External dependencies distinguished",
+              "description": "External dependencies distinguished with separate risk management approach.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Analyzed"
+            }
+          ]
+        },
+        {
+          "name": "Active",
+          "description": "Live tracking with resolution progress, escalation history, and trends.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Resolution progress tracked in real-time",
+              "description": "Resolution progress tracked in real-time with status updates at coordination events.",
+              "seq": 1
+            },
+            {
+              "name": "Escalation history documented",
+              "description": "Escalation history documents when and why dependencies were escalated through governance.",
+              "seq": 2
+            },
+            {
+              "name": "Trend analysis available",
+              "description": "Trend analysis shows dependency creation, resolution, and aging rates across increments.",
+              "seq": 3
+            },
+            {
+              "name": "Heat maps visualize concentrations",
+              "description": "Dependency heat maps visualize concentrations between specific project pairs.",
+              "seq": 4
+            },
+            {
+              "name": "Effectiveness metrics inform improvements",
+              "description": "Resolution effectiveness metrics inform process improvements.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Managed"
+            }
+          ]
+        },
+        {
+          "name": "Predictive",
+          "description": "Historical patterns enable proactive identification and automated tracking.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Predictive patterns inform identification",
+              "description": "Historical dependency patterns inform predictive identification of likely future dependencies.",
+              "seq": 1
+            },
+            {
+              "name": "Automated tracking reduces overhead",
+              "description": "Automated tracking reduces manual overhead for routine dependency management.",
+              "seq": 2
+            },
+            {
+              "name": "Practices documented as assets",
+              "description": "Dependency management practices documented as organizational assets.",
+              "seq": 3
+            },
+            {
+              "name": "Declining density demonstrated",
+              "description": "Register demonstrates declining dependency density over time through structural improvements.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Building Dependency Transparency Through Progressive Tracking Maturity",
+          "description": "How the dependency register evolves from basic catalogue to predictive tracking instrument.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Programme teams identify and catalogue dependencies using programme boards, tracking tools, and planning events to create a shared understanding of cross-project interactions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Static dependency lists fail to capture cascade risks, resolution progress, and structural patterns that enable predictive management and density reduction over time."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "The dependency register evolves from a basic catalogue through risk-assessed and actively tracked states to a predictive instrument that uses historical patterns to anticipate and prevent dependencies before they materialize."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "The Nexus Guide"
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "dependency-register-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Tranche Plan",
+      "description": "Delivery plan for a structured project group with scope, schedule, resources, and exit criteria.",
+      "levelsOfDetail": [
+        {
+          "name": "Outline",
+          "description": "High-level tranche scope, objectives, and constituent projects.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Scope statement drafted",
+              "description": "Tranche scope statement defines which programme capabilities will be delivered.",
+              "seq": 1
+            },
+            {
+              "name": "Constituent projects listed",
+              "description": "Constituent projects listed with brief descriptions and estimated effort.",
+              "seq": 2
+            },
+            {
+              "name": "Exit criteria drafted",
+              "description": "Exit criteria drafted specifying conditions for tranche completion.",
+              "seq": 3
+            },
+            {
+              "name": "Target benefits identified",
+              "description": "Target benefits identified from the benefits dependency network.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Tranche",
+              "stateName": "Scoped"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Structured"
+            }
+          ]
+        },
+        {
+          "name": "Detailed",
+          "description": "Full tranche plan with schedules, resources, and risks.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Detailed schedules integrated",
+              "description": "Detailed schedules integrate constituent project timelines with cross-project milestones.",
+              "seq": 1
+            },
+            {
+              "name": "Resource allocation plans completed",
+              "description": "Resource allocation plans cover staffing, budget, and infrastructure for tranche duration.",
+              "seq": 2
+            },
+            {
+              "name": "Internal dependencies mapped",
+              "description": "Cross-project dependencies within the tranche mapped with resolution approaches.",
+              "seq": 3
+            },
+            {
+              "name": "Risk register covers tranche risks",
+              "description": "Risk register covers tranche-level risks with probability, impact, and response strategies.",
+              "seq": 4
+            },
+            {
+              "name": "Change readiness activities planned",
+              "description": "Organizational change readiness activities planned for capabilities tranche will deliver.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Tranche",
+              "stateName": "Mobilized"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Structured"
+            }
+          ]
+        },
+        {
+          "name": "Tracked",
+          "description": "Live tracking with progress, risks, and benefit emergence.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Progress against milestones tracked",
+              "description": "Progress against milestones tracked with earned value or equivalent metrics.",
+              "seq": 1
+            },
+            {
+              "name": "Risk and issue status monitored",
+              "description": "Risk and issue status actively monitored with mitigation actions tracked.",
+              "seq": 2
+            },
+            {
+              "name": "Benefit emergence indicators measured",
+              "description": "Early benefit emergence indicators measured where tranche benefits begin to materialize.",
+              "seq": 3
+            },
+            {
+              "name": "Decision gates conducted",
+              "description": "Decision gates conducted on schedule with governance making data-driven decisions.",
+              "seq": 4
+            },
+            {
+              "name": "Variance analysis reported",
+              "description": "Variance analysis explains deviations from plan with forecast updates.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Tranche",
+              "stateName": "Delivering"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "Evaluated",
+          "description": "Post-tranche assessment with exit criteria evaluation and lessons.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Exit criteria formally assessed",
+              "description": "Exit criteria achievement formally assessed with evidence documented.",
+              "seq": 1
+            },
+            {
+              "name": "Benefit realization measured",
+              "description": "Benefit realization measured against planned targets with variance analysis.",
+              "seq": 2
+            },
+            {
+              "name": "Lessons learned captured",
+              "description": "Lessons learned captured and incorporated into future tranche planning.",
+              "seq": 3
+            },
+            {
+              "name": "Roadmap updated based on outcomes",
+              "description": "Programme roadmap updated based on tranche outcomes.",
+              "seq": 4
+            },
+            {
+              "name": "Capability transition confirmed",
+              "description": "Capability transition to operational ownership confirmed.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Tranche",
+              "stateName": "Reviewed"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Adapting"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Planning Delivery Waves That Balance Ambition with Absorption Capacity",
+          "description": "How tranche plans balance delivery ambition with organizational change absorption capacity.",
+          "narrativeTypeName": "PDCA",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Each tranche plan outlines scope, constituent projects, exit criteria, and resources, designed to deliver a coherent capability increment while respecting the organization's capacity to absorb change."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Do",
+              "context": "The plan is executed with coordinated project delivery, dependency management, and organizational change activities operating in parallel to produce integrated results."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Check",
+              "context": "Tranche progress is tracked against milestones and benefit targets, with decision gates providing governance authorities objective bases for continuation, adaptation, or closure decisions."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Act",
+              "context": "Post-tranche review captures lessons learned, evaluates exit criteria achievement, and feeds insights into future tranche planning to improve delivery effectiveness across the programme lifecycle."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes"
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "tranche-plan-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Programme Governance Framework",
+      "description": "Decision-making authority, oversight mechanisms, reporting, and control framework for the programme.",
+      "levelsOfDetail": [
+        {
+          "name": "Principles",
+          "description": "Governance principles and authority structures articulated.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Oversight philosophy specified",
+              "description": "Governance principles specify philosophy of programme oversight and decision-making.",
+              "seq": 1
+            },
+            {
+              "name": "Key roles identified",
+              "description": "Key governance roles including sponsor, steering committee, programme manager, and PMO identified.",
+              "seq": 2
+            },
+            {
+              "name": "Decision rights allocated",
+              "description": "Decision rights allocation distinguishes strategic, programme, and project-level decisions.",
+              "seq": 3
+            },
+            {
+              "name": "Organizational governance relationship defined",
+              "description": "Relationship between programme governance and organizational governance defined.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Mandated"
+            },
+            {
+              "alphaName": "Programme",
+              "stateName": "Defined"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Governance mechanisms, reporting cadence, and escalation paths.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Bodies specified with terms",
+              "description": "Governance bodies specified with composition, terms of reference, and meeting cadence.",
+              "seq": 1
+            },
+            {
+              "name": "Reporting requirements defined",
+              "description": "Reporting requirements define what, to whom, and when information is reported.",
+              "seq": 2
+            },
+            {
+              "name": "Escalation paths specified",
+              "description": "Escalation paths specify how issues move between governance levels.",
+              "seq": 3
+            },
+            {
+              "name": "Stage gate criteria defined",
+              "description": "Stage gate criteria define conditions for key programme and tranche decisions.",
+              "seq": 4
+            },
+            {
+              "name": "Risk governance specified",
+              "description": "Risk governance specifies how programme-level risks are identified and managed.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Established"
+            }
+          ]
+        },
+        {
+          "name": "Operating",
+          "description": "Governance driving decisions with audit trail and effectiveness assessment.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Decisions documented",
+              "description": "Governance decisions documented with rationale, alternatives considered, and outcome.",
+              "seq": 1
+            },
+            {
+              "name": "Effectiveness assessed",
+              "description": "Governance effectiveness periodically assessed through self-evaluation or review.",
+              "seq": 2
+            },
+            {
+              "name": "Framework adapts to circumstances",
+              "description": "Framework adapts based on programme stage and changing circumstances.",
+              "seq": 3
+            },
+            {
+              "name": "Stakeholder confidence measured",
+              "description": "Stakeholder confidence in governance measured and maintained.",
+              "seq": 4
+            },
+            {
+              "name": "Compliance monitored",
+              "description": "Compliance with governance requirements across the programme monitored.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Operating"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Governance providing reliable assurance with minimal overhead.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Processes streamlined",
+              "description": "Governance processes streamlined for maximum oversight value with minimum overhead.",
+              "seq": 1
+            },
+            {
+              "name": "Practices documented as standards",
+              "description": "Governance practices documented as organizational standards for future programmes.",
+              "seq": 2
+            },
+            {
+              "name": "Data-driven governance achieved",
+              "description": "Data-driven governance uses programme metrics to inform decisions.",
+              "seq": 3
+            },
+            {
+              "name": "Reliable assurance provided",
+              "description": "Governance provides reliable assurance to organizational leadership.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Designing Governance That Enables Speed While Assuring Strategic Value",
+          "description": "How the governance framework balances control with enablement across programme levels.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Programmes require governance that provides strategic assurance and decision-making authority while avoiding bureaucratic overhead that impedes delivery speed and team autonomy."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The governance framework must define decision rights, reporting cadence, escalation paths, and stage gates that balance control with enablement across strategic, coordination, and operational levels."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Governance evolves from principled authority structures through structured mechanisms to data-driven operating models that use programme metrics, trend analysis, and benefit tracking to inform decisions."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "The programme achieves lightweight governance that provides reliable assurance to organizational leadership, with practices documented as organizational standards for reuse in future programmes."
+            }
+          ],
+          "citationNames": [
+            "Rethinking Agile",
+            "The Standard for Program Management, 4th Edition"
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "programme-governance-framework-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "personas": [
+    {
+      "name": "Programme Manager",
+      "description": "Senior leader accountable for programme delivery, governance, and cross-project coordination.",
+      "competencies": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Programme Management",
+          "Governance"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Delivery",
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Management Office"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Dependency Manager",
+      "description": "Coordination specialist focused on identifying, tracking, and resolving cross-project dependencies.",
+      "competencies": [
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Dependency Management",
+          "Coordination"
+        ],
+        "lifecycleTags": [
+          "Delivery"
+        ],
+        "organizationalTags": [
+          "Programme Management Office"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Programme Sponsor",
+      "description": "Executive accountable for programme investment, strategic alignment, and governance authority.",
+      "competencies": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Executive Sponsorship",
+          "Governance"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Delivery",
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Programme Management Office",
+      "description": "Governance and support function providing programme-level reporting, risk management, and standards.",
+      "personaNames": [
+        "Programme Manager",
+        "Dependency Manager"
+      ],
+      "tags": {
+        "domainTags": [
+          "Governance",
+          "Coordination"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Delivery",
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Management Office"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Programme Governance Board",
+      "description": "Decision-making body providing strategic oversight and tranche approval for the programme.",
+      "personaNames": [
+        "Programme Sponsor",
+        "Programme Manager"
+      ],
+      "tags": {
+        "domainTags": [
+          "Governance",
+          "Strategic Oversight"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Delivery",
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Map and Resolve Cross-Project Dependencies",
+      "description": "Systematically identify, visualize, and resolve dependencies between programme projects.",
+      "activitySpaceName": "Manage Dependencies",
+      "focusName": "Coordination",
+      "contributesTo": [
+        {
+          "alphaName": "Cross-Project Dependency",
+          "stateName": "Surfaced"
+        },
+        {
+          "alphaName": "Cross-Project Dependency",
+          "stateName": "Analyzed"
+        },
+        {
+          "alphaName": "Cross-Project Dependency",
+          "stateName": "Managed"
+        },
+        {
+          "alphaName": "Cross-Project Dependency",
+          "stateName": "Minimized"
+        },
+        {
+          "alphaName": "Programme",
+          "stateName": "Organized"
+        },
+        {
+          "alphaName": "Programme",
+          "stateName": "Delivering"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Dependency Register",
+          "levelOfDetailName": "Catalogue"
+        },
+        {
+          "workProductName": "Dependency Register",
+          "levelOfDetailName": "Assessed"
+        },
+        {
+          "workProductName": "Dependency Register",
+          "levelOfDetailName": "Active"
+        }
+      ],
+      "requiredCompetencies": [
+        "Integration",
+        "Management",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Management Office"
+      ],
+      "tags": {
+        "domainTags": [
+          "Dependency Management",
+          "Coordination"
+        ],
+        "lifecycleTags": [
+          "Delivery"
+        ],
+        "organizationalTags": [
+          "Programme Management Office"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Surfacing and Resolving the Hidden Web of Project Interdependencies",
+          "description": "How to systematically identify, visualize, and resolve cross-project dependencies.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Dependency management requires that the programme has identified its constituent projects and established coordination mechanisms such as programme boards, dependency tracking tools, and cross-team planning events."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Teams identify and classify dependencies during programme increment planning, capturing them on programme boards with named owners for each dependency. SAFe visualizes dependencies on programme boards, LeSS eliminates them through feature teams, and Nexus uses cross-team refinement, with resolution strategies including elimination through restructuring, mitigation through pre-positioning, and network analysis of transitive cascade risks."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Large-Scale Scrum: More with LeSS",
+            "The Nexus Guide"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "map-and-resolve-cross-project-dependencies-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Plan and Execute Tranches",
+      "description": "Structure programme delivery into progressive capability waves with exit criteria and learning objectives.",
+      "activitySpaceName": "Plan the Roadmap",
+      "focusName": "Coordination",
+      "contributesTo": [
+        {
+          "alphaName": "Tranche",
+          "stateName": "Scoped"
+        },
+        {
+          "alphaName": "Tranche",
+          "stateName": "Mobilized"
+        },
+        {
+          "alphaName": "Tranche",
+          "stateName": "Delivering"
+        },
+        {
+          "alphaName": "Tranche",
+          "stateName": "Reviewed"
+        },
+        {
+          "alphaName": "Roadmap",
+          "stateName": "Structured"
+        },
+        {
+          "alphaName": "Roadmap",
+          "stateName": "Executing"
+        },
+        {
+          "alphaName": "Programme",
+          "stateName": "Delivering"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Tranche Plan",
+          "levelOfDetailName": "Outline"
+        },
+        {
+          "workProductName": "Tranche Plan",
+          "levelOfDetailName": "Detailed"
+        },
+        {
+          "workProductName": "Tranche Plan",
+          "levelOfDetailName": "Tracked"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Leadership",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Management Office",
+        "Programme Governance Board"
+      ],
+      "tags": {
+        "domainTags": [
+          "Tranche Planning",
+          "Roadmap"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Delivery"
+        ],
+        "organizationalTags": [
+          "Programme Management Office"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Structuring Delivery Waves That Balance Ambition with Organizational Capacity",
+          "description": "How to structure delivery into progressive tranches balancing ambition with absorption capacity.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Tranche planning requires a programme roadmap with strategic direction, an understanding of organizational change capacity, and governance authority to approve tranche boundaries and exit criteria."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "MSP defines tranches as project groups structured around step changes in capability and benefit delivery, where tranche scope balances delivery rate with organizational absorption capacity. Programme increment planning provides delivery cadence within each tranche, and tranche review assesses exit criteria, benefit realization, and organizational change readiness to inform future tranche design."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "Disciplined Agile Delivery"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "plan-and-execute-tranches-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Establish Programme Governance",
+      "description": "Define and operationalize the governance framework including decision authorities and oversight mechanisms.",
+      "activitySpaceName": "Govern the Programme",
+      "focusName": "Coordination",
+      "contributesTo": [
+        {
+          "alphaName": "Programme Governance",
+          "stateName": "Mandated"
+        },
+        {
+          "alphaName": "Programme Governance",
+          "stateName": "Established"
+        },
+        {
+          "alphaName": "Programme Governance",
+          "stateName": "Transitioned"
+        },
+        {
+          "alphaName": "Programme",
+          "stateName": "Defined"
+        },
+        {
+          "alphaName": "Tranche",
+          "stateName": "Reviewed"
+        },
+        {
+          "alphaName": "Tranche",
+          "stateName": "Transitioned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Programme Governance Framework",
+          "levelOfDetailName": "Principles"
+        },
+        {
+          "workProductName": "Programme Governance Framework",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "Programme Governance Framework",
+          "levelOfDetailName": "Operating"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Management",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Programme Governance Board",
+        "Programme Management Office"
+      ],
+      "tags": {
+        "domainTags": [
+          "Governance",
+          "Decision Architecture"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Delivery",
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Building Decision Architecture That Enables Both Assurance and Agility",
+          "description": "How to build governance decision architecture that enables assurance while supporting agility.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Programme governance design requires clarity on organizational governance structures, programme scope, and the desired balance between strategic oversight and team-level decision-making autonomy."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "MSP provides governance through nine continuous themes, PMI identifies five performance domains, and Flight Levels distinguishes three decision levels preventing strategic decisions from entering operational meetings. The governance framework specifies bodies, reporting, escalation, stage gates, and risk governance while remaining lightweight enough to support rather than impede delivery."
+            }
+          ],
+          "citationNames": [
+            "The Standard for Program Management, 4th Edition",
+            "Rethinking Agile",
+            "Managing Successful Programmes"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "establish-programme-governance-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Conduct Programme Reviews",
+      "description": "Facilitate governance reviews assessing programme health, strategic alignment, and benefit realization.",
+      "activitySpaceName": "Govern the Programme",
+      "focusName": "Coordination",
+      "contributesTo": [
+        {
+          "alphaName": "Programme Governance",
+          "stateName": "Operating"
+        },
+        {
+          "alphaName": "Programme Governance",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Programme",
+          "stateName": "Delivering"
+        },
+        {
+          "alphaName": "Programme",
+          "stateName": "Transitioning"
+        },
+        {
+          "alphaName": "Roadmap",
+          "stateName": "Adapting"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Programme Governance Framework",
+          "levelOfDetailName": "Operating"
+        },
+        {
+          "workProductName": "Tranche Plan",
+          "levelOfDetailName": "Tracked"
+        },
+        {
+          "workProductName": "Tranche Plan",
+          "levelOfDetailName": "Evaluated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Analysis",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Programme Governance Board",
+        "Programme Management Office"
+      ],
+      "tags": {
+        "domainTags": [
+          "Governance",
+          "Programme Review"
+        ],
+        "lifecycleTags": [
+          "Delivery",
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Driving Data-Informed Governance Decisions Across the Programme Lifecycle",
+          "description": "How to conduct data-informed governance reviews that drive effective programme decisions.",
+          "narrativeTypeName": "PDCA",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Reviews are scheduled at multiple cadences aligned to programme increment boundaries, tranche decision gates, and ad hoc triggers, with clear agendas covering delivery progress, strategic alignment, benefit realization, risk posture, and resource utilization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Do",
+              "context": "SAFe's Inspect and Adapt combines quantitative assessment of planned versus actual objectives with structured problem-solving, while MSP's governance reviews assess whether the programme should continue, be modified, or be closed at tranche boundaries."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Check",
+              "context": "Reviews are data-driven using dashboard metrics, trend analysis, and comparative performance data rather than relying solely on status reports, with Flight Levels emphasizing that Level 2 and 3 reviews focus on flow and strategic alignment."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Act",
+              "context": "Review outputs produce governance decisions documented with rationale, improvement actions prioritized in subsequent increment backlogs, and roadmap adjustments informed by tranche outcomes and emerging strategic changes."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Managing Successful Programmes",
+            "Rethinking Agile"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "conduct-programme-reviews-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Manage Programme Risk",
+      "description": "Identify, assess, and manage risks at programme level spanning project boundaries.",
+      "activitySpaceName": "Manage Dependencies",
+      "focusName": "Coordination",
+      "contributesTo": [
+        {
+          "alphaName": "Cross-Project Dependency",
+          "stateName": "Analyzed"
+        },
+        {
+          "alphaName": "Tranche",
+          "stateName": "Delivering"
+        },
+        {
+          "alphaName": "Programme",
+          "stateName": "Delivering"
+        },
+        {
+          "alphaName": "Roadmap",
+          "stateName": "Executing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Dependency Register",
+          "levelOfDetailName": "Assessed"
+        },
+        {
+          "workProductName": "Dependency Register",
+          "levelOfDetailName": "Active"
+        },
+        {
+          "workProductName": "Tranche Plan",
+          "levelOfDetailName": "Tracked"
+        },
+        {
+          "workProductName": "Programme Governance Framework",
+          "levelOfDetailName": "Operating"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Management",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Management Office",
+        "Programme Governance Board"
+      ],
+      "tags": {
+        "domainTags": [
+          "Risk Management",
+          "Dependency Management"
+        ],
+        "lifecycleTags": [
+          "Delivery"
+        ],
+        "organizationalTags": [
+          "Programme Management Office"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Managing Systemic Risk Across Programme Project Boundaries",
+          "description": "How to manage systemic programme risks that span project boundaries and affect strategic objectives.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Programme risk management requires an established dependency register, active governance channels for escalation, and an understanding of cross-project integration points where risk cascades are most likely."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Programme-level risk management addresses strategic, integration, dependency, and governance risks spanning project boundaries through continuous identification at planning events, coordination meetings, and governance reviews. SAFe uses the ROAM framework at PI level while MSP treats risk as a continuous governance theme, with dependency register network analysis identifying cascade points and agile approaches emphasizing early delivery as primary risk mitigation."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Managing Successful Programmes"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "manage-programme-risk-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Optimize Dependency Practices",
+      "description": "Refine dependency management to enable predictive identification and automated tracking.",
+      "activitySpaceName": "Manage Dependencies",
+      "focusName": "Coordination",
+      "contributesTo": [
+        {
+          "alphaName": "Cross-Project Dependency",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Programme",
+          "stateName": "Transitioning"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Dependency Register",
+          "levelOfDetailName": "Predictive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Integration",
+        "Analysis",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Management Office"
+      ],
+      "tags": {
+        "domainTags": [
+          "Dependency Management",
+          "Continuous Improvement"
+        ],
+        "lifecycleTags": [
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Management Office"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Evolving from Reactive Tracking to Predictive Dependency Intelligence",
+          "description": "How dependency management evolves from reactive tracking to predictive intelligence.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "As the programme matures through multiple tranches, the dependency register accumulates historical data on dependency patterns, resolution times, and structural causes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Without deliberate investment in analysing patterns and automating tracking, dependency management remains a manual overhead that does not improve with experience."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "The programme invests in predictive analytics that use historical patterns to identify likely dependencies before they materialize, automated tracking that reduces manual overhead, and documented practices that become organizational assets for future programmes."
+            }
+          ],
+          "citationNames": [
+            "Rethinking Agile"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "optimize-dependency-practices-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Transition Governance and Coordination",
+      "description": "Formally dissolve governance structures and transfer coordination responsibilities to operations.",
+      "activitySpaceName": "Govern the Programme",
+      "focusName": "Coordination",
+      "contributesTo": [
+        {
+          "alphaName": "Programme Governance",
+          "stateName": "Transitioned"
+        },
+        {
+          "alphaName": "Programme",
+          "stateName": "Closed"
+        },
+        {
+          "alphaName": "Tranche",
+          "stateName": "Transitioned"
+        },
+        {
+          "alphaName": "Roadmap",
+          "stateName": "Fulfilled"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Programme Governance Framework",
+          "levelOfDetailName": "Optimized"
+        },
+        {
+          "workProductName": "Tranche Plan",
+          "levelOfDetailName": "Evaluated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Management",
+        "Change Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Governance Board",
+        "Programme Management Office"
+      ],
+      "tags": {
+        "domainTags": [
+          "Governance",
+          "Programme Closure"
+        ],
+        "lifecycleTags": [
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "narratives": [
+        {
+          "name": "Winding Down Programme Coordination While Preserving Organizational Learning",
+          "description": "How to formally dissolve programme coordination while preserving organizational learning.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Governance transition requires that programme benefits are substantially realized or formally transferred to operational owners, final tranche reviews are complete, and governance bodies have documented their practices and lessons."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Governance dissolution transfers residual oversight to operational management, documents practices and lessons as organizational standards, delivers final reports to leadership, and preserves coordination assets including dependency management approaches and tranche planning templates as reusable institutional knowledge."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "The Standard for Program Management, 4th Edition"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "transition-governance-and-coordination-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Programme Governance and Coordination Journey",
+      "description": "Coordinated progression from dependency identification through tranche delivery to programme closure.",
+      "narrativeTypeName": "Lifecycle",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Programme defined, governance mandated, dependencies surfaced, tranche scoped.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Programme",
+              "stateName": "Defined"
+            },
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Mandated"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Envisioned"
+            },
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Surfaced"
+            },
+            {
+              "alphaName": "Tranche",
+              "stateName": "Scoped"
+            }
+          ],
+          "activities": [
+            "Establish Programme Governance",
+            "Map and Resolve Cross-Project Dependencies",
+            "Plan and Execute Tranches"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "The programme has been formally defined with governance principles mandated, initial cross-project dependencies surfaced through programme board analysis, and the first tranche scoped with exit criteria and learning objectives. Governance bodies are constituted and the dependency register is established as a living tracking instrument."
+            }
+          ]
+        },
+        {
+          "name": "Governance Establishment",
+          "description": "Governance operating, dependencies analyzed, first tranche mobilized.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Programme",
+              "stateName": "Organized"
+            },
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Established"
+            },
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Analyzed"
+            },
+            {
+              "alphaName": "Tranche",
+              "stateName": "Mobilized"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Structured"
+            }
+          ],
+          "activities": [
+            "Establish Programme Governance",
+            "Map and Resolve Cross-Project Dependencies",
+            "Plan and Execute Tranches"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Governance structures are actively functioning with regular reviews, decision processes, and risk management operating at mandated cadence. Dependencies have been risk-assessed with resolution strategies assigned, and the first tranche is mobilized with constituent projects initiated, resources allocated, and cross-project coordination mechanisms established."
+            }
+          ]
+        },
+        {
+          "name": "Coordinated Delivery",
+          "description": "Dependencies managed, tranche delivering, governance driving decisions.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Programme",
+              "stateName": "Delivering"
+            },
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Operating"
+            },
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Managed"
+            },
+            {
+              "alphaName": "Tranche",
+              "stateName": "Delivering"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Executing"
+            }
+          ],
+          "activities": [
+            "Map and Resolve Cross-Project Dependencies",
+            "Manage Programme Risk",
+            "Conduct Programme Reviews",
+            "Plan and Execute Tranches"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The programme is in active coordinated delivery with dependency resolution strategies executing, tranche progress tracked against milestones, and governance driving data-informed decisions. Programme-level risks spanning project boundaries are assessed for cascade effects, and governance reviews assess delivery progress, strategic alignment, and benefit emergence using metrics and trend analysis rather than status reports alone."
+            }
+          ]
+        },
+        {
+          "name": "Tranche Transition",
+          "description": "Dependencies minimized, tranche reviewed, capabilities transitioning.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Minimized"
+            },
+            {
+              "alphaName": "Tranche",
+              "stateName": "Reviewed"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Adapting"
+            },
+            {
+              "alphaName": "Programme",
+              "stateName": "Delivering"
+            }
+          ],
+          "activities": [
+            "Plan and Execute Tranches",
+            "Conduct Programme Reviews",
+            "Map and Resolve Cross-Project Dependencies"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The tranche is reviewed against exit criteria with benefit realization measured against targets and lessons captured. Cross-project dependencies have been minimized through structural changes including team topology alignment, architectural decoupling, and feature team adoption. The roadmap adapts based on tranche outcomes and emerging strategic changes, with governance providing optimized assurance through streamlined processes."
+            }
+          ]
+        },
+        {
+          "name": "Programme Maturation",
+          "description": "Dependencies optimized, governance transitioning, programme closing.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Programme",
+              "stateName": "Closed"
+            },
+            {
+              "alphaName": "Programme Governance",
+              "stateName": "Transitioned"
+            },
+            {
+              "alphaName": "Cross-Project Dependency",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Tranche",
+              "stateName": "Transitioned"
+            },
+            {
+              "alphaName": "Roadmap",
+              "stateName": "Fulfilled"
+            }
+          ],
+          "activities": [
+            "Optimize Dependency Practices",
+            "Transition Governance and Coordination",
+            "Conduct Programme Reviews"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The programme achieves maturation with dependency management operating predictively using historical patterns and automated tracking, governance structures transitioning to operational management with practices documented as organizational standards, and tranche capabilities formally transitioned to operational ownership. The roadmap is fulfilled with all major capability milestones achieved, and the programme formally closes with benefits confirmed, governance dissolved, and organizational learning captured."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Cross-Project Dependency",
+      "aliasName": "Programme Dependency"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Tranche",
+      "aliasName": "Delivery Wave"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Programme Governance",
+      "aliasName": "Programme Oversight"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Conduct Programme Reviews",
+      "aliasName": "Programme Health Check"
+    },
+    {
+      "practiceElementType": "Persona",
+      "practiceElementName": "Dependency Manager",
+      "aliasName": "Integration Coordinator"
+    }
+  ],
+  "schemaVersion": "1.2.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Programme Essentials",
+      "versionRange": "^1.0.2"
+    },
+    {
+      "documentName": "Project Management Foundations",
+      "versionRange": "^1.0.2"
+    }
+  ],
+  "activitySpaces": []
+}

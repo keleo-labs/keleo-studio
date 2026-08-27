@@ -1,0 +1,1405 @@
+{
+  "kind": "practiceBaseline",
+  "name": "Partner Ecosystem Essentials",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "description": "A minimal baseline practice for engaging with partner ecosystems, covering partner lifecycle management, value realization, capability building, trust cultivation, and governance.",
+  "version": "2.0.0",
+  "authors": [
+    "Ed Seymour"
+  ],
+  "createdAt": "2026-06-15T00:00:00Z",
+  "updatedAt": "2026-08-11",
+  "keywords": [
+    "partner ecosystem",
+    "alliance management",
+    "partner relationship",
+    "trust building",
+    "partnership governance",
+    "partner value"
+  ],
+  "focuses": [
+    {
+      "name": "Partner Value",
+      "description": "Focuses on partner-driven business value, mutual benefits, and partnership ROI."
+    },
+    {
+      "name": "Partner Sales Execution",
+      "description": "Governs partner relationship cultivation, trust building, and partnership governance."
+    },
+    {
+      "name": "Go-to-Market",
+      "description": "Encapsulates partner capability development and joint market offerings."
+    }
+  ],
+  "narrativeTypes": [
+    {
+      "kind": "narrativeType",
+      "name": "Partner Ecosystem Journey",
+      "description": "The journey organizations take as they build and mature their partner ecosystems, from initial partner discovery through sustained collaborative advantage.",
+      "narrativeElements": [
+        {
+          "name": "Discovery",
+          "description": "Organizations identify potential partners whose capabilities, values, and market presence complement strategic objectives.",
+          "howToUse": "Use this phase to emphasize finding the right partners rather than maximizing partner count. Focus activity on Partner Value (Identified, Qualified) and initial Partner Relationship states."
+        },
+        {
+          "name": "Alignment",
+          "description": "Mutual value is established through transparent negotiations that balance benefits for all parties.",
+          "howToUse": "Use this phase to formalize partnership terms and build initial trust. Focus on Partner Value (Agreed) and Partner Trust (Initiated, Established) progression."
+        },
+        {
+          "name": "Collaboration",
+          "description": "Partnerships deliver measurable outcomes as partners develop capabilities, co-create solutions, and navigate challenges together.",
+          "howToUse": "Use this phase to execute partnership activities and build operational cadence. Focus on Partner Relationship (Active), Partner Capability (Developing, Capable), and Partner Governance (Operating)."
+        },
+        {
+          "name": "Maturity",
+          "description": "Sustained partnerships generate compounding value as trust deepens, capabilities scale, and collaborative advantage (1+1>>2) becomes embedded in organizational culture.",
+          "howToUse": "Use this phase to optimize partnership value and sustain strategic commitment. Focus on Partner Value (Optimized), Partner Trust (Resilient), and Partner Capability (Scaling)."
+        }
+      ]
+    },
+    {
+      "name": "The STAR Format",
+      "description": "Enforces a strict cause-and-effect relationship between context and outcomes (Situation, Task, Action, Result).",
+      "narrativeElements": [
+        {
+          "name": "Situation",
+          "description": "The context or background of the challenge.",
+          "howToUse": "Describe the specific situation, context, or baseline state before action is taken."
+        },
+        {
+          "name": "Task",
+          "description": "The specific challenge, objective, or requirement.",
+          "howToUse": "Outline the specific task, problem, or goal that needs to be addressed."
+        },
+        {
+          "name": "Action",
+          "description": "The specific steps or interventions performed.",
+          "howToUse": "Detail the methodology, activities, or steps taken to address the task."
+        },
+        {
+          "name": "Result",
+          "description": "The outcome, impact, or value achieved.",
+          "howToUse": "Summarize the measurable results, outcomes, or state changes achieved from the actions."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "The Hero's Journey",
+      "description": "Highly effective for macro-level lifecycle orchestrations (platform adoptions, transformations).",
+      "narrativeElements": [
+        {
+          "name": "The Ordinary World",
+          "description": "The starting point before the transformation.",
+          "howToUse": "Describe the current, pre-platform state of the organization."
+        },
+        {
+          "name": "The Call to Adventure",
+          "description": "The catalyst for change.",
+          "howToUse": "Outline the business opportunity, crisis, or driver that necessitates the platform transformation."
+        },
+        {
+          "name": "The Ordeal",
+          "description": "The core transformation challenges and execution.",
+          "howToUse": "Detail the complex adoption activities, migrations, and challenges faced during implementation."
+        },
+        {
+          "name": "The Return",
+          "description": "The new operational baseline and realized value.",
+          "howToUse": "Describe the successful adoption, the accrual of benefits, and the new optimized way of working."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "The Three-Act Structure & StoryBrand",
+      "description": "Positions the consumer as the Hero and the Platform Engineering team as the Guide utilizing the defined approach.",
+      "narrativeElements": [
+        {
+          "name": "Act I: The Hero and the Problem",
+          "description": "Identifying the consumer and their pain points.",
+          "howToUse": "Identify the primary consumer (the Hero) and detail the specific friction or problem they face."
+        },
+        {
+          "name": "Act II: The Guide and the Plan",
+          "description": "The platform team offers a solution.",
+          "howToUse": "Introduce the Platform Engineering team as the Guide who provides a clear, paved-path approach or plan."
+        },
+        {
+          "name": "Act III: Call to Action and Success",
+          "description": "Execution and outcome.",
+          "howToUse": "Describe the call to action for the consumer to adopt the plan, and the successful outcome of doing so."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Micro-Narratives (ABT)",
+      "description": "Shorter frameworks (And/But/Therefore) designed for rapid, highly persuasive daily execution updates.",
+      "narrativeElements": [
+        {
+          "name": "And (Context)",
+          "description": "The current situation and baseline facts.",
+          "howToUse": "State the current agreed-upon context, background, and baseline facts."
+        },
+        {
+          "name": "But (Conflict)",
+          "description": "The problem, challenge, or contradiction.",
+          "howToUse": "Introduce the specific problem, blocker, challenge, or contradiction encountered."
+        },
+        {
+          "name": "Therefore (Resolution)",
+          "description": "The action taken or conclusion reached.",
+          "howToUse": "State the specific action taken, decision made, or conclusion reached to resolve the conflict."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Lifecycle",
+      "description": "A standard lifecycle orchestration framework to map progression phases.",
+      "narrativeElements": [
+        {
+          "name": "Prerequisites",
+          "description": "Conditions required before starting the lifecycle.",
+          "howToUse": "Define the Phase 0 or preparation steps, including baseline checks or prerequisite states, that must be achieved before the main lifecycle begins."
+        },
+        {
+          "name": "Lifecycle Phase",
+          "description": "An active stage of lifecycle execution.",
+          "howToUse": "Detail the active state transitions, required work products, and activities for this specific phase of the lifecycle progression."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Essay Narrative",
+      "description": "A cohesive narrative format that guides the reader carefully through the evidence for and against a proposition before reaching a conclusion.",
+      "narrativeElements": [
+        {
+          "name": "Introduction",
+          "description": "The start of the essay used to contextualise the work and grab the attention of the reader.",
+          "howToUse": "Explain how the topic sits within the framework of the subject area as a whole. Outline the structure of your essay very briefly, but do not give your conclusions away on the first page."
+        },
+        {
+          "name": "Defining Key Concepts",
+          "description": "A section establishing the interpretation of central concepts without relying on dictionary definitions.",
+          "howToUse": "Relate in your own words how the terms you will be using are to be interpreted within the context of your essay."
+        },
+        {
+          "name": "Presenting Evidence",
+          "description": "The core discussion where secondary works are evaluated and viewpoints are balanced against each other.",
+          "howToUse": "Be selective in your choice of evidence and use signposting language to guide your reader. Quote sparingly, paraphrase occasionally, and summarise often to integrate other people's ideas into your own argument."
+        },
+        {
+          "name": "Conclusion",
+          "description": "The closing section that synthesises the presented evidence and forms a direct response to the assignment title.",
+          "howToUse": "Draw the threads of your argument together. Do not bring in new evidence in your concluding paragraphs or try to cram in ideas that you have not developed fully."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Report Narrative",
+      "description": "A formal, informative structure broken down into sections and sub-sections to order and communicate relevant information in an easily navigable way.",
+      "narrativeElements": [
+        {
+          "name": "Executive Summary",
+          "description": "A stand-alone summary of the entire report's purpose, methodology, findings, conclusions, and recommendations.",
+          "howToUse": "This should be the last thing that you write. Keep it concise (usually a paragraph or two and always less than a page) to enable the reader to make an informed decision about whether they want to read the report itself."
+        },
+        {
+          "name": "Introduction",
+          "description": "Explains the rationale for undertaking the work reported on, the background, and the scope of the report.",
+          "howToUse": "State what the report is about, define how it meets the requirements of the brief, and explain your research methods."
+        },
+        {
+          "name": "Methods",
+          "description": "A clear description of how the investigation was carried out and why specific methods were chosen.",
+          "howToUse": "Write this section concisely but thoroughly. Provide step-by-step details in such a way that a reader could replicate the research you have done."
+        },
+        {
+          "name": "Results and Findings",
+          "description": "A purely factual presentation of the research data using text, graphs, tables, or diagrams.",
+          "howToUse": "Present the findings of your research as simply as possible. Save your interpretation of the results for the Discussion section."
+        },
+        {
+          "name": "Discussion",
+          "description": "The section that brings everything together by showing how the findings relate to the purpose of the report and previous research.",
+          "howToUse": "Interpret the results, showing how they respond to the brief explained in the introduction. Mention if there were any problems or unexpected results and how they were solved."
+        },
+        {
+          "name": "Recommendations",
+          "description": "Suggestions for a future course of action based on the evidence and conclusions.",
+          "howToUse": "Make recommendations that solve problems or help to develop a new strategy. Make an effort to sound authoritative and certain in your choices."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "PDCA",
+      "description": "Plan-Do-Check-Act cycle (Deming Cycle) for continuous improvement and iterative refinement.",
+      "narrativeElements": [
+        {
+          "name": "Plan",
+          "description": "Establish objectives and processes.",
+          "howToUse": "Identify improvement opportunity, analyze current state, and plan intervention."
+        },
+        {
+          "name": "Do",
+          "description": "Implement the plan on small scale.",
+          "howToUse": "Execute the planned change or experiment in controlled environment."
+        },
+        {
+          "name": "Check",
+          "description": "Measure and evaluate results.",
+          "howToUse": "Assess outcomes against objectives, identify gaps and learnings."
+        },
+        {
+          "name": "Act",
+          "description": "Standardize or iterate based on learnings.",
+          "howToUse": "Scale successful changes, adjust plan based on findings, repeat cycle."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Build-Measure-Learn",
+      "description": "Lean Startup cycle for validating assumptions through rapid experimentation and feedback.",
+      "narrativeElements": [
+        {
+          "name": "Build",
+          "description": "Create minimum viable solution.",
+          "howToUse": "Develop smallest increment that can test key hypothesis or assumption."
+        },
+        {
+          "name": "Measure",
+          "description": "Collect data and feedback.",
+          "howToUse": "Instrument, observe, and gather quantitative and qualitative evidence."
+        },
+        {
+          "name": "Learn",
+          "description": "Analyze and decide next iteration.",
+          "howToUse": "Synthesize findings, validate or invalidate hypothesis, pivot or persevere."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Design-Build-Run-Optimize",
+      "description": "Architectural lifecycle for infrastructure and platform engineering spanning conception through continuous improvement.",
+      "narrativeElements": [
+        {
+          "name": "Design",
+          "description": "Architecture definition and planning.",
+          "howToUse": "Define architecture, topology, technology choices, and capacity planning."
+        },
+        {
+          "name": "Build",
+          "description": "Provisioning and configuration.",
+          "howToUse": "Deploy infrastructure, configure systems, establish integrations and connectivity."
+        },
+        {
+          "name": "Run",
+          "description": "Operations and steady-state management.",
+          "howToUse": "Monitor health, respond to incidents, maintain availability and performance."
+        },
+        {
+          "name": "Optimize",
+          "description": "Continuous improvement and evolution.",
+          "howToUse": "Tune performance, reduce costs, enhance capabilities based on operational insights."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Crawl-Walk-Run",
+      "description": "Maturity progression model for incremental capability building and adoption.",
+      "narrativeElements": [
+        {
+          "name": "Crawl",
+          "description": "Initial capability establishment.",
+          "howToUse": "Establish foundational capability with limited scope, manual processes, learning focus."
+        },
+        {
+          "name": "Walk",
+          "description": "Capability refinement and scaling.",
+          "howToUse": "Expand scope, introduce automation, standardize processes, build confidence."
+        },
+        {
+          "name": "Run",
+          "description": "Mature, optimized operation.",
+          "howToUse": "Full automation, enterprise scale, optimization focus, continuous evolution."
+        }
+      ],
+      "kind": "narrativeType"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "Partner Ecosystem Baseline Story",
+      "description": "The narrative arc for organizations building partner ecosystems using this baseline practice.",
+      "narrativeTypeName": "Partner Ecosystem Journey",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Discovery",
+          "context": "Organizations begin by identifying potential partners (Partner Value: Identified) and making initial contact (Partner Relationship: Initiated). Activity spaces 'Identify and Qualify Partners' and 'Manage Partner Relationships' are most active."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Alignment",
+          "context": "Partnerships formalize as value expectations are qualified and agreed (Partner Value: Qualified, Agreed). Trust building begins (Partner Trust: Initiated, Established) through transparent negotiations. 'Measure Partner Value' and 'Build and Maintain Trust' activity spaces guide this phase."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Collaboration",
+          "context": "Active partnerships deliver value (Partner Relationship: Active) as capabilities develop (Partner Capability: Developing, Capable) under established governance (Partner Governance: Operating). All activity spaces are engaged to sustain operational cadence."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Maturity",
+          "context": "Strategic partnerships optimize value realization (Partner Value: Optimized), demonstrate resilient trust (Partner Trust: Resilient), and scale capabilities (Partner Capability: Scaling). The partnership becomes self-sustaining and generates collaborative advantage exceeding individual contributions."
+        }
+      ],
+      "citationNames": [
+        "TPI Lifecycle",
+        "ASAP Lifecycle"
+      ]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Partner Value",
+      "description": "The mutual benefits, business outcomes, and measurable returns that justify and sustain partner ecosystem investment.",
+      "focusName": "Partner Value",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Partner Relationship",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Partner Capability",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Potential partner-driven business value is recognized in a market segment, technology domain, or customer relationship.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Business opportunity scoped",
+              "description": "The specific business opportunity or strategic objective is clearly defined.",
+              "seq": 1
+            },
+            {
+              "name": "Partner role articulated",
+              "description": "How partners would contribute capabilities or reach is understood.",
+              "seq": 2
+            }
+          ]
+        },
+        {
+          "name": "Qualified",
+          "description": "Partner-driven value is assessed against strategic fit criteria, and mutual benefits are quantified.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Strategic fit validated",
+              "description": "Partnership aligns with organizational strategy and ideal partner profile.",
+              "seq": 1
+            },
+            {
+              "name": "Mutual benefits identified",
+              "description": "Value for both parties is explicitly articulated.",
+              "seq": 2
+            },
+            {
+              "name": "Investment justified",
+              "description": "Partnership investment is justified against alternative approaches (build, buy).",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Agreed",
+          "description": "Value expectations, revenue models, and benefit-sharing structures are formalized and committed.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Value expectations documented",
+              "description": "Expected outcomes and success metrics are formally documented.",
+              "seq": 1
+            },
+            {
+              "name": "Economic model agreed",
+              "description": "Revenue sharing, incentives, or cost models are agreed by all parties.",
+              "seq": 2
+            },
+            {
+              "name": "Commitments formalized",
+              "description": "Mutual commitments are captured in agreements or memoranda.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Delivered",
+          "description": "Partnership is producing measurable business outcomes and tangible benefits for all parties.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Outcomes being realized",
+              "description": "Partnership is delivering against agreed success metrics.",
+              "seq": 1
+            },
+            {
+              "name": "Benefits flowing to all parties",
+              "description": "All partners are receiving net benefits exceeding their investment.",
+              "seq": 2
+            },
+            {
+              "name": "Performance tracked",
+              "description": "Regular measurement and reporting of partnership outcomes is established.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Partnership value is continuously improved through data-driven insights and evolving value models.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Performance data drives decisions",
+              "description": "Partnership adjustments are based on performance data and insights.",
+              "seq": 1
+            },
+            {
+              "name": "Value models evolve",
+              "description": "Economic and benefit models adapt to market dynamics and partner feedback.",
+              "seq": 2
+            },
+            {
+              "name": "Collaborative advantage realized",
+              "description": "Partnership delivers more than the sum of individual contributions (1+1>>2).",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "partner-value-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Partner Relationship",
+      "description": "The structured engagement and collaboration between the organization and its partner organizations, from initial contact through strategic alliance.",
+      "focusName": "Partner Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "uses",
+          "alphaName": "Partner Trust",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Partner Governance",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Partner Value",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "Initial contact is established with a potential partner organization.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Partner identified",
+              "description": "Potential partner organization is identified and initial contact made.",
+              "seq": 1
+            },
+            {
+              "name": "Mutual interest confirmed",
+              "description": "Both parties express interest in exploring partnership.",
+              "seq": 2
+            }
+          ]
+        },
+        {
+          "name": "Established",
+          "description": "Partnership terms are agreed, initial trust is built, and collaboration framework is defined.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Expectations aligned",
+              "description": "Both parties have shared understanding of partnership scope and expectations.",
+              "seq": 1
+            },
+            {
+              "name": "Agreements in place",
+              "description": "Necessary agreements, contracts, or MOUs are executed.",
+              "seq": 2
+            },
+            {
+              "name": "Initial trust demonstrated",
+              "description": "Partners have demonstrated reliability through initial interactions.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Active",
+          "description": "Partnership is operationally delivering with regular cadence of activities and communication.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Regular engagement rhythm",
+              "description": "Partners engage in regular touchpoints, meetings, and collaborative activities.",
+              "seq": 1
+            },
+            {
+              "name": "Deliverables flowing",
+              "description": "Partnership is producing tangible outputs and progressing toward objectives.",
+              "seq": 2
+            },
+            {
+              "name": "Issues addressed constructively",
+              "description": "Partners handle challenges and conflicts constructively.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Strategic",
+          "description": "Partnership achieves strategic importance with deep collaboration and executive alignment.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Executive sponsorship",
+              "description": "Senior leadership from both organizations actively sponsor the partnership.",
+              "seq": 1
+            },
+            {
+              "name": "Deep integration",
+              "description": "Partnership involves significant operational integration and resource commitment.",
+              "seq": 2
+            },
+            {
+              "name": "Strategic planning aligned",
+              "description": "Organizations collaborate on strategic planning and roadmap alignment.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Renewing",
+          "description": "Partnership value is sustained through ongoing investment, evolution, or graceful transition.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Renewal decision made",
+              "description": "Explicit decision to continue, evolve, or conclude partnership is reached.",
+              "seq": 1
+            },
+            {
+              "name": "Sustained commitment",
+              "description": "Both parties continue to invest resources and leadership attention.",
+              "seq": 2
+            },
+            {
+              "name": "Evolution path clear",
+              "description": "Future direction for partnership (deepening, pivoting, or concluding) is understood.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "partner-relationship-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Partner Capability",
+      "description": "The skills, expertise, and delivery competencies that partners develop to contribute value within the ecosystem.",
+      "focusName": "Go-to-Market",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Partner Value",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Assessed",
+          "description": "Partner's current capabilities and skill gaps are identified relative to partnership needs.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Current capabilities understood",
+              "description": "Partner's existing skills, expertise, and capacity are documented.",
+              "seq": 1
+            },
+            {
+              "name": "Gaps identified",
+              "description": "Capability gaps relative to partnership requirements are identified.",
+              "seq": 2
+            }
+          ]
+        },
+        {
+          "name": "Developing",
+          "description": "Partner is actively building capabilities through training, enablement, or joint delivery.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Development plan active",
+              "description": "Partner is following a structured capability development plan.",
+              "seq": 1
+            },
+            {
+              "name": "Resources engaged",
+              "description": "Partner has dedicated resources to capability building.",
+              "seq": 2
+            },
+            {
+              "name": "Progress tracked",
+              "description": "Capability development progress is monitored and reported.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Capable",
+          "description": "Partner has validated capabilities to independently deliver partnership value.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Capabilities validated",
+              "description": "Partner has demonstrated proficiency in required skills and expertise.",
+              "seq": 1
+            },
+            {
+              "name": "Independent delivery proven",
+              "description": "Partner can deliver without close supervision or intervention.",
+              "seq": 2
+            },
+            {
+              "name": "Quality standards met",
+              "description": "Partner deliverables consistently meet quality expectations.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Scaling",
+          "description": "Partner is expanding capability across their organization and contributing to ecosystem knowledge.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Internal scaling",
+              "description": "Partner is growing their team and replicating capabilities internally.",
+              "seq": 1
+            },
+            {
+              "name": "Knowledge contributed",
+              "description": "Partner contributes expertise back to the ecosystem (documentation, training, tools).",
+              "seq": 2
+            },
+            {
+              "name": "Peer enablement",
+              "description": "Partner helps enable other ecosystem participants.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "partner-capability-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Partner Governance",
+      "description": "The policies, structures, and operational controls that ensure partnership accountability and effective decision-making.",
+      "focusName": "Partner Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Partner Relationship",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Partner Value",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Defined",
+          "description": "Partnership governance structures, policies, and decision-making processes are established.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Governance structure documented",
+              "description": "Roles, responsibilities, and decision-making authority are clearly defined.",
+              "seq": 1
+            },
+            {
+              "name": "Policies established",
+              "description": "Key policies (conflict resolution, escalation, risk management) are documented.",
+              "seq": 2
+            },
+            {
+              "name": "Communication channels defined",
+              "description": "Regular communication and review cadences are established.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Operating",
+          "description": "Governance structures are actively functioning and partnership is managed through established processes.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Regular reviews occurring",
+              "description": "Scheduled governance reviews and business reviews are happening consistently.",
+              "seq": 1
+            },
+            {
+              "name": "Decisions documented",
+              "description": "Partnership decisions are captured and tracked.",
+              "seq": 2
+            },
+            {
+              "name": "Escalations handled",
+              "description": "Issues requiring escalation follow defined processes and are resolved.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Governance practices continuously improve based on partnership feedback and performance data.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Data-driven governance",
+              "description": "Governance decisions are informed by partnership performance data and insights.",
+              "seq": 1
+            },
+            {
+              "name": "Processes evolve",
+              "description": "Governance structures adapt based on partnership maturity and feedback.",
+              "seq": 2
+            },
+            {
+              "name": "Efficiency improved",
+              "description": "Governance overhead is minimized while maintaining accountability.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "partner-governance-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Partner Trust",
+      "description": "The psychological safety, reliability, and mutual confidence that underpins effective partner collaboration.",
+      "focusName": "Partner Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Partner Relationship",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Partner Value",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "Initial trust-building activities begin as partners demonstrate reliability and transparency.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Openness established",
+              "description": "Partners communicate openly and transparently in initial interactions.",
+              "seq": 1
+            },
+            {
+              "name": "Commitments honored",
+              "description": "Partners consistently deliver on small commitments.",
+              "seq": 2
+            }
+          ]
+        },
+        {
+          "name": "Established",
+          "description": "Trust is validated through demonstrated reliability, shared vulnerability, and mutual benefit.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Track record built",
+              "description": "Partners have history of fulfilling commitments and acting reliably.",
+              "seq": 1
+            },
+            {
+              "name": "Transparency practiced",
+              "description": "Partners share information openly including challenges and constraints.",
+              "seq": 2
+            },
+            {
+              "name": "Mutual benefit evident",
+              "description": "Both parties experience tangible benefits from the partnership.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Sustained",
+          "description": "Trust deepens through navigating challenges together and consistent demonstration of shared values.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Challenges navigated together",
+              "description": "Partners have successfully worked through conflicts or difficulties collaboratively.",
+              "seq": 1
+            },
+            {
+              "name": "Values alignment demonstrated",
+              "description": "Partners exhibit compatible values and ethical standards in practice.",
+              "seq": 2
+            },
+            {
+              "name": "Psychological safety present",
+              "description": "Partners feel safe raising concerns and having difficult conversations.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Resilient",
+          "description": "Trust has proven durable through significant challenges and becomes self-reinforcing foundation for innovation.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Trust tested and strengthened",
+              "description": "Partnership has weathered significant challenges without trust erosion.",
+              "seq": 1
+            },
+            {
+              "name": "Innovation enabled",
+              "description": "High trust enables risk-taking and collaborative innovation.",
+              "seq": 2
+            },
+            {
+              "name": "Cultural integration",
+              "description": "Trust is embedded in how organizations work together, not dependent on individuals.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "partner-trust-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "activitySpaces": [
+    {
+      "name": "Identify and Qualify Partners",
+      "description": "Discover potential partners, assess strategic fit, and validate mutual value opportunities.",
+      "focusName": "Partner Value",
+      "contributesTo": [
+        {
+          "alphaName": "Partner Value",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Partner Value",
+          "stateName": "Qualified"
+        },
+        {
+          "alphaName": "Partner Capability",
+          "stateName": "Assessed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Strategic Alignment",
+        "Partner Value Assessment"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Manage Partner Relationships",
+      "description": "Cultivate and sustain partner relationships through regular engagement, communication, and collaborative problem-solving.",
+      "focusName": "Partner Sales Execution",
+      "contributesTo": [
+        {
+          "alphaName": "Partner Relationship",
+          "stateName": "Initiated"
+        },
+        {
+          "alphaName": "Partner Relationship",
+          "stateName": "Established"
+        },
+        {
+          "alphaName": "Partner Relationship",
+          "stateName": "Active"
+        },
+        {
+          "alphaName": "Partner Relationship",
+          "stateName": "Strategic"
+        },
+        {
+          "alphaName": "Partner Relationship",
+          "stateName": "Renewing"
+        },
+        {
+          "alphaName": "Partner Trust",
+          "stateName": "Established"
+        },
+        {
+          "alphaName": "Partner Trust",
+          "stateName": "Sustained"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Relationship Management",
+        "Partner Trust Building"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Build Partner Capabilities",
+      "description": "Enable partners to develop skills, expertise, and delivery capabilities needed for successful collaboration.",
+      "focusName": "Go-to-Market",
+      "contributesTo": [
+        {
+          "alphaName": "Partner Capability",
+          "stateName": "Assessed"
+        },
+        {
+          "alphaName": "Partner Capability",
+          "stateName": "Developing"
+        },
+        {
+          "alphaName": "Partner Capability",
+          "stateName": "Capable"
+        },
+        {
+          "alphaName": "Partner Capability",
+          "stateName": "Scaling"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Relationship Management",
+        "Partner Strategic Alignment"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Govern Partner Ecosystem",
+      "description": "Establish and maintain governance structures, policies, and accountability mechanisms for partnerships.",
+      "focusName": "Partner Sales Execution",
+      "contributesTo": [
+        {
+          "alphaName": "Partner Governance",
+          "stateName": "Defined"
+        },
+        {
+          "alphaName": "Partner Governance",
+          "stateName": "Operating"
+        },
+        {
+          "alphaName": "Partner Governance",
+          "stateName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Governance",
+        "Partner Strategic Alignment"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Measure Partner Value",
+      "description": "Track partnership performance, quantify outcomes, and optimize value realization for all parties.",
+      "focusName": "Partner Value",
+      "contributesTo": [
+        {
+          "alphaName": "Partner Value",
+          "stateName": "Agreed"
+        },
+        {
+          "alphaName": "Partner Value",
+          "stateName": "Delivered"
+        },
+        {
+          "alphaName": "Partner Value",
+          "stateName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Value Assessment",
+        "Partner Governance"
+      ],
+      "kind": "activitySpace"
+    },
+    {
+      "name": "Build and Maintain Trust",
+      "description": "Cultivate trust through transparency, reliability, shared values, and collaborative challenge resolution.",
+      "focusName": "Partner Sales Execution",
+      "contributesTo": [
+        {
+          "alphaName": "Partner Trust",
+          "stateName": "Initiated"
+        },
+        {
+          "alphaName": "Partner Trust",
+          "stateName": "Established"
+        },
+        {
+          "alphaName": "Partner Trust",
+          "stateName": "Sustained"
+        },
+        {
+          "alphaName": "Partner Trust",
+          "stateName": "Resilient"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Trust Building",
+        "Partner Relationship Management"
+      ],
+      "kind": "activitySpace"
+    }
+  ],
+  "competencies": [
+    {
+      "name": "Partner Relationship Management",
+      "description": "The ability to build, nurture, and manage effective relationships with partner organizations across the partnership lifecycle.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands partner communication channels and basic engagement protocols.",
+          "level": 1,
+          "competencyName": "Partner Relationship Management"
+        },
+        {
+          "name": "Applies",
+          "description": "Can execute structured partner engagement activities and conduct routine touchpoints.",
+          "level": 2,
+          "competencyName": "Partner Relationship Management"
+        },
+        {
+          "name": "Masters",
+          "description": "Can independently manage partner portfolios and navigate complex relationship dynamics.",
+          "level": 3,
+          "competencyName": "Partner Relationship Management"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can build executive-level relationships and resolve conflicts while preserving partnerships.",
+          "level": 4,
+          "competencyName": "Partner Relationship Management"
+        },
+        {
+          "name": "Innovating",
+          "description": "Creates transformative relationship models that become partnership excellence standards.",
+          "level": 5,
+          "competencyName": "Partner Relationship Management"
+        }
+      ]
+    },
+    {
+      "name": "Partner Strategic Alignment",
+      "description": "The ability to align partner ecosystem initiatives with business objectives, market opportunities, and strategic priorities.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands the purpose of partner ecosystems and how partnerships create value.",
+          "level": 1,
+          "competencyName": "Partner Strategic Alignment"
+        },
+        {
+          "name": "Applies",
+          "description": "Can articulate how specific partners contribute to organizational strategy.",
+          "level": 2,
+          "competencyName": "Partner Strategic Alignment"
+        },
+        {
+          "name": "Masters",
+          "description": "Can independently develop partner strategies and ideal partner profiles aligned with business goals.",
+          "level": 3,
+          "competencyName": "Partner Strategic Alignment"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can pivot partnership strategy in response to market dynamics and competitive pressures.",
+          "level": 4,
+          "competencyName": "Partner Strategic Alignment"
+        },
+        {
+          "name": "Innovating",
+          "description": "Pioneers new partnership models and ecosystem strategies that redefine industry norms.",
+          "level": 5,
+          "competencyName": "Partner Strategic Alignment"
+        }
+      ]
+    },
+    {
+      "name": "Partner Governance",
+      "description": "The ability to design, implement, and optimize partnership governance structures and accountability mechanisms.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands partnership governance fundamentals and basic policies.",
+          "level": 1,
+          "competencyName": "Partner Governance"
+        },
+        {
+          "name": "Applies",
+          "description": "Can execute governance processes and facilitate partnership reviews.",
+          "level": 2,
+          "competencyName": "Partner Governance"
+        },
+        {
+          "name": "Masters",
+          "description": "Can independently design governance frameworks appropriate to partnership complexity.",
+          "level": 3,
+          "competencyName": "Partner Governance"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can balance governance rigor with partnership flexibility across diverse partner types.",
+          "level": 4,
+          "competencyName": "Partner Governance"
+        },
+        {
+          "name": "Innovating",
+          "description": "Develops transformative governance approaches that maximize partnership value while ensuring accountability.",
+          "level": 5,
+          "competencyName": "Partner Governance"
+        }
+      ]
+    },
+    {
+      "name": "Partner Trust Building",
+      "description": "The ability to establish, maintain, and repair trust across partner relationships through transparency, reliability, and shared values.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understands trust fundamentals and the role of transparency and reliability.",
+          "level": 1,
+          "competencyName": "Partner Trust Building"
+        },
+        {
+          "name": "Applies",
+          "description": "Can demonstrate trustworthy behaviors and build trust through consistent actions.",
+          "level": 2,
+          "competencyName": "Partner Trust Building"
+        },
+        {
+          "name": "Masters",
+          "description": "Can design trust-building approaches and facilitate trust development across partnerships.",
+          "level": 3,
+          "competencyName": "Partner Trust Building"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can repair damaged trust and navigate complex trust dynamics in multi-party partnerships.",
+          "level": 4,
+          "competencyName": "Partner Trust Building"
+        },
+        {
+          "name": "Innovating",
+          "description": "Creates trust-based partnership cultures that enable breakthrough collaboration and innovation.",
+          "level": 5,
+          "competencyName": "Partner Trust Building"
+        }
+      ]
+    },
+    {
+      "name": "Partner Value Assessment",
+      "description": "The ability to assess partnership value, quantify outcomes, and optimize mutual benefit realization using data-driven methods.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Can understand basic partnership metrics and value concepts.",
+          "level": 1,
+          "competencyName": "Partner Value Assessment"
+        },
+        {
+          "name": "Applies",
+          "description": "Can analyze partnership performance against targets and identify trends.",
+          "level": 2,
+          "competencyName": "Partner Value Assessment"
+        },
+        {
+          "name": "Masters",
+          "description": "Can independently design value frameworks and translate data into actionable strategies.",
+          "level": 3,
+          "competencyName": "Partner Value Assessment"
+        },
+        {
+          "name": "Adapts",
+          "description": "Can build predictive models for partnership ROI and optimize ecosystem value.",
+          "level": 4,
+          "competencyName": "Partner Value Assessment"
+        },
+        {
+          "name": "Innovating",
+          "description": "Develops novel value assessment frameworks that redefine partnership economics.",
+          "level": 5,
+          "competencyName": "Partner Value Assessment"
+        }
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "kind": "citation",
+      "name": "TPI Building Blocks",
+      "description": "The Partnering Initiative's foundational framework identifying four interconnected building blocks for effective partnerships.",
+      "authors": [
+        "The Partnering Initiative"
+      ],
+      "date": "2024",
+      "source": "thepartneringinitiative.org",
+      "url": "https://thepartneringinitiative.org/knowledge-centre/introduction-to-partnerships/building-blocks-of-partnership/"
+    },
+    {
+      "kind": "citation",
+      "name": "TPI Lifecycle",
+      "description": "The Partnering Initiative's four-stage partnership lifecycle model.",
+      "authors": [
+        "The Partnering Initiative"
+      ],
+      "date": "2024",
+      "source": "thepartneringinitiative.org",
+      "url": "https://thepartneringinitiative.org/knowledge-centre/introduction-to-partnerships/partnership-lifecycle/"
+    },
+    {
+      "kind": "citation",
+      "name": "TPI Principles",
+      "description": "The Partnering Initiative's three core principles: Equity, Transparency, and Mutual Benefit.",
+      "authors": [
+        "The Partnering Initiative"
+      ],
+      "date": "2024",
+      "source": "thepartneringinitiative.org",
+      "url": "https://thepartneringinitiative.org/the-partnering-cycle-and-partnering-principles/"
+    },
+    {
+      "kind": "citation",
+      "name": "TPI Value Framework",
+      "description": "The Partnering Initiative's partnership value framework including collaborative advantage and mutual benefit.",
+      "authors": [
+        "The Partnering Initiative"
+      ],
+      "date": "2024",
+      "source": "thepartneringinitiative.org",
+      "url": "https://thepartneringinitiative.org/partnership-value-framework/"
+    },
+    {
+      "kind": "citation",
+      "name": "ASAP Handbook",
+      "description": "The authoritative guide to alliance management practices and principles.",
+      "authors": [
+        "Lloyd, Brian"
+      ],
+      "date": "2026",
+      "source": "Association of Strategic Alliance Professionals",
+      "url": "https://www.strategic-alliances.org/handbook"
+    },
+    {
+      "kind": "citation",
+      "name": "ASAP Lifecycle",
+      "description": "ASAP's seven-phase alliance lifecycle framework.",
+      "authors": [
+        "Association of Strategic Alliance Professionals"
+      ],
+      "date": "2024",
+      "source": "strategic-alliances.org",
+      "url": "https://www.strategic-alliances.org/alliance-lifecycle"
+    }
+  ],
+  "assets": [
+    {
+      "name": "partner-value-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-relationship-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-capability-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-graduation-cap",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-governance-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-scale-balanced",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-trust-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-heart",
+      "fontWeight": "900"
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}

@@ -1,0 +1,3721 @@
+{
+  "kind": "practice",
+  "name": "Sales Play Framework",
+  "description": "A comprehensive practice for designing, executing, and optimizing the three-level go-to-market framework connecting Sales Plays, Technical Decision Points, and Sales Tactics into a coherent selling system.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "tags": {
+    "domainTags": [
+      "Go-to-Market Strategy",
+      "Sales Enablement",
+      "Competitive Intelligence",
+      "Technical Sales"
+    ],
+    "lifecycleTags": [
+      "Discovery",
+      "Activation",
+      "Execution",
+      "Measurement",
+      "Optimization"
+    ],
+    "organizationalTags": [
+      "Go-to-Market Strategy",
+      "Sales Enablement",
+      "Product Marketing",
+      "Field Sales",
+      "Sales Operations"
+    ]
+  },
+  "keywords": [
+    "sales-play",
+    "technical-decision-point",
+    "sales-tactic",
+    "go-to-market",
+    "three-level-framework",
+    "competitive-positioning",
+    "customer-engagement",
+    "framework-alignment",
+    "play-optimization"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.2",
+  "citations": [
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//",
+      "kind": "citation"
+    },
+    {
+      "name": "AI-Ready Enterprise Sales Play",
+      "description": "Complete Sales Play example demonstrating Customer Lens, persona frameworks, value drivers, TDP alignment, and content architecture.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//",
+      "kind": "citation"
+    },
+    {
+      "name": "Automation TDP",
+      "description": "Complete TDP example showing seller credentials, customer wins, and What to Say/Share/Show content organized by audience type.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf58ce9aa5-5d91-46f8-97fc-e4471fc8b4e8//",
+      "kind": "citation"
+    },
+    {
+      "name": "Virtualization TDP",
+      "description": "TDP example demonstrating technology domain-specific positioning including competitive displacement and migration narratives.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flfa5871978-1e94-4455-a170-ed562efdc9fb//",
+      "kind": "citation"
+    },
+    {
+      "name": "Optimize and Modernize IT Ops Sales Tactic",
+      "description": "Sales Tactic example showing customer challenge framing, audience-segmented content, and bidirectional TDP alignment.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf5b7cd00e-3654-4a0d-8e8a-141a97206810//",
+      "kind": "citation"
+    },
+    {
+      "name": "Sales Play Revamp",
+      "description": "Documentation of the sales play framework restructuring including three-level hierarchy and bidirectional navigation design.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "sales-play-framework-icon",
+      "description": "Visual icon representing the three-level go-to-market framework concept.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-layer-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "technical-decision-point-icon",
+      "description": "Visual icon representing a technology-specific decision area within the framework.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microchip",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sales-tactic-icon",
+      "description": "Visual icon representing a customer challenge-focused conversation execution guide.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-comments",
+      "fontWeight": "900"
+    },
+    {
+      "name": "alignment-matrix-icon",
+      "description": "Visual icon representing the TDP-Tactic alignment navigation matrix.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-table-cells",
+      "fontWeight": "900"
+    },
+    {
+      "name": "play-execution-guide-icon",
+      "description": "Visual icon representing the comprehensive play execution document.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-book-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "tdp-positioning-brief-icon",
+      "description": "Visual icon representing the technology-specific positioning document.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-shield",
+      "fontWeight": "900"
+    },
+    {
+      "name": "tactic-conversation-guide-icon",
+      "description": "Visual icon representing the customer challenge conversation guide.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-message",
+      "fontWeight": "900"
+    },
+    {
+      "name": "play-performance-dashboard-icon",
+      "description": "Visual icon representing the multi-level performance tracking artifact.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    }
+  ],
+  "assetNames": [
+    {
+      "assetName": "sales-play-framework-icon",
+      "type": "icon"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Sales Play",
+      "description": "A structured go-to-market strategy that aligns messaging, content, competitive positioning, and execution guidance around a specific market theme or customer challenge.",
+      "focusName": "Sales Execution",
+      "states": [
+        {
+          "name": "Selected",
+          "description": "A go-to-market play has been identified and designated for activation.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Customer Lens articulated",
+              "description": "Customer Lens articulated with customer priorities, desired outcomes, and how deals are won.",
+              "seq": 1
+            },
+            {
+              "name": "Top personas identified",
+              "description": "Top three target personas identified with challenges, current reality, impacts, and discovery questions.",
+              "seq": 2
+            },
+            {
+              "name": "Value drivers structured",
+              "description": "Value drivers structured with concrete capability-to-benefit narratives and competitive differentiation.",
+              "seq": 3
+            },
+            {
+              "name": "TDP-to-Play alignment mapped",
+              "description": "TDP-to-Play alignment mapped identifying which technology decision areas power this play.",
+              "seq": 4
+            },
+            {
+              "name": "Three-level content architecture designed",
+              "description": "Three-level content architecture designed specifying What to Say, What to Share, and What to Show structure.",
+              "seq": 5
+            },
+            {
+              "name": "Play-level KPIs defined",
+              "description": "Play-level KPIs defined including pipeline generation targets, seller adoption targets, and win rate expectations.",
+              "seq": 6
+            },
+            {
+              "name": "Tactic categories identified",
+              "description": "Tactic categories identified by TDP area for structured customer conversation mapping.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Activated",
+          "description": "The play's content, enablement materials, and tools have been deployed.",
+          "seq": 2,
+          "background": {
+            "given": [
+              "The play has been scoped with target profiles, messaging, and competitive positioning",
+              "Resource requirements have been identified and provisioned"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Customer-facing content packages complete",
+              "description": "Customer-facing content packages complete across all three content categories (Say, Share, Show).",
+              "seq": 1
+            },
+            {
+              "name": "TDP positioning briefs completed",
+              "description": "TDP positioning briefs completed for all technology areas powering this play.",
+              "seq": 2
+            },
+            {
+              "name": "Sales tactics prepared",
+              "description": "Sales tactics prepared with customer challenge framing for each TDP area.",
+              "seq": 3
+            },
+            {
+              "name": "Bidirectional navigation implemented",
+              "description": "TDP-to-Tactic bidirectional navigation implemented and validated for completeness.",
+              "seq": 4
+            },
+            {
+              "name": "Multi-level seller enablement delivered",
+              "description": "Multi-level seller enablement delivered covering play strategy, TDP depth, and tactic execution.",
+              "seq": 5
+            },
+            {
+              "name": "Play performance measurement operational",
+              "description": "Play performance measurement infrastructure operational with CRM integration and content analytics.",
+              "seq": 6
+            },
+            {
+              "name": "Services and partner solutions aligned",
+              "description": "Services and partner solutions aligned to play themes and documented for seller access.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Executing",
+          "description": "The field organization is actively using the play to generate pipeline.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "TDP-to-Tactic navigation active",
+              "description": "Sellers navigating TDP-to-Tactic alignment to match customer technology decisions to appropriate conversations.",
+              "seq": 1
+            },
+            {
+              "name": "What to Say/Share/Show content deployed",
+              "description": "What to Say/Share/Show content deployed in customer conversations across all three framework levels.",
+              "seq": 2
+            },
+            {
+              "name": "Bidirectional navigation patterns observed",
+              "description": "Both top-down (play to TDP to tactic) and bottom-up (challenge to tactic to TDP) navigation patterns observed.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-TDP engagements occurring",
+              "description": "Multi-TDP and multi-tactic engagements occurring in complex customer situations.",
+              "seq": 4
+            },
+            {
+              "name": "Content sharing with engagement tracking used",
+              "description": "Content sharing with engagement tracking actively used to measure prospect interaction.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Measured",
+          "description": "Play execution outcomes are being tracked and analyzed against targets.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "TDP-level metrics tracked",
+              "description": "TDP-level metrics tracked including technology win rate, competitive outcomes, and demonstration delivery count.",
+              "seq": 1
+            },
+            {
+              "name": "Tactic-level metrics tracked",
+              "description": "Tactic-level metrics tracked including engagement rate, challenge-to-opportunity conversion, and tactic-attributed pipeline.",
+              "seq": 2
+            },
+            {
+              "name": "Cross-level correlation analysis performed",
+              "description": "Cross-level correlation analysis identifies which TDP-tactic combinations drive highest conversion rates.",
+              "seq": 3
+            },
+            {
+              "name": "Framework navigation analytics available",
+              "description": "Framework navigation analytics reveal which alignment paths sellers use most frequently and effectively.",
+              "seq": 4
+            },
+            {
+              "name": "Cohort analysis provides dimensional insights",
+              "description": "Cohort analysis by region, segment, and seller experience provides dimensional insights on framework effectiveness.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Play strategy and content are continuously refined based on performance data.",
+          "seq": 5,
+          "background": {
+            "given": [
+              "Play performance data (pipeline, win rates, content usage) has been collected and analyzed",
+              "Seller feedback has been systematically gathered"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "TDP content refreshed",
+              "description": "TDP content refreshed with latest analyst recognitions, customer wins, and competitive positioning.",
+              "seq": 1
+            },
+            {
+              "name": "Underperforming tactics redesigned",
+              "description": "Underperforming tactics redesigned based on engagement data and conversion metrics.",
+              "seq": 2
+            },
+            {
+              "name": "Framework alignment refined",
+              "description": "Framework alignment refined with new TDP-tactic mappings added and ineffective connections retired.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-level best practices codified",
+              "description": "Cross-level best practices from top performers codified and shared as recommended selling motions.",
+              "seq": 4
+            },
+            {
+              "name": "Predictive analytics operational",
+              "description": "Predictive analytics enable forward-looking play performance forecasting and early warning indicators.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Sales Play Context and Rationale",
+          "description": "Why the Sales Play alpha matters within the three-level go-to-market framework.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Enterprise technology sales organizations face a persistent structural challenge -- broad product portfolios that must be translated into focused, executable go-to-market strategies for field organizations spanning hundreds or thousands of sellers. Without structured plays, each seller independently constructs messaging and competitive positioning, creating inconsistency that weakens market impact."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The Sales Play must function as a complete execution framework connecting three distinct but integrated levels. The strategic play level defines customer lens, personas, and value drivers. The TDP level provides technology-specific depth. The tactic level provides customer challenge-focused conversation guides. Bidirectional navigation between TDPs and tactics creates a navigable mesh supporting both technology-first and challenge-first sales entry points."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Play development begins with market analysis and Customer Lens articulation. TDPs are built with seller credentials, customer wins, and audience-segmented content. Tactics are developed around customer challenges with structured messaging and evidence. Framework alignment creates navigable cross-references. Multi-level enablement equips sellers to execute across all three levels. Performance measurement tracks effectiveness at each level and across levels."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Organizations that master the three-level play framework achieve focused market impact that multiplies individual seller effectiveness. Pipeline aligns with strategic themes, competitive positioning is consistent across the field organization, and multi-level performance measurement enables data-driven optimization that sustains framework relevance as markets evolve."
+            }
+          ],
+          "citationNames": [
+            "Sales Plays, TDPs and Sales Tactics",
+            "AI-Ready Enterprise Sales Play",
+            "Sales Play Revamp"
+          ]
+        },
+        {
+          "name": "Sales Play Framework Practice Intent",
+          "description": "The end-to-end narrative of the three-level go-to-market framework from market discovery through continuous optimization.",
+          "narrativeTypeName": "Sales Engagement Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "Enterprise technology sales organizations face a fundamental challenge -- translating broad portfolio capabilities into focused, executable go-to-market strategies that hundreds or thousands of sellers can consistently deploy. The three-level Sales Play Framework addresses this by structuring market engagement into three interconnected levels: strategic plays that define market themes and customer lenses, Technical Decision Points that provide technology-specific depth and credentials, and Sales Tactics that equip sellers with customer challenge-focused conversation guides."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Validate",
+              "context": "The framework's value is validated through its structural innovation -- bidirectional navigation between TDPs and Tactics. Sellers entering from a technology area can navigate to relevant customer conversations (top-down), while sellers entering from a customer challenge can navigate to supporting technology credentials (bottom-up). This navigability, combined with the consistent What to Say/Share/Show content architecture at each level, ensures that the right content reaches the right conversation regardless of entry point."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Propose",
+              "context": "Play activation transforms framework design into field readiness. Content packages are assembled across all three levels, sellers are trained on play strategy, TDP positioning, and tactic execution, and operational infrastructure (CRM integration, content platforms, performance measurement) is established. The activation process ensures that every seller can navigate the framework effectively."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Negotiate",
+              "context": "Field execution is where the framework proves its worth. Sellers navigate from play-level customer lens framing through TDP-specific technology positioning to tactic-level conversation execution, creating multi-level customer engagements that combine strategic framing, technology depth, and customer challenge relevance. The bidirectional navigation enables sellers to adapt their approach based on the customer's entry point."
+            },
+            {
+              "seq": 5,
+              "narrativeElementName": "Close",
+              "context": "Performance measurement across all three framework levels creates a unique analytical advantage. Play-level pipeline metrics, TDP-level win rates, and tactic-level conversion rates can be correlated to identify which TDP-tactic combinations drive the highest outcomes, which plays generate the most pipeline, and where the framework needs reinforcement or redesign."
+            },
+            {
+              "seq": 6,
+              "narrativeElementName": "Expand",
+              "context": "Continuous optimization driven by multi-level performance data sustains framework effectiveness as markets evolve. Underperforming plays are restructured, TDP content is refreshed with latest competitive intelligence, tactics are redesigned based on engagement data, and new framework elements are added as market opportunities emerge. The framework is not a static document but an operational mechanism that evolves with the market."
+            }
+          ],
+          "citationNames": [
+            "Sales Plays, TDPs and Sales Tactics",
+            "AI-Ready Enterprise Sales Play",
+            "Sales Play Revamp"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Competitive Position",
+      "description": "The differentiated standing relative to alternative solutions in a specific customer evaluation context, progressing from landscape assessment through articulation, defense, and preference.",
+      "focusName": "Solution Alignment",
+      "states": [
+        {
+          "name": "Assessed",
+          "description": "An initial competitive landscape assessment has been conducted.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Per-TDP competitors identified",
+              "description": "Per-TDP key competitors identified for each technology decision area within the play.",
+              "seq": 1
+            },
+            {
+              "name": "Analyst reports catalogued",
+              "description": "Analyst reports, market studies, and competitive benchmarks catalogued by TDP domain.",
+              "seq": 2
+            },
+            {
+              "name": "Internal intelligence sources established",
+              "description": "Internal competitive intelligence sources (win/loss reports, field feedback, product teams) established per technology area.",
+              "seq": 3
+            },
+            {
+              "name": "Intelligence collection cadence established",
+              "description": "Competitive intelligence collection cadence established aligned to play measurement cycles.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Mapped",
+          "description": "Competitors have been identified in detail with positions catalogued.",
+          "seq": 2,
+          "background": {
+            "given": [
+              "An initial competitive landscape assessment has been completed",
+              "Internal competitive intelligence resources have been identified"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Per-TDP competitive maps created",
+              "description": "Per-TDP competitive maps show key differentiators, strengths, and vulnerability areas for each technology domain.",
+              "seq": 1
+            },
+            {
+              "name": "Value driver competitive narratives articulated",
+              "description": "Value driver-level competitive narratives articulate superiority of the organization's approach for each driver.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive objections documented",
+              "description": "Common competitive objections documented with recommended responses organized by TDP.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive traps identified",
+              "description": "Competitive traps identified with counter-strategies at both play and TDP levels.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Differentiated",
+          "description": "Unique value has been expressed in customer-relevant terms.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Play-level competitive positioning embedded",
+              "description": "Play-level competitive positioning embedded in value driver narratives across all value drivers.",
+              "seq": 1
+            },
+            {
+              "name": "TDP seller credentials populated",
+              "description": "TDP seller credentials sections populated with technology-specific awards, recognitions, and market position data.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive displacement stories included",
+              "description": "TDP customer wins sections include competitive displacement and competitive-win stories.",
+              "seq": 3
+            },
+            {
+              "name": "Tactic competitive differentiation included",
+              "description": "Tactic What to Say content includes challenge-specific competitive differentiation.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Defended",
+          "description": "Competitive challenges have been addressed with evidence-based responses.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "TDP credential evidence deployed",
+              "description": "TDP-level credential evidence deployed in competitive customer conversations.",
+              "seq": 1
+            },
+            {
+              "name": "Value driver narratives used for framing",
+              "description": "Play-level value driver competitive narratives used to frame purchasing decisions.",
+              "seq": 2
+            },
+            {
+              "name": "Proof activities highlight differentiators",
+              "description": "Demonstration and proof activities structured to highlight TDP-specific competitive differentiators.",
+              "seq": 3
+            },
+            {
+              "name": "Win/loss reporting captures impact",
+              "description": "Win/loss reporting captures which competitive content was most impactful at each framework level.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Preferred",
+          "description": "The seller has been selected as the preferred vendor.",
+          "seq": 5,
+          "background": {
+            "given": [
+              "Competitive challenges have been successfully defended with evidence",
+              "The customer champion can articulate differentiation internally"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Solution Fit",
+                "stateName": "Demonstrated"
+              },
+              {
+                "alphaName": "Technical Validation",
+                "stateName": "Evidenced"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Competitive displacement stories documented",
+              "description": "Competitive displacement stories generated through the play's execution are documented for TDP evidence bases.",
+              "seq": 1
+            },
+            {
+              "name": "Analyst recognition updated",
+              "description": "Analyst recognition and awards updated in TDP positioning briefs as new evaluations are published.",
+              "seq": 2
+            },
+            {
+              "name": "Field-generated insights integrated",
+              "description": "Field-generated competitive insights captured and integrated into framework content at appropriate levels.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Competitive Position Context and Rationale",
+          "description": "Why multi-level competitive intelligence deployment is essential for framework effectiveness.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Competitive intelligence in the three-level framework must operate at increasing specificity across levels. At the play level, competitive positioning is strategic (market leadership, overall approach advantages). At the TDP level, it is technology-specific (product comparisons, analyst rankings, technology-specific differentiators). At the tactic level, it is challenge-specific (how the approach to the customer's specific challenge compares to alternatives). This multi-level competitive architecture demands systematic intelligence integration."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Competitors operate with their own structured approaches. Proprietary platform vendors offer integrated solutions with deep vertical optimization. Cloud-native alternatives emphasize convenience and elastic scalability. Each alternative has genuine strengths, and effective competitive positioning within the framework acknowledges these honestly at the appropriate framework level."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "The three-level framework provides a structural competitive advantage in intelligence deployment -- credentials and proof points at the TDP level, strategic differentiation at the play level, and challenge-specific comparison at the tactic level create a layered competitive narrative that adapts to the customer's evaluation context rather than relying on a single competitive pitch."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play",
+            "Automation TDP",
+            "Virtualization TDP"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Technical Decision Point",
+      "description": "A discrete technology domain within a sales play requiring focused seller credentials, customer proof, and structured engagement content.",
+      "focusName": "Sales Execution",
+      "contributesTo": "Sales Play",
+      "relatesTo": [
+        {
+          "relationship": "maps to",
+          "alphaName": "Sales Tactic",
+          "direction": "outgoing",
+          "description": "Each TDP maps to supporting Sales Tactics that provide customer challenge-focused conversation execution within the TDP's technology domain, creating a navigable mesh from technology area to customer conversation."
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Competitive Position",
+          "direction": "outgoing",
+          "description": "TDPs incorporate competitive intelligence for technology-specific positioning, including seller credentials, analyst recognition, and competitive comparison evidence."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "technical-decision-point-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "A technology domain has been recognized as requiring focused seller support.",
+          "seq": 1,
+          "contributesToState": "Selected",
+          "checklist": [
+            {
+              "name": "Technology domain delineated",
+              "description": "Technology domain clearly delineated with defined boundaries for what is in scope and out of scope.",
+              "seq": 1
+            },
+            {
+              "name": "Target customer segments identified",
+              "description": "Target customer segments for this technology area identified with use case mapping.",
+              "seq": 2
+            },
+            {
+              "name": "Key customer use cases documented",
+              "description": "Key customer use cases or business challenges addressed by this technology documented.",
+              "seq": 3
+            },
+            {
+              "name": "Sales Play relationship established",
+              "description": "Relationship to one or more Sales Plays established and validated.",
+              "seq": 4
+            },
+            {
+              "name": "Market demand signals validated",
+              "description": "Market demand signals (analyst coverage, competitive activity, customer inquiries) validate the TDP's relevance.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Qualified",
+          "description": "Seller credentials, customer proof, and competitive context are assembled.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Seller credentials documented",
+              "description": "Seller credentials documented: industry awards, analyst recognitions, certifications, market leadership positions.",
+              "seq": 1
+            },
+            {
+              "name": "Customer wins catalogued",
+              "description": "Customer wins catalogued: reference accounts, success stories, logo usage permissions organized by industry and use case.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive landscape mapped",
+              "description": "Competitive landscape for this technology area mapped with key differentiators and attack strategies.",
+              "seq": 3
+            },
+            {
+              "name": "BDM messaging drafted",
+              "description": "Business Decision Maker messaging drafted: value propositions, ROI narratives, risk reduction arguments.",
+              "seq": 4
+            },
+            {
+              "name": "TDM messaging drafted",
+              "description": "Technical Decision Maker messaging drafted: architecture benefits, integration advantages, operational improvements.",
+              "seq": 5
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas for this TDP identified with their specific concerns, priorities, and decision criteria.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Positioned",
+          "description": "Structured engagement content is complete and ready for field deployment.",
+          "seq": 3,
+          "contributesToState": "Activated",
+          "checklist": [
+            {
+              "name": "What to Say content complete",
+              "description": "What to Say content complete for Business and Technical audiences: presentations, talking points, objection handling.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share content curated",
+              "description": "What to Share content curated for both audiences: analyst reports, white papers, case studies, datasheets.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations available",
+              "description": "What to Show demonstrations available: live demos, recorded demos, interactive walkthroughs, workshops.",
+              "seq": 3
+            },
+            {
+              "name": "Services and partner solutions aligned",
+              "description": "Services and partner solutions aligned to this TDP documented and positioned.",
+              "seq": 4
+            },
+            {
+              "name": "Supporting Sales Tactics linked",
+              "description": "Supporting Sales Tactics identified and bidirectionally linked.",
+              "seq": 5
+            },
+            {
+              "name": "Content organized for access",
+              "description": "Content organized for easy seller access and external sharing with engagement tracking.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Demonstrated",
+          "description": "TDP content is actively used in customer engagements with proof activities.",
+          "seq": 4,
+          "contributesToState": "Executing",
+          "checklist": [
+            {
+              "name": "Credentials and wins used in conversations",
+              "description": "Sellers using TDP credentials and customer wins in customer-facing conversations.",
+              "seq": 1
+            },
+            {
+              "name": "Demonstrations delivered",
+              "description": "Demonstrations and workshops delivered to qualified prospects with feedback captured.",
+              "seq": 2
+            },
+            {
+              "name": "Content deployed by audience type",
+              "description": "Business and Technical decision maker content deployed appropriately by audience type.",
+              "seq": 3
+            },
+            {
+              "name": "Services engagements delivered",
+              "description": "Services engagements related to this TDP proposed and delivered in deal cycles.",
+              "seq": 4
+            },
+            {
+              "name": "Partner solutions co-positioned",
+              "description": "Partner solutions co-positioned in relevant opportunities.",
+              "seq": 5
+            },
+            {
+              "name": "Content engagement tracking active",
+              "description": "Content engagement tracking shows active use across the field organization.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "TDP effectiveness is proven through win data with content continuously refined.",
+          "seq": 5,
+          "contributesToState": "Optimized",
+          "checklist": [
+            {
+              "name": "Win rates tracked",
+              "description": "Win rates for opportunities involving this TDP tracked and meeting targets.",
+              "seq": 1
+            },
+            {
+              "name": "Customer feedback collected",
+              "description": "Customer feedback on demonstrations, workshops, and content quality systematically collected.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive win/loss analysis performed",
+              "description": "Competitive win/loss analysis specific to this technology area informs positioning updates.",
+              "seq": 3
+            },
+            {
+              "name": "Seller credentials updated",
+              "description": "Seller credential updates reflect latest certifications, awards, and recognitions.",
+              "seq": 4
+            },
+            {
+              "name": "Customer win stories refreshed",
+              "description": "Customer win stories refreshed with recent, relevant reference accounts.",
+              "seq": 5
+            },
+            {
+              "name": "Content gaps addressed",
+              "description": "Content gaps identified through field feedback prioritized and addressed.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Technical Decision Point Context and Rationale",
+          "description": "Why structured TDP content enables credible technology-specific conversations.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Enterprise technology sellers must position complex products across multiple technology domains, each with distinct competitive dynamics, customer use cases, and proof requirements. Without structured TDP content, sellers either lack the depth needed for credible technology-specific conversations or spend excessive time assembling ad hoc positioning materials for each engagement."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The TDP construct encapsulates everything a seller needs for a technology domain -- credentials that establish authority, customer wins that provide social proof, and structured What to Say/Share/Show content organized by audience (Business Decision Makers vs Technical Decision Makers). Bidirectional linking to supporting Sales Tactics creates navigable pathways from technology area to customer conversation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Structured TDPs enable sellers to engage credibly in technology-specific conversations without requiring deep domain expertise in every area. TDP reuse across multiple plays maximizes content investment, while technology-specific win rate tracking enables targeted optimization of the areas with greatest competitive impact."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP",
+            "Virtualization TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Sales Tactic",
+      "description": "A customer challenge-focused conversation guide providing structured messaging, evidence, and demonstration content for a specific business challenge.",
+      "focusName": "Sales Execution",
+      "contributesTo": "Sales Play",
+      "relatesTo": [
+        {
+          "relationship": "supported by",
+          "alphaName": "Technical Decision Point",
+          "direction": "incoming",
+          "description": "Each tactic is supported by one or more TDPs that provide the technology-specific depth, credentials, and proof content for the customer conversation."
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Competitive Position",
+          "direction": "outgoing",
+          "description": "Tactics leverage competitive differentiation relevant to the specific customer challenge, positioning the approach against alternatives the customer may be considering."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "sales-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "A customer challenge has been identified and conversation content is being assembled.",
+          "seq": 1,
+          "contributesToState": "Selected",
+          "checklist": [
+            {
+              "name": "Customer challenge articulated",
+              "description": "Customer challenge clearly articulated: what the customer is experiencing and why it matters.",
+              "seq": 1
+            },
+            {
+              "name": "Challenge impact quantified",
+              "description": "Impact of the challenge quantified or illustrated with recognizable scenarios.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas for this challenge identified for both business and technical decision makers.",
+              "seq": 3
+            },
+            {
+              "name": "Initial messaging framework drafted",
+              "description": "Initial What to Say messaging framework drafted for both audience types.",
+              "seq": 4
+            },
+            {
+              "name": "Supporting TDPs identified",
+              "description": "Supporting TDPs for this tactic identified and linked.",
+              "seq": 5
+            },
+            {
+              "name": "Sales Play relationship established",
+              "description": "Relationship to one or more Sales Plays established.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Complete conversation content is published and accessible to sellers.",
+          "seq": 2,
+          "contributesToState": "Activated",
+          "checklist": [
+            {
+              "name": "What to Say content finalized",
+              "description": "What to Say content finalized for business-oriented and technical-oriented audiences.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share materials curated: case studies, analyst reports, white papers, datasheets by audience.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show proof content prepared",
+              "description": "What to Show proof content prepared: relevant demos, workshops, and interactive walkthroughs.",
+              "seq": 3
+            },
+            {
+              "name": "Services and partner solutions documented",
+              "description": "Services and partner solutions relevant to this customer challenge documented.",
+              "seq": 4
+            },
+            {
+              "name": "Bidirectional TDP links published",
+              "description": "Bidirectional links to supporting TDPs published and navigable.",
+              "seq": 5
+            },
+            {
+              "name": "Seller usage guidance included",
+              "description": "Seller guidance on when and how to use this tactic included.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Sellers are actively using the tactic in customer conversations.",
+          "seq": 3,
+          "contributesToState": "Executing",
+          "checklist": [
+            {
+              "name": "Challenge framing used to open conversations",
+              "description": "Sellers using customer challenge framing to open conversations and establish relevance.",
+              "seq": 1
+            },
+            {
+              "name": "Content deployed to appropriate audiences",
+              "description": "Business and Technical decision maker content deployed to appropriate audiences.",
+              "seq": 2
+            },
+            {
+              "name": "Trackable sharing active",
+              "description": "What to Share materials sent to prospects via trackable sharing mechanisms.",
+              "seq": 3
+            },
+            {
+              "name": "Demonstrations aligned to tactic delivered",
+              "description": "Demonstrations and workshops aligned to the tactic delivered to prospects.",
+              "seq": 4
+            },
+            {
+              "name": "Discovery generating qualifying information",
+              "description": "Discovery conversations generating qualifying information (pain severity, timeline, budget, champion).",
+              "seq": 5
+            },
+            {
+              "name": "Tactic combined with TDP positioning",
+              "description": "Tactic combined with TDP positioning to create multi-level customer engagements.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Tactic execution is demonstrably creating or advancing qualified opportunities.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Opportunities attributed and tracked",
+              "description": "Opportunities attributed to this tactic created in the pipeline and tracked.",
+              "seq": 1
+            },
+            {
+              "name": "Engagement tracking correlated",
+              "description": "Engagement tracking shows content sharing and demonstration activity correlated with opportunity progression.",
+              "seq": 2
+            },
+            {
+              "name": "Challenge framing resonates",
+              "description": "Sellers report that the challenge framing resonates with target personas.",
+              "seq": 3
+            },
+            {
+              "name": "Services positioned through tactic",
+              "description": "Services and partner solutions positioned through this tactic included in deal proposals.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-TDP navigation working",
+              "description": "Cross-TDP navigation working: sellers connecting the tactic to multiple technology decision areas.",
+              "seq": 5
+            },
+            {
+              "name": "Follow-on conversations generated",
+              "description": "Tactic generating follow-on conversations and expanding engagement scope.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Tactic effectiveness is validated through conversion data with content optimized.",
+          "seq": 5,
+          "contributesToState": "Optimized",
+          "checklist": [
+            {
+              "name": "Conversion metrics tracked",
+              "description": "Conversion metrics (challenge-acknowledged-to-opportunity ratio) tracked and meeting targets.",
+              "seq": 1
+            },
+            {
+              "name": "Win/loss data analyzed",
+              "description": "Win/loss data for opportunities originated through this tactic analyzed.",
+              "seq": 2
+            },
+            {
+              "name": "Seller feedback collected",
+              "description": "Seller feedback on content effectiveness, customer objections, and competitive dynamics collected.",
+              "seq": 3
+            },
+            {
+              "name": "Content refreshed based on data",
+              "description": "Content refreshed based on performance data: messaging refined, evidence updated, demonstrations improved.",
+              "seq": 4
+            },
+            {
+              "name": "Best practices captured",
+              "description": "Best practices from high-converting sellers captured and incorporated.",
+              "seq": 5
+            },
+            {
+              "name": "New customer wins added",
+              "description": "New customer wins and case studies generated through this tactic added to the evidence base.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Sales Tactic Context and Rationale",
+          "description": "Why challenge-focused conversation execution converts more effectively than product-led approaches.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sellers need structured conversation guides that frame customer challenges from the customer's perspective rather than leading with product features. Without challenge-focused tactics, sellers default to product-led pitching that fails to establish the relevance and urgency needed to advance opportunities."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Sales Tactic construct structures customer conversations around a specific business challenge. It opens with the customer's pain (not the product), provides audience-segmented messaging and evidence, includes demonstration content directly relevant to the challenge, and links bidirectionally to supporting TDPs for technology depth. This customer-first framing differentiates consultative selling from product-led pitching."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Challenge-focused tactics convert more effectively because they establish relevance before positioning solutions. Conversion tracking validates which tactics resonate most with customers, enabling data-driven optimization of the conversation portfolio. Cross-TDP navigation ensures that tactics can leverage multiple technology areas when the customer's challenge spans domains."
+            }
+          ],
+          "citationNames": [
+            "Optimize and Modernize IT Ops Sales Tactic",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "alphaInstances": [
+    {
+      "name": "AI-Ready Enterprise",
+      "description": "A go-to-market play targeting organizations seeking to build AI-capable infrastructure and deploy production AI workloads.",
+      "alphaName": "Sales Play"
+    },
+    {
+      "name": "Automation TDP",
+      "description": "TDP covering the automation technology domain including infrastructure automation, event-driven automation, and network automation.",
+      "alphaName": "Technical Decision Point"
+    },
+    {
+      "name": "Virtualization TDP",
+      "description": "TDP covering the virtualization technology domain including virtual machine hosting, migration from legacy hypervisors, and infrastructure modernization.",
+      "alphaName": "Technical Decision Point"
+    },
+    {
+      "name": "Optimize IT Ops Tactic",
+      "description": "Tactic addressing the customer challenge of operational overhead and infrastructure management complexity.",
+      "alphaName": "Sales Tactic"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Sales Play Execution Guide",
+      "description": "A comprehensive play execution document covering customer lens, personas, value drivers, and TDP alignment for a market theme.",
+      "assetNames": [
+        {
+          "assetName": "play-execution-guide-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Basic play concept with market theme and customer segment identification.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Market theme described",
+              "description": "Market theme or customer challenge described in general terms with addressable market sizing.",
+              "seq": 1
+            },
+            {
+              "name": "Target customer segments listed",
+              "description": "Target customer segments listed with preliminary persona identification.",
+              "seq": 2
+            },
+            {
+              "name": "Value drivers identified",
+              "description": "Value drivers identified with initial capability-to-benefit hypotheses.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Selected"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Complete play architecture with Customer Lens, persona profiles, and value drivers.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Customer Lens articulated",
+              "description": "Customer Lens articulated: customer priorities, desired outcomes, how deals are won.",
+              "seq": 1
+            },
+            {
+              "name": "Top personas profiled",
+              "description": "Top personas profiled with challenges, current reality, impacts, and discovery questions.",
+              "seq": 2
+            },
+            {
+              "name": "Value driver narratives complete",
+              "description": "Value drivers have How We Help narratives with concrete capability-to-benefit mappings.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive differentiation framed",
+              "description": "Competitive differentiation framed through value drivers with structured advantage narratives.",
+              "seq": 4
+            },
+            {
+              "name": "TDPs listed and categorized",
+              "description": "TDPs powering the play listed and categorized by technology domain.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Selected"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive",
+          "description": "Full execution guide with content packages, enablement, and campaign alignment.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "What to Say packages complete",
+              "description": "What to Say content packages complete: pitch decks, discovery question guides, email templates.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share content curated",
+              "description": "What to Share external content curated with engagement tracking enabled.",
+              "seq": 2
+            },
+            {
+              "name": "TDP-tactic alignment matrix documented",
+              "description": "TDP-to-tactic alignment matrix documented and navigable from within the play.",
+              "seq": 3
+            },
+            {
+              "name": "Practice exercises included",
+              "description": "Practice exercises and what good looks like examples included for seller development.",
+              "seq": 4
+            },
+            {
+              "name": "Training and campaigns integrated",
+              "description": "Training paths, marketing campaigns, and services offerings integrated into the play.",
+              "seq": 5
+            },
+            {
+              "name": "Account research tools referenced",
+              "description": "Account research tools and AI-assisted insight capabilities referenced.",
+              "seq": 6
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Activated"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Data-enriched guide with performance insights and field-validated content.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Performance data embedded",
+              "description": "Performance data embedded: pipeline generation, win rates, seller adoption metrics by dimension.",
+              "seq": 1
+            },
+            {
+              "name": "Best practices documented",
+              "description": "Best practices from top-performing sellers documented and highlighted.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive intelligence current",
+              "description": "Competitive intelligence current and field-validated across all value drivers.",
+              "seq": 3
+            },
+            {
+              "name": "Content effectiveness data guides usage",
+              "description": "Content effectiveness data guides recommended usage patterns for sellers.",
+              "seq": 4
+            },
+            {
+              "name": "Market dynamic adjustments incorporated",
+              "description": "Seasonal and market dynamic adjustments incorporated into play guidance.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Sales Play Execution Guide Rationale",
+          "description": "Why progressive play documentation depth produces effective seller execution.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sales play documentation ranges from thin strategy slides to dense product manuals, neither of which effectively equips sellers for structured customer engagements. The challenge is creating play documentation that is comprehensive enough to guide execution yet accessible enough for rapid reference during live customer interactions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Sales Play Execution Guide progresses through four depth levels, from initial market concept through structured architecture to comprehensive execution guide to data-optimized reference. Each level maintains the same scope (customer lens, personas, value drivers, TDP alignment) but with increasing depth, evidence, and operational integration."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A fully optimized execution guide serves as both a strategic planning document for play designers and an operational reference for field sellers, with performance data and best practices continuously refreshing the content to sustain relevance."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play",
+            "Sales Play Revamp"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "TDP Positioning Brief",
+      "description": "A technology-specific positioning document providing seller credentials, customer proof, and engagement content for a technology decision area.",
+      "assetNames": [
+        {
+          "assetName": "tdp-positioning-brief-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Basic technology area identification with preliminary competitive context.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Technology domain boundaries defined",
+              "description": "Technology domain boundaries defined with in-scope and out-of-scope products and capabilities.",
+              "seq": 1
+            },
+            {
+              "name": "Key products listed",
+              "description": "Key products or capabilities within the domain listed.",
+              "seq": 2
+            },
+            {
+              "name": "Initial competitive landscape sketched",
+              "description": "Initial competitive landscape sketched with known competitors.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Credentialed",
+          "description": "Seller credentials and customer wins assembled with initial messaging.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Seller credentials documented",
+              "description": "Seller credentials documented: awards, analyst recognitions, certifications, market positions.",
+              "seq": 1
+            },
+            {
+              "name": "Customer wins catalogued",
+              "description": "Customer wins catalogued: reference accounts, success stories, logo permissions by industry.",
+              "seq": 2
+            },
+            {
+              "name": "BDM messaging framework drafted",
+              "description": "Business Decision Maker messaging framework drafted with value propositions and ROI narratives.",
+              "seq": 3
+            },
+            {
+              "name": "TDM messaging framework drafted",
+              "description": "Technical Decision Maker messaging framework drafted with architecture benefits and operational advantages.",
+              "seq": 4
+            },
+            {
+              "name": "Supporting Sales Plays identified",
+              "description": "Supporting Sales Plays identified with play-to-TDP alignment documented.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Content-Complete",
+          "description": "Full What to Say/Share/Show content organized by audience with demonstrations.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "What to Say finalized",
+              "description": "What to Say presentations and talking points finalized for both audience types.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share curated",
+              "description": "What to Share analyst reports, white papers, case studies curated for both audiences.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show prepared",
+              "description": "What to Show demos, workshops, interactive walkthroughs prepared and tested.",
+              "seq": 3
+            },
+            {
+              "name": "Services and partner solutions positioned",
+              "description": "Services and partner solutions documented and positioned within the TDP context.",
+              "seq": 4
+            },
+            {
+              "name": "Tactic links validated",
+              "description": "Supporting Sales Tactics linked with bidirectional navigation validated.",
+              "seq": 5
+            },
+            {
+              "name": "Engagement tracking enabled",
+              "description": "Content sharing and engagement tracking enabled for all shareable materials.",
+              "seq": 6
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Activated"
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Performance-enriched positioning brief with field-validated content.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Win rate data incorporated",
+              "description": "Win rate data by competitor and scenario incorporated into positioning guidance.",
+              "seq": 1
+            },
+            {
+              "name": "Demonstration effectiveness rated",
+              "description": "Demonstration effectiveness ratings guide proof activity selection for sellers.",
+              "seq": 2
+            },
+            {
+              "name": "Customer references refreshed",
+              "description": "Customer reference quality and relevance rated and regularly refreshed.",
+              "seq": 3
+            },
+            {
+              "name": "Messaging effectiveness feedback incorporated",
+              "description": "Field feedback on messaging effectiveness informs content updates.",
+              "seq": 4
+            },
+            {
+              "name": "Competitive intelligence current",
+              "description": "Competitive intelligence reflects latest analyst evaluations and market dynamics.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Defended"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Sales Tactic Conversation Guide",
+      "description": "A customer challenge-focused conversation execution document with structured messaging, evidence, and demonstration content.",
+      "assetNames": [
+        {
+          "assetName": "tactic-conversation-guide-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Customer challenge identified with preliminary messaging concept.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Customer challenge articulated",
+              "description": "Customer challenge articulated with impact description and quantification.",
+              "seq": 1
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas for this challenge identified with priority ranking.",
+              "seq": 2
+            },
+            {
+              "name": "Differentiated approach outlined",
+              "description": "Initial differentiated approach outlined connecting challenge to solution capabilities.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Prepared"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Complete conversation framework with audience-segmented messaging and evidence.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Challenge framing finalized",
+              "description": "Customer challenge framing finalized with quantified or illustrated business impact.",
+              "seq": 1
+            },
+            {
+              "name": "What to Say content addresses both audiences",
+              "description": "What to Say content addresses both Business and Technical decision makers.",
+              "seq": 2
+            },
+            {
+              "name": "What to Share evidence curated",
+              "description": "What to Share evidence curated by audience type with engagement tracking.",
+              "seq": 3
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations relevant to the challenge identified and prepared.",
+              "seq": 4
+            },
+            {
+              "name": "TDP links validated",
+              "description": "Supporting TDPs linked with bidirectional navigation validated.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Differentiated"
+            }
+          ]
+        },
+        {
+          "name": "Deployment-Ready",
+          "description": "Full conversation guide with all content types and seller usage guidance.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Complete content published",
+              "description": "Complete What to Say/Share/Show content published and accessible through enablement platform.",
+              "seq": 1
+            },
+            {
+              "name": "Services and partner solutions documented",
+              "description": "Services and partner solutions for this challenge documented and positioned.",
+              "seq": 2
+            },
+            {
+              "name": "Seller guidance included",
+              "description": "Seller guidance on when and how to use the tactic included with scenario examples.",
+              "seq": 3
+            },
+            {
+              "name": "Engagement tracking enabled",
+              "description": "Content sharing with engagement tracking enabled for all shareable materials.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-TDP navigation guidance provided",
+              "description": "Cross-TDP navigation guidance helps sellers connect the tactic to multiple technology areas.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Activated"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Performance-validated conversation guide with field-proven messaging.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Conversion metrics validate effectiveness",
+              "description": "Conversion metrics validate messaging effectiveness with quantified challenge-to-opportunity ratios.",
+              "seq": 1
+            },
+            {
+              "name": "Best-performing content identified",
+              "description": "Best-performing content variants identified and promoted as recommended approaches.",
+              "seq": 2
+            },
+            {
+              "name": "Objection patterns documented",
+              "description": "Customer objection patterns documented with field-tested responses.",
+              "seq": 3
+            },
+            {
+              "name": "New customer wins strengthen evidence",
+              "description": "New customer wins generated through this tactic strengthen the evidence base.",
+              "seq": 4
+            },
+            {
+              "name": "Messaging refinements incorporated",
+              "description": "Messaging refinements based on seller feedback and engagement data incorporated.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "TDP-Tactic Alignment Matrix",
+      "description": "A navigable cross-reference mapping bidirectional relationships between Technical Decision Points and Sales Tactics.",
+      "assetNames": [
+        {
+          "assetName": "alignment-matrix-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Listed",
+          "description": "Basic listing of TDP-to-tactic relationships without navigation.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "TDP supporting tactics listed",
+              "description": "Each TDP has its supporting tactics listed with relationship documented.",
+              "seq": 1
+            },
+            {
+              "name": "Tactic supporting TDPs listed",
+              "description": "Each tactic has its supporting TDPs listed with relationship documented.",
+              "seq": 2
+            },
+            {
+              "name": "Relationships documented",
+              "description": "Relationships documented but not yet validated for completeness or bidirectional consistency.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Selected"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Organized alignment matrix with categorization and navigation pathways.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Relationships organized by domain",
+              "description": "TDP-tactic relationships organized by TDP domain categories.",
+              "seq": 1
+            },
+            {
+              "name": "Cross-play TDP reuse documented",
+              "description": "Cross-play reuse of TDPs documented and navigable.",
+              "seq": 2
+            },
+            {
+              "name": "Bidirectional consistency validated",
+              "description": "Bidirectional consistency validated (all forward links have corresponding back-links).",
+              "seq": 3
+            },
+            {
+              "name": "Coverage gaps identified",
+              "description": "Coverage gaps identified and documented with remediation priorities.",
+              "seq": 4
+            },
+            {
+              "name": "Recommended combinations highlighted",
+              "description": "Recommended TDP-tactic combinations for common scenarios highlighted.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Activated"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Positioned"
+            }
+          ]
+        },
+        {
+          "name": "Navigable",
+          "description": "Fully integrated matrix with platform-enabled navigation and analytics.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Navigation paths implemented",
+              "description": "Navigation paths implemented in seller tools and content platforms.",
+              "seq": 1
+            },
+            {
+              "name": "Context-sensitive recommendations available",
+              "description": "Context-sensitive recommendations suggest relevant tactics based on opportunity data.",
+              "seq": 2
+            },
+            {
+              "name": "Usage analytics active",
+              "description": "Usage analytics track which alignment paths sellers navigate most frequently.",
+              "seq": 3
+            },
+            {
+              "name": "Dual discovery modes supported",
+              "description": "Framework search supports both TDP-first and challenge-first discovery modes.",
+              "seq": 4
+            },
+            {
+              "name": "New alignment paths tested",
+              "description": "New alignment paths systematically tested and deployed.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Data-driven matrix with effectiveness scoring and dynamic recommendations.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Alignment paths scored",
+              "description": "Alignment paths scored by effectiveness based on conversion and win data.",
+              "seq": 1
+            },
+            {
+              "name": "Low-performing paths flagged",
+              "description": "Low-performing alignment paths flagged for review and potential retirement.",
+              "seq": 2
+            },
+            {
+              "name": "High-performing combinations promoted",
+              "description": "High-performing combinations promoted as recommended selling motions.",
+              "seq": 3
+            },
+            {
+              "name": "Dynamic recommendations available",
+              "description": "Dynamic recommendations adapt based on account context and seller experience.",
+              "seq": 4
+            },
+            {
+              "name": "Alignment maintenance active",
+              "description": "Alignment maintenance workflows ensure currency as plays, TDPs, and tactics evolve.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Proven"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Play Performance Dashboard",
+      "description": "A multi-level performance tracking artifact correlating play, TDP, and tactic metrics to drive optimization decisions.",
+      "assetNames": [
+        {
+          "assetName": "play-performance-dashboard-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Basic",
+          "description": "Single-level play metrics with basic pipeline and adoption tracking.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Play-attributed pipeline tracked",
+              "description": "Play-attributed pipeline tracked against targets.",
+              "seq": 1
+            },
+            {
+              "name": "Seller adoption monitored",
+              "description": "Seller adoption monitored through content access and training completion.",
+              "seq": 2
+            },
+            {
+              "name": "Reporting cadence established",
+              "description": "Basic reporting cadence established with regular review meetings.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Measured"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Level",
+          "description": "Metrics tracked at all three framework levels with per-level dashboards.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Play-level metrics tracked",
+              "description": "Play-level metrics: pipeline, revenue, segment penetration, seller count.",
+              "seq": 1
+            },
+            {
+              "name": "TDP-level metrics tracked",
+              "description": "TDP-level metrics: win rate, competitive outcomes, proof activity count.",
+              "seq": 2
+            },
+            {
+              "name": "Tactic-level metrics tracked",
+              "description": "Tactic-level metrics: engagement rate, conversion rate, content usage.",
+              "seq": 3
+            },
+            {
+              "name": "Drill-down capability available",
+              "description": "Reporting spans all three levels with drill-down capability.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Measured"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Validated"
+            }
+          ]
+        },
+        {
+          "name": "Correlated",
+          "description": "Cross-level correlation analysis identifying high-performing combinations.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "TDP-tactic effectiveness analyzed",
+              "description": "TDP-tactic combination effectiveness analyzed and ranked by conversion rate.",
+              "seq": 1
+            },
+            {
+              "name": "Play-TDP contribution analyzed",
+              "description": "Play-TDP contribution analysis shows which TDPs drive most play pipeline value.",
+              "seq": 2
+            },
+            {
+              "name": "Cohort analysis available",
+              "description": "Cohort analysis by region, segment, and seller experience provides dimensional insights.",
+              "seq": 3
+            },
+            {
+              "name": "Trend analysis shows trajectory",
+              "description": "Trend analysis shows framework effectiveness trajectory over time.",
+              "seq": 4
+            },
+            {
+              "name": "Action recommendations generated",
+              "description": "Action recommendations generated from performance patterns.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Measured"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Proven"
+            }
+          ]
+        },
+        {
+          "name": "Predictive",
+          "description": "Forward-looking dashboard with trend forecasting and early warning indicators.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Trend forecasting operational",
+              "description": "Trend forecasting predicts play, TDP, and tactic performance trajectories.",
+              "seq": 1
+            },
+            {
+              "name": "Early warning indicators active",
+              "description": "Early warning indicators flag declining performance before significant impact.",
+              "seq": 2
+            },
+            {
+              "name": "Market correlation available",
+              "description": "Market dynamic correlation anticipates needed framework adjustments.",
+              "seq": 3
+            },
+            {
+              "name": "Content ROI projections guide allocation",
+              "description": "Content investment ROI projections guide resource allocation decisions.",
+              "seq": 4
+            },
+            {
+              "name": "Seasonal patterns inform timing",
+              "description": "Seasonal and cyclical patterns inform play activation timing.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Play Strategist",
+      "description": "Designs, activates, and optimizes go-to-market plays by aligning market opportunities, customer insights, and competitive positioning.",
+      "competencies": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Go-to-Market Strategy"
+        ],
+        "lifecycleTags": [
+          "Discovery",
+          "Activation",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Go-to-Market Strategy",
+          "Sales Enablement"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "TDP Content Owner",
+      "description": "Builds and maintains technology-specific positioning content including seller credentials, customer proof, and structured engagement materials.",
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Technical Sales",
+          "Sales Enablement"
+        ],
+        "lifecycleTags": [
+          "Activation",
+          "Execution",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Product Marketing",
+          "Technical Sales"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Sales Enablement Manager",
+      "description": "Designs and delivers multi-level seller readiness programs spanning play strategy, TDP depth, and tactic execution skills.",
+      "competencies": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Sales Enablement"
+        ],
+        "lifecycleTags": [
+          "Activation",
+          "Execution",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Sales Enablement"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Field Seller",
+      "description": "Executes the three-level framework in customer engagements, navigating from play strategy through TDP positioning to tactic-level conversation.",
+      "competencies": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Field Sales",
+          "Customer Engagement"
+        ],
+        "lifecycleTags": [
+          "Discovery",
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Field Sales"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Sales Operations Analyst",
+      "description": "Measures and analyzes framework performance across play, TDP, and tactic levels, producing insights that drive optimization decisions.",
+      "competencies": [
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Sales Operations"
+        ],
+        "lifecycleTags": [
+          "Measurement",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Sales Operations"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Competitive Intelligence Analyst",
+      "description": "Gathers, synthesizes, and integrates competitive intelligence into framework content at play, TDP, and tactic levels.",
+      "competencies": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Competitive Intelligence",
+          "Market Analysis"
+        ],
+        "lifecycleTags": [
+          "Discovery",
+          "Execution",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Competitive Intelligence",
+          "Product Marketing"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Go-to-Market Strategy Team",
+      "description": "Cross-functional team responsible for designing and optimizing the play portfolio, framework alignment, and go-to-market strategy.",
+      "personaNames": [
+        "Play Strategist",
+        "Sales Operations Analyst",
+        "Competitive Intelligence Analyst"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Go-to-Market Strategy",
+          "Sales Enablement"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Play Content Team",
+      "description": "Team responsible for building, curating, and maintaining content across all three framework levels for a play or play family.",
+      "personaNames": [
+        "TDP Content Owner",
+        "Play Strategist",
+        "Sales Enablement Manager"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Product Marketing",
+          "Sales Enablement"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Field Execution Team",
+      "description": "Customer-facing team executing the three-level framework in sales engagements, supported by enablement and coaching.",
+      "personaNames": [
+        "Field Seller",
+        "Sales Enablement Manager"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Field Sales",
+          "Sales Enablement"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Design Sales Play Strategy",
+      "description": "Define the strategic framework for a go-to-market play, establishing its market theme, customer lens, and value driver architecture.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Market analysis has identified a customer challenge pattern or market opportunity warranting a structured play response",
+          "Organizational strategic priorities are documented and current"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Competitive Position",
+            "stateName": "Assessed"
+          }
+        ]
+      },
+      "test": {
+        "name": "Play design completion verification",
+        "description": "Verifies that play design produces Customer Lens, persona profiles, and value driver architecture.",
+        "given": [
+          "Market demand signals validate the opportunity (analyst coverage, competitive activity, customer inquiries)"
+        ],
+        "when": [
+          "Go-to-market leadership convenes to evaluate play portfolio gaps and new market opportunities"
+        ],
+        "then": [
+          "Customer Lens articulates the play from the customer's perspective including priorities, outcomes, and how deals are won",
+          "Top personas are profiled with challenges, current reality, impacts, and discovery questions",
+          "Value drivers structure competitive differentiation with capability-to-benefit narratives"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Selected"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Competitive Position",
+          "stateName": "Mapped"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Initial"
+        },
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement",
+        "Customer Discovery",
+        "Competitive Intelligence"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Go-to-Market Strategy Team"
+      ],
+      "narratives": [
+        {
+          "name": "Design Sales Play Strategy Technique",
+          "description": "How to design an effective go-to-market play strategy from market analysis through value driver architecture.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sales organizations must translate broad market opportunities into focused, executable go-to-market strategies. Without structured play design, each region or seller independently constructs their own market approach, creating inconsistency that weakens collective market impact."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Play strategy design begins with market analysis, moves through Customer Lens articulation that frames the play from the customer's perspective, and structures value drivers that organize competitive differentiation around customer-relevant dimensions (cost, complexity, choice). Persona profiling ensures discovery questions and messaging are tailored to each stakeholder type."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A well-designed play strategy provides the strategic foundation upon which TDPs and tactics are built, ensuring that technology-specific depth and customer conversation execution all align to a coherent market theme."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Activate Sales Play",
+      "description": "Deploy a designed play's content, train the field organization, and establish operational infrastructure for play execution.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Play strategy is designed with Customer Lens, personas, value drivers, and TDP alignment defined",
+          "TDP positioning briefs and tactic conversation guides are content-complete"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sales Play",
+            "stateName": "Selected"
+          },
+          {
+            "alphaName": "Technical Decision Point",
+            "stateName": "Positioned"
+          },
+          {
+            "alphaName": "Sales Tactic",
+            "stateName": "Deployed"
+          }
+        ]
+      },
+      "test": {
+        "name": "Play activation readiness verification",
+        "description": "Verifies that play activation equips the field organization with content, training, and measurement infrastructure.",
+        "given": [
+          "Content packages are assembled across all three framework levels"
+        ],
+        "when": [
+          "Play activation launch date arrives and field organization is scheduled for enablement"
+        ],
+        "then": [
+          "Sellers can navigate the three-level framework from play through TDP to tactic",
+          "CRM integration captures play attribution on opportunities",
+          "Performance measurement infrastructure is operational"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Activated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Comprehensive"
+        },
+        {
+          "workProductName": "TDP-Tactic Alignment Matrix",
+          "levelOfDetailName": "Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Play Content Team",
+        "Field Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Activate Sales Play Technique",
+          "description": "How to bridge the gap between play design and field execution through coordinated deployment.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "The gap between play design and field execution is where most go-to-market strategies fail. Content exists but sellers cannot find it, training is delivered but skills are not practiced, and measurement infrastructure lags behind field deployment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Play activation is a coordinated deployment covering content packaging (all three levels), multi-level seller enablement (play strategy, TDP navigation, tactic execution), operational infrastructure (CRM integration, content platforms, performance reporting), and cross-functional alignment (marketing campaigns, partner enablement, services positioning)."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Effective activation ensures that by launch day, every seller can navigate the framework, access content at every level, and begin generating play-attributed pipeline with consistent messaging and competitive positioning."
+            }
+          ],
+          "citationNames": [
+            "Sales Play Revamp",
+            "AI-Ready Enterprise Sales Play"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Build Technical Decision Point",
+      "description": "Assemble seller credentials, customer proof, competitive positioning, and structured engagement content for a technology decision area.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "test": {
+        "name": "TDP construction completion verification",
+        "description": "Verifies that TDP construction produces credentials, customer wins, and audience-segmented content.",
+        "given": [
+          "A technology domain has been identified and scoped for TDP development"
+        ],
+        "when": [
+          "Technology domain demand is validated through market signals and play alignment"
+        ],
+        "then": [
+          "Seller credentials, customer wins, and competitive positioning are assembled",
+          "What to Say/Share/Show content is organized by audience type",
+          "Bidirectional tactic links are established"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Qualified"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Positioned"
+        },
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Selected"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Initial"
+        },
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Credentialed"
+        },
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Content-Complete"
+        },
+        {
+          "workProductName": "TDP-Tactic Alignment Matrix",
+          "levelOfDetailName": "Listed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Competitive Intelligence",
+        "Sales Enablement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Play Content Team"
+      ],
+      "narratives": [
+        {
+          "name": "Build Technical Decision Point Technique",
+          "description": "How to construct a comprehensive TDP with credentials, proof, and structured content.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sellers engaging in technology-specific conversations need more than product documentation. They need credentials that establish authority, customer wins that provide social proof, and structured messaging tailored to different audience types within a consistent framework."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "TDP construction follows a systematic approach: technology domain definition (clear boundaries), credential assembly (awards, recognitions, certifications), customer win documentation (organized by industry and use case), audience-segmented messaging (BDM vs TDM), and demonstration preparation (What to Show content)."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A fully built TDP enables any seller to engage credibly in technology-specific conversations, even without deep personal domain expertise, because the TDP provides the credentials, proof, and messaging structure they need."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP",
+            "Virtualization TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Develop Sales Tactic",
+      "description": "Create a customer challenge-focused conversation guide with structured messaging, evidence, and demonstration content.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "test": {
+        "name": "Tactic development completion verification",
+        "description": "Verifies that tactic development produces challenge-focused conversation content with bidirectional TDP links.",
+        "given": [
+          "A customer business challenge pattern has been identified warranting a structured conversation guide"
+        ],
+        "when": [
+          "Customer challenge is validated through field feedback or market analysis"
+        ],
+        "then": [
+          "Challenge framing articulates the customer's pain and impact before positioning solutions",
+          "What to Say/Share/Show content addresses both business and technical audiences",
+          "Bidirectional TDP links are established"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Sales Tactic",
+          "stateName": "Prepared"
+        },
+        {
+          "alphaName": "Sales Tactic",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Selected"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sales Tactic Conversation Guide",
+          "levelOfDetailName": "Initial"
+        },
+        {
+          "workProductName": "Sales Tactic Conversation Guide",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "Sales Tactic Conversation Guide",
+          "levelOfDetailName": "Deployment-Ready"
+        },
+        {
+          "workProductName": "TDP-Tactic Alignment Matrix",
+          "levelOfDetailName": "Listed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Sales Enablement",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Play Content Team"
+      ],
+      "narratives": [
+        {
+          "name": "Develop Sales Tactic Technique",
+          "description": "How to create customer challenge-focused conversation content that converts effectively.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Product-led selling fails because it positions solutions before establishing the customer's pain. Sellers need conversation frameworks that open with the customer's challenge, demonstrate understanding of its business impact, and only then position solutions as responses to recognized needs."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Tactic development starts with customer challenge articulation from the customer's perspective. Content follows the What to Say/Share/Show structure segmented by audience (business and technical). Services and partner solutions complete the tactic. Bidirectional TDP links enable technology depth when needed."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Challenge-first tactics establish relevance and urgency before positioning solutions, converting more effectively because customers recognize their own situation in the framing and engage more deeply with the evidence and demonstrations."
+            }
+          ],
+          "citationNames": [
+            "Optimize and Modernize IT Ops Sales Tactic",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Align Framework Levels",
+      "description": "Establish and maintain bidirectional mapping between Sales Plays, TDPs, and Sales Tactics with navigable cross-references.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "contributesTo": [
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Selected"
+        },
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Activated"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Positioned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "TDP-Tactic Alignment Matrix",
+          "levelOfDetailName": "Listed"
+        },
+        {
+          "workProductName": "TDP-Tactic Alignment Matrix",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "TDP-Tactic Alignment Matrix",
+          "levelOfDetailName": "Navigable"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Go-to-Market Strategy Team",
+        "Play Content Team"
+      ],
+      "narratives": [
+        {
+          "name": "Align Framework Levels Technique",
+          "description": "How to create and maintain bidirectional navigation between framework levels.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Without structured alignment between framework levels, sellers struggle to navigate from strategic play themes to technology-specific depth to customer conversation execution. Content exists at each level but the connections between levels are implicit, forcing sellers to independently discover relevant TDPs and tactics."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Framework alignment creates explicit bidirectional navigation -- TDPs list their supporting tactics and tactics list their supporting TDPs. Cross-play TDP reuse is documented. Coverage gap analysis identifies missing connections. The alignment matrix becomes the navigational backbone of the three-level framework."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Structured alignment enables both top-down navigation (play to TDP to tactic for sellers who know the technology area) and bottom-up navigation (challenge to tactic to TDP for sellers entering from a customer conversation), making the framework adaptable to different selling contexts."
+            }
+          ],
+          "citationNames": [
+            "Sales Plays, TDPs and Sales Tactics",
+            "AI-Ready Enterprise Sales Play"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Execute Customer Engagement",
+      "description": "Deploy the three-level framework in live customer interactions, navigating from play strategy through TDP positioning to tactic-level conversation.",
+      "activitySpaceName": "Discover Customer Needs",
+      "focusName": "Customer Value",
+      "background": {
+        "given": [
+          "The Sales Play is activated with content deployed across all three framework levels",
+          "The seller has completed play-level enablement and can navigate the framework"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sales Play",
+            "stateName": "Activated"
+          }
+        ]
+      },
+      "test": {
+        "name": "Framework execution effectiveness verification",
+        "description": "Verifies effective three-level framework deployment in customer interactions.",
+        "given": [
+          "A customer engagement opportunity has been identified within an active play's scope"
+        ],
+        "when": [
+          "The seller prepares for a customer meeting by reviewing play content and identifying relevant TDPs and tactics"
+        ],
+        "then": [
+          "Customer Lens framing opens the engagement with customer-relevant context",
+          "Persona-specific discovery questions are used to qualify the opportunity",
+          "TDP-to-tactic navigation selects appropriate conversation content for the specific engagement context"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Executing"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Demonstrated"
+        },
+        {
+          "alphaName": "Sales Tactic",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Sales Tactic",
+          "stateName": "Converted"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Comprehensive"
+        },
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Content-Complete"
+        },
+        {
+          "workProductName": "Sales Tactic Conversation Guide",
+          "levelOfDetailName": "Deployment-Ready"
+        },
+        {
+          "workProductName": "TDP-Tactic Alignment Matrix",
+          "levelOfDetailName": "Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Technical Positioning",
+        "Competitive Intelligence",
+        "Sales Enablement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Field Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Execute Customer Engagement Technique",
+          "description": "How to integrate three levels of framework content into fluid customer interactions.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sellers face the challenge of integrating three levels of framework content (strategic play themes, technology-specific positioning, challenge-focused conversations) into fluid customer interactions. Framework content is only valuable when it translates into effective customer conversations."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Engagement execution begins with play-level Customer Lens orientation, progresses through persona-specific discovery using the play's question framework, navigates to relevant TDPs when the customer's technology decision area becomes clear, and executes the appropriate tactic with challenge framing, structured messaging, and demonstration content."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Multi-level engagement demonstrates consultative depth that differentiates from product-led competitors. Sellers who combine play strategy, TDP positioning, and tactic execution in a single engagement create customer experiences that build trust and advance opportunities more effectively than single-level approaches."
+            }
+          ],
+          "citationNames": [
+            "AI-Ready Enterprise Sales Play",
+            "Optimize and Modernize IT Ops Sales Tactic"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Measure Framework Performance",
+      "description": "Collect, analyze, and report performance metrics across all three framework levels to identify optimization opportunities.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "CRM integration captures play attribution, TDP involvement, and tactic usage per opportunity",
+          "Content platform analytics track content access, sharing, and engagement at each framework level"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Measured"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Validated"
+        },
+        {
+          "alphaName": "Sales Tactic",
+          "stateName": "Proven"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Play Performance Dashboard",
+          "levelOfDetailName": "Basic"
+        },
+        {
+          "workProductName": "Play Performance Dashboard",
+          "levelOfDetailName": "Multi-Level"
+        },
+        {
+          "workProductName": "Play Performance Dashboard",
+          "levelOfDetailName": "Correlated"
+        },
+        {
+          "workProductName": "Play Performance Dashboard",
+          "levelOfDetailName": "Predictive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Deal Orchestration",
+        "Sales Enablement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Go-to-Market Strategy Team"
+      ],
+      "narratives": [
+        {
+          "name": "Measure Framework Performance Technique",
+          "description": "How to track and correlate performance metrics across all three framework levels.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Traditional sales performance measurement operates at the opportunity level, missing the structural insights available from a three-level framework. Organizations cannot determine which TDP-tactic combinations drive the highest conversion rates, which plays generate the most pipeline per seller, or which framework elements need optimization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Multi-level measurement tracks KPIs at each framework level (play pipeline, TDP win rates, tactic conversion rates) and correlates across levels to identify high-performing and underperforming combinations. Cohort analysis by region, segment, and seller experience adds dimensional depth."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Cross-level correlation analysis produces actionable optimization insights unavailable from single-level measurement, enabling targeted investments in content, enablement, and framework development that maximize return on go-to-market investment."
+            }
+          ],
+          "citationNames": [
+            "Sales Plays, TDPs and Sales Tactics",
+            "Sales Play Revamp"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Update Competitive Intelligence",
+      "description": "Gather, analyze, and integrate competitive information into framework content at play, TDP, and tactic levels.",
+      "activitySpaceName": "Differentiate Competitively",
+      "focusName": "Solution Alignment",
+      "contributesTo": [
+        {
+          "alphaName": "Competitive Position",
+          "stateName": "Assessed"
+        },
+        {
+          "alphaName": "Competitive Position",
+          "stateName": "Mapped"
+        },
+        {
+          "alphaName": "Competitive Position",
+          "stateName": "Differentiated"
+        },
+        {
+          "alphaName": "Competitive Position",
+          "stateName": "Defended"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Qualified"
+        },
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Credentialed"
+        },
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Content-Complete"
+        },
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Validated"
+        },
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Optimized"
+        },
+        {
+          "workProductName": "Sales Tactic Conversation Guide",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "Sales Tactic Conversation Guide",
+          "levelOfDetailName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Competitive Intelligence",
+        "Sales Enablement",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Go-to-Market Strategy Team",
+        "Play Content Team"
+      ],
+      "narratives": [
+        {
+          "name": "Update Competitive Intelligence Technique",
+          "description": "How to maintain competitive intelligence currency across all three framework levels.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Competitive intelligence must flow through all three framework levels with increasing specificity -- strategic at the play level, technology-specific at the TDP level, and challenge-specific at the tactic level. Maintaining intelligence currency across all levels requires systematic collection, analysis, and integration processes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Competitors continuously evolve their positioning, introduce new capabilities, and adjust their market strategies. Static competitive content rapidly becomes outdated, eroding seller confidence and customer credibility when competitive claims do not reflect current market reality."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "The three-level framework provides structured integration points for competitive intelligence at each level, enabling rapid targeted updates (e.g., refreshing a single TDP's credentials when a new analyst report is published) without requiring full play redesign. Field-generated competitive insights are captured and incorporated through systematic feedback mechanisms."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP",
+            "Virtualization TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Optimize Play Performance",
+      "description": "Refine play strategy, content, and execution based on performance data, field feedback, and market dynamics.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Play performance data has been collected across all three framework levels",
+          "Seller feedback on content effectiveness and competitive dynamics has been gathered"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sales Play",
+            "stateName": "Measured"
+          }
+        ]
+      },
+      "test": {
+        "name": "Play optimization effectiveness verification",
+        "description": "Verifies that optimization produces specific improvements across framework levels.",
+        "given": [
+          "Performance review meeting is scheduled with current dashboards"
+        ],
+        "when": [
+          "Cross-level performance analysis reveals underperforming elements or emerging opportunities"
+        ],
+        "then": [
+          "Specific optimization actions are documented for plays, TDPs, and tactics",
+          "Best practices from top performers are codified and shared",
+          "Framework alignment is adjusted based on effectiveness data"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Validated"
+        },
+        {
+          "alphaName": "Sales Tactic",
+          "stateName": "Proven"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Optimized"
+        },
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Validated"
+        },
+        {
+          "workProductName": "Sales Tactic Conversation Guide",
+          "levelOfDetailName": "Optimized"
+        },
+        {
+          "workProductName": "TDP-Tactic Alignment Matrix",
+          "levelOfDetailName": "Optimized"
+        },
+        {
+          "workProductName": "Play Performance Dashboard",
+          "levelOfDetailName": "Correlated"
+        },
+        {
+          "workProductName": "Play Performance Dashboard",
+          "levelOfDetailName": "Predictive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement",
+        "Deal Orchestration"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Go-to-Market Strategy Team"
+      ],
+      "narratives": [
+        {
+          "name": "Optimize Play Performance Technique",
+          "description": "How to sustain framework effectiveness through continuous data-driven optimization.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Go-to-market frameworks that are not continuously optimized degrade as markets evolve, competitors adjust their strategies, and customer challenges shift. Static plays lose effectiveness over time, eroding the return on the initial play development investment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Optimization begins with cross-level performance review examining metrics at play, TDP, and tactic levels. Root cause analysis examines not just metrics but qualitative factors -- market relevance, persona resonance, competitive currency, content quality, seller proficiency. Action planning translates analysis into specific improvements at each framework level."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Continuous optimization sustains framework effectiveness across market cycles. Each optimization cycle produces updated content, refined enablement, and adjusted alignment, which feeds back through the measurement system to validate improvement and identify the next optimization targets."
+            }
+          ],
+          "citationNames": [
+            "Sales Play Revamp",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Play Activation Lifecycle",
+      "description": "End-to-end lifecycle coordinating the journey from play identification through activation, execution, measurement, and optimization.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Market opportunity recognized and organizational commitment established.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Selected"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Identified"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The play lifecycle begins with discovery of market opportunities -- customer challenge patterns, competitive dynamics, and technology trends that warrant structured go-to-market response. Market analysis identifies themes and organizational strategic priorities provide the framing for play portfolio decisions."
+            }
+          ]
+        },
+        {
+          "name": "Design",
+          "description": "Play strategy, customer lens, and framework alignment designed.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Selected"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Mapped"
+            }
+          ],
+          "activities": [
+            "Design Sales Play Strategy",
+            "Build Technical Decision Point",
+            "Develop Sales Tactic",
+            "Align Framework Levels",
+            "Update Competitive Intelligence"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Validate",
+              "context": "The design phase validates market opportunity through structured play architecture. Customer Lens articulation, persona profiling, value driver structuring, TDP identification, and tactic scoping translate market analysis into an executable framework design. Competitive positioning provides the differentiation foundation for value driver narratives."
+            }
+          ]
+        },
+        {
+          "name": "Build",
+          "description": "Framework content built across all three levels and field organization enabled.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Activated"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Differentiated"
+            }
+          ],
+          "activities": [
+            "Activate Sales Play",
+            "Build Technical Decision Point",
+            "Develop Sales Tactic",
+            "Align Framework Levels",
+            "Update Competitive Intelligence"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Propose",
+              "context": "The build phase transforms play design into field-ready content and capabilities. TDP positioning briefs are completed with audience-segmented content. Tactic conversation guides are finalized with challenge framing and evidence. The alignment matrix creates navigable cross-references. Multi-level seller enablement equips the field organization to execute. The proposition to the field is a complete, integrated framework ready for customer engagement."
+            }
+          ]
+        },
+        {
+          "name": "Execute",
+          "description": "Field organization actively executing the play across all three levels.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Demonstrated"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Converted"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Defended"
+            }
+          ],
+          "activities": [
+            "Execute Customer Engagement",
+            "Measure Framework Performance",
+            "Update Competitive Intelligence"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Negotiate",
+              "context": "The execution phase is where the framework meets reality. Sellers navigate from play-level Customer Lens framing through TDP-specific technology positioning to tactic-level conversation execution. Performance measurement captures effectiveness across all levels. Competitive intelligence is deployed and validated in live customer engagements. The negotiation is between framework design intent and field execution reality."
+            }
+          ]
+        },
+        {
+          "name": "Optimize",
+          "description": "Data-driven continuous refinement across all framework levels.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Measured"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Preferred"
+            }
+          ],
+          "activities": [
+            "Optimize Play Performance",
+            "Measure Framework Performance",
+            "Update Competitive Intelligence"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Close",
+              "context": "The optimization phase closes the feedback loop. Performance data across all three levels is analyzed to identify high-performing patterns and underperforming elements. Plays are refined, TDP content is refreshed, tactics are redesigned, alignment is adjusted, and best practices are disseminated. The close is not an endpoint but the beginning of the next optimization cycle."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Expand",
+              "context": "Optimization expands the framework's impact through continuous evolution. New TDP-tactic combinations discovered in the field are formalized. Market dynamic shifts are incorporated into play strategy. Predictive analytics enable proactive play management. Expert sellers contribute field-generated insights that drive framework innovation. The expansion is self-reinforcing -- better data produces better optimization, which produces better execution, which produces better data."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    },
+    {
+      "name": "TDP-Tactic Alignment Journey",
+      "description": "Pattern coordinating the establishment and optimization of bidirectional mappings between technology decision areas and customer conversations.",
+      "narrativeTypeName": "Value Story",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "At least one Sales Play exists with identified TDPs and initial tactics.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Selected"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Assessed"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "The navigation challenge in a multi-level framework is connecting technology depth (TDPs) with customer conversation execution (tactics). Without structured alignment, sellers must independently discover which tactics support which TDPs, creating inconsistent and incomplete framework utilization."
+            }
+          ]
+        },
+        {
+          "name": "Basic Mapping",
+          "description": "Initial TDP-tactic relationships documented with bidirectional linking.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Selected"
+            }
+          ],
+          "activities": [
+            "Align Framework Levels",
+            "Build Technical Decision Point",
+            "Develop Sales Tactic"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Solution",
+              "context": "Basic mapping establishes the foundational TDP-tactic relationships. Each TDP lists its supporting tactics, each tactic lists its supporting TDPs. Bidirectional consistency is validated. Cross-play TDP reuse is documented. Coverage gaps are identified and prioritized. The alignment matrix begins as a simple cross-reference."
+            }
+          ]
+        },
+        {
+          "name": "Structured Navigation",
+          "description": "Navigation pathways implemented and sellers actively using bidirectional navigation.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Demonstrated"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Assessed"
+            }
+          ],
+          "activities": [
+            "Execute Customer Engagement",
+            "Align Framework Levels"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Solution",
+              "context": "Structured navigation transforms the alignment matrix from documentation into an operational tool. Navigation pathways are implemented in seller platforms. Sellers are trained on both top-down and bottom-up navigation patterns. Usage analytics track which alignment paths sellers navigate. The matrix evolves from cross-reference to active selling tool."
+            }
+          ]
+        },
+        {
+          "name": "Data-Optimized Alignment",
+          "description": "Alignment effectiveness measured and the alignment mesh continuously optimized.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Assessed"
+            }
+          ],
+          "activities": [
+            "Measure Framework Performance",
+            "Optimize Play Performance",
+            "Align Framework Levels"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Outcome",
+              "context": "Data-optimized alignment represents the mature state where alignment decisions are driven by performance evidence. High-performing TDP-tactic combinations are promoted as recommended selling motions. Low-performing paths are flagged for review. Dynamic recommendations adapt based on account context and seller experience. The alignment matrix becomes a continuously learning system that improves framework effectiveness."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Technical Decision Point",
+      "aliasName": "TDP"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "TDP Positioning Brief",
+      "aliasName": "TDP Content Package"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "TDP-Tactic Alignment Matrix",
+      "aliasName": "Framework Navigation Map"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.1"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard AI-Ready Enterprise Sales Play",
+      "description": "Complete go-to-market play demonstrating Customer Lens articulation, persona frameworks, value drivers, TDP alignment, and three-level content architecture for enterprise AI transformation.",
+      "alphaName": "Sales Play",
+      "stateName": "Activated",
+      "links": [
+        {
+          "name": "AI-Ready Enterprise Sales Play",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//"
+        },
+        {
+          "name": "Three-Level Framework Overview",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "AI-Ready Enterprise Execution Guide",
+          "description": "Complete play execution document with Customer Lens, top three personas with challenges and discovery questions, value drivers with capability-to-benefit narratives, and three-level content architecture.",
+          "workProductName": "Sales Play Execution Guide",
+          "levelOfDetailName": "Comprehensive",
+          "links": [
+            {
+              "name": "AI-Ready Enterprise Play Content",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard Automation Technical Decision Point",
+      "description": "Technology-domain TDP demonstrating seller credentials, customer wins, and audience-segmented What to Say/Share/Show content for the automation and infrastructure management domain.",
+      "alphaName": "Technical Decision Point",
+      "stateName": "Positioned",
+      "links": [
+        {
+          "name": "Automation TDP",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf58ce9aa5-5d91-46f8-97fc-e4471fc8b4e8//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Automation Positioning Brief",
+          "description": "Content-complete positioning brief with seller credentials, customer wins organized by industry and use case, and structured What to Say/Share/Show content for Business and Technical Decision Makers.",
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Content-Complete",
+          "links": [
+            {
+              "name": "Automation TDP Positioning Content",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf58ce9aa5-5d91-46f8-97fc-e4471fc8b4e8//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard Virtualization Technical Decision Point",
+      "description": "Technology-domain TDP demonstrating competitive displacement narratives, migration positioning, and technology-specific seller credentials for the virtualization and workload migration domain.",
+      "alphaName": "Technical Decision Point",
+      "stateName": "Positioned",
+      "links": [
+        {
+          "name": "Virtualization TDP",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flfa5871978-1e94-4455-a170-ed562efdc9fb//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Virtualization Positioning Brief",
+          "description": "Content-complete positioning brief with competitive displacement narratives, migration customer wins, and technology-specific seller credentials for the virtualization technology domain.",
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Content-Complete",
+          "links": [
+            {
+              "name": "Virtualization TDP Positioning Content",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flfa5871978-1e94-4455-a170-ed562efdc9fb//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard IT Operations Modernization Sales Tactic",
+      "description": "Customer challenge-focused conversation guide demonstrating challenge framing, audience-segmented messaging, evidence packaging, and bidirectional TDP alignment for IT operations modernization.",
+      "alphaName": "Sales Tactic",
+      "stateName": "Deployed",
+      "links": [
+        {
+          "name": "Optimize and Modernize IT Ops Sales Tactic",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf5b7cd00e-3654-4a0d-8e8a-141a97206810//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "IT Operations Modernization Conversation Guide",
+          "description": "Deployment-ready conversation guide with customer challenge framing, audience-segmented What to Say/Share/Show content, and bidirectional links to supporting TDPs.",
+          "workProductName": "Sales Tactic Conversation Guide",
+          "levelOfDetailName": "Deployment-Ready",
+          "links": [
+            {
+              "name": "IT Ops Tactic Conversation Content",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf5b7cd00e-3654-4a0d-8e8a-141a97206810//"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

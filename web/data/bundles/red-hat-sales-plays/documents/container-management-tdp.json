@@ -1,0 +1,3266 @@
+{
+  "kind": "practice",
+  "name": "Container Management TDP",
+  "description": "Provides OpenShift container platform positioning with four tactics covering standard Kubernetes, AI workloads, multicluster security, and sovereign infrastructure.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceDependencyNames": [
+    "Sales Play Framework"
+  ],
+  "tags": {
+    "domainTags": [
+      "Kubernetes",
+      "Container Platform",
+      "Cloud-Native",
+      "DevOps"
+    ],
+    "lifecycleTags": [
+      "Technical Validation",
+      "Platform Design",
+      "Deployment",
+      "Operations"
+    ],
+    "organizationalTags": [
+      "Technical Sales",
+      "Solution Architects",
+      "OpenShift Specialists"
+    ]
+  },
+  "keywords": [
+    "container-management",
+    "kubernetes",
+    "openshift",
+    "multi-cluster",
+    "enterprise-containers",
+    "ai-workloads",
+    "sovereign-infrastructure",
+    "multicluster-security",
+    "container-platform",
+    "cloud-native"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.9",
+  "citations": [
+    {
+      "name": "Container Management TDP",
+      "description": "Complete TDP documentation for the container management technology domain covering OpenShift positioning, seller credentials, customer wins, and four sales tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//",
+      "kind": "citation"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat OpenShift Documentation",
+      "description": "Official Red Hat OpenShift product documentation covering container platform architecture, multi-cluster management, and enterprise Kubernetes capabilities.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.openshift.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat Advanced Cluster Management for Kubernetes",
+      "description": "Documentation for multi-cluster management, governance, and observability across hybrid and multi-cloud Kubernetes environments.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "container-management-domain-icon",
+      "description": "Visual icon representing the container management technology domain within the sales framework.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "kubernetes-standard-tactic-icon",
+      "description": "Visual icon representing standard Kubernetes workload tactic conversations.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-dharmachakra",
+      "fontWeight": "900"
+    },
+    {
+      "name": "kubernetes-ai-tactic-icon",
+      "description": "Visual icon representing Kubernetes for AI workload tactic conversations.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microchip",
+      "fontWeight": "900"
+    },
+    {
+      "name": "multicluster-security-tactic-icon",
+      "description": "Visual icon representing multi-cluster security and governance tactic conversations.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sovereign-infrastructure-tactic-icon",
+      "description": "Visual icon representing sovereign infrastructure tactic conversations.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-flag",
+      "fontWeight": "900"
+    },
+    {
+      "name": "container-competitive-icon",
+      "description": "Visual icon representing container platform competitive positioning and battle card content.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-scale-balanced",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Container Management",
+      "description": "Container platform technology domain tracking progression from strategy assessment through platform decision for Kubernetes/OpenShift engagements.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "maps to",
+          "alphaName": "Kubernetes Standard Workloads",
+          "direction": "outgoing",
+          "description": "The container management domain maps to the standard Kubernetes workloads tactic for enterprise container adoption conversations."
+        },
+        {
+          "relationship": "maps to",
+          "alphaName": "Kubernetes for AI",
+          "direction": "outgoing",
+          "description": "The container management domain maps to the Kubernetes for AI tactic for AI workload platform conversations."
+        },
+        {
+          "relationship": "maps to",
+          "alphaName": "Multicluster Security",
+          "direction": "outgoing",
+          "description": "The container management domain maps to the multicluster security tactic for governance and policy conversations."
+        },
+        {
+          "relationship": "maps to",
+          "alphaName": "Sovereign Infrastructure",
+          "direction": "outgoing",
+          "description": "The container management domain maps to the sovereign infrastructure tactic for sovereignty-aware deployment conversations."
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Container Management Competitive Position",
+          "direction": "outgoing",
+          "description": "Container management engagements use domain-specific competitive intelligence for Kubernetes platform positioning against EKS, AKS, GKE, and Rancher."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "container-management-domain-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Customer's container adoption maturity and platform requirements evaluated.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "background": {
+            "given": [
+              "Sales Play engagement has identified Container Management as a relevant TDP"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Technical Decision Point",
+                "stateName": "Identified"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Container adoption maturity assessed",
+              "description": "Container adoption maturity assessed (greenfield, early adoption, scaling, enterprise).",
+              "seq": 1
+            },
+            {
+              "name": "Primary use case identified",
+              "description": "Primary use case identified (standard workloads, AI, multi-cluster, sovereign).",
+              "seq": 2
+            },
+            {
+              "name": "Current container platform evaluated",
+              "description": "Current container platform evaluated (existing Kubernetes distribution, Docker, none).",
+              "seq": 3
+            },
+            {
+              "name": "Cluster topology requirements mapped",
+              "description": "Cluster topology requirements mapped (single, multi-cluster, multi-cloud, edge).",
+              "seq": 4
+            },
+            {
+              "name": "Security and governance requirements identified",
+              "description": "Security and governance requirements identified for container workloads.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Qualified",
+          "description": "OpenShift platform architecture designed for customer's container requirements.",
+          "seq": 2,
+          "contributesToState": "Qualified",
+          "background": {
+            "given": [
+              "Container strategy assessment has been completed with use case and topology identified"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Deployment topology designed",
+              "description": "Deployment topology designed (on-premise, cloud, hybrid, edge configurations).",
+              "seq": 1
+            },
+            {
+              "name": "Multi-cluster management approach defined",
+              "description": "Multi-cluster management approach defined (ACM, GitOps, federation).",
+              "seq": 2
+            },
+            {
+              "name": "Security model designed",
+              "description": "Security model designed (RBAC, network policies, supply chain security).",
+              "seq": 3
+            },
+            {
+              "name": "Infrastructure integration planned",
+              "description": "Integration with existing infrastructure planned (storage, networking, CI/CD).",
+              "seq": 4
+            },
+            {
+              "name": "Developer experience specified",
+              "description": "Developer experience and self-service capabilities specified.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Positioned",
+          "description": "Customer engaged with specific container management tactic content.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "background": {
+            "given": [
+              "Platform architecture initial design has been completed"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Appropriate tactic selected",
+              "description": "Appropriate tactic selected from four container management options.",
+              "seq": 1
+            },
+            {
+              "name": "Customer challenge framing applied",
+              "description": "Tactic-specific customer challenge framing applied to engagement.",
+              "seq": 2
+            },
+            {
+              "name": "Audience-segmented content delivered",
+              "description": "Audience-segmented content (BDM/TDM) delivered for selected tactic.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive positioning prepared",
+              "description": "Competitive positioning prepared against relevant alternatives (EKS, AKS, GKE, Rancher).",
+              "seq": 4
+            },
+            {
+              "name": "Technical demonstration delivered",
+              "description": "Technical demonstration planned or delivered for container platform capabilities.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Demonstrated",
+          "description": "OpenShift technical fit validated through container platform proof activities.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "background": {
+            "given": [
+              "Tactic engagement has generated confirmed customer interest in OpenShift validation"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Proof of concept completed",
+              "description": "Proof of concept or pilot deployment completed on target infrastructure.",
+              "seq": 1
+            },
+            {
+              "name": "Workload compatibility validated",
+              "description": "Workload compatibility and performance validated for customer's container scenarios.",
+              "seq": 2
+            },
+            {
+              "name": "Security requirements met",
+              "description": "Security and compliance requirements met in validation environment.",
+              "seq": 3
+            },
+            {
+              "name": "Developer experience validated",
+              "description": "Developer experience and productivity validated through hands-on evaluation.",
+              "seq": 4
+            },
+            {
+              "name": "Operational manageability confirmed",
+              "description": "Operational manageability at target scale confirmed with monitoring and observability.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Customer commits to OpenShift as container management platform.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "background": {
+            "given": [
+              "Technical validation has been completed successfully"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Container Management Competitive Position",
+                "stateName": "Defended"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "OpenShift selected",
+              "description": "OpenShift selected as enterprise container platform.",
+              "seq": 1
+            },
+            {
+              "name": "Subscription sizing completed",
+              "description": "Subscription sizing and deployment planning completed.",
+              "seq": 2
+            },
+            {
+              "name": "Win attributed to TDP",
+              "description": "Win attributed to Container Management TDP in pipeline tracking.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-sell opportunities identified",
+              "description": "Cross-sell opportunities identified (Automation, AI Platform TDPs).",
+              "seq": 4
+            },
+            {
+              "name": "Expansion roadmap established",
+              "description": "Expansion roadmap established for additional clusters and use cases.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Container Management Domain Context and Rationale",
+          "description": "Why the Container Management Domain alpha matters within the three-level framework.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Enterprise customers evaluating container platforms face a fragmented landscape where managed Kubernetes services (EKS, AKS, GKE) offer cloud-specific convenience but lack consistent hybrid operations, while alternative distributions (Rancher) provide management layers without the integrated security, developer experience, and enterprise support of a full platform."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Container Management TDP structures OpenShift positioning around the customer's specific container use case -- standard enterprise workloads, AI/ML workloads requiring GPU orchestration and model serving, multi-cluster governance across distributed environments, or sovereignty-aware deployments requiring data residency and regulatory compliance. Each use case maps to a dedicated tactic with audience-segmented content, competitive differentiation, and proof activity guidance."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers who position OpenShift through the Container Management TDP's tactic-aligned approach establish technology-specific credibility and demonstrate understanding of the customer's container platform decision context, leading to higher win rates against both managed Kubernetes services and alternative enterprise distributions."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        },
+        {
+          "name": "Container Management TDP Practice Intent",
+          "description": "The end-to-end narrative of the container management technology domain engagement from discovery through expansion.",
+          "narrativeTypeName": "Sales Engagement Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "Enterprise customers evaluate container management platforms across diverse use cases -- standard Kubernetes workloads, AI/ML workloads requiring GPU orchestration, multi-cluster governance across hybrid environments, and sovereignty-aware deployments requiring data residency controls. Each scenario demands specialized positioning that connects OpenShift capabilities to customer-specific technology decisions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Validate",
+              "context": "The Container Management TDP validates positioning through four specialized tactics, each addressing a distinct entry point into the container platform conversation. Kubernetes Standard Workloads covers enterprise container adoption; Kubernetes for AI addresses AI platform partnership scenarios; Multicluster Security focuses on governance and policy across distributed clusters; Sovereign Infrastructure intersects with sovereignty requirements for regulated deployments."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Propose",
+              "context": "Tactic-level engagement equips sellers with audience-segmented content (What to Say/Share/Show) for each container scenario. Competitive positioning against EKS, AKS, GKE, and Rancher is structured per tactic, with OpenShift's enterprise security, multi-cluster management through ACM, and hybrid cloud consistency as primary differentiators."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Negotiate",
+              "context": "Field execution navigates between tactic-specific conversations and broader play-level value articulation. Sellers assess container adoption maturity, design platform architecture recommendations, and validate technical fit through demonstrations and proof activities tailored to the customer's container use case."
+            },
+            {
+              "seq": 5,
+              "narrativeElementName": "Close",
+              "context": "Technical validation through proof activities (POC deployments, workload compatibility testing, security compliance validation) confirms OpenShift's fit for the customer's container platform decision, leading to platform selection and subscription commitment."
+            },
+            {
+              "seq": 6,
+              "narrativeElementName": "Expand",
+              "context": "Post-decision expansion identifies cross-sell opportunities across Automation and AI Platform TDPs, establishing expansion roadmaps that grow the container platform footprint from initial adoption to enterprise-wide standardization."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Technical Decision Point",
+      "kind": "alpha"
+    },
+    {
+      "name": "Kubernetes Standard Workloads",
+      "description": "Tactic tracking customer challenge-focused conversations for standard enterprise Kubernetes workload adoption.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "kubernetes-standard-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Standard Kubernetes adoption challenge articulated in customer's context.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "checklist": [
+            {
+              "name": "Container adoption challenge identified",
+              "description": "Customer's container adoption challenge identified (platform fragmentation, operational complexity, security gaps).",
+              "seq": 1
+            },
+            {
+              "name": "Impact of challenge quantified",
+              "description": "Impact of challenge quantified (operational overhead, deployment delays, inconsistent environments).",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for standard Kubernetes conversation (Infrastructure VP, Platform Engineering Lead).",
+              "seq": 3
+            },
+            {
+              "name": "Initial messaging framework prepared",
+              "description": "Initial messaging framework prepared for business and technical audiences.",
+              "seq": 4
+            },
+            {
+              "name": "TDP relationship established",
+              "description": "Supporting TDP relationship to Container Management established.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented Kubernetes positioning content delivered to customer stakeholders.",
+          "seq": 2,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "What to Say content delivered",
+              "description": "What to Say content delivered: OpenShift as enterprise Kubernetes with integrated security and developer tools.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials sent",
+              "description": "What to Share materials sent: analyst reports, customer case studies, architecture white papers.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared: cluster deployment, developer onboarding, operational monitoring.",
+              "seq": 3
+            },
+            {
+              "name": "Enterprise Kubernetes differentiation positioned",
+              "description": "Enterprise Kubernetes differentiation positioned (vs self-managed K8s, managed services).",
+              "seq": 4
+            },
+            {
+              "name": "Content engagement tracking active",
+              "description": "Content engagement tracking active for shared materials.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating OpenShift for standard Kubernetes workloads.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Discovery conversations generating data",
+              "description": "Discovery conversations generating qualifying information (workload types, scale, timeline).",
+              "seq": 1
+            },
+            {
+              "name": "Challenge framing resonates",
+              "description": "Customer challenge framing resonates with target personas.",
+              "seq": 2
+            },
+            {
+              "name": "Demonstrations delivered",
+              "description": "Demonstrations and workshops delivered showing enterprise Kubernetes capabilities.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-TDP navigation used",
+              "description": "Cross-TDP navigation used when customer needs span beyond container management.",
+              "seq": 4
+            },
+            {
+              "name": "Follow-on conversations generated",
+              "description": "Follow-on conversations generated expanding engagement scope.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive objections addressed with evidence-based responses for Kubernetes positioning.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "checklist": [
+            {
+              "name": "Managed Kubernetes objections addressed",
+              "description": "Managed Kubernetes objections addressed (EKS/AKS/GKE simplicity vs OpenShift enterprise features).",
+              "seq": 1
+            },
+            {
+              "name": "Cost objections handled",
+              "description": "Cost objections handled with TCO analysis and operational efficiency arguments.",
+              "seq": 2
+            },
+            {
+              "name": "Migration concerns addressed",
+              "description": "Migration concerns addressed with proven adoption pathways and co-existence strategies.",
+              "seq": 3
+            },
+            {
+              "name": "Open-source foundation positioned",
+              "description": "Open-source foundation positioned as strategic advantage for portability and choice.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references shared demonstrating standard workload success.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Standard Kubernetes tactic execution has created or advanced a qualified opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunity attributed to tactic",
+              "description": "Opportunity attributed to Kubernetes Standard Workloads tactic and tracked in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Conversion confirmed",
+              "description": "Challenge-to-opportunity conversion confirmed through engagement data.",
+              "seq": 2
+            },
+            {
+              "name": "Services and partners positioned",
+              "description": "Services and partner solutions positioned within the deal.",
+              "seq": 3
+            },
+            {
+              "name": "Expansion potential identified",
+              "description": "Expansion potential identified for additional clusters and workload types.",
+              "seq": 4
+            },
+            {
+              "name": "Customer win documented",
+              "description": "Customer win documented for Container Management TDP evidence base.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Kubernetes Standard Workloads Tactic Context and Rationale",
+          "description": "Why the Kubernetes Standard Workloads Tactic matters for enterprise container adoption conversations.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations adopting Kubernetes for standard enterprise workloads often face a choice between managed cloud services that lock them into a single provider and self-managed distributions that require significant operational expertise without enterprise support or integrated security."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Kubernetes Standard Workloads tactic positions OpenShift as the enterprise Kubernetes platform that combines cloud-native simplicity with enterprise-grade security, multi-cluster management, and consistent hybrid cloud operations. Conversation content is structured by audience (infrastructure leaders, platform engineers, DevOps teams) with discovery questions tailored to standard container adoption challenges."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Tactic execution establishes OpenShift's differentiation through integrated security, developer experience, and operational consistency across hybrid environments, converting container platform evaluations into qualified opportunities."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Kubernetes for AI",
+      "description": "Tactic tracking customer challenge-focused conversations for AI workload deployment on Kubernetes.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "kubernetes-ai-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "AI workload container platform challenge articulated in customer's context.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "checklist": [
+            {
+              "name": "AI infrastructure challenge identified",
+              "description": "Customer's AI infrastructure challenge identified (GPU scheduling, model serving, training pipelines).",
+              "seq": 1
+            },
+            {
+              "name": "AI fragmentation impact quantified",
+              "description": "Impact of AI infrastructure fragmentation quantified (delayed model deployment, GPU underutilization).",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for AI Kubernetes conversation (AI/ML Engineering Lead, Infrastructure VP).",
+              "seq": 3
+            },
+            {
+              "name": "AI platform partnership context understood",
+              "description": "AI platform partnership context understood (third-party AI tools requiring Kubernetes).",
+              "seq": 4
+            },
+            {
+              "name": "Cross-TDP relationship assessed",
+              "description": "Relationship to AI Platform TDP assessed for potential cross-TDP engagement.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "AI-specific Kubernetes positioning content delivered to customer stakeholders.",
+          "seq": 2,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "What to Say content delivered",
+              "description": "What to Say content delivered: OpenShift as AI-ready Kubernetes with GPU scheduling and operator integration.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials sent",
+              "description": "What to Share materials sent: AI workload case studies, partner ecosystem documentation, GPU benchmarks.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared: AI workload deployment, GPU scheduling, model serving pipelines.",
+              "seq": 3
+            },
+            {
+              "name": "AI platform partnership positioning included",
+              "description": "AI platform partnership positioning included (NVIDIA, Intel, third-party AI tool integration).",
+              "seq": 4
+            },
+            {
+              "name": "Content engagement tracking active",
+              "description": "Content engagement tracking active for AI-specific materials.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating OpenShift for AI workload deployment.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "AI workload requirements qualified",
+              "description": "Discovery conversations qualifying AI workload requirements (training vs inference, GPU types, scale).",
+              "seq": 1
+            },
+            {
+              "name": "AI platform partnership validated",
+              "description": "AI platform partnership alignment validated with customer's AI toolchain.",
+              "seq": 2
+            },
+            {
+              "name": "AI demonstrations delivered",
+              "description": "Demonstrations showing AI workload deployment and GPU orchestration delivered.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-TDP navigation used",
+              "description": "Cross-TDP navigation to AI Platform TDP used when model serving depth needed.",
+              "seq": 4
+            },
+            {
+              "name": "POC-to-production roadmap engaged",
+              "description": "Customer engaged on roadmap from POC to production AI on Kubernetes.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "AI-specific competitive objections addressed with evidence-based responses.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "checklist": [
+            {
+              "name": "Cloud-native AI objections addressed",
+              "description": "Cloud-native AI service objections addressed (EKS/AKS GPU vs OpenShift GPU operator).",
+              "seq": 1
+            },
+            {
+              "name": "AI platform lock-in concerns addressed",
+              "description": "AI platform lock-in concerns addressed with open-source AI stack positioning.",
+              "seq": 2
+            },
+            {
+              "name": "Complexity objections handled",
+              "description": "Complexity objections handled with integrated AI operator and pipeline capabilities.",
+              "seq": 3
+            },
+            {
+              "name": "Performance objections addressed",
+              "description": "Performance objections addressed with GPU scheduling benchmarks and customer evidence.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references shared demonstrating AI workload success on OpenShift.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "AI Kubernetes tactic execution has created or advanced a qualified opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunity attributed to tactic",
+              "description": "Opportunity attributed to Kubernetes for AI tactic and tracked in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "AI workload validation confirmed",
+              "description": "AI workload validation confirmed through proof activities (GPU scheduling, model serving).",
+              "seq": 2
+            },
+            {
+              "name": "AI platform partnership value demonstrated",
+              "description": "AI platform partnership value demonstrated alongside OpenShift.",
+              "seq": 3
+            },
+            {
+              "name": "Expansion potential identified",
+              "description": "Expansion potential identified for additional AI use cases and GPU clusters.",
+              "seq": 4
+            },
+            {
+              "name": "Customer win documented",
+              "description": "Customer win documented for Container Management TDP evidence base.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Kubernetes for AI Tactic Context and Rationale",
+          "description": "Why the Kubernetes for AI Tactic matters for AI workload platform conversations.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations deploying AI workloads on Kubernetes face challenges with GPU scheduling, operator management for AI frameworks, and integrating third-party AI platforms with enterprise-grade container infrastructure that provides consistent security and operational governance."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Kubernetes for AI tactic positions OpenShift as the AI-ready Kubernetes platform with integrated GPU scheduling, NVIDIA GPU Operator support, and validated partnerships with third-party AI platforms. Content addresses both AI engineering leaders (model deployment velocity, GPU utilization) and infrastructure leaders (enterprise security, operational governance for AI workloads)."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Tactic execution demonstrates OpenShift's AI workload readiness through GPU orchestration capabilities and partner ecosystem integration, converting AI infrastructure evaluations into container platform opportunities with expansion paths to the AI Platform TDP."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Multicluster Security",
+      "description": "Tactic tracking customer challenge-focused conversations for multi-cluster Kubernetes governance and security.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "multicluster-security-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Multi-cluster security and governance challenge articulated in customer's context.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "checklist": [
+            {
+              "name": "Governance challenge identified",
+              "description": "Customer's multi-cluster governance challenge identified (policy inconsistency, visibility gaps, compliance drift).",
+              "seq": 1
+            },
+            {
+              "name": "Cluster sprawl impact quantified",
+              "description": "Impact of ungoverned cluster sprawl quantified (security incidents, audit failures, operational overhead).",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified (CISO/Security Lead, Platform Engineering Director, Compliance Officer).",
+              "seq": 3
+            },
+            {
+              "name": "Cluster topology assessed",
+              "description": "Cluster topology assessed (on-premise, multi-cloud, edge, hybrid distribution).",
+              "seq": 4
+            },
+            {
+              "name": "Compliance requirements mapped",
+              "description": "Compliance and regulatory requirements mapped to multi-cluster governance needs.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Multi-cluster security positioning content delivered to customer stakeholders.",
+          "seq": 2,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "What to Say content delivered",
+              "description": "What to Say content delivered: ACM-based multi-cluster governance, policy-driven security, observability.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials sent",
+              "description": "What to Share materials sent: multi-cluster architecture guides, compliance case studies, security white papers.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared: ACM policy deployment, multi-cluster observability, compliance reporting.",
+              "seq": 3
+            },
+            {
+              "name": "Enterprise governance differentiation positioned",
+              "description": "Enterprise governance differentiation positioned (vs per-cluster management approaches).",
+              "seq": 4
+            },
+            {
+              "name": "Content engagement tracking active",
+              "description": "Content engagement tracking active for security-focused materials.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating OpenShift multi-cluster security capabilities.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Governance scope qualified",
+              "description": "Discovery conversations qualifying governance scope (cluster count, policy complexity, compliance frameworks).",
+              "seq": 1
+            },
+            {
+              "name": "Security architecture reviewed",
+              "description": "Security architecture review demonstrating ACM governance model.",
+              "seq": 2
+            },
+            {
+              "name": "Policy enforcement demonstrated",
+              "description": "Multi-cluster policy enforcement demonstrated across heterogeneous environments.",
+              "seq": 3
+            },
+            {
+              "name": "Compliance capabilities presented",
+              "description": "Compliance reporting and audit trail capabilities presented.",
+              "seq": 4
+            },
+            {
+              "name": "Security toolchain integration validated",
+              "description": "Integration with existing security toolchain (SIEM, vulnerability scanners) validated.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Multi-cluster security objections addressed with governance evidence.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "checklist": [
+            {
+              "name": "Complexity objections handled",
+              "description": "Complexity objections handled with centralized ACM management versus per-cluster approach.",
+              "seq": 1
+            },
+            {
+              "name": "Cloud-native security objections addressed",
+              "description": "Cloud-native security tool objections addressed (platform-level vs add-on security).",
+              "seq": 2
+            },
+            {
+              "name": "Cost of governance objections countered",
+              "description": "Cost of governance objections countered with compliance risk and audit cost reduction.",
+              "seq": 3
+            },
+            {
+              "name": "Scale concerns addressed",
+              "description": "Scale concerns addressed with multi-cluster management architecture evidence.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references shared demonstrating enterprise-scale multi-cluster governance.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Multicluster security tactic execution has created or advanced a qualified opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunity attributed to tactic",
+              "description": "Opportunity attributed to Multicluster Security tactic and tracked in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Governance validation confirmed",
+              "description": "Multi-cluster governance validation confirmed through ACM proof activities.",
+              "seq": 2
+            },
+            {
+              "name": "Compliance improvement quantified",
+              "description": "Compliance improvement quantified in customer's regulatory context.",
+              "seq": 3
+            },
+            {
+              "name": "Expansion potential identified",
+              "description": "Expansion potential identified for additional clusters and governance policies.",
+              "seq": 4
+            },
+            {
+              "name": "Customer win documented",
+              "description": "Customer win documented for Container Management TDP evidence base.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Multicluster Security Tactic Context and Rationale",
+          "description": "Why the Multicluster Security Tactic matters for multi-cluster governance conversations.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations with distributed Kubernetes environments across on-premise, cloud, and edge locations face escalating governance challenges -- inconsistent security policies across clusters, compliance drift, limited observability into distributed workloads, and operational overhead from managing each cluster independently."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Multicluster Security tactic positions OpenShift with Advanced Cluster Management as the enterprise governance layer for distributed Kubernetes. Content addresses security leaders (policy consistency, compliance automation), platform engineers (centralized management, GitOps-driven policy), and compliance officers (audit trails, regulatory reporting) with evidence of governance at enterprise scale."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Tactic execution demonstrates centralized governance value through ACM-based policy enforcement, compliance reporting, and multi-cluster observability, converting governance concerns into platform standardization opportunities across the enterprise's Kubernetes estate."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP",
+            "Red Hat Advanced Cluster Management for Kubernetes"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Sovereign Infrastructure",
+      "description": "Tactic tracking customer challenge-focused conversations for sovereignty-aware container platform deployments.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "sovereign-infrastructure-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Sovereign infrastructure challenge articulated for container platform deployment.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "checklist": [
+            {
+              "name": "Sovereignty requirements identified",
+              "description": "Customer's sovereignty requirements identified (data residency, regulatory compliance, supply chain control).",
+              "seq": 1
+            },
+            {
+              "name": "Sovereignty gap impact quantified",
+              "description": "Impact of sovereignty gaps quantified (regulatory penalties, market access restrictions, vendor dependency).",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified (Government IT Director, Compliance Officer, Sovereign Cloud Architect).",
+              "seq": 3
+            },
+            {
+              "name": "Geographic and regulatory context mapped",
+              "description": "Geographic and regulatory context mapped (EU data sovereignty, national regulations, industry mandates).",
+              "seq": 4
+            },
+            {
+              "name": "Digital Sovereignty Play intersection assessed",
+              "description": "Intersection with Digital Sovereignty Sales Play assessed for coordinated engagement.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Sovereign infrastructure positioning content delivered to customer stakeholders.",
+          "seq": 2,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "What to Say content delivered",
+              "description": "What to Say content delivered: OpenShift sovereign deployment models, data residency controls, open-source supply chain.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials sent",
+              "description": "What to Share materials sent: sovereign cloud partnership documentation, regulatory compliance guides.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared: sovereign deployment architecture, data residency controls, supply chain transparency.",
+              "seq": 3
+            },
+            {
+              "name": "Sovereign cloud partnership positioning included",
+              "description": "Sovereign cloud partnership positioning included (local cloud providers, government cloud).",
+              "seq": 4
+            },
+            {
+              "name": "Content engagement tracking active",
+              "description": "Content engagement tracking active for sovereignty-focused materials.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating OpenShift for sovereign container infrastructure.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Sovereignty scope qualified",
+              "description": "Discovery conversations qualifying sovereignty scope (data types, jurisdictions, compliance frameworks).",
+              "seq": 1
+            },
+            {
+              "name": "Sovereign deployment architecture presented",
+              "description": "Sovereign deployment architecture presented with data residency controls.",
+              "seq": 2
+            },
+            {
+              "name": "Supply chain transparency demonstrated",
+              "description": "Open-source supply chain transparency demonstrated as sovereignty advantage.",
+              "seq": 3
+            },
+            {
+              "name": "Digital Sovereignty Play coordination established",
+              "description": "Coordination with Digital Sovereignty Sales Play established when broader sovereignty engagement warranted.",
+              "seq": 4
+            },
+            {
+              "name": "Regulatory compliance mapping validated",
+              "description": "Regulatory compliance mapping validated for customer's specific jurisdiction.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Sovereign infrastructure objections addressed with compliance evidence.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "checklist": [
+            {
+              "name": "Cloud provider sovereignty objections addressed",
+              "description": "Cloud provider sovereignty objections addressed (OpenShift on-premise/sovereign cloud vs hyperscaler).",
+              "seq": 1
+            },
+            {
+              "name": "Open-source trust objections handled",
+              "description": "Open-source trust objections handled with supply chain transparency and community governance.",
+              "seq": 2
+            },
+            {
+              "name": "Operational complexity concerns addressed",
+              "description": "Operational complexity concerns addressed with managed sovereign deployment options.",
+              "seq": 3
+            },
+            {
+              "name": "Cost of sovereignty objections countered",
+              "description": "Cost of sovereignty objections countered with regulatory risk and market access arguments.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references shared demonstrating sovereign container infrastructure deployments.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Sovereign infrastructure tactic execution has created or advanced a qualified opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunity attributed to tactic",
+              "description": "Opportunity attributed to Sovereign Infrastructure tactic and tracked in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Sovereignty compliance validated",
+              "description": "Sovereignty compliance validated through deployment architecture proof.",
+              "seq": 2
+            },
+            {
+              "name": "Sovereign cloud partnership value demonstrated",
+              "description": "Sovereign cloud partnership value demonstrated alongside OpenShift.",
+              "seq": 3
+            },
+            {
+              "name": "Expansion potential identified",
+              "description": "Expansion potential identified for additional sovereign workloads and jurisdictions.",
+              "seq": 4
+            },
+            {
+              "name": "Customer win documented",
+              "description": "Customer win documented for both Container Management TDP and Digital Sovereignty play.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Sovereign Infrastructure Tactic Context and Rationale",
+          "description": "Why the Sovereign Infrastructure Tactic matters for sovereignty-aware container deployment conversations.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations in regulated industries or sovereignty-sensitive geographies need container platforms that meet data residency requirements, provide supply chain transparency, and operate within sovereign cloud boundaries -- requirements that public cloud managed Kubernetes services may not address without significant architectural concessions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Sovereign Infrastructure tactic positions OpenShift as the sovereignty-aware container platform with flexible deployment models (on-premise, sovereign cloud partnerships, air-gapped environments), open-source supply chain transparency, and data residency controls. This tactic intersects with the Digital Sovereignty Sales Play for customers requiring comprehensive sovereignty strategy beyond container infrastructure."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Tactic execution establishes OpenShift's sovereignty credentials through deployment flexibility, open-source transparency, and regulatory compliance evidence, converting sovereignty requirements into differentiated container platform opportunities in regulated markets."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Container Management Competitive Position",
+      "description": "Container and Kubernetes domain competitive intelligence tracking competitive positioning against managed Kubernetes services and alternative distributions.",
+      "focusName": "Solution Alignment",
+      "contributesTo": "Competitive Position",
+      "relatesTo": [
+        {
+          "relationship": "informs",
+          "alphaName": "Container Management",
+          "direction": "outgoing",
+          "description": "Container-specific competitive intelligence informs TDP positioning content and tactic-level differentiation arguments."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "container-competitive-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Assessed",
+          "description": "Container and Kubernetes competitive landscape initially assessed.",
+          "seq": 1,
+          "contributesToState": "Assessed",
+          "checklist": [
+            {
+              "name": "Primary Kubernetes competitors identified",
+              "description": "Primary Kubernetes competitors identified: Amazon EKS, Azure AKS, Google GKE, SUSE Rancher.",
+              "seq": 1
+            },
+            {
+              "name": "Analyst reports catalogued",
+              "description": "Analyst reports catalogued for container platform evaluations (Gartner, Forrester, IDC).",
+              "seq": 2
+            },
+            {
+              "name": "OpenShift market position compiled",
+              "description": "OpenShift market position data compiled (market share, customer base, analyst positioning).",
+              "seq": 3
+            },
+            {
+              "name": "Intelligence sources established",
+              "description": "Internal competitive intelligence sources established for container/Kubernetes domain.",
+              "seq": 4
+            },
+            {
+              "name": "Collection cadence aligned",
+              "description": "Intelligence collection cadence aligned to container market dynamics.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Mapped",
+          "description": "Container platform competitors mapped with strengths and vulnerability areas.",
+          "seq": 2,
+          "contributesToState": "Mapped",
+          "background": {
+            "given": [
+              "Initial container/Kubernetes competitive landscape assessment is complete"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Per-competitor feature maps created",
+              "description": "Per-competitor feature maps created: EKS (AWS integration), AKS (Azure ecosystem), GKE (Kubernetes origin), Rancher (multi-cluster management).",
+              "seq": 1
+            },
+            {
+              "name": "OpenShift differentiation documented",
+              "description": "OpenShift differentiation documented: integrated security, developer tools, operator framework, enterprise support.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive objections documented",
+              "description": "Common competitive objections documented (cost vs managed services, complexity vs self-managed).",
+              "seq": 3
+            },
+            {
+              "name": "Displacement triggers identified",
+              "description": "Competitive displacement triggers identified (hyperscaler lock-in concerns, multi-cloud requirements, security gaps).",
+              "seq": 4
+            },
+            {
+              "name": "Migration strategies documented",
+              "description": "Migration and co-existence strategies documented for each competitor path.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Differentiated",
+          "description": "OpenShift's container platform differentiation expressed in customer-relevant terms.",
+          "seq": 3,
+          "contributesToState": "Differentiated",
+          "checklist": [
+            {
+              "name": "Enterprise security differentiation articulated",
+              "description": "Enterprise security differentiation articulated (integrated security vs bolt-on, supply chain security).",
+              "seq": 1
+            },
+            {
+              "name": "Multi-cluster governance differentiation positioned",
+              "description": "Multi-cluster governance differentiation positioned (ACM vs competitor multi-cluster approaches).",
+              "seq": 2
+            },
+            {
+              "name": "Hybrid cloud consistency established",
+              "description": "Hybrid cloud consistency differentiation established (consistent operations vs cloud-specific management).",
+              "seq": 3
+            },
+            {
+              "name": "Developer experience differentiation demonstrated",
+              "description": "Developer experience differentiation demonstrated (integrated CI/CD, developer portal, operator ecosystem).",
+              "seq": 4
+            },
+            {
+              "name": "Open-source advantage positioned",
+              "description": "Open-source and portability advantage positioned against proprietary managed services.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Defended",
+          "description": "Container competitive challenges addressed with evidence-based responses.",
+          "seq": 4,
+          "contributesToState": "Defended",
+          "checklist": [
+            {
+              "name": "Managed simplicity objection defended",
+              "description": "Managed simplicity objection defended (OpenShift managed options: ROSA, ARO, OSD vs self-managed).",
+              "seq": 1
+            },
+            {
+              "name": "Cost comparison defended",
+              "description": "Cost comparison defended with TCO analysis including operational, security, and portability costs.",
+              "seq": 2
+            },
+            {
+              "name": "Cloud-native feature parity defended",
+              "description": "Cloud-native feature parity defended with operator ecosystem and continuous platform updates.",
+              "seq": 3
+            },
+            {
+              "name": "Win/loss data analyzed",
+              "description": "Win/loss data for container platform evaluations analyzed and incorporated into positioning.",
+              "seq": 4
+            },
+            {
+              "name": "Field insights integrated",
+              "description": "Field-generated competitive insights integrated into tactic conversation guides.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Preferred",
+          "description": "OpenShift established as preferred container management platform against competitive alternatives.",
+          "seq": 5,
+          "contributesToState": "Preferred",
+          "background": {
+            "given": [
+              "Container competitive challenges have been successfully defended with evidence"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Container Management",
+                "stateName": "Demonstrated"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Competitive displacement stories documented",
+              "description": "Competitive displacement stories documented for container platform evaluations.",
+              "seq": 1
+            },
+            {
+              "name": "Analyst recognition updated",
+              "description": "Analyst recognition updated in Container Management TDP positioning brief.",
+              "seq": 2
+            },
+            {
+              "name": "Field-generated insights captured",
+              "description": "Field-generated competitive insights from container wins captured and integrated.",
+              "seq": 3
+            },
+            {
+              "name": "Win rate exceeds targets",
+              "description": "Container platform win rate exceeds competitive baseline targets.",
+              "seq": 4
+            },
+            {
+              "name": "Customer advocacy established",
+              "description": "Customer advocacy established with referenceable container platform wins.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Container Management Competitive Position Context and Rationale",
+          "description": "Why container-domain competitive intelligence is essential for Kubernetes platform positioning.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Container platform evaluations increasingly involve managed Kubernetes services (EKS, AKS, GKE) that offer cloud-provider-integrated simplicity, alongside multi-cluster management tools (Rancher) that provide distribution-agnostic management. Each alternative has genuine strengths that must be acknowledged while positioning OpenShift's enterprise platform advantages."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Managed Kubernetes services excel at cloud-specific deployment simplicity and tight integration with provider services. Rancher provides multi-cluster management across distributions. However, managed services create cloud lock-in, lack consistent hybrid operations, and require bolting on enterprise security capabilities that OpenShift integrates natively."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "OpenShift differentiates through integrated enterprise security (built-in rather than bolt-on), consistent hybrid cloud operations (same platform on-premise, cloud, and edge), Advanced Cluster Management for multi-cluster governance, an extensive operator ecosystem, and Red Hat's enterprise support and lifecycle management -- capabilities that address enterprise requirements managed services and alternative distributions handle through fragmented tooling."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP",
+            "Red Hat OpenShift Documentation"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Container Management Brief",
+      "description": "Container-specific positioning document with OpenShift credentials, customer proof, and audience-segmented engagement content.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Container platform market context with OpenShift positioning summary.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Market landscape described",
+              "description": "Kubernetes and container platform market landscape described.",
+              "seq": 1
+            },
+            {
+              "name": "Product capabilities mapped",
+              "description": "OpenShift product capabilities mapped to container management domain.",
+              "seq": 2
+            },
+            {
+              "name": "Key competitors listed",
+              "description": "Key container platform competitors listed with market positioning.",
+              "seq": 3
+            },
+            {
+              "name": "Four use cases identified",
+              "description": "Four container management use cases identified (standard, AI, multicluster, sovereign).",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Management",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Credentialed",
+          "description": "OpenShift credentials and customer wins with audience-segmented messaging for containers.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Seller credentials documented",
+              "description": "OpenShift seller credentials documented (Kubernetes certifications, analyst recognitions, market share).",
+              "seq": 1
+            },
+            {
+              "name": "Customer wins catalogued",
+              "description": "Container platform customer wins catalogued by use case and industry.",
+              "seq": 2
+            },
+            {
+              "name": "BDM messaging drafted",
+              "description": "BDM messaging drafted (business agility, operational efficiency, risk reduction through container standardization).",
+              "seq": 3
+            },
+            {
+              "name": "TDM messaging drafted",
+              "description": "TDM messaging drafted (architecture benefits, multi-cluster operations, security model, developer experience).",
+              "seq": 4
+            },
+            {
+              "name": "Supporting Sales Plays identified",
+              "description": "Supporting Sales Plays identified (Build and Run Applications, Modernize Infrastructure).",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Management",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Content-Complete",
+          "description": "Full What to Say/Share/Show content with demonstrations for container platform engagements.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "What to Say presentations finalized",
+              "description": "What to Say presentations finalized for business and technical container platform audiences.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share analyst reports, case studies, and architecture guides curated by audience.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show OpenShift demonstrations prepared (cluster deployment, developer onboarding, multi-cluster governance).",
+              "seq": 3
+            },
+            {
+              "name": "Tactic conversation guides linked",
+              "description": "Four tactic conversation guides linked with bidirectional navigation.",
+              "seq": 4
+            },
+            {
+              "name": "Services and partner solutions documented",
+              "description": "Services and partner solutions for container platform deployments documented.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Management",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Differentiated"
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Performance-enriched brief with container platform win rate data and field-validated content.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Win rate data incorporated",
+              "description": "Container platform win rate data by competitor and scenario incorporated.",
+              "seq": 1
+            },
+            {
+              "name": "Demonstration effectiveness ratings available",
+              "description": "Demonstration effectiveness ratings guide proof activity selection.",
+              "seq": 2
+            },
+            {
+              "name": "Customer references refreshed",
+              "description": "Customer references refreshed with recent container platform wins.",
+              "seq": 3
+            },
+            {
+              "name": "Field feedback incorporated",
+              "description": "Field feedback on container messaging effectiveness incorporated.",
+              "seq": 4
+            },
+            {
+              "name": "Competitive intelligence reflects latest evaluations",
+              "description": "Competitive intelligence reflects latest Kubernetes analyst evaluations.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Management",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Defended"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Container Management Positioning Brief Value Story",
+          "description": "Why the Container Management Positioning Brief matters for seller effectiveness.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sellers engaging in container platform technology conversations need more than OpenShift product documentation -- they need Kubernetes market credentials, customer wins demonstrating enterprise-scale container adoption, and structured messaging tailored to both infrastructure leaders evaluating platforms and engineers evaluating Kubernetes distributions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Container Management Positioning Brief progresses from market overview through credentialed positioning to content-complete engagement guide to validated performance reference, providing increasingly actionable container platform positioning at each depth level."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A validated Container Management Positioning Brief equips sellers to engage credibly in Kubernetes platform evaluations, with win rate data and field-validated messaging that adapts to each customer's container adoption context."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP"
+          ]
+        }
+      ],
+      "mapsTo": "TDP Positioning Brief",
+      "kind": "workProduct"
+    },
+    {
+      "name": "Container Management Guide",
+      "description": "Customer challenge-focused conversation guide for container management tactics with audience-segmented content and evidence.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Container customer challenge identification with initial messaging.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Customer challenge stated",
+              "description": "Container customer challenge clearly stated and framed (per tactic variant).",
+              "seq": 1
+            },
+            {
+              "name": "Initial talking points listed",
+              "description": "Initial talking points for container platform discovery conversations listed.",
+              "seq": 2
+            },
+            {
+              "name": "Evidence and proof points identified",
+              "description": "Basic evidence and proof points for container capabilities identified.",
+              "seq": 3
+            },
+            {
+              "name": "Target personas named",
+              "description": "Target personas for this container challenge named.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Kubernetes Standard Workloads",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Kubernetes for AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Multicluster Security",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Sovereign Infrastructure",
+              "stateName": "Prepared"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Conversation guide with audience-segmented container messaging and evidence.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Executive-level messaging prepared",
+              "description": "Executive-level container messaging with business impact framing.",
+              "seq": 1
+            },
+            {
+              "name": "Technical-level messaging prepared",
+              "description": "Technical-level messaging with Kubernetes architecture and capability detail.",
+              "seq": 2
+            },
+            {
+              "name": "Evaluator-level messaging prepared",
+              "description": "Evaluator-level messaging with proof and validation guidance.",
+              "seq": 3
+            },
+            {
+              "name": "Customer references matched",
+              "description": "Container customer reference stories matched to the challenge variant.",
+              "seq": 4
+            },
+            {
+              "name": "Discovery questions tailored",
+              "description": "Discovery questions tailored to each audience level for container platform decisions.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Kubernetes Standard Workloads",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Kubernetes for AI",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Multicluster Security",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Sovereign Infrastructure",
+              "stateName": "Deployed"
+            }
+          ]
+        },
+        {
+          "name": "Deployment-Ready",
+          "description": "Complete container conversation guide with engagement tracking and follow-up.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Content sharing with tracking enabled",
+              "description": "Content sharing materials with engagement tracking enabled for container content.",
+              "seq": 1
+            },
+            {
+              "name": "Follow-up templates prepared",
+              "description": "Follow-up email templates and cadence guidance for container platform evaluations.",
+              "seq": 2
+            },
+            {
+              "name": "Objection handling prepared",
+              "description": "Objection handling specific to this container challenge scenario.",
+              "seq": 3
+            },
+            {
+              "name": "TDP positioning cross-referenced",
+              "description": "Cross-reference to Container Management TDP positioning and credentials.",
+              "seq": 4
+            },
+            {
+              "name": "Conversion criteria defined",
+              "description": "Conversion criteria defined for advancing container platform opportunities.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Kubernetes Standard Workloads",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Kubernetes for AI",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Multicluster Security",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Sovereign Infrastructure",
+              "stateName": "Engaged"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Data-driven container conversation guide with conversion analytics.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Conversion rate data available",
+              "description": "Container tactic conversion rate data by segment, region, and seller experience.",
+              "seq": 1
+            },
+            {
+              "name": "Best-performing messaging identified",
+              "description": "Best-performing messaging variants identified for container conversations.",
+              "seq": 2
+            },
+            {
+              "name": "Engagement analytics informing selection",
+              "description": "Container customer engagement analytics informing content selection.",
+              "seq": 3
+            },
+            {
+              "name": "Best practice behaviors codified",
+              "description": "Best practice seller behaviors for container tactic execution codified.",
+              "seq": 4
+            },
+            {
+              "name": "Predictive indicators available",
+              "description": "Predictive indicators for container challenge-to-opportunity conversion.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Kubernetes Standard Workloads",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Kubernetes for AI",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Multicluster Security",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Sovereign Infrastructure",
+              "stateName": "Proven"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Container Tactic Conversation Guide Value Story",
+          "description": "Why tactic-specific conversation guides matter for container platform seller effectiveness.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Container platform conversations require tactic-specific challenge framing because customers entering Kubernetes evaluations from standard workload adoption face different challenges than those entering from AI workloads, multi-cluster governance, or sovereignty requirements."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Four tactic conversation guides share a common progression structure (challenge framework through performance-optimized guide) while specializing the content for each container use case. Each guide leads with the customer's challenge in their language before positioning OpenShift as the response."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Tactic-specific conversation guides enable sellers to enter container platform conversations from the customer's use case rather than leading with product features, establishing relevance that converts more effectively."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic Conversation Guide",
+      "kind": "workProduct"
+    },
+    {
+      "name": "Container Competitive Battle Card",
+      "description": "Container and Kubernetes domain competitive intelligence with head-to-head analysis against EKS, AKS, GKE, and Rancher.",
+      "levelsOfDetail": [
+        {
+          "name": "Competitive Overview",
+          "description": "Basic identification of container platform competitive alternatives.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Primary competitors listed",
+              "description": "Primary Kubernetes competitors listed (EKS, AKS, GKE, Rancher) with market positioning.",
+              "seq": 1
+            },
+            {
+              "name": "Strength/weakness comparison prepared",
+              "description": "High-level strength/weakness comparison for container platforms.",
+              "seq": 2
+            },
+            {
+              "name": "Basic differentiation messages articulated",
+              "description": "Basic OpenShift differentiation messages for container domain articulated.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Assessed"
+            }
+          ]
+        },
+        {
+          "name": "Structured Battle Card",
+          "description": "Organized container competitive analysis with head-to-head comparisons.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Feature comparison tables created",
+              "description": "Feature-by-feature comparison tables for OpenShift vs EKS, AKS, GKE, Rancher.",
+              "seq": 1
+            },
+            {
+              "name": "Objection handling guidance prepared",
+              "description": "Competitor-specific objection handling guidance for container platform evaluations.",
+              "seq": 2
+            },
+            {
+              "name": "Decision criteria mapped",
+              "description": "Customer decision criteria mapped to OpenShift competitive advantages.",
+              "seq": 3
+            },
+            {
+              "name": "Displacement triggers identified",
+              "description": "Displacement triggers identified (managed service lock-in, Rancher support concerns, multi-cloud needs).",
+              "seq": 4
+            },
+            {
+              "name": "Win stories compiled",
+              "description": "Win stories against each container platform competitor compiled.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Strategy-Enriched Battle Card",
+          "description": "Complete container battle card with displacement strategies and migration playbooks.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Displacement strategies documented",
+              "description": "Detailed displacement strategies per container competitor.",
+              "seq": 1
+            },
+            {
+              "name": "Migration approaches documented",
+              "description": "Migration approaches from EKS/AKS/GKE/Rancher to OpenShift documented.",
+              "seq": 2
+            },
+            {
+              "name": "Pricing strategy guidance prepared",
+              "description": "Pricing and commercial strategy guidance for container platform deals.",
+              "seq": 3
+            },
+            {
+              "name": "Trap-setting questions prepared",
+              "description": "Competitive trap-setting questions for container platform discovery.",
+              "seq": 4
+            },
+            {
+              "name": "Analyst data included",
+              "description": "Analyst and third-party comparative data for Kubernetes platforms included.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Differentiated"
+            }
+          ]
+        },
+        {
+          "name": "Intelligence-Driven Battle Card",
+          "description": "Continuously updated container battle card with win/loss analytics.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Win/loss data available",
+              "description": "Container platform win/loss data by competitor and scenario.",
+              "seq": 1
+            },
+            {
+              "name": "Emerging threats tracked",
+              "description": "Emerging competitive threats in Kubernetes ecosystem tracked.",
+              "seq": 2
+            },
+            {
+              "name": "Response playbooks prepared",
+              "description": "Competitive response playbooks for new Kubernetes platform announcements.",
+              "seq": 3
+            },
+            {
+              "name": "Field intelligence integrated",
+              "description": "Field-generated competitive intelligence from container platform evaluations integrated.",
+              "seq": 4
+            },
+            {
+              "name": "Win rate trends available",
+              "description": "Container platform win rate trends and predictive insights.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Defended"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Container Competitive Battle Card Context",
+          "description": "Why container-domain competitive intelligence is structured as a multi-level battle card.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Container platform competitive intelligence must address four distinct competitive dynamics -- managed Kubernetes services from hyperscalers (EKS, AKS, GKE) competing on simplicity and cloud integration, and multi-cluster management alternatives (Rancher) competing on distribution agnosticism and management flexibility."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Each competitor class has genuine strengths. Managed services offer frictionless cloud-native deployment. Rancher provides multi-distribution management. OpenShift competes with integrated enterprise capabilities spanning security, developer experience, and operational consistency."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Battle card depth enables sellers to position credibly against each competitor class with evidence-based arguments tailored to the customer's specific evaluation context, rather than relying on generic competitive messaging."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "workProductInstances": [
+    {
+      "name": "Kubernetes Standard Workloads Conversation Guide",
+      "description": "Conversation guide for standard enterprise Kubernetes workload adoption tactic.",
+      "workProductName": "Container Tactic Conversation Guide"
+    },
+    {
+      "name": "Kubernetes for AI Conversation Guide",
+      "description": "Conversation guide for AI workload deployment on Kubernetes tactic.",
+      "workProductName": "Container Tactic Conversation Guide"
+    },
+    {
+      "name": "Multicluster Security Conversation Guide",
+      "description": "Conversation guide for multi-cluster security and governance tactic.",
+      "workProductName": "Container Tactic Conversation Guide"
+    },
+    {
+      "name": "Sovereign Infrastructure Conversation Guide",
+      "description": "Conversation guide for sovereignty-aware container deployment tactic.",
+      "workProductName": "Container Tactic Conversation Guide"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Container Platform Specialist",
+      "description": "Technology domain expert responsible for OpenShift positioning, container platform validation, and Kubernetes tactic execution.",
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Kubernetes",
+          "Container Platform",
+          "Cloud-Native"
+        ],
+        "lifecycleTags": [
+          "Technical Validation",
+          "Demonstration"
+        ],
+        "organizationalTags": [
+          "Technical Sales",
+          "OpenShift Specialists"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Container Platform Team",
+      "description": "Team responsible for container platform TDP execution, combining OpenShift expertise with field sales support.",
+      "personaNames": [
+        "Container Platform Specialist"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Technical Sales",
+          "OpenShift Specialists"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Assess Container Strategy",
+      "description": "Evaluate customer's container adoption maturity, use case, and platform requirements to determine appropriate tactic engagement.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Sales Play engagement has identified Container Management as a relevant TDP for the customer"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Technical Decision Point",
+            "stateName": "Identified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Container strategy assessment execution",
+        "description": "Verifies container strategy assessment identifies maturity and selects appropriate tactic.",
+        "given": [
+          "Customer has containerization or Kubernetes initiatives in their technology roadmap"
+        ],
+        "when": [
+          "TDP alignment identifies Container Management as relevant to the customer's technology decisions"
+        ],
+        "then": [
+          "Container adoption maturity is assessed and primary use case is identified",
+          "Appropriate tactic is selected from four container management options based on customer context"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Container Management",
+          "stateName": "Identified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Container Management Brief",
+          "levelOfDetailName": "Initial"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Container Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Container Strategy Assessment Approach",
+          "description": "How to assess customer container strategy and select appropriate tactic.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Container platform engagements span diverse scenarios from greenfield Kubernetes adoption to enterprise-scale multi-cluster governance, and sellers need a structured assessment approach to identify the right tactic and positioning for each customer's container maturity and use case."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Container strategy assessment evaluates the customer's container adoption maturity (greenfield, early, scaling, enterprise), identifies the primary use case (standard workloads, AI, multi-cluster governance, sovereign), and maps cluster topology requirements. This assessment determines which of the four container management tactics is most relevant and how to position OpenShift."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A completed container strategy assessment provides the foundation for tactic selection and platform architecture design, ensuring that the engagement addresses the customer's actual container platform decision context rather than defaulting to generic Kubernetes positioning."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Design Container Platform Architecture",
+      "description": "Design OpenShift platform architecture addressing customer's deployment topology, multi-cluster management, and security requirements.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Container strategy assessment has identified customer's use case and topology requirements"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Container Management Domain",
+            "stateName": "Identified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Container platform architecture design execution",
+        "description": "Verifies architecture design addresses deployment, management, security, and developer experience.",
+        "given": [
+          "Customer's container adoption maturity and deployment topology requirements are documented"
+        ],
+        "when": [
+          "Container Platform Specialist engages to design an OpenShift deployment architecture"
+        ],
+        "then": [
+          "Platform architecture addresses deployment topology, multi-cluster management, security model, and developer experience",
+          "Architecture design feeds into tactic-level engagement with customer-specific positioning"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Container Management",
+          "stateName": "Qualified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Container Management Brief",
+          "levelOfDetailName": "Credentialed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Container Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Container Platform Architecture Design Approach",
+          "description": "How to design OpenShift platform architecture for customer container requirements.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Container platform architecture must address multiple dimensions simultaneously -- deployment topology (on-premise, cloud, hybrid, edge), multi-cluster management approach, security model, developer experience, and integration with existing infrastructure -- each requiring OpenShift-specific expertise."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Architecture design translates the container strategy assessment into a concrete OpenShift deployment plan. This includes cluster topology (ACM for multi-cluster, GitOps for configuration management), security model (RBAC, network policies, supply chain security), and developer experience specifications (self-service namespaces, CI/CD integration, developer portals)."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A designed container platform architecture provides the customer with a concrete vision of their OpenShift deployment, enabling tactic-level conversations grounded in architecture specifics rather than abstract capabilities."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP",
+            "Red Hat OpenShift Documentation"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Execute Container Tactic Conversation",
+      "description": "Deliver customer challenge-focused container conversations using tactic-specific messaging, evidence, and audience-segmented content.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Platform architecture design has identified the relevant container tactic",
+          "Tactic conversation guide is prepared with audience-segmented content"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Container Management Domain",
+            "stateName": "Qualified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Container tactic conversation execution",
+        "description": "Verifies tactic conversation delivers challenge-first content with competitive positioning.",
+        "given": [
+          "Customer has agreed to a container platform deep-dive conversation"
+        ],
+        "when": [
+          "Container Platform Specialist delivers tactic-specific conversation using challenge framing"
+        ],
+        "then": [
+          "Customer's container challenge is validated and acknowledged",
+          "Audience-appropriate OpenShift content is delivered with engagement tracking",
+          "Competitive alternatives are addressed within the tactic context"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Container Management",
+          "stateName": "Positioned"
+        },
+        {
+          "alphaName": "Kubernetes Standard Workloads",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Kubernetes Standard Workloads",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Kubernetes for AI",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Kubernetes for AI",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Multicluster Security",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Multicluster Security",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Sovereign Infrastructure",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Sovereign Infrastructure",
+          "stateName": "Engaged"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Container Management Guide",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "Container Management Guide",
+          "levelOfDetailName": "Deployment-Ready"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery",
+        "Competitive Intelligence"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Container Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Container Tactic Conversation Approach",
+          "description": "How to execute challenge-first container platform conversations.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Container platform conversations must address the customer's specific use case -- standard workloads, AI, multi-cluster governance, or sovereign infrastructure -- each with distinct challenge framing, competitive dynamics, and evidence requirements."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Tactic conversation execution follows the selected tactic's conversation guide. The seller opens with the customer's container challenge (not product features), delivers audience-segmented What to Say/Share/Show content, and navigates to supporting evidence. Bidirectional navigation to the Container Management TDP provides technology depth when needed."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Challenge-first container tactic conversations establish relevance by demonstrating understanding of the customer's specific container platform situation, converting more effectively than generic Kubernetes positioning."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Position Container Platform Competitively",
+      "description": "Build and present competitive positioning against Kubernetes alternatives including EKS, AKS, GKE, and Rancher.",
+      "activitySpaceName": "Differentiate Competitively",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Customer has identified competitive Kubernetes alternatives they are evaluating"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Container Management Domain",
+            "stateName": "Positioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "Container competitive positioning execution",
+        "description": "Verifies competitive positioning is tailored to customer's evaluation criteria and competitive scenario.",
+        "given": [
+          "Competitive Kubernetes alternatives are active in the customer's container platform evaluation"
+        ],
+        "when": [
+          "Container Platform Specialist constructs differentiation narrative for the specific competitive scenario"
+        ],
+        "then": [
+          "Differentiation arguments are mapped to customer's Kubernetes evaluation criteria",
+          "OpenShift enterprise platform advantages are positioned against specific competitor strengths",
+          "Migration or co-existence strategy is documented when relevant"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Container Management Competitive Position",
+          "stateName": "Mapped"
+        },
+        {
+          "alphaName": "Container Management Competitive Position",
+          "stateName": "Differentiated"
+        },
+        {
+          "alphaName": "Container Management Competitive Position",
+          "stateName": "Defended"
+        },
+        {
+          "alphaName": "Kubernetes Standard Workloads",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "Kubernetes for AI",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "Multicluster Security",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "Sovereign Infrastructure",
+          "stateName": "Converted"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Container Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card"
+        },
+        {
+          "workProductName": "Container Competitive Battle Card",
+          "levelOfDetailName": "Strategy-Enriched Battle Card"
+        }
+      ],
+      "requiredCompetencies": [
+        "Competitive Intelligence",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Container Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Container Competitive Positioning Approach",
+          "description": "How to position OpenShift competitively against Kubernetes alternatives.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Container platform evaluations involve multiple competitive classes -- managed Kubernetes services from hyperscalers offering cloud-native simplicity, and multi-cluster management tools offering distribution flexibility. Each requires distinct competitive positioning approaches."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "EKS, AKS, and GKE provide managed Kubernetes with deep cloud provider integration. Rancher provides multi-distribution management with Kubernetes distribution flexibility. Each has genuine strengths that effective competitive positioning must acknowledge."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "OpenShift differentiates through integrated enterprise security, consistent hybrid cloud operations, Advanced Cluster Management, and Red Hat's enterprise lifecycle support. Positioning is tailored to the customer's evaluation criteria and competitive scenario rather than generic competitive messaging."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP",
+            "Red Hat OpenShift Documentation"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Validate Container Platform Fit",
+      "description": "Conduct technical proof activities to validate OpenShift's fit for the customer's specific container platform requirements.",
+      "activitySpaceName": "Validate Technically",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Tactic engagement has generated confirmed customer interest in container platform validation"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Container Management Domain",
+            "stateName": "Positioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "Container platform validation execution",
+        "description": "Verifies validation confirms workload compatibility, security compliance, and operational manageability.",
+        "given": [
+          "Customer has requested proof of OpenShift capabilities for their container use case"
+        ],
+        "when": [
+          "Container Platform Specialist designs and executes a proof activity for container platform validation"
+        ],
+        "then": [
+          "Workload compatibility and performance are validated in the customer's target environment",
+          "Security and compliance requirements are demonstrated in the validation deployment",
+          "Operational manageability at target scale is confirmed"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Container Management",
+          "stateName": "Demonstrated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Container Management Brief",
+          "levelOfDetailName": "Content-Complete"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Container Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Container Platform Validation Approach",
+          "description": "How to validate OpenShift fit for customer container platform requirements.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Container platform decisions require technical validation beyond demonstrations -- customers need to confirm workload compatibility, security compliance, developer experience, and operational manageability in environments representative of their production requirements."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Container platform validation follows the customer's use case. For standard workloads -- workload deployment, cluster operations, developer onboarding. For AI -- GPU scheduling, model serving pipelines, AI framework compatibility. For multi-cluster -- ACM policy deployment, multi-cluster observability, compliance reporting. For sovereign -- data residency controls, supply chain transparency, air-gapped operations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Successful container platform validation confirms OpenShift's technical fit, advances the engagement to platform decision, and generates evidence for the Container Management TDP's customer win documentation."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP",
+            "Red Hat OpenShift Documentation"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Advance Container Platform Decision",
+      "description": "Convert validated container platform fit into platform selection commitment with subscription sizing and expansion planning.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Technical validation has been completed successfully for the container platform",
+          "Competitive positioning has been defended in the customer's evaluation context"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Container Management Domain",
+            "stateName": "Demonstrated"
+          },
+          {
+            "alphaName": "Container Management Competitive Position",
+            "stateName": "Defended"
+          }
+        ]
+      },
+      "test": {
+        "name": "Container platform decision advancement execution",
+        "description": "Verifies decision advancement secures platform selection with subscription sizing and cross-sell identification.",
+        "given": [
+          "Container platform technical validation and competitive positioning are complete"
+        ],
+        "when": [
+          "Customer stakeholders convene to make container platform selection decision"
+        ],
+        "then": [
+          "OpenShift is selected as the enterprise container platform",
+          "Subscription sizing and deployment planning are completed",
+          "Cross-sell opportunities for related TDPs are identified and documented"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Container Management",
+          "stateName": "Validated"
+        },
+        {
+          "alphaName": "Kubernetes Standard Workloads",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "Kubernetes for AI",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "Multicluster Security",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "Sovereign Infrastructure",
+          "stateName": "Proven"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Container Management Brief",
+          "levelOfDetailName": "Validated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Deal Orchestration"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Container Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Container Platform Decision Advancement Approach",
+          "description": "How to advance container platform decision to OpenShift selection.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Container platform decisions involve multiple stakeholders with different evaluation criteria -- infrastructure leaders evaluate operational cost, security leaders evaluate compliance, developers evaluate experience, and procurement evaluates commercial terms. Advancing the decision requires coordinating across these perspectives."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Decision advancement synthesizes technical validation results, competitive differentiation, and business value into a unified recommendation for the customer's decision process. Subscription sizing connects platform scope to commercial terms. Cross-sell identification (Automation, AI Platform TDPs) establishes the expansion roadmap."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Successful platform decision advancement results in OpenShift selection with clear deployment plan, pipeline attribution to the Container Management TDP, and identified expansion pathways that grow the engagement beyond initial container platform adoption."
+            }
+          ],
+          "citationNames": [
+            "Container Management TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Container Management Technical Engagement Journey",
+      "description": "Lifecycle coordinating container platform engagement from strategy assessment through tactic execution to platform decision.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Container Management TDP identified as relevant for customer engagement.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Container Management",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Kubernetes Standard Workloads",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Kubernetes for AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Multicluster Security",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Sovereign Infrastructure",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Assess Container Strategy"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The container management engagement begins when a Sales Play identifies Kubernetes or container platform technology decisions in the customer's evaluation landscape. Initial assessment evaluates the customer's container adoption maturity and identifies which of the four container management tactics is most relevant to their use case."
+            }
+          ]
+        },
+        {
+          "name": "Architecture & Credentialing",
+          "description": "Platform architecture designed and OpenShift credentials established.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Container Management",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Mapped"
+            },
+            {
+              "alphaName": "Kubernetes Standard Workloads",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Kubernetes for AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Multicluster Security",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Sovereign Infrastructure",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Design Container Platform Architecture",
+            "Position Container Platform Competitively"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Validate",
+              "context": "Architecture design translates the customer's container requirements into a concrete OpenShift deployment plan while competitive positioning establishes OpenShift's credentials and differentiation against the Kubernetes alternatives the customer is evaluating. Seller credentials, customer wins, and analyst positioning build the credibility foundation."
+            }
+          ]
+        },
+        {
+          "name": "Tactic Execution",
+          "description": "Customer challenge-focused tactic conversations executed with audience-specific content.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Container Management",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "Kubernetes Standard Workloads",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Kubernetes for AI",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Multicluster Security",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Sovereign Infrastructure",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Differentiated"
+            }
+          ],
+          "activities": [
+            "Execute Container Tactic Conversation",
+            "Position Container Platform Competitively"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Propose",
+              "context": "Tactic execution proposes OpenShift as the response to the customer's specific container challenge. Challenge-first conversations lead with the customer's pain before positioning the platform, delivering audience-segmented content with demonstrations and evidence that establish relevance and advance the engagement."
+            }
+          ]
+        },
+        {
+          "name": "Validation & Decision",
+          "description": "Technical validation completed and container platform decision secured.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Container Management",
+              "stateName": "Demonstrated"
+            },
+            {
+              "alphaName": "Container Management",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Kubernetes Standard Workloads",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Kubernetes for AI",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Multicluster Security",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Sovereign Infrastructure",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Defended"
+            },
+            {
+              "alphaName": "Container Management Competitive Position",
+              "stateName": "Preferred"
+            }
+          ],
+          "activities": [
+            "Validate Container Platform Fit",
+            "Advance Container Platform Decision",
+            "Position Container Platform Competitively"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Negotiate",
+              "context": "Technical validation confirms OpenShift's fit for the customer's container platform requirements through proof activities tailored to their use case. Competitive positioning is defended against alternatives with validation evidence. The negotiation between customer requirements and platform capabilities resolves in platform selection and deployment planning."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Close",
+              "context": "Platform decision closes the container management TDP engagement with OpenShift selected, subscription sized, and win attributed. Cross-sell opportunities to Automation and AI Platform TDPs are identified to expand the engagement scope."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Expand",
+              "context": "Post-decision expansion identifies additional clusters, workloads, and use cases that grow the container platform footprint. Tactic conversion data feeds back into the Container Management TDP evidence base, strengthening positioning for future engagements and contributing to framework optimization."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Container Management",
+      "aliasName": "Container Management Domain"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Kubernetes for AI",
+      "aliasName": "Kubernetes for 3rd Party AI"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Sovereign Infrastructure",
+      "aliasName": "Sovereign Infra"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.1"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard Container Management",
+      "description": "Reference Container Management alpha instance with customer-facing and assessment materials",
+      "alphaName": "Container Management",
+      "stateName": "Positioned",
+      "links": [
+        {
+          "name": "Container Management TDP Sales Hub Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCJjQ3bf8f6jb8qPVCmCF6Q6hMW8"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Standard Container Management Positioning Brief",
+          "description": "Standard instance of Container Management Positioning Brief with curated enablement content",
+          "workProductName": "Container Management Brief",
+          "levelOfDetailName": "Content-Complete",
+          "links": [
+            {
+              "name": "Customer Presentation - Container Management TDP - CY26 (Source)",
+              "uri": "https://docs.google.com/presentation/d/1aNgsY3aZeLOt0XdlCy_ryV9GI4fwP1UUnHb9MWaF5nA/edit"
+            },
+            {
+              "name": "Customer Presentation - Container Management TDP - CY26",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCTmCgJ2qBR3HGFF3cfW77JQjGbd"
+            },
+            {
+              "name": "Cheatsheet - Container Management TDP - CY26 (Source)",
+              "uri": "https://docs.google.com/presentation/d/1uajfE1MfICPPJihYTDQbYNydYMYhJVnpYBRNj8BJ-mo/edit"
+            },
+            {
+              "name": "Cheatsheet - Container Management TDP - CY26",
+              "uri": "https://saleshub.redhat.com/Link/Content/DC7M372H4XTVB8FCcHdq7Q8RFRc8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard Kubernetes Standard Workloads",
+      "description": "Reference Kubernetes Standard Workloads tactic with sales enablement",
+      "alphaName": "Kubernetes Standard Workloads",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Kubernetes Standard Workloads Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCH8Rjj8fBX87GqXdCjX6XRRWDWj"
+        }
+      ]
+    },
+    {
+      "name": "Standard Kubernetes for AI",
+      "description": "Reference Kubernetes for AI tactic with sales enablement",
+      "alphaName": "Kubernetes for AI",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Kubernetes for AI Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCq7qTRJPDhBc8CPThCWH7CQhjgj"
+        }
+      ]
+    },
+    {
+      "name": "Standard Multicluster Security",
+      "description": "Reference Multicluster Security tactic with sales enablement",
+      "alphaName": "Multicluster Security",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Multicluster Security Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCT9XF9R3BGXF8cXmWTT3h2Fp4mV"
+        }
+      ]
+    },
+    {
+      "name": "Standard Sovereign Infrastructure",
+      "description": "Reference Sovereign Infrastructure tactic with sales enablement",
+      "alphaName": "Sovereign Infrastructure",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Sovereign Infrastructure Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCBV8Hbh6Q8qRG9R3V9qmg6gqHXV"
+        }
+      ]
+    },
+    {
+      "name": "Standard Nutanix Container Competitive Position",
+      "description": "Competitive scenario addressing Nutanix's Kubernetes platform where customers evaluate NKE against OpenShift's enterprise container management capabilities.",
+      "alphaName": "Container Management Competitive Position",
+      "stateName": "Mapped",
+      "links": [
+        {
+          "name": "Nutanix Kubernetes Battlecard",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flff52b5f5c-cd9a-4feb-bbce-9e732cacdeb4//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Nutanix Kubernetes Battlecard",
+          "description": "Competitive positioning against Nutanix Kubernetes Engine covering enterprise readiness, multi-cluster management, and developer experience gaps.",
+          "workProductName": "Container Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card",
+          "links": [
+            {
+              "name": "Nutanix Kubernetes Battlecard",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flff52b5f5c-cd9a-4feb-bbce-9e732cacdeb4//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard VMware Container Competitive Position",
+      "description": "Competitive scenario addressing VMware's Kubernetes service where customers on VCF evaluate Tanzu alternatives against OpenShift's hybrid cloud Kubernetes platform.",
+      "alphaName": "Container Management Competitive Position",
+      "stateName": "Mapped",
+      "links": [
+        {
+          "name": "VMware VCF9 Kubernetes Service Battlecard",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flf9323c1f6-3e4d-41bf-a359-33c1bdf5d6a3//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "VMware VCF9 Kubernetes Service Battlecard",
+          "description": "Competitive positioning against VMware Cloud Foundation 9 Kubernetes Service covering enterprise Kubernetes feature parity and migration advantages.",
+          "workProductName": "Container Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card",
+          "links": [
+            {
+              "name": "VMware VCF9 Kubernetes Service Battlecard",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flf9323c1f6-3e4d-41bf-a359-33c1bdf5d6a3//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard SUSE Rancher Competitive Position",
+      "description": "Competitive scenario addressing SUSE's Kubernetes management platform where customers evaluate Rancher's multi-cluster capabilities against OpenShift's enterprise platform.",
+      "alphaName": "Container Management Competitive Position",
+      "stateName": "Mapped",
+      "links": [
+        {
+          "name": "SUSE Rancher Battlecard",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flf6588784f-934e-47ae-b6cc-c58b64ac5928//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "SUSE Rancher Battlecard",
+          "description": "Competitive positioning against SUSE Rancher covering cluster management, security, and enterprise platform capabilities.",
+          "workProductName": "Container Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card",
+          "links": [
+            {
+              "name": "SUSE Rancher Battlecard",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flf6588784f-934e-47ae-b6cc-c58b64ac5928//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard NetApp Container Storage Competitive Position",
+      "description": "Competitive scenario addressing NetApp's container storage solutions where customers evaluate persistent storage options for Kubernetes workloads.",
+      "alphaName": "Container Management Competitive Position",
+      "stateName": "Mapped",
+      "links": [
+        {
+          "name": "NetApp Battlecard",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flff5f022b4-dd6b-47bd-a8be-42c4b555e7bf//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "NetApp Battlecard",
+          "description": "Competitive positioning addressing NetApp's Kubernetes storage capabilities and Red Hat OpenShift Data Foundation advantages.",
+          "workProductName": "Container Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card",
+          "links": [
+            {
+              "name": "NetApp Battlecard",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flff5f022b4-dd6b-47bd-a8be-42c4b555e7bf//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard Kove Container Memory Competitive Position",
+      "description": "Competitive scenario addressing Kove's disaggregated memory solutions where customers evaluate memory-intensive container workload optimization.",
+      "alphaName": "Container Management Competitive Position",
+      "stateName": "Mapped",
+      "links": [
+        {
+          "name": "Kove Battlecard",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flfaf4bd11e-55ca-4b84-b80a-04106ace18de//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Kove Battlecard",
+          "description": "Competitive positioning addressing Kove's disaggregated memory technology and its applicability to OpenShift container environments.",
+          "workProductName": "Container Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card",
+          "links": [
+            {
+              "name": "Kove Battlecard",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flfaf4bd11e-55ca-4b84-b80a-04106ace18de//"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "2.1.0",
+  "package": {
+    "name": "partner-meddpicc-qualification",
+    "version": "1.0.0",
+    "description": "MEDDPICC structured qualification adapted for partner ecosystem engagement qualification, extending Partner Ecosystem Essentials."
+  },
+  "documents": [
+    {
+      "path": "documents/partner-ecosystem-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Partner Ecosystem Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "A minimal baseline practice for engaging with partner ecosystems, covering partner lifecycle management, value realization, capability building, trust cultivation, and governance.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "partner ecosystem",
+          "alliance management",
+          "partner relationship",
+          "trust building",
+          "partnership governance",
+          "partner value"
+        ],
+        "elementCount": 180,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-06-15T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/partner-meddpicc-qualification.json",
+      "documentType": "practice",
+      "documentName": "Partner MEDDPICC Qualification",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.0",
+        "description": "Structured partnership qualification methodology using eight complementary dimensions to assess and improve partnership health throughout the partner engagement lifecycle.",
+        "tags": {
+          "domainTags": [
+            "Partner Qualification",
+            "Partnership Value",
+            "Alliance Management",
+            "Competitive Intelligence"
+          ],
+          "lifecycleTags": [
+            "Discover",
+            "Qualify",
+            "Validate",
+            "Agree",
+            "Deliver",
+            "Optimize"
+          ],
+          "organizationalTags": [
+            "Partner Management",
+            "Alliance Leadership",
+            "Partner Enablement",
+            "Partner Operations"
+          ]
+        },
+        "keywords": [
+          "MEDDPICC",
+          "partnership qualification",
+          "scorecard",
+          "partner review",
+          "partnership value",
+          "economic buyer",
+          "champion",
+          "decision criteria",
+          "decision process",
+          "paper process",
+          "identify pain",
+          "metrics",
+          "competition",
+          "partner coaching",
+          "alliance management",
+          "co-selling",
+          "partner engagement",
+          "qualification rigour"
+        ],
+        "elementCount": 227,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-18",
+        "createdAt": "2026-08-18"
+      }
+    }
+  ]
+}

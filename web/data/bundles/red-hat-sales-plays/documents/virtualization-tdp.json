@@ -1,0 +1,2318 @@
+{
+  "kind": "practice",
+  "name": "Virtualization TDP",
+  "description": "Provides VM migration and modernization positioning with focus on competitive displacement of incumbent proprietary virtualization platforms.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceDependencyNames": [
+    "Sales Play Framework"
+  ],
+  "tags": {
+    "domainTags": [
+      "Virtualization",
+      "VM Migration",
+      "Infrastructure Modernization",
+      "Competitive Displacement"
+    ],
+    "lifecycleTags": [
+      "Technical Validation",
+      "Migration Planning",
+      "Deployment"
+    ],
+    "organizationalTags": [
+      "Technical Sales",
+      "Solution Architecture",
+      "Specialist Sales"
+    ]
+  },
+  "keywords": [
+    "virtualization",
+    "vm-migration",
+    "vmware-displacement",
+    "openshift-virtualization",
+    "rhel-kvm",
+    "infrastructure-modernization",
+    "competitive-displacement",
+    "legacy-migration",
+    "vm-container-coexistence",
+    "hypervisor"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.9",
+  "citations": [
+    {
+      "name": "Virtualization TDP",
+      "description": "TDP documentation providing virtualization domain positioning including competitive displacement and migration narratives.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flfa5871978-1e94-4455-a170-ed562efdc9fb//",
+      "kind": "citation"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//",
+      "kind": "citation"
+    },
+    {
+      "name": "Optimize and Modernize IT Ops Sales Tactic",
+      "description": "Sales Tactic example demonstrating customer challenge framing, audience-segmented content, and bidirectional TDP alignment for IT operations modernization.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf5b7cd00e-3654-4a0d-8e8a-141a97206810//",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "virtualization-domain-icon",
+      "description": "Visual icon representing the virtualization technology domain and VM migration capability.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-server",
+      "fontWeight": "900"
+    },
+    {
+      "name": "vm-migration-tactic-icon",
+      "description": "Visual icon representing VM migration and modernization customer conversations.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-right-left",
+      "fontWeight": "900"
+    },
+    {
+      "name": "virtualization-competitive-icon",
+      "description": "Visual icon representing virtualization-specific competitive displacement intelligence.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "virtualization-battle-card-icon",
+      "description": "Visual icon representing the virtualization competitive battle card work product.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-shield",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Virtualization",
+      "description": "The virtualization technology domain within the sales framework, tracking VM migration and modernization positioning maturity.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "maps to",
+          "alphaName": "VM Migration and Modernization",
+          "direction": "outgoing",
+          "description": "The virtualization domain maps to its supporting tactic providing customer challenge-focused VM migration conversation guides."
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Virtualization Competitive Position",
+          "direction": "outgoing",
+          "description": "Virtualization domain positioning draws on domain-specific competitive intelligence for displacement narratives against incumbent vendors."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "virtualization-domain-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Customer's virtualization environment and migration drivers evaluated.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "background": {
+            "given": [
+              "Sales Play engagement has identified Virtualization as a relevant TDP"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Sales Play",
+                "stateName": "Selected"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Current virtualization platform identified",
+              "description": "Current virtualization platform identified with version and deployment scope.",
+              "seq": 1
+            },
+            {
+              "name": "VM inventory and workload classification completed by criticality and migration complexity.",
+              "description": "VM inventory and workload classification completed by criticality and migration complexity.",
+              "seq": 2
+            },
+            {
+              "name": "License renewal timeline assessed",
+              "description": "License renewal timeline and cost exposure assessed with renewal dates documented.",
+              "seq": 3
+            },
+            {
+              "name": "Migration readiness factors evaluated",
+              "description": "Migration readiness factors evaluated covering dependencies, complexity, and risk tolerance.",
+              "seq": 4
+            },
+            {
+              "name": "Business drivers for migration confirmed",
+              "description": "Business drivers for migration confirmed including cost savings, capability gaps, and strategic direction.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Qualified",
+          "description": "VM migration approach and modernization pathway established.",
+          "seq": 2,
+          "contributesToState": "Qualified",
+          "background": {
+            "given": [
+              "Virtualization landscape has been assessed with incumbent platform identified"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Migration scope defined",
+              "description": "Migration scope defined distinguishing full migration, phased approach, or hybrid coexistence strategy.",
+              "seq": 1
+            },
+            {
+              "name": "Workload categorization completed",
+              "description": "Workload categorization completed identifying lift-and-shift, re-platform, and modernize candidates.",
+              "seq": 2
+            },
+            {
+              "name": "Target architecture designed",
+              "description": "Target architecture designed specifying OpenShift Virtualization, standalone RHEL KVM, or hybrid approach.",
+              "seq": 3
+            },
+            {
+              "name": "Risk mitigation plan established",
+              "description": "Risk mitigation plan established with rollback procedures and coexistence strategy documented.",
+              "seq": 4
+            },
+            {
+              "name": "Timeline and resource requirements estimated",
+              "description": "Timeline and resource requirements estimated with migration wave planning initiated.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Positioned",
+          "description": "VM migration technical feasibility validated through proof activities.",
+          "seq": 3,
+          "contributesToState": "Demonstrated",
+          "background": {
+            "given": [
+              "Migration strategy is defined with target architecture selected"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Representative workload migration demonstrated",
+              "description": "Representative workload migration demonstrated successfully in proof environment.",
+              "seq": 1
+            },
+            {
+              "name": "Performance benchmarks validated",
+              "description": "Performance benchmarks meet or exceed current incumbent platform metrics.",
+              "seq": 2
+            },
+            {
+              "name": "Management and operational tooling validated",
+              "description": "Management and operational tooling validated for day-two operations readiness.",
+              "seq": 3
+            },
+            {
+              "name": "Infrastructure integration confirmed",
+              "description": "Integration with existing infrastructure confirmed including networking, storage, and monitoring.",
+              "seq": 4
+            },
+            {
+              "name": "VM-container coexistence demonstrated",
+              "description": "VM-container coexistence demonstrated if relevant to customer's modernization pathway.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Demonstrated",
+          "description": "Production VM migration underway with measured success.",
+          "seq": 4,
+          "contributesToState": "Validated",
+          "background": {
+            "given": [
+              "Technical validation has been completed with proof results meeting success criteria"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Virtualization Competitive Position",
+                "stateName": "Displacement Defended"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Migration waves executing",
+              "description": "Migration waves planned and executing according to the defined migration schedule.",
+              "seq": 1
+            },
+            {
+              "name": "Success criteria met for initial batches",
+              "description": "Success criteria met for initial migration batches with documented outcomes.",
+              "seq": 2
+            },
+            {
+              "name": "Operational runbooks established",
+              "description": "Operational runbooks established for migrated workloads on new platform.",
+              "seq": 3
+            },
+            {
+              "name": "Cost savings being realized",
+              "description": "Cost savings being realized and tracked against business case projections.",
+              "seq": 4
+            },
+            {
+              "name": "Team capabilities developing",
+              "description": "Team capabilities developing on new platform with training and knowledge transfer progressing.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Customer has completed VM migration and is realizing modernization benefits.",
+          "seq": 5,
+          "background": {
+            "given": [
+              "Production migration is progressing successfully with cost savings realized"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Target VM count migrated",
+              "description": "Target VM count migrated to new platform with legacy hypervisor decommissioned or scope reduced.",
+              "seq": 1
+            },
+            {
+              "name": "Legacy platform costs eliminated",
+              "description": "Legacy virtualization platform costs eliminated or significantly reduced against pre-migration baseline.",
+              "seq": 2
+            },
+            {
+              "name": "Unified management operational",
+              "description": "Unified VM and container management operational on single platform.",
+              "seq": 3
+            },
+            {
+              "name": "Expansion opportunities identified",
+              "description": "Expansion opportunities identified for containerization of suitable VM workloads.",
+              "seq": 4
+            },
+            {
+              "name": "Customer reference available",
+              "description": "Customer reference and success story available for use in future displacement engagements.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Virtualization Domain Context and Rationale",
+          "description": "Why the virtualization domain requires specialized displacement positioning within the sales framework.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Organizations running on legacy proprietary hypervisors face an urgent technology decision as licensing costs escalate, innovation stalls, and the gap between VM-only infrastructure and modern container-native platforms widens."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Staying on incumbent virtualization platforms offers familiarity and existing operational investment but at increasing cost, with limited modernization pathways and growing technical debt as the industry moves toward unified VM-container platforms."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Red Hat's approach provides a migration pathway that respects existing VM investments while enabling gradual modernization, offering OpenShift Virtualization for unified VM-container management or standalone RHEL KVM for cost-optimized VM hosting, with migration tooling that reduces risk through phased approaches and coexistence strategies."
+            }
+          ],
+          "citationNames": [
+            "Virtualization TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        },
+        {
+          "name": "Virtualization TDP Practice Intent",
+          "description": "The competitive narrative of virtualization displacement from incumbent platforms through migration and modernization.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Enterprise customers operating on incumbent proprietary virtualization platforms face rising licensing costs, vendor lock-in, and limited innovation pathways as their hypervisor vendors pivot strategies, leaving customers searching for viable alternatives that preserve existing VM investments while enabling modernization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Incumbent proprietary virtualization platforms offer deep integration and mature management tooling but impose significant licensing cost burdens, restrict workload portability, and limit customers' ability to adopt modern container-based architectures alongside traditional VM workloads."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Red Hat's virtualization approach through OpenShift Virtualization and RHEL KVM provides a unified platform managing VMs alongside containers, eliminating legacy hypervisor licensing costs while enabling gradual workload modernization without forcing disruptive forklift migrations."
+            }
+          ],
+          "citationNames": [
+            "Virtualization TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "mapsTo": "Technical Decision Point",
+      "kind": "alpha"
+    },
+    {
+      "name": "VM Migration and Modernization",
+      "description": "Customer challenge-focused conversation guide for VM migration from proprietary platforms addressing displacement urgency and modernization opportunity.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "supported by",
+          "alphaName": "Virtualization",
+          "direction": "incoming",
+          "description": "The VM migration tactic is supported by the Virtualization Domain's technology-specific credentials, proof content, and competitive intelligence."
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Virtualization Competitive Position",
+          "direction": "outgoing",
+          "description": "VM migration conversations leverage virtualization-specific competitive differentiation to position displacement as beneficial and achievable."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "vm-migration-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "The VM migration challenge is articulated from the customer's perspective.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "background": {
+            "given": [
+              "Sales Play engagement has identified the customer as facing virtualization platform decisions"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Virtualization",
+                "stateName": "Identified"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Customer virtualization pain articulated",
+              "description": "Customer's virtualization pain articulated covering rising licensing costs, vendor lock-in, or innovation limitations.",
+              "seq": 1
+            },
+            {
+              "name": "Impact of remaining on incumbent quantified",
+              "description": "Impact of remaining on incumbent platform quantified in terms of annual cost, operational overhead, or missed modernization opportunity.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for VM migration conversations including infrastructure leaders and platform engineers.",
+              "seq": 3
+            },
+            {
+              "name": "Initial messaging framework drafted",
+              "description": "Initial What to Say messaging framework drafted addressing both business and technical decision makers.",
+              "seq": 4
+            },
+            {
+              "name": "Supporting TDP content identified",
+              "description": "Supporting TDP content from Virtualization Domain identified and linked.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Complete VM migration conversation content is published and accessible.",
+          "seq": 2,
+          "contributesToState": "Qualified",
+          "background": {
+            "given": [
+              "VM migration challenge is framed with impact quantified"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Business audience content finalized",
+              "description": "What to Say content finalized for business audiences covering cost reduction and strategic modernization.",
+              "seq": 1
+            },
+            {
+              "name": "Technical audience content finalized",
+              "description": "What to Say content finalized for technical audiences covering migration feasibility and coexistence architecture.",
+              "seq": 2
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share materials curated including migration case studies, analyst reports, and cost comparison data.",
+              "seq": 3
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared including VM migration workflows and unified management console.",
+              "seq": 4
+            },
+            {
+              "name": "Bidirectional links published",
+              "description": "Bidirectional links to Virtualization Domain published and navigable.",
+              "seq": 5
+            },
+            {
+              "name": "Seller guidance included",
+              "description": "Seller guidance on when to use the VM migration tactic included with displacement scenario examples.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Sellers are actively using the VM migration tactic in customer conversations.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "background": {
+            "given": [
+              "VM migration conversation content is complete and deployed"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Challenge framing used in conversations",
+              "description": "VM migration challenge framing used to open conversations establishing displacement urgency.",
+              "seq": 1
+            },
+            {
+              "name": "Audience-appropriate content deployed",
+              "description": "Audience-appropriate content deployed differentiating cost-focused and architecture-focused messaging.",
+              "seq": 2
+            },
+            {
+              "name": "Migration materials shared",
+              "description": "Migration case studies and cost comparison materials shared via trackable sharing mechanisms.",
+              "seq": 3
+            },
+            {
+              "name": "Demonstrations delivered",
+              "description": "VM migration demonstrations delivered showing workload portability and coexistence capabilities.",
+              "seq": 4
+            },
+            {
+              "name": "Discovery conversations identifying scope",
+              "description": "Discovery conversations identifying migration scope, timeline, and competitive dynamics.",
+              "seq": 5
+            },
+            {
+              "name": "Tactic combined with domain positioning",
+              "description": "Tactic combined with Virtualization Domain positioning to create credentialed migration conversations.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive objections to VM migration have been addressed with evidence-based responses.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Migration risk objections addressed",
+              "description": "Migration risk objections addressed with proof-of-concept results and rollback strategy documentation.",
+              "seq": 1
+            },
+            {
+              "name": "Feature parity concerns resolved",
+              "description": "Feature parity concerns resolved through demonstration of management and operational tooling capabilities.",
+              "seq": 2
+            },
+            {
+              "name": "Incumbent lock-in arguments countered",
+              "description": "Incumbent lock-in arguments countered with coexistence strategy and phased migration pathway.",
+              "seq": 3
+            },
+            {
+              "name": "Cost comparison evidence deployed",
+              "description": "Cost comparison evidence deployed showing total cost of ownership advantage over incumbent renewal.",
+              "seq": 4
+            },
+            {
+              "name": "Customer reference stories shared",
+              "description": "Customer reference stories shared from comparable displacement engagements validating migration success.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "VM migration tactic execution has converted prospect interest into qualified migration opportunity.",
+          "seq": 5,
+          "contributesToState": "Demonstrated",
+          "background": {
+            "given": [
+              "Competitive objections have been successfully addressed with evidence"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Virtualization Competitive Position",
+                "stateName": "Displacement Defended"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Migration opportunity created",
+              "description": "Migration opportunity created in pipeline with Virtualization TDP attribution.",
+              "seq": 1
+            },
+            {
+              "name": "Customer committed to next steps",
+              "description": "Customer has committed to next steps including technical assessment, POC, or migration planning.",
+              "seq": 2
+            },
+            {
+              "name": "Engagement tracking shows interaction",
+              "description": "Engagement tracking shows active customer interaction with VM migration content.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive displacement documented",
+              "description": "Competitive displacement outcome documented for win/loss analysis.",
+              "seq": 4
+            },
+            {
+              "name": "Services and partners positioned",
+              "description": "Services and partner solutions positioned for migration execution support.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "VM Migration and Modernization Tactic Context and Rationale",
+          "description": "Why challenge-focused VM migration conversations drive effective displacement outcomes.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations on proprietary virtualization platforms face a convergence of pressures -- escalating licensing costs, aging infrastructure that limits innovation, and a widening gap between VM-only management and modern infrastructure that integrates VMs and containers on a unified platform."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The VM Migration and Modernization tactic structures customer conversations around the displacement opportunity, opening with the customer's specific virtualization pain before positioning Red Hat's migration approach with phased migration pathways, coexistence strategies, and unified VM-container management through OpenShift Virtualization."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Challenge-first VM migration conversations convert effectively because customers recognize their own cost and innovation pressures in the framing, engage deeply with migration proof activities, and gain confidence in a risk-managed pathway from incumbent platform to modern infrastructure."
+            }
+          ],
+          "citationNames": [
+            "Virtualization TDP",
+            "Optimize and Modernize IT Ops Sales Tactic"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Virtualization Competitive Position",
+      "description": "Virtualization-specific competitive intelligence tracking displacement positioning against incumbent proprietary virtualization vendors.",
+      "focusName": "Solution Alignment",
+      "contributesTo": "Competitive Position",
+      "relatesTo": [
+        {
+          "relationship": "informs",
+          "alphaName": "Virtualization",
+          "direction": "outgoing",
+          "description": "Virtualization competitive intelligence directly informs domain positioning by providing displacement strategies, cost comparisons, and migration credential evidence."
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "VM Migration and Modernization",
+          "direction": "outgoing",
+          "description": "Competitive positioning provides the differentiation evidence and objection handling content that powers VM migration conversations."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "virtualization-competitive-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Incumbent Landscape Assessed",
+          "description": "Competitive landscape of incumbent virtualization vendors assessed for the customer account.",
+          "seq": 1,
+          "contributesToState": "Assessed",
+          "checklist": [
+            {
+              "name": "Incumbent platform identified",
+              "description": "Incumbent virtualization platform identified with version, licensing model, and contract terms.",
+              "seq": 1
+            },
+            {
+              "name": "Vendor strategy changes documented",
+              "description": "Incumbent vendor's recent strategy changes and licensing shifts documented and analyzed.",
+              "seq": 2
+            },
+            {
+              "name": "Dissatisfaction signals catalogued",
+              "description": "Customer's dissatisfaction signals catalogued including cost complaints, innovation gaps, and vendor trust concerns.",
+              "seq": 3
+            },
+            {
+              "name": "Alternative competitors identified",
+              "description": "Competitive alternatives the customer may be evaluating beyond Red Hat identified.",
+              "seq": 4
+            },
+            {
+              "name": "Intelligence sources established",
+              "description": "Internal competitive intelligence sources for virtualization domain established.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Displacement Strategy Mapped",
+          "description": "Virtualization displacement strategy developed with head-to-head positioning.",
+          "seq": 2,
+          "contributesToState": "Mapped",
+          "background": {
+            "given": [
+              "Incumbent virtualization landscape has been assessed with competitive dynamics understood"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Head-to-head comparison compiled",
+              "description": "Head-to-head comparison data compiled covering features, performance, cost, and ecosystem breadth.",
+              "seq": 1
+            },
+            {
+              "name": "Displacement triggers identified",
+              "description": "Displacement triggers identified including license renewal dates, dissatisfaction events, and strategic shifts.",
+              "seq": 2
+            },
+            {
+              "name": "Migration pathway credentialing completed",
+              "description": "Migration pathway credentialing completed with tooling documentation and reference architectures.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive objections documented",
+              "description": "Common competitive objections documented with evidence-based responses specific to virtualization.",
+              "seq": 4
+            },
+            {
+              "name": "Trap-setting questions drafted",
+              "description": "Competitive trap-setting questions drafted for discovery conversations targeting incumbent weaknesses.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Migration Differentiation Articulated",
+          "description": "Red Hat's unique VM migration value expressed in customer-relevant terms.",
+          "seq": 3,
+          "contributesToState": "Differentiated",
+          "background": {
+            "given": [
+              "Displacement strategy is mapped with head-to-head comparison data available"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Cost advantage articulated",
+              "description": "Cost advantage articulated with total cost of ownership comparison against incumbent renewal pricing.",
+              "seq": 1
+            },
+            {
+              "name": "Unified management positioned",
+              "description": "Unified VM-container management positioned as innovation advantage unavailable on legacy hypervisors.",
+              "seq": 2
+            },
+            {
+              "name": "Migration risk reduction differentiated",
+              "description": "Migration risk reduction differentiated through phased approach, coexistence strategy, and rollback capability.",
+              "seq": 3
+            },
+            {
+              "name": "Open-source advantage positioned",
+              "description": "Open-source advantage positioned against proprietary lock-in with workload portability evidence.",
+              "seq": 4
+            },
+            {
+              "name": "Displacement stories included",
+              "description": "Customer displacement stories included with quantified outcomes from comparable migration engagements.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Displacement Defended",
+          "description": "Competitive challenges to VM migration have been addressed with evidence.",
+          "seq": 4,
+          "contributesToState": "Defended",
+          "background": {
+            "given": [
+              "Migration differentiation has been articulated with evidence supporting each advantage"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Virtualization",
+                "stateName": "Positioned"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Migration feasibility evidence deployed",
+              "description": "Migration feasibility evidence deployed in customer conversations addressing risk concerns.",
+              "seq": 1
+            },
+            {
+              "name": "Cost comparison data presented",
+              "description": "Cost comparison data presented defending total cost of ownership claims against incumbent alternatives.",
+              "seq": 2
+            },
+            {
+              "name": "Proof activities highlight differentiators",
+              "description": "Technical proof activities structured to highlight competitive differentiators in VM management and migration.",
+              "seq": 3
+            },
+            {
+              "name": "Win/loss reporting captures impact",
+              "description": "Win/loss reporting captures which competitive content was most impactful in virtualization displacement deals.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Displacement Achieved",
+          "description": "Displacement of incumbent virtualization platform is confirmed with customer selecting Red Hat.",
+          "seq": 5,
+          "contributesToState": "Preferred",
+          "background": {
+            "given": [
+              "Competitive challenges have been successfully defended with evidence",
+              "Customer champion can articulate Red Hat's migration advantage internally"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Virtualization",
+                "stateName": "Demonstrated"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Displacement documented as reference",
+              "description": "Competitive displacement documented as reference story for future virtualization TDP evidence base.",
+              "seq": 1
+            },
+            {
+              "name": "Analyst recognition updated",
+              "description": "Analyst recognition and migration credentials updated in virtualization positioning brief.",
+              "seq": 2
+            },
+            {
+              "name": "Field-generated insights captured",
+              "description": "Field-generated competitive insights from displacement engagement captured and integrated.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Virtualization Competitive Position Context and Rationale",
+          "description": "Why virtualization displacement requires specialized competitive intelligence and positioning.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Virtualization displacement engagements involve deeply entrenched incumbent platforms with years of operational investment, trained staff, and integrated management tooling, making competitive positioning particularly high-stakes where migration risk perception is the primary barrier to displacement."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Incumbent proprietary hypervisors offer deep feature maturity and established management ecosystems, but impose significant licensing costs that escalate unpredictably, restrict multi-cloud and container adoption strategies, and provide limited innovation pathways as the industry converges on unified VM-container platforms."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Red Hat's competitive position in virtualization rests on three pillars -- total cost of ownership advantage through elimination of proprietary licensing, innovation advantage through unified VM-container management on OpenShift Virtualization, and risk reduction advantage through phased migration with coexistence strategies that allow gradual transition without forklift disruption."
+            }
+          ],
+          "citationNames": [
+            "Virtualization TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Virtualization Brief",
+      "description": "Virtualization-specific positioning document with migration credentials, incumbent displacement strategies, and audience-segmented content.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Basic virtualization domain identification with migration context.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Technology domain boundaries defined",
+              "description": "Virtualization technology domain boundaries defined including VM hosting and migration scope.",
+              "seq": 1
+            },
+            {
+              "name": "Key products listed",
+              "description": "Key products listed including OpenShift Virtualization, RHEL KVM, and migration tooling.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive landscape sketched",
+              "description": "Incumbent competitive landscape sketched with primary displacement targets identified.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Credentialed",
+          "description": "Seller credentials and migration proof assembled with audience-segmented messaging.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Migration credentials documented",
+              "description": "Migration credentials documented including successful displacement count, workload volumes, and analyst recognitions.",
+              "seq": 1
+            },
+            {
+              "name": "Customer migration wins catalogued",
+              "description": "Customer migration wins catalogued with quantified outcomes organized by industry and scale.",
+              "seq": 2
+            },
+            {
+              "name": "Business Decision Maker messaging drafted",
+              "description": "Business Decision Maker messaging drafted covering cost reduction and strategic modernization value.",
+              "seq": 3
+            },
+            {
+              "name": "Technical Decision Maker messaging drafted",
+              "description": "Technical Decision Maker messaging drafted covering migration architecture and operational readiness.",
+              "seq": 4
+            },
+            {
+              "name": "Supporting Sales Plays identified",
+              "description": "Supporting Sales Plays identified with Virtualization-to-Play alignment documented.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Displacement Strategy Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Content-Complete",
+          "description": "Full positioning brief with competitive battle cards and migration demonstration content.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "What to Say content finalized",
+              "description": "What to Say content finalized for both audience types with displacement-specific messaging.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share materials curated including migration case studies and cost comparison analyses.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared including live VM migration and unified management console.",
+              "seq": 3
+            },
+            {
+              "name": "Tactic links validated",
+              "description": "Bidirectional tactic links to VM Migration and Modernization tactic validated.",
+              "seq": 4
+            },
+            {
+              "name": "Services and partner solutions documented",
+              "description": "Services and partner solutions for migration execution documented.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Deployed"
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Continuously updated brief with displacement win rate analytics and refreshed competitive intelligence.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Win rate data incorporated",
+              "description": "Win rate data by incumbent vendor and migration scenario incorporated into guidance.",
+              "seq": 1
+            },
+            {
+              "name": "Demonstration effectiveness ratings guide selection",
+              "description": "Migration demonstration effectiveness ratings guide proof activity selection.",
+              "seq": 2
+            },
+            {
+              "name": "Customer references refreshed",
+              "description": "Customer displacement references refreshed with recent successful migration engagements.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive intelligence reflects latest changes",
+              "description": "Competitive intelligence reflects latest incumbent vendor strategy changes and market dynamics.",
+              "seq": 4
+            },
+            {
+              "name": "Field feedback informs updates",
+              "description": "Field feedback on migration messaging effectiveness informs content updates.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Displacement Achieved"
+            }
+          ]
+        }
+      ],
+      "mapsTo": "TDP Positioning Brief",
+      "kind": "workProduct"
+    },
+    {
+      "name": "VM Migration Guide",
+      "description": "Customer challenge-focused conversation guide for VM migration from proprietary platforms with displacement-specific messaging.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "VM migration challenge articulated with initial displacement messaging.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Migration challenge framed",
+              "description": "VM migration challenge framed from the customer's perspective covering cost and innovation pain.",
+              "seq": 1
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas for displacement conversations identified including infrastructure and platform leaders.",
+              "seq": 2
+            },
+            {
+              "name": "Differentiated approach outlined",
+              "description": "Initial differentiated approach outlined connecting migration to modernization opportunity.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Prepared"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Complete conversation framework with audience-segmented displacement messaging and evidence.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Business audience messaging complete",
+              "description": "Business audience messaging covers cost reduction, vendor independence, and strategic modernization.",
+              "seq": 1
+            },
+            {
+              "name": "Technical audience messaging complete",
+              "description": "Technical audience messaging covers migration architecture, coexistence strategy, and operational tooling.",
+              "seq": 2
+            },
+            {
+              "name": "Case studies curated by audience",
+              "description": "Migration case studies and cost comparison data curated by audience type.",
+              "seq": 3
+            },
+            {
+              "name": "Demonstrations aligned to challenges",
+              "description": "VM migration demonstrations identified and aligned to customer challenges.",
+              "seq": 4
+            },
+            {
+              "name": "Domain positioning links validated",
+              "description": "Bidirectional links to Virtualization Domain positioning validated.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Migration Differentiation Articulated"
+            }
+          ]
+        },
+        {
+          "name": "Deployment-Ready",
+          "description": "Full conversation guide with migration-specific engagement tracking and objection handling.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Displacement content published",
+              "description": "Complete displacement content published with engagement tracking enabled.",
+              "seq": 1
+            },
+            {
+              "name": "Objection handling documented",
+              "description": "Migration-specific objection handling documented covering risk, feature parity, and TCO concerns.",
+              "seq": 2
+            },
+            {
+              "name": "Deployment timing guidance included",
+              "description": "Seller guidance on migration tactic deployment timing relative to license renewal cycles included.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-references integrated",
+              "description": "Cross-reference to Virtualization Domain positioning and competitive battle card integrated.",
+              "seq": 4
+            },
+            {
+              "name": "Conversion criteria defined",
+              "description": "Conversion criteria defined for advancing from migration interest to technical assessment.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Virtualization",
+              "stateName": "Positioned"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Data-driven guide with displacement conversion analytics and refined migration messaging.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Conversion rate data analyzed",
+              "description": "Displacement conversion rate data by incumbent vendor and customer segment analyzed.",
+              "seq": 1
+            },
+            {
+              "name": "Best-performing variants identified",
+              "description": "Best-performing migration messaging variants identified and promoted.",
+              "seq": 2
+            },
+            {
+              "name": "Win stories strengthen evidence",
+              "description": "Customer displacement win stories generated through this tactic strengthen the evidence base.",
+              "seq": 3
+            },
+            {
+              "name": "Messaging refinements incorporated",
+              "description": "Messaging refinements based on competitive response patterns incorporated.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Displacement Achieved"
+            }
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic Conversation Guide",
+      "kind": "workProduct"
+    },
+    {
+      "name": "Virtualization Competitive Battle Card",
+      "description": "Virtualization-specific competitive intelligence document providing head-to-head analysis against incumbent hypervisors with displacement strategies.",
+      "assetNames": [
+        {
+          "assetName": "virtualization-battle-card-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Competitive Overview",
+          "description": "Basic identification of incumbent virtualization competitors.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Incumbent vendors listed",
+              "description": "Primary incumbent hypervisor vendors listed with market positioning and recent strategy changes.",
+              "seq": 1
+            },
+            {
+              "name": "Strength and weakness comparison",
+              "description": "High-level strength and weakness comparison across cost, features, and innovation trajectory.",
+              "seq": 2
+            },
+            {
+              "name": "Basic displacement messages articulated",
+              "description": "Basic displacement messages articulated for each incumbent.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Incumbent Landscape Assessed"
+            }
+          ]
+        },
+        {
+          "name": "Structured Battle Card",
+          "description": "Organized competitive analysis with head-to-head incumbent comparisons.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Feature comparison completed",
+              "description": "Feature-by-feature comparison covering VM management, scalability, security, and multi-cloud support.",
+              "seq": 1
+            },
+            {
+              "name": "Objection handling documented",
+              "description": "Incumbent-specific objection handling covering migration risk and feature parity concerns.",
+              "seq": 2
+            },
+            {
+              "name": "Decision criteria mapped",
+              "description": "Customer decision criteria mapped to Red Hat's migration and modernization advantages.",
+              "seq": 3
+            },
+            {
+              "name": "Displacement triggers identified",
+              "description": "Displacement triggers identified including license renewal dates and vendor strategy shifts.",
+              "seq": 4
+            },
+            {
+              "name": "Win stories compiled",
+              "description": "Displacement win stories compiled by incumbent vendor and customer industry.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Displacement Strategy Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Strategy-Enriched",
+          "description": "Complete battle card with per-incumbent displacement playbooks and migration strategies.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Per-incumbent strategies documented",
+              "description": "Detailed displacement strategies documented per incumbent vendor.",
+              "seq": 1
+            },
+            {
+              "name": "Migration approaches documented",
+              "description": "Migration and coexistence approaches documented for each incumbent platform.",
+              "seq": 2
+            },
+            {
+              "name": "Pricing strategy guidance included",
+              "description": "Pricing and commercial strategy guidance for competitive displacement scenarios.",
+              "seq": 3
+            },
+            {
+              "name": "Trap-setting questions included",
+              "description": "Competitive trap-setting questions for discovery targeting incumbent platform weaknesses.",
+              "seq": 4
+            },
+            {
+              "name": "Third-party data included",
+              "description": "Analyst and third-party comparative data included with independent validation.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Migration Differentiation Articulated"
+            },
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Converted"
+            }
+          ]
+        },
+        {
+          "name": "Intelligence-Driven",
+          "description": "Continuously updated battle card with displacement win/loss analytics.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Win/loss data tracked",
+              "description": "Real-time displacement win/loss data by incumbent vendor and migration scenario.",
+              "seq": 1
+            },
+            {
+              "name": "Emerging threats tracked",
+              "description": "Emerging competitive threats tracked including cloud-native hypervisor alternatives.",
+              "seq": 2
+            },
+            {
+              "name": "Response playbooks maintained",
+              "description": "Competitive response playbooks for incumbent vendor announcements and pricing changes.",
+              "seq": 3
+            },
+            {
+              "name": "Field feedback integrated",
+              "description": "Field feedback integration providing crowd-sourced displacement intelligence.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Displacement Achieved"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Virtualization TDP Specialist",
+      "description": "Technology domain expert responsible for deep virtualization positioning, VM migration validation, and displacement tactic execution.",
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Virtualization",
+          "VM Migration",
+          "Infrastructure Modernization"
+        ],
+        "lifecycleTags": [
+          "Technical Validation",
+          "Migration Planning",
+          "Deployment"
+        ],
+        "organizationalTags": [
+          "Technical Sales",
+          "Specialist Sales"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Virtualization Engagement Team",
+      "description": "Team responsible for executing virtualization displacement engagements combining migration expertise with competitive positioning and customer engagement.",
+      "personaNames": [
+        "Virtualization TDP Specialist"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Technical Sales",
+          "Specialist Sales"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Assess Virtualization Landscape",
+      "description": "Evaluate the customer's current virtualization environment, incumbent platform, and migration readiness factors.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Sales Play engagement has identified Virtualization as a relevant technology decision area"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sales Play",
+            "stateName": "Executing"
+          }
+        ]
+      },
+      "test": {
+        "name": "Virtualization landscape assessment execution",
+        "description": "Verifies that incumbent platform discovery and migration readiness evaluation produce actionable intelligence.",
+        "given": [
+          "Customer account has been identified as running on an incumbent proprietary virtualization platform"
+        ],
+        "when": [
+          "Initial discovery reveals customer concern about virtualization costs, vendor strategy changes, or infrastructure modernization priorities"
+        ],
+        "then": [
+          "Current VM environment is documented with platform, version, workload inventory, and license renewal timeline",
+          "Migration readiness factors are evaluated covering dependencies, complexity, and risk tolerance"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Virtualization",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Virtualization Competitive Position",
+          "stateName": "Incumbent Landscape Assessed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Virtualization Brief",
+          "levelOfDetailName": "Initial"
+        },
+        {
+          "workProductName": "Virtualization Competitive Battle Card",
+          "levelOfDetailName": "Competitive Overview"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Virtualization Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Assess Virtualization Landscape Guidance",
+          "description": "How structured assessment produces actionable migration intelligence.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sellers entering virtualization displacement conversations need structured assessment methodology to evaluate the customer's incumbent platform, understand migration complexity, and identify displacement triggers before positioning alternatives."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Landscape assessment systematically evaluates the customer's VM environment including platform identification, workload inventory, license renewal timeline, cost exposure, and migration readiness. Assessment findings inform both the migration strategy and the competitive displacement approach."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A thorough landscape assessment produces the foundational intelligence needed for credible migration positioning, ensuring that subsequent displacement conversations are grounded in the customer's specific situation rather than generic competitive claims."
+            }
+          ],
+          "citationNames": [
+            "Virtualization TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Define Virtualization Migration Strategy",
+      "description": "Establish the VM migration approach, target architecture, and modernization pathway based on landscape assessment findings.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Virtualization landscape has been assessed with incumbent platform and workload inventory documented"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Virtualization Domain",
+            "stateName": "Identified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Migration strategy definition execution",
+        "description": "Verifies that migration scope, target architecture, and risk mitigation are systematically defined.",
+        "given": [
+          "Landscape assessment has identified migration drivers and workload characteristics"
+        ],
+        "when": [
+          "Customer expresses interest in evaluating migration options or license renewal is approaching"
+        ],
+        "then": [
+          "Migration scope and approach are defined with workloads categorized by migration strategy",
+          "Target architecture is designed matching customer requirements to OpenShift Virtualization, RHEL KVM, or hybrid"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Virtualization",
+          "stateName": "Qualified"
+        },
+        {
+          "alphaName": "Virtualization Competitive Position",
+          "stateName": "Displacement Strategy Mapped"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Virtualization Brief",
+          "levelOfDetailName": "Credentialed"
+        },
+        {
+          "workProductName": "Virtualization Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Competitive Intelligence"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Virtualization Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Define Virtualization Migration Strategy Guidance",
+          "description": "How systematic migration strategy definition reduces perceived risk.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "VM migration decisions involve complex trade-offs between migration scope, target architecture selection, risk tolerance, and modernization ambition that must be navigated systematically rather than approached as simple platform replacement."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Migration strategy definition categorizes workloads by migration approach (lift-and-shift, re-platform, modernize), designs the target architecture matching customer requirements to Red Hat's virtualization options, and establishes a risk mitigation plan with phased approach and coexistence strategy."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A well-defined migration strategy reduces perceived risk by demonstrating a structured, phased pathway from incumbent platform to modern infrastructure with clear milestones and fallback options."
+            }
+          ],
+          "citationNames": [
+            "Virtualization TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Execute VM Migration Tactic Conversation",
+      "description": "Deploy VM migration challenge-focused messaging in customer conversations using audience-segmented content and displacement evidence.",
+      "activitySpaceName": "Differentiate Competitively",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "VM migration conversation content is deployed with audience-segmented messaging",
+          "Seller has reviewed virtualization positioning brief and competitive battle card"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "VM Migration and Modernization Tactic",
+            "stateName": "Deployed"
+          }
+        ]
+      },
+      "test": {
+        "name": "VM migration tactic conversation execution",
+        "description": "Verifies that challenge-first messaging with audience-appropriate evidence is deployed in customer conversations.",
+        "given": [
+          "Customer has expressed concern about virtualization costs, vendor lock-in, or infrastructure modernization"
+        ],
+        "when": [
+          "Seller prepares for customer meeting by reviewing VM migration tactic content and displacement evidence"
+        ],
+        "then": [
+          "Conversation opens with customer's VM migration challenge rather than product features",
+          "Audience-appropriate messaging is delivered with displacement evidence matching customer's incumbent platform"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "VM Migration and Modernization",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Virtualization Competitive Position",
+          "stateName": "Migration Differentiation Articulated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "VM Migration Guide",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "VM Migration Guide",
+          "levelOfDetailName": "Deployment-Ready"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Competitive Intelligence",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Virtualization Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Execute VM Migration Tactic Conversation Guidance",
+          "description": "How challenge-first displacement conversations build customer confidence.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "VM migration conversations require a different approach than standard technology positioning because the customer is being asked to abandon an entrenched platform with years of operational investment, making displacement risk the primary barrier."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The VM migration tactic opens with the customer's specific virtualization pain, presents displacement evidence matching their incumbent platform and industry, and positions the migration as a risk-managed journey with coexistence strategies and phased approaches rather than a disruptive forklift migration."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Challenge-first displacement conversations build customer confidence by demonstrating deep understanding of their migration concerns, providing evidence from comparable displacement engagements, and presenting a structured migration pathway that reduces perceived risk."
+            }
+          ],
+          "citationNames": [
+            "Virtualization TDP",
+            "Optimize and Modernize IT Ops Sales Tactic"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Position Virtualization Domain Competitively",
+      "description": "Build and present competitive positioning against incumbent virtualization vendors with displacement strategies and objection handling.",
+      "activitySpaceName": "Differentiate Competitively",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Incumbent virtualization platform has been identified with competitive dynamics understood"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Virtualization Competitive Position",
+            "stateName": "Incumbent Landscape Assessed"
+          }
+        ]
+      },
+      "test": {
+        "name": "Virtualization competitive positioning execution",
+        "description": "Verifies that displacement strategy is tailored to the specific incumbent with evidence-based positioning.",
+        "given": [
+          "Customer is actively evaluating alternatives to their incumbent virtualization platform"
+        ],
+        "when": [
+          "Competitive dynamics become active with the customer comparing Red Hat to incumbent or alternative options"
+        ],
+        "then": [
+          "Displacement strategy is tailored to the specific incumbent platform with head-to-head positioning",
+          "Migration pathway is presented as risk-managed with evidence from comparable displacement engagements"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Virtualization Competitive Position",
+          "stateName": "Displacement Strategy Mapped"
+        },
+        {
+          "alphaName": "Virtualization Competitive Position",
+          "stateName": "Migration Differentiation Articulated"
+        },
+        {
+          "alphaName": "Virtualization Competitive Position",
+          "stateName": "Displacement Defended"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Virtualization Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card"
+        },
+        {
+          "workProductName": "Virtualization Competitive Battle Card",
+          "levelOfDetailName": "Strategy-Enriched"
+        }
+      ],
+      "requiredCompetencies": [
+        "Competitive Intelligence",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Virtualization Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Position Virtualization Domain Competitively Guidance",
+          "description": "How evidence-based competitive positioning overcomes displacement barriers.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Virtualization displacement involves competing against deeply entrenched incumbents where the customer's operations team has years of experience, established automation, and management tooling integration that creates significant switching cost perception."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Incumbent hypervisors offer mature management ecosystems and deep feature sets for VM-centric operations, but impose escalating proprietary licensing costs, restrict modernization pathways, and provide limited integration with container-native and cloud-native infrastructure management approaches."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Red Hat's competitive positioning emphasizes three displacement advantages -- total cost of ownership reduction through elimination of proprietary licensing, innovation acceleration through unified VM-container management, and risk mitigation through phased migration with coexistence capability that allows gradual transition without operational disruption."
+            }
+          ],
+          "citationNames": [
+            "Virtualization TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Validate VM Migration Feasibility",
+      "description": "Conduct technical proof activities to validate VM migration feasibility including workload migration, performance benchmarking, and operational readiness.",
+      "activitySpaceName": "Validate Technically",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Migration strategy is defined with target architecture selected",
+          "Customer has agreed to technical validation scope and success criteria"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Virtualization Domain",
+            "stateName": "Qualified"
+          }
+        ]
+      },
+      "test": {
+        "name": "VM migration feasibility validation execution",
+        "description": "Verifies that technical proof activities demonstrate migration feasibility with measurable outcomes.",
+        "given": [
+          "Representative workloads have been identified for migration proof-of-concept"
+        ],
+        "when": [
+          "Customer approves technical validation plan with defined success criteria and timeline"
+        ],
+        "then": [
+          "Representative workloads are successfully migrated to target platform",
+          "Performance benchmarks meet or exceed current incumbent platform levels",
+          "Operational readiness is demonstrated through management tooling and day-two operations validation"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Virtualization",
+          "stateName": "Positioned"
+        },
+        {
+          "alphaName": "VM Migration and Modernization",
+          "stateName": "Engaged"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Virtualization Brief",
+          "levelOfDetailName": "Content-Complete"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Virtualization Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Validate VM Migration Feasibility Guidance",
+          "description": "How technical proof activities convert migration risk perception into demonstrated capability.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "VM migration decisions carry significant operational risk -- customers need evidence that workload migration is feasible, performance will be maintained, and day-two operations on the new platform will be manageable before committing to displacement."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Technical validation designs proof activities focused on migration feasibility using representative workloads, performance benchmarking against current platform metrics, management and operational tooling validation, and VM-container coexistence demonstration when relevant to the modernization pathway."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Successful technical validation eliminates the primary barrier to displacement by providing evidence that migration is achievable, performance is maintained, and operations on the new platform are manageable, converting migration from perceived risk to proven pathway."
+            }
+          ],
+          "citationNames": [
+            "Virtualization TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Track Virtualization Displacement Outcomes",
+      "description": "Measure virtualization displacement engagement outcomes and integrate results into competitive intelligence and positioning content.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "VM migration engagements are generating measurable displacement outcomes"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Virtualization Domain",
+            "stateName": "Demonstrated"
+          }
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Virtualization",
+          "stateName": "Validated"
+        },
+        {
+          "alphaName": "Virtualization Competitive Position",
+          "stateName": "Displacement Achieved"
+        },
+        {
+          "alphaName": "VM Migration and Modernization",
+          "stateName": "Proven"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Virtualization Brief",
+          "levelOfDetailName": "Validated"
+        },
+        {
+          "workProductName": "Virtualization Competitive Battle Card",
+          "levelOfDetailName": "Intelligence-Driven"
+        },
+        {
+          "workProductName": "VM Migration Guide",
+          "levelOfDetailName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Competitive Intelligence",
+        "Sales Enablement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Virtualization Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Track Virtualization Displacement Outcomes Guidance",
+          "description": "How systematic outcome tracking creates a self-reinforcing displacement evidence cycle.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Virtualization displacement engagements generate valuable competitive intelligence and customer reference data that must be systematically captured and integrated into positioning content to strengthen future displacement conversations."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Displacement outcome tracking captures win/loss data by incumbent vendor and migration scenario, documents customer migration success stories with quantified outcomes, refreshes competitive intelligence with field-generated insights, and updates tactic messaging based on engagement effectiveness data."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Systematic displacement outcome tracking creates a self-reinforcing cycle where each successful displacement strengthens the evidence base, competitive positioning, and migration credentialing available for future engagements."
+            }
+          ],
+          "citationNames": [
+            "Virtualization TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Virtualization Displacement Journey",
+      "description": "Lifecycle coordinating virtualization displacement from landscape assessment through migration execution with competitive positioning throughout.",
+      "narrativeTypeName": "Competitive Narrative",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Sales Play engagement identifies Virtualization as relevant TDP.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Virtualization",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Incumbent Landscape Assessed"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "A customer engagement has surfaced virtualization as a technology decision area, typically triggered by incumbent licensing concerns, infrastructure modernization priorities, or strategic platform consolidation goals requiring structured displacement positioning."
+            }
+          ]
+        },
+        {
+          "name": "Assessment",
+          "description": "Evaluate customer VM landscape and incumbent competitive position.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Virtualization",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Incumbent Landscape Assessed"
+            },
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Assess Virtualization Landscape"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Assessment establishes the displacement foundation by evaluating the customer's incumbent platform, workload inventory, license renewal timeline, and migration readiness, while simultaneously mapping the competitive landscape to understand which displacement strategies apply to this specific situation."
+            }
+          ]
+        },
+        {
+          "name": "Strategy and Positioning",
+          "description": "Define migration strategy and establish competitive displacement positioning.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Virtualization",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Displacement Strategy Mapped"
+            },
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Migration Differentiation Articulated"
+            },
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Deployed"
+            }
+          ],
+          "activities": [
+            "Define Virtualization Migration Strategy",
+            "Position Virtualization Domain Competitively"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Alternative",
+              "context": "Strategy and positioning maps the migration pathway while building displacement differentiation. The incumbent's genuine strengths are acknowledged while Red Hat's cost, innovation, and risk reduction advantages are articulated through evidence-based positioning tailored to the customer's specific incumbent platform and migration context."
+            }
+          ]
+        },
+        {
+          "name": "Engagement and Validation",
+          "description": "Execute migration conversations and validate technical feasibility.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Virtualization",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Converted"
+            },
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Displacement Defended"
+            }
+          ],
+          "activities": [
+            "Execute VM Migration Tactic Conversation",
+            "Validate VM Migration Feasibility",
+            "Position Virtualization Domain Competitively"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Advantage",
+              "context": "Engagement and validation demonstrate Red Hat's advantage through action -- technical proof activities validate migration feasibility, performance benchmarks confirm capability, and challenge-focused conversations address objections with evidence. The customer experiences Red Hat's migration approach rather than being told about it, converting competitive claims into demonstrated capability that achieves displacement commitment."
+            }
+          ]
+        },
+        {
+          "name": "Migration and Optimization",
+          "description": "Execute production migration and capture displacement outcomes.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Virtualization",
+              "stateName": "Demonstrated"
+            },
+            {
+              "alphaName": "Virtualization",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "VM Migration and Modernization",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Virtualization Competitive Position",
+              "stateName": "Displacement Achieved"
+            }
+          ],
+          "activities": [
+            "Track Virtualization Displacement Outcomes"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Advantage",
+              "context": "Migration execution and outcome tracking close the displacement loop. Successful migrations generate customer reference stories, quantified cost savings data, and field-validated competitive intelligence that strengthen the evidence base for future displacement engagements, creating a self-reinforcing cycle where each successful displacement makes the next one easier to achieve."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.1"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard Virtualization",
+      "description": "Reference Virtualization alpha instance with customer-facing and assessment materials",
+      "alphaName": "Virtualization",
+      "stateName": "Positioned",
+      "links": [
+        {
+          "name": "Virtualization TDP Sales Hub Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCmCMWB6Qb7mqGhChPP437T3jTP8"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Standard Virtualization Positioning Brief",
+          "description": "Standard instance of Virtualization Positioning Brief with curated enablement content",
+          "workProductName": "Virtualization Brief",
+          "levelOfDetailName": "Content-Complete",
+          "links": [
+            {
+              "name": "Virtualization - TDP Customer Facing 2026 (Source)",
+              "uri": "https://docs.google.com/presentation/d/1XOPGHmU38KO_Ea9oz_XV-EJIzI2HpdWzrU6loNznk6g/edit"
+            },
+            {
+              "name": "Virtualization - TDP Customer Facing 2026",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCBTH32M72cQc8WPGm76H3XCGjQP"
+            },
+            {
+              "name": "Cheatsheet Virtualization TDP CY26 (Source)",
+              "uri": "https://docs.google.com/presentation/d/11G27Lf1rAIDW5AkB5lI1m9DvdYYji7kEM6BnoKqHhxQ/edit"
+            },
+            {
+              "name": "Cheatsheet Virtualization TDP CY26",
+              "uri": "https://saleshub.redhat.com/Link/Content/DC8mWfqHCPghq8HVVjh7hHMXp6gP"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard VM Migration and Modernization",
+      "description": "Reference VM Migration and Modernization tactic with sales enablement",
+      "alphaName": "VM Migration and Modernization",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "VM Migration and Modernization Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCPFpWMf3Xgj789J4F3d3f8hRRcG"
+        }
+      ]
+    },
+    {
+      "name": "Standard Nutanix Virtualization Competitive Position",
+      "description": "Competitive scenario addressing Nutanix's hyperconverged virtualization platform where customers evaluate AHV as a VMware alternative, positioning Red Hat OpenShift Virtualization's Kubernetes-native approach.",
+      "alphaName": "Virtualization Competitive Position",
+      "stateName": "Displacement Strategy Mapped",
+      "links": [
+        {
+          "name": "Nutanix Virtualization Battlecards",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flf7a8e4a19-b243-4ba7-8c2e-a173609acb96//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Nutanix AHV Battlecard (Virtualization)",
+          "description": "Competitive positioning against Nutanix AHV covering hyperconverged infrastructure lock-in, Kubernetes integration gaps, and Red Hat's open hybrid cloud advantage.",
+          "workProductName": "Virtualization Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card",
+          "links": [
+            {
+              "name": "Nutanix AHV Battlecard (Virtualization)",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flf7a8e4a19-b243-4ba7-8c2e-a173609acb96//"
+            }
+          ]
+        },
+        {
+          "name": "Nutanix-OpenShift Virtualization Battlecard",
+          "description": "Head-to-head positioning of OpenShift Virtualization against Nutanix's virtualization stack, covering migration paths and modernization advantages.",
+          "workProductName": "Virtualization Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card",
+          "links": [
+            {
+              "name": "Nutanix-OpenShift Virtualization Battlecard",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CU2FsZXMgY29udmVyc2F0aW9uIGd1aWRl%252Flf2b3d6b89-45d8-4624-bd18-e81fbcded5c5//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard Cisco Virtualization Competitive Position",
+      "description": "Competitive scenario addressing Cisco's compute and virtualization infrastructure where customers evaluate Cisco partnerships alongside Red Hat virtualization capabilities.",
+      "alphaName": "Virtualization Competitive Position",
+      "stateName": "Displacement Strategy Mapped",
+      "links": [
+        {
+          "name": "Cisco Virtualization Battlecard",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flfef0355fe-e11d-4776-b604-5d739fa7dd6f//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Red Hat and Cisco Virtualization Battlecard",
+          "description": "Joint Red Hat and Cisco virtualization positioning covering collaborative displacement strategy and infrastructure modernization paths.",
+          "workProductName": "Virtualization Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card",
+          "links": [
+            {
+              "name": "Red Hat and Cisco Virtualization Battlecard",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flfef0355fe-e11d-4776-b604-5d739fa7dd6f//"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

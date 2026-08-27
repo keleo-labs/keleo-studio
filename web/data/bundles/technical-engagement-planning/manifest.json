@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "technical-engagement-planning",
+    "version": "1.0.0",
+    "description": "technical-engagement-planning",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/technical-engagement-planning.json",
+      "documentType": "practice",
+      "documentName": "Technical Engagement Planning",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.2",
+        "description": "A structured methodology for Ecosystem Solutions Architects to plan, execute, and measure technical engagement initiatives with partners, driving TDP adoption through co-created solutions toward sustained achievement.",
+        "tags": {
+          "domainTags": [
+            "Technical Engagement",
+            "Partner Enablement",
+            "TDP Adoption",
+            "Solution Co-Creation"
+          ],
+          "lifecycleTags": [
+            "Planning",
+            "Execution",
+            "Review",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Ecosystem SA",
+            "Partner Management"
+          ]
+        },
+        "keywords": [
+          "TEP",
+          "technical engagement plan",
+          "ecosystem solutions architect",
+          "ESA",
+          "TDP",
+          "technical decision point",
+          "whitespace map",
+          "RHSC",
+          "Red Hat Sales Cloud",
+          "GEM",
+          "partner technical strategy",
+          "initiative",
+          "15-action framework",
+          "partner capability",
+          "solution co-creation",
+          "quarterly review",
+          "MBO",
+          "account map",
+          "PSP"
+        ],
+        "elementCount": 275,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-10"
+      }
+    },
+    {
+      "path": "documents/partner-ecosystem-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Partner Ecosystem Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "A minimal baseline practice for engaging with partner ecosystems, covering partner lifecycle management, value realization, capability building, trust cultivation, and governance.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "partner ecosystem",
+          "alliance management",
+          "partner relationship",
+          "trust building",
+          "partnership governance",
+          "partner value"
+        ],
+        "elementCount": 180,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-06-15T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/partner-success-planning.json",
+      "documentType": "practice",
+      "documentName": "Partner Success Planning",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.2",
+        "description": "A structured methodology for developing, executing, and continuously improving joint business plans between Red Hat and its partner ecosystem, driving mutual value through co-created initiatives, rubric-validated quality assurance, and quarterly performance optimization.",
+        "tags": {
+          "domainTags": [
+            "partner-strategy",
+            "joint-planning",
+            "revenue-management",
+            "business-analysis"
+          ],
+          "lifecycleTags": [
+            "planning",
+            "execution",
+            "review",
+            "optimization"
+          ],
+          "organizationalTags": [
+            "partner-ecosystem",
+            "sales",
+            "cross-company"
+          ]
+        },
+        "keywords": [
+          "partner success plan",
+          "joint business planning",
+          "PSP",
+          "partner account management",
+          "quarterly business review",
+          "GI-SART",
+          "value proposition",
+          "whitespace map",
+          "revenue initiative",
+          "PAM"
+        ],
+        "elementCount": 231,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-10"
+      }
+    },
+    {
+      "path": "documents/partner-go-to-market-execution.json",
+      "documentType": "practice",
+      "documentName": "Partner Go-to-Market Execution",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Equips technology Red Hat partners to execute structured sales plays through demand generation, deal management, and technical collaboration activities.",
+        "tags": {
+          "domainTags": [
+            "Partner Sales",
+            "Demand Generation",
+            "Deal Management",
+            "Technical Collaboration"
+          ],
+          "lifecycleTags": [
+            "Activation",
+            "Execution",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Partner Sales Organization",
+            "Partner Marketing",
+            "Partner Technical Team"
+          ]
+        },
+        "keywords": [
+          "partner sales play",
+          "deal registration",
+          "MDF",
+          "demand generation",
+          "proof of concept",
+          "co-selling",
+          "partner marketing",
+          "technical collaboration",
+          "lifecycle rewards",
+          "partner GTM"
+        ],
+        "elementCount": 356,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-10"
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "packageName": "Partner Engagement & Lifecycle",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "packageName": "Sales Play Framework",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

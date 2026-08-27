@@ -1,0 +1,236 @@
+{
+  "kind": "method",
+  "name": "TEP Partner Success with Sales Plays",
+  "description": "Cisco-style partner TEP engagement composing Technical Engagement Planning and Partner Success Planning with Red Hat Partner Ecosystem Foundations and Red Hat Sales Plays.",
+  "baselinePracticeName": "Partner Ecosystem Essentials",
+  "practiceNames": [
+    "Technical Engagement Planning",
+    "Partner Success Planning",
+    "Partner Engagement & Lifecycle",
+    "Partner Go-to-Market Execution",
+    "AI Platform TDP",
+    "AI-Ready Enterprise",
+    "App Platform TDP",
+    "Automation TDP",
+    "Build and Run Applications",
+    "Container Management TDP",
+    "Digital Sovereignty",
+    "IT Operations Efficiency",
+    "Modernize Infrastructure",
+    "Server Cloud OS TDP",
+    "Virtualization TDP"
+  ],
+  "alphaBindings": [
+    {
+      "baselineAlpha": {
+        "baselineName": "Partner Ecosystem Essentials",
+        "alphaName": "Partner Value"
+      },
+      "contributingAlphas": [
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Opportunity",
+          "stateContributions": [
+            {
+              "fromState": "Identified",
+              "toState": "Identified"
+            },
+            {
+              "fromState": "Qualified",
+              "toState": "Qualified"
+            },
+            {
+              "fromState": "Validated",
+              "toState": "Qualified"
+            },
+            {
+              "fromState": "Committed",
+              "toState": "Agreed"
+            },
+            {
+              "fromState": "Won",
+              "toState": "Delivered"
+            },
+            {
+              "fromState": "Expanding",
+              "toState": "Optimized"
+            }
+          ]
+        },
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Deal",
+          "stateContributions": [
+            {
+              "fromState": "Shaped",
+              "toState": "Qualified"
+            },
+            {
+              "fromState": "Proposed",
+              "toState": "Qualified"
+            },
+            {
+              "fromState": "Negotiated",
+              "toState": "Agreed"
+            },
+            {
+              "fromState": "Closed",
+              "toState": "Delivered"
+            },
+            {
+              "fromState": "Renewed",
+              "toState": "Optimized"
+            }
+          ]
+        },
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Sales Play",
+          "stateContributions": [
+            {
+              "fromState": "Selected",
+              "toState": "Identified"
+            },
+            {
+              "fromState": "Activated",
+              "toState": "Qualified"
+            },
+            {
+              "fromState": "Executing",
+              "toState": "Agreed"
+            },
+            {
+              "fromState": "Measured",
+              "toState": "Delivered"
+            },
+            {
+              "fromState": "Optimized",
+              "toState": "Optimized"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "baselineAlpha": {
+        "baselineName": "Partner Ecosystem Essentials",
+        "alphaName": "Partner Capability"
+      },
+      "contributingAlphas": [
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Technical Validation",
+          "stateContributions": [
+            {
+              "fromState": "Planned",
+              "toState": "Assessed"
+            },
+            {
+              "fromState": "Executing",
+              "toState": "Developing"
+            },
+            {
+              "fromState": "Evidenced",
+              "toState": "Developing"
+            },
+            {
+              "fromState": "Accepted",
+              "toState": "Capable"
+            },
+            {
+              "fromState": "Referenced",
+              "toState": "Scaling"
+            }
+          ]
+        },
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Solution Fit",
+          "stateContributions": [
+            {
+              "fromState": "Explored",
+              "toState": "Assessed"
+            },
+            {
+              "fromState": "Scoped",
+              "toState": "Assessed"
+            },
+            {
+              "fromState": "Designed",
+              "toState": "Developing"
+            },
+            {
+              "fromState": "Demonstrated",
+              "toState": "Capable"
+            },
+            {
+              "fromState": "Confirmed",
+              "toState": "Capable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "baselineAlpha": {
+        "baselineName": "Partner Ecosystem Essentials",
+        "alphaName": "Partner Relationship"
+      },
+      "contributingAlphas": [
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Customer Relationship",
+          "stateContributions": [
+            {
+              "fromState": "Initiated",
+              "toState": "Initiated"
+            },
+            {
+              "fromState": "Developing",
+              "toState": "Established"
+            },
+            {
+              "fromState": "Established",
+              "toState": "Active"
+            },
+            {
+              "fromState": "Strategic",
+              "toState": "Strategic"
+            },
+            {
+              "fromState": "Transformational",
+              "toState": "Renewing"
+            }
+          ]
+        },
+        {
+          "baselineName": "Red Hat Sales Essentials",
+          "alphaName": "Customer",
+          "stateContributions": [
+            {
+              "fromState": "Targeted",
+              "toState": "Initiated"
+            },
+            {
+              "fromState": "Understood",
+              "toState": "Established"
+            },
+            {
+              "fromState": "Engaged",
+              "toState": "Active"
+            },
+            {
+              "fromState": "Trusting",
+              "toState": "Strategic"
+            },
+            {
+              "fromState": "Advocating",
+              "toState": "Renewing"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "2.0.0"
+}
