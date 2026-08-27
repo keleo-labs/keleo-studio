@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "team-topologies-v5",
+    "version": "1.0.0",
+    "description": "team-topologies-v5",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/team-topologies-v5.json",
+      "documentType": "practice",
+      "documentName": "Team Topologies v5",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.2",
+        "description": "Organizational design framework enabling fast flow through team types, interaction modes, and cognitive load management.",
+        "tags": {
+          "domainTags": [
+            "Organizational Design",
+            "Platform Engineering",
+            "DevOps"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Evolution",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Executive Leadership",
+            "Platform Team",
+            "Stream-Aligned Team",
+            "Enabling Team"
+          ]
+        },
+        "keywords": [
+          "team topology",
+          "cognitive load",
+          "Conway's Law",
+          "platform as product",
+          "thinnest viable platform",
+          "stream-aligned team",
+          "interaction modes",
+          "organizational sensing",
+          "DevEx",
+          "fast flow"
+        ],
+        "elementCount": 319,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-06-11"
+      }
+    },
+    {
+      "path": "documents/platform-adoption-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Platform Adoption Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "The Platform Adoption Essentials baseline establishes the universal foundation for platform transformations, extending the Project Essentials baseline with platform-specific concerns across the three Areas of Concern.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "platform",
+          "adoption",
+          "kernel"
+        ],
+        "elementCount": 125,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2023-10-25T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/project-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Project Essentials",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "The Project Essentials baseline establishes the universal foundation for project management, organized into three areas of concern: Value, Solution, and Endeavor.",
+        "tags": {
+          "domainTags": [
+            "Project Management",
+            "Agile",
+            "Governance",
+            "Stakeholder Management",
+            "Team Management"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Execution",
+            "Closure",
+            "Benefits Realization"
+          ],
+          "organizationalTags": [
+            "Project Team",
+            "PMO",
+            "Governance Board",
+            "Stakeholder Community"
+          ]
+        },
+        "keywords": [
+          "project management",
+          "agile",
+          "PMBOK",
+          "Essence",
+          "SMART objectives",
+          "team",
+          "stakeholders",
+          "way of working"
+        ],
+        "elementCount": 455,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    }
+  ]
+}

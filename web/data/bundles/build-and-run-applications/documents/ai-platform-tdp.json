@@ -1,0 +1,2828 @@
+{
+  "kind": "practice",
+  "name": "AI Platform TDP",
+  "description": "Provides AI/ML platform technical positioning with five tactics covering inference, sovereign AI, production AI, agentic AI, and NVIDIA partnership solutions.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceDependencyNames": [
+    "Sales Play Framework"
+  ],
+  "tags": {
+    "domainTags": [
+      "AI/ML Platform",
+      "Model Serving",
+      "AI Infrastructure",
+      "GenAI"
+    ],
+    "lifecycleTags": [
+      "Technical Validation",
+      "Platform Design",
+      "Production Deployment"
+    ],
+    "organizationalTags": [
+      "Technical Sales",
+      "AI/ML Specialists",
+      "Solution Architects"
+    ]
+  },
+  "keywords": [
+    "ai-platform",
+    "model-serving",
+    "inference",
+    "sovereign-ai",
+    "production-ai",
+    "agentic-ai",
+    "nvidia-ai-factory",
+    "mlops",
+    "gpu-infrastructure",
+    "ai-positioning"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.6",
+  "citations": [
+    {
+      "name": "AI Platform TDP",
+      "description": "Technical Decision Point documentation for AI/ML platform positioning including seller credentials, customer wins, and audience-segmented content.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCGp7297MBFqdG2PWFCdjCgfWhcB",
+      "kind": "citation"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//",
+      "kind": "citation"
+    },
+    {
+      "name": "AI-Ready Enterprise Sales Play",
+      "description": "Complete Sales Play example demonstrating Customer Lens, persona frameworks, value drivers, TDP alignment, and content architecture for AI infrastructure.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCXc2jTBRBPBT87XCg2D776hGRdP",
+      "kind": "citation"
+    },
+    {
+      "name": "Build and Run Applications Sales Play",
+      "description": "Sales Play covering application modernization and developer productivity positioning including AI-enhanced development scenarios.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DC6gmDb7XBm2jGfHWR4XMCXFm6MV",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "ai-platform-domain-icon",
+      "description": "Visual icon representing the AI/ML platform technology domain.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "inference-tactic-icon",
+      "description": "Visual icon representing the inference at scale tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bolt",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sovereign-ai-tactic-icon",
+      "description": "Visual icon representing the sovereign AI tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "production-ai-tactic-icon",
+      "description": "Visual icon representing the production AI tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-industry",
+      "fontWeight": "900"
+    },
+    {
+      "name": "agentic-ai-tactic-icon",
+      "description": "Visual icon representing the agentic AI tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-robot",
+      "fontWeight": "900"
+    },
+    {
+      "name": "nvidia-ai-factory-tactic-icon",
+      "description": "Visual icon representing the Red Hat AI Factory with NVIDIA partnership tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microchip",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ai-competitive-position-icon",
+      "description": "Visual icon representing AI platform competitive intelligence.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-ranking-star",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "AI Platform",
+      "description": "The maturity of AI/ML platform positioning across inference, sovereignty, production, agentic, and partnership scenarios.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "coordinates",
+          "alphaName": "Inference at Scale",
+          "direction": "outgoing",
+          "description": "The AI Platform Domain coordinates positioning across the Inference at Scale tactic, providing technology credentials and proof points for model serving scenarios."
+        },
+        {
+          "relationship": "coordinates",
+          "alphaName": "Sovereign AI",
+          "direction": "outgoing",
+          "description": "The AI Platform Domain coordinates positioning across the Sovereign AI tactic, connecting sovereignty requirements to AI platform architecture."
+        },
+        {
+          "relationship": "coordinates",
+          "alphaName": "Production AI",
+          "direction": "outgoing",
+          "description": "The AI Platform Domain coordinates positioning across the Production AI tactic, providing MLOps and model lifecycle management credentials."
+        },
+        {
+          "relationship": "coordinates",
+          "alphaName": "Agentic AI",
+          "direction": "outgoing",
+          "description": "The AI Platform Domain coordinates positioning across the Agentic AI tactic, providing agentic workflow infrastructure credentials."
+        },
+        {
+          "relationship": "coordinates",
+          "alphaName": "Red Hat AI Factory with NVIDIA",
+          "direction": "outgoing",
+          "description": "The AI Platform Domain coordinates positioning across the NVIDIA AI Factory tactic, providing co-sell partnership infrastructure credentials."
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "AI Platform Competitive Position",
+          "direction": "outgoing",
+          "description": "The AI Platform Domain uses competitive intelligence for technology-specific AI positioning against cloud AI services and proprietary platforms."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "ai-platform-domain-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Customer's AI maturity, infrastructure readiness, and strategic priorities evaluated.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "background": {
+            "given": [
+              "Sales Play engagement has identified AI Platform as a relevant TDP"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Sales Play",
+                "stateName": "Selected"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "AI maturity assessed",
+              "description": "AI maturity assessed across experimentation, pilot, scaling, production, and enterprise stages.",
+              "seq": 1
+            },
+            {
+              "name": "AI infrastructure evaluated",
+              "description": "AI infrastructure evaluated covering GPU availability, compute topology, and data storage.",
+              "seq": 2
+            },
+            {
+              "name": "AI governance requirements identified",
+              "description": "AI governance and compliance requirements identified for the customer's industry.",
+              "seq": 3
+            },
+            {
+              "name": "Primary AI use cases catalogued",
+              "description": "Primary AI use cases catalogued spanning inference, training, fine-tuning, and agentic scenarios.",
+              "seq": 4
+            },
+            {
+              "name": "Relevant tactic selected",
+              "description": "Relevant tactic selected from five available AI platform scenarios.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Qualified",
+          "description": "AI platform approach and infrastructure architecture designed for customer requirements.",
+          "seq": 2,
+          "contributesToState": "Qualified",
+          "checklist": [
+            {
+              "name": "AI platform topology designed",
+              "description": "AI platform topology designed covering on-premise, cloud, hybrid, and sovereign deployment models.",
+              "seq": 1
+            },
+            {
+              "name": "Model serving architecture specified",
+              "description": "Model serving and inference architecture specified with performance requirements.",
+              "seq": 2
+            },
+            {
+              "name": "MLOps pipeline designed",
+              "description": "MLOps pipeline designed spanning data preparation, training, deployment, and monitoring.",
+              "seq": 3
+            },
+            {
+              "name": "GPU resource management planned",
+              "description": "GPU resource management and scheduling planned with cost optimization approach.",
+              "seq": 4
+            },
+            {
+              "name": "Data governance architecture established",
+              "description": "Data governance and model security architecture established.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Positioned",
+          "description": "Customer engaged with specific AI platform tactic content and conversations.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Tactic selected and challenge framing applied",
+              "description": "Specific tactic selected and customer challenge framing applied to AI scenario.",
+              "seq": 1
+            },
+            {
+              "name": "AI platform demonstrations delivered",
+              "description": "AI platform demonstrations planned or delivered for selected tactic area.",
+              "seq": 2
+            },
+            {
+              "name": "Partnership content shared",
+              "description": "Partnership content shared with customer if NVIDIA AI Factory tactic is relevant.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive positioning prepared",
+              "description": "Competitive positioning prepared against cloud-native AI services and proprietary platforms.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references shared from comparable AI platform deployments.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Demonstrated",
+          "description": "AI platform capabilities validated against customer's specific requirements.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "checklist": [
+            {
+              "name": "AI workload deployment demonstrated",
+              "description": "AI workload deployment demonstrated on Red Hat platform infrastructure.",
+              "seq": 1
+            },
+            {
+              "name": "Model serving performance validated",
+              "description": "Model serving performance validated against customer's latency and throughput requirements.",
+              "seq": 2
+            },
+            {
+              "name": "MLOps lifecycle management proven",
+              "description": "MLOps lifecycle management proven with model versioning, deployment, and monitoring.",
+              "seq": 3
+            },
+            {
+              "name": "GPU utilization efficiency demonstrated",
+              "description": "GPU utilization and cost efficiency demonstrated compared to alternatives.",
+              "seq": 4
+            },
+            {
+              "name": "Governance compliance met",
+              "description": "Governance and compliance requirements met for the customer's regulatory context.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Customer commits to Red Hat AI platform for identified AI workloads.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "AI platform selected",
+              "description": "Red Hat AI platform selected as the technology decision for identified workloads.",
+              "seq": 1
+            },
+            {
+              "name": "Infrastructure sizing completed",
+              "description": "GPU and infrastructure sizing completed with procurement requirements documented.",
+              "seq": 2
+            },
+            {
+              "name": "Win attributed to TDP",
+              "description": "Win attributed to AI Platform TDP in pipeline management system.",
+              "seq": 3
+            },
+            {
+              "name": "Expansion roadmap established",
+              "description": "Expansion roadmap established covering additional models, use cases, and environments.",
+              "seq": 4
+            },
+            {
+              "name": "Partner ecosystem aligned",
+              "description": "Partner ecosystem aligned including NVIDIA and ISV partnerships as applicable.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "AI Platform Domain Context and Rationale",
+          "description": "Why structured AI platform positioning across five tactic areas enables credible technology-specific conversations.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Enterprise AI adoption spans multiple distinct scenarios -- from deploying inference models at scale through sovereign AI compliance to autonomous agentic workflows -- each requiring specialized infrastructure knowledge and competitive positioning that generic AI messaging cannot provide."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The AI Platform Domain structures positioning across five tactic areas, each addressing a specific AI customer challenge pattern. Sellers can assess customer AI maturity, design platform architectures, engage with tactic-level conversations, validate technology fit, and advance decisions using AI-domain-specific credentials, customer wins, and competitive intelligence."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Structured AI platform positioning enables sellers to engage credibly across the full AI landscape, from basic inference deployment through cutting-edge agentic AI, while maintaining consistent competitive differentiation against cloud AI services and proprietary platforms."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP",
+            "AI-Ready Enterprise Sales Play"
+          ]
+        },
+        {
+          "name": "AI Platform TDP Practice Intent",
+          "description": "The end-to-end narrative of AI platform technology positioning from strategy assessment through tactic execution to decision conversion.",
+          "narrativeTypeName": "Sales Engagement Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "Enterprise organizations pursuing AI transformation face a fragmented technology landscape where cloud-native AI services, proprietary platforms, and open-source frameworks compete for adoption. Red Hat's AI Platform TDP equips sellers with positioning across five distinct AI scenarios -- inference at scale, sovereign AI, production AI, agentic AI, and NVIDIA partnership solutions -- each addressing a specific customer challenge pattern in the rapidly evolving AI infrastructure market."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Validate",
+              "context": "The TDP's value is validated through its breadth of tactic coverage across the full AI lifecycle. Sellers can position Red Hat for customers deploying their first inference workloads, customers requiring sovereign AI within regulatory constraints, organizations scaling AI into production with MLOps governance, enterprises exploring autonomous agentic AI workflows, and joint Red Hat-NVIDIA AI Factory infrastructure. Each tactic provides audience-segmented content with competitive positioning against cloud AI services and proprietary AI platforms."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Propose",
+              "context": "AI Platform TDP activation provides sellers with comprehensive AI domain credentials, customer reference stories, and structured What to Say/Share/Show content across all five tactic areas. The NVIDIA co-sell tactic provides unique partnership-specific content with joint solution architectures, enabling sellers to leverage the NVIDIA relationship for infrastructure-level AI deals."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Negotiate",
+              "context": "Field execution combines tactic-level AI customer conversations with TDP-level technology depth to create multi-dimensional engagements. Sellers can navigate from a customer's specific AI challenge (via tactic) to Red Hat's broader AI platform credentials (via TDP) and back, using bidirectional framework navigation to adapt to each customer's AI maturity and decision context."
+            },
+            {
+              "seq": 5,
+              "narrativeElementName": "Close",
+              "context": "AI platform technology decisions convert when sellers demonstrate infrastructure-level value beyond any single AI framework. Proof activities validate model serving performance, GPU utilization efficiency, MLOps lifecycle management, and governance compliance against the customer's specific AI workload requirements."
+            },
+            {
+              "seq": 6,
+              "narrativeElementName": "Expand",
+              "context": "Continuous optimization driven by AI market evolution sustains TDP relevance. Tactic content is refreshed as new AI paradigms emerge (agentic AI being the latest), competitive positioning adapts as cloud providers enhance their AI services, and NVIDIA partnership content evolves with new GPU generations and joint solutions."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP",
+            "AI-Ready Enterprise Sales Play",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "mapsTo": "Technical Decision Point",
+      "kind": "alpha"
+    },
+    {
+      "name": "Inference at Scale",
+      "description": "Customer challenge-focused conversation guide for AI model serving and inference deployment at scale.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "inference-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Customer's inference scaling challenge articulated with business impact.",
+          "seq": 1,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Inference workload requirements identified",
+              "description": "Customer's inference workload requirements identified including model types and throughput needs.",
+              "seq": 1
+            },
+            {
+              "name": "Infrastructure pain points documented",
+              "description": "Infrastructure pain points documented covering GPU costs, latency requirements, and scaling limitations.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for inference-focused conversation including ML engineers and infrastructure leads.",
+              "seq": 3
+            },
+            {
+              "name": "Messaging framework drafted",
+              "description": "Initial messaging framework drafted connecting inference challenges to Red Hat platform capabilities.",
+              "seq": 4
+            },
+            {
+              "name": "TDP credentials identified",
+              "description": "Supporting AI Platform TDP credentials identified for this scenario.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented inference content delivered to customer stakeholders.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "What to Say messaging delivered",
+              "description": "What to Say messaging delivered addressing inference performance and cost optimization.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials sent",
+              "description": "What to Share materials sent including inference benchmark data and reference architectures.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering model serving deployment and GPU scheduling.",
+              "seq": 3
+            },
+            {
+              "name": "Audience-appropriate content selected",
+              "description": "Audience-appropriate content selected for technical and business decision makers.",
+              "seq": 4
+            },
+            {
+              "name": "Engagement tracking enabled",
+              "description": "Engagement tracking enabled for shared inference materials.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating Red Hat's inference platform capabilities.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Discovery conversations generated",
+              "description": "Discovery conversations generated qualifying information on inference workload scope.",
+              "seq": 1
+            },
+            {
+              "name": "Customer acknowledges challenge",
+              "description": "Customer acknowledges inference scaling challenge and Red Hat's relevance.",
+              "seq": 2
+            },
+            {
+              "name": "Content engagement tracked",
+              "description": "Content engagement tracking shows active interaction with shared materials.",
+              "seq": 3
+            },
+            {
+              "name": "Inference demonstrations delivered",
+              "description": "Inference demonstrations delivered with customer-specific model workloads.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-TDP navigation established",
+              "description": "Cross-TDP navigation established linking inference to broader AI platform positioning.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive objections on inference capabilities addressed with evidence.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Cloud service objections addressed",
+              "description": "Cloud-native inference service objections addressed with hybrid deployment advantages.",
+              "seq": 1
+            },
+            {
+              "name": "Proprietary platform objections countered",
+              "description": "Proprietary platform objections countered with open-source flexibility and cost arguments.",
+              "seq": 2
+            },
+            {
+              "name": "Benchmark data deployed",
+              "description": "Performance benchmark data deployed showing competitive inference throughput.",
+              "seq": 3
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references shared from comparable inference deployment scenarios.",
+              "seq": 4
+            },
+            {
+              "name": "TCO comparison presented",
+              "description": "Total cost of ownership comparison presented for inference workloads.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Inference tactic execution has created or advanced a qualified opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunity attributed to tactic",
+              "description": "Opportunity attributed to inference at scale tactic in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Workload requirements scoped",
+              "description": "Inference workload requirements formally scoped for proposal.",
+              "seq": 2
+            },
+            {
+              "name": "Validation criteria defined",
+              "description": "Technical validation success criteria defined for inference performance.",
+              "seq": 3
+            },
+            {
+              "name": "Challenge framing resonated",
+              "description": "Seller reports challenge framing resonated with inference-focused personas.",
+              "seq": 4
+            },
+            {
+              "name": "Follow-on conversations generated",
+              "description": "Follow-on conversations generated expanding from inference to broader AI platform scope.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Inference at Scale Tactic Context and Rationale",
+          "description": "Why challenge-focused inference conversation converts infrastructure interest into platform opportunities.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations deploying AI inference workloads face infrastructure complexity around GPU scheduling, model serving latency, and cost management that cloud-native services address with convenience but at the expense of flexibility, portability, and cost transparency."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Inference at Scale tactic equips sellers with challenge-focused conversation content that frames inference infrastructure as a platform engineering problem, positioning Red Hat's model serving capabilities as an open, portable alternative to proprietary cloud inference endpoints."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers who execute the inference tactic effectively convert AI infrastructure conversations from feature comparisons into platform strategy discussions, expanding deal scope from single-model deployment to enterprise-wide inference infrastructure."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Sovereign AI",
+      "description": "Customer challenge-focused conversation guide for AI deployment within digital sovereignty constraints.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "sovereign-ai-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Customer's sovereign AI challenge articulated with regulatory context.",
+          "seq": 1,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Sovereignty requirements identified",
+              "description": "Customer's AI sovereignty requirements identified including data residency and model governance mandates.",
+              "seq": 1
+            },
+            {
+              "name": "Regulatory drivers documented",
+              "description": "Regulatory drivers documented covering GDPR, AI Act, industry-specific compliance, and geopolitical factors.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for sovereignty-focused AI conversation including CISO, compliance leads, and CTO.",
+              "seq": 3
+            },
+            {
+              "name": "Messaging framework drafted",
+              "description": "Initial messaging framework drafted connecting AI sovereignty to Red Hat's open-source platform approach.",
+              "seq": 4
+            },
+            {
+              "name": "Digital Sovereignty play content identified",
+              "description": "Cross-reference to Digital Sovereignty play content identified for synergistic positioning.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented sovereign AI content delivered to customer stakeholders.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "What to Say messaging delivered",
+              "description": "What to Say messaging delivered addressing AI model provenance, data control, and regulatory compliance.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials sent",
+              "description": "What to Share materials sent including sovereign AI architecture patterns and compliance frameworks.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering on-premise AI deployment with governance controls.",
+              "seq": 3
+            },
+            {
+              "name": "Sovereignty readiness assessment used",
+              "description": "Sovereignty readiness assessment results used to contextualize AI sovereignty conversation.",
+              "seq": 4
+            },
+            {
+              "name": "Engagement tracking enabled",
+              "description": "Engagement tracking enabled for shared sovereignty AI materials.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating Red Hat's sovereign AI platform capabilities.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Discovery conversations generated",
+              "description": "Discovery conversations generated qualifying information on sovereign AI deployment scope.",
+              "seq": 1
+            },
+            {
+              "name": "Customer acknowledges challenge",
+              "description": "Customer acknowledges sovereign AI challenge and Red Hat's relevance for compliant AI infrastructure.",
+              "seq": 2
+            },
+            {
+              "name": "Cross-functional engagement achieved",
+              "description": "Cross-functional stakeholder engagement achieved including compliance, security, and AI teams.",
+              "seq": 3
+            },
+            {
+              "name": "Sovereign AI architecture reviewed",
+              "description": "Sovereign AI deployment architecture reviewed with customer's security requirements.",
+              "seq": 4
+            },
+            {
+              "name": "Regulatory compliance mapping completed",
+              "description": "Regulatory compliance mapping completed for customer's specific jurisdiction and industry.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive objections on sovereign AI capabilities addressed with evidence.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Sovereign cloud objections addressed",
+              "description": "Sovereign cloud AI service objections addressed with full-control, on-premise deployment advantages.",
+              "seq": 1
+            },
+            {
+              "name": "Open-source governance positioned",
+              "description": "Open-source AI model governance transparency positioned against proprietary model opacity.",
+              "seq": 2
+            },
+            {
+              "name": "Compliance evidence presented",
+              "description": "Data residency and model provenance compliance evidence presented.",
+              "seq": 3
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references shared from comparable sovereign AI deployments.",
+              "seq": 4
+            },
+            {
+              "name": "Sovereignty cost compared",
+              "description": "Total cost of sovereignty compliance compared to cloud-dependent alternatives.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Sovereign AI tactic execution has created or advanced a qualified opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunity attributed to tactic",
+              "description": "Opportunity attributed to sovereign AI tactic in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Deployment requirements scoped",
+              "description": "Sovereign AI deployment requirements formally scoped including compliance certification needs.",
+              "seq": 2
+            },
+            {
+              "name": "Validation criteria defined",
+              "description": "Technical validation success criteria defined for sovereign AI governance.",
+              "seq": 3
+            },
+            {
+              "name": "Digital Sovereignty synergy leveraged",
+              "description": "Digital Sovereignty play synergy leveraged for expanded deal scope.",
+              "seq": 4
+            },
+            {
+              "name": "Follow-on conversations generated",
+              "description": "Follow-on conversations generated expanding from sovereign AI to broader sovereignty infrastructure.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Sovereign AI Tactic Context and Rationale",
+          "description": "Why sovereignty-focused AI positioning creates differentiated opportunities in regulated markets.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations in regulated industries and sovereignty-sensitive geographies must deploy AI capabilities while maintaining full control over model provenance, training data residency, and inference infrastructure -- requirements that cloud-native AI services cannot guarantee due to shared infrastructure and opaque model governance."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Sovereign AI tactic equips sellers with challenge-focused content that frames AI sovereignty as a compliance and control imperative, positioning Red Hat's on-premise and sovereign cloud AI platform as the open-source foundation for AI deployments that must meet stringent regulatory and geopolitical requirements."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers executing the sovereign AI tactic create differentiated positioning in regulated markets where proprietary and cloud AI services face structural limitations, expanding deal scope by connecting AI infrastructure to broader digital sovereignty transformation initiatives."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Production AI",
+      "description": "Customer challenge-focused conversation guide for MLOps and AI model lifecycle management in production.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "production-ai-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Customer's production AI challenge articulated with operational impact.",
+          "seq": 1,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Productionization challenges identified",
+              "description": "Customer's AI productionization challenges identified covering model lifecycle, monitoring, and governance.",
+              "seq": 1
+            },
+            {
+              "name": "MLOps maturity assessed",
+              "description": "MLOps maturity assessed from ad hoc model deployment through structured pipeline management.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for production AI conversation including ML platform leads and DevOps managers.",
+              "seq": 3
+            },
+            {
+              "name": "Messaging framework drafted",
+              "description": "Initial messaging framework drafted connecting production AI challenges to Red Hat MLOps capabilities.",
+              "seq": 4
+            },
+            {
+              "name": "TDP credentials identified",
+              "description": "Supporting AI Platform TDP credentials identified for MLOps and model lifecycle scenarios.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented production AI content delivered to customer stakeholders.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "What to Say messaging delivered",
+              "description": "What to Say messaging delivered addressing model lifecycle management and MLOps governance.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials sent",
+              "description": "What to Share materials sent including MLOps pipeline architectures and model monitoring approaches.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering model versioning, deployment automation, and drift detection.",
+              "seq": 3
+            },
+            {
+              "name": "Audience-appropriate content selected",
+              "description": "Audience-appropriate content selected for ML engineering and operations decision makers.",
+              "seq": 4
+            },
+            {
+              "name": "Engagement tracking enabled",
+              "description": "Engagement tracking enabled for shared production AI materials.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating Red Hat's production AI platform capabilities.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Discovery conversations generated",
+              "description": "Discovery conversations generated qualifying information on production AI workload scope.",
+              "seq": 1
+            },
+            {
+              "name": "Customer acknowledges challenge",
+              "description": "Customer acknowledges production AI challenge and Red Hat's relevance for enterprise MLOps.",
+              "seq": 2
+            },
+            {
+              "name": "Content engagement tracked",
+              "description": "Content engagement tracking shows active interaction with shared MLOps materials.",
+              "seq": 3
+            },
+            {
+              "name": "Production AI demonstrations delivered",
+              "description": "Production AI demonstrations delivered with customer-relevant model lifecycle scenarios.",
+              "seq": 4
+            },
+            {
+              "name": "Integration requirements assessed",
+              "description": "Integration requirements assessed for existing ML frameworks and data infrastructure.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive objections on production AI capabilities addressed with evidence.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Cloud MLOps objections addressed",
+              "description": "Cloud-native MLOps service objections addressed with hybrid and multi-cloud deployment advantages.",
+              "seq": 1
+            },
+            {
+              "name": "Proprietary platform objections countered",
+              "description": "Proprietary ML platform objections countered with open-source model portability and ecosystem breadth.",
+              "seq": 2
+            },
+            {
+              "name": "Governance evidence presented",
+              "description": "Model governance and compliance evidence presented for regulated industry requirements.",
+              "seq": 3
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references shared from comparable production AI deployments.",
+              "seq": 4
+            },
+            {
+              "name": "Cost comparison presented",
+              "description": "Operational cost comparison presented for enterprise-scale MLOps management.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Production AI tactic execution has created or advanced a qualified opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunity attributed to tactic",
+              "description": "Opportunity attributed to production AI tactic in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Requirements scoped for MLOps",
+              "description": "Production AI requirements formally scoped for model lifecycle and MLOps proposal.",
+              "seq": 2
+            },
+            {
+              "name": "Validation criteria defined",
+              "description": "Technical validation success criteria defined for MLOps pipeline performance.",
+              "seq": 3
+            },
+            {
+              "name": "Challenge framing resonated",
+              "description": "Seller reports challenge framing resonated with ML platform engineering personas.",
+              "seq": 4
+            },
+            {
+              "name": "Follow-on conversations generated",
+              "description": "Follow-on conversations generated expanding from MLOps to broader AI platform scope.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Production AI Tactic Context and Rationale",
+          "description": "Why production AI positioning converts experimentation conversations into enterprise MLOps opportunities.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations that have successfully experimented with AI models struggle to move them into production reliably, facing challenges around model versioning, deployment automation, performance monitoring, drift detection, and governance that ad hoc ML workflows cannot sustain at enterprise scale."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Production AI tactic equips sellers with challenge-focused content that frames production AI as a platform engineering discipline, positioning Red Hat's MLOps capabilities as the enterprise-grade foundation for model lifecycle management across development, staging, and production environments."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers executing the production AI tactic convert AI experimentation conversations into enterprise MLOps platform opportunities, helping customers bridge the gap between proof-of-concept AI and production-scale model management with governance and compliance built in."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Agentic AI",
+      "description": "Customer challenge-focused conversation guide for autonomous AI agent infrastructure and orchestration.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "agentic-ai-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Customer's agentic AI challenge articulated with automation impact.",
+          "seq": 1,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Agentic AI requirements identified",
+              "description": "Customer's agentic AI requirements identified covering autonomous workflow orchestration and tool use.",
+              "seq": 1
+            },
+            {
+              "name": "Agentic AI readiness assessed",
+              "description": "Agentic AI readiness assessed including existing automation maturity and data accessibility.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for agentic AI conversation including CTO, AI/ML leads, and automation architects.",
+              "seq": 3
+            },
+            {
+              "name": "Messaging framework drafted",
+              "description": "Initial messaging framework drafted connecting agentic AI infrastructure to Red Hat platform capabilities.",
+              "seq": 4
+            },
+            {
+              "name": "TDP credentials identified",
+              "description": "Supporting AI Platform TDP credentials identified for agentic workflow scenarios.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented agentic AI content delivered to customer stakeholders.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "What to Say messaging delivered",
+              "description": "What to Say messaging delivered addressing agentic workflow orchestration and guardrail infrastructure.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials sent",
+              "description": "What to Share materials sent including agentic AI architecture patterns and governance frameworks.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering agent orchestration, tool integration, and safety controls.",
+              "seq": 3
+            },
+            {
+              "name": "Audience-appropriate content selected",
+              "description": "Audience-appropriate content selected for automation and AI infrastructure decision makers.",
+              "seq": 4
+            },
+            {
+              "name": "Engagement tracking enabled",
+              "description": "Engagement tracking enabled for shared agentic AI materials.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating Red Hat's agentic AI infrastructure capabilities.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Discovery conversations generated",
+              "description": "Discovery conversations generated qualifying information on agentic AI use case scope.",
+              "seq": 1
+            },
+            {
+              "name": "Customer acknowledges challenge",
+              "description": "Customer acknowledges agentic AI infrastructure challenge and Red Hat's platform relevance.",
+              "seq": 2
+            },
+            {
+              "name": "Content engagement tracked",
+              "description": "Content engagement tracking shows active interaction with shared agentic AI materials.",
+              "seq": 3
+            },
+            {
+              "name": "Agentic AI demonstrations delivered",
+              "description": "Agentic AI demonstrations delivered showing autonomous workflow execution with guardrails.",
+              "seq": 4
+            },
+            {
+              "name": "Integration requirements assessed",
+              "description": "Integration requirements assessed for existing tools, APIs, and enterprise systems.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive objections on agentic AI capabilities addressed with evidence.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Cloud agentic objections addressed",
+              "description": "Cloud-native agentic service objections addressed with enterprise control and customization advantages.",
+              "seq": 1
+            },
+            {
+              "name": "Proprietary framework objections countered",
+              "description": "Proprietary agent framework objections countered with open-source flexibility and interoperability.",
+              "seq": 2
+            },
+            {
+              "name": "Safety evidence presented",
+              "description": "Safety and governance evidence presented for autonomous AI workflow management.",
+              "seq": 3
+            },
+            {
+              "name": "Early adopter insights shared",
+              "description": "Customer references or early adopter insights shared from agentic AI deployments.",
+              "seq": 4
+            },
+            {
+              "name": "Infrastructure cost compared",
+              "description": "Infrastructure cost comparison presented for enterprise-scale agentic workloads.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Agentic AI tactic execution has created or advanced a qualified opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunity attributed to tactic",
+              "description": "Opportunity attributed to agentic AI tactic in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Infrastructure requirements scoped",
+              "description": "Agentic AI infrastructure requirements formally scoped for proposal.",
+              "seq": 2
+            },
+            {
+              "name": "Validation criteria defined",
+              "description": "Technical validation success criteria defined for agentic workflow performance.",
+              "seq": 3
+            },
+            {
+              "name": "Strong interest generated",
+              "description": "Seller reports agentic AI framing generated strong interest from automation-focused personas.",
+              "seq": 4
+            },
+            {
+              "name": "Follow-on conversations generated",
+              "description": "Follow-on conversations generated expanding from agentic AI to broader AI platform adoption.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Agentic AI Tactic Context and Rationale",
+          "description": "Why agentic AI positioning captures early-mover advantage in an emerging infrastructure category.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations exploring autonomous AI agents face infrastructure challenges around workflow orchestration, tool integration, safety guardrails, and governance that existing AI platforms were not designed to address, as agentic AI requires fundamentally different infrastructure patterns than traditional model serving."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Agentic AI tactic equips sellers with challenge-focused content that frames agentic AI as an emerging infrastructure category, positioning Red Hat's platform as the enterprise-grade foundation for autonomous AI workflows with built-in orchestration, tool connectivity, and governance controls."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers executing the agentic AI tactic position Red Hat at the leading edge of AI infrastructure evolution, capturing early-mover advantage in a rapidly developing market segment where customers need trusted enterprise platforms rather than experimental frameworks."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Red Hat AI Factory with NVIDIA",
+      "description": "Partnership-specific conversation guide for joint Red Hat-NVIDIA AI infrastructure solutions.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "nvidia-ai-factory-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Customer's AI infrastructure challenge articulated with GPU and partnership context.",
+          "seq": 1,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "GPU workload requirements identified",
+              "description": "Customer's GPU-intensive AI workload requirements identified covering training, inference, and fine-tuning.",
+              "seq": 1
+            },
+            {
+              "name": "NVIDIA alignment assessed",
+              "description": "NVIDIA infrastructure alignment assessed including GPU generations, networking, and software stack.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for partnership conversation including infrastructure architects, procurement, and CTO.",
+              "seq": 3
+            },
+            {
+              "name": "Joint solution messaging drafted",
+              "description": "Initial messaging framework drafted connecting Red Hat-NVIDIA joint solution to customer's AI infrastructure needs.",
+              "seq": 4
+            },
+            {
+              "name": "NVIDIA co-sell engagement initiated",
+              "description": "NVIDIA co-sell engagement initiated with partner team coordination.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Partnership-specific joint solution content delivered to customer stakeholders.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "What to Say messaging delivered",
+              "description": "What to Say messaging delivered addressing joint Red Hat-NVIDIA AI infrastructure architecture.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials sent",
+              "description": "What to Share materials sent including AI Factory reference architectures and partner solution briefs.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering integrated Red Hat-NVIDIA AI platform deployment.",
+              "seq": 3
+            },
+            {
+              "name": "Joint solution content selected",
+              "description": "Joint solution content selected emphasizing partnership-validated configurations and certifications.",
+              "seq": 4
+            },
+            {
+              "name": "Engagement tracking enabled",
+              "description": "Engagement tracking enabled for shared NVIDIA AI Factory materials.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating the joint Red Hat-NVIDIA AI infrastructure solution.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Discovery conversations generated",
+              "description": "Discovery conversations generated qualifying information on GPU infrastructure scale and budget.",
+              "seq": 1
+            },
+            {
+              "name": "Customer acknowledges AI Factory value",
+              "description": "Customer acknowledges AI Factory value proposition for integrated AI infrastructure.",
+              "seq": 2
+            },
+            {
+              "name": "NVIDIA partner engagement active",
+              "description": "NVIDIA partner engagement active with coordinated customer communication.",
+              "seq": 3
+            },
+            {
+              "name": "Joint demonstrations delivered",
+              "description": "Joint demonstrations delivered showing integrated platform with NVIDIA GPU optimization.",
+              "seq": 4
+            },
+            {
+              "name": "Partnership commercial terms discussed",
+              "description": "Procurement and vendor strategy discussions include partnership-specific commercial terms.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive objections on AI Factory capabilities addressed with partnership evidence.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Cloud GPU objections addressed",
+              "description": "Cloud-native GPU service objections addressed with on-premise ownership and cost predictability advantages.",
+              "seq": 1
+            },
+            {
+              "name": "Alternative platform objections countered",
+              "description": "Alternative GPU platform objections countered with Red Hat-NVIDIA validated integration and support.",
+              "seq": 2
+            },
+            {
+              "name": "Partnership certification presented",
+              "description": "Partnership certification and validation evidence presented for enterprise confidence.",
+              "seq": 3
+            },
+            {
+              "name": "Joint customer references shared",
+              "description": "Joint customer references shared from Red Hat-NVIDIA AI Factory deployments.",
+              "seq": 4
+            },
+            {
+              "name": "TCO compared to cloud GPU",
+              "description": "Total cost of AI infrastructure ownership compared to cloud GPU service consumption.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "AI Factory tactic execution has created or advanced a joint partnership opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Opportunity attributed to tactic",
+              "description": "Opportunity attributed to NVIDIA AI Factory tactic in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Joint solution scoped",
+              "description": "Joint Red Hat-NVIDIA solution requirements formally scoped with partnership commercial terms.",
+              "seq": 2
+            },
+            {
+              "name": "Validation criteria defined",
+              "description": "Technical validation success criteria defined for integrated AI Factory deployment.",
+              "seq": 3
+            },
+            {
+              "name": "NVIDIA co-sell documented",
+              "description": "NVIDIA co-sell contribution documented in deal progression.",
+              "seq": 4
+            },
+            {
+              "name": "Expansion roadmap established",
+              "description": "Expansion roadmap established covering additional GPU nodes, AI workloads, and infrastructure tiers.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "NVIDIA AI Factory Tactic Context and Rationale",
+          "description": "Why partnership-specific AI infrastructure positioning creates differentiated joint deal opportunities.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations building GPU-intensive AI infrastructure face procurement complexity, integration risk, and validation overhead when assembling AI platforms from separate compute, platform, and AI software components without vendor-validated reference architectures."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Red Hat AI Factory with NVIDIA tactic equips sellers with a unique co-sell conversation that positions the joint Red Hat-NVIDIA solution as a validated, enterprise-grade AI infrastructure stack. Partnership-specific content includes joint reference architectures, validated configurations, and coordinated support models that reduce customer integration risk."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers executing the NVIDIA AI Factory tactic leverage one of Red Hat's most significant technology partnerships to differentiate against both cloud-native AI services and independent GPU platform providers, creating joint deal motions with larger infrastructure scope and higher average selling prices."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "AI Platform Competitive Position",
+      "description": "Differentiated competitive standing for AI/ML platform decisions against cloud AI services and proprietary platforms.",
+      "focusName": "Solution Alignment",
+      "contributesTo": "Competitive Position",
+      "relatesTo": [
+        {
+          "relationship": "informs",
+          "alphaName": "AI Platform",
+          "direction": "outgoing",
+          "description": "AI Platform Competitive Position provides technology-specific competitive intelligence that informs AI platform positioning and tactic execution."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "ai-competitive-position-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Assessed",
+          "description": "AI platform competitive landscape assessed across cloud and proprietary alternatives.",
+          "seq": 1,
+          "contributesToState": "Assessed",
+          "checklist": [
+            {
+              "name": "Cloud AI competitors catalogued",
+              "description": "Cloud AI service competitors catalogued including AWS SageMaker, Azure ML, and Google Vertex AI.",
+              "seq": 1
+            },
+            {
+              "name": "Proprietary AI platforms identified",
+              "description": "Proprietary AI platform competitors identified including Databricks, Dataiku, and MLflow-based alternatives.",
+              "seq": 2
+            },
+            {
+              "name": "GPU service dynamics assessed",
+              "description": "GPU cloud service competitive dynamics assessed including pricing models and lock-in factors.",
+              "seq": 3
+            },
+            {
+              "name": "Analyst reports catalogued",
+              "description": "Analyst reports and market studies catalogued for AI platform competitive landscape.",
+              "seq": 4
+            },
+            {
+              "name": "Win/loss data sources established",
+              "description": "Internal win/loss data sources established for AI-related opportunities.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Mapped",
+          "description": "AI platform competitive positions mapped with detailed differentiation analysis.",
+          "seq": 2,
+          "contributesToState": "Mapped",
+          "checklist": [
+            {
+              "name": "Per-competitor maps created",
+              "description": "Per-competitor AI platform maps created showing feature gaps, pricing advantages, and architectural differences.",
+              "seq": 1
+            },
+            {
+              "name": "Open-source advantage narratives articulated",
+              "description": "Open-source AI advantage narratives articulated covering model portability, transparency, and ecosystem breadth.",
+              "seq": 2
+            },
+            {
+              "name": "Hybrid deployment advantages documented",
+              "description": "Hybrid and multi-cloud AI deployment advantages documented against cloud-locked alternatives.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive objections documented",
+              "description": "Common AI platform competitive objections documented with recommended responses.",
+              "seq": 4
+            },
+            {
+              "name": "Trap-setting questions identified",
+              "description": "Competitive trap-setting questions identified for AI infrastructure discovery conversations.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Differentiated",
+          "description": "AI platform differentiation expressed in customer-relevant terms.",
+          "seq": 3,
+          "contributesToState": "Differentiated",
+          "checklist": [
+            {
+              "name": "AI-specific credentials populated",
+              "description": "AI-specific seller credentials populated with Red Hat AI certifications and partnership recognitions.",
+              "seq": 1
+            },
+            {
+              "name": "AI customer wins compiled",
+              "description": "AI customer wins compiled with quantified outcomes across inference, training, and MLOps scenarios.",
+              "seq": 2
+            },
+            {
+              "name": "Tactic-level differentiation embedded",
+              "description": "Tactic-level competitive differentiation embedded in each of the five AI tactic conversation guides.",
+              "seq": 3
+            },
+            {
+              "name": "NVIDIA partnership positioned",
+              "description": "NVIDIA partnership positioned as a structural competitive advantage for AI infrastructure deals.",
+              "seq": 4
+            },
+            {
+              "name": "Open-source governance positioned",
+              "description": "Open-source model governance transparency positioned against proprietary AI platform opacity.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Defended",
+          "description": "AI platform competitive challenges addressed with evidence in customer conversations.",
+          "seq": 4,
+          "contributesToState": "Defended",
+          "checklist": [
+            {
+              "name": "Credential evidence deployed",
+              "description": "AI platform credential evidence deployed in competitive customer conversations.",
+              "seq": 1
+            },
+            {
+              "name": "Cloud AI convenience countered",
+              "description": "Cloud AI service convenience arguments countered with enterprise control, cost, and portability evidence.",
+              "seq": 2
+            },
+            {
+              "name": "Proof activities highlight differentiators",
+              "description": "Proof activities structured to highlight AI-specific competitive differentiators.",
+              "seq": 3
+            },
+            {
+              "name": "Win/loss reporting captures impact",
+              "description": "Win/loss reporting captures which AI competitive content was most impactful.",
+              "seq": 4
+            },
+            {
+              "name": "Field insights integrated",
+              "description": "Field-generated AI competitive insights captured and integrated into tactic content.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Preferred",
+          "description": "Red Hat selected as preferred AI platform vendor over competitive alternatives.",
+          "seq": 5,
+          "contributesToState": "Preferred",
+          "checklist": [
+            {
+              "name": "Displacement stories documented",
+              "description": "AI competitive displacement stories documented for TDP evidence bases.",
+              "seq": 1
+            },
+            {
+              "name": "Analyst recognitions updated",
+              "description": "AI analyst recognitions and evaluations updated in positioning brief.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive insights integrated",
+              "description": "Field-generated competitive insights integrated into AI tactic conversation guides.",
+              "seq": 3
+            },
+            {
+              "name": "Win rate exceeds targets",
+              "description": "AI platform win rate exceeds target benchmarks against primary competitors.",
+              "seq": 4
+            },
+            {
+              "name": "Customer champion articulates differentiation",
+              "description": "Customer champion can articulate Red Hat AI platform differentiation internally.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "AI Platform Competitive Position Context and Rationale",
+          "description": "Why multi-category AI competitive intelligence is essential for platform positioning.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "AI platform decisions involve evaluation of cloud-native AI services (AWS SageMaker, Azure ML, Google Vertex AI), proprietary AI platforms (Databricks, Dataiku), and open-source AI infrastructure alternatives. Each competitive category has genuine strengths -- cloud services offer convenience and elastic scaling, proprietary platforms offer integrated data-to-model workflows, and the competitive dynamics evolve rapidly as new AI capabilities emerge."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Cloud AI services provide managed convenience and rapid prototyping but create data gravity, model portability challenges, and unpredictable GPU consumption costs at scale. Proprietary AI platforms offer integrated workflows but risk vendor lock-in and limit model interoperability. Each alternative serves specific AI use cases well while creating long-term strategic constraints."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Red Hat's AI platform provides a structural competitive advantage through open-source model governance (transparency and portability), hybrid deployment flexibility (cloud, on-premise, sovereign), NVIDIA partnership validation (enterprise-grade GPU infrastructure), and consistent platform experience across AI scenarios. The five-tactic approach ensures competitive positioning adapts to each customer's specific AI challenge context rather than relying on a single competitive pitch."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP",
+            "AI-Ready Enterprise Sales Play"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Competitive Battle Card",
+      "description": "A competitive intelligence document providing per-competitor analysis, objection handling, and positioning recommendations for a technology domain.",
+      "levelsOfDetail": [
+        {
+          "name": "Competitive Overview",
+          "description": "Basic competitive landscape mapping with key competitors and initial positioning.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Key competitors identified",
+              "description": "Key competitors identified for the technology domain with market positioning documented.",
+              "seq": 1
+            },
+            {
+              "name": "Competitive strengths catalogued",
+              "description": "Competitive strengths and weaknesses catalogued for each major alternative.",
+              "seq": 2
+            },
+            {
+              "name": "Pricing model comparison documented",
+              "description": "Pricing model comparison documented across cloud, proprietary, and open-source options.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Platform Competitive Position",
+              "stateName": "Assessed"
+            }
+          ]
+        },
+        {
+          "name": "Structured Battle Card",
+          "description": "Per-competitor positioning with objection handling and trap-setting questions.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Per-competitor positioning documented",
+              "description": "Per-competitor positioning recommendations documented with evidence-based differentiation.",
+              "seq": 1
+            },
+            {
+              "name": "Objection handling responses prepared",
+              "description": "Objection handling responses prepared for common competitive challenges.",
+              "seq": 2
+            },
+            {
+              "name": "Trap-setting questions included",
+              "description": "Competitive trap-setting questions included for discovery conversations.",
+              "seq": 3
+            },
+            {
+              "name": "Tactic-specific differentiation embedded",
+              "description": "Tactic-specific competitive differentiation embedded for each relevant AI scenario.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "AI Platform Competitive Position",
+              "stateName": "Differentiated"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "workProductInstances": [
+    {
+      "name": "AI Platform Positioning Brief",
+      "description": "Technology-specific positioning brief for the AI/ML platform domain covering AI credentials, customer wins, and five-tactic navigation.",
+      "workProductName": "TDP Positioning Brief"
+    },
+    {
+      "name": "Inference at Scale Conversation Guide",
+      "description": "Customer challenge-focused conversation guide for AI inference deployment and model serving at scale.",
+      "workProductName": "Sales Tactic Conversation Guide"
+    },
+    {
+      "name": "Sovereign AI Conversation Guide",
+      "description": "Customer challenge-focused conversation guide for AI deployment within sovereignty and regulatory constraints.",
+      "workProductName": "Sales Tactic Conversation Guide"
+    },
+    {
+      "name": "Production AI Conversation Guide",
+      "description": "Customer challenge-focused conversation guide for MLOps and AI model lifecycle management in production environments.",
+      "workProductName": "Sales Tactic Conversation Guide"
+    },
+    {
+      "name": "Agentic AI Conversation Guide",
+      "description": "Customer challenge-focused conversation guide for autonomous AI agent infrastructure and workflow orchestration.",
+      "workProductName": "Sales Tactic Conversation Guide"
+    },
+    {
+      "name": "NVIDIA AI Factory Conversation Guide",
+      "description": "Partnership-specific conversation guide for joint Red Hat-NVIDIA AI infrastructure solutions.",
+      "workProductName": "Sales Tactic Conversation Guide"
+    },
+    {
+      "name": "AI Platform Battle Card",
+      "description": "Competitive battle card for the AI/ML platform domain covering cloud AI services, proprietary platforms, and open-source alternatives.",
+      "workProductName": "Competitive Battle Card"
+    }
+  ],
+  "personas": [
+    {
+      "name": "AI Platform TDP Specialist",
+      "description": "AI/ML domain expert responsible for AI platform TDP positioning, technical validation, and five-tactic conversation execution.",
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "AI/ML Platform",
+          "Model Serving",
+          "GenAI"
+        ],
+        "lifecycleTags": [
+          "Technical Validation",
+          "Demonstration"
+        ],
+        "organizationalTags": [
+          "Technical Sales",
+          "AI/ML Specialists"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "AI Platform Engagement Team",
+      "description": "Technical team responsible for AI platform TDP positioning, tactic execution, and technical validation across five AI scenarios.",
+      "personaNames": [
+        "AI Platform TDP Specialist",
+        "Field Seller"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Technical Sales",
+          "AI/ML Specialists"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Assess AI Platform Landscape",
+      "description": "Evaluate customer's AI maturity, infrastructure readiness, and strategic AI priorities to scope AI platform TDP engagement.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Sales Play engagement has identified AI Platform as a relevant TDP for this customer"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sales Play",
+            "stateName": "Executing"
+          }
+        ]
+      },
+      "test": {
+        "name": "AI landscape assessment verification",
+        "description": "Verifies that AI platform landscape assessment produces a comprehensive view of customer AI maturity and priorities.",
+        "given": [
+          "Customer has expressed interest in AI capabilities or has active AI initiatives"
+        ],
+        "when": [
+          "Account team identifies AI infrastructure as a technology decision area during play execution"
+        ],
+        "then": [
+          "Customer's AI maturity level is assessed across experimentation, pilot, scaling, production, and enterprise stages",
+          "Primary AI use cases are catalogued and mapped to relevant tactics",
+          "Infrastructure readiness including GPU availability, compute topology, and data architecture is documented"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI Platform",
+          "stateName": "Identified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Initial"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "AI Platform Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Assess AI Platform Landscape Technique",
+          "description": "How to evaluate customer AI maturity and select the most relevant tactic for engagement.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "AI platform positioning requires understanding the customer's AI maturity before selecting which of the five available tactics is most relevant, since premature tactic selection risks misaligning the conversation with the customer's actual AI journey stage."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Begin by evaluating the customer's AI maturity across a five-stage spectrum (experimentation through enterprise), cataloguing their AI use cases, and assessing their infrastructure readiness including GPU availability and data architecture. Map findings to the five AI platform tactics to identify the best entry point."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A thorough AI landscape assessment ensures that tactic selection matches the customer's actual AI maturity and priorities, increasing the relevance and conversion potential of subsequent tactic-level conversations."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Design AI Platform Architecture",
+      "description": "Design AI platform topology, model serving architecture, and MLOps pipeline for customer's specific AI requirements.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "AI strategy has been assessed and primary AI use cases have been identified"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "AI Platform Domain",
+            "stateName": "Identified"
+          }
+        ]
+      },
+      "test": {
+        "name": "AI platform architecture design verification",
+        "description": "Verifies that AI platform architecture design addresses deployment model, model serving, MLOps, GPU management, and governance.",
+        "given": [
+          "Customer's AI maturity, use cases, and infrastructure requirements are documented"
+        ],
+        "when": [
+          "Customer agrees to a technical architecture discussion for their AI platform requirements"
+        ],
+        "then": [
+          "AI platform topology is designed covering the customer's deployment model preferences",
+          "Model serving and inference architecture is specified with performance targets",
+          "Data governance and model security architecture is established for the customer's compliance context"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI Platform",
+          "stateName": "Qualified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Credentialed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Competitive Intelligence"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "AI Platform Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Design AI Platform Architecture Technique",
+          "description": "How to design an AI platform architecture that demonstrates technical depth and competitive differentiation.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "AI platform architecture decisions are complex, spanning deployment models (on-premise, cloud, hybrid, sovereign), model serving patterns, MLOps pipelines, GPU management, and governance -- and sellers must design solutions that address all these dimensions while differentiating from cloud-native and proprietary alternatives."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Work with the customer's technical team to design an AI platform topology that matches their deployment preferences and compliance requirements. Specify model serving architecture with clear performance requirements, design MLOps pipelines that span the full model lifecycle, and plan GPU resource management with cost optimization."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A well-designed AI platform architecture demonstrates technical depth and creates a differentiated solution proposal that addresses the customer's specific AI infrastructure requirements rather than offering a generic platform pitch."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Execute AI Platform Tactic Conversation",
+      "description": "Deliver AI-specific customer challenge-focused conversations using tactic-specific messaging, evidence, and audience-segmented content.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "AI platform architecture has been discussed and a specific tactic area has been selected"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "AI Platform Domain",
+            "stateName": "Qualified"
+          }
+        ]
+      },
+      "test": {
+        "name": "AI tactic conversation execution verification",
+        "description": "Verifies that AI tactic conversation delivers challenge-focused content and generates qualifying information.",
+        "given": [
+          "A specific AI tactic has been selected matching the customer's AI challenge",
+          "Tactic-specific conversation guide content is available"
+        ],
+        "when": [
+          "Customer agrees to a topic-specific deep-dive conversation on their AI infrastructure challenge"
+        ],
+        "then": [
+          "Customer challenge framing resonates and the customer acknowledges the problem articulation",
+          "Audience-appropriate AI content is delivered with engagement tracking enabled",
+          "Qualifying information is generated including workload scope, timeline, budget, and champion"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI Platform",
+          "stateName": "Positioned"
+        },
+        {
+          "alphaName": "Inference at Scale",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Sovereign AI",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Production AI",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Agentic AI",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Red Hat AI Factory with NVIDIA",
+          "stateName": "Deployed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Sales Tactic Conversation Guide",
+          "levelOfDetailName": "Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Value Articulation",
+        "Competitive Intelligence"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "AI Platform Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Execute AI Platform Tactic Conversation Technique",
+          "description": "How to deliver AI-specific tactic conversations that establish relevance through customer challenge framing.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "AI customer conversations require tactic-specific depth -- an inference scaling conversation differs fundamentally from a sovereign AI compliance conversation or an agentic AI infrastructure conversation -- and generic AI messaging fails to establish relevance for the customer's specific challenge."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Execute the selected AI tactic's conversation guide, leading with the customer's challenge framing before positioning Red Hat's capabilities. Deliver audience-segmented content, share relevant evidence and demonstrations, and navigate bidirectionally to other AI tactics or the broader AI Platform TDP when the conversation reveals additional technology concerns."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Tactic-level execution converts AI infrastructure interest into qualified opportunities by establishing relevance through customer challenge framing, demonstrating technical depth through AI-specific evidence, and tracking engagement to inform follow-up strategy."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Position AI Platform Competitively",
+      "description": "Build and present competitive positioning against cloud AI services and proprietary AI platforms for the AI technology domain.",
+      "activitySpaceName": "Differentiate Competitively",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Customer has identified competitive AI alternatives they are evaluating"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "AI Platform Domain",
+            "stateName": "Positioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "AI competitive positioning verification",
+        "description": "Verifies that AI competitive positioning addresses specific cloud and proprietary platform alternatives with evidence.",
+        "given": [
+          "Customer is evaluating one or more competitive AI platform alternatives"
+        ],
+        "when": [
+          "Competitive dynamics become active in the AI platform technology evaluation"
+        ],
+        "then": [
+          "Specific competitor AI platform capabilities are analyzed with honest strengths and gaps",
+          "Open-source, hybrid deployment, and NVIDIA partnership advantages are positioned against alternatives",
+          "Customer decision criteria are used to frame the competitive comparison in customer-relevant terms"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI Platform Competitive Position",
+          "stateName": "Differentiated"
+        },
+        {
+          "alphaName": "AI Platform Competitive Position",
+          "stateName": "Defended"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card"
+        }
+      ],
+      "requiredCompetencies": [
+        "Competitive Intelligence",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "AI Platform Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Position AI Platform Competitively Technique",
+          "description": "How to address multiple competitive categories in AI platform evaluations with evidence-based differentiation.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "AI platform competitive positioning must address multiple competitive categories simultaneously -- cloud AI services (convenience, elastic scaling), proprietary platforms (integrated workflows, managed experience), and open-source alternatives (cost, flexibility) -- with each customer evaluation context emphasizing different competitive dimensions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Cloud AI services offer managed convenience and rapid prototyping but create data gravity and model portability challenges. Proprietary platforms offer integrated workflows but risk vendor lock-in. Open-source framework-only approaches offer flexibility but lack enterprise governance and support."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Red Hat's AI platform combines open-source transparency with enterprise support, hybrid deployment flexibility with consistent platform experience, and NVIDIA partnership validation with GPU infrastructure expertise. The five-tactic approach ensures competitive positioning adapts to each customer's specific AI challenge context."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Validate AI Platform Technology Fit",
+      "description": "Conduct AI-specific technical proof activities validating model serving, MLOps, GPU utilization, and governance capabilities.",
+      "activitySpaceName": "Validate Technically",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Tactic-level engagement has generated customer interest in AI platform technical validation"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "AI Platform Domain",
+            "stateName": "Positioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "AI platform validation verification",
+        "description": "Verifies that AI platform technical validation addresses model serving, MLOps lifecycle, GPU efficiency, and governance.",
+        "given": [
+          "Customer has requested proof of AI platform capabilities for specific workloads",
+          "Success criteria have been defined for the validation"
+        ],
+        "when": [
+          "Customer agrees to a technical proof activity for AI platform evaluation"
+        ],
+        "then": [
+          "AI workload deployment is demonstrated on Red Hat platform with customer-relevant model types",
+          "Model serving performance meets agreed latency and throughput benchmarks",
+          "Governance and compliance requirements are validated for the customer's regulatory context"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI Platform",
+          "stateName": "Demonstrated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Content-Complete"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "AI Platform Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Validate AI Platform Technology Fit Technique",
+          "description": "How to design AI-specific validation activities that prove infrastructure-level capabilities.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "AI platform technology validation is uniquely demanding because it must demonstrate performance across multiple dimensions -- model serving latency, GPU utilization efficiency, MLOps pipeline robustness, and governance compliance -- each with customer-specific benchmarks that cannot be addressed through generic demonstrations."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Design AI-specific validation activities using each TDP tactic's What to Show content as a foundation. For inference workloads, validate model serving performance and GPU scheduling. For production AI, demonstrate MLOps lifecycle management. For sovereign AI, prove governance compliance. Structure validation with clear success criteria aligned to the customer's specific AI decision criteria."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Successful AI platform validation converts technical interest into committed decisions by proving infrastructure-level capabilities that cloud AI services and proprietary platforms cannot match for the customer's specific deployment model, scale, and compliance requirements."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Advance AI Platform Decision",
+      "description": "Convert validated AI platform positioning into customer commitment including sizing, procurement, and expansion roadmap.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Technical validation has been completed successfully for AI platform capabilities"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "AI Platform Domain",
+            "stateName": "Demonstrated"
+          }
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "AI Platform",
+          "stateName": "Validated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Validated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Deal Orchestration",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "AI Platform Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Advance AI Platform Decision Technique",
+          "description": "How to convert validated AI platform evaluation into committed procurement with expansion pathways.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Converting a validated AI platform evaluation into a committed procurement decision requires bridging the gap between technical proof and commercial commitment, including infrastructure sizing, partner ecosystem alignment, and expansion roadmap definition."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Work with the customer to complete GPU and infrastructure sizing based on validated workload requirements. Align NVIDIA and ISV partnerships as applicable. Establish an expansion roadmap covering additional AI models, use cases, and deployment environments. Ensure win attribution to the AI Platform TDP for performance measurement."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A well-managed AI platform decision process converts validated technical evaluations into committed deals with clear expansion pathways, maximizing deal value through infrastructure-level scope rather than single-workload purchases."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Gather AI Platform Competitive Intelligence",
+      "description": "Collect and synthesize competitive intelligence specific to the AI/ML platform domain including cloud AI services and proprietary platforms.",
+      "activitySpaceName": "Differentiate Competitively",
+      "focusName": "Solution Alignment",
+      "contributesTo": [
+        {
+          "alphaName": "AI Platform Competitive Position",
+          "stateName": "Assessed"
+        },
+        {
+          "alphaName": "AI Platform Competitive Position",
+          "stateName": "Mapped"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Competitive Battle Card",
+          "levelOfDetailName": "Competitive Overview"
+        }
+      ],
+      "requiredCompetencies": [
+        "Competitive Intelligence",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "AI Platform Engagement Team"
+      ],
+      "narratives": [
+        {
+          "name": "Gather AI Platform Competitive Intelligence Technique",
+          "description": "How to establish systematic AI competitive intelligence that keeps tactic positioning current.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "The AI platform competitive landscape evolves rapidly as cloud providers continuously enhance their AI services, new proprietary platforms emerge, and open-source AI frameworks proliferate, requiring continuous intelligence gathering to maintain current and credible competitive positioning."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Establish systematic AI competitive intelligence collection covering cloud AI services (feature releases, pricing changes, analyst evaluations), proprietary platforms (market positioning, customer acquisition), and GPU infrastructure partnerships. Integrate win/loss data from AI-related opportunities to validate competitive claims with field evidence."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Continuously updated AI competitive intelligence ensures that tactic-level competitive positioning reflects the latest market dynamics, enabling sellers to address competitive objections with current evidence rather than stale comparison data."
+            }
+          ],
+          "citationNames": [
+            "AI Platform TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "AI Platform TDP Technical Engagement Journey",
+      "description": "Lifecycle pattern coordinating AI platform TDP engagement from landscape assessment through tactic execution to technology decision.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Initial conditions before AI platform TDP engagement begins.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "AI Platform",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "AI Platform Competitive Position",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Agentic AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Inference at Scale",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Production AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Red Hat AI Factory with NVIDIA",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Sovereign AI",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "Before AI platform TDP engagement begins, a Sales Play engagement must have identified AI Platform as a relevant technology decision area for the customer, and the seller must have baseline awareness of AI/ML platform positioning through the AI Platform TDP content."
+            }
+          ]
+        },
+        {
+          "name": "AI Landscape Assessment",
+          "description": "Evaluate customer's AI maturity and identify relevant tactics.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "AI Platform",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "AI Platform Competitive Position",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Agentic AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Inference at Scale",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Production AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Red Hat AI Factory with NVIDIA",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Sovereign AI",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Assess AI Platform Landscape",
+            "Gather AI Platform Competitive Intelligence"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The engagement begins with assessing the customer's AI maturity level, cataloguing their AI use cases, and evaluating infrastructure readiness to determine which of the five AI platform tactics is most relevant to their journey stage."
+            }
+          ]
+        },
+        {
+          "name": "Architecture and Credentialing",
+          "description": "Design AI platform architecture and establish domain credentials.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "AI Platform",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "AI Platform Competitive Position",
+              "stateName": "Mapped"
+            },
+            {
+              "alphaName": "Agentic AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Inference at Scale",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Production AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Red Hat AI Factory with NVIDIA",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Sovereign AI",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Design AI Platform Architecture",
+            "Gather AI Platform Competitive Intelligence"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Validate",
+              "context": "Architecture design establishes Red Hat's technical credibility in the AI platform domain while competitive intelligence gathering ensures the positioning brief reflects current market dynamics and customer alternatives."
+            }
+          ]
+        },
+        {
+          "name": "Tactic Execution",
+          "description": "Execute AI-specific tactic conversations with audience-segmented content.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "AI Platform",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "AI Platform Competitive Position",
+              "stateName": "Differentiated"
+            },
+            {
+              "alphaName": "Agentic AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Inference at Scale",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Production AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Red Hat AI Factory with NVIDIA",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Sovereign AI",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Execute AI Platform Tactic Conversation",
+            "Position AI Platform Competitively"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Propose",
+              "context": "Tactic execution delivers challenge-focused conversations using the selected AI tactic's content, while competitive positioning ensures differentiation is woven into the customer engagement at the level most relevant to their evaluation context."
+            }
+          ]
+        },
+        {
+          "name": "Validation and Decision",
+          "description": "Validate AI platform capabilities and secure technology decision.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "AI Platform",
+              "stateName": "Demonstrated"
+            },
+            {
+              "alphaName": "AI Platform",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "AI Platform Competitive Position",
+              "stateName": "Preferred"
+            },
+            {
+              "alphaName": "Agentic AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Inference at Scale",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Production AI",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Red Hat AI Factory with NVIDIA",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Sovereign AI",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Validate AI Platform Technology Fit",
+            "Advance AI Platform Decision"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Close",
+              "context": "Technical validation proves AI platform capabilities against customer-specific requirements, converting evaluated alternatives into a committed technology decision with sizing, procurement, and expansion roadmap established for long-term AI platform partnership."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.1"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard AI Platform",
+      "description": "Reference AI Platform alpha instance with customer-facing and assessment materials",
+      "alphaName": "AI Platform",
+      "stateName": "Positioned",
+      "links": [
+        {
+          "name": "AI Platform TDP Sales Hub Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCGp7297MBFqdG2PWFCdjCgfWhcB"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Standard TDP Positioning Brief",
+          "description": "Standard instance of TDP Positioning Brief with curated enablement content",
+          "workProductName": "TDP Positioning Brief",
+          "levelOfDetailName": "Content-Complete",
+          "links": [
+            {
+              "name": "Customer Presentation - AI Platform TDP",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCPHDQgjP7JhTGcPDVmXhXF2XhJG"
+            },
+            {
+              "name": "Cheatsheet Red Hat AI Platform TDP CY26 (Source)",
+              "uri": "https://docs.google.com/presentation/d/16Ay1ERVtg6G1zDgaqTaYhxj8sJ-L-ZIT4dW4tEfjhik/edit"
+            },
+            {
+              "name": "Cheatsheet Red Hat AI Platform TDP CY26",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCRc8pDGbd4Dj8cTRMHhMbj3GFf8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard Agentic AI",
+      "description": "Reference Agentic AI tactic with sales enablement",
+      "alphaName": "Agentic AI",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Agentic AI Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCqRRgXWWFW64GfFP3qRPV94CDjV"
+        }
+      ]
+    },
+    {
+      "name": "Standard Inference at Scale",
+      "description": "Reference Inference at Scale tactic with sales enablement",
+      "alphaName": "Inference at Scale",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Inference at Scale Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCPh6BgTcCD3M82MT8W37gCfH2WV"
+        }
+      ]
+    },
+    {
+      "name": "Standard Production AI",
+      "description": "Reference Production AI tactic with sales enablement",
+      "alphaName": "Production AI",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Production AI Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCmDGRTd23bg2G4F6Jhd98CR4HWB"
+        }
+      ]
+    },
+    {
+      "name": "Standard Red Hat AI Factory with NVIDIA",
+      "description": "Reference Red Hat AI Factory with NVIDIA tactic with sales enablement",
+      "alphaName": "Red Hat AI Factory with NVIDIA",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Red Hat AI Factory with NVIDIA Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCVfhpPbHpVjgGC26fcVdBRqMg93"
+        }
+      ]
+    },
+    {
+      "name": "Standard Sovereign AI",
+      "description": "Reference Sovereign AI tactic with sales enablement",
+      "alphaName": "Sovereign AI",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Sovereign AI Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DC7BpDW6HpbHdG7Xcj92jCFHVcDP"
+        }
+      ]
+    }
+  ]
+}

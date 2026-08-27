@@ -68,6 +68,64 @@ export type DependencyDiagramLayout = {
 };
 
 // ---------------------------------------------------------------------------
+// Shared rendering helpers (used by both React UI and static SVG export)
+// ---------------------------------------------------------------------------
+
+export function computeEdgePath(edge: LayoutEdge): string {
+  const dx = Math.abs(edge.x2 - edge.x1);
+  const dy = Math.abs(edge.y2 - edge.y1);
+  const span = Math.max(dx, dy, 1);
+  const offset = span * 0.45;
+
+  let cp1x = edge.x1;
+  let cp1y = edge.y1;
+  switch (edge.exitDir) {
+    case "right":  cp1x += offset; break;
+    case "left":   cp1x -= offset; break;
+    case "bottom": cp1y += offset; break;
+    case "top":    cp1y -= offset; break;
+  }
+
+  let cp2x = edge.x2;
+  let cp2y = edge.y2;
+  switch (edge.entryDir) {
+    case "left":   cp2x -= offset; break;
+    case "right":  cp2x += offset; break;
+    case "top":    cp2y -= offset; break;
+    case "bottom": cp2y += offset; break;
+  }
+
+  return `M ${edge.x1} ${edge.y1} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${edge.x2} ${edge.y2}`;
+}
+
+export type NodeStyle = {
+  borderColor: string;
+  fillColor: string;
+  strokeWidth: number;
+  iconColor: string;
+  isBaselineOrRoot: boolean;
+};
+
+export function computeNodeStyle(node: LayoutNode, isSelected = false): NodeStyle {
+  const isBaseline = node.kind === "baselinePractice";
+  const isRoot = node.kind === "root";
+  const isBaselineOrRoot = isBaseline || isRoot;
+
+  const borderColor = isSelected || isRoot || isBaseline ? "#0066cc" : "#d2d2d2";
+  const fillColor = isSelected
+    ? "#edf1ff"
+    : isRoot
+      ? "#f0f0ff"
+      : isBaseline
+        ? "#f5f5f5"
+        : "#ffffff";
+  const strokeWidth = isSelected ? 2.5 : isBaselineOrRoot ? 2 : 1.5;
+  const iconColor = isBaselineOrRoot ? "#0066cc" : "#6a6e73";
+
+  return { borderColor, fillColor, strokeWidth, iconColor, isBaselineOrRoot };
+}
+
+// ---------------------------------------------------------------------------
 // Tree building
 // ---------------------------------------------------------------------------
 

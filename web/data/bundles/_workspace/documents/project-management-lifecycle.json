@@ -1,0 +1,627 @@
+{
+  "kind": "practice",
+  "name": "Project Management Lifecycle",
+  "description": "Orchestrates the adaptive project lifecycle coordinating value strategy with delivery operations across all project concerns.",
+  "baselinePracticeName": "Project Essentials",
+  "practiceDependencyNames": [
+    "Value and Stakeholder Strategy",
+    "Delivery and Team Operations"
+  ],
+  "version": "1.0.2",
+  "authors": [
+    "Keleo"
+  ],
+  "createdAt": "2026-07-25",
+  "updatedAt": "2026-08-13",
+  "tags": {
+    "domainTags": [
+      "Lifecycle Management",
+      "Governance",
+      "Phase Gate",
+      "Adaptive Delivery"
+    ],
+    "lifecycleTags": [
+      "Initiation",
+      "Planning",
+      "Execution",
+      "Monitoring",
+      "Closure"
+    ],
+    "organizationalTags": [
+      "PMO",
+      "Governance Board",
+      "Project Leadership Team"
+    ]
+  },
+  "keywords": [
+    "project lifecycle",
+    "adaptive",
+    "initiation",
+    "planning",
+    "execution",
+    "monitoring",
+    "closing",
+    "phase gate",
+    "iterative",
+    "incremental",
+    "hybrid",
+    "project phases",
+    "lifecycle management",
+    "governance",
+    "stage gate"
+  ],
+  "narrativeTypes": [],
+  "narratives": [
+    {
+      "name": "From Disconnected Activity Streams to Coordinated Lifecycle Governance",
+      "description": "Traces the transformation from fragmented project management to an integrated adaptive lifecycle that coordinates value strategy and delivery operations.",
+      "narrativeTypeName": "The Hero's Journey",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "The Ordinary World",
+          "context": "Organizations manage projects as disconnected streams of activity where value strategy, delivery execution, and team operations evolve independently without a unifying temporal framework, resulting in misaligned expectations, uncoordinated phase transitions, and governance reviews that assess concerns in isolation rather than as an integrated whole."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "The Call to Adventure",
+          "context": "An adaptive project lifecycle framework emerges that provides the temporal backbone connecting opportunity validation with delivery execution, enabling governance bodies to assess all eleven project concerns at meaningful phase boundaries where coordinated alpha progression reveals genuine project health rather than selective metric reporting."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "The Ordeal",
+          "context": "Implementing a lifecycle that genuinely coordinates value and delivery concerns requires navigating the tension between predictive planning and adaptive response, resisting the temptation to treat lifecycle phases as rigid stage gates while maintaining sufficient governance discipline to catch misalignment before it compounds into project failure."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "The Return",
+          "context": "When the adaptive project lifecycle is practiced, governance reviews assess coordinated alpha progression across all concerns simultaneously, phase transitions reflect genuine readiness rather than calendar compliance, and the organization builds institutional capability for running projects where value strategy and delivery operations advance in lockstep toward confirmed benefits."
+        }
+      ],
+      "citationNames": [
+        "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+        "Managing Successful Projects with PRINCE2",
+        "Disciplined Agile Delivery"
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "A Guide to the Project Management Body of Knowledge -- Seventh Edition",
+      "description": "Establishes principles-based project management with performance domains and a value delivery system emphasizing adaptive lifecycle approaches.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2021",
+      "source": "Project Management Institute",
+      "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok",
+      "kind": "citation"
+    },
+    {
+      "name": "PMBOK Guide -- Eighth Edition",
+      "description": "Introduces five focus areas and forty non-prescriptive processes for modern adaptive project management lifecycle orchestration.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2026",
+      "source": "Project Management Institute",
+      "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok",
+      "kind": "citation"
+    },
+    {
+      "name": "Managing Successful Projects with PRINCE2",
+      "description": "Provides a structured project management method built around stage boundaries and continued business justification as lifecycle governance mechanisms.",
+      "authors": [
+        "Axelos"
+      ],
+      "date": "2017",
+      "source": "The Stationery Office",
+      "url": "https://www.axelos.com/certifications/propath/prince2-project-management",
+      "kind": "citation"
+    },
+    {
+      "name": "Disciplined Agile Delivery",
+      "description": "Provides a decision framework for choosing right-sized lifecycle approaches including agile, lean, and hybrid project delivery models.",
+      "authors": [
+        "Scott W. Ambler",
+        "Mark Lines"
+      ],
+      "date": "2012",
+      "source": "IBM Press",
+      "url": "https://www.pmi.org/disciplined-agile",
+      "kind": "citation"
+    },
+    {
+      "name": "The Essence of Software Engineering",
+      "description": "Introduces the Essence kernel and language for describing software engineering methods using alphas, activity spaces, and patterns.",
+      "authors": [
+        "Ivar Jacobson",
+        "Pan-Wei Ng",
+        "Paul E. McMahon",
+        "Ian Spence",
+        "Svante Lidman"
+      ],
+      "date": "2013",
+      "source": "Addison-Wesley",
+      "url": "https://www.ivarjacobson.com/publications/books/essence-software-engineering",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "adaptive-lifecycle-icon",
+      "description": "Font Awesome icon representing the Adaptive Project Lifecycle pattern",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-circle-nodes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "initiate-envision-icon",
+      "description": "Font Awesome icon representing the Initiate and Envision phase",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lightbulb",
+      "fontWeight": "900"
+    },
+    {
+      "name": "plan-prepare-icon",
+      "description": "Font Awesome icon representing the Plan and Prepare phase",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-compass-drafting",
+      "fontWeight": "900"
+    },
+    {
+      "name": "execute-deliver-icon",
+      "description": "Font Awesome icon representing the Execute and Deliver phase",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "monitor-adapt-icon",
+      "description": "Font Awesome icon representing the Monitor and Adapt phase",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "close-realize-icon",
+      "description": "Font Awesome icon representing the Close and Realize phase",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-flag-checkered",
+      "fontWeight": "900"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Opportunity",
+      "aliasName": "Business Case"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Objectives",
+      "aliasName": "Project Goals"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Way Of Working",
+      "aliasName": "Methodology"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Benefits Realization Plan",
+      "aliasName": "Value Realization Tracker"
+    }
+  ],
+  "alphas": [],
+  "workProducts": [],
+  "activities": [],
+  "personas": [],
+  "personaGroups": [],
+  "patterns": [
+    {
+      "name": "Adaptive Project Lifecycle",
+      "description": "Overarching lifecycle coordinating value strategy and delivery operations across five adaptive phases.",
+      "narrativeTypeName": "Lifecycle",
+      "assetNames": [
+        {
+          "assetName": "adaptive-lifecycle-icon",
+          "type": "icon"
+        }
+      ],
+      "patternViews": [
+        {
+          "name": "Initiate and Envision",
+          "description": "Project concept formed, opportunity assessed, initial team assembled.",
+          "seq": 0,
+          "assetNames": [
+            {
+              "assetName": "initiate-envision-icon",
+              "type": "icon"
+            }
+          ],
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Recognized"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Unidentified"
+            },
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Undefined"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Envisioned"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            },
+            {
+              "alphaName": "Backlog",
+              "stateName": "Empty"
+            },
+            {
+              "alphaName": "Team Agreement",
+              "stateName": "Absent"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "The organization has identified a potential project opportunity. A sponsor or champion exists who can advocate for the initiative. Basic organizational project management capability is available to structure and govern the effort."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "During initiation, the project concept crystallizes from a vague awareness of need into a named, communicable idea. The opportunity is identified and initially assessed, key stakeholder groups are recognized, initial objectives are identified, and an initial team is seeded. The deliverable is envisioned at a high level, work authorization is obtained, and guiding principles for the way of working are established. Risk awareness begins even though formal identification has not yet occurred, and benefits expectations exist without a formal realization plan."
+            }
+          ]
+        },
+        {
+          "name": "Plan and Prepare",
+          "description": "Objectives defined, work planned, team formed, risks assessed.",
+          "seq": 1,
+          "assetNames": [
+            {
+              "assetName": "plan-prepare-icon",
+              "type": "icon"
+            }
+          ],
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Value Established"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Represented"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Prioritized"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Designed"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Shaped"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Foundation Established"
+            },
+            {
+              "alphaName": "Backlog",
+              "stateName": "Seeded"
+            },
+            {
+              "alphaName": "Team Agreement",
+              "stateName": "Drafted"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "The project has completed initiation with an identified opportunity, recognized stakeholders, and a seeded team. Sufficient organizational commitment exists to invest in detailed planning."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Planning transforms the project concept into an actionable framework. The opportunity's value is established through business case analysis, stakeholder representatives are designated with engagement mechanisms, and objectives are prioritized through structured techniques such as MoSCoW. Risks are systematically identified and assessed for probability and impact. A benefits realization plan is designed with metrics and baselines. The deliverable is shaped with architecture decisions and the Definition of Done. Work is prepared with sprint backlogs and estimation, the team is formed with roles assigned and onboarding complete, and the way of working foundation is established with ceremonies and quality practices configured. The backlog is seeded with initial items and team agreements are drafted through facilitated discussion."
+            }
+          ]
+        },
+        {
+          "name": "Execute and Deliver",
+          "description": "Work under control, deliverable progressing, risks managed.",
+          "seq": 2,
+          "assetNames": [
+            {
+              "assetName": "execute-deliver-icon",
+              "type": "icon"
+            }
+          ],
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Viable"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Involved"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Agreed"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Actively Managed"
+            },
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Active"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Demonstrable"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Usable"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Started"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Under Control"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Use"
+            },
+            {
+              "alphaName": "Backlog",
+              "stateName": "Refined"
+            },
+            {
+              "alphaName": "Backlog",
+              "stateName": "Flowing"
+            },
+            {
+              "alphaName": "Team Agreement",
+              "stateName": "Adopted"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Planning is substantially complete with a prioritized backlog, formed team, assessed risks, and established way of working. The team has sufficient preparation to begin productive delivery work."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Execution is the longest phase where value is created through iterative delivery cycles. The opportunity's viability is confirmed through continued business justification at governance reviews. Stakeholders are actively involved providing timely feedback through sprint reviews and demonstrations. Objectives are formally agreed with change management processes in place. Risk responses are executing with active monitoring of triggers and early warning indicators. Benefits tracking is active with measurement against defined baselines. The deliverable progresses from demonstrable working increments to usable functionality exercisable by target users. Work moves from started to under control as the team establishes stable velocity and respects WIP limits. The team deepens collaboration building shared mental models. The way of working is actively practiced with ceremonies occurring at cadence. The backlog flows from refined items through execution at predictable throughput. Team agreements are adopted and consistently enforced."
+            }
+          ]
+        },
+        {
+          "name": "Monitor and Adapt",
+          "description": "Objectives achieved, stakeholders satisfied, team performing.",
+          "seq": 3,
+          "assetNames": [
+            {
+              "assetName": "monitor-adapt-icon",
+              "type": "icon"
+            }
+          ],
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Addressed"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "In Agreement"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Achieved"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Actively Managed"
+            },
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Active"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Ready"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Under Control"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Place"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Working Well"
+            },
+            {
+              "alphaName": "Backlog",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Team Agreement",
+              "stateName": "Evolved"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "The team has established stable delivery with under-control work, demonstrable deliverable increments, and actively managed risks. Sufficient iterations have occurred to generate empirical data for evidence-based assessment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The monitoring and adaptation phase represents the project reaching maturity where earlier investments in planning and execution yield measurable results. The opportunity is addressed with the solution confirmed against the original problem definition. Stakeholders and the project team reach agreement on expectations with conflicts resolved. Objectives are achieved with success criteria met and evidence documented. Risk management continues actively as residual risks require ongoing attention. Benefits tracking remains active with realization trajectories being validated. The deliverable reaches readiness for deployment with all acceptance criteria verified. Work remains under control with the team demonstrating sustained delivery capability. The team achieves high performance with psychological safety, continuous improvement, and self-organization. The way of working is consistently in place and working well with PDCA improvement cycles producing measurable results. The backlog is optimized as a lean inventory with flow metrics driving improvement. Team agreements have evolved through multiple retrospective refinement cycles."
+            }
+          ]
+        },
+        {
+          "name": "Close and Realize",
+          "description": "Benefits confirmed, work closed, deliverable operational.",
+          "seq": 4,
+          "assetNames": [
+            {
+              "assetName": "close-realize-icon",
+              "type": "icon"
+            }
+          ],
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Benefit Accrued"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Satisfied for Deployment"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Satisfied in Use"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Evaluated"
+            },
+            {
+              "alphaName": "Project Risk",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Benefits Realization Plan",
+              "stateName": "Confirmed"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Operational"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Concluded"
+            },
+            {
+              "alphaName": "Work",
+              "stateName": "Closed"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Adjourned"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Retired"
+            },
+            {
+              "alphaName": "Backlog",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Team Agreement",
+              "stateName": "Evolved"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "The project has achieved its objectives, the deliverable is ready for deployment, stakeholders are in agreement, and the team has reached performing maturity. All acceptance criteria are verified and transition arrangements are prepared."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Closure and realization represent the culmination of the project lifecycle where delivered value is confirmed and organizational learning is captured. The opportunity's benefits are accrued with measurable value confirmed through evidence. Stakeholders progress from satisfied for deployment through satisfied in use as adoption confirms the solution's fitness for purpose. Objective achievement is formally evaluated against success criteria with variance analysis and lessons captured. Risk management reaches its optimized state with residual risks documented and transferred to operational owners. Benefits are confirmed as realized with the business case updated with actual results. The deliverable reaches operational status in production creating value for stakeholders. Work is concluded with the final increment delivered and then formally closed with administrative closure and knowledge transfer complete. The team is adjourned with knowledge transferred, contributions recognized, and performance data archived. The way of working is retired with effective practices documented and anti-patterns captured for organizational learning. The backlog remains in its optimized terminal state and team agreements remain evolved as the team's final refinement of their working norms."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "schemaVersion": "1.2.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Project Essentials",
+      "versionRange": "^1.0.2"
+    },
+    {
+      "documentName": "Value and Stakeholder Strategy",
+      "versionRange": "^1.0.2"
+    },
+    {
+      "documentName": "Delivery and Team Operations",
+      "versionRange": "^1.0.2"
+    }
+  ]
+}

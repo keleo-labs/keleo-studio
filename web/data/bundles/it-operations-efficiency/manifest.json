@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "it-operations-efficiency",
+    "version": "1.0.0",
+    "description": "it-operations-efficiency",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/it-operations-efficiency.json",
+      "documentType": "practice",
+      "documentName": "IT Operations Efficiency",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.10",
+        "description": "Positions Red Hat for IT operations optimization deals through the IT Operations Customer Lens and orchestration of operations-focused TDPs.",
+        "tags": {
+          "domainTags": [
+            "IT Operations",
+            "Automation",
+            "Infrastructure Management",
+            "Operational Efficiency"
+          ],
+          "lifecycleTags": [
+            "Discovery",
+            "Validation",
+            "Proposal"
+          ],
+          "organizationalTags": [
+            "Field Sales",
+            "Technical Sales",
+            "Automation Specialist Sales"
+          ]
+        },
+        "keywords": [
+          "it-operations",
+          "automation",
+          "operational-efficiency",
+          "infrastructure-management",
+          "day-2-operations",
+          "cost-reduction",
+          "tool-sprawl",
+          "RHEL",
+          "ansible",
+          "virtualization-migration"
+        ],
+        "elementCount": 54,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    },
+    {
+      "path": "documents/red-hat-sales-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Red Hat Sales Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "A foundational baseline practice defining the core ontology for enterprise technology sales, encompassing customer value articulation, solution alignment, and sales execution lifecycle management.",
+        "tags": {
+          "domainTags": [
+            "Enterprise Sales",
+            "Subscription Economics",
+            "Value Selling",
+            "Solution Architecture",
+            "Customer Success",
+            "Competitive Intelligence",
+            "Sales Enablement"
+          ],
+          "lifecycleTags": [
+            "Discovery",
+            "Validation",
+            "Proposal",
+            "Negotiation",
+            "Closing",
+            "Renewal",
+            "Expansion"
+          ],
+          "organizationalTags": [
+            "Field Sales",
+            "Technical Sales",
+            "Sales Operations",
+            "Customer Success",
+            "Partner Channel",
+            "Sales Enablement",
+            "Go-to-Market Strategy"
+          ]
+        },
+        "keywords": [
+          "enterprise-sales",
+          "subscription-economics",
+          "value-selling",
+          "consultative-selling",
+          "pipeline-management",
+          "customer-success",
+          "competitive-positioning",
+          "solution-architecture",
+          "sales-enablement",
+          "go-to-market"
+        ],
+        "elementCount": 434,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/sales-play-framework.json",
+      "documentType": "practice",
+      "documentName": "Sales Play Framework",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.2",
+        "description": "A comprehensive practice for designing, executing, and optimizing the three-level go-to-market framework connecting Sales Plays, Technical Decision Points, and Sales Tactics into a coherent selling system.",
+        "tags": {
+          "domainTags": [
+            "Go-to-Market Strategy",
+            "Sales Enablement",
+            "Competitive Intelligence",
+            "Technical Sales"
+          ],
+          "lifecycleTags": [
+            "Discovery",
+            "Activation",
+            "Execution",
+            "Measurement",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Go-to-Market Strategy",
+            "Sales Enablement",
+            "Product Marketing",
+            "Field Sales",
+            "Sales Operations"
+          ]
+        },
+        "keywords": [
+          "sales-play",
+          "technical-decision-point",
+          "sales-tactic",
+          "go-to-market",
+          "three-level-framework",
+          "competitive-positioning",
+          "customer-engagement",
+          "framework-alignment",
+          "play-optimization"
+        ],
+        "elementCount": 174,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    },
+    {
+      "path": "documents/server-cloud-os-tdp.json",
+      "documentType": "practice",
+      "documentName": "Server Cloud OS TDP",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.8",
+        "description": "Provides deep RHEL technology positioning with four embedded sales tactics covering OS standardization, cloud migration, security management, and new app deployment.",
+        "tags": {
+          "domainTags": [
+            "Operating Systems",
+            "Cloud Infrastructure",
+            "Linux",
+            "Edge Computing"
+          ],
+          "lifecycleTags": [
+            "Technical Validation",
+            "Solution Design",
+            "Deployment"
+          ],
+          "organizationalTags": [
+            "Technical Sales",
+            "RHEL Specialists",
+            "Solution Architecture"
+          ]
+        },
+        "keywords": [
+          "rhel",
+          "server-os",
+          "cloud-os",
+          "os-standardization",
+          "cloud-migration",
+          "rhel-security",
+          "linux",
+          "operating-system",
+          "infrastructure-foundation",
+          "os-modernization"
+        ],
+        "elementCount": 207,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    },
+    {
+      "path": "documents/automation-tdp.json",
+      "documentType": "practice",
+      "documentName": "Automation TDP",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.8",
+        "description": "Provides Ansible Automation Platform positioning with four tactics covering enterprise automation, IT ops optimization, AIOps, and network automation.",
+        "tags": {
+          "domainTags": [
+            "IT Automation",
+            "Infrastructure as Code",
+            "AIOps",
+            "Network Automation"
+          ],
+          "lifecycleTags": [
+            "Technical Validation",
+            "Positioning",
+            "Execution"
+          ],
+          "organizationalTags": [
+            "Technical Sales",
+            "Solution Architects",
+            "Automation Specialists"
+          ]
+        },
+        "keywords": [
+          "automation",
+          "ansible",
+          "ansible-automation-platform",
+          "event-driven-automation",
+          "network-automation",
+          "aiops",
+          "infrastructure-as-code",
+          "it-operations",
+          "enterprise-automation",
+          "tdp"
+        ],
+        "elementCount": 212,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    },
+    {
+      "path": "documents/virtualization-tdp.json",
+      "documentType": "practice",
+      "documentName": "Virtualization TDP",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.8",
+        "description": "Provides VM migration and modernization positioning with focus on competitive displacement of incumbent proprietary virtualization platforms.",
+        "tags": {
+          "domainTags": [
+            "Virtualization",
+            "VM Migration",
+            "Infrastructure Modernization",
+            "Competitive Displacement"
+          ],
+          "lifecycleTags": [
+            "Technical Validation",
+            "Migration Planning",
+            "Deployment"
+          ],
+          "organizationalTags": [
+            "Technical Sales",
+            "Solution Architecture",
+            "Specialist Sales"
+          ]
+        },
+        "keywords": [
+          "virtualization",
+          "vm-migration",
+          "vmware-displacement",
+          "openshift-virtualization",
+          "rhel-kvm",
+          "infrastructure-modernization",
+          "competitive-displacement",
+          "legacy-migration",
+          "vm-container-coexistence",
+          "hypervisor"
+        ],
+        "elementCount": 115,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    }
+  ]
+}

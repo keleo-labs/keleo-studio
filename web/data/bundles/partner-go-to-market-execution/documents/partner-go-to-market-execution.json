@@ -1,0 +1,4533 @@
+{
+  "name": "Partner Go-to-Market Execution",
+  "description": "Equips technology Red Hat partners to execute structured sales plays through demand generation, deal management, and technical collaboration activities.",
+  "kind": "practice",
+  "baselinePracticeName": "Partner Ecosystem Essentials",
+  "practiceDependencyNames": [
+    "Partner Ecosystem Essentials",
+    "Sales Play Framework"
+  ],
+  "tags": {
+    "domainTags": [
+      "Partner Sales",
+      "Demand Generation",
+      "Deal Management",
+      "Technical Collaboration"
+    ],
+    "lifecycleTags": [
+      "Activation",
+      "Execution",
+      "Optimization"
+    ],
+    "organizationalTags": [
+      "Partner Sales Organization",
+      "Partner Marketing",
+      "Partner Technical Team"
+    ]
+  },
+  "keywords": [
+    "partner sales play",
+    "deal registration",
+    "MDF",
+    "demand generation",
+    "proof of concept",
+    "co-selling",
+    "partner marketing",
+    "technical collaboration",
+    "lifecycle rewards",
+    "partner GTM"
+  ],
+  "authors": [
+    "Claude"
+  ],
+  "createdAt": "2026-08-10",
+  "updatedAt": "2026-08-18",
+  "version": "1.1.0",
+  "competencies": [
+    {
+      "name": "Partner Sales Acumen",
+      "description": "The ability to position Red Hat technology solutions through partner sales channels, combining Red Hat messaging with partner domain expertise.",
+      "levels": [
+        {
+          "name": "Foundational",
+          "description": "Understands basic Red Hat technology portfolio and partner sales processes.",
+          "level": 1,
+          "competencyName": "Partner Sales Acumen"
+        },
+        {
+          "name": "Practitioner",
+          "description": "Applies Red Hat sales play frameworks in customer conversations with partner value-add positioning.",
+          "level": 2,
+          "competencyName": "Partner Sales Acumen"
+        },
+        {
+          "name": "Advanced",
+          "description": "Leads complex partner sales engagements combining Red Hat and partner capabilities.",
+          "level": 3,
+          "competencyName": "Partner Sales Acumen"
+        },
+        {
+          "name": "Expert",
+          "description": "Designs partner sales strategies and mentors sellers on advanced techniques.",
+          "level": 4,
+          "competencyName": "Partner Sales Acumen"
+        },
+        {
+          "name": "Strategic Leader",
+          "description": "Shapes partner GTM strategy and drives innovation in partner sales execution models.",
+          "level": 5,
+          "competencyName": "Partner Sales Acumen"
+        }
+      ]
+    },
+    {
+      "name": "Technical Solution Expertise",
+      "description": "The technical knowledge and demonstration capability required for pre-sales customer engagements across Red Hat technology domains.",
+      "levels": [
+        {
+          "name": "Foundational",
+          "description": "Understands Red Hat technology basics and can articulate value at a high level.",
+          "level": 1,
+          "competencyName": "Technical Solution Expertise"
+        },
+        {
+          "name": "Practitioner",
+          "description": "Delivers standard demonstrations and technical presentations for Red Hat technology areas.",
+          "level": 2,
+          "competencyName": "Technical Solution Expertise"
+        },
+        {
+          "name": "Advanced",
+          "description": "Designs and delivers proofs of concept and solution workshops for customer evaluations.",
+          "level": 3,
+          "competencyName": "Technical Solution Expertise"
+        },
+        {
+          "name": "Expert",
+          "description": "Leads complex multi-technology technical engagements and creates reusable technical assets.",
+          "level": 4,
+          "competencyName": "Technical Solution Expertise"
+        },
+        {
+          "name": "Thought Leader",
+          "description": "Drives technical strategy and innovation in partner technical engagement approaches.",
+          "level": 5,
+          "competencyName": "Technical Solution Expertise"
+        }
+      ]
+    },
+    {
+      "name": "Customer Engagement",
+      "description": "The ability to build and maintain customer relationships through consultative selling, needs discovery, and value delivery.",
+      "levels": [
+        {
+          "name": "Foundational",
+          "description": "Manages basic customer interactions and follows established engagement processes.",
+          "level": 1,
+          "competencyName": "Customer Engagement"
+        },
+        {
+          "name": "Practitioner",
+          "description": "Conducts needs discovery conversations and positions solutions to customer challenges.",
+          "level": 2,
+          "competencyName": "Customer Engagement"
+        },
+        {
+          "name": "Advanced",
+          "description": "Builds strategic customer relationships and navigates complex stakeholder landscapes.",
+          "level": 3,
+          "competencyName": "Customer Engagement"
+        },
+        {
+          "name": "Expert",
+          "description": "Leads enterprise customer engagements and drives customer success outcomes.",
+          "level": 4,
+          "competencyName": "Customer Engagement"
+        },
+        {
+          "name": "Strategic Advisor",
+          "description": "Serves as trusted strategic advisor to customer executives on technology transformation.",
+          "level": 5,
+          "competencyName": "Customer Engagement"
+        }
+      ]
+    },
+    {
+      "name": "Market Development",
+      "description": "The ability to plan, execute, and optimize demand generation campaigns using Red Hat marketing tools and funding mechanisms.",
+      "levels": [
+        {
+          "name": "Foundational",
+          "description": "Understands basic marketing concepts and Red Hat demand platform capabilities.",
+          "level": 1,
+          "competencyName": "Market Development"
+        },
+        {
+          "name": "Practitioner",
+          "description": "Plans and executes co-branded campaigns with MDF funding and lead tracking.",
+          "level": 2,
+          "competencyName": "Market Development"
+        },
+        {
+          "name": "Advanced",
+          "description": "Optimizes multi-channel campaigns based on performance data and pipeline attribution.",
+          "level": 3,
+          "competencyName": "Market Development"
+        },
+        {
+          "name": "Expert",
+          "description": "Designs comprehensive partner marketing strategies driving measurable pipeline growth.",
+          "level": 4,
+          "competencyName": "Market Development"
+        },
+        {
+          "name": "Strategic Marketing Leader",
+          "description": "Shapes ecosystem-level marketing strategy and drives cross-partner campaign coordination.",
+          "level": 5,
+          "competencyName": "Market Development"
+        }
+      ]
+    },
+    {
+      "name": "Solution Architecture",
+      "description": "The ability to design integrated solutions combining Red Hat technology with partner domain expertise for customer deployment scenarios.",
+      "levels": [
+        {
+          "name": "Foundational",
+          "description": "Understands Red Hat technology architecture fundamentals and integration patterns.",
+          "level": 1,
+          "competencyName": "Solution Architecture"
+        },
+        {
+          "name": "Practitioner",
+          "description": "Designs solutions combining Red Hat technology with partner services for customer deployments.",
+          "level": 2,
+          "competencyName": "Solution Architecture"
+        },
+        {
+          "name": "Advanced",
+          "description": "Creates reference architectures and solution blueprints for complex multi-technology deployments.",
+          "level": 3,
+          "competencyName": "Solution Architecture"
+        },
+        {
+          "name": "Expert",
+          "description": "Leads enterprise architecture engagements and contributes reusable solution patterns to ecosystem.",
+          "level": 4,
+          "competencyName": "Solution Architecture"
+        },
+        {
+          "name": "Chief Architect",
+          "description": "Defines strategic technology vision and drives architecture innovation across partner practice.",
+          "level": 5,
+          "competencyName": "Solution Architecture"
+        }
+      ]
+    },
+    {
+      "name": "Channel Operations",
+      "description": "The ability to manage partner program operations including deal registration, incentive claims, compliance, and performance tracking.",
+      "levels": [
+        {
+          "name": "Foundational",
+          "description": "Understands partner program structure, incentive mechanisms, and basic compliance requirements.",
+          "level": 1,
+          "competencyName": "Channel Operations"
+        },
+        {
+          "name": "Practitioner",
+          "description": "Manages deal registration submissions, MDF claims, and lifecycle rewards processes.",
+          "level": 2,
+          "competencyName": "Channel Operations"
+        },
+        {
+          "name": "Advanced",
+          "description": "Optimizes program operations across multiple incentive mechanisms and routes to market.",
+          "level": 3,
+          "competencyName": "Channel Operations"
+        },
+        {
+          "name": "Expert",
+          "description": "Drives strategic program optimization and designs operational excellence frameworks.",
+          "level": 4,
+          "competencyName": "Channel Operations"
+        }
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "Red Hat Partner Program Guide",
+      "description": "Comprehensive guide to the Red Hat Partner Program covering modules, tiers, benefits, and requirements.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Content Center",
+      "url": "https://content.redhat.com/content/dam/rhcc/pnt/partners/partner-connect-enablement/Red%20Hat%20Partner%20Program%20Guide.pdf",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat Partner Ecosystem Overview",
+      "description": "Overview of the Red Hat partner ecosystem structure, collaboration models, and mutual value creation.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Content Center",
+      "url": "https://content.redhat.com/us/en/partner/ecosystem-overview.html",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat Partner Engagement Experience",
+      "description": "Guide to partner engagement activities, enablement resources, and co-selling support within the Red Hat ecosystem.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Content Center",
+      "url": "https://content.redhat.com/us/en/sales-enablement/partner-sales/partner-engagement-experience.html",
+      "kind": "citation"
+    },
+    {
+      "name": "Partner Sales Play Guides",
+      "description": "Partner-specific versions of Red Hat sales play guides providing play execution guidance, partner value-add positioning, and campaign alignment.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Content Center",
+      "url": "https://content.redhat.com",
+      "kind": "citation"
+    },
+    {
+      "name": "Global Deal Registration Guide H2",
+      "description": "Comprehensive operational guide covering deal registration eligibility, submission process, protection periods, discount structures, incumbency, and renewal procedures effective from July 2026.",
+      "authors": [
+        "Karen Hinchey",
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Content Center (Partner program guide)",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat Lifecycle Rewards & Incentives Guide",
+      "description": "Guide to partner lifecycle rewards, funded technical activities, activity points, and incentive structures across partner program modules.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Content Center",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat Market Development Funds Program Guidelines",
+      "description": "Operational guidelines for Market Development Funds covering eligibility, plan activity submission, claim processing, and co-branding requirements.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Content Center",
+      "kind": "citation"
+    },
+    {
+      "name": "5 New Ways Red Hat Helps Partners Maximize Business Value",
+      "description": "Overview of Red Hat partner program enhancements for partner business value maximization.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2025",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/5-new-ways-red-hat-helps-partners-maximize-business-value",
+      "kind": "citation"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Sales Hub reference for active Red Hat sales plays, TDP positioning briefs, and sales tactics with execution guidance.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "partner-deal-opportunity-icon",
+      "description": "Icon representing partner deal opportunity lifecycle from identification through deal registration, protection, and closure.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-contract",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-demand-generation-icon",
+      "description": "Icon representing partner demand generation and marketing campaign execution.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullhorn",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-technical-engagement-icon",
+      "description": "Icon representing partner-delivered technical activities including PoCs, workshops, and assessments.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-flask",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-seller-icon",
+      "description": "Icon representing the partner seller persona.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-tie",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-technical-seller-icon",
+      "description": "Icon representing the partner technical seller persona.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-laptop-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-marketing-manager-icon",
+      "description": "Icon representing the partner marketing manager persona.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullhorn",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-program-manager-icon",
+      "description": "Icon representing the partner program manager persona.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-list",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-solution-architect-icon",
+      "description": "Icon representing the partner solution architect persona.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-drafting-compass",
+      "fontWeight": "900"
+    },
+    {
+      "name": "rh-partner-account-manager-icon",
+      "description": "Icon representing the Red Hat partner account manager persona.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "rh-channel-sales-manager-icon",
+      "description": "Icon representing the Red Hat channel sales manager persona.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "rh-channel-marketing-manager-icon",
+      "description": "Icon representing the Red Hat channel marketing manager persona.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rectangle-ad",
+      "fontWeight": "900"
+    },
+    {
+      "name": "rh-deal-desk-analyst-icon",
+      "description": "Icon representing the Red Hat deal desk analyst persona.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-invoice-dollar",
+      "fontWeight": "900"
+    },
+    {
+      "name": "partner-gtm-execution-team-icon",
+      "description": "Icon representing the partner GTM execution team persona group.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "joint-gtm-alignment-team-icon",
+      "description": "Icon representing the joint GTM alignment team persona group.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-arrows",
+      "fontWeight": "900"
+    },
+    {
+      "name": "rh-gtm-support-team-icon",
+      "description": "Icon representing the Red Hat GTM support team persona group.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-building",
+      "fontWeight": "900"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "Practice Intent",
+      "description": "Why partner go-to-market execution matters for Red Hat-partner ecosystem success.",
+      "narrativeTypeName": "The STAR Format",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Situation",
+          "context": "Red Hat technology partners need structured frameworks to execute sales plays, manage deals, and deliver technical engagements within the partner ecosystem program."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Task",
+          "context": "Enable partners to independently drive pipeline through co-branded demand generation, register and protect deals through the deal registration system, and deliver funded technical activities that validate technology fit."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Action",
+          "context": "The practice defines partner-specific GTM execution activities spanning campaign management, deal registration lifecycle, co-selling coordination, and funded technical engagement delivery with integrated incentive and compliance tracking."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Result",
+          "context": "Partners generate attributable pipeline, achieve deal protection with competitive discounts, earn activity points for tier advancement, and establish incumbency for renewal business while contributing to ecosystem-wide GTM amplification."
+        }
+      ],
+      "citationNames": [
+        "Red Hat Partner Program Guide",
+        "Partner Sales Play Guides",
+        "Global Deal Registration Guide H2",
+        "Red Hat Lifecycle Rewards & Incentives Guide"
+      ]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Sales Play",
+      "description": "A structured go-to-market strategy that aligns messaging, content, competitive positioning, and execution guidance around a specific market theme or customer challenge.",
+      "focusName": "Sales Execution",
+      "states": [
+        {
+          "name": "Selected",
+          "description": "A go-to-market play has been identified and designated for activation.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Customer Lens articulated",
+              "description": "Customer Lens articulated with customer priorities, desired outcomes, and how deals are won.",
+              "seq": 1
+            },
+            {
+              "name": "Top personas identified",
+              "description": "Top three target personas identified with challenges, current reality, impacts, and discovery questions.",
+              "seq": 2
+            },
+            {
+              "name": "Value drivers structured",
+              "description": "Value drivers structured with concrete capability-to-benefit narratives and competitive differentiation.",
+              "seq": 3
+            },
+            {
+              "name": "TDP-to-Play alignment mapped",
+              "description": "TDP-to-Play alignment mapped identifying which technology decision areas power this play.",
+              "seq": 4
+            },
+            {
+              "name": "Three-level content architecture designed",
+              "description": "Three-level content architecture designed specifying What to Say, What to Share, and What to Show structure.",
+              "seq": 5
+            },
+            {
+              "name": "Play-level KPIs defined",
+              "description": "Play-level KPIs defined including pipeline generation targets, seller adoption targets, and win rate expectations.",
+              "seq": 6
+            },
+            {
+              "name": "Tactic categories identified",
+              "description": "Tactic categories identified by TDP area for structured customer conversation mapping.",
+              "seq": 7
+            },
+            {
+              "name": "Partner Play Guide Published",
+              "description": "Partner-specific play guide published with partner value-add messaging, target segments, and co-selling guidance.",
+              "seq": 8
+            },
+            {
+              "name": "Partner Segments Mapped",
+              "description": "Partner target customer segments mapped with geographic and vertical alignment to play themes.",
+              "seq": 9
+            },
+            {
+              "name": "MDF Eligibility Assessed",
+              "description": "MDF investment eligibility assessed for demand generation activities aligned to play themes.",
+              "seq": 10
+            },
+            {
+              "name": "Partner Credentials Confirmed",
+              "description": "Partner seller credential requirements confirmed with enablement path for play-specific technology domains.",
+              "seq": 11
+            },
+            {
+              "name": "Technical Collaboration Scoped",
+              "description": "Scope of technical collaboration activities (PoCs, workshops, assessments) identified for play technology areas.",
+              "seq": 12
+            }
+          ]
+        },
+        {
+          "name": "Activated",
+          "description": "The play's content, enablement materials, and tools have been deployed.",
+          "seq": 2,
+          "background": {
+            "given": [
+              "The play has been scoped with target profiles, messaging, and competitive positioning",
+              "Resource requirements have been identified and provisioned"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Customer-facing content packages complete",
+              "description": "Customer-facing content packages complete across all three content categories (Say, Share, Show).",
+              "seq": 1
+            },
+            {
+              "name": "TDP positioning briefs completed",
+              "description": "TDP positioning briefs completed for all technology areas powering this play.",
+              "seq": 2
+            },
+            {
+              "name": "Sales tactics prepared",
+              "description": "Sales tactics prepared with customer challenge framing for each TDP area.",
+              "seq": 3
+            },
+            {
+              "name": "Bidirectional navigation implemented",
+              "description": "TDP-to-Tactic bidirectional navigation implemented and validated for completeness.",
+              "seq": 4
+            },
+            {
+              "name": "Multi-level seller enablement delivered",
+              "description": "Multi-level seller enablement delivered covering play strategy, TDP depth, and tactic execution.",
+              "seq": 5
+            },
+            {
+              "name": "Play performance measurement operational",
+              "description": "Play performance measurement infrastructure operational with CRM integration and content analytics.",
+              "seq": 6
+            },
+            {
+              "name": "Services and partner solutions aligned",
+              "description": "Services and partner solutions aligned to play themes and documented for seller access.",
+              "seq": 7
+            },
+            {
+              "name": "Partner Campaigns Launched",
+              "description": "Partner demand generation campaigns launched through the demand platform aligned to play themes.",
+              "seq": 8
+            },
+            {
+              "name": "MDF Plan Activities Submitted",
+              "description": "MDF plan activities submitted for eligible campaigns meeting minimum thresholds and advance requirements.",
+              "seq": 9
+            },
+            {
+              "name": "Deal Registration Pipeline Seeded",
+              "description": "Deal registration pipeline seeded with initial partner-sourced opportunities in play technology areas.",
+              "seq": 10
+            },
+            {
+              "name": "Partner Technical Sellers Enabled",
+              "description": "Partner technical sellers enabled on play-specific technology domains with required certifications.",
+              "seq": 11
+            },
+            {
+              "name": "Lifecycle Rewards Requests Submitted",
+              "description": "Lifecycle rewards fund requests submitted for technical engagement activities aligned to play TDPs.",
+              "seq": 12
+            }
+          ]
+        },
+        {
+          "name": "Executing",
+          "description": "The field organization is actively using the play to generate pipeline.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "TDP-to-Tactic navigation active",
+              "description": "Sellers navigating TDP-to-Tactic alignment to match customer technology decisions to appropriate conversations.",
+              "seq": 1
+            },
+            {
+              "name": "What to Say/Share/Show content deployed",
+              "description": "What to Say/Share/Show content deployed in customer conversations across all three framework levels.",
+              "seq": 2
+            },
+            {
+              "name": "Bidirectional navigation patterns observed",
+              "description": "Both top-down and bottom-up navigation patterns observed in customer engagement.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-TDP engagements occurring",
+              "description": "Multi-TDP and multi-tactic engagements occurring in complex customer situations.",
+              "seq": 4
+            },
+            {
+              "name": "Content sharing with engagement tracking used",
+              "description": "Content sharing with engagement tracking actively used to measure prospect interaction.",
+              "seq": 5
+            },
+            {
+              "name": "Partner Deal Registrations Flowing",
+              "description": "Partner deal registrations flowing with play-attributed opportunities progressing through the pipeline.",
+              "seq": 6
+            },
+            {
+              "name": "MDF Campaigns Generating Leads",
+              "description": "MDF-funded campaigns generating qualified leads with trackable attribution to play themes.",
+              "seq": 7
+            },
+            {
+              "name": "Partner Technical Activities Delivering",
+              "description": "Partner-delivered technical activities (PoCs, workshops) earning activity points and advancing deals.",
+              "seq": 8
+            },
+            {
+              "name": "Co-Selling Engagements Occurring",
+              "description": "Red Hat co-selling engagements occurring for complex partner-sourced opportunities.",
+              "seq": 9
+            },
+            {
+              "name": "Activity Points Accumulating",
+              "description": "Partner activity points accumulating across demand generation, deal registration, and technical activities.",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Measured",
+          "description": "Play execution outcomes are being tracked and analyzed against targets.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "TDP-level metrics tracked",
+              "description": "TDP-level metrics tracked including technology win rate, competitive outcomes, and demonstration delivery count.",
+              "seq": 1
+            },
+            {
+              "name": "Tactic-level metrics tracked",
+              "description": "Tactic-level metrics tracked including engagement rate, challenge-to-opportunity conversion, and tactic-attributed pipeline.",
+              "seq": 2
+            },
+            {
+              "name": "Cross-level correlation analysis performed",
+              "description": "Cross-level correlation analysis identifies which TDP-tactic combinations drive highest conversion rates.",
+              "seq": 3
+            },
+            {
+              "name": "Framework navigation analytics available",
+              "description": "Framework navigation analytics reveal which alignment paths sellers use most frequently and effectively.",
+              "seq": 4
+            },
+            {
+              "name": "Cohort analysis provides insights",
+              "description": "Cohort analysis by region, segment, and seller experience provides dimensional insights on framework effectiveness.",
+              "seq": 5
+            },
+            {
+              "name": "Partner Pipeline Tracked",
+              "description": "Partner-sourced pipeline tracked with deal registration volume, value, and conversion rates attributed to play.",
+              "seq": 6
+            },
+            {
+              "name": "MDF Campaign ROI Analyzed",
+              "description": "MDF campaign ROI analyzed across fund types and activity categories identifying highest-impact investments.",
+              "seq": 7
+            },
+            {
+              "name": "Deal Registration Win Rates Benchmarked",
+              "description": "Deal registration win rates benchmarked against play targets with competitive and technical factor analysis.",
+              "seq": 8
+            },
+            {
+              "name": "Lifecycle Rewards Effectiveness Measured",
+              "description": "Lifecycle rewards effectiveness measured correlating funded technical activities with deal progression outcomes.",
+              "seq": 9
+            },
+            {
+              "name": "Technology Bookings Tracked",
+              "description": "Technology-specific booking points tracked providing product-level play performance visibility.",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Play strategy and content are continuously refined based on performance data.",
+          "seq": 5,
+          "background": {
+            "given": [
+              "Play performance data (pipeline, win rates, content usage) has been collected and analyzed",
+              "Seller feedback has been systematically gathered"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "TDP content refreshed",
+              "description": "TDP content refreshed with latest analyst recognitions, customer wins, and competitive positioning.",
+              "seq": 1
+            },
+            {
+              "name": "Underperforming tactics redesigned",
+              "description": "Underperforming tactics redesigned based on engagement data and conversion metrics.",
+              "seq": 2
+            },
+            {
+              "name": "Framework alignment refined",
+              "description": "Framework alignment refined with new TDP-tactic mappings added and ineffective connections retired.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-level best practices codified",
+              "description": "Cross-level best practices from top performers codified and shared as recommended selling motions.",
+              "seq": 4
+            },
+            {
+              "name": "Predictive analytics operational",
+              "description": "Predictive analytics enable forward-looking play performance forecasting and early warning indicators.",
+              "seq": 5
+            },
+            {
+              "name": "Partner Marketing Optimized",
+              "description": "Partner marketing mix optimized based on campaign performance data and MDF utilization efficiency.",
+              "seq": 6
+            },
+            {
+              "name": "Partner Best Practices Shared",
+              "description": "Partner best practices shared across the ecosystem with high-performing partner approaches codified.",
+              "seq": 7
+            },
+            {
+              "name": "Lifecycle Rewards Mix Optimized",
+              "description": "Lifecycle rewards activity mix optimized based on deal progression correlation data.",
+              "seq": 8
+            },
+            {
+              "name": "Deal Registration Refined",
+              "description": "Deal registration process and eligibility criteria refined based on pipeline conversion analysis.",
+              "seq": 9
+            },
+            {
+              "name": "Cross-Partner Collaboration Active",
+              "description": "Cross-partner collaboration active with complementary partners coordinating GTM execution.",
+              "seq": 10
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Partner Sales Play Execution",
+          "description": "How partners translate Red Hat sales play strategy into partner-executed GTM campaigns, deal management, and technical collaboration.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Red Hat sales plays define structured go-to-market strategies around customer challenges and technology themes, providing the strategic framework that partners translate into customer engagements."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Partners must activate plays within their specific market context, aligning demand generation, deal management, and technical collaboration activities to play themes while meeting program requirements."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Partners execute plays by launching co-branded campaigns, registering deals for protection, deploying technical sellers, and coordinating with Red Hat on co-selling motions, earning activity points across all execution dimensions."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Play execution produces attributable partner pipeline, protected deal flow, validated technology positioning, and measurable contribution to Red Hat revenue through the partner channel."
+            }
+          ],
+          "citationNames": [
+            "Partner Sales Play Guides",
+            "Red Hat Partner Program Guide",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "assetNames": [],
+      "kind": "alpha"
+    },
+    {
+      "name": "Technical Decision Point",
+      "description": "A discrete technology domain within a sales play requiring focused seller credentials, customer proof, and structured engagement content.",
+      "focusName": "Sales Execution",
+      "states": [
+        {
+          "name": "Identified",
+          "description": "A technology domain has been recognized as requiring focused seller support.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Technology domain delineated",
+              "description": "Technology domain clearly delineated with defined boundaries for what is in scope and out of scope.",
+              "seq": 1
+            },
+            {
+              "name": "Target customer segments identified",
+              "description": "Target customer segments for this technology area identified with use case mapping.",
+              "seq": 2
+            },
+            {
+              "name": "Key customer use cases documented",
+              "description": "Key customer use cases or business challenges addressed by this technology documented.",
+              "seq": 3
+            },
+            {
+              "name": "Sales Play relationship established",
+              "description": "Relationship to one or more Sales Plays established and validated.",
+              "seq": 4
+            },
+            {
+              "name": "Market demand signals validated",
+              "description": "Market demand signals validate the TDP's relevance.",
+              "seq": 5
+            },
+            {
+              "name": "Partner Technical Capability Assessed",
+              "description": "Partner technical capability in the TDP technology domain assessed against certification and delivery requirements.",
+              "seq": 6
+            },
+            {
+              "name": "Partner Training Plan Established",
+              "description": "Partner training and certification plan established for TDP-specific technology skills.",
+              "seq": 7
+            },
+            {
+              "name": "Partner Customer Implementations Catalogued",
+              "description": "Partner customer implementations and reference deployments in the TDP technology area catalogued.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Qualified",
+          "description": "Seller credentials, customer proof, and competitive context are assembled.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Seller credentials documented",
+              "description": "Seller credentials documented: industry awards, analyst recognitions, certifications, market leadership positions.",
+              "seq": 1
+            },
+            {
+              "name": "Customer wins catalogued",
+              "description": "Customer wins catalogued: reference accounts, success stories organized by industry and use case.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive landscape mapped",
+              "description": "Competitive landscape for this technology area mapped with key differentiators and attack strategies.",
+              "seq": 3
+            },
+            {
+              "name": "BDM messaging drafted",
+              "description": "Business Decision Maker messaging drafted: value propositions, ROI narratives, risk reduction arguments.",
+              "seq": 4
+            },
+            {
+              "name": "TDM messaging drafted",
+              "description": "Technical Decision Maker messaging drafted: architecture benefits, integration advantages, operational improvements.",
+              "seq": 5
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas for this TDP identified with their specific concerns, priorities, and decision criteria.",
+              "seq": 6
+            },
+            {
+              "name": "Partner Technical Sellers Credentialed",
+              "description": "Partner technical sellers credentialed in TDP technology area with certifications validated.",
+              "seq": 7
+            },
+            {
+              "name": "Partner Customer Wins Documented",
+              "description": "Partner-delivered customer wins documented as supplementary proof points.",
+              "seq": 8
+            },
+            {
+              "name": "Partner Certifications Progressing",
+              "description": "Partner certification progress tracked against program tier requirements for technology specialization.",
+              "seq": 9
+            }
+          ]
+        },
+        {
+          "name": "Positioned",
+          "description": "Structured engagement content is complete and ready for field deployment.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "What to Say content complete",
+              "description": "What to Say content complete for Business and Technical audiences.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share content curated",
+              "description": "What to Share content curated for both audiences: analyst reports, white papers, case studies, datasheets.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations available",
+              "description": "What to Show demonstrations available: live demos, recorded demos, interactive walkthroughs, workshops.",
+              "seq": 3
+            },
+            {
+              "name": "Services and partner solutions aligned",
+              "description": "Services and partner solutions aligned to this TDP documented and positioned.",
+              "seq": 4
+            },
+            {
+              "name": "Supporting Sales Tactics linked",
+              "description": "Supporting Sales Tactics identified and bidirectionally linked.",
+              "seq": 5
+            },
+            {
+              "name": "Content organized for access",
+              "description": "Content organized for easy seller access and external sharing with engagement tracking.",
+              "seq": 6
+            },
+            {
+              "name": "Partner Technical Sellers Equipped",
+              "description": "Partner technical sellers equipped with TDP-specific demonstration and positioning content.",
+              "seq": 7
+            },
+            {
+              "name": "Partner Demo Capabilities Operational",
+              "description": "Partner demonstration environments and lab capabilities operational for TDP technology area.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Demonstrated",
+          "description": "TDP content is actively used in customer engagements with proof activities.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Credentials and wins used in conversations",
+              "description": "Sellers using TDP credentials and customer wins in customer-facing conversations.",
+              "seq": 1
+            },
+            {
+              "name": "Demonstrations delivered",
+              "description": "Demonstrations and workshops delivered to qualified prospects with feedback captured.",
+              "seq": 2
+            },
+            {
+              "name": "Content deployed by audience type",
+              "description": "Business and Technical decision maker content deployed appropriately by audience type.",
+              "seq": 3
+            },
+            {
+              "name": "Services engagements delivered",
+              "description": "Services engagements related to this TDP proposed and delivered in deal cycles.",
+              "seq": 4
+            },
+            {
+              "name": "Partner solutions co-positioned",
+              "description": "Partner solutions co-positioned in relevant opportunities.",
+              "seq": 5
+            },
+            {
+              "name": "Content engagement tracking active",
+              "description": "Content engagement tracking shows active use across the field organization.",
+              "seq": 6
+            },
+            {
+              "name": "Partner Demos Earning Points",
+              "description": "Partner-delivered demonstrations earning lifecycle rewards activity points.",
+              "seq": 7
+            },
+            {
+              "name": "Funded PoCs Executed",
+              "description": "Funded proof-of-concept engagements executed through lifecycle rewards with customer validation outcomes captured.",
+              "seq": 8
+            },
+            {
+              "name": "Partner Workshops Delivered",
+              "description": "Partner-delivered technology workshops generating qualified leads and deepening customer engagement.",
+              "seq": 9
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "TDP effectiveness is proven through win data with content continuously refined.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Win rates tracked",
+              "description": "Win rates for opportunities involving this TDP tracked and meeting targets.",
+              "seq": 1
+            },
+            {
+              "name": "Customer feedback collected",
+              "description": "Customer feedback on demonstrations, workshops, and content quality systematically collected.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive win/loss analysis performed",
+              "description": "Competitive win/loss analysis specific to this technology area informs positioning updates.",
+              "seq": 3
+            },
+            {
+              "name": "Seller credentials updated",
+              "description": "Seller credential updates reflect latest certifications, awards, and recognitions.",
+              "seq": 4
+            },
+            {
+              "name": "Customer win stories refreshed",
+              "description": "Customer win stories refreshed with recent, relevant reference accounts.",
+              "seq": 5
+            },
+            {
+              "name": "Content gaps addressed",
+              "description": "Content gaps identified through field feedback prioritized and addressed.",
+              "seq": 6
+            },
+            {
+              "name": "Partner TDP Win Rates Tracked",
+              "description": "Partner-specific TDP win rates tracked and benchmarked against direct and overall ecosystem performance.",
+              "seq": 7
+            },
+            {
+              "name": "Partner References Published",
+              "description": "Partner customer references published contributing to TDP proof point library.",
+              "seq": 8
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Partner Technical Decision Point Execution",
+          "description": "How partners build and deploy credentialed technical capabilities across TDP technology domains.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Technology decision points represent focused technology domains within sales plays where partner technical capability and customer proof determine competitive outcomes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Partners must build credentialed technical seller capabilities, deliver customer demonstrations and proof-of-concept engagements, and produce technology-specific evidence that advances deals."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Partners credential technical sellers through training and certification, execute funded technical activities (PoCs, workshops, solution builds) through lifecycle rewards, and deploy TDP positioning content in customer engagements."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Partner TDP execution produces validated technology proof points, credentialed technical sales capacity, and measurable win rates that demonstrate technology-specific competitive advantage."
+            }
+          ],
+          "citationNames": [
+            "Sales Plays, TDPs and Sales Tactics",
+            "Red Hat Lifecycle Rewards & Incentives Guide"
+          ]
+        }
+      ],
+      "assetNames": [],
+      "kind": "alpha"
+    },
+    {
+      "name": "Sales Tactic",
+      "description": "A customer challenge-focused conversation guide providing structured messaging, evidence, and demonstration content for a specific business challenge.",
+      "focusName": "Sales Execution",
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "A customer challenge has been identified and conversation content is being assembled.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Customer challenge articulated",
+              "description": "Customer challenge clearly articulated: what the customer is experiencing and why it matters.",
+              "seq": 1
+            },
+            {
+              "name": "Challenge impact quantified",
+              "description": "Impact of the challenge quantified or illustrated with recognizable scenarios.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas for this challenge identified for both business and technical decision makers.",
+              "seq": 3
+            },
+            {
+              "name": "Initial messaging framework drafted",
+              "description": "Initial What to Say messaging framework drafted for both audience types.",
+              "seq": 4
+            },
+            {
+              "name": "Supporting TDPs identified",
+              "description": "Supporting TDPs for this tactic identified and linked.",
+              "seq": 5
+            },
+            {
+              "name": "Sales Play relationship established",
+              "description": "Relationship to one or more Sales Plays established.",
+              "seq": 6
+            },
+            {
+              "name": "Partner Customer Base Analyzed",
+              "description": "Partner's existing customer base analyzed for customer challenge prevalence and conversion potential.",
+              "seq": 7
+            },
+            {
+              "name": "Partner Domain Expertise Mapped",
+              "description": "Partner domain expertise mapped to tactic customer challenge for value-add positioning.",
+              "seq": 8
+            },
+            {
+              "name": "Partner Messaging Adapted",
+              "description": "Tactic messaging adapted to incorporate partner-specific value propositions and local market context.",
+              "seq": 9
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Complete conversation content is published and accessible to sellers.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "What to Say content finalized",
+              "description": "What to Say content finalized for business-oriented and technical-oriented audiences.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share materials curated: case studies, analyst reports, white papers, datasheets by audience.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show proof content prepared",
+              "description": "What to Show proof content prepared: relevant demos, workshops, and interactive walkthroughs.",
+              "seq": 3
+            },
+            {
+              "name": "Services and partner solutions documented",
+              "description": "Services and partner solutions relevant to this customer challenge documented.",
+              "seq": 4
+            },
+            {
+              "name": "Bidirectional TDP links published",
+              "description": "Bidirectional links to supporting TDPs published and navigable.",
+              "seq": 5
+            },
+            {
+              "name": "Seller usage guidance included",
+              "description": "Seller guidance on when and how to use this tactic included.",
+              "seq": 6
+            },
+            {
+              "name": "Partner Sales Team Enabled",
+              "description": "Partner sales team enabled on tactic conversation framework with role-play practice and coaching.",
+              "seq": 7
+            },
+            {
+              "name": "Partner Campaigns Aligned",
+              "description": "Demand generation campaigns aligned to tactic customer challenge themes for lead generation.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Sellers are actively using the tactic in customer conversations.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Challenge framing used to open conversations",
+              "description": "Sellers using customer challenge framing to open conversations and establish relevance.",
+              "seq": 1
+            },
+            {
+              "name": "Content deployed to appropriate audiences",
+              "description": "Business and Technical decision maker content deployed to appropriate audiences.",
+              "seq": 2
+            },
+            {
+              "name": "Trackable sharing active",
+              "description": "What to Share materials sent to prospects via trackable sharing mechanisms.",
+              "seq": 3
+            },
+            {
+              "name": "Demonstrations aligned to tactic delivered",
+              "description": "Demonstrations and workshops aligned to the tactic delivered to prospects.",
+              "seq": 4
+            },
+            {
+              "name": "Discovery generating qualifying information",
+              "description": "Discovery conversations generating qualifying information (pain severity, timeline, budget, champion).",
+              "seq": 5
+            },
+            {
+              "name": "Tactic combined with TDP positioning",
+              "description": "Tactic combined with TDP positioning to create multi-level customer engagements.",
+              "seq": 6
+            },
+            {
+              "name": "Partner Sellers Using Challenge Framing",
+              "description": "Partner sellers using challenge framing in customer conversations with trackable engagement.",
+              "seq": 7
+            },
+            {
+              "name": "Deal Registrations with Tactic Attribution",
+              "description": "Deal registrations submitted with tactic attribution establishing pipeline contribution tracking.",
+              "seq": 8
+            },
+            {
+              "name": "Partner TDP Demo Combination",
+              "description": "Partner sellers combining tactic customer challenge framing with TDP-specific demonstrations for integrated positioning.",
+              "seq": 9
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Tactic execution is demonstrably creating or advancing qualified opportunities.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Opportunities attributed and tracked",
+              "description": "Opportunities attributed to this tactic created in the pipeline and tracked.",
+              "seq": 1
+            },
+            {
+              "name": "Engagement tracking correlated",
+              "description": "Engagement tracking shows content sharing and demonstration activity correlated with opportunity progression.",
+              "seq": 2
+            },
+            {
+              "name": "Challenge framing resonates",
+              "description": "Sellers report that the challenge framing resonates with target personas.",
+              "seq": 3
+            },
+            {
+              "name": "Services positioned through tactic",
+              "description": "Services and partner solutions positioned through this tactic included in deal proposals.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-TDP navigation working",
+              "description": "Cross-TDP navigation working: sellers connecting the tactic to multiple technology decision areas.",
+              "seq": 5
+            },
+            {
+              "name": "Follow-on conversations generated",
+              "description": "Tactic generating follow-on conversations and expanding engagement scope.",
+              "seq": 6
+            },
+            {
+              "name": "Tactic-Attributed Registrations Progressing",
+              "description": "Tactic-attributed deal registrations progressing through the pipeline with measurable advancement rates.",
+              "seq": 7
+            },
+            {
+              "name": "Lifecycle Rewards Aligned to Tactic",
+              "description": "Lifecycle rewards activities aligned to tactic technology themes with funded engagements supporting deal progression.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Tactic effectiveness is validated through conversion data with content optimized.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Conversion metrics tracked",
+              "description": "Conversion metrics tracked and meeting targets.",
+              "seq": 1
+            },
+            {
+              "name": "Win/loss data analyzed",
+              "description": "Win/loss data for opportunities originated through this tactic analyzed.",
+              "seq": 2
+            },
+            {
+              "name": "Seller feedback collected",
+              "description": "Seller feedback on content effectiveness, customer objections, and competitive dynamics collected.",
+              "seq": 3
+            },
+            {
+              "name": "Content refreshed based on data",
+              "description": "Content refreshed based on performance data: messaging refined, evidence updated, demonstrations improved.",
+              "seq": 4
+            },
+            {
+              "name": "Best practices captured",
+              "description": "Best practices from high-converting sellers captured and incorporated.",
+              "seq": 5
+            },
+            {
+              "name": "New customer wins added",
+              "description": "New customer wins and case studies generated through this tactic added to the evidence base.",
+              "seq": 6
+            },
+            {
+              "name": "Partner Tactic Performance Analyzed",
+              "description": "Partner-specific tactic performance analyzed by market segment, customer classification, and partner tier.",
+              "seq": 7
+            },
+            {
+              "name": "Partner Best Practices Captured",
+              "description": "High-performing partner tactic execution approaches captured and shared across the ecosystem.",
+              "seq": 8
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Partner Sales Tactic Execution",
+          "description": "How partners adapt customer challenge framing to incorporate partner value and generate attributed pipeline.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Partners have access to structured sales tactic conversation guides that frame customer challenges with supporting evidence and demonstration content aligned to TDP technology domains."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Converting tactic conversations into registered deal opportunities requires partners to bridge Red Hat messaging frameworks with their own customer relationships, domain expertise, and local market context."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Partners adapt tactic challenge framing to incorporate partner-specific value propositions, execute demand campaigns aligned to tactic themes, and register resulting opportunities to establish trackable pipeline attribution from conversation to closure."
+            }
+          ],
+          "citationNames": [
+            "Sales Plays, TDPs and Sales Tactics",
+            "Red Hat Partner Program Guide"
+          ]
+        }
+      ],
+      "assetNames": [],
+      "kind": "alpha"
+    },
+    {
+      "name": "Competitive Position",
+      "description": "The differentiated standing relative to alternative solutions in a specific customer evaluation context.",
+      "focusName": "Solution Alignment",
+      "states": [
+        {
+          "name": "Assessed",
+          "description": "An initial competitive landscape assessment has been conducted.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Per-TDP competitors identified",
+              "description": "Per-TDP key competitors identified for each technology decision area within the play.",
+              "seq": 1
+            },
+            {
+              "name": "Analyst reports catalogued",
+              "description": "Analyst reports, market studies, and competitive benchmarks catalogued by TDP domain.",
+              "seq": 2
+            },
+            {
+              "name": "Internal intelligence sources established",
+              "description": "Internal competitive intelligence sources established per technology area.",
+              "seq": 3
+            },
+            {
+              "name": "Intelligence collection cadence established",
+              "description": "Competitive intelligence collection cadence established aligned to play measurement cycles.",
+              "seq": 4
+            },
+            {
+              "name": "Partner Competitive Landscape Assessed",
+              "description": "Partner-relevant competitive landscape assessed including competing vendor partner programs and alternative technology providers.",
+              "seq": 5
+            },
+            {
+              "name": "Partner Renewal Risk Identified",
+              "description": "Competitive risk to partner renewal business identified with incumbent displacement threats catalogued.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Mapped",
+          "description": "Competitors have been identified in detail with positions catalogued.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Per-TDP competitive maps created",
+              "description": "Per-TDP competitive maps show key differentiators, strengths, and vulnerability areas for each technology domain.",
+              "seq": 1
+            },
+            {
+              "name": "Value driver competitive narratives articulated",
+              "description": "Value driver-level competitive narratives articulate superiority of the organization's approach for each driver.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive objections documented",
+              "description": "Common competitive objections documented with recommended responses organized by TDP.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive traps identified",
+              "description": "Competitive traps identified with counter-strategies at both play and TDP levels.",
+              "seq": 4
+            },
+            {
+              "name": "Partner Value-Add Differentiation Documented",
+              "description": "Partner-specific value-add differentiation documented combining Red Hat technology advantages with partner domain expertise and services.",
+              "seq": 5
+            },
+            {
+              "name": "Partner Displacement Stories Catalogued",
+              "description": "Partner-delivered competitive displacement stories catalogued with technology and business outcome evidence.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Differentiated",
+          "description": "Unique value has been expressed in customer-relevant terms.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Play-level competitive positioning embedded",
+              "description": "Play-level competitive positioning embedded in value driver narratives across all value drivers.",
+              "seq": 1
+            },
+            {
+              "name": "TDP seller credentials populated",
+              "description": "TDP seller credentials sections populated with technology-specific awards, recognitions, and market position data.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive displacement stories included",
+              "description": "TDP customer wins sections include competitive displacement and competitive-win stories.",
+              "seq": 3
+            },
+            {
+              "name": "Tactic competitive differentiation included",
+              "description": "Tactic What to Say content includes challenge-specific competitive differentiation.",
+              "seq": 4
+            },
+            {
+              "name": "Partner Competitive Positioning Embedded",
+              "description": "Partner competitive positioning embedded in play execution combining Red Hat platform advantages with partner implementation expertise.",
+              "seq": 5
+            },
+            {
+              "name": "Partner Certifications Positioned",
+              "description": "Partner certifications and specializations positioned as competitive differentiators demonstrating validated technology capability.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Defended",
+          "description": "Competitive challenges have been addressed with evidence-based responses.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "TDP credential evidence deployed",
+              "description": "TDP-level credential evidence deployed in competitive customer conversations.",
+              "seq": 1
+            },
+            {
+              "name": "Value driver narratives used for framing",
+              "description": "Play-level value driver competitive narratives used to frame purchasing decisions.",
+              "seq": 2
+            },
+            {
+              "name": "Proof activities highlight differentiators",
+              "description": "Demonstration and proof activities structured to highlight TDP-specific competitive differentiators.",
+              "seq": 3
+            },
+            {
+              "name": "Win/loss reporting captures impact",
+              "description": "Win/loss reporting captures which competitive content was most impactful at each framework level.",
+              "seq": 4
+            },
+            {
+              "name": "Partner PoCs Highlight Differentiators",
+              "description": "Partner-delivered proof-of-concept engagements highlight competitive differentiators through hands-on technology validation.",
+              "seq": 5
+            },
+            {
+              "name": "Partner References Deployed",
+              "description": "Partner customer references deployed in competitive evaluations providing peer validation of technology and implementation quality.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Preferred",
+          "description": "The seller has been selected as the preferred vendor.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Competitive displacement stories documented",
+              "description": "Competitive displacement stories generated through the play's execution are documented for TDP evidence bases.",
+              "seq": 1
+            },
+            {
+              "name": "Analyst recognition updated",
+              "description": "Analyst recognition and awards updated in TDP positioning briefs as new evaluations are published.",
+              "seq": 2
+            },
+            {
+              "name": "Field-generated insights integrated",
+              "description": "Field-generated competitive insights captured and integrated into framework content at appropriate levels.",
+              "seq": 3
+            },
+            {
+              "name": "Partner Displacement Stories Contributed",
+              "description": "Partner-originated competitive displacement stories contributed to ecosystem knowledge base.",
+              "seq": 4
+            },
+            {
+              "name": "Partner Specialization Positioned",
+              "description": "Partner technology specializations positioned as selection criteria advantage in customer evaluation.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Partner Competitive Differentiation",
+          "description": "How partners layer domain expertise on Red Hat competitive positioning for compound differentiation.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Partners operate in competitive technology markets where customer evaluations include direct vendor alternatives, competing partner ecosystems, and build-versus-buy decisions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Partners must differentiate not only Red Hat technology but also their own implementation expertise, domain knowledge, and customer relationship value against alternative providers."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Partners layer their domain expertise, certifications, and customer references on top of Red Hat competitive positioning to create compound differentiation that is difficult for competitors to replicate."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Partner Program Guide",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "assetNames": [],
+      "kind": "alpha"
+    },
+    {
+      "name": "Partner Demand Generation",
+      "description": "The partner's marketing and demand creation capability progressing from initial tool provisioning through pipeline generation to ecosystem-amplified market reach.",
+      "focusName": "Go-to-Market",
+      "contributesTo": "Sales Play",
+      "relatesTo": [
+        {
+          "relationship": "funded by",
+          "alphaName": "Partner Value",
+          "direction": "incoming",
+          "description": "MDF investment from the partnership funds demand generation activities that create pipeline."
+        },
+        {
+          "relationship": "produces pipeline for",
+          "alphaName": "Partner Deal Opportunity",
+          "direction": "outgoing",
+          "description": "Demand generation activities produce qualified leads that convert to registered deal opportunities."
+        },
+        {
+          "relationship": "enables execution of",
+          "alphaName": "Sales Tactic",
+          "direction": "outgoing",
+          "description": "Campaign activities aligned to sales tactic customer challenges amplify tactic messaging through marketing channels."
+        }
+      ],
+      "states": [
+        {
+          "name": "Provisioned",
+          "description": "Marketing tools, content, and campaign infrastructure are available.",
+          "seq": 1,
+          "contributesToState": "Selected",
+          "background": {
+            "given": [
+              "Red Hat brand guidelines and messaging frameworks are established",
+              "Partner demand platform is operational with self-service campaign capabilities"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Sales Play",
+                "stateName": "Selected"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Demand Platform Accessible",
+              "description": "Partner demand platform is accessible with campaign creation, content customization, and lead tracking capabilities.",
+              "seq": 1
+            },
+            {
+              "name": "Campaign Kits Available",
+              "description": "Co-branded campaign kits with Red Hat messaging aligned to current sales play themes are available for partner use.",
+              "seq": 2
+            },
+            {
+              "name": "Partner Play Guides Published",
+              "description": "Partner sales play guides published for active Red Hat plays providing partner-specific execution guidance.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-Language Content Available",
+              "description": "Content available in languages supporting the partner's geographic market coverage.",
+              "seq": 4
+            },
+            {
+              "name": "Event Creation Tools Accessible",
+              "description": "Event creation tools for both virtual and in-person formats are accessible through the demand platform.",
+              "seq": 5
+            },
+            {
+              "name": "Discovery Mechanisms Operational",
+              "description": "Discovery mechanisms for connecting partners with customers are operational.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Adopted",
+          "description": "Partners are actively using GTM tools and executing campaigns.",
+          "seq": 2,
+          "contributesToState": "Activated",
+          "background": {
+            "given": [
+              "Partners have completed marketing enablement and understand available tools",
+              "Partners have defined target customer segments and marketing strategies"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Sales Play",
+                "stateName": "Activated"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Campaigns Launching Regularly",
+              "description": "Partners launching campaigns through the demand platform regularly with content customized to local market context.",
+              "seq": 1
+            },
+            {
+              "name": "Co-Branding Requirements Met",
+              "description": "Co-branded content reflects both Red Hat messaging standards and partner value-add positioning.",
+              "seq": 2
+            },
+            {
+              "name": "Events Hosted with Tracking",
+              "description": "Partners hosting events using Red Hat-provided tools with attendance and engagement tracking active.",
+              "seq": 3
+            },
+            {
+              "name": "MDF Plan Activities Submitted",
+              "description": "MDF plan activities submitted for eligible campaigns with minimum thresholds and advance requirements met.",
+              "seq": 4
+            },
+            {
+              "name": "Lead Tracking Active",
+              "description": "Lead tracking actively used to manage campaign-generated opportunities with lead-to-opportunity conversion measured.",
+              "seq": 5
+            },
+            {
+              "name": "GTM Activity Points Contributing",
+              "description": "GTM activity points contributing meaningfully to partner tier advancement through campaign execution.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Generating Pipeline",
+          "description": "GTM activities produce measurable customer pipeline and revenue.",
+          "seq": 3,
+          "contributesToState": "Executing",
+          "background": {
+            "given": [
+              "Sufficient campaign execution volume to measure pipeline impact",
+              "Lead-to-opportunity tracking is operational across partner and Red Hat systems"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Partner Deal Opportunity",
+                "stateName": "Registered"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Leads Converting to Registrations",
+              "description": "Campaign-generated leads converting to qualified deal registrations at measurable rates.",
+              "seq": 1
+            },
+            {
+              "name": "MDF Activities Showing ROI",
+              "description": "MDF-funded activities demonstrating positive ROI on Red Hat marketing investment.",
+              "seq": 2
+            },
+            {
+              "name": "Customer References Generating Interest",
+              "description": "Customer references and success stories generating inbound interest and contributing to demand pipeline.",
+              "seq": 3
+            },
+            {
+              "name": "Events Producing Pipeline",
+              "description": "Partner events producing attributable pipeline with attendance-to-opportunity conversion tracked.",
+              "seq": 4
+            },
+            {
+              "name": "Technology Conversations from Leads",
+              "description": "Partner sales play execution generating technology-specific customer conversations from campaign leads.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Scaling Reach",
+          "description": "GTM enablement extends market reach beyond Red Hat direct coverage.",
+          "seq": 4,
+          "contributesToState": "Measured",
+          "checklist": [
+            {
+              "name": "Reaching Beyond Direct Coverage",
+              "description": "Partners reaching customer segments and geographies beyond Red Hat direct sales coverage.",
+              "seq": 1
+            },
+            {
+              "name": "Partner Pipeline Share Growing",
+              "description": "Partner-generated pipeline represents growing share of ecosystem technology revenue.",
+              "seq": 2
+            },
+            {
+              "name": "Digital Advertising Generating Demand",
+              "description": "Digital advertising and content marketing generating measurable brand awareness and inbound demand.",
+              "seq": 3
+            },
+            {
+              "name": "Higher-Tier Placement Leveraged",
+              "description": "Higher-tier partners leveraging prioritized placement in discovery platforms for increased customer visibility.",
+              "seq": 4
+            },
+            {
+              "name": "MDF Investment Optimized",
+              "description": "MDF investment allocation optimized across demand generation, marketing, and business development activities.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Ecosystem-Amplified",
+          "description": "GTM infrastructure creates network effects across the partner ecosystem.",
+          "seq": 5,
+          "contributesToState": "Optimized",
+          "checklist": [
+            {
+              "name": "Coordinated Campaigns Amplifying",
+              "description": "Coordinated Red Hat-partner marketing campaigns amplify messaging for maximum market impact.",
+              "seq": 1
+            },
+            {
+              "name": "Success Stories Reference Ecosystem",
+              "description": "Partner success stories reference ecosystem value including multi-partner solution integration.",
+              "seq": 2
+            },
+            {
+              "name": "Referral Networks Operational",
+              "description": "Customer discovery across the ecosystem creates referral networks between complementary partners.",
+              "seq": 3
+            },
+            {
+              "name": "Analytics Driving Optimization",
+              "description": "Campaign performance analytics drive continuous optimization of partner GTM program investment.",
+              "seq": 4
+            },
+            {
+              "name": "Marketing as Recruiting Advantage",
+              "description": "Partner marketing capabilities become a recruiting advantage attracting new partner organizations to the ecosystem.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Partner Demand Generation Maturity",
+          "description": "Progressive maturation of partner demand generation capability from tool provisioning to ecosystem amplification.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Partners begin by accessing the demand platform, reviewing available campaign kits, and learning co-branding requirements before launching initial campaigns with MDF support."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "Partners launch regular campaigns, track lead conversion, and submit MDF claims as demand generation activities start producing measurable pipeline contribution attributed to sales play themes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Partners scale demand generation beyond Red Hat direct coverage, optimize MDF investment based on ROI data, and contribute to ecosystem-wide network effects through coordinated marketing and referral networks."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Market Development Funds Program Guidelines",
+            "Red Hat Partner Engagement Experience"
+          ]
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "partner-demand-generation-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Partner Deal Opportunity",
+      "description": "A partner-sourced or partner-managed sales opportunity progressing from identification through deal registration, protected selling, and closure.",
+      "focusName": "Partner Sales Execution",
+      "contributesTo": "Sales Play",
+      "relatesTo": [
+        {
+          "relationship": "sourced by",
+          "alphaName": "Partner Demand Generation",
+          "direction": "incoming",
+          "description": "Demand generation campaigns produce qualified leads that become registered deal opportunities."
+        },
+        {
+          "relationship": "validated by",
+          "alphaName": "Partner Technical Engagement",
+          "direction": "incoming",
+          "description": "Technical activities validate technology fit and advance deal progression."
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Competitive Position",
+          "direction": "outgoing",
+          "description": "Deal opportunities leverage competitive positioning to defend against alternatives during customer evaluation."
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Opportunity",
+          "direction": "outgoing",
+          "description": "Registered partner deal opportunities create qualified opportunities in the Red Hat sales pipeline, contributing to pipeline management and revenue forecasting."
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "A qualifying customer opportunity has been recognized by the partner.",
+          "seq": 1,
+          "contributesToState": "Selected",
+          "background": {
+            "given": [
+              "Partner is enrolled in an eligible program module with deal registration access",
+              "Partner sales team has completed required seller credential training"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Sales Play",
+                "stateName": "Selected"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Partner Tier Eligibility Confirmed",
+              "description": "Partner tier eligibility confirmed as Ready, Advanced, or Premier in the Resell module, or Alliance Partner with OEM agreement.",
+              "seq": 1
+            },
+            {
+              "name": "Compliance Requirements Verified",
+              "description": "Local law compliance, Red Hat code of conduct adherence, and required compliance activities (including FCPA training for funded engagements) verified.",
+              "seq": 2
+            },
+            {
+              "name": "Deal Type Determined",
+              "description": "Deal type determined as new business, cross-sell (new product offering group), or up-sell (additional quantities, upgraded services, or longer term on existing subscriptions).",
+              "seq": 3
+            },
+            {
+              "name": "Deal Size Threshold Met",
+              "description": "Minimum deal size threshold confirmed by customer classification: $10K MSRP for Existing Standard, $5K MSRP for Existing Territory or China, and $2.5K MSRP for Net New customers.",
+              "seq": 4,
+              "test": {
+                "name": "Opportunity qualification verification",
+                "description": "Verifies the opportunity meets deal registration eligibility criteria across classification, route, and geography.",
+                "given": [
+                  "Partner has identified a customer with a technology need aligned to an active sales play",
+                  "Partner holds eligible program tier and module enrollment"
+                ],
+                "when": [
+                  "Partner evaluates the opportunity against deal registration eligibility criteria"
+                ],
+                "then": [
+                  "Customer classification and deal size threshold are confirmed",
+                  "Route to market is selected with product eligibility validated",
+                  "Order country matching requirement is verified across customer, reseller, and financial partner"
+                ]
+              }
+            },
+            {
+              "name": "Route to Market Selected",
+              "description": "Route to market selected from eligible options: Distribution, Cloud (AWS, Microsoft, or Google private offers), OEM, or GOE (Government Owned Entity).",
+              "seq": 5
+            },
+            {
+              "name": "Product Eligibility Confirmed",
+              "description": "Product eligibility confirmed: Standard Subscriptions for Distribution and Cloud routes; OEM, Solution Builder, or SVP SKUs for OEM route.",
+              "seq": 6
+            },
+            {
+              "name": "Order Country Match Verified",
+              "description": "Order country matching requirement verified: customer location, reseller location, and financial partner location must be in the same country.",
+              "seq": 7
+            },
+            {
+              "name": "Opportunity Verified as Unengaged",
+              "description": "Opportunity verified as genuinely new and not already engaged by Red Hat direct sales or another partner through existing deal registration.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Registered",
+          "description": "Deal registration submitted and approved with protection period initiated.",
+          "seq": 2,
+          "contributesToState": "Activated",
+          "background": {
+            "given": [
+              "Opportunity meets deal registration eligibility criteria for selected route to market",
+              "Partner has deal registration system access through Red Hat Partner Connect"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Registration Submitted via Partner Connect",
+              "description": "Deal registration submitted via Red Hat Partner Connect with required fields including customer information, technology area, estimated value, and partner engagement plan.",
+              "seq": 1,
+              "test": {
+                "name": "Registration submission and approval verification",
+                "description": "Verifies deal registration submission triggers protection period, discount, and activity point benefits.",
+                "given": [
+                  "Partner has completed eligibility verification for the opportunity",
+                  "Red Hat Partner Connect deal registration form is accessible"
+                ],
+                "when": [
+                  "Partner submits the deal registration with all required fields and Red Hat deal desk reviews"
+                ],
+                "then": [
+                  "180-day protection period starts from approval date",
+                  "Deal registration discount (25% Commercial / 12% Other) is confirmed",
+                  "Activity points (1,050 Resell / 900 Sell-With) are credited to partner account"
+                ]
+              }
+            },
+            {
+              "name": "180-Day Protection Period Initiated",
+              "description": "180-day deal protection period initiated from approval date with Red Hat commitments: will not pursue direct, will not introduce new partner, will not grant discount to another partner.",
+              "seq": 2
+            },
+            {
+              "name": "Discount Rates Applied",
+              "description": "Deal registration discount rates applied: 25% Commercial discount and 12% Other discount for qualifying routes to market.",
+              "seq": 3
+            },
+            {
+              "name": "Activity Points Awarded",
+              "description": "Activity points awarded upon registration approval: 1,050 points for Resell module deals, 900 points for Sell-With module deals.",
+              "seq": 4
+            },
+            {
+              "name": "Incumbency Eligibility Established",
+              "description": "Incumbency eligibility established for future renewal business on the registered deal.",
+              "seq": 5
+            },
+            {
+              "name": "Financial Partner Locked",
+              "description": "Financial partner (distributor, hyperscaler, or OEM) locked and cannot be changed after deal registration submission.",
+              "seq": 6
+            },
+            {
+              "name": "Pre-Sales Plan Activated",
+              "description": "Pre-sales engagement plan activated with customer demonstration and technical validation activities planned within the protection period.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Active",
+          "description": "Partner actively executing sales cycle under deal protection.",
+          "seq": 3,
+          "contributesToState": "Executing",
+          "checklist": [
+            {
+              "name": "Pre-Sales Activities Conducted",
+              "description": "Pre-sales activities conducted generating activity points and deepening customer engagement within the protection period.",
+              "seq": 1
+            },
+            {
+              "name": "Red Hat Co-Selling Engaged",
+              "description": "Red Hat co-selling support engaged where appropriate for complex opportunities or strategic accounts.",
+              "seq": 2
+            },
+            {
+              "name": "Proposal Prepared with Discount",
+              "description": "Proposal or quote prepared with pricing reflecting deal registration discount and applicable incentive structures.",
+              "seq": 3
+            },
+            {
+              "name": "Customer Evaluation Progressing",
+              "description": "Customer evaluation progressing with technology validation evidence supporting Red Hat selection.",
+              "seq": 4
+            },
+            {
+              "name": "Extension Process Managed",
+              "description": "Extension process managed: up to two 180-day extensions available, each must be requested before the current period expires.",
+              "seq": 5,
+              "test": {
+                "name": "Protection period extension verification",
+                "description": "Verifies extension process and special pricing implications are managed correctly during active selling.",
+                "given": [
+                  "Deal registration has been approved with active protection period",
+                  "Pre-sales plan has been activated"
+                ],
+                "when": [
+                  "Sales cycle approaches or exceeds the initial 180-day protection period"
+                ],
+                "then": [
+                  "Extension request is submitted before the current period expires (up to 2 extensions available)",
+                  "Competitive positioning and deal protection commitments are maintained",
+                  "Special bid pricing implications are understood if Red Hat grants special pricing"
+                ]
+              }
+            },
+            {
+              "name": "Cancellation Conditions Monitored",
+              "description": "Cancellation conditions monitored: legal exposure, competitive positioning concerns, bad faith engagement, or approval error may trigger Red Hat-initiated cancellation.",
+              "seq": 6
+            },
+            {
+              "name": "Notification Schedule Tracked",
+              "description": "Partner tracking protection period notifications at 180, 120, 90, 60, and 30 days before expiration.",
+              "seq": 7
+            },
+            {
+              "name": "Special Bid Interaction Understood",
+              "description": "Special bid pricing interaction understood: if special pricing is granted by Red Hat, partner loses deal registration discount but retains incumbency eligibility.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Closed",
+          "description": "Transaction completed through authorized channel with incentives realized.",
+          "seq": 4,
+          "contributesToState": "Measured",
+          "checklist": [
+            {
+              "name": "Transaction Processed",
+              "description": "Transaction processed through authorized channel with revenue recognized via selected route to market.",
+              "seq": 1
+            },
+            {
+              "name": "Full Incentive Stack Realized",
+              "description": "Full incentive stack realized including deal registration discount, applicable rebates, and technology-specific booking points.",
+              "seq": 2
+            },
+            {
+              "name": "Incumbency Established for Renewal",
+              "description": "Incumbency established positioning the partner for renewal business with incumbency discount eligibility on future renewals.",
+              "seq": 3
+            },
+            {
+              "name": "Win/Loss Analysis Documented",
+              "description": "Win/loss analysis documented with competitive, technical, and commercial factors captured for performance analysis.",
+              "seq": 4
+            },
+            {
+              "name": "Cloud Route Processing Completed",
+              "description": "For Cloud route deals: private offer processing completed through the applicable hyperscaler (AWS, Microsoft, or Google).",
+              "seq": 5
+            },
+            {
+              "name": "OEM Route Protection Applied",
+              "description": "For OEM route deals: deal protection applied without deal registration discount, with OEM-specific SKU pricing preserved.",
+              "seq": 6
+            },
+            {
+              "name": "Customer Reference Assessed",
+              "description": "Customer reference potential assessed with reference development initiated for successful implementations.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Renewing",
+          "description": "Customer lifecycle managed with renewal and expansion opportunities pursued.",
+          "seq": 5,
+          "contributesToState": "Optimized",
+          "checklist": [
+            {
+              "name": "Incumbency Discount Rates Applied",
+              "description": "Incumbency discount rates applied: 15% Commercial and 5% Other for qualifying renewal registrations.",
+              "seq": 1
+            },
+            {
+              "name": "Renewal Eligibility Window Confirmed",
+              "description": "Eligibility limited to the first two renewals of the original deal registration, submitted between 6 months and 30 days before the renewal date.",
+              "seq": 2
+            },
+            {
+              "name": "Valuable Engagement Proof Submitted",
+              "description": "Proof of valuable engagement submitted demonstrating completion of two or more activities from two or more of the four engagement categories.",
+              "seq": 3,
+              "test": {
+                "name": "Incumbency renewal qualification verification",
+                "description": "Verifies the partner meets incumbency renewal requirements including engagement proof and submission timing.",
+                "given": [
+                  "Original deal has been closed with incumbency established",
+                  "Renewal date is approaching within the 6-month to 30-day submission window"
+                ],
+                "when": [
+                  "Partner submits incumbency renewal registration with proof of valuable engagement"
+                ],
+                "then": [
+                  "Two or more activities from two or more of the four engagement categories are documented",
+                  "Incumbency discount (15% Commercial / 5% Other) is applied if approved",
+                  "Renewal is limited to first two renewals of the original deal registration"
+                ]
+              }
+            },
+            {
+              "name": "Lifecycle Management Activities Documented",
+              "description": "Lifecycle Management category activities documented: license consumption or adoption plan execution, and evidence of increased consumption.",
+              "seq": 4
+            },
+            {
+              "name": "Net New Motions Evidenced",
+              "description": "Net New Motions category activities evidenced: completed proof of concept, or solution support in customer expansion.",
+              "seq": 5
+            },
+            {
+              "name": "Transformational Selling Demonstrated",
+              "description": "Transformational Selling category activities demonstrated: co-created content with customer, or delivery of transformational services.",
+              "seq": 6
+            },
+            {
+              "name": "Client Relationship Management Proven",
+              "description": "Client Relationship Management category activities proven: unlocked new decision makers, quarterly business planning, or new business unit introductions.",
+              "seq": 7
+            },
+            {
+              "name": "Expansion Opportunities Identified",
+              "description": "Expansion opportunities identified during renewal engagement with cross-sell and up-sell potential evaluated for new deal registrations.",
+              "seq": 8
+            },
+            {
+              "name": "Rejection Contingency Understood",
+              "description": "Rejection of incumbency renewal registration does not preclude partner from pursuing the renewal; only the incumbency discount is forfeited.",
+              "seq": 9
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Partner Deal Lifecycle Journey",
+          "description": "End-to-end lifecycle of a partner-managed sales opportunity from discovery through renewal.",
+          "narrativeTypeName": "Partner Ecosystem Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discovery",
+              "context": "Partners discover qualifying customer opportunities by evaluating deals against tier eligibility, deal size thresholds, route to market options, and product eligibility requirements defined in the deal registration program."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alignment",
+              "context": "Deal registration aligns partner and Red Hat interests through 180-day protection periods, discount structures, activity point awards, and financial partner lock-in that create mutual commitment to the opportunity."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Collaboration",
+              "context": "Active selling under deal protection involves coordinated pre-sales activities, Red Hat co-selling support, competitive positioning, and managed extension processes that maintain deal momentum through the sales cycle."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Maturity",
+              "context": "Deal closure and renewal establish the partner's incumbency position, enabling lifecycle management through valuable engagement proof, incumbency discounts, and expansion opportunity identification across the customer relationship."
+            }
+          ],
+          "citationNames": [
+            "Global Deal Registration Guide H2",
+            "Red Hat Partner Program Guide",
+            "Red Hat Lifecycle Rewards & Incentives Guide"
+          ]
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "partner-deal-opportunity-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Partner Technical Engagement",
+      "description": "Partner-delivered technical activities including proofs of concept, workshops, assessments, and certification engagements that validate technology fit.",
+      "focusName": "Go-to-Market",
+      "contributesTo": "Technical Decision Point",
+      "relatesTo": [
+        {
+          "relationship": "validates",
+          "alphaName": "Partner Deal Opportunity",
+          "direction": "outgoing",
+          "description": "Technical engagements validate technology fit and provide evidence that advances deal opportunities through the sales cycle."
+        },
+        {
+          "relationship": "evidences",
+          "alphaName": "Competitive Position",
+          "direction": "outgoing",
+          "description": "Partner-delivered technical activities produce proof points that strengthen competitive differentiation."
+        },
+        {
+          "relationship": "develops",
+          "alphaName": "Partner Capability",
+          "direction": "outgoing",
+          "description": "Technical engagement execution builds and validates partner technical capabilities in specific technology domains."
+        }
+      ],
+      "states": [
+        {
+          "name": "Scoped",
+          "description": "Technical engagement opportunity identified with activity type and context defined.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "background": {
+            "given": [
+              "Partner has lifecycle rewards eligibility (Advanced or Premier tier, or contractual agreement)",
+              "Customer opportunity aligned with Red Hat technology area exists"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Partner Deal Opportunity",
+                "stateName": "Identified"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Funded Activity Type Selected",
+              "description": "Funded activity type selected from eligible categories (proof of concept, solution build, workshop, assessment, or certification engagement).",
+              "seq": 1
+            },
+            {
+              "name": "Funding Tier Determined",
+              "description": "Funding tier determined (small, medium, or large) based on engagement scope and customer value.",
+              "seq": 2
+            },
+            {
+              "name": "Customer Context Documented",
+              "description": "Customer engagement context documented with minimum ACV qualification confirmed.",
+              "seq": 3
+            },
+            {
+              "name": "Partner Capability Validated",
+              "description": "Partner technical capability for the activity type and technology domain validated against certification requirements.",
+              "seq": 4
+            },
+            {
+              "name": "Play and TDP Alignment Confirmed",
+              "description": "Activity aligned to active sales play and TDP technology area with deal registration linkage established.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Prepared",
+          "description": "Activity approved with resources and compliance requirements confirmed.",
+          "seq": 2,
+          "contributesToState": "Qualified",
+          "checklist": [
+            {
+              "name": "Fund Request Submitted",
+              "description": "Fund request submitted via partner incentives platform at least 10 business days before planned start with minimum $1,000 threshold.",
+              "seq": 1
+            },
+            {
+              "name": "Red Hat Approval Received",
+              "description": "Red Hat approval received with approved funding amount and execution parameters confirmed.",
+              "seq": 2
+            },
+            {
+              "name": "Technical Resources Assigned",
+              "description": "Partner technical resources assigned with required technical certifications and domain expertise validated.",
+              "seq": 3
+            },
+            {
+              "name": "Deliverables Defined",
+              "description": "Execution deliverables defined with proof of performance documentation requirements confirmed.",
+              "seq": 4
+            },
+            {
+              "name": "Compliance Acknowledged",
+              "description": "Compliance requirements acknowledged including FCPA training for funded head activity engagements.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Delivered",
+          "description": "Technical activity executed with customer engagement completed.",
+          "seq": 3,
+          "contributesToState": "Demonstrated",
+          "checklist": [
+            {
+              "name": "Activity Executed",
+              "description": "Technical activity executed within approved parameters with customer engagement completed.",
+              "seq": 1
+            },
+            {
+              "name": "POP Documentation Collected",
+              "description": "Proof of performance documentation collected (customer feedback, invoices, completion records).",
+              "seq": 2
+            },
+            {
+              "name": "Customer Outcome Documented",
+              "description": "Customer engagement outcome documented with deal progression impact assessed.",
+              "seq": 3
+            },
+            {
+              "name": "Activity Points Earned",
+              "description": "Activity points earned for technical activities contributing to partner tier advancement.",
+              "seq": 4
+            },
+            {
+              "name": "Technical Artifacts Produced",
+              "description": "Technical artifacts produced (solution briefs, reference architectures) contributing to TDP proof point library.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Measured",
+          "description": "Activity outcomes measured with claim processed and ROI assessed.",
+          "seq": 4,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Claim Submitted",
+              "description": "Claim submitted with proof of performance documentation within quarterly deadline and minimum $1,000 claim amount.",
+              "seq": 1
+            },
+            {
+              "name": "Audit Review Completed",
+              "description": "Audit review completed with claim approved and partner invoice uploaded for payment processing.",
+              "seq": 2
+            },
+            {
+              "name": "Activity ROI Analyzed",
+              "description": "Activity ROI analyzed correlating funded engagement with customer outcome and pipeline impact.",
+              "seq": 3
+            },
+            {
+              "name": "Customer Engagement Depth Measured",
+              "description": "Customer engagement depth following technical activity measured against pre-engagement baseline.",
+              "seq": 4
+            },
+            {
+              "name": "Insights Informing Future Strategy",
+              "description": "Technical activity outcomes informing future lifecycle rewards strategy and activity mix decisions.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Scaled",
+          "description": "Partner technical engagement capability established as a repeatable practice.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Systematic Processes Established",
+              "description": "Partner has established systematic technical engagement processes covering scoping, delivery, and measurement.",
+              "seq": 1
+            },
+            {
+              "name": "Portfolio Optimized",
+              "description": "Technical engagement portfolio optimized across activity types based on customer impact and ROI data.",
+              "seq": 2
+            },
+            {
+              "name": "Team Capabilities Validated",
+              "description": "Partner technical team capabilities validated through repeated successful delivery across technology domains.",
+              "seq": 3
+            },
+            {
+              "name": "Artifacts Contributing to Knowledge Base",
+              "description": "Technical artifacts from engagements contributing to ecosystem knowledge base.",
+              "seq": 4
+            },
+            {
+              "name": "Engagement as Differentiator",
+              "description": "Partner technical engagement effectiveness serves as competitive differentiator attracting new customer opportunities.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Partner Technical Engagement Maturity",
+          "description": "Progressive maturation of partner technical engagement from initial scoping to scaled organizational capability.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Partners scope initial technical engagements by selecting funded activity types, confirming eligibility, and submitting fund requests through the incentives platform with required compliance acknowledgements."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "Partners deliver technical activities, collect proof of performance, submit claims, and measure ROI as technical engagement execution becomes a regular part of the partner sales cycle."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Partners scale technical engagement capability into a systematic, repeatable practice with optimized activity portfolios, validated team capabilities, and engagement artifacts that contribute to ecosystem knowledge and competitive differentiation."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Lifecycle Rewards & Incentives Guide",
+            "Red Hat Partner Program Guide"
+          ]
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "partner-technical-engagement-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "alphaInstances": [
+    {
+      "name": "Partner AI Technology Engagement",
+      "description": "Technical engagement activities focused on AI platform technology areas carrying elevated point values and funding tiers, with AI platform PoCs earning 3,000 activity points.",
+      "alphaName": "Partner Technical Engagement"
+    },
+    {
+      "name": "Infrastructure Modernization Campaign",
+      "description": "Demand generation campaigns focused on infrastructure modernization sales play themes, representing the highest-volume campaign category across the partner ecosystem.",
+      "alphaName": "Partner Demand Generation"
+    },
+    {
+      "name": "Subscription Renewal Deal",
+      "description": "Renewal deal opportunities where the partner has established incumbency from prior closed business, eligible for incumbency discount benefits.",
+      "alphaName": "Partner Deal Opportunity"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Partner Marketing Plan",
+      "description": "The strategic plan for partner demand generation activities combining MDF-funded and partner-invested marketing execution.",
+      "kind": "workProduct",
+      "levelsOfDetail": [
+        {
+          "name": "Campaign Brief",
+          "description": "Marketing activities identified with budget and target alignment.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Target Segment Defined",
+              "description": "Target customer segment and marketing objectives defined aligned to active sales play themes.",
+              "seq": 1
+            },
+            {
+              "name": "MDF Budget Requested",
+              "description": "MDF budget requested from available common or earned funds with activity type eligibility confirmed.",
+              "seq": 2
+            },
+            {
+              "name": "Campaign Channels Selected",
+              "description": "Campaign channels selected from eligible categories across demand generation, marketing, and business development activities.",
+              "seq": 3
+            },
+            {
+              "name": "Co-Branding Requirements Reviewed",
+              "description": "Red Hat co-branding requirements understood with brand guidelines reviewed.",
+              "seq": 4
+            },
+            {
+              "name": "Submission Timeline Planned",
+              "description": "Submission timeline planned to meet 21-day advance requirement for MDF plan activities.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Demand Generation",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Selected"
+            }
+          ]
+        },
+        {
+          "name": "Structured Plan",
+          "description": "Campaign plan with content, channels, budget, and approval.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Campaign Theme Aligned",
+              "description": "Campaign theme and messaging aligned with Red Hat strategic priorities and co-branding requirements.",
+              "seq": 1
+            },
+            {
+              "name": "Content Assets Prepared",
+              "description": "Content assets identified or created with Red Hat logo visible and proportionally represented.",
+              "seq": 2
+            },
+            {
+              "name": "Channel Mix with Budget",
+              "description": "Channel mix planned with budget allocation meeting minimum $500 per plan activity threshold.",
+              "seq": 3
+            },
+            {
+              "name": "Lead Capture Configured",
+              "description": "Lead capture and tracking mechanisms configured in the demand platform.",
+              "seq": 4
+            },
+            {
+              "name": "MDF Plan Approved",
+              "description": "MDF plan activity submitted and approved by Red Hat with execution parameters confirmed.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Demand Generation",
+              "stateName": "Adopted"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Activated"
+            }
+          ]
+        },
+        {
+          "name": "Performance Record",
+          "description": "Campaign results with performance data and proof of execution.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Campaign Execution Completed",
+              "description": "Campaign execution completed with attendance, engagement, and lead generation metrics captured.",
+              "seq": 1
+            },
+            {
+              "name": "POP Documentation Assembled",
+              "description": "Proof of performance documentation assembled for MDF claim submission.",
+              "seq": 2
+            },
+            {
+              "name": "MDF Claim Submitted",
+              "description": "MDF claim submitted within quarterly deadline with minimum $500 claim threshold met.",
+              "seq": 3
+            },
+            {
+              "name": "Activity Points Earned",
+              "description": "Activity points earned for campaign activities.",
+              "seq": 4
+            },
+            {
+              "name": "Pipeline Contribution Measured",
+              "description": "Pipeline contribution from campaign activities measured and attributed.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Demand Generation",
+              "stateName": "Generating Pipeline"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "Strategic Analysis",
+          "description": "Multi-campaign ROI analysis with optimization insights.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Campaign ROI Analyzed",
+              "description": "Campaign ROI across multiple execution cycles analyzed by channel and investment type.",
+              "seq": 1
+            },
+            {
+              "name": "Lead Quality Analyzed",
+              "description": "Lead quality and conversion analysis identifying highest-impact activities and content.",
+              "seq": 2
+            },
+            {
+              "name": "MDF Utilization Measured",
+              "description": "MDF utilization efficiency measured across common and earned fund types.",
+              "seq": 3
+            },
+            {
+              "name": "Segment Response Patterns Analyzed",
+              "description": "Customer segment response patterns informing future targeting strategy.",
+              "seq": 4
+            },
+            {
+              "name": "Best Practices Codified",
+              "description": "Best practices codified from high-performing campaigns for replication.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Demand Generation",
+              "stateName": "Scaling Reach"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Measured"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Partner Deal Registration Record",
+      "description": "The documented partner sales opportunity with deal protection, discount eligibility, and incentive tracking.",
+      "kind": "workProduct",
+      "levelsOfDetail": [
+        {
+          "name": "Initial Submission",
+          "description": "Opportunity details submitted for registration and protection.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Customer Information Recorded",
+              "description": "Customer information, opportunity description, and estimated value recorded.",
+              "seq": 1
+            },
+            {
+              "name": "Technology and Deal Type Classified",
+              "description": "Technology area and product category identified with deal type classified (new, cross-sell, up-sell).",
+              "seq": 2
+            },
+            {
+              "name": "Route to Market Selected",
+              "description": "Route to market selected with benefit eligibility mapped.",
+              "seq": 3
+            },
+            {
+              "name": "Deal Size Threshold Confirmed",
+              "description": "Deal size confirmed against minimum threshold for customer classification.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Deal Opportunity",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Selected"
+            }
+          ]
+        },
+        {
+          "name": "Protected Registration",
+          "description": "Approved registration with protection and discount details.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Red Hat Approval Confirmed",
+              "description": "Red Hat approval confirmed with 180-day protection period initiated.",
+              "seq": 1
+            },
+            {
+              "name": "Activity Points Awarded",
+              "description": "Activity points awarded (1,050 Resell / 900 Sell-With) and recorded.",
+              "seq": 2
+            },
+            {
+              "name": "Discount Eligibility Confirmed",
+              "description": "Deal registration discount eligibility confirmed (25% Commercial / 12% Other) by route to market.",
+              "seq": 3
+            },
+            {
+              "name": "Pre-Sales Plan Documented",
+              "description": "Pre-sales engagement plan documented with planned activities and milestones.",
+              "seq": 4
+            },
+            {
+              "name": "Competitive Landscape Assessed",
+              "description": "Customer requirements and competitive landscape assessed for deal positioning.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Deal Opportunity",
+              "stateName": "Registered"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Activated"
+            }
+          ]
+        },
+        {
+          "name": "Engagement Record",
+          "description": "Active sales engagement with collaboration and activities documented.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Pre-Sales History Recorded",
+              "description": "Pre-sales activity history recorded with points earned and customer engagement documented.",
+              "seq": 1
+            },
+            {
+              "name": "Co-Selling Documented",
+              "description": "Red Hat co-selling collaboration details documented where applicable.",
+              "seq": 2
+            },
+            {
+              "name": "Proposal Prepared",
+              "description": "Proposal or quote prepared with deal registration discount applied.",
+              "seq": 3
+            },
+            {
+              "name": "Protection Status Tracked",
+              "description": "Protection period status tracked with extension requests submitted if needed.",
+              "seq": 4
+            },
+            {
+              "name": "Competitive Dynamics Captured",
+              "description": "Customer feedback and competitive dynamics captured throughout the sales cycle.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Deal Opportunity",
+              "stateName": "Active"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "Outcome Analysis",
+          "description": "Complete transaction record with outcome and lifecycle data.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Transaction Finalized",
+              "description": "Transaction finalized through authorized channel with revenue recognized.",
+              "seq": 1
+            },
+            {
+              "name": "Incentive Stack Calculated",
+              "description": "Full incentive stack calculated (discounts, rebates, booking points).",
+              "seq": 2
+            },
+            {
+              "name": "Win/Loss Analysis Documented",
+              "description": "Win/loss analysis documented with competitive and technical factors.",
+              "seq": 3
+            },
+            {
+              "name": "Incumbency Established",
+              "description": "Incumbency established for renewal with lifecycle tracking initiated.",
+              "seq": 4
+            },
+            {
+              "name": "Reference Potential Assessed",
+              "description": "Customer reference potential assessed and development initiated.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Deal Opportunity",
+              "stateName": "Closed"
+            },
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Measured"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Partner Technical Engagement Record",
+      "description": "The documented record of funded technical activities with fund requests, execution evidence, and claim status.",
+      "kind": "workProduct",
+      "levelsOfDetail": [
+        {
+          "name": "Activity Request",
+          "description": "Fund request with activity type, scope, and customer context.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Activity Type and Tier Selected",
+              "description": "Funded activity type and funding tier selected with scope defined.",
+              "seq": 1
+            },
+            {
+              "name": "Customer Context Documented",
+              "description": "Customer engagement context and minimum ACV qualification documented.",
+              "seq": 2
+            },
+            {
+              "name": "Fund Request Submitted",
+              "description": "Fund request submitted at least 10 business days before planned start with minimum $1,000 threshold.",
+              "seq": 3
+            },
+            {
+              "name": "Fund Source Identified",
+              "description": "Fund source identified with available balance confirmed.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Technical Engagement",
+              "stateName": "Scoped"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Approved Parameters",
+          "description": "Red Hat-approved activity with execution and compliance details.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Red Hat Approval Received",
+              "description": "Red Hat approval received with approved funding amount confirmed.",
+              "seq": 1
+            },
+            {
+              "name": "Execution Parameters Documented",
+              "description": "Execution parameters documented.",
+              "seq": 2
+            },
+            {
+              "name": "Compliance Requirements Acknowledged",
+              "description": "Compliance requirements acknowledged.",
+              "seq": 3
+            },
+            {
+              "name": "Resources Assigned",
+              "description": "Partner technical resources assigned and capability validated.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Technical Engagement",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Qualified"
+            }
+          ]
+        },
+        {
+          "name": "Delivery Evidence",
+          "description": "Activity execution with proof of performance documentation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Execution Completed",
+              "description": "Activity execution completed within approved parameters.",
+              "seq": 1
+            },
+            {
+              "name": "POP Assembled",
+              "description": "Proof of performance documentation assembled.",
+              "seq": 2
+            },
+            {
+              "name": "Customer Outcome Documented",
+              "description": "Customer engagement outcome documented with deal impact assessed.",
+              "seq": 3
+            },
+            {
+              "name": "Technical Artifacts Produced",
+              "description": "Technical artifacts produced where applicable.",
+              "seq": 4
+            },
+            {
+              "name": "Activity Points Recorded",
+              "description": "Activity points recorded for tier advancement contribution.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Technical Engagement",
+              "stateName": "Delivered"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Demonstrated"
+            }
+          ]
+        },
+        {
+          "name": "Claim and Analysis",
+          "description": "Submitted claim with audit results and ROI analysis.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Claim Submitted",
+              "description": "Claim submitted within quarterly deadline with POP documentation and minimum $1,000 claim amount.",
+              "seq": 1
+            },
+            {
+              "name": "Audit Completed",
+              "description": "Audit review completed and approved with partner invoice uploaded.",
+              "seq": 2
+            },
+            {
+              "name": "Payment Processed",
+              "description": "Payment processed and fund balance reconciled.",
+              "seq": 3
+            },
+            {
+              "name": "ROI Analyzed",
+              "description": "Activity ROI analyzed against customer engagement and pipeline impact.",
+              "seq": 4
+            },
+            {
+              "name": "Insights Captured",
+              "description": "Insights from engagement informing future activity strategy.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Partner Technical Engagement",
+              "stateName": "Measured"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Validated"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "personas": [
+    {
+      "name": "Partner Seller",
+      "description": "Partner-side sales role responsible for executing Red Hat sales plays with end customers, registering deals, and driving Red Hat technology revenue through the partner channel.",
+      "competencies": [
+        {
+          "competencyName": "Partner Strategic Alignment",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Relationship Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Value Assessment",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Partner Sales",
+          "Deal Management"
+        ],
+        "lifecycleTags": [
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Partner Sales Organization"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "partner-seller-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Partner Technical Seller",
+      "description": "Partner-side pre-sales technical role delivering customer demonstrations, proof-of-concept engagements, and technical assessments using Red Hat technology and methodologies.",
+      "competencies": [
+        {
+          "competencyName": "Partner Strategic Alignment",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Relationship Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Value Assessment",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Technical Collaboration",
+          "Partner Sales"
+        ],
+        "lifecycleTags": [
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Partner Technical Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "partner-technical-seller-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Partner Marketing Manager",
+      "description": "Partner-side marketing role planning and executing co-branded demand generation campaigns, managing MDF claims, and driving lead generation for Red Hat solutions.",
+      "competencies": [
+        {
+          "competencyName": "Partner Value Assessment",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Relationship Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Partner Governance",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Demand Generation",
+          "Partner Sales"
+        ],
+        "lifecycleTags": [
+          "Activation",
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Partner Marketing"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "partner-marketing-manager-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Partner Program Manager",
+      "description": "Partner-side operational role managing deal registration submissions, incentive claims, compliance documentation, and program reporting within GTM execution.",
+      "competencies": [
+        {
+          "competencyName": "Partner Governance",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Strategic Alignment",
+          "competencyLevelName": "Basic"
+        },
+        {
+          "competencyName": "Partner Value Assessment",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Deal Management",
+          "Partner Sales"
+        ],
+        "lifecycleTags": [
+          "Execution",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Partner Sales Organization"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "partner-program-manager-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Partner Solution Architect",
+      "description": "Partner-side technical design role creating integrated solutions combining Red Hat technology with partner domain expertise for customer engagements.",
+      "competencies": [
+        {
+          "competencyName": "Partner Strategic Alignment",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Relationship Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Partner Value Assessment",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Technical Collaboration",
+          "Partner Sales"
+        ],
+        "lifecycleTags": [
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Partner Technical Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "partner-solution-architect-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Red Hat Partner Account Manager",
+      "description": "Red Hat relationship manager responsible for partner development, performance tracking, GTM alignment, and coordinating Red Hat resources for partner-led opportunities.",
+      "competencies": [
+        {
+          "competencyName": "Partner Relationship Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Strategic Alignment",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Governance",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Partner Sales",
+          "Deal Management"
+        ],
+        "lifecycleTags": [
+          "Activation",
+          "Execution",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Partner Sales Organization"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "rh-partner-account-manager-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Red Hat Channel Sales Manager",
+      "description": "Red Hat sales role supporting partner co-selling activities, coordinating Red Hat specialist resources, and facilitating deal advancement for partner-sourced opportunities.",
+      "competencies": [
+        {
+          "competencyName": "Partner Value Assessment",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Trust Building",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Partner Strategic Alignment",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Partner Sales",
+          "Deal Management"
+        ],
+        "lifecycleTags": [
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Partner Sales Organization"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "rh-channel-sales-manager-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Red Hat Channel Marketing Manager",
+      "description": "Red Hat marketing role providing campaign assets, co-branding guidance, MDF approval, and demand generation program support to partner marketing teams.",
+      "competencies": [
+        {
+          "competencyName": "Partner Strategic Alignment",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Value Assessment",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Demand Generation",
+          "Partner Sales"
+        ],
+        "lifecycleTags": [
+          "Activation",
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Partner Marketing"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "rh-channel-marketing-manager-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Red Hat Deal Desk Analyst",
+      "description": "Red Hat operational role responsible for processing deal registrations, validating eligibility, approving discount structures, and managing deal protection periods.",
+      "competencies": [
+        {
+          "competencyName": "Partner Value Assessment",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Partner Governance",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Deal Management"
+        ],
+        "lifecycleTags": [
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Partner Sales Organization"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "rh-deal-desk-analyst-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Partner GTM Execution Team",
+      "description": "Partner-side cross-functional team responsible for executing Red Hat sales plays, running demand generation campaigns, managing deals, and delivering technical engagements to end customers.",
+      "personaNames": [
+        "Partner Seller",
+        "Partner Technical Seller",
+        "Partner Marketing Manager",
+        "Partner Program Manager",
+        "Partner Solution Architect"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Partner Sales Organization",
+          "Partner Marketing",
+          "Partner Technical Team"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "partner-gtm-execution-team-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Joint GTM Alignment Team",
+      "description": "Combined Red Hat-partner team responsible for aligning GTM strategy, coordinating co-selling motions, reviewing pipeline performance, and optimizing partner GTM outcomes.",
+      "personaNames": [
+        "Red Hat Partner Account Manager",
+        "Red Hat Channel Sales Manager",
+        "Partner Seller",
+        "Partner Marketing Manager",
+        "Partner Program Manager"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Partner Sales Organization"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "joint-gtm-alignment-team-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Red Hat GTM Support Team",
+      "description": "Red Hat team providing marketing assets, deal processing, co-selling support, and GTM program management to enable partner go-to-market execution.",
+      "personaNames": [
+        "Red Hat Partner Account Manager",
+        "Red Hat Channel Sales Manager",
+        "Red Hat Channel Marketing Manager",
+        "Red Hat Deal Desk Analyst"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Partner Sales Organization",
+          "Partner Marketing"
+        ]
+      },
+      "assetNames": [
+        {
+          "assetName": "rh-gtm-support-team-icon",
+          "type": "icon"
+        }
+      ],
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Execute Partner Demand Campaign",
+      "description": "Partner marketing team plans and executes co-branded demand generation campaigns while Red Hat provides campaign assets, co-branding approval, and MDF funding support.",
+      "kind": "activity",
+      "activitySpaceName": "Build Partner Capabilities",
+      "focusName": "Go-to-Market",
+      "background": {
+        "given": [
+          "Partner has MDF eligibility (Advanced or Premier tier) with available fund balance confirmed",
+          "Partner demand platform access is provisioned with campaign creation capabilities"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Partner Demand Generation",
+            "stateName": "Provisioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "Demand campaign execution verification",
+        "description": "Verifies partner plans and executes a co-branded demand generation campaign with measurable outcomes.",
+        "when": [
+          "Partner identifies a demand generation opportunity aligned to an active sales play theme and MDF eligibility"
+        ],
+        "then": [
+          "Co-branded campaign launches through the demand platform with lead capture and engagement tracking configured",
+          "MDF plan activity is submitted meeting advance and minimum threshold requirements",
+          "Campaign-generated leads are tracked through to deal registration attribution"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Partner Demand Generation",
+          "stateName": "Adopted"
+        },
+        {
+          "alphaName": "Partner Demand Generation",
+          "stateName": "Generating Pipeline"
+        },
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Executing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Partner Marketing Plan",
+          "levelOfDetailName": "Structured Plan"
+        },
+        {
+          "workProductName": "Partner Marketing Plan",
+          "levelOfDetailName": "Performance Record"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Value Assessment",
+        "Partner Relationship Management",
+        "Partner Governance"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Partner Value Assessment",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Relationship Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Governance",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Partner GTM Execution Team",
+        "Red Hat GTM Support Team"
+      ],
+      "narratives": [
+        {
+          "name": "Demand Campaign Execution",
+          "description": "How partners plan, execute, and measure co-branded demand generation campaigns with MDF support.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Partners need to generate demand for Red Hat technology solutions in their target markets through co-branded campaigns funded by MDF and partner investment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Plan, execute, and measure demand generation campaigns aligned to active sales play themes, meeting co-branding requirements, submission deadlines, and minimum investment thresholds."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Launch campaigns through the demand platform, track leads through to deal registration, submit MDF claims with proof of performance, and earn activity points for tier advancement."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Campaigns produce attributable pipeline, positive MDF ROI, and measurable lead-to-deal conversion rates contributing to partner sales play execution."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Market Development Funds Program Guidelines"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Register Partner Deal",
+      "description": "Partner seller identifies and registers a sales opportunity through the Red Hat deal registration system, while the Red Hat deal desk validates eligibility, approves discount structures, and activates deal protection.",
+      "kind": "activity",
+      "activitySpaceName": "Measure Partner Value",
+      "focusName": "Partner Sales Execution",
+      "background": {
+        "given": [
+          "Partner is enrolled in eligible module (Resell or Sell With) with deal registration system access",
+          "Partner sales team has completed required seller credentials"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sales Play",
+            "stateName": "Selected"
+          }
+        ]
+      },
+      "test": {
+        "name": "Deal registration verification",
+        "description": "Verifies partner submits deal registration and receives protection with discount eligibility.",
+        "when": [
+          "Partner identifies a qualifying customer opportunity meeting tier eligibility, deal size threshold, and route to market requirements"
+        ],
+        "then": [
+          "Deal registration is submitted via Red Hat Partner Connect with all required fields completed",
+          "180-day deal protection period is initiated upon approval with discount rates and activity points confirmed",
+          "Financial partner is locked and incumbency eligibility is established"
+        ]
+      },
+      "examples": [
+        {
+          "name": "Distribution Route New Business Registration",
+          "description": "A partner registers a new customer opportunity through the distribution route.",
+          "given": [
+            "Partner seller has identified a new customer interested in container platform technology, estimated at $50K ACV, with no prior Red Hat relationship"
+          ],
+          "when": [
+            "The seller submits deal registration selecting distribution route to market, new business deal type, and the container platform technology area"
+          ],
+          "then": [
+            "Registration is approved with 180-day protection, 1,050 activity points are awarded (Resell), deal registration discount of 25% commercial is confirmed, and the partner begins structured pre-sales engagement"
+          ]
+        },
+        {
+          "name": "Cloud Route Cross-Sell Registration",
+          "description": "A partner registers a cross-sell opportunity through the cloud route.",
+          "given": [
+            "Partner has an existing customer with infrastructure subscription looking to expand into security technology, $30K estimated incremental ACV"
+          ],
+          "when": [
+            "The seller submits deal registration selecting cloud route to market, cross-sell deal type, and the security technology area"
+          ],
+          "then": [
+            "Registration is approved with deal protection confirmed, activity points are awarded (900 Sell With for cloud route), and the cross-sell opportunity is linked to the existing customer account"
+          ]
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Partner Deal Opportunity",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Partner Deal Opportunity",
+          "stateName": "Registered"
+        },
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Executing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Partner Deal Registration Record",
+          "levelOfDetailName": "Initial Submission"
+        },
+        {
+          "workProductName": "Partner Deal Registration Record",
+          "levelOfDetailName": "Protected Registration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Strategic Alignment",
+        "Partner Relationship Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Partner Strategic Alignment",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Relationship Management",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Partner GTM Execution Team",
+        "Red Hat GTM Support Team"
+      ],
+      "narratives": [
+        {
+          "name": "Deal Registration and Protection",
+          "description": "How partners qualify, register, and secure deal protection for customer opportunities.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Partners identify customer opportunities aligned to Red Hat sales plays and need to secure deal protection through the registration system."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Evaluate the opportunity against eligibility criteria (tier, deal size, route to market, product eligibility, country matching), and submit registration through Red Hat Partner Connect."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Submit deal registration with customer information, technology area, estimated value, and engagement plan; Red Hat deal desk validates eligibility, approves discount structures, and initiates the 180-day protection period."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Partner receives deal protection commitments, confirmed discount rates (25% Commercial / 12% Other), activity points (1,050 Resell / 900 Sell-With), and established incumbency eligibility for future renewal business."
+            }
+          ],
+          "citationNames": [
+            "Global Deal Registration Guide H2"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Execute Partner Sales Play",
+      "description": "Partner sales team translates Red Hat-defined sales play guides into customer engagements while Red Hat provides co-selling support, specialist resources, and competitive positioning guidance.",
+      "kind": "activity",
+      "activitySpaceName": "Manage Partner Relationships",
+      "focusName": "Partner Sales Execution",
+      "background": {
+        "given": [
+          "Red Hat sales play with partner-specific guide is published and available",
+          "Partner sales team has completed required seller credentials for play technology areas"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sales Play",
+            "stateName": "Activated"
+          }
+        ]
+      },
+      "test": {
+        "name": "Sales play execution verification",
+        "description": "Verifies partner uses structured play approach to advance customer engagements.",
+        "when": [
+          "Partner has registered deals under an active sales play and is executing the sales cycle under deal protection"
+        ],
+        "then": [
+          "Pre-sales activities are conducted with Red Hat co-selling support engaged where appropriate",
+          "Customer evaluation progresses with technology validation evidence supporting Red Hat selection",
+          "Competitive positioning combines Red Hat platform advantages with partner domain expertise"
+        ]
+      },
+      "examples": [
+        {
+          "name": "Infrastructure Play Execution with Partner Domain Overlay",
+          "description": "A financial services partner overlays domain expertise onto an infrastructure modernization play.",
+          "given": [
+            "Partner specializes in financial services infrastructure and is executing a Red Hat infrastructure modernization sales play with a banking customer"
+          ],
+          "when": [
+            "The partner seller uses the play's Customer Lens and overlays partner-specific financial services expertise including regulatory compliance knowledge and banking-specific deployment patterns"
+          ],
+          "then": [
+            "The customer recognizes both the Red Hat technology value proposition and the partner's domain-specific implementation capability, generating a qualified opportunity registered with play theme attribution"
+          ]
+        },
+        {
+          "name": "Multi-TDP Play Execution",
+          "description": "A partner executes a multi-technology play showing an integrated solution story.",
+          "given": [
+            "A Red Hat sales play spans three technology areas, each represented by a TDP, and the partner has technical seller credentials across all three areas"
+          ],
+          "when": [
+            "The partner seller executes the play with a customer by sequencing TDP-specific demonstrations across the three technology areas"
+          ],
+          "then": [
+            "The customer sees an integrated solution story rather than three separate product pitches, the partner earns activity points for each demonstration, and the deal registration captures the full multi-technology opportunity value"
+          ]
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Executing"
+        },
+        {
+          "alphaName": "Partner Deal Opportunity",
+          "stateName": "Active"
+        },
+        {
+          "alphaName": "Partner Demand Generation",
+          "stateName": "Generating Pipeline"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Partner Deal Registration Record",
+          "levelOfDetailName": "Engagement Record"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Strategic Alignment",
+        "Partner Relationship Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Partner Strategic Alignment",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Partner Relationship Management",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Partner GTM Execution Team",
+        "Joint GTM Alignment Team"
+      ],
+      "narratives": [
+        {
+          "name": "Sales Play Customer Engagement",
+          "description": "How partners translate Red Hat sales play frameworks into effective customer engagements with co-selling support.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Partner sellers have registered deals and are actively executing sales cycles within the deal protection period, needing to advance opportunities through customer evaluation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Translate Red Hat sales play messaging, competitive positioning, and TDP content into customer engagements while coordinating co-selling motions with Red Hat."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Conduct pre-sales activities, deploy competitive positioning, manage deal protection extensions, and coordinate with Red Hat specialist resources for complex opportunities."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Deals progress through the sales cycle with validated technology fit, competitive differentiation, and customer commitment toward closure within the protection period."
+            }
+          ],
+          "citationNames": [
+            "Partner Sales Play Guides",
+            "Global Deal Registration Guide H2"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Deliver Partner Technical Activity",
+      "description": "Partner technical sellers execute funded technical activities (PoCs, solution builds, workshops, assessments) for end customers while Red Hat provides lab environments, technical content, and lifecycle rewards funding.",
+      "kind": "activity",
+      "activitySpaceName": "Build Partner Capabilities",
+      "focusName": "Go-to-Market",
+      "background": {
+        "given": [
+          "Partner has lifecycle rewards eligibility with approved fund request",
+          "Customer engagement opportunity aligned with a Red Hat technology area exists"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Partner Technical Engagement",
+            "stateName": "Scoped"
+          }
+        ]
+      },
+      "test": {
+        "name": "Technical activity delivery verification",
+        "description": "Verifies partner executes funded technical activity with customer engagement and proof of performance.",
+        "when": [
+          "Partner has an approved fund request for a technical engagement aligned to a registered deal and TDP technology area"
+        ],
+        "then": [
+          "Technical activity is executed within approved parameters with customer engagement completed",
+          "Proof of performance documentation is collected and claim is submitted within quarterly deadline",
+          "Activity points are earned and technical artifacts contribute to TDP proof point library"
+        ]
+      },
+      "examples": [
+        {
+          "name": "Large Proof of Concept Execution",
+          "description": "A partner delivers a large PoC for an enterprise deployment scenario.",
+          "given": [
+            "Partner has approved funding for a large PoC"
+          ],
+          "when": [
+            "Partner technical team executes the PoC over multiple weeks validating Red Hat technology fit for an enterprise deployment scenario"
+          ],
+          "then": [
+            "Customer receives validated deployment evidence, partner earns activity points, deal opportunity advances toward closure with technical risk mitigated"
+          ]
+        },
+        {
+          "name": "Assessment Delivery",
+          "description": "A partner delivers an IT assessment that generates qualified deal registrations.",
+          "given": [
+            "Partner has approved funding for a medium assessment"
+          ],
+          "when": [
+            "Partner delivers an IT assessment evaluating the customer's current environment against Red Hat technology capabilities"
+          ],
+          "then": [
+            "Assessment report identifies modernization opportunities, customer gains actionable roadmap, and assessment findings generate qualified deal registrations for recommended technology areas"
+          ]
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Partner Technical Engagement",
+          "stateName": "Delivered"
+        },
+        {
+          "alphaName": "Partner Technical Engagement",
+          "stateName": "Measured"
+        },
+        {
+          "alphaName": "Technical Decision Point",
+          "stateName": "Demonstrated"
+        },
+        {
+          "alphaName": "Partner Deal Opportunity",
+          "stateName": "Active"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Partner Technical Engagement Record",
+          "levelOfDetailName": "Delivery Evidence"
+        },
+        {
+          "workProductName": "Partner Technical Engagement Record",
+          "levelOfDetailName": "Claim and Analysis"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Strategic Alignment",
+        "Partner Relationship Management",
+        "Partner Governance"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Partner Strategic Alignment",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Partner Relationship Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Governance",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Partner GTM Execution Team",
+        "Red Hat GTM Support Team"
+      ],
+      "narratives": [
+        {
+          "name": "Technical Activity Delivery",
+          "description": "How partners scope, deliver, and claim funded technical activities with customer engagement outcomes.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Partners have approved lifecycle rewards funding for technical activities aligned to registered deals and TDP technology areas requiring customer-facing proof engagements."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Execute funded technical activities (proofs of concept, solution builds, workshops, assessments) within approved parameters, collect proof of performance, and submit claims."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Partner technical sellers deliver engagements, document customer outcomes, produce technical artifacts, and submit claims with proof of performance within quarterly deadlines."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Technical activities validate technology fit, advance deal progression, earn activity points for tier advancement, and produce reusable proof points for the TDP library."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Lifecycle Rewards & Incentives Guide"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Manage Partner Deal Lifecycle",
+      "description": "Partner manages subscription renewals and expansion opportunities within registered deals while Red Hat tracks deal status, processes incentive claims, and coordinates renewal support.",
+      "kind": "activity",
+      "activitySpaceName": "Measure Partner Value",
+      "focusName": "Partner Sales Execution",
+      "background": {
+        "given": [
+          "Partner has closed deals with established customer relationships and incumbency",
+          "Lifecycle intelligence tooling is accessible for renewal opportunity management"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Partner Deal Opportunity",
+            "stateName": "Closed"
+          }
+        ]
+      },
+      "test": {
+        "name": "Deal lifecycle management verification",
+        "description": "Verifies systematic renewal and expansion management for closed deals.",
+        "when": [
+          "A closed deal approaches its renewal date within the 6-month to 30-day submission window"
+        ],
+        "then": [
+          "Incumbency renewal registration is submitted with proof of valuable engagement across required categories",
+          "Expansion opportunities are identified and evaluated for new deal registrations",
+          "Incumbency discount (15% Commercial / 5% Other) is applied for qualifying renewals"
+        ]
+      },
+      "examples": [
+        {
+          "name": "Proactive Renewal with Expansion",
+          "description": "A partner converts a renewal conversation into a renewal plus expansion opportunity.",
+          "given": [
+            "Partner has incumbency on a customer's $80K infrastructure subscription with renewal in 90 days, and lifecycle intelligence shows strong customer engagement"
+          ],
+          "when": [
+            "The partner initiates a strategic renewal conversation including a technology assessment of expansion opportunities aligned with Red Hat sales play themes"
+          ],
+          "then": [
+            "The renewal is processed with incumbency discount, the assessment identifies a $40K expansion into automation technology, a new cross-sell deal registration is submitted, and the customer's technology footprint grows"
+          ]
+        },
+        {
+          "name": "At-Risk Renewal Recovery",
+          "description": "A partner uses lifecycle rewards to recover an at-risk renewal.",
+          "given": [
+            "Lifecycle intelligence indicates declining customer engagement for a $50K subscription, and a competitor has initiated conversations with the customer"
+          ],
+          "when": [
+            "The partner deploys a funded workshop activity through lifecycle rewards to re-engage the customer"
+          ],
+          "then": [
+            "The workshop validates ongoing technology fit, the customer's concerns are addressed, the renewal is secured with incumbency discount, and the competitive threat is neutralized"
+          ]
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Partner Deal Opportunity",
+          "stateName": "Closed"
+        },
+        {
+          "alphaName": "Partner Deal Opportunity",
+          "stateName": "Renewing"
+        },
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Partner Deal Registration Record",
+          "levelOfDetailName": "Outcome Analysis"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Strategic Alignment",
+        "Partner Relationship Management",
+        "Partner Governance"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Partner Strategic Alignment",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Partner Relationship Management",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Partner Governance",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Partner GTM Execution Team",
+        "Joint GTM Alignment Team"
+      ],
+      "narratives": [
+        {
+          "name": "Lifecycle and Renewal Management",
+          "description": "How partners manage subscription renewals, incumbency protection, and expansion opportunities.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Partner has closed deals with established incumbency and approaching renewal dates requiring proactive lifecycle management."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Submit incumbency renewal registrations with proof of valuable engagement, identify expansion opportunities, and maintain customer relationships through the renewal cycle."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Document valuable engagement activities across four categories (Lifecycle Management, Net New Motions, Transformational Selling, Client Relationship Management), submit renewal registration within the timing window, and evaluate cross-sell and up-sell opportunities."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Renewal business is secured with incumbency discount, expansion opportunities are registered as new deals, and the partner's customer lifecycle management capability deepens."
+            }
+          ],
+          "citationNames": [
+            "Global Deal Registration Guide H2"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Measure Partner GTM Performance",
+      "description": "Red Hat tracks partner GTM execution metrics across demand generation, deal pipeline, and technical collaboration while partners provide campaign results, deal outcomes, and customer satisfaction data.",
+      "kind": "activity",
+      "activitySpaceName": "Measure Partner Value",
+      "focusName": "Partner Sales Execution",
+      "background": {
+        "given": [
+          "Partner has executed GTM activities across demand generation, deal registration, and technical collaboration over multiple quarters"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Partner Demand Generation",
+            "stateName": "Generating Pipeline"
+          },
+          {
+            "alphaName": "Partner Deal Opportunity",
+            "stateName": "Closed"
+          }
+        ]
+      },
+      "test": {
+        "name": "GTM performance measurement verification",
+        "description": "Verifies comprehensive performance review across all GTM dimensions.",
+        "when": [
+          "Sufficient execution data has accumulated across demand generation, deal registration, and technical engagement activities"
+        ],
+        "then": [
+          "Partner GTM performance is measured across pipeline contribution, win rates, MDF ROI, and activity point accumulation",
+          "Data-driven optimization recommendations are generated for campaign mix, deal process, and technical engagement strategy",
+          "Cross-partner benchmarks inform ecosystem-level GTM program refinement"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Partner Demand Generation",
+          "stateName": "Scaling Reach"
+        },
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Measured"
+        },
+        {
+          "alphaName": "Sales Play",
+          "stateName": "Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Partner Marketing Plan",
+          "levelOfDetailName": "Strategic Analysis"
+        },
+        {
+          "workProductName": "Partner Deal Registration Record",
+          "levelOfDetailName": "Outcome Analysis"
+        }
+      ],
+      "requiredCompetencies": [
+        "Partner Value Assessment",
+        "Partner Governance"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Partner Value Assessment",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Partner Governance",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Joint GTM Alignment Team",
+        "Red Hat GTM Support Team"
+      ],
+      "narratives": [
+        {
+          "name": "GTM Performance Measurement",
+          "description": "How partner GTM execution data drives performance optimization and investment allocation.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Partner GTM execution produces data across demand generation, deal management, and technical collaboration that must be analyzed to optimize program investment and partner performance."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Track and analyze partner GTM performance metrics, benchmark against targets and ecosystem peers, and generate optimization recommendations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Aggregate execution data across campaigns, deal registrations, and technical engagements; analyze ROI, conversion rates, and activity point contribution; identify high-performing patterns and underperforming areas."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Data-driven insights optimize MDF investment allocation, deal registration processes, lifecycle rewards activity mix, and cross-partner collaboration for continuous GTM improvement."
+            }
+          ],
+          "citationNames": [
+            "Red Hat Partner Program Guide"
+          ]
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Partner GTM Execution Lifecycle",
+      "description": "End-to-end lifecycle coordinating partner demand generation, deal management, and technical collaboration through play execution.",
+      "narrativeTypeName": "Partner Ecosystem Journey",
+      "kind": "pattern",
+      "narratives": [
+        {
+          "name": "Partner GTM Execution Journey",
+          "description": "Narrative arc of partner go-to-market execution from discovery through ecosystem maturity.",
+          "narrativeTypeName": "Partner Ecosystem Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discovery",
+              "context": "Partners discover Red Hat GTM opportunities through play guides, evaluating which market themes align with their customer base, technical capabilities, and geographic coverage."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alignment",
+              "context": "Partners align with Red Hat through program enrollment, deal registration, and lifecycle rewards eligibility, establishing the operational infrastructure for joint go-to-market execution."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Collaboration",
+              "context": "Partners and Red Hat collaborate through co-selling, funded technical activities, co-branded campaigns, and coordinated competitive positioning that advances pipeline from registration through closure."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Maturity",
+              "context": "Mature partner GTM execution produces data-driven optimization, scaled demand generation, incumbency-based renewal streams, and ecosystem-wide network effects."
+            }
+          ]
+        }
+      ],
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Partner program enrollment and GTM readiness established.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Selected"
+            },
+            {
+              "alphaName": "Partner Demand Generation",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Partner Deal Opportunity",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Partner Technical Engagement",
+              "stateName": "Scoped"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Register Partner Deal"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discovery",
+              "context": "Partners discover Red Hat sales play opportunities through partner-specific play guides, evaluating which market themes align with their customer base and technical capabilities for demand generation, deal registration, and technical engagement."
+            }
+          ]
+        },
+        {
+          "name": "Activate and Enable",
+          "description": "Partner GTM infrastructure activated with campaigns launched.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Activated"
+            },
+            {
+              "alphaName": "Partner Demand Generation",
+              "stateName": "Adopted"
+            },
+            {
+              "alphaName": "Partner Deal Opportunity",
+              "stateName": "Registered"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Partner Technical Engagement",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Execute Partner Demand Campaign",
+            "Register Partner Deal"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Alignment",
+              "context": "The activation phase aligns partner GTM capabilities with Red Hat play execution. Marketing campaigns launch through the demand platform, deal registrations secure protection, and technical engagements are prepared with approved funding."
+            }
+          ]
+        },
+        {
+          "name": "Execute and Convert",
+          "description": "Partners actively executing plays with pipeline flowing.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "Partner Demand Generation",
+              "stateName": "Generating Pipeline"
+            },
+            {
+              "alphaName": "Partner Deal Opportunity",
+              "stateName": "Active"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Demonstrated"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Partner Technical Engagement",
+              "stateName": "Delivered"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Differentiated"
+            }
+          ],
+          "activities": [
+            "Execute Partner Sales Play",
+            "Deliver Partner Technical Activity",
+            "Execute Partner Demand Campaign",
+            "Register Partner Deal"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Collaboration",
+              "context": "Execution phase is where partner GTM collaboration produces pipeline. Partner sellers execute sales plays, marketing campaigns generate leads converting to registrations, technical activities validate technology fit, and competitive positioning is deployed with partner domain expertise."
+            }
+          ]
+        },
+        {
+          "name": "Close and Renew",
+          "description": "Deals closed with incentives realized and lifecycle managed.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Measured"
+            },
+            {
+              "alphaName": "Partner Deal Opportunity",
+              "stateName": "Closed"
+            },
+            {
+              "alphaName": "Partner Technical Engagement",
+              "stateName": "Measured"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Converted"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Defended"
+            }
+          ],
+          "activities": [
+            "Manage Partner Deal Lifecycle",
+            "Measure Partner GTM Performance"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Collaboration",
+              "context": "Deal closure realizes the full incentive stack with incumbency established for renewal. Win/loss analysis captures competitive and technical factors while GTM performance measurement begins driving data-informed optimization."
+            }
+          ]
+        },
+        {
+          "name": "Optimize and Scale",
+          "description": "Data-driven GTM optimization with ecosystem amplification.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Partner Demand Generation",
+              "stateName": "Ecosystem-Amplified"
+            },
+            {
+              "alphaName": "Partner Deal Opportunity",
+              "stateName": "Renewing"
+            },
+            {
+              "alphaName": "Partner Technical Engagement",
+              "stateName": "Scaled"
+            },
+            {
+              "alphaName": "Sales Tactic",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Competitive Position",
+              "stateName": "Preferred"
+            },
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Validated"
+            }
+          ],
+          "activities": [
+            "Measure Partner GTM Performance",
+            "Execute Partner Demand Campaign",
+            "Manage Partner Deal Lifecycle"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Maturity",
+              "context": "Optimization expands partner GTM impact through data-driven refinement. Campaign performance data drives MDF investment optimization, incumbency renewal management deepens customer relationships, technical engagement capabilities scale, and ecosystem-wide network effects amplify partner market reach."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "practiceElementAliases": [],
+  "schemaVersion": "2.1.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Partner Ecosystem Essentials",
+      "versionRange": "^2.0.1"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.2"
+    }
+  ]
+}

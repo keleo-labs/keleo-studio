@@ -28,7 +28,7 @@ function setCookie(name: string, value: string) {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [themeId, setThemeId] = useState<ThemeId>("dark");
+  const [themeId, setThemeId] = useState<ThemeId>("light");
   const didHydrateFromCookie = useRef(false);
 
   const theme = useMemo(() => THEMES[themeId], [themeId]);

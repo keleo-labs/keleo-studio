@@ -34,10 +34,19 @@ export function LibraryDocumentCard({
   }
 
   // Navigate to navigator for all documents
-  const href = `/navigator?libraryId=${encodeURIComponent(document.id)}`;
-  const editHref = document.libraryRootKind === "method"
-    ? `/method-builder?libraryId=${encodeURIComponent(document.id)}`
-    : `/practice-author?libraryId=${encodeURIComponent(document.id)}`;
+  const isBundleRef = document.id.startsWith("bundle:");
+  const href = isBundleRef
+    ? (() => {
+        const ref = document.id.slice(7);
+        const slashIdx = ref.indexOf("/");
+        return `/navigator?bundle=${encodeURIComponent(ref.slice(0, slashIdx))}&path=${encodeURIComponent(ref.slice(slashIdx + 1))}`;
+      })()
+    : `/navigator?libraryId=${encodeURIComponent(document.id)}`;
+  const editHref = isBundleRef
+    ? href
+    : document.libraryRootKind === "method"
+      ? `/method-builder?libraryId=${encodeURIComponent(document.id)}`
+      : `/practice-author?libraryId=${encodeURIComponent(document.id)}`;
 
   const kindLabel =
     document.libraryRootKind === "method"

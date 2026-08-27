@@ -516,11 +516,23 @@ export type PackageIdentity = {
   url?: string;
 };
 
+export type PackageDocumentMeta = {
+  documentVersion: string;
+  description: string;
+  tags: { domainTags: string[]; lifecycleTags: string[]; organizationalTags: string[] };
+  keywords: string[];
+  elementCount: number;
+  associatedBaselineName: string | null;
+  updatedAt: string;
+  createdAt: string;
+};
+
 export type PackageDocument = {
   path: string;
   documentType: "practiceBaseline" | "practice" | "method" | "project" | "changeRequest" | "changeSet";
   documentName: string;
   entryPoint?: boolean;
+  meta?: PackageDocumentMeta;
 };
 
 export type PackageDependency = {

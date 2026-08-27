@@ -1,4 +1,4 @@
-export { buildDependencyTree, computeDependencyLayout } from "./data";
+export { buildDependencyTree, computeDependencyLayout, computeEdgePath, computeNodeStyle } from "./data";
 export type {
   DependencyCrossEdge,
   DependencyNodeKind,
@@ -9,4 +9,5 @@ export type {
   LayoutEdge,
   LayoutGroup,
   DependencyDiagramLayout,
+  NodeStyle,
 } from "./data";

@@ -1,0 +1,2836 @@
+{
+  "kind": "practice",
+  "name": "Integrated Capability Delivery",
+  "description": "Coordinating multi-team delivery through programme increments with architectural runway management and systematic integration.",
+  "baselinePracticeName": "Programme Essentials",
+  "practiceDependencyNames": [
+    "Project Management Foundations"
+  ],
+  "tags": {
+    "domainTags": [
+      "Delivery Management",
+      "Architecture",
+      "Integration"
+    ],
+    "lifecycleTags": [
+      "Planning",
+      "Execution",
+      "Review"
+    ],
+    "organizationalTags": [
+      "Cross-Team",
+      "Programme Delivery"
+    ]
+  },
+  "keywords": [
+    "programme increment",
+    "PI planning",
+    "architectural runway",
+    "capability integration",
+    "system demo",
+    "inspect and adapt",
+    "enabler",
+    "feature",
+    "WSJF",
+    "solution train",
+    "continuous integration",
+    "cross-team delivery",
+    "cadenced delivery",
+    "dependency resolution",
+    "integration roadmap",
+    "technical enablement",
+    "intentional architecture",
+    "emergent design"
+  ],
+  "authors": [
+    "Ed Seymour"
+  ],
+  "createdAt": "2026-07-28",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.3",
+  "citations": [
+    {
+      "name": "SAFe 6.0 Framework",
+      "description": "Comprehensive framework for scaling lean and agile practices to enterprise programme and portfolio levels.",
+      "authors": [
+        "Scaled Agile Inc."
+      ],
+      "date": "2023",
+      "source": "Scaled Agile, Inc.",
+      "url": "https://framework.scaledagile.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "Large-Scale Scrum: More with LeSS",
+      "description": "Guide to scaling Scrum through simplification using feature teams and shared backlogs.",
+      "authors": [
+        "Craig Larman",
+        "Bas Vodde"
+      ],
+      "date": "2016",
+      "source": "Addison-Wesley Professional",
+      "kind": "citation"
+    },
+    {
+      "name": "The Nexus Guide",
+      "description": "Definitive guide to scaling Scrum with Nexus integration framework.",
+      "authors": [
+        "Ken Schwaber"
+      ],
+      "date": "2018",
+      "source": "Scrum.org",
+      "url": "https://www.scrum.org/resources/online-nexus-guide",
+      "kind": "citation"
+    },
+    {
+      "name": "Continuous Architecture",
+      "description": "Approach to sustainable architecture in agile and cloud-centric environments.",
+      "authors": [
+        "Murat Erder",
+        "Pierre Pureur"
+      ],
+      "date": "2016",
+      "source": "Morgan Kaufmann",
+      "kind": "citation"
+    },
+    {
+      "name": "The Software Architect Elevator",
+      "description": "Redefining the architect's role in digital enterprise transformation.",
+      "authors": [
+        "Gregor Hohpe"
+      ],
+      "date": "2017",
+      "source": "O'Reilly Media",
+      "kind": "citation"
+    },
+    {
+      "name": "The Principles of Product Development Flow",
+      "description": "Second generation lean product development with economic decision frameworks.",
+      "authors": [
+        "Donald Reinertsen"
+      ],
+      "date": "2009",
+      "source": "Celeritas Publishing",
+      "kind": "citation"
+    },
+    {
+      "name": "The Standard for Program Management, 4th Edition",
+      "description": "PMI standard defining programme management principles, practices, and lifecycle.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2017",
+      "source": "Project Management Institute",
+      "kind": "citation"
+    },
+    {
+      "name": "SAFe 5.0 Distilled",
+      "description": "Achieving business agility with the Scaled Agile Framework through lean portfolio management.",
+      "authors": [
+        "Dean Leffingwell"
+      ],
+      "date": "2020",
+      "source": "Addison-Wesley Professional",
+      "kind": "citation"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "Delivering Integrated Programme Capabilities Through Coordinated Increments",
+      "description": "How programmes achieve coordinated multi-team delivery through time-boxed increments and proactive technical enablement.",
+      "narrativeTypeName": "The STAR Format",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Situation",
+          "context": "Programmes require multiple teams to deliver integrated capabilities that no single project can produce independently, yet without deliberate coordination mechanisms cross-team delivery devolves into integration firefighting and architectural drift."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Task",
+          "context": "The programme must establish a predictable cadence of planning, delivery, integration, and evaluation that synchronizes teams on shared objectives while maintaining sufficient technical infrastructure to prevent delivery bottlenecks."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Action",
+          "context": "Teams adopt time-boxed programme increments for collaborative planning and coordinated execution, while solution architects maintain an architectural runway of enablers built ahead of business features to sustain delivery velocity and cross-project integration quality."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Result",
+          "context": "The programme delivers demonstrable, integrated capability increments on a predictable cadence with continuous improvement driven by structured inspect-and-adapt cycles, producing an organizational capability for repeatable large-scale coordinated delivery."
+        }
+      ],
+      "citationNames": [
+        "SAFe 6.0 Framework",
+        "Large-Scale Scrum: More with LeSS",
+        "Continuous Architecture"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "name": "capability-integration-icon",
+      "description": "Visual identity icon for the Integrated Capability Delivery practice.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-puzzle-piece",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-increment-icon",
+      "description": "Visual identity icon for the Programme Increment alpha.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-rotate",
+      "fontWeight": "900"
+    },
+    {
+      "name": "architectural-runway-icon",
+      "description": "Visual identity icon for the Architectural Runway alpha.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-road",
+      "fontWeight": "900"
+    },
+    {
+      "name": "safe-pi-planning-reference",
+      "description": "SAFe PI Planning reference diagram showing the collaborative planning event structure.",
+      "type": "diagram",
+      "url": "https://scaledagileframework.com/pi-planning/"
+    },
+    {
+      "name": "adr-template-nygard",
+      "description": "Architecture Decision Record template by Michael Nygard defining the standard ADR format.",
+      "type": "template",
+      "url": "https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/templates/decision-record-template-by-michael-nygard/index.md"
+    },
+    {
+      "name": "objectives-icon",
+      "type": "font-character",
+      "description": "Objectives icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullseye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "deliverable-icon",
+      "type": "font-character",
+      "description": "Deliverable icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-box-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-programme-increment-planning-icon",
+      "type": "font-character",
+      "description": "Conduct Programme Increment Planning icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-calendar-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "manage-architectural-runway-icon",
+      "type": "font-character",
+      "description": "Manage Architectural Runway icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-road",
+      "fontWeight": "900"
+    },
+    {
+      "name": "integrate-capabilities-across-projects-icon",
+      "type": "font-character",
+      "description": "Integrate Capabilities Across Projects icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-puzzle-piece",
+      "fontWeight": "900"
+    },
+    {
+      "name": "demonstrate-programme-increment-icon",
+      "type": "font-character",
+      "description": "Demonstrate Programme Increment icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-play-circle",
+      "fontWeight": "900"
+    },
+    {
+      "name": "evaluate-architectural-effectiveness-icon",
+      "type": "font-character",
+      "description": "Evaluate Architectural Effectiveness icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microscope",
+      "fontWeight": "900"
+    },
+    {
+      "name": "assess-increment-delivery-readiness-icon",
+      "type": "font-character",
+      "description": "Assess Increment Delivery Readiness icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge-high",
+      "fontWeight": "900"
+    },
+    {
+      "name": "programme-increment-plan-icon",
+      "type": "font-character",
+      "description": "Programme Increment Plan icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-list",
+      "fontWeight": "900"
+    },
+    {
+      "name": "architectural-decision-record-icon",
+      "type": "font-character",
+      "description": "Architectural Decision Record icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-stamp",
+      "fontWeight": "900"
+    },
+    {
+      "name": "integration-roadmap-icon",
+      "type": "font-character",
+      "description": "Integration Roadmap icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-map",
+      "fontWeight": "900"
+    }
+  ],
+  "assetNames": [
+    {
+      "assetName": "capability-integration-icon",
+      "type": "icon"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Objectives",
+      "description": "The strategic outcomes that the programme must achieve, bridging organizational strategy and programme delivery through measurable targets that guide coordination and prioritization across multiple projects.",
+      "focusName": "Solution",
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Programme-level strategic outcomes defined and connected to strategy.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Architectural constraints identified",
+              "description": "Architectural constraints on programme objectives are identified from technical assessment.",
+              "seq": 1
+            },
+            {
+              "name": "Enabler requirements distinguished",
+              "description": "Enabler requirements supporting objective achievement are distinguished from business requirements.",
+              "seq": 2
+            },
+            {
+              "name": "Technical dependencies surfaced",
+              "description": "Cross-project technical dependencies affecting objective feasibility are surfaced.",
+              "seq": 3
+            },
+            {
+              "name": "Runway investment objectives flagged",
+              "description": "Objectives requiring architectural runway investment are flagged for solution architect review.",
+              "seq": 4
+            },
+            {
+              "name": "Integration scope estimated",
+              "description": "Capability integration scope needed to achieve each objective is estimated.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Articulated",
+          "description": "Objectives refined into SMART statements with measurable success criteria.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Technical feasibility validated",
+              "description": "Technical feasibility of each objective is validated against current architectural runway capacity.",
+              "seq": 1
+            },
+            {
+              "name": "Enabler features articulated",
+              "description": "Enabler feature requirements are articulated alongside business feature requirements.",
+              "seq": 2
+            },
+            {
+              "name": "Integration complexity assessed",
+              "description": "Integration complexity for cross-project objectives is assessed and documented.",
+              "seq": 3
+            },
+            {
+              "name": "Architectural decision records initiated",
+              "description": "Architectural decision records are initiated for objectives requiring significant technical enablement.",
+              "seq": 4
+            },
+            {
+              "name": "Increment-level decomposition outlined",
+              "description": "Increment-level decomposition of multi-increment objectives is outlined.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Prioritized",
+          "description": "Objectives prioritized guiding resource allocation and sequencing.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Enabler dependency sequencing",
+              "description": "Objectives are sequenced considering architectural enabler delivery dependencies.",
+              "seq": 1
+            },
+            {
+              "name": "Economic prioritization applied",
+              "description": "WSJF or equivalent economic prioritization incorporates enabler cost and delay impact.",
+              "seq": 2
+            },
+            {
+              "name": "Enabler capacity allocation agreed",
+              "description": "Capacity allocation between architectural enablers and business objectives is agreed.",
+              "seq": 3
+            },
+            {
+              "name": "Increment scope boundaries set",
+              "description": "Programme increment scope boundaries reflect prioritized objectives and enabler prerequisites.",
+              "seq": 4
+            },
+            {
+              "name": "Architecture investment trade-offs explicit",
+              "description": "Trade-offs between near-term objective achievement and long-term architectural investment are explicit.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Agreed",
+          "description": "Stakeholders aligned on objectives with change management established.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Architectural approach confirmed",
+              "description": "Solution architects confirm architectural approach supports agreed objectives.",
+              "seq": 1
+            },
+            {
+              "name": "Enabler delivery capacity committed",
+              "description": "Team capacity for enabler delivery alongside business objectives is committed.",
+              "seq": 2
+            },
+            {
+              "name": "Cross-project integration approach agreed",
+              "description": "Integration approach for objectives spanning multiple projects is agreed across teams.",
+              "seq": 3
+            },
+            {
+              "name": "Architectural governance established",
+              "description": "Architectural governance for objective-related technical decisions is established.",
+              "seq": 4
+            },
+            {
+              "name": "Confidence assessment completed",
+              "description": "Confidence assessment confirms teams believe objectives are achievable within current runway.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Achieved",
+          "description": "Objectives progressively achieved through coordinated delivery.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Increment demonstrations confirm achievement",
+              "description": "Programme increment demonstrations confirm progressive objective achievement.",
+              "seq": 1
+            },
+            {
+              "name": "Integrated capabilities demonstrate fulfillment",
+              "description": "Integrated capabilities demonstrate cross-project objective fulfillment.",
+              "seq": 2
+            },
+            {
+              "name": "Runway investment validated",
+              "description": "Architectural runway investment is validated against objective delivery outcomes.",
+              "seq": 3
+            },
+            {
+              "name": "Enabler features confirmed operational",
+              "description": "Enabler features supporting objective achievement are confirmed as operational.",
+              "seq": 4
+            },
+            {
+              "name": "Programme-level integration quality confirmed",
+              "description": "Integration quality metrics confirm objectives are met at programme, not just project, level.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Evaluated",
+          "description": "Objective achievement evaluated against strategic intent with lessons.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Architectural effectiveness evaluated",
+              "description": "Architectural effectiveness in supporting objective achievement is evaluated.",
+              "seq": 1
+            },
+            {
+              "name": "Enabler balance assessed",
+              "description": "Balance between enabler investment and business objective delivery is retrospectively assessed.",
+              "seq": 2
+            },
+            {
+              "name": "Objective-architecture alignment lessons captured",
+              "description": "Lessons about objective-architecture alignment are captured for future programmes.",
+              "seq": 3
+            },
+            {
+              "name": "Integration approach effectiveness documented",
+              "description": "Integration approach effectiveness is evaluated and documented as organizational learning.",
+              "seq": 4
+            },
+            {
+              "name": "Predictability analyzed",
+              "description": "Predictability of objective achievement across programme increments is analyzed.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Bridging Strategic Objectives to Technical Delivery Through Architectural Alignment",
+          "description": "How programme objectives are shaped by and validated against architectural capability.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Programme objectives span multiple projects requiring integrated technical capability, yet objectives are often set without considering architectural feasibility or the enabler investments needed to achieve them."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Each objective must be validated against architectural runway capacity, decomposed into increment-sized deliverables, and sequenced considering both business priority and technical dependency."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Solution architects participate in objective articulation to ensure technical feasibility, enabler requirements are co-prioritized with business features using WSJF, and programme increment demonstrations validate progressive objective achievement."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Objectives and architectural enablement advance together, preventing the common failure mode where ambitious objectives are set without the technical foundation to deliver them."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "The Principles of Product Development Flow"
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "objectives-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Deliverable",
+      "description": "The integrated organizational capability composed from multiple project deliverables that enables the organization to operate according to the target blueprint and realize programme benefits.",
+      "focusName": "Solution",
+      "states": [
+        {
+          "name": "Envisioned",
+          "description": "Target programme capabilities defined with blueprint and benefit expectations.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Capability integration approach defined",
+              "description": "Capability integration approach across constituent projects is defined at architecture level.",
+              "seq": 1
+            },
+            {
+              "name": "Initial increment scope identified",
+              "description": "Programme increment scope for initial capability demonstration is identified from backlog.",
+              "seq": 2
+            },
+            {
+              "name": "Integration points mapped",
+              "description": "Integration points between project deliverables are mapped at conceptual level.",
+              "seq": 3
+            },
+            {
+              "name": "Architectural enablers identified",
+              "description": "Architectural enablers required for capability integration are identified.",
+              "seq": 4
+            },
+            {
+              "name": "Target operating model articulated",
+              "description": "Target operating model for integrated capability is articulated.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Shaped",
+          "description": "Technical and organizational architecture for integrated delivery established.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Cross-project integration architecture established",
+              "description": "Cross-project integration architecture is established with interface contracts defined.",
+              "seq": 1
+            },
+            {
+              "name": "Architectural runway designed",
+              "description": "Architectural runway design addresses integration infrastructure and shared components.",
+              "seq": 2
+            },
+            {
+              "name": "Integration verification approach specified",
+              "description": "Integration verification approach specifies how integration quality will be assessed.",
+              "seq": 3
+            },
+            {
+              "name": "Team-of-teams coordination designed",
+              "description": "Team-of-teams coordination mechanisms for integration activities are designed.",
+              "seq": 4
+            },
+            {
+              "name": "Technical standards documented",
+              "description": "Technical standards for cross-project component compatibility are documented.",
+              "seq": 5
+            },
+            {
+              "name": "Enabler backlog created",
+              "description": "Enabler backlog is created and integrated with programme backlog.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Demonstrable",
+          "description": "Capabilities built through coordinated delivery and progressively demonstrated.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Integrated capability demonstrated",
+              "description": "Integrated capability demonstrated through programme increment system demonstration.",
+              "seq": 1
+            },
+            {
+              "name": "Cross-team integration verified",
+              "description": "Cross-team integration produces working capability verified by automated testing.",
+              "seq": 2
+            },
+            {
+              "name": "Business owners assess capabilities",
+              "description": "Business owners assess demonstrated capabilities against programme objectives.",
+              "seq": 3
+            },
+            {
+              "name": "Integration quality meets definition of done",
+              "description": "Integration quality meets programme definition of done for integrated pathways.",
+              "seq": 4
+            },
+            {
+              "name": "Demonstration feedback incorporated",
+              "description": "Feedback from demonstration is captured and incorporated into backlog refinement.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Usable",
+          "description": "Integrated capability validated by users for meaningful work.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "User scenario validation complete",
+              "description": "Integrated capability validated in realistic user scenarios spanning project boundaries.",
+              "seq": 1
+            },
+            {
+              "name": "Cross-project data flows functional",
+              "description": "Cross-project data flows and integration pathways function under operational conditions.",
+              "seq": 2
+            },
+            {
+              "name": "Non-functional requirements met",
+              "description": "Performance characteristics of integrated capability meet non-functional requirements.",
+              "seq": 3
+            },
+            {
+              "name": "User acceptance confirmed",
+              "description": "User acceptance confirms integrated solution delivers value beyond individual project outputs.",
+              "seq": 4
+            },
+            {
+              "name": "Remaining gaps documented",
+              "description": "Remaining integration gaps are documented with resolution plan.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Ready",
+          "description": "Integrated deliverable ready for deployment with readiness criteria met.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Operational readiness tested",
+              "description": "Cross-project integration tested for operational readiness with all interfaces validated.",
+              "seq": 1
+            },
+            {
+              "name": "Deployment approach rehearsed",
+              "description": "Deployment approach for integrated capability is planned and rehearsed.",
+              "seq": 2
+            },
+            {
+              "name": "Operational support model agreed",
+              "description": "Operational support model for integrated capability is agreed across project teams.",
+              "seq": 3
+            },
+            {
+              "name": "Rollback strategies address integration",
+              "description": "Rollback and recovery strategies address integration-level failures.",
+              "seq": 4
+            },
+            {
+              "name": "Organizational readiness confirmed",
+              "description": "Organizational readiness for integrated capability adoption is confirmed.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Operational",
+          "description": "Programme capabilities deployed, operational, and used by organization.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Integrated capabilities operating",
+              "description": "Integrated capabilities operating in production environment as designed.",
+              "seq": 1
+            },
+            {
+              "name": "Integration health monitoring established",
+              "description": "Cross-project integration points monitored with health reporting established.",
+              "seq": 2
+            },
+            {
+              "name": "Support teams trained",
+              "description": "Operational support teams are trained on integrated capability maintenance.",
+              "seq": 3
+            },
+            {
+              "name": "Performance baseline established",
+              "description": "Performance baseline established for integrated capability in production.",
+              "seq": 4
+            },
+            {
+              "name": "Continuous improvement functioning",
+              "description": "Continuous improvement process for operational integration is functioning.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Retired",
+          "description": "Programme capabilities sustained with continuous improvement in place.",
+          "seq": 7,
+          "checklist": [
+            {
+              "name": "Integration infrastructure transitioned",
+              "description": "Integration infrastructure decommissioned or transitioned to operational management.",
+              "seq": 1
+            },
+            {
+              "name": "Architectural decisions documented",
+              "description": "Architectural decisions and integration patterns documented as organizational assets.",
+              "seq": 2
+            },
+            {
+              "name": "Integration lessons captured",
+              "description": "Lessons about cross-project integration are captured for future programmes.",
+              "seq": 3
+            },
+            {
+              "name": "Residual dependencies transferred",
+              "description": "Residual integration dependencies are transferred to operational teams with documentation.",
+              "seq": 4
+            },
+            {
+              "name": "Runway knowledge preserved",
+              "description": "Architectural runway knowledge is preserved for organizational reuse.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Building Integrated Programme Capability Through Multi-Project Coordination",
+          "description": "How the programme deliverable emerges from coordinated multi-project integration.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Programme deliverables comprise capabilities that span multiple projects, requiring systematic integration that goes beyond merging code to include process, data, and organizational capability alignment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The programme must coordinate project teams to produce integrated, demonstrable capability increments that progressively build toward the target operating model, with integration quality validated at each programme increment."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Cross-project integration architecture establishes interface contracts and shared standards, programme increments provide the cadence for integration and demonstration, and architectural runway ensures integration infrastructure stays ahead of business feature delivery."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "The programme produces integrated organizational capability that delivers value beyond the sum of individual project outputs, with integration patterns documented as reusable organizational assets."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Large-Scale Scrum: More with LeSS"
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "deliverable-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Programme Increment",
+      "description": "Fixed timebox coordinating multi-team delivery into integrated capability demonstrations.",
+      "focusName": "Solution",
+      "contributesTo": "Deliverable",
+      "relatesTo": [
+        {
+          "relationship": "depends on",
+          "alphaName": "Architectural Runway",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "performed by",
+          "alphaName": "Team",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "scoped by",
+          "alphaName": "Objectives",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "sequenced through",
+          "alphaName": "Roadmap",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "programme-increment-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Envisioned",
+          "description": "Increment scope, goals, and planning approach identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Timebox duration defined",
+              "description": "Programme increment timebox duration is defined based on organizational context.",
+              "seq": 1
+            },
+            {
+              "name": "Planning approach selected",
+              "description": "Planning approach is selected from available coordination frameworks.",
+              "seq": 2
+            },
+            {
+              "name": "Scope articulated from backlog",
+              "description": "Scope articulated through programme-level features drawn from backlog.",
+              "seq": 3
+            },
+            {
+              "name": "Business context prepared",
+              "description": "Business context and strategic priorities prepared for team communication.",
+              "seq": 4
+            },
+            {
+              "name": "Technical considerations identified",
+              "description": "Architectural and technical considerations for the increment identified.",
+              "seq": 5
+            },
+            {
+              "name": "Event stakeholders confirmed",
+              "description": "Stakeholders for planning and review events identified and confirmed.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Planned",
+          "description": "Teams committed to objectives with dependencies mapped.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Team plans with committed objectives",
+              "description": "All teams have created plans with committed objectives and stretch goals.",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies visualized",
+              "description": "Cross-team dependencies visualized on programme board or equivalent tool.",
+              "seq": 2
+            },
+            {
+              "name": "Collective confidence assessed",
+              "description": "Collective confidence assessment confirms plan achievability.",
+              "seq": 3
+            },
+            {
+              "name": "Plans connected to objectives",
+              "description": "Team plans connect to programme-level objectives demonstrating alignment.",
+              "seq": 4
+            },
+            {
+              "name": "Dependency resolution strategies agreed",
+              "description": "Dependency resolution strategies agreed between dependent teams.",
+              "seq": 5
+            },
+            {
+              "name": "Increment plan published",
+              "description": "Increment plan published and accessible to all programme stakeholders.",
+              "seq": 6
+            },
+            {
+              "name": "Resource conflicts resolved",
+              "description": "Resource conflicts between teams resolved for increment duration.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Executing",
+          "description": "Teams actively delivering against committed objectives.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Execution started across teams",
+              "description": "All teams have started execution with work items moving through workflows.",
+              "seq": 1
+            },
+            {
+              "name": "Synchronization events occurring",
+              "description": "Cross-team synchronization events occurring at agreed cadence.",
+              "seq": 2
+            },
+            {
+              "name": "Dependency resolution tracked",
+              "description": "Dependency resolution actively tracked with blockers escalated.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-team integration proceeding",
+              "description": "Integration of cross-team deliverables proceeding according to plan.",
+              "seq": 4
+            },
+            {
+              "name": "Progress visible through tracking",
+              "description": "Progress against increment objectives visible through programme tracking.",
+              "seq": 5
+            },
+            {
+              "name": "Impediments escalated when needed",
+              "description": "Team-level impediments escalated to programme facilitation when needed.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Integrated",
+          "description": "Cross-team deliverables combined as working capability.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Integrations completed for demo",
+              "description": "All planned cross-team integrations completed with increment available for demo.",
+              "seq": 1
+            },
+            {
+              "name": "Programme demonstration delivered",
+              "description": "Programme-level demonstration showcases integrated capabilities to stakeholders.",
+              "seq": 2
+            },
+            {
+              "name": "Business owners assess capabilities",
+              "description": "Business owners assess capabilities against programme objectives.",
+              "seq": 3
+            },
+            {
+              "name": "Integration quality meets standards",
+              "description": "Integration quality meets programme definition of done.",
+              "seq": 4
+            },
+            {
+              "name": "Stakeholder feedback captured",
+              "description": "Stakeholder feedback captured and incorporated into backlog refinement.",
+              "seq": 5
+            },
+            {
+              "name": "Value delivered quantified",
+              "description": "Value delivered quantified against benefit realization plan.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Evaluated",
+          "description": "Results inspected and improvements identified for next increment.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Inspect and adapt session completed",
+              "description": "Inspect and adapt session reviews increment results and process effectiveness.",
+              "seq": 1
+            },
+            {
+              "name": "Quantitative metrics analyzed",
+              "description": "Quantitative metrics analyzed against targets and trends.",
+              "seq": 2
+            },
+            {
+              "name": "Improvement stories identified",
+              "description": "Improvement stories identified and prioritized for next increment.",
+              "seq": 3
+            },
+            {
+              "name": "Backlog re-prioritized",
+              "description": "Programme backlog re-prioritized based on results and strategic changes.",
+              "seq": 4
+            },
+            {
+              "name": "Lessons learned shared",
+              "description": "Lessons learned documented and shared through communities of practice.",
+              "seq": 5
+            },
+            {
+              "name": "Planning approach adjusted",
+              "description": "Planning approach evaluated for effectiveness and adjusted.",
+              "seq": 6
+            },
+            {
+              "name": "Dependency patterns inform improvements",
+              "description": "Dependency patterns inform management improvements for future planning.",
+              "seq": 7
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Synchronizing Multi-Team Delivery Through Time-Boxed Capability Integration",
+          "description": "How programme increments provide the heartbeat for coordinated multi-team delivery.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Multiple teams must deliver integrated capability that no single team can produce alone, yet without a shared planning and delivery cadence, integration becomes reactive and unpredictable with dependencies discovered during execution rather than resolved proactively."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The programme must establish a fixed cadence within which teams collaboratively plan, build, integrate, and demonstrate working capabilities, creating collective ownership of shared delivery commitments."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Teams gather for collaborative planning events where business context, architectural guidance, and cross-team dependencies inform shared plans with confidence-voted commitments, then execute within the timebox with regular synchronization, producing integrated capability validated through system demonstrations and inspect-and-adapt improvement cycles."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "The programme achieves predictable, cadenced delivery of integrated capability with proactive dependency management, continuous improvement, and stakeholder feedback driving backlog prioritization for subsequent increments."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Large-Scale Scrum: More with LeSS",
+            "The Nexus Guide"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Architectural Runway",
+      "description": "Technical infrastructure and enablers built ahead of features to sustain velocity.",
+      "focusName": "Solution",
+      "contributesTo": "Objectives",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Programme Increment",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "shapes",
+          "alphaName": "Deliverable",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Programme Governance",
+          "direction": "incoming"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "architectural-runway-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Assessed",
+          "description": "Technical debt and architectural gaps identified across projects.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Technical assessment documented",
+              "description": "Technical assessment documents existing components, maturity, and fitness.",
+              "seq": 1
+            },
+            {
+              "name": "Technical debt catalogued",
+              "description": "Technical debt threatening delivery velocity is catalogued and prioritized.",
+              "seq": 2
+            },
+            {
+              "name": "Architectural gaps identified",
+              "description": "Architectural gaps between current capabilities and programme requirements identified.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-project dependencies mapped",
+              "description": "Cross-project architectural dependencies mapped for shared components.",
+              "seq": 4
+            },
+            {
+              "name": "Multi-dimensional assessment complete",
+              "description": "Assessment covers infrastructure, platform, application, and integration dimensions.",
+              "seq": 5
+            },
+            {
+              "name": "Existing enabler capabilities confirmed",
+              "description": "Existing enabler capabilities available for programme leverage are confirmed.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Designed",
+          "description": "Target architecture and enabler backlog created for programme.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Architectural guardrails defined",
+              "description": "Target architecture defines intentional architectural guardrails for teams.",
+              "seq": 1
+            },
+            {
+              "name": "Enabler backlog created",
+              "description": "Enabler backlog captures architectural work with acceptance criteria and estimates.",
+              "seq": 2
+            },
+            {
+              "name": "Intentional-emergent balance defined",
+              "description": "Balance between intentional architecture and emergent design explicitly defined.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-cutting concerns addressed",
+              "description": "Cross-cutting concerns including security, performance, and integration addressed.",
+              "seq": 4
+            },
+            {
+              "name": "Decision records document trade-offs",
+              "description": "Architectural decision records document key decisions and trade-offs.",
+              "seq": 5
+            },
+            {
+              "name": "Enabler backlog prioritized",
+              "description": "Enabler backlog integrated with programme backlog and prioritized.",
+              "seq": 6
+            },
+            {
+              "name": "Technical standards for emergent design",
+              "description": "Technical standards documented for team emergent design decisions.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "Initial enablers delivered providing runway for near-term delivery.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Critical enablers implemented",
+              "description": "Critical enabler features for near-term delivery implemented and available.",
+              "seq": 1
+            },
+            {
+              "name": "Integration infrastructure operational",
+              "description": "Integration infrastructure supports cross-team builds, testing, and demonstration.",
+              "seq": 2
+            },
+            {
+              "name": "Development environments operational",
+              "description": "Development environments, CI pipelines, and deployment mechanisms operational.",
+              "seq": 3
+            },
+            {
+              "name": "Shared components available",
+              "description": "Shared components and libraries available for team consumption.",
+              "seq": 4
+            },
+            {
+              "name": "Teams confirm sufficient runway",
+              "description": "Teams confirm sufficient runway to deliver business features without blockers.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Extending",
+          "description": "Runway maintained continuously ahead of business features.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Enabler work in increment planning",
+              "description": "Enabler work consistently included in increment planning with capacity allocated.",
+              "seq": 1
+            },
+            {
+              "name": "Runway extends ahead of features",
+              "description": "Runway extends at least one increment ahead of planned business features.",
+              "seq": 2
+            },
+            {
+              "name": "Emergent designs reviewed for alignment",
+              "description": "Emergent design decisions reviewed for alignment with intentional architecture.",
+              "seq": 3
+            },
+            {
+              "name": "Technical debt managed through refactoring",
+              "description": "Technical debt managed through regular refactoring within enabler backlog.",
+              "seq": 4
+            },
+            {
+              "name": "Architecture reviews assess adequacy",
+              "description": "Architecture reviews assess whether runway remains adequate for upcoming needs.",
+              "seq": 5
+            },
+            {
+              "name": "Enabler capacity adjusted",
+              "description": "Enabler capacity adjusted based on architectural and business feature balance.",
+              "seq": 6
+            },
+            {
+              "name": "Cross-team coordination ensures compatibility",
+              "description": "Cross-team architectural coordination ensures emergent designs remain compatible.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Architecture evolves through balanced intentional and emergent design.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Intentional-emergent balance calibrated",
+              "description": "Balance between intentional architecture and emergent design well-calibrated.",
+              "seq": 1
+            },
+            {
+              "name": "Decision-making appropriately distributed",
+              "description": "Architectural decision-making distributed to lowest appropriate level.",
+              "seq": 2
+            },
+            {
+              "name": "Technical debt stable or declining",
+              "description": "Technical debt levels stable or declining with regular investment.",
+              "seq": 3
+            },
+            {
+              "name": "Runway supports strategic agility",
+              "description": "Runway supports planned delivery and unexpected strategic changes.",
+              "seq": 4
+            },
+            {
+              "name": "Architecture practices documented",
+              "description": "Architecture practices documented as organizational assets for future programmes.",
+              "seq": 5
+            },
+            {
+              "name": "Continuous architecture embedded",
+              "description": "Continuous architecture embedded in team ways of working.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Sustaining Delivery Velocity Through Proactive Technical Enablement",
+          "description": "How the architectural runway prevents technical bottlenecks while avoiding over-engineering.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Programme delivery depends on technical infrastructure that crosses project boundaries, yet investment in foundational architecture competes with immediate business feature demand, and without deliberate management the runway erodes until teams cannot integrate."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The programme must build and maintain architectural infrastructure slightly ahead of the business features that need it, balancing intentional architecture with emergent design to prevent both over-specification and integration failure."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Enabler features and stories are treated as first-class backlog items, prioritized alongside business features using WSJF, with solution architects defining strategic guardrails while teams exercise autonomy in emergent design within those boundaries, and regular architecture reviews ensuring the runway remains adequate."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Teams have sufficient technical runway to deliver business features without architectural blockers, technical debt is managed through regular investment, and architecture practices mature into organizational capabilities that persist beyond the programme."
+            }
+          ],
+          "citationNames": [
+            "Continuous Architecture",
+            "The Software Architect Elevator",
+            "SAFe 6.0 Framework"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Programme Increment Plan",
+      "description": "Collective multi-team delivery plan for a fixed timebox with objectives and dependencies.",
+      "levelsOfDetail": [
+        {
+          "name": "Draft",
+          "description": "Initial scope and team objectives outlined.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Features proposed from backlog",
+              "description": "Programme-level features proposed for the increment are identified from backlog.",
+              "seq": 1
+            },
+            {
+              "name": "Capacity estimates prepared",
+              "description": "Capacity estimates prepared based on availability and historical velocity.",
+              "seq": 2
+            },
+            {
+              "name": "Known dependencies carried forward",
+              "description": "Known dependencies from previous increments carried forward.",
+              "seq": 3
+            },
+            {
+              "name": "Business context prepared",
+              "description": "Business context and strategic priorities prepared for team communication.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Envisioned"
+            }
+          ]
+        },
+        {
+          "name": "Committed",
+          "description": "Teams planned with objectives committed and risks listed.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Team plans with committed objectives",
+              "description": "Each team has detailed plan with committed objectives and stretch goals.",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies mapped with resolution strategies",
+              "description": "Cross-team dependencies mapped on programme board with resolution strategies.",
+              "seq": 2
+            },
+            {
+              "name": "Confidence assessment confirms achievability",
+              "description": "Collective confidence assessment confirms plan achievability.",
+              "seq": 3
+            },
+            {
+              "name": "Plans aggregate to objectives",
+              "description": "Team plans aggregate to programme-level objectives with traceability.",
+              "seq": 4
+            },
+            {
+              "name": "Risk and impediment lists compiled",
+              "description": "Risk and impediment lists compiled with owners and mitigations.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Planned"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Prioritized"
+            }
+          ]
+        },
+        {
+          "name": "Tracked",
+          "description": "Execution progress visible with dependency status tracked.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Objective completion tracked",
+              "description": "Objective completion tracked in real-time at team and programme levels.",
+              "seq": 1
+            },
+            {
+              "name": "Dependency resolution monitored",
+              "description": "Dependency resolution progress monitored with blocked items escalated.",
+              "seq": 2
+            },
+            {
+              "name": "Integration points tracked",
+              "description": "Integration points tracked with status reported at coordination events.",
+              "seq": 3
+            },
+            {
+              "name": "Scope changes managed",
+              "description": "Scope changes managed through agreed change processes.",
+              "seq": 4
+            },
+            {
+              "name": "Flow metrics provide visibility",
+              "description": "Flow metrics provide visibility into delivery progress against plan.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Demonstrable"
+            }
+          ]
+        },
+        {
+          "name": "Evaluated",
+          "description": "Post-increment review with metrics and improvement actions.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Variance analysis documented",
+              "description": "Planned versus actual objective achievement documented with variance analysis.",
+              "seq": 1
+            },
+            {
+              "name": "Predictability metrics compared",
+              "description": "Predictability metrics compare committed versus delivered value across teams.",
+              "seq": 2
+            },
+            {
+              "name": "Dependency management assessed",
+              "description": "Dependency management effectiveness assessed through resolution timing.",
+              "seq": 3
+            },
+            {
+              "name": "Improvement stories captured",
+              "description": "Improvement stories for next increment captured and prioritized.",
+              "seq": 4
+            },
+            {
+              "name": "Planning approach adjusted",
+              "description": "Planning approach evaluated and adjusted based on experience.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Evaluated"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Achieved"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "From Objectives to Committed Plans Through Collaborative Increment Planning",
+          "description": "How programme increment plans evolve from draft scope through team commitment to evaluated delivery.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Programme increment plans capture the collective delivery commitment of multiple teams, translating programme-level objectives into team-level plans with mapped dependencies and confidence-assessed commitments."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Traditional top-down planning fails at programme scale because the people doing the work must own the plan, yet distributed planning requires deliberate facilitation to surface dependencies, resolve conflicts, and build genuine collective ownership."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Collaborative planning events bring all teams together to create shared plans where dependencies are visualized, confidence is collectively assessed, and improvement is built into each cycle through structured evaluation and adaptation of both the plan and the planning approach itself."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework"
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "programme-increment-plan-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Architectural Decision Record",
+      "description": "Structured documentation of programme-level architectural decisions and trade-offs.",
+      "levelsOfDetail": [
+        {
+          "name": "Identified",
+          "description": "Architectural decisions requiring resolution are listed.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Decisions named and described",
+              "description": "Each decision named and described with context and scope identified.",
+              "seq": 1
+            },
+            {
+              "name": "Decision status tracked",
+              "description": "Status of each decision tracked (proposed, accepted, deprecated, superseded).",
+              "seq": 2
+            },
+            {
+              "name": "Affected stakeholders identified",
+              "description": "Stakeholders affected by each decision are identified.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Assessed"
+            }
+          ],
+          "assetNames": [
+            {
+              "assetName": "adr-template-nygard",
+              "type": "template"
+            }
+          ]
+        },
+        {
+          "name": "Analyzed",
+          "description": "Options evaluated with trade-offs and recommendations.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Options described with trade-offs",
+              "description": "Multiple options described with pros, cons, and trade-offs for each decision.",
+              "seq": 1
+            },
+            {
+              "name": "Technical and business implications assessed",
+              "description": "Technical and business implications of each option assessed.",
+              "seq": 2
+            },
+            {
+              "name": "Recommended option identified",
+              "description": "Recommended option identified with clear rationale.",
+              "seq": 3
+            },
+            {
+              "name": "Impact on runway evaluated",
+              "description": "Impact on architectural runway and technical debt evaluated.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-project implications assessed",
+              "description": "Cross-project implications assessed for each option.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Designed"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Articulated"
+            }
+          ]
+        },
+        {
+          "name": "Governed",
+          "description": "Decisions authorized with compliance monitored across teams.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Decisions formally authorized",
+              "description": "Decisions formally authorized through programme architectural governance.",
+              "seq": 1
+            },
+            {
+              "name": "Compliance monitored",
+              "description": "Compliance with decisions monitored across programme teams.",
+              "seq": 2
+            },
+            {
+              "name": "Exceptions tracked",
+              "description": "Exceptions and deviations tracked and managed.",
+              "seq": 3
+            },
+            {
+              "name": "Audit trails maintained",
+              "description": "Decision audit trails support governance reviews and audits.",
+              "seq": 4
+            },
+            {
+              "name": "Decision interactions mapped",
+              "description": "Decision dependencies and interactions mapped for cumulative impact.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Extending"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Agreed"
+            }
+          ]
+        },
+        {
+          "name": "Evolved",
+          "description": "Decisions reviewed, validated, and updated from experience.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Decisions reviewed for relevance",
+              "description": "Decisions periodically reviewed for continued relevance and effectiveness.",
+              "seq": 1
+            },
+            {
+              "name": "Outcomes compared with predictions",
+              "description": "Actual outcomes compared with predicted outcomes for implemented decisions.",
+              "seq": 2
+            },
+            {
+              "name": "Superseded decisions archived",
+              "description": "Superseded decisions archived with rationale for change documented.",
+              "seq": 3
+            },
+            {
+              "name": "Decision-making effectiveness assessed",
+              "description": "Architectural decision-making effectiveness assessed as programme capability.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Evaluated"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Governing Architectural Decisions From Identification Through Evolutionary Refinement",
+          "description": "How architectural decisions are managed from initial identification to validated organizational assets.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Architectural decision records provide programme-level governance of technical decisions that affect multiple projects, documenting rationale, trade-offs, and status to ensure consistency and auditability across the programme."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Programme-level architectural decisions are difficult to govern because they must balance centralized coherence with decentralized team autonomy, and decisions made early often need revision as teams learn through delivery."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Decisions progress through structured maturity from identification through analysis and governance to evolutionary refinement, with compliance monitored across teams and actual outcomes compared to predictions to continuously improve the programme's architectural decision-making capability."
+            }
+          ],
+          "citationNames": [
+            "Continuous Architecture",
+            "The Software Architect Elevator"
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "architectural-decision-record-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Integration Roadmap",
+      "description": "Technical integration plan showing how project deliverables combine into programme capabilities.",
+      "levelsOfDetail": [
+        {
+          "name": "Conceptual",
+          "description": "Integration points and component relationships identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Component deliverables identified",
+              "description": "Component deliverables from each project that must integrate are identified.",
+              "seq": 1
+            },
+            {
+              "name": "Integration interfaces defined",
+              "description": "Integration points and interfaces defined at conceptual level.",
+              "seq": 2
+            },
+            {
+              "name": "Integration sequencing identified",
+              "description": "Integration sequencing identifies predecessor dependencies.",
+              "seq": 3
+            },
+            {
+              "name": "Technical integration risks identified",
+              "description": "Technical integration risks identified from architectural analysis.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Envisioned"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Shaped"
+            }
+          ]
+        },
+        {
+          "name": "Planned",
+          "description": "Integration schedule with milestones and verification approach.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Integration milestones defined",
+              "description": "Integration milestones defined with dates aligned to increment cadence.",
+              "seq": 1
+            },
+            {
+              "name": "Integration environments specified",
+              "description": "Integration environments specified with configuration management.",
+              "seq": 2
+            },
+            {
+              "name": "Verification approaches defined",
+              "description": "Integration verification approaches define quality assessment methods.",
+              "seq": 3
+            },
+            {
+              "name": "Team responsibilities assigned",
+              "description": "Team responsibilities for integration activities assigned.",
+              "seq": 4
+            },
+            {
+              "name": "Rollback strategies defined",
+              "description": "Rollback and recovery strategies address integration failures.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Planned"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Shaped"
+            }
+          ]
+        },
+        {
+          "name": "Executing",
+          "description": "Active integration tracking with quality gates and resolution.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Integration progress tracked",
+              "description": "Integration progress tracked against milestones at coordination events.",
+              "seq": 1
+            },
+            {
+              "name": "Integration quality measured",
+              "description": "Integration quality measured through automated testing and demonstration.",
+              "seq": 2
+            },
+            {
+              "name": "Integration issues resolved",
+              "description": "Integration issues logged, tracked, and resolved with cross-team coordination.",
+              "seq": 3
+            },
+            {
+              "name": "Regular integration events produce results",
+              "description": "Regular integration events produce demonstrable results.",
+              "seq": 4
+            },
+            {
+              "name": "Integration health metrics inform decisions",
+              "description": "Integration health metrics inform programme decision-making.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Integrated"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Demonstrable"
+            }
+          ]
+        },
+        {
+          "name": "Continuous",
+          "description": "Automated integration with continuous verification established.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "CI pipelines integrate cross-project components",
+              "description": "Continuous integration pipelines automatically integrate cross-project components.",
+              "seq": 1
+            },
+            {
+              "name": "Automated integration tests verify interfaces",
+              "description": "Automated integration tests verify cross-component interfaces rapidly.",
+              "seq": 2
+            },
+            {
+              "name": "Issues detected and resolved rapidly",
+              "description": "Integration issues detected and resolved within hours not weeks.",
+              "seq": 3
+            },
+            {
+              "name": "Integration approach documented",
+              "description": "Integration approach documented as organizational capability.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Evaluated"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Usable"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "From Conceptual Integration Design to Continuous Cross-Project Delivery",
+          "description": "How the integration roadmap matures from conceptual mapping to automated continuous integration.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Integration roadmaps specify the sequence and approach for combining deliverables from multiple projects into coherent programme capabilities, covering technical, process, and organizational integration dimensions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Cross-project integration is inherently complex because each project operates with its own cadence, technology choices, and team conventions, and manual integration coordination does not scale as the number of integration points grows."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "The integration roadmap progresses from conceptual identification of integration points through planned milestones and active tracking to continuous automated integration, reducing manual coordination burden while ensuring cross-project component compatibility through rapid feedback."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Large-Scale Scrum: More with LeSS"
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "integration-roadmap-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "personas": [
+    {
+      "name": "Release Train Engineer",
+      "description": "Chief facilitator coordinating team-of-teams for delivery events and impediment resolution.",
+      "competencies": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Delivery Management",
+          "Facilitation"
+        ],
+        "lifecycleTags": [
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Programme Delivery"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Solution Architect",
+      "description": "Technical leader for programme architecture, integration strategy, and runway management.",
+      "competencies": [
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Architecture",
+          "Integration"
+        ],
+        "lifecycleTags": [
+          "Planning",
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Technical Leadership"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Product Manager (Programme Level)",
+      "description": "Programme-level product leader for backlog prioritization and value stream alignment.",
+      "competencies": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Product Management",
+          "Prioritization"
+        ],
+        "lifecycleTags": [
+          "Planning",
+          "Execution"
+        ],
+        "organizationalTags": [
+          "Product Leadership"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Agile Release Train",
+      "description": "Long-lived team-of-teams delivering value through coordinated programme increments.",
+      "personaNames": [
+        "Release Train Engineer",
+        "Product Manager (Programme Level)",
+        "Solution Architect"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Programme Delivery"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Integration Team",
+      "description": "Cross-team coordination group ensuring integrated deliverables across projects.",
+      "personaNames": [
+        "Release Train Engineer",
+        "Solution Architect"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Integration",
+          "Coordination"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Conduct Programme Increment Planning",
+      "description": "Facilitate collaborative planning where teams align on shared objectives and dependencies.",
+      "activitySpaceName": "Coordinate Delivery",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Programme Increment",
+          "stateName": "Envisioned"
+        },
+        {
+          "alphaName": "Programme Increment",
+          "stateName": "Planned"
+        },
+        {
+          "alphaName": "Objectives",
+          "stateName": "Prioritized"
+        },
+        {
+          "alphaName": "Deliverable",
+          "stateName": "Envisioned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Programme Increment Plan",
+          "levelOfDetailName": "Draft"
+        },
+        {
+          "workProductName": "Programme Increment Plan",
+          "levelOfDetailName": "Committed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Management",
+        "Communication",
+        "Integration"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Agile Release Train"
+      ],
+      "assetNames": [
+        {
+          "assetName": "safe-pi-planning-reference",
+          "type": "diagram"
+        },
+        {
+          "assetName": "conduct-programme-increment-planning-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Synchronizing Multi-Team Plans Through Collaborative Increment Planning Events",
+          "description": "How collaborative planning events produce committed multi-team delivery plans.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Programme increment planning is the cornerstone coordination event that synchronizes multiple teams on a shared delivery plan, with the approach varying from SAFe's two-day PI Planning through LeSS's Joint Sprint Planning to Nexus's Sprint Planning, selected based on organizational context rather than framework orthodoxy."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Distributed planning at programme scale is prone to failure when teams plan in isolation without visibility into cross-team dependencies, when management imposes plans rather than allowing teams to plan their own work, or when planning events become theatrical ceremonies disconnected from actual delivery capability."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Effective increment planning brings all teams together with business context, architectural guidance, and backlog priorities, enabling teams to create their own plans while surfacing dependencies through programme boards, culminating in a collective confidence assessment that creates genuine shared ownership of the delivery commitment."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Large-Scale Scrum: More with LeSS",
+            "The Nexus Guide"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Manage Architectural Runway",
+      "description": "Maintain sufficient technical infrastructure ahead of features through balanced architectural work.",
+      "activitySpaceName": "Shape the Deliverable",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Architectural Runway",
+          "stateName": "Assessed"
+        },
+        {
+          "alphaName": "Architectural Runway",
+          "stateName": "Designed"
+        },
+        {
+          "alphaName": "Architectural Runway",
+          "stateName": "Provisioned"
+        },
+        {
+          "alphaName": "Architectural Runway",
+          "stateName": "Extending"
+        },
+        {
+          "alphaName": "Deliverable",
+          "stateName": "Shaped"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Architectural Decision Record",
+          "levelOfDetailName": "Identified"
+        },
+        {
+          "workProductName": "Architectural Decision Record",
+          "levelOfDetailName": "Analyzed"
+        },
+        {
+          "workProductName": "Architectural Decision Record",
+          "levelOfDetailName": "Governed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Integration",
+        "Analysis",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Integration Team"
+      ],
+      "narratives": [
+        {
+          "name": "Balancing Intentional Architecture with Emergent Design at Programme Scale",
+          "description": "How to maintain the architectural runway without over-engineering or under-specifying.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Managing the architectural runway requires continuous investment in technical enablement that supports near-term business feature delivery, with enabler features and stories treated as first-class backlog items estimated, prioritized, and demonstrated using the same processes as business features."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Common mistakes include treating architectural work as invisible overhead rather than visible backlog items, over-specifying intentional architecture in ways that constrain team autonomy, under-investing in enablers until integration failures force reactive architectural work, and failing to assess whether emergent team designs remain compatible across projects."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Effective runway management defines strategic architectural guardrails while preserving team autonomy for local design decisions, allocates explicit capacity for enabler work within each increment, conducts regular architecture reviews to ensure the runway extends ahead of planned features, and coordinates emergent designs through communities of practice and multi-team design workshops."
+            }
+          ],
+          "citationNames": [
+            "Continuous Architecture",
+            "The Software Architect Elevator",
+            "SAFe 6.0 Framework"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "manage-architectural-runway-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Integrate Capabilities Across Projects",
+      "description": "Combine project deliverables into coherent programme-level capabilities through systematic integration.",
+      "activitySpaceName": "Produce the Deliverable",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Programme Increment",
+          "stateName": "Executing"
+        },
+        {
+          "alphaName": "Programme Increment",
+          "stateName": "Integrated"
+        },
+        {
+          "alphaName": "Deliverable",
+          "stateName": "Demonstrable"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Integration Roadmap",
+          "levelOfDetailName": "Planned"
+        },
+        {
+          "workProductName": "Integration Roadmap",
+          "levelOfDetailName": "Executing"
+        },
+        {
+          "workProductName": "Programme Increment Plan",
+          "levelOfDetailName": "Tracked"
+        }
+      ],
+      "requiredCompetencies": [
+        "Integration",
+        "Management",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Integration Team",
+        "Agile Release Train"
+      ],
+      "narratives": [
+        {
+          "name": "Producing Integrated Programme Capabilities from Multi-Project Deliverables",
+          "description": "How to combine deliverables from multiple projects into coherent integrated capabilities.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Capability integration combines deliverables from multiple constituent projects into programme-level capabilities through technical code integration, process integration, data integration, and organizational capability integration, ranging from SAFe's Solution Train mechanisms to LeSS's single integrated Increment discipline to Nexus's Integration Team coordination."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Common integration failures include discovering integration dependencies during execution rather than planning, treating integration as a purely technical concern while ignoring process and organizational dimensions, and attempting manual coordination of integration across many teams when the volume of integration points overwhelms human coordination capacity."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Effective capability integration follows the integration roadmap's sequenced approach, uses automated continuous integration pipelines to reduce manual coordination burden for technical integration, establishes regular integration events that produce demonstrable results, and ensures cross-team coordination for process and organizational integration dimensions that require ongoing human facilitation."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Large-Scale Scrum: More with LeSS"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "integrate-capabilities-across-projects-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Demonstrate Programme Increment",
+      "description": "Showcase integrated capabilities to stakeholders for feedback and value assessment.",
+      "activitySpaceName": "Coordinate Delivery",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Programme Increment",
+          "stateName": "Integrated"
+        },
+        {
+          "alphaName": "Programme Increment",
+          "stateName": "Evaluated"
+        },
+        {
+          "alphaName": "Deliverable",
+          "stateName": "Demonstrable"
+        },
+        {
+          "alphaName": "Objectives",
+          "stateName": "Achieved"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Programme Increment Plan",
+          "levelOfDetailName": "Tracked"
+        },
+        {
+          "workProductName": "Programme Increment Plan",
+          "levelOfDetailName": "Evaluated"
+        },
+        {
+          "workProductName": "Integration Roadmap",
+          "levelOfDetailName": "Executing"
+        }
+      ],
+      "requiredCompetencies": [
+        "Communication",
+        "Stakeholder Representation",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Agile Release Train"
+      ],
+      "narratives": [
+        {
+          "name": "Validating Integrated Capabilities Through Stakeholder Demonstration and Feedback",
+          "description": "How programme increment demonstrations provide the critical feedback loop for delivery validation.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Programme increment demonstrations showcase integrated capabilities to stakeholders, business owners, and customers, ranging from SAFe's System Demo and Solution Demo formats through LeSS's bazaar-style Sprint Reviews to Nexus's unified Sprint Review, with business owners assigning value to demonstrated capabilities."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Demonstrations fail when they become theatrical presentations of slides rather than working capability, when genuine stakeholder feedback is replaced with rubber-stamp approval, when demonstrated work is not connected to programme objectives, or when feedback is captured but not processed through the programme backlog prioritization process."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Effective demonstrations focus on working capabilities rather than presentations, invite genuine stakeholder assessment against programme objectives and benefit realization plans, capture feedback systematically for incorporation into backlog refinement, and connect the inspect-and-adapt cycle to continuous improvement of both delivery and the demonstration process itself."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "The Nexus Guide"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "demonstrate-programme-increment-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Evaluate Architectural Effectiveness",
+      "description": "Assess architectural runway effectiveness and embed practices as organizational assets.",
+      "activitySpaceName": "Shape the Objectives",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Architectural Runway",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Objectives",
+          "stateName": "Evaluated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Architectural Decision Record",
+          "levelOfDetailName": "Evolved"
+        }
+      ],
+      "requiredCompetencies": [
+        "Integration",
+        "Analysis",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Integration Team"
+      ],
+      "narratives": [
+        {
+          "name": "Evolving Programme Architecture Through Evidence-Based Effectiveness Assessment",
+          "description": "How architectural effectiveness evaluation drives continuous improvement and organizational learning.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Evaluating architectural effectiveness assesses whether the balance between intentional architecture and emergent design is well-calibrated, whether technical debt levels are stable or declining, whether the runway supports both planned delivery and strategic agility, and whether architecture practices are maturing into organizational capabilities."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Architectural evaluation is frequently skipped under delivery pressure, resulting in architectural decisions that are never retrospectively validated and technical debt that accumulates unnoticed until it causes delivery failure."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Structured architectural evaluation compares predicted decision outcomes with actual results, assesses whether distributed decision-making operates effectively within architectural guardrails, documents architecture practices as organizational assets for future programmes, and ensures continuous architecture practices are embedded in team ways of working rather than requiring centralized governance."
+            }
+          ],
+          "citationNames": [
+            "Continuous Architecture",
+            "The Software Architect Elevator"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "evaluate-architectural-effectiveness-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Assess Increment Delivery Readiness",
+      "description": "Validate integrated capability meets readiness criteria for operational deployment.",
+      "activitySpaceName": "Produce the Deliverable",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Deliverable",
+          "stateName": "Usable"
+        },
+        {
+          "alphaName": "Deliverable",
+          "stateName": "Ready"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Integration Roadmap",
+          "levelOfDetailName": "Continuous"
+        }
+      ],
+      "requiredCompetencies": [
+        "Integration",
+        "Management",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Integration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Integration Team",
+        "Agile Release Train"
+      ],
+      "narratives": [
+        {
+          "name": "Confirming Integrated Capability Readiness for Operational Deployment",
+          "description": "How readiness assessment ensures integrated capabilities meet deployment criteria.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Delivery readiness assessment validates that integrated capabilities function correctly under operational conditions, that cross-project data flows and interfaces meet non-functional requirements, and that the organization is prepared to absorb the delivered capability into business-as-usual operations."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Readiness is frequently assumed rather than validated, with programmes discovering integration gaps, performance issues, or organizational unpreparedness only after deployment, when remediation costs are highest and stakeholder confidence is most damaged."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Structured readiness assessment validates integrated capability in realistic user scenarios, confirms performance characteristics under operational load, verifies organizational support models and training, and ensures deployment and rollback strategies are rehearsed before production deployment of cross-project integrated capabilities."
+            }
+          ],
+          "citationNames": [
+            "The Standard for Program Management, 4th Edition"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "assess-increment-delivery-readiness-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Capability Integration Journey",
+      "description": "Coordinated progression from increment vision through integrated delivery to evaluated release.",
+      "narrativeTypeName": "PDCA",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Programme backlog exists with architectural assessment complete.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Envisioned"
+            },
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Envisioned"
+            }
+          ],
+          "activities": [
+            "Manage Architectural Runway"
+          ]
+        },
+        {
+          "name": "Plan",
+          "description": "Collaborative planning produces committed objectives with enablers prioritized.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Planned"
+            },
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Designed"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Prioritized"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Shaped"
+            }
+          ],
+          "activities": [
+            "Conduct Programme Increment Planning",
+            "Manage Architectural Runway"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Teams collaboratively plan the increment by selecting features from the programme backlog, mapping cross-team dependencies, designing the architectural approach for enablers and business features, and committing to shared objectives through a confidence-assessed collective plan that balances business value delivery with architectural runway investment."
+            }
+          ]
+        },
+        {
+          "name": "Do",
+          "description": "Teams execute with integration producing demonstrable cross-team capabilities.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Demonstrable"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Prioritized"
+            }
+          ],
+          "activities": [
+            "Integrate Capabilities Across Projects",
+            "Manage Architectural Runway"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Do",
+              "context": "Teams execute against the committed plan with cross-team synchronization surfacing integration issues, enabler features providing the technical infrastructure needed for business feature delivery, and integration activities combining project deliverables into demonstrable programme capabilities that stakeholders can evaluate."
+            }
+          ]
+        },
+        {
+          "name": "Check",
+          "description": "Integrated capabilities demonstrated with quantitative performance assessment.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Integrated"
+            },
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Extending"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Achieved"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Demonstrable"
+            }
+          ],
+          "activities": [
+            "Demonstrate Programme Increment",
+            "Integrate Capabilities Across Projects"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Check",
+              "context": "The programme demonstrates integrated capabilities to stakeholders and business owners who assess the delivered value against programme objectives, while the architectural runway is confirmed as extending ahead of upcoming business features, and quantitative metrics including predictability and integration quality are analyzed against targets and trends."
+            }
+          ]
+        },
+        {
+          "name": "Act",
+          "description": "Inspect and adapt produces improvements with runway optimized for next cycle.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Programme Increment",
+              "stateName": "Evaluated"
+            },
+            {
+              "alphaName": "Architectural Runway",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Objectives",
+              "stateName": "Evaluated"
+            },
+            {
+              "alphaName": "Deliverable",
+              "stateName": "Usable"
+            }
+          ],
+          "activities": [
+            "Evaluate Architectural Effectiveness",
+            "Assess Increment Delivery Readiness"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Act",
+              "context": "The inspect-and-adapt cycle evaluates increment results against predicted outcomes, identifies improvement stories for the next increment, assesses architectural effectiveness and calibration of the intentional-versus-emergent design balance, re-prioritizes the programme backlog based on stakeholder feedback and strategic changes, and documents architectural practices as organizational assets, with the cycle repeating as the programme advances through successive increments."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Programme Increment",
+      "aliasName": "Planning Interval"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Conduct Programme Increment Planning",
+      "aliasName": "PI Planning"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Demonstrate Programme Increment",
+      "aliasName": "System Demo"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Integrate Capabilities Across Projects",
+      "aliasName": "Solution Integration"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Architectural Decision Record",
+      "aliasName": "ADR"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Programme Essentials",
+      "versionRange": "^1.0.3"
+    },
+    {
+      "documentName": "Project Management Foundations",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

@@ -11,11 +11,10 @@ import {
 } from "@/lib/ir";
 import { documentNeedsLibraryResolution } from "@/lib/library/practiceDependencyResolution";
 import { usePracticeLibraryResolveForRender } from "@/lib/library/usePracticeLibraryResolveForRender";
-import type { AlphaScore } from "@/lib/analysis/methodFocus";
+import { calculateAlphaScores, type AlphaScore } from "@/lib/analysis/methodFocus";
 import { compositePracticeFromMethod } from "@/lib/methodMerge/compositePracticeFromMethod";
 import { classifyLibraryRoot } from "@/lib/library/classify";
 import type { Method } from "@/lib/types";
-import { useAlphaScores } from "@/hooks/useAlphaScores";
 
 function slug(s: unknown) {
   return String(s ?? "")
@@ -25,41 +24,21 @@ function slug(s: unknown) {
     .replace(/(^-|-$)/g, "");
 }
 
+const SCORE_STYLES: CSSProperties[] = [
+  { backgroundColor: "#F5F5F5", borderColor: "#D2D2D2", color: "#8C8C8C", opacity: 0.6 },
+  { backgroundColor: "#EDF4FA", borderColor: "#73BCF7", color: "#004368" },
+  { backgroundColor: "#D2E4F4", borderColor: "#73BCF7", color: "#004368" },
+  { backgroundColor: "#BEE1F4", borderColor: "#2B9AF3", color: "#002952" },
+  { backgroundColor: "#8BC8F7", borderColor: "#06C", color: "#002952" },
+  { backgroundColor: "#519DE9", borderColor: "#06C", color: "#FFFFFF" },
+];
+
 function getColorStyle(score: number): CSSProperties {
-  // Score is now 0-3 (no focus, low, mid, high)
-  if (score === 0) {
-    // No focus - very light gray
-    return {
-      backgroundColor: "#F5F5F5",
-      borderColor: "#D2D2D2",
-      color: "#8C8C8C",
-      opacity: 0.6,
-    };
-  } else if (score === 1) {
-    // Low focus - light blue
-    return {
-      backgroundColor: "#E7F1FA",
-      borderColor: "#73BCF7",
-      color: "#004368",
-    };
-  } else if (score === 2) {
-    // Mid focus - medium blue
-    return {
-      backgroundColor: "#BEE1F4",
-      borderColor: "#2B9AF3",
-      color: "#002952",
-    };
-  } else {
-    // High focus (3) - dark blue
-    return {
-      backgroundColor: "#73BCF7",
-      borderColor: "#06C",
-      color: "#FFFFFF",
-    };
-  }
+  const clamped = Math.max(0, Math.min(score, SCORE_STYLES.length - 1));
+  return SCORE_STYLES[clamped];
 }
 
-export function LibraryItemFocus({ documentId }: { documentId: string }) {
+export function LibraryItemFocus({ documentId, apiUrl }: { documentId: string; apiUrl?: string }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [doc, setDoc] = useState<any>(null);
@@ -70,7 +49,8 @@ export function LibraryItemFocus({ documentId }: { documentId: string }) {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch(`/api/documents/${encodeURIComponent(documentId)}`);
+        const url = apiUrl || `/api/documents/${encodeURIComponent(documentId)}`;
+        const res = await fetch(url);
         if (!res.ok) {
           throw new Error(`Failed to load document (${res.status})`);
         }
@@ -83,7 +63,7 @@ export function LibraryItemFocus({ documentId }: { documentId: string }) {
       }
     }
     void loadDocument();
-  }, [documentId]);
+  }, [documentId, apiUrl]);
 
   // Resolve library dependencies FIRST (same as LibraryBrowseClient)
   const shouldResolveLibrary = useMemo(() => {
@@ -141,10 +121,12 @@ export function LibraryItemFocus({ documentId }: { documentId: string }) {
     return { baseline: enriched, grouped: grp };
   }, [effectiveDoc]);
 
-  // Use server-side alpha scores (pre-computed and cached)
-  const { scoresByFocus: alphasByFocus, loading: scoresLoading } = useAlphaScores(documentId, true);
+  const alphasByFocus = useMemo(() => {
+    if (!effectiveDoc || !baseline || grouped.length === 0) return new Map();
+    return calculateAlphaScores(effectiveDoc, baseline, grouped);
+  }, [effectiveDoc, baseline, grouped]);
 
-  if (loading || resolveBusy || scoresLoading) {
+  if (loading || resolveBusy) {
     return (
       <div style={{ padding: "1rem", fontSize: "0.75rem", color: "var(--pf-v6-global--Color--200)" }}>
         Loading coverage...

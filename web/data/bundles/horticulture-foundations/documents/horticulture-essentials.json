@@ -1,0 +1,4000 @@
+{
+  "kind": "practiceBaseline",
+  "name": "Horticulture Essentials",
+  "description": "A foundational baseline practice defining the essential alphas, competencies, and activity spaces for professional horticulture across biological systems, production operations, and professional practice.",
+  "version": "1.0.1",
+  "authors": [
+    "Claude Code (AI-assisted methodology translation)"
+  ],
+  "createdAt": "2026-07-10T00:00:00Z",
+  "updatedAt": "2026-08-16",
+  "keywords": [
+    "horticulture",
+    "plant science",
+    "controlled environment agriculture",
+    "soilless cultivation",
+    "precision horticulture",
+    "biosecurity",
+    "plant protection",
+    "professional competency",
+    "sustainability",
+    "digital agriculture",
+    "horticultural engineering"
+  ],
+  "tags": {
+    "domainTags": [
+      "Plant Science",
+      "Agricultural Engineering",
+      "Environmental Science",
+      "Business Operations"
+    ],
+    "lifecycleTags": [
+      "Production",
+      "Cultivation",
+      "Management",
+      "Professional Development"
+    ],
+    "organizationalTags": [
+      "Horticultural Practitioners",
+      "Growers",
+      "Estate Managers",
+      "Conservation Professionals"
+    ]
+  },
+  "focuses": [
+    {
+      "name": "Biological Systems",
+      "description": "Living plant organisms, their growth environments, and ecological interactions governing health, development, and resilience."
+    },
+    {
+      "name": "Production Operations",
+      "description": "Physical infrastructure, cultivation methods, technological systems, and resource management enabling controlled and efficient plant production."
+    },
+    {
+      "name": "Professional Practice",
+      "description": "Human competencies, organizational management, regulatory compliance, and business operations required to sustain horticultural enterprises."
+    }
+  ],
+  "narrativeTypes": [
+    {
+      "kind": "narrativeType",
+      "name": "Seasonal Progression",
+      "description": "A cyclical narrative structure reflecting the annual rhythm of horticultural operations in temperate climates, emphasizing preparation, growth, harvest, and renewal. Use for describing horticultural practices, workflows, or plant life cycles that follow seasonal patterns; useful for estate management, crop production schedules, and conservation projects.",
+      "narrativeElements": [
+        {
+          "name": "Spring (Preparation & Establishment)",
+          "description": "The season of renewal when soil is prepared, seeds sown, and plants establish.",
+          "howToUse": "Describe planning, ground preparation, planting, and early growth activities that set the foundation for the season."
+        },
+        {
+          "name": "Summer (Growth & Maintenance)",
+          "description": "The period of peak growth and active management (irrigation, pest control, deadheading).",
+          "howToUse": "Describe intensive care, resource application, monitoring, and responsiveness to plant and environmental dynamics."
+        },
+        {
+          "name": "Autumn (Harvest & Transition)",
+          "description": "The season of harvest, seed collection, and preparation for dormancy.",
+          "howToUse": "Describe output realization, succession planning, soil amendment, and winterization activities."
+        },
+        {
+          "name": "Winter (Dormancy & Planning)",
+          "description": "The period of reduced biological activity and strategic planning for the next cycle.",
+          "howToUse": "Describe structural pruning, infrastructure maintenance, design work, and strategic reflection."
+        }
+      ]
+    },
+    {
+      "kind": "narrativeType",
+      "name": "STAR",
+      "description": "A universal problem-solving narrative structure that describes a challenge, the required work, the approach taken, and the outcome achieved. Use for documenting IPM interventions, troubleshooting technical problems, explaining competency demonstrations, or reporting project outcomes.",
+      "narrativeElements": [
+        {
+          "name": "Situation",
+          "description": "The context or challenge requiring attention.",
+          "howToUse": "Set the scene with relevant background (e.g., 'Aphid population exceeded action threshold in greenhouse tomatoes')."
+        },
+        {
+          "name": "Task",
+          "description": "The specific objective or responsibility.",
+          "howToUse": "Define what needed to be accomplished (e.g., 'Reduce aphid population below threshold without harming beneficial insects')."
+        },
+        {
+          "name": "Action",
+          "description": "The steps taken or approach employed.",
+          "howToUse": "Describe the method, tools, or tactics used (e.g., 'Released predatory midges; monitored population; adjusted ventilation to deter aphids')."
+        },
+        {
+          "name": "Result",
+          "description": "The outcome and its implications.",
+          "howToUse": "Report measurable results and lessons learned (e.g., 'Aphid population dropped 90% within 2 weeks; beneficial midge population established; no chemical intervention needed')."
+        }
+      ]
+    },
+    {
+      "kind": "narrativeType",
+      "name": "Hero's Journey",
+      "description": "A universal narrative of transformation through challenge, learning, and growth; applicable to professional development, innovation adoption, or ecosystem restoration. Use for describing competency development pathways, organizational change journeys, or long-term restoration projects where transformation is central.",
+      "narrativeElements": [
+        {
+          "name": "Ordinary World",
+          "description": "The starting state before change.",
+          "howToUse": "Describe baseline conditions, existing practices, or initial competency levels."
+        },
+        {
+          "name": "Call to Adventure",
+          "description": "The catalyst or need for change.",
+          "howToUse": "Identify the driver (new regulation, market shift, environmental crisis, career aspiration)."
+        },
+        {
+          "name": "Challenges & Trials",
+          "description": "Obstacles encountered and skills developed.",
+          "howToUse": "Document learning experiences, failures overcome, and capabilities built."
+        },
+        {
+          "name": "Transformation",
+          "description": "The achieved change in state, capability, or understanding.",
+          "howToUse": "Describe the new normal (certified professional, regenerative system, resilient ecosystem)."
+        },
+        {
+          "name": "Return with Knowledge",
+          "description": "Contribution to the broader community.",
+          "howToUse": "Explain how the journey benefits others (mentoring, best practice sharing, thought leadership)."
+        }
+      ]
+    },
+    {
+      "kind": "narrativeType",
+      "name": "Three-Act Structure",
+      "description": "A universal narrative structure that moves from problem identification through solution implementation to impact realization. Use for business cases, grant proposals, innovation stories, or explaining how horticultural interventions address specific challenges.",
+      "narrativeElements": [
+        {
+          "name": "Act I: Problem (Setup)",
+          "description": "The challenge, gap, or opportunity requiring attention.",
+          "howToUse": "Establish stakes, quantify the problem, explain why it matters (e.g., 'Water scarcity threatens crop viability; current irrigation wastes 40% of supply')."
+        },
+        {
+          "name": "Act II: Solution (Confrontation)",
+          "description": "The intervention, innovation, or approach employed.",
+          "howToUse": "Describe the method, technology, or strategy (e.g., 'Installed soil moisture sensors and variable-rate drip irrigation with predictive scheduling')."
+        },
+        {
+          "name": "Act III: Impact (Resolution)",
+          "description": "The measurable outcomes and broader implications.",
+          "howToUse": "Report results, ROI, and lessons learned (e.g., 'Water use reduced 60%, yield increased 15%, system paid for itself in 18 months; now expanding to other sites')."
+        }
+      ]
+    }
+  ],
+  "competencies": [
+    {
+      "name": "Plant Science Knowledge",
+      "description": "Understanding of plant physiology, taxonomy, genetics, and ecology required to diagnose problems, select appropriate species/cultivars, and optimize growing conditions.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Recognize common plant families using visual characteristics; understand basic plant anatomy (roots, stems, leaves, flowers, seeds); awareness of photosynthesis, respiration, transpiration processes.",
+          "level": 1,
+          "competencyName": "Plant Science Knowledge"
+        },
+        {
+          "name": "Applies",
+          "description": "Identify plants using scientific nomenclature (genus, species, cultivar); diagnose common nutrient deficiencies and environmental stress symptoms; understand pollination biology and phenological stages.",
+          "level": 2,
+          "competencyName": "Plant Science Knowledge"
+        },
+        {
+          "name": "Masters",
+          "description": "Select cultivars based on climate adaptation, disease resistance, and performance targets; interpret complex plant responses to environmental manipulation (photoperiod, vernalization, stress); design propagation protocols for diverse species and methods.",
+          "level": 3,
+          "competencyName": "Plant Science Knowledge"
+        },
+        {
+          "name": "Adapts",
+          "description": "Develop novel cultivation strategies for emerging crops or extreme environments; integrate genetic knowledge to inform breeding or selection programs; solve complex diagnostic challenges (multiple stressors, rare diseases).",
+          "level": 4,
+          "competencyName": "Plant Science Knowledge"
+        },
+        {
+          "name": "Innovating",
+          "description": "Contribute to scientific understanding of plant-environment interactions through research; develop new cultivars through breeding, selection, or biotechnology; publish peer-reviewed research or lead industry workshops on plant science.",
+          "level": 5,
+          "competencyName": "Plant Science Knowledge"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "plant-science-competency-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Growing Media Management",
+      "description": "Expertise in soil science, substrate formulation, rhizosphere dynamics, and nutrient chemistry to create and maintain optimal root environments.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Distinguish between soil types (sand, silt, clay) based on texture; understand the concept of pH and its effect on nutrient availability; recognize signs of poor drainage or waterlogging.",
+          "level": 1,
+          "competencyName": "Growing Media Management"
+        },
+        {
+          "name": "Applies",
+          "description": "Conduct soil/substrate testing using field kits or interpret laboratory results; amend soils based on test results (liming, gypsum, organic matter); formulate basic peat-free growing mixes (coco coir, compost, perlite).",
+          "level": 2,
+          "competencyName": "Growing Media Management"
+        },
+        {
+          "name": "Masters",
+          "description": "Design substrate recipes optimized for specific crops and production systems; manage fertility in soilless systems (EC/pH control, nutrient solution formulation); understand cation exchange capacity and nutrient retention dynamics.",
+          "level": 3,
+          "competencyName": "Growing Media Management"
+        },
+        {
+          "name": "Adapts",
+          "description": "Troubleshoot complex substrate-related problems (salt accumulation, micronutrient deficiencies, pathogen buildup); integrate organic amendments to support beneficial microbial communities; design closed-loop nutrient recovery systems.",
+          "level": 4,
+          "competencyName": "Growing Media Management"
+        },
+        {
+          "name": "Innovating",
+          "description": "Research novel substrate materials from waste streams (biochar, mushroom compost, agricultural by-products); develop proprietary substrate formulations for competitive advantage; contribute to scientific literature on rhizosphere ecology and nutrient dynamics.",
+          "level": 5,
+          "competencyName": "Growing Media Management"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "growing-media-competency-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Mechanical Operations",
+      "description": "Proficiency in operating, maintaining, and troubleshooting horticultural machinery, hand tools, and construction equipment.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Safely operate hand tools (spades, rakes, pruners, loppers, saws); perform basic tool maintenance (cleaning, sharpening, oiling); understand safety protocols (PPE, manual handling, hazard awareness).",
+          "level": 1,
+          "competencyName": "Mechanical Operations"
+        },
+        {
+          "name": "Applies",
+          "description": "Operate powered equipment with certification (mowers, brush-cutters, chainsaws: NPTC/LANTRA); conduct pre-operational checks and minor repairs (changing blades, adjusting tension); use abrasive wheel equipment for cutting hard materials (paving, stone).",
+          "level": 2,
+          "competencyName": "Mechanical Operations"
+        },
+        {
+          "name": "Masters",
+          "description": "Operate complex machinery (tractors with implements, precision sprayers, excavators); diagnose mechanical faults and perform field repairs; calibrate equipment for accurate application rates.",
+          "level": 3,
+          "competencyName": "Mechanical Operations"
+        },
+        {
+          "name": "Adapts",
+          "description": "Modify or fabricate tools/equipment for specialized applications; train others in safe machinery operation and maintenance; manage machinery fleets (procurement, scheduling, lifecycle cost optimization).",
+          "level": 4,
+          "competencyName": "Mechanical Operations"
+        },
+        {
+          "name": "Innovating",
+          "description": "Collaborate with manufacturers to develop improved equipment designs; implement autonomous machinery systems (robotic mowers, driverless sprayers); conduct research on ergonomic tool design or operational efficiency.",
+          "level": 5,
+          "competencyName": "Mechanical Operations"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "mechanical-competency-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Digital Technology",
+      "description": "Capability to deploy, configure, operate, and interpret data from sensors, automation systems, and analytics platforms.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Use basic digital tools (smartphones, tablets, computers) for record-keeping; understand the concept of sensors measuring environmental parameters; awareness of IoT, automation, and AI in horticulture.",
+          "level": 1,
+          "competencyName": "Digital Technology"
+        },
+        {
+          "name": "Applies",
+          "description": "Program automated irrigation controllers with time-based or sensor-triggered schedules; read and interpret sensor data dashboards (temperature, humidity, soil moisture); troubleshoot basic connectivity issues (Wi-Fi, Bluetooth, cellular).",
+          "level": 2,
+          "competencyName": "Digital Technology"
+        },
+        {
+          "name": "Masters",
+          "description": "Configure integrated climate control systems (HVAC, CO2, lighting automation); use GIS/GPS for spatial mapping and variable-rate application planning; implement data pipelines (sensor → database → dashboard → alert).",
+          "level": 3,
+          "competencyName": "Digital Technology"
+        },
+        {
+          "name": "Adapts",
+          "description": "Deploy predictive analytics (machine learning models for irrigation forecasting, yield prediction); integrate disparate systems through APIs, middleware, or custom scripting; design complex automation logic for multi-stage workflows.",
+          "level": 4,
+          "competencyName": "Digital Technology"
+        },
+        {
+          "name": "Innovating",
+          "description": "Develop proprietary algorithms for resource optimization or crop modeling; contribute to open-source precision agriculture platforms or research projects; research novel sensor technologies, edge computing, or AI applications.",
+          "level": 5,
+          "competencyName": "Digital Technology"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "digital-competency-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Plant Protection Expertise",
+      "description": "Knowledge and skills for integrated pest management, including pest/disease identification, biological controls, and safe pesticide application.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Recognize common pest groups (aphids, caterpillars, fungal diseases, weeds); understand IPM principles (prevention, monitoring, thresholds, least-risk controls); awareness of legal requirements for pesticide use and safety.",
+          "level": 1,
+          "competencyName": "Plant Protection Expertise"
+        },
+        {
+          "name": "Applies",
+          "description": "Identify specific pest/disease species using field guides or reference materials; conduct systematic scouting and record pest counts using monitoring protocols; apply pesticides safely with appropriate certification (PA1/PA6 in UK).",
+          "level": 2,
+          "competencyName": "Plant Protection Expertise"
+        },
+        {
+          "name": "Masters",
+          "description": "Design IPM programs tailored to specific crops, growing conditions, and risk profiles; deploy biological controls (predatory insects, entomopathogenic nematodes, microbial pesticides); interpret pest forecasting models (degree-days, population dynamics, epidemiology).",
+          "level": 3,
+          "competencyName": "Plant Protection Expertise"
+        },
+        {
+          "name": "Adapts",
+          "description": "Manage resistance development through chemical rotation, mode-of-action diversity, and refuge strategies; integrate habitat manipulation to support beneficial organisms; troubleshoot IPM failures and adapt strategies to novel pests or changing conditions.",
+          "level": 4,
+          "competencyName": "Plant Protection Expertise"
+        },
+        {
+          "name": "Innovating",
+          "description": "Conduct research on novel biocontrol agents, IPM tactics, or resistance mechanisms; develop site-specific pest risk models or decision support systems; publish guidance on emerging pest threats, invasive species, or resistance management.",
+          "level": 5,
+          "competencyName": "Plant Protection Expertise"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "plant-protection-competency-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Environmental Stewardship",
+      "description": "Commitment to sustainable practices, biodiversity conservation, carbon management, circular economy principles, and regenerative outcomes.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Awareness of environmental regulations (water quality, pesticide drift, waste disposal); understanding of basic ecology (food webs, pollination, nutrient cycles); recognize the importance of habitat conservation and resource efficiency.",
+          "level": 1,
+          "competencyName": "Environmental Stewardship"
+        },
+        {
+          "name": "Applies",
+          "description": "Implement best management practices (BMPs) to reduce nutrient runoff, erosion, or pollution; create wildlife-friendly habitats (insect hotels, hedgerows, ponds, meadows); track and report environmental metrics (water use, waste generation, energy consumption).",
+          "level": 2,
+          "competencyName": "Environmental Stewardship"
+        },
+        {
+          "name": "Masters",
+          "description": "Design operations for net-zero or net-positive environmental outcomes; integrate renewable energy (solar, wind, biogas) into production systems; develop circular economy strategies (compost, substrate recycling, waste valorization).",
+          "level": 3,
+          "competencyName": "Environmental Stewardship"
+        },
+        {
+          "name": "Adapts",
+          "description": "Conduct life cycle assessments (LCA) to quantify environmental footprints and identify hotspots; lead carbon sequestration initiatives (biochar, agroforestry, soil organic matter building); navigate complex regulatory frameworks (carbon credits, biodiversity net gain, environmental permitting).",
+          "level": 4,
+          "competencyName": "Environmental Stewardship"
+        },
+        {
+          "name": "Innovating",
+          "description": "Research regenerative horticulture practices or ecosystem restoration techniques; advocate for policy changes to support sustainable agriculture and climate action; develop industry standards for environmental performance or circular economy.",
+          "level": 5,
+          "competencyName": "Environmental Stewardship"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "environmental-competency-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Business & Project Management",
+      "description": "Ability to plan, budget, coordinate, and deliver horticultural projects or operations on time, within budget, and to client specifications.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Understand project scope, deliverables, and constraints; follow task instructions and report progress accurately; awareness of budget constraints and cost implications.",
+          "level": 1,
+          "competencyName": "Business & Project Management"
+        },
+        {
+          "name": "Applies",
+          "description": "Develop basic project plans (task lists, timelines, resource assignments); track labor hours, material costs, and budget variances; communicate effectively with clients, suppliers, and team members.",
+          "level": 2,
+          "competencyName": "Business & Project Management"
+        },
+        {
+          "name": "Masters",
+          "description": "Manage complex projects with multiple stakeholders, dependencies, and risks; prepare detailed budgets with contingency planning and cost-benefit analysis; negotiate contracts, manage procurement, and coordinate subcontractors.",
+          "level": 3,
+          "competencyName": "Business & Project Management"
+        },
+        {
+          "name": "Adapts",
+          "description": "Oversee portfolio of concurrent projects with resource leveling and prioritization; implement project management software (Gantt charts, critical path, earned value); conduct post-project reviews and continuous improvement initiatives.",
+          "level": 4,
+          "competencyName": "Business & Project Management"
+        },
+        {
+          "name": "Innovating",
+          "description": "Lead strategic business development (new markets, partnerships, service offerings); develop proprietary project management methodologies or tools; mentor others in business and project management; contribute to professional standards.",
+          "level": 5,
+          "competencyName": "Business & Project Management"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "business-competency-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Professional Practice",
+      "description": "Interpersonal, ethical, communication, and teamwork skills required for effective collaboration, client relations, and professional conduct.",
+      "levels": [
+        {
+          "name": "Basic",
+          "description": "Demonstrate reliability, punctuality, and positive attitude; follow instructions accurately and work safely; communicate clearly with team members and supervisors.",
+          "level": 1,
+          "competencyName": "Professional Practice"
+        },
+        {
+          "name": "Applies",
+          "description": "Provide excellent customer service (active listening, responsiveness, problem-solving); maintain confidentiality and discretion (especially in private estates or sensitive contexts); collaborate effectively in multi-disciplinary teams (horticulturists, engineers, ecologists).",
+          "level": 2,
+          "competencyName": "Professional Practice"
+        },
+        {
+          "name": "Masters",
+          "description": "Lead teams, manage volunteers, and coordinate crew activities; negotiate with clients, stakeholders, and regulators; present complex technical information to non-specialist audiences (reports, workshops, public talks).",
+          "level": 3,
+          "competencyName": "Professional Practice"
+        },
+        {
+          "name": "Adapts",
+          "description": "Resolve conflicts and manage difficult interpersonal situations; uphold professional ethics in challenging contexts (competing interests, resource constraints); represent the organization at industry events, public forums, or media engagements.",
+          "level": 4,
+          "competencyName": "Professional Practice"
+        },
+        {
+          "name": "Innovating",
+          "description": "Contribute to professional standards development (RHS, Landscape Institute, industry associations); mentor early-career professionals through formal programs or apprenticeships; advocate for the horticultural profession in policy, education, or public discourse.",
+          "level": 5,
+          "competencyName": "Professional Practice"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "professional-competency-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Plant Health & Development",
+      "description": "The vitality, growth trajectory, and adaptive capacity of cultivated plants across species, cultivars, and developmental stages.",
+      "focusName": "Biological Systems",
+      "relatesTo": [
+        {
+          "relationship": "uses",
+          "alphaName": "Growing Environment",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Biosecurity & Ecosystem Health",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Plant Protection",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Sustainability & Environmental Stewardship",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Plants correctly classified using scientific nomenclature (genus, species, cultivar).",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Taxonomic keys used correctly",
+              "description": "Taxonomic keys used correctly to distinguish between closely related species",
+              "seq": 1
+            },
+            {
+              "name": "Scientific names recorded",
+              "description": "Scientific names (binomial nomenclature) recorded for all cultivated species",
+              "seq": 2
+            },
+            {
+              "name": "Cultivar authenticity verified",
+              "description": "Cultivar authenticity verified against authoritative sources (RHS Plant Finder, supplier provenance)",
+              "seq": 3
+            },
+            {
+              "name": "Growth requirements documented",
+              "description": "Species-specific growth requirements and cultural preferences documented",
+              "seq": 4
+            },
+            {
+              "name": "Environmental tolerances understood",
+              "description": "Environmental tolerances (hardiness zones, climate adaptability) understood",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Understood",
+          "description": "Physiological processes (photosynthesis, respiration, transpiration, nutrient uptake) comprehended and monitored.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Light-photosynthesis relationship understood",
+              "description": "Light-photosynthesis relationship understood (DLI requirements, photoperiod sensitivity)",
+              "seq": 1
+            },
+            {
+              "name": "Water relations interpreted",
+              "description": "Water relations interpreted (turgor pressure, wilting point, evapotranspiration rates)",
+              "seq": 2
+            },
+            {
+              "name": "Nutrient functions recognized",
+              "description": "Nutrient functions recognized (macronutrient roles, micronutrient deficiency symptoms)",
+              "seq": 3
+            },
+            {
+              "name": "Growth stages distinguished",
+              "description": "Growth stages distinguished (vegetative, reproductive, senescence)",
+              "seq": 4
+            },
+            {
+              "name": "Environmental responses predicted",
+              "description": "Environmental responses predicted (temperature effects, stress adaptations)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Monitored",
+          "description": "Developmental stages actively tracked with performance against benchmarks assessed.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Phenological calendars maintained",
+              "description": "Phenological calendars maintained tracking seasonal growth milestones",
+              "seq": 1
+            },
+            {
+              "name": "Growth measurements logged",
+              "description": "Growth measurements logged (height, canopy diameter, stem caliper, leaf area index)",
+              "seq": 2
+            },
+            {
+              "name": "Health symptoms recognized early",
+              "description": "Health symptoms recognized early (chlorosis, necrosis, stunting, abnormal morphology)",
+              "seq": 3
+            },
+            {
+              "name": "Stress indicators identified",
+              "description": "Stress indicators identified before irreversible damage (leaf scorch, wilt, premature leaf drop)",
+              "seq": 4
+            },
+            {
+              "name": "Performance compared to targets",
+              "description": "Performance compared to species/cultivar standards or commercial targets",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Environmental conditions and cultural practices tailored to species-specific requirements for peak performance.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Environmental conditions optimized",
+              "description": "Temperature, light intensity, and humidity optimized for species requirements",
+              "seq": 1
+            },
+            {
+              "name": "Nutrient regimens customized",
+              "description": "Nutrient regimens customized based on tissue analysis and growth stage",
+              "seq": 2
+            },
+            {
+              "name": "Pruning and training executed",
+              "description": "Pruning and training executed appropriately for plant architecture and productivity goals",
+              "seq": 3
+            },
+            {
+              "name": "Cultivar potential realized",
+              "description": "Cultivar genetic potential realized (flower quality, fruit size, yield per plant)",
+              "seq": 4
+            },
+            {
+              "name": "Harvest quality meets targets",
+              "description": "Harvest quality meets commercial or aesthetic targets (size, color, uniformity, shelf life)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Resilient",
+          "description": "Plants demonstrate stress tolerance, recovery capacity, and long-term vigor under variable conditions.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Drought tolerance confirmed",
+              "description": "Drought tolerance confirmed through managed water stress trials",
+              "seq": 1
+            },
+            {
+              "name": "Temperature tolerance validated",
+              "description": "Heat and cold tolerance validated under extreme temperature events",
+              "seq": 2
+            },
+            {
+              "name": "Disease resistance expressed",
+              "description": "Disease resistance expressed (natural immunity, acquired resistance, biocontrol efficacy)",
+              "seq": 3
+            },
+            {
+              "name": "Post-stress recovery achieved",
+              "description": "Post-stress recovery achieved (regrowth after herbivory, frost damage, or transplant shock)",
+              "seq": 4
+            },
+            {
+              "name": "Longevity demonstrated",
+              "description": "Longevity and sustained productivity demonstrated across multiple seasons/crop cycles",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Regenerative",
+          "description": "Plant populations contribute to ecosystem services (pollination, carbon storage, biodiversity support).",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Beneficial organism habitat provided",
+              "description": "Beneficial organism habitat provided (nesting sites for pollinators, refugia for natural enemies)",
+              "seq": 1
+            },
+            {
+              "name": "Carbon sequestration measured",
+              "description": "Carbon sequestration measured (above-ground biomass, root carbon, soil organic matter accumulation)",
+              "seq": 2
+            },
+            {
+              "name": "Genetic diversity preserved",
+              "description": "Genetic diversity preserved (heritage varieties, wild relatives, ex situ conservation)",
+              "seq": 3
+            },
+            {
+              "name": "Native species supported",
+              "description": "Native species supported (provenance-appropriate planting, habitat restoration)",
+              "seq": 4
+            },
+            {
+              "name": "Ecosystem functions enhanced",
+              "description": "Ecosystem functions enhanced (nutrient cycling, water infiltration, biodiversity)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "plant-health-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Growing Environment",
+      "description": "The root zone (rhizosphere) and aerial conditions (microclimate) that constitute the physical-chemical-biological context where plants grow.",
+      "focusName": "Biological Systems",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Plant Health & Development",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Resource Management",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Production System Architecture",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Characterized",
+          "description": "Physical and chemical properties of substrate/soil and atmospheric conditions measured and documented.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "pH and EC measured",
+              "description": "pH and electrical conductivity (EC) measured regularly using calibrated meters",
+              "seq": 1
+            },
+            {
+              "name": "Texture and structure analyzed",
+              "description": "Texture and structure analyzed (particle size distribution, aggregate stability, bulk density)",
+              "seq": 2
+            },
+            {
+              "name": "Nutrient content assessed",
+              "description": "Nutrient content assessed through soil/substrate testing (N, P, K, Ca, Mg, micronutrients)",
+              "seq": 3
+            },
+            {
+              "name": "Temperature and humidity logged",
+              "description": "Temperature and humidity logged continuously or at critical times (daily min/max, VPD)",
+              "seq": 4
+            },
+            {
+              "name": "Light quantified",
+              "description": "Light intensity and spectrum quantified (PPFD, DLI, R:FR ratio)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Prepared",
+          "description": "Growing media formulated or amended and site conditions modified to support target crop requirements.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Substrate recipe selected",
+              "description": "Substrate recipe selected based on crop requirements (drainage, aeration, water-holding capacity)",
+              "seq": 1
+            },
+            {
+              "name": "Organic matter incorporated",
+              "description": "Organic matter incorporated to improve soil structure and microbial activity",
+              "seq": 2
+            },
+            {
+              "name": "Drainage established",
+              "description": "Drainage systems established to prevent waterlogging and root anoxia",
+              "seq": 3
+            },
+            {
+              "name": "pH adjusted",
+              "description": "pH adjusted using lime (to raise) or sulfur (to lower) based on crop requirements",
+              "seq": 4
+            },
+            {
+              "name": "Microclimate stabilized",
+              "description": "Microclimate stabilized through windbreaks, shade structures, or thermal mass",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Balanced",
+          "description": "Water-holding capacity, structural aeration, and nutrient availability optimized to prevent deficiencies or toxicities.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Moisture retention adequate",
+              "description": "Moisture retention adequate for crop needs without waterlogging (field capacity, permanent wilting point)",
+              "seq": 1
+            },
+            {
+              "name": "Root oxygenation sufficient",
+              "description": "Root oxygenation sufficient (air-filled porosity >10-20% depending on species)",
+              "seq": 2
+            },
+            {
+              "name": "Nutrient ratios appropriate",
+              "description": "Nutrient ratios appropriate (N:P:K balance, Ca:Mg ratio, micronutrient availability)",
+              "seq": 3
+            },
+            {
+              "name": "Salt accumulation prevented",
+              "description": "Salt accumulation prevented through leaching, substrate replacement, or precision fertigation",
+              "seq": 4
+            },
+            {
+              "name": "Microbial activity healthy",
+              "description": "Microbial activity healthy (respiration rates, decomposition, beneficial organism populations)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Monitored",
+          "description": "Continuous measurement of environmental parameters enables real-time assessment of suitability.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Sensors deployed",
+              "description": "Sensors deployed measuring soil moisture, temperature, EC, and atmospheric conditions",
+              "seq": 1
+            },
+            {
+              "name": "Data captured continuously",
+              "description": "Data captured continuously and transmitted to centralized platforms (cloud/local server)",
+              "seq": 2
+            },
+            {
+              "name": "Thresholds defined",
+              "description": "Thresholds defined for acceptable ranges triggering alerts when exceeded",
+              "seq": 3
+            },
+            {
+              "name": "Alerts configured",
+              "description": "Alerts configured for critical events (extreme temperatures, low moisture, high EC)",
+              "seq": 4
+            },
+            {
+              "name": "Trends analyzed",
+              "description": "Trends analyzed to identify gradual drift or seasonal patterns requiring intervention",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Dynamically Controlled",
+          "description": "Automated systems adjust conditions in response to sensor feedback and crop requirements.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Controllers programmed",
+              "description": "Controllers programmed with setpoints and control logic (PID loops, fuzzy logic, rule-based)",
+              "seq": 1
+            },
+            {
+              "name": "Actuators respond automatically",
+              "description": "Actuators respond automatically (irrigation valves, HVAC dampers, supplemental lighting)",
+              "seq": 2
+            },
+            {
+              "name": "Setpoints adaptive",
+              "description": "Setpoints adaptive to growth stage, weather forecasts, or plant stress indicators",
+              "seq": 3
+            },
+            {
+              "name": "Feedback loops tuned",
+              "description": "Feedback loops tuned to minimize oscillation and maintain stability",
+              "seq": 4
+            },
+            {
+              "name": "System stability maintained",
+              "description": "System stability maintained despite external disturbances (weather, equipment faults)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Predictively Managed",
+          "description": "AI-driven forecasting enables proactive environmental modification before stress manifests.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Predictive models validated",
+              "description": "Predictive models validated using historical data and crop response trials",
+              "seq": 1
+            },
+            {
+              "name": "Historical data leveraged",
+              "description": "Historical environmental and crop performance data leveraged for model training",
+              "seq": 2
+            },
+            {
+              "name": "Weather integrated",
+              "description": "Weather forecasts integrated to anticipate irrigation needs, heat stress, or frost risk",
+              "seq": 3
+            },
+            {
+              "name": "Plant responses forecasted",
+              "description": "Plant physiological responses forecasted (growth rate, water use, nutrient uptake)",
+              "seq": 4
+            },
+            {
+              "name": "Preemptive adjustments executed",
+              "description": "Preemptive adjustments executed (irrigation scheduling, pre-cooling, pre-heating)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "environment-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Plant Protection",
+      "description": "The prevention, detection, and control of weeds, pathogens, and insect pests through integrated management strategies.",
+      "focusName": "Biological Systems",
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Plant Health & Development",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Regulatory Compliance & Standards",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Sustainability & Environmental Stewardship",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Monitored",
+          "description": "Regular scouting identifies pest/disease presence, species, and population levels.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Inspections scheduled weekly or more frequently during high-risk periods",
+              "description": "Inspections scheduled weekly or more frequently during high-risk periods",
+              "seq": 1
+            },
+            {
+              "name": "Pests and diseases identified accurately using field guides, diagnostic keys, or laboratory confirmation",
+              "description": "Pests and diseases identified accurately using field guides, diagnostic keys, or laboratory confirmation",
+              "seq": 2
+            },
+            {
+              "name": "Populations quantified using standard metrics (insects per leaf, disease incidence %, weed density)",
+              "description": "Populations quantified using standard metrics (insects per leaf, disease incidence %, weed density)",
+              "seq": 3
+            },
+            {
+              "name": "Spatial distribution mapped to identify hotspots or entry points",
+              "description": "Spatial distribution mapped to identify hotspots or entry points",
+              "seq": 4
+            },
+            {
+              "name": "Trends tracked over time to detect population growth or decline",
+              "description": "Trends tracked over time to detect population growth or decline",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Thresholds Established",
+          "description": "Economic injury levels and action thresholds determined based on crop value and control costs.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Economic injury levels (EIL) researched from extension literature or calculated for local conditions",
+              "description": "Economic injury levels (EIL) researched from extension literature or calculated for local conditions",
+              "seq": 1
+            },
+            {
+              "name": "Economic impact calculated considering crop value, yield loss, and control costs",
+              "description": "Economic impact calculated considering crop value, yield loss, and control costs",
+              "seq": 2
+            },
+            {
+              "name": "Action thresholds defined below EIL to trigger intervention before economic damage occurs",
+              "description": "Action thresholds defined below EIL to trigger intervention before economic damage occurs",
+              "seq": 3
+            },
+            {
+              "name": "Decision criteria explicit and documented in IPM plans",
+              "description": "Decision criteria explicit and documented in IPM plans",
+              "seq": 4
+            },
+            {
+              "name": "Thresholds adjusted for crop stage, market conditions, and pest resistance",
+              "description": "Thresholds adjusted for crop stage, market conditions, and pest resistance",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Prevented",
+          "description": "Cultural, mechanical, and biological practices reduce pest establishment and spread.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Sanitation protocols implemented (debris removal,",
+              "description": "Sanitation protocols implemented (debris removal, equipment cleaning, weed control)",
+              "seq": 1
+            },
+            {
+              "name": "Resistant cultivars selected where available (disease resistance genes, pest tolerance)",
+              "description": "Resistant cultivars selected where available (disease resistance genes, pest tolerance)",
+              "seq": 2
+            },
+            {
+              "name": "Crop rotation planned to break pest/disease cycles",
+              "description": "Crop rotation planned to break pest/disease cycles",
+              "seq": 3
+            },
+            {
+              "name": "Physical barriers deployed (row covers, exclusion",
+              "description": "Physical barriers deployed (row covers, exclusion netting, sticky traps)",
+              "seq": 4
+            },
+            {
+              "name": "Habitat manipulated to favor beneficial organisms",
+              "description": "Habitat manipulated to favor beneficial organisms (hedgerows, cover crops, floral resources)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Controlled",
+          "description": "Interventions (biological, chemical, mechanical) deployed when thresholds exceeded, prioritizing least-risk methods.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Biological controls released first (predatory insects, parasitoids, entomopathogenic nematodes, microbial pesticides)",
+              "description": "Biological controls released first (predatory insects, parasitoids, entomopathogenic nematodes, microbial pesticides)",
+              "seq": 1
+            },
+            {
+              "name": "Targeted applications executed (spot treatments, banded applications, precision spraying)",
+              "description": "Targeted applications executed (spot treatments, banded applications, precision spraying)",
+              "seq": 2
+            },
+            {
+              "name": "Mode-of-action rotated to prevent resistance development",
+              "description": "Mode-of-action rotated to prevent resistance development",
+              "seq": 3
+            },
+            {
+              "name": "Non-target impact minimized through selective products, timing, and application methods",
+              "description": "Non-target impact minimized through selective products, timing, and application methods",
+              "seq": 4
+            },
+            {
+              "name": "Efficacy confirmed through post-treatment monitoring",
+              "description": "Efficacy confirmed through post-treatment monitoring",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Integrated",
+          "description": "Multi-tactic IPM strategy prevents resistance development, reduces inputs, and maintains ecological balance.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "IPM plan documented specifying prevention, monitoring, threshold, and intervention tactics",
+              "description": "IPM plan documented specifying prevention, monitoring, threshold, and intervention tactics",
+              "seq": 1
+            },
+            {
+              "name": "Multiple tactics coordinated (cultural + biological + chemical when necessary)",
+              "description": "Multiple tactics coordinated (cultural + biological + chemical when necessary)",
+              "seq": 2
+            },
+            {
+              "name": "Resistance management active (refugia, mode-of-action rotation, biocontrol integration)",
+              "description": "Resistance management active (refugia, mode-of-action rotation, biocontrol integration)",
+              "seq": 3
+            },
+            {
+              "name": "Input use declining over time as ecosystem balance improves",
+              "description": "Input use declining over time as ecosystem balance improves",
+              "seq": 4
+            },
+            {
+              "name": "Beneficial organism populations stable or increasing",
+              "description": "Beneficial organism populations stable or increasing",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Ecological",
+          "description": "Beneficial organism populations self-regulate pest levels; system resilience high.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Natural enemies abundant (predator:prey ratios favorable, parasitism rates high)",
+              "description": "Natural enemies abundant (predator:prey ratios favorable, parasitism rates high)",
+              "seq": 1
+            },
+            {
+              "name": "Pest outbreaks rare and localized, requiring minimal intervention",
+              "description": "Pest outbreaks rare and localized, requiring minimal intervention",
+              "seq": 2
+            },
+            {
+              "name": "Chemical pesticide use minimal or zero (only for emergency outbreaks)",
+              "description": "Chemical pesticide use minimal or zero (only for emergency outbreaks)",
+              "seq": 3
+            },
+            {
+              "name": "Ecosystem functions restored (pollination, nutrient cycling, soil health)",
+              "description": "Ecosystem functions restored (pollination, nutrient cycling, soil health)",
+              "seq": 4
+            },
+            {
+              "name": "Biodiversity enhanced (native species, functional",
+              "description": "Biodiversity enhanced (native species, functional diversity, trophic complexity)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "plant-protection-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Biosecurity & Ecosystem Health",
+      "description": "The prevention, detection, and containment of invasive species and pathogens to protect managed and wild ecosystems.",
+      "focusName": "Biological Systems",
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Plant Health & Development",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Regulatory Compliance & Standards",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Plant Protection",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Surveilled",
+          "description": "Regular monitoring for introduced species, emerging pathogens, and unusual symptoms.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Surveillance protocols established for high-risk pathways (imports, transport, visitor entry)",
+              "description": "Surveillance protocols established for high-risk pathways (imports, transport, visitor entry)",
+              "seq": 1
+            },
+            {
+              "name": "Inspection frequency adequate based on risk assessment (daily, weekly, seasonal)",
+              "description": "Inspection frequency adequate based on risk assessment (daily, weekly, seasonal)",
+              "seq": 2
+            },
+            {
+              "name": "Diagnostic capacity available for rapid identification (molecular methods, reference collections)",
+              "description": "Diagnostic capacity available for rapid identification (molecular methods, reference collections)",
+              "seq": 3
+            },
+            {
+              "name": "Reporting systems functional for notifiable pests/diseases (DEFRA, APHA, EPPO)",
+              "description": "Reporting systems functional for notifiable pests/diseases (DEFRA, APHA, EPPO)",
+              "seq": 4
+            },
+            {
+              "name": "Records maintained documenting surveillance effort and findings",
+              "description": "Records maintained documenting surveillance effort and findings",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Prevented",
+          "description": "Quarantine, sanitation, and phytosanitary protocols minimize introduction and spread risks.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Quarantine facilities operational for high-risk plant material (imports, propagation material)",
+              "description": "Quarantine facilities operational for high-risk plant material (imports, propagation material)",
+              "seq": 1
+            },
+            {
+              "name": "Equipment sanitized between sites or plant populations (boots, tools, machinery)",
+              "description": "Equipment sanitized between sites or plant populations (boots, tools, machinery)",
+              "seq": 2
+            },
+            {
+              "name": "Plant passports verified for compliance with EU/UK phytosanitary regulations",
+              "description": "Plant passports verified for compliance with EU/UK phytosanitary regulations",
+              "seq": 3
+            },
+            {
+              "name": "Movement restrictions enforced within and between",
+              "description": "Movement restrictions enforced within and between sites based on risk zones",
+              "seq": 4
+            },
+            {
+              "name": "Access controlled to prevent inadvertent pathogen",
+              "description": "Access controlled to prevent inadvertent pathogen introduction via visitors/vehicles",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Detected Early",
+          "description": "Rapid diagnostic capability identifies outbreaks at low population levels before significant spread.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Diagnostic tools deployed (PCR, LAMP, ELISA, morphological keys)",
+              "description": "Diagnostic tools deployed (PCR, LAMP, ELISA, morphological keys)",
+              "seq": 1
+            },
+            {
+              "name": "Laboratory services accessible with short turnaround times (<48 hours for critical pests)",
+              "description": "Laboratory services accessible with short turnaround times (<48 hours for critical pests)",
+              "seq": 2
+            },
+            {
+              "name": "Molecular methods available for definitive identification (DNA barcoding, whole-genome sequencing)",
+              "description": "Molecular methods available for definitive identification (DNA barcoding, whole-genome sequencing)",
+              "seq": 3
+            },
+            {
+              "name": "Diagnostic accuracy validated against reference material or expert confirmation",
+              "description": "Diagnostic accuracy validated against reference material or expert confirmation",
+              "seq": 4
+            },
+            {
+              "name": "Early detection enables intervention before widespread establishment",
+              "description": "Early detection enables intervention before widespread establishment",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Contained",
+          "description": "Rapid response interventions prevent spread beyond initial detection sites.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Action plans pre-defined for high-consequence pests (Xylella, Phytophthora, emerald ash borer)",
+              "description": "Action plans pre-defined for high-consequence pests (Xylella, Phytophthora, emerald ash borer)",
+              "seq": 1
+            },
+            {
+              "name": "Response teams mobilized rapidly (within hours or",
+              "description": "Response teams mobilized rapidly (within hours or days of confirmation)",
+              "seq": 2
+            },
+            {
+              "name": "Buffer zones established around infected sites to",
+              "description": "Buffer zones established around infected sites to limit spread",
+              "seq": 3
+            },
+            {
+              "name": "Movement of plant material stopped within containment zone",
+              "description": "Movement of plant material stopped within containment zone",
+              "seq": 4
+            },
+            {
+              "name": "Eradication protocols initiated (roguing, soil sterilization, chemical treatment)",
+              "description": "Eradication protocols initiated (roguing, soil sterilization, chemical treatment)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Eradicated",
+          "description": "Targeted elimination removes established populations; ecosystem restored.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Population eliminated through sustained eradication effort (multi-year campaigns often required)",
+              "description": "Population eliminated through sustained eradication effort (multi-year campaigns often required)",
+              "seq": 1
+            },
+            {
+              "name": "Monitoring confirms absence for defined period (typically 2-5 years post-elimination)",
+              "description": "Monitoring confirms absence for defined period (typically 2-5 years post-elimination)",
+              "seq": 2
+            },
+            {
+              "name": "Native species recover and recolonize formerly infested sites",
+              "description": "Native species recover and recolonize formerly infested sites",
+              "seq": 3
+            },
+            {
+              "name": "Ecosystem functions restored (pollination, nutrient cycling, trophic interactions)",
+              "description": "Ecosystem functions restored (pollination, nutrient cycling, trophic interactions)",
+              "seq": 4
+            },
+            {
+              "name": "Re-invasion prevented through ongoing surveillance and prevention protocols",
+              "description": "Re-invasion prevented through ongoing surveillance and prevention protocols",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Resilient",
+          "description": "Ecosystem diversity and functional redundancy resist future invasions; long-term stability achieved.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Biodiversity high (species richness, functional diversity, genetic diversity)",
+              "description": "Biodiversity high (species richness, functional diversity, genetic diversity)",
+              "seq": 1
+            },
+            {
+              "name": "Functional groups diverse (pollinators, herbivores, predators, decomposers, mutualists)",
+              "description": "Functional groups diverse (pollinators, herbivores, predators, decomposers, mutualists)",
+              "seq": 2
+            },
+            {
+              "name": "Invasibility low due to competitive exclusion and",
+              "description": "Invasibility low due to competitive exclusion and resource pre-emption by native species",
+              "seq": 3
+            },
+            {
+              "name": "Monitoring ongoing to detect new incursions early",
+              "description": "Monitoring ongoing to detect new incursions early",
+              "seq": 4
+            },
+            {
+              "name": "Adaptive capacity demonstrated (ecosystem recovers from disturbances, resists novel threats)",
+              "description": "Adaptive capacity demonstrated (ecosystem recovers from disturbances, resists novel threats)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "biosecurity-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Sustainability & Environmental Stewardship",
+      "description": "The minimization of environmental harm and pursuit of regenerative outcomes through resource efficiency, carbon management, biodiversity enhancement, and circular economy principles.",
+      "focusName": "Biological Systems",
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Resource Management",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Production System Architecture",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Regulatory Compliance & Standards",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Measured",
+          "description": "Environmental footprint quantified (carbon, water, nutrient losses, biodiversity impacts).",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Greenhouse gas emissions calculated (CO2, N2O, CH4) from energy use, fertilizers, and land use",
+              "description": "Greenhouse gas emissions calculated (CO2, N2O, CH4) from energy use, fertilizers, and land use",
+              "seq": 1
+            },
+            {
+              "name": "Water use tracked (extraction, consumption, discharge quality)",
+              "description": "Water use tracked (extraction, consumption, discharge quality)",
+              "seq": 2
+            },
+            {
+              "name": "Nutrient losses assessed (leaching to groundwater, runoff to surface water, atmospheric losses)",
+              "description": "Nutrient losses assessed (leaching to groundwater, runoff to surface water, atmospheric losses)",
+              "seq": 3
+            },
+            {
+              "name": "Biodiversity inventoried (species counts, habitat",
+              "description": "Biodiversity inventoried (species counts, habitat quality, ecosystem services)",
+              "seq": 4
+            },
+            {
+              "name": "Impacts documented using standardized metrics (carbon footprint, water footprint, ecological footprint)",
+              "description": "Impacts documented using standardized metrics (carbon footprint, water footprint, ecological footprint)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Reduced",
+          "description": "Negative impacts minimized through efficiency improvements and input substitution.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Water recycled or recirculated (closed-loop irrigation, rainwater harvesting)",
+              "description": "Water recycled or recirculated (closed-loop irrigation, rainwater harvesting)",
+              "seq": 1
+            },
+            {
+              "name": "Energy conserved through efficiency upgrades (LED",
+              "description": "Energy conserved through efficiency upgrades (LED lighting, insulation, variable-speed drives)",
+              "seq": 2
+            },
+            {
+              "name": "Waste reduced through minimization and valorization (compost, substrate recycling)",
+              "description": "Waste reduced through minimization and valorization (compost, substrate recycling)",
+              "seq": 3
+            },
+            {
+              "name": "Pesticide use minimized via IPM (biological controls, cultural practices, resistant cultivars)",
+              "description": "Pesticide use minimized via IPM (biological controls, cultural practices, resistant cultivars)",
+              "seq": 4
+            },
+            {
+              "name": "Sustainable materials sourced (FSC timber, peat-free substrates, recycled plastics)",
+              "description": "Sustainable materials sourced (FSC timber, peat-free substrates, recycled plastics)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Neutral",
+          "description": "Operations achieve net-zero environmental harm through offsets or system redesign.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Carbon neutral through renewable energy, efficiency, and verified carbon offsets",
+              "description": "Carbon neutral through renewable energy, efficiency, and verified carbon offsets",
+              "seq": 1
+            },
+            {
+              "name": "Water neutral through rainwater harvesting, efficient irrigation, and groundwater recharge projects",
+              "description": "Water neutral through rainwater harvesting, efficient irrigation, and groundwater recharge projects",
+              "seq": 2
+            },
+            {
+              "name": "Waste diverted from landfill (100% composting, recycling, energy recovery)",
+              "description": "Waste diverted from landfill (100% composting, recycling, energy recovery)",
+              "seq": 3
+            },
+            {
+              "name": "Pollution prevented (zero pesticide runoff, zero nutrient leaching)",
+              "description": "Pollution prevented (zero pesticide runoff, zero nutrient leaching)",
+              "seq": 4
+            },
+            {
+              "name": "Habitat protected through land set-asides or conservation easements",
+              "description": "Habitat protected through land set-asides or conservation easements",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Positive",
+          "description": "Systems generate environmental benefits (carbon sinks, habitat creation, water purification).",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Carbon sequestered through afforestation, agroforestry, or soil organic matter accumulation",
+              "description": "Carbon sequestered through afforestation, agroforestry, or soil organic matter accumulation",
+              "seq": 1
+            },
+            {
+              "name": "Habitats created for wildlife (hedgerows, ponds, wildflower meadows, deadwood refugia)",
+              "description": "Habitats created for wildlife (hedgerows, ponds, wildflower meadows, deadwood refugia)",
+              "seq": 2
+            },
+            {
+              "name": "Water quality improved through constructed wetlands, buffer strips, or phytoremediation",
+              "description": "Water quality improved through constructed wetlands, buffer strips, or phytoremediation",
+              "seq": 3
+            },
+            {
+              "name": "Soil health built (increasing organic matter, microbial diversity, aggregate stability)",
+              "description": "Soil health built (increasing organic matter, microbial diversity, aggregate stability)",
+              "seq": 4
+            },
+            {
+              "name": "Ecosystem services provided (pollination, natural",
+              "description": "Ecosystem services provided (pollination, natural pest control, nutrient cycling, aesthetic value)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Regenerative",
+          "description": "Ecosystems actively restored; natural capital enhanced.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Biodiversity increased measurably (species richness, abundance, genetic diversity)",
+              "description": "Biodiversity increased measurably (species richness, abundance, genetic diversity)",
+              "seq": 1
+            },
+            {
+              "name": "Soil organic matter accumulated (>1% increase per",
+              "description": "Soil organic matter accumulated (>1% increase per decade in agricultural soils)",
+              "seq": 2
+            },
+            {
+              "name": "Water cycles restored (improved infiltration, reduced erosion, stable baseflows)",
+              "description": "Water cycles restored (improved infiltration, reduced erosion, stable baseflows)",
+              "seq": 3
+            },
+            {
+              "name": "Nutrient cycles closed (internal recycling, minimal external inputs)",
+              "description": "Nutrient cycles closed (internal recycling, minimal external inputs)",
+              "seq": 4
+            },
+            {
+              "name": "System resilience improved (resistance to drought, pests, climate variability)",
+              "description": "System resilience improved (resistance to drought, pests, climate variability)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Systemic",
+          "description": "Landscape-scale ecological functions improved through coordinated multi-stakeholder interventions.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Landscape connectivity established (wildlife corridors, stepping-stone habitats)",
+              "description": "Landscape connectivity established (wildlife corridors, stepping-stone habitats)",
+              "seq": 1
+            },
+            {
+              "name": "Regional biodiversity targets met (species recovery, habitat restoration)",
+              "description": "Regional biodiversity targets met (species recovery, habitat restoration)",
+              "seq": 2
+            },
+            {
+              "name": "Watershed health improved (water quality, aquatic",
+              "description": "Watershed health improved (water quality, aquatic biodiversity, flood mitigation)",
+              "seq": 3
+            },
+            {
+              "name": "Collaborative governance operational (catchment partnerships, landscape-scale conservation)",
+              "description": "Collaborative governance operational (catchment partnerships, landscape-scale conservation)",
+              "seq": 4
+            },
+            {
+              "name": "Long-term monitoring active (citizen science, ecological surveys, remote sensing)",
+              "description": "Long-term monitoring active (citizen science, ecological surveys, remote sensing)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "sustainability-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Production System Architecture",
+      "description": "The physical infrastructure, cultivation methods, and technological systems employed to produce horticultural outputs.",
+      "focusName": "Production Operations",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Growing Environment",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Technical Infrastructure",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Resource Management",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Digital Integration",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Designed",
+          "description": "System architecture selected based on crop requirements, site constraints, and operational objectives.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "System type chosen (field production, greenhouse,",
+              "description": "System type chosen (field production, greenhouse, vertical farm, NFT, DWC, aeroponics, nursery)",
+              "seq": 1
+            },
+            {
+              "name": "Site suitability assessed (climate, water availability, energy access, proximity to markets)",
+              "description": "Site suitability assessed (climate, water availability, energy access, proximity to markets)",
+              "seq": 2
+            },
+            {
+              "name": "Capital budget established with cost-benefit analysis and financial projections",
+              "description": "Capital budget established with cost-benefit analysis and financial projections",
+              "seq": 3
+            },
+            {
+              "name": "Crop compatibility confirmed (light requirements,",
+              "description": "Crop compatibility confirmed (light requirements, root zone depth, environmental tolerances)",
+              "seq": 4
+            },
+            {
+              "name": "Risk analysis completed (weather, pests, market volatility, technology reliability)",
+              "description": "Risk analysis completed (weather, pests, market volatility, technology reliability)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Constructed",
+          "description": "Infrastructure installed with appropriate materials, spatial configuration, and safety compliance.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Structural integrity verified (engineering calculations, building codes, wind/snow loads)",
+              "description": "Structural integrity verified (engineering calculations, building codes, wind/snow loads)",
+              "seq": 1
+            },
+            {
+              "name": "Materials quality confirmed (UV-resistant glazing, food-safe plastics, corrosion-resistant metals)",
+              "description": "Materials quality confirmed (UV-resistant glazing, food-safe plastics, corrosion-resistant metals)",
+              "seq": 2
+            },
+            {
+              "name": "Spatial layout optimized for workflow efficiency (access, material handling, ergonomics)",
+              "description": "Spatial layout optimized for workflow efficiency (access, material handling, ergonomics)",
+              "seq": 3
+            },
+            {
+              "name": "Safety codes met (electrical, structural, fire, emergency exits)",
+              "description": "Safety codes met (electrical, structural, fire, emergency exits)",
+              "seq": 4
+            },
+            {
+              "name": "Commissioning plan developed (testing, calibration, training, documentation)",
+              "description": "Commissioning plan developed (testing, calibration, training, documentation)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Commissioned",
+          "description": "Systems tested, calibrated, and validated for operational parameters.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Equipment functional (pumps, fans, heaters, coolers, lights, sensors)",
+              "description": "Equipment functional (pumps, fans, heaters, coolers, lights, sensors)",
+              "seq": 1
+            },
+            {
+              "name": "Setpoints calibrated against design specifications (temperature, humidity, light intensity, nutrient EC/pH)",
+              "description": "Setpoints calibrated against design specifications (temperature, humidity, light intensity, nutrient EC/pH)",
+              "seq": 2
+            },
+            {
+              "name": "Safety interlocks tested (emergency stops, pressure relief, thermal cutoffs)",
+              "description": "Safety interlocks tested (emergency stops, pressure relief, thermal cutoffs)",
+              "seq": 3
+            },
+            {
+              "name": "Performance benchmarked against design targets (energy efficiency, uniformity, reliability)",
+              "description": "Performance benchmarked against design targets (energy efficiency, uniformity, reliability)",
+              "seq": 4
+            },
+            {
+              "name": "Documentation complete (manuals, wiring diagrams,",
+              "description": "Documentation complete (manuals, wiring diagrams, maintenance schedules, operator training records)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Operated",
+          "description": "Routine production cycles executed with consistent environmental control and crop management.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Standard operating procedures (SOPs) followed for",
+              "description": "Standard operating procedures (SOPs) followed for planting, irrigation, fertigation, climate control",
+              "seq": 1
+            },
+            {
+              "name": "Environmental targets met consistently (±2°C temperature, ±10% humidity, ±5% light intensity)",
+              "description": "Environmental targets met consistently (±2°C temperature, ±10% humidity, ±5% light intensity)",
+              "seq": 2
+            },
+            {
+              "name": "Crop schedules maintained (planting dates, harvest windows, succession cycles)",
+              "description": "Crop schedules maintained (planting dates, harvest windows, succession cycles)",
+              "seq": 3
+            },
+            {
+              "name": "Quality standards achieved (uniformity, marketability, shelf life)",
+              "description": "Quality standards achieved (uniformity, marketability, shelf life)",
+              "seq": 4
+            },
+            {
+              "name": "Downtime minimized through preventive maintenance",
+              "description": "Downtime minimized through preventive maintenance and rapid fault response",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Data-driven refinements improve efficiency, output quality, and resource utilization.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Performance data analyzed (yield per m², crop cycle duration, resource use intensity)",
+              "description": "Performance data analyzed (yield per m², crop cycle duration, resource use intensity)",
+              "seq": 1
+            },
+            {
+              "name": "Bottlenecks identified (light limitation, nutrient imbalances, spatial constraints)",
+              "description": "Bottlenecks identified (light limitation, nutrient imbalances, spatial constraints)",
+              "seq": 2
+            },
+            {
+              "name": "Improvements implemented (equipment upgrades, layout modifications, protocol refinements)",
+              "description": "Improvements implemented (equipment upgrades, layout modifications, protocol refinements)",
+              "seq": 3
+            },
+            {
+              "name": "Efficiency gains measured (reduced energy per kg output, faster crop turnover, higher first-grade yields)",
+              "description": "Efficiency gains measured (reduced energy per kg output, faster crop turnover, higher first-grade yields)",
+              "seq": 4
+            },
+            {
+              "name": "Best practices documented and replicated across production units",
+              "description": "Best practices documented and replicated across production units",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Autonomous",
+          "description": "AI-managed systems require minimal human intervention; self-diagnosing and self-optimizing.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "AI controllers deployed managing multi-objective optimization (yield, quality, resource efficiency, cost)",
+              "description": "AI controllers deployed managing multi-objective optimization (yield, quality, resource efficiency, cost)",
+              "seq": 1
+            },
+            {
+              "name": "Autonomous decisions validated against crop performance and business objectives",
+              "description": "Autonomous decisions validated against crop performance and business objectives",
+              "seq": 2
+            },
+            {
+              "name": "Human oversight strategic (exception handling, goal-setting, ethical review) rather than operational",
+              "description": "Human oversight strategic (exception handling, goal-setting, ethical review) rather than operational",
+              "seq": 3
+            },
+            {
+              "name": "Self-diagnostics functional (fault detection, root cause analysis, predictive maintenance scheduling)",
+              "description": "Self-diagnostics functional (fault detection, root cause analysis, predictive maintenance scheduling)",
+              "seq": 4
+            },
+            {
+              "name": "Continuous learning enabled (reinforcement learning, model retraining, performance feedback loops)",
+              "description": "Continuous learning enabled (reinforcement learning, model retraining, performance feedback loops)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "production-system-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Technical Infrastructure",
+      "description": "The equipment, machinery, sensors, and control systems that physically execute horticultural operations and enable environmental monitoring.",
+      "focusName": "Production Operations",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Production System Architecture",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Digital Integration",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Regulatory Compliance & Standards",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Procured",
+          "description": "Equipment selected based on operational requirements, budget, and compatibility.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Specifications defined (capacity, precision, environmental tolerances, certifications)",
+              "description": "Specifications defined (capacity, precision, environmental tolerances, certifications)",
+              "seq": 1
+            },
+            {
+              "name": "Suppliers evaluated (reputation, warranty, service support, spare parts availability)",
+              "description": "Suppliers evaluated (reputation, warranty, service support, spare parts availability)",
+              "seq": 2
+            },
+            {
+              "name": "Budget approved with total cost of ownership analysis (purchase, installation, maintenance, energy)",
+              "description": "Budget approved with total cost of ownership analysis (purchase, installation, maintenance, energy)",
+              "seq": 3
+            },
+            {
+              "name": "Compatibility verified with existing systems (electrical, communication protocols, spatial fit)",
+              "description": "Compatibility verified with existing systems (electrical, communication protocols, spatial fit)",
+              "seq": 4
+            },
+            {
+              "name": "Delivery scheduled aligned with construction or operational timelines",
+              "description": "Delivery scheduled aligned with construction or operational timelines",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Installed",
+          "description": "Infrastructure deployed with safety protocols, training, and documentation.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Installation professional (manufacturer-certified",
+              "description": "Installation professional (manufacturer-certified technicians, adherence to specifications)",
+              "seq": 1
+            },
+            {
+              "name": "Safety compliance confirmed (electrical codes, pressure vessel regulations, CE/UL markings)",
+              "description": "Safety compliance confirmed (electrical codes, pressure vessel regulations, CE/UL markings)",
+              "seq": 2
+            },
+            {
+              "name": "Operators trained on safe operation, routine maintenance, and emergency procedures",
+              "description": "Operators trained on safe operation, routine maintenance, and emergency procedures",
+              "seq": 3
+            },
+            {
+              "name": "Manuals provided (operation, maintenance, troubleshooting, parts diagrams)",
+              "description": "Manuals provided (operation, maintenance, troubleshooting, parts diagrams)",
+              "seq": 4
+            },
+            {
+              "name": "Warranty active and registration completed",
+              "description": "Warranty active and registration completed",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Maintained",
+          "description": "Routine preventive maintenance prevents failures and extends lifespan.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Maintenance schedules established based on manufacturer recommendations and operational intensity",
+              "description": "Maintenance schedules established based on manufacturer recommendations and operational intensity",
+              "seq": 1
+            },
+            {
+              "name": "Inspections conducted (visual checks, lubrication, filter changes, belt tension)",
+              "description": "Inspections conducted (visual checks, lubrication, filter changes, belt tension)",
+              "seq": 2
+            },
+            {
+              "name": "Wear tracked (runtime hours, cycles, condition monitoring data)",
+              "description": "Wear tracked (runtime hours, cycles, condition monitoring data)",
+              "seq": 3
+            },
+            {
+              "name": "Parts replaced proactively before failure (bearings, seals, filters, consumables)",
+              "description": "Parts replaced proactively before failure (bearings, seals, filters, consumables)",
+              "seq": 4
+            },
+            {
+              "name": "Records maintained (maintenance logs, parts inventory, failure history)",
+              "description": "Records maintained (maintenance logs, parts inventory, failure history)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Calibrated",
+          "description": "Sensors and applicators verified for accuracy and consistency.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Calibration standards defined (reference solutions, certified instruments, standard operating procedures)",
+              "description": "Calibration standards defined (reference solutions, certified instruments, standard operating procedures)",
+              "seq": 1
+            },
+            {
+              "name": "Procedures documented (frequency, methods, acceptance criteria, corrective actions)",
+              "description": "Procedures documented (frequency, methods, acceptance criteria, corrective actions)",
+              "seq": 2
+            },
+            {
+              "name": "Frequency appropriate for drift characteristics (pH monthly, EC weekly, temperature quarterly)",
+              "description": "Frequency appropriate for drift characteristics (pH monthly, EC weekly, temperature quarterly)",
+              "seq": 3
+            },
+            {
+              "name": "Drift detected and corrected before measurement errors affect crop outcomes",
+              "description": "Drift detected and corrected before measurement errors affect crop outcomes",
+              "seq": 4
+            },
+            {
+              "name": "Calibration records maintained for audit and troubleshooting",
+              "description": "Calibration records maintained for audit and troubleshooting",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Integrated",
+          "description": "Systems interoperate through standardized communication protocols.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Communication protocols established (Modbus, MQTT, OPC-UA, REST APIs)",
+              "description": "Communication protocols established (Modbus, MQTT, OPC-UA, REST APIs)",
+              "seq": 1
+            },
+            {
+              "name": "Data flows mapped (sensor → controller → database",
+              "description": "Data flows mapped (sensor → controller → database → dashboard)",
+              "seq": 2
+            },
+            {
+              "name": "Interoperability tested (control commands, alarm propagation, data consistency)",
+              "description": "Interoperability tested (control commands, alarm propagation, data consistency)",
+              "seq": 3
+            },
+            {
+              "name": "System updates coordinated to maintain protocol compatibility",
+              "description": "System updates coordinated to maintain protocol compatibility",
+              "seq": 4
+            },
+            {
+              "name": "Vendor lock-in avoided through open standards and",
+              "description": "Vendor lock-in avoided through open standards and documented interfaces",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Predictively Serviced",
+          "description": "IoT diagnostics forecast maintenance needs before failure; uptime maximized.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Condition monitoring deployed (vibration sensors,",
+              "description": "Condition monitoring deployed (vibration sensors, thermal imaging, oil analysis, current signatures)",
+              "seq": 1
+            },
+            {
+              "name": "Failure prediction models validated (remaining useful life estimation, anomaly detection)",
+              "description": "Failure prediction models validated (remaining useful life estimation, anomaly detection)",
+              "seq": 2
+            },
+            {
+              "name": "Maintenance scheduled proactively based on condition rather than fixed intervals",
+              "description": "Maintenance scheduled proactively based on condition rather than fixed intervals",
+              "seq": 3
+            },
+            {
+              "name": "Downtime minimized through just-in-time parts ordering and pre-planned service windows",
+              "description": "Downtime minimized through just-in-time parts ordering and pre-planned service windows",
+              "seq": 4
+            },
+            {
+              "name": "Lifecycle costs optimized (reduced emergency repairs, extended equipment life, improved availability)",
+              "description": "Lifecycle costs optimized (reduced emergency repairs, extended equipment life, improved availability)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "infrastructure-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Resource Management",
+      "description": "The efficient acquisition, allocation, and utilization of water, nutrients, energy, and materials to minimize environmental impact while maximizing productivity.",
+      "focusName": "Production Operations",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Production System Architecture",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Sustainability & Environmental Stewardship",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Digital Integration",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Regulatory Compliance & Standards",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Measured",
+          "description": "Resource consumption quantified (water volume, energy kWh, fertilizer mass, material flow).",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Meters installed (water flow meters, electricity sub-meters, fertilizer scales, waste weigh scales)",
+              "description": "Meters installed (water flow meters, electricity sub-meters, fertilizer scales, waste weigh scales)",
+              "seq": 1
+            },
+            {
+              "name": "Data logged continuously or at sufficient frequency (hourly energy, daily water, per-application fertilizer)",
+              "description": "Data logged continuously or at sufficient frequency (hourly energy, daily water, per-application fertilizer)",
+              "seq": 2
+            },
+            {
+              "name": "Baselines established (consumption per m² per crop cycle, per plant, per kg output)",
+              "description": "Baselines established (consumption per m² per crop cycle, per plant, per kg output)",
+              "seq": 3
+            },
+            {
+              "name": "Trends identified (seasonal patterns, operational",
+              "description": "Trends identified (seasonal patterns, operational inefficiencies, equipment faults)",
+              "seq": 4
+            },
+            {
+              "name": "Benchmarks compared against industry standards or",
+              "description": "Benchmarks compared against industry standards or best-in-class performance",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Budgeted",
+          "description": "Input targets established based on crop requirements and efficiency goals.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Budgets calculated using crop models, historical data, or agronomic guidelines",
+              "description": "Budgets calculated using crop models, historical data, or agronomic guidelines",
+              "seq": 1
+            },
+            {
+              "name": "Allocations defined by growth stage, environmental conditions, and production targets",
+              "description": "Allocations defined by growth stage, environmental conditions, and production targets",
+              "seq": 2
+            },
+            {
+              "name": "Variances tracked (actual vs. budget) and analyzed for causes",
+              "description": "Variances tracked (actual vs. budget) and analyzed for causes",
+              "seq": 3
+            },
+            {
+              "name": "Justifications documented for budget overruns or savings",
+              "description": "Justifications documented for budget overruns or savings",
+              "seq": 4
+            },
+            {
+              "name": "Accountability clear (responsibility assigned for",
+              "description": "Accountability clear (responsibility assigned for resource management decisions)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Conserved",
+          "description": "Waste minimized through closed-loop systems, recovery mechanisms, and efficiency improvements.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Water recycled through collection, filtration, and recirculation (90%+ reuse in hydroponic systems)",
+              "description": "Water recycled through collection, filtration, and recirculation (90%+ reuse in hydroponic systems)",
+              "seq": 1
+            },
+            {
+              "name": "Energy conserved via insulation, heat recovery, LED lighting, variable-speed drives",
+              "description": "Energy conserved via insulation, heat recovery, LED lighting, variable-speed drives",
+              "seq": 2
+            },
+            {
+              "name": "Nutrients recovered from drainage water, compost leachate, or biodigester effluent",
+              "description": "Nutrients recovered from drainage water, compost leachate, or biodigester effluent",
+              "seq": 3
+            },
+            {
+              "name": "Materials reused (pots, trays, substrates) or substituted with reusable alternatives",
+              "description": "Materials reused (pots, trays, substrates) or substituted with reusable alternatives",
+              "seq": 4
+            },
+            {
+              "name": "Waste diverted from landfill through composting, recycling, or energy recovery",
+              "description": "Waste diverted from landfill through composting, recycling, or energy recovery",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Variable-rate application matches spatial and temporal crop needs; inputs matched precisely to demand.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Spatial variability mapped using soil sampling, remote sensing, or yield maps",
+              "description": "Spatial variability mapped using soil sampling, remote sensing, or yield maps",
+              "seq": 1
+            },
+            {
+              "name": "Temporal patterns understood (diurnal water use, phenological nutrient demand)",
+              "description": "Temporal patterns understood (diurnal water use, phenological nutrient demand)",
+              "seq": 2
+            },
+            {
+              "name": "Precision delivery executed (variable-rate irrigation, fertigation, foliar sprays)",
+              "description": "Precision delivery executed (variable-rate irrigation, fertigation, foliar sprays)",
+              "seq": 3
+            },
+            {
+              "name": "Over-application eliminated (reduced leaching, runoff, salt accumulation)",
+              "description": "Over-application eliminated (reduced leaching, runoff, salt accumulation)",
+              "seq": 4
+            },
+            {
+              "name": "Efficiency metrics improved (water productivity kg/m³, nutrient use efficiency %)",
+              "description": "Efficiency metrics improved (water productivity kg/m³, nutrient use efficiency %)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Circular",
+          "description": "Waste streams valorized (substrate recycling, co-generation, nutrient recovery); inputs regenerated.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Waste = feedstock (green waste composted, plastics recycled, organics anaerobically digested)",
+              "description": "Waste = feedstock (green waste composted, plastics recycled, organics anaerobically digested)",
+              "seq": 1
+            },
+            {
+              "name": "By-products monetized (compost sold, biogas used for heat/power, CO2 for enrichment)",
+              "description": "By-products monetized (compost sold, biogas used for heat/power, CO2 for enrichment)",
+              "seq": 2
+            },
+            {
+              "name": "Closed nutrient loops functional (manure → compost → crop → residue → manure)",
+              "description": "Closed nutrient loops functional (manure → compost → crop → residue → manure)",
+              "seq": 3
+            },
+            {
+              "name": "Virgin material use declining year-over-year (tracked as % of total inputs)",
+              "description": "Virgin material use declining year-over-year (tracked as % of total inputs)",
+              "seq": 4
+            },
+            {
+              "name": "Circular economy principles applied (design for disassembly, material passports, reverse logistics)",
+              "description": "Circular economy principles applied (design for disassembly, material passports, reverse logistics)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Regenerative",
+          "description": "Systems contribute net-positive environmental outcomes (carbon sequestration, biodiversity enhancement, water purification).",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Carbon negative (sequestration exceeds emissions)",
+              "description": "Carbon negative (sequestration exceeds emissions) through biomass accumulation, biochar, agroforestry",
+              "seq": 1
+            },
+            {
+              "name": "Water quality improved through constructed wetlands, phytoremediation, reduced nutrient loading",
+              "description": "Water quality improved through constructed wetlands, phytoremediation, reduced nutrient loading",
+              "seq": 2
+            },
+            {
+              "name": "Soil health built (increasing organic matter, microbial biomass, aggregate stability)",
+              "description": "Soil health built (increasing organic matter, microbial biomass, aggregate stability)",
+              "seq": 3
+            },
+            {
+              "name": "Biodiversity supported (habitat creation, native species plantings, pollinator resources)",
+              "description": "Biodiversity supported (habitat creation, native species plantings, pollinator resources)",
+              "seq": 4
+            },
+            {
+              "name": "Ecosystem services generated (pollination, natural pest control, carbon storage, aesthetic/cultural value)",
+              "description": "Ecosystem services generated (pollination, natural pest control, carbon storage, aesthetic/cultural value)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "resource-management-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Digital Integration",
+      "description": "The deployment of AI, IoT, data analytics, and automation technologies to enable precision horticulture and evidence-based decision-making.",
+      "focusName": "Production Operations",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Resource Management",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Production System Architecture",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Technical Infrastructure",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Instrumented",
+          "description": "Sensor networks deployed capturing environmental, crop, and operational data.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Sensors installed measuring temperature, humidity, light, CO2, soil moisture, EC, pH",
+              "description": "Sensors installed measuring temperature, humidity, light, CO2, soil moisture, EC, pH",
+              "seq": 1
+            },
+            {
+              "name": "Parameters measured comprehensively (all critical",
+              "description": "Parameters measured comprehensively (all critical variables for crop model inputs)",
+              "seq": 2
+            },
+            {
+              "name": "Sampling frequency adequate (minutes for climate,",
+              "description": "Sampling frequency adequate (minutes for climate, hours for soil, days for growth)",
+              "seq": 3
+            },
+            {
+              "name": "Data quality validated (outlier detection, sensor",
+              "description": "Data quality validated (outlier detection, sensor fault detection, calibration checks)",
+              "seq": 4
+            },
+            {
+              "name": "Coverage comprehensive (spatial distribution, redundancy for critical sensors)",
+              "description": "Coverage comprehensive (spatial distribution, redundancy for critical sensors)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Connected",
+          "description": "Data transmitted to centralized platforms via IoT communication protocols; accessible remotely.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Communication protocols selected (Wi-Fi, LoRaWAN,",
+              "description": "Communication protocols selected (Wi-Fi, LoRaWAN, cellular, Ethernet) based on range, power, bandwidth",
+              "seq": 1
+            },
+            {
+              "name": "Connectivity established (gateways, routers, network security)",
+              "description": "Connectivity established (gateways, routers, network security)",
+              "seq": 2
+            },
+            {
+              "name": "Data pipelines functional (sensor → gateway → cloud/local server → database)",
+              "description": "Data pipelines functional (sensor → gateway → cloud/local server → database)",
+              "seq": 3
+            },
+            {
+              "name": "Remote access enabled (web dashboards, mobile apps, API endpoints)",
+              "description": "Remote access enabled (web dashboards, mobile apps, API endpoints)",
+              "seq": 4
+            },
+            {
+              "name": "Security implemented (encryption, authentication,",
+              "description": "Security implemented (encryption, authentication, access control, regular updates)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Analyzed",
+          "description": "Data interpreted to generate actionable insights (alerts, recommendations, anomalies).",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Analytics platforms deployed (time-series databases, visualization tools, statistical analysis)",
+              "description": "Analytics platforms deployed (time-series databases, visualization tools, statistical analysis)",
+              "seq": 1
+            },
+            {
+              "name": "Visualizations intuitive (dashboards, charts, heatmaps, trend graphs)",
+              "description": "Visualizations intuitive (dashboards, charts, heatmaps, trend graphs)",
+              "seq": 2
+            },
+            {
+              "name": "Anomalies detected (statistical outliers, sensor faults, unusual crop responses)",
+              "description": "Anomalies detected (statistical outliers, sensor faults, unusual crop responses)",
+              "seq": 3
+            },
+            {
+              "name": "Alerts configured (thresholds, rate-of-change, event triggers)",
+              "description": "Alerts configured (thresholds, rate-of-change, event triggers)",
+              "seq": 4
+            },
+            {
+              "name": "Insights actionable (specific recommendations, clear decision support, prioritized actions)",
+              "description": "Insights actionable (specific recommendations, clear decision support, prioritized actions)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Automated",
+          "description": "Control systems respond to data triggers without human intervention; rules-based automation functional.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Automation rules defined (if-then logic, setpoint",
+              "description": "Automation rules defined (if-then logic, setpoint control, scheduling)",
+              "seq": 1
+            },
+            {
+              "name": "Actuators controlled (irrigation valves, HVAC dampers, lighting circuits, CO2 injection)",
+              "description": "Actuators controlled (irrigation valves, HVAC dampers, lighting circuits, CO2 injection)",
+              "seq": 2
+            },
+            {
+              "name": "Feedback loops closed (sensor → decision logic → actuator → outcome → sensor)",
+              "description": "Feedback loops closed (sensor → decision logic → actuator → outcome → sensor)",
+              "seq": 3
+            },
+            {
+              "name": "Human override available (manual control, emergency stop, automation suspension)",
+              "description": "Human override available (manual control, emergency stop, automation suspension)",
+              "seq": 4
+            },
+            {
+              "name": "System stability maintained (no oscillation, graceful degradation on sensor failure)",
+              "description": "System stability maintained (no oscillation, graceful degradation on sensor failure)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Predictive",
+          "description": "Machine learning models forecast future states (irrigation needs, pest outbreaks, yields); proactive management enabled.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Predictive models trained using historical data (weather, sensor data, crop performance)",
+              "description": "Predictive models trained using historical data (weather, sensor data, crop performance)",
+              "seq": 1
+            },
+            {
+              "name": "Forecasts accurate (validated against holdout data, error metrics acceptable)",
+              "description": "Forecasts accurate (validated against holdout data, error metrics acceptable)",
+              "seq": 2
+            },
+            {
+              "name": "Historical data leveraged (multi-year records, diverse growing conditions)",
+              "description": "Historical data leveraged (multi-year records, diverse growing conditions)",
+              "seq": 3
+            },
+            {
+              "name": "Future states anticipated (water demand, disease risk, harvest timing, yield)",
+              "description": "Future states anticipated (water demand, disease risk, harvest timing, yield)",
+              "seq": 4
+            },
+            {
+              "name": "Preemptive action taken (irrigation scheduling, preventive treatments, labor planning)",
+              "description": "Preemptive action taken (irrigation scheduling, preventive treatments, labor planning)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Autonomous",
+          "description": "AI-driven systems optimize complex multi-objective decisions (yield, quality, resource use, sustainability); minimal human input required.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Multi-objective optimization active (balancing yield, quality, cost, environmental impact)",
+              "description": "Multi-objective optimization active (balancing yield, quality, cost, environmental impact)",
+              "seq": 1
+            },
+            {
+              "name": "AI decisions validated against business and agronomic objectives",
+              "description": "AI decisions validated against business and agronomic objectives",
+              "seq": 2
+            },
+            {
+              "name": "Human oversight strategic (setting goals, monitoring outcomes, ethical review) not tactical",
+              "description": "Human oversight strategic (setting goals, monitoring outcomes, ethical review) not tactical",
+              "seq": 3
+            },
+            {
+              "name": "Continuous improvement demonstrated (reinforcement learning, model retraining, performance gains)",
+              "description": "Continuous improvement demonstrated (reinforcement learning, model retraining, performance gains)",
+              "seq": 4
+            },
+            {
+              "name": "System autonomy high (>90% of control decisions automated, human intervention <5% of time)",
+              "description": "System autonomy high (>90% of control decisions automated, human intervention <5% of time)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "digital-integration-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Business Operations & Governance",
+      "description": "The organizational management, project coordination, financial planning, and stakeholder communication required to sustain horticultural enterprises.",
+      "focusName": "Professional Practice",
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Resource Management",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Production System Architecture",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Regulatory Compliance & Standards",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Planned",
+          "description": "Operational budgets, timelines, resource allocations, and objectives established.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Budgets detailed with line-item costs (labor, materials, energy, equipment, overhead)",
+              "description": "Budgets detailed with line-item costs (labor, materials, energy, equipment, overhead)",
+              "seq": 1
+            },
+            {
+              "name": "Schedules realistic (Gantt charts, critical path analysis, contingency buffers)",
+              "description": "Schedules realistic (Gantt charts, critical path analysis, contingency buffers)",
+              "seq": 2
+            },
+            {
+              "name": "Resources allocated (labor hours, equipment, space, capital)",
+              "description": "Resources allocated (labor hours, equipment, space, capital)",
+              "seq": 3
+            },
+            {
+              "name": "Objectives clear (SMART goals: Specific, Measurable, Achievable, Relevant, Time-bound)",
+              "description": "Objectives clear (SMART goals: Specific, Measurable, Achievable, Relevant, Time-bound)",
+              "seq": 4
+            },
+            {
+              "name": "Risks identified (SWOT analysis, risk register, mitigation strategies)",
+              "description": "Risks identified (SWOT analysis, risk register, mitigation strategies)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Coordinated",
+          "description": "Multi-stakeholder activities synchronized (suppliers, contractors, clients, regulators).",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Stakeholders engaged through regular communication (meetings, reports, dashboards)",
+              "description": "Stakeholders engaged through regular communication (meetings, reports, dashboards)",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies managed (supplier lead times, contractor scheduling, regulatory approvals)",
+              "description": "Dependencies managed (supplier lead times, contractor scheduling, regulatory approvals)",
+              "seq": 2
+            },
+            {
+              "name": "Communications clear (roles, responsibilities, decision authority, escalation paths)",
+              "description": "Communications clear (roles, responsibilities, decision authority, escalation paths)",
+              "seq": 3
+            },
+            {
+              "name": "Meetings productive (agendas, minutes, action items, follow-up)",
+              "description": "Meetings productive (agendas, minutes, action items, follow-up)",
+              "seq": 4
+            },
+            {
+              "name": "Conflicts resolved through negotiation, mediation, or escalation to leadership",
+              "description": "Conflicts resolved through negotiation, mediation, or escalation to leadership",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Monitored",
+          "description": "Performance metrics tracked against targets (budget variance, schedule adherence, quality standards).",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "KPIs defined (financial: revenue, margin, ROI; operational: yield, quality, efficiency; customer: satisfaction, retention)",
+              "description": "KPIs defined (financial: revenue, margin, ROI; operational: yield, quality, efficiency; customer: satisfaction, retention)",
+              "seq": 1
+            },
+            {
+              "name": "Data collected regularly (daily, weekly, monthly depending on metric)",
+              "description": "Data collected regularly (daily, weekly, monthly depending on metric)",
+              "seq": 2
+            },
+            {
+              "name": "Dashboards reviewed by management (visual indicators, trend analysis, exception reporting)",
+              "description": "Dashboards reviewed by management (visual indicators, trend analysis, exception reporting)",
+              "seq": 3
+            },
+            {
+              "name": "Variances investigated (root cause analysis, corrective actions)",
+              "description": "Variances investigated (root cause analysis, corrective actions)",
+              "seq": 4
+            },
+            {
+              "name": "Corrective actions taken promptly (resource reallocation, process changes, supplier changes)",
+              "description": "Corrective actions taken promptly (resource reallocation, process changes, supplier changes)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Continuous improvement initiatives enhance operational efficiency and effectiveness.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Process improvements identified (Lean, Six Sigma,",
+              "description": "Process improvements identified (Lean, Six Sigma, Kaizen methodologies)",
+              "seq": 1
+            },
+            {
+              "name": "Best practices documented (SOPs, training materials, knowledge base)",
+              "description": "Best practices documented (SOPs, training materials, knowledge base)",
+              "seq": 2
+            },
+            {
+              "name": "Lessons learned applied from past projects or crop cycles",
+              "description": "Lessons learned applied from past projects or crop cycles",
+              "seq": 3
+            },
+            {
+              "name": "Efficiency gains measured (time, cost, quality improvements)",
+              "description": "Efficiency gains measured (time, cost, quality improvements)",
+              "seq": 4
+            },
+            {
+              "name": "Quality improved (first-pass yield, defect rates,",
+              "description": "Quality improved (first-pass yield, defect rates, customer satisfaction)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Strategic",
+          "description": "Long-term planning aligns operations with evolving market, regulatory, and environmental conditions.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Strategic plan developed (3-5 year horizon, vision, mission, goals)",
+              "description": "Strategic plan developed (3-5 year horizon, vision, mission, goals)",
+              "seq": 1
+            },
+            {
+              "name": "Market trends analyzed (consumer preferences, competitor actions, technology evolution)",
+              "description": "Market trends analyzed (consumer preferences, competitor actions, technology evolution)",
+              "seq": 2
+            },
+            {
+              "name": "Scenario planning conducted (best-case, worst-case, most-likely scenarios)",
+              "description": "Scenario planning conducted (best-case, worst-case, most-likely scenarios)",
+              "seq": 3
+            },
+            {
+              "name": "Investments prioritized (ROI analysis, strategic fit, risk assessment)",
+              "description": "Investments prioritized (ROI analysis, strategic fit, risk assessment)",
+              "seq": 4
+            },
+            {
+              "name": "Vision communicated to all stakeholders (staff, investors, customers, community)",
+              "description": "Vision communicated to all stakeholders (staff, investors, customers, community)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Innovative",
+          "description": "Business model evolution captures new value streams, partnerships, and market opportunities.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Innovation portfolio managed (incremental improvements, breakthrough innovations, disruptive pivots)",
+              "description": "Innovation portfolio managed (incremental improvements, breakthrough innovations, disruptive pivots)",
+              "seq": 1
+            },
+            {
+              "name": "Partnerships cultivated (research institutions, technology vendors, industry consortia)",
+              "description": "Partnerships cultivated (research institutions, technology vendors, industry consortia)",
+              "seq": 2
+            },
+            {
+              "name": "New markets entered (geographic expansion, new crop types, value-added products)",
+              "description": "New markets entered (geographic expansion, new crop types, value-added products)",
+              "seq": 3
+            },
+            {
+              "name": "Business model adapted (direct-to-consumer, agri-tourism, carbon credits, ecosystem services)",
+              "description": "Business model adapted (direct-to-consumer, agri-tourism, carbon credits, ecosystem services)",
+              "seq": 4
+            },
+            {
+              "name": "Competitive advantage sustained (differentiation,",
+              "description": "Competitive advantage sustained (differentiation, cost leadership, niche positioning)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "business-operations-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Regulatory Compliance & Standards",
+      "description": "Adherence to legal, environmental, safety, and quality assurance requirements governing horticultural operations.",
+      "focusName": "Professional Practice",
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Plant Protection",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Resource Management",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Technical Infrastructure",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Business Operations & Governance",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Aware",
+          "description": "Applicable regulations, standards, and certification schemes identified and understood.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Legal obligations inventoried (pesticide regulations, water abstraction, waste disposal, employment law)",
+              "description": "Legal obligations inventoried (pesticide regulations, water abstraction, waste disposal, employment law)",
+              "seq": 1
+            },
+            {
+              "name": "Deadlines known (license renewals, reporting submissions, certification audits)",
+              "description": "Deadlines known (license renewals, reporting submissions, certification audits)",
+              "seq": 2
+            },
+            {
+              "name": "Requirements interpreted (legal text translated to operational procedures)",
+              "description": "Requirements interpreted (legal text translated to operational procedures)",
+              "seq": 3
+            },
+            {
+              "name": "Responsibilities assigned (compliance officer, department heads, operators)",
+              "description": "Responsibilities assigned (compliance officer, department heads, operators)",
+              "seq": 4
+            },
+            {
+              "name": "Training provided to staff on regulatory requirements and consequences of non-compliance",
+              "description": "Training provided to staff on regulatory requirements and consequences of non-compliance",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Compliant",
+          "description": "Operations meet minimum legal requirements; records maintained.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Permits obtained (pesticide application licenses,",
+              "description": "Permits obtained (pesticide application licenses, water abstraction, discharge consents)",
+              "seq": 1
+            },
+            {
+              "name": "Procedures documented (SOPs for regulated activities, emergency response plans)",
+              "description": "Procedures documented (SOPs for regulated activities, emergency response plans)",
+              "seq": 2
+            },
+            {
+              "name": "Records complete (pesticide application logs, water use, waste manifests, training records)",
+              "description": "Records complete (pesticide application logs, water use, waste manifests, training records)",
+              "seq": 3
+            },
+            {
+              "name": "Audits passed (regulatory inspections, internal audits)",
+              "description": "Audits passed (regulatory inspections, internal audits)",
+              "seq": 4
+            },
+            {
+              "name": "Non-conformances rare (<1% of inspected items) and corrected promptly",
+              "description": "Non-conformances rare (<1% of inspected items) and corrected promptly",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Certified",
+          "description": "Third-party verification of compliance (phytosanitary, organic, safety, quality schemes).",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Certifications obtained (organic certification, GlobalGAP, Red Tractor, plant passports)",
+              "description": "Certifications obtained (organic certification, GlobalGAP, Red Tractor, plant passports)",
+              "seq": 1
+            },
+            {
+              "name": "Audits passed by accredited certification bodies",
+              "description": "Audits passed by accredited certification bodies",
+              "seq": 2
+            },
+            {
+              "name": "Standards maintained (annual surveillance audits,",
+              "description": "Standards maintained (annual surveillance audits, continuous improvement)",
+              "seq": 3
+            },
+            {
+              "name": "Certificates current (renewed before expiry, displayed publicly where required)",
+              "description": "Certificates current (renewed before expiry, displayed publicly where required)",
+              "seq": 4
+            },
+            {
+              "name": "Scope appropriate (all relevant operations and product lines covered)",
+              "description": "Scope appropriate (all relevant operations and product lines covered)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proactive",
+          "description": "Risk management prevents non-conformances; continuous improvement culture established.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Risks assessed regularly (HACCP, COSHH, environmental risk assessments)",
+              "description": "Risks assessed regularly (HACCP, COSHH, environmental risk assessments)",
+              "seq": 1
+            },
+            {
+              "name": "Controls effective (engineering controls, administrative controls, PPE)",
+              "description": "Controls effective (engineering controls, administrative controls, PPE)",
+              "seq": 2
+            },
+            {
+              "name": "Near-misses investigated (root cause analysis, corrective/preventive actions)",
+              "description": "Near-misses investigated (root cause analysis, corrective/preventive actions)",
+              "seq": 3
+            },
+            {
+              "name": "Corrective actions preventive (addressing systemic issues, not just symptoms)",
+              "description": "Corrective actions preventive (addressing systemic issues, not just symptoms)",
+              "seq": 4
+            },
+            {
+              "name": "Culture mature (compliance seen as value-add, not",
+              "description": "Culture mature (compliance seen as value-add, not burden; reporting encouraged)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Leading",
+          "description": "Operations exceed regulatory baselines; industry benchmarks set.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Performance exceeds minimum requirements (e.g., zero pesticide residues vs. MRL compliance)",
+              "description": "Performance exceeds minimum requirements (e.g., zero pesticide residues vs. MRL compliance)",
+              "seq": 1
+            },
+            {
+              "name": "Voluntary standards adopted (B Corp, carbon neutral, biodiversity net gain)",
+              "description": "Voluntary standards adopted (B Corp, carbon neutral, biodiversity net gain)",
+              "seq": 2
+            },
+            {
+              "name": "Innovation shared with industry (case studies, conference presentations, peer-to-peer learning)",
+              "description": "Innovation shared with industry (case studies, conference presentations, peer-to-peer learning)",
+              "seq": 3
+            },
+            {
+              "name": "Industry leadership demonstrated (awards, recognition, media coverage)",
+              "description": "Industry leadership demonstrated (awards, recognition, media coverage)",
+              "seq": 4
+            },
+            {
+              "name": "Recognition earned (certifications, awards, customer loyalty, premium pricing)",
+              "description": "Recognition earned (certifications, awards, customer loyalty, premium pricing)",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Influential",
+          "description": "Active participation in standard development, policy advocacy, and regulatory evolution.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Standards development engaged (committee membership, public consultations, pilot programs)",
+              "description": "Standards development engaged (committee membership, public consultations, pilot programs)",
+              "seq": 1
+            },
+            {
+              "name": "Policy input provided (lobbying, white papers, evidence submissions to government)",
+              "description": "Policy input provided (lobbying, white papers, evidence submissions to government)",
+              "seq": 2
+            },
+            {
+              "name": "Industry associations led (board membership, working groups, thought leadership)",
+              "description": "Industry associations led (board membership, working groups, thought leadership)",
+              "seq": 3
+            },
+            {
+              "name": "Regulatory dialogue active (collaborative relationships with regulators, data sharing)",
+              "description": "Regulatory dialogue active (collaborative relationships with regulators, data sharing)",
+              "seq": 4
+            },
+            {
+              "name": "Future frameworks shaped (influencing next-generation regulations, standards, and incentives)",
+              "description": "Future frameworks shaped (influencing next-generation regulations, standards, and incentives)",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "business-operations-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "activitySpaces": [
+    {
+      "name": "Establish & Manage Growing Environments",
+      "description": "Prepare, configure, and maintain optimal physical-chemical-biological conditions for plant growth.",
+      "focusName": "Biological Systems",
+      "contributesTo": [
+        {
+          "alphaName": "Growing Environment",
+          "stateName": "Characterized"
+        },
+        {
+          "alphaName": "Growing Environment",
+          "stateName": "Prepared"
+        },
+        {
+          "alphaName": "Growing Environment",
+          "stateName": "Balanced"
+        },
+        {
+          "alphaName": "Growing Environment",
+          "stateName": "Monitored"
+        },
+        {
+          "alphaName": "Growing Environment",
+          "stateName": "Dynamically Controlled"
+        },
+        {
+          "alphaName": "Growing Environment",
+          "stateName": "Predictively Managed"
+        },
+        {
+          "alphaName": "Plant Health & Development",
+          "stateName": "Understood"
+        },
+        {
+          "alphaName": "Plant Health & Development",
+          "stateName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Growing Media Management",
+        "Plant Science Knowledge",
+        "Environmental Stewardship"
+      ],
+      "kind": "activitySpace",
+      "assetNames": [
+        {
+          "assetName": "establish-environment-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Cultivate & Maintain Plant Health",
+      "description": "Execute cultivation practices (planting, pruning, propagation, harvesting) that directly interact with plants.",
+      "focusName": "Biological Systems",
+      "contributesTo": [
+        {
+          "alphaName": "Plant Health & Development",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Plant Health & Development",
+          "stateName": "Understood"
+        },
+        {
+          "alphaName": "Plant Health & Development",
+          "stateName": "Monitored"
+        },
+        {
+          "alphaName": "Plant Health & Development",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Plant Health & Development",
+          "stateName": "Resilient"
+        },
+        {
+          "alphaName": "Plant Health & Development",
+          "stateName": "Regenerative"
+        }
+      ],
+      "requiredCompetencies": [
+        "Plant Science Knowledge",
+        "Mechanical Operations"
+      ],
+      "kind": "activitySpace",
+      "assetNames": [
+        {
+          "assetName": "cultivate-plants-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Protect Plants & Ecosystems",
+      "description": "Prevent, detect, and control pests, diseases, and biosecurity threats through integrated management strategies.",
+      "focusName": "Biological Systems",
+      "contributesTo": [
+        {
+          "alphaName": "Plant Protection",
+          "stateName": "Monitored"
+        },
+        {
+          "alphaName": "Plant Protection",
+          "stateName": "Thresholds Established"
+        },
+        {
+          "alphaName": "Plant Protection",
+          "stateName": "Prevented"
+        },
+        {
+          "alphaName": "Plant Protection",
+          "stateName": "Controlled"
+        },
+        {
+          "alphaName": "Plant Protection",
+          "stateName": "Integrated"
+        },
+        {
+          "alphaName": "Plant Protection",
+          "stateName": "Ecological"
+        },
+        {
+          "alphaName": "Biosecurity & Ecosystem Health",
+          "stateName": "Surveilled"
+        },
+        {
+          "alphaName": "Biosecurity & Ecosystem Health",
+          "stateName": "Prevented"
+        },
+        {
+          "alphaName": "Biosecurity & Ecosystem Health",
+          "stateName": "Detected Early"
+        },
+        {
+          "alphaName": "Biosecurity & Ecosystem Health",
+          "stateName": "Contained"
+        },
+        {
+          "alphaName": "Biosecurity & Ecosystem Health",
+          "stateName": "Eradicated"
+        },
+        {
+          "alphaName": "Biosecurity & Ecosystem Health",
+          "stateName": "Resilient"
+        },
+        {
+          "alphaName": "Plant Health & Development",
+          "stateName": "Resilient"
+        }
+      ],
+      "requiredCompetencies": [
+        "Plant Protection Expertise",
+        "Plant Science Knowledge"
+      ],
+      "kind": "activitySpace",
+      "assetNames": [
+        {
+          "assetName": "protect-plants-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Operate & Optimize Production Systems",
+      "description": "Configure, run, and refine controlled environment agriculture and soilless cultivation systems.",
+      "focusName": "Production Operations",
+      "contributesTo": [
+        {
+          "alphaName": "Production System Architecture",
+          "stateName": "Operated"
+        },
+        {
+          "alphaName": "Production System Architecture",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Production System Architecture",
+          "stateName": "Autonomous"
+        },
+        {
+          "alphaName": "Growing Environment",
+          "stateName": "Balanced"
+        },
+        {
+          "alphaName": "Growing Environment",
+          "stateName": "Dynamically Controlled"
+        },
+        {
+          "alphaName": "Growing Environment",
+          "stateName": "Predictively Managed"
+        },
+        {
+          "alphaName": "Resource Management",
+          "stateName": "Conserved"
+        },
+        {
+          "alphaName": "Resource Management",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Resource Management",
+          "stateName": "Circular"
+        }
+      ],
+      "requiredCompetencies": [
+        "Digital Technology",
+        "Growing Media Management",
+        "Environmental Stewardship"
+      ],
+      "kind": "activitySpace",
+      "assetNames": [
+        {
+          "assetName": "optimize-production-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Deploy & Maintain Technical Infrastructure",
+      "description": "Install, calibrate, repair, and upgrade equipment, machinery, sensors, and control systems.",
+      "focusName": "Production Operations",
+      "contributesTo": [
+        {
+          "alphaName": "Technical Infrastructure",
+          "stateName": "Procured"
+        },
+        {
+          "alphaName": "Technical Infrastructure",
+          "stateName": "Installed"
+        },
+        {
+          "alphaName": "Technical Infrastructure",
+          "stateName": "Maintained"
+        },
+        {
+          "alphaName": "Technical Infrastructure",
+          "stateName": "Calibrated"
+        },
+        {
+          "alphaName": "Technical Infrastructure",
+          "stateName": "Integrated"
+        },
+        {
+          "alphaName": "Technical Infrastructure",
+          "stateName": "Predictively Serviced"
+        },
+        {
+          "alphaName": "Production System Architecture",
+          "stateName": "Constructed"
+        },
+        {
+          "alphaName": "Production System Architecture",
+          "stateName": "Commissioned"
+        }
+      ],
+      "requiredCompetencies": [
+        "Mechanical Operations",
+        "Digital Technology"
+      ],
+      "kind": "activitySpace",
+      "assetNames": [
+        {
+          "assetName": "deploy-infrastructure-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Manage Resources & Waste Streams",
+      "description": "Plan, monitor, and optimize water, energy, nutrient, and material flows to minimize waste and environmental impact.",
+      "focusName": "Production Operations",
+      "contributesTo": [
+        {
+          "alphaName": "Resource Management",
+          "stateName": "Measured"
+        },
+        {
+          "alphaName": "Resource Management",
+          "stateName": "Budgeted"
+        },
+        {
+          "alphaName": "Resource Management",
+          "stateName": "Conserved"
+        },
+        {
+          "alphaName": "Resource Management",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Resource Management",
+          "stateName": "Circular"
+        },
+        {
+          "alphaName": "Resource Management",
+          "stateName": "Regenerative"
+        },
+        {
+          "alphaName": "Sustainability & Environmental Stewardship",
+          "stateName": "Reduced"
+        },
+        {
+          "alphaName": "Sustainability & Environmental Stewardship",
+          "stateName": "Neutral"
+        },
+        {
+          "alphaName": "Sustainability & Environmental Stewardship",
+          "stateName": "Positive"
+        },
+        {
+          "alphaName": "Sustainability & Environmental Stewardship",
+          "stateName": "Regenerative"
+        },
+        {
+          "alphaName": "Sustainability & Environmental Stewardship",
+          "stateName": "Systemic"
+        }
+      ],
+      "requiredCompetencies": [
+        "Environmental Stewardship",
+        "Growing Media Management",
+        "Business & Project Management"
+      ],
+      "kind": "activitySpace",
+      "assetNames": [
+        {
+          "assetName": "manage-resources-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Integrate Digital Technologies",
+      "description": "Deploy, configure, and interpret data from sensors, automation systems, AI/ML models, and analytics platforms.",
+      "focusName": "Production Operations",
+      "contributesTo": [
+        {
+          "alphaName": "Digital Integration",
+          "stateName": "Instrumented"
+        },
+        {
+          "alphaName": "Digital Integration",
+          "stateName": "Connected"
+        },
+        {
+          "alphaName": "Digital Integration",
+          "stateName": "Analyzed"
+        },
+        {
+          "alphaName": "Digital Integration",
+          "stateName": "Automated"
+        },
+        {
+          "alphaName": "Digital Integration",
+          "stateName": "Predictive"
+        },
+        {
+          "alphaName": "Digital Integration",
+          "stateName": "Autonomous"
+        },
+        {
+          "alphaName": "Production System Architecture",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Production System Architecture",
+          "stateName": "Autonomous"
+        },
+        {
+          "alphaName": "Resource Management",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Resource Management",
+          "stateName": "Circular"
+        }
+      ],
+      "requiredCompetencies": [
+        "Digital Technology"
+      ],
+      "kind": "activitySpace",
+      "assetNames": [
+        {
+          "assetName": "integrate-digital-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Plan & Coordinate Operations",
+      "description": "Develop project plans, budgets, schedules, and stakeholder communications to execute horticultural projects or operational campaigns.",
+      "focusName": "Professional Practice",
+      "contributesTo": [
+        {
+          "alphaName": "Business Operations & Governance",
+          "stateName": "Planned"
+        },
+        {
+          "alphaName": "Business Operations & Governance",
+          "stateName": "Coordinated"
+        },
+        {
+          "alphaName": "Business Operations & Governance",
+          "stateName": "Monitored"
+        },
+        {
+          "alphaName": "Business Operations & Governance",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Business Operations & Governance",
+          "stateName": "Strategic"
+        },
+        {
+          "alphaName": "Business Operations & Governance",
+          "stateName": "Innovative"
+        }
+      ],
+      "requiredCompetencies": [
+        "Business & Project Management",
+        "Professional Practice"
+      ],
+      "kind": "activitySpace",
+      "assetNames": [
+        {
+          "assetName": "plan-operations-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Ensure Compliance & Quality",
+      "description": "Maintain adherence to legal, environmental, safety, and quality assurance requirements through documentation, audits, and corrective actions.",
+      "focusName": "Professional Practice",
+      "contributesTo": [
+        {
+          "alphaName": "Regulatory Compliance & Standards",
+          "stateName": "Aware"
+        },
+        {
+          "alphaName": "Regulatory Compliance & Standards",
+          "stateName": "Compliant"
+        },
+        {
+          "alphaName": "Regulatory Compliance & Standards",
+          "stateName": "Certified"
+        },
+        {
+          "alphaName": "Regulatory Compliance & Standards",
+          "stateName": "Proactive"
+        },
+        {
+          "alphaName": "Regulatory Compliance & Standards",
+          "stateName": "Leading"
+        },
+        {
+          "alphaName": "Regulatory Compliance & Standards",
+          "stateName": "Influential"
+        },
+        {
+          "alphaName": "Biosecurity & Ecosystem Health",
+          "stateName": "Prevented"
+        },
+        {
+          "alphaName": "Biosecurity & Ecosystem Health",
+          "stateName": "Contained"
+        },
+        {
+          "alphaName": "Business Operations & Governance",
+          "stateName": "Monitored"
+        },
+        {
+          "alphaName": "Business Operations & Governance",
+          "stateName": "Strategic"
+        }
+      ],
+      "requiredCompetencies": [
+        "Professional Practice",
+        "Business & Project Management"
+      ],
+      "kind": "activitySpace",
+      "assetNames": [
+        {
+          "assetName": "ensure-compliance-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "narratives": [
+    {
+      "narrativeTypeName": "Hero's Journey",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Ordinary World",
+          "context": "Horticulture has historically operated through fragmented knowledge domains—plant science, engineering, business—with limited integration. Practitioners learned through apprenticeship and experience, facing environmental unpredictability, pest pressure, resource scarcity, and market volatility. Traditional methods often degraded ecosystems (soil depletion, water pollution, biodiversity loss) while failing to achieve economic viability for many operations."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Call to Adventure",
+          "context": "Modern challenges demand a unified framework: climate change intensifies weather extremes; consumers demand sustainable production; technological advances (CEA, IoT, AI) create new opportunities; regulatory requirements tighten; global competition forces innovation. The 'Horticulture Essentials' baseline emerges as a comprehensive ontology integrating biological systems, production operations, and professional practice—a common language for the profession."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Challenges & Trials",
+          "context": "Mastering plant physiology while deploying precision agriculture technologies; balancing productivity with environmental stewardship; navigating complex regulatory frameworks; managing business viability amid volatile markets; building competency across biological, engineering, and management domains; coordinating multi-stakeholder ecosystems (growers, suppliers, regulators, customers, communities)."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Transformation",
+          "context": "Horticulture evolves from a craft-based, extractive industry to a science-driven, regenerative profession. Practitioners integrate deep plant science knowledge with advanced engineering systems and strategic business management. Operations achieve triple-bottom-line success (economic viability, environmental regeneration, social contribution). The profession attracts talent, earns public respect, and becomes recognized as essential to food security, climate mitigation, and urban well-being."
+        },
+        {
+          "seq": 5,
+          "narrativeElementName": "Return with Knowledge",
+          "context": "Chartered professionals mentor the next generation through formal apprenticeships and continuing professional development programs. Industry leaders contribute to policy development, standard-setting, and public education. Research advances shared through peer-reviewed publications, industry conferences, and open-source platforms. The Horticulture Essentials baseline becomes the foundation for specialized extension practices (e.g., 'Vertical Farming Operations,' 'Heritage Garden Restoration,' 'Urban Greening Programs') that build upon this shared ontology."
+        }
+      ],
+      "name": "Horticulture Essentials Baseline Journey",
+      "description": "The transformational journey of horticulture from fragmented craft to integrated profession",
+      "citationNames": [
+        "Principles of Horticulture (8th ed.)",
+        "Horticulture or Landscape Operative (Level 2) Apprenticeship Standard (ST0225)",
+        "RHS Qualifications: Level 2 Principles of Horticulture, Level 3 Diploma in the Principles and Practices of Horticulture",
+        "Landscape Institute Competency Framework (Levels A-D)",
+        "Smart Horticulture: Integration of AI, IoT and Precision Farming for Sustainable Food Production",
+        "Comparison of Land, Water, and Energy Requirements of Lettuce Grown Using Hydroponic vs. Conventional Agricultural Methods",
+        "Hydroponics and Soilless Cultivation of Horticultural Crops",
+        "The Vertical Farm: Feeding the World in the 21st Century (2nd ed.)",
+        "Application of soilless culture technologies in the modern greenhouse industry - A review",
+        "Hydroponics for the Home Grower: An Instructional Guide to Gardening with Hydroponics",
+        "Plant Factory: An Indoor Vertical Farming System for Efficient Quality Food Production (2nd ed.)",
+        "Automated monitoring of greenhouse crops",
+        "Plant response-based sensing for control strategies in sustainable greenhouse production",
+        "Advances in greenhouse automation and controlled environment agriculture: A transition to plant factories and urban agriculture",
+        "Future food-production systems: vertical farming and controlled-environment agriculture",
+        "Aquaponics—Integration of Hydroponics with Aquaculture",
+        "Biological control using invertebrates and microorganisms: plenty of new opportunities",
+        "Integrated Pest Management: Historical Perspectives and Contemporary Developments",
+        "Entomology and Pest Management (6th ed.)",
+        "Nitrate in vegetables: toxicity, content, intake and EC regulation",
+        "Hydroponics: A Practical Guide for the Soilless Grower (3rd ed.)",
+        "Biochar Application to Soils: A Critical Scientific Review",
+        "Microbial diversity and soil functions",
+        "Plant Health (Phytosanitary Conditions) (Amendment) (EU Exit) Regulations 2020"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "name": "horticulture-essentials-icon",
+      "type": "font-character",
+      "description": "Baseline practice identity icon representing horticulture (plant/leaf motif)",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-seedling",
+      "fontWeight": "900"
+    },
+    {
+      "name": "plant-health-icon",
+      "type": "font-character",
+      "description": "Plant Health & Development alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-leaf",
+      "fontWeight": "900"
+    },
+    {
+      "name": "environment-icon",
+      "type": "font-character",
+      "description": "Growing Environment alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cloud-sun",
+      "fontWeight": "900"
+    },
+    {
+      "name": "plant-protection-icon",
+      "type": "font-character",
+      "description": "Plant Protection alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "biosecurity-icon",
+      "type": "font-character",
+      "description": "Biosecurity & Ecosystem Health alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-biohazard",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sustainability-icon",
+      "type": "font-character",
+      "description": "Sustainability & Environmental Stewardship alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-recycle",
+      "fontWeight": "900"
+    },
+    {
+      "name": "production-system-icon",
+      "type": "font-character",
+      "description": "Production System Architecture alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-industry",
+      "fontWeight": "900"
+    },
+    {
+      "name": "infrastructure-icon",
+      "type": "font-character",
+      "description": "Technical Infrastructure alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "resource-management-icon",
+      "type": "font-character",
+      "description": "Resource Management alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-droplet",
+      "fontWeight": "900"
+    },
+    {
+      "name": "digital-integration-icon",
+      "type": "font-character",
+      "description": "Digital Integration alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microchip",
+      "fontWeight": "900"
+    },
+    {
+      "name": "business-operations-icon",
+      "type": "font-character",
+      "description": "Business Operations & Governance alpha icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "establish-environment-icon",
+      "type": "font-character",
+      "description": "Establishing and managing growing environments",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-trowel",
+      "fontWeight": "900"
+    },
+    {
+      "name": "cultivate-plants-icon",
+      "type": "font-character",
+      "description": "Cultivating and maintaining plant health",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-hands-holding-circle",
+      "fontWeight": "900"
+    },
+    {
+      "name": "protect-plants-icon",
+      "type": "font-character",
+      "description": "Protecting plants and ecosystems",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "optimize-production-icon",
+      "type": "font-character",
+      "description": "Operating and optimizing production systems",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "deploy-infrastructure-icon",
+      "type": "font-character",
+      "description": "Deploying and maintaining technical infrastructure",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-wrench",
+      "fontWeight": "900"
+    },
+    {
+      "name": "manage-resources-icon",
+      "type": "font-character",
+      "description": "Managing resources and waste streams",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-recycle",
+      "fontWeight": "900"
+    },
+    {
+      "name": "integrate-digital-icon",
+      "type": "font-character",
+      "description": "Integrating digital technologies",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microchip",
+      "fontWeight": "900"
+    },
+    {
+      "name": "plan-operations-icon",
+      "type": "font-character",
+      "description": "Planning and coordinating operations",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-calendar-days",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ensure-compliance-icon",
+      "type": "font-character",
+      "description": "Ensuring compliance and quality",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "plant-science-competency-icon",
+      "type": "font-character",
+      "description": "Plant science knowledge competency",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microscope",
+      "fontWeight": "900"
+    },
+    {
+      "name": "growing-media-competency-icon",
+      "type": "font-character",
+      "description": "Growing media management competency",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-droplet",
+      "fontWeight": "900"
+    },
+    {
+      "name": "mechanical-competency-icon",
+      "type": "font-character",
+      "description": "Mechanical operations competency",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-screwdriver-wrench",
+      "fontWeight": "900"
+    },
+    {
+      "name": "digital-competency-icon",
+      "type": "font-character",
+      "description": "Digital technology competency",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-laptop-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "plant-protection-competency-icon",
+      "type": "font-character",
+      "description": "Plant protection expertise competency",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bug-slash",
+      "fontWeight": "900"
+    },
+    {
+      "name": "environmental-competency-icon",
+      "type": "font-character",
+      "description": "Environmental stewardship competency",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-earth-americas",
+      "fontWeight": "900"
+    },
+    {
+      "name": "business-competency-icon",
+      "type": "font-character",
+      "description": "Business and project management competency",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "professional-competency-icon",
+      "type": "font-character",
+      "description": "Professional practice competency",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-tie",
+      "fontWeight": "900"
+    }
+  ],
+  "citations": [
+    {
+      "name": "Principles of Horticulture (8th ed.)",
+      "description": "Citation for Principles of Horticulture (8th ed.)",
+      "authors": [
+        "Adams, C. R., Bamford, K. M., & Early, M. P."
+      ],
+      "date": "2025",
+      "source": "Principles of Horticulture (8th ed.). Routledge",
+      "kind": "citation"
+    },
+    {
+      "name": "Horticulture or Landscape Operative (Level 2) Apprenticeship Standard (ST0225)",
+      "description": "Citation for Horticulture or Landscape Operative (Level 2) Apprenticeship Standard (ST0225)",
+      "authors": [
+        "Skills England (Institute for Apprenticeships and Technical Education)"
+      ],
+      "date": "2024",
+      "source": "Horticulture or Landscape Operative (Level 2) Apprenticeship Standard (ST0225). https://www.instituteforapprenticeships.org/apprenticeship-standards/horticulture-or-landscape-operative-v1-2",
+      "kind": "citation"
+    },
+    {
+      "name": "RHS Qualifications: Level 2 Principles of Horticulture, Level 3 Diploma in the Principles and Practices of Horticulture",
+      "description": "Citation for RHS Qualifications: Level 2 Principles of Horticulture, Level 3 Diploma in the Principles and Practices of Horticulture",
+      "authors": [
+        "Royal Horticultural Society"
+      ],
+      "date": "2023",
+      "source": "RHS Qualifications: Level 2 Principles of Horticulture, Level 3 Diploma in the Principles and Practices of Horticulture. https://www.rhs.org.uk/education-learning/qualifications",
+      "kind": "citation"
+    },
+    {
+      "name": "Landscape Institute Competency Framework (Levels A-D)",
+      "description": "Citation for Landscape Institute Competency Framework (Levels A-D)",
+      "authors": [
+        "Landscape Institute"
+      ],
+      "date": "2023",
+      "source": "Landscape Institute Competency Framework (Levels A-D). https://www.landscapeinstitute.org/",
+      "kind": "citation"
+    },
+    {
+      "name": "Smart Horticulture: Integration of AI, IoT and Precision Farming for Sustainable Food Production",
+      "description": "Citation for Smart Horticulture: Integration of AI, IoT and Precision Farming for Sustainable Food Production",
+      "authors": [
+        "Nandi, R., Shukla, A. K., Dutta, P., & Patel, S."
+      ],
+      "date": "2026",
+      "source": "Smart Horticulture: Integration of AI, IoT and Precision Farming for Sustainable Food Production. Current Journal of Applied Science and Technology, 13(2), 1-15",
+      "kind": "citation"
+    },
+    {
+      "name": "Comparison of Land, Water, and Energy Requirements of Lettuce Grown Using Hydroponic vs. Conventional Agricultural Methods",
+      "description": "Citation for Comparison of Land, Water, and Energy Requirements of Lettuce Grown Using Hydroponic vs. Conventional Agricultural Methods",
+      "authors": [
+        "Barbosa, G. L., Gadelha, F. D. A., Kublik, N., Proctor, A., Reichelm, L., Weissinger, E., Wohlleb, G. M., & Halden, R. U."
+      ],
+      "date": "2015",
+      "source": "Comparison of Land, Water, and Energy Requirements of Lettuce Grown Using Hydroponic vs. Conventional Agricultural Methods. International Journal of Environmental Research and Public Health, 12(6), 6879-6891. https://doi.org/10.3390/ijerph120606879",
+      "kind": "citation"
+    },
+    {
+      "name": "Hydroponics and Soilless Cultivation of Horticultural Crops",
+      "description": "Citation for Hydroponics and Soilless Cultivation of Horticultural Crops",
+      "authors": [
+        "Choudhary, K. K., Choudhary, S., & Prasad, S. M."
+      ],
+      "date": "2022",
+      "source": "Hydroponics and Soilless Cultivation of Horticultural Crops. Plant Archives, 22(1), 380-387",
+      "kind": "citation"
+    },
+    {
+      "name": "The Vertical Farm: Feeding the World in the 21st Century (2nd ed.)",
+      "description": "Citation for The Vertical Farm: Feeding the World in the 21st Century (2nd ed.)",
+      "authors": [
+        "Despommier, D."
+      ],
+      "date": "2020",
+      "source": "The Vertical Farm: Feeding the World in the 21st Century (2nd ed.). Thomas Dunne Books",
+      "kind": "citation"
+    },
+    {
+      "name": "Application of soilless culture technologies in the modern greenhouse industry - A review",
+      "description": "Citation for Application of soilless culture technologies in the modern greenhouse industry - A review",
+      "authors": [
+        "Savvas, D., & Gruda, N."
+      ],
+      "date": "2018",
+      "source": "Application of soilless culture technologies in the modern greenhouse industry - A review. European Journal of Horticultural Science, 83(5), 280-293. https://doi.org/10.17660/eJHS.2018/83.5.2",
+      "kind": "citation"
+    },
+    {
+      "name": "Hydroponics for the Home Grower: An Instructional Guide to Gardening with Hydroponics",
+      "description": "Citation for Hydroponics for the Home Grower: An Instructional Guide to Gardening with Hydroponics",
+      "authors": [
+        "Resh, H. M."
+      ],
+      "date": "2022",
+      "source": "Hydroponics for the Home Grower: An Instructional Guide to Gardening with Hydroponics. CRC Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Plant Factory: An Indoor Vertical Farming System for Efficient Quality Food Production (2nd ed.)",
+      "description": "Citation for Plant Factory: An Indoor Vertical Farming System for Efficient Quality Food Production (2nd ed.)",
+      "authors": [
+        "Kozai, T., Niu, G., & Takagaki, M. (Eds.)"
+      ],
+      "date": "2020",
+      "source": "Plant Factory: An Indoor Vertical Farming System for Efficient Quality Food Production (2nd ed.). Academic Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Automated monitoring of greenhouse crops",
+      "description": "Citation for Automated monitoring of greenhouse crops",
+      "authors": [
+        "Ehret, D. L., Lau, A., Bittman, S., Lin, W., & Shelford, T."
+      ],
+      "date": "2017",
+      "source": "Automated monitoring of greenhouse crops. Agronomie, 21, 403-414",
+      "kind": "citation"
+    },
+    {
+      "name": "Plant response-based sensing for control strategies in sustainable greenhouse production",
+      "description": "Citation for Plant response-based sensing for control strategies in sustainable greenhouse production",
+      "authors": [
+        "Kacira, M."
+      ],
+      "date": "2011",
+      "source": "Plant response-based sensing for control strategies in sustainable greenhouse production. Journal of Agricultural Meteorology, 67(4), 175-184",
+      "kind": "citation"
+    },
+    {
+      "name": "Advances in greenhouse automation and controlled environment agriculture: A transition to plant factories and urban agriculture",
+      "description": "Citation for Advances in greenhouse automation and controlled environment agriculture: A transition to plant factories and urban agriculture",
+      "authors": [
+        "Shamshiri, R. R., Kalantari, F., Ting, K. C., Thorp, K. R., Hameed, I. A., Weltzien, C., Ahmad, D., & Shad, Z. M."
+      ],
+      "date": "2018",
+      "source": "Advances in greenhouse automation and controlled environment agriculture: A transition to plant factories and urban agriculture. International Journal of Agricultural and Biological Engineering, 11(1), 1-22. https://doi.org/10.25165/j.ijabe.20181101.3210",
+      "kind": "citation"
+    },
+    {
+      "name": "Future food-production systems: vertical farming and controlled-environment agriculture",
+      "description": "Citation for Future food-production systems: vertical farming and controlled-environment agriculture",
+      "authors": [
+        "Benke, K., & Tomkins, B."
+      ],
+      "date": "2017",
+      "source": "Future food-production systems: vertical farming and controlled-environment agriculture. Sustainability: Science, Practice and Policy, 13(1), 13-26. https://doi.org/10.1080/15487733.2017.1394054",
+      "kind": "citation"
+    },
+    {
+      "name": "Aquaponics—Integration of Hydroponics with Aquaculture",
+      "description": "Citation for Aquaponics—Integration of Hydroponics with Aquaculture",
+      "authors": [
+        "Diver, S."
+      ],
+      "date": "2006",
+      "source": "Aquaponics—Integration of Hydroponics with Aquaculture. ATTRA Publication #IP163. National Sustainable Agriculture Information Service",
+      "kind": "citation"
+    },
+    {
+      "name": "Biological control using invertebrates and microorganisms: plenty of new opportunities",
+      "description": "Citation for Biological control using invertebrates and microorganisms: plenty of new opportunities",
+      "authors": [
+        "van Lenteren, J. C., Bolckmans, K., Köhl, J., Ravensberg, W. J., & Urbaneja, A."
+      ],
+      "date": "2018",
+      "source": "Biological control using invertebrates and microorganisms: plenty of new opportunities. BioControl, 63, 39-59. https://doi.org/10.1007/s10526-017-9801-4",
+      "kind": "citation"
+    },
+    {
+      "name": "Integrated Pest Management: Historical Perspectives and Contemporary Developments",
+      "description": "Citation for Integrated Pest Management: Historical Perspectives and Contemporary Developments",
+      "authors": [
+        "Kogan, M."
+      ],
+      "date": "1998",
+      "source": "Integrated Pest Management: Historical Perspectives and Contemporary Developments. Annual Review of Entomology, 43, 243-270. https://doi.org/10.1146/annurev.ento.43.1.243",
+      "kind": "citation"
+    },
+    {
+      "name": "Entomology and Pest Management (6th ed.)",
+      "description": "Citation for Entomology and Pest Management (6th ed.)",
+      "authors": [
+        "Pedigo, L. P., & Rice, M. E."
+      ],
+      "date": "2009",
+      "source": "Entomology and Pest Management (6th ed.). Pearson Prentice Hall",
+      "kind": "citation"
+    },
+    {
+      "name": "Nitrate in vegetables: toxicity, content, intake and EC regulation",
+      "description": "Citation for Nitrate in vegetables: toxicity, content, intake and EC regulation",
+      "authors": [
+        "Santamaria, P."
+      ],
+      "date": "2006",
+      "source": "Nitrate in vegetables: toxicity, content, intake and EC regulation. Journal of the Science of Food and Agriculture, 86(1), 10-17. https://doi.org/10.1002/jsfa.2351",
+      "kind": "citation"
+    },
+    {
+      "name": "Hydroponics: A Practical Guide for the Soilless Grower (3rd ed.)",
+      "description": "Citation for Hydroponics: A Practical Guide for the Soilless Grower (3rd ed.)",
+      "authors": [
+        "Jones, J. B., Jr."
+      ],
+      "date": "2016",
+      "source": "Hydroponics: A Practical Guide for the Soilless Grower (3rd ed.). CRC Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Biochar Application to Soils: A Critical Scientific Review",
+      "description": "Citation for Biochar Application to Soils: A Critical Scientific Review",
+      "authors": [
+        "Verheijen, F. G. A., Jeffery, S., Bastos, A. C., van der Velde, M., & Diafas, I."
+      ],
+      "date": "2019",
+      "source": "Biochar Application to Soils: A Critical Scientific Review. EUR 24099 EN, Office for the Official Publications of the European Communities",
+      "kind": "citation"
+    },
+    {
+      "name": "Microbial diversity and soil functions",
+      "description": "Citation for Microbial diversity and soil functions",
+      "authors": [
+        "Nannipieri, P., Ascher, J., Ceccherini, M. T., Landi, L., Pietramellara, G., & Renella, G."
+      ],
+      "date": "2003",
+      "source": "Microbial diversity and soil functions. European Journal of Soil Science, 54(4), 655-670. https://doi.org/10.1046/j.1351-0754.2003.0556.x",
+      "kind": "citation"
+    },
+    {
+      "name": "Plant Health (Phytosanitary Conditions) (Amendment) (EU Exit) Regulations 2020",
+      "description": "Citation for Plant Health (Phytosanitary Conditions) (Amendment) (EU Exit) Regulations 2020",
+      "authors": [
+        "Department for Environment, Food & Rural Affairs (DEFRA)"
+      ],
+      "date": "2023",
+      "source": "Plant Health (Phytosanitary Conditions) (Amendment) (EU Exit) Regulations 2020. UK Statutory Instruments 2020 No. 1482. https://www.legislation.gov.uk/uksi/2020/1482/contents/made",
+      "kind": "citation"
+    }
+  ],
+  "schemaVersion": "2.0.0"
+}

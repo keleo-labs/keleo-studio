@@ -1,0 +1,232 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "multiply-rhel",
+    "version": "1.0.5",
+    "description": "Multiply RHEL campaign practice for partner-led RHEL selling through distribution channels"
+  },
+  "documents": [
+    {
+      "path": "documents/partner-ecosystem-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Partner Ecosystem Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "A minimal baseline practice for engaging with partner ecosystems, covering partner lifecycle management, value realization, capability building, trust cultivation, and governance.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "partner ecosystem",
+          "alliance management",
+          "partner relationship",
+          "trust building",
+          "partnership governance",
+          "partner value"
+        ],
+        "elementCount": 180,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-06-15T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/partner-demand-generation.json",
+      "documentType": "practice",
+      "documentName": "Partner Demand Generation",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "Structured, measurable approach to creating incremental qualified pipeline through partner-driven demand generation campaigns aligned to Red Hat Technology Decision Points.",
+        "tags": {
+          "domainTags": [
+            "Demand Generation",
+            "Partner Marketing",
+            "Pipeline Development",
+            "Campaign Management",
+            "Sales Enablement"
+          ],
+          "lifecycleTags": [
+            "Discover",
+            "Plan",
+            "Execute",
+            "Steer",
+            "Continuous Improvement"
+          ],
+          "organizationalTags": [
+            "Partner Account Management",
+            "Partner Marketing",
+            "Partner Operations",
+            "Ecosystem Solutions Architecture",
+            "Inside Sales"
+          ]
+        },
+        "keywords": [
+          "partner demand generation",
+          "campaign lifecycle",
+          "pipeline attribution",
+          "partner-sourced pipeline",
+          "incremental pipeline",
+          "MDF",
+          "Technology Decision Points",
+          "Sales Plays",
+          "EMEA",
+          "co-marketing",
+          "partner enablement",
+          "RACI",
+          "campaign ROI",
+          "partner readiness",
+          "cross-regional framework"
+        ],
+        "elementCount": 245,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-11T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/sales-play-framework.json",
+      "documentType": "practice",
+      "documentName": "Sales Play Framework",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.2",
+        "description": "A comprehensive practice for designing, executing, and optimizing the three-level go-to-market framework connecting Sales Plays, Technical Decision Points, and Sales Tactics into a coherent selling system.",
+        "tags": {
+          "domainTags": [
+            "Go-to-Market Strategy",
+            "Sales Enablement",
+            "Competitive Intelligence",
+            "Technical Sales"
+          ],
+          "lifecycleTags": [
+            "Discovery",
+            "Activation",
+            "Execution",
+            "Measurement",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Go-to-Market Strategy",
+            "Sales Enablement",
+            "Product Marketing",
+            "Field Sales",
+            "Sales Operations"
+          ]
+        },
+        "keywords": [
+          "sales-play",
+          "technical-decision-point",
+          "sales-tactic",
+          "go-to-market",
+          "three-level-framework",
+          "competitive-positioning",
+          "customer-engagement",
+          "framework-alignment",
+          "play-optimization"
+        ],
+        "elementCount": 174,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    },
+    {
+      "path": "documents/partner-go-to-market-execution.json",
+      "documentType": "practice",
+      "documentName": "Partner Go-to-Market Execution",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Equips technology Red Hat partners to execute structured sales plays through demand generation, deal management, and technical collaboration activities.",
+        "tags": {
+          "domainTags": [
+            "Partner Sales",
+            "Demand Generation",
+            "Deal Management",
+            "Technical Collaboration"
+          ],
+          "lifecycleTags": [
+            "Activation",
+            "Execution",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Partner Sales Organization",
+            "Partner Marketing",
+            "Partner Technical Team"
+          ]
+        },
+        "keywords": [
+          "partner sales play",
+          "deal registration",
+          "MDF",
+          "demand generation",
+          "proof of concept",
+          "co-selling",
+          "partner marketing",
+          "technical collaboration",
+          "lifecycle rewards",
+          "partner GTM"
+        ],
+        "elementCount": 356,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-10"
+      }
+    },
+    {
+      "path": "documents/multiply-rhel.json",
+      "documentType": "practice",
+      "documentName": "Multiply RHEL",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.5",
+        "description": "Distributor-led demand generation campaign surfacing hidden RHEL opportunities through two-layer channel leverage.",
+        "tags": {
+          "domainTags": [
+            "Enterprise Linux",
+            "Channel Strategy",
+            "Demand Generation",
+            "Competitive Displacement"
+          ],
+          "lifecycleTags": [
+            "Campaign Execution",
+            "Partner Enablement",
+            "Pipeline Generation"
+          ],
+          "organizationalTags": [
+            "Distributor",
+            "Reseller",
+            "Red Hat Partner Ecosystem"
+          ]
+        },
+        "keywords": [
+          "RHEL",
+          "distributor",
+          "reseller",
+          "demand generation",
+          "CentOS migration",
+          "channel cascade",
+          "sales play",
+          "pipeline",
+          "deal registration",
+          "partner enablement"
+        ],
+        "elementCount": 266,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-17",
+        "createdAt": "2026-08-11T00:00:00Z"
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "packageName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

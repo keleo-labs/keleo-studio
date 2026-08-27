@@ -1,0 +1,3467 @@
+{
+  "kind": "practice",
+  "name": "Automation TDP",
+  "description": "Provides Ansible Automation Platform positioning with four tactics covering enterprise automation, IT ops optimization, AIOps, and network automation.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceDependencyNames": [
+    "Sales Play Framework"
+  ],
+  "tags": {
+    "domainTags": [
+      "IT Automation",
+      "Infrastructure as Code",
+      "AIOps",
+      "Network Automation"
+    ],
+    "lifecycleTags": [
+      "Technical Validation",
+      "Positioning",
+      "Execution"
+    ],
+    "organizationalTags": [
+      "Technical Sales",
+      "Solution Architects",
+      "Automation Specialists"
+    ]
+  },
+  "keywords": [
+    "automation",
+    "ansible",
+    "ansible-automation-platform",
+    "event-driven-automation",
+    "network-automation",
+    "aiops",
+    "infrastructure-as-code",
+    "it-operations",
+    "enterprise-automation",
+    "tdp"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.9",
+  "citations": [
+    {
+      "name": "Automation TDP",
+      "description": "Complete TDP documentation showing seller credentials, customer wins, and What to Say/Share/Show content for the automation technology domain.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCW8JcgpRWc4389M4pcV7BpRR3p8",
+      "kind": "citation"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//",
+      "kind": "citation"
+    },
+    {
+      "name": "IT Operations Efficiency Sales Play",
+      "description": "Sales Play leveraging Automation TDP for IT operations efficiency and operational automation positioning.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCmg3BCfRjPfB8MXG3gR3q9fW9jd",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "automation-domain-icon",
+      "description": "Visual icon representing the automation technology domain and Ansible Automation Platform positioning.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-robot",
+      "fontWeight": "900"
+    },
+    {
+      "name": "automation-competitive-icon",
+      "description": "Visual icon representing automation-specific competitive intelligence and battle card content.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "automate-scale-tactic-icon",
+      "description": "Visual icon representing the enterprise-wide automation standardization tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-expand",
+      "fontWeight": "900"
+    },
+    {
+      "name": "optimize-itops-tactic-icon",
+      "description": "Visual icon representing the IT operations optimization through automation tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "aiops-tactic-icon",
+      "description": "Visual icon representing the AI-assisted operations tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "network-automation-tactic-icon",
+      "description": "Visual icon representing the network infrastructure automation tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-network-wired",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Automation",
+      "description": "The automation technology domain positioning maturity for Ansible Automation Platform across enterprise automation scenarios.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "maps to",
+          "alphaName": "Automate at Scale",
+          "direction": "outgoing",
+          "description": "The automation domain maps to the enterprise-wide automation standardization tactic for structured customer conversation execution."
+        },
+        {
+          "relationship": "maps to",
+          "alphaName": "Optimize IT Ops",
+          "direction": "outgoing",
+          "description": "The automation domain maps to the IT operations optimization tactic for operational efficiency conversations."
+        },
+        {
+          "relationship": "maps to",
+          "alphaName": "AIOps",
+          "direction": "outgoing",
+          "description": "The automation domain maps to the AI-assisted operations tactic for intelligent automation conversations."
+        },
+        {
+          "relationship": "maps to",
+          "alphaName": "Network Automation",
+          "direction": "outgoing",
+          "description": "The automation domain maps to the network automation tactic for network infrastructure automation conversations."
+        },
+        {
+          "relationship": "informs",
+          "alphaName": "Automation Competitive Position",
+          "direction": "outgoing",
+          "description": "Automation domain positioning drives the competitive intelligence requirements and battle card content for the automation technology area."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "automation-domain-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Customer automation maturity and requirements evaluated.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "background": {
+            "given": [
+              "Sales Play engagement has identified Automation as a relevant TDP for the customer"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Technical Decision Point",
+                "stateName": "Identified"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Automation tools inventoried",
+              "description": "Current automation tools and practices inventoried across infrastructure, operations, network, and security domains.",
+              "seq": 1
+            },
+            {
+              "name": "Automation maturity assessed",
+              "description": "Automation maturity assessed across the spectrum from ad hoc scripts through tool-specific to platform to enterprise automation.",
+              "seq": 2
+            },
+            {
+              "name": "Automation domains prioritized",
+              "description": "Key automation domains identified and prioritized for the customer's environment.",
+              "seq": 3
+            },
+            {
+              "name": "Business case quantified",
+              "description": "Business case for automation quantified including time savings, error reduction, and compliance improvements.",
+              "seq": 4
+            },
+            {
+              "name": "Tactic selected",
+              "description": "Relevant tactic selected from four automation tactic options based on customer's primary challenge.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Qualified",
+          "description": "Enterprise automation approach and platform architecture designed.",
+          "seq": 2,
+          "contributesToState": "Qualified",
+          "checklist": [
+            {
+              "name": "Platform architecture designed",
+              "description": "Automation platform architecture designed covering controller, execution environments, and automation hub components.",
+              "seq": 1
+            },
+            {
+              "name": "Content management strategy defined",
+              "description": "Content management strategy defined for roles, collections, and playbooks.",
+              "seq": 2
+            },
+            {
+              "name": "Governance model established",
+              "description": "Governance model established with RBAC, approval workflows, and audit logging.",
+              "seq": 3
+            },
+            {
+              "name": "Integration points mapped",
+              "description": "Integration points with existing customer tools mapped and validated.",
+              "seq": 4
+            },
+            {
+              "name": "Automation KPIs defined",
+              "description": "Automation KPIs defined including automation rate, execution success rate, and time saved metrics.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Positioned",
+          "description": "Customer engaged with specific automation tactic content.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Tactic selected and applied",
+              "description": "Specific automation tactic selected and customer challenge framing applied to the engagement.",
+              "seq": 1
+            },
+            {
+              "name": "Demonstrations delivered",
+              "description": "Automation demonstrations delivered covering relevant use cases such as infrastructure provisioning, event-driven response, or network configuration.",
+              "seq": 2
+            },
+            {
+              "name": "Technical content shared",
+              "description": "Technical content shared with appropriate audience segments using What to Say/Share/Show structure.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive positioning prepared",
+              "description": "Competitive positioning prepared against alternatives including Terraform, custom scripts, and vendor-specific tools.",
+              "seq": 4
+            },
+            {
+              "name": "Customer wins shared",
+              "description": "Relevant customer wins shared matching the customer's industry and automation challenge profile.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Demonstrated",
+          "description": "Ansible Automation Platform validated for the customer's requirements.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "checklist": [
+            {
+              "name": "Proof of concept completed",
+              "description": "Proof of concept completed with representative customer automation use cases.",
+              "seq": 1
+            },
+            {
+              "name": "Event-driven automation demonstrated",
+              "description": "Event-driven automation demonstrated with real-time response scenarios.",
+              "seq": 2
+            },
+            {
+              "name": "Multi-domain automation validated",
+              "description": "Multi-domain automation validated across infrastructure, network, and cloud management.",
+              "seq": 3
+            },
+            {
+              "name": "Governance requirements met",
+              "description": "Governance and compliance requirements met through RBAC, audit logging, and policy enforcement.",
+              "seq": 4
+            },
+            {
+              "name": "Performance confirmed at scale",
+              "description": "Performance at target scale confirmed with execution metrics and throughput data.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Customer commits to Ansible Automation Platform as enterprise automation standard.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Platform selected as standard",
+              "description": "Ansible Automation Platform selected as the customer's enterprise automation standard.",
+              "seq": 1
+            },
+            {
+              "name": "Subscription sizing agreed",
+              "description": "Subscription sizing and deployment plan agreed with Red Hat.",
+              "seq": 2
+            },
+            {
+              "name": "Win attributed",
+              "description": "Win attributed to Automation TDP in pipeline and CRM systems.",
+              "seq": 3
+            },
+            {
+              "name": "Expansion domains identified",
+              "description": "Expansion domains identified for additional automation use cases beyond initial scope.",
+              "seq": 4
+            },
+            {
+              "name": "CoE establishment supported",
+              "description": "Automation Center of Excellence establishment supported with initial charter and staffing plan.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Automation Domain Context and Rationale",
+          "description": "Why the Automation Domain alpha matters for seller success in automation technology decisions.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Enterprise customers face fragmented automation practices with different teams using different tools for infrastructure, operations, network, and security automation, creating governance gaps, inconsistent practices, and inability to scale automation benefits across the organization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Automation Domain alpha tracks the maturity of Red Hat's positioning of Ansible Automation Platform as a unified automation platform that spans all automation domains, providing sellers with a structured progression from landscape assessment through strategy definition, tactic engagement, and technical validation to technology decision."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers who follow the automation domain progression achieve higher win rates by establishing Ansible as the enterprise automation standard rather than a point solution, with expansion domains creating ongoing growth opportunities in additional automation use cases."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        },
+        {
+          "name": "Automation TDP Practice Intent",
+          "description": "The value narrative for the Automation TDP practice covering problem, solution, and outcome.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Enterprise customers face fragmented automation across infrastructure, operations, network, and security domains, with inconsistent tooling creating governance gaps, skills silos, and inability to scale automation beyond individual teams or use cases."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Automation TDP equips sellers with domain-specific positioning for Ansible Automation Platform across four tactic areas -- enterprise-wide automation standardization, IT operations optimization, AI-assisted operations, and network infrastructure automation -- each with audience-segmented content, competitive intelligence, and structured conversation guides."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers engage credibly in automation technology decisions by presenting unified platform capabilities, event-driven automation, and governance controls that address customer challenges across automation domains, converting technology conversations into qualified pipeline with measurable win rates."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Technical Decision Point",
+      "kind": "alpha"
+    },
+    {
+      "name": "Automate at Scale",
+      "description": "Tactic addressing the customer challenge of scaling automation across the enterprise with governance and reuse.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "automate-scale-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Enterprise automation scaling challenge articulated in customer terms.",
+          "seq": 1,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Challenge framed around governance",
+              "description": "Customer's enterprise automation challenge framed around consistency, governance, and scale.",
+              "seq": 1
+            },
+            {
+              "name": "Fragmentation impact quantified",
+              "description": "Impact of fragmented automation quantified in terms of duplicated effort and compliance risk.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for enterprise automation conversation (VP Ops, CTO, IT Director).",
+              "seq": 3
+            },
+            {
+              "name": "Messaging framework drafted",
+              "description": "Initial messaging framework drafted for both business and technical decision makers.",
+              "seq": 4
+            },
+            {
+              "name": "TDP relationship established",
+              "description": "Relationship to Automation TDP and supporting Sales Plays established.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented automation-at-scale content deployed in customer conversations.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "What to Say content delivered",
+              "description": "What to Say content delivered covering enterprise automation platform benefits and architecture.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share materials curated including analyst reports on automation platforms and case studies.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering multi-domain automation and governance controls.",
+              "seq": 3
+            },
+            {
+              "name": "Platform architecture presented",
+              "description": "Ansible Automation Platform unified controller and execution environment architecture presented.",
+              "seq": 4
+            },
+            {
+              "name": "TDP credentials navigated",
+              "description": "Bidirectional links to Automation TDP credentials and proof points navigated.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating enterprise automation approach using tactic content.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Challenge framing resonates",
+              "description": "Challenge framing resonates with customer stakeholders and generates productive discussion.",
+              "seq": 1
+            },
+            {
+              "name": "Content deployed to audiences",
+              "description": "Business and Technical decision maker content deployed to appropriate audiences.",
+              "seq": 2
+            },
+            {
+              "name": "Engagement tracking active",
+              "description": "Content sharing with engagement tracking shows active customer interaction.",
+              "seq": 3
+            },
+            {
+              "name": "Discovery generating qualifiers",
+              "description": "Discovery conversations generating qualifying information on automation scope and timeline.",
+              "seq": 4
+            },
+            {
+              "name": "Multi-level engagement created",
+              "description": "Tactic combined with Automation TDP positioning to create multi-level engagement.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive objections addressed with evidence-based responses.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Competitive objections addressed",
+              "description": "Competitive objections regarding Terraform, custom scripts, and vendor-specific tools addressed.",
+              "seq": 1
+            },
+            {
+              "name": "Governance differentiation demonstrated",
+              "description": "Enterprise governance and RBAC differentiation demonstrated against open-source alternatives.",
+              "seq": 2
+            },
+            {
+              "name": "Multi-domain advantage articulated",
+              "description": "Multi-domain automation coverage advantage articulated versus single-domain tools.",
+              "seq": 3
+            },
+            {
+              "name": "Event-driven differentiation presented",
+              "description": "Event-driven automation and content management differentiation presented.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references from similar enterprise automation deployments shared.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Tactic execution has created or advanced a qualified automation opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Qualified opportunity created",
+              "description": "Qualified opportunity attributed to the Automate at Scale tactic created in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Content interaction correlated",
+              "description": "Engagement tracking shows content interaction correlated with opportunity progression.",
+              "seq": 2
+            },
+            {
+              "name": "Standardization positioned",
+              "description": "Enterprise automation standardization positioned as the customer's strategic direction.",
+              "seq": 3
+            },
+            {
+              "name": "Services included",
+              "description": "Services and partner solutions for automation implementation included in proposal.",
+              "seq": 4
+            },
+            {
+              "name": "Expansion domains identified",
+              "description": "Follow-on automation expansion domains identified beyond initial enterprise scope.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Automate at Scale Tactic Context and Rationale",
+          "description": "Why the enterprise-wide automation standardization tactic drives qualified pipeline.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Customers attempting enterprise-wide automation face fragmented tool landscapes where each team selects its own automation tools, creating governance gaps, duplicated effort, and inability to enforce consistent automation practices or measure automation impact across the organization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Automate at Scale tactic frames the customer's challenge around standardization and governance, then positions Ansible Automation Platform's unified controller, execution environments, and automation hub as the enterprise-wide automation standard that consolidates fragmented practices under a single governed platform."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers who execute this tactic convert enterprise automation conversations into qualified pipeline by demonstrating how platform-level automation governance, content reuse, and multi-domain coverage address the root cause of automation fragmentation rather than adding another point tool."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Optimize IT Ops",
+      "description": "Tactic addressing the customer challenge of optimizing IT operations through automation and reducing operational overhead.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "optimize-itops-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "IT operations optimization challenge articulated in customer terms.",
+          "seq": 1,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "IT ops challenges framed",
+              "description": "Customer's IT operations challenges framed around manual processes, repetitive tasks, and operational overhead.",
+              "seq": 1
+            },
+            {
+              "name": "Manual operations impact quantified",
+              "description": "Impact of manual operations quantified in terms of labor costs, error rates, and response times.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for IT ops conversation (VP IT Ops, IT Director, Operations Manager).",
+              "seq": 3
+            },
+            {
+              "name": "Messaging framework drafted",
+              "description": "Initial messaging framework drafted connecting automation to operational efficiency outcomes.",
+              "seq": 4
+            },
+            {
+              "name": "Play relationship established",
+              "description": "Relationship to Automation TDP and IT Operations Efficiency Sales Play established.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented IT operations automation content deployed.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "What to Say content delivered",
+              "description": "What to Say content delivered covering operational automation benefits and event-driven response.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share materials curated including IT operations automation case studies and analyst reports.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering automated provisioning, patching, and incident response.",
+              "seq": 3
+            },
+            {
+              "name": "Event-driven capabilities presented",
+              "description": "Event-driven automation and policy-based governance capabilities presented.",
+              "seq": 4
+            },
+            {
+              "name": "ITSM integration demonstrated",
+              "description": "Integration with existing IT operations tools and ITSM platforms demonstrated.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating IT operations automation approach.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Challenge framing resonates",
+              "description": "IT operations challenge framing resonates with operations stakeholders.",
+              "seq": 1
+            },
+            {
+              "name": "Automation ROI quantified",
+              "description": "Automation ROI quantified using customer-specific operational data and labor costs.",
+              "seq": 2
+            },
+            {
+              "name": "Engagement tracking active",
+              "description": "Content sharing with engagement tracking shows active interaction from IT operations teams.",
+              "seq": 3
+            },
+            {
+              "name": "Discovery generating qualifiers",
+              "description": "Discovery generating qualifying information on automation scope, current tooling, and budget.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-TDP reference established",
+              "description": "Cross-reference to Server/Cloud OS TDP established for infrastructure standardization context.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive objections to IT operations automation addressed with evidence.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Existing tool objections addressed",
+              "description": "Objections regarding existing IT operations tools and ITSM platform capabilities addressed.",
+              "seq": 1
+            },
+            {
+              "name": "Agentless architecture differentiated",
+              "description": "Ansible's agentless architecture and multi-domain coverage differentiated from competing approaches.",
+              "seq": 2
+            },
+            {
+              "name": "Event-driven differentiation demonstrated",
+              "description": "Event-driven automation differentiation demonstrated against reactive scripting alternatives.",
+              "seq": 3
+            },
+            {
+              "name": "Compliance automation presented",
+              "description": "Governance and compliance automation capabilities presented as differentiators.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references from IT operations automation deployments shared.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "IT operations automation tactic has created or advanced a qualified opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Qualified opportunity created",
+              "description": "Qualified opportunity attributed to the Optimize IT Ops tactic created in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Business case accepted",
+              "description": "Automation ROI business case accepted by customer operations leadership.",
+              "seq": 2
+            },
+            {
+              "name": "IT ops positioned as initial domain",
+              "description": "IT operations automation positioned as initial deployment domain for Ansible platform.",
+              "seq": 3
+            },
+            {
+              "name": "Services engagement included",
+              "description": "Services engagement for automation implementation included in proposal.",
+              "seq": 4
+            },
+            {
+              "name": "Expansion domains identified",
+              "description": "Expansion into additional automation domains identified as follow-on opportunity.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Optimize IT Ops Tactic Context and Rationale",
+          "description": "Why the IT operations optimization tactic converts operational automation conversations into pipeline.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "IT operations teams spend excessive time on manual, repetitive tasks such as provisioning, patching, configuration management, and incident response, creating operational overhead that limits their ability to focus on strategic initiatives and innovation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Optimize IT Ops tactic frames the customer's operational challenges and positions Ansible Automation Platform's event-driven automation, policy-based governance, and multi-domain automation as the solution for standardizing and automating IT operations workflows across the infrastructure."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers convert IT operations conversations into pipeline by quantifying the ROI of operational automation and demonstrating how Ansible reduces manual effort, improves consistency, and enables proactive incident response."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "AIOps",
+      "description": "Tactic addressing the customer challenge of leveraging AI for intelligent automation and predictive operations.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "aiops-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "AI-assisted operations challenge articulated in customer terms.",
+          "seq": 1,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "AIOps challenge framed",
+              "description": "Customer's AIOps challenge framed around operational complexity, alert fatigue, and predictive needs.",
+              "seq": 1
+            },
+            {
+              "name": "Reactive operations impact quantified",
+              "description": "Impact of reactive operations quantified in terms of downtime costs and MTTR.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for AIOps conversation (CTO, VP IT Ops, AI/ML Lead).",
+              "seq": 3
+            },
+            {
+              "name": "Messaging framework drafted",
+              "description": "Initial messaging framework drafted connecting AI capabilities to operational intelligence outcomes.",
+              "seq": 4
+            },
+            {
+              "name": "Play relationship established",
+              "description": "Relationship to Automation TDP and AI-Ready Enterprise Sales Play established.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented AIOps content deployed in customer conversations.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "What to Say content delivered",
+              "description": "What to Say content delivered covering Ansible's AI-assisted automation capabilities.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share materials curated including AIOps market analysis and intelligent automation case studies.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering predictive analytics and automated remediation.",
+              "seq": 3
+            },
+            {
+              "name": "AI/ML integration presented",
+              "description": "Integration between Ansible Automation Platform and AI/ML platforms presented.",
+              "seq": 4
+            },
+            {
+              "name": "AI-enhanced decision making demonstrated",
+              "description": "Event-driven automation with AI-enhanced decision making demonstrated.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating AIOps automation approach.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Challenge framing resonates",
+              "description": "AIOps challenge framing resonates with customer's operational and AI leadership.",
+              "seq": 1
+            },
+            {
+              "name": "AI use cases mapped",
+              "description": "AI-assisted automation use cases mapped to customer's specific operational challenges.",
+              "seq": 2
+            },
+            {
+              "name": "Engagement tracking active",
+              "description": "Content sharing with engagement tracking shows active interaction from both IT and AI teams.",
+              "seq": 3
+            },
+            {
+              "name": "Discovery generating qualifiers",
+              "description": "Discovery generating qualifying information on AI maturity, data availability, and operations scale.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-TDP reference established",
+              "description": "Cross-reference to AI Platform TDP established for broader AI infrastructure context.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "AIOps objections addressed with evidence-based responses.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "AI readiness objections addressed",
+              "description": "Objections regarding AI readiness and data maturity requirements addressed.",
+              "seq": 1
+            },
+            {
+              "name": "Practical AI differentiated",
+              "description": "Ansible's practical AI-assisted automation differentiated from complex ML-only AIOps solutions.",
+              "seq": 2
+            },
+            {
+              "name": "Incremental adoption path positioned",
+              "description": "Event-driven automation with AI-enhanced triggers positioned as incremental AIOps adoption path.",
+              "seq": 3
+            },
+            {
+              "name": "Open-source AI advantages articulated",
+              "description": "Open-source AI integration advantages articulated versus proprietary AIOps platforms.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references from AIOps adoption journeys shared.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "AIOps tactic has created or advanced a qualified opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Qualified opportunity created",
+              "description": "Qualified opportunity attributed to the AIOps tactic created in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Strategic evolution positioned",
+              "description": "AIOps positioned as a strategic automation evolution path for the customer.",
+              "seq": 2
+            },
+            {
+              "name": "AI use cases in deployment plan",
+              "description": "AI-assisted automation use cases included in the automation platform deployment plan.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-sell opportunity identified",
+              "description": "Cross-sell opportunity to AI Platform TDP identified and documented.",
+              "seq": 4
+            },
+            {
+              "name": "Adoption roadmap agreed",
+              "description": "Incremental AIOps adoption roadmap agreed with customer leadership.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "AIOps Tactic Context and Rationale",
+          "description": "Why the AI-assisted operations tactic makes AIOps achievable for customers at various AI maturity levels.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Operations teams are overwhelmed by the volume and complexity of infrastructure events, facing alert fatigue, reactive incident response, and inability to predict issues before they impact business services, while AI/ML initiatives remain disconnected from operational automation workflows."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The AIOps tactic positions Ansible Automation Platform's event-driven automation with AI-enhanced decision making as a practical path to intelligent operations, connecting AI capabilities to operational workflows without requiring a complete AIOps platform replacement."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers convert AIOps conversations into pipeline by presenting an incremental adoption path that starts with event-driven automation and progresses to AI-assisted remediation, making AIOps achievable rather than aspirational for customers at various AI maturity levels."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Network Automation",
+      "description": "Tactic addressing the customer challenge of automating network infrastructure configuration and management.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "network-automation-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Network automation challenge articulated in customer terms.",
+          "seq": 1,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Network challenge framed",
+              "description": "Customer's network automation challenge framed around manual configuration, change management, and compliance.",
+              "seq": 1
+            },
+            {
+              "name": "Manual management impact quantified",
+              "description": "Impact of manual network management quantified in terms of change failure rates and compliance gaps.",
+              "seq": 2
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for network automation conversation (Network Director, VP Infrastructure, CISO).",
+              "seq": 3
+            },
+            {
+              "name": "Messaging framework drafted",
+              "description": "Initial messaging framework drafted connecting automation to network reliability and compliance outcomes.",
+              "seq": 4
+            },
+            {
+              "name": "Play relationship established",
+              "description": "Relationship to Automation TDP and relevant Sales Plays established.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented network automation content deployed.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "What to Say content delivered",
+              "description": "What to Say content delivered covering Ansible's network automation modules and capabilities.",
+              "seq": 1
+            },
+            {
+              "name": "What to Share materials curated",
+              "description": "What to Share materials curated including network automation case studies and analyst reports.",
+              "seq": 2
+            },
+            {
+              "name": "What to Show demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering network device configuration, compliance, and validation.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-vendor capabilities presented",
+              "description": "Multi-vendor network automation capabilities presented across switch, router, and firewall platforms.",
+              "seq": 4
+            },
+            {
+              "name": "Broader strategy positioned",
+              "description": "Network automation as part of broader infrastructure automation strategy positioned.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating network automation approach.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Challenge framing resonates",
+              "description": "Network automation challenge framing resonates with network and infrastructure stakeholders.",
+              "seq": 1
+            },
+            {
+              "name": "Use cases mapped",
+              "description": "Network automation use cases mapped to customer's specific network management challenges.",
+              "seq": 2
+            },
+            {
+              "name": "Engagement tracking active",
+              "description": "Content sharing with engagement tracking shows active interaction from network teams.",
+              "seq": 3
+            },
+            {
+              "name": "Discovery generating qualifiers",
+              "description": "Discovery generating qualifying information on network scale, vendor diversity, and change volume.",
+              "seq": 4
+            },
+            {
+              "name": "NMS integration discussed",
+              "description": "Integration with existing network management systems and change management processes discussed.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Network automation objections addressed with evidence-based responses.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Vendor tool objections addressed",
+              "description": "Objections regarding vendor-specific network management tools addressed.",
+              "seq": 1
+            },
+            {
+              "name": "Agentless approach differentiated",
+              "description": "Ansible's agentless, multi-vendor approach differentiated from proprietary network automation.",
+              "seq": 2
+            },
+            {
+              "name": "Governance capabilities presented",
+              "description": "Network automation governance and change validation capabilities presented.",
+              "seq": 3
+            },
+            {
+              "name": "Compliance automation demonstrated",
+              "description": "Compliance automation and audit trail capabilities demonstrated as differentiators.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references shared",
+              "description": "Customer references from network automation deployments shared.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Network automation tactic has created or advanced a qualified opportunity.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Qualified opportunity created",
+              "description": "Qualified opportunity attributed to the Network Automation tactic created in pipeline.",
+              "seq": 1
+            },
+            {
+              "name": "Strategic domain positioned",
+              "description": "Network automation positioned as a strategic domain for Ansible platform adoption.",
+              "seq": 2
+            },
+            {
+              "name": "Device targets defined",
+              "description": "Multi-vendor network automation scope defined with initial device targets.",
+              "seq": 3
+            },
+            {
+              "name": "Broader expansion identified",
+              "description": "Expansion from network automation to broader infrastructure automation identified.",
+              "seq": 4
+            },
+            {
+              "name": "Compliance requirements incorporated",
+              "description": "Network automation compliance and governance requirements incorporated into deployment plan.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Network Automation Tactic Context and Rationale",
+          "description": "Why the network automation tactic converts network management conversations into pipeline.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Network teams manage increasingly complex multi-vendor environments with manual configuration processes, resulting in high change failure rates, compliance gaps, and inability to keep pace with infrastructure changes driven by cloud and application modernization initiatives."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Network Automation tactic positions Ansible's agentless, multi-vendor network automation capabilities as the solution for standardizing network configuration management, automating compliance validation, and reducing change-related outages across heterogeneous network environments."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers convert network automation conversations into pipeline by demonstrating how Ansible's multi-vendor support eliminates vendor lock-in in network management and creates a unified automation approach that extends from network to broader infrastructure domains."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Automation Competitive Position",
+      "description": "The competitive standing of Ansible Automation Platform relative to automation alternatives in customer evaluations.",
+      "focusName": "Solution Alignment",
+      "contributesTo": "Competitive Position",
+      "relatesTo": [
+        {
+          "relationship": "informs",
+          "alphaName": "Automation",
+          "direction": "outgoing",
+          "description": "Automation competitive intelligence informs the positioning and objection handling throughout the automation domain engagement lifecycle."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "automation-competitive-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Assessed",
+          "description": "Automation competitive landscape has been surveyed for the customer context.",
+          "seq": 1,
+          "contributesToState": "Assessed",
+          "checklist": [
+            {
+              "name": "Primary competitors identified",
+              "description": "Primary automation competitors identified including Terraform, custom scripts, and vendor-specific tools.",
+              "seq": 1
+            },
+            {
+              "name": "Cloud provider alternatives assessed",
+              "description": "Cloud provider native automation services assessed as competitive alternatives.",
+              "seq": 2
+            },
+            {
+              "name": "Open-source alternatives catalogued",
+              "description": "Open-source automation alternatives catalogued with market positioning.",
+              "seq": 3
+            },
+            {
+              "name": "Current tooling inventoried",
+              "description": "Customer's current automation tooling inventoried as competitive baseline.",
+              "seq": 4
+            },
+            {
+              "name": "Analyst reports reviewed",
+              "description": "Analyst reports on automation platforms and infrastructure as code market reviewed.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Mapped",
+          "description": "Competitor strengths and vulnerabilities mapped for the automation domain.",
+          "seq": 2,
+          "contributesToState": "Mapped",
+          "checklist": [
+            {
+              "name": "Feature comparisons created",
+              "description": "Feature-by-feature comparison tables created for Ansible vs Terraform, custom scripts, and vendor tools.",
+              "seq": 1
+            },
+            {
+              "name": "Multi-domain advantage mapped",
+              "description": "Ansible's multi-domain automation advantage mapped against single-domain competitor limitations.",
+              "seq": 2
+            },
+            {
+              "name": "Key differentiators mapped",
+              "description": "Event-driven automation and governance capabilities mapped as key differentiators.",
+              "seq": 3
+            },
+            {
+              "name": "Agentless advantage documented",
+              "description": "Agentless architecture advantage documented versus agent-based alternatives.",
+              "seq": 4
+            },
+            {
+              "name": "Objections documented",
+              "description": "Common competitive objections documented with recommended responses.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Differentiated",
+          "description": "Ansible differentiation articulated in customer-relevant terms.",
+          "seq": 3,
+          "contributesToState": "Differentiated",
+          "checklist": [
+            {
+              "name": "Multi-domain positioned as differentiator",
+              "description": "Multi-domain automation coverage positioned as primary differentiator versus point tools.",
+              "seq": 1
+            },
+            {
+              "name": "Enterprise governance differentiated",
+              "description": "Enterprise governance with RBAC, approval workflows, and audit logging differentiated from open-source alternatives.",
+              "seq": 2
+            },
+            {
+              "name": "Content ecosystem advantage articulated",
+              "description": "Ansible content ecosystem (Galaxy, certified content) advantage articulated versus custom scripting.",
+              "seq": 3
+            },
+            {
+              "name": "Event-driven capabilities demonstrated",
+              "description": "Event-driven automation and policy-based governance capabilities demonstrated.",
+              "seq": 4
+            },
+            {
+              "name": "Vendor-neutral positioning reinforced",
+              "description": "Vendor-neutral positioning reinforced against proprietary automation platforms.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Defended",
+          "description": "Competitive challenges addressed with evidence in customer automation evaluations.",
+          "seq": 4,
+          "contributesToState": "Defended",
+          "checklist": [
+            {
+              "name": "Terraform comparison addressed",
+              "description": "Terraform comparison addressed: Ansible's procedural plus declarative flexibility vs Terraform's declarative-only model.",
+              "seq": 1
+            },
+            {
+              "name": "Custom scripting comparison addressed",
+              "description": "Custom scripting comparison addressed: enterprise governance, reuse, and maintainability vs script sprawl.",
+              "seq": 2
+            },
+            {
+              "name": "Vendor tool comparison addressed",
+              "description": "Vendor-specific tool comparison addressed: multi-vendor coverage vs single-vendor lock-in.",
+              "seq": 3
+            },
+            {
+              "name": "Proof activities structured",
+              "description": "Proof activities structured to highlight Ansible's multi-domain automation in competitive evaluations.",
+              "seq": 4
+            },
+            {
+              "name": "Win/loss analysis informs positioning",
+              "description": "Win/loss analysis specific to automation competitive situations informs positioning updates.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Preferred",
+          "description": "Ansible Automation Platform selected as the preferred automation solution.",
+          "seq": 5,
+          "contributesToState": "Preferred",
+          "checklist": [
+            {
+              "name": "Displacement stories documented",
+              "description": "Competitive displacement stories from automation evaluations documented for evidence base.",
+              "seq": 1
+            },
+            {
+              "name": "Champion articulates differentiation",
+              "description": "Customer's internal champion articulates Ansible differentiation to procurement and leadership.",
+              "seq": 2
+            },
+            {
+              "name": "Analyst recognition cited",
+              "description": "Analyst recognition for Ansible Automation Platform cited in customer justification materials.",
+              "seq": 3
+            },
+            {
+              "name": "Field insights captured",
+              "description": "Field-generated competitive insights from automation deals captured for framework optimization.",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Automation Competitive Position Context and Rationale",
+          "description": "Why automation-specific competitive intelligence drives evaluation success.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Enterprise automation decisions involve evaluating Ansible Automation Platform against alternatives including HashiCorp Terraform for infrastructure as code, custom scripts and homegrown tools, cloud provider native automation services, and vendor-specific configuration management tools, each with genuine strengths in their focused domains."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Terraform excels at declarative infrastructure provisioning, custom scripts provide maximum flexibility for unique requirements, and cloud provider tools offer deep integration with their respective platforms, but each alternative has limitations in multi-domain coverage, enterprise governance, or operational automation breadth."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Ansible Automation Platform provides a structural competitive advantage through multi-domain automation coverage spanning infrastructure, operations, network, security, and cloud, combined with enterprise governance controls, an agentless architecture that simplifies deployment, and an extensive content ecosystem that accelerates automation adoption."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Automation Brief",
+      "description": "Automation-specific positioning document with Ansible credentials, customer wins, and audience-segmented content.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Basic automation technology domain overview with market context.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Domain described",
+              "description": "Automation technology domain described with Ansible Automation Platform capabilities.",
+              "seq": 1
+            },
+            {
+              "name": "Market trends identified",
+              "description": "Enterprise automation market trends and customer demand drivers identified.",
+              "seq": 2
+            },
+            {
+              "name": "Product portfolio mapped",
+              "description": "Ansible product portfolio mapped to automation use cases.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Credentialed",
+          "description": "Positioning brief with Ansible credentials and audience-segmented content.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Seller credentials documented",
+              "description": "Ansible seller credentials documented including market share, analyst recognitions, and certifications.",
+              "seq": 1
+            },
+            {
+              "name": "Customer wins compiled",
+              "description": "Automation customer wins compiled with quantified outcomes by industry and use case.",
+              "seq": 2
+            },
+            {
+              "name": "BDM messaging drafted",
+              "description": "BDM messaging drafted with automation ROI narratives and business value propositions.",
+              "seq": 3
+            },
+            {
+              "name": "TDM messaging drafted",
+              "description": "TDM messaging drafted with platform architecture benefits and operational improvements.",
+              "seq": 4
+            },
+            {
+              "name": "Play relationships documented",
+              "description": "Supporting Sales Play relationships documented.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Content-Complete",
+          "description": "Full positioning brief with automation competitive battle cards and displacement strategies.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Competitive alternatives analyzed",
+              "description": "Automation competitive alternatives analyzed with strengths and weaknesses.",
+              "seq": 1
+            },
+            {
+              "name": "Head-to-head comparisons included",
+              "description": "Head-to-head comparison data for Ansible vs Terraform, custom scripts, and vendor tools included.",
+              "seq": 2
+            },
+            {
+              "name": "Displacement strategies documented",
+              "description": "Displacement and migration strategies from competing automation tools documented.",
+              "seq": 3
+            },
+            {
+              "name": "Objection handling provided",
+              "description": "Automation-specific objection handling guidance provided.",
+              "seq": 4
+            },
+            {
+              "name": "Win/loss insights integrated",
+              "description": "Win/loss analysis insights for automation competitive situations integrated.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Differentiated"
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Continuously updated brief with automation competitive intelligence and win rate analytics.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Intelligence updated",
+              "description": "Automation competitive intelligence updated with market changes and new entrants.",
+              "seq": 1
+            },
+            {
+              "name": "Win rate data included",
+              "description": "Win rate data by automation competitor and scenario included.",
+              "seq": 2
+            },
+            {
+              "name": "Emerging threats tracked",
+              "description": "Emerging automation technology threats and opportunities tracked.",
+              "seq": 3
+            },
+            {
+              "name": "Evaluations refreshed",
+              "description": "Analyst and third-party automation platform evaluations continuously refreshed.",
+              "seq": 4
+            },
+            {
+              "name": "Field feedback integrated",
+              "description": "Field feedback from automation competitive situations integrated.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Preferred"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Automation TDP Positioning Brief Value",
+          "description": "Why the automation positioning brief equips sellers for credible automation technology conversations.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sellers need automation-specific positioning depth covering Ansible's multi-domain capabilities, enterprise governance, and competitive differentiation to engage credibly in automation technology evaluations."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Automation TDP Positioning Brief provides progressive depth from market overview through credentialed positioning to competitive intelligence, equipping sellers with the automation-specific evidence and messaging they need."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers with access to well-maintained automation positioning briefs achieve higher win rates in automation competitive evaluations and more effectively navigate multi-domain automation conversations."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "mapsTo": "TDP Positioning Brief",
+      "kind": "workProduct"
+    },
+    {
+      "name": "Automation Guide",
+      "description": "Customer challenge-focused conversation guide for a specific automation tactic scenario.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Basic automation customer challenge identification and initial messaging.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Challenge clearly stated",
+              "description": "Specific automation customer challenge clearly stated and framed.",
+              "seq": 1
+            },
+            {
+              "name": "Talking points listed",
+              "description": "Initial talking points for automation discovery conversations listed.",
+              "seq": 2
+            },
+            {
+              "name": "Proof points identified",
+              "description": "Basic evidence and automation proof points identified.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automate at Scale",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Optimize IT Ops",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "AIOps",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Network Automation",
+              "stateName": "Prepared"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Conversation guide with audience-segmented automation messaging and evidence.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Executive messaging drafted",
+              "description": "Executive-level messaging with automation business impact framing.",
+              "seq": 1
+            },
+            {
+              "name": "Technical messaging drafted",
+              "description": "Technical-level messaging with Ansible architecture and capability detail.",
+              "seq": 2
+            },
+            {
+              "name": "Evaluator messaging drafted",
+              "description": "Evaluator-level messaging with automation proof and validation guidance.",
+              "seq": 3
+            },
+            {
+              "name": "Reference stories matched",
+              "description": "Automation customer reference stories matched to the challenge.",
+              "seq": 4
+            },
+            {
+              "name": "Discovery questions tailored",
+              "description": "Discovery questions tailored to each audience level.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automate at Scale",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Optimize IT Ops",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "AIOps",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Network Automation",
+              "stateName": "Deployed"
+            }
+          ]
+        },
+        {
+          "name": "Deployment-Ready",
+          "description": "Complete conversation guide with engagement tracking and follow-up sequences.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Content sharing enabled",
+              "description": "Content sharing materials with engagement tracking enabled for automation conversations.",
+              "seq": 1
+            },
+            {
+              "name": "Follow-up templates prepared",
+              "description": "Follow-up email templates and cadence guidance for automation tactic follow-through.",
+              "seq": 2
+            },
+            {
+              "name": "Objection handling included",
+              "description": "Objection handling specific to this automation challenge scenario.",
+              "seq": 3
+            },
+            {
+              "name": "TDP cross-reference included",
+              "description": "Cross-reference to Automation TDP positioning and Ansible credentials.",
+              "seq": 4
+            },
+            {
+              "name": "Conversion criteria defined",
+              "description": "Conversion criteria defined for advancing automation opportunity to next stage.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automate at Scale",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Optimize IT Ops",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "AIOps",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Network Automation",
+              "stateName": "Engaged"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Data-driven guide with automation conversion analytics and refined messaging.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Conversion rate data included",
+              "description": "Conversion rate data for this automation tactic by segment, region, and seller experience.",
+              "seq": 1
+            },
+            {
+              "name": "A/B tested messaging integrated",
+              "description": "A/B tested messaging variations for automation conversations integrated.",
+              "seq": 2
+            },
+            {
+              "name": "Engagement analytics included",
+              "description": "Customer engagement analytics informing automation content selection.",
+              "seq": 3
+            },
+            {
+              "name": "Best practices codified",
+              "description": "Best practice seller behaviors for automation conversations codified.",
+              "seq": 4
+            },
+            {
+              "name": "Predictive indicators included",
+              "description": "Predictive indicators for automation challenge-to-opportunity conversion.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automate at Scale",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Optimize IT Ops",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "AIOps",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Network Automation",
+              "stateName": "Proven"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Automation Tactic Conversation Guide Value",
+          "description": "Why challenge-focused conversation guides convert more effectively than product-led approaches.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sellers need structured conversation guides that frame specific automation customer challenges from the customer's perspective rather than leading with Ansible product features."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Each automation tactic conversation guide structures the customer conversation around a specific automation challenge with audience-segmented messaging, evidence, and demonstration content."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Challenge-focused automation tactic guides convert more effectively because they establish relevance before positioning Ansible, with conversion tracking enabling data-driven optimization of automation messaging."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic Conversation Guide",
+      "kind": "workProduct"
+    },
+    {
+      "name": "Automation Competitive Battle Card",
+      "description": "Automation-specific competitive intelligence document with head-to-head analysis and displacement strategies.",
+      "levelsOfDetail": [
+        {
+          "name": "Competitive Overview",
+          "description": "Basic identification of automation competitive alternatives.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Competitors listed",
+              "description": "Primary automation competitors listed with market positioning.",
+              "seq": 1
+            },
+            {
+              "name": "High-level comparison created",
+              "description": "High-level strength/weakness comparison for Ansible vs alternatives.",
+              "seq": 2
+            },
+            {
+              "name": "Differentiation messages articulated",
+              "description": "Basic automation differentiation messages articulated.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Assessed"
+            }
+          ]
+        },
+        {
+          "name": "Structured Battle Card",
+          "description": "Organized automation competitive analysis with head-to-head comparisons.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Feature comparisons created",
+              "description": "Detailed feature comparison tables for Ansible vs Terraform, custom scripts, vendor tools.",
+              "seq": 1
+            },
+            {
+              "name": "Objection handling included",
+              "description": "Competitor-specific objection handling guidance for automation evaluations.",
+              "seq": 2
+            },
+            {
+              "name": "Decision criteria mapped",
+              "description": "Customer decision criteria mapped to Ansible competitive advantages.",
+              "seq": 3
+            },
+            {
+              "name": "Displacement triggers identified",
+              "description": "Displacement triggers identified for automation tool replacement scenarios.",
+              "seq": 4
+            },
+            {
+              "name": "Win stories compiled",
+              "description": "Win stories against each automation competitor compiled.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Strategy-Enriched Battle Card",
+          "description": "Complete battle card with automation competitive strategy and displacement approaches.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Displacement strategies documented",
+              "description": "Detailed displacement strategies per automation competitor.",
+              "seq": 1
+            },
+            {
+              "name": "Migration approaches documented",
+              "description": "Migration and co-existence approaches for moving from competing tools to Ansible documented.",
+              "seq": 2
+            },
+            {
+              "name": "Commercial strategy included",
+              "description": "Pricing and commercial strategy guidance for automation competitive situations.",
+              "seq": 3
+            },
+            {
+              "name": "Trap-setting questions included",
+              "description": "Competitive trap-setting questions for automation discovery conversations.",
+              "seq": 4
+            },
+            {
+              "name": "Analyst comparisons included",
+              "description": "Analyst and third-party automation platform comparative data included.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Differentiated"
+            }
+          ]
+        },
+        {
+          "name": "Intelligence-Driven Battle Card",
+          "description": "Continuously updated automation battle card with win/loss analytics.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Win/loss data included",
+              "description": "Real-time win/loss data by automation competitor and scenario.",
+              "seq": 1
+            },
+            {
+              "name": "Emerging threats tracked",
+              "description": "Emerging automation competitive threats tracked.",
+              "seq": 2
+            },
+            {
+              "name": "Response playbooks included",
+              "description": "Competitive response playbooks for new automation market announcements.",
+              "seq": 3
+            },
+            {
+              "name": "Predictive modeling included",
+              "description": "Predictive competitive outcome modeling for automation evaluations.",
+              "seq": 4
+            },
+            {
+              "name": "Field feedback integrated",
+              "description": "Field feedback integration and crowd-sourced automation competitive intelligence.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Defended"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "workProductInstances": [
+    {
+      "name": "Automate at Scale Conversation Guide",
+      "description": "Conversation guide for the enterprise-wide automation standardization tactic.",
+      "workProductName": "Automation Tactic Conversation Guide"
+    },
+    {
+      "name": "Optimize IT Ops Conversation Guide",
+      "description": "Conversation guide for the IT operations optimization through automation tactic.",
+      "workProductName": "Automation Tactic Conversation Guide"
+    },
+    {
+      "name": "AIOps Conversation Guide",
+      "description": "Conversation guide for the AI-assisted operations tactic.",
+      "workProductName": "Automation Tactic Conversation Guide"
+    },
+    {
+      "name": "Network Automation Conversation Guide",
+      "description": "Conversation guide for the network infrastructure automation tactic.",
+      "workProductName": "Automation Tactic Conversation Guide"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Automation TDP Specialist",
+      "description": "Automation domain expert responsible for Ansible positioning, technical validation, and tactic execution.",
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "IT Automation",
+          "Ansible",
+          "Technical Sales"
+        ],
+        "lifecycleTags": [
+          "Technical Validation",
+          "Positioning",
+          "Demonstration"
+        ],
+        "organizationalTags": [
+          "Technical Sales",
+          "Automation Specialists"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Automation TDP Team",
+      "description": "Team responsible for executing Automation TDP engagements combining domain expertise, competitive intelligence, and customer engagement.",
+      "personaNames": [
+        "Automation TDP Specialist"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Technical Sales",
+          "Automation Specialists"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Assess Automation Landscape",
+      "description": "Evaluate the customer's current automation maturity and requirements across infrastructure, operations, network, and security domains.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Sales Play engagement has identified Automation as a relevant TDP for the customer"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Technical Decision Point",
+            "stateName": "Identified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Automation landscape assessment verification",
+        "description": "Verifies that the automation landscape is properly assessed when automation-related decisions are identified.",
+        "when": [
+          "Customer conversation reveals automation-related technology decisions or challenges"
+        ],
+        "then": [
+          "Customer's automation maturity level is assessed and documented",
+          "Relevant automation tactic is selected from four options based on customer's primary challenge"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Automation",
+          "stateName": "Identified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Brief",
+          "levelOfDetailName": "Initial"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Automation TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Assess Automation Landscape Technique",
+          "description": "How to evaluate customer automation maturity and select the appropriate tactic.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "A customer's automation practices are evaluated across all relevant domains to understand current maturity and identify the most impactful automation opportunities."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The automation specialist assesses the customer's current tooling, practices, maturity level, and business case for automation using the Automation TDP's structured assessment approach."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Inventory existing automation tools, assess maturity across the ad hoc-to-enterprise spectrum, identify key automation domains, quantify the business case, and select the most relevant tactic from the four available options."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A clear picture of the customer's automation landscape enables targeted positioning of Ansible Automation Platform against their specific challenges and maturity level."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Define Automation Strategy",
+      "description": "Design the enterprise automation approach and platform architecture with the customer.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Customer automation landscape has been assessed with maturity level determined"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Automation Domain",
+            "stateName": "Identified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Automation strategy definition verification",
+        "description": "Verifies that the automation strategy is properly defined when the customer agrees to explore Ansible.",
+        "when": [
+          "Customer agrees to explore Ansible Automation Platform as the enterprise automation standard"
+        ],
+        "then": [
+          "Platform architecture is designed with controller, execution environments, and hub components",
+          "Governance model and automation KPIs are defined collaboratively"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Automation",
+          "stateName": "Qualified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Brief",
+          "levelOfDetailName": "Credentialed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Automation TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Define Automation Strategy Technique",
+          "description": "How to collaboratively design an enterprise automation strategy with the customer.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "After understanding the customer's automation landscape, the seller and customer collaborate to design a target automation strategy aligned to the customer's goals."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Design an enterprise automation approach covering platform architecture, content management, governance, tool integration, and measurable automation KPIs."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Present Ansible Automation Platform architecture options, map integration points with existing tools, establish governance controls including RBAC and approval workflows, and define success metrics."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A shared automation strategy document serves as the foundation for tactic-level engagement and technical validation."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Execute Automation Tactic Conversation",
+      "description": "Deliver customer challenge-focused conversations using automation tactic-specific messaging, evidence, and audience-segmented content.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Automation strategy has been defined and specific tactic selected"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Automation Domain",
+            "stateName": "Qualified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Automation tactic conversation execution verification",
+        "description": "Verifies that tactic conversations are properly executed with audience-appropriate content.",
+        "when": [
+          "Customer agrees to a topic-specific deep-dive on a specific automation challenge"
+        ],
+        "then": [
+          "Challenge framing resonates with customer stakeholders",
+          "Audience-appropriate automation content is delivered with engagement tracking",
+          "Competitive positioning against automation alternatives is established"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Automate at Scale",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Optimize IT Ops",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "AIOps",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Network Automation",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Automation",
+          "stateName": "Positioned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Guide",
+          "levelOfDetailName": "Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Value Articulation",
+        "Competitive Intelligence"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Automation TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Execute Automation Tactic Conversation Technique",
+          "description": "How to deliver structured automation tactic conversations with audience-segmented content.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "A customer has expressed interest in addressing a specific automation challenge, and the appropriate tactic from the four automation options has been selected."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Deliver a structured conversation using the tactic's challenge framing, audience-segmented content, and evidence to establish relevance and advance the automation evaluation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Lead with customer challenge framing, present What to Say/Share/Show content matched to audience, share relevant customer references, and establish competitive positioning against automation alternatives."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Customer validates the automation challenge, engages with shared content, and the tactic conversation creates momentum toward technical validation of Ansible Automation Platform."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Position Automation Competitively",
+      "description": "Build and present competitive positioning for the automation domain including head-to-head analysis against Terraform, custom scripts, and vendor-specific tools.",
+      "activitySpaceName": "Differentiate Competitively",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Customer has identified competitive alternatives in the automation space"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Automation Domain",
+            "stateName": "Identified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Automation competitive positioning verification",
+        "description": "Verifies that competitive positioning is established when customers evaluate automation alternatives.",
+        "when": [
+          "Customer reveals they are evaluating Terraform, custom scripts, or vendor-specific automation tools"
+        ],
+        "then": [
+          "Ansible differentiation is articulated on multi-domain coverage, governance, and agentless architecture",
+          "Competitive objections are addressed with evidence-based responses"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Automation Competitive Position",
+          "stateName": "Mapped"
+        },
+        {
+          "alphaName": "Automation Competitive Position",
+          "stateName": "Differentiated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card"
+        }
+      ],
+      "requiredCompetencies": [
+        "Competitive Intelligence",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Automation TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Position Automation Competitively Technique",
+          "description": "How to build and present competitive positioning for Ansible against automation alternatives.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "The customer is evaluating automation alternatives including Terraform for infrastructure as code, custom scripts for maximum flexibility, and vendor-specific tools for deep platform integration."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Terraform excels at declarative infrastructure provisioning, custom scripts provide unlimited flexibility, and vendor-specific tools offer deep native integration, but each has limitations in multi-domain coverage, enterprise governance, or operational automation breadth."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Ansible Automation Platform provides multi-domain automation across infrastructure, operations, network, security, and cloud with enterprise governance, agentless architecture, and an extensive content ecosystem that competitors cannot match in breadth and flexibility."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Validate Automation Technology Fit",
+      "description": "Conduct technical proof activities to validate Ansible Automation Platform for the customer's automation requirements.",
+      "activitySpaceName": "Validate Technically",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Tactic engagement has generated customer interest in Ansible Automation Platform validation"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Automation Domain",
+            "stateName": "Positioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "Automation technology validation verification",
+        "description": "Verifies that technical proof activities successfully validate Ansible for customer requirements.",
+        "when": [
+          "Customer requests a proof of concept or technical demonstration of Ansible Automation Platform"
+        ],
+        "then": [
+          "Automation use cases validated with representative customer scenarios",
+          "Event-driven automation and multi-domain capabilities confirmed at target scale"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Automation",
+          "stateName": "Demonstrated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Brief",
+          "levelOfDetailName": "Content-Complete"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Automation TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Validate Automation Technology Fit Technique",
+          "description": "How to conduct proof activities that validate Ansible for customer automation requirements.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "A customer has engaged with automation tactic content and wants to validate Ansible Automation Platform capabilities through hands-on technical proof."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Design and execute a proof of concept covering the customer's priority automation use cases with clear success criteria aligned to their decision criteria."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Focus on multi-domain automation capabilities, event-driven response, governance and RBAC, and integration with existing tools, demonstrating with customer-relevant use cases and measuring against agreed criteria."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Technical validation confirms Ansible Automation Platform meets the customer's automation requirements at their required scale, providing evidence for the technology decision."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Secure Automation Platform Decision",
+      "description": "Convert validated automation positioning into a customer commitment to Ansible Automation Platform.",
+      "activitySpaceName": "Manage the Deal",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Ansible Automation Platform has been technically validated for the customer's requirements"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Automation Domain",
+            "stateName": "Demonstrated"
+          }
+        ]
+      },
+      "test": {
+        "name": "Automation platform decision verification",
+        "description": "Verifies that validated positioning converts into a customer platform commitment.",
+        "when": [
+          "Technical validation results confirm Ansible meets customer requirements and stakeholder consensus is building"
+        ],
+        "then": [
+          "Customer selects Ansible as enterprise automation standard",
+          "Subscription sizing and deployment plan are agreed",
+          "Expansion domains for additional automation use cases are identified"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Automation",
+          "stateName": "Validated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Brief",
+          "levelOfDetailName": "Validated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Deal Orchestration",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Adapts"
+        }
+      ],
+      "involves": [
+        "Automation TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Secure Automation Platform Decision Technique",
+          "description": "How to convert validated automation positioning into a customer platform commitment.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Ansible Automation Platform has been validated through proof activities and the customer is ready to make an automation platform decision."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Guide the customer through the commercial decision process, sizing the Ansible subscription appropriately and identifying expansion domains for future growth."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Present the business case consolidating technical validation results, competitive differentiation evidence, and ROI projections, then agree subscription sizing, deployment plan, and Automation Center of Excellence establishment support."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "The customer commits to Ansible Automation Platform as their enterprise automation standard, with identified expansion domains creating a foundation for ongoing growth."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Handle Automation Competitive Objections",
+      "description": "Address competitive objections specific to automation evaluations with evidence-based responses and differentiation arguments.",
+      "activitySpaceName": "Differentiate Competitively",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Customer is actively comparing Ansible with competing automation approaches"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Automation Competitive Position",
+            "stateName": "Differentiated"
+          }
+        ]
+      },
+      "test": {
+        "name": "Automation competitive objection handling verification",
+        "description": "Verifies that competitive objections are addressed with evidence from the automation battle card.",
+        "when": [
+          "Customer raises specific objections about Ansible vs Terraform, custom scripts, or vendor tools"
+        ],
+        "then": [
+          "Each objection is addressed with evidence-based responses from the automation battle card",
+          "Ansible's multi-domain and governance advantages are demonstrated in context"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Automation Competitive Position",
+          "stateName": "Defended"
+        },
+        {
+          "alphaName": "Automate at Scale",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "Optimize IT Ops",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "AIOps",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "Network Automation",
+          "stateName": "Converted"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Competitive Battle Card",
+          "levelOfDetailName": "Strategy-Enriched Battle Card"
+        }
+      ],
+      "requiredCompetencies": [
+        "Competitive Intelligence",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Adapts"
+        }
+      ],
+      "involves": [
+        "Automation TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Handle Automation Competitive Objections Technique",
+          "description": "How to address automation competitive objections with evidence-based responses.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "Customers evaluating automation platforms raise specific objections comparing Ansible to alternatives they know or are already using, requiring evidence-based responses that acknowledge competitor strengths while articulating Ansible's advantages."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Terraform offers mature declarative infrastructure provisioning, custom scripts provide complete flexibility, and vendor-specific tools integrate deeply with their platforms, creating genuine competitive challenges that must be addressed honestly."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Ansible's multi-domain coverage, agentless architecture, enterprise governance controls, and extensive certified content ecosystem address the gaps in competing approaches, particularly for customers needing automation across infrastructure, operations, network, and security domains."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Engage Automation Tactic Customers",
+      "description": "Develop active customer engagement with automation tactic content through ongoing conversations and content interaction.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Automation tactic content has been delivered to customer stakeholders"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Automate at Scale Tactic",
+            "stateName": "Deployed"
+          }
+        ]
+      },
+      "test": {
+        "name": "Automation tactic customer engagement verification",
+        "description": "Verifies that customer engagement deepens through ongoing conversations and content interaction.",
+        "when": [
+          "Customer stakeholders begin actively interacting with shared automation content"
+        ],
+        "then": [
+          "Discovery generates qualifying information on automation scope, timeline, and budget",
+          "Customer engagement is tracked and correlated with opportunity progression"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Automate at Scale",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Optimize IT Ops",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "AIOps",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Network Automation",
+          "stateName": "Engaged"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Guide",
+          "levelOfDetailName": "Deployment-Ready"
+        }
+      ],
+      "requiredCompetencies": [
+        "Value Articulation",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Automation TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Engage Automation Tactic Customers Technique",
+          "description": "How to deepen customer engagement through ongoing automation tactic conversations.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "After initial automation tactic content delivery, the customer is actively reviewing materials and engaging with shared content."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Deepen customer engagement through ongoing conversations, follow-up interactions, and engagement tracking to qualify the automation opportunity."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Monitor content engagement analytics, conduct follow-up conversations, use discovery questions to qualify automation scope and timeline, and establish cross-TDP connections if the customer's needs span multiple technology areas."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "The automation opportunity progresses from initial interest to qualified engagement with documented scope, timeline, budget, and champion."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Convert Automation Tactic to Pipeline",
+      "description": "Convert automation tactic engagement into qualified pipeline opportunities with attributed revenue.",
+      "activitySpaceName": "Manage the Deal",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Customer engagement has been established with qualifying information gathered"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Automate at Scale Tactic",
+            "stateName": "Engaged"
+          }
+        ]
+      },
+      "test": {
+        "name": "Automation tactic pipeline conversion verification",
+        "description": "Verifies that tactic engagement converts into qualified pipeline opportunities.",
+        "when": [
+          "Customer expresses intent to proceed with automation evaluation and stakeholder consensus is building"
+        ],
+        "then": [
+          "Qualified opportunity is created and attributed to the specific automation tactic",
+          "Services and partner solutions are positioned in the proposal"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Automate at Scale",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "Optimize IT Ops",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "AIOps",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "Network Automation",
+          "stateName": "Proven"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Guide",
+          "levelOfDetailName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Deal Orchestration",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Automation TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Convert Automation Tactic to Pipeline Technique",
+          "description": "How to convert automation tactic engagement into qualified pipeline opportunities.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Automation tactic engagement has generated qualified interest with customer stakeholders aligned on the automation challenge and value proposition."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Create a qualified pipeline opportunity, position services and partner solutions, and identify expansion domains for the automation platform."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Create the opportunity in CRM with tactic attribution, build the automation business case with customer-specific ROI data, include relevant services and partner solutions, and document expansion automation use cases."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A qualified automation opportunity enters the pipeline with clear attribution, services positioning, and identified expansion domains for ongoing growth."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Frame Automation Tactic Challenge",
+      "description": "Articulate specific automation customer challenges in the customer's language for each of the four automation tactics.",
+      "activitySpaceName": "Discover Customer Needs",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Automation landscape has been assessed and a specific tactic has been selected"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Automation Domain",
+            "stateName": "Identified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Automation tactic challenge framing verification",
+        "description": "Verifies that automation challenges are framed in customer business language.",
+        "when": [
+          "The most relevant automation tactic is identified based on the customer's primary automation challenge"
+        ],
+        "then": [
+          "Customer challenge is framed in the customer's business language using the tactic's challenge framework",
+          "Target personas and initial messaging are prepared for the selected automation scenario"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Automate at Scale",
+          "stateName": "Prepared"
+        },
+        {
+          "alphaName": "Optimize IT Ops",
+          "stateName": "Prepared"
+        },
+        {
+          "alphaName": "AIOps",
+          "stateName": "Prepared"
+        },
+        {
+          "alphaName": "Network Automation",
+          "stateName": "Prepared"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Guide",
+          "levelOfDetailName": "Initial"
+        }
+      ],
+      "requiredCompetencies": [
+        "Value Articulation",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Automation TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Frame Automation Tactic Challenge Technique",
+          "description": "How to frame automation customer challenges in the customer's business language.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "After assessing the customer's automation landscape, the seller selects the most relevant tactic from the four automation options and prepares to frame the customer's challenge."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Frame the selected automation challenge in the customer's business language, identify target personas, and draft initial messaging for both business and technical decision makers."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Review the selected tactic's challenge framework, customize the challenge framing with customer-specific data, identify the target personas and their specific concerns, and establish the connection to the Automation TDP and relevant Sales Plays."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "The automation challenge is framed in terms the customer recognizes and cares about, establishing relevance before presenting the Ansible Automation Platform solution."
+            }
+          ],
+          "citationNames": [
+            "Automation TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Automation TDP Technical Engagement Journey",
+      "description": "Lifecycle pattern coordinating automation domain engagement from landscape assessment through tactic execution to platform decision.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Initial conditions before automation TDP engagement.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Technical Decision Point",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "AIOps",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Automate at Scale",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Automation",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "Network Automation",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Optimize IT Ops",
+              "stateName": "Prepared"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "A Sales Play engagement has identified Automation as a relevant TDP for the customer, establishing the starting conditions for an automation-specific technical engagement."
+            }
+          ]
+        },
+        {
+          "name": "Assessment",
+          "description": "Evaluate customer automation landscape and select relevant tactic.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Automation",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Assessed"
+            },
+            {
+              "alphaName": "AIOps",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Automate at Scale",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Network Automation",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Optimize IT Ops",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Assess Automation Landscape"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The automation specialist evaluates the customer's current automation maturity, identifies key automation domains, quantifies the business case, and selects the most relevant tactic from four automation options."
+            }
+          ]
+        },
+        {
+          "name": "Strategy & Credentialing",
+          "description": "Define automation strategy and establish Ansible credentials.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Automation",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Mapped"
+            },
+            {
+              "alphaName": "Automate at Scale",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Optimize IT Ops",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "AIOps",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Network Automation",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Define Automation Strategy",
+            "Frame Automation Tactic Challenge",
+            "Position Automation Competitively"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Validate",
+              "context": "The automation strategy is designed collaboratively with the customer, covering platform architecture, governance, and integration, while the selected tactic's challenge framing is prepared and competitive positioning against automation alternatives is established."
+            }
+          ]
+        },
+        {
+          "name": "Tactic Execution",
+          "description": "Execute automation tactic conversations with engagement tracking.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Automation",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Differentiated"
+            },
+            {
+              "alphaName": "Automate at Scale",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Optimize IT Ops",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "AIOps",
+              "stateName": "Engaged"
+            },
+            {
+              "alphaName": "Network Automation",
+              "stateName": "Engaged"
+            }
+          ],
+          "activities": [
+            "Execute Automation Tactic Conversation",
+            "Engage Automation Tactic Customers",
+            "Handle Automation Competitive Objections"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Propose",
+              "context": "Automation tactic conversations are executed with audience-segmented content, customer engagement is tracked and deepened, and competitive objections are addressed with evidence-based responses as the customer evaluation progresses."
+            }
+          ]
+        },
+        {
+          "name": "Validation & Decision",
+          "description": "Validate Ansible technically and secure automation platform decision.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Automation",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Automation Competitive Position",
+              "stateName": "Preferred"
+            },
+            {
+              "alphaName": "Automate at Scale",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Optimize IT Ops",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "AIOps",
+              "stateName": "Proven"
+            },
+            {
+              "alphaName": "Network Automation",
+              "stateName": "Proven"
+            }
+          ],
+          "activities": [
+            "Validate Automation Technology Fit",
+            "Secure Automation Platform Decision",
+            "Convert Automation Tactic to Pipeline"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Close",
+              "context": "Ansible Automation Platform is validated through proof activities, the customer commits to the platform as their enterprise automation standard, and the tactic execution converts into qualified pipeline with subscription sizing and expansion domain identification."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Technical Decision Point",
+      "aliasName": "TDP"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "TDP Positioning Brief",
+      "aliasName": "TDP Content Package"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.1"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard Automation",
+      "description": "Reference Automation alpha instance with customer-facing and assessment materials",
+      "alphaName": "Automation",
+      "stateName": "Positioned",
+      "links": [
+        {
+          "name": "Automation TDP Sales Hub Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCW8JcgpRWc4389M4pcV7BpRR3p8"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Standard Automation TDP Positioning Brief",
+          "description": "Standard instance of Automation TDP Positioning Brief with curated enablement content",
+          "workProductName": "Automation Brief",
+          "levelOfDetailName": "Content-Complete",
+          "links": [
+            {
+              "name": "What's New in AAP 2.6 Customer Deck (Source)",
+              "uri": "https://docs.google.com/presentation/d/1UeOGmYRoscmJGEDlePGZ5i8Yd2EcQz_nJk2-Kz2EVbo/edit"
+            },
+            {
+              "name": "What's New in AAP 2.6 Customer Deck",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCQp69V2RJ6cb8TM7qDjq9MjGjq8"
+            },
+            {
+              "name": "Cheatsheet Automation TDP CY26 (Source)",
+              "uri": "https://docs.google.com/presentation/d/1Uqdaqq-ro1S1zBQKjOWnArxrGztwsHVidXTygI2ewP8/edit"
+            },
+            {
+              "name": "Cheatsheet Automation TDP CY26",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCCRqh4VWJ2cm8MGX3RDBVGXVDFd"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard AIOps",
+      "description": "Reference AIOps tactic with sales enablement",
+      "alphaName": "AIOps",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "AIOps Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCM4FgBgGbX2f8QQ9pQMXPbhqpjB"
+        }
+      ]
+    },
+    {
+      "name": "Standard Automate at Scale",
+      "description": "Reference Automate at Scale tactic with sales enablement",
+      "alphaName": "Automate at Scale",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Automate at Scale Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCq6VhWP8Dqd8GQMqRFg6X2WGcgV"
+        }
+      ]
+    },
+    {
+      "name": "Standard Network Automation",
+      "description": "Reference Network Automation tactic with sales enablement",
+      "alphaName": "Network Automation",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Network Automation Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCd76P86FqJF9G7CFH77XXMCPbGj"
+        }
+      ]
+    },
+    {
+      "name": "Standard Optimize IT Ops",
+      "description": "Reference Optimize IT Ops tactic with sales enablement",
+      "alphaName": "Optimize IT Ops",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Optimize IT Ops Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DC83PcgqP6H468h2VW7R7PdpT8bj"
+        }
+      ]
+    },
+    {
+      "name": "Standard Microsoft Automation Competitive Position",
+      "description": "Competitive scenario addressing Microsoft's automation toolchain where customers evaluate PowerShell DSC, Azure Automation, and SCCM against Ansible Automation Platform's agentless, multi-platform approach.",
+      "alphaName": "Automation Competitive Position",
+      "stateName": "Mapped",
+      "links": [
+        {
+          "name": "Microsoft Automation Battlecards",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flf109cb06f-6915-4e53-811d-dc1f8c976c9a//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Ansible vs Microsoft Tools Battlecard",
+          "description": "Comprehensive competitive positioning comparing Ansible Automation Platform against Microsoft's automation portfolio including Azure Automation, SCCM, and PowerShell DSC.",
+          "workProductName": "Automation Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card",
+          "links": [
+            {
+              "name": "Ansible vs Microsoft Tools Battlecard",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flf109cb06f-6915-4e53-811d-dc1f8c976c9a//"
+            }
+          ]
+        },
+        {
+          "name": "Ansible vs. PowerShell DSC Battlecard",
+          "description": "Focused competitive positioning comparing Ansible's agentless declarative automation against PowerShell DSC's configuration management approach.",
+          "workProductName": "Automation Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card",
+          "links": [
+            {
+              "name": "Ansible vs. PowerShell DSC Battlecard",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flfea897551-ed58-4c84-8ff7-37ee19b3984a//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard Puppet Automation Competitive Position",
+      "description": "Competitive scenario addressing Puppet's configuration management platform where customers evaluate agent-based infrastructure automation against Ansible's agentless approach.",
+      "alphaName": "Automation Competitive Position",
+      "stateName": "Mapped",
+      "links": [
+        {
+          "name": "Puppet Competitive Battlecard",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQ29tcGV0aXRpdmUgcmV2aWV3%252Flf8b4941e4-5a0a-4405-9493-0d4f37e97a78//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "101 ABU Competitive Battlecard - Puppet",
+          "description": "Introductory competitive positioning comparing Ansible Automation Platform against Puppet's agent-based configuration management.",
+          "workProductName": "Automation Competitive Battle Card",
+          "levelOfDetailName": "Competitive Overview",
+          "links": [
+            {
+              "name": "101 ABU Competitive Battlecard - Puppet",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQ29tcGV0aXRpdmUgcmV2aWV3%252Flf8b4941e4-5a0a-4405-9493-0d4f37e97a78//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard CyberArk Automation Competitive Position",
+      "description": "Competitive scenario addressing CyberArk's privileged access management where customers evaluate security automation integration between CyberArk and Ansible Automation Platform.",
+      "alphaName": "Automation Competitive Position",
+      "stateName": "Mapped",
+      "links": [
+        {
+          "name": "CyberArk Automation Battlecard",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flf660033e6-7f6e-4853-b74f-dd31bc8d3ea3//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "CyberArk and Red Hat Battlecard",
+          "description": "Joint competitive positioning covering CyberArk integration with Ansible Automation Platform for security automation and privileged access workflows.",
+          "workProductName": "Automation Competitive Battle Card",
+          "levelOfDetailName": "Structured Battle Card",
+          "links": [
+            {
+              "name": "CyberArk and Red Hat Battlecard",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%252CPT0%253D%252CQmF0dGxlY2FyZA%253D%253D%252Flf660033e6-7f6e-4853-b74f-dd31bc8d3ea3//"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

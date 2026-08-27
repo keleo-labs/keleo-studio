@@ -10,3 +10,4 @@ export { buildLibraryLookupIndex, collectBrowseDependencyArtifacts, resolvePract
 export { usePracticeLibraryResolveForRender } from "./usePracticeLibraryResolveForRender";
 export { listVirtualElementFiles } from "./virtualElementFiles";
 export { extractEmbeddedPractices, extractAndPersistEmbeddedPractices, type ExtractEmbeddedPracticesResult } from "./extractEmbeddedPractices";
+export { buildBundleLibraryIndex, buildBundleLibraryIndexFromMeta, buildLibraryLookupIndexWithBodies, computeDocumentMeta, serializeBundleLibraryIndex, type BundleLibraryIndex, type LibraryEntry, type SerializedBundleLibraryIndex, type SerializedLibraryEntry } from "./bundleIndex";

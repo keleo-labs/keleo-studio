@@ -1,0 +1,3242 @@
+{
+  "kind": "practice",
+  "name": "Application Development",
+  "description": "Cloud-native application development and deployment on OpenShift platform.",
+  "baselinePracticeName": "IDP Essentials",
+  "tags": {
+    "domainTags": [
+      "Application Development",
+      "DevOps",
+      "Security",
+      "Site Reliability Engineering"
+    ],
+    "lifecycleTags": [
+      "Implement",
+      "Deploy",
+      "Operate",
+      "Optimization"
+    ],
+    "organizationalTags": [
+      "Development Teams",
+      "DevOps"
+    ]
+  },
+  "keywords": [
+    "OCP",
+    "openshift",
+    "kubernetes",
+    "k8s",
+    "S2I",
+    "source-to-image",
+    "tekton",
+    "pipelines",
+    "GitOps",
+    "ArgoCD",
+    "developer-hub",
+    "dev-spaces",
+    "podman",
+    "HPA",
+    "horizontal-pod-autoscaler",
+    "SCC",
+    "security-context-constraints"
+  ],
+  "authors": [
+    "Red Hat"
+  ],
+  "createdAt": "2026-06-12",
+  "updatedAt": "2026-08-16",
+  "version": "2.0.1",
+  "narratives": [
+    {
+      "name": "Practice Intent",
+      "description": "Application development maturity journey on OpenShift platform",
+      "narrativeTypeName": "The STAR Format",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Situation",
+          "context": "Organizations require cloud-native application delivery capabilities enabling developer self-service and rapid iteration."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Task",
+          "context": "Establish application development practices on OpenShift platform covering deployment, scalability, resilience, security, and developer experience."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Action",
+          "context": "Progress developers through CLI-driven deployments, automated pipelines, health probes, network policies, autoscaling, and GitOps workflows with AI assistance."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Result",
+          "context": "Developers achieve self-service platform integration with supply chain verification, centralized observability, and optimized productivity."
+        }
+      ],
+      "citationNames": [
+        "Foundations of OpenShift",
+        "14 Best Practices for Developing Applications on OpenShift",
+        "What's New in OpenShift 4.21 for Developers"
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "Foundations of OpenShift",
+      "description": "Comprehensive 12-module learning path covering OpenShift fundamentals from deployment to operations.",
+      "authors": [
+        "Red Hat Developer"
+      ],
+      "date": "2026",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/learn/openshift/foundations-openshift",
+      "kind": "citation"
+    },
+    {
+      "name": "14 Best Practices for Developing Applications on OpenShift",
+      "description": "Best practices guide for cloud-native application development patterns on OpenShift.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2023",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/14-best-practices-for-developing-applications-on-openshift",
+      "kind": "citation"
+    },
+    {
+      "name": "What's New in OpenShift 4.21 for Developers",
+      "description": "Developer-focused feature updates including Developer Hub, Lightspeed AI, and Dev Spaces enhancements.",
+      "authors": [
+        "Burr Sutter"
+      ],
+      "date": "2026",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2026/02/03/whats-new-developers-openshift-4-21",
+      "kind": "citation"
+    },
+    {
+      "name": "Operating OpenShift the SRE Way",
+      "description": "SRE practices for OpenShift including automation philosophy, alerting strategy, and toil reduction.",
+      "authors": [
+        "Red Hat Developer"
+      ],
+      "date": "2023",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2023/12/28/operating-openshift-sre-way",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "deployment-capability-icon",
+      "description": "Application deployment capability alpha icon representing rocket/launch",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rocket",
+      "fontWeight": "900"
+    },
+    {
+      "name": "scalability-icon",
+      "description": "Application scalability alpha icon representing horizontal expansion",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-left-right",
+      "fontWeight": "900"
+    },
+    {
+      "name": "resilience-icon",
+      "description": "Application resilience alpha icon representing heartbeat/monitoring",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-heartbeat",
+      "fontWeight": "900"
+    },
+    {
+      "name": "security-icon",
+      "description": "Application security alpha icon representing shield protection",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "developer-experience-icon",
+      "description": "Developer experience alpha icon representing laptop coding",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-laptop-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "deploy-from-source-icon",
+      "description": "Deploy application from source activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-code-branch",
+      "fontWeight": "900"
+    },
+    {
+      "name": "health-probe-icon",
+      "description": "Configure health probes activity icon representing medical diagnostics",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-stethoscope",
+      "fontWeight": "900"
+    },
+    {
+      "name": "network-policy-icon",
+      "description": "Implement network policies activity icon representing network segmentation",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-network-wired",
+      "fontWeight": "900"
+    },
+    {
+      "name": "autoscaling-icon",
+      "description": "Configure autoscaling activity icon representing gauge/metrics",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge-high",
+      "fontWeight": "900"
+    },
+    {
+      "name": "s2i-workflow-diagram",
+      "description": "Source-to-Image build workflow diagram showing Git to Builder to Image to Deploy",
+      "type": "diagram",
+      "url": "https://docs.openshift.com/container-platform/4.21/images/s2i-flow.png"
+    },
+    {
+      "name": "health-probe-types-diagram",
+      "description": "Kubernetes probe types comparison (liveness, readiness, startup)",
+      "type": "diagram",
+      "url": "https://kubernetes.io/images/docs/probes.svg"
+    },
+    {
+      "name": "network-policy-template",
+      "description": "Deny-by-default NetworkPolicy YAML template",
+      "type": "template",
+      "url": "https://docs.openshift.com/container-platform/4.21/networking/network_policy/about-network-policy.html"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Application Deployment Configuration",
+      "aliasName": "Deployment Manifest"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "CI/CD Pipeline Definition",
+      "aliasName": "Tekton Pipeline"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Deploy Application from Source",
+      "aliasName": "S2I Build and Deploy"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Developer Experience",
+      "aliasName": "Developer Inner Loop"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Monitoring Dashboard",
+      "aliasName": "Observability Dashboard"
+    },
+    {
+      "practiceElementType": "Persona",
+      "practiceElementName": "DevOps Engineer",
+      "aliasName": "Platform DevOps Specialist"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Application Deployment Capability",
+      "description": "Application deployment maturity from manual GUI to AI-assisted self-service platform.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Asset",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "consumes",
+          "alphaName": "Platform Consumption Interface",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "depends on",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Application Scalability",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "integrates",
+          "alphaName": "Application Security",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "deployment-capability-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Manual Deployment",
+          "description": "Developers manually deploy using web console with guided workflows.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Web console accessible",
+              "description": "Web console accessible and developers authenticated via OAuth",
+              "seq": 1
+            },
+            {
+              "name": "Applications deployed from GitHub",
+              "description": "Applications deployed from public GitHub repositories using GUI",
+              "seq": 2
+            },
+            {
+              "name": "Basic scaling via console",
+              "description": "Basic application scaling performed through console interface",
+              "seq": 3
+            },
+            {
+              "name": "Deployment status visible",
+              "description": "Deployment status visible in web console dashboards",
+              "seq": 4
+            },
+            {
+              "name": "Basic concepts understood",
+              "description": "Developers understand pod, deployment, and service concepts",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "CLI-Driven Deployment",
+          "description": "Developers use oc CLI for repeatable deployments with version control.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "CLI installed and configured",
+              "description": "oc CLI installed and configured on developer workstations",
+              "seq": 1
+            },
+            {
+              "name": "Deployments version-controlled",
+              "description": "Deployments scripted and version-controlled in Git repositories",
+              "seq": 2
+            },
+            {
+              "name": "S2I builds automated",
+              "description": "Source-to-Image builds automated via command line",
+              "seq": 3
+            },
+            {
+              "name": "Private registry access",
+              "description": "Container images pulled from private registries with authentication",
+              "seq": 4
+            },
+            {
+              "name": "Deployment configs parameterized",
+              "description": "Deployment configurations parameterized for environment promotion",
+              "seq": 5
+            },
+            {
+              "name": "YAML proficiency",
+              "description": "Developers comfortable with YAML manifests and CLI workflows",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Automated Pipeline Integration",
+          "description": "Applications deploy automatically through GitOps and CI/CD pipelines with testing.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Pipelines integrated",
+              "description": "OpenShift Pipelines or OpenShift GitOps integrated with source control",
+              "seq": 1
+            },
+            {
+              "name": "Automated workflows",
+              "description": "Pull requests trigger automated build, test, deploy workflows",
+              "seq": 2
+            },
+            {
+              "name": "Security scanning integrated",
+              "description": "Image scanning and security checks integrated into pipelines",
+              "seq": 3
+            },
+            {
+              "name": "Deployment gates configured",
+              "description": "Deployment approvals and gates configured for production",
+              "seq": 4
+            },
+            {
+              "name": "Rollback capabilities tested",
+              "description": "Rollback capabilities tested and documented",
+              "seq": 5
+            },
+            {
+              "name": "Pipeline metrics available",
+              "description": "Pipeline metrics and failure notifications configured",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Self-Service Development Platform",
+          "description": "Developers provision environments and deploy via Developer Hub templates with AI assistance.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Developer Hub integrated",
+              "description": "Developer Hub integrated with software catalogs and templates",
+              "seq": 1
+            },
+            {
+              "name": "Self-service provisioning available",
+              "description": "Self-service environment provisioning with guardrails",
+              "seq": 2
+            },
+            {
+              "name": "AI assistance enabled",
+              "description": "AI assistance (OpenShift Lightspeed) provides pipeline debugging and recommendations",
+              "seq": 3
+            },
+            {
+              "name": "Automated image updates",
+              "description": "Automated image updates via Argo CD Image Updater",
+              "seq": 4
+            },
+            {
+              "name": "Multi-architecture builds",
+              "description": "Multi-architecture builds supported via Paketo Buildpacks",
+              "seq": 5
+            },
+            {
+              "name": "Developer metrics tracked",
+              "description": "Developer experience metrics tracked and optimized",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Deployment Maturity Journey",
+          "description": "Application deployment progression on OpenShift",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Application deployment on OpenShift progresses from manual GUI operations through CLI scripting to fully automated GitOps workflows with AI-assisted self-service capabilities provided by Developer Hub and OpenShift Lightspeed."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin with web console deployment to understand OpenShift fundamentals including pods, deployments, and services; adopt CLI for repeatability and version control; integrate pipelines for automation with testing and security scanning; mature to Developer Hub templates with built-in security guardrails and AI assistance."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Skipping CLI proficiency before automation leads to troubleshooting difficulties; neglecting pipeline testing causes production failures; failing to track developer experience metrics prevents optimization."
+            }
+          ],
+          "citationNames": [
+            "Foundations of OpenShift",
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Application Scalability",
+      "description": "Workload scaling maturity from manual intervention to predictive resource optimization.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Asset",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "depends on",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "depends on",
+          "alphaName": "Application Deployment Capability",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Platform Governance",
+          "direction": "incoming"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "scalability-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Manual Scaling",
+          "description": "Operators manually adjust replica counts through console or CLI.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Manual replica adjustment",
+              "description": "Replica counts modified via web console or oc scale command",
+              "seq": 1
+            },
+            {
+              "name": "Resource limits defined",
+              "description": "Resource requests and limits defined in pod specifications",
+              "seq": 2
+            },
+            {
+              "name": "Application handles replicas",
+              "description": "Application responds correctly to multiple replicas",
+              "seq": 3
+            },
+            {
+              "name": "Load balancing active",
+              "description": "Load balancing distributes traffic across pod instances",
+              "seq": 4
+            },
+            {
+              "name": "Metrics-based decisions",
+              "description": "Scaling decisions based on manual observation of metrics",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Policy-Based Scaling",
+          "description": "Horizontal Pod Autoscalers adjust replicas based on CPU and memory metrics.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "HPA configured",
+              "description": "HorizontalPodAutoscaler resources configured with target utilization",
+              "seq": 1
+            },
+            {
+              "name": "Custom metrics available",
+              "description": "Custom metrics available for scaling decisions beyond CPU/memory",
+              "seq": 2
+            },
+            {
+              "name": "PDB protects availability",
+              "description": "Pod Disruption Budgets protect minimum availability",
+              "seq": 3
+            },
+            {
+              "name": "Scaling events logged",
+              "description": "Scaling events logged and visible in cluster events",
+              "seq": 4
+            },
+            {
+              "name": "Cost controls configured",
+              "description": "Resource limits prevent uncontrolled scaling costs",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Cluster Autoscaling",
+          "description": "ClusterAutoscaler adds nodes automatically when pod scheduling fails due to capacity.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "ClusterAutoscaler configured",
+              "description": "ClusterAutoscaler configured with min/max node counts",
+              "seq": 1
+            },
+            {
+              "name": "Machine health checks active",
+              "description": "Machine health checks monitor and replace unhealthy nodes",
+              "seq": 2
+            },
+            {
+              "name": "Multi-AZ distribution",
+              "description": "Nodes spread across availability zones for high availability",
+              "seq": 3
+            },
+            {
+              "name": "Scaling rate limits",
+              "description": "Scaling limited to 25-50 machines at once to prevent instability",
+              "seq": 4
+            },
+            {
+              "name": "Resource quotas enforced",
+              "description": "Resource quotas prevent runaway costs in multi-tenant clusters",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Predictive Resource Optimization",
+          "description": "ClusterResourceOverride and predictive analytics optimize allocation and anticipate demand.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "ClusterResourceOverride active",
+              "description": "ClusterResourceOverride operator balances resource utilization",
+              "seq": 1
+            },
+            {
+              "name": "Historical analysis enabled",
+              "description": "Historical metrics analyzed for capacity planning",
+              "seq": 2
+            },
+            {
+              "name": "Cost optimization alerts",
+              "description": "Cost optimization alerts trigger when overprovisioning detected",
+              "seq": 3
+            },
+            {
+              "name": "Policy tuning active",
+              "description": "Scaling policies tuned based on application-specific patterns",
+              "seq": 4
+            },
+            {
+              "name": "Multi-tenant isolation maintained",
+              "description": "Multi-tenant isolation maintained during scaling operations",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Scalability Maturity",
+          "description": "Application scalability progression on OpenShift",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Application scalability on OpenShift evolves from manual replica adjustment through policy-based automation to predictive optimization with cost awareness using HorizontalPodAutoscalers, ClusterAutoscaler, and ClusterResourceOverride operators."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Define resource requests and limits first to enable proper scheduling; implement HorizontalPodAutoscaler with appropriate metrics (CPU, memory, or custom); enable ClusterAutoscaler for elastic node capacity; mature to predictive analytics for proactive optimization based on historical patterns."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Setting resource requests far below actual usage causes constant scaling to maximum replicas; overly aggressive scaling policies cause replica count flapping; neglecting Pod Disruption Budgets risks availability during scale-down operations."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Application Resilience",
+      "description": "Application failure recovery and availability maturity from basic health monitoring to SRE excellence.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Asset",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "depends on",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "depends on",
+          "alphaName": "Application Scalability",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "evidenced by",
+          "alphaName": "Platform Asset",
+          "direction": "incoming"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "resilience-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Basic Health Monitoring",
+          "description": "Liveness and readiness probes configured for automatic pod restart and traffic routing.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Liveness probes configured",
+              "description": "Liveness probes defined to restart failed pods",
+              "seq": 1
+            },
+            {
+              "name": "Readiness probes configured",
+              "description": "Readiness probes prevent traffic to non-ready instances",
+              "seq": 2
+            },
+            {
+              "name": "Probe timing tuned",
+              "description": "Probe configurations tuned to application startup times",
+              "seq": 3
+            },
+            {
+              "name": "Health endpoints implemented",
+              "description": "Health check endpoints implemented in application code",
+              "seq": 4
+            },
+            {
+              "name": "Probe failures visible",
+              "description": "Probe failures visible in pod events and logs",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Graceful Degradation",
+          "description": "Applications handle failures gracefully with circuit breakers and timeouts.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Circuit breakers implemented",
+              "description": "Circuit breaker patterns implemented for external dependencies",
+              "seq": 1
+            },
+            {
+              "name": "Timeout configurations active",
+              "description": "Timeout configurations prevent request queueing during failures",
+              "seq": 2
+            },
+            {
+              "name": "Retry logic implemented",
+              "description": "Retry logic with exponential backoff implemented",
+              "seq": 3
+            },
+            {
+              "name": "Rate limiting active",
+              "description": "Rate limiting protects against overload",
+              "seq": 4
+            },
+            {
+              "name": "Graceful termination configured",
+              "description": "Graceful termination on SIGTERM completes in-flight requests",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Centralized Observability",
+          "description": "Logs, metrics, and traces centralized with alerting configured for SLO violations.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Centralized logging active",
+              "description": "Applications log to stdout/stderr for collection by cluster logging",
+              "seq": 1
+            },
+            {
+              "name": "Prometheus metrics exposed",
+              "description": "Prometheus metrics exposed at application endpoints",
+              "seq": 2
+            },
+            {
+              "name": "SLO-based alerts defined",
+              "description": "Custom alerts defined based on business-level SLOs",
+              "seq": 3
+            },
+            {
+              "name": "Alert severity levels configured",
+              "description": "Alert severity levels distinguish critical from informational",
+              "seq": 4
+            },
+            {
+              "name": "Runbooks documented",
+              "description": "Runbooks documented for common alert scenarios",
+              "seq": 5
+            },
+            {
+              "name": "Distributed tracing integrated",
+              "description": "Distributed tracing integrated for request correlation",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Proactive Reliability Engineering",
+          "description": "SRE practices ensure error budgets tracked and reliability continuously improved.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "SLIs defined",
+              "description": "Service Level Indicators defined to reflect customer experience",
+              "seq": 1
+            },
+            {
+              "name": "SLOs agreed",
+              "description": "Service Level Objectives agreed with stakeholders",
+              "seq": 2
+            },
+            {
+              "name": "Error budgets tracked",
+              "description": "Error budgets tracked and consumed transparently",
+              "seq": 3
+            },
+            {
+              "name": "Symptom-based alerting active",
+              "description": "Symptom-based alerting prevents noise from cause-based alerts",
+              "seq": 4
+            },
+            {
+              "name": "Toil systematically reduced",
+              "description": "Toil systematically identified and automated",
+              "seq": 5
+            },
+            {
+              "name": "Chaos engineering practiced",
+              "description": "Chaos engineering practices validate resilience assumptions",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Resilience Maturity",
+          "description": "Application resilience progression on OpenShift",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Application resilience on OpenShift matures from basic health probes through graceful degradation patterns to comprehensive SRE practices with error budget tracking and chaos engineering validation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Implement liveness and readiness probes first with appropriate timeouts; add circuit breakers, retry logic, and graceful termination; centralize observability signals (logs, metrics, traces); adopt SRE practices with SLIs, SLOs, error budgets, and toil reduction."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Using same probe for liveness and readiness causes cascading failures during high load; missing timeout configurations allows request queueing; cause-based alerting generates excessive noise without actionable insights; neglecting error budgets prevents data-driven reliability decisions."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift",
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Application Security",
+      "description": "Application security maturity from baseline image security to supply chain verification.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Risk And Compliance",
+      "relatesTo": [
+        {
+          "relationship": "mitigates",
+          "alphaName": "Platform Risk And Compliance",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "depends on",
+          "alphaName": "Platform Governance",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Application Deployment Capability",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "security-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Baseline Image Security",
+          "description": "Applications use trusted base images and run under restricted SCC.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Trusted base images",
+              "description": "Base images sourced from Red Hat or approved vendors",
+              "seq": 1
+            },
+            {
+              "name": "Restricted SCC compliance",
+              "description": "Applications compatible with restricted Security Context Constraint",
+              "seq": 2
+            },
+            {
+              "name": "Non-root execution",
+              "description": "Containers run as non-root with arbitrary UID support",
+              "seq": 3
+            },
+            {
+              "name": "Current base images",
+              "description": "Latest base image versions used with security patches",
+              "seq": 4
+            },
+            {
+              "name": "Vulnerability scanning integrated",
+              "description": "Image vulnerability scanning integrated into build process",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Build-Time Security",
+          "description": "Multi-stage builds and automated scanning reduce attack surface and detect vulnerabilities.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Multi-stage builds used",
+              "description": "Multi-stage Dockerfiles separate build and runtime dependencies",
+              "seq": 1
+            },
+            {
+              "name": "Minimal runtime images",
+              "description": "Runtime images contain only necessary application binaries",
+              "seq": 2
+            },
+            {
+              "name": "Automated scanning gates",
+              "description": "Automated vulnerability scanning fails builds above threshold",
+              "seq": 3
+            },
+            {
+              "name": "No hardcoded secrets",
+              "description": "No hardcoded secrets or credentials in images",
+              "seq": 4
+            },
+            {
+              "name": "Image signing implemented",
+              "description": "Image signing with Trusted Artifact Signer implemented",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Runtime Protection",
+          "description": "Network policies, TLS, and RBAC secure running applications with least privilege.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "NetworkPolicy configured",
+              "description": "NetworkPolicy objects restrict pod-to-pod traffic to required flows",
+              "seq": 1
+            },
+            {
+              "name": "TLS configured",
+              "description": "TLS certificates configured for inter-service communication",
+              "seq": 2
+            },
+            {
+              "name": "Least-privilege RBAC",
+              "description": "Service accounts follow least-privilege model",
+              "seq": 3
+            },
+            {
+              "name": "External configuration secured",
+              "description": "ConfigMaps and Secrets used for external configuration",
+              "seq": 4
+            },
+            {
+              "name": "Resource quotas enforced",
+              "description": "Resource quotas prevent denial of service through resource exhaustion",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Supply Chain Verification",
+          "description": "Cryptographic verification ensures only signed, attested artifacts deployed to production.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "SBOM generated",
+              "description": "Software Bill of Materials generated for all images",
+              "seq": 1
+            },
+            {
+              "name": "Provenance attestation tracked",
+              "description": "Provenance attestation tracks build process and inputs",
+              "seq": 2
+            },
+            {
+              "name": "ImagePolicy validation active",
+              "description": "ImagePolicy APIs validate signatures before admission",
+              "seq": 3
+            },
+            {
+              "name": "Continuous verification enabled",
+              "description": "Continuous verification of deployed artifacts via transparency logs",
+              "seq": 4
+            },
+            {
+              "name": "ML model protection active",
+              "description": "Model Transparency Library protects AI/ML deployments",
+              "seq": 5
+            },
+            {
+              "name": "Sigstore integration validated",
+              "description": "Sigstore integration validates core payload during upgrades",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Security Maturity",
+          "description": "Application security progression on OpenShift",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Application security on OpenShift progresses from trusted base images through build-time scanning to runtime protection and comprehensive supply chain verification using Trusted Artifact Signer and Sigstore integration."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Start with approved base images and restricted Security Context Constraints; implement multi-stage builds with automated vulnerability scanning; add runtime NetworkPolicies, TLS, and RBAC; mature to cryptographic signing with SBOM generation and provenance attestation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Running as root violates SCC restrictions and creates privilege escalation risks; hardcoding secrets in images exposes credentials in container registries; missing NetworkPolicies leaves applications vulnerable to lateral movement after pod compromise."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift",
+            "What's New in OpenShift 4.21 for Developers"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Developer Experience",
+      "description": "Developer tooling and workflow maturity from web console to AI-assisted self-service platform.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Consumption Interface",
+      "relatesTo": [
+        {
+          "relationship": "enables access to",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "facilitates deployment of",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "drives adoption through",
+          "alphaName": "Stakeholders",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Application Deployment Capability",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "developer-experience-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Web Console Access",
+          "description": "Developers use web console for basic application management.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Developer perspective available",
+              "description": "Developer perspective available in OpenShift console",
+              "seq": 1
+            },
+            {
+              "name": "GUI-based creation",
+              "description": "Application creation via GUI wizards",
+              "seq": 2
+            },
+            {
+              "name": "Topology view active",
+              "description": "Resource visualization with topology view",
+              "seq": 3
+            },
+            {
+              "name": "Browser-based observability",
+              "description": "Log and event viewing in browser",
+              "seq": 4
+            },
+            {
+              "name": "OAuth authentication configured",
+              "description": "OAuth authentication with identity provider",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "CLI and Local Development",
+          "description": "Developers use oc CLI and local tools like Podman Desktop.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "CLI installed and authenticated",
+              "description": "oc CLI installed and authenticated on workstations",
+              "seq": 1
+            },
+            {
+              "name": "Podman Desktop available",
+              "description": "Red Hat build of Podman Desktop for local experimentation",
+              "seq": 2
+            },
+            {
+              "name": "Sandbox access provided",
+              "description": "Developer Sandbox provides no-cost OpenShift environment",
+              "seq": 3
+            },
+            {
+              "name": "Local testing workflow",
+              "description": "Iterative development with local testing before cluster deploy",
+              "seq": 4
+            },
+            {
+              "name": "Documentation accessible",
+              "description": "Command-line cheat sheets and documentation accessible",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Integrated Development Environment",
+          "description": "Dev Spaces provides browser-based IDE with remote compute.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Dev Spaces deployed",
+              "description": "OpenShift Dev Spaces deployed with workspace templates",
+              "seq": 1
+            },
+            {
+              "name": "Browser-based IDEs available",
+              "description": "VS Code or JetBrains IDEs accessible via browser",
+              "seq": 2
+            },
+            {
+              "name": "Extensions with remote compute",
+              "description": "Extensions from marketplace with remote compute",
+              "seq": 3
+            },
+            {
+              "name": "Multi-workspace support",
+              "description": "Multi-workspace connections supported",
+              "seq": 4
+            },
+            {
+              "name": "Auto-pruner configured",
+              "description": "Auto-pruner reduces etcd usage for scale",
+              "seq": 5
+            },
+            {
+              "name": "Nested containers enabled",
+              "description": "Nested containers support for podman run capabilities",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "AI-Assisted Developer Platform",
+          "description": "Developer Hub and AI provide self-service platform with intelligent assistance.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Developer Hub MCP integrated",
+              "description": "Developer Hub integrated with Model Context Protocol",
+              "seq": 1
+            },
+            {
+              "name": "Software catalog synced",
+              "description": "Software catalog synced with OpenShift AI models",
+              "seq": 2
+            },
+            {
+              "name": "Scorecard tracking active",
+              "description": "Scorecard plugin tracks project health metrics",
+              "seq": 3
+            },
+            {
+              "name": "AI assistance active",
+              "description": "OpenShift Lightspeed provides pipeline debugging recommendations",
+              "seq": 4
+            },
+            {
+              "name": "Dynamic plugin factory enabled",
+              "description": "Dynamic plugin factory enables custom extensions",
+              "seq": 5
+            },
+            {
+              "name": "Secure templates available",
+              "description": "Secure templates with built-in security checks",
+              "seq": 6
+            },
+            {
+              "name": "Multi-language support",
+              "description": "Multi-language support with persona-based homepages",
+              "seq": 7
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Developer Experience Maturity",
+          "description": "Developer experience progression on OpenShift",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Developer experience on OpenShift evolves from web console basics through CLI and local development tools to cloud-based IDEs and AI-assisted self-service platforms with Developer Hub and OpenShift Lightspeed."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin with web console to understand OpenShift concepts visually; adopt CLI and Podman Desktop for automation and local iteration; use Dev Spaces for consistent browser-based environments; mature to Developer Hub with AI assistance, templates, and self-service provisioning."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Skipping CLI proficiency limits automation capabilities and troubleshooting skills; neglecting local development feedback loops slows iteration; failing to provide golden path templates forces developers to rediscover platform patterns repeatedly."
+            }
+          ],
+          "citationNames": [
+            "Foundations of OpenShift",
+            "What's New in OpenShift 4.21 for Developers"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Application Deployment Configuration",
+      "description": "Declarative manifests defining application deployment, scaling, and networking.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Deployment YAML",
+          "description": "Simple deployment manifest with basic resource limits.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Deployment resource defined",
+              "description": "Kubernetes Deployment resource defined with replica count",
+              "seq": 1
+            },
+            {
+              "name": "Container image specified",
+              "description": "Container image reference with tag specified",
+              "seq": 2
+            },
+            {
+              "name": "Basic resource limits",
+              "description": "CPU and memory requests and limits defined",
+              "seq": 3
+            },
+            {
+              "name": "Service exposed",
+              "description": "Service resource exposes deployment",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "Manual Deployment"
+            }
+          ]
+        },
+        {
+          "name": "Production-Ready Deployment",
+          "description": "Comprehensive manifest with probes, security, and environment config.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Health probes configured",
+              "description": "Liveness and readiness probes defined",
+              "seq": 1
+            },
+            {
+              "name": "Security context defined",
+              "description": "SecurityContext enforces non-root execution",
+              "seq": 2
+            },
+            {
+              "name": "ConfigMaps used",
+              "description": "ConfigMaps and Secrets referenced for configuration",
+              "seq": 3
+            },
+            {
+              "name": "Resource quotas applied",
+              "description": "Namespace resource quotas enforced",
+              "seq": 4
+            },
+            {
+              "name": "Labels and selectors consistent",
+              "description": "Consistent labeling for observability",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "CLI-Driven Deployment"
+            }
+          ]
+        },
+        {
+          "name": "GitOps-Managed Configuration",
+          "description": "Version-controlled declarative config with automated sync.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Git repository source",
+              "description": "Configuration stored in Git repository",
+              "seq": 1
+            },
+            {
+              "name": "Argo CD Application defined",
+              "description": "Argo CD Application resource references Git source",
+              "seq": 2
+            },
+            {
+              "name": "Automated sync enabled",
+              "description": "Automated sync policy configured",
+              "seq": 3
+            },
+            {
+              "name": "Drift detection active",
+              "description": "Drift detection alerts on manual changes",
+              "seq": 4
+            },
+            {
+              "name": "Rollback capability tested",
+              "description": "Rollback to previous Git commit tested",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "Automated Pipeline Integration"
+            }
+          ]
+        },
+        {
+          "name": "Self-Service Template",
+          "description": "Developer Hub template with guardrails and best practices.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Template catalog entry",
+              "description": "Template registered in Developer Hub catalog",
+              "seq": 1
+            },
+            {
+              "name": "Parameter validation",
+              "description": "Input parameters validated with constraints",
+              "seq": 2
+            },
+            {
+              "name": "Security guardrails embedded",
+              "description": "Security policies enforced in template",
+              "seq": 3
+            },
+            {
+              "name": "Best practices codified",
+              "description": "OpenShift best practices codified in template",
+              "seq": 4
+            },
+            {
+              "name": "Documentation included",
+              "description": "Usage documentation embedded in template",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "Self-Service Development Platform"
+            },
+            {
+              "alphaName": "Developer Experience",
+              "stateName": "AI-Assisted Developer Platform"
+            }
+          ]
+        },
+        {
+          "name": "AI-Optimized Configuration",
+          "description": "Lightspeed-recommended config with automated optimization.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "AI recommendations applied",
+              "description": "OpenShift Lightspeed recommendations applied",
+              "seq": 1
+            },
+            {
+              "name": "Multi-architecture support",
+              "description": "Multi-architecture builds configured via Paketo",
+              "seq": 2
+            },
+            {
+              "name": "Automated image updates",
+              "description": "Argo CD Image Updater automates image updates",
+              "seq": 3
+            },
+            {
+              "name": "Performance tuning applied",
+              "description": "AI-suggested performance optimizations applied",
+              "seq": 4
+            },
+            {
+              "name": "Cost optimization active",
+              "description": "Cost-aware resource recommendations followed",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "Self-Service Development Platform"
+            },
+            {
+              "alphaName": "Developer Experience",
+              "stateName": "AI-Assisted Developer Platform"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "CI/CD Pipeline Definition",
+      "description": "Automated workflow specification for build, test, and deploy processes.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Pipeline",
+          "description": "Simple Tekton pipeline with build and deploy tasks.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Tekton Pipeline defined",
+              "description": "Tekton Pipeline resource with sequential tasks",
+              "seq": 1
+            },
+            {
+              "name": "Source checkout task",
+              "description": "Git clone task fetches source code",
+              "seq": 2
+            },
+            {
+              "name": "Build task configured",
+              "description": "Build task creates container image",
+              "seq": 3
+            },
+            {
+              "name": "Deploy task configured",
+              "description": "Deploy task applies manifests to cluster",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "CLI-Driven Deployment"
+            }
+          ]
+        },
+        {
+          "name": "Tested Pipeline",
+          "description": "Pipeline with automated testing and quality gates.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Unit test task",
+              "description": "Unit test execution task with result validation",
+              "seq": 1
+            },
+            {
+              "name": "Integration test task",
+              "description": "Integration test task against ephemeral environment",
+              "seq": 2
+            },
+            {
+              "name": "Quality gate configured",
+              "description": "Quality gate fails pipeline on test failures",
+              "seq": 3
+            },
+            {
+              "name": "Test results published",
+              "description": "Test results published to dashboard",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "Automated Pipeline Integration"
+            }
+          ]
+        },
+        {
+          "name": "GitOps-Integrated Pipeline",
+          "description": "Pipeline commits manifests to GitOps repository.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Manifest generation task",
+              "description": "Task generates deployment manifests",
+              "seq": 1
+            },
+            {
+              "name": "Git commit task",
+              "description": "Task commits manifests to GitOps repository",
+              "seq": 2
+            },
+            {
+              "name": "Argo CD sync triggered",
+              "description": "Argo CD detects and syncs new commit",
+              "seq": 3
+            },
+            {
+              "name": "Deployment verification",
+              "description": "Pipeline verifies successful Argo CD sync",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "Automated Pipeline Integration"
+            }
+          ]
+        },
+        {
+          "name": "Supply Chain Secured Pipeline",
+          "description": "Pipeline with image signing and SBOM generation.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Vulnerability scanning task",
+              "description": "Image scanning task with threshold enforcement",
+              "seq": 1
+            },
+            {
+              "name": "SBOM generation task",
+              "description": "Software Bill of Materials generated",
+              "seq": 2
+            },
+            {
+              "name": "Image signing task",
+              "description": "Trusted Artifact Signer signs image",
+              "seq": 3
+            },
+            {
+              "name": "Provenance attestation",
+              "description": "Build provenance attestation generated",
+              "seq": 4
+            },
+            {
+              "name": "Signature verification",
+              "description": "Deployment validates image signature",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Security",
+              "stateName": "Supply Chain Verification"
+            }
+          ]
+        },
+        {
+          "name": "Intelligent Pipeline",
+          "description": "AI-assisted pipeline with debugging recommendations.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Lightspeed debugging enabled",
+              "description": "OpenShift Lightspeed provides failure diagnostics",
+              "seq": 1
+            },
+            {
+              "name": "Optimization recommendations",
+              "description": "AI suggests pipeline performance improvements",
+              "seq": 2
+            },
+            {
+              "name": "Automated remediation",
+              "description": "Common failures auto-remediated by AI",
+              "seq": 3
+            },
+            {
+              "name": "Metrics-driven tuning",
+              "description": "Pipeline tuned based on historical metrics",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "Self-Service Development Platform"
+            },
+            {
+              "alphaName": "Developer Experience",
+              "stateName": "AI-Assisted Developer Platform"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Network Policy",
+      "description": "Kubernetes NetworkPolicy resources restricting pod-to-pod traffic.",
+      "levelsOfDetail": [
+        {
+          "name": "No Network Policies",
+          "description": "Default all-traffic-allowed configuration.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Default network mode",
+              "description": "All pod-to-pod traffic allowed by default",
+              "seq": 1
+            },
+            {
+              "name": "No explicit policies",
+              "description": "No NetworkPolicy resources defined",
+              "seq": 2
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Security",
+              "stateName": "Baseline Image Security"
+            }
+          ]
+        },
+        {
+          "name": "Deny-By-Default Baseline",
+          "description": "Default-deny policy with explicit allow rules.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Default deny policy",
+              "description": "NetworkPolicy denies all ingress by default",
+              "seq": 1
+            },
+            {
+              "name": "Explicit allow rules",
+              "description": "Allow rules defined for required traffic flows",
+              "seq": 2
+            },
+            {
+              "name": "Namespace isolation",
+              "description": "Cross-namespace traffic explicitly controlled",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Security",
+              "stateName": "Build-Time Security"
+            }
+          ]
+        },
+        {
+          "name": "Application-Specific Policies",
+          "description": "Fine-grained policies for each microservice.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Per-service policies",
+              "description": "NetworkPolicy per microservice with explicit rules",
+              "seq": 1
+            },
+            {
+              "name": "Port-level restrictions",
+              "description": "Policies restrict traffic to specific ports",
+              "seq": 2
+            },
+            {
+              "name": "Label-based selection",
+              "description": "Policies use label selectors for dynamic enforcement",
+              "seq": 3
+            },
+            {
+              "name": "Egress policies defined",
+              "description": "Egress NetworkPolicies control outbound traffic",
+              "seq": 4
+            },
+            {
+              "name": "Policy testing automated",
+              "description": "NetworkPolicy correctness validated in CI",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Security",
+              "stateName": "Runtime Protection"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Monitoring Dashboard",
+      "description": "Visual representation of application health metrics and business KPIs.",
+      "levelsOfDetail": [
+        {
+          "name": "Built-In Console Metrics",
+          "description": "OpenShift console metrics for CPU, memory, pod count.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Console metrics visible",
+              "description": "OpenShift console displays resource utilization",
+              "seq": 1
+            },
+            {
+              "name": "Pod status visible",
+              "description": "Pod status and health visible in topology view",
+              "seq": 2
+            },
+            {
+              "name": "Basic alerts configured",
+              "description": "Default platform alerts active",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Resilience",
+              "stateName": "Basic Health Monitoring"
+            }
+          ]
+        },
+        {
+          "name": "Custom Grafana Dashboards",
+          "description": "Custom dashboards for application-specific metrics.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Prometheus metrics exposed",
+              "description": "Application exposes custom Prometheus metrics",
+              "seq": 1
+            },
+            {
+              "name": "Grafana dashboards created",
+              "description": "Grafana dashboards visualize application metrics",
+              "seq": 2
+            },
+            {
+              "name": "Business KPIs tracked",
+              "description": "Business-level KPIs visualized",
+              "seq": 3
+            },
+            {
+              "name": "Multi-environment views",
+              "description": "Dashboards support multiple environments",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Resilience",
+              "stateName": "Graceful Degradation"
+            }
+          ]
+        },
+        {
+          "name": "SLO-Aligned Dashboards",
+          "description": "Dashboards displaying SLIs, SLOs, and error budgets.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "SLI metrics defined",
+              "description": "Service Level Indicators measured and displayed",
+              "seq": 1
+            },
+            {
+              "name": "SLO targets visualized",
+              "description": "SLO targets and current compliance displayed",
+              "seq": 2
+            },
+            {
+              "name": "Error budget tracking",
+              "description": "Error budget consumption tracked and alerted",
+              "seq": 3
+            },
+            {
+              "name": "Incident correlation",
+              "description": "Dashboard correlates metrics with incidents",
+              "seq": 4
+            },
+            {
+              "name": "Runbook links embedded",
+              "description": "Dashboards link to runbooks for remediation",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Application Resilience",
+              "stateName": "Centralized Observability"
+            },
+            {
+              "alphaName": "Application Resilience",
+              "stateName": "Proactive Reliability Engineering"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Application Developer",
+      "description": "Developer building and deploying cloud-native applications.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Application Development"
+        ],
+        "lifecycleTags": [
+          "Implement",
+          "Deploy"
+        ],
+        "organizationalTags": [
+          "Development Teams"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "DevOps Engineer",
+      "description": "Engineer building and maintaining CI/CD pipelines.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "DevOps",
+          "Application Development"
+        ],
+        "lifecycleTags": [
+          "Implement",
+          "Deploy",
+          "Operate"
+        ],
+        "organizationalTags": [
+          "DevOps"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Security Engineer",
+      "description": "Engineer implementing security controls and policies.",
+      "competencies": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Security"
+        ],
+        "lifecycleTags": [
+          "Implement",
+          "Operate"
+        ],
+        "organizationalTags": [
+          "Security"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Site Reliability Engineer",
+      "description": "Engineer ensuring application reliability and observability.",
+      "competencies": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Site Reliability Engineering"
+        ],
+        "lifecycleTags": [
+          "Operate",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "DevOps"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Application Development Team",
+      "description": "Cross-functional team developing cloud-native applications.",
+      "personaNames": [
+        "Application Developer",
+        "DevOps Engineer",
+        "Security Engineer",
+        "Site Reliability Engineer"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Development Teams"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Deploy Application from Source",
+      "description": "Deploy containerized application using Source-to-Image builds.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Deployment Capability",
+          "stateName": "Manual Deployment"
+        },
+        {
+          "alphaName": "Application Deployment Capability",
+          "stateName": "CLI-Driven Deployment"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "Basic Deployment YAML"
+        },
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "Production-Ready Deployment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "deploy-from-source-icon",
+          "type": "icon"
+        },
+        {
+          "assetName": "s2i-workflow-diagram",
+          "type": "illustrative"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Deployment Technique",
+          "description": "How to deploy applications using Source-to-Image",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Source-to-Image builds create container images directly from source code without requiring Dockerfiles, supporting languages like Java, Node.js, Python, and Ruby."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Use web console to select source repository and builder image; configure environment variables and resource limits; trigger builds on Git push events; monitor build logs and deployment status."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Missing .s2i/environment file causes build failures; incorrect builder image selection leads to dependency errors; insufficient memory limits cause build pod evictions."
+            }
+          ],
+          "citationNames": [
+            "Foundations of OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Application Health Probes",
+      "description": "Implement liveness, readiness, and startup probes for resilience.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Resilience",
+          "stateName": "Basic Health Monitoring"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "Production-Ready Deployment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "health-probe-icon",
+          "type": "icon"
+        },
+        {
+          "assetName": "health-probe-types-diagram",
+          "type": "illustrative"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Health Probe Configuration",
+          "description": "How to configure health probes for resilience",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Kubernetes provides three probe types: liveness (restart unhealthy pods), readiness (remove from service endpoints), and startup (delay other probes during initialization)."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Implement health check endpoints in application code; configure liveness probe with appropriate timeout for restart; configure readiness probe to detect dependency failures; use startup probe for slow-starting applications; tune probe timing based on application behavior."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Using same endpoint for liveness and readiness causes cascading failures; overly aggressive probe timing causes restart loops; missing startup probe delays application readiness."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement Network Policies",
+      "description": "Define NetworkPolicy resources for pod-to-pod traffic segmentation.",
+      "activitySpaceName": "Establish Secure Guardrails",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Security",
+          "stateName": "Runtime Protection"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Network Policy",
+          "levelOfDetailName": "Deny-By-Default Baseline"
+        },
+        {
+          "workProductName": "Network Policy",
+          "levelOfDetailName": "Application-Specific Policies"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "network-policy-icon",
+          "type": "icon"
+        },
+        {
+          "assetName": "network-policy-template",
+          "type": "template"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Network Policy Implementation",
+          "description": "How to implement network segmentation policies",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "NetworkPolicy resources restrict pod-to-pod traffic using label selectors, enabling zero-trust network segmentation within OpenShift clusters."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Start with deny-by-default policy blocking all ingress; define explicit allow rules for required communication paths; use label selectors for dynamic policy enforcement; implement egress policies to control outbound traffic; test policies in non-production before applying to production."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Missing default-deny policy leaves applications vulnerable; overly permissive rules negate security benefits; testing only ingress without egress leaves data exfiltration risks."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Horizontal Pod Autoscaling",
+      "description": "Set up HPA with CPU, memory, or custom metrics for automatic scaling.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Scalability",
+          "stateName": "Policy-Based Scaling"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "Production-Ready Deployment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "autoscaling-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Autoscaling Configuration",
+          "description": "How to configure horizontal pod autoscaling",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "HorizontalPodAutoscaler automatically adjusts replica counts based on observed CPU, memory, or custom metrics, ensuring applications scale elastically with demand."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Define resource requests and limits first; create HPA resource targeting desired CPU or memory utilization; configure min and max replica counts; define Pod Disruption Budgets to protect availability; monitor scaling events and tune thresholds based on application behavior."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Missing resource requests prevents HPA from calculating utilization; overly aggressive thresholds cause replica flapping; neglecting Pod Disruption Budgets risks availability during scale-down."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Integrate CI/CD Pipeline Automation",
+      "description": "Configure Tekton pipelines with automated build, test, scan, and GitOps deploy stages.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Deployment Capability",
+          "stateName": "Automated Pipeline Integration"
+        },
+        {
+          "alphaName": "Application Security",
+          "stateName": "Build-Time Security"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "CI/CD Pipeline Definition",
+          "levelOfDetailName": "Tested Pipeline"
+        },
+        {
+          "workProductName": "CI/CD Pipeline Definition",
+          "levelOfDetailName": "GitOps-Integrated Pipeline"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Platform Security And Compliance Enforcement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "CI/CD Pipeline Automation",
+          "description": "How to integrate CI/CD pipeline automation",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "OpenShift Pipelines (Tekton) and OpenShift GitOps (Argo CD) provide cloud-native CI/CD automation, enabling pull-request-triggered workflows that build, test, scan, and deploy applications through declarative pipelines."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Define Tekton Pipeline resources with sequential tasks for checkout, build, test, and deploy; integrate vulnerability scanning as a quality gate; configure Argo CD Applications to sync from GitOps repository; set up automated sync policies with drift detection and rollback capability."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Monolithic pipelines with all stages in one task prevent granular debugging; missing quality gates allow broken builds to deploy; skipping automated testing in favor of manual verification creates deployment bottlenecks."
+            }
+          ],
+          "citationNames": [
+            "Foundations of OpenShift",
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Provision Self-Service Development Templates",
+      "description": "Create and publish Developer Hub templates with embedded security guardrails and best practices.",
+      "activitySpaceName": "Develop the Golden Paths",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Deployment Capability",
+          "stateName": "Self-Service Development Platform"
+        },
+        {
+          "alphaName": "Developer Experience",
+          "stateName": "AI-Assisted Developer Platform"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "Self-Service Template"
+        },
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "AI-Optimized Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Developer Experience Design"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Developer Experience Design",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Self-Service Templates",
+          "description": "How to provision self-service development templates",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Developer Hub software templates provide golden paths that codify organizational best practices, security guardrails, and deployment patterns into self-service application scaffolding."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Author Backstage template definitions with parameterized inputs and validation; embed security controls (SCC restrictions, network policies, resource limits) as non-optional template components; integrate with Argo CD for GitOps-first provisioning; connect OpenShift Lightspeed for AI-assisted debugging and recommendations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Templates that are too restrictive discourage adoption; templates without security guardrails create a false sense of safety; failing to version templates leads to configuration drift across deployed applications."
+            }
+          ],
+          "citationNames": [
+            "What's New in OpenShift 4.21 for Developers"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Manual Application Scaling",
+      "description": "Define resource requests and limits and perform manual replica adjustment via console or CLI.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Scalability",
+          "stateName": "Manual Scaling"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "Basic Deployment YAML"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Manual Scaling Technique",
+          "description": "How to configure manual application scaling",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Manual scaling establishes the foundation for application scaling by defining resource requests and limits, and adjusting replica counts through the web console or oc scale command."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Define CPU and memory requests based on application profiling; set resource limits to prevent noisy-neighbor effects; use oc scale to adjust replica counts; verify load balancing distributes traffic across replicas; monitor resource utilization through console metrics."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Omitting resource requests causes scheduler to make poor placement decisions; setting limits too low causes OOMKilled pod restarts; scaling without verifying application statelessness causes data inconsistency."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement Cluster Autoscaling",
+      "description": "Configure ClusterAutoscaler and MachineAutoscaler for elastic node capacity management.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Scalability",
+          "stateName": "Cluster Autoscaling"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "Production-Ready Deployment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Cluster Autoscaling Setup",
+          "description": "How to implement cluster autoscaling",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "ClusterAutoscaler and MachineAutoscaler automatically adjust node capacity when pods cannot be scheduled, distributing across availability zones with configurable scaling rate limits."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Configure MachineAutoscaler with min/max replica counts per MachineSet; enable ClusterAutoscaler with scaling rate limits (25-50 machines at once); deploy MachineHealthCheck resources for automatic unhealthy node replacement; spread MachineSets across availability zones for high availability."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Unlimited scaling without resource quotas causes budget overruns; single availability zone deployment creates blast radius for zone failures; missing MachineHealthCheck leaves unhealthy nodes consuming capacity."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Optimize Predictive Resource Allocation",
+      "description": "Deploy ClusterResourceOverride operator and establish predictive capacity planning from historical metrics.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Scalability",
+          "stateName": "Predictive Resource Optimization"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Monitoring Dashboard",
+          "levelOfDetailName": "SLO-Aligned Dashboards"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Predictive Resource Optimization",
+          "description": "How to optimize predictive resource allocation",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "ClusterResourceOverride operator optimizes resource utilization by automatically adjusting request-to-limit ratios, while historical metrics analysis enables predictive capacity planning and proactive scaling adjustments."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Deploy ClusterResourceOverride operator with target utilization ratios; collect and analyze historical resource utilization data for capacity planning; configure cost optimization alerts for overprovisioned workloads; tune scaling policies based on application-specific traffic patterns; maintain multi-tenant resource isolation during dynamic scaling."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Aggressive overcommit ratios cause pod evictions during peak usage; predictive models based on insufficient historical data produce unreliable forecasts; ignoring cost attribution across tenants masks resource waste."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement Graceful Degradation Patterns",
+      "description": "Implement circuit breakers, timeouts, retry logic, and graceful termination for failure handling.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Resilience",
+          "stateName": "Graceful Degradation"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "Production-Ready Deployment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Graceful Degradation",
+          "description": "How to implement graceful degradation patterns",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Graceful degradation patterns ensure applications handle failures without cascading outages, using circuit breakers, timeouts, retry logic with exponential backoff, rate limiting, and graceful SIGTERM termination."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Implement circuit breaker patterns for all external dependency calls; configure connection and request timeouts to prevent resource exhaustion; add retry logic with exponential backoff and jitter; implement rate limiting to protect against overload; configure preStop hooks for graceful SIGTERM handling to complete in-flight requests."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Missing circuit breakers allow cascading failures when dependencies go down; retry storms without backoff amplify load on degraded services; immediate pod termination without graceful shutdown drops active connections."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Centralized Observability",
+      "description": "Centralize application logs, Prometheus metrics, distributed traces, and configure SLO-based alerting.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Resilience",
+          "stateName": "Centralized Observability"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Monitoring Dashboard",
+          "levelOfDetailName": "Custom Grafana Dashboards"
+        },
+        {
+          "workProductName": "Monitoring Dashboard",
+          "levelOfDetailName": "SLO-Aligned Dashboards"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Centralized Observability Setup",
+          "description": "How to configure centralized observability",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Centralized observability combines structured logging to stdout/stderr, Prometheus custom metrics endpoints, distributed tracing with OpenTelemetry, and SLO-based alerting into a unified view of application health."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Configure applications to log structured JSON to stdout/stderr for cluster logging collection; expose custom Prometheus metrics via ServiceMonitor resources; integrate distributed tracing with OpenTelemetry SDK; define custom alerts based on business-level SLOs; create Grafana dashboards correlating logs, metrics, and traces."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Unstructured logging prevents effective search and correlation; missing ServiceMonitor resources cause metrics gaps; alerting on symptoms without SLO context generates excessive noise without actionable information."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift",
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Establish SRE Reliability Practices",
+      "description": "Define SLIs, SLOs, and error budgets; implement symptom-based alerting and systematic toil reduction.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Resilience",
+          "stateName": "Proactive Reliability Engineering"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Monitoring Dashboard",
+          "levelOfDetailName": "SLO-Aligned Dashboards"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "SRE Reliability Practices",
+          "description": "How to establish SRE reliability practices",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "SRE reliability practices establish measurable service level objectives, error budgets for data-driven reliability decisions, symptom-based alerting to reduce noise, systematic toil reduction, and chaos engineering to validate resilience assumptions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Define Service Level Indicators (SLIs) reflecting customer experience (latency, availability, throughput); negotiate SLOs with stakeholders; implement error budget tracking and consumption transparency; replace cause-based alerts with symptom-based alerting tied to SLOs; identify and automate operational toil targeting below 50% of team capacity; introduce controlled chaos engineering experiments."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "SLOs set without stakeholder agreement lack organizational commitment; cause-based alerting generates excessive false positives; neglecting toil measurement allows it to consume team capacity silently; chaos engineering without proper controls can cause real outages."
+            }
+          ],
+          "citationNames": [
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Establish Baseline Image Security",
+      "description": "Configure trusted base image sources, enforce restricted SCC compliance, and integrate vulnerability scanning.",
+      "activitySpaceName": "Secure Software Supply Chain",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Security",
+          "stateName": "Baseline Image Security"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Network Policy",
+          "levelOfDetailName": "No Network Policies"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Baseline Image Security",
+          "description": "How to establish baseline image security",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Baseline image security establishes the foundational security posture by enforcing trusted Red Hat base images, restricted Security Context Constraint compliance, non-root execution, and initial vulnerability scanning integration."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Configure image pull policies to restrict base images to Red Hat or approved vendor repositories; verify all application Dockerfiles use non-root USER directives; test application compatibility with restricted SCC (the default in OpenShift); integrate basic image vulnerability scanning into CI pipeline; establish a process for tracking and applying base image security patches."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Applications that assume root access fail silently under restricted SCC; using unvetted community base images introduces unknown vulnerabilities; failing to update base images regularly leaves known CVEs unpatched."
+            }
+          ],
+          "citationNames": [
+            "14 Best Practices for Developing Applications on OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Verify Software Supply Chain",
+      "description": "Implement SBOM generation, image signing with Trusted Artifact Signer, and cryptographic verification at admission.",
+      "activitySpaceName": "Secure Software Supply Chain",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Application Security",
+          "stateName": "Supply Chain Verification"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "CI/CD Pipeline Definition",
+          "levelOfDetailName": "Supply Chain Secured Pipeline"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Supply Chain Verification",
+          "description": "How to verify software supply chain",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Software supply chain verification uses cryptographic signing, SBOM generation, and provenance attestation to ensure only verified artifacts are deployed, leveraging Trusted Artifact Signer and Sigstore integration for end-to-end supply chain integrity."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Add SBOM generation tasks to Tekton pipelines using standard formats (SPDX or CycloneDX); integrate Trusted Artifact Signer for cosign-based image signing; configure ImagePolicy APIs to validate signatures at admission; enable continuous verification via transparency logs; protect AI/ML model deployments with Model Transparency Library."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Signing without admission-time verification provides false confidence; SBOM generation without consumption tooling creates compliance theater; signature key rotation without automation causes deployment failures."
+            }
+          ],
+          "citationNames": [
+            "What's New in OpenShift 4.21 for Developers"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Onboard Developers to OpenShift Platform",
+      "description": "Configure developer console access, CLI tooling, and local development environments with Podman Desktop.",
+      "activitySpaceName": "Curate Developer Experience",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Developer Experience",
+          "stateName": "Web Console Access"
+        },
+        {
+          "alphaName": "Developer Experience",
+          "stateName": "CLI and Local Development"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "Basic Deployment YAML"
+        },
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "Production-Ready Deployment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Developer Experience Design"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Developer Experience Design",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Developer Onboarding",
+          "description": "How to onboard developers to OpenShift platform",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Developer onboarding to OpenShift establishes the foundational experience through web console access with developer perspective, oc CLI configuration, and local development environments using Podman Desktop and Developer Sandbox."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Configure OAuth identity provider for SSO-based console authentication; enable the developer perspective in OpenShift console; distribute oc CLI installation guides and authentication procedures; provision Developer Sandbox access for no-cost experimentation; configure Podman Desktop for local container development and testing prior to cluster deployment."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Expecting developers to learn CLI before understanding concepts visually through the console slows adoption; not providing sandbox environments forces developers to learn on production clusters; insufficient documentation of authentication and CLI setup creates frustrating first experiences."
+            }
+          ],
+          "citationNames": [
+            "Foundations of OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Deploy Cloud Development Environments",
+      "description": "Deploy OpenShift Dev Spaces with browser-based IDEs and remote compute for consistent development environments.",
+      "activitySpaceName": "Curate Developer Experience",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Developer Experience",
+          "stateName": "Integrated Development Environment"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Application Deployment Configuration",
+          "levelOfDetailName": "Production-Ready Deployment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Developer Experience Design"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Developer Experience Design",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Application Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Cloud Development Environments",
+          "description": "How to deploy cloud development environments",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "OpenShift Dev Spaces provides browser-based IDEs (VS Code, JetBrains) with remote compute, enabling consistent development environments that eliminate local setup friction and support nested container builds."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Deploy Dev Spaces operator with workspace template definitions; configure multi-workspace support with auto-pruner for etcd usage management; enable marketplace extensions for remote compute; set up nested container support for podman run capabilities within workspaces; connect Dev Spaces to source repositories and CI pipelines."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Insufficient workspace resource limits cause performance complaints; missing auto-pruner configuration leads to etcd bloat at scale; not supporting popular IDE extensions reduces developer willingness to adopt cloud environments."
+            }
+          ],
+          "citationNames": [
+            "What's New in OpenShift 4.21 for Developers"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Application Development Journey",
+      "description": "Coordinated progression from developer onboarding through production operations for cloud-native applications.",
+      "narrativeTypeName": "Design-Build-Run-Optimize",
+      "patternViews": [
+        {
+          "name": "Developer Onboarding",
+          "description": "Manual deployment with console and basic CLI usage.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "Manual Deployment"
+            },
+            {
+              "alphaName": "Application Scalability",
+              "stateName": "Manual Scaling"
+            },
+            {
+              "alphaName": "Application Resilience",
+              "stateName": "Basic Health Monitoring"
+            },
+            {
+              "alphaName": "Application Security",
+              "stateName": "Baseline Image Security"
+            },
+            {
+              "alphaName": "Developer Experience",
+              "stateName": "Web Console Access"
+            }
+          ],
+          "activities": [
+            "Deploy Application from Source",
+            "Configure Application Health Probes",
+            "Configure Manual Application Scaling",
+            "Establish Baseline Image Security",
+            "Onboard Developers to OpenShift Platform"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "Developers learn OpenShift fundamentals using web console for deployment, basic health monitoring via liveness probes, manual scaling through console, trusted base images meeting security baselines, and initial CLI tooling configuration."
+            }
+          ]
+        },
+        {
+          "name": "Automation and Best Practices",
+          "description": "CLI-driven workflows with pipelines and policy-based controls.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "CLI-Driven Deployment"
+            },
+            {
+              "alphaName": "Application Scalability",
+              "stateName": "Policy-Based Scaling"
+            },
+            {
+              "alphaName": "Application Resilience",
+              "stateName": "Graceful Degradation"
+            },
+            {
+              "alphaName": "Application Security",
+              "stateName": "Build-Time Security"
+            },
+            {
+              "alphaName": "Developer Experience",
+              "stateName": "CLI and Local Development"
+            }
+          ],
+          "activities": [
+            "Deploy Application from Source",
+            "Configure Horizontal Pod Autoscaling",
+            "Implement Graceful Degradation Patterns",
+            "Integrate CI/CD Pipeline Automation",
+            "Onboard Developers to OpenShift Platform"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 2,
+              "narrativeElementName": "Build",
+              "context": "Teams adopt CLI for repeatability, implement HorizontalPodAutoscalers for policy-based scaling, add circuit breakers for graceful degradation, integrate vulnerability scanning at build time, and use local development tools like Podman Desktop."
+            }
+          ]
+        },
+        {
+          "name": "GitOps and Observability",
+          "description": "Automated GitOps workflows with centralized observability.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "Automated Pipeline Integration"
+            },
+            {
+              "alphaName": "Application Scalability",
+              "stateName": "Cluster Autoscaling"
+            },
+            {
+              "alphaName": "Application Resilience",
+              "stateName": "Centralized Observability"
+            },
+            {
+              "alphaName": "Application Security",
+              "stateName": "Runtime Protection"
+            },
+            {
+              "alphaName": "Developer Experience",
+              "stateName": "Integrated Development Environment"
+            }
+          ],
+          "activities": [
+            "Integrate CI/CD Pipeline Automation",
+            "Implement Cluster Autoscaling",
+            "Configure Centralized Observability",
+            "Implement Network Policies",
+            "Deploy Cloud Development Environments"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Organizations achieve GitOps-driven deployment with Argo CD, ClusterAutoscaler for elastic capacity, centralized logging and metrics with Prometheus and Grafana, runtime NetworkPolicies and TLS, and browser-based IDEs with Dev Spaces."
+            }
+          ]
+        },
+        {
+          "name": "AI-Assisted Self-Service Platform",
+          "description": "Self-service with AI, supply chain security, and SRE.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Application Deployment Capability",
+              "stateName": "Self-Service Development Platform"
+            },
+            {
+              "alphaName": "Application Scalability",
+              "stateName": "Predictive Resource Optimization"
+            },
+            {
+              "alphaName": "Application Resilience",
+              "stateName": "Proactive Reliability Engineering"
+            },
+            {
+              "alphaName": "Application Security",
+              "stateName": "Supply Chain Verification"
+            },
+            {
+              "alphaName": "Developer Experience",
+              "stateName": "AI-Assisted Developer Platform"
+            }
+          ],
+          "activities": [
+            "Provision Self-Service Development Templates",
+            "Optimize Predictive Resource Allocation",
+            "Establish SRE Reliability Practices",
+            "Verify Software Supply Chain"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 4,
+              "narrativeElementName": "Optimize",
+              "context": "Mature organizations provide Developer Hub templates with AI-assisted debugging via OpenShift Lightspeed, predictive resource optimization with ClusterResourceOverride, SRE practices with SLIs/SLOs/error budgets, cryptographic supply chain verification with Sigstore, and multi-language support with persona-based experiences."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "IDP Essentials",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

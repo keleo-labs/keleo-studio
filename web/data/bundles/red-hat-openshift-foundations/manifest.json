@@ -1,0 +1,378 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "red-hat-openshift-foundations",
+    "version": "1.0.0",
+    "description": "red-hat-openshift-foundations",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/red-hat-openshift-foundations.json",
+      "documentType": "method",
+      "documentName": "Red Hat OpenShift Foundations",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Enterprise Kubernetes platform methodology covering cloud-native application development, SRE-driven platform operations, defense-in-depth security, and comprehensive observability on Red Hat OpenShift Container Platform.",
+        "tags": {
+          "domainTags": [
+            "Platform Engineering",
+            "Application Development",
+            "Security",
+            "Observability",
+            "Site Reliability Engineering",
+            "Container Platform"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Implementation",
+            "Operations",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Platform Team",
+            "Development Teams",
+            "Security Team",
+            "SRE Team"
+          ]
+        },
+        "keywords": [],
+        "elementCount": 657,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": ""
+      }
+    },
+    {
+      "path": "documents/idp-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "IDP Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "A foundational baseline practice for Internal Developer Platforms that establishes the universal concerns, activity spaces, competencies, and narrative frameworks governing how organizations design, build, operate, and evolve developer-centric platform capabilities.",
+        "tags": {
+          "domainTags": [
+            "Platform Engineering",
+            "Developer Experience",
+            "DevOps",
+            "Site Reliability Engineering",
+            "Security",
+            "FinOps",
+            "Cloud Native"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Maturity",
+            "Optimization",
+            "Evolution"
+          ],
+          "organizationalTags": [
+            "Platform Team",
+            "Engineering",
+            "Security",
+            "Finance"
+          ]
+        },
+        "keywords": [
+          "internal-developer-platform",
+          "platform-engineering",
+          "developer-experience",
+          "cognitive-load",
+          "self-service",
+          "golden-paths",
+          "devops",
+          "site-reliability",
+          "team-topologies",
+          "platform-as-product"
+        ],
+        "elementCount": 469,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-13T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/application-development.json",
+      "documentType": "practice",
+      "documentName": "Application Development",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "Cloud-native application development and deployment on OpenShift platform.",
+        "tags": {
+          "domainTags": [
+            "Application Development",
+            "DevOps",
+            "Security",
+            "Site Reliability Engineering"
+          ],
+          "lifecycleTags": [
+            "Implement",
+            "Deploy",
+            "Operate",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Development Teams",
+            "DevOps"
+          ]
+        },
+        "keywords": [
+          "OCP",
+          "openshift",
+          "kubernetes",
+          "k8s",
+          "S2I",
+          "source-to-image",
+          "tekton",
+          "pipelines",
+          "GitOps",
+          "ArgoCD",
+          "developer-hub",
+          "dev-spaces",
+          "podman",
+          "HPA",
+          "horizontal-pod-autoscaler",
+          "SCC",
+          "security-context-constraints"
+        ],
+        "elementCount": 175,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-06-12"
+      }
+    },
+    {
+      "path": "documents/platform-operations.json",
+      "documentType": "practice",
+      "documentName": "Platform Operations",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "OpenShift cluster lifecycle management and SRE-driven operational excellence.",
+        "tags": {
+          "domainTags": [
+            "Platform Engineering",
+            "SRE",
+            "Infrastructure",
+            "GitOps",
+            "FinOps"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Operations",
+            "Optimization",
+            "Lifecycle Management"
+          ],
+          "organizationalTags": [
+            "Platform Engineering",
+            "SRE",
+            "Infrastructure"
+          ]
+        },
+        "keywords": [
+          "OCP",
+          "openshift",
+          "kubernetes",
+          "k8s",
+          "cluster",
+          "operator",
+          "CRD",
+          "custom resource",
+          "etcd",
+          "ArgoCD",
+          "GitOps",
+          "Argo CD",
+          "ApplicationSet",
+          "ODF",
+          "OpenShift Data Foundation",
+          "PVC",
+          "StorageClass",
+          "ClusterAutoscaler",
+          "MachineSet"
+        ],
+        "elementCount": 176,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-14"
+      }
+    },
+    {
+      "path": "documents/security-compliance.json",
+      "documentType": "practice",
+      "documentName": "Security & Compliance",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Defense-in-depth security controls and regulatory compliance for OpenShift platform and workloads.",
+        "tags": {
+          "domainTags": [
+            "Security",
+            "Compliance",
+            "Networking",
+            "Supply Chain Security"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Operations",
+            "Governance"
+          ],
+          "organizationalTags": [
+            "Security Team",
+            "Platform Team",
+            "Compliance"
+          ]
+        },
+        "keywords": [
+          "SCC",
+          "security context constraints",
+          "RBAC",
+          "role-based access control",
+          "network policy",
+          "mTLS",
+          "service mesh",
+          "istio",
+          "compliance operator",
+          "CIS benchmark",
+          "SBOM",
+          "software bill of materials",
+          "sigstore",
+          "cosign",
+          "trusted artifact signer",
+          "zero trust",
+          "ambient mesh"
+        ],
+        "elementCount": 132,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-14"
+      }
+    },
+    {
+      "path": "documents/observability.json",
+      "documentType": "practice",
+      "documentName": "Observability",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Comprehensive monitoring, logging, and tracing for operational visibility and decision-making.",
+        "tags": {
+          "domainTags": [
+            "Observability",
+            "Monitoring",
+            "SRE",
+            "Operations"
+          ],
+          "lifecycleTags": [
+            "Operate",
+            "Optimize"
+          ],
+          "organizationalTags": [
+            "SRE",
+            "Platform Engineering",
+            "Operations"
+          ]
+        },
+        "keywords": [
+          "prometheus",
+          "grafana",
+          "alertmanager",
+          "opentelemetry",
+          "OTEL",
+          "tempo",
+          "loki",
+          "logging operator",
+          "cluster observability operator",
+          "COO",
+          "SLI",
+          "SLO",
+          "error budget",
+          "distributed tracing",
+          "metrics",
+          "alerting",
+          "PrometheusRule",
+          "ServiceMonitor",
+          "ClusterLogForwarder"
+        ],
+        "elementCount": 170,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-14"
+      }
+    },
+    {
+      "path": "documents/platform-adoption-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Platform Adoption Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "The Platform Adoption Essentials baseline establishes the universal foundation for platform transformations, extending the Project Essentials baseline with platform-specific concerns across the three Areas of Concern.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "platform",
+          "adoption",
+          "kernel"
+        ],
+        "elementCount": 125,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2023-10-25T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/project-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Project Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "The Project Essentials baseline establishes the universal foundation for project management, organized into three areas of concern: Value, Solution, and Endeavor.",
+        "tags": {
+          "domainTags": [
+            "Project Management",
+            "Agile",
+            "Governance",
+            "Stakeholder Management",
+            "Team Management"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Execution",
+            "Closure",
+            "Benefits Realization"
+          ],
+          "organizationalTags": [
+            "Project Team",
+            "PMO",
+            "Governance Board",
+            "Stakeholder Community"
+          ]
+        },
+        "keywords": [
+          "project management",
+          "agile",
+          "PMBOK",
+          "Essence",
+          "SMART objectives",
+          "team",
+          "stakeholders",
+          "way of working"
+        ],
+        "elementCount": 455,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    }
+  ]
+}

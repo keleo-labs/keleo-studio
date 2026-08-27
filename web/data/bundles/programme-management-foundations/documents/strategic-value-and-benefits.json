@@ -1,0 +1,3206 @@
+{
+  "kind": "practice",
+  "name": "Strategic Value and Benefits",
+  "description": "Manages programme investment rationale, benefits realization, and strategic value delivery.",
+  "baselinePracticeName": "Programme Essentials",
+  "tags": {
+    "domainTags": [
+      "Benefits Management",
+      "Portfolio Management",
+      "Strategic Planning"
+    ],
+    "lifecycleTags": [
+      "Definition",
+      "Delivery",
+      "Transition"
+    ],
+    "organizationalTags": [
+      "Programme Leadership",
+      "Portfolio Governance"
+    ]
+  },
+  "keywords": [
+    "benefits management",
+    "lean portfolio management",
+    "WSJF",
+    "value stream",
+    "benefits realization",
+    "benefits dependency",
+    "strategic investment",
+    "programme business case",
+    "MSP benefits",
+    "portfolio kanban",
+    "cost of delay",
+    "benefits chain",
+    "value stream funding",
+    "investment horizons",
+    "dis-benefits"
+  ],
+  "authors": [
+    "Claude Code"
+  ],
+  "createdAt": "2026-07-28",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.3",
+  "citations": [
+    {
+      "name": "Managing Successful Programmes",
+      "description": "Comprehensive framework for programme management with detailed benefits management themes and organizational change governance.",
+      "authors": [
+        "AXELOS Limited"
+      ],
+      "date": "2020",
+      "source": "The Stationery Office",
+      "kind": "citation"
+    },
+    {
+      "name": "SAFe 6.0 Framework",
+      "description": "Scaled agile framework including lean portfolio management, WSJF prioritization, and value stream funding models.",
+      "authors": [
+        "Scaled Agile Inc."
+      ],
+      "date": "2023",
+      "source": "Scaled Agile, Inc.",
+      "url": "https://framework.scaledagile.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "The Standard for Program Management",
+      "description": "PMI standard organizing benefits management into identification, analysis, planning, delivery, transition, and sustainment phases.",
+      "authors": [
+        "Project Management Institute"
+      ],
+      "date": "2017",
+      "source": "Project Management Institute",
+      "kind": "citation"
+    },
+    {
+      "name": "Benefits Management",
+      "description": "Foundational text on increasing business value through systematic benefits identification, planning, and realization.",
+      "authors": [
+        "John Ward",
+        "Elizabeth Daniel"
+      ],
+      "date": "2012",
+      "source": "John Wiley & Sons",
+      "kind": "citation"
+    },
+    {
+      "name": "The Principles of Product Development Flow",
+      "description": "Economic framework for product development including cost of delay analysis and queuing theory applied to portfolio prioritization.",
+      "authors": [
+        "Donald Reinertsen"
+      ],
+      "date": "2009",
+      "source": "Celeritas Publishing",
+      "kind": "citation"
+    },
+    {
+      "name": "SAFe 5.0 Distilled",
+      "description": "Practitioner guide to the Scaled Agile Framework with detailed lean portfolio management and WSJF guidance.",
+      "authors": [
+        "Dean Leffingwell"
+      ],
+      "date": "2020",
+      "source": "Addison-Wesley Professional",
+      "kind": "citation"
+    },
+    {
+      "name": "Black Swan Farming",
+      "description": "Original source for Cost of Delay Divided by Duration prioritization methodology applied to portfolio sequencing.",
+      "authors": [
+        "Joshua Arnold"
+      ],
+      "date": "2012",
+      "source": "Black Swan Farming",
+      "url": "https://blackswanfarming.com/",
+      "kind": "citation"
+    },
+    {
+      "name": "Project to Product",
+      "description": "Framework for value stream management connecting programme delivery structures to customer outcomes through flow metrics.",
+      "authors": [
+        "Mik Kersten"
+      ],
+      "date": "2018",
+      "source": "IT Revolution Press",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "strategic-investment-icon",
+      "description": "Icon representing strategic investment and portfolio value management.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-icon",
+      "description": "Icon representing benefits management, tracking, and realization.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullseye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "stakeholders-icon",
+      "description": "Icon representing programme stakeholder engagement and benefits ownership.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "value-stream-icon",
+      "description": "Icon representing value stream identification and flow-based investment allocation.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-stream",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-chain-diagram",
+      "description": "Benefits dependency chain diagram showing the flow from project outputs through capabilities and outcomes to strategic benefits.",
+      "type": "diagram",
+      "path": "assets/diagrams/benefits-dependency-chain.svg",
+      "mimeType": "image/svg+xml"
+    },
+    {
+      "name": "opportunity-icon",
+      "type": "font-character",
+      "description": "Opportunity icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lightbulb",
+      "fontWeight": "900"
+    },
+    {
+      "name": "develop-strategic-investment-thesis-icon",
+      "type": "font-character",
+      "description": "Develop Strategic Investment Thesis icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-invoice-dollar",
+      "fontWeight": "900"
+    },
+    {
+      "name": "map-benefits-dependencies-icon",
+      "type": "font-character",
+      "description": "Map Benefits Dependencies icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-diagram-project",
+      "fontWeight": "900"
+    },
+    {
+      "name": "track-benefits-realization-icon",
+      "type": "font-character",
+      "description": "Track Benefits Realization icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-column",
+      "fontWeight": "900"
+    },
+    {
+      "name": "conduct-portfolio-prioritization-icon",
+      "type": "font-character",
+      "description": "Conduct Portfolio Prioritization icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-ranking-star",
+      "fontWeight": "900"
+    },
+    {
+      "name": "transition-programme-benefits-icon",
+      "type": "font-character",
+      "description": "Transition Programme Benefits icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-right-left",
+      "fontWeight": "900"
+    },
+    {
+      "name": "engage-benefits-stakeholders-icon",
+      "type": "font-character",
+      "description": "Engage Benefits Stakeholders icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users",
+      "fontWeight": "900"
+    },
+    {
+      "name": "confirm-stakeholder-benefits-satisfaction-icon",
+      "type": "font-character",
+      "description": "Confirm Stakeholder Benefits Satisfaction icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "strategic-investment-case-icon",
+      "type": "font-character",
+      "description": "Strategic Investment Case icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-contract",
+      "fontWeight": "900"
+    },
+    {
+      "name": "benefits-dependency-network-icon",
+      "type": "font-character",
+      "description": "Benefits Dependency Network icon",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-share-nodes",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Opportunity",
+      "description": "The strategic investment thesis that justifies the programme's existence, encompassing the business drivers and expected return spanning multiple related projects.",
+      "focusName": "Value",
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "A strategic need requiring coordinated multi-project delivery has been identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Executive sponsor identified",
+              "description": "An executive sponsor champions the programme investment with organizational authority to pursue it.",
+              "seq": 1
+            },
+            {
+              "name": "Strategic drivers documented",
+              "description": "Strategic drivers from organizational strategy are documented and linked to the proposed programme scope.",
+              "seq": 2
+            },
+            {
+              "name": "Preliminary investment hypothesis stated",
+              "description": "A preliminary investment hypothesis states what coordinated delivery will achieve beyond individual projects.",
+              "seq": 3
+            },
+            {
+              "name": "Market conditions identified",
+              "description": "Market conditions or regulatory requirements supporting the investment are identified with sources noted.",
+              "seq": 4
+            },
+            {
+              "name": "Portfolio governance notified",
+              "description": "The investment opportunity is communicated to portfolio governance for initial assessment.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Determined",
+          "description": "A comprehensive business case documents investment, benefits, risks, and strategic alignment.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Total cost of ownership analysed",
+              "description": "Total cost of ownership analysis covers programme coordination costs in addition to constituent project costs.",
+              "seq": 1
+            },
+            {
+              "name": "ROI projections prepared",
+              "description": "Return on investment projections include both financial returns and strategic capability gains.",
+              "seq": 2
+            },
+            {
+              "name": "Risk analysis completed",
+              "description": "Risk analysis identifies threats from market, technology, and organizational change perspectives.",
+              "seq": 3
+            },
+            {
+              "name": "Alternative options documented",
+              "description": "Alternative investment options are documented with comparative analysis explaining the programme approach.",
+              "seq": 4
+            },
+            {
+              "name": "Economic scoring completed",
+              "description": "WSJF or equivalent economic scoring positions the programme relative to competing portfolio investments.",
+              "seq": 5
+            },
+            {
+              "name": "Investment horizons classified",
+              "description": "Investment horizons classify programme components into exploration, exploitation, and sustaining categories.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Value Established",
+          "description": "The programme investment is validated as strategically sound through ongoing governance review.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Strategic alignment re-confirmed",
+              "description": "Strategic alignment is re-confirmed through explicit mapping of programme objectives to organizational strategy.",
+              "seq": 1
+            },
+            {
+              "name": "Benefits dependency network validates thesis",
+              "description": "The benefits dependency network validates the investment thesis by tracing outputs to strategic benefits.",
+              "seq": 2
+            },
+            {
+              "name": "Portfolio governance endorsement received",
+              "description": "Portfolio governance has reviewed and endorsed the investment case with conditions documented.",
+              "seq": 3
+            },
+            {
+              "name": "Success criteria defined",
+              "description": "Success criteria are defined with measurable indicators confirming thesis correctness.",
+              "seq": 4
+            },
+            {
+              "name": "Business unit validation obtained",
+              "description": "Stakeholders across affected business units have validated the investment rationale.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Viable",
+          "description": "Funding secured, governance authorized pursuit, and a credible plan exists.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Programme funding approved",
+              "description": "Programme funding is approved through formal portfolio governance with budget allocated to the value stream.",
+              "seq": 1
+            },
+            {
+              "name": "Funding model specified",
+              "description": "Funding model specifies whether allocation follows traditional annual cycles or lean value stream funding.",
+              "seq": 2
+            },
+            {
+              "name": "Investment guardrails defined",
+              "description": "Investment guardrails define boundaries within which the programme can make autonomous funding decisions.",
+              "seq": 3
+            },
+            {
+              "name": "Budget allocated via prioritization",
+              "description": "Budget allocation to capability increments follows the programme's WSJF prioritization framework.",
+              "seq": 4
+            },
+            {
+              "name": "Contingency reserves established",
+              "description": "Contingency reserves are established for programme-level risks and opportunities.",
+              "seq": 5
+            },
+            {
+              "name": "Financial tracking linked to benefits",
+              "description": "Financial tracking mechanisms link expenditure to benefit realization milestones.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Addressed",
+          "description": "The strategic opportunity is actively addressed with early results confirming viability.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Early realization data confirms trajectory",
+              "description": "Benefit realization data from early programme delivery confirms the investment thesis trajectory.",
+              "seq": 1
+            },
+            {
+              "name": "Value stream metrics demonstrate improvement",
+              "description": "Value stream performance metrics demonstrate value flow improvement from programme activities.",
+              "seq": 2
+            },
+            {
+              "name": "Stakeholder feedback confirms alignment",
+              "description": "Stakeholder feedback confirms the programme is addressing the strategic needs identified in the thesis.",
+              "seq": 3
+            },
+            {
+              "name": "Cost of delay avoidance documented",
+              "description": "Cost of delay avoidance is documented through WSJF-driven sequencing decisions.",
+              "seq": 4
+            },
+            {
+              "name": "Investment case updated",
+              "description": "The investment case is updated to reflect actual delivery outcomes and strategic shifts.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Benefit Accrued",
+          "description": "Strategic value confirmed through measurable benefit realization and organizational learning.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Post-programme evaluation completed",
+              "description": "Post-programme evaluation confirms actual returns against investment thesis predictions.",
+              "seq": 1
+            },
+            {
+              "name": "Economic models retrospectively validated",
+              "description": "Economic models used for WSJF prioritization are retrospectively validated and calibrated.",
+              "seq": 2
+            },
+            {
+              "name": "Portfolio-level learning captured",
+              "description": "Portfolio-level learning from this programme informs investment decisions for future programmes.",
+              "seq": 3
+            },
+            {
+              "name": "Residual value transferred",
+              "description": "Residual strategic value is documented and transferred to operational management for exploitation.",
+              "seq": 4
+            },
+            {
+              "name": "Appraisal process improved",
+              "description": "The organization's programme investment appraisal process is improved based on this experience.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Programme Investment as Strategic Value Commitment",
+          "description": "How programme-level investment management extends beyond project business cases to strategic portfolio value.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Organizations pursue programmes to achieve strategic outcomes spanning multiple coordinated projects, requiring investment justification that transcends individual project business cases and connects to portfolio-level value streams."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Traditional project-by-project investment appraisal fails to capture the coordination value, cross-project synergies, and strategic capability building that programmes uniquely enable, leading to underinvestment in coordination and overinvestment in isolated project delivery."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Programme opportunity management applies lean portfolio management principles including WSJF prioritization, investment horizon balancing, and value stream funding to ensure investment decisions reflect strategic value rather than project-level cost accounting."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "SAFe 6.0 Framework",
+            "The Principles of Product Development Flow"
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "opportunity-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Stakeholders",
+      "description": "The broader ecosystem of people, groups, and organizations affected by or influencing the programme, whose engagement spans strategic, programme, project, and operational levels.",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "stakeholders-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Recognized",
+          "description": "Programme stakeholders identified with interests, influence, and engagement needs understood.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Multi-level stakeholders identified",
+              "description": "Stakeholders across strategic, programme, project, and operational levels are identified and categorized.",
+              "seq": 1
+            },
+            {
+              "name": "Benefit owners identified",
+              "description": "Benefit owners are identified for each expected programme benefit with accountability assigned.",
+              "seq": 2
+            },
+            {
+              "name": "Influence on investment assessed",
+              "description": "Stakeholder influence on investment decisions and benefit realization is assessed and documented.",
+              "seq": 3
+            },
+            {
+              "name": "Dis-benefit affected parties mapped",
+              "description": "Potential beneficiaries and those negatively impacted by dis-benefits are mapped.",
+              "seq": 4
+            },
+            {
+              "name": "Stakeholder register established",
+              "description": "A programme-level stakeholder register distinguishes benefit-related from delivery-related stakeholders.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Represented",
+          "description": "A programme-level stakeholder engagement strategy guides engagement activities.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Benefit owners empowered",
+              "description": "Benefit owners are empowered with authority and resources to drive benefit realization within their domains.",
+              "seq": 1
+            },
+            {
+              "name": "Engagement strategy established",
+              "description": "A stakeholder engagement strategy addresses benefits communication, governance participation, and feedback mechanisms.",
+              "seq": 2
+            },
+            {
+              "name": "Beneficiary representatives designated",
+              "description": "Representatives from beneficiary groups are designated for benefits reviews and transition planning.",
+              "seq": 3
+            },
+            {
+              "name": "Benefits reporting channels established",
+              "description": "Communication channels for benefits reporting are established between programme and operational management.",
+              "seq": 4
+            },
+            {
+              "name": "Dis-benefit representation ensured",
+              "description": "Dis-benefit stakeholders have representation in governance to raise concerns and negotiate mitigations.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Involved",
+          "description": "Stakeholders actively participating, providing feedback, and contributing to decisions.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Benefit owners participate in workshops",
+              "description": "Benefit owners participate in benefits dependency mapping workshops validating realization chains.",
+              "seq": 1
+            },
+            {
+              "name": "Portfolio governance receiving reports",
+              "description": "Portfolio governance stakeholders receive regular investment performance reports and provide direction.",
+              "seq": 2
+            },
+            {
+              "name": "Operational stakeholders contributing",
+              "description": "Operational stakeholders contribute to benefit measurement design and baseline establishment.",
+              "seq": 3
+            },
+            {
+              "name": "Business change stakeholders engaged",
+              "description": "Business change stakeholders are engaged in transition planning for organizational change activities.",
+              "seq": 4
+            },
+            {
+              "name": "Stakeholder feedback informs WSJF",
+              "description": "Stakeholder feedback on benefit priorities informs WSJF scoring and sequencing decisions.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "In Agreement",
+          "description": "Programme stakeholders aligned with objectives and actively supporting delivery.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Measurement approaches agreed",
+              "description": "Benefit owners have agreed on measurement approaches, baseline values, and realization targets.",
+              "seq": 1
+            },
+            {
+              "name": "Strategic alignment confirmed by governance",
+              "description": "Portfolio governance confirms ongoing strategic alignment of the investment thesis at each review.",
+              "seq": 2
+            },
+            {
+              "name": "Organizational changes accepted",
+              "description": "Business change stakeholders accept the organizational changes required to realize planned benefits.",
+              "seq": 3
+            },
+            {
+              "name": "Dis-benefit mitigations agreed",
+              "description": "Dis-benefit stakeholders agree on mitigation strategies and residual impact is acceptable.",
+              "seq": 4
+            },
+            {
+              "name": "Sustainment responsibilities accepted",
+              "description": "Benefit realization responsibility assignments are accepted by operational management for post-programme sustainment.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Satisfied for Deployment",
+          "description": "Stakeholders express satisfaction with programme outcomes and engagement process.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Benefit owners confirm expectations met",
+              "description": "Benefit owners confirm that emerging benefits meet expectations and measurement validates planned trajectories.",
+              "seq": 1
+            },
+            {
+              "name": "Operational management accepts responsibility",
+              "description": "Operational management accepts responsibility for sustaining realized benefits with adequate resources.",
+              "seq": 2
+            },
+            {
+              "name": "Satisfaction surveys confirm value",
+              "description": "Stakeholder satisfaction surveys confirm the programme has addressed the strategic needs in the investment thesis.",
+              "seq": 3
+            },
+            {
+              "name": "Organizational readiness confirmed",
+              "description": "Business change stakeholders confirm organizational readiness to operate with programme-delivered capabilities.",
+              "seq": 4
+            },
+            {
+              "name": "Residual realization plans accepted",
+              "description": "Residual benefit realization plans are accepted by operational owners for post-programme tracking.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Satisfied in Use",
+          "description": "Stakeholder relationships transitioned to operations with ongoing engagement sustained.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Sustained benefit levels reported",
+              "description": "Benefit owners report sustained benefit levels through operational measurement mechanisms.",
+              "seq": 1
+            },
+            {
+              "name": "Benefits embedded in operations",
+              "description": "Operational stakeholders confirm benefits are embedded in business-as-usual with no erosion.",
+              "seq": 2
+            },
+            {
+              "name": "Investment thesis validated",
+              "description": "Portfolio governance confirms the programme investment thesis has been validated through realized value.",
+              "seq": 3
+            },
+            {
+              "name": "Engagement learning captured",
+              "description": "Organizational learning about stakeholder engagement for benefits management is captured as an asset.",
+              "seq": 4
+            },
+            {
+              "name": "Communication channels handed over",
+              "description": "Ongoing stakeholder communication channels for benefit sustainment are handed to operational management.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Benefits-Centred Stakeholder Engagement",
+          "description": "How programme stakeholder engagement centres on benefits identification, realization, and sustainment.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Programme stakeholders span strategic sponsors who authorize investment, benefit owners who are accountable for realizing value, operational managers who sustain benefits, and beneficiaries who experience the outcomes of programme delivery."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Traditional stakeholder engagement treats benefits communication as a reporting exercise rather than an active management discipline, resulting in benefits that are promised during investment approval but never systematically tracked, measured, or embedded into operational ownership."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Benefits-centred stakeholder engagement assigns named benefit owners with realization accountability, establishes measurement mechanisms before benefits emerge, and transitions ongoing responsibility to operational management with sustainment plans that protect against benefit erosion."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "The Standard for Program Management"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Benefits",
+      "description": "The measurable improvements and strategic outcomes that justify the programme's existence and whose realization must be actively planned, tracked, and sustained beyond project output delivery.",
+      "focusName": "Value",
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Potential benefits identified and linked to strategic objectives with ownership assigned.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Strategic end benefits derived",
+              "description": "Strategic end benefits are derived from the investment thesis and linked to organizational objectives.",
+              "seq": 1
+            },
+            {
+              "name": "Benefit owners assigned",
+              "description": "Each benefit has a named owner accountable for its realization within the organization.",
+              "seq": 2
+            },
+            {
+              "name": "Benefits categorized by type",
+              "description": "Benefits are categorized by type including financial, operational, strategic, and compliance benefits.",
+              "seq": 3
+            },
+            {
+              "name": "Dis-benefits identified",
+              "description": "Potential dis-benefits are identified and documented alongside positive benefits.",
+              "seq": 4
+            },
+            {
+              "name": "Benefit profiles created",
+              "description": "Initial benefit profiles describe expected magnitude, timing, and measurement approach.",
+              "seq": 5
+            },
+            {
+              "name": "Benefits linked to investment horizons",
+              "description": "Benefits are linked to investment horizons distinguishing near-term from strategic benefits.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Mapped",
+          "description": "Benefits traced through realization chain from outputs to strategic benefits.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Dependency network constructed",
+              "description": "A benefits dependency network maps the chain from project outputs through capabilities to outcomes to benefits.",
+              "seq": 1
+            },
+            {
+              "name": "Business changes identified",
+              "description": "Business changes required to realize each benefit are identified with owners and timelines.",
+              "seq": 2
+            },
+            {
+              "name": "Enabling changes documented",
+              "description": "Enabling changes that must precede business changes are documented with dependencies explicit.",
+              "seq": 3
+            },
+            {
+              "name": "Intermediate benefits identified",
+              "description": "Intermediate benefits contributing to strategic end benefits are identified with contribution quantified.",
+              "seq": 4
+            },
+            {
+              "name": "Benefit dependencies mapped",
+              "description": "Dependencies between benefits are mapped including conflicts and mutual enablement.",
+              "seq": 5
+            },
+            {
+              "name": "Dis-benefits mapped with mitigations",
+              "description": "Dis-benefits are mapped with their causes, severity assessment, and mitigation strategies.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Planned",
+          "description": "A comprehensive benefits realization plan governs delivery, measurement, and sustainment.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Baseline measurements recorded",
+              "description": "Baseline measurements are recorded for all metrics before programme changes are introduced.",
+              "seq": 1
+            },
+            {
+              "name": "Target values set",
+              "description": "Target values are set for each benefit linked to tranche delivery milestones and timelines.",
+              "seq": 2
+            },
+            {
+              "name": "Measurement methods specified",
+              "description": "Measurement methods specify data sources, collection frequency, and calculation approaches.",
+              "seq": 3
+            },
+            {
+              "name": "Realization schedule created",
+              "description": "A benefits realization schedule shows when each benefit is expected to emerge and reach its target.",
+              "seq": 4
+            },
+            {
+              "name": "Measurement responsibilities assigned",
+              "description": "Responsibilities for data collection, analysis, and reporting are assigned to named individuals.",
+              "seq": 5
+            },
+            {
+              "name": "Measurement integrated with governance",
+              "description": "The benefits measurement framework is integrated with programme governance reporting.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Emerging",
+          "description": "Initial benefits being realized as capabilities are delivered and adopted.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Dependency model validated by data",
+              "description": "Early benefit realization data confirms the benefits dependency model's predicted chain of causation.",
+              "seq": 1
+            },
+            {
+              "name": "Business changes being implemented",
+              "description": "Business changes required for benefit realization are being implemented by accountable owners.",
+              "seq": 2
+            },
+            {
+              "name": "Capability adoption tracked",
+              "description": "Organizational adoption of delivered capabilities is tracked as a prerequisite for benefit emergence.",
+              "seq": 3
+            },
+            {
+              "name": "Dis-benefits monitored",
+              "description": "Dis-benefits are monitored with mitigation actions taken when impacts exceed acceptable thresholds.",
+              "seq": 4
+            },
+            {
+              "name": "Emerging benefits captured",
+              "description": "Emerging benefits not originally identified are captured and added to the benefits register.",
+              "seq": 5
+            },
+            {
+              "name": "At-risk benefits escalated",
+              "description": "Benefits at risk of not materializing are escalated through governance with recovery plans.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Realized",
+          "description": "Majority of planned benefits confirmed as achieved with measurable evidence.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Measurable improvement demonstrated",
+              "description": "Benefit realization data demonstrates measurable improvement against baseline measurements.",
+              "seq": 1
+            },
+            {
+              "name": "Variance analysis completed",
+              "description": "Variance analysis compares actual realization against planned trajectories with deviations explained.",
+              "seq": 2
+            },
+            {
+              "name": "Investment thesis confirmed",
+              "description": "The investment thesis is confirmed through cumulative benefit realization exceeding coordination costs.",
+              "seq": 3
+            },
+            {
+              "name": "Stakeholder satisfaction confirmed",
+              "description": "Stakeholder satisfaction surveys confirm experienced value matches or exceeds expectations.",
+              "seq": 4
+            },
+            {
+              "name": "Governance acknowledges realization",
+              "description": "Portfolio governance acknowledges benefit realization through formal review and documentation.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Sustained",
+          "description": "Realized benefits embedded in operations with ongoing measurement and protection.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Sustainment plans in place",
+              "description": "Benefit sustainment plans protect realized benefits from erosion after programme closure.",
+              "seq": 1
+            },
+            {
+              "name": "Measurement transferred to operations",
+              "description": "Ongoing measurement responsibility is transferred to operational management with adequate resources.",
+              "seq": 2
+            },
+            {
+              "name": "Capabilities permanently embedded",
+              "description": "Organizational structures and processes are adjusted to embed benefit-producing capabilities permanently.",
+              "seq": 3
+            },
+            {
+              "name": "Residual benefits formally handed over",
+              "description": "Residual benefits requiring continued tracking are formally handed to operational owners.",
+              "seq": 4
+            },
+            {
+              "name": "Total value contribution documented",
+              "description": "The programme's total value contribution is documented as an organizational knowledge asset.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Active Benefits Management Beyond Project Outputs",
+          "description": "How programme benefits management bridges the gap between project output delivery and strategic value realization.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Programmes exist to deliver strategic benefits that justify coordinated multi-project investment, requiring systematic management from identification through dependency mapping, measurement planning, and realization tracking to post-programme sustainment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Many programmes confuse delivering project outputs with realizing benefits, assuming that deploying capabilities automatically produces the intended value, when in practice business changes, organizational adoption, and ongoing measurement are required to bridge the gap between output delivery and benefit realization."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Active benefits management constructs dependency networks linking outputs through capabilities and outcomes to strategic benefits, assigns named owners with realization accountability, establishes baseline measurements before changes are introduced, and develops sustainment plans that protect realized value beyond programme closure."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "Benefits Management",
+            "The Standard for Program Management"
+          ]
+        },
+        {
+          "name": "From Strategic Hypothesis to Confirmed Value Delivery",
+          "description": "How programmes translate strategic investment hypotheses into measurable, sustained organizational benefits.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations initiate programmes to achieve strategic outcomes that individual projects cannot deliver independently, yet many fail to articulate the investment rationale clearly or to track whether the promised benefits actually materialize after delivery completes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Programme leadership must establish a systematic approach to investment thesis development, benefits dependency mapping, and realization tracking that connects portfolio-level strategic decisions to measurable organizational value throughout the programme lifecycle and beyond."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "The practice applies economic frameworks such as WSJF and lean portfolio management to validate investment decisions, constructs benefits dependency networks tracing project outputs through capabilities and outcomes to strategic benefits, and implements ongoing realization tracking with governance integration and stakeholder reporting."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Strategic value is confirmed through measurable benefit delivery, with realized benefits embedded in operational management, sustainment plans protecting against erosion, and organizational learning from investment thesis validation improving future programme decisions."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "SAFe 6.0 Framework",
+            "The Principles of Product Development Flow"
+          ]
+        }
+      ],
+      "kind": "alpha",
+      "assetNames": [
+        {
+          "assetName": "benefits-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Strategic Investment Thesis",
+      "description": "The economic rationale linking programme investment to strategic value through portfolio analysis.",
+      "focusName": "Value",
+      "contributesTo": "Opportunity",
+      "relatesTo": [
+        {
+          "relationship": "justified by",
+          "alphaName": "Benefits Dependency Map",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "validated by",
+          "alphaName": "Stakeholders",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "guides investment in",
+          "alphaName": "Benefits",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "strategic-investment-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Hypothesized",
+          "description": "Initial investment thesis articulated from strategic drivers.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Programme concept with sponsor",
+              "description": "A named programme concept exists with an identified executive sponsor championing the investment.",
+              "seq": 1
+            },
+            {
+              "name": "Strategic drivers linked to scope",
+              "description": "Strategic drivers from organizational strategy are documented and linked to proposed programme scope.",
+              "seq": 2
+            },
+            {
+              "name": "Coordination value hypothesis stated",
+              "description": "An initial hypothesis states what coordinated multi-project delivery will achieve beyond individual projects.",
+              "seq": 3
+            },
+            {
+              "name": "Market conditions supporting investment",
+              "description": "Market conditions or regulatory requirements supporting the investment are identified.",
+              "seq": 4
+            },
+            {
+              "name": "Scope boundary established",
+              "description": "A preliminary scope boundary distinguishes programme-level coordination from project-level management.",
+              "seq": 5
+            },
+            {
+              "name": "Thesis communicated to decision-makers",
+              "description": "The investment thesis is communicated to key decision-makers for initial assessment.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Evidenced",
+          "description": "Supporting data and market analysis validate thesis assumptions.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Strategic driver evidence gathered",
+              "description": "Quantitative and qualitative evidence supports each strategic driver identified in the hypothesis.",
+              "seq": 1
+            },
+            {
+              "name": "Total cost of ownership analysed",
+              "description": "A total cost of ownership analysis covers programme coordination costs beyond constituent projects.",
+              "seq": 2
+            },
+            {
+              "name": "ROI projections completed",
+              "description": "Return on investment projections include financial returns and strategic capability gains.",
+              "seq": 3
+            },
+            {
+              "name": "Risk analysis performed",
+              "description": "Risk analysis identifies threats from market, technology, and organizational change perspectives.",
+              "seq": 4
+            },
+            {
+              "name": "Competitor analysis completed",
+              "description": "Competitor analysis or industry benchmarking validates the strategic positioning claimed by the thesis.",
+              "seq": 5
+            },
+            {
+              "name": "Alternatives documented",
+              "description": "Alternative investment options are documented with comparative analysis explaining the programme preference.",
+              "seq": 6
+            },
+            {
+              "name": "Evidence reliability assessed",
+              "description": "Evidence sources are traceable and their reliability assessed.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Key stakeholders confirm strategic alignment and value.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Governance endorsement received",
+              "description": "Programme steering committee or portfolio governance has reviewed and endorsed the investment thesis.",
+              "seq": 1
+            },
+            {
+              "name": "Strategic alignment confirmed",
+              "description": "Strategic alignment is confirmed through explicit mapping of objectives to organizational strategy themes.",
+              "seq": 2
+            },
+            {
+              "name": "Cross-business unit consultation completed",
+              "description": "Key stakeholders across affected business units have been consulted with input incorporated.",
+              "seq": 3
+            },
+            {
+              "name": "Investment horizon classification completed",
+              "description": "Investment horizon classification positions the programme within portfolio balance targets.",
+              "seq": 4
+            },
+            {
+              "name": "Measurable success criteria defined",
+              "description": "Success criteria are defined with measurable indicators confirming thesis correctness.",
+              "seq": 5
+            },
+            {
+              "name": "Economic prioritization completed",
+              "description": "WSJF or equivalent economic prioritization positions the programme relative to competing investments.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Funded",
+          "description": "Budget allocated and governance authority established for execution.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Funding formally approved",
+              "description": "Programme funding approved through formal portfolio governance with budget allocated to the value stream.",
+              "seq": 1
+            },
+            {
+              "name": "Funding model specified",
+              "description": "Funding model specifies whether allocation follows annual cycles or lean value stream funding.",
+              "seq": 2
+            },
+            {
+              "name": "Financial governance established",
+              "description": "Financial governance establishes spending authority, approval thresholds, and reporting requirements.",
+              "seq": 3
+            },
+            {
+              "name": "Investment guardrails defined",
+              "description": "Investment guardrails define boundaries for autonomous programme funding decisions.",
+              "seq": 4
+            },
+            {
+              "name": "Budget follows WSJF prioritization",
+              "description": "Budget allocation to capability increments follows the WSJF prioritization framework.",
+              "seq": 5
+            },
+            {
+              "name": "Contingency reserves established",
+              "description": "Contingency reserves established for programme-level risks and opportunities.",
+              "seq": 6
+            },
+            {
+              "name": "Financial tracking linked to milestones",
+              "description": "Financial tracking mechanisms link expenditure to benefit realization milestones.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Confirmed",
+          "description": "Delivery results validate the original investment hypothesis.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Strategic value confirmed by outcomes",
+              "description": "Measurable outcomes from programme delivery confirm strategic value predicted by the thesis.",
+              "seq": 1
+            },
+            {
+              "name": "Return exceeds coordination costs",
+              "description": "Benefit realization data demonstrates return above the cost of programme coordination overhead.",
+              "seq": 2
+            },
+            {
+              "name": "Capabilities actively producing value",
+              "description": "Strategic capabilities delivered are actively used by the organization producing expected value.",
+              "seq": 3
+            },
+            {
+              "name": "Stakeholder satisfaction confirmed",
+              "description": "Stakeholder satisfaction surveys confirm the programme addressed strategic needs in the thesis.",
+              "seq": 4
+            },
+            {
+              "name": "Lessons captured for future programmes",
+              "description": "Lessons about investment thesis development and validation are captured for future programmes.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Evolved",
+          "description": "Thesis adapted based on delivered outcomes and strategic shifts.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Thesis updated with actuals",
+              "description": "The investment thesis is updated to reflect actual delivery outcomes, market changes, and strategic pivots.",
+              "seq": 1
+            },
+            {
+              "name": "Portfolio learning informs future decisions",
+              "description": "Portfolio-level learning from this programme informs investment decisions for future programmes.",
+              "seq": 2
+            },
+            {
+              "name": "Appraisal approach improved",
+              "description": "The organization's programme investment appraisal approach is improved based on experience.",
+              "seq": 3
+            },
+            {
+              "name": "Residual value transferred to operations",
+              "description": "Residual strategic value is documented and transferred to operational management for exploitation.",
+              "seq": 4
+            },
+            {
+              "name": "Economic models retrospectively calibrated",
+              "description": "Economic models used for initial prioritization are retrospectively validated and calibrated.",
+              "seq": 5
+            },
+            {
+              "name": "Knowledge embedded in standards",
+              "description": "Knowledge about strategic investment thesis development is embedded in programme management standards.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Portfolio Economics as Programme Investment Engine",
+          "description": "How lean portfolio management principles transform programme investment from political budgeting to economic reasoning.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Programmes require strategic investment beyond individual project budgets, with lean portfolio management providing economic frameworks such as WSJF, investment horizons, and value stream funding to sequence investments based on cost of delay and strategic value rather than political influence or annual budget cycles."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Many organisations lack the economic vocabulary and governance mechanisms to evaluate programme investments at the portfolio level, defaulting to HiPPO-driven decisions that under-invest in coordination, over-invest in safe projects, and fail to balance exploration, exploitation, and sustaining work across the portfolio."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "The strategic investment thesis applies cost of delay analysis, investment horizon classification, and WSJF prioritization to produce transparent, evidence-based investment decisions that are revalidated through governance review as the programme delivers results and organizational strategy evolves."
+            }
+          ],
+          "citationNames": [
+            "SAFe 5.0 Distilled",
+            "The Principles of Product Development Flow",
+            "Black Swan Farming"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Benefits Dependency Map",
+      "description": "The structured chain linking project outputs through capabilities to strategic benefits.",
+      "focusName": "Value",
+      "contributesTo": "Benefits",
+      "relatesTo": [
+        {
+          "relationship": "depends on",
+          "alphaName": "Strategic Investment Thesis",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "evidences value to",
+          "alphaName": "Stakeholders",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "sequenced through",
+          "alphaName": "Roadmap",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "benefits-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "Key benefits identified and linked to strategic objectives.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Strategic end benefits identified",
+              "description": "Strategic end benefits are identified from the investment thesis and stakeholder analysis.",
+              "seq": 1
+            },
+            {
+              "name": "Benefit owners assigned",
+              "description": "Each benefit has a named owner accountable for its realization within the organization.",
+              "seq": 2
+            },
+            {
+              "name": "Benefits categorized",
+              "description": "Benefits are categorized by type including financial, operational, strategic, and compliance.",
+              "seq": 3
+            },
+            {
+              "name": "Dis-benefits documented",
+              "description": "Potential dis-benefits are identified and documented alongside positive benefits.",
+              "seq": 4
+            },
+            {
+              "name": "Benefit profiles created",
+              "description": "Initial benefit profiles describe expected magnitude, timing, and measurement approach.",
+              "seq": 5
+            },
+            {
+              "name": "Benefits linked to objectives",
+              "description": "Benefits are linked to specific organizational objectives demonstrating strategic alignment.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Dependency chains from outputs to outcomes fully mapped.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Complete dependency network mapped",
+              "description": "A complete benefits dependency network maps investment objectives, benefits, business changes, enabling changes, and enablers.",
+              "seq": 1
+            },
+            {
+              "name": "Business changes identified with owners",
+              "description": "Business changes required to realize each benefit are identified with owners and timelines.",
+              "seq": 2
+            },
+            {
+              "name": "Enabling change dependencies explicit",
+              "description": "Enabling changes that must precede business changes are documented with explicit dependencies.",
+              "seq": 3
+            },
+            {
+              "name": "Intermediate benefits quantified",
+              "description": "Intermediate benefits contributing to strategic end benefits are identified with contribution quantified.",
+              "seq": 4
+            },
+            {
+              "name": "Inter-benefit dependencies mapped",
+              "description": "Dependencies between benefits are mapped including conflicts and mutual enablement.",
+              "seq": 5
+            },
+            {
+              "name": "Stakeholder validation completed",
+              "description": "The benefits map has been validated with stakeholders to confirm dependency logic credibility.",
+              "seq": 6
+            },
+            {
+              "name": "Assumptions documented and assigned",
+              "description": "Assumptions underlying each dependency chain are documented and assigned for monitoring.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Baselined",
+          "description": "Metrics, measurement approaches, and targets established.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Baseline measurements recorded",
+              "description": "Baseline measurements are recorded for all metrics before programme changes are introduced.",
+              "seq": 1
+            },
+            {
+              "name": "Target values and timelines set",
+              "description": "Target values are set for each benefit metric with timelines linked to tranche milestones.",
+              "seq": 2
+            },
+            {
+              "name": "Measurement methods specified",
+              "description": "Measurement methods specify data sources, collection frequency, and calculation approaches.",
+              "seq": 3
+            },
+            {
+              "name": "Realization schedule established",
+              "description": "A benefits realization schedule shows when each benefit is expected to begin emerging.",
+              "seq": 4
+            },
+            {
+              "name": "Measurement responsibilities assigned",
+              "description": "Responsibilities for data collection, analysis, and reporting are assigned to named individuals.",
+              "seq": 5
+            },
+            {
+              "name": "Governance reporting integrated",
+              "description": "The benefits measurement framework is integrated with programme governance reporting.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Tracking",
+          "description": "Active measurement confirms benefit emergence and realization.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Data collected on schedule",
+              "description": "Benefit realization data is collected on schedule and reported through governance channels.",
+              "seq": 1
+            },
+            {
+              "name": "Variance analysis completed",
+              "description": "Variance analysis compares actual realization against planned trajectories with deviation explanations.",
+              "seq": 2
+            },
+            {
+              "name": "Dependency map updated with actuals",
+              "description": "The benefits dependency map is updated to reflect actual delivery and dependency chain changes.",
+              "seq": 3
+            },
+            {
+              "name": "Dis-benefits actively monitored",
+              "description": "Dis-benefits are monitored with mitigation actions taken when impacts exceed thresholds.",
+              "seq": 4
+            },
+            {
+              "name": "At-risk benefits escalated",
+              "description": "Benefits at risk of not being realized are escalated with proposed recovery plans.",
+              "seq": 5
+            },
+            {
+              "name": "Stakeholders receive realization reports",
+              "description": "Stakeholders receive regular benefits realization reports demonstrating programme value delivery.",
+              "seq": 6
+            },
+            {
+              "name": "Emerging benefits captured",
+              "description": "Emerging benefits not originally identified are captured and added to the benefits register.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Dependencies refined based on realized versus planned results.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Realization lessons inform decisions",
+              "description": "Lessons from benefit realization inform ongoing programme decisions about priorities and sequencing.",
+              "seq": 1
+            },
+            {
+              "name": "Dependency chains validated",
+              "description": "Benefits dependency chains are validated against actual experience and the model refined.",
+              "seq": 2
+            },
+            {
+              "name": "Sustainment plans protect benefits",
+              "description": "Benefit sustainment plans protect realized benefits from erosion after programme closure.",
+              "seq": 3
+            },
+            {
+              "name": "Benefits management capability strengthened",
+              "description": "The organization's benefits management capability is strengthened through programme experience.",
+              "seq": 4
+            },
+            {
+              "name": "Residual benefits transferred",
+              "description": "Residual benefits requiring ongoing measurement are transferred to operational management.",
+              "seq": 5
+            },
+            {
+              "name": "Comprehensive realization report produced",
+              "description": "A comprehensive benefits realization report documents total programme value contribution.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Tracing Value from Project Outputs to Strategic Outcomes",
+          "description": "How benefits dependency mapping makes explicit the assumptions linking programme delivery to organizational value.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Programme benefits do not emerge automatically from project outputs; they require a structured chain of enabling changes, business changes, and organizational adoption activities that transform delivered capabilities into measurable strategic outcomes, with each link in the chain representing an assumption that must be tested and validated."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Without explicit dependency mapping, programmes operate on implicit assumptions about how value will materialize, making it impossible to identify which dependency chains are at risk, which enabling changes are prerequisites for benefit emergence, and which dis-benefits may offset planned gains."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Benefits dependency mapping constructs a visual and analytical network tracing the complete chain from project outputs through capabilities, outcomes, and intermediate benefits to strategic end benefits, making assumptions explicit, enabling proactive risk management, and providing the measurement framework for tracking actual realization against planned trajectories."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "Benefits Management",
+            "The Standard for Program Management"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Strategic Investment Case",
+      "description": "Portfolio-level business case articulating programme investment rationale and expected returns.",
+      "levelsOfDetail": [
+        {
+          "name": "Outline",
+          "description": "High-level investment rationale and strategic drivers documented.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Strategic drivers identified",
+              "description": "Strategic drivers from organizational strategy are identified and linked to the proposed programme.",
+              "seq": 1
+            },
+            {
+              "name": "Preliminary financial estimate prepared",
+              "description": "A preliminary financial estimate covers order-of-magnitude investment and expected return.",
+              "seq": 2
+            },
+            {
+              "name": "Alternative options listed",
+              "description": "Alternative investment options are listed with brief comparative assessment.",
+              "seq": 3
+            },
+            {
+              "name": "Key assumptions and risks noted",
+              "description": "Key assumptions and risks affecting the investment rationale are noted.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Hypothesized"
+            },
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Detailed analysis with financial models and stakeholder validation.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Cost-benefit analysis completed",
+              "description": "Comprehensive cost-benefit analysis includes total cost of ownership and projected ROI.",
+              "seq": 1
+            },
+            {
+              "name": "Economic scoring completed",
+              "description": "WSJF or equivalent economic scoring positions the programme relative to competing investments.",
+              "seq": 2
+            },
+            {
+              "name": "Investment horizons classified",
+              "description": "Investment horizons classify programme components into exploration, exploitation, and sustaining.",
+              "seq": 3
+            },
+            {
+              "name": "Risk-adjusted projections prepared",
+              "description": "Risk-adjusted financial projections account for programme-level risks and their impact.",
+              "seq": 4
+            },
+            {
+              "name": "Stakeholder endorsements documented",
+              "description": "Stakeholder endorsements are documented with conditions or concerns noted.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Evidenced"
+            },
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Determined"
+            }
+          ]
+        },
+        {
+          "name": "Governed",
+          "description": "Living document with governance integration and benefit tracking.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Version-controlled with change control",
+              "description": "The investment case is versioned with governance change control managing updates.",
+              "seq": 1
+            },
+            {
+              "name": "Actuals compared with projections",
+              "description": "Financial actuals are regularly compared with projections and variances explained.",
+              "seq": 2
+            },
+            {
+              "name": "Realization data feeds validation",
+              "description": "Benefit realization data from the dependency map feeds investment case validation.",
+              "seq": 3
+            },
+            {
+              "name": "Strategic alignment re-confirmed",
+              "description": "Strategic alignment is re-confirmed at each governance review point.",
+              "seq": 4
+            },
+            {
+              "name": "Decision audit trail maintained",
+              "description": "Decision audit trail documents all investment decisions, rationale, and authorization.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Funded"
+            },
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Viable"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Retrospective validation with organizational learning embedded.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Post-programme evaluation completed",
+              "description": "Post-programme evaluation confirms actual returns against investment thesis predictions.",
+              "seq": 1
+            },
+            {
+              "name": "Economic models calibrated",
+              "description": "Economic models are retrospectively calibrated improving accuracy for future programmes.",
+              "seq": 2
+            },
+            {
+              "name": "Appraisal processes improved",
+              "description": "Organizational investment appraisal processes are improved based on programme experience.",
+              "seq": 3
+            },
+            {
+              "name": "Portfolio learning codified",
+              "description": "Portfolio-level learning is codified as organizational knowledge assets.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Confirmed"
+            },
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Benefit Accrued"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "The Living Investment Case",
+          "description": "How the investment case evolves from initial hypothesis to validated organizational learning.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "The strategic investment case begins as a structured hypothesis articulating why coordinated programme delivery will produce value exceeding the cost of coordination."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Static business cases approved at initiation become outdated as delivery progresses, market conditions shift, and actual costs diverge from projections, yet governance decisions continue to reference the original assumptions."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "The investment case is maintained as a living document governed through change control, with financial actuals compared against projections, benefit realization data feeding validation, and retrospective calibration improving the organization's investment appraisal capability."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "SAFe 5.0 Distilled"
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "strategic-investment-case-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Benefits Dependency Network",
+      "description": "Visual and analytical model mapping the chain from outputs through capabilities to strategic benefits.",
+      "levelsOfDetail": [
+        {
+          "name": "Sketch",
+          "description": "High-level benefits and enabling project outputs identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Strategic end benefits listed",
+              "description": "Strategic end benefits are listed with brief descriptions and indicative magnitude.",
+              "seq": 1
+            },
+            {
+              "name": "Major enabling outputs identified",
+              "description": "Major project outputs that enable benefit realization are identified.",
+              "seq": 2
+            },
+            {
+              "name": "Preliminary chain constructed",
+              "description": "A preliminary chain links outputs to benefits through intermediate steps.",
+              "seq": 3
+            },
+            {
+              "name": "Key assumptions noted",
+              "description": "Key assumptions in the benefit chain are noted for future validation.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Mapped",
+          "description": "Complete dependency chains with all five object types connected.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Five object types included",
+              "description": "The network includes investment objectives, benefits, business changes, enabling changes, and enablers.",
+              "seq": 1
+            },
+            {
+              "name": "Benefit ownership and measurement defined",
+              "description": "Each benefit has a named owner, measurement approach, and realization timeline.",
+              "seq": 2
+            },
+            {
+              "name": "Inter-benefit dependencies explicit",
+              "description": "Dependencies between benefits are explicit including conflicts and mutual enablement.",
+              "seq": 3
+            },
+            {
+              "name": "Dis-benefits mapped",
+              "description": "Dis-benefits are mapped with their causes and mitigation strategies.",
+              "seq": 4
+            },
+            {
+              "name": "Assumptions assigned for monitoring",
+              "description": "Assumptions underlying each dependency chain are documented and assigned for monitoring.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Structured"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Baselined",
+          "description": "Metrics established with measurement mechanisms and tracking integrated.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Baseline measurements recorded",
+              "description": "Baseline measurements recorded for all benefit metrics before programme changes.",
+              "seq": 1
+            },
+            {
+              "name": "Targets linked to milestones",
+              "description": "Target values and timelines set for each benefit linked to tranche milestones.",
+              "seq": 2
+            },
+            {
+              "name": "Collection mechanisms established",
+              "description": "Automated or systematic data collection mechanisms established for ongoing measurement.",
+              "seq": 3
+            },
+            {
+              "name": "Governance reporting integrated",
+              "description": "The network is integrated with programme governance reporting.",
+              "seq": 4
+            },
+            {
+              "name": "Critical chains identified",
+              "description": "Sensitivity analysis identifies which dependency chains are most critical to overall realization.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Baselined"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Planned"
+            }
+          ]
+        },
+        {
+          "name": "Dynamic",
+          "description": "Living model updated with actuals informing ongoing decisions.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Actuals compared with planned trajectories",
+              "description": "Actual benefit realization data is continuously compared with planned trajectories.",
+              "seq": 1
+            },
+            {
+              "name": "Dependency chains refined",
+              "description": "Dependency chains are validated and refined based on delivery experience.",
+              "seq": 2
+            },
+            {
+              "name": "Network informs investment decisions",
+              "description": "The network actively informs programme decisions about investment priorities.",
+              "seq": 3
+            },
+            {
+              "name": "Emerging benefits integrated",
+              "description": "Emerging benefits not originally mapped are captured and integrated.",
+              "seq": 4
+            },
+            {
+              "name": "Sustainment plans developed",
+              "description": "Benefit sustainment plans are developed for each realized benefit.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Tracking"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Realized"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "From Static Benefits List to Dynamic Realization Model",
+          "description": "How the benefits dependency network evolves from initial benefit identification to a living model driving programme decisions.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "The benefits dependency network begins as a sketch identifying strategic benefits and enabling outputs, progressively developing into a comprehensive model mapping all five dependency types."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Benefits dependency maps often remain static planning artifacts disconnected from actual delivery, failing to incorporate realization data, emerging benefits, or changing dependency chains as the programme progresses."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "A dynamic benefits dependency network integrates realization data with planned trajectories, validates dependency chains against delivery experience, captures emerging benefits not originally anticipated, and drives ongoing investment prioritization and governance decisions."
+            }
+          ],
+          "citationNames": [
+            "Benefits Management",
+            "Managing Successful Programmes"
+          ]
+        }
+      ],
+      "kind": "workProduct",
+      "assetNames": [
+        {
+          "assetName": "benefits-dependency-network-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Value Stream Canvas",
+      "description": "Visual mapping tool connecting programme value streams to customer outcomes and delivery structures.",
+      "assetNames": [
+        {
+          "assetName": "value-stream-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Identified",
+          "description": "Value streams named with customer segments and outcome hypotheses.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Value streams identified and named",
+              "description": "Programme value streams are identified and named based on the flow of value to stakeholders.",
+              "seq": 1
+            },
+            {
+              "name": "Customer segments defined",
+              "description": "Customer segments served by each value stream are defined.",
+              "seq": 2
+            },
+            {
+              "name": "Outcome hypotheses stated",
+              "description": "High-level outcome hypotheses state what value each stream is expected to deliver.",
+              "seq": 3
+            },
+            {
+              "name": "Value stream boundaries defined",
+              "description": "Value stream boundaries distinguish internal from external value streams.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Determined"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Evidenced"
+            }
+          ]
+        },
+        {
+          "name": "Mapped",
+          "description": "Value streams mapped with capabilities, steps, and team alignment.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Value stream steps documented",
+              "description": "Value stream steps from trigger to value delivery are documented with lead and process times.",
+              "seq": 1
+            },
+            {
+              "name": "Capabilities linked to deliverables",
+              "description": "Capabilities required at each step are identified and linked to programme deliverables.",
+              "seq": 2
+            },
+            {
+              "name": "Teams mapped to steps",
+              "description": "Teams and organizational units involved at each step are mapped.",
+              "seq": 3
+            },
+            {
+              "name": "Improvement opportunities identified",
+              "description": "Handoffs and waiting states between steps are identified as improvement opportunities.",
+              "seq": 4
+            },
+            {
+              "name": "Current and future state maps created",
+              "description": "Current state and future state maps show the transformation the programme aims to achieve.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Value Established"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Value streams actively measured with flow metrics and improvement.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Flow metrics measured",
+              "description": "Flow metrics including lead time, throughput, and WIP are measured for each value stream.",
+              "seq": 1
+            },
+            {
+              "name": "Bottlenecks identified and tracked",
+              "description": "Bottlenecks and constraints are identified and improvement actions tracked.",
+              "seq": 2
+            },
+            {
+              "name": "Value stream funding aligned",
+              "description": "Value stream funding is allocated based on strategic importance and performance metrics.",
+              "seq": 3
+            },
+            {
+              "name": "Team alignment periodically reviewed",
+              "description": "Team alignment to value streams is periodically reviewed and adjusted.",
+              "seq": 4
+            },
+            {
+              "name": "Customer outcome targets measured",
+              "description": "Value delivered through each stream is measured against customer outcome targets.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Benefits",
+              "stateName": "Realized"
+            },
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Addressed"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Value Stream Visibility for Investment Decisions",
+          "description": "How value stream mapping connects programme delivery to customer outcomes and funding decisions.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Value stream canvases visualize how the programme delivers value to customers and stakeholders, connecting delivery teams, capabilities, and organizational steps into end-to-end flows that inform investment allocation and structural decisions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Without value stream visibility, programmes allocate funding and organize teams based on organizational structure rather than the flow of value, creating handoffs, delays, and misalignment between investment and customer outcomes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Value stream canvases are progressively developed from initial identification through current and future state mapping to ongoing measurement with flow metrics, enabling value stream funding, team alignment, and continuous improvement driven by customer outcome data."
+            }
+          ],
+          "citationNames": [
+            "SAFe 6.0 Framework",
+            "Project to Product"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Programme Sponsor",
+      "description": "Executive accountable for programme investment, strategic alignment, and governance authority.",
+      "competencies": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Strategic Planning",
+          "Portfolio Management"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Governance"
+        ],
+        "organizationalTags": [
+          "Executive"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Programme Manager",
+      "description": "Senior leader accountable for programme delivery, benefit realization, and stakeholder management.",
+      "competencies": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Benefits Management",
+          "Portfolio Management"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Delivery",
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Leadership"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Benefits Manager",
+      "description": "Specialist responsible for benefits dependency mapping, realization tracking, and sustainment planning.",
+      "competencies": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Benefits Management",
+          "Value Realization"
+        ],
+        "lifecycleTags": [
+          "Definition",
+          "Delivery",
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Programme Management"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Organizational Change Lead",
+      "description": "Change management specialist ensuring programme deliverables are embedded through organizational transition.",
+      "competencies": [
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Organizational Change",
+          "Benefits Sustainment"
+        ],
+        "lifecycleTags": [
+          "Delivery",
+          "Transition"
+        ],
+        "organizationalTags": [
+          "Change Management"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Programme Leadership Team",
+      "description": "Executive and management team providing strategic direction, governance, and investment oversight.",
+      "personaNames": [
+        "Programme Sponsor",
+        "Programme Manager",
+        "Benefits Manager"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Programme Governance",
+          "Leadership"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Programme Management Office",
+      "description": "Governance and support function providing benefits tracking, reporting, and investment monitoring.",
+      "personaNames": [
+        "Programme Manager",
+        "Benefits Manager"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Governance",
+          "Support"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Organizational Change Team",
+      "description": "Specialist team managing organizational transition to enable benefit realization from programme deliverables.",
+      "personaNames": [
+        "Organizational Change Lead",
+        "Benefits Manager"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Change Management",
+          "Transition"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Develop Strategic Investment Thesis",
+      "description": "Synthesize business drivers and portfolio context into the programme's strategic investment rationale.",
+      "activitySpaceName": "Explore Possibilities",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Strategic Investment Thesis",
+          "stateName": "Hypothesized"
+        },
+        {
+          "alphaName": "Strategic Investment Thesis",
+          "stateName": "Evidenced"
+        },
+        {
+          "alphaName": "Strategic Investment Thesis",
+          "stateName": "Validated"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Initiated"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Determined"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Strategic Investment Case",
+          "levelOfDetailName": "Outline"
+        },
+        {
+          "workProductName": "Strategic Investment Case",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "Value Stream Canvas",
+          "levelOfDetailName": "Identified"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Leadership",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Building the Economic Foundation for Programme Investment",
+          "description": "How strategic investment thesis development applies lean portfolio management principles to programme justification.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Programme sponsors begin thesis development by identifying strategic drivers from organizational strategy and assessing where coordinated multi-project delivery can produce value that individual projects cannot achieve independently, using value stream identification to map how the organization delivers value and where the programme will improve flows."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Financial analysis applies lean portfolio management principles including WSJF scoring, total cost of ownership analysis, and investment horizon classification to position the programme relative to competing portfolio investments. The thesis is validated through stakeholder consultation, governance endorsement, and ongoing revalidation as the programme delivers results and strategy evolves."
+            }
+          ],
+          "citationNames": [
+            "SAFe 5.0 Distilled",
+            "Managing Successful Programmes",
+            "The Principles of Product Development Flow"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "develop-strategic-investment-thesis-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Map Benefits Dependencies",
+      "description": "Construct the benefits dependency network linking project outputs to strategic benefits.",
+      "activitySpaceName": "Manage Benefits",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Benefits Dependency Map",
+          "stateName": "Initiated"
+        },
+        {
+          "alphaName": "Benefits Dependency Map",
+          "stateName": "Structured"
+        },
+        {
+          "alphaName": "Benefits Dependency Map",
+          "stateName": "Baselined"
+        },
+        {
+          "alphaName": "Benefits",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Benefits",
+          "stateName": "Mapped"
+        },
+        {
+          "alphaName": "Benefits",
+          "stateName": "Planned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Benefits Dependency Network",
+          "levelOfDetailName": "Sketch"
+        },
+        {
+          "workProductName": "Benefits Dependency Network",
+          "levelOfDetailName": "Mapped"
+        },
+        {
+          "workProductName": "Benefits Dependency Network",
+          "levelOfDetailName": "Baselined"
+        },
+        {
+          "workProductName": "Strategic Investment Case",
+          "levelOfDetailName": "Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Stakeholder Representation",
+        "Change Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Management Office",
+        "Programme Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Constructing the Value Chain from Outputs to Strategic Outcomes",
+          "description": "How benefits dependency mapping traces the realization chain from project outputs to strategic benefits.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Benefits dependency mapping begins from the strategic end, starting with investment objectives and strategic end benefits, then working backward through the realization chain to identify outcomes, capabilities, business changes, enabling changes, and project enablers that must be delivered."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "The five object types provide the structural framework, with construction proceeding right-to-left from desired benefits through intermediate steps to project outputs. Each benefit receives a profile specifying its owner, measurement metric, baseline value, target value, and realization timeline. Dis-benefits must be mapped alongside positive benefits, and stakeholder workshops validate the dependency logic before baselines are established."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "Benefits Management",
+            "The Standard for Program Management"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "map-benefits-dependencies-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Track Benefits Realization",
+      "description": "Monitor, measure, and report benefit emergence and realization against planned trajectories.",
+      "activitySpaceName": "Assess and Monitor Value",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Benefits Dependency Map",
+          "stateName": "Tracking"
+        },
+        {
+          "alphaName": "Benefits",
+          "stateName": "Emerging"
+        },
+        {
+          "alphaName": "Benefits",
+          "stateName": "Realized"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Addressed"
+        },
+        {
+          "alphaName": "Strategic Investment Thesis",
+          "stateName": "Confirmed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Benefits Dependency Network",
+          "levelOfDetailName": "Baselined"
+        },
+        {
+          "workProductName": "Benefits Dependency Network",
+          "levelOfDetailName": "Dynamic"
+        },
+        {
+          "workProductName": "Value Stream Canvas",
+          "levelOfDetailName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Management",
+        "Communication"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Management Office"
+      ],
+      "narratives": [
+        {
+          "name": "Ongoing Benefits Measurement and Governance Reporting",
+          "description": "How benefits realization tracking provides governance with evidence of programme value delivery.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Benefits realization tracking begins when baseline measurements are established and continues through emergence, realization, and sustainment. Data collection follows the measurement methods defined during benefits planning, with collection frequency sufficient to detect trends and early warning signals."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Variance analysis compares actual realization against planned trajectories, with significant deviations triggering investigation and corrective action through governance channels. Emerging benefits not originally mapped are captured, dis-benefits are monitored with mitigation taken when impacts exceed thresholds, and benefits at risk require escalation with recovery plans proposed to programme governance."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "The Standard for Program Management"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "track-benefits-realization-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Conduct Portfolio Prioritization",
+      "description": "Sequence programme investments using economic frameworks to maximize value delivery.",
+      "activitySpaceName": "Assess and Monitor Value",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Strategic Investment Thesis",
+          "stateName": "Funded"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Value Established"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Viable"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Strategic Investment Case",
+          "levelOfDetailName": "Structured"
+        },
+        {
+          "workProductName": "Strategic Investment Case",
+          "levelOfDetailName": "Governed"
+        },
+        {
+          "workProductName": "Value Stream Canvas",
+          "levelOfDetailName": "Mapped"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Leadership",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Economic Sequencing Through WSJF and Portfolio Kanban",
+          "description": "How economic frameworks replace opinion-based prioritization with quantifiable investment sequencing.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Portfolio prioritization requires a structured investment case and benefits dependency network to provide the economic inputs for sequencing decisions. Cost of Delay components must be assessed using relative estimation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "WSJF calculates priority as Cost of Delay divided by Job Size, replacing opinion-based prioritization with quantifiable rationale. Portfolio Kanban with WIP limits governs how many initiatives the portfolio pursues simultaneously, and Investment Horizons balance quick wins against strategic investment by running WSJF within each horizon with capacity guardrails."
+            }
+          ],
+          "citationNames": [
+            "The Principles of Product Development Flow",
+            "SAFe 6.0 Framework",
+            "Black Swan Farming"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "conduct-portfolio-prioritization-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Transition Programme Benefits",
+      "description": "Transfer realized benefits and measurement responsibility from programme to operational management.",
+      "activitySpaceName": "Lead Organizational Change",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Benefits Dependency Map",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Benefits",
+          "stateName": "Sustained"
+        },
+        {
+          "alphaName": "Opportunity",
+          "stateName": "Benefit Accrued"
+        },
+        {
+          "alphaName": "Strategic Investment Thesis",
+          "stateName": "Evolved"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Satisfied in Use"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Benefits Dependency Network",
+          "levelOfDetailName": "Dynamic"
+        },
+        {
+          "workProductName": "Strategic Investment Case",
+          "levelOfDetailName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Change Leadership",
+        "Management",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Organizational Change Team",
+        "Programme Leadership Team"
+      ],
+      "narratives": [
+        {
+          "name": "Embedding Benefits in Operations Beyond Programme Closure",
+          "description": "How benefit transition ensures realized value is sustained through operational management structures.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Benefit transition planning begins well before programme closure. Each benefit requires a named operational owner who will be accountable for sustaining the benefit, and measurement mechanisms must be transferred or established within operational reporting systems."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Business change activities prepare the organization to sustain capabilities and benefits through training, process changes, and cultural shifts that must be embedded rather than merely delivered. Residual benefits not yet fully materialized require specific post-programme tracking plans accepted by operational management, and the investment thesis is retrospectively validated to improve future programme decisions."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "The Standard for Program Management"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "transition-programme-benefits-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Engage Benefits Stakeholders",
+      "description": "Identify, engage, and align programme stakeholders around benefits identification and realization.",
+      "activitySpaceName": "Understand Stakeholder Needs",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Recognized"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Represented"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Involved"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "In Agreement"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Benefits Dependency Network",
+          "levelOfDetailName": "Sketch"
+        },
+        {
+          "workProductName": "Benefits Dependency Network",
+          "levelOfDetailName": "Mapped"
+        },
+        {
+          "workProductName": "Value Stream Canvas",
+          "levelOfDetailName": "Identified"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation",
+        "Communication",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Leadership Team",
+        "Programme Management Office"
+      ],
+      "narratives": [
+        {
+          "name": "Stakeholder Engagement for Benefits Ownership and Alignment",
+          "description": "How stakeholder engagement progresses from identification through active participation to formal agreement on benefit realization.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Stakeholder engagement begins with identifying all parties affected by programme benefits and dis-benefits across strategic, programme, project, and operational levels, cataloguing their interests, influence, and engagement needs in a benefits-focused stakeholder register."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Engagement progresses from initial identification through representative designation and active participation in benefits dependency workshops to formal agreement on measurement approaches, realization targets, and change responsibilities. Benefit owners are empowered with authority and resources, dis-benefit stakeholders have representation in governance, and all parties contribute to validating the benefits dependency network and investment thesis."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "The Standard for Program Management"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "engage-benefits-stakeholders-icon",
+          "type": "icon"
+        }
+      ]
+    },
+    {
+      "name": "Confirm Stakeholder Benefits Satisfaction",
+      "description": "Confirm stakeholder satisfaction with realized benefits and transition engagement to operations.",
+      "activitySpaceName": "Ensure Stakeholder Satisfaction",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Satisfied for Deployment"
+        },
+        {
+          "alphaName": "Stakeholders",
+          "stateName": "Satisfied in Use"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Benefits Dependency Network",
+          "levelOfDetailName": "Dynamic"
+        },
+        {
+          "workProductName": "Strategic Investment Case",
+          "levelOfDetailName": "Optimized"
+        }
+      ],
+      "requiredCompetencies": [
+        "Stakeholder Representation",
+        "Communication",
+        "Change Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Communication",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Programme Leadership Team",
+        "Organizational Change Team"
+      ],
+      "narratives": [
+        {
+          "name": "Validating Stakeholder Outcomes and Transitioning Engagement",
+          "description": "How stakeholder satisfaction is confirmed through measurable evidence and engagement responsibility transferred to operations.",
+          "narrativeTypeName": "Lifecycle",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Prerequisites",
+              "context": "Stakeholder satisfaction confirmation requires that benefits are emerging or realized with measurable data available, and that operational management is prepared to accept ongoing stakeholder engagement responsibility for sustained benefits."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Lifecycle Phase",
+              "context": "Benefit owners confirm that realized benefits meet or exceed expectations through quantitative measurement and qualitative feedback. Operational management accepts sustainment responsibility with adequate resources and mechanisms for ongoing stakeholder engagement. Stakeholder satisfaction surveys validate that the programme has addressed strategic needs identified in the investment thesis, and communication channels for benefit sustainment are formally transferred to operational ownership."
+            }
+          ],
+          "citationNames": [
+            "Managing Successful Programmes",
+            "Benefits Management"
+          ]
+        }
+      ],
+      "kind": "activity",
+      "assetNames": [
+        {
+          "assetName": "confirm-stakeholder-benefits-satisfaction-icon",
+          "type": "icon"
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Benefits-Driven Investment Journey",
+      "description": "Coordinated progression from strategic hypothesis through benefits dependency to sustained value.",
+      "narrativeTypeName": "Benefits Chain",
+      "assetNames": [
+        {
+          "assetName": "benefits-chain-diagram",
+          "type": "diagram"
+        }
+      ],
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Programme concept exists with strategic drivers identified.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Recognized"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Hypothesized"
+            },
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Initiated"
+            }
+          ],
+          "activities": [
+            "Develop Strategic Investment Thesis",
+            "Map Benefits Dependencies",
+            "Engage Benefits Stakeholders"
+          ]
+        },
+        {
+          "name": "Investment Structuring",
+          "description": "Evidence gathered, benefits mapped, and portfolio positioning established.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Determined"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Represented"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Mapped"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Evidenced"
+            },
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Structured"
+            }
+          ],
+          "activities": [
+            "Develop Strategic Investment Thesis",
+            "Map Benefits Dependencies",
+            "Engage Benefits Stakeholders",
+            "Conduct Portfolio Prioritization"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Outputs",
+              "context": "Programme leadership articulates the strategic investment hypothesis, gathers supporting evidence through market and portfolio analysis, and constructs the benefits dependency network linking project outputs through enabling changes to strategic outcomes."
+            }
+          ]
+        },
+        {
+          "name": "Funded Delivery",
+          "description": "Investment authorized with measurement baselines established.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Viable"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "In Agreement"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Planned"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Funded"
+            },
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Baselined"
+            }
+          ],
+          "activities": [
+            "Conduct Portfolio Prioritization",
+            "Map Benefits Dependencies",
+            "Engage Benefits Stakeholders"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Capabilities",
+              "context": "Governance authorities authorize programme funding based on validated investment analysis, stakeholders agree on benefit measurement approaches and realization targets, and baseline measurements are established before programme changes are introduced to the organization."
+            }
+          ]
+        },
+        {
+          "name": "Value Confirmation",
+          "description": "Delivery results confirm investment thesis with benefits tracked.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Addressed"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Satisfied for Deployment"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Realized"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Confirmed"
+            },
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Tracking"
+            }
+          ],
+          "activities": [
+            "Track Benefits Realization",
+            "Confirm Stakeholder Benefits Satisfaction"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Outcomes",
+              "context": "Delivery results confirm the investment thesis as benefits emerge from deployed capabilities, with variance analysis driving ongoing investment decisions, and stakeholder satisfaction surveys validating that the programme addresses the strategic needs articulated in the original hypothesis."
+            }
+          ]
+        },
+        {
+          "name": "Sustained Value",
+          "description": "Benefits embedded in operations with organizational learning captured.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Benefit Accrued"
+            },
+            {
+              "alphaName": "Stakeholders",
+              "stateName": "Satisfied in Use"
+            },
+            {
+              "alphaName": "Benefits",
+              "stateName": "Sustained"
+            },
+            {
+              "alphaName": "Strategic Investment Thesis",
+              "stateName": "Evolved"
+            },
+            {
+              "alphaName": "Benefits Dependency Map",
+              "stateName": "Optimized"
+            }
+          ],
+          "activities": [
+            "Transition Programme Benefits",
+            "Confirm Stakeholder Benefits Satisfaction"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Benefits",
+              "context": "Realized benefits are embedded in operational management with sustainment plans protecting against erosion, the investment thesis is retrospectively validated and calibrated to improve future programme decisions, and organizational learning about benefits management is captured as a reusable asset."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Strategic Investment Thesis",
+      "aliasName": "Programme Business Case"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Benefits Dependency Map",
+      "aliasName": "Benefits Realization Network"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Conduct Portfolio Prioritization",
+      "aliasName": "WSJF Sequencing"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Strategic Investment Case",
+      "aliasName": "Portfolio Investment Case"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Benefits Dependency Network",
+      "aliasName": "Benefits Map"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Programme Essentials",
+      "versionRange": "^1.0.3"
+    }
+  ]
+}

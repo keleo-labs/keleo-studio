@@ -1,8 +1,8 @@
-import type { Method, Practice, PracticeBaseline } from "@/lib/types";
+import type { Method, Practice, PracticeBaseline, PackageDocumentMeta } from "@/lib/types";
 import { classifyLibraryRoot, associatedBaselineName, type LibraryRootKind } from "./classify";
 import { libraryDocumentTags, type LibraryDocumentTags } from "./libraryDocumentTags";
 import { listVirtualElementFiles } from "./virtualElementFiles";
-import type { BundleDocumentRef, BundleDocumentWithBody } from "@/lib/storage/bundleStoreTypes";
+import type { BundleDocumentRef, BundleDocumentMeta, BundleDocumentWithBody } from "@/lib/storage/bundleStoreTypes";
 import { WORKSPACE_BUNDLE_SLUG } from "@/lib/storage/bundleStoreTypes";
 import type { LibraryLookupIndex } from "./practiceDependencyResolution";
 import { coerce, compare, satisfies } from "semver";
@@ -78,24 +78,54 @@ function baselineRichness(body: Record<string, unknown>): number {
 }
 
 // ---------------------------------------------------------------------------
+// Pre-compute metadata from a document body (stored in manifest)
+// ---------------------------------------------------------------------------
+
+export function computeDocumentMeta(body: Record<string, unknown>): PackageDocumentMeta {
+  return {
+    documentVersion: extractString(body, "version") || "0.0.0",
+    description: extractString(body, "description"),
+    tags: libraryDocumentTags(body),
+    keywords: extractKeywords(body),
+    elementCount: listVirtualElementFiles(body).length,
+    associatedBaselineName: associatedBaselineName(body),
+    updatedAt: extractString(body, "updatedAt"),
+    createdAt: extractString(body, "createdAt"),
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Index builder
 // ---------------------------------------------------------------------------
 
+function shouldReplaceMeta(
+  existing: BundleDocumentMeta,
+  candidate: BundleDocumentMeta,
+): boolean {
+  if (candidate.isWorkspaceOverride && !existing.isWorkspaceOverride) return true;
+  if (!candidate.isWorkspaceOverride && existing.isWorkspaceOverride) return false;
+
+  const existingIsBaseline = existing.documentType === "baselinePractice";
+  const candidateIsBaseline = candidate.documentType === "baselinePractice";
+  if (candidateIsBaseline && !existingIsBaseline) return true;
+  if (!candidateIsBaseline && existingIsBaseline) return false;
+
+  if (existingIsBaseline && candidateIsBaseline) {
+    return candidate.elementCount > existing.elementCount;
+  }
+
+  return false;
+}
+
 /**
- * Build a version-aware library index from all documents across all bundles.
- *
- * Deduplication rules for the same `(documentName, documentVersion)`:
- * 1. Workspace overrides always win.
- * 2. Standalone baselines beat method-embedded copies.
- * 3. Structurally richer document wins on ties.
- *
- * Different versions of the same document name are all kept.
+ * Build a version-aware library index from pre-computed document metadata.
+ * No document bodies are read — all metadata comes from bundle manifests.
  */
-export function buildBundleLibraryIndex(
-  documents: BundleDocumentWithBody[],
+export function buildBundleLibraryIndexFromMeta(
+  documents: BundleDocumentMeta[],
   bundles: BundleLibraryIndex["bundles"],
 ): BundleLibraryIndex {
-  const entriesByKey = new Map<string, Map<string, { ref: BundleDocumentRef; body: Record<string, unknown> }>>();
+  const entriesByKey = new Map<string, Map<string, BundleDocumentMeta>>();
 
   for (const doc of documents) {
     const nameKey = normalizeKey(doc.documentName);
@@ -111,12 +141,11 @@ export function buildBundleLibraryIndex(
     const existing = versionMap.get(versionKey);
 
     if (existing) {
-      // Dedup: pick the better source for this (name, version) pair
-      if (shouldReplace(existing, { ref: doc, body: doc.body })) {
-        versionMap.set(versionKey, { ref: doc, body: doc.body });
+      if (shouldReplaceMeta(existing, doc)) {
+        versionMap.set(versionKey, doc);
       }
     } else {
-      versionMap.set(versionKey, { ref: doc, body: doc.body });
+      versionMap.set(versionKey, doc);
     }
   }
 
@@ -124,23 +153,36 @@ export function buildBundleLibraryIndex(
 
   for (const [nameKey, versionMap] of entriesByKey) {
     const versions = [...versionMap.values()];
-    versions.sort((a, b) => semverDescending(a.ref.documentVersion, b.ref.documentVersion));
+    versions.sort((a, b) => semverDescending(a.documentVersion, b.documentVersion));
 
-    const activeEntry = versions[0];
-    const activeBody = activeEntry.body;
+    const active = versions[0];
 
     const entry: LibraryEntry = {
-      name: activeEntry.ref.documentName,
-      documentType: activeEntry.ref.documentType,
-      versions: versions.map(v => v.ref),
-      activeRef: activeEntry.ref,
-      description: extractString(activeBody, "description"),
-      tags: libraryDocumentTags(activeBody),
-      keywords: extractKeywords(activeBody),
-      elementCount: listVirtualElementFiles(activeBody).length,
-      associatedBaselineName: associatedBaselineName(activeBody),
-      updatedAt: extractString(activeBody, "updatedAt"),
-      createdAt: extractString(activeBody, "createdAt"),
+      name: active.documentName,
+      documentType: active.documentType,
+      versions: versions.map(v => ({
+        bundleSlug: v.bundleSlug,
+        documentPath: v.documentPath,
+        documentName: v.documentName,
+        documentType: v.documentType,
+        documentVersion: v.documentVersion,
+        isWorkspaceOverride: v.isWorkspaceOverride,
+      })),
+      activeRef: {
+        bundleSlug: active.bundleSlug,
+        documentPath: active.documentPath,
+        documentName: active.documentName,
+        documentType: active.documentType,
+        documentVersion: active.documentVersion,
+        isWorkspaceOverride: active.isWorkspaceOverride,
+      },
+      description: active.description,
+      tags: active.tags,
+      keywords: active.keywords,
+      elementCount: active.elementCount,
+      associatedBaselineName: active.associatedBaselineName,
+      updatedAt: active.updatedAt,
+      createdAt: active.createdAt,
     };
 
     entries.set(nameKey, entry);
@@ -153,26 +195,25 @@ export function buildBundleLibraryIndex(
   };
 }
 
-function shouldReplace(
-  existing: { ref: BundleDocumentRef; body: Record<string, unknown> },
-  candidate: { ref: BundleDocumentRef; body: Record<string, unknown> },
-): boolean {
-  // Workspace overrides always win
-  if (candidate.ref.isWorkspaceOverride && !existing.ref.isWorkspaceOverride) return true;
-  if (!candidate.ref.isWorkspaceOverride && existing.ref.isWorkspaceOverride) return false;
+/**
+ * Build a version-aware library index from all documents across all bundles.
+ * Falls back to reading full bodies — prefer buildBundleLibraryIndexFromMeta.
+ */
+export function buildBundleLibraryIndex(
+  documents: BundleDocumentWithBody[],
+  bundles: BundleLibraryIndex["bundles"],
+): BundleLibraryIndex {
+  const metas: BundleDocumentMeta[] = documents.map(doc => ({
+    bundleSlug: doc.bundleSlug,
+    documentPath: doc.documentPath,
+    documentName: doc.documentName,
+    documentType: doc.documentType,
+    documentVersion: doc.documentVersion,
+    isWorkspaceOverride: doc.isWorkspaceOverride,
+    ...computeDocumentMeta(doc.body),
+  }));
 
-  // Standalone baselines beat embedded copies
-  const existingIsBaseline = existing.ref.documentType === "baselinePractice";
-  const candidateIsBaseline = candidate.ref.documentType === "baselinePractice";
-  if (candidateIsBaseline && !existingIsBaseline) return true;
-  if (!candidateIsBaseline && existingIsBaseline) return false;
-
-  // Structural richness tiebreaker
-  if (existingIsBaseline && candidateIsBaseline) {
-    return baselineRichness(candidate.body) > baselineRichness(existing.body);
-  }
-
-  return false;
+  return buildBundleLibraryIndexFromMeta(metas, bundles);
 }
 
 // ---------------------------------------------------------------------------

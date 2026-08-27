@@ -1,0 +1,3125 @@
+{
+  "kind": "practice",
+  "name": "Server Cloud OS TDP",
+  "description": "Provides deep RHEL technology positioning with four embedded sales tactics covering OS standardization, cloud migration, security management, and new app deployment.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceDependencyNames": [
+    "Sales Play Framework"
+  ],
+  "tags": {
+    "domainTags": [
+      "Operating Systems",
+      "Cloud Infrastructure",
+      "Linux",
+      "Edge Computing"
+    ],
+    "lifecycleTags": [
+      "Technical Validation",
+      "Solution Design",
+      "Deployment"
+    ],
+    "organizationalTags": [
+      "Technical Sales",
+      "RHEL Specialists",
+      "Solution Architecture"
+    ]
+  },
+  "keywords": [
+    "rhel",
+    "server-os",
+    "cloud-os",
+    "os-standardization",
+    "cloud-migration",
+    "rhel-security",
+    "linux",
+    "operating-system",
+    "infrastructure-foundation",
+    "os-modernization"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.8",
+  "citations": [
+    {
+      "name": "Server/Cloud OS TDP",
+      "description": "Complete TDP documentation for the Server/Cloud OS technology domain including seller credentials, customer wins, and structured engagement content.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCm3Pd773g2JgGhTp4GDRFBPqGJj",
+      "kind": "citation"
+    },
+    {
+      "name": "Standardize & Modernize OS Sales Tactic",
+      "description": "Sales tactic providing customer challenge framing around OS fragmentation, inconsistent management, and security compliance gaps with audience-segmented content.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "kind": "citation"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//",
+      "kind": "citation"
+    },
+    {
+      "name": "AI-Ready Enterprise Sales Play",
+      "description": "Complete Sales Play demonstrating Customer Lens, persona frameworks, value drivers, TDP alignment, and content architecture for AI infrastructure positioning.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCXc2jTBRBPBT87XCg2D776hGRdP",
+      "kind": "citation"
+    },
+    {
+      "name": "IT Operations Efficiency Sales Play",
+      "description": "Sales Play targeting organizations seeking to standardize operations, automate repetitive tasks, and reduce operational overhead across IT infrastructure.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCmg3BCfRjPfB8MXG3gR3q9fW9jd",
+      "kind": "citation"
+    },
+    {
+      "name": "Modernize Infrastructure Sales Play",
+      "description": "Sales Play targeting organizations seeking to modernize IT infrastructure through OS standardization, VM migration, and container adoption.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DC3q74qgbTRcXGfG7Rg88hpcTRVj",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "server-cloud-os-domain-icon",
+      "description": "Visual icon representing the Server/Cloud OS technology domain covering operating system decisions across datacenter, cloud, and edge.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-server",
+      "fontWeight": "900"
+    },
+    {
+      "name": "os-standardize-tactic-icon",
+      "description": "Visual icon representing the OS standardization and modernization customer challenge tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-layer-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "cloud-migration-tactic-icon",
+      "description": "Visual icon representing the cloud migration customer challenge tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cloud-arrow-up",
+      "fontWeight": "900"
+    },
+    {
+      "name": "secure-manage-tactic-icon",
+      "description": "Visual icon representing the security and management customer challenge tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "deploy-apps-tactic-icon",
+      "description": "Visual icon representing the new application deployment customer challenge tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rocket",
+      "fontWeight": "900"
+    },
+    {
+      "name": "os-competitive-icon",
+      "description": "Visual icon representing OS-domain competitive intelligence and market positioning.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-pie",
+      "fontWeight": "900"
+    },
+    {
+      "name": "os-battle-card-icon",
+      "description": "Visual icon representing the OS competitive battle card work product.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-shield",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Server Cloud OS",
+      "description": "The RHEL technology domain progression from landscape assessment through technology decision within a sales engagement.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "maps to",
+          "alphaName": "Standardize and Modernize OS",
+          "direction": "outgoing",
+          "description": "Domain assessment identifies OS fragmentation challenges that map to the standardization tactic."
+        },
+        {
+          "relationship": "maps to",
+          "alphaName": "Cloud Migration",
+          "direction": "outgoing",
+          "description": "Domain assessment identifies cloud platform transition needs that map to the migration tactic."
+        },
+        {
+          "relationship": "maps to",
+          "alphaName": "Secure and Manage RHEL",
+          "direction": "outgoing",
+          "description": "Domain assessment identifies security and management requirements that map to the security tactic."
+        },
+        {
+          "relationship": "maps to",
+          "alphaName": "Deploy New Apps on RHEL",
+          "direction": "outgoing",
+          "description": "Domain assessment identifies new application deployment needs that map to the deployment tactic."
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Server Cloud OS Competitive Position",
+          "direction": "outgoing",
+          "description": "Domain positioning incorporates OS-specific competitive intelligence including RHEL market share and analyst recognitions."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "server-cloud-os-domain-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Identified",
+          "description": "Customer's current OS environment and technology decision context evaluated.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "background": {
+            "given": [
+              "Sales Play engagement has identified Server/Cloud OS as a relevant TDP",
+              "Customer account has infrastructure-related strategic initiatives"
+            ],
+            "alphaStates": [
+              {
+                "alphaName": "Sales Play",
+                "stateName": "Executing"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "OS distribution inventory assessed",
+              "description": "Current OS distribution inventory assessed covering RHEL, other Linux, Windows, and legacy Unix.",
+              "seq": 1
+            },
+            {
+              "name": "Cloud provider OS usage mapped",
+              "description": "Cloud provider OS usage mapped across AWS, Azure, GCP, and on-premise environments.",
+              "seq": 2
+            },
+            {
+              "name": "OS management processes evaluated",
+              "description": "OS management and patching processes evaluated for consistency and coverage gaps.",
+              "seq": 3
+            },
+            {
+              "name": "Security requirements identified",
+              "description": "Security and compliance requirements for the OS layer identified.",
+              "seq": 4
+            },
+            {
+              "name": "Relevant sales tactic identified",
+              "description": "Relevant sales tactic identified from four options based on the customer's primary challenge.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Qualified",
+          "description": "Red Hat's Server/Cloud OS market leadership and credentials presented to customer.",
+          "seq": 2,
+          "contributesToState": "Qualified",
+          "background": {
+            "given": [
+              "Technology landscape has been assessed with OS environment documented"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Market share and leadership data shared",
+              "description": "Market share and leadership data shared including analyst recognitions.",
+              "seq": 1
+            },
+            {
+              "name": "RHEL ecosystem breadth demonstrated",
+              "description": "RHEL ecosystem breadth demonstrated through ISV certifications and cloud provider support.",
+              "seq": 2
+            },
+            {
+              "name": "Customer wins matched",
+              "description": "Customer wins matched to the customer's industry and use case profile.",
+              "seq": 3
+            },
+            {
+              "name": "Technical certifications presented",
+              "description": "Technical certifications and training pathways presented to build seller authority.",
+              "seq": 4
+            },
+            {
+              "name": "Analyst reports referenced",
+              "description": "Analyst reports and third-party validation referenced to substantiate market position.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Positioned",
+          "description": "Customer engaged with specific tactic-level content addressing their primary OS challenge.",
+          "seq": 3,
+          "contributesToState": "Positioned",
+          "background": {
+            "given": [
+              "Seller credentials established and customer acknowledges RHEL as viable option"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Specific tactic selected",
+              "description": "Specific tactic selected and customer challenge framing applied to the conversation.",
+              "seq": 1
+            },
+            {
+              "name": "Audience-segmented content delivered",
+              "description": "Audience-segmented content delivered covering executive summary, technical deep-dive, and demonstration.",
+              "seq": 2
+            },
+            {
+              "name": "What to Say messaging used",
+              "description": "What to Say messaging used in customer conversations tailored to audience type.",
+              "seq": 3
+            },
+            {
+              "name": "What to Share materials distributed",
+              "description": "What to Share materials distributed with engagement tracking enabled.",
+              "seq": 4
+            },
+            {
+              "name": "What to Show demonstrations delivered",
+              "description": "What to Show demonstrations planned or delivered relevant to the selected tactic.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Demonstrated",
+          "description": "RHEL technical fit validated through proof activities for the customer's requirements.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "background": {
+            "given": [
+              "Tactic engagement is active with confirmed customer interest in RHEL evaluation"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Technical assessment completed",
+              "description": "Technical assessment completed covering workload compatibility and performance benchmarks.",
+              "seq": 1
+            },
+            {
+              "name": "Migration path validated",
+              "description": "Migration path validated for relevant workloads from current to target OS environment.",
+              "seq": 2
+            },
+            {
+              "name": "Security and compliance requirements met",
+              "description": "Security and compliance requirements met including STIG compliance and CIS benchmarks.",
+              "seq": 3
+            },
+            {
+              "name": "Management integration demonstrated",
+              "description": "Management and automation integration demonstrated with existing tooling.",
+              "seq": 4
+            },
+            {
+              "name": "Cost analysis completed",
+              "description": "Cost analysis completed comparing RHEL total cost of ownership to alternatives.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Customer has made a technology decision favoring RHEL as their OS platform.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "background": {
+            "given": [
+              "Technical validation completed successfully with requirements met"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Customer commits to RHEL",
+              "description": "Customer commits to RHEL as standardized OS platform for target environment.",
+              "seq": 1
+            },
+            {
+              "name": "Subscription sizing completed",
+              "description": "Subscription sizing and deployment planning completed with timeline.",
+              "seq": 2
+            },
+            {
+              "name": "Win attributed to TDP",
+              "description": "Win attributed to Server/Cloud OS TDP in pipeline reporting.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-sell opportunities identified",
+              "description": "Cross-sell opportunities identified for adjacent TDPs such as Automation and Container Management.",
+              "seq": 4
+            },
+            {
+              "name": "Post-decision enablement established",
+              "description": "Post-decision enablement and support plan established for deployment success.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Server Cloud OS Domain Context and Rationale",
+          "description": "Why the Server Cloud OS technology domain matters within the three-level framework.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "The Server/Cloud OS technology domain is foundational to three Sales Plays, making it the most broadly applicable TDP. Sellers need structured positioning that establishes RHEL credibility across diverse customer scenarios -- from OS standardization and cloud migration to security management and new application deployment -- while navigating competitive dynamics against alternative Linux distributions, cloud-native OS options, and legacy platforms."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The domain structures engagement through progressive credential establishment, audience-segmented content across four distinct tactic scenarios, and technical validation activities that prove RHEL's fit for the customer's specific requirements. Seller credentials (market share, analyst recognitions, ISV certifications) establish authority before tactic-level conversations begin."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Structured domain positioning enables sellers to engage credibly in OS conversations without requiring deep RHEL specialization, while providing depth pathways for customers requiring technical validation through benchmarks, migration assessment, and compliance verification."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        },
+        {
+          "name": "Server Cloud OS TDP Practice Intent",
+          "description": "The end-to-end narrative of RHEL technology positioning from discovery through expansion across four customer challenge scenarios.",
+          "narrativeTypeName": "Sales Engagement Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "Server/Cloud OS is the most broadly applicable TDP in the Red Hat portfolio, powering three Sales Plays (AI-Ready Enterprise, IT Operations Efficiency, Modernize Infrastructure). Sellers discover that customers face heterogeneous OS environments with multiple Linux distributions, legacy Unix, and Windows systems creating operational complexity, security inconsistency, and management fragmentation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Validate",
+              "context": "RHEL's market leadership is validated through seller credentials including analyst recognitions, market share data, ISV certification breadth, and cloud provider support. Four distinct sales tactics validate relevance across customer challenge scenarios -- OS standardization, cloud migration, security management, and new application deployment."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Propose",
+              "context": "The TDP equips sellers with audience-segmented What to Say/Share/Show content for each tactic, enabling credible conversations with both business decision makers (cost reduction, risk mitigation) and technical decision makers (architecture benefits, operational improvements, security compliance)."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Negotiate",
+              "context": "Technical validation activities prove RHEL's fit through workload compatibility testing, performance benchmarks, migration path validation, and security compliance verification (STIG, CIS benchmarks), addressing customer concerns with concrete evidence."
+            },
+            {
+              "seq": 5,
+              "narrativeElementName": "Close",
+              "context": "Technology decisions favoring RHEL are captured with subscription sizing, deployment planning, and cross-sell opportunity identification for adjacent TDPs (Automation, Container Management)."
+            },
+            {
+              "seq": 6,
+              "narrativeElementName": "Expand",
+              "context": "Post-decision enablement and continuous credential refresh sustain the TDP's effectiveness as new analyst reports, customer wins, and competitive developments emerge across the Server/Cloud OS landscape."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP",
+            "Standardize & Modernize OS Sales Tactic",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "mapsTo": "Technical Decision Point",
+      "kind": "alpha"
+    },
+    {
+      "name": "Standardize and Modernize OS",
+      "description": "Customer challenge-focused conversation for OS fragmentation, inconsistent management, and security compliance gaps.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "os-standardize-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "OS fragmentation challenge articulated in the customer's language with quantified impact.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "checklist": [
+            {
+              "name": "OS fragmentation scope identified",
+              "description": "Customer's OS fragmentation scope identified covering number of distributions and management inconsistency.",
+              "seq": 1
+            },
+            {
+              "name": "Impact of inconsistent management quantified",
+              "description": "Impact of inconsistent OS management quantified in terms of security risk and operational overhead.",
+              "seq": 2
+            },
+            {
+              "name": "Compliance gaps documented",
+              "description": "Compliance gaps from heterogeneous OS environments documented with regulatory context.",
+              "seq": 3
+            },
+            {
+              "name": "Target personas identified",
+              "description": "Target personas identified for the standardization conversation at both business and technical levels.",
+              "seq": 4
+            },
+            {
+              "name": "Challenge framing prepared",
+              "description": "Customer challenge framing prepared using the tactic's problem statement structure.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Audience-segmented standardization content delivered to decision makers.",
+          "seq": 2,
+          "contributesToState": "Positioned",
+          "background": {
+            "given": [
+              "OS standardization challenge has been framed and customer acknowledges the problem"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Executive messaging delivered",
+              "description": "What to Say executive messaging delivered covering cost reduction and risk mitigation from OS standardization.",
+              "seq": 1
+            },
+            {
+              "name": "Technical messaging delivered",
+              "description": "What to Say technical messaging delivered covering RHEL management capabilities and automation integration.",
+              "seq": 2
+            },
+            {
+              "name": "Materials distributed",
+              "description": "What to Share materials distributed including analyst reports, datasheets, and case studies.",
+              "seq": 3
+            },
+            {
+              "name": "Demonstrations planned",
+              "description": "What to Show demonstrations planned covering unified management, patching, and compliance tooling.",
+              "seq": 4
+            },
+            {
+              "name": "Engagement tracking active",
+              "description": "Engagement tracking active on all shared materials.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively exploring RHEL standardization with discovery conversations generating qualifying data.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Qualifying information generated",
+              "description": "Discovery conversations generating qualifying information on timeline, budget, and decision authority.",
+              "seq": 1
+            },
+            {
+              "name": "Customer champion identified",
+              "description": "Customer champion identified who can articulate RHEL standardization benefits internally.",
+              "seq": 2
+            },
+            {
+              "name": "OS dependencies mapped",
+              "description": "Existing OS environment dependencies mapped for migration planning purposes.",
+              "seq": 3
+            },
+            {
+              "name": "Business case initiated",
+              "description": "Business case framework initiated with customer-specific cost and risk quantification.",
+              "seq": 4
+            },
+            {
+              "name": "Technical evaluators engaged",
+              "description": "Technical evaluators engaged with architecture and migration feasibility discussions.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Competitive objections and customer concerns addressed with evidence-based responses.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "background": {
+            "alphaStates": [
+              {
+                "alphaName": "Server Cloud OS Competitive Position",
+                "stateName": "Differentiation Articulated"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Competitive alternatives addressed",
+              "description": "Competitive alternative comparisons addressed using OS battle card content.",
+              "seq": 1
+            },
+            {
+              "name": "Migration risk mitigated",
+              "description": "Migration risk concerns mitigated with phased approach and coexistence strategy.",
+              "seq": 2
+            },
+            {
+              "name": "Cost objections countered",
+              "description": "Cost objections countered with TCO analysis showing RHEL advantages over alternatives.",
+              "seq": 3
+            },
+            {
+              "name": "Skills concerns addressed",
+              "description": "Skills availability concerns addressed with training pathways and ecosystem support evidence.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references provided",
+              "description": "Customer references provided matching the customer's industry and standardization scenario.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Customer commits to OS standardization with RHEL and opportunity is advanced.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Standardization decision confirmed",
+              "description": "Customer decision to standardize on RHEL confirmed with deployment scope defined.",
+              "seq": 1
+            },
+            {
+              "name": "Opportunity attributed",
+              "description": "Opportunity attributed to the Standardize and Modernize OS tactic in pipeline tracking.",
+              "seq": 2
+            },
+            {
+              "name": "Subscription sizing aligned",
+              "description": "Subscription sizing aligned to deployment scope with growth projections.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-sell identified",
+              "description": "Cross-sell opportunities identified linking to Automation for OS management at scale.",
+              "seq": 4
+            },
+            {
+              "name": "Customer success plan established",
+              "description": "Customer success plan established for standardization rollout.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Standardize and Modernize OS Tactic Context and Rationale",
+          "description": "Why the OS standardization tactic matters for addressing customer fragmentation challenges.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations running multiple OS distributions face compounding operational challenges -- inconsistent patching creates security gaps, fragmented management increases operational overhead, and compliance requirements become harder to meet across heterogeneous environments."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The tactic provides structured conversation content that opens with the customer's fragmentation pain, delivers audience-segmented RHEL standardization messaging, and demonstrates how RHEL unifies OS management across datacenter, cloud, and edge environments with consistent security and compliance capabilities."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Effective OS standardization conversations convert by connecting fragmentation pain to measurable outcomes -- reduced operational complexity, improved security posture, and consistent management across all environments -- supported by customer reference stories and analyst validation."
+            }
+          ],
+          "citationNames": [
+            "Standardize & Modernize OS Sales Tactic",
+            "Server/Cloud OS TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Cloud Migration",
+      "description": "Customer challenge-focused conversation for cloud platform migration and hybrid cloud OS consistency.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "cloud-migration-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Cloud migration OS consistency challenge articulated with cross-environment management impact.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "checklist": [
+            {
+              "name": "Cloud migration drivers identified",
+              "description": "Customer's cloud migration drivers identified covering cost optimization, agility, and scalability goals.",
+              "seq": 1
+            },
+            {
+              "name": "OS inconsistency documented",
+              "description": "Current on-premise to cloud OS inconsistency documented with management overhead quantified.",
+              "seq": 2
+            },
+            {
+              "name": "Target cloud providers identified",
+              "description": "Target cloud providers identified with OS consistency requirements across providers mapped.",
+              "seq": 3
+            },
+            {
+              "name": "Application migration dependencies assessed",
+              "description": "Application migration dependencies on OS capabilities assessed.",
+              "seq": 4
+            },
+            {
+              "name": "Challenge framing prepared",
+              "description": "Challenge framing prepared using cloud migration tactic's problem statement structure.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Cloud-focused RHEL positioning delivered to business and technical audiences.",
+          "seq": 2,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Cloud executive messaging delivered",
+              "description": "What to Say executive messaging delivered covering cloud cost optimization and risk reduction with RHEL.",
+              "seq": 1
+            },
+            {
+              "name": "Cloud technical messaging delivered",
+              "description": "What to Say technical messaging delivered covering RHEL cloud images, cloud provider integrations, and hybrid management.",
+              "seq": 2
+            },
+            {
+              "name": "Cloud materials distributed",
+              "description": "What to Share cloud-specific analyst reports and case studies distributed with tracking.",
+              "seq": 3
+            },
+            {
+              "name": "Cloud demonstrations planned",
+              "description": "What to Show cloud deployment demonstrations planned or delivered.",
+              "seq": 4
+            },
+            {
+              "name": "Marketplace options presented",
+              "description": "Cloud provider marketplace and support options presented.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating RHEL for cloud workloads with migration planning underway.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Migration candidates identified",
+              "description": "Cloud workload migration candidates identified and prioritized with customer.",
+              "seq": 1
+            },
+            {
+              "name": "Hybrid management requirements documented",
+              "description": "Hybrid management requirements documented spanning on-premise and cloud environments.",
+              "seq": 2
+            },
+            {
+              "name": "Cloud capabilities validated",
+              "description": "Cloud provider-specific RHEL capabilities validated against customer requirements.",
+              "seq": 3
+            },
+            {
+              "name": "Cloud business case initiated",
+              "description": "Business case framework initiated with cloud migration cost and agility projections.",
+              "seq": 4
+            },
+            {
+              "name": "Cloud technical evaluators engaged",
+              "description": "Technical evaluators engaged on cloud-native RHEL capabilities and migration tooling.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Cloud OS alternatives addressed with evidence-based RHEL cloud differentiation.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "background": {
+            "alphaStates": [
+              {
+                "alphaName": "Server Cloud OS Competitive Position",
+                "stateName": "Differentiation Articulated"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Cloud-native alternatives addressed",
+              "description": "Cloud-native OS alternatives addressed with RHEL portability and consistency advantages.",
+              "seq": 1
+            },
+            {
+              "name": "Lock-in concerns mitigated",
+              "description": "Cloud provider lock-in concerns mitigated with RHEL's multi-cloud consistency messaging.",
+              "seq": 2
+            },
+            {
+              "name": "Migration complexity addressed",
+              "description": "Migration complexity concerns addressed with proven migration paths and tooling evidence.",
+              "seq": 3
+            },
+            {
+              "name": "Cloud cost objections countered",
+              "description": "Cloud cost objections countered with RHEL subscription value analysis across providers.",
+              "seq": 4
+            },
+            {
+              "name": "Cloud migration references provided",
+              "description": "Customer references provided matching cloud migration scenarios.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Customer commits to RHEL for cloud workloads with migration plan established.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Cloud RHEL decision confirmed",
+              "description": "Customer decision to use RHEL for cloud workloads confirmed with scope defined.",
+              "seq": 1
+            },
+            {
+              "name": "Cloud tactic attributed",
+              "description": "Opportunity attributed to Cloud Migration tactic in pipeline tracking.",
+              "seq": 2
+            },
+            {
+              "name": "Cloud subscription sizing completed",
+              "description": "Cloud subscription sizing completed aligned to migration scope and timeline.",
+              "seq": 3
+            },
+            {
+              "name": "Cloud cross-sell identified",
+              "description": "Cross-sell opportunities identified linking to Automation for cloud operations management.",
+              "seq": 4
+            },
+            {
+              "name": "Migration support plan established",
+              "description": "Migration support plan established with services engagement path.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Cloud Migration Tactic Context and Rationale",
+          "description": "Why the cloud migration tactic matters for addressing OS consistency across cloud environments.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations migrating workloads to the cloud face OS consistency challenges -- different OS choices across cloud providers and on-premise environments create management fragmentation, skills gaps, and security inconsistency that undermine the agility benefits cloud migration is supposed to deliver."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The cloud migration tactic positions RHEL as the consistent OS foundation across all environments, delivering unified management, security, and compliance regardless of deployment target. Cloud provider marketplace availability and certified images simplify adoption."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "RHEL adoption for cloud workloads delivers the consistency needed for effective hybrid and multi-cloud operations, reducing management complexity while maintaining the portability and flexibility that avoid cloud provider lock-in."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Secure and Manage RHEL",
+      "description": "Customer challenge-focused conversation for RHEL security posture improvement, compliance management, and operational governance.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "secure-manage-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "Security and compliance management challenge articulated with regulatory and risk impact.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "checklist": [
+            {
+              "name": "Compliance requirements identified",
+              "description": "Customer's security compliance requirements identified covering regulatory frameworks and internal policies.",
+              "seq": 1
+            },
+            {
+              "name": "Security management gaps documented",
+              "description": "Current OS security management gaps documented including patching latency and configuration drift.",
+              "seq": 2
+            },
+            {
+              "name": "Risk exposure quantified",
+              "description": "Risk exposure from unmanaged or inconsistently managed OS instances quantified.",
+              "seq": 3
+            },
+            {
+              "name": "Security stakeholders identified",
+              "description": "Security team stakeholders and compliance decision-makers identified.",
+              "seq": 4
+            },
+            {
+              "name": "Security challenge framing prepared",
+              "description": "Challenge framing prepared using the security management tactic's problem statement structure.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Security-focused RHEL capabilities presented to security and infrastructure audiences.",
+          "seq": 2,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Security messaging delivered",
+              "description": "What to Say security messaging delivered covering STIG compliance, CIS benchmarks, and CVE management.",
+              "seq": 1
+            },
+            {
+              "name": "Management messaging delivered",
+              "description": "What to Say management messaging delivered covering Insights, Satellite, and image builder capabilities.",
+              "seq": 2
+            },
+            {
+              "name": "Security materials distributed",
+              "description": "What to Share security certifications, compliance documentation, and analyst reports distributed.",
+              "seq": 3
+            },
+            {
+              "name": "Security demonstrations planned",
+              "description": "What to Show security scanning and compliance demonstration planned or delivered.",
+              "seq": 4
+            },
+            {
+              "name": "Security services positioned",
+              "description": "Services offerings for security assessment and hardening positioned.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating RHEL security and management capabilities for their environment.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Security assessment initiated",
+              "description": "Security assessment of current OS environment initiated or completed.",
+              "seq": 1
+            },
+            {
+              "name": "Compliance requirements mapped",
+              "description": "Compliance requirements mapped to RHEL security capabilities and certifications.",
+              "seq": 2
+            },
+            {
+              "name": "Management integration documented",
+              "description": "Management tooling integration requirements documented with existing security infrastructure.",
+              "seq": 3
+            },
+            {
+              "name": "Risk reduction business case initiated",
+              "description": "Business case framework initiated with risk reduction and compliance cost quantification.",
+              "seq": 4
+            },
+            {
+              "name": "Security operations team evaluating",
+              "description": "Security operations team evaluating RHEL Insights and automated remediation capabilities.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Security and management concerns addressed with compliance evidence and automation capabilities.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "background": {
+            "alphaStates": [
+              {
+                "alphaName": "Server Cloud OS Competitive Position",
+                "stateName": "Differentiation Articulated"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Alternative approaches compared",
+              "description": "Alternative security management approaches compared with RHEL integrated capabilities advantages.",
+              "seq": 1
+            },
+            {
+              "name": "Compliance breadth demonstrated",
+              "description": "Compliance certification breadth demonstrated against customer's regulatory requirements.",
+              "seq": 2
+            },
+            {
+              "name": "Management overhead addressed",
+              "description": "Management overhead concerns addressed with automation and self-service capabilities.",
+              "seq": 3
+            },
+            {
+              "name": "Integration concerns resolved",
+              "description": "Integration concerns with existing SIEM and security tooling resolved with documentation.",
+              "seq": 4
+            },
+            {
+              "name": "Security references provided",
+              "description": "Customer references provided matching security-focused OS management scenarios.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Customer commits to RHEL security and management platform with compliance targets established.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "Security adoption confirmed",
+              "description": "Customer decision to adopt RHEL security and management capabilities confirmed.",
+              "seq": 1
+            },
+            {
+              "name": "Security tactic attributed",
+              "description": "Opportunity attributed to Secure and Manage RHEL tactic in pipeline tracking.",
+              "seq": 2
+            },
+            {
+              "name": "Management tooling included",
+              "description": "Subscription sizing includes management tooling and security capabilities.",
+              "seq": 3
+            },
+            {
+              "name": "Security cross-sell identified",
+              "description": "Cross-sell opportunities identified linking to Automation for security compliance at scale.",
+              "seq": 4
+            },
+            {
+              "name": "Security enablement plan established",
+              "description": "Security operations enablement plan established with compliance milestones.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Secure and Manage RHEL Tactic Context and Rationale",
+          "description": "Why the security management tactic matters for addressing OS compliance and governance challenges.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations struggle to maintain consistent security posture and compliance across growing OS estates, with patching latency, configuration drift, and visibility gaps creating risk that increases with scale and complexity."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The security tactic positions RHEL's integrated security and management capabilities -- Insights predictive analytics, Satellite content management, image builder, STIG compliance profiles, and CIS benchmark support -- as a unified approach to OS security governance."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Customers who adopt RHEL security and management capabilities achieve consistent compliance posture, reduced patching latency, and automated remediation that scales across datacenter, cloud, and edge environments."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Deploy New Apps on RHEL",
+      "description": "Customer challenge-focused conversation for deploying new applications on RHEL as the standard development and runtime platform.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "deploy-apps-tactic-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Prepared",
+          "description": "New application platform decision challenge articulated with development velocity impact.",
+          "seq": 1,
+          "contributesToState": "Identified",
+          "checklist": [
+            {
+              "name": "Application deployment requirements identified",
+              "description": "Customer's new application deployment requirements identified including runtime targets and language support.",
+              "seq": 1
+            },
+            {
+              "name": "Development friction documented",
+              "description": "Current development and deployment friction from OS inconsistency or limitations documented.",
+              "seq": 2
+            },
+            {
+              "name": "Application stakeholders identified",
+              "description": "Application team stakeholders and platform decision-makers identified.",
+              "seq": 3
+            },
+            {
+              "name": "Developer experience requirements mapped",
+              "description": "Developer experience requirements mapped including tooling, libraries, and runtime availability.",
+              "seq": 4
+            },
+            {
+              "name": "App deployment challenge framing prepared",
+              "description": "Challenge framing prepared using the application deployment tactic's problem statement structure.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Deployed",
+          "description": "Application platform RHEL capabilities presented to development and infrastructure audiences.",
+          "seq": 2,
+          "contributesToState": "Positioned",
+          "checklist": [
+            {
+              "name": "Development messaging delivered",
+              "description": "What to Say development messaging delivered covering application streams, UBI, and language runtime support.",
+              "seq": 1
+            },
+            {
+              "name": "Infrastructure messaging delivered",
+              "description": "What to Say infrastructure messaging delivered covering deployment consistency and operational management.",
+              "seq": 2
+            },
+            {
+              "name": "Developer documentation distributed",
+              "description": "What to Share developer-focused documentation and ISV compatibility evidence distributed.",
+              "seq": 3
+            },
+            {
+              "name": "App deployment demonstrations planned",
+              "description": "What to Show application deployment and developer workflow demonstrations planned or delivered.",
+              "seq": 4
+            },
+            {
+              "name": "Partner solutions positioned",
+              "description": "Services and partner solutions for application modernization positioned.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Engaged",
+          "description": "Customer actively evaluating RHEL as application platform with developer team involvement.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Compatibility testing initiated",
+              "description": "Application compatibility testing initiated with customer's priority workloads.",
+              "seq": 1
+            },
+            {
+              "name": "Developer experience evaluation underway",
+              "description": "Developer experience evaluation underway with RHEL developer tools and application streams.",
+              "seq": 2
+            },
+            {
+              "name": "CI/CD integration assessed",
+              "description": "CI/CD pipeline integration requirements documented and feasibility assessed.",
+              "seq": 3
+            },
+            {
+              "name": "Developer productivity business case initiated",
+              "description": "Business case framework initiated with developer productivity and deployment velocity projections.",
+              "seq": 4
+            },
+            {
+              "name": "Application architecture validated",
+              "description": "Application architecture alignment between RHEL capabilities and target applications validated.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Converted",
+          "description": "Application platform alternatives addressed with RHEL ecosystem and developer experience evidence.",
+          "seq": 4,
+          "contributesToState": "Demonstrated",
+          "background": {
+            "alphaStates": [
+              {
+                "alphaName": "Server Cloud OS Competitive Position",
+                "stateName": "Differentiation Articulated"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Runtime platform alternatives compared",
+              "description": "Alternative application runtime platforms compared with RHEL ISV certification breadth.",
+              "seq": 1
+            },
+            {
+              "name": "Developer experience concerns addressed",
+              "description": "Developer experience concerns addressed with application streams, container tooling, and UBI options.",
+              "seq": 2
+            },
+            {
+              "name": "Lifecycle advantages demonstrated",
+              "description": "Long-term support and lifecycle management advantages demonstrated over community distributions.",
+              "seq": 3
+            },
+            {
+              "name": "Development toolchain integration validated",
+              "description": "Integration with existing development toolchain validated and documented.",
+              "seq": 4
+            },
+            {
+              "name": "App deployment references provided",
+              "description": "Customer references provided matching new application deployment scenarios.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Proven",
+          "description": "Customer commits to RHEL as new application deployment platform with adoption plan established.",
+          "seq": 5,
+          "contributesToState": "Validated",
+          "checklist": [
+            {
+              "name": "App platform decision confirmed",
+              "description": "Customer decision to deploy new applications on RHEL confirmed with scope and timeline.",
+              "seq": 1
+            },
+            {
+              "name": "App deployment tactic attributed",
+              "description": "Opportunity attributed to Deploy New Apps on RHEL tactic in pipeline tracking.",
+              "seq": 2
+            },
+            {
+              "name": "Developer subscription sizing completed",
+              "description": "Developer subscription sizing completed aligned to application team scope.",
+              "seq": 3
+            },
+            {
+              "name": "App platform cross-sell identified",
+              "description": "Cross-sell opportunities identified linking to Application Platform and Container Management TDPs.",
+              "seq": 4
+            },
+            {
+              "name": "Developer enablement plan established",
+              "description": "Developer enablement and application onboarding plan established.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Deploy New Apps on RHEL Tactic Context and Rationale",
+          "description": "Why the application deployment tactic matters for new application platform decisions.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Organizations evaluating OS platforms for new application workloads need assurance of runtime compatibility, developer tooling support, long-term lifecycle management, and ISV ecosystem breadth -- factors that community distributions and cloud-specific OS options may not guarantee."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The application deployment tactic positions RHEL's application streams, UBI containers, developer tools, and ISV certification ecosystem as the enterprise-grade foundation for new application workloads with predictable lifecycle management and broad compatibility."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "RHEL adoption for new applications provides developers with a stable, certified platform that reduces deployment friction while giving operations teams consistent management across application workloads and infrastructure."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Tactic",
+      "kind": "alpha"
+    },
+    {
+      "name": "Server Cloud OS Competitive Position",
+      "description": "OS-domain competitive intelligence tracking RHEL positioning against alternative operating systems and cloud-native OS options.",
+      "focusName": "Solution Alignment",
+      "contributesTo": "Competitive Position",
+      "relatesTo": [
+        {
+          "relationship": "informs",
+          "alphaName": "Server Cloud OS",
+          "direction": "outgoing",
+          "description": "OS competitive intelligence informs domain positioning by providing market share data, analyst recognitions, and competitive differentiation evidence."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "os-competitive-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Landscape Surveyed",
+          "description": "OS-domain competitive landscape assessed with key alternative platforms identified.",
+          "seq": 1,
+          "contributesToState": "Assessed",
+          "checklist": [
+            {
+              "name": "Alternative distributions catalogued",
+              "description": "Alternative Linux distributions catalogued with market positioning and target segments.",
+              "seq": 1
+            },
+            {
+              "name": "Cloud OS options mapped",
+              "description": "Cloud provider OS options mapped including Amazon Linux, Ubuntu Pro, and SUSE.",
+              "seq": 2
+            },
+            {
+              "name": "Legacy competitive dynamics documented",
+              "description": "Legacy Unix and Windows competitive dynamics documented for migration scenarios.",
+              "seq": 3
+            },
+            {
+              "name": "Analyst coverage identified",
+              "description": "Analyst coverage of the Linux and server OS market identified and catalogued.",
+              "seq": 4
+            },
+            {
+              "name": "Internal intelligence sources established",
+              "description": "Internal competitive intelligence sources for the OS domain established.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Competitors Mapped",
+          "description": "Per-competitor analysis completed with RHEL positioning strategies documented.",
+          "seq": 2,
+          "contributesToState": "Mapped",
+          "checklist": [
+            {
+              "name": "Positioning maps created",
+              "description": "Per-competitor positioning maps created with strengths, weaknesses, and attack strategies.",
+              "seq": 1
+            },
+            {
+              "name": "RHEL differentiators catalogued",
+              "description": "RHEL differentiators catalogued including lifecycle management, certification breadth, and security capabilities.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive objections documented",
+              "description": "Common competitive objections documented with evidence-based response guidance.",
+              "seq": 3
+            },
+            {
+              "name": "Trap strategies prepared",
+              "description": "Competitive trap identification strategies prepared for discovery conversations.",
+              "seq": 4
+            },
+            {
+              "name": "Win/loss analysis completed",
+              "description": "Win/loss data analysis specific to the OS domain completed.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Differentiation Articulated",
+          "description": "RHEL competitive advantages expressed in customer-relevant terms with supporting evidence.",
+          "seq": 3,
+          "contributesToState": "Differentiated",
+          "checklist": [
+            {
+              "name": "Market leadership evidence assembled",
+              "description": "Market leadership evidence assembled including Linux market share data and analyst recognitions.",
+              "seq": 1
+            },
+            {
+              "name": "ISV certification advantage quantified",
+              "description": "ISV certification advantage quantified comparing RHEL ecosystem breadth to alternatives.",
+              "seq": 2
+            },
+            {
+              "name": "Cloud provider support demonstrated",
+              "description": "Cloud provider support breadth demonstrated across major providers.",
+              "seq": 3
+            },
+            {
+              "name": "Lifecycle advantages articulated",
+              "description": "Lifecycle management and long-term support advantages articulated versus community distributions.",
+              "seq": 4
+            },
+            {
+              "name": "Security certification advantage documented",
+              "description": "Security certification and compliance advantage documented versus alternatives.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Objections Defended",
+          "description": "Competitive challenges addressed with evidence-based responses in customer engagements.",
+          "seq": 4,
+          "contributesToState": "Defended",
+          "background": {
+            "alphaStates": [
+              {
+                "alphaName": "Server Cloud OS",
+                "stateName": "Positioned"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Battle card deployed",
+              "description": "OS competitive battle card deployed in customer-facing conversations with tracked effectiveness.",
+              "seq": 1
+            },
+            {
+              "name": "Cost comparisons countered",
+              "description": "Cost comparison objections countered with total cost of ownership analysis including support and risk.",
+              "seq": 2
+            },
+            {
+              "name": "Displacement stories documented",
+              "description": "Competitor displacement stories documented from RHEL customer wins.",
+              "seq": 3
+            },
+            {
+              "name": "Technical differentiation demonstrated",
+              "description": "Technical differentiation demonstrated through side-by-side capability comparisons.",
+              "seq": 4
+            },
+            {
+              "name": "Win/loss data analyzed",
+              "description": "Win/loss data from competitive evaluations analyzed and integrated into positioning updates.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Market Leadership Established",
+          "description": "RHEL market leadership position sustained through continuous competitive intelligence refresh.",
+          "seq": 5,
+          "contributesToState": "Preferred",
+          "background": {
+            "workProductLevels": [
+              {
+                "workProductName": "Server Cloud OS Competitive Battle Card",
+                "levelOfDetailName": "Data-Validated"
+              }
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Displacement stories generated",
+              "description": "Competitive displacement stories generated through OS domain wins documented for reuse.",
+              "seq": 1
+            },
+            {
+              "name": "Market data updated",
+              "description": "Analyst recognitions and market share data updated as new evaluations are published.",
+              "seq": 2
+            },
+            {
+              "name": "Field insights integrated",
+              "description": "Field-generated competitive insights captured and integrated into OS battle card content.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive win rate tracked",
+              "description": "Competitive win rate for the OS domain tracked and meeting targets.",
+              "seq": 4
+            },
+            {
+              "name": "Emerging threats identified",
+              "description": "Emerging competitive threats identified and counter-positioning prepared proactively.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Server Cloud OS Competitive Position Context and Rationale",
+          "description": "Why OS-domain competitive intelligence requires specialized positioning beyond generic framework content.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "The Server/Cloud OS competitive landscape spans multiple alternative categories -- enterprise Linux distributions, cloud provider OS options, community distributions, and legacy operating systems. Each competitor type presents distinct positioning challenges requiring OS-domain-specific competitive intelligence rather than generic framework-level competitive content."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Competitors position against RHEL with different strengths -- cloud providers offer deeply integrated OS options, community distributions emphasize zero cost, and alternative enterprise distributions compete on specific capabilities or pricing. Each alternative has genuine strengths that sellers must acknowledge while positioning RHEL's advantages."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "RHEL's competitive advantage in the OS domain is multi-dimensional -- market share leadership provides social proof, ISV certification breadth reduces deployment risk, lifecycle management ensures long-term stability, and security certifications satisfy compliance requirements. The OS battle card structures these advantages for specific competitive scenarios."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "alphaInstances": [
+    {
+      "name": "Server/Cloud OS TDP",
+      "description": "The Server/Cloud OS Technical Decision Point covering RHEL positioning across datacenter, cloud, and edge environments.",
+      "alphaName": "Server Cloud OS Domain"
+    },
+    {
+      "name": "Standardize & Modernize OS",
+      "description": "Sales tactic addressing OS fragmentation and standardization challenges.",
+      "alphaName": "Standardize and Modernize OS Tactic"
+    },
+    {
+      "name": "Migrate to the Cloud",
+      "description": "Sales tactic addressing cloud migration OS consistency challenges.",
+      "alphaName": "Cloud Migration Tactic"
+    },
+    {
+      "name": "Secure & Manage RHEL",
+      "description": "Sales tactic addressing RHEL security posture and compliance management challenges.",
+      "alphaName": "Secure and Manage RHEL Tactic"
+    },
+    {
+      "name": "Deploy New Apps on RHEL",
+      "description": "Sales tactic addressing new application deployment platform selection.",
+      "alphaName": "Deploy New Apps on RHEL Tactic"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Server Cloud OS Brief",
+      "description": "RHEL-specific positioning document with seller credentials, customer wins, and audience-segmented OS content.",
+      "assetNames": [
+        {
+          "assetName": "server-cloud-os-domain-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Current OS market landscape with RHEL positioning documented.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "OS market segments defined",
+              "description": "OS market segments defined with RHEL positioning in each.",
+              "seq": 1
+            },
+            {
+              "name": "Key capabilities catalogued",
+              "description": "Key RHEL capabilities catalogued by customer use case category.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive context sketched",
+              "description": "Initial competitive context sketched for the OS technology domain.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Server Cloud OS",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Credentialed",
+          "description": "RHEL seller credentials and customer wins assembled with audience messaging.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Market leadership data documented",
+              "description": "RHEL market leadership data documented including analyst recognitions and market share.",
+              "seq": 1
+            },
+            {
+              "name": "Customer wins catalogued",
+              "description": "Customer wins catalogued by industry, use case, and tactic relevance.",
+              "seq": 2
+            },
+            {
+              "name": "BDM messaging drafted",
+              "description": "BDM messaging framework drafted covering ROI, risk reduction, and standardization benefits.",
+              "seq": 3
+            },
+            {
+              "name": "TDM messaging drafted",
+              "description": "TDM messaging framework drafted covering architecture, management, and security advantages.",
+              "seq": 4
+            },
+            {
+              "name": "Tactic pathways documented",
+              "description": "Four tactic alignment pathways documented and linked.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Server Cloud OS",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Competitors Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Content-Complete",
+          "description": "Full What to Say/Share/Show content across all four tactic scenarios.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Presentations finalized",
+              "description": "What to Say presentations and talking points finalized for both BDM and TDM audiences.",
+              "seq": 1
+            },
+            {
+              "name": "Materials curated",
+              "description": "What to Share analyst reports, case studies, and datasheets curated per tactic scenario.",
+              "seq": 2
+            },
+            {
+              "name": "Demonstrations prepared",
+              "description": "What to Show demonstrations prepared covering RHEL management, migration, security, and deployment.",
+              "seq": 3
+            },
+            {
+              "name": "Services aligned",
+              "description": "Services and partner solutions aligned to each tactic scenario.",
+              "seq": 4
+            },
+            {
+              "name": "Content organized for access",
+              "description": "Content organized for seller access with engagement tracking enabled.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Server Cloud OS",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "Server Cloud OS",
+              "stateName": "Qualified"
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "description": "Field-validated positioning with effectiveness data and refreshed evidence.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Win rate data incorporated",
+              "description": "Win rate data by competitor and tactic scenario incorporated into positioning guidance.",
+              "seq": 1
+            },
+            {
+              "name": "Demonstration effectiveness rated",
+              "description": "Demonstration effectiveness ratings guide proof activity selection by scenario.",
+              "seq": 2
+            },
+            {
+              "name": "Customer references refreshed",
+              "description": "Customer reference quality and relevance rated and regularly refreshed.",
+              "seq": 3
+            },
+            {
+              "name": "Messaging effectiveness tracked",
+              "description": "Field feedback on OS messaging effectiveness informs content updates.",
+              "seq": 4
+            },
+            {
+              "name": "Competitive intelligence updated",
+              "description": "Competitive intelligence reflects latest analyst evaluations and market dynamics.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Server Cloud OS",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Market Leadership Established"
+            }
+          ]
+        }
+      ],
+      "mapsTo": "TDP Positioning Brief",
+      "kind": "workProduct"
+    },
+    {
+      "name": "Server Cloud OS Competitive Battle Card",
+      "description": "OS-domain competitive intelligence document with per-competitor positioning, differentiation arguments, and displacement strategies.",
+      "assetNames": [
+        {
+          "assetName": "os-battle-card-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Landscape Sketched",
+          "description": "Initial OS competitive landscape with key competitors identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Primary competitors listed",
+              "description": "Primary OS competitors listed by category (enterprise Linux, cloud OS, community, legacy).",
+              "seq": 1
+            },
+            {
+              "name": "Positioning differences identified",
+              "description": "High-level positioning differences identified between RHEL and each alternative.",
+              "seq": 2
+            },
+            {
+              "name": "Segment relevance mapped",
+              "description": "Market segment relevance mapped for each competitor.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Landscape Surveyed"
+            }
+          ]
+        },
+        {
+          "name": "Competitors Profiled",
+          "description": "Per-competitor analysis with strengths, weaknesses, and attack strategies.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Competitor maps created",
+              "description": "Per-competitor positioning maps created with capability comparisons.",
+              "seq": 1
+            },
+            {
+              "name": "Objections documented",
+              "description": "Common competitive objections documented with recommended responses.",
+              "seq": 2
+            },
+            {
+              "name": "Trap questions prepared",
+              "description": "Competitive trap-setting questions prepared for discovery conversations.",
+              "seq": 3
+            },
+            {
+              "name": "Differentiators catalogued",
+              "description": "RHEL differentiators catalogued for each competitive scenario.",
+              "seq": 4
+            },
+            {
+              "name": "Win stories organized",
+              "description": "Customer win stories organized by competitive displacement type.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Competitors Mapped"
+            },
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Differentiation Articulated"
+            }
+          ]
+        },
+        {
+          "name": "Field Ready",
+          "description": "Battle card deployed for seller use with engagement-specific guidance.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Rapid reference format",
+              "description": "Battle card formatted for rapid reference during live customer conversations.",
+              "seq": 1
+            },
+            {
+              "name": "Tactic-specific guidance linked",
+              "description": "Scenario-specific guidance linked to each of four tactic contexts.",
+              "seq": 2
+            },
+            {
+              "name": "Evidence organized",
+              "description": "Evidence and proof points organized by competitive scenario.",
+              "seq": 3
+            },
+            {
+              "name": "Usage guidance described",
+              "description": "Seller usage guidance describes when and how to deploy competitive content.",
+              "seq": 4
+            },
+            {
+              "name": "Positioning brief links established",
+              "description": "Bidirectional links to TDP positioning brief competitive sections established.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Objections Defended"
+            }
+          ]
+        },
+        {
+          "name": "Data-Validated",
+          "description": "Performance-validated battle card with win/loss data and field-proven messaging.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Win/loss data incorporated",
+              "description": "Win/loss data by competitor incorporated into positioning effectiveness ratings.",
+              "seq": 1
+            },
+            {
+              "name": "Best messaging identified",
+              "description": "Best-performing competitive messaging identified and promoted.",
+              "seq": 2
+            },
+            {
+              "name": "Emerging threats added",
+              "description": "Emerging competitive threats added with proactive counter-positioning.",
+              "seq": 3
+            },
+            {
+              "name": "Field insights integrated",
+              "description": "Field-generated competitive insights integrated from seller feedback.",
+              "seq": 4
+            },
+            {
+              "name": "Market data updated",
+              "description": "Analyst recognition and market share data updated with latest publications.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Market Leadership Established"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "RHEL TDP Specialist",
+      "description": "Technology domain expert responsible for RHEL positioning, technical validation, and tactic execution across OS scenarios.",
+      "tags": {
+        "domainTags": [
+          "Operating Systems",
+          "Linux",
+          "Technical Sales"
+        ],
+        "lifecycleTags": [
+          "Technical Validation",
+          "Demonstration",
+          "Deployment"
+        ],
+        "organizationalTags": [
+          "Technical Sales",
+          "RHEL Specialists"
+        ]
+      },
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "OS Content Owner",
+      "description": "Responsible for maintaining Server/Cloud OS TDP content including seller credentials, tactic conversation guides, and competitive battle card.",
+      "tags": {
+        "domainTags": [
+          "Operating Systems",
+          "Content Strategy"
+        ],
+        "lifecycleTags": [
+          "Content Design",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Product Marketing",
+          "RHEL Specialists"
+        ]
+      },
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "OS TDP Team",
+      "description": "Team responsible for Server/Cloud OS positioning, content maintenance, and competitive intelligence across all four tactic scenarios.",
+      "personaNames": [
+        "RHEL TDP Specialist",
+        "OS Content Owner"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Technical Sales",
+          "RHEL Specialists"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Assess OS Technology Landscape",
+      "description": "Evaluate the customer's current OS environment and map technology decisions to Server/Cloud OS tactic scenarios.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Sales Play engagement has identified Server/Cloud OS as a relevant TDP for the customer",
+          "Customer account has infrastructure-related technology decisions pending"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Sales Play",
+            "stateName": "Executing"
+          }
+        ]
+      },
+      "test": {
+        "name": "OS Landscape Assessment Verification",
+        "description": "Verifies that the landscape assessment produces a documented inventory and tactic selection.",
+        "given": [
+          "Customer has heterogeneous OS environment with multiple distributions and management approaches"
+        ],
+        "when": [
+          "Initial technical discovery conversation is conducted to assess OS landscape and decision drivers"
+        ],
+        "then": [
+          "OS distribution inventory is documented with management maturity assessment",
+          "Primary customer challenge is mapped to one of four tactic scenarios",
+          "Tactic selection rationale is documented for the engagement"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Server Cloud OS",
+          "stateName": "Identified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Server Cloud OS Brief",
+          "levelOfDetailName": "Initial"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "OS TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Assess OS Technology Landscape Guidance",
+          "description": "How to assess the customer's OS landscape and select the relevant tactic scenario.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sellers entering the OS technology domain need a structured way to assess the customer's current environment and identify which of four tactic scenarios is most relevant to the customer's challenge."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The assessment maps the customer's OS distribution inventory, management maturity, cloud deployment patterns, and security requirements to identify the primary challenge -- fragmentation (standardize), cloud transition (migrate), security gaps (secure/manage), or application needs (deploy apps)."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A documented landscape assessment with tactic selection enables targeted engagement using the most relevant conversation content rather than generic OS positioning."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Establish RHEL Seller Credentials",
+      "description": "Present RHEL market leadership evidence, analyst recognitions, and ecosystem credentials to establish technology authority.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Technology landscape has been assessed with OS environment documented"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Server Cloud OS Domain",
+            "stateName": "Identified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Seller Credential Establishment Verification",
+        "description": "Verifies that credential presentation establishes RHEL authority with the customer.",
+        "when": [
+          "Customer meeting focuses on RHEL's positioning in the OS technology domain"
+        ],
+        "then": [
+          "Market share and analyst recognition data is presented establishing RHEL authority",
+          "Customer wins relevant to the customer's industry and challenge are shared",
+          "Customer acknowledges RHEL as a viable option warranting further evaluation"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Server Cloud OS",
+          "stateName": "Qualified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Server Cloud OS Brief",
+          "levelOfDetailName": "Credentialed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Competitive Intelligence"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "OS TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Establish RHEL Seller Credentials Guidance",
+          "description": "How to establish RHEL authority through structured credential presentation.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sellers need to establish credibility in the OS technology domain before engaging in tactic-level conversations. Without credentials, RHEL is treated as just another Linux distribution rather than the market-leading enterprise platform."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Credential establishment follows a structured approach -- market share data establishes scale, analyst recognitions establish independent validation, ISV certification counts establish ecosystem breadth, and customer wins matched to the customer's profile establish relevance."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Established credentials create the authority foundation upon which tactic-level conversations build, enabling sellers to position RHEL as the enterprise OS standard rather than competing on features alone."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Execute OS Tactic Conversation",
+      "description": "Deliver tactic-specific customer challenge conversation using the selected OS tactic's structured messaging and evidence.",
+      "activitySpaceName": "Discover Customer Needs",
+      "focusName": "Customer Value",
+      "background": {
+        "given": [
+          "Seller credentials are established and customer has acknowledged RHEL as a viable option",
+          "Specific tactic has been selected from four options based on customer challenge"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Server Cloud OS Domain",
+            "stateName": "Qualified"
+          }
+        ]
+      },
+      "test": {
+        "name": "Tactic Conversation Execution Verification",
+        "description": "Verifies that tactic conversation execution delivers relevant content and generates qualifying data.",
+        "given": [
+          "Customer has agreed to a deep-dive conversation on their specific OS challenge"
+        ],
+        "when": [
+          "Seller executes the selected tactic conversation guide with customer-specific context"
+        ],
+        "then": [
+          "Customer challenge is validated through the tactic's challenge framing",
+          "Audience-appropriate content is delivered and engagement is tracked",
+          "Qualifying information is generated including timeline, budget, and decision authority"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Server Cloud OS",
+          "stateName": "Positioned"
+        },
+        {
+          "alphaName": "Standardize and Modernize OS",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Cloud Migration",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Secure and Manage RHEL",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Deploy New Apps on RHEL",
+          "stateName": "Deployed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Server Cloud OS Brief",
+          "levelOfDetailName": "Content-Complete"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "OS TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Execute OS Tactic Conversation Guidance",
+          "description": "How to execute tactic-level customer challenge conversations with structured content.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Generic OS positioning fails to address the specific challenge driving the customer's technology evaluation. Each of four tactic scenarios requires tailored messaging, evidence, and demonstration content."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Tactic conversation execution follows the selected guide's structure -- opening with the customer's specific challenge, delivering audience-segmented messaging, sharing trackable evidence, and demonstrating relevant capabilities. Bidirectional navigation enables expanding to additional tactics when customer needs span scenarios."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Challenge-first conversations establish relevance before positioning RHEL, converting more effectively than product-led approaches. Engagement tracking provides data on which content resonates with the customer."
+            }
+          ],
+          "citationNames": [
+            "Standardize & Modernize OS Sales Tactic",
+            "Server/Cloud OS TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Position RHEL Competitively",
+      "description": "Build and present OS-domain competitive positioning against alternative operating systems using the competitive battle card.",
+      "activitySpaceName": "Differentiate Competitively",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Customer has identified competitive OS alternatives they are evaluating"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Server Cloud OS Domain",
+            "stateName": "Positioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "Competitive Positioning Deployment Verification",
+        "description": "Verifies that competitive positioning is deployed effectively against customer-identified alternatives.",
+        "when": [
+          "Customer raises specific competitive alternatives during OS evaluation conversations"
+        ],
+        "then": [
+          "Competitor-specific positioning is deployed from the OS battle card",
+          "RHEL differentiators are framed against the customer's decision criteria",
+          "Competitive objections are handled with evidence-based responses"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Server Cloud OS Competitive Position",
+          "stateName": "Differentiation Articulated"
+        },
+        {
+          "alphaName": "Server Cloud OS Competitive Position",
+          "stateName": "Objections Defended"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Server Cloud OS Competitive Battle Card",
+          "levelOfDetailName": "Competitors Profiled"
+        },
+        {
+          "workProductName": "Server Cloud OS Competitive Battle Card",
+          "levelOfDetailName": "Field Ready"
+        }
+      ],
+      "requiredCompetencies": [
+        "Competitive Intelligence",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "OS TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Position RHEL Competitively Guidance",
+          "description": "How to deploy OS-domain competitive positioning in customer conversations.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "OS competitive positioning requires domain-specific intelligence across multiple competitor categories -- enterprise Linux, cloud OS, community distributions, and legacy platforms -- each with distinct competitive dynamics and customer evaluation criteria."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Each competitor type presents genuine strengths -- cloud providers offer integrated OS management, community distributions offer zero licensing cost, and alternative enterprise distributions compete on specific features or regional presence."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "RHEL's competitive advantage is multi-dimensional -- market leadership, ISV certification breadth, lifecycle management, and security certifications create a layered differentiation that individual competitors cannot match across all dimensions simultaneously."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Validate RHEL Technology Fit",
+      "description": "Conduct OS-specific technical validation including workload compatibility, migration feasibility, security compliance, and performance benchmarking.",
+      "activitySpaceName": "Validate Technically",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Tactic engagement has generated customer interest in RHEL technical validation",
+          "Customer has requested proof of RHEL capabilities for their specific requirements"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Server Cloud OS Domain",
+            "stateName": "Positioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "RHEL Technical Fit Validation Verification",
+        "description": "Verifies that technical validation activities produce evidence supporting customer technology decisions.",
+        "when": [
+          "Customer agrees to technical validation activities for their OS evaluation"
+        ],
+        "then": [
+          "Workload compatibility and performance benchmarks meet or exceed customer requirements",
+          "Migration feasibility is validated for representative workloads",
+          "Security compliance is demonstrated against the customer's regulatory framework"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Server Cloud OS",
+          "stateName": "Demonstrated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Server Cloud OS Brief",
+          "levelOfDetailName": "Content-Complete"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "OS TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Validate RHEL Technology Fit Guidance",
+          "description": "How to conduct OS-specific technical validation for customer technology decisions.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "OS technology decisions require concrete proof that RHEL meets the customer's specific workload, performance, migration, and compliance requirements rather than relying on positioning content alone."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Technical validation for OS infrastructure focuses on migration feasibility (workload compatibility, coexistence strategies), performance benchmarks (versus current platform), security compliance validation (STIG, CIS, customer-specific), and operational manageability (management tooling integration, automation readiness)."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Successful technical validation produces documented evidence supporting the customer's technology decision process, with results framed in the context of the broader play-level value proposition."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Close OS Technology Decision",
+      "description": "Convert validated RHEL technical fit into a committed technology decision with subscription sizing, deployment planning, and cross-sell identification.",
+      "activitySpaceName": "Manage the Deal",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Technical validation has been completed successfully with customer requirements met"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Server Cloud OS Domain",
+            "stateName": "Demonstrated"
+          }
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Server Cloud OS",
+          "stateName": "Validated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Server Cloud OS Brief",
+          "levelOfDetailName": "Validated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Deal Orchestration",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "OS TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Close OS Technology Decision Guidance",
+          "description": "How to convert validated technical fit into a committed technology decision.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Converting a successful technical validation into a committed technology decision requires aligning subscription scope with deployment plans, identifying cross-sell opportunities, and establishing post-decision support pathways."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Decision closure includes subscription sizing aligned to deployment scope, cross-sell opportunity identification for adjacent TDPs (Automation for management at scale, Container Management for modern workloads), and post-decision enablement planning to ensure deployment success."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "A closed OS technology decision with cross-sell identification creates expansion pipeline beyond the initial RHEL deployment, while post-decision enablement ensures customer success that supports future reference story development."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Update OS Competitive Intelligence",
+      "description": "Gather, analyze, and integrate OS-domain competitive intelligence into battle card content and positioning materials.",
+      "activitySpaceName": "Differentiate Competitively",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "OS competitive landscape is dynamic with new analyst reports, competitor moves, and market developments"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Server Cloud OS Competitive Position",
+          "stateName": "Landscape Surveyed"
+        },
+        {
+          "alphaName": "Server Cloud OS Competitive Position",
+          "stateName": "Competitors Mapped"
+        },
+        {
+          "alphaName": "Server Cloud OS Competitive Position",
+          "stateName": "Market Leadership Established"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Server Cloud OS Competitive Battle Card",
+          "levelOfDetailName": "Competitors Profiled"
+        },
+        {
+          "workProductName": "Server Cloud OS Competitive Battle Card",
+          "levelOfDetailName": "Data-Validated"
+        },
+        {
+          "workProductName": "Server Cloud OS Brief",
+          "levelOfDetailName": "Credentialed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Competitive Intelligence",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "OS TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Update OS Competitive Intelligence Guidance",
+          "description": "How to maintain current OS-domain competitive intelligence across positioning materials.",
+          "narrativeTypeName": "Competitive Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Challenge",
+              "context": "The OS competitive landscape evolves continuously as cloud providers update their OS offerings, community distributions release new versions, and analyst evaluations are published. Static competitive content rapidly loses accuracy and seller confidence."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Alternative",
+              "context": "Competitors regularly adjust their OS positioning, pricing, and capabilities, requiring systematic monitoring and intelligence integration rather than ad hoc updates."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Advantage",
+              "context": "Systematic OS competitive intelligence maintenance ensures that battle card content, credential data, and positioning materials reflect current market reality, sustaining RHEL's market leadership positioning with fresh evidence."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Advance Tactic Customer Engagement",
+      "description": "Progress tactic-level customer engagement from content delivery through qualification, objection handling, and conversion for any of the four OS tactic scenarios.",
+      "activitySpaceName": "Discover Customer Needs",
+      "focusName": "Customer Value",
+      "background": {
+        "given": [
+          "Tactic content has been delivered and customer has engaged with the conversation"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Server Cloud OS Domain",
+            "stateName": "Positioned"
+          }
+        ]
+      },
+      "test": {
+        "name": "Tactic Engagement Advancement Verification",
+        "description": "Verifies that engagement progresses through qualification, objection handling, and conversion.",
+        "when": [
+          "Customer engagement progresses past initial content delivery to active evaluation"
+        ],
+        "then": [
+          "Qualifying information is generated including timeline, budget, champion, and decision criteria",
+          "Customer objections are handled with evidence from competitive battle card and positioning brief",
+          "Conversion opportunity is identified with tactic attribution for pipeline tracking"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Standardize and Modernize OS",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Standardize and Modernize OS",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "Standardize and Modernize OS",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "Cloud Migration",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Cloud Migration",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "Cloud Migration",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "Secure and Manage RHEL",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Secure and Manage RHEL",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "Secure and Manage RHEL",
+          "stateName": "Proven"
+        },
+        {
+          "alphaName": "Deploy New Apps on RHEL",
+          "stateName": "Engaged"
+        },
+        {
+          "alphaName": "Deploy New Apps on RHEL",
+          "stateName": "Converted"
+        },
+        {
+          "alphaName": "Deploy New Apps on RHEL",
+          "stateName": "Proven"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Server Cloud OS Brief",
+          "levelOfDetailName": "Content-Complete"
+        },
+        {
+          "workProductName": "Server Cloud OS Competitive Battle Card",
+          "levelOfDetailName": "Field Ready"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Technical Positioning",
+        "Competitive Intelligence",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "OS TDP Team"
+      ],
+      "narratives": [
+        {
+          "name": "Advance Tactic Customer Engagement Guidance",
+          "description": "How to progress tactic-level engagement through qualification and conversion.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Progressing from initial tactic content delivery to customer commitment requires sustained engagement through qualification, objection handling, and conversion -- activities that span all four tactic scenarios with tactic-specific content."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Engagement advancement uses qualifying discovery to assess timeline and authority, competitive battle card content to handle objections with evidence, customer references matched to the specific tactic scenario, and business case frameworks that quantify the value of the proposed approach."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Successful tactic engagement advancement produces qualified opportunities attributed to specific tactic scenarios, enabling pipeline tracking and tactic-level performance measurement that drives content optimization."
+            }
+          ],
+          "citationNames": [
+            "Server/Cloud OS TDP",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Server Cloud OS Technical Engagement Journey",
+      "description": "End-to-end lifecycle coordinating Server/Cloud OS domain positioning from landscape assessment through technology decision.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Sales Play context and OS relevance established.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Sales Play",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "Cloud Migration",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Deploy New Apps on RHEL",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Secure and Manage RHEL",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Server Cloud OS",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Landscape Surveyed"
+            },
+            {
+              "alphaName": "Standardize and Modernize OS",
+              "stateName": "Prepared"
+            }
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The Server/Cloud OS technical engagement begins when a Sales Play execution identifies the customer as having infrastructure-related technology decisions where RHEL is potentially relevant. The play's Customer Lens and TDP alignment provide the context for entering the OS domain positioning process."
+            }
+          ]
+        },
+        {
+          "name": "Assessment and Credentialing",
+          "description": "OS landscape assessed, credentials established, tactic selected.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Server Cloud OS",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Server Cloud OS",
+              "stateName": "Qualified"
+            },
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Landscape Surveyed"
+            },
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Competitors Mapped"
+            },
+            {
+              "alphaName": "Cloud Migration",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Deploy New Apps on RHEL",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Secure and Manage RHEL",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Standardize and Modernize OS",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Assess OS Technology Landscape",
+            "Establish RHEL Seller Credentials",
+            "Update OS Competitive Intelligence"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Validate",
+              "context": "The assessment phase maps the customer's OS environment, establishes RHEL credentials with market leadership evidence, and identifies which of four tactic scenarios matches the customer's primary challenge. Competitive landscape assessment prepares OS-specific differentiation content for the engagement."
+            }
+          ]
+        },
+        {
+          "name": "Tactic Engagement",
+          "description": "Tactic conversation executed with competitive positioning deployed.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Server Cloud OS",
+              "stateName": "Positioned"
+            },
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Differentiation Articulated"
+            },
+            {
+              "alphaName": "Cloud Migration",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Deploy New Apps on RHEL",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Secure and Manage RHEL",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Standardize and Modernize OS",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Execute OS Tactic Conversation",
+            "Position RHEL Competitively",
+            "Advance Tactic Customer Engagement"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Propose",
+              "context": "The tactic engagement phase delivers audience-segmented content through the selected tactic scenario, positions RHEL competitively against alternatives the customer is evaluating, and advances the conversation through qualification and objection handling toward conversion."
+            }
+          ]
+        },
+        {
+          "name": "Validation and Decision",
+          "description": "Technical fit proven and technology decision achieved.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Server Cloud OS",
+              "stateName": "Demonstrated"
+            },
+            {
+              "alphaName": "Server Cloud OS",
+              "stateName": "Validated"
+            },
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Objections Defended"
+            },
+            {
+              "alphaName": "Server Cloud OS Competitive Position",
+              "stateName": "Market Leadership Established"
+            },
+            {
+              "alphaName": "Cloud Migration",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Deploy New Apps on RHEL",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Secure and Manage RHEL",
+              "stateName": "Prepared"
+            },
+            {
+              "alphaName": "Standardize and Modernize OS",
+              "stateName": "Prepared"
+            }
+          ],
+          "activities": [
+            "Validate RHEL Technology Fit",
+            "Close OS Technology Decision",
+            "Position RHEL Competitively",
+            "Update OS Competitive Intelligence"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Negotiate",
+              "context": "Technical validation proves RHEL's fit through workload testing, migration assessment, and compliance verification. Competitive objections are resolved with evidence from the OS battle card. The technology decision is closed with subscription sizing, cross-sell identification, and post-decision enablement planning."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Close",
+              "context": "A successful technology decision generates a customer win that feeds back into the TDP's evidence base, strengthening future credential presentations and competitive positioning. Cross-sell opportunities for Automation and Container Management expand the relationship beyond OS infrastructure."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Server Cloud OS",
+      "aliasName": "Server/Cloud OS Domain"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Standardize and Modernize OS",
+      "aliasName": "Standardize & Modernize OS"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Secure and Manage RHEL",
+      "aliasName": "Secure & Manage RHEL"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Server Cloud OS Brief",
+      "aliasName": "TDP Positioning Brief (Server/Cloud OS)"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Server Cloud OS Competitive Battle Card",
+      "aliasName": "Competitive Battle Card (OS domain)"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.1"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard Server Cloud OS",
+      "description": "Reference Server Cloud OS alpha instance with customer-facing and assessment materials",
+      "alphaName": "Server Cloud OS",
+      "stateName": "Positioned",
+      "links": [
+        {
+          "name": "Server Cloud OS TDP Sales Hub Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCm3Pd773g2JgGhTp4GDRFBPqGJj"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Standard Server Cloud OS Positioning Brief",
+          "description": "Standard instance of Server Cloud OS Positioning Brief with curated enablement content",
+          "workProductName": "Server Cloud OS Brief",
+          "levelOfDetailName": "Content-Complete",
+          "links": [
+            {
+              "name": "Customer facing deck - Server_Cloud OS - CY26",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCX9M6XVVfjMB8mMDQVdjdF9hM6d"
+            },
+            {
+              "name": "Cheatsheet Server Cloud OS TDP CY26",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCMVdcphM2cDVGHFVp7X2JFQBpW8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Standard Cloud Migration",
+      "description": "Reference Cloud Migration tactic with sales enablement",
+      "alphaName": "Cloud Migration",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Cloud Migration Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DC89QXHBTcC87GFT3WfhDbXQHPHG"
+        }
+      ]
+    },
+    {
+      "name": "Standard Deploy New Apps on RHEL",
+      "description": "Reference Deploy New Apps on RHEL tactic with sales enablement",
+      "alphaName": "Deploy New Apps on RHEL",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Deploy New Apps on RHEL Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCX8qCG88PT2287XQ2CGFgH9m2md"
+        }
+      ]
+    },
+    {
+      "name": "Standard Secure and Manage RHEL",
+      "description": "Reference Secure and Manage RHEL tactic with sales enablement",
+      "alphaName": "Secure and Manage RHEL",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Secure and Manage RHEL Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCFTBqdc9D7728CJBPpmCR8GdHRB"
+        }
+      ]
+    },
+    {
+      "name": "Standard Standardize and Modernize OS",
+      "description": "Reference Standardize and Modernize OS tactic with sales enablement",
+      "alphaName": "Standardize and Modernize OS",
+      "stateName": "Prepared",
+      "links": [
+        {
+          "name": "Standardize and Modernize OS Sales Tactic Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCGBRB88TWHd4G4Gd3VHQ4d4W4F8"
+        }
+      ]
+    }
+  ]
+}

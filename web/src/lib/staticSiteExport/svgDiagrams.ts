@@ -1,5 +1,6 @@
 import type { PracticeBaseline, Asset } from "@/lib/types";
 import type { DisplayAliasFn } from "@/lib/practiceReport/generatePracticeReport";
+import { computeEdgePath, computeNodeStyle } from "@/lib/diagrams/dependencyTree";
 import type { DependencyDiagramLayout } from "@/lib/diagrams/dependencyTree";
 import { findIconAsset, renderIconHtml, collectFontCdnUrls } from "./fontIcons";
 import { GRAPH_DEPTH_LIMITS } from "@/lib/core/graphLimits";
@@ -674,35 +675,26 @@ export function generateDependencyDiagramSvg(layout: DependencyDiagramLayout): s
   }
 
   for (const edge of layout.edges) {
-    const dx = Math.abs(edge.x2 - edge.x1);
-    const dy = Math.abs(edge.y2 - edge.y1);
-    let d: string;
-    if (dx >= dy) {
-      const midX = (edge.x1 + edge.x2) / 2;
-      d = `M ${edge.x1} ${edge.y1} C ${midX} ${edge.y1}, ${midX} ${edge.y2}, ${edge.x2} ${edge.y2}`;
-    } else {
-      const midY = (edge.y1 + edge.y2) / 2;
-      d = `M ${edge.x1} ${edge.y1} C ${edge.x1} ${midY}, ${edge.x2} ${midY}, ${edge.x2} ${edge.y2}`;
-    }
     parts.push(
-      `  <path d="${d}" fill="none" stroke="rgba(102,102,102,0.6)" stroke-width="1.5" marker-end="url(#dep-arrow)" />`,
+      `  <path d="${computeEdgePath(edge)}" fill="none" stroke="rgba(102,102,102,0.6)" stroke-width="1.5" marker-end="url(#dep-arrow)" />`,
     );
   }
 
   for (const node of layout.nodes) {
-    const isBaseline = node.kind === "baselinePractice";
-    const isRoot = node.kind === "root";
-    const borderColor = isRoot || isBaseline ? "#0066cc" : "#d2d2d2";
-    const fillColor = isRoot ? "#f0f0ff" : isBaseline ? "#f5f5f5" : "#ffffff";
-    const strokeWidth = isRoot || isBaseline ? 2 : 1.5;
-    const iconColor = isBaseline || isRoot ? "#0066cc" : "#6a6e73";
+    const s = computeNodeStyle(node);
+    const lineClamp = node.version ? 1 : 2;
 
     parts.push(
-      `  <rect x="${node.x}" y="${node.y}" width="${node.width}" height="${node.height}" rx="4" ry="4" fill="${fillColor}" stroke="${borderColor}" stroke-width="${strokeWidth}" />`,
+      `  <rect x="${node.x}" y="${node.y}" width="${node.width}" height="${node.height}" rx="4" ry="4" fill="${s.fillColor}" stroke="${s.borderColor}" stroke-width="${s.strokeWidth}" />`,
       `  <foreignObject x="${node.x}" y="${node.y}" width="${node.width}" height="${node.height}">`,
       `    <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:center;gap:6px;padding:0 10px;height:100%;overflow:hidden">`,
-      `      <span style="font-size:11px;color:${iconColor};flex-shrink:0">${isBaseline || isRoot ? "&#x25A0;" : "&#x25C6;"}</span>`,
-      `      <span style="font-size:11px;font-weight:600;color:#151515;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.3" title="${escSvg(node.name)}">${escSvg(node.name)}</span>`,
+      `      <span style="font-size:11px;color:${s.iconColor};flex-shrink:0">${s.isBaselineOrRoot ? "&#x25A0;" : "&#x25C6;"}</span>`,
+      `      <div style="overflow:hidden;min-width:0">`,
+      `        <span style="font-size:11px;font-weight:600;color:#151515;overflow:hidden;display:-webkit-box;-webkit-line-clamp:${lineClamp};-webkit-box-orient:vertical;line-height:1.3" title="${escSvg(node.name)}">${escSvg(node.name)}</span>`,
+      ...(node.version ? [
+      `        <span style="display:block;font-size:9px;color:#6a6e73;line-height:1.2;margin-top:1px">v${escSvg(node.version)}</span>`,
+      ] : []),
+      `      </div>`,
       `    </div>`,
       `  </foreignObject>`,
     );

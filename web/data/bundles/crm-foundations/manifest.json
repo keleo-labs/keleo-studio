@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "2.2.0",
+  "package": {
+    "name": "crm-foundations",
+    "version": "1.1.0",
+    "description": "CRM Foundations practice for Red Hat Sales Cloud platform operations"
+  },
+  "documents": [
+    {
+      "path": "documents/red-hat-sales-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Red Hat Sales Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "A foundational baseline practice defining the core ontology for enterprise technology sales, encompassing customer value articulation, solution alignment, and sales execution lifecycle management.",
+        "tags": {
+          "domainTags": [
+            "Enterprise Sales",
+            "Subscription Economics",
+            "Value Selling",
+            "Solution Architecture",
+            "Customer Success",
+            "Competitive Intelligence",
+            "Sales Enablement"
+          ],
+          "lifecycleTags": [
+            "Discovery",
+            "Validation",
+            "Proposal",
+            "Negotiation",
+            "Closing",
+            "Renewal",
+            "Expansion"
+          ],
+          "organizationalTags": [
+            "Field Sales",
+            "Technical Sales",
+            "Sales Operations",
+            "Customer Success",
+            "Partner Channel",
+            "Sales Enablement",
+            "Go-to-Market Strategy"
+          ]
+        },
+        "keywords": [
+          "enterprise-sales",
+          "subscription-economics",
+          "value-selling",
+          "consultative-selling",
+          "pipeline-management",
+          "customer-success",
+          "competitive-positioning",
+          "solution-architecture",
+          "sales-enablement",
+          "go-to-market"
+        ],
+        "elementCount": 434,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/crm-foundations.json",
+      "documentType": "practice",
+      "documentName": "CRM Foundations",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.1.0",
+        "description": "Comprehensive CRM operational training enabling sellers to execute the Red Hat sales process within Red Hat Sales Cloud through structured deal management, qualification, account planning, and lifecycle selling workflows.",
+        "tags": {
+          "domainTags": [
+            "crm-operations",
+            "sales-process",
+            "deal-management",
+            "account-planning"
+          ],
+          "lifecycleTags": [
+            "sales-enablement",
+            "seller-onboarding",
+            "continuous-improvement"
+          ],
+          "organizationalTags": [
+            "sales-organization",
+            "revenue-operations"
+          ]
+        },
+        "keywords": [
+          "crm",
+          "salesforce",
+          "rhsc",
+          "red-hat-sales-cloud",
+          "deal-management",
+          "meddpicc",
+          "account-planning",
+          "quote-to-cash",
+          "renewal-management",
+          "seller-enablement",
+          "people-ai",
+          "sales-ai",
+          "activity-matching",
+          "engagement-dashboards",
+          "sales-assistant"
+        ],
+        "elementCount": 227,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-18",
+        "createdAt": "2026-08-13"
+      }
+    }
+  ]
+}

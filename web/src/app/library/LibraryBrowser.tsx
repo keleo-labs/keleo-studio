@@ -167,11 +167,10 @@ export function LibraryBrowser() {
     setDownloadError(null);
     setDeleteError(null);
     try {
-      // Primary source: bundle library index (covers all bundles + workspace)
-      const [indexRes, docsRes, bundlesRes] = await Promise.all([
+      const [indexRes, bundlesRes, flatRes] = await Promise.all([
         fetch("/api/library/index"),
-        fetch("/api/documents?details=1"),
         fetch("/api/bundles"),
+        fetch("/api/documents?details=1", { cache: "no-store" }),
       ]);
 
       if (!indexRes.ok) {
@@ -198,43 +197,64 @@ export function LibraryBrowser() {
         bundles?: typeof installedBundles;
       };
 
-      // Cross-reference with flat store to get document IDs (for navigator links)
-      const flatDocs: Array<{ id: string; title: string; kind: string; displayName?: string; updatedAt?: string }> = [];
-      if (docsRes.ok) {
-        const docsData = (await docsRes.json()) as { documents?: typeof flatDocs };
-        if (Array.isArray(docsData.documents)) {
-          flatDocs.push(...docsData.documents.filter((d) => d.kind !== "dashboard-config"));
+      // Flat-store documents (user-saved copies override bundle entries with the same name)
+      const flatStoreNames = new Set<string>();
+      const flatStoreItems: EnrichedMeta[] = [];
+      if (flatRes.ok) {
+        const flatData = (await flatRes.json()) as {
+          documents?: Array<{
+            id: string;
+            title: string;
+            kind: string;
+            createdAt: string;
+            updatedAt: string;
+            libraryRootKind?: LibraryRootKind;
+            displayName?: string;
+            virtualFileCount?: number;
+            libraryTags?: LibraryDocumentTags;
+          }>;
+        };
+        const allDocs = Array.isArray(flatData.documents) ? flatData.documents : [];
+        for (const doc of allDocs) {
+          if (doc.kind === "dashboard-config") continue;
+          const name = doc.displayName || doc.title || "";
+          if (name) flatStoreNames.add(name);
+          flatStoreItems.push({
+            id: doc.id,
+            title: doc.title,
+            kind: doc.kind,
+            displayName: doc.displayName || doc.title,
+            libraryRootKind: (doc.libraryRootKind as LibraryRootKind) || "unknown",
+            virtualFileCount: doc.virtualFileCount ?? 0,
+            libraryTags: doc.libraryTags ?? { domainTags: [], lifecycleTags: [], organizationalTags: [] },
+            keywords: [],
+            updatedAt: doc.updatedAt || "",
+            createdAt: doc.createdAt || "",
+          });
         }
-      }
-      const flatByName = new Map<string, (typeof flatDocs)[0]>();
-      for (const d of flatDocs) {
-        const name = (d.displayName || d.title || "").trim().toLowerCase();
-        if (name) flatByName.set(name, d);
       }
 
       const entries = Array.isArray(indexData.entries) ? indexData.entries : [];
-      setItems(
-        entries.map((e) => {
-          const nameKey = e.name.trim().toLowerCase();
-          const flat = flatByName.get(nameKey);
-          return {
-            id: flat?.id ?? `bundle:${e.activeBundleSlug}/${e.activeDocumentPath}`,
-            title: e.name,
-            kind: e.documentType,
-            displayName: e.name,
-            libraryRootKind: e.documentType,
-            virtualFileCount: e.elementCount,
-            libraryTags: e.tags ?? { domainTags: [], lifecycleTags: [], organizationalTags: [] },
-            keywords: e.keywords ?? [],
-            updatedAt: flat?.updatedAt || e.updatedAt || "",
-            createdAt: e.createdAt || "",
-            activeVersion: e.activeVersion,
-            availableVersions: e.versions.map((v) => v.version),
-            bundleSlug: e.activeBundleSlug,
-            bundleDocumentPath: e.activeDocumentPath,
-          };
-        }),
-      );
+      const bundleItems: EnrichedMeta[] = entries
+        .filter((e) => !flatStoreNames.has(e.name))
+        .map((e) => ({
+          id: `bundle:${e.activeBundleSlug}/${e.activeDocumentPath}`,
+          title: e.name,
+          kind: e.documentType,
+          displayName: e.name,
+          libraryRootKind: e.documentType,
+          virtualFileCount: e.elementCount,
+          libraryTags: e.tags ?? { domainTags: [], lifecycleTags: [], organizationalTags: [] },
+          keywords: e.keywords ?? [],
+          updatedAt: e.updatedAt || "",
+          createdAt: e.createdAt || "",
+          activeVersion: e.activeVersion,
+          availableVersions: e.versions.map((v) => v.version),
+          bundleSlug: e.activeBundleSlug,
+          bundleDocumentPath: e.activeDocumentPath,
+        }));
+
+      setItems([...flatStoreItems, ...bundleItems]);
 
       // Set installed bundles for sidebar
       if (bundlesRes.ok) {

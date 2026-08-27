@@ -1,0 +1,1177 @@
+{
+  "kind": "practice",
+  "name": "Organizational Evolution & Sensing",
+  "description": "Organizational design framework enabling continuous topology adaptation through sensing mechanisms and platform as product approach.",
+  "baselinePracticeName": "Platform Adoption Essentials",
+  "version": "1.0.1",
+  "authors": [
+    "Claude (Sonnet 4.5)",
+    "Team Topologies Framework"
+  ],
+  "createdAt": "2026-07-10T00:00:00Z",
+  "updatedAt": "2026-08-16",
+  "keywords": [
+    "organizational sensing",
+    "organizational change",
+    "cognitive load",
+    "platform as product",
+    "organizational evolution",
+    "cybernetic feedback"
+  ],
+  "tags": {
+    "domainTags": [
+      "Organizational Design",
+      "Platform Engineering"
+    ],
+    "lifecycleTags": [
+      "Evolution",
+      "Optimization"
+    ],
+    "organizationalTags": [
+      "Executive Leadership",
+      "Platform Team"
+    ]
+  },
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Organizational Sensing",
+      "aliasName": "Sensing"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Opportunity",
+      "description": "The foundational business drivers dictating the platform transformation.",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "opportunity-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "identified by",
+          "alphaName": "Stakeholders",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Initiated",
+          "description": "The desire to adopt a platform is identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Organizational bottlenecks identified",
+              "description": "Team dependencies and wait times creating flow constraints recognized."
+            },
+            {
+              "seq": 2,
+              "name": "Cognitive load concerns surfaced",
+              "description": "Teams reporting overwhelm due to excessive responsibilities."
+            }
+          ]
+        },
+        {
+          "name": "Determined",
+          "description": "The value and parameters of the platform are quantified.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Current topology assessed",
+              "description": "Existing team structure mapped against four fundamental types."
+            },
+            {
+              "seq": 2,
+              "name": "Flow metrics baselined",
+              "description": "Deployment frequency, lead time, dependency wait times measured."
+            }
+          ]
+        },
+        {
+          "name": "Value Established",
+          "description": "The platform's value is accepted by sponsors.",
+          "seq": 3,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "ROI model approved",
+              "description": "Business case showing productivity gains from topology optimization accepted."
+            }
+          ]
+        },
+        {
+          "name": "Viable",
+          "description": "The business case demonstrates a viable return.",
+          "seq": 4,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Topology evolution budget secured",
+              "description": "Funding for team restructuring and platform capabilities allocated."
+            }
+          ]
+        },
+        {
+          "name": "Addressed",
+          "description": "The opportunity is actively being addressed by the platform.",
+          "seq": 5,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Fast flow improvements measured",
+              "description": "Deployment frequency increasing, dependency wait times decreasing."
+            },
+            {
+              "seq": 2,
+              "name": "Cognitive load reduction demonstrated",
+              "description": "Team effectiveness surveys showing 25%+ context switching reduction."
+            }
+          ]
+        },
+        {
+          "name": "Benefit Accrued",
+          "description": "The expected benefits are being consistently realized.",
+          "seq": 6,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Sustained productivity gains",
+              "description": "20%+ productivity improvements maintained over multiple quarters."
+            },
+            {
+              "seq": 2,
+              "name": "Organizational agility competitive advantage",
+              "description": "Topology evolution capability recognized as strategic differentiator."
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Platform",
+      "description": "The runtime foundation on which workloads execute.",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "platform-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "built by",
+          "alphaName": "Team",
+          "direction": "incoming"
+        }
+      ],
+      "states": [
+        {
+          "name": "Architecture Selected",
+          "description": "The foundational structural boundaries, hosting paradigms, and technical strategies are formally selected and agreed upon by enterprise architecture.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Should this exist questioned",
+              "description": "Most critical platform question asked - does this justify existence through cognitive load reduction?"
+            },
+            {
+              "seq": 2,
+              "name": "Platform as product recognized",
+              "description": "Stream-aligned teams identified as platform customers."
+            }
+          ]
+        },
+        {
+          "name": "Baselined",
+          "description": "Core capabilities, shared services, and network perimeters are logically mapped, with constraints and integration points clearly defined.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Cognitive load reduction scoped",
+              "description": "Platform capabilities prioritized by stream team mental bandwidth relief."
+            },
+            {
+              "seq": 2,
+              "name": "DevEx prioritized",
+              "description": "Developer experience as primary design driver for platform services."
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "The foundational infrastructure and shared environments have been instantiated and are ready to support integration, though not yet accepting live production workloads.",
+          "seq": 3,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Self-service capabilities available",
+              "description": "Stream teams can provision, monitor, deploy without tickets."
+            }
+          ]
+        },
+        {
+          "name": "Ready",
+          "description": "The platform is fully operational, resilient, and successfully integrated with consumption interfaces, enabling autonomous developer self-service.",
+          "seq": 4,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Adoption measured",
+              "description": "Platform tracking which teams using which capabilities."
+            },
+            {
+              "seq": 2,
+              "name": "25% context switching reduction",
+              "description": "Measurable cognitive load relief demonstrated."
+            }
+          ]
+        },
+        {
+          "name": "Hosting Assets",
+          "description": "The platform is actively, securely, and reliably supporting external application workloads serving live enterprise traffic.",
+          "seq": 5,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "20% productivity improvement",
+              "description": "Overall stream team productivity gains demonstrated."
+            },
+            {
+              "seq": 2,
+              "name": "ROI clearly demonstrated",
+              "description": "Business value of platform investment measurable."
+            }
+          ]
+        },
+        {
+          "name": "Evolving",
+          "description": "The platform architecture autonomously adapts using predictive scaling and continuous feedback, while obsolete legacy capabilities are gracefully decoupled and decommissioned.",
+          "seq": 6,
+          "checklist": []
+        },
+        {
+          "name": "Retiring",
+          "description": "The platform is being systematically decommissioned, with workloads migrated to alternative platforms and infrastructure safely removed.",
+          "seq": 7,
+          "checklist": []
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Organizational Sensing",
+      "description": "Feedback mechanisms enabling continuous topology adaptation through teams as sensors.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "org-sensing-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "provides feedback to",
+          "alphaName": "Team",
+          "direction": "outgoing"
+        }
+      ],
+      "states": [
+        {
+          "name": "Static Organization",
+          "description": "Team structure fixed with no feedback mechanisms for adjustment.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Permanent boundaries",
+              "description": "Team structure unchanging regardless of evolving needs."
+            },
+            {
+              "seq": 2,
+              "name": "No systematic gathering",
+              "description": "Team effectiveness signals not collected methodically."
+            }
+          ]
+        },
+        {
+          "name": "Ad Hoc Adjustments",
+          "description": "Topology changes made reactively without systematic sensing.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Reactive changes",
+              "description": "Adjustments when problems become severe, not proactive."
+            },
+            {
+              "seq": 2,
+              "name": "Structure impact recognized",
+              "description": "Awareness that organization design affects effectiveness."
+            }
+          ]
+        },
+        {
+          "name": "Teams as Sensors Established",
+          "description": "Mechanisms capture team performance and interaction patterns as signals.",
+          "seq": 3,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Team metrics monitored",
+              "description": "Velocity, deployment frequency, dependencies tracked per team."
+            },
+            {
+              "seq": 2,
+              "name": "Operational feedback loops",
+              "description": "Production metrics flow to development."
+            }
+          ]
+        },
+        {
+          "name": "Trigger-Based Evolution",
+          "description": "Specific signals trigger planned topology adjustments.",
+          "seq": 4,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Capacity exceedance triggers splits",
+              "description": "Software exceeding team capacity prompts team division."
+            },
+            {
+              "seq": 2,
+              "name": "Small incremental changes",
+              "description": "Monthly adjustments replace annual reorganizations."
+            }
+          ]
+        },
+        {
+          "name": "Cybernetic Self-Steering",
+          "description": "Organization predictably adapts through continuous sensing and adjustment.",
+          "seq": 5,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Operational feedback drives priorities",
+              "description": "Production signals systematically inform development roadmaps."
+            },
+            {
+              "seq": 2,
+              "name": "Architecture co-evolution",
+              "description": "Software and organization structures evolve together continuously."
+            }
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Organizational Sensing Report",
+      "description": "Analysis of team performance signals and topology evolution triggers.",
+      "tags": {
+        "domainTags": [
+          "Organizational Design"
+        ],
+        "lifecycleTags": [
+          "Evolution"
+        ],
+        "organizationalTags": [
+          "Executive Leadership"
+        ]
+      },
+      "levelsOfDetail": [
+        {
+          "name": "Anecdotal Observations",
+          "description": "Ad hoc notes on team effectiveness issues.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Informal complaints documented",
+              "description": "Notes on dependencies or bottlenecks captured informally."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Organizational Sensing",
+              "stateName": "Static Organization"
+            }
+          ]
+        },
+        {
+          "name": "Periodic Metrics Review",
+          "description": "Regular collection of basic team performance metrics.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Deployment frequency tracked",
+              "description": "How often teams deploy to production measured."
+            },
+            {
+              "seq": 2,
+              "name": "Quarterly retrospectives",
+              "description": "Regular review sessions conducted with teams."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Organizational Sensing",
+              "stateName": "Ad Hoc Adjustments"
+            }
+          ]
+        },
+        {
+          "name": "Trigger-Based Assessment",
+          "description": "Systematic monitoring for specific evolution triggers.",
+          "seq": 3,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Capacity exceedance detected",
+              "description": "Software complexity exceeding team capacity identified."
+            },
+            {
+              "seq": 2,
+              "name": "Triggers documented",
+              "description": "Thresholds defined for topology evolution decisions."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Organizational Sensing",
+              "stateName": "Teams as Sensors Established"
+            }
+          ]
+        },
+        {
+          "name": "Cybernetic Feedback System",
+          "description": "Continuous sensing with operational feedback loops.",
+          "seq": 4,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Teams function as sensors",
+              "description": "Regular reporting from teams on effectiveness and capacity."
+            },
+            {
+              "seq": 2,
+              "name": "Monthly adjustments",
+              "description": "Small topology changes made based on signals monthly."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Organizational Sensing",
+              "stateName": "Trigger-Based Evolution"
+            }
+          ]
+        },
+        {
+          "name": "Predictive Intelligence",
+          "description": "Advanced analytics predicting topology evolution needs.",
+          "seq": 5,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Pattern recognition enabled",
+              "description": "Analytics identify patterns predicting effectiveness issues."
+            },
+            {
+              "seq": 2,
+              "name": "Self-steering within boundaries",
+              "description": "Topology adjustments occur automatically within governance guardrails."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Organizational Sensing",
+              "stateName": "Cybernetic Self-Steering"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Platform as Product Charter",
+      "description": "Definition of platform mission, customers, and product approach.",
+      "tags": {
+        "domainTags": [
+          "Platform Engineering"
+        ],
+        "lifecycleTags": [
+          "Adoption"
+        ],
+        "organizationalTags": [
+          "Platform Team"
+        ]
+      },
+      "levelsOfDetail": [
+        {
+          "name": "Technology Mission",
+          "description": "Platform defined by technology to deliver.",
+          "seq": 1,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Technology focus stated",
+              "description": "Mission statement focuses on tools and infrastructure."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Architecture Selected"
+            }
+          ]
+        },
+        {
+          "name": "Customer Recognition",
+          "description": "Platform acknowledges stream teams as customers.",
+          "seq": 2,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Stream teams identified",
+              "description": "Stream-aligned teams explicitly recognized as platform customers."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Architecture Selected"
+            }
+          ]
+        },
+        {
+          "name": "Product Discipline Charter",
+          "description": "Platform applies product management with clear value proposition.",
+          "seq": 3,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Product mission articulated",
+              "description": "Clear statement of developer problem solving as platform purpose."
+            },
+            {
+              "seq": 2,
+              "name": "Success metrics include adoption",
+              "description": "Platform success measured by adoption rates and DevEx."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Baselined"
+            }
+          ]
+        },
+        {
+          "name": "Value-Driven Product",
+          "description": "Platform measurably optimizes for customer and business value.",
+          "seq": 4,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Cognitive load reduction quantified",
+              "description": "Measurable reduction in context switching demonstrated."
+            },
+            {
+              "seq": 2,
+              "name": "Productivity impact measured",
+              "description": "20%+ improvement in team productivity documented."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            }
+          ]
+        },
+        {
+          "name": "Strategic Business Platform",
+          "description": "Platform integral to business strategy with demonstrable impact.",
+          "seq": 5,
+          "checklist": [
+            {
+              "seq": 1,
+              "name": "Superlinear impact achieved",
+              "description": "Platform enables disproportionate value compared to team size."
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "activitySpaces": [
+    {
+      "name": "Support the Team",
+      "description": "Define clear team interaction modes, establish X-as-a-Service boundaries, and continuously assess cognitive load using Team Topologies principles.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "structure-organizational-topologies-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Team",
+          "stateName": "Formed"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Collaborating"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Performing"
+        }
+      ],
+      "requiredCompetencies": [
+        "Leadership",
+        "Management"
+      ],
+      "activities": [
+        {
+          "name": "Establish Organizational Sensing",
+          "description": "Create feedback mechanisms enabling continuous topology adaptation through team performance signals.",
+          "assetNames": [
+            {
+              "assetName": "assess-activity-icon",
+              "type": "icon"
+            }
+          ],
+          "tags": {
+            "domainTags": [
+              "Organizational Design"
+            ],
+            "lifecycleTags": [
+              "Evolution"
+            ],
+            "organizationalTags": [
+              "Executive Leadership"
+            ]
+          },
+          "contributesTo": [
+            {
+              "alphaName": "Organizational Sensing",
+              "stateName": "Teams as Sensors Established"
+            },
+            {
+              "alphaName": "Organizational Sensing",
+              "stateName": "Trigger-Based Evolution"
+            },
+            {
+              "alphaName": "Organizational Change",
+              "stateName": "Strategized"
+            }
+          ],
+          "focusName": "Endeavor",
+          "requiredCompetencies": [
+            "Leadership",
+            "Management"
+          ],
+          "recommendedCompetencyLevels": [
+            {
+              "competencyName": "Leadership",
+              "competencyLevelName": "Masters"
+            },
+            {
+              "competencyName": "Management",
+              "competencyLevelName": "Applies"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "Organizational Sensing Report",
+              "levelOfDetailName": "Cybernetic Feedback System"
+            }
+          ]
+        },
+        {
+          "name": "Build Thinnest Viable Platform",
+          "description": "Create minimal platform capabilities that measurably accelerate stream teams without excessive complexity.",
+          "assetNames": [
+            {
+              "assetName": "design-activity-icon",
+              "type": "icon"
+            }
+          ],
+          "tags": {
+            "domainTags": [
+              "Platform Engineering"
+            ],
+            "lifecycleTags": [
+              "Adoption"
+            ],
+            "organizationalTags": [
+              "Platform Team"
+            ]
+          },
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            }
+          ],
+          "focusName": "Solution",
+          "requiredCompetencies": [
+            "Engineering",
+            "Management"
+          ],
+          "recommendedCompetencyLevels": [
+            {
+              "competencyName": "Engineering",
+              "competencyLevelName": "Masters"
+            },
+            {
+              "competencyName": "Management",
+              "competencyLevelName": "Applies"
+            }
+          ],
+          "worksOn": [
+            {
+              "workProductName": "Platform as Product Charter",
+              "levelOfDetailName": "Product Discipline Charter"
+            }
+          ]
+        }
+      ],
+      "kind": "activitySpace"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Establish Organizational Sensing",
+      "description": "Create feedback mechanisms enabling continuous topology adaptation through team performance signals.",
+      "activitySpaceName": "Support the Team",
+      "assetNames": [
+        {
+          "assetName": "assess-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Organizational Design"
+        ],
+        "lifecycleTags": [
+          "Evolution"
+        ],
+        "organizationalTags": [
+          "Executive Leadership"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Organizational Sensing",
+          "stateName": "Teams as Sensors Established"
+        },
+        {
+          "alphaName": "Organizational Sensing",
+          "stateName": "Trigger-Based Evolution"
+        }
+      ],
+      "focusName": "Endeavor",
+      "requiredCompetencies": [
+        "Leadership",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Organizational Sensing Report",
+          "levelOfDetailName": "Cybernetic Feedback System"
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Build Thinnest Viable Platform",
+      "description": "Create minimal platform capabilities that measurably accelerate stream teams without excessive complexity.",
+      "activitySpaceName": "Support the Team",
+      "assetNames": [
+        {
+          "assetName": "design-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Platform Engineering"
+        ],
+        "lifecycleTags": [
+          "Adoption"
+        ],
+        "organizationalTags": [
+          "Platform Team"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Provisioned"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Ready"
+        }
+      ],
+      "focusName": "Solution",
+      "requiredCompetencies": [
+        "Engineering",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Platform as Product Charter",
+          "levelOfDetailName": "Product Discipline Charter"
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Organizational Change Leader",
+      "description": "Executive or senior leader responsible for driving organizational transformation.",
+      "tags": {
+        "domainTags": [
+          "Organizational Design"
+        ],
+        "lifecycleTags": [
+          "Evolution"
+        ],
+        "organizationalTags": [
+          "Executive Leadership"
+        ]
+      },
+      "competencies": [
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "kind": "persona"
+    },
+    {
+      "name": "Platform Product Manager",
+      "description": "Product manager treating internal platform as product with stream teams as customers.",
+      "tags": {
+        "domainTags": [
+          "Platform Engineering"
+        ],
+        "lifecycleTags": [
+          "Adoption"
+        ],
+        "organizationalTags": [
+          "Platform Team"
+        ]
+      },
+      "competencies": [
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Platform Strategic Alignment",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Leadership Team",
+      "description": "Executive and senior leaders driving organizational evolution.",
+      "personaNames": [
+        "Organizational Change Leader"
+      ],
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Platform Team",
+      "description": "Team providing self-service capabilities to accelerate stream-aligned teams.",
+      "personaNames": [
+        "Platform Product Manager"
+      ],
+      "kind": "personaGroup"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Organizational Evolution Journey",
+      "description": "Multi-phase pattern coordinating organizational transformation from static hierarchies to cybernetic self-steering.",
+      "tags": {
+        "domainTags": [
+          "Organizational Design"
+        ],
+        "lifecycleTags": [
+          "Evolution"
+        ],
+        "organizationalTags": [
+          "Executive Leadership"
+        ]
+      },
+      "patternViews": [
+        {
+          "name": "Static Organization",
+          "description": "Starting state with fixed hierarchical teams.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Organizational Sensing",
+              "stateName": "Static Organization"
+            },
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Architecture Selected"
+            }
+          ],
+          "activities": [
+            "Establish Organizational Sensing"
+          ]
+        },
+        {
+          "name": "Sensing Mechanisms",
+          "description": "Teams as sensors with systematic performance metric collection.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Organizational Sensing",
+              "stateName": "Teams as Sensors Established"
+            },
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Architecture Selected"
+            }
+          ],
+          "activities": [
+            "Establish Organizational Sensing"
+          ]
+        },
+        {
+          "name": "Trigger-Based Evolution",
+          "description": "Small incremental topology changes driven by signals.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Organizational Sensing",
+              "stateName": "Trigger-Based Evolution"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            },
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            }
+          ],
+          "activities": [
+            "Establish Organizational Sensing",
+            "Build Thinnest Viable Platform"
+          ]
+        },
+        {
+          "name": "Cybernetic Self-Steering",
+          "description": "Mature organization with predictable adaptation.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Organizational Sensing",
+              "stateName": "Cybernetic Self-Steering"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            },
+            {
+              "alphaName": "Opportunity",
+              "stateName": "Initiated"
+            }
+          ],
+          "activities": [
+            "Establish Organizational Sensing"
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "citations": [
+    {
+      "name": "Team Topologies Book",
+      "description": "Foundational book on organizing teams for fast flow",
+      "authors": [
+        "Matthew Skelton",
+        "Manuel Pais"
+      ],
+      "date": "2019",
+      "source": "IT Revolution Press",
+      "url": "https://teamtopologies.com/book",
+      "kind": "citation"
+    },
+    {
+      "name": "Team Topologies Key Concepts",
+      "description": "Website documentation of core Team Topologies framework elements",
+      "authors": [
+        "Matthew Skelton",
+        "Manuel Pais"
+      ],
+      "date": "2025",
+      "source": "Team Topologies",
+      "url": "https://teamtopologies.com/key-concepts",
+      "kind": "citation"
+    },
+    {
+      "name": "Team Topologies Book Chapter 8",
+      "description": "Chapter on organizational sensing and evolution",
+      "authors": [
+        "Matthew Skelton",
+        "Manuel Pais"
+      ],
+      "date": "2019",
+      "source": "IT Revolution Press - Chapter 8",
+      "kind": "citation"
+    },
+    {
+      "name": "DevOps Handbook",
+      "description": "Comprehensive guide to DevOps practices including The Three Ways",
+      "authors": [
+        "Gene Kim",
+        "Jez Humble",
+        "Patrick Debois",
+        "John Willis"
+      ],
+      "date": "2016",
+      "source": "IT Revolution Press",
+      "kind": "citation"
+    },
+    {
+      "name": "Platform Engineering Approach",
+      "description": "Integration of Team Topologies with platform engineering strategy",
+      "authors": [
+        "Matthew Skelton",
+        "Manuel Pais"
+      ],
+      "date": "2026",
+      "source": "Team Topologies",
+      "url": "https://teamtopologies.com/platform-engineering",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "org-change-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-turn-to-dots",
+      "fontWeight": "900"
+    },
+    {
+      "name": "opportunity-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lightbulb",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "org-sensing-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "structure-organizational-topologies-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-sitemap",
+      "fontWeight": "900"
+    },
+    {
+      "name": "assess-activity-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-activity-icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-pencil-ruler",
+      "fontWeight": "900"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Platform Adoption Essentials",
+      "versionRange": "^2.0.1"
+    }
+  ]
+}

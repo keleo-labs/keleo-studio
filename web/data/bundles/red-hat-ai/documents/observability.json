@@ -1,0 +1,3074 @@
+{
+  "kind": "practice",
+  "name": "Observability",
+  "description": "Comprehensive monitoring, logging, and tracing for operational visibility and decision-making.",
+  "baselinePracticeName": "IDP Essentials",
+  "tags": {
+    "domainTags": [
+      "Observability",
+      "Monitoring",
+      "SRE",
+      "Operations"
+    ],
+    "lifecycleTags": [
+      "Operate",
+      "Optimize"
+    ],
+    "organizationalTags": [
+      "SRE",
+      "Platform Engineering",
+      "Operations"
+    ]
+  },
+  "keywords": [
+    "prometheus",
+    "grafana",
+    "alertmanager",
+    "opentelemetry",
+    "OTEL",
+    "tempo",
+    "loki",
+    "logging operator",
+    "cluster observability operator",
+    "COO",
+    "SLI",
+    "SLO",
+    "error budget",
+    "distributed tracing",
+    "metrics",
+    "alerting",
+    "PrometheusRule",
+    "ServiceMonitor",
+    "ClusterLogForwarder"
+  ],
+  "authors": [
+    "Red Hat"
+  ],
+  "createdAt": "2026-07-14",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.1",
+  "citations": [
+    {
+      "name": "Guide to Observability with Red Hat OpenShift 4.18",
+      "description": "Comprehensive guide to OpenShift observability stack covering monitoring, logging, and tracing capabilities.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/guide-observability-red-hat-openshift-418",
+      "kind": "citation"
+    },
+    {
+      "name": "Enhanced Observability in Red Hat OpenShift 4.16",
+      "description": "New observability features including Cluster Observability Operator and enhanced UI plugins.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2024",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/enhanced-observability-in-red-hat-openshift-4.16",
+      "kind": "citation"
+    },
+    {
+      "name": "What's New in Red Hat OpenShift Monitoring 4.14, Logging 5.8, and Distributed Tracing 2.9",
+      "description": "Updates to observability stack including multi-tenant monitoring and OpenTelemetry enhancements.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2023",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/whats-new-in-red-hat-openshift-monitoring-4.14-logging-5.8-and-distributed-tracing-2.9",
+      "kind": "citation"
+    },
+    {
+      "name": "Operating OpenShift the SRE Way",
+      "description": "SRE practices including symptom-based alerting, SLOs, and error budget management.",
+      "authors": [
+        "Red Hat Developer"
+      ],
+      "date": "2023",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2023/12/28/operating-openshift-sre-way",
+      "kind": "citation"
+    }
+  ],
+  "narrativeTypes": [
+    {
+      "name": "Technique",
+      "description": "Practical implementation guidance structured as overview, technique steps, and common pitfalls.",
+      "narrativeElements": [
+        {
+          "name": "Overview",
+          "description": "High-level summary of the technique and its purpose.",
+          "howToUse": "Provide a 1-2 sentence overview of what the technique accomplishes and why it matters."
+        },
+        {
+          "name": "Technique",
+          "description": "Step-by-step implementation guidance.",
+          "howToUse": "Detail the specific technical steps, tools, and configurations required to implement the technique."
+        },
+        {
+          "name": "Common Pitfalls",
+          "description": "Frequent mistakes and how to avoid them.",
+          "howToUse": "List 2-3 common mistakes practitioners make and provide guidance on how to avoid them."
+        }
+      ],
+      "kind": "narrativeType"
+    }
+  ],
+  "assets": [
+    {
+      "name": "observability-stack-icon",
+      "description": "Observability stack monitoring icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "centralized-logging-icon",
+      "description": "Centralized logging icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-lines",
+      "fontWeight": "900"
+    },
+    {
+      "name": "distributed-tracing-icon",
+      "description": "Distributed tracing icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-route",
+      "fontWeight": "900"
+    },
+    {
+      "name": "unified-observability-icon",
+      "description": "Unified observability platform icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-layer-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "platform-icon",
+      "description": "Platform infrastructure icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-icon",
+      "description": "Team collaboration icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users",
+      "fontWeight": "900"
+    },
+    {
+      "name": "monitoring-activity-icon",
+      "description": "Configure cluster monitoring activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "tracing-activity-icon",
+      "description": "Configure distributed tracing activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-diagram-project",
+      "fontWeight": "900"
+    },
+    {
+      "name": "logging-activity-icon",
+      "description": "Deploy centralized logging activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-server",
+      "fontWeight": "900"
+    },
+    {
+      "name": "instrumentation-activity-icon",
+      "description": "Instrument applications activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "cluster-observability-activity-icon",
+      "description": "Deploy Cluster Observability Operator activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-layer-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "slo-activity-icon",
+      "description": "Define SLIs and SLOs activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullseye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "dashboard-icon",
+      "description": "Monitoring dashboard icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-area",
+      "fontWeight": "900"
+    },
+    {
+      "name": "alert-icon",
+      "description": "Alert configuration icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bell",
+      "fontWeight": "900"
+    },
+    {
+      "name": "observability-pillars-diagram",
+      "description": "Visual diagram showing three pillars of observability and their correlation",
+      "type": "diagram",
+      "url": "https://www.redhat.com/en/blog/guide-observability-red-hat-openshift-418"
+    },
+    {
+      "name": "openshift-observability-architecture",
+      "description": "Official OpenShift observability architecture diagram showing monitoring stack components",
+      "type": "diagram",
+      "url": "https://www.redhat.com/en/blog/guide-observability-red-hat-openshift-418"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Monitoring Dashboard",
+      "aliasName": "Observability Dashboard"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Alert Configuration",
+      "aliasName": "PrometheusRule"
+    },
+    {
+      "practiceElementType": "Persona",
+      "practiceElementName": "Site Reliability Engineer",
+      "aliasName": "Platform Operator"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Log Forwarding Configuration",
+      "aliasName": "ClusterLogForwarder"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Trace Instrumentation Code",
+      "aliasName": "OpenTelemetry Instrumentation"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Configure Cluster Monitoring and Alerting",
+      "aliasName": "Configure Prometheus Stack"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Platform",
+      "description": "The unified system of infrastructure, compute resources, networking, storage, and foundational services that provide the technical foundation for hosting and operating platform assets.",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "platform-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Architecture Selected",
+          "description": "Foundational structural boundaries and technical strategies are formally selected.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Baselined",
+          "description": "Core capabilities and network perimeters are logically mapped.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Provisioned",
+          "description": "Foundational infrastructure instantiated and ready to support integration.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Built-in monitoring stack operational",
+              "description": "Prometheus, AlertManager, and Grafana deployed and collecting cluster metrics.",
+              "seq": 1
+            },
+            {
+              "name": "Default cluster metrics collection verified",
+              "description": "Default cluster metrics collection confirmed operational.",
+              "seq": 2
+            },
+            {
+              "name": "Basic alerting configured",
+              "description": "Basic alerting configured for cluster operator health.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Ready",
+          "description": "Platform fully operational and integrated with consumption interfaces.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "User workload monitoring enabled",
+              "description": "User workload monitoring enabled for application metrics.",
+              "seq": 1
+            },
+            {
+              "name": "Log forwarding configured",
+              "description": "Log forwarding configured to external destination or internal storage.",
+              "seq": 2
+            },
+            {
+              "name": "Custom metric endpoints discoverable",
+              "description": "Custom metric endpoints discoverable via ServiceMonitor.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Hosting Assets",
+          "description": "Platform actively supporting application workloads serving enterprise traffic.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Application-level SLO-based alerts configured",
+              "description": "Application-level SLO-based alerts configured and routing correctly.",
+              "seq": 1
+            },
+            {
+              "name": "Distributed tracing operational",
+              "description": "Distributed tracing operational for multi-service request flows.",
+              "seq": 2
+            },
+            {
+              "name": "Long-term metrics retention via Thanos",
+              "description": "Long-term metrics retention via Thanos for historical analysis.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Evolving",
+          "description": "Platform architecture adapts using predictive scaling and feedback.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Cluster Observability Operator deployed",
+              "description": "Cluster Observability Operator deployed with multi-tenant stacks.",
+              "seq": 1
+            },
+            {
+              "name": "AI-assisted analysis integrated",
+              "description": "AI-assisted analysis via OpenShift Lightspeed integrated for trace troubleshooting.",
+              "seq": 2
+            },
+            {
+              "name": "Power monitoring enabled",
+              "description": "Power monitoring enabled for sustainability metrics on bare-metal deployments.",
+              "seq": 3
+            },
+            {
+              "name": "Network observability active",
+              "description": "Network observability with User Defined Networks support active.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Retiring",
+          "description": "The platform is being systematically decommissioned.",
+          "seq": 7,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Platform Observability Evolution",
+          "description": "Platform observability maturity parallels infrastructure evolution.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Platform observability maturity parallels infrastructure evolution from basic metrics to unified multi-signal correlation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Built-in monitoring provides foundation, centralized logging enables troubleshooting, distributed tracing reveals microservice interactions, multi-tenant isolation supports team autonomy."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Comprehensive observability transforms reactive firefighting into proactive optimization and data-driven decision-making."
+            }
+          ],
+          "citationNames": [
+            "Guide to Observability with Red Hat OpenShift 4.18"
+          ]
+        },
+        {
+          "name": "Practice Intent",
+          "description": "Observability practice progression from basic monitoring to unified multi-tenant platform.",
+          "narrativeTypeName": "Build-Measure-Learn",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "Deploy monitoring, logging, and tracing infrastructure to instrument platform and applications."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Measure",
+              "context": "Define Service Level Indicators, implement alerting, and track error budgets aligned to customer experience."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Learn",
+              "context": "Analyze distributed traces, correlate signals, and apply AI-assisted insights for continuous optimization."
+            }
+          ],
+          "citationNames": [
+            "Guide to Observability with Red Hat OpenShift 4.18",
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Team",
+      "description": "The group of individuals responsible for the platform's success.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "team-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Seeded",
+          "description": "Initial team members are identified.",
+          "seq": 1,
+          "checklist": []
+        },
+        {
+          "name": "Formed",
+          "description": "The team structure is established.",
+          "seq": 2,
+          "checklist": []
+        },
+        {
+          "name": "Collaborating",
+          "description": "Team members work together effectively.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Team understands three pillars of observability",
+              "description": "Team members understand three pillars of observability: metrics, logs, traces.",
+              "seq": 1
+            },
+            {
+              "name": "Shared responsibility for alert response",
+              "description": "Shared responsibility for alert response and dashboard creation.",
+              "seq": 2
+            },
+            {
+              "name": "Regular review of dashboards and alert fatigue",
+              "description": "Regular review of dashboards and alert fatigue reduction.",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Performing",
+          "description": "The team consistently delivers value.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "SRE practices adopted",
+              "description": "SRE practices adopted: SLIs defined, SLOs agreed, error budgets tracked.",
+              "seq": 1
+            },
+            {
+              "name": "Symptom-based alerting eliminates noise",
+              "description": "Symptom-based alerting eliminates cause-based noise.",
+              "seq": 2
+            },
+            {
+              "name": "Observability instrumentation integrated into workflow",
+              "description": "Observability instrumentation integrated into standard development workflow.",
+              "seq": 3
+            },
+            {
+              "name": "Post-incident reviews use observability data",
+              "description": "Post-incident reviews use observability data for root cause analysis.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Adjourned",
+          "description": "The team is disbanded or repurposed.",
+          "seq": 5,
+          "checklist": []
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Observability Stack",
+      "description": "Integrated monitoring, logging, and tracing infrastructure providing visibility into system behavior.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "provides feedback to",
+          "alphaName": "Team",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "validates",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "evidences",
+          "alphaName": "Requirements",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "observability-stack-icon",
+          "type": "icon"
+        },
+        {
+          "assetName": "observability-pillars-diagram",
+          "type": "diagram"
+        },
+        {
+          "assetName": "openshift-observability-architecture",
+          "type": "diagram"
+        }
+      ],
+      "states": [
+        {
+          "name": "Configured",
+          "description": "Monitoring, logging, and tracing infrastructure deployed with baseline configuration.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Prometheus and AlertManager deployed",
+              "description": "Prometheus and AlertManager deployed and collecting cluster metrics.",
+              "seq": 1
+            },
+            {
+              "name": "Grafana accessible with default dashboards",
+              "description": "Grafana accessible with default dashboards.",
+              "seq": 2
+            },
+            {
+              "name": "OpenShift Logging operator installed",
+              "description": "OpenShift Logging operator installed with default configuration.",
+              "seq": 3
+            },
+            {
+              "name": "Thanos enabled for historical retention",
+              "description": "Thanos enabled for historical metric retention.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Operational",
+          "description": "Observability stack collecting telemetry from platform and user workloads.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "User workload monitoring enabled",
+              "description": "User workload monitoring enabled with separate Prometheus instance.",
+              "seq": 1
+            },
+            {
+              "name": "Log forwarding active to external destination",
+              "description": "Log forwarding active to external destination such as ELK, Splunk, or cloud storage.",
+              "seq": 2
+            },
+            {
+              "name": "ServiceMonitor discovering application metrics",
+              "description": "ServiceMonitor custom resources discovering application metrics endpoints.",
+              "seq": 3
+            },
+            {
+              "name": "PrometheusRule alerts configured",
+              "description": "Basic PrometheusRule alerts configured and routing via AlertManager.",
+              "seq": 4
+            },
+            {
+              "name": "Workload Identity Federation configured",
+              "description": "Workload Identity Federation configured for secure external authentication.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Instrumented",
+          "description": "Applications emit custom metrics, structured logs, and distributed traces.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Application code instrumented with Prometheus",
+              "description": "Application code instrumented with Prometheus client libraries.",
+              "seq": 1
+            },
+            {
+              "name": "Applications log in structured format",
+              "description": "Applications log to stdout/stderr in structured format such as JSON.",
+              "seq": 2
+            },
+            {
+              "name": "OpenTelemetry deployed for trace collection",
+              "description": "Red Hat build of OpenTelemetry deployed for trace collection.",
+              "seq": 3
+            },
+            {
+              "name": "Automatic instrumentation via service mesh active",
+              "description": "Automatic instrumentation via service mesh sidecars active.",
+              "seq": 4
+            },
+            {
+              "name": "Trace correlation UI integrated",
+              "description": "Trace correlation UI integrated into OpenShift console.",
+              "seq": 5
+            },
+            {
+              "name": "Fine-grained RBAC restricts trace access",
+              "description": "Fine-grained RBAC restricts trace access to authorized namespaces.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Multi-tenant observability with signal correlation and AI-assisted analysis.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Cluster Observability Operator deployed",
+              "description": "Cluster Observability Operator deployed with independent stacks per team.",
+              "seq": 1
+            },
+            {
+              "name": "Custom retention policies per tenant",
+              "description": "Custom retention policies and alert management per tenant.",
+              "seq": 2
+            },
+            {
+              "name": "Enhanced UI correlates signals",
+              "description": "Enhanced UI plugin correlates logs, metrics, and traces in single view.",
+              "seq": 3
+            },
+            {
+              "name": "Multicluster alerting aggregated",
+              "description": "Multicluster alerting aggregated via Advanced Cluster Management.",
+              "seq": 4
+            },
+            {
+              "name": "Network observability enabled",
+              "description": "Network observability enabled with User Defined Networks support.",
+              "seq": 5
+            },
+            {
+              "name": "Power monitoring active",
+              "description": "Power monitoring active for bare-metal sustainability metrics.",
+              "seq": 6
+            },
+            {
+              "name": "OpenShift Lightspeed provides AI analysis",
+              "description": "OpenShift Lightspeed provides AI-assisted trace analysis and recommendations.",
+              "seq": 7
+            },
+            {
+              "name": "Lightweight CLI available",
+              "description": "Lightweight CLI available for no-install troubleshooting.",
+              "seq": 8
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Observability Stack Evolution",
+          "description": "Observability stack builds from monitoring to unified correlation.",
+          "narrativeTypeName": "Build-Measure-Learn",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "Deploy monitoring stack, configure log forwarding, install distributed tracing platform."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Measure",
+              "context": "Instrument applications, define custom metrics, implement sampling strategies."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Learn",
+              "context": "Correlate signals across pillars, identify bottlenecks via traces, optimize based on insights."
+            }
+          ],
+          "citationNames": [
+            "Guide to Observability with Red Hat OpenShift 4.18"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Centralized Logging",
+      "description": "Aggregated log collection and forwarding infrastructure for troubleshooting and compliance.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "enables troubleshooting of",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "provides evidence for",
+          "alphaName": "Platform Risk And Compliance",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "centralized-logging-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Deployed",
+          "description": "OpenShift Logging operator installed with log collection daemonset.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "OpenShift Logging operator deployed",
+              "description": "OpenShift Logging operator deployed via OperatorHub.",
+              "seq": 1
+            },
+            {
+              "name": "ClusterLogging custom resource created",
+              "description": "ClusterLogging custom resource created with collector configuration.",
+              "seq": 2
+            },
+            {
+              "name": "Log collection daemonset running",
+              "description": "Log collection daemonset running on all nodes.",
+              "seq": 3
+            },
+            {
+              "name": "Storage backend configured",
+              "description": "Storage backend configured for Loki or Elasticsearch.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Collecting",
+          "description": "Logs collected from all pods, infrastructure, and audit sources.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Container logs collected from all namespaces",
+              "description": "Container logs collected from all namespaces.",
+              "seq": 1
+            },
+            {
+              "name": "Infrastructure logs captured",
+              "description": "Infrastructure logs from node, kubelet, container runtime captured.",
+              "seq": 2
+            },
+            {
+              "name": "Audit logs from API server collected",
+              "description": "Audit logs from Kubernetes API server collected.",
+              "seq": 3
+            },
+            {
+              "name": "Log retention policies defined",
+              "description": "Log retention policies defined based on compliance requirements.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Forwarding",
+          "description": "Logs forwarded to external destinations with per-output configuration.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "ClusterLogForwarder configured for external destinations",
+              "description": "ClusterLogForwarder custom resource configured for external destinations.",
+              "seq": 1
+            },
+            {
+              "name": "Logs forwarded to external systems",
+              "description": "Logs forwarded to ELK, Splunk, Loki, or cloud storage.",
+              "seq": 2
+            },
+            {
+              "name": "Per-output proxy configuration",
+              "description": "Per-output proxy configuration for external systems.",
+              "seq": 3
+            },
+            {
+              "name": "Workload Identity Federation authenticates",
+              "description": "Workload Identity Federation authenticates to Google Cloud destinations.",
+              "seq": 4
+            },
+            {
+              "name": "Log filtering and transformation rules applied",
+              "description": "Log filtering and transformation rules applied as needed.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Searchable",
+          "description": "Logs indexed and queryable with efficient search and analysis.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Log search UI accessible",
+              "description": "Log search UI accessible via Kibana, Grafana, or vendor UI.",
+              "seq": 1
+            },
+            {
+              "name": "Full-text search and filtering functional",
+              "description": "Full-text search and filtering functional.",
+              "seq": 2
+            },
+            {
+              "name": "Log correlation with metrics and traces",
+              "description": "Log correlation with metrics and traces via enhanced UI plugin.",
+              "seq": 3
+            },
+            {
+              "name": "Alert rules triggered on log patterns",
+              "description": "Alert rules triggered on log patterns such as error rate thresholds.",
+              "seq": 4
+            },
+            {
+              "name": "Log-based metrics extracted",
+              "description": "Log-based metrics extracted for trending analysis.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Centralized Logging Technique",
+          "description": "Centralized logging aggregates logs for troubleshooting and compliance.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Centralized logging aggregates pod logs, infrastructure logs, and audit logs for troubleshooting and compliance."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Deploy OpenShift Logging operator, configure ClusterLogForwarder for external destinations, structure application logs as JSON for parsing."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid logging sensitive data, prevent log volume explosion through filtering, ensure retention meets compliance requirements."
+            }
+          ],
+          "citationNames": [
+            "Guide to Observability with Red Hat OpenShift 4.18"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Distributed Tracing",
+      "description": "Request flow tracing across microservices for latency analysis and dependency mapping.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "reveals dependencies of",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "identifies bottlenecks in",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "informs optimization of",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "distributed-tracing-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Deployed",
+          "description": "Distributed tracing platform deployed with backend storage.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Distributed Tracing Platform operator installed",
+              "description": "Red Hat OpenShift Distributed Tracing Platform operator installed.",
+              "seq": 1
+            },
+            {
+              "name": "Jaeger or Tempo backend deployed",
+              "description": "Jaeger or Tempo backend deployed with storage configuration.",
+              "seq": 2
+            },
+            {
+              "name": "OpenTelemetry Collector daemonsets deployed",
+              "description": "OpenTelemetry Collector daemonsets deployed as trace agents.",
+              "seq": 3
+            },
+            {
+              "name": "Trace UI accessible",
+              "description": "Trace UI accessible from OpenShift console or standalone.",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Sampling",
+          "description": "Trace collection active with appropriate sampling strategy.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Sampling rate configured",
+              "description": "Sampling rate configured balancing cost and visibility.",
+              "seq": 1
+            },
+            {
+              "name": "Sampling strategy selected",
+              "description": "Head-based or tail-based sampling strategy selected.",
+              "seq": 2
+            },
+            {
+              "name": "100% sampling for errors and slow requests",
+              "description": "100% sampling for errors and slow requests via tail-based sampling.",
+              "seq": 3
+            },
+            {
+              "name": "Trace data retention aligned",
+              "description": "Trace data retention aligned to troubleshooting needs.",
+              "seq": 4
+            },
+            {
+              "name": "Trace query performance acceptable",
+              "description": "Trace query performance acceptable for large trace volumes.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Instrumented",
+          "description": "Applications emitting traces via OpenTelemetry or automatic instrumentation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "OpenTelemetry SDKs integrated",
+              "description": "OpenTelemetry SDKs integrated into application code.",
+              "seq": 1
+            },
+            {
+              "name": "Automatic instrumentation via service mesh active",
+              "description": "Automatic instrumentation via service mesh Envoy sidecars active.",
+              "seq": 2
+            },
+            {
+              "name": "Trace context propagated across services",
+              "description": "Trace context propagated across service boundaries using W3C Trace Context.",
+              "seq": 3
+            },
+            {
+              "name": "Spans annotated with semantic conventions",
+              "description": "Spans annotated with semantic conventions for consistency.",
+              "seq": 4
+            },
+            {
+              "name": "Fine-grained RBAC restricts trace access",
+              "description": "Fine-grained RBAC restricts trace access to authorized users per namespace.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "AI-Enhanced",
+          "description": "AI-assisted analysis and correlation with metrics and logs.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Trace correlation integrated into console",
+              "description": "Trace correlation integrated into console via enhanced UI plugin.",
+              "seq": 1
+            },
+            {
+              "name": "OpenShift Lightspeed provides AI analysis",
+              "description": "OpenShift Lightspeed provides AI-assisted trace analysis.",
+              "seq": 2
+            },
+            {
+              "name": "Automatic bottleneck identification",
+              "description": "Automatic bottleneck identification and recommendations.",
+              "seq": 3
+            },
+            {
+              "name": "Service dependency graphs generated",
+              "description": "Service dependency graphs generated from trace data.",
+              "seq": 4
+            },
+            {
+              "name": "Kiali visualization for service mesh",
+              "description": "Kiali visualization for service mesh traffic flows.",
+              "seq": 5
+            },
+            {
+              "name": "Trace-derived metrics exported",
+              "description": "Trace-derived metrics using RED method exported to Prometheus.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Distributed Tracing Technique",
+          "description": "Distributed tracing reveals request flow across microservices.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Distributed tracing reveals request flow across microservices, identifying latency bottlenecks and dependencies."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Deploy OpenTelemetry Collector, instrument applications with OTel SDKs, propagate trace context via W3C standard, use tail-based sampling for errors."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid 100% sampling in production due to cost explosion, ensure trace context propagation across all service calls, limit span cardinality to prevent storage bloat."
+            }
+          ],
+          "citationNames": [
+            "Guide to Observability with Red Hat OpenShift 4.18",
+            "What's New in Red Hat OpenShift Monitoring 4.14, Logging 5.8, and Distributed Tracing 2.9"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Unified Observability Platform",
+      "description": "Multi-tenant observability with signal correlation, AI insights, and self-service team stacks.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "enables autonomy for",
+          "alphaName": "Team",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "optimizes",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "unified-observability-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Multi-Tenant",
+          "description": "Independent observability stacks per team with isolated retention.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Cluster Observability Operator deployed",
+              "description": "Cluster Observability Operator deployed with per-team Prometheus instances.",
+              "seq": 1
+            },
+            {
+              "name": "Tenant-specific retention policies configured",
+              "description": "Tenant-specific retention policies configured independently.",
+              "seq": 2
+            },
+            {
+              "name": "RBAC restricts access to tenant metrics",
+              "description": "RBAC restricts access to tenant metrics, logs, and traces.",
+              "seq": 3
+            },
+            {
+              "name": "Federated queries across tenants",
+              "description": "Federated queries across tenant boundaries when authorized.",
+              "seq": 4
+            },
+            {
+              "name": "Cost allocation via resource consumption metrics",
+              "description": "Cost allocation via resource consumption metrics per tenant.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Correlated",
+          "description": "Metrics, logs, and traces correlated with unified search and analysis.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Enhanced UI integrates three observability pillars",
+              "description": "Enhanced UI plugin integrates all three observability pillars.",
+              "seq": 1
+            },
+            {
+              "name": "Trace correlation links to metrics and logs",
+              "description": "Trace correlation links to metric dashboards and log searches.",
+              "seq": 2
+            },
+            {
+              "name": "Log context surfaced for alert events",
+              "description": "Log context automatically surfaced for alert events.",
+              "seq": 3
+            },
+            {
+              "name": "Network observability with flow visualization",
+              "description": "Network observability with flow visualization integrated.",
+              "seq": 4
+            },
+            {
+              "name": "Single-pane-of-glass view for troubleshooting",
+              "description": "Single-pane-of-glass view for troubleshooting workflows.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Self-Service",
+          "description": "Teams independently define dashboards, alerts, and instrumentation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Teams create custom Grafana dashboards",
+              "description": "Teams create custom Grafana dashboards without admin intervention.",
+              "seq": 1
+            },
+            {
+              "name": "PrometheusRule deployed via GitOps per team",
+              "description": "PrometheusRule custom resources deployed via GitOps per team.",
+              "seq": 2
+            },
+            {
+              "name": "ServiceMonitor self-service discovery",
+              "description": "ServiceMonitor self-service discovery for new application endpoints.",
+              "seq": 3
+            },
+            {
+              "name": "Alert routing configured per team",
+              "description": "Alert routing configured per team to team-specific channels.",
+              "seq": 4
+            },
+            {
+              "name": "Power monitoring enabled",
+              "description": "Power monitoring enabled for sustainability metrics on bare-metal.",
+              "seq": 5
+            },
+            {
+              "name": "Network observability with UDN support",
+              "description": "Network observability with User Defined Networks support.",
+              "seq": 6
+            },
+            {
+              "name": "Lightweight CLI provides no-install troubleshooting",
+              "description": "Lightweight CLI provides no-install troubleshooting capability.",
+              "seq": 7
+            },
+            {
+              "name": "OpenShift Lightspeed AI recommendations",
+              "description": "OpenShift Lightspeed AI recommendations available per team.",
+              "seq": 8
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Unified Observability Evolution",
+          "description": "Unified observability represents maturity peak with multi-tenant isolation.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Unified observability represents maturity peak where multi-tenant isolation meets signal correlation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Cluster Observability Operator provides per-team stacks, enhanced UI correlates metrics-logs-traces, AI insights automate bottleneck identification."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Self-service observability transforms platform teams from bottlenecks to enablers of organizational agility."
+            }
+          ],
+          "citationNames": [
+            "Enhanced Observability in Red Hat OpenShift 4.16"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Monitoring Dashboard",
+      "description": "Visual representation of system health metrics and business KPIs.",
+      "assetNames": [
+        {
+          "assetName": "dashboard-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Built-In Console Metrics",
+          "description": "OpenShift console displays basic cluster and workload metrics.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "CPU and memory utilization visible per pod",
+              "description": "CPU and memory utilization visible per pod in console.",
+              "seq": 1
+            },
+            {
+              "name": "Cluster-level resource consumption dashboards",
+              "description": "Cluster-level resource consumption dashboards accessible.",
+              "seq": 2
+            },
+            {
+              "name": "Node health and status displayed",
+              "description": "Node health and status displayed.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Configured"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            }
+          ]
+        },
+        {
+          "name": "Custom Grafana Dashboards",
+          "description": "Grafana dashboards visualize application-specific metrics.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Application metrics scraped",
+              "description": "Application metrics scraped by user workload Prometheus.",
+              "seq": 1
+            },
+            {
+              "name": "Custom Grafana dashboards created",
+              "description": "Custom Grafana dashboards created for key application KPIs.",
+              "seq": 2
+            },
+            {
+              "name": "Dashboards organized by team or namespace",
+              "description": "Dashboards organized by team or application namespace.",
+              "seq": 3
+            },
+            {
+              "name": "Dashboards version-controlled in Git",
+              "description": "Dashboards version-controlled in Git repository.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Operational"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            }
+          ]
+        },
+        {
+          "name": "SLO-Aligned Dashboards",
+          "description": "Dashboards reflect Service Level Indicators and error budgets.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "SLIs defined for customer-facing metrics",
+              "description": "SLIs defined for customer-facing metrics such as availability, latency, throughput.",
+              "seq": 1
+            },
+            {
+              "name": "Error budget consumption displayed",
+              "description": "Error budget consumption displayed prominently.",
+              "seq": 2
+            },
+            {
+              "name": "Symptom-based visualizations prioritized",
+              "description": "Symptom-based visualizations prioritized over cause-based metrics.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-service dashboards show dependencies",
+              "description": "Multi-service dashboards show dependencies and upstream impacts.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Instrumented"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Tenant Observability",
+          "description": "Cluster Observability Operator provides independent stacks per team.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Separate Prometheus instances per tenant",
+              "description": "Separate Prometheus instances per tenant via Cluster Observability Operator.",
+              "seq": 1
+            },
+            {
+              "name": "Tenant-specific retention and alert policies",
+              "description": "Tenant-specific retention and alert policies.",
+              "seq": 2
+            },
+            {
+              "name": "RBAC restricts access to tenant metrics",
+              "description": "RBAC restricts access to tenant metrics.",
+              "seq": 3
+            },
+            {
+              "name": "Federated queries across tenants",
+              "description": "Federated queries across tenant boundaries when authorized.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Unified Observability Platform",
+              "stateName": "Multi-Tenant"
+            }
+          ]
+        },
+        {
+          "name": "Unified Observability Platform",
+          "description": "Correlation of metrics, logs, and traces with AI-assisted analysis.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Enhanced UI correlates three pillars",
+              "description": "Enhanced UI plugin correlates all three observability pillars.",
+              "seq": 1
+            },
+            {
+              "name": "Trace correlation integrated into dashboards",
+              "description": "Trace correlation integrated into metric dashboards.",
+              "seq": 2
+            },
+            {
+              "name": "Log context surfaced for alerts",
+              "description": "Log context automatically surfaced for alerts.",
+              "seq": 3
+            },
+            {
+              "name": "Network observability with flow visualization",
+              "description": "Network observability with flow visualization.",
+              "seq": 4
+            },
+            {
+              "name": "OpenShift Lightspeed AI recommendations",
+              "description": "OpenShift Lightspeed AI recommendations for optimization.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Unified Observability Platform",
+              "stateName": "Correlated"
+            },
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Evolving"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Monitoring Dashboard Technique",
+          "description": "Monitoring dashboards evolve from built-in console metrics to unified multi-signal platforms.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Monitoring dashboards evolve from built-in console metrics to unified multi-signal platforms with AI insights."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Start with default Prometheus dashboards, create custom Grafana visualizations, align to SLOs, enable multi-tenancy with Cluster Observability Operator."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid dashboard sprawl, ensure consistency in metric naming, align visualizations to user outcomes not just infrastructure metrics."
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Alert Configuration",
+      "description": "PrometheusRule custom resources defining alert conditions and routing.",
+      "assetNames": [
+        {
+          "assetName": "alert-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Basic Cluster Alerts",
+          "description": "Default alerts for cluster operator health and resource pressure.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Default PrometheusRule alerts enabled",
+              "description": "Default PrometheusRule alerts enabled for cluster operators.",
+              "seq": 1
+            },
+            {
+              "name": "AlertManager configured with notification channel",
+              "description": "AlertManager configured with basic notification channel such as email or webhook.",
+              "seq": 2
+            },
+            {
+              "name": "Alert severity labels defined",
+              "description": "Alert severity labels defined for critical, warning, info.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Configured"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            }
+          ]
+        },
+        {
+          "name": "Application-Level Alerts",
+          "description": "Custom PrometheusRule resources for application metrics and thresholds.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "PrometheusRule custom resources created",
+              "description": "PrometheusRule custom resources created per application.",
+              "seq": 1
+            },
+            {
+              "name": "PromQL queries validated for accuracy",
+              "description": "PromQL queries validated for accuracy.",
+              "seq": 2
+            },
+            {
+              "name": "Alert thresholds tuned to baseline",
+              "description": "Alert thresholds tuned to application baseline behavior.",
+              "seq": 3
+            },
+            {
+              "name": "Annotations include runbook links",
+              "description": "Annotations include runbook links and remediation steps.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Operational"
+            }
+          ]
+        },
+        {
+          "name": "SLO-Based Symptom Alerts",
+          "description": "Alerts derived from Service Level Objectives reflecting customer experience.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "SLIs defined for customer-facing behavior",
+              "description": "SLIs defined to reflect customer-facing behavior.",
+              "seq": 1
+            },
+            {
+              "name": "SLOs agreed with stakeholders",
+              "description": "SLOs agreed with stakeholders and encoded in alerts.",
+              "seq": 2
+            },
+            {
+              "name": "Symptom-based alerts prioritized",
+              "description": "Symptom-based alerts prioritized over cause-based such as error budget burn.",
+              "seq": 3
+            },
+            {
+              "name": "Alert severity aligns to customer impact",
+              "description": "Alert severity aligns to customer impact where critical equals customer-facing outage.",
+              "seq": 4
+            },
+            {
+              "name": "Runbooks documented for common scenarios",
+              "description": "Runbooks documented for common alert scenarios.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Instrumented"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Channel Routing",
+          "description": "AlertManagerConfig routes alerts to appropriate teams and channels.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "AlertManagerConfig defines receivers per team",
+              "description": "AlertManagerConfig custom resources define receivers per team.",
+              "seq": 1
+            },
+            {
+              "name": "Routing rules match labels to channels",
+              "description": "Routing rules match alert labels to team-specific channels.",
+              "seq": 2
+            },
+            {
+              "name": "Critical alerts route to PagerDuty",
+              "description": "Critical alerts route to PagerDuty or on-call systems.",
+              "seq": 3
+            },
+            {
+              "name": "Inhibition rules suppress derivative alerts",
+              "description": "Inhibition rules suppress derivative alerts when root cause firing.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Unified Observability Platform",
+              "stateName": "Self-Service"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Alert Configuration Technique",
+          "description": "Alert configuration evolves from default cluster alerts to SLO-based symptom alerts.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Alert configuration evolves from default cluster alerts to SLO-based symptom alerts with team-specific routing."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Create PrometheusRule with PromQL queries, define SLIs and SLOs, use AlertManagerConfig for routing, link runbooks in annotations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid alert fatigue through symptom-based alerting, ensure thresholds align to actual customer impact, test alert routing regularly."
+            }
+          ],
+          "citationNames": [
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Trace Instrumentation Code",
+      "description": "Application code modifications and configuration to emit distributed traces.",
+      "levelsOfDetail": [
+        {
+          "name": "Manual Instrumentation",
+          "description": "OpenTelemetry SDK integrated into application code manually.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "OpenTelemetry SDK dependency added",
+              "description": "OpenTelemetry SDK dependency added to application.",
+              "seq": 1
+            },
+            {
+              "name": "Tracer provider initialized",
+              "description": "Tracer provider initialized with appropriate service name.",
+              "seq": 2
+            },
+            {
+              "name": "Spans created around significant operations",
+              "description": "Spans created around significant operations such as HTTP requests and database calls.",
+              "seq": 3
+            },
+            {
+              "name": "OTLP exporter configured",
+              "description": "OTLP exporter configured to send traces to collector.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Distributed Tracing",
+              "stateName": "Instrumented"
+            }
+          ]
+        },
+        {
+          "name": "Automatic Instrumentation",
+          "description": "Service mesh sidecars automatically capture HTTP traces.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "OpenShift Service Mesh deployed",
+              "description": "OpenShift Service Mesh deployed with Envoy sidecars.",
+              "seq": 1
+            },
+            {
+              "name": "Mesh-enabled namespaces have trace injection",
+              "description": "Mesh-enabled namespaces have automatic trace context injection.",
+              "seq": 2
+            },
+            {
+              "name": "Trace headers propagated automatically",
+              "description": "Trace headers propagated automatically across mesh services.",
+              "seq": 3
+            },
+            {
+              "name": "Sampling configuration applied at mesh level",
+              "description": "Sampling configuration applied at mesh level.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Distributed Tracing",
+              "stateName": "Sampling"
+            },
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Instrumented"
+            }
+          ]
+        },
+        {
+          "name": "Semantic Conventions",
+          "description": "Traces follow OpenTelemetry semantic conventions for interoperability.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Span attributes follow OTel conventions",
+              "description": "Span attributes follow OTel semantic conventions such as http.method and db.system.",
+              "seq": 1
+            },
+            {
+              "name": "Custom span attributes documented",
+              "description": "Custom span attributes documented with consistent naming.",
+              "seq": 2
+            },
+            {
+              "name": "Span events mark significant milestones",
+              "description": "Span events mark significant milestones within operations.",
+              "seq": 3
+            },
+            {
+              "name": "Error handling adds exception events",
+              "description": "Error handling adds exception events to spans.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Distributed Tracing",
+              "stateName": "AI-Enhanced"
+            }
+          ]
+        },
+        {
+          "name": "Optimized Sampling",
+          "description": "Tail-based sampling retains critical traces while controlling costs.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Tail-based sampling via OTel Collector",
+              "description": "Tail-based sampling via OpenTelemetry Collector processors.",
+              "seq": 1
+            },
+            {
+              "name": "100% retention for errors and slow traces",
+              "description": "100% retention for error traces and traces exceeding latency thresholds.",
+              "seq": 2
+            },
+            {
+              "name": "Probabilistic sampling for normal traffic",
+              "description": "Probabilistic sampling for normal traffic such as 1% baseline.",
+              "seq": 3
+            },
+            {
+              "name": "Trace-derived metrics exported",
+              "description": "Trace-derived metrics using RED method exported to Prometheus.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Distributed Tracing",
+              "stateName": "AI-Enhanced"
+            },
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Trace Instrumentation Technique",
+          "description": "Trace instrumentation progresses from manual SDK integration to automatic service mesh capture.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Trace instrumentation progresses from manual SDK integration to automatic service mesh capture with optimized sampling."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Integrate OpenTelemetry SDKs, configure OTLP exporters, enable service mesh automatic instrumentation, implement tail-based sampling."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid 100% sampling in production, ensure trace context propagation across all service calls, limit span attribute cardinality."
+            }
+          ],
+          "citationNames": [
+            "Guide to Observability with Red Hat OpenShift 4.18",
+            "What's New in Red Hat OpenShift Monitoring 4.14, Logging 5.8, and Distributed Tracing 2.9"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Log Forwarding Configuration",
+      "description": "ClusterLogForwarder custom resource configuring log destinations and filtering.",
+      "levelsOfDetail": [
+        {
+          "name": "Default Collection",
+          "description": "Logs collected from all pods and infrastructure components.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "OpenShift Logging operator deployed",
+              "description": "OpenShift Logging operator deployed.",
+              "seq": 1
+            },
+            {
+              "name": "ClusterLogging custom resource created",
+              "description": "ClusterLogging custom resource created with collector specification.",
+              "seq": 2
+            },
+            {
+              "name": "Logs collected from all sources",
+              "description": "Logs collected from application, infrastructure, and audit sources.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Centralized Logging",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Centralized Logging",
+              "stateName": "Collecting"
+            }
+          ]
+        },
+        {
+          "name": "External Forwarding",
+          "description": "ClusterLogForwarder sends logs to external destinations.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "ClusterLogForwarder configured with outputs",
+              "description": "ClusterLogForwarder custom resource configured with outputs.",
+              "seq": 1
+            },
+            {
+              "name": "External destinations defined",
+              "description": "External destinations defined such as ELK, Splunk, Loki, cloud storage.",
+              "seq": 2
+            },
+            {
+              "name": "Per-output proxy configuration",
+              "description": "Per-output proxy configuration for network restrictions.",
+              "seq": 3
+            },
+            {
+              "name": "Log retention policies align to compliance",
+              "description": "Log retention policies align to compliance requirements.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Centralized Logging",
+              "stateName": "Forwarding"
+            }
+          ]
+        },
+        {
+          "name": "Filtered and Transformed",
+          "description": "Log filtering and transformation rules reduce volume and enhance structure.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Pipeline filters drop debug logs",
+              "description": "Pipeline filters drop debug logs or non-essential namespaces.",
+              "seq": 1
+            },
+            {
+              "name": "Structured logging encouraged",
+              "description": "Structured logging such as JSON encouraged for application logs.",
+              "seq": 2
+            },
+            {
+              "name": "Log parsing extracts fields",
+              "description": "Log parsing extracts fields for indexing and search.",
+              "seq": 3
+            },
+            {
+              "name": "Sensitive data redaction configured",
+              "description": "Sensitive data redaction configured to prevent credential leakage.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Centralized Logging",
+              "stateName": "Searchable"
+            }
+          ]
+        },
+        {
+          "name": "Correlated with Traces",
+          "description": "Logs enriched with trace_id for trace-log correlation.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Application logs include trace_id",
+              "description": "Application logs include trace_id field from OpenTelemetry context.",
+              "seq": 1
+            },
+            {
+              "name": "Enhanced UI links logs to traces",
+              "description": "Enhanced UI plugin links log entries to corresponding traces.",
+              "seq": 2
+            },
+            {
+              "name": "Log-based metrics extracted",
+              "description": "Log-based metrics extracted for trending and alerting.",
+              "seq": 3
+            },
+            {
+              "name": "Alert rules trigger on log patterns",
+              "description": "Alert rules trigger on log patterns such as error rate thresholds.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Unified Observability Platform",
+              "stateName": "Correlated"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Log Forwarding Technique",
+          "description": "Log forwarding configuration evolves from default collection to external forwarding with filtering.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Log forwarding configuration evolves from default collection to external forwarding with filtering and trace correlation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Deploy OpenShift Logging, create ClusterLogForwarder, configure external outputs, apply filtering pipelines, inject trace_id."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid logging sensitive data, prevent log volume explosion through filtering, ensure retention meets compliance requirements."
+            }
+          ],
+          "citationNames": [
+            "Guide to Observability with Red Hat OpenShift 4.18"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Site Reliability Engineer",
+      "description": "Ensures platform reliability through SRE practices, observability, and automation.",
+      "competencies": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Observability",
+          "SRE",
+          "Operations"
+        ],
+        "lifecycleTags": [
+          "Operate",
+          "Optimize"
+        ],
+        "organizationalTags": [
+          "SRE",
+          "Platform Engineering"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Platform Engineer",
+      "description": "Operates OpenShift clusters and provides platform services including observability.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Platform Engineering",
+          "Infrastructure",
+          "Observability"
+        ],
+        "lifecycleTags": [
+          "Operate",
+          "Optimize"
+        ],
+        "organizationalTags": [
+          "Platform Engineering"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Application Developer",
+      "description": "Builds cloud-native applications and instruments them with observability.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Application Development",
+          "Observability"
+        ],
+        "lifecycleTags": [
+          "Implement",
+          "Deploy"
+        ],
+        "organizationalTags": [
+          "Development Teams"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Observability Team",
+      "description": "Team responsible for platform reliability, observability, and SRE practices.",
+      "personaNames": [
+        "Site Reliability Engineer",
+        "Platform Engineer"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "SRE",
+          "Platform Engineering"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Platform Engineering Team",
+      "description": "Team operating OpenShift clusters and providing observability services.",
+      "personaNames": [
+        "Platform Engineer",
+        "Site Reliability Engineer"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Platform Engineering",
+          "Infrastructure"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Configure Cluster Monitoring and Alerting",
+      "description": "Customize Prometheus monitoring stack with application metrics and SLO-based alerts.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "monitoring-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Observability Stack",
+          "stateName": "Configured"
+        },
+        {
+          "alphaName": "Observability Stack",
+          "stateName": "Operational"
+        },
+        {
+          "alphaName": "Observability Stack",
+          "stateName": "Instrumented"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Ready"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Performing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Monitoring Dashboard",
+          "levelOfDetailName": "Custom Grafana Dashboards"
+        },
+        {
+          "workProductName": "Monitoring Dashboard",
+          "levelOfDetailName": "SLO-Aligned Dashboards"
+        },
+        {
+          "workProductName": "Alert Configuration",
+          "levelOfDetailName": "Application-Level Alerts"
+        },
+        {
+          "workProductName": "Alert Configuration",
+          "levelOfDetailName": "SLO-Based Symptom Alerts"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Observability Team",
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Configure Cluster Monitoring Technique",
+          "description": "OpenShift integrated monitoring requires customization for application metrics and SLO alerting.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "OpenShift includes integrated Prometheus, Grafana, and AlertManager, requiring customization for application metrics and SLO-based alerting."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Enable user workload monitoring via ConfigMap with enableUserWorkload:true. Create ServiceMonitor custom resources matching application Service labels. Define PrometheusRule resources with PromQL queries for alert conditions following symptom-based alerting. Configure AlertManagerConfig to route critical alerts to PagerDuty, warnings to Slack. Implement alert grouping via group_wait and group_interval."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid monitoring the monitoring stack itself without proper separation. Alert fatigue occurs when using cause-based alerts instead of symptom-based alerts. Test alert routing regularly using amtool alert add. Review alert fatigue quarterly."
+            }
+          ],
+          "citationNames": [
+            "Guide to Observability with Red Hat OpenShift 4.18",
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Distributed Tracing",
+      "description": "Deploy OpenTelemetry and Tempo for request tracing across microservices.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "tracing-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Distributed Tracing",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Distributed Tracing",
+          "stateName": "Sampling"
+        },
+        {
+          "alphaName": "Distributed Tracing",
+          "stateName": "Instrumented"
+        },
+        {
+          "alphaName": "Observability Stack",
+          "stateName": "Instrumented"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Trace Instrumentation Code",
+          "levelOfDetailName": "Manual Instrumentation"
+        },
+        {
+          "workProductName": "Trace Instrumentation Code",
+          "levelOfDetailName": "Automatic Instrumentation"
+        },
+        {
+          "workProductName": "Trace Instrumentation Code",
+          "levelOfDetailName": "Optimized Sampling"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Observability Team",
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Configure Distributed Tracing Technique",
+          "description": "Distributed tracing addresses observability challenges in microservices architectures.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Distributed tracing addresses observability challenges in microservices architectures where requests traverse multiple services."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Install OpenShift Distributed Tracing Platform operator. For production, deploy Tempo with object storage backend. Configure sampling rates balancing trace volume with observability needs. Integrate OpenTelemetry SDKs in application code or enable automatic instrumentation via service mesh. Deploy OpenTelemetry Collector as DaemonSets. Enable Traces UI via Cluster Observability Operator enhanced UI plugin."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid 100% sampling in production. Ensure trace context propagation across all service calls including message queues. Limit span attribute cardinality to prevent storage bloat."
+            }
+          ],
+          "citationNames": [
+            "Guide to Observability with Red Hat OpenShift 4.18",
+            "What's New in Red Hat OpenShift Monitoring 4.14, Logging 5.8, and Distributed Tracing 2.9"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Deploy Centralized Logging",
+      "description": "Deploy OpenShift Logging operator and configure log forwarding to external destinations.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "logging-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Centralized Logging",
+          "stateName": "Deployed"
+        },
+        {
+          "alphaName": "Centralized Logging",
+          "stateName": "Collecting"
+        },
+        {
+          "alphaName": "Centralized Logging",
+          "stateName": "Forwarding"
+        },
+        {
+          "alphaName": "Observability Stack",
+          "stateName": "Operational"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Log Forwarding Configuration",
+          "levelOfDetailName": "Default Collection"
+        },
+        {
+          "workProductName": "Log Forwarding Configuration",
+          "levelOfDetailName": "External Forwarding"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team",
+        "Observability Team"
+      ],
+      "narratives": [
+        {
+          "name": "Deploy Centralized Logging Technique",
+          "description": "Centralized logging aggregates logs from all pods for troubleshooting and compliance.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Centralized logging aggregates logs from all pods, infrastructure, and audit sources, enabling troubleshooting and compliance."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Install OpenShift Logging operator. Create ClusterLogging custom resource specifying collector configuration. Configure ClusterLogForwarder defining outputs. Use per-output proxy configuration. Enable Workload Identity Federation for Google Cloud. Apply log retention policies. Implement filtering pipelines. Encourage structured logging."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid logging sensitive data. Prevent log volume explosion through filtering. Ensure retention meets compliance requirements. Test log forwarding regularly."
+            }
+          ],
+          "citationNames": [
+            "Guide to Observability with Red Hat OpenShift 4.18"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Instrument Applications with Metrics",
+      "description": "Integrate Prometheus client libraries into applications to expose custom metrics.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "instrumentation-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Observability Stack",
+          "stateName": "Instrumented"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Hosting Assets"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Trace Instrumentation Code",
+          "levelOfDetailName": "Manual Instrumentation"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Instrument Applications Technique",
+          "description": "Application instrumentation adds custom metrics for business-level KPIs.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Application instrumentation adds custom metrics to expose business-level KPIs and technical performance indicators."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Integrate Prometheus client library. Expose metrics at /metrics endpoint. Create ServiceMonitor custom resource. Follow metric naming conventions. Implement RED metrics. Use histogram metrics for latency percentiles."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid high-cardinality metric labels. Focus on user-facing behavior not internal implementation details. Ensure metric endpoints are efficient. Test ServiceMonitor discovery."
+            }
+          ],
+          "citationNames": [
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Deploy Cluster Observability Operator",
+      "description": "Deploy Cluster Observability Operator for multi-tenant observability stacks.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "cluster-observability-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Unified Observability Platform",
+          "stateName": "Multi-Tenant"
+        },
+        {
+          "alphaName": "Unified Observability Platform",
+          "stateName": "Correlated"
+        },
+        {
+          "alphaName": "Unified Observability Platform",
+          "stateName": "Self-Service"
+        },
+        {
+          "alphaName": "Distributed Tracing",
+          "stateName": "AI-Enhanced"
+        },
+        {
+          "alphaName": "Observability Stack",
+          "stateName": "Optimized"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Evolving"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Monitoring Dashboard",
+          "levelOfDetailName": "Multi-Tenant Observability"
+        },
+        {
+          "workProductName": "Monitoring Dashboard",
+          "levelOfDetailName": "Unified Observability Platform"
+        },
+        {
+          "workProductName": "Alert Configuration",
+          "levelOfDetailName": "Multi-Channel Routing"
+        },
+        {
+          "workProductName": "Log Forwarding Configuration",
+          "levelOfDetailName": "Correlated with Traces"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team",
+        "Observability Team"
+      ],
+      "narratives": [
+        {
+          "name": "Deploy Cluster Observability Operator Technique",
+          "description": "Cluster Observability Operator provides multi-tenant observability with independent Prometheus instances.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Cluster Observability Operator provides multi-tenant observability with independent Prometheus instances, retention policies, and alert management per team."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Install Cluster Observability Operator. Create MonitoringStack custom resources per tenant. Configure RBAC per tenant. Enable federated queries. Deploy enhanced UI plugin for signal correlation. Integrate OpenShift Lightspeed for AI-assisted analysis. Enable network observability and power monitoring."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid excessive tenant stacks increasing resource consumption. Ensure tenant-level retention balances costs with troubleshooting needs. Configure cost allocation metrics. Test federated queries for correct scoping."
+            }
+          ],
+          "citationNames": [
+            "Enhanced Observability in Red Hat OpenShift 4.16"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Define SLIs and SLOs",
+      "description": "Define Service Level Indicators and Objectives aligned to customer experience.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "slo-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Team",
+          "stateName": "Performing"
+        },
+        {
+          "alphaName": "Observability Stack",
+          "stateName": "Instrumented"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Alert Configuration",
+          "levelOfDetailName": "SLO-Based Symptom Alerts"
+        },
+        {
+          "workProductName": "Monitoring Dashboard",
+          "levelOfDetailName": "SLO-Aligned Dashboards"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Stakeholder Representation",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Observability Team"
+      ],
+      "narratives": [
+        {
+          "name": "Define SLIs and SLOs Technique",
+          "description": "SRE practices define SLIs and SLOs to align observability with customer experience.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "SRE practices define SLIs as quantitative measures of service behavior and SLOs as target ranges to align observability with customer experience."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Identify customer-facing metrics. Define SLIs as quantifiable measures. Agree SLOs with stakeholders. Calculate error budget. Implement symptom-based alerting on error budget burn rate. Configure dashboards displaying SLI trends. Document runbooks. Track toil metrics."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid defining SLIs based on infrastructure metrics instead of user-facing behavior. Do not set SLOs without stakeholder agreement. Ensure error budgets are consumed when violated. Review SLOs quarterly."
+            }
+          ],
+          "citationNames": [
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Establish Observability Culture",
+      "description": "Build team understanding of observability pillars, shared alerting responsibility, and dashboard practices.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Team",
+          "stateName": "Collaborating"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Monitoring Dashboard",
+          "levelOfDetailName": "Custom Grafana Dashboards"
+        },
+        {
+          "workProductName": "Alert Configuration",
+          "levelOfDetailName": "Application-Level Alerts"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Observability Team",
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Establish Observability Culture Technique",
+          "description": "Establishing observability culture ensures collective understanding of the three pillars.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Establishing observability culture ensures the team collectively understands the three pillars of observability and shares responsibility for monitoring and alerting."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Conduct training sessions on metrics, logs, and traces pillars. Establish shared on-call rotations for alert response. Implement dashboard review cadences to reduce alert fatigue. Create observability standards for new applications."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid siloing observability knowledge in one person. Ensure all team members can create and modify dashboards. Regularly review alert noise levels to prevent fatigue."
+            }
+          ],
+          "citationNames": [
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Enable Log Search and Correlation",
+      "description": "Configure log indexing, search capabilities, and correlation with metrics and traces.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Centralized Logging",
+          "stateName": "Searchable"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Log Forwarding Configuration",
+          "levelOfDetailName": "Filtered and Transformed"
+        },
+        {
+          "workProductName": "Log Forwarding Configuration",
+          "levelOfDetailName": "Correlated with Traces"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Observability Team"
+      ],
+      "narratives": [
+        {
+          "name": "Enable Log Search and Correlation Technique",
+          "description": "Log search and correlation capabilities transform raw log data into actionable resources.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Log search and correlation capabilities transform raw log data into an actionable troubleshooting and analysis resource."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Configure log search UI via Kibana, Grafana, or vendor tooling. Implement log filtering pipelines to drop non-essential data. Enable structured logging for improved parsing. Configure log-based metrics extraction for trending. Inject trace_id into application logs for trace-log correlation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid indexing all log fields which causes storage explosion. Ensure sensitive data redaction before indexing. Test log search performance under production volumes."
+            }
+          ],
+          "citationNames": [
+            "Guide to Observability with Red Hat OpenShift 4.18"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Observability Maturity Journey",
+      "description": "Progressive enhancement of observability from basic monitoring to unified multi-tenant platform with AI insights.",
+      "narrativeTypeName": "Build-Measure-Learn",
+      "patternViews": [
+        {
+          "name": "Prerequisites - Metrics Foundation",
+          "description": "Built-in Prometheus provides initial cluster visibility.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Configured"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            },
+            {
+              "alphaName": "Centralized Logging",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Distributed Tracing",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Unified Observability Platform",
+              "stateName": "Multi-Tenant"
+            }
+          ],
+          "alphaInstances": [],
+          "activities": [],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "OpenShift includes integrated Prometheus monitoring stack providing immediate cluster and workload visibility without additional deployment. Team identified and assigned to observability responsibilities."
+            }
+          ]
+        },
+        {
+          "name": "Crawl - Centralized Logging and Custom Metrics",
+          "description": "Deploy logging stack and implement application instrumentation.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Centralized Logging",
+              "stateName": "Forwarding"
+            },
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Operational"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            },
+            {
+              "alphaName": "Distributed Tracing",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Unified Observability Platform",
+              "stateName": "Multi-Tenant"
+            }
+          ],
+          "alphaInstances": [],
+          "activities": [
+            "Deploy Centralized Logging",
+            "Instrument Applications with Metrics",
+            "Configure Cluster Monitoring and Alerting",
+            "Establish Observability Culture"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "Deploy OpenShift Logging with forwarding, instrument applications with Prometheus client libraries, create custom Grafana dashboards for application KPIs."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Measure",
+              "context": "Logs forwarded to external destinations enable troubleshooting, custom metrics expose business-level indicators, team develops shared understanding of three observability pillars."
+            }
+          ]
+        },
+        {
+          "name": "Walk - SLO-Based Alerting and Log Analysis",
+          "description": "Define Service Level Objectives and enable log search capabilities.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Instrumented"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            },
+            {
+              "alphaName": "Centralized Logging",
+              "stateName": "Searchable"
+            },
+            {
+              "alphaName": "Distributed Tracing",
+              "stateName": "Deployed"
+            },
+            {
+              "alphaName": "Unified Observability Platform",
+              "stateName": "Multi-Tenant"
+            }
+          ],
+          "alphaInstances": [],
+          "activities": [
+            "Define SLIs and SLOs",
+            "Configure Cluster Monitoring and Alerting",
+            "Enable Log Search and Correlation",
+            "Configure Distributed Tracing"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Measure",
+              "context": "SLIs defined for customer-facing metrics, SLOs agreed with stakeholders, error budgets tracked. Logs fully searchable with filtering and correlation. Distributed tracing platform deployed."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Learn",
+              "context": "Symptom-based alerts replace cause-based alerts, reducing alert fatigue. Log-based metrics provide trending insights. Team adopts SRE practices with error budget management."
+            }
+          ]
+        },
+        {
+          "name": "Run - Distributed Tracing and Multi-Tenancy",
+          "description": "Full tracing instrumentation and initial multi-tenant observability.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Distributed Tracing",
+              "stateName": "Instrumented"
+            },
+            {
+              "alphaName": "Unified Observability Platform",
+              "stateName": "Multi-Tenant"
+            },
+            {
+              "alphaName": "Centralized Logging",
+              "stateName": "Searchable"
+            },
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Instrumented"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            }
+          ],
+          "alphaInstances": [],
+          "activities": [
+            "Configure Distributed Tracing",
+            "Deploy Cluster Observability Operator"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Measure",
+              "context": "Distributed tracing captures request flows across microservices with full application instrumentation. Cluster Observability Operator provides per-team monitoring stacks."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Learn",
+              "context": "Trace analysis identifies performance bottlenecks. Multi-tenant isolation enables team autonomy with independent retention and alerting policies."
+            }
+          ]
+        },
+        {
+          "name": "Optimize - Unified AI-Enhanced Platform",
+          "description": "Signal correlation, AI analysis, and self-service observability.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Unified Observability Platform",
+              "stateName": "Correlated"
+            },
+            {
+              "alphaName": "Unified Observability Platform",
+              "stateName": "Self-Service"
+            },
+            {
+              "alphaName": "Distributed Tracing",
+              "stateName": "AI-Enhanced"
+            },
+            {
+              "alphaName": "Observability Stack",
+              "stateName": "Optimized"
+            },
+            {
+              "alphaName": "Platform",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Centralized Logging",
+              "stateName": "Searchable"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            }
+          ],
+          "alphaInstances": [],
+          "activities": [
+            "Deploy Cluster Observability Operator",
+            "Configure Distributed Tracing"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "Enhanced UI plugin correlates metrics, logs, and traces in unified console view. Teams self-serve dashboards and alerts via GitOps."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Measure",
+              "context": "Signal correlation enables single-pane-of-glass troubleshooting. Network observability reveals flow patterns. Power monitoring tracks sustainability metrics."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Learn",
+              "context": "OpenShift Lightspeed AI-assisted trace analysis automatically identifies bottlenecks and suggests optimizations. Self-service observability transforms platform teams from bottlenecks to enablers."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "IDP Essentials",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

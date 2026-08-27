@@ -1,0 +1,2517 @@
+{
+  "kind": "practice",
+  "name": "Ansible Content Management",
+  "description": "Develop, certify, version, and distribute ansible content collections through automation hub, centralized content catalog, and development workspaces with GitOps-driven platform configuration.",
+  "baselinePracticeName": "Infrastructure Automation Essentials",
+  "tags": {
+    "domainTags": [
+      "DevOps",
+      "Content Management",
+      "Infrastructure as Code"
+    ],
+    "lifecycleTags": [
+      "Adoption",
+      "Optimization"
+    ],
+    "organizationalTags": [
+      "Content Development Team",
+      "Platform Team"
+    ]
+  },
+  "keywords": [
+    "ansible collections",
+    "automation hub",
+    "content lifecycle",
+    "GitOps",
+    "development workspaces",
+    "content catalog",
+    "content certification",
+    "version control",
+    "configuration as code",
+    "ansible-creator"
+  ],
+  "authors": [
+    "Keleo"
+  ],
+  "createdAt": "2026-07-24",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.1",
+  "narratives": [
+    {
+      "name": "From Ad Hoc Playbooks to Governed Content Distribution",
+      "description": "The journey from unmanaged ansible scripts to a governed, catalog-driven content development and distribution pipeline.",
+      "narrativeTypeName": "SDLC",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Plan",
+          "context": "Organizations begin content management by recognizing the need to move beyond ad hoc playbook sharing and establish a centralized approach to ansible content development, versioning, and distribution through automation hub."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Design",
+          "context": "Content architecture decisions include collection namespace taxonomy, repository structure for GitOps configuration, workspace template specifications, and certification pipeline design aligning content governance with organizational security and quality standards."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Build",
+          "context": "Content developers use browser-based development workspaces with pre-configured tooling to create structured collections, while platform engineers implement GitOps configuration repositories using the infra.controller_configuration collection to manage platform state declaratively through the platform gateway."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Test",
+          "context": "Automated testing validates collection functionality using molecule, ansible-test, and ansible-lint within development workspaces, while CI/CD pipelines enforce quality gates including security scanning, digital signature verification, and peer review before content reaches production."
+        },
+        {
+          "seq": 5,
+          "narrativeElementName": "Deploy",
+          "context": "Certified collections are published to private automation hub with digital signatures, the centralized content catalog auto-discovers content from Git repositories and hub, and GitOps pipelines apply controller configuration changes through platform gateway on git push events."
+        },
+        {
+          "seq": 6,
+          "narrativeElementName": "Maintain",
+          "context": "Content lifecycle operations include monitoring collection usage analytics, managing semantic versioning and deprecation, automated drift detection for controller configuration, and continuous improvement of workspace templates and certification pipelines."
+        }
+      ],
+      "citationNames": [
+        "Managing Content in Automation Hub",
+        "Configuring Red Hat Ansible Automation Platform with GitOps",
+        "Ansible Development Workspaces"
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "Managing Content in Automation Hub",
+      "description": "Official documentation for managing ansible content collections, namespaces, and distribution through private automation hub.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/",
+      "kind": "citation"
+    },
+    {
+      "name": "Digitally Signing Ansible Content Collections Using Private Automation Hub",
+      "description": "Guide for implementing GPG-based digital signatures for ansible content collections ensuring supply chain security.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/digitally-signing-ansible-content-collections-using-private-automation-hub",
+      "kind": "citation"
+    },
+    {
+      "name": "Configuring Red Hat Ansible Automation Platform with GitOps",
+      "description": "Blog post detailing declarative platform management using infra.controller_configuration collection with Git-driven CI/CD pipelines.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/configuring-red-hat-ansible-automation-platform-gitops",
+      "kind": "citation"
+    },
+    {
+      "name": "Ansible Development Workspaces",
+      "description": "Documentation for AAP 2.7 browser-based pre-configured development environments with VS Code, ansible-creator, and testing tools.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/",
+      "kind": "citation"
+    },
+    {
+      "name": "Ansible Automation Hub",
+      "description": "Overview of Red Hat private automation hub for content distribution, collection management, and certified content synchronization.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Product Page",
+      "url": "https://www.redhat.com/en/technologies/management/ansible/automation-hub",
+      "kind": "citation"
+    },
+    {
+      "name": "What's New in Ansible Automation Platform 2.7",
+      "description": "Release documentation covering centralized content catalog, visual EE builder, development workspaces, and platform gateway enhancements.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/",
+      "kind": "citation"
+    },
+    {
+      "name": "Visual EE Builder",
+      "description": "Documentation for the AAP 2.7 visual interface for building execution environments without requiring manual Containerfile authoring.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "content-collection-icon",
+      "description": "Icon representing ansible content collections as distributable automation units",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes-stacked",
+      "fontWeight": "900"
+    },
+    {
+      "name": "gitops-config-icon",
+      "description": "Icon representing version-controlled platform configuration as code",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-code-branch",
+      "fontWeight": "900"
+    },
+    {
+      "name": "workspace-icon",
+      "description": "Icon representing browser-based development workspace environments",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-laptop-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "content-lifecycle-diagram",
+      "description": "Visual workflow showing ansible content progression from development through certification to catalog distribution",
+      "type": "diagram",
+      "path": "assets/diagrams/content-lifecycle-pattern.svg",
+      "mimeType": "image/svg+xml"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Platform Asset",
+      "description": "The individual reusable automation code units -- modules, roles, collections, cookbooks, formulas, providers -- that practitioners create, publish, and compose to automate specific infrastructure patterns. These are the codified building blocks of infrastructure automation, analogous to software libraries in application development.",
+      "focusName": "Solution",
+      "states": [
+        {
+          "name": "Identified",
+          "description": "The need for a specific automation artifact is identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Recurring infrastructure pattern identified that warrants codification as a reusable module",
+              "description": "Recurring infrastructure pattern identified that warrants codification as a reusable module",
+              "seq": 1
+            },
+            {
+              "name": "Organizational requirement for standardized automation of a specific resource type documented",
+              "description": "Organizational requirement for standardized automation of a specific resource type documented",
+              "seq": 2
+            },
+            {
+              "name": "Existing community modules evaluated for suitability (Terraform Registry, Ansible Galaxy, Puppet Forge)",
+              "description": "Existing community modules evaluated for suitability (Terraform Registry, Ansible Galaxy, Puppet Forge)",
+              "seq": 3
+            },
+            {
+              "name": "Build-vs-reuse decision documented with rationale",
+              "description": "Build-vs-reuse decision documented with rationale",
+              "seq": 4
+            },
+            {
+              "name": "Collection namespace and naming convention planned following organizational taxonomy",
+              "description": "Collection namespace and naming convention planned following organizational taxonomy",
+              "seq": 5
+            },
+            {
+              "name": "Target automation domain assessed for existing community or Red Hat Certified Content coverage",
+              "description": "Target automation domain assessed for existing community or Red Hat Certified Content coverage",
+              "seq": 6
+            },
+            {
+              "name": "Content development workspace requirements evaluated for the development team",
+              "description": "Content development workspace requirements evaluated for the development team",
+              "seq": 7
+            },
+            {
+              "name": "Content distribution strategy identified (private hub, centralized catalog, or both)",
+              "description": "Content distribution strategy identified (private hub, centralized catalog, or both)",
+              "seq": 8
+            },
+            {
+              "name": "Collection dependency analysis performed against existing organizational content",
+              "description": "Collection dependency analysis performed against existing organizational content",
+              "seq": 9
+            }
+          ]
+        },
+        {
+          "name": "Specified",
+          "description": "The automation artifact's interface, dependencies, and expected behaviors are defined.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Input variables, output values, and default parameters explicitly defined",
+              "description": "Input variables, output values, and default parameters explicitly defined",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies on other modules, providers, or platform versions declared",
+              "description": "Dependencies on other modules, providers, or platform versions declared",
+              "seq": 2
+            },
+            {
+              "name": "Supported platforms and cloud providers documented",
+              "description": "Supported platforms and cloud providers documented",
+              "seq": 3
+            },
+            {
+              "name": "Expected behaviors and edge cases specified with acceptance criteria",
+              "description": "Expected behaviors and edge cases specified with acceptance criteria",
+              "seq": 4
+            },
+            {
+              "name": "galaxy.yml metadata complete with namespace, name, version, authors, and dependency declarations",
+              "description": "galaxy.yml metadata complete with namespace, name, version, authors, and dependency declarations",
+              "seq": 5
+            },
+            {
+              "name": "Module argument_spec definitions specify input parameters with types and validation rules",
+              "description": "Module argument_spec definitions specify input parameters with types and validation rules",
+              "seq": 6
+            },
+            {
+              "name": "Role defaults and variable precedence documented with usage examples",
+              "description": "Role defaults and variable precedence documented with usage examples",
+              "seq": 7
+            },
+            {
+              "name": "Collection testing strategy defined covering sanity, unit, integration, and molecule scenarios",
+              "description": "Collection testing strategy defined covering sanity, unit, integration, and molecule scenarios",
+              "seq": 8
+            },
+            {
+              "name": "Content certification criteria documented including security scanning and signing requirements",
+              "description": "Content certification criteria documented including security scanning and signing requirements",
+              "seq": 9
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "The automation artifact is developed, tested, and published.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Automation code authored following organizational coding standards",
+              "description": "Automation code authored following organizational coding standards",
+              "seq": 1
+            },
+            {
+              "name": "Unit and integration tests passing (Terratest, Molecule, InSpec, Test Kitchen)",
+              "description": "Unit and integration tests passing (Terratest, Molecule, InSpec, Test Kitchen)",
+              "seq": 2
+            },
+            {
+              "name": "Artifact published to module registry (private or public)",
+              "description": "Artifact published to module registry (private or public)",
+              "seq": 3
+            },
+            {
+              "name": "Version tagged and release notes documented",
+              "description": "Version tagged and release notes documented",
+              "seq": 4
+            },
+            {
+              "name": "Collection developed in standardized development workspace with pre-configured tooling",
+              "description": "Collection developed in standardized development workspace with pre-configured tooling",
+              "seq": 5
+            },
+            {
+              "name": "ansible-test sanity and ansible-lint validation passing against organizational coding standards",
+              "description": "ansible-test sanity and ansible-lint validation passing against organizational coding standards",
+              "seq": 6
+            },
+            {
+              "name": "Molecule test scenarios validate collection functionality across target platforms",
+              "description": "Molecule test scenarios validate collection functionality across target platforms",
+              "seq": 7
+            },
+            {
+              "name": "Collection built using ansible-galaxy collection build and published to private automation hub",
+              "description": "Collection built using ansible-galaxy collection build and published to private automation hub",
+              "seq": 8
+            },
+            {
+              "name": "Digital signature applied using GPG key for content integrity verification",
+              "description": "Digital signature applied using GPG key for content integrity verification",
+              "seq": 9
+            },
+            {
+              "name": "Changelog and semantic version documented for the release",
+              "description": "Changelog and semantic version documented for the release",
+              "seq": 10
+            }
+          ]
+        },
+        {
+          "name": "Integrated",
+          "description": "The automation artifact is successfully integrated into automation workflows.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Artifact integrated into consuming team codebases and CI/CD pipelines",
+              "description": "Artifact integrated into consuming team codebases and CI/CD pipelines",
+              "seq": 1
+            },
+            {
+              "name": "Compatibility with organizational standards validated (naming, tagging, security)",
+              "description": "Compatibility with organizational standards validated (naming, tagging, security)",
+              "seq": 2
+            },
+            {
+              "name": "Integration tests passing in target environments",
+              "description": "Integration tests passing in target environments",
+              "seq": 3
+            },
+            {
+              "name": "Consumer documentation updated with integration examples",
+              "description": "Consumer documentation updated with integration examples",
+              "seq": 4
+            },
+            {
+              "name": "Collection referenced in execution environment definitions for runtime dependency resolution",
+              "description": "Collection referenced in execution environment definitions for runtime dependency resolution",
+              "seq": 5
+            },
+            {
+              "name": "Job templates created in automation controller referencing collection playbooks",
+              "description": "Job templates created in automation controller referencing collection playbooks",
+              "seq": 6
+            },
+            {
+              "name": "CI/CD pipeline integration tested with automated collection installation from private hub",
+              "description": "CI/CD pipeline integration tested with automated collection installation from private hub",
+              "seq": 7
+            },
+            {
+              "name": "Centralized content catalog configured to discover collection from Git repository",
+              "description": "Centralized content catalog configured to discover collection from Git repository",
+              "seq": 8
+            },
+            {
+              "name": "RBAC visibility controls applied governing which teams can access the collection",
+              "description": "RBAC visibility controls applied governing which teams can access the collection",
+              "seq": 9
+            }
+          ]
+        },
+        {
+          "name": "Operational",
+          "description": "The automation artifact is in active use across multiple teams and projects.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Usage metrics collected (download counts, deployment frequency, consuming teams)",
+              "description": "Usage metrics collected (download counts, deployment frequency, consuming teams)",
+              "seq": 1
+            },
+            {
+              "name": "Issue tracking and bug reporting workflow established",
+              "description": "Issue tracking and bug reporting workflow established",
+              "seq": 2
+            },
+            {
+              "name": "Version management and backward compatibility policy in place",
+              "description": "Version management and backward compatibility policy in place",
+              "seq": 3
+            },
+            {
+              "name": "Support channel available for consuming teams",
+              "description": "Support channel available for consuming teams",
+              "seq": 4
+            },
+            {
+              "name": "Collection usage metrics tracked through automation hub download statistics",
+              "description": "Collection usage metrics tracked through automation hub download statistics",
+              "seq": 5
+            },
+            {
+              "name": "Multiple teams consuming collection through job templates and workflow templates",
+              "description": "Multiple teams consuming collection through job templates and workflow templates",
+              "seq": 6
+            },
+            {
+              "name": "Bug reporting workflow established through Git issue tracking",
+              "description": "Bug reporting workflow established through Git issue tracking",
+              "seq": 7
+            },
+            {
+              "name": "Collection maintainers documented with escalation path for critical issues",
+              "description": "Collection maintainers documented with escalation path for critical issues",
+              "seq": 8
+            },
+            {
+              "name": "Backward compatibility policy enforced for minor version updates",
+              "description": "Backward compatibility policy enforced for minor version updates",
+              "seq": 9
+            }
+          ]
+        },
+        {
+          "name": "Value Yielding",
+          "description": "The automation artifact demonstrably delivers measurable organizational value.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Adoption metrics prove value (reduced provisioning time, eliminated errors, enforced standards)",
+              "description": "Adoption metrics prove value (reduced provisioning time, eliminated errors, enforced standards)",
+              "seq": 1
+            },
+            {
+              "name": "Artifact actively reduces toil across multiple teams",
+              "description": "Artifact actively reduces toil across multiple teams",
+              "seq": 2
+            },
+            {
+              "name": "ROI quantified through operational metrics",
+              "description": "ROI quantified through operational metrics",
+              "seq": 3
+            },
+            {
+              "name": "Artifact recognized as organizational standard for its infrastructure pattern",
+              "description": "Artifact recognized as organizational standard for its infrastructure pattern",
+              "seq": 4
+            },
+            {
+              "name": "Automation analytics demonstrate measurable time savings from collection adoption",
+              "description": "Automation analytics demonstrate measurable time savings from collection adoption",
+              "seq": 5
+            },
+            {
+              "name": "Collection recognized as organizational standard replacing ad hoc playbook approaches",
+              "description": "Collection recognized as organizational standard replacing ad hoc playbook approaches",
+              "seq": 6
+            },
+            {
+              "name": "Content reuse metrics show adoption across multiple organizational units",
+              "description": "Content reuse metrics show adoption across multiple organizational units",
+              "seq": 7
+            },
+            {
+              "name": "Collection contributions flowing from consumer teams back to maintainers",
+              "description": "Collection contributions flowing from consumer teams back to maintainers",
+              "seq": 8
+            },
+            {
+              "name": "ROI quantified through saved provisioning time and eliminated manual errors",
+              "description": "ROI quantified through saved provisioning time and eliminated manual errors",
+              "seq": 9
+            }
+          ]
+        },
+        {
+          "name": "Retiring",
+          "description": "The automation artifact is being deprecated and replaced.",
+          "seq": 7,
+          "checklist": [
+            {
+              "name": "Successor artifact identified and validated as replacement",
+              "description": "Successor artifact identified and validated as replacement",
+              "seq": 1
+            },
+            {
+              "name": "Consumer migration plan communicated with timeline and guidance",
+              "description": "Consumer migration plan communicated with timeline and guidance",
+              "seq": 2
+            },
+            {
+              "name": "Deprecation warnings added to artifact documentation and registry listing",
+              "description": "Deprecation warnings added to artifact documentation and registry listing",
+              "seq": 3
+            },
+            {
+              "name": "Retired artifact archived after all consumers migrated",
+              "description": "Retired artifact archived after all consumers migrated",
+              "seq": 4
+            },
+            {
+              "name": "Successor collection identified and validated as functional replacement",
+              "description": "Successor collection identified and validated as functional replacement",
+              "seq": 5
+            },
+            {
+              "name": "Deprecation notice published in automation hub and centralized content catalog",
+              "description": "Deprecation notice published in automation hub and centralized content catalog",
+              "seq": 6
+            },
+            {
+              "name": "Consumer migration guide published with version compatibility matrix",
+              "description": "Consumer migration guide published with version compatibility matrix",
+              "seq": 7
+            },
+            {
+              "name": "Sunset timeline communicated with automated alerts to consuming teams",
+              "description": "Sunset timeline communicated with automated alerts to consuming teams",
+              "seq": 8
+            },
+            {
+              "name": "Retired collection archived with read-only access maintained for audit purposes",
+              "description": "Retired collection archived with read-only access maintained for audit purposes",
+              "seq": 9
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Building a Governed Content Supply Chain for Ansible Automation",
+          "description": "How organizations progress from ad hoc playbook sharing to a certified, catalog-driven content distribution model.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Organizations begin with individual developers creating standalone playbooks and sharing them informally. Collections are installed directly from Ansible Galaxy without version pinning or security review, leading to inconsistent automation behavior across environments and teams."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "A private automation hub centralizes content distribution, collection namespaces enforce organizational taxonomy, and basic certification gates ensure quality. Development workspaces standardize the authoring environment so all content developers operate with consistent tooling versions and configurations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "A mature content supply chain features automated CI/CD pipelines that build, test, sign, and publish collections on merge. The centralized content catalog auto-discovers content from multiple sources, RBAC controls govern content visibility, and analytics track adoption and value delivery across the organization."
+            }
+          ],
+          "citationNames": [
+            "Managing Content in Automation Hub",
+            "Digitally Signing Ansible Content Collections Using Private Automation Hub"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Automation Content",
+      "description": "The governed lifecycle of ansible content collections from development through certification to catalog-driven distribution.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Asset",
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Platform Governance",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "developed using",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "distributed through",
+          "alphaName": "Platform Consumption Interface",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "content-collection-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Ad Hoc Content Usage",
+          "description": "Collections used locally without governance.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Ansible collections installed via ansible-galaxy on individual developer systems",
+              "description": "Ansible collections installed via ansible-galaxy on individual developer systems",
+              "seq": 1
+            },
+            {
+              "name": "Collection versions inconsistent across development environments",
+              "description": "Collection versions inconsistent across development environments",
+              "seq": 2
+            },
+            {
+              "name": "No formal approval or security scanning process for content consumption",
+              "description": "No formal approval or security scanning process for content consumption",
+              "seq": 3
+            },
+            {
+              "name": "Playbook collection dependencies undocumented or implicit",
+              "description": "Playbook collection dependencies undocumented or implicit",
+              "seq": 4
+            },
+            {
+              "name": "Content sharing relies on informal file copy or direct repository access",
+              "description": "Content sharing relies on informal file copy or direct repository access",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Centralized Content Repository",
+          "description": "Private hub hosts approved collections with governance.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Private automation hub deployed and accessible to content developers",
+              "description": "Private automation hub deployed and accessible to content developers",
+              "seq": 1
+            },
+            {
+              "name": "Approved collections published to organizational namespaces",
+              "description": "Approved collections published to organizational namespaces",
+              "seq": 2
+            },
+            {
+              "name": "Collection upload permissions restricted to designated approvers",
+              "description": "Collection upload permissions restricted to designated approvers",
+              "seq": 3
+            },
+            {
+              "name": "Red Hat Certified Content synchronized from cloud automation hub",
+              "description": "Red Hat Certified Content synchronized from cloud automation hub",
+              "seq": 4
+            },
+            {
+              "name": "Execution environments reference private hub for dependency resolution",
+              "description": "Execution environments reference private hub for dependency resolution",
+              "seq": 5
+            },
+            {
+              "name": "Content developers can discover and install collections from a single source",
+              "description": "Content developers can discover and install collections from a single source",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Content Certification Pipeline",
+          "description": "Automated quality gates enforce content standards.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Collection submission triggers automated syntax validation and linting",
+              "description": "Collection submission triggers automated syntax validation and linting",
+              "seq": 1
+            },
+            {
+              "name": "Security scanning identifies CVEs in collection dependencies",
+              "description": "Security scanning identifies CVEs in collection dependencies",
+              "seq": 2
+            },
+            {
+              "name": "Digital signatures required for certified content before publication",
+              "description": "Digital signatures required for certified content before publication",
+              "seq": 3
+            },
+            {
+              "name": "Approval workflow routes collections to domain experts for review",
+              "description": "Approval workflow routes collections to domain experts for review",
+              "seq": 4
+            },
+            {
+              "name": "Certification status visible in automation hub UI with approval history",
+              "description": "Certification status visible in automation hub UI with approval history",
+              "seq": 5
+            },
+            {
+              "name": "Deprecated or vulnerable collections automatically flagged for removal",
+              "description": "Deprecated or vulnerable collections automatically flagged for removal",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Catalog-Driven Content Distribution",
+          "description": "Centralized catalog auto-discovers and governs content.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Centralized content catalog configured discovering collections from Git repos and private hub",
+              "description": "Centralized content catalog configured discovering collections from Git repos and private hub",
+              "seq": 1
+            },
+            {
+              "name": "CI/CD pipeline builds, tests, signs, and publishes collections on merge to main",
+              "description": "CI/CD pipeline builds, tests, signs, and publishes collections on merge to main",
+              "seq": 2
+            },
+            {
+              "name": "Automated testing validates collection functionality within execution environments",
+              "description": "Automated testing validates collection functionality within execution environments",
+              "seq": 3
+            },
+            {
+              "name": "Semantic versioning automatically incremented based on commit conventions",
+              "description": "Semantic versioning automatically incremented based on commit conventions",
+              "seq": 4
+            },
+            {
+              "name": "RBAC visibility controls determine which content different teams can discover and consume",
+              "description": "RBAC visibility controls determine which content different teams can discover and consume",
+              "seq": 5
+            },
+            {
+              "name": "Rollback procedures tested for problematic collection releases",
+              "description": "Rollback procedures tested for problematic collection releases",
+              "seq": 6
+            },
+            {
+              "name": "Content usage analytics tracked and reported for value measurement",
+              "description": "Content usage analytics tracked and reported for value measurement",
+              "seq": 7
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Maturing the Ansible Content Supply Chain",
+          "description": "The organizational journey from ungoverned content consumption to automated, catalog-driven content distribution.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Teams install collections directly from Ansible Galaxy without version governance, leading to dependency conflicts and inconsistent automation behavior. Playbooks reference specific module versions that may differ across environments, creating hard-to-diagnose failures."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "A private automation hub provides a single source of truth for approved content. Collection upload requires approver authorization, Red Hat Certified Content is synchronized from the cloud hub, and execution environments resolve dependencies from the private hub rather than external sources."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Automated certification pipelines enforce quality gates including security scanning, linting, and digital signature verification before any collection reaches production. The centralized content catalog auto-discovers content from Git repositories and private hub, providing unified visibility with RBAC-controlled access across the organization."
+            }
+          ],
+          "citationNames": [
+            "Managing Content in Automation Hub",
+            "Digitally Signing Ansible Content Collections Using Private Automation Hub"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Automation Configuration",
+      "description": "Version-controlled declarative management of automation platform state through GitOps workflows.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "depends on",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Platform Governance",
+          "direction": "incoming"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "gitops-config-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Manual Playbook Management",
+          "description": "Playbooks managed without version control.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Playbooks created and edited directly on controller server filesystem",
+              "description": "Playbooks created and edited directly on controller server filesystem",
+              "seq": 1
+            },
+            {
+              "name": "No version history or change tracking available for automation content",
+              "description": "No version history or change tracking available for automation content",
+              "seq": 2
+            },
+            {
+              "name": "Multi-user editing causes conflicts and overwrites of playbook content",
+              "description": "Multi-user editing causes conflicts and overwrites of playbook content",
+              "seq": 3
+            },
+            {
+              "name": "No separation between development and production playbooks",
+              "description": "No separation between development and production playbooks",
+              "seq": 4
+            },
+            {
+              "name": "Configuration changes applied manually through web UI without audit trail",
+              "description": "Configuration changes applied manually through web UI without audit trail",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Basic SCM Integration",
+          "description": "Projects configured with Git repository source control.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Git repository configured as project source with branch specification",
+              "description": "Git repository configured as project source with branch specification",
+              "seq": 1
+            },
+            {
+              "name": "Project sync successfully fetches playbooks from remote repository",
+              "description": "Project sync successfully fetches playbooks from remote repository",
+              "seq": 2
+            },
+            {
+              "name": "Job templates reference project-sourced playbooks for execution",
+              "description": "Job templates reference project-sourced playbooks for execution",
+              "seq": 3
+            },
+            {
+              "name": "Update-on-launch enabled for selected templates ensuring latest content",
+              "description": "Update-on-launch enabled for selected templates ensuring latest content",
+              "seq": 4
+            },
+            {
+              "name": "SCM credentials configured for private repository access through platform gateway",
+              "description": "SCM credentials configured for private repository access through platform gateway",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Branch-Based Workflows",
+          "description": "Environment promotion through branching strategy.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Separate projects configured for development, staging, and production branches",
+              "description": "Separate projects configured for development, staging, and production branches",
+              "seq": 1
+            },
+            {
+              "name": "Pull request workflows require peer review before merging to production branch",
+              "description": "Pull request workflows require peer review before merging to production branch",
+              "seq": 2
+            },
+            {
+              "name": "Tag-based releases freeze playbook versions for critical deployments",
+              "description": "Tag-based releases freeze playbook versions for critical deployments",
+              "seq": 3
+            },
+            {
+              "name": "Project sync failures alert content developers with actionable error messages",
+              "description": "Project sync failures alert content developers with actionable error messages",
+              "seq": 4
+            },
+            {
+              "name": "Branch protection rules enforced preventing direct commits to production branches",
+              "description": "Branch protection rules enforced preventing direct commits to production branches",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "GitOps Platform Configuration",
+          "description": "Controller configuration managed declaratively in Git.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "infra.controller_configuration collection manages controller resources in YAML",
+              "description": "infra.controller_configuration collection manages controller resources in YAML",
+              "seq": 1
+            },
+            {
+              "name": "Git repository stores controller configuration alongside playbook content",
+              "description": "Git repository stores controller configuration alongside playbook content",
+              "seq": 2
+            },
+            {
+              "name": "CI/CD pipeline applies configuration via platform gateway on git push events",
+              "description": "CI/CD pipeline applies configuration via platform gateway on git push events",
+              "seq": 3
+            },
+            {
+              "name": "Configuration drift detected and reconciled automatically through scheduled runs",
+              "description": "Configuration drift detected and reconciled automatically through scheduled runs",
+              "seq": 4
+            },
+            {
+              "name": "Organizational scope separation isolates global and org-specific configuration",
+              "description": "Organizational scope separation isolates global and org-specific configuration",
+              "seq": 5
+            },
+            {
+              "name": "Configuration changes audited through git commit history and platform gateway logs",
+              "description": "Configuration changes audited through git commit history and platform gateway logs",
+              "seq": 6
+            },
+            {
+              "name": "Approval gates require manual review for production controller changes",
+              "description": "Approval gates require manual review for production controller changes",
+              "seq": 7
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "From Manual Configuration to GitOps-Driven Platform Management",
+          "description": "The journey from ad hoc platform administration to fully declarative, version-controlled platform configuration.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Platform administrators create projects, inventories, and job templates manually through the controller web UI. Configuration changes lack audit trails, environment consistency depends on manual replication, and there is no systematic approach to managing platform state."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "Projects are sourced from Git repositories with branch-based promotion workflows separating development from production. Pull request reviews provide change validation, tag-based releases freeze versions for critical deployments, and SCM integration ensures teams always execute the latest approved automation content."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Full GitOps management treats the entire controller configuration as code using the infra.controller_configuration collection. CI/CD pipelines apply configuration changes through the platform gateway on every commit, scheduled drift detection identifies unauthorized changes, and automated reconciliation maintains desired state."
+            }
+          ],
+          "citationNames": [
+            "Configuring Red Hat Ansible Automation Platform with GitOps"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "alphaInstances": [
+    {
+      "name": "Infrastructure Collections",
+      "description": "Cloud provider integration collections (amazon.aws, azure.azcollection, google.cloud) for infrastructure automation.",
+      "alphaName": "Platform Asset"
+    },
+    {
+      "name": "Network Collections",
+      "description": "Network device management collections (cisco.ios, arista.eos, juniper.junos) for network automation.",
+      "alphaName": "Platform Asset"
+    },
+    {
+      "name": "Application Collections",
+      "description": "Application deployment and configuration collections (community.postgresql, community.docker) for application lifecycle automation.",
+      "alphaName": "Platform Asset"
+    },
+    {
+      "name": "Security Collections",
+      "description": "Security tooling automation collections (community.crypto, ansible.posix) for compliance and security enforcement.",
+      "alphaName": "Platform Asset"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Ansible Content Collection",
+      "description": "Packaged modules, plugins, roles, and playbooks as versioned distributable automation units.",
+      "levelsOfDetail": [
+        {
+          "name": "Ad Hoc Playbooks",
+          "description": "Standalone playbooks without collection structure.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Playbook files created with embedded roles and tasks",
+              "description": "Playbook files created with embedded roles and tasks",
+              "seq": 1
+            },
+            {
+              "name": "No formal versioning or dependency management",
+              "description": "No formal versioning or dependency management",
+              "seq": 2
+            },
+            {
+              "name": "Sharing relies on file copy or informal repositories",
+              "description": "Sharing relies on file copy or informal repositories",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Ad Hoc Content Usage"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Identified"
+            }
+          ]
+        },
+        {
+          "name": "Structured Collection",
+          "description": "Collection with galaxy.yml metadata and standards.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Collection follows ansible-galaxy init skeleton structure",
+              "description": "Collection follows ansible-galaxy init skeleton structure",
+              "seq": 1
+            },
+            {
+              "name": "galaxy.yml defines namespace, name, version, and dependencies",
+              "description": "galaxy.yml defines namespace, name, version, and dependencies",
+              "seq": 2
+            },
+            {
+              "name": "Modules, plugins, and roles organized in standardized directories",
+              "description": "Modules, plugins, and roles organized in standardized directories",
+              "seq": 3
+            },
+            {
+              "name": "README documents collection purpose and usage with examples",
+              "description": "README documents collection purpose and usage with examples",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Centralized Content Repository"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Specified"
+            }
+          ]
+        },
+        {
+          "name": "Versioned and Tested",
+          "description": "Collection with automated testing and versioning.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Test suite validates collection functionality using molecule and ansible-test",
+              "description": "Test suite validates collection functionality using molecule and ansible-test",
+              "seq": 1
+            },
+            {
+              "name": "Semantic versioning applied with changelog documenting changes",
+              "description": "Semantic versioning applied with changelog documenting changes",
+              "seq": 2
+            },
+            {
+              "name": "Build automation packages collection artifact as distributable tar.gz",
+              "description": "Build automation packages collection artifact as distributable tar.gz",
+              "seq": 3
+            },
+            {
+              "name": "Publication to private automation hub or Ansible Galaxy completed",
+              "description": "Publication to private automation hub or Ansible Galaxy completed",
+              "seq": 4
+            },
+            {
+              "name": "ansible-lint validation passing against organizational coding standards",
+              "description": "ansible-lint validation passing against organizational coding standards",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Content Certification Pipeline"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Provisioned"
+            }
+          ]
+        },
+        {
+          "name": "Certified and Governed",
+          "description": "Collection meeting organizational quality and security standards.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Security scanning validates no known vulnerabilities in dependencies",
+              "description": "Security scanning validates no known vulnerabilities in dependencies",
+              "seq": 1
+            },
+            {
+              "name": "Code quality gates enforce linting and style standards",
+              "description": "Code quality gates enforce linting and style standards",
+              "seq": 2
+            },
+            {
+              "name": "Digital signature applied for content integrity verification",
+              "description": "Digital signature applied for content integrity verification",
+              "seq": 3
+            },
+            {
+              "name": "Usage analytics track adoption and identify optimization needs",
+              "description": "Usage analytics track adoption and identify optimization needs",
+              "seq": 4
+            },
+            {
+              "name": "Support lifecycle documented (active, maintenance, deprecated status)",
+              "description": "Support lifecycle documented (active, maintenance, deprecated status)",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Catalog-Driven Content Distribution"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Operational"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Ansible Collection Development from Skeleton to Certified Distribution",
+          "description": "How ansible content collections mature from standalone playbooks to certified, governed distribution artifacts.",
+          "narrativeTypeName": "SDLC",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "The collection development process begins with identifying a recurring automation pattern that warrants codification and evaluating existing community or certified content for reuse before initiating new development."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Design",
+              "context": "Collection architecture follows the ansible-galaxy init skeleton, with galaxy.yml defining namespace taxonomy, semantic version, and dependency declarations that enable deterministic dependency resolution across consuming execution environments."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Build",
+              "context": "Content developers author modules, plugins, and roles within standardized development workspaces, implementing idempotent automation patterns and documenting variable interfaces for consuming teams."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Test",
+              "context": "Automated test suites use molecule for integration testing, ansible-test for sanity checks, and ansible-lint for style enforcement, ensuring collection quality before publication."
+            },
+            {
+              "seq": 5,
+              "narrativeElementName": "Deploy",
+              "context": "Certified collections are published to private automation hub with digital signatures, the centralized content catalog auto-discovers them, and RBAC controls govern visibility to appropriate consuming teams."
+            },
+            {
+              "seq": 6,
+              "narrativeElementName": "Maintain",
+              "context": "Collection maintainers track usage analytics, manage semantic versioning for backward compatibility, address issues through Git-based workflows, and document deprecation timelines when successor content is available."
+            }
+          ],
+          "citationNames": [
+            "Managing Content in Automation Hub",
+            "Digitally Signing Ansible Content Collections Using Private Automation Hub"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "GitOps Configuration Repository",
+      "description": "Version-controlled declarative platform configuration enabling GitOps-driven controller management.",
+      "levelsOfDetail": [
+        {
+          "name": "Manual Controller Configuration",
+          "description": "Configuration created directly via UI without versioning.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Projects, inventories, and job templates created via web interface",
+              "description": "Projects, inventories, and job templates created via web interface",
+              "seq": 1
+            },
+            {
+              "name": "No audit trail of configuration changes available",
+              "description": "No audit trail of configuration changes available",
+              "seq": 2
+            },
+            {
+              "name": "Configuration drift between environments undetected",
+              "description": "Configuration drift between environments undetected",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Configuration",
+              "stateName": "Manual Playbook Management"
+            }
+          ]
+        },
+        {
+          "name": "Scripted Configuration",
+          "description": "API scripts automate resource creation via gateway.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Python or shell scripts use platform gateway API for controller provisioning",
+              "description": "Python or shell scripts use platform gateway API for controller provisioning",
+              "seq": 1
+            },
+            {
+              "name": "Scripts version controlled in Git repository with change history",
+              "description": "Scripts version controlled in Git repository with change history",
+              "seq": 2
+            },
+            {
+              "name": "Idempotency challenges addressed for existing resource management",
+              "description": "Idempotency challenges addressed for existing resource management",
+              "seq": 3
+            },
+            {
+              "name": "Scripts documented with usage instructions and variable definitions",
+              "description": "Scripts documented with usage instructions and variable definitions",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Configuration",
+              "stateName": "Basic SCM Integration"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Specified"
+            }
+          ]
+        },
+        {
+          "name": "Declarative GitOps",
+          "description": "Controller configuration managed declaratively in YAML.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "infra.controller_configuration collection defines desired state in YAML files",
+              "description": "infra.controller_configuration collection defines desired state in YAML files",
+              "seq": 1
+            },
+            {
+              "name": "Git repository stores configuration with modular directory structure",
+              "description": "Git repository stores configuration with modular directory structure",
+              "seq": 2
+            },
+            {
+              "name": "CI/CD pipeline applies configuration via platform gateway on git push",
+              "description": "CI/CD pipeline applies configuration via platform gateway on git push",
+              "seq": 3
+            },
+            {
+              "name": "Organizational scope separation isolates global and org-specific configuration",
+              "description": "Organizational scope separation isolates global and org-specific configuration",
+              "seq": 4
+            },
+            {
+              "name": "Configuration changes traceable through git commit history",
+              "description": "Configuration changes traceable through git commit history",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Configuration",
+              "stateName": "GitOps Platform Configuration"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Integrated"
+            }
+          ]
+        },
+        {
+          "name": "Continuous Configuration Management",
+          "description": "Automated drift detection with compliance reconciliation.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Scheduled drift detection compares actual vs desired state through platform gateway API",
+              "description": "Scheduled drift detection compares actual vs desired state through platform gateway API",
+              "seq": 1
+            },
+            {
+              "name": "Automated reconciliation corrects unauthorized configuration changes",
+              "description": "Automated reconciliation corrects unauthorized configuration changes",
+              "seq": 2
+            },
+            {
+              "name": "Approval workflows require peer review for production configuration changes",
+              "description": "Approval workflows require peer review for production configuration changes",
+              "seq": 3
+            },
+            {
+              "name": "Rollback procedures tested for configuration regression scenarios",
+              "description": "Rollback procedures tested for configuration regression scenarios",
+              "seq": 4
+            },
+            {
+              "name": "Compliance validation ensures configuration meets security standards",
+              "description": "Compliance validation ensures configuration meets security standards",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Configuration",
+              "stateName": "GitOps Platform Configuration"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Operational"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Declarative Platform Management Through Version-Controlled Configuration",
+          "description": "How controller configuration evolves from manual web UI administration to automated, drift-detected GitOps management.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Administrators create controller resources manually through the web UI, resulting in undocumented configuration changes and environment drift that is discovered only when deployments fail."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "Configuration scripts using the platform gateway API introduce version control and repeatability, though idempotency challenges require careful error handling and scripts may not gracefully manage pre-existing resources."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Full declarative GitOps using the infra.controller_configuration collection treats the entire controller state as code, with CI/CD-driven application, automated drift detection, compliance validation, and approval workflows providing complete configuration governance."
+            }
+          ],
+          "citationNames": [
+            "Configuring Red Hat Ansible Automation Platform with GitOps"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "workProductInstances": [
+    {
+      "name": "Infrastructure Collection Artifact",
+      "description": "Cloud provider integration collection (e.g., amazon.aws) packaged as certified distributable artifact.",
+      "workProductName": "Ansible Content Collection"
+    },
+    {
+      "name": "Network Collection Artifact",
+      "description": "Network device management collection (e.g., cisco.ios) packaged as certified distributable artifact.",
+      "workProductName": "Ansible Content Collection"
+    },
+    {
+      "name": "Platform GitOps Repository",
+      "description": "Primary Git repository containing declarative controller configuration for the automation platform.",
+      "workProductName": "GitOps Configuration Repository"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Ansible Content Developer",
+      "description": "Creates and maintains ansible playbooks, roles, and collections using development workspaces.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "DevOps",
+          "Infrastructure as Code"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Content Development Team"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Content Platform Engineer",
+      "description": "Manages automation hub, content catalog, development workspaces, and GitOps configuration infrastructure.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "DevOps",
+          "Infrastructure as Code",
+          "Content Management"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Platform Team"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Content Development Team",
+      "description": "Developers creating and maintaining ansible collections, playbooks, and roles using development workspaces.",
+      "personaNames": [
+        "Ansible Content Developer",
+        "Ansible Content Developer",
+        "Ansible Content Developer"
+      ],
+      "tags": {
+        "domainTags": [
+          "DevOps",
+          "Infrastructure as Code"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Content Development Team"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Content Platform Team",
+      "description": "Platform engineers managing content infrastructure including automation hub, catalog, workspaces, and GitOps configuration.",
+      "personaNames": [
+        "Content Platform Engineer",
+        "Content Platform Engineer"
+      ],
+      "tags": {
+        "domainTags": [
+          "DevOps",
+          "Content Management"
+        ],
+        "lifecycleTags": [
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Platform Team"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Define Content Requirements",
+      "description": "Identify automation content needs based on recurring infrastructure patterns and organizational requirements.",
+      "activitySpaceName": "Define Platform Capabilities",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Identified"
+        },
+        {
+          "alphaName": "Automation Content",
+          "stateName": "Ad Hoc Content Usage"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Ansible Content Collection",
+          "levelOfDetailName": "Ad Hoc Playbooks"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Content Development Team",
+        "Content Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Identifying Automation Content Gaps Through Pattern Analysis",
+          "description": "How teams identify which infrastructure patterns warrant codification as reusable ansible content collections.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations accumulate ad hoc playbooks addressing recurring infrastructure patterns, but without systematic evaluation these remain one-off scripts rather than reusable, governed content collections that could benefit multiple teams."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Evaluate recurring infrastructure automation patterns to determine which warrant formal codification as collections, assess existing community and Red Hat Certified Content for reuse, and document build-vs-reuse decisions with rationale."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Survey consuming teams to identify repeated automation patterns, evaluate Ansible Galaxy and Red Hat Certified Content catalogs for existing coverage, document collection namespace planning following organizational taxonomy, and assess development workspace requirements."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A prioritized backlog of content development initiatives exists, each with documented rationale for build versus reuse, namespace taxonomy alignment, and development resource requirements, enabling systematic content ecosystem growth."
+            }
+          ],
+          "citationNames": [
+            "Ansible Automation Hub"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Develop Ansible Content Collection",
+      "description": "Create, test, and publish ansible content collections as versioned distributable automation units.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Content",
+          "stateName": "Centralized Content Repository"
+        },
+        {
+          "alphaName": "Automation Content",
+          "stateName": "Content Certification Pipeline"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Provisioned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Ansible Content Collection",
+          "levelOfDetailName": "Versioned and Tested"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Content Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Authoring Reusable Ansible Collections from Initialization to Publication",
+          "description": "The development workflow for creating ansible content collections using development workspaces, testing tools, and automation hub publication.",
+          "narrativeTypeName": "SDLC",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Collection development begins with identifying a recurring automation pattern that warrants codification, evaluating existing community or Red Hat Certified Content for reuse, and planning the collection namespace and module architecture within the organizational taxonomy."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Design",
+              "context": "Initialize the collection structure using ansible-creator or ansible-galaxy collection init, defining the galaxy.yml metadata with namespace, version, dependencies, and supported platforms, then organizing modules, plugins, roles, and playbooks into the standardized directory layout."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Build",
+              "context": "Author Python modules implementing argument_spec definitions with parameter types and validation, create roles with idempotent task logic and Jinja2 templates, and develop playbooks demonstrating collection usage patterns within the pre-configured development workspace environment."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Test",
+              "context": "Execute automated validation using ansible-test sanity for static analysis, ansible-lint for playbook quality enforcement, molecule for integration testing across target platforms, and tox-ansible for cross-version compatibility, all within the development workspace."
+            },
+            {
+              "seq": 5,
+              "narrativeElementName": "Deploy",
+              "context": "Build the collection artifact using ansible-galaxy collection build, publish to private automation hub with authentication tokens, apply GPG digital signatures for integrity verification, and document the release with semantic versioning and changelog."
+            },
+            {
+              "seq": 6,
+              "narrativeElementName": "Maintain",
+              "context": "Monitor collection usage through hub analytics, manage backward-compatible version updates following semantic versioning, address reported issues through Git-based workflows, and deprecate superseded collections with documented migration guidance."
+            }
+          ],
+          "citationNames": [
+            "Managing Content in Automation Hub",
+            "Digitally Signing Ansible Content Collections Using Private Automation Hub",
+            "Ansible Development Workspaces"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Provision Content Development Workspaces",
+      "description": "Deploy and manage browser-based development workspace environments with pre-configured ansible tooling.",
+      "activitySpaceName": "Develop the Golden Paths",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Content",
+          "stateName": "Centralized Content Repository"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Integrated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Ansible Content Collection",
+          "levelOfDetailName": "Structured Collection"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Content Platform Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "workspace-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Standardizing Content Development Through Managed Workspaces",
+          "description": "How platform teams provision and govern browser-based development environments to ensure consistent content creation.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Content developers install ansible tools locally with varying versions and configurations, leading to inconsistent automation behavior, environment-specific failures, and time-consuming setup for new team members."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Provide browser-based pre-configured development environments with standardized tooling versions and organizational coding standards enforced through workspace templates."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Create workspace templates specifying approved tool versions, linting configurations, and Git integration. Deploy workspaces centrally with platform administrator control over security policies, approved VS Code extensions, network access controls, and resource limits."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "All content developers operate in consistent, governed environments where tool versions match production requirements, organizational coding standards are enforced automatically, and new team members become productive within hours rather than days."
+            }
+          ],
+          "citationNames": [
+            "Ansible Development Workspaces"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Certify Ansible Content",
+      "description": "Execute content quality gates including security scanning, linting validation, and digital signature application.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Content",
+          "stateName": "Content Certification Pipeline"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Integrated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Ansible Content Collection",
+          "levelOfDetailName": "Certified and Governed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Platform Security And Compliance Enforcement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Content Platform Team",
+        "Content Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Enforcing Content Quality Through Automated Certification Pipelines",
+          "description": "How organizations implement automated quality gates ensuring only certified, signed content reaches production automation workflows.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Without formal certification, ansible collections of varying quality and security posture enter the organizational content ecosystem, creating risk of vulnerable dependencies, inconsistent automation behavior, and difficulty tracing content provenance."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Establish an automated certification pipeline that enforces quality standards, validates security posture, verifies content integrity through digital signatures, and routes approvals to domain experts before publication."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Configure automation hub to require certification for published collections, integrate security scanning into CI/CD pipelines, implement GPG-based digital signing for content integrity verification, and establish approval workflows routing collections to designated domain expert reviewers."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "All organizational content meets documented quality and security standards before reaching consumers, content provenance is verifiable through digital signatures, deprecated or vulnerable collections are automatically flagged, and certification status is visible in the automation hub UI."
+            }
+          ],
+          "citationNames": [
+            "Digitally Signing Ansible Content Collections Using Private Automation Hub",
+            "Managing Content in Automation Hub"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Content Catalog Discovery",
+      "description": "Configure centralized content catalog to auto-discover collections from Git repositories and private hub sources.",
+      "activitySpaceName": "Develop the Golden Paths",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Content",
+          "stateName": "Catalog-Driven Content Distribution"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Operational"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Ansible Content Collection",
+          "levelOfDetailName": "Certified and Governed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Content Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Unified Content Visibility Through Centralized Catalog Auto-Discovery",
+          "description": "How the centralized content catalog provides unified visibility across all organizational content sources.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Ansible content is distributed across multiple private hub instances, Git repositories, and community sources, making it difficult for consumers to discover available automation, assess quality, and select the most appropriate collection."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Deploy and configure the AAP 2.7 centralized content catalog to auto-discover collections from all organizational content sources, providing unified visibility with RBAC-controlled access governing what content different teams can discover and consume."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Configure the centralized content catalog with Git repository connections and private hub integration, establish RBAC visibility controls per team and organization, validate auto-discovery of existing collections, and set up content usage analytics to track adoption metrics."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "All organizational content is discoverable through a single catalog interface, RBAC controls ensure teams see only content they are authorized to consume, content usage analytics inform investment decisions, and the catalog automatically reflects new collections as they are published."
+            }
+          ],
+          "citationNames": [
+            "What's New in Ansible Automation Platform 2.7",
+            "Managing Content in Automation Hub"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Establish Content SCM Workflows",
+      "description": "Configure automation controller projects with Git repository source control and branch-based promotion workflows.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Configuration",
+          "stateName": "Basic SCM Integration"
+        },
+        {
+          "alphaName": "Automation Configuration",
+          "stateName": "Branch-Based Workflows"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "GitOps Configuration Repository",
+          "levelOfDetailName": "Scripted Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Content Platform Team",
+        "Content Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Progressive SCM Integration for Ansible Content Projects",
+          "description": "How to migrate from manually managed playbooks to branch-based development workflows with environment promotion.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Configure automation controller projects with Git repository URLs and branch specifications, set up SCM credentials for private repository access, and enable project sync to fetch playbooks from version control rather than direct filesystem management."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "Establish separate controller projects for development, staging, and production branches, implement update-on-launch for templates ensuring latest content, and configure project sync failure alerts that provide actionable error messages to content developers."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Implement pull request workflows requiring peer review before merging to production branches, use tag-based releases to freeze playbook versions for critical deployments, and enforce branch protection rules preventing direct commits to production branches."
+            }
+          ],
+          "citationNames": [
+            "Configuring Red Hat Ansible Automation Platform with GitOps"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement GitOps Platform Configuration",
+      "description": "Manage automation controller configuration as code using version-controlled declarative YAML through platform gateway.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Configuration",
+          "stateName": "GitOps Platform Configuration"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Integrated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "GitOps Configuration Repository",
+          "levelOfDetailName": "Declarative GitOps"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Content Platform Team",
+        "Content Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Declarative Controller Management with infra.controller_configuration",
+          "description": "How to implement GitOps-driven configuration management for the automation controller using version-controlled YAML.",
+          "narrativeTypeName": "SDLC",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Determine the repository structure for controller configuration, choosing between single-file and modular approaches, and defining the scope separation between global platform settings and organization-specific resources."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Design",
+              "context": "Install the infra.controller_configuration and awx.awx collections, create the configure_controller.yml playbook importing roles for each resource type in dependency order, and configure controller connection variables pointing to the platform gateway endpoint."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Build",
+              "context": "Define resources in YAML following the controller_configuration schema: projects with SCM URLs and branch specifications, inventories with organization assignments, job templates with project/inventory/credential associations, and workflow job templates with node topology definitions."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Test",
+              "context": "Execute configuration playbooks in dry-run mode to validate syntax and permissions before applying to the production controller, and set up development controllers where configuration changes are auto-applied for rapid feedback."
+            },
+            {
+              "seq": 5,
+              "narrativeElementName": "Deploy",
+              "context": "Configure CI/CD pipeline integration to apply configuration on git push events through the platform gateway with service account authentication, implementing approval gates for production changes while enabling auto-apply for development environments."
+            },
+            {
+              "seq": 6,
+              "narrativeElementName": "Maintain",
+              "context": "Implement scheduled drift detection comparing desired state in Git against actual state queried through the platform gateway API, configure alerting for unauthorized manual changes, and establish automated reconciliation to revert configuration drift."
+            }
+          ],
+          "citationNames": [
+            "Configuring Red Hat Ansible Automation Platform with GitOps"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Monitor Content Lifecycle Operations",
+      "description": "Track content usage analytics, manage collection versioning, and execute content deprecation and retirement.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Content",
+          "stateName": "Catalog-Driven Content Distribution"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Value Yielding"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Retiring"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Ansible Content Collection",
+          "levelOfDetailName": "Certified and Governed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Content Platform Team",
+        "Content Development Team"
+      ],
+      "narratives": [
+        {
+          "name": "Continuous Improvement of the Organizational Content Ecosystem",
+          "description": "How content lifecycle operations use analytics and feedback to continuously improve the organizational content ecosystem.",
+          "narrativeTypeName": "PDCA",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Define content lifecycle metrics including collection download counts, consuming team adoption rates, issue resolution times, and version currency across the organization, establishing baselines and improvement targets."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Do",
+              "context": "Implement collection usage tracking through automation hub analytics, establish semantic versioning policies for backward compatibility, create deprecation procedures with consumer notification timelines, and execute content retirement workflows."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Check",
+              "context": "Review content usage analytics to identify under-adopted collections needing promotion, over-extended collections needing refactoring, and deprecated collections still in use by consuming teams, comparing actual metrics against established targets."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Act",
+              "context": "Act on findings by promoting high-value collections, deprecating low-adoption content with documented migration paths, refactoring complex collections into focused units, and updating content development standards based on quality patterns observed."
+            }
+          ],
+          "citationNames": [
+            "Managing Content in Automation Hub"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Retire Automation Content",
+      "description": "Deprecate, migrate consumers, and archive superseded ansible content collections.",
+      "activitySpaceName": "Decommission and Retire",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Retiring"
+        },
+        {
+          "alphaName": "Automation Content",
+          "stateName": "Catalog-Driven Content Distribution"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Ansible Content Collection",
+          "levelOfDetailName": "Certified and Governed"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Content Platform Team"
+      ],
+      "narratives": [
+        {
+          "name": "Governed Content Retirement Preventing Orphaned Automation Dependencies",
+          "description": "How to systematically retire ansible content collections while ensuring consuming teams migrate to successors.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Collections inevitably reach end-of-life due to successor content availability, technology deprecation, or organizational changes, but ungoverned retirement creates orphaned automation dependencies that fail silently in production."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement a governed content retirement process that identifies successor collections, communicates deprecation timelines to consuming teams, provides migration guidance, and ensures all consumers migrate before final archive."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Publish deprecation notices in automation hub and centralized content catalog, create consumer migration guides with version compatibility matrices, set automated alerts to teams still consuming deprecated collections, and archive retired collections with read-only access for audit purposes."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Content retirement follows a predictable, governed process where no collection is removed without successor validation, consumer migration is tracked to completion, and audit trails maintain the complete provenance of retired content."
+            }
+          ],
+          "citationNames": [
+            "Managing Content in Automation Hub"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Content Lifecycle Journey",
+      "description": "Automation content from development workspace through certification to catalog distribution.",
+      "narrativeTypeName": "SDLC",
+      "assetNames": [
+        {
+          "assetName": "content-lifecycle-diagram",
+          "type": "diagram"
+        }
+      ],
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Content infrastructure and workspaces ready.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Identified"
+            },
+            {
+              "alphaName": "Automation Configuration",
+              "stateName": "Basic SCM Integration"
+            },
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Ad Hoc Content Usage"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Infrastructure Collections",
+              "description": "Cloud provider integration collections for infrastructure automation.",
+              "alphaName": "Platform Asset",
+              "stateName": "Identified",
+              "evidenceBy": [
+                {
+                  "name": "Infrastructure Collection Artifact",
+                  "description": "Cloud provider integration collection packaged as distributable artifact.",
+                  "workProductName": "Ansible Content Collection",
+                  "levelOfDetailName": "Ad Hoc Playbooks"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Define Content Requirements",
+            "Provision Content Development Workspaces",
+            "Establish Content SCM Workflows"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Plan",
+              "context": "Content management begins with establishing the development infrastructure -- deploying automation hub, configuring private automation hub connectivity, provisioning development workspaces with standardized tooling, and setting up Git repository integration for playbook source control."
+            }
+          ]
+        },
+        {
+          "name": "Development",
+          "description": "Create collection structure and implement content.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Specified"
+            },
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Ad Hoc Content Usage"
+            },
+            {
+              "alphaName": "Automation Configuration",
+              "stateName": "Branch-Based Workflows"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Infrastructure Collections",
+              "description": "Cloud provider integration collections for infrastructure automation.",
+              "alphaName": "Platform Asset",
+              "stateName": "Specified",
+              "evidenceBy": [
+                {
+                  "name": "Infrastructure Collection Artifact",
+                  "description": "Cloud provider integration collection packaged as structured artifact.",
+                  "workProductName": "Ansible Content Collection",
+                  "levelOfDetailName": "Structured Collection"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Develop Ansible Content Collection",
+            "Establish Content SCM Workflows"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "Content developers initialize collection structures using ansible-creator in browser-based workspaces, defining galaxy.yml metadata with namespace taxonomy, version declarations, and dependency specifications. Modules, plugins, and roles are organized following the standardized ansible-galaxy directory layout."
+            }
+          ]
+        },
+        {
+          "name": "Testing and Validation",
+          "description": "Automated testing and security validation.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Centralized Content Repository"
+            },
+            {
+              "alphaName": "Automation Configuration",
+              "stateName": "Branch-Based Workflows"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Infrastructure Collections",
+              "description": "Cloud provider integration collections for infrastructure automation.",
+              "alphaName": "Platform Asset",
+              "stateName": "Provisioned",
+              "evidenceBy": [
+                {
+                  "name": "Infrastructure Collection Artifact",
+                  "description": "Cloud provider integration collection with automated testing.",
+                  "workProductName": "Ansible Content Collection",
+                  "levelOfDetailName": "Versioned and Tested"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Develop Ansible Content Collection",
+            "Certify Ansible Content"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "Collections undergo automated validation including ansible-test sanity checks, ansible-lint enforcement of coding standards, molecule integration testing across target platforms, and security scanning for vulnerable dependencies within the development workspace environment."
+            }
+          ]
+        },
+        {
+          "name": "Certification",
+          "description": "Quality gates and digital signature application.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Integrated"
+            },
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Content Certification Pipeline"
+            },
+            {
+              "alphaName": "Automation Configuration",
+              "stateName": "Branch-Based Workflows"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Infrastructure Collections",
+              "description": "Cloud provider integration collections for infrastructure automation.",
+              "alphaName": "Platform Asset",
+              "stateName": "Integrated",
+              "evidenceBy": [
+                {
+                  "name": "Infrastructure Collection Artifact",
+                  "description": "Cloud provider integration collection certified and governed.",
+                  "workProductName": "Ansible Content Collection",
+                  "levelOfDetailName": "Certified and Governed"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Certify Ansible Content",
+            "Implement GitOps Platform Configuration"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Test",
+              "context": "Collections passing all automated quality gates are routed to domain expert reviewers for approval, digital signatures are applied using GPG keys to verify content integrity and provenance, and certification status becomes visible in the automation hub UI with complete approval history."
+            }
+          ]
+        },
+        {
+          "name": "Distribution and Operations",
+          "description": "Catalog-driven distribution and lifecycle management.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Operational"
+            },
+            {
+              "alphaName": "Automation Content",
+              "stateName": "Catalog-Driven Content Distribution"
+            },
+            {
+              "alphaName": "Automation Configuration",
+              "stateName": "GitOps Platform Configuration"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Infrastructure Collections",
+              "description": "Cloud provider integration collections for infrastructure automation.",
+              "alphaName": "Platform Asset",
+              "stateName": "Operational",
+              "evidenceBy": [
+                {
+                  "name": "Infrastructure Collection Artifact",
+                  "description": "Cloud provider integration collection certified and governed.",
+                  "workProductName": "Ansible Content Collection",
+                  "levelOfDetailName": "Certified and Governed"
+                }
+              ]
+            },
+            {
+              "name": "Platform GitOps Repository",
+              "description": "Primary Git repository containing declarative controller configuration.",
+              "alphaName": "Platform Asset",
+              "stateName": "Operational",
+              "evidenceBy": [
+                {
+                  "name": "Platform GitOps Repository",
+                  "description": "Primary Git repository with continuous configuration management.",
+                  "workProductName": "GitOps Configuration Repository",
+                  "levelOfDetailName": "Continuous Configuration Management"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Configure Content Catalog Discovery",
+            "Monitor Content Lifecycle Operations",
+            "Implement GitOps Platform Configuration"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Deploy",
+              "context": "Certified collections are published to private automation hub, the centralized content catalog auto-discovers content from Git repositories and hub sources providing unified visibility, RBAC controls govern content access, and GitOps pipelines manage controller configuration declaratively."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Maintain",
+              "context": "Content lifecycle operations track usage analytics to identify adoption patterns, manage semantic versioning for backward compatibility, execute deprecation and retirement workflows for superseded content, and continuously improve workspace templates and certification pipelines."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Asset",
+      "aliasName": "Automation Artifact"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform",
+      "aliasName": "Automation Platform"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Integrate Toolchain Services",
+      "aliasName": "Integrate Automation Artifacts"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Develop the Golden Paths",
+      "aliasName": "Develop Automation Patterns"
+    },
+    {
+      "practiceElementType": "Competency",
+      "practiceElementName": "Engineering",
+      "aliasName": "Automation Engineering"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Governance",
+      "aliasName": "Automation Governance"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Consumption Interface",
+      "aliasName": "Automation Interface"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Infrastructure Automation Essentials",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

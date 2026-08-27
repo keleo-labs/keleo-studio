@@ -1,0 +1,3176 @@
+{
+  "kind": "practice",
+  "name": "Platform Operations",
+  "description": "OpenShift cluster lifecycle management and SRE-driven operational excellence.",
+  "baselinePracticeName": "IDP Essentials",
+  "tags": {
+    "domainTags": [
+      "Platform Engineering",
+      "SRE",
+      "Infrastructure",
+      "GitOps",
+      "FinOps"
+    ],
+    "lifecycleTags": [
+      "Adoption",
+      "Operations",
+      "Optimization",
+      "Lifecycle Management"
+    ],
+    "organizationalTags": [
+      "Platform Engineering",
+      "SRE",
+      "Infrastructure"
+    ]
+  },
+  "keywords": [
+    "OCP",
+    "openshift",
+    "kubernetes",
+    "k8s",
+    "cluster",
+    "operator",
+    "CRD",
+    "custom resource",
+    "etcd",
+    "ArgoCD",
+    "GitOps",
+    "Argo CD",
+    "ApplicationSet",
+    "ODF",
+    "OpenShift Data Foundation",
+    "PVC",
+    "StorageClass",
+    "ClusterAutoscaler",
+    "MachineSet"
+  ],
+  "authors": [
+    "Red Hat Developer",
+    "Red Hat Training"
+  ],
+  "createdAt": "2026-07-14",
+  "updatedAt": "2026-08-16",
+  "version": "2.0.1",
+  "citations": [
+    {
+      "name": "Foundations of OpenShift",
+      "description": "Red Hat's comprehensive 12-module learning path covering OpenShift fundamentals, deployment, and operations",
+      "authors": [
+        "Red Hat Developer"
+      ],
+      "date": "2026",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/learn/openshift/foundations-openshift",
+      "kind": "citation"
+    },
+    {
+      "name": "Operating OpenShift the SRE Way",
+      "description": "SRE best practices for OpenShift operations including automation evolution and toil reduction",
+      "authors": [
+        "Red Hat Developer"
+      ],
+      "date": "2023",
+      "source": "Red Hat Developer",
+      "url": "https://developers.redhat.com/articles/2023/12/28/operating-openshift-sre-way",
+      "kind": "citation"
+    },
+    {
+      "name": "OpenShift Administration I: Operating a Production Cluster (DO180)",
+      "description": "Official Red Hat training on OpenShift cluster operations and administration",
+      "authors": [
+        "Red Hat Training"
+      ],
+      "date": "2026",
+      "source": "Red Hat Training",
+      "url": "https://www.redhat.com/en/services/training/red-hat-openshift-administration-i-operating-a-production-cluster",
+      "kind": "citation"
+    },
+    {
+      "name": "OpenShift Administration II: Configuring a Production Cluster (DO280)",
+      "description": "Advanced OpenShift administration covering GitOps, automation, and Day-2 operations",
+      "authors": [
+        "Red Hat Training"
+      ],
+      "date": "2026",
+      "source": "Red Hat Training",
+      "url": "https://www.redhat.com/en/services/training/red-hat-openshift-administration-ii-configuring-a-production-cluster",
+      "kind": "citation"
+    },
+    {
+      "name": "The Ultimate Guide to OpenShift Update for Cluster Administrators",
+      "description": "Comprehensive guide to OpenShift cluster updates including z-stream and y-stream upgrades, rollback, and Sigstore verification",
+      "authors": [
+        "Red Hat Blog"
+      ],
+      "date": "2026",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/the-ultimate-guide-to-openshift-update-for-cluster-administrators",
+      "kind": "citation"
+    },
+    {
+      "name": "Capacity Management and Overcommitment Best Practices in Red Hat OpenShift",
+      "description": "Best practices for capacity planning, ClusterAutoscaler, and resource optimization",
+      "authors": [
+        "Red Hat Blog"
+      ],
+      "date": "2026",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/capacity-management-overcommitment-best-practices-openshift",
+      "kind": "citation"
+    },
+    {
+      "name": "Understanding Persistent Storage",
+      "description": "OpenShift persistent storage architecture, CSI drivers, and storage class configuration",
+      "authors": [
+        "Red Hat Documentation"
+      ],
+      "date": "2026",
+      "source": "OpenShift Container Platform 4.8 Documentation",
+      "url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/storage/understanding-persistent-storage",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "platform-icon",
+      "description": "Platform infrastructure icon for Platform alpha visual identity",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "way-of-working-icon",
+      "description": "Operational practices icon for Way Of Working alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "storage-infrastructure-icon",
+      "description": "Storage infrastructure icon for Storage Infrastructure alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-database",
+      "fontWeight": "900"
+    },
+    {
+      "name": "gitops-configuration-icon",
+      "description": "GitOps configuration management icon for GitOps Configuration Management alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-code-branch",
+      "fontWeight": "900"
+    },
+    {
+      "name": "cluster-lifecycle-icon",
+      "description": "Cluster lifecycle management icon for Cluster Lifecycle Management alpha",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rotate",
+      "fontWeight": "900"
+    },
+    {
+      "name": "deploy-cluster-icon",
+      "description": "Cluster deployment activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-server",
+      "fontWeight": "900"
+    },
+    {
+      "name": "gitops-activity-icon",
+      "description": "GitOps implementation activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-diagram-project",
+      "fontWeight": "900"
+    },
+    {
+      "name": "cluster-upgrade-icon",
+      "description": "Cluster upgrade activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrow-up",
+      "fontWeight": "900"
+    },
+    {
+      "name": "storage-icon",
+      "description": "Persistent storage activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-hard-drive",
+      "fontWeight": "900"
+    },
+    {
+      "name": "capacity-management-icon",
+      "description": "Capacity management activity icon",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Platform",
+      "description": "The unified system of infrastructure, compute resources, networking, storage, and foundational services that provide the technical foundation for hosting and operating platform assets.",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "platform-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Architecture Selected",
+          "description": "Foundational structural boundaries and technical strategies formally selected.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "High availability control plane",
+              "description": "High availability control plane designed with minimum three master nodes",
+              "seq": 1
+            },
+            {
+              "name": "Private cluster configuration",
+              "description": "Private cluster configuration selected isolating API and nodes from public Internet",
+              "seq": 2
+            },
+            {
+              "name": "Multi-zone deployment",
+              "description": "Multi-zone deployment strategy defined for fault tolerance",
+              "seq": 3
+            },
+            {
+              "name": "RHCOS selected",
+              "description": "RHCOS (Red Hat Enterprise Linux CoreOS) selected as immutable minimal OS",
+              "seq": 4
+            },
+            {
+              "name": "CRI-O runtime",
+              "description": "CRI-O container runtime architecture validated",
+              "seq": 5
+            },
+            {
+              "name": "etcd encryption strategy",
+              "description": "etcd encryption at rest strategy defined with weekly key rotation plan",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Baselined",
+          "description": "Core capabilities, shared services, and network perimeters logically mapped.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Network topology documented",
+              "description": "Control plane and worker node network topology documented",
+              "seq": 1
+            },
+            {
+              "name": "Infrastructure nodes",
+              "description": "Infrastructure nodes designated for platform services separation",
+              "seq": 2
+            },
+            {
+              "name": "Bastion host architecture",
+              "description": "Bastion host architecture defined for SSH access control",
+              "seq": 3
+            },
+            {
+              "name": "Dedicated VPC",
+              "description": "Dedicated VPC per cluster with restricted firewall rules specified",
+              "seq": 4
+            },
+            {
+              "name": "Master authorized networks",
+              "description": "Master authorized networks design completed restricting API endpoint access",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "Foundational infrastructure instantiated and ready for integration.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Control plane operational",
+              "description": "Three control plane nodes operational across availability zones",
+              "seq": 1
+            },
+            {
+              "name": "Worker nodes provisioned",
+              "description": "Worker nodes provisioned with Red Hat Enterprise Linux CoreOS",
+              "seq": 2
+            },
+            {
+              "name": "API accessible",
+              "description": "Kubernetes API accessible via OAuth server",
+              "seq": 3
+            },
+            {
+              "name": "Monitoring collecting metrics",
+              "description": "Basic monitoring stack collecting metrics",
+              "seq": 4
+            },
+            {
+              "name": "etcd cluster healthy",
+              "description": "etcd cluster healthy and encrypted at rest",
+              "seq": 5
+            },
+            {
+              "name": "Container runtime operational",
+              "description": "CRI-O container runtime operational on all nodes",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Ready",
+          "description": "Platform fully operational enabling autonomous developer self-service.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "GitOps operational",
+              "description": "GitOps configuration management operational via Argo CD",
+              "seq": 1
+            },
+            {
+              "name": "Machine Operator enabled",
+              "description": "Machine Operator enables remote configuration without SSH",
+              "seq": 2
+            },
+            {
+              "name": "Self-service provisioning",
+              "description": "Self-service cluster provisioning replaces manual ticket processes",
+              "seq": 3
+            },
+            {
+              "name": "Configuration drift detection",
+              "description": "Configuration drift detection and remediation automated",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Hosting Assets",
+          "description": "Platform actively supporting application workloads serving live traffic.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Production workloads deployed",
+              "description": "Production workloads deployed and serving traffic",
+              "seq": 1
+            },
+            {
+              "name": "Zero-downtime updates",
+              "description": "Cluster updates scheduled and executed without downtime",
+              "seq": 2
+            },
+            {
+              "name": "Automated lifecycle management",
+              "description": "Automated lifecycle management from provision to teardown operational",
+              "seq": 3
+            }
+          ]
+        },
+        {
+          "name": "Evolving",
+          "description": "Platform architecture autonomously adapts with predictive scaling.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Advanced Cluster Management",
+              "description": "Advanced Cluster Management provides centralized observability across fleet",
+              "seq": 1
+            },
+            {
+              "name": "GitOps pull-based agents",
+              "description": "GitOps pull-based agents manage distributed clusters",
+              "seq": 2
+            },
+            {
+              "name": "Policy enforcement",
+              "description": "Cluster-wide policies enforced via Open Policy Agent",
+              "seq": 3
+            },
+            {
+              "name": "Multicluster alerting",
+              "description": "Multicluster alerting aggregates signals to central hub",
+              "seq": 4
+            },
+            {
+              "name": "Workload migration",
+              "description": "Cross-cluster workload migration supported",
+              "seq": 5
+            },
+            {
+              "name": "Disaster recovery tested",
+              "description": "Disaster recovery tested with backup/restore procedures",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Retiring",
+          "description": "Platform components being gracefully decommissioned.",
+          "seq": 7,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Platform Context",
+          "description": "OpenShift platform infrastructure architecture and evolution",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "OpenShift platform infrastructure builds on enterprise Kubernetes with Red Hat's hardened operating system (RHCOS), integrated GitOps, and operator-driven automation. Platform engineers architect high availability control planes, security-hardened network isolation, and multi-cluster fleet management to deliver resilient foundation for cloud-native workloads."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "Key platform concepts include the immutable RHCOS operating system, CRI-O container runtime, etcd distributed key-value store for cluster state, and the operator pattern for automated lifecycle management. Private clusters isolate API endpoints from public internet while bastion hosts control administrative SSH access."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Architectural decisions include minimum three-node control planes for quorum-based fault tolerance, dedicated infrastructure nodes separating platform services from application workloads, and multi-zone deployment for geographic resilience. GitOps with Argo CD eliminates manual cluster configuration drift, and Machine Operator enables remote management without SSH access. Multi-cluster evolution leverages Advanced Cluster Management for centralized policy enforcement, observability aggregation, and disaster recovery orchestration."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "Success depends on treating infrastructure as code through GitOps, replacing manual operations with versioned software, and systematically eliminating toil through automation investment aligned with SRE principles."
+            }
+          ],
+          "citationNames": [
+            "Foundations of OpenShift",
+            "Operating OpenShift the SRE Way",
+            "OpenShift Administration I: Operating a Production Cluster (DO180)"
+          ]
+        },
+        {
+          "name": "Practice Intent",
+          "description": "OpenShift platform operations narrative describing SRE-driven operational excellence",
+          "narrativeTypeName": "Design-Build-Run-Optimize",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "OpenShift platform operations require architectural decisions on cluster topology, storage infrastructure, and operational automation strategies aligned with SRE principles and enterprise scalability needs."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Build",
+              "context": "Platform engineers provision clusters with Infrastructure as Code, implement GitOps configuration management, and establish automated operational workflows replacing manual scripting with versioned software."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Day-2 operations leverage automated cluster lifecycle management, self-service provisioning, dynamic storage allocation, and zero-downtime updates orchestrated through GitOps pull-based agents."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Optimize",
+              "context": "Multi-cluster fleet management with Advanced Cluster Management, predictive capacity planning, error budget tracking, and systematic toil elimination achieve operational excellence at scale."
+            }
+          ],
+          "citationNames": [
+            "Foundations of OpenShift",
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Way Of Working",
+      "description": "The tailored set of practices, tools, operational workflows, and industry alignments used by a team.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "way-of-working-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Principles Established",
+          "description": "Principles, constraints, and baseline industry alignments established.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "SRE principles adopted",
+              "description": "SRE principles adopted limiting toil to 50% of engineering time",
+              "seq": 1
+            },
+            {
+              "name": "GitOps principles",
+              "description": "GitOps principles established as configuration management standard",
+              "seq": 2
+            },
+            {
+              "name": "Infrastructure as code",
+              "description": "Infrastructure as code principles mandate versioned, tested automation",
+              "seq": 3
+            },
+            {
+              "name": "Self-service principles",
+              "description": "Self-service principles eliminate manual ticket-based provisioning",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Foundation Established",
+          "description": "Key practices, workflow models, and logical definitions selected.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "GitOps workflow selected",
+              "description": "GitOps workflow selected with Argo CD for configuration management",
+              "seq": 1
+            },
+            {
+              "name": "CI/CD pipeline",
+              "description": "CI/CD pipeline established for operations code testing",
+              "seq": 2
+            },
+            {
+              "name": "Lifecycle automation framework",
+              "description": "Cluster lifecycle automation framework defined",
+              "seq": 3
+            },
+            {
+              "name": "Monitoring strategy",
+              "description": "Monitoring and alerting strategy aligned to SRE symptom-based approach",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "In Use",
+          "description": "Team members adapting to the way-of-working through practice.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Operations as software",
+              "description": "Operations implemented as versioned software in Git with release strategy",
+              "seq": 1
+            },
+            {
+              "name": "CI/CD automates testing",
+              "description": "CI/CD pipeline automates testing of operation workflows",
+              "seq": 2
+            },
+            {
+              "name": "Unit tests",
+              "description": "Unit tests ensure behavior consistency across changes",
+              "seq": 3
+            },
+            {
+              "name": "Dedicated infrastructure",
+              "description": "Operations run on dedicated infrastructure not developer machines",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "In Place",
+          "description": "Practices fully integrated into daily activities.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Self-service UI",
+              "description": "Self-service UI replaces ticket-based provisioning",
+              "seq": 1
+            },
+            {
+              "name": "GitOps eliminates manual updates",
+              "description": "GitOps configuration eliminates manual cluster updates",
+              "seq": 2
+            },
+            {
+              "name": "Multi-cluster management",
+              "description": "Multi-cluster management via Argo CD operational",
+              "seq": 3
+            },
+            {
+              "name": "Standardized configuration",
+              "description": "Configuration options standardized across fleet",
+              "seq": 4
+            },
+            {
+              "name": "Feature requests not manual changes",
+              "description": "Special requests become feature requests not manual changes",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Working Well",
+          "description": "Way of working highly efficient and demonstrably successful.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Toil tracked",
+              "description": "Toil tracked and consistently limited to 50% of engineering time",
+              "seq": 1
+            },
+            {
+              "name": "Symptom-based alerting",
+              "description": "Symptom-based alerting based on SLOs replaces cause-based alerts",
+              "seq": 2
+            },
+            {
+              "name": "Alert fatigue eliminated",
+              "description": "Alert fatigue eliminated through severity-based routing",
+              "seq": 3
+            },
+            {
+              "name": "Error budgets tracked",
+              "description": "Error budgets tracked and consumed transparently",
+              "seq": 4
+            },
+            {
+              "name": "Chaos engineering",
+              "description": "Chaos engineering validates automation resilience",
+              "seq": 5
+            },
+            {
+              "name": "Team owns operations",
+              "description": "Team writes and operates software they build",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Retired",
+          "description": "Way of working formally retired and replaced.",
+          "seq": 6,
+          "checklist": []
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Way Of Working Context",
+          "description": "SRE-driven operational practices evolution",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "OpenShift platform operations adopt SRE principles distinguishing between toil (manual, repetitive work) and engineering (building automation). Teams transition from script-based operations to versioned software with CI/CD testing, GitOps configuration management, and self-service workflows eliminating ticket-driven provisioning."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "Key SRE concepts include toil budgeting (maximum 50% of engineering time on operational work), error budgets as a contract between reliability and velocity, symptom-based alerting targeting SLOs rather than causes, and the principle that operations code must be tested via CI/CD pipelines like any other software."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Foundation establishment requires replacing manual shell scripts with versioned operations code tested via CI/CD pipelines, adopting GitOps with Argo CD for cluster configuration management, and defining self-service workflows that eliminate manual approvals. Teams implement symptom-based alerting aligned to Service Level Objectives rather than cause-based alerts generating noise, track error budgets transparently with stakeholders, and systematically identify toil for automation investment. Multi-cluster management via Argo CD ApplicationSets standardizes configuration options across fleet, preventing snowflake clusters and configuration drift."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "Operational excellence emerges when toil is systematically eliminated through software engineering practices, teams own and operate the automation they build, and chaos engineering validates resilience assumptions."
+            }
+          ],
+          "citationNames": [
+            "Operating OpenShift the SRE Way",
+            "OpenShift Administration II: Configuring a Production Cluster (DO280)"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Storage Infrastructure",
+      "description": "Persistent storage infrastructure maturity including dynamic provisioning, performance characteristics, and data lifecycle management.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "produces",
+          "alphaName": "Platform Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "evidenced by",
+          "alphaName": "Platform Governance",
+          "direction": "incoming"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "storage-infrastructure-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Static Provisioning",
+          "description": "Administrators pre-provision PersistentVolumes for application claims.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "PersistentVolume resources",
+              "description": "PersistentVolume resources created manually",
+              "seq": 1
+            },
+            {
+              "name": "PersistentVolumeClaims bound",
+              "description": "PersistentVolumeClaims bound to pre-provisioned volumes",
+              "seq": 2
+            },
+            {
+              "name": "Storage technologies",
+              "description": "Storage technologies include NFS, iSCSI, or cloud block storage",
+              "seq": 3
+            },
+            {
+              "name": "Reclaim policies",
+              "description": "Reclaim policies prevent accidental data deletion",
+              "seq": 4
+            },
+            {
+              "name": "Protection enabled",
+              "description": "Storage Object in Use Protection enabled",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Dynamic Provisioning",
+          "description": "StorageClasses enable automatic volume provisioning on demand.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "StorageClass resources",
+              "description": "StorageClass resources defined for performance tiers",
+              "seq": 1
+            },
+            {
+              "name": "Automatic provisioning",
+              "description": "PersistentVolumeClaims automatically provision volumes",
+              "seq": 2
+            },
+            {
+              "name": "Volume expansion",
+              "description": "Volume expansion supported for growth",
+              "seq": 3
+            },
+            {
+              "name": "Appropriate storage types",
+              "description": "Appropriate storage for workload types (object, block, file)",
+              "seq": 4
+            },
+            {
+              "name": "Backup procedures",
+              "description": "Backup and restore procedures documented",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Advanced Storage Services",
+          "description": "OpenShift Data Foundation provides distributed storage with DR.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Data Foundation deployed",
+              "description": "OpenShift Data Foundation or equivalent deployed",
+              "seq": 1
+            },
+            {
+              "name": "Multi-zone replication",
+              "description": "Multi-zone replication for high availability",
+              "seq": 2
+            },
+            {
+              "name": "Snapshots supported",
+              "description": "Snapshots and clones supported for data protection",
+              "seq": 3
+            },
+            {
+              "name": "Volume encryption",
+              "description": "Volume encryption at rest configured",
+              "seq": 4
+            },
+            {
+              "name": "Performance monitoring",
+              "description": "Performance monitoring via storage-specific metrics",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Hybrid Cloud Storage",
+          "description": "Unified storage spans on-premises and cloud with advanced services.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Hybrid object storage",
+              "description": "Hybrid cloud object storage with MinIO or S3-compatible",
+              "seq": 1
+            },
+            {
+              "name": "Local persistent volumes",
+              "description": "Local persistent volumes for performance-critical workloads",
+              "seq": 2
+            },
+            {
+              "name": "Storage tiering",
+              "description": "Storage tiering moves cold data to object storage",
+              "seq": 3
+            },
+            {
+              "name": "Cross-cluster migration",
+              "description": "Cross-cluster storage migration supported",
+              "seq": 4
+            },
+            {
+              "name": "Disaster recovery",
+              "description": "Disaster recovery tested with RTO/RPO targets met",
+              "seq": 5
+            },
+            {
+              "name": "Cost optimization",
+              "description": "Cost optimization via storage class selection",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Storage Infrastructure Context",
+          "description": "Persistent storage architecture and maturity progression",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "OpenShift persistent storage decouples data lifecycle from pod lifecycle, enabling stateful applications like databases, message queues, and file servers. Storage infrastructure maturity progresses from manual pre-provisioning through self-service dynamic allocation to distributed storage systems with cross-cluster capabilities."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "Core storage concepts include PersistentVolumes (PV) as cluster-level storage resources, PersistentVolumeClaims (PVC) as application-level storage requests, StorageClasses as dynamic provisioning templates, and Container Storage Interface (CSI) drivers as the standard plugin mechanism for storage backends."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Static provisioning requires administrators to manually create PersistentVolume resources matched to PersistentVolumeClaims, suitable for initial adoption but limiting agility. Dynamic provisioning via StorageClasses enables self-service volume allocation with technology-specific parameters. Advanced storage services like OpenShift Data Foundation provide Ceph-based distributed storage with multi-zone replication, snapshots, clones, and encryption at rest. Hybrid cloud evolution spans on-premises and cloud with object storage integration and cross-cluster migration capabilities."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "Success depends on selecting appropriate storage technologies for workload characteristics, implementing monitoring and alerting on capacity and performance, and protecting data through snapshots and disaster recovery procedures."
+            }
+          ],
+          "citationNames": [
+            "Understanding Persistent Storage"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "GitOps Configuration Management",
+      "description": "GitOps-based cluster configuration management maturity enabling declarative infrastructure and automated drift remediation.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "produces",
+          "alphaName": "Way Of Working",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "validates",
+          "alphaName": "Platform Governance",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "gitops-configuration-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Git-Stored Configuration",
+          "description": "Cluster configurations version-controlled in Git repositories.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Manifests in Git",
+              "description": "All Kubernetes manifests stored in Git repository",
+              "seq": 1
+            },
+            {
+              "name": "Directory structure",
+              "description": "Directory structure organizes configurations by environment and namespace",
+              "seq": 2
+            },
+            {
+              "name": "Pull request workflow",
+              "description": "Configuration changes require pull requests with reviews",
+              "seq": 3
+            },
+            {
+              "name": "Git as source of truth",
+              "description": "Git serves as single source of truth for cluster state",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Automated Sync",
+          "description": "Argo CD automatically synchronizes cluster state to match Git.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "GitOps operator deployed",
+              "description": "OpenShift GitOps operator deployed",
+              "seq": 1
+            },
+            {
+              "name": "Application resources",
+              "description": "Argo CD Application resources defined for namespaces and applications",
+              "seq": 2
+            },
+            {
+              "name": "Automated sync enabled",
+              "description": "Automated sync enabled with configurable sync policies",
+              "seq": 3
+            },
+            {
+              "name": "Repository monitoring",
+              "description": "Argo CD monitors Git repositories for changes",
+              "seq": 4
+            },
+            {
+              "name": "Sync status visible",
+              "description": "Sync status visible in Argo CD UI and web console",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Self-Healing",
+          "description": "Automatic reversion of manual changes enforcing Git authority.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Self-healing enabled",
+              "description": "Self-healing enabled reverting manual cluster modifications",
+              "seq": 1
+            },
+            {
+              "name": "Pruning configured",
+              "description": "Pruning configured deleting resources removed from Git",
+              "seq": 2
+            },
+            {
+              "name": "Drift alerts",
+              "description": "Configuration drift alerts notify operations team",
+              "seq": 3
+            },
+            {
+              "name": "RBAC restrictions",
+              "description": "RBAC restricts direct cluster modifications",
+              "seq": 4
+            },
+            {
+              "name": "Break-glass procedures",
+              "description": "Emergency break-glass procedures documented for critical incidents",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Fleet Management",
+          "description": "ApplicationSets orchestrate configuration across multi-cluster environments.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "ApplicationSet generators",
+              "description": "ApplicationSet generators create Applications for cluster fleet",
+              "seq": 1
+            },
+            {
+              "name": "Environment overlays",
+              "description": "Kustomize or Helm provide environment-specific overlays",
+              "seq": 2
+            },
+            {
+              "name": "Progressive rollout",
+              "description": "Progressive rollout across development, staging, production",
+              "seq": 3
+            },
+            {
+              "name": "Argo CD Agent",
+              "description": "Argo CD Agent architecture for pull-based GitOps in remote clusters",
+              "seq": 4
+            },
+            {
+              "name": "Image Updater",
+              "description": "Image Updater automates deployment manifest updates on new images",
+              "seq": 5
+            },
+            {
+              "name": "Multi-cluster policies",
+              "description": "Multi-cluster policies enforced via Open Policy Agent",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "GitOps Context",
+          "description": "GitOps configuration management principles and implementation",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "GitOps embodies infrastructure-as-code principles by maintaining desired cluster state in Git repositories with automated synchronization, eliminating manual kubectl/oc apply operations, configuration drift, and providing audit trails through Git history."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "Core GitOps concepts include declarative configuration (desired state in YAML manifests), pull-based reconciliation (agents poll for changes rather than accepting pushes), self-healing (automatic reversion of manual changes), and the Application custom resource as the unit of deployment management in Argo CD."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Git-stored configuration establishes Git as single source of truth with directory structures organizing manifests by environment and namespace. Automated sync via Argo CD Application resources monitors Git repositories and applies updates automatically. Self-healing enables automatic reversion of manual cluster changes and RBAC restrictions preventing direct modifications. Fleet management scales to multi-cluster environments using ApplicationSet generators and Argo CD Agent architecture for pull-based GitOps where remote clusters poll control plane."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "Operational excellence requires enforcing Git as authoritative source through self-healing and RBAC, documenting emergency break-glass procedures for critical incidents, and implementing progressive rollout strategies testing changes in non-production before production deployment."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Administration II: Configuring a Production Cluster (DO280)",
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Cluster Lifecycle Management",
+      "description": "Cluster version lifecycle including z-stream security updates, y-stream feature upgrades, and rollback procedures with zero downtime.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "maintains",
+          "alphaName": "Platform",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "mitigates",
+          "alphaName": "Platform Risk And Compliance",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "GitOps Configuration Management",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "cluster-lifecycle-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Manual Updates",
+          "description": "Administrators manually initiate updates with pre-update backups.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Update availability monitored",
+              "description": "Update availability monitored in web console",
+              "seq": 1
+            },
+            {
+              "name": "etcd backup",
+              "description": "etcd backup completed before update",
+              "seq": 2
+            },
+            {
+              "name": "Update initiated",
+              "description": "Update initiated via console or CLI",
+              "seq": 3
+            },
+            {
+              "name": "Progress monitored",
+              "description": "Update progress monitored with ability to pause",
+              "seq": 4
+            },
+            {
+              "name": "Post-update validation",
+              "description": "Post-update validation confirms cluster health",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Automated Update Scheduling",
+          "description": "Updates scheduled during maintenance windows with validation.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Maintenance windows",
+              "description": "Maintenance windows defined for update execution",
+              "seq": 1
+            },
+            {
+              "name": "Z-stream automation",
+              "description": "Z-stream updates applied automatically for security",
+              "seq": 2
+            },
+            {
+              "name": "Y-stream approval",
+              "description": "Y-stream updates require approval before execution",
+              "seq": 3
+            },
+            {
+              "name": "Canary testing",
+              "description": "Canary updates tested on non-production clusters first",
+              "seq": 4
+            },
+            {
+              "name": "Rollback procedures",
+              "description": "Rollback procedures documented and tested",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Continuous Delivery",
+          "description": "Updates applied with signature verification and zero downtime.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Sigstore integration",
+              "description": "Sigstore integration validates core payload signatures",
+              "seq": 1
+            },
+            {
+              "name": "Rolling updates",
+              "description": "Updates applied in rolling fashion across nodes",
+              "seq": 2
+            },
+            {
+              "name": "Application availability",
+              "description": "Application workloads remain available throughout update",
+              "seq": 3
+            },
+            {
+              "name": "Automated validation",
+              "description": "Automated validation checks after each node update",
+              "seq": 4
+            },
+            {
+              "name": "Automatic rollback",
+              "description": "Update failures automatically rollback or pause",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Fleet-Wide Orchestration",
+          "description": "Multi-cluster update orchestration with compliance tracking.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "ACM coordination",
+              "description": "Advanced Cluster Management coordinates fleet updates",
+              "seq": 1
+            },
+            {
+              "name": "Compliance tracking",
+              "description": "Compliance policies track cluster version drift",
+              "seq": 2
+            },
+            {
+              "name": "Staged rollout",
+              "description": "Staged rollout across development, staging, production",
+              "seq": 3
+            },
+            {
+              "name": "Automated testing",
+              "description": "Automated testing validates updates before promotion",
+              "seq": 4
+            },
+            {
+              "name": "Update metrics",
+              "description": "Update metrics tracked including success rate and duration",
+              "seq": 5
+            },
+            {
+              "name": "Disconnected updates",
+              "description": "Disconnected environment updates via oc-mirror with signature mirroring",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Cluster Lifecycle Context",
+          "description": "Cluster update and upgrade lifecycle management",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "OpenShift cluster lifecycle management delivers weekly z-stream security patches and periodic y-stream feature upgrades through cluster version operator with signature verification via Sigstore integration, ensuring platform currency while maintaining availability."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "Key lifecycle concepts include semantic versioning (major.minor.patch), z-stream updates (security/bug fixes with minimal risk), y-stream updates (feature changes requiring compatibility testing), the cluster version operator (automated update controller), and Sigstore (cryptographic signature verification for update payloads)."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Manual updates require etcd backups and post-update validation. Automated scheduling defines maintenance windows while applying z-stream patches automatically and testing canary updates before production. Continuous delivery enables rolling updates with Sigstore verification and automatic rollback. Fleet-wide orchestration coordinates updates across environments with compliance tracking and staged rollout using Advanced Cluster Management."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "Zero-downtime updates depend on application workload design (health probes, graceful termination, Pod Disruption Budgets), understanding semantic versioning constraints, and testing canary updates in non-production environments before production rollout."
+            }
+          ],
+          "citationNames": [
+            "The Ultimate Guide to OpenShift Update for Cluster Administrators"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Infrastructure as Code",
+      "description": "Declarative cluster and infrastructure configuration managed as version-controlled code.",
+      "levelsOfDetail": [
+        {
+          "name": "Installation Configuration",
+          "description": "install-config.yaml defines cluster creation parameters",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Cloud provider specified",
+              "description": "Cloud provider and region specified",
+              "seq": 1
+            },
+            {
+              "name": "Node counts defined",
+              "description": "Control plane and worker node counts defined",
+              "seq": 2
+            },
+            {
+              "name": "Networking configuration",
+              "description": "Networking configuration includes VPC and subnets",
+              "seq": 3
+            },
+            {
+              "name": "Security settings",
+              "description": "Basic security settings like private endpoints",
+              "seq": 4
+            },
+            {
+              "name": "Single cluster",
+              "description": "Single cluster per configuration",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Architecture Selected"
+            }
+          ]
+        },
+        {
+          "name": "Operator Configuration",
+          "description": "Custom Resources configure cluster operators and add-ons",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "ClusterVersion defined",
+              "description": "ClusterVersion defines update channel and policies",
+              "seq": 1
+            },
+            {
+              "name": "Monitoring customized",
+              "description": "Monitoring configuration customizes retention and resources",
+              "seq": 2
+            },
+            {
+              "name": "Logging configured",
+              "description": "Logging configuration defines forwarding and retention",
+              "seq": 3
+            },
+            {
+              "name": "Service Mesh",
+              "description": "Service Mesh operator configuration includes control plane",
+              "seq": 4
+            },
+            {
+              "name": "Stored in Git",
+              "description": "Configuration stored in Git repository",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Baselined"
+            },
+            {
+              "alphaName": "GitOps Configuration Management",
+              "stateName": "Git-Stored Configuration"
+            }
+          ]
+        },
+        {
+          "name": "GitOps Fleet Management",
+          "description": "Argo CD ApplicationSets manage multiple clusters declaratively",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "ApplicationSet generators",
+              "description": "ApplicationSet generators provision applications across clusters",
+              "seq": 1
+            },
+            {
+              "name": "Cluster overlays",
+              "description": "Cluster-specific overlays via Kustomize",
+              "seq": 2
+            },
+            {
+              "name": "Policy enforcement",
+              "description": "Multi-cluster policies enforced via Open Policy Agent",
+              "seq": 3
+            },
+            {
+              "name": "Drift detection",
+              "description": "Configuration drift detected and auto-remediated",
+              "seq": 4
+            },
+            {
+              "name": "Progressive rollout",
+              "description": "Progressive rollout across cluster fleet",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            },
+            {
+              "alphaName": "GitOps Configuration Management",
+              "stateName": "Fleet Management"
+            }
+          ]
+        },
+        {
+          "name": "Self-Service Platform",
+          "description": "Terraform or Crossplane enable self-service cluster provisioning",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Terraform modules",
+              "description": "Terraform modules parameterize cluster creation",
+              "seq": 1
+            },
+            {
+              "name": "Crossplane Compositions",
+              "description": "Crossplane Compositions define platform abstractions",
+              "seq": 2
+            },
+            {
+              "name": "Self-service portal",
+              "description": "Self-service portal triggers automated provisioning",
+              "seq": 3
+            },
+            {
+              "name": "Day-2 automation",
+              "description": "Day-2 operations automated via operators",
+              "seq": 4
+            },
+            {
+              "name": "Decommissioning workflow",
+              "description": "Decommissioning workflow with data retention",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Place"
+            }
+          ]
+        },
+        {
+          "name": "Policy-Driven Infrastructure",
+          "description": "Policy-as-Code enforces compliance with automated remediation",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Policies as code",
+              "description": "Gatekeeper or OPA policies defined as code",
+              "seq": 1
+            },
+            {
+              "name": "Admission control",
+              "description": "Admission control enforces policies at creation",
+              "seq": 2
+            },
+            {
+              "name": "Automated remediation",
+              "description": "Policy violations detected and remediated automatically",
+              "seq": 3
+            },
+            {
+              "name": "Compliance reporting",
+              "description": "Compliance reporting generated from policy state",
+              "seq": 4
+            },
+            {
+              "name": "Policy testing",
+              "description": "Policy versioning and testing in CI/CD",
+              "seq": 5
+            },
+            {
+              "name": "Exception workflow",
+              "description": "Exception workflow for legitimate deviations",
+              "seq": 6
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Platform Governance",
+              "stateName": "Audited"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Infrastructure as Code Context",
+          "description": "Infrastructure as Code principles and implementation",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Infrastructure as Code treats OpenShift clusters as versioned, tested software with declarative configuration stored in Git, automated provisioning via Terraform or Crossplane, and policy enforcement through OPA ensuring compliance."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Conclusion",
+              "context": "Success requires separating initial cluster installation (install-config.yaml) from Day-2 operator configuration (GitOps), implementing self-service workflows eliminating manual tickets, and enforcing policy-as-code with automated remediation."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Administration II: Configuring a Production Cluster (DO280)"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Cluster Configuration Backup",
+      "description": "etcd snapshot and cluster configuration export for disaster recovery.",
+      "levelsOfDetail": [
+        {
+          "name": "Manual etcd Backup",
+          "description": "Administrator manually creates etcd snapshot before changes",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Snapshot taken",
+              "description": "etcd snapshot taken via etcdctl command",
+              "seq": 1
+            },
+            {
+              "name": "Local storage",
+              "description": "Snapshot stored on local filesystem",
+              "seq": 2
+            },
+            {
+              "name": "Encryption keys documented",
+              "description": "Encryption keys documented for restore",
+              "seq": 3
+            },
+            {
+              "name": "Pre-upgrade backup",
+              "description": "Backup taken before upgrades",
+              "seq": 4
+            },
+            {
+              "name": "No automation",
+              "description": "No automated scheduling",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Cluster Lifecycle Management",
+              "stateName": "Manual Updates"
+            }
+          ]
+        },
+        {
+          "name": "Scheduled Backups",
+          "description": "CronJob automates etcd backups on schedule",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Automated snapshots",
+              "description": "CronJob or Kubernetes Job takes snapshots daily",
+              "seq": 1
+            },
+            {
+              "name": "Object storage upload",
+              "description": "Snapshots uploaded to object storage",
+              "seq": 2
+            },
+            {
+              "name": "Retention policy",
+              "description": "Retention policy deletes old backups",
+              "seq": 3
+            },
+            {
+              "name": "Failure alerts",
+              "description": "Monitoring alerts on backup failures",
+              "seq": 4
+            },
+            {
+              "name": "Restore tested",
+              "description": "Restore procedure documented and tested",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Use"
+            }
+          ]
+        },
+        {
+          "name": "Application-Consistent Backups",
+          "description": "Velero or OADP backs up applications with persistent volumes",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "OADP installed",
+              "description": "OpenShift API for Data Protection (OADP) installed",
+              "seq": 1
+            },
+            {
+              "name": "Backup schedules",
+              "description": "Backup schedules defined per namespace or application",
+              "seq": 2
+            },
+            {
+              "name": "Coordinated snapshots",
+              "description": "Persistent volume snapshots coordinated with etcd",
+              "seq": 3
+            },
+            {
+              "name": "Cross-region backup",
+              "description": "Cross-region backup for disaster recovery",
+              "seq": 4
+            },
+            {
+              "name": "Regular restore testing",
+              "description": "Restore tested regularly in non-production",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            },
+            {
+              "alphaName": "Storage Infrastructure",
+              "stateName": "Advanced Storage Services"
+            }
+          ]
+        },
+        {
+          "name": "Continuous Data Protection",
+          "description": "Incremental backups with point-in-time restore capability",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Incremental backups",
+              "description": "Incremental backups minimize storage and time",
+              "seq": 1
+            },
+            {
+              "name": "Point-in-time restore",
+              "description": "Point-in-time restore within retention window",
+              "seq": 2
+            },
+            {
+              "name": "Integrity verification",
+              "description": "Automated integrity verification of backups",
+              "seq": 3
+            },
+            {
+              "name": "RTO tracked",
+              "description": "Recovery Time Objective (RTO) tracked and met",
+              "seq": 4
+            },
+            {
+              "name": "RPO minimized",
+              "description": "Recovery Point Objective (RPO) minimized",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            },
+            {
+              "alphaName": "Storage Infrastructure",
+              "stateName": "Hybrid Cloud Storage"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Cluster Disaster Recovery",
+          "description": "Cross-cluster replication with automated failover orchestration",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Workload replication",
+              "description": "Workloads replicated across geographically distributed clusters",
+              "seq": 1
+            },
+            {
+              "name": "Automated failover",
+              "description": "Automated failover on cluster failure",
+              "seq": 2
+            },
+            {
+              "name": "Storage replication",
+              "description": "Data synchronization via storage replication",
+              "seq": 3
+            },
+            {
+              "name": "VM migration",
+              "description": "Migration Toolkit for Virtualization enables VM migration",
+              "seq": 4
+            },
+            {
+              "name": "Quarterly testing",
+              "description": "Disaster recovery tested quarterly",
+              "seq": 5
+            },
+            {
+              "name": "SLA commitment",
+              "description": "RTO and RPO SLAs contractually committed",
+              "seq": 6
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Cluster Lifecycle Management",
+              "stateName": "Fleet-Wide Orchestration"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Backup Context",
+          "description": "Disaster recovery and backup strategy",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "OpenShift disaster recovery requires etcd snapshot backups protecting cluster configuration and state, application-consistent backups coordinating persistent volumes via OADP, and cross-cluster replication for geographic distribution."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Conclusion",
+              "context": "Success depends on testing restore procedures regularly in non-production environments, defining and tracking RTO/RPO SLAs contractually, and automating backup scheduling with monitoring alerts on failures."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Administration I: Operating a Production Cluster (DO180)"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Platform Engineer",
+      "description": "Operates OpenShift clusters and provides platform services to developers.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Platform Engineering",
+          "Infrastructure"
+        ],
+        "lifecycleTags": [
+          "Operations",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Platform Engineering",
+          "Infrastructure"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Senior Platform Engineer",
+      "description": "Architects platform solutions and leads cluster operations at scale.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Platform Strategic Alignment",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Platform Engineering",
+          "Architecture"
+        ],
+        "lifecycleTags": [
+          "Design",
+          "Operations",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Platform Engineering",
+          "Architecture"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Site Reliability Engineer",
+      "description": "Ensures platform reliability through SRE practices and automation.",
+      "competencies": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Site Reliability",
+          "Operations"
+        ],
+        "lifecycleTags": [
+          "Operations",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "SRE",
+          "Platform Engineering"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Cloud Architect",
+      "description": "Designs cloud infrastructure and multi-cluster architectures.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Platform Strategic Alignment",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Architecture",
+          "Cloud Infrastructure"
+        ],
+        "lifecycleTags": [
+          "Design",
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Architecture",
+          "Infrastructure"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Storage Administrator",
+      "description": "Manages storage infrastructure and data lifecycle.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Storage",
+          "Data Management"
+        ],
+        "lifecycleTags": [
+          "Design",
+          "Implementation",
+          "Operations"
+        ],
+        "organizationalTags": [
+          "Infrastructure"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Platform Engineering Team",
+      "description": "Team operating OpenShift clusters and providing platform services.",
+      "personaNames": [
+        "Platform Engineer",
+        "Senior Platform Engineer",
+        "Site Reliability Engineer",
+        "Storage Administrator"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Platform Engineering",
+          "Infrastructure"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Deploy OpenShift Cluster",
+      "description": "Install OpenShift Container Platform cluster on cloud or on-premises infrastructure.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "deploy-cluster-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Architecture Selected"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Provisioned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Installation Configuration"
+        },
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Operator Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Platform Security And Compliance Enforcement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Deploy OpenShift Cluster Approach",
+          "description": "How to deploy OpenShift clusters on various infrastructure platforms",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations need to deploy OpenShift clusters on cloud or on-premises infrastructure, requiring architectural decisions on high availability, network isolation, and security hardening that will determine platform resilience and operational characteristics."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Install and configure OpenShift Container Platform with appropriate cluster topology including IPI vs UPI deployment, private cluster configuration, etcd encryption, and multi-zone distribution."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Generate install-config.yaml via openshift-install create install-config, customize for private clusters with internal load balancers restricting API and ingress to VPN or bastion hosts, enable etcd encryption at rest, and select FIPS-validated cryptography if compliance requires. Run openshift-install create cluster provisioning infrastructure and bootstrapping control plane (approximately 30-45 minutes), then validate installation by checking oc get nodes, oc get co (cluster operators), and accessing web console. Configure post-installation OAuth identity providers, install operators for monitoring/logging/service mesh, establish GitOps for configuration management, and document cluster configuration."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Fully operational OpenShift cluster with high availability control plane, security-hardened network isolation, encrypted etcd, and documented configuration ready for workload onboarding. Platform progresses from Architecture Selected through Provisioned."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Administration I: Operating a Production Cluster (DO180)",
+            "Foundations of OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement GitOps Configuration Management",
+      "description": "Deploy Argo CD for declarative cluster and application configuration from Git repositories.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "gitops-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "GitOps Configuration Management",
+          "stateName": "Automated Sync"
+        },
+        {
+          "alphaName": "GitOps Configuration Management",
+          "stateName": "Self-Healing"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "In Place"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Ready"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "GitOps Fleet Management"
+        },
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Operator Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Implement GitOps Approach",
+          "description": "How to implement GitOps configuration management with Argo CD",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Platform teams manage cluster configuration manually via kubectl/oc apply, leading to configuration drift, undocumented changes, and inconsistent state across environments. No automated reconciliation detects or reverts unauthorized manual modifications."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Deploy GitOps configuration management using Argo CD to establish Git as single source of truth with automated synchronization, self-healing, and fleet-wide configuration management."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Install OpenShift GitOps operator via OperatorHub deploying Argo CD instances. Configure Git repository access with SSH keys or HTTPS tokens. Create Application custom resources defining repository URL, target revision, path, and destination. Define sync policies with automatic sync, enable self-healing to revert manual changes, and configure pruning. For fleet management, use ApplicationSets with generators (Git, cluster, list) creating Applications from templates. Implement Argo CD Agent architecture for pull-based GitOps in security-conscious environments, and integrate Image Updater for automated deployment manifest updates."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Declarative configuration management with automated Git-to-cluster synchronization, self-healing drift remediation, fleet-wide ApplicationSet orchestration, and comprehensive audit trail through Git history. GitOps Configuration Management progresses through Automated Sync and Self-Healing states."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Administration II: Configuring a Production Cluster (DO280)",
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Perform Cluster Upgrades",
+      "description": "Update OpenShift cluster to new versions with zero downtime and rollback capability.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "cluster-upgrade-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Cluster Lifecycle Management",
+          "stateName": "Automated Update Scheduling"
+        },
+        {
+          "alphaName": "Cluster Lifecycle Management",
+          "stateName": "Continuous Delivery"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Hosting Assets"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Cluster Configuration Backup",
+          "levelOfDetailName": "Scheduled Backups"
+        },
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Operator Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Perform Cluster Upgrades Approach",
+          "description": "How to perform cluster upgrades with zero downtime",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "OpenShift clusters require regular updates including weekly z-stream security patches and periodic y-stream feature upgrades. Manual update processes are error-prone, risk downtime, and cannot scale to multi-cluster fleet management."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Establish automated update scheduling with canary testing, zero-downtime rolling updates with Sigstore signature verification, and fleet-wide orchestration via Advanced Cluster Management."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Check update availability via web console or oc adm upgrade. Back up etcd before updates. Apply z-stream patches automatically via maintenance windows while requiring approval for y-stream upgrades. Test canary updates on non-production clusters first. Enable Sigstore signature verification for core payload validation. Monitor rolling updates with oc get clusterversion and oc get co. Configure Pod Disruption Budgets for application availability during node updates. Use Advanced Cluster Management for staged fleet rollout across development, staging, production environments with compliance tracking."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Zero-downtime cluster updates with cryptographic signature verification, automated rollback on failure, and fleet-wide version compliance tracking. Cluster Lifecycle Management progresses through Automated Update Scheduling and Continuous Delivery."
+            }
+          ],
+          "citationNames": [
+            "The Ultimate Guide to OpenShift Update for Cluster Administrators"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement Persistent Storage",
+      "description": "Configure dynamic storage provisioning with appropriate storage classes for workload requirements.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "storage-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Storage Infrastructure",
+          "stateName": "Dynamic Provisioning"
+        },
+        {
+          "alphaName": "Storage Infrastructure",
+          "stateName": "Advanced Storage Services"
+        },
+        {
+          "alphaName": "Platform",
+          "stateName": "Ready"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Operator Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Implement Persistent Storage Approach",
+          "description": "How to implement persistent storage with dynamic provisioning",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Application teams require persistent storage for stateful workloads (databases, message queues, registries) but administrators manually pre-provision PersistentVolumes, creating bottlenecks and limiting self-service capability. No dynamic provisioning or storage tiering exists."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement dynamic storage provisioning with CSI drivers, StorageClasses for performance tiers, and OpenShift Data Foundation for advanced distributed storage services."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Install CSI drivers via OperatorHub (AWS EBS, OpenShift Data Foundation). Create StorageClass resources defining provisioners, parameters (volume type, IOPS, throughput), and reclaim policies (Retain for production, Delete for ephemeral). Mark default StorageClass. Enable volume expansion. Implement storage monitoring via Prometheus metrics with alerts on capacity and provisioning failures. Configure VolumeSnapshot resources for data protection. Deploy OpenShift Data Foundation for Ceph-based distributed storage with multi-zone replication, snapshots, and encryption at rest."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Self-service dynamic storage provisioning with performance-tiered StorageClasses, data protection through snapshots and backup integration, and distributed storage services supporting stateful production workloads. Storage Infrastructure progresses through Dynamic Provisioning and Advanced Storage Services."
+            }
+          ],
+          "citationNames": [
+            "Understanding Persistent Storage"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Capacity Management",
+      "description": "Implement ClusterAutoscaler and resource optimization for right-sized infrastructure.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "assetNames": [
+        {
+          "assetName": "capacity-management-icon",
+          "type": "icon"
+        }
+      ],
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Evolving"
+        },
+        {
+          "alphaName": "Platform Value And Economics",
+          "stateName": "Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Policy-Driven Infrastructure"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Management",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Configure Capacity Management Approach",
+          "description": "How to implement capacity management and optimization",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Clusters are either overprovisioned (wasting resources and budget) or underprovisioned (causing pod scheduling failures and degraded performance). No automated scaling responds to workload demand changes, and no cost optimization practices track infrastructure spending efficiency."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement ClusterAutoscaler for dynamic node scaling, ClusterResourceOverride for resource optimization, and FinOps monitoring for cost-aware capacity management."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Configure ClusterAutoscaler with minimum and maximum node counts, with nodes added when pod scheduling fails and removed when underutilized. Limit scaling to 25-50 nodes at once. Configure machine health checks for automatic unhealthy node replacement. Install ClusterResourceOverride operator for overcommitment ratios. Establish ResourceQuota and LimitRanges for multi-tenant cost control. Implement monitoring alerts on resource pressure and rightsizing recommendations based on actual usage. Track sustainability metrics and optimize reserved instance utilization."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Dynamic capacity management with automated node scaling, resource optimization reducing overprovisioning waste, multi-tenant cost controls, and FinOps practices demonstrating infrastructure spending efficiency. Platform progresses toward Evolving state with optimized economics."
+            }
+          ],
+          "citationNames": [
+            "Capacity Management and Overcommitment Best Practices in Red Hat OpenShift"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Baseline Platform Configuration",
+      "description": "Define network topology, infrastructure node separation, and bastion host architecture for security-hardened platform baseline.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Baselined"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Operator Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Platform Security And Compliance Enforcement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Baseline Platform Configuration Approach",
+          "description": "How to establish a security-hardened platform baseline",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "After initial cluster provisioning, the platform needs comprehensive network topology documentation, infrastructure node designation, and security controls establishing the operational baseline before workloads can be accepted."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Define and document the platform baseline including network topology, node types, security perimeters, and integration points."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Document control plane and worker node network topology. Designate infrastructure nodes for platform services separation from application workloads. Define bastion host architecture for SSH access control. Specify dedicated VPC per cluster with restricted firewall rules. Complete master authorized networks design restricting API endpoint access."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Fully documented platform baseline with security-hardened network architecture, designated infrastructure nodes, and controlled access points ready for operational configuration."
+            }
+          ],
+          "citationNames": [
+            "Foundations of OpenShift",
+            "OpenShift Administration I: Operating a Production Cluster (DO180)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Decommission Cluster Resources",
+      "description": "Gracefully decommission clusters with workload migration, data preservation, and resource cleanup.",
+      "activitySpaceName": "Decommission and Retire",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform",
+          "stateName": "Retiring"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Cluster Configuration Backup",
+          "levelOfDetailName": "Application-Consistent Backups"
+        },
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Self-Service Platform"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Decommission Cluster Resources Approach",
+          "description": "How to gracefully decommission clusters",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Clusters reach end of life due to hardware refresh, architecture migration, or consolidation. Workloads and data must be preserved during decommissioning to prevent service disruption or data loss."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Execute controlled cluster decommissioning with workload migration, data backup, and infrastructure resource cleanup."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Identify all workloads and persistent data on the target cluster. Execute migration using Migration Toolkit for containers or manual redeployment to destination clusters. Create final application-consistent backups via OADP. Verify workload availability on destination. Remove cluster from GitOps management and ACM fleet. Execute infrastructure teardown via Terraform destroy or cloud provider cleanup. Document decommissioning for compliance audit trail."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Clean decommissioning with zero data loss, all workloads migrated and verified on destination clusters, infrastructure resources reclaimed, and compliance audit trail maintained."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Administration I: Operating a Production Cluster (DO180)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Establish SRE Operational Principles",
+      "description": "Define and adopt SRE principles including toil budgeting, error budgets, and infrastructure-as-code mandates.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Principles Established"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Installation Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Establish SRE Operational Principles Approach",
+          "description": "How to establish foundational SRE principles",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Operations teams rely on manual shell scripts, ad-hoc configuration changes, and ticket-based provisioning with no formal principles governing how operational work is approached or measured."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Establish foundational SRE principles defining toil budgets, GitOps standards, infrastructure-as-code mandates, and self-service goals."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Adopt SRE principles limiting toil to 50% of engineering time. Establish GitOps as the configuration management standard. Mandate versioned, tested automation for all infrastructure changes. Define self-service principles eliminating manual ticket-based provisioning. Document principles in team charter and operational playbooks."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Team-agreed operational principles establishing SRE culture with measurable toil budgets, GitOps standards, and infrastructure-as-code mandates guiding all subsequent operational decisions."
+            }
+          ],
+          "citationNames": [
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Define Operations Automation Framework",
+      "description": "Select and configure automation tools, CI/CD pipelines, and monitoring strategies for operations workflows.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Foundation Established"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Operator Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Define Operations Automation Framework Approach",
+          "description": "How to define the operations automation framework",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "SRE principles are established but no concrete automation framework, CI/CD pipeline for operations code, or monitoring strategy connects principles to practice."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Select and configure the automation toolchain including GitOps workflow (Argo CD), CI/CD pipeline for operations code testing, cluster lifecycle automation framework, and monitoring strategy."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Select GitOps workflow with Argo CD for configuration management. Establish CI/CD pipeline for operations code with automated testing. Define cluster lifecycle automation framework covering provisioning, updating, and decommissioning. Align monitoring and alerting strategy to SRE symptom-based approach with Service Level Objectives."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Concrete automation framework established with GitOps workflow, CI/CD pipelines for operations code, lifecycle automation definition, and SLO-aligned monitoring strategy ready for team adoption."
+            }
+          ],
+          "citationNames": [
+            "Operating OpenShift the SRE Way",
+            "OpenShift Administration II: Configuring a Production Cluster (DO280)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement Operations-as-Software Practices",
+      "description": "Transition from ad-hoc scripts to versioned, tested operations software with CI/CD validation.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "In Use"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Operator Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Implement Operations-as-Software Approach",
+          "description": "How to transition operations to versioned software",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Operations automation framework is defined but team still uses legacy scripts and manual procedures. Operations code is not treated as production software with testing, versioning, and release practices."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Migrate operations from ad-hoc scripts to versioned software with CI/CD testing, unit tests, and dedicated infrastructure execution."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Implement operations as versioned software in Git with release strategy. Build CI/CD pipeline that automates testing of operation workflows before deployment. Write unit tests ensuring behavior consistency across changes. Deploy operations on dedicated infrastructure rather than developer machines. Establish code review practices for operational changes matching development rigor."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Operations code treated as production software with automated CI/CD testing, unit test coverage, version control, and dedicated execution infrastructure. Way Of Working transitions from defined to actively used."
+            }
+          ],
+          "citationNames": [
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Track Toil and Optimize SRE Practices",
+      "description": "Measure operational toil, implement error budget tracking, and systematically improve SRE practices.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Way Of Working",
+          "stateName": "Working Well"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Policy-Driven Infrastructure"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Analysis",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Track Toil and Optimize SRE Practices Approach",
+          "description": "How to measure and optimize SRE operational practices",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Operations practices are in place but no systematic measurement of toil, error budgets, or operational efficiency validates that SRE principles are achieving intended outcomes. Alert fatigue persists and teams lack visibility into automation ROI."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement toil tracking, error budget management, symptom-based alerting optimization, and chaos engineering validation of automation resilience."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Implement toil tracking with classification of operational tasks as toil vs engineering. Track error budgets and communicate consumption transparently to stakeholders. Transition from cause-based to symptom-based alerting aligned with SLOs. Eliminate alert fatigue through severity-based routing and alert quality reviews. Implement chaos engineering experiments validating automation resilience. Establish metrics dashboards demonstrating continuous operational improvement."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Demonstrably effective SRE practices with toil consistently below 50%, transparent error budget tracking, eliminated alert fatigue, and chaos-validated automation resilience. Way Of Working achieves Working Well state."
+            }
+          ],
+          "citationNames": [
+            "Operating OpenShift the SRE Way"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Provision Initial Storage Infrastructure",
+      "description": "Configure initial persistent storage with manual PersistentVolume provisioning and basic reclaim policies.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Storage Infrastructure",
+          "stateName": "Static Provisioning"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Operator Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Provision Initial Storage Approach",
+          "description": "How to configure initial persistent storage infrastructure",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Newly provisioned cluster has no persistent storage configured. Stateful workloads cannot be deployed until PersistentVolumes are manually provisioned and basic storage protections are enabled."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Configure initial persistent storage infrastructure with manual PersistentVolume provisioning, basic storage technologies (NFS, iSCSI, cloud block), and data protection policies."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Create PersistentVolume resources manually matching anticipated workload requirements. Bind PersistentVolumeClaims to pre-provisioned volumes. Configure appropriate storage technologies (NFS for shared access, iSCSI for block, cloud provider volumes for managed infrastructure). Set reclaim policies to prevent accidental data deletion. Enable Storage Object in Use Protection to prevent deletion of PVCs actively bound to pods."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Basic persistent storage operational with manually provisioned volumes, appropriate reclaim policies, and storage protection enabled for initial stateful workload support."
+            }
+          ],
+          "citationNames": [
+            "Understanding Persistent Storage"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Initialize GitOps Repository Structure",
+      "description": "Create and organize Git repository structure for cluster configuration with branch strategy and PR workflows.",
+      "activitySpaceName": "Establish Way Of Working",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "GitOps Configuration Management",
+          "stateName": "Git-Stored Configuration"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure as Code",
+          "levelOfDetailName": "Operator Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Initialize GitOps Repository Approach",
+          "description": "How to create and organize GitOps repository structure",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Cluster configurations exist as ad-hoc files on administrator workstations or in unstructured repositories. No standardized Git structure, PR workflow, or branch strategy governs configuration management."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Create structured Git repository organizing all Kubernetes manifests by environment and namespace with pull request workflows and branch strategies."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Create Git repository with directory structure organizing configurations by environment (dev, staging, production) and namespace. Store all Kubernetes manifests in Git. Establish pull request workflow requiring peer reviews for configuration changes. Define branch strategy controlling promotion between environments. Document Git as single source of truth for cluster state. Configure access controls and branch protection rules."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Structured Git repository established as single source of truth for cluster state with organized directory structure, PR-based change workflows, and branch strategy ready for Argo CD integration."
+            }
+          ],
+          "citationNames": [
+            "OpenShift Administration II: Configuring a Production Cluster (DO280)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Platform Operations Lifecycle",
+      "description": "Coordinated infrastructure provisioning and hardening from initial cluster to multi-cluster fleet with SRE operational excellence.",
+      "narrativeTypeName": "Design-Build-Run-Optimize",
+      "patternViews": [
+        {
+          "name": "Planning and Architecture",
+          "description": "Architecture decisions, principles, and initial configurations",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Architecture Selected"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Principles Established"
+            },
+            {
+              "alphaName": "GitOps Configuration Management",
+              "stateName": "Git-Stored Configuration"
+            },
+            {
+              "alphaName": "Storage Infrastructure",
+              "stateName": "Static Provisioning"
+            },
+            {
+              "alphaName": "Cluster Lifecycle Management",
+              "stateName": "Manual Updates"
+            }
+          ],
+          "activities": [
+            "Establish SRE Operational Principles",
+            "Initialize GitOps Repository Structure",
+            "Provision Initial Storage Infrastructure"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "Platform operations begin with architecture decisions on cluster topology, security hardening, and technology selection while simultaneously establishing SRE principles, initializing GitOps repository structure, and configuring initial storage. Manual update processes are documented for the first cluster."
+            }
+          ]
+        },
+        {
+          "name": "Security Hardened Infrastructure",
+          "description": "Deploy cluster with defense-in-depth baseline",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Foundation Established"
+            },
+            {
+              "alphaName": "Cluster Lifecycle Management",
+              "stateName": "Manual Updates"
+            },
+            {
+              "alphaName": "GitOps Configuration Management",
+              "stateName": "Git-Stored Configuration"
+            },
+            {
+              "alphaName": "Storage Infrastructure",
+              "stateName": "Static Provisioning"
+            }
+          ],
+          "activities": [
+            "Deploy OpenShift Cluster",
+            "Baseline Platform Configuration",
+            "Define Operations Automation Framework"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "Security-hardened cluster deployment establishes private endpoints, dedicated VPCs, bastion hosts, and encrypted etcd while the operations automation framework is defined with GitOps workflow selection, CI/CD pipeline establishment, and SLO-aligned monitoring strategy."
+            }
+          ]
+        },
+        {
+          "name": "Automated Operations",
+          "description": "Implement GitOps, monitoring, and dynamic provisioning",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Ready"
+            },
+            {
+              "alphaName": "GitOps Configuration Management",
+              "stateName": "Automated Sync"
+            },
+            {
+              "alphaName": "GitOps Configuration Management",
+              "stateName": "Self-Healing"
+            },
+            {
+              "alphaName": "Storage Infrastructure",
+              "stateName": "Dynamic Provisioning"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Use"
+            },
+            {
+              "alphaName": "Cluster Lifecycle Management",
+              "stateName": "Manual Updates"
+            }
+          ],
+          "activities": [
+            "Implement GitOps Configuration Management",
+            "Implement Persistent Storage",
+            "Implement Operations-as-Software Practices"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "GitOps configuration management eliminates manual cluster modifications through Argo CD automated sync and self-healing, dynamic storage provisioning enables self-service volume allocation, and operations transition from scripts to versioned software with CI/CD testing."
+            }
+          ]
+        },
+        {
+          "name": "Self-Service Platform",
+          "description": "Enable developer self-service with lifecycle automation",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Hosting Assets"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "In Place"
+            },
+            {
+              "alphaName": "Cluster Lifecycle Management",
+              "stateName": "Automated Update Scheduling"
+            },
+            {
+              "alphaName": "Storage Infrastructure",
+              "stateName": "Advanced Storage Services"
+            },
+            {
+              "alphaName": "GitOps Configuration Management",
+              "stateName": "Self-Healing"
+            }
+          ],
+          "activities": [
+            "Perform Cluster Upgrades",
+            "Configure Capacity Management"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Run",
+              "context": "Day-2 operations leverage automated cluster lifecycle management with scheduled z-stream security patches, approval-gated y-stream feature upgrades, and ClusterAutoscaler providing dynamic capacity. OpenShift Data Foundation delivers advanced distributed storage services."
+            }
+          ]
+        },
+        {
+          "name": "Multi-Cluster Fleet",
+          "description": "Scale to fleet architecture with SRE excellence",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Platform",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "GitOps Configuration Management",
+              "stateName": "Fleet Management"
+            },
+            {
+              "alphaName": "Cluster Lifecycle Management",
+              "stateName": "Fleet-Wide Orchestration"
+            },
+            {
+              "alphaName": "Storage Infrastructure",
+              "stateName": "Hybrid Cloud Storage"
+            },
+            {
+              "alphaName": "Way Of Working",
+              "stateName": "Working Well"
+            }
+          ],
+          "activities": [
+            "Track Toil and Optimize SRE Practices",
+            "Decommission Cluster Resources"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Optimize",
+              "context": "Multi-cluster fleet management with Advanced Cluster Management coordinates updates across environments, enforces cluster-wide policies via OPA, aggregates observability signals, enables cross-cluster workload migration, and achieves SRE excellence with systematic toil elimination and error budget tracking."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform",
+      "aliasName": "OpenShift Container Platform"
+    },
+    {
+      "practiceElementType": "Competency",
+      "practiceElementName": "Engineering",
+      "aliasName": "Platform Engineering"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Operate and Evolve the System",
+      "aliasName": "Day-2 Operations"
+    },
+    {
+      "practiceElementType": "WorkProduct",
+      "practiceElementName": "Infrastructure as Code",
+      "aliasName": "Cluster Configuration"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Implement GitOps Configuration Management",
+      "aliasName": "Deploy Argo CD"
+    },
+    {
+      "practiceElementType": "Activity",
+      "practiceElementName": "Perform Cluster Upgrades",
+      "aliasName": "OCP Version Update"
+    },
+    {
+      "practiceElementType": "Persona",
+      "practiceElementName": "Platform Engineer",
+      "aliasName": "OpenShift Administrator"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "IDP Essentials",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

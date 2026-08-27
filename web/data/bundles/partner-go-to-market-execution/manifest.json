@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "2.1.0",
+  "package": {
+    "name": "partner-go-to-market-execution",
+    "version": "1.1.0",
+    "description": "Equips technology Red Hat partners to execute structured sales plays through demand generation, deal registration, and technical engagement activities."
+  },
+  "documents": [
+    {
+      "path": "documents/red-hat-sales-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Red Hat Sales Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "A foundational baseline practice defining the core ontology for enterprise technology sales, encompassing customer value articulation, solution alignment, and sales execution lifecycle management.",
+        "tags": {
+          "domainTags": [
+            "Enterprise Sales",
+            "Subscription Economics",
+            "Value Selling",
+            "Solution Architecture",
+            "Customer Success",
+            "Competitive Intelligence",
+            "Sales Enablement"
+          ],
+          "lifecycleTags": [
+            "Discovery",
+            "Validation",
+            "Proposal",
+            "Negotiation",
+            "Closing",
+            "Renewal",
+            "Expansion"
+          ],
+          "organizationalTags": [
+            "Field Sales",
+            "Technical Sales",
+            "Sales Operations",
+            "Customer Success",
+            "Partner Channel",
+            "Sales Enablement",
+            "Go-to-Market Strategy"
+          ]
+        },
+        "keywords": [
+          "enterprise-sales",
+          "subscription-economics",
+          "value-selling",
+          "consultative-selling",
+          "pipeline-management",
+          "customer-success",
+          "competitive-positioning",
+          "solution-architecture",
+          "sales-enablement",
+          "go-to-market"
+        ],
+        "elementCount": 434,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/partner-ecosystem-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Partner Ecosystem Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "A minimal baseline practice for engaging with partner ecosystems, covering partner lifecycle management, value realization, capability building, trust cultivation, and governance.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "partner ecosystem",
+          "alliance management",
+          "partner relationship",
+          "trust building",
+          "partnership governance",
+          "partner value"
+        ],
+        "elementCount": 180,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-06-15T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/sales-play-framework.json",
+      "documentType": "practice",
+      "documentName": "Sales Play Framework",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.2",
+        "description": "A comprehensive practice for designing, executing, and optimizing the three-level go-to-market framework connecting Sales Plays, Technical Decision Points, and Sales Tactics into a coherent selling system.",
+        "tags": {
+          "domainTags": [
+            "Go-to-Market Strategy",
+            "Sales Enablement",
+            "Competitive Intelligence",
+            "Technical Sales"
+          ],
+          "lifecycleTags": [
+            "Discovery",
+            "Activation",
+            "Execution",
+            "Measurement",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Go-to-Market Strategy",
+            "Sales Enablement",
+            "Product Marketing",
+            "Field Sales",
+            "Sales Operations"
+          ]
+        },
+        "keywords": [
+          "sales-play",
+          "technical-decision-point",
+          "sales-tactic",
+          "go-to-market",
+          "three-level-framework",
+          "competitive-positioning",
+          "customer-engagement",
+          "framework-alignment",
+          "play-optimization"
+        ],
+        "elementCount": 174,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    },
+    {
+      "path": "documents/partner-go-to-market-execution.json",
+      "documentType": "practice",
+      "documentName": "Partner Go-to-Market Execution",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.1.0",
+        "description": "Equips technology Red Hat partners to execute structured sales plays through demand generation, deal management, and technical collaboration activities.",
+        "tags": {
+          "domainTags": [
+            "Partner Sales",
+            "Demand Generation",
+            "Deal Management",
+            "Technical Collaboration"
+          ],
+          "lifecycleTags": [
+            "Activation",
+            "Execution",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Partner Sales Organization",
+            "Partner Marketing",
+            "Partner Technical Team"
+          ]
+        },
+        "keywords": [
+          "partner sales play",
+          "deal registration",
+          "MDF",
+          "demand generation",
+          "proof of concept",
+          "co-selling",
+          "partner marketing",
+          "technical collaboration",
+          "lifecycle rewards",
+          "partner GTM"
+        ],
+        "elementCount": 368,
+        "associatedBaselineName": "Partner Ecosystem Essentials",
+        "updatedAt": "2026-08-18",
+        "createdAt": "2026-08-10"
+      }
+    }
+  ]
+}

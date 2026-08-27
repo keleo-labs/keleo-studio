@@ -1,0 +1,1174 @@
+{
+  "kind": "method",
+  "name": "Red Hat Sales Plays",
+  "description": "Red Hat Sales Plays method comprising sales plays and technology decision points built on the Sales Play Framework and Red Hat Sales Essentials baseline.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceNames": [
+    "Sales Play Framework",
+    "AI Platform TDP",
+    "App Platform TDP",
+    "Automation TDP",
+    "Container Management TDP",
+    "Server Cloud OS TDP",
+    "Virtualization TDP",
+    "Digital Sovereignty",
+    "AI-Ready Enterprise",
+    "Build and Run Applications",
+    "IT Operations Efficiency",
+    "Modernize Infrastructure"
+  ],
+  "tags": {
+    "domainTags": [
+      "AI Infrastructure",
+      "AI/ML Infrastructure",
+      "AI/ML Platform",
+      "AIOps",
+      "Application Modernization",
+      "Application Platform",
+      "Automation",
+      "Cloud Infrastructure",
+      "Cloud-Native",
+      "Cloud-Native Development",
+      "Competitive Displacement",
+      "Competitive Intelligence",
+      "Container Platform",
+      "Data Control",
+      "DevOps",
+      "Developer Experience",
+      "Developer Productivity",
+      "Digital Sovereignty",
+      "Edge Computing",
+      "GenAI",
+      "Go-to-Market Strategy",
+      "Hybrid Cloud",
+      "IT Automation",
+      "IT Operations",
+      "Infrastructure Management",
+      "Infrastructure Modernization",
+      "Infrastructure as Code",
+      "Kubernetes",
+      "Linux",
+      "Model Serving",
+      "Network Automation",
+      "Operating Systems",
+      "Operational Efficiency",
+      "Platform Engineering",
+      "Regulatory Compliance",
+      "Sales Enablement",
+      "Software Supply Chain",
+      "Supply Chain Transparency",
+      "Technical Sales",
+      "VM Migration",
+      "Virtualization"
+    ],
+    "lifecycleTags": [
+      "Activation",
+      "Advisory",
+      "Assessment",
+      "Deployment",
+      "Developer Onboarding",
+      "Discovery",
+      "Execution",
+      "Measurement",
+      "Migration Planning",
+      "Operations",
+      "Optimization",
+      "Platform Design",
+      "Positioning",
+      "Production Deployment",
+      "Proposal",
+      "Solution Design",
+      "Technical Validation",
+      "Validation"
+    ],
+    "organizationalTags": [
+      "AI Specialist Sales",
+      "AI/ML Specialists",
+      "Automation Specialist Sales",
+      "Automation Specialists",
+      "Developer Advocacy",
+      "Field Sales",
+      "Go-to-Market Strategy",
+      "Government Sales",
+      "Infrastructure Specialist Sales",
+      "OpenShift Specialists",
+      "Product Marketing",
+      "RHEL Specialists",
+      "Regulated Industries",
+      "Sales Enablement",
+      "Sales Operations",
+      "Solution Architects",
+      "Solution Architecture",
+      "Sovereignty Specialists",
+      "Specialist Sales",
+      "Technical Sales"
+    ]
+  },
+  "narratives": [
+    {
+      "narrativeTypeName": "Sales Engagement Journey",
+      "name": "Red Hat Sales Plays Method Journey",
+      "description": "The Red Hat Sales Plays method orchestrates five strategic Sales Plays and six Technology Decision Points into a comprehensive go-to-market system that enables sellers to position Red Hat's portfolio through structured customer engagement, multi-TDP solution selling, and competitive differentiation.",
+      "narrativeContexts": [
+        {
+          "narrativeElementName": "Discover",
+          "seq": 0,
+          "context": "A seller identifies a customer's strategic priorities and selects the relevant Sales Play, applying the customer lens to map pain points to Red Hat capabilities and engaging target personas through structured discovery conversations."
+        },
+        {
+          "narrativeElementName": "Validate",
+          "seq": 1,
+          "context": "Through TDP-level technical positioning and tactic-level challenge conversations, the seller validates solution fit using competitive battle cards, technology credentials, and customer reference evidence across the relevant technology domains."
+        },
+        {
+          "narrativeElementName": "Propose",
+          "seq": 2,
+          "context": "The seller articulates a multi-TDP solution narrative connecting Cost, Complexity, and Choice value drivers into a coherent business case that addresses the customer's technology decisions across infrastructure, platform, and automation layers."
+        },
+        {
+          "narrativeElementName": "Negotiate",
+          "seq": 3,
+          "context": "Value-based positioning from the play's customer lens and competitive differentiation from TDP battle cards guide negotiation strategy, supported by customer success stories and analyst validation from the method's citation library."
+        },
+        {
+          "narrativeElementName": "Close",
+          "seq": 4,
+          "context": "Play execution metrics and TDP win rates validate the engagement outcome, with structured handoff from sales to customer success ensuring continuity of the value narrative established during the play lifecycle."
+        },
+        {
+          "narrativeElementName": "Expand",
+          "seq": 5,
+          "context": "Multi-play account orchestration identifies expansion opportunities by mapping the customer's evolving strategic initiatives to additional Sales Plays and TDPs, creating a portfolio-level growth narrative driven by demonstrated platform value."
+        }
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//"
+    },
+    {
+      "name": "AI-Ready Enterprise Sales Play",
+      "description": "Complete Sales Play example demonstrating Customer Lens, persona frameworks, value drivers, TDP alignment, and content architecture.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//"
+    },
+    {
+      "name": "Automation TDP",
+      "description": "Complete TDP example showing seller credentials, customer wins, and What to Say/Share/Show content organized by audience type.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf58ce9aa5-5d91-46f8-97fc-e4471fc8b4e8//"
+    },
+    {
+      "name": "Virtualization TDP",
+      "description": "TDP example demonstrating technology domain-specific positioning including competitive displacement and migration narratives.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flfa5871978-1e94-4455-a170-ed562efdc9fb//"
+    },
+    {
+      "name": "Optimize and Modernize IT Ops Sales Tactic",
+      "description": "Sales Tactic example showing customer challenge framing, audience-segmented content, and bidirectional TDP alignment.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf5b7cd00e-3654-4a0d-8e8a-141a97206810//"
+    },
+    {
+      "name": "Sales Play Revamp",
+      "description": "Documentation of the sales play framework restructuring including three-level hierarchy and bidirectional navigation design.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//"
+    },
+    {
+      "name": "AI Platform TDP",
+      "description": "Technical Decision Point documentation for AI/ML platform positioning including seller credentials, customer wins, and audience-segmented content.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCGp7297MBFqdG2PWFCdjCgfWhcB"
+    },
+    {
+      "name": "Build and Run Applications Sales Play",
+      "description": "Sales Play covering application modernization and developer productivity positioning including AI-enhanced development scenarios.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DC6gmDb7XBm2jGfHWR4XMCXFm6MV"
+    },
+    {
+      "name": "Application Platform TDP",
+      "description": "Complete TDP documentation for application platform positioning including developer experience, platform engineering, and software supply chain content.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCh88j3md62BjGTP48Jc3gPTJDbj"
+    },
+    {
+      "name": "IT Operations Efficiency Sales Play",
+      "description": "Sales Play leveraging Automation TDP for IT operations efficiency and operational automation positioning.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCmg3BCfRjPfB8MXG3gR3q9fW9jd"
+    },
+    {
+      "name": "Container Management TDP",
+      "description": "Complete TDP documentation for the container management technology domain covering OpenShift positioning, seller credentials, customer wins, and four sales tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//"
+    },
+    {
+      "name": "Red Hat OpenShift Documentation",
+      "description": "Official Red Hat OpenShift product documentation covering container platform architecture, multi-cluster management, and enterprise Kubernetes capabilities.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.openshift.com/"
+    },
+    {
+      "name": "Red Hat Advanced Cluster Management for Kubernetes",
+      "description": "Documentation for multi-cluster management, governance, and observability across hybrid and multi-cloud Kubernetes environments.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/"
+    },
+    {
+      "name": "Server/Cloud OS TDP",
+      "description": "Complete TDP documentation for the Server/Cloud OS technology domain including seller credentials, customer wins, and structured engagement content.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCm3Pd773g2JgGhTp4GDRFBPqGJj"
+    },
+    {
+      "name": "Standardize & Modernize OS Sales Tactic",
+      "description": "Sales tactic providing customer challenge framing around OS fragmentation, inconsistent management, and security compliance gaps with audience-segmented content.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)"
+    },
+    {
+      "name": "Modernize Infrastructure Sales Play",
+      "description": "Sales Play targeting organizations seeking to modernize IT infrastructure through OS standardization, VM migration, and container adoption.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DC3q74qgbTRcXGfG7Rg88hpcTRVj"
+    },
+    {
+      "name": "Digital Sovereignty Sales Play",
+      "description": "Complete sovereignty play with Customer Lens, Readiness Assessment tool, sovereignty personas, and value driver framework.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DC36BVHgbpfTH89WJdqTH7JXj9D8"
+    },
+    {
+      "name": "Digital Sovereignty Strategy Shorts Episode 12",
+      "description": "Executive discussion on digital sovereignty strategy and Red Hat's positioning in the sovereignty landscape.",
+      "authors": [
+        "Chris Wright",
+        "Andrew Brown"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)"
+    },
+    {
+      "name": "Digital Sovereignty Power Hour",
+      "description": "Deep-dive enablement session covering sovereignty readiness assessment methodology, regulatory frameworks, and solution positioning.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)"
+    },
+    {
+      "name": "Keeping SAP Core Clean with ROSA",
+      "description": "Architecture guide presenting a strong regulated environment story with focus on control, stability, and regulated environments.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/34-keeping-the-sap-core-clean-with-rosa"
+    },
+    {
+      "name": "Near Zero Downtime Maintenance for SAP",
+      "description": "Architecture guide demonstrating how to keep systems running and reduce downtime with reliability and compliance expectations.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/11-near-zero-downtime-maintenance-for-sap"
+    },
+    {
+      "name": "Achieving Data Resiliency with Red Hat and Accenture",
+      "description": "Architecture guide with a strong continuity under pressure message, supporting continuity across regulated environments. Supports strategic sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/53-achieving-data-resiliency-red-hat-accenture"
+    },
+    {
+      "name": "Service Continuity with Partner Ecosystem",
+      "description": "Architecture guide explaining partner-led resilience with Accenture, Dynatrace, Red Hat and Trilio, focused on keeping services running even under disruption. Supports strategic sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/76-service-continuity-partners-accenture-dynatrace-red-hat-trilio"
+    },
+    {
+      "name": "Mission Critical Application Platform",
+      "description": "Architecture guide demonstrating isolation and resilience through virtualization, key to sovereignty. Supports technology, strategic, legal, and jurisdictional sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/51-mission-critical-platform"
+    },
+    {
+      "name": "Red Hat OpenShift Virtualization Demo",
+      "description": "Interactive video demo presenting a clean on-premises and controlled environment story for restricted or isolated environments.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/57-openshift-virtualization-demo"
+    },
+    {
+      "name": "InstructLab Demo",
+      "description": "Interactive video demo showcasing sovereign AI by demonstrating AI training inside customer environment — data stays inside.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/63-instructlab-demo"
+    },
+    {
+      "name": "Virtualization Installation Trilio Virt Partner Demo",
+      "description": "Interactive video demo aligned with protected workloads showing resilience for regulated workloads. Supports strategic sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/60-virtualization-installation-trilio-demo"
+    },
+    {
+      "name": "How to Download and Setup InstructLab",
+      "description": "Interactive experience showing local setup of InstructLab for sovereign AI model training.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/88-how-to-download-setup-instructlab"
+    },
+    {
+      "name": "Confidential Containers on ARO",
+      "description": "Interactive video demo demonstrating a core sovereignty requirement for confidential computing. Supports security and compliance sovereignty, legal and jurisdictional sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/120-confidential-containers-aro-demo"
+    },
+    {
+      "name": "Red Hat Trusted Application Pipeline Demo",
+      "description": "Interactive video demo of the Trusted Application Pipeline supporting supply chain sovereignty.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/66-red-hat-trusted-application-pipeline-demo"
+    },
+    {
+      "name": "Event Driven Automation",
+      "description": "Architecture guide demonstrating event-driven automation patterns where triggers initiate automated responses. Supports operationalizing AI and automating Day-2 operations.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/27-event-driven-automation"
+    },
+    {
+      "name": "Self-Healing Infrastructure",
+      "description": "Architecture guide showing how to reduce manual fixes and catch issues earlier through self-healing patterns. Supports operationalizing AI and automating Day-2 operations.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/17-self-healing-infrastructure"
+    },
+    {
+      "name": "Scalable and Cost Efficient Enterprise AI with Model as a Service",
+      "description": "Architecture guide demonstrating the value of using Model as a Service (MaaS) to reduce GPU costs while running AI efficiently. Supports running AI efficiently and controlling cost, and establishing a standardized and secure foundation to run AI across the business.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/82-model-as-a-service"
+    },
+    {
+      "name": "Self-Service Provisioning for Data Scientists",
+      "description": "Interactive video demo showing how OpenShift AI provides a flexible and scalable platform where data scientists can train, test, and deploy models across hybrid cloud environments. Supports establishing a standardized and secure foundation to run AI across the business.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/74-self-service-provisioning-data-scientists-demo"
+    },
+    {
+      "name": "Event-Driven Ansible with Event Streams",
+      "description": "Interactive video demo demonstrating real-time automation using event-driven Ansible with event streams and AI-driven triggers.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/80-event-driven-ansible-event-streams-demo"
+    },
+    {
+      "name": "Ansible Lightspeed 90-Day Trial Demo",
+      "description": "Interactive experience showcasing AI-assisted automation creation through Ansible Lightspeed, the most accessible AI example for day-to-day work.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/55-ansible-lightspeed-trial-demo"
+    },
+    {
+      "name": "Chat with Your Data Using RAG",
+      "description": "Interactive experience demonstrating retrieval-augmented generation (RAG) with private enterprise data, a common AI use case. Supports using enterprise data securely at scale for predictive and generative AI.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/127-chat-with-your-data-using-rag-red-hat-ai-interactive-experience"
+    },
+    {
+      "name": "Trusted Application Pipeline for AI Applications",
+      "description": "Interactive video demo showing how developers can quickly and easily create AI apps using CI/CD pipelines and templates. Supports building and deploying AI-powered apps and agents.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/69-trusted-application-pipeline-ai-demo"
+    },
+    {
+      "name": "Introduction to Red Hat AI Inference Server",
+      "description": "Interactive experience providing a simple introduction to running AI models anywhere across hybrid environments. Supports running AI efficiently and controlling cost.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/89-intro-red-hat-ai-inference-server-demo"
+    },
+    {
+      "name": "Building Your Cloud Native Apps",
+      "description": "Architecture guide providing a simple introduction to modern app development with consistent development workflows. Supports building and extending on an app foundation.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/4-building-your-cloud-native-applications"
+    },
+    {
+      "name": "Event-Driven Sentiment Analysis with Kafka and AI/ML",
+      "description": "Architecture guide providing a clear example of adding AI to applications as an AI-enabled application pattern. Supports building and extending on an app foundation.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/50-event-driven-sentiment-analysis-kafka-aiml"
+    },
+    {
+      "name": "Self-Service Provisioning with Red Hat Developer Hub",
+      "description": "Interactive video demo showing developer productivity and faster onboarding through self-service provisioning. Supports delivering a self-service developer experience.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/73-self-service-provisioning-developer-hub-demo"
+    },
+    {
+      "name": "Self-Service Provisioning App Capabilities with Developer Hub",
+      "description": "Interactive experience presenting the platform-engineering story that developers immediately understand. Supports delivering a self-service developer experience.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/112-self-service-provisioning-rhdh-platform-engineering-interactive-experience"
+    },
+    {
+      "name": "Red Hat Developer Hub: Faster Onboarding, Faster Innovation",
+      "description": "Interactive experience demonstrating how developers ship faster with consistent development workflows. Supports delivering a self-service developer experience.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/119-red-hat-developer-hub-faster-onboarding-interactive-experience"
+    },
+    {
+      "name": "Red Hat Enterprise Linux Demo",
+      "description": "Interactive video demo showing how to migrate to RHEL and update its version to always be supported. Supports cost optimization and efficiency.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/59-red-hat-enterprise-linux-demo"
+    },
+    {
+      "name": "Red Hat OpenShift Container Platform Demo",
+      "description": "Interactive video demo providing a good foundation for app teams with developer workflow as a focus area. Supports building and extending on an app foundation.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/58-openshift-demo"
+    },
+    {
+      "name": "SCADA Interface Modernisation",
+      "description": "Architecture guide providing a real-world example of cleaning up operational complexity by reducing manual steps for operators. Supports simplifying deployments and Day-2 operations.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/33-scada-interface-modernisation"
+    },
+    {
+      "name": "Automate in Minutes: Red Hat Ansible on AWS",
+      "description": "Interactive video demo helpful when cloud teams want automation, showing how to reduce operational burden for teams.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/77-automate-in-minutes-red-hat-ansible-aws-demo"
+    },
+    {
+      "name": "Ansible Automation Platform and Red Hat Insights",
+      "description": "Interactive video demo demonstrating proactive risk detection — find issues early, fix faster. Supports simplifying Day-2 operations and accelerating incident response.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/79-ansible-insights-vulnerability-remediation-demo"
+    },
+    {
+      "name": "Virtualization Migration Solution",
+      "description": "Architecture guide presenting the VMware-exit story with a clear modernization and migration path. Supports migrating and modernizing VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/54-virtualization-migration-solution"
+    },
+    {
+      "name": "Adopting Cloud for Application Workloads",
+      "description": "Architecture guide focusing on workload portability and compliance management through automation. Supports standardizing and automating OS across the hybrid cloud and workload portability on a multi-hybrid cloud.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/2-adopting-cloud-for-application-workloads"
+    },
+    {
+      "name": "Hybrid Multicloud Management with GitOps",
+      "description": "Architecture guide presenting GitOps as the approach to equally manage workloads regardless of the infrastructure they run on. Supports workload portability in a multi-hybrid cloud.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/8-hybrid-multicloud-management-with-gitops"
+    },
+    {
+      "name": "Virtual Machine Management with GitOps",
+      "description": "Architecture guide showing how the full lifecycle of VMs can be automated just as any other workload. Supports workload portability in a multi-hybrid cloud, scalability and high availability.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/113-virtual-machine-management-gitops"
+    },
+    {
+      "name": "Virtualization Migration Solution Demo",
+      "description": "Interactive video demo providing a straightforward modernization before/after story highlighting the VMware to OpenShift Virtualization path. Supports migrating and modernizing VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/64-migrate-vm-demo"
+    },
+    {
+      "name": "Migrate VMs from VMware to Red Hat OpenShift",
+      "description": "Interactive video demo emphasizing a clean migration workflow from VMware to OpenShift. Supports migrating and modernizing VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/84-migrate-vms-vmware-openshift-demo"
+    },
+    {
+      "name": "Some Reasons to Migrate to OpenShift Virtualization",
+      "description": "Interactive experience providing a clear explainer on why to move off legacy virtualization, covering cost, consistency, and simpler operations. Supports migrating and modernizing VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/102-migrate-to-openshift-virtualization"
+    },
+    {
+      "name": "Red Hat OpenShift Service on AWS (ROSA)",
+      "description": "Interactive experience for teams modernizing apps and infrastructure into cloud-managed OpenShift.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/87-red-hat-openshift-service-aws-rosa"
+    }
+  ],
+  "assets": [
+    {
+      "name": "sales-play-framework-icon",
+      "description": "Visual icon representing the three-level go-to-market framework concept.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-layer-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "technical-decision-point-icon",
+      "description": "Visual icon representing a technology-specific decision area within the framework.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microchip",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sales-tactic-icon",
+      "description": "Visual icon representing a customer challenge-focused conversation execution guide.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-comments",
+      "fontWeight": "900"
+    },
+    {
+      "name": "alignment-matrix-icon",
+      "description": "Visual icon representing the TDP-Tactic alignment navigation matrix.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-table-cells",
+      "fontWeight": "900"
+    },
+    {
+      "name": "play-execution-guide-icon",
+      "description": "Visual icon representing the comprehensive play execution document.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-book-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "tdp-positioning-brief-icon",
+      "description": "Visual icon representing the technology-specific positioning document.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-shield",
+      "fontWeight": "900"
+    },
+    {
+      "name": "tactic-conversation-guide-icon",
+      "description": "Visual icon representing the customer challenge conversation guide.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-message",
+      "fontWeight": "900"
+    },
+    {
+      "name": "play-performance-dashboard-icon",
+      "description": "Visual icon representing the multi-level performance tracking artifact.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ai-platform-domain-icon",
+      "description": "Visual icon representing the AI/ML platform technology domain.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "inference-tactic-icon",
+      "description": "Visual icon representing the inference at scale tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bolt",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sovereign-ai-tactic-icon",
+      "description": "Visual icon representing the sovereign AI tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "production-ai-tactic-icon",
+      "description": "Visual icon representing the production AI tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-industry",
+      "fontWeight": "900"
+    },
+    {
+      "name": "agentic-ai-tactic-icon",
+      "description": "Visual icon representing the agentic AI tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-robot",
+      "fontWeight": "900"
+    },
+    {
+      "name": "nvidia-ai-factory-tactic-icon",
+      "description": "Visual icon representing the Red Hat AI Factory with NVIDIA partnership tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microchip",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ai-competitive-position-icon",
+      "description": "Visual icon representing AI platform competitive intelligence.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-ranking-star",
+      "fontWeight": "900"
+    },
+    {
+      "name": "app-platform-domain-icon",
+      "description": "Visual icon representing the application platform technology domain within the TDP framework.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "optimize-apps-tactic-icon",
+      "description": "Visual icon representing the Optimize Traditional Apps tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-rotate",
+      "fontWeight": "900"
+    },
+    {
+      "name": "devx-platform-eng-tactic-icon",
+      "description": "Visual icon representing the Developer Experience and Platform Engineering tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-laptop-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "secure-supply-chain-tactic-icon",
+      "description": "Visual icon representing the Secure Software Supply Chain tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "app-platform-competitive-icon",
+      "description": "Visual icon representing application platform competitive positioning analysis.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-scale-balanced",
+      "fontWeight": "900"
+    },
+    {
+      "name": "automation-domain-icon",
+      "description": "Visual icon representing the automation technology domain and Ansible Automation Platform positioning.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-robot",
+      "fontWeight": "900"
+    },
+    {
+      "name": "automation-competitive-icon",
+      "description": "Visual icon representing automation-specific competitive intelligence and battle card content.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "automate-scale-tactic-icon",
+      "description": "Visual icon representing the enterprise-wide automation standardization tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-expand",
+      "fontWeight": "900"
+    },
+    {
+      "name": "optimize-itops-tactic-icon",
+      "description": "Visual icon representing the IT operations optimization through automation tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "aiops-tactic-icon",
+      "description": "Visual icon representing the AI-assisted operations tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "network-automation-tactic-icon",
+      "description": "Visual icon representing the network infrastructure automation tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-network-wired",
+      "fontWeight": "900"
+    },
+    {
+      "name": "container-management-domain-icon",
+      "description": "Visual icon representing the container management technology domain within the sales framework.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "kubernetes-standard-tactic-icon",
+      "description": "Visual icon representing standard Kubernetes workload tactic conversations.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-dharmachakra",
+      "fontWeight": "900"
+    },
+    {
+      "name": "kubernetes-ai-tactic-icon",
+      "description": "Visual icon representing Kubernetes for AI workload tactic conversations.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-microchip",
+      "fontWeight": "900"
+    },
+    {
+      "name": "multicluster-security-tactic-icon",
+      "description": "Visual icon representing multi-cluster security and governance tactic conversations.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sovereign-infrastructure-tactic-icon",
+      "description": "Visual icon representing sovereign infrastructure tactic conversations.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-flag",
+      "fontWeight": "900"
+    },
+    {
+      "name": "container-competitive-icon",
+      "description": "Visual icon representing container platform competitive positioning and battle card content.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-scale-balanced",
+      "fontWeight": "900"
+    },
+    {
+      "name": "server-cloud-os-domain-icon",
+      "description": "Visual icon representing the Server/Cloud OS technology domain covering operating system decisions across datacenter, cloud, and edge.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-server",
+      "fontWeight": "900"
+    },
+    {
+      "name": "os-standardize-tactic-icon",
+      "description": "Visual icon representing the OS standardization and modernization customer challenge tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-layer-group",
+      "fontWeight": "900"
+    },
+    {
+      "name": "cloud-migration-tactic-icon",
+      "description": "Visual icon representing the cloud migration customer challenge tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cloud-arrow-up",
+      "fontWeight": "900"
+    },
+    {
+      "name": "secure-manage-tactic-icon",
+      "description": "Visual icon representing the security and management customer challenge tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "deploy-apps-tactic-icon",
+      "description": "Visual icon representing the new application deployment customer challenge tactic.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rocket",
+      "fontWeight": "900"
+    },
+    {
+      "name": "os-competitive-icon",
+      "description": "Visual icon representing OS-domain competitive intelligence and market positioning.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-pie",
+      "fontWeight": "900"
+    },
+    {
+      "name": "os-battle-card-icon",
+      "description": "Visual icon representing the OS competitive battle card work product.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-shield",
+      "fontWeight": "900"
+    },
+    {
+      "name": "virtualization-domain-icon",
+      "description": "Visual icon representing the virtualization technology domain and VM migration capability.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-server",
+      "fontWeight": "900"
+    },
+    {
+      "name": "vm-migration-tactic-icon",
+      "description": "Visual icon representing VM migration and modernization customer conversations.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-right-left",
+      "fontWeight": "900"
+    },
+    {
+      "name": "virtualization-competitive-icon",
+      "description": "Visual icon representing virtualization-specific competitive displacement intelligence.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "virtualization-battle-card-icon",
+      "description": "Visual icon representing the virtualization competitive battle card work product.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-shield",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sovereignty-readiness-icon",
+      "description": "Visual icon representing digital sovereignty and regulatory compliance assessment.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-shield-halved",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sovereignty-advisory-icon",
+      "description": "Visual icon representing sovereignty advisory expertise and seller readiness.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-shield",
+      "fontWeight": "900"
+    },
+    {
+      "name": "sovereignty-assessment-icon",
+      "description": "Visual icon representing the sovereignty readiness assessment tool and workshop.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-clipboard-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ai-ready-enterprise-play-icon",
+      "description": "Visual icon representing the AI-Ready Enterprise sales play concept.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-brain",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ai-play-execution-playbook-icon",
+      "description": "Visual icon representing the AI-Ready Enterprise execution playbook work product.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-book-open",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ai-customer-reference-icon",
+      "description": "Visual icon representing AI-focused customer reference evidence.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-award",
+      "fontWeight": "900"
+    },
+    {
+      "name": "ai-performance-dashboard-icon",
+      "description": "Visual icon representing the AI-Ready Enterprise performance tracking dashboard.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "build-run-play-icon",
+      "description": "Visual icon representing the Build and Run Applications sales play concept.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "app-modernization-icon",
+      "description": "Visual icon representing application modernization and legacy migration concerns.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-rotate",
+      "fontWeight": "900"
+    },
+    {
+      "name": "it-ops-efficiency-play-icon",
+      "description": "Visual icon representing the IT operations efficiency sales play concept.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "it-ops-customer-reference-icon",
+      "description": "Visual icon representing IT operations customer evidence and reference materials.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-circle-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "it-ops-playbook-icon",
+      "description": "Visual icon representing the IT operations execution playbook.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-book-open-reader",
+      "fontWeight": "900"
+    },
+    {
+      "name": "modernize-infrastructure-play-icon",
+      "description": "Visual icon representing the infrastructure modernization sales play concept.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-server",
+      "fontWeight": "900"
+    },
+    {
+      "name": "modernize-infrastructure-play-alpha-icon",
+      "description": "Visual icon representing the infrastructure modernization play positioning lifecycle.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-building",
+      "fontWeight": "900"
+    }
+  ]
+}

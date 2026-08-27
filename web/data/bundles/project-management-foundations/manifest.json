@@ -1,0 +1,264 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "project-management-foundations",
+    "version": "1.0.0",
+    "description": "project-management-foundations",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/project-management-foundations.json",
+      "documentType": "method",
+      "documentName": "Project Management Foundations",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "A comprehensive project management method integrating modern agile, lean, and traditional approaches across value strategy and delivery operations.",
+        "tags": {
+          "domainTags": [
+            "Adaptive Delivery",
+            "Agile Delivery",
+            "Benefits Realization",
+            "Business Case",
+            "Continuous Improvement",
+            "Governance",
+            "Lifecycle Management",
+            "OKR",
+            "Phase Gate",
+            "Risk Management",
+            "Stakeholder Management",
+            "Team Development",
+            "Work Management"
+          ],
+          "lifecycleTags": [
+            "Benefits Realization",
+            "Closure",
+            "Execution",
+            "Governance",
+            "Initiation",
+            "Monitoring",
+            "Planning",
+            "Retrospection"
+          ],
+          "organizationalTags": [
+            "Delivery Team",
+            "Governance Board",
+            "PMO",
+            "Project Leadership Team",
+            "Sponsor"
+          ]
+        },
+        "keywords": [],
+        "elementCount": 499,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": ""
+      }
+    },
+    {
+      "path": "documents/delivery-and-team-operations.json",
+      "documentType": "practice",
+      "documentName": "Delivery and Team Operations",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.4",
+        "description": "Coordinates agile delivery execution, team formation, backlog management, and continuous improvement practices.",
+        "tags": {
+          "domainTags": [
+            "Agile Delivery",
+            "Work Management",
+            "Team Development",
+            "Continuous Improvement"
+          ],
+          "lifecycleTags": [
+            "Planning",
+            "Execution",
+            "Retrospection",
+            "Closure"
+          ],
+          "organizationalTags": [
+            "Delivery Team",
+            "Project Leadership Team"
+          ]
+        },
+        "keywords": [
+          "agile delivery",
+          "scrum",
+          "kanban",
+          "sprint planning",
+          "backlog refinement",
+          "team charter",
+          "definition of done",
+          "retrospective",
+          "daily standup",
+          "continuous improvement",
+          "WIP limits",
+          "release planning",
+          "user story",
+          "iteration",
+          "velocity",
+          "team agreement",
+          "working agreement",
+          "sprint review",
+          "flow management",
+          "psychological safety"
+        ],
+        "elementCount": 269,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-25"
+      }
+    },
+    {
+      "path": "documents/project-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Project Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "The Project Essentials baseline establishes the universal foundation for project management, organized into three areas of concern: Value, Solution, and Endeavor.",
+        "tags": {
+          "domainTags": [
+            "Project Management",
+            "Agile",
+            "Governance",
+            "Stakeholder Management",
+            "Team Management"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Execution",
+            "Closure",
+            "Benefits Realization"
+          ],
+          "organizationalTags": [
+            "Project Team",
+            "PMO",
+            "Governance Board",
+            "Stakeholder Community"
+          ]
+        },
+        "keywords": [
+          "project management",
+          "agile",
+          "PMBOK",
+          "Essence",
+          "SMART objectives",
+          "team",
+          "stakeholders",
+          "way of working"
+        ],
+        "elementCount": 455,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    },
+    {
+      "path": "documents/project-management-lifecycle.json",
+      "documentType": "practice",
+      "documentName": "Project Management Lifecycle",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "Orchestrates the adaptive project lifecycle coordinating value strategy with delivery operations across all project concerns.",
+        "tags": {
+          "domainTags": [
+            "Lifecycle Management",
+            "Governance",
+            "Phase Gate",
+            "Adaptive Delivery"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Execution",
+            "Monitoring",
+            "Closure"
+          ],
+          "organizationalTags": [
+            "PMO",
+            "Governance Board",
+            "Project Leadership Team"
+          ]
+        },
+        "keywords": [
+          "project lifecycle",
+          "adaptive",
+          "initiation",
+          "planning",
+          "execution",
+          "monitoring",
+          "closing",
+          "phase gate",
+          "iterative",
+          "incremental",
+          "hybrid",
+          "project phases",
+          "lifecycle management",
+          "governance",
+          "stage gate"
+        ],
+        "elementCount": 0,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-25"
+      }
+    },
+    {
+      "path": "documents/value-and-stakeholder-strategy.json",
+      "documentType": "practice",
+      "documentName": "Value and Stakeholder Strategy",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.4",
+        "description": "Ensures projects are grounded in validated opportunity, driven by measurable objectives, and governed by systematic stakeholder, risk, and benefits management.",
+        "tags": {
+          "domainTags": [
+            "Business Case",
+            "Stakeholder Management",
+            "Risk Management",
+            "Benefits Realization",
+            "OKR"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Benefits Realization",
+            "Governance"
+          ],
+          "organizationalTags": [
+            "PMO",
+            "Governance Board",
+            "Sponsor"
+          ]
+        },
+        "keywords": [
+          "project management",
+          "business case",
+          "stakeholder engagement",
+          "OKR",
+          "risk management",
+          "benefits realization",
+          "value proposition",
+          "ROI",
+          "SMART objectives",
+          "stakeholder analysis",
+          "risk register",
+          "opportunity assessment",
+          "investment justification",
+          "MoSCoW prioritization",
+          "cost-benefit analysis"
+        ],
+        "elementCount": 227,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-25"
+      }
+    }
+  ]
+}

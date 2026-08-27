@@ -1,0 +1,3405 @@
+{
+  "kind": "practice",
+  "name": "Strategic Transformation",
+  "description": "Guides organizations from reactive digital posture to adaptive strategy with innovative business models and co-created customer value.",
+  "baselinePracticeName": "Digital Transformation Essentials",
+  "tags": {
+    "domainTags": [
+      "Digital Strategy",
+      "Business Model Innovation",
+      "Customer Value",
+      "Servitization",
+      "Platform Economics"
+    ],
+    "lifecycleTags": [
+      "Strategy",
+      "Assessment",
+      "Foundation",
+      "Optimization"
+    ],
+    "organizationalTags": [
+      "Enterprise Leadership",
+      "Strategy",
+      "Customer"
+    ]
+  },
+  "keywords": [
+    "digital strategy",
+    "business model innovation",
+    "servitization",
+    "outcome-based delivery",
+    "platform economics",
+    "XaaS",
+    "dynamic capabilities",
+    "value co-creation",
+    "service-dominant logic",
+    "product-service systems",
+    "customer journey",
+    "business model canvas",
+    "value-in-use",
+    "dual transformation",
+    "focus and leverage"
+  ],
+  "authors": [
+    "University of Exeter Business School BEMM257 Programme"
+  ],
+  "createdAt": "2026-07-19",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.1",
+  "narrativeTypes": [
+    {
+      "name": "Essay",
+      "description": "Analytical narrative for exploring complex topics with structured argumentation from introduction through evidence to conclusion.",
+      "narrativeElements": [
+        {
+          "name": "Introduction",
+          "description": "Opening context establishing the subject and its significance.",
+          "howToUse": "Introduce the topic, establish its importance, and preview the main argument or thesis."
+        },
+        {
+          "name": "Body",
+          "description": "Core analysis presenting evidence, frameworks, and detailed argumentation.",
+          "howToUse": "Present the main evidence, theoretical frameworks, case studies, and analysis supporting the argument."
+        },
+        {
+          "name": "Conclusion",
+          "description": "Synthesis summarizing key findings and implications.",
+          "howToUse": "Summarize the key insights, restate the significance, and describe implications for practice."
+        }
+      ],
+      "kind": "narrativeType"
+    },
+    {
+      "name": "Technique",
+      "description": "Practical how-to narrative for activity execution guidance with overview, method, and pitfall avoidance.",
+      "narrativeElements": [
+        {
+          "name": "Overview",
+          "description": "High-level description of the activity purpose and approach.",
+          "howToUse": "Provide a brief summary of what the activity achieves and the general approach taken."
+        },
+        {
+          "name": "Technique",
+          "description": "Detailed step-by-step execution guidance and methodology.",
+          "howToUse": "Describe the specific methods, tools, frameworks, and steps to perform the activity effectively."
+        },
+        {
+          "name": "Common Pitfalls",
+          "description": "Known failure modes and anti-patterns to avoid.",
+          "howToUse": "Identify common mistakes, anti-patterns, and traps that practitioners should avoid when performing this activity."
+        }
+      ],
+      "kind": "narrativeType"
+    }
+  ],
+  "citations": [
+    {
+      "name": "Teece (2007)",
+      "description": "Foundational paper establishing dynamic capabilities framework for sustainable enterprise performance in changing environments.",
+      "authors": [
+        "David J. Teece"
+      ],
+      "date": "2007",
+      "source": "Strategic Management Journal, 28(13), 1319-1350",
+      "url": "https://doi.org/10.1002/smj.640",
+      "kind": "citation"
+    },
+    {
+      "name": "Teece (2010)",
+      "description": "Analysis of the relationship between business models, business strategy, and innovation in capturing value from technology.",
+      "authors": [
+        "David J. Teece"
+      ],
+      "date": "2010",
+      "source": "Long Range Planning, 43(2-3), 172-194",
+      "kind": "citation"
+    },
+    {
+      "name": "Osterwalder (2010)",
+      "description": "Handbook defining the Business Model Canvas methodology for designing and innovating business models.",
+      "authors": [
+        "Alexander Osterwalder",
+        "Yves Pigneur"
+      ],
+      "date": "2010",
+      "source": "Wiley",
+      "kind": "citation"
+    },
+    {
+      "name": "Parker et al. (2016)",
+      "description": "Comprehensive analysis of how platform business models transform industries through network effects and ecosystem orchestration.",
+      "authors": [
+        "Geoffrey G. Parker",
+        "Marshall W. Van Alstyne",
+        "Sangeet Paul Choudary"
+      ],
+      "date": "2016",
+      "source": "W. W. Norton & Company",
+      "kind": "citation"
+    },
+    {
+      "name": "Vargo and Lusch (2016)",
+      "description": "Extension and update of service-dominant logic with five foundational axioms for value co-creation.",
+      "authors": [
+        "Stephen L. Vargo",
+        "Robert F. Lusch"
+      ],
+      "date": "2016",
+      "source": "Journal of the Academy of Marketing Science, 44(1), 5-23",
+      "kind": "citation"
+    },
+    {
+      "name": "Tukker (2004)",
+      "description": "Classification of eight product-service system archetypes spanning the servitization continuum.",
+      "authors": [
+        "Arnold Tukker"
+      ],
+      "date": "2004",
+      "source": "Business Strategy and the Environment, 13(4), 246-260",
+      "kind": "citation"
+    },
+    {
+      "name": "Ross (2014)",
+      "description": "Strategic framework identifying five pathways organizations use to successfully face digital disruption.",
+      "authors": [
+        "Jeanne W. Ross"
+      ],
+      "date": "2014",
+      "source": "MIT Sloan Management Review",
+      "kind": "citation"
+    },
+    {
+      "name": "Furr and Shipilov (2019)",
+      "description": "Framework for strategic responses to digital disruption distinguishing fortress, renovation, platform, and new venture approaches.",
+      "authors": [
+        "Nathan Furr",
+        "Andrew Shipilov"
+      ],
+      "date": "2019",
+      "source": "Harvard Business Review, 97(4), 94-103",
+      "kind": "citation"
+    },
+    {
+      "name": "Neely (2008)",
+      "description": "Empirical research exploring the financial consequences of servitization including the servitization paradox.",
+      "authors": [
+        "Andy Neely"
+      ],
+      "date": "2008",
+      "source": "Operations Management Research, 1(2), 103-118",
+      "kind": "citation"
+    },
+    {
+      "name": "Ng et al. (2015)",
+      "description": "Research on IoT-enabled contextual variety and the strategic choice between platform and tailoring approaches.",
+      "authors": [
+        "Irene C. L. Ng",
+        "Kimberley Scharf",
+        "Ganna Pogrebna",
+        "Roger Maull"
+      ],
+      "date": "2015",
+      "source": "International Journal of Production Economics, 159, 76-87",
+      "kind": "citation"
+    },
+    {
+      "name": "Blank (2015)",
+      "description": "Lean startup methodology applied to enterprise innovation and new venture development within established organizations.",
+      "authors": [
+        "Steve Blank"
+      ],
+      "date": "2015",
+      "source": "Harvard Business Review",
+      "kind": "citation"
+    },
+    {
+      "name": "Neely (2013)",
+      "description": "Research exploring strategic challenges and implementation considerations for manufacturing firms adopting servitization strategies.",
+      "authors": [
+        "Andy Neely",
+        "Olga Benedettini",
+        "Ivanka Visnjic"
+      ],
+      "date": "2013",
+      "source": "Cambridge Service Alliance, University of Cambridge",
+      "kind": "citation"
+    },
+    {
+      "name": "Magowan (2019)",
+      "description": "Analysis of digital transformation outcome measurement frameworks and the watermelon effect in IT service delivery.",
+      "authors": [
+        "Joe Magowan"
+      ],
+      "date": "2019",
+      "source": "IT Governance Publishing",
+      "kind": "citation"
+    },
+    {
+      "name": "Helfat and Raubitschek (2018)",
+      "description": "Analysis of dynamic and integrative capabilities for profiting from innovation in digital platform-based ecosystems.",
+      "authors": [
+        "Constance E. Helfat",
+        "Ruth S. Raubitschek"
+      ],
+      "date": "2018",
+      "source": "Research Policy, 47(8), 1391-1399",
+      "kind": "citation"
+    },
+    {
+      "name": "Benzell et al. (2017)",
+      "description": "Research on the economics of digital platform ecosystems and multi-sided market dynamics.",
+      "authors": [
+        "Seth G. Benzell",
+        "Avinash Collis",
+        "Christos Nicolaides"
+      ],
+      "date": "2017",
+      "source": "MIT Sloan School of Management Working Paper",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "digital-strategy-icon",
+      "description": "Icon representing the Digital Strategy alpha and strategic direction concern.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-compass",
+      "fontWeight": "900"
+    },
+    {
+      "name": "business-model-icon",
+      "description": "Icon representing the Business Model alpha and value creation concern.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "customer-value-delivery-icon",
+      "description": "Icon representing the Customer Value Delivery alpha and customer experience concern.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users-gear",
+      "fontWeight": "900"
+    },
+    {
+      "name": "assess-maturity-icon",
+      "description": "Icon representing the Assess Digital Maturity activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gauge",
+      "fontWeight": "900"
+    },
+    {
+      "name": "formulate-strategy-activity-icon",
+      "description": "Icon representing the Formulate Digital Strategy activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-map",
+      "fontWeight": "900"
+    },
+    {
+      "name": "integrate-strategy-icon",
+      "description": "Icon representing the Integrate Strategy Across Functions activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-diagram-project",
+      "fontWeight": "900"
+    },
+    {
+      "name": "adaptive-strategy-icon",
+      "description": "Icon representing the Embed Adaptive Strategy Capabilities activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rotate",
+      "fontWeight": "900"
+    },
+    {
+      "name": "map-model-icon",
+      "description": "Icon representing the Map Current Business Model activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-table-cells",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-alternatives-icon",
+      "description": "Icon representing the Design Business Model Alternatives activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-pencil-ruler",
+      "fontWeight": "900"
+    },
+    {
+      "name": "pilot-experiments-icon",
+      "description": "Icon representing the Pilot Business Model Experiments activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-flask",
+      "fontWeight": "900"
+    },
+    {
+      "name": "scale-models-icon",
+      "description": "Icon representing the Scale Validated Business Models activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-rocket",
+      "fontWeight": "900"
+    },
+    {
+      "name": "map-journeys-icon",
+      "description": "Icon representing the Map Customer Journeys activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-route",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-experiences-icon",
+      "description": "Icon representing the Design Customer Experiences activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-wand-magic-sparkles",
+      "fontWeight": "900"
+    },
+    {
+      "name": "outcome-delivery-icon",
+      "description": "Icon representing the Implement Outcome-Based Delivery activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bullseye",
+      "fontWeight": "900"
+    },
+    {
+      "name": "co-creation-icon",
+      "description": "Icon representing the Enable Value Co-Creation activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-handshake",
+      "fontWeight": "900"
+    },
+    {
+      "name": "build-partnerships-icon",
+      "description": "Icon representing the Build Ecosystem Partnerships activity.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-people-arrows",
+      "fontWeight": "900"
+    },
+    {
+      "name": "formulate-strategy-icon",
+      "description": "Icon representing the Formulate Transformation Strategy activity space.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-lightbulb",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-value-models-icon",
+      "description": "Icon representing the Design Value Models activity space.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-cubes",
+      "fontWeight": "900"
+    },
+    {
+      "name": "design-customer-experiences-icon",
+      "description": "Icon representing the Design Customer Experiences activity space.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-heart",
+      "fontWeight": "900"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "Practice Intent",
+      "description": "Strategic Transformation practice objectives and value proposition.",
+      "narrativeTypeName": "STAR Format",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Situation",
+          "context": "Organizations face accelerating disruption from platform-native competitors that achieve comparable sales with half the employees, grow twice as fast, and are more than twice as profitable. Traditional pipeline business models with transactional customer relationships cannot sustain competitive advantage in markets where data, network effects, and outcome-based delivery define value."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Task",
+          "context": "Formulate a coherent digital strategy with explicit pathway choices, design innovative business models spanning platform economics and servitization, and transform customer value delivery from product-centric output measurement to outcome-oriented co-creation grounded in service-dominant logic."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Action",
+          "context": "Apply dynamic capabilities theory to build sensing, seizing, and transforming routines. Use the Business Model Canvas to prototype alternatives evaluated against desirability, feasibility, and viability. Map customer journeys, eliminate value destroyers, and transition to outcome-based delivery using IoT-enabled product-in-use monitoring and predictive analytics."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Result",
+          "context": "The organization achieves adaptive strategy operating on continuous cycles, maintains a portfolio of business models at multiple lifecycle stages, and co-creates value with customers as active partners through platform-enabled, context-responsive interactions aligned with service-dominant logic principles."
+        }
+      ],
+      "citationNames": [
+        "Teece (2007)",
+        "Teece (2010)",
+        "Osterwalder (2010)",
+        "Parker et al. (2016)",
+        "Vargo and Lusch (2016)",
+        "Tukker (2004)",
+        "Ross (2014)",
+        "Furr and Shipilov (2019)",
+        "Neely (2008)",
+        "Ng et al. (2015)",
+        "Blank (2015)",
+        "Neely (2013)",
+        "Magowan (2019)",
+        "Helfat and Raubitschek (2018)",
+        "Benzell et al. (2017)"
+      ]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Digital Strategy",
+      "description": "The organizational vision, strategic priorities, dynamic capabilities, and adaptive planning processes that direct digital transformation investment, execution, and continuous evolution across all dimensions of the enterprise.",
+      "focusName": "Strategy and Value",
+      "assetNames": [
+        {
+          "assetName": "digital-strategy-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Undefined",
+          "description": "No articulated digital strategy exists.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "No formal digital vision exists",
+              "description": "No formal digital transformation vision, roadmap, or strategic narrative exists.",
+              "seq": 1
+            },
+            {
+              "name": "Initiatives lack coordination",
+              "description": "Digital initiatives are driven by individual departments without enterprise-level coordination or portfolio management.",
+              "seq": 2
+            },
+            {
+              "name": "Reactive technology investment",
+              "description": "Technology investment decisions are made reactively in response to competitor actions or vendor pitches rather than strategic analysis.",
+              "seq": 3
+            },
+            {
+              "name": "Digital seen as IT responsibility",
+              "description": "Executive leadership views digital as an IT responsibility rather than a board-level strategic imperative.",
+              "seq": 4
+            },
+            {
+              "name": "Transformation distinction not understood",
+              "description": "The critical distinction between digitization, digitalization, and genuine transformation is not understood by leadership.",
+              "seq": 5
+            },
+            {
+              "name": "No digital maturity assessment",
+              "description": "No assessment of digital maturity across the five dimensions of digitization, process modeling, value analysis, business model innovation, and organizational redesign has been conducted.",
+              "seq": 6
+            },
+            {
+              "name": "Innovation landscape unevaluated",
+              "description": "The organization has not evaluated its position on the Innovation Landscape Map to determine proximity to disruption.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Emerging",
+          "description": "Initial strategic awareness drives executive conversations and early pilots.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Executive acknowledgement of disruption",
+              "description": "Executive leadership acknowledges digital disruption as a strategic threat or opportunity requiring board-level attention.",
+              "seq": 1
+            },
+            {
+              "name": "Preliminary maturity assessment",
+              "description": "A preliminary assessment of digital maturity has been conducted across the five dimensions of digitization progress, process modelling, value analysis, business model innovation, and organizational redesign.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive landscape includes disruptors",
+              "description": "Competitive landscape analysis includes digital-native entrants, platform disruptors, and adjacent industry transformation patterns.",
+              "seq": 3
+            },
+            {
+              "name": "Early pilot initiatives launched",
+              "description": "Early pilot digital initiatives have been launched in at least one business unit with executive sponsorship.",
+              "seq": 4
+            },
+            {
+              "name": "Legacy system inventory started",
+              "description": "An initial inventory of legacy systems, technical debt, and modernization requirements has been started.",
+              "seq": 5
+            },
+            {
+              "name": "Dynamic capabilities assessed",
+              "description": "Dynamic capabilities assessment has evaluated organizational capacity for sensing, seizing, and transforming.",
+              "seq": 6
+            },
+            {
+              "name": "LEO challenges analyzed",
+              "description": "Initial analysis of the five LEO challenges including cultural inertia, technical debt, innovation theatre, digital skills deficit, and leadership alignment has been conducted.",
+              "seq": 7
+            },
+            {
+              "name": "Disruption response framework applied",
+              "description": "The Furr and Shipilov disruption framework has been applied to assess whether digital entry should follow fortress, renovation, platform, or new venture strategy.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Defined",
+          "description": "A formal digital strategy is documented with measurable objectives.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Written strategy with measurable outcomes",
+              "description": "A written digital transformation strategy articulates purpose, vision, and measurable business outcomes.",
+              "seq": 1
+            },
+            {
+              "name": "Strategic pathway choice made",
+              "description": "The strategic choice between customer engagement and digitized solutions pathways has been explicitly made and communicated across the organization.",
+              "seq": 2
+            },
+            {
+              "name": "Focus and Leverage framework applied",
+              "description": "The Focus and Leverage framework has been applied to classify organizational capabilities as differentiating or leverageable.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-year funding roadmap established",
+              "description": "Digital transformation investment is governed by a multi-year funding roadmap with phase gates and resource allocation priorities.",
+              "seq": 4
+            },
+            {
+              "name": "Digital maturity KPIs tracked",
+              "description": "Key performance indicators for digital maturity are established and tracked at the executive level through regular reporting.",
+              "seq": 5
+            },
+            {
+              "name": "Dual transformation approach documented",
+              "description": "Dual transformation approach explicitly addresses core business repositioning alongside new digital venture creation.",
+              "seq": 6
+            },
+            {
+              "name": "Innovation horizon portfolio allocated",
+              "description": "Innovation horizon portfolio allocates investment across Horizon 1 execute known models, Horizon 2 extend partial models, and Horizon 3 incubate unknown models.",
+              "seq": 7
+            },
+            {
+              "name": "Composable business framework evaluated",
+              "description": "The Gartner Intelligent Composable Business framework has been evaluated for modular capability design.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Integrated",
+          "description": "Digital strategy is embedded across all business functions.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Business units have local execution plans",
+              "description": "Every business unit has translated the enterprise digital strategy into local execution plans with accountable owners.",
+              "seq": 1
+            },
+            {
+              "name": "Investment traceable to outcomes",
+              "description": "Technology investment decisions are directly traceable to strategic business outcomes through clear linkage mechanisms.",
+              "seq": 2
+            },
+            {
+              "name": "Dual transformation balanced",
+              "description": "The dual transformation approach explicitly balances core business optimization with new venture creation through portfolio management.",
+              "seq": 3
+            },
+            {
+              "name": "Cross-functional alignment continuous",
+              "description": "Cross-functional alignment mechanisms connect strategy to operational execution continuously rather than through periodic planning cycles.",
+              "seq": 4
+            },
+            {
+              "name": "Ecosystem partnerships managed strategically",
+              "description": "External ecosystem partnerships are strategically managed as integral components of the organization's value creation architecture.",
+              "seq": 5
+            },
+            {
+              "name": "Organizational ambidexterity mechanisms active",
+              "description": "Organizational ambidexterity mechanisms balance exploitation of current models with exploration of new digital ventures.",
+              "seq": 6
+            },
+            {
+              "name": "Strategy-to-execution traceability established",
+              "description": "Strategy-to-execution traceability links every digital initiative to measurable business outcomes through investment readiness metrics.",
+              "seq": 7
+            },
+            {
+              "name": "Ecosystem as strategic capability extension",
+              "description": "Ecosystem strategy treats external partnerships as strategic capability extensions rather than transactional vendor relationships.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Adaptive",
+          "description": "Strategy continuously evolves through real-time market sensing.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Continuous strategic planning cycle",
+              "description": "Strategic planning operates on a continuous cycle rather than annual or multi-year horizons, adapting within weeks to market changes.",
+              "seq": 1
+            },
+            {
+              "name": "Real-time market sensing active",
+              "description": "Real-time market sensing capabilities including competitive intelligence, technology scanning, and customer signal analysis inform strategic adjustments.",
+              "seq": 2
+            },
+            {
+              "name": "Dynamic capabilities embedded",
+              "description": "Dynamic capabilities for sensing opportunities, seizing value, and transforming organizational assets are deeply embedded in organizational routines rather than dependent on individual leaders.",
+              "seq": 3
+            },
+            {
+              "name": "Organization shapes competitive environment",
+              "description": "The organization actively shapes its competitive environment and market definitions rather than merely responding to external forces.",
+              "seq": 4
+            },
+            {
+              "name": "Continuous business model innovation",
+              "description": "Business model innovation occurs continuously through structured experimentation and rapid scaling across all three innovation horizons simultaneously.",
+              "seq": 5
+            },
+            {
+              "name": "Decisive digital investment demonstrated",
+              "description": "The organization demonstrates that early, decisive digital investment outperforms cautious incrementalism, evidenced by sustained superior shareholder returns.",
+              "seq": 6
+            },
+            {
+              "name": "Strategy resilience scenario tested",
+              "description": "Strategy resilience has been tested against scenario planning covering multiple future states and uncertainty levels.",
+              "seq": 7
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Digital Strategy Context and Rationale",
+          "description": "Why digital strategy requires executive ownership and dynamic capabilities beyond technology roadmapping.",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Digital strategy is not a technology roadmap but a fundamental organizational redirection requiring executive ownership. The distinction between digitization, digitalization, and transformation determines whether investment creates incremental efficiency or transformative competitive advantage."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Teece's dynamic capabilities framework provides the analytical foundation: organizations must build microfoundations for sensing opportunities through environmental scanning, seizing value through rapid resource mobilization and business model experimentation, and transforming assets through continuous reconfiguration of structure and culture. The strategic pathway choice between customer engagement and digitized solutions must be made explicitly, as pursuing both leads to strategic dilution. The Focus and Leverage framework classifies capabilities into those requiring internal investment and those suitable for external leverage. Post-pandemic evidence conclusively demonstrates that early digital investors outperform incrementalists. Organizational ambidexterity research shows that only three of twenty-eight frontier-performing firms successfully executed major strategic changes, establishing the difficulty baseline for transformation initiatives."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Adaptive digital strategy embeds sensing, seizing, and transforming capabilities in organizational routines rather than individual leaders. Strategic planning becomes continuous, the organization shapes its competitive environment, and business model innovation occurs across all three innovation horizons simultaneously."
+            }
+          ],
+          "citationNames": [
+            "Teece (2007)",
+            "Ross (2014)",
+            "Furr and Shipilov (2019)"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Business Model",
+      "description": "The design, experimentation, validation, and continuous evolution of how the organization creates, delivers, and captures value in digital markets through platform economics, servitization, outcome-based delivery, and multi-sided ecosystem orchestration.",
+      "focusName": "Strategy and Value",
+      "assetNames": [
+        {
+          "assetName": "business-model-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Traditional",
+          "description": "The organization operates a single linear pipeline business model.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Linear supply chain revenue only",
+              "description": "Revenue depends entirely on direct product or service sales through linear supply chain channels with ownership transferred at point of sale.",
+              "seq": 1
+            },
+            {
+              "name": "No alternative model exploration",
+              "description": "No systematic exploration of alternative revenue streams, value capture mechanisms, or delivery models exists.",
+              "seq": 2
+            },
+            {
+              "name": "Purely transactional customer interaction",
+              "description": "Customer interaction is purely transactional, ending at the point of sale with minimal post-sale engagement or value-in-use support.",
+              "seq": 3
+            },
+            {
+              "name": "Business model viewed as fixed",
+              "description": "The organization views its business model as fixed rather than a dynamic capability requiring continuous design and experimentation.",
+              "seq": 4
+            },
+            {
+              "name": "Efficiency focus within existing model",
+              "description": "Competitive strategy focuses on operational efficiency and cost reduction within the existing model rather than model innovation.",
+              "seq": 5
+            },
+            {
+              "name": "No product-service system assessment",
+              "description": "No product-service system assessment has been conducted across the eight Tukker archetypes.",
+              "seq": 6
+            },
+            {
+              "name": "Servitization continuum unevaluated",
+              "description": "The servitization continuum from product-oriented through use-oriented to result-oriented has not been evaluated for applicability.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Exploring",
+          "description": "Alternative business models are investigated using structured frameworks.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Current model mapped with canvas",
+              "description": "Leadership has mapped the current business model using a structured framework such as the Business Model Canvas across all nine elements.",
+              "seq": 1
+            },
+            {
+              "name": "Digital competitor analysis conducted",
+              "description": "Competitive analysis includes assessment of digital-native, platform-based, and servitized competitors in adjacent and distant markets.",
+              "seq": 2
+            },
+            {
+              "name": "Value-in-use distinction understood",
+              "description": "The distinction between value-in-exchange and value-in-use is understood at the leadership level.",
+              "seq": 3
+            },
+            {
+              "name": "Alternative revenue models investigated",
+              "description": "Preliminary investigation of platform, subscription, outcome-based, and product-service system revenue models has commenced.",
+              "seq": 4
+            },
+            {
+              "name": "Data monetization potential assessed",
+              "description": "Initial assessment of data monetization potential and ecosystem partnership value contribution has been conducted.",
+              "seq": 5
+            },
+            {
+              "name": "Platform performance differential quantified",
+              "description": "Pipeline versus platform competitive analysis has quantified the performance differential of half the employees, twice the growth, and twice the profitability.",
+              "seq": 6
+            },
+            {
+              "name": "Servitization paradox understood",
+              "description": "The servitization paradox of initial margin reduction before improved profitability is understood and factored into transition planning.",
+              "seq": 7
+            },
+            {
+              "name": "Jobs-to-be-done analysis conducted",
+              "description": "Jobs-to-be-done analysis has identified customer outcomes distinct from product features.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Designing",
+          "description": "Multiple business model alternatives are formally prototyped and evaluated.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Model alternatives prototyped",
+              "description": "Multiple business model alternatives have been prototyped using structured design methodologies with documented assumptions and hypotheses.",
+              "seq": 1
+            },
+            {
+              "name": "Innovation trio evaluation complete",
+              "description": "Each prototype has been evaluated against the innovation trio of desirability, feasibility, and viability.",
+              "seq": 2
+            },
+            {
+              "name": "Platform dynamics assessed",
+              "description": "Multi-sided market dynamics, network effects, and platform pricing strategies have been assessed for relevant model alternatives.",
+              "seq": 3
+            },
+            {
+              "name": "Product-service system explored",
+              "description": "Product-service system design has been explored across the continuum from product-oriented through use-oriented to result-oriented archetypes.",
+              "seq": 4
+            },
+            {
+              "name": "Ecosystem partner alignment considered",
+              "description": "Business model design explicitly considers ecosystem partner incentive alignment, value distribution, and governance requirements.",
+              "seq": 5
+            },
+            {
+              "name": "Tukker archetypes systematically evaluated",
+              "description": "Product-service system archetypes across the eight Tukker types including product-related service, advice, lease, renting, pooling, activity management, pay-per-use, and functional result have been systematically evaluated.",
+              "seq": 6
+            },
+            {
+              "name": "Innovation anti-patterns monitored",
+              "description": "Five destructive innovation anti-patterns of Theatre, Tourism, Inquisition, Ghetto, and Fatigue are actively monitored and prevented.",
+              "seq": 7
+            },
+            {
+              "name": "Outcome-based pricing designed",
+              "description": "Outcome-based pricing models have been designed aligning provider revenue with customer value realization.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Piloting",
+          "description": "New business models are tested with real customers through experiments.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Model tested with real customers",
+              "description": "At least one new business model is being tested with real customers in a controlled environment with measurable hypotheses.",
+              "seq": 1
+            },
+            {
+              "name": "Lean startup principles guide pilots",
+              "description": "Lean startup principles including minimum viable products, customer development interviews, and pivot-or-persevere decisions guide pilot execution.",
+              "seq": 2
+            },
+            {
+              "name": "Hypotheses tracked systematically",
+              "description": "Business model hypotheses are tracked systematically with clear metrics governing funding continuation, pivot, or termination decisions.",
+              "seq": 3
+            },
+            {
+              "name": "Pilot teams have autonomy",
+              "description": "Pilot teams operate with sufficient autonomy from legacy processes to experiment genuinely.",
+              "seq": 4
+            },
+            {
+              "name": "Kill metrics prevent indefinite investment",
+              "description": "Clear success criteria and kill metrics prevent indefinite investment in unviable models.",
+              "seq": 5
+            },
+            {
+              "name": "Experiment and Scale methodology applied",
+              "description": "Experiment and Scale methodology converts innovation from fixed-cost high-risk investment to variable-cost low-risk operational capability.",
+              "seq": 6
+            },
+            {
+              "name": "Servitization U-curve actively managed",
+              "description": "The servitization U-shaped profitability curve is actively managed with explicit margin recovery milestones.",
+              "seq": 7
+            },
+            {
+              "name": "B2B B2C dynamics distinguished",
+              "description": "B2B versus B2C servitization dynamics are distinguished in pilot design, recognizing different consumer expectations.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Scaling",
+          "description": "Validated business models are scaled with adapted capabilities.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Validated model being scaled",
+              "description": "At least one new business model validated through pilot is being scaled to broader markets or customer segments.",
+              "seq": 1
+            },
+            {
+              "name": "Capabilities adapted for new model",
+              "description": "Organizational capabilities including talent, technology, processes, and culture have been adapted to support the new model alongside legacy operations.",
+              "seq": 2
+            },
+            {
+              "name": "New revenue growing measurably",
+              "description": "Revenue from new business models represents a measurable and growing share of total organizational revenue with clear trajectory.",
+              "seq": 3
+            },
+            {
+              "name": "Cannibalization strategically managed",
+              "description": "Cannibalization of existing revenue streams by new models is strategically managed as an intentional transition rather than resisted as a threat.",
+              "seq": 4
+            },
+            {
+              "name": "Ecosystem partnerships established",
+              "description": "Ecosystem partnerships required for the new model are established with governance, value sharing, and performance management frameworks.",
+              "seq": 5
+            },
+            {
+              "name": "Supply chain realigned for outcomes",
+              "description": "Supply chain realignment operates on outcome-based terms with risk distributed appropriately across providers.",
+              "seq": 6
+            },
+            {
+              "name": "Practice matching operational",
+              "description": "Practice matching aligns all supplier processes with customer operational workflows.",
+              "seq": 7
+            },
+            {
+              "name": "Front-line service competencies developed",
+              "description": "Front-line service delivery competencies of flexibility, relationship-building, service-centricity, authenticity, technical adeptness, and resilience are explicitly developed.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Evolving",
+          "description": "Business model innovation is a continuous organizational capability.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Portfolio of models maintained",
+              "description": "The organization maintains a portfolio of business models at different lifecycle stages simultaneously, managed through explicit portfolio governance.",
+              "seq": 1
+            },
+            {
+              "name": "Model innovation is dynamic capability",
+              "description": "Business model innovation is a recognized dynamic capability with dedicated resources, talent, and governance.",
+              "seq": 2
+            },
+            {
+              "name": "Multiple revenue streams balanced",
+              "description": "Multiple revenue streams operate across platform, subscription, outcome-based, and traditional models with deliberate strategic balance.",
+              "seq": 3
+            },
+            {
+              "name": "Rapid model adjustment capability",
+              "description": "The organization continuously senses market shifts and adjusts business models within weeks through embedded experimentation capability.",
+              "seq": 4
+            },
+            {
+              "name": "Innovation rate outpaces disruption",
+              "description": "New business model creation rate consistently outpaces competitive disruption threats, providing strategic resilience through model diversity.",
+              "seq": 5
+            },
+            {
+              "name": "Triple-bottom-line assessment applied",
+              "description": "Triple-bottom-line assessment covering economic, social, and environmental value is applied to all active business models.",
+              "seq": 6
+            },
+            {
+              "name": "Contributes to practitioner understanding",
+              "description": "The organization contributes to academic and practitioner understanding of servitization, platform economics, and outcome-based delivery.",
+              "seq": 7
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Business Model Innovation Context and Rationale",
+          "description": "Why business model innovation is a dynamic capability requiring continuous experimentation.",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Business model innovation is a dynamic capability requiring continuous experimentation, not a one-time strategic decision. Historical pioneers including Edison, Xerox, and EMI demonstrate that technological breakthroughs fail commercially without appropriate business model design."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "The Business Model Canvas provides structured language for mapping nine interconnected elements of value creation. Platform economics fundamentally disrupts pipeline models through network effects, multi-sided markets, and ecosystem orchestration. Servitization transforms product-centric organizations into outcome-based service providers, exemplified by Rolls-Royce Power-by-the-Hour where airlines pay per kilometer flown. The eight Tukker archetypes span the product-service system continuum from product-related service through functional result. The servitization paradox warns of initial margin reduction, but mature servitized operations achieve superior profitability. Lean startup principles govern the transition from prototype to pilot, and Innovation Readiness Level metrics provide governance for funding decisions. Five destructive anti-patterns of Theatre, Tourism, Inquisition, Ghetto, and Fatigue must be actively prevented."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Mature organizations maintain a portfolio of business models at different lifecycle stages, with model innovation as a dynamic capability generating strategic options faster than competitive disruption threatens. Multiple revenue streams across platform, subscription, outcome-based, and traditional models provide resilience."
+            }
+          ],
+          "citationNames": [
+            "Osterwalder (2010)",
+            "Parker et al. (2016)",
+            "Tukker (2004)",
+            "Neely (2008)"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Customer Value Delivery",
+      "description": "The customer-centric design practices, outcome-oriented delivery models, and value co-creation capabilities that ensure digital transformation generates measurable, sustained value for those it serves through service-dominant logic, experience design, and contextual personalization.",
+      "focusName": "Strategy and Value",
+      "assetNames": [
+        {
+          "assetName": "customer-value-delivery-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Product-Centric",
+          "description": "The organization defines value through product features.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Value defined by features",
+              "description": "Value is defined in terms of product features, specifications, and technical capabilities rather than customer outcomes or experiences.",
+              "seq": 1
+            },
+            {
+              "name": "Sporadic defect-focused feedback",
+              "description": "Customer feedback is collected sporadically and primarily addresses product defects rather than usage experience or outcome achievement.",
+              "seq": 2
+            },
+            {
+              "name": "No post-sale visibility",
+              "description": "The organization has no visibility into how customers use products or services after purchase and no data on value-in-use.",
+              "seq": 3
+            },
+            {
+              "name": "Engineering-driven development",
+              "description": "Product development is driven by internal engineering priorities and competitive feature matching rather than customer needs analysis.",
+              "seq": 4
+            },
+            {
+              "name": "Output-only success metrics",
+              "description": "Success metrics focus exclusively on units sold, revenue per transaction, and market share with no outcome or satisfaction tracking.",
+              "seq": 5
+            },
+            {
+              "name": "SDL axioms not assessed",
+              "description": "No assessment of the five service-dominant logic axioms has been conducted to evaluate value creation assumptions.",
+              "seq": 6
+            },
+            {
+              "name": "Watermelon effect unrecognized",
+              "description": "The watermelon effect of green output metrics hiding red customer outcomes is present but unrecognized.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Feedback-Informed",
+          "description": "Customer feedback systematically influences development.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Structured feedback mechanisms",
+              "description": "Structured customer feedback mechanisms including surveys, interviews, support data analysis, and digital analytics are in place.",
+              "seq": 1
+            },
+            {
+              "name": "Primary journey mapped",
+              "description": "Customer journey mapping has been conducted for at least the primary value delivery pathway, identifying major touchpoints and pain points.",
+              "seq": 2
+            },
+            {
+              "name": "Output-outcome distinction understood",
+              "description": "The distinction between outputs and outcomes is understood and communicated at the leadership level.",
+              "seq": 3
+            },
+            {
+              "name": "Roadmaps incorporate feedback",
+              "description": "Product and service roadmaps incorporate customer feedback alongside internal strategic priorities through structured prioritization.",
+              "seq": 4
+            },
+            {
+              "name": "Satisfaction metrics tracked",
+              "description": "Net Promoter Score or equivalent customer satisfaction metrics are tracked at the executive level with regular reporting.",
+              "seq": 5
+            },
+            {
+              "name": "Jobs-to-be-done outcomes identified",
+              "description": "Jobs-to-be-done analysis identifies functional, emotional, and social outcomes customers seek beyond product features.",
+              "seq": 6
+            },
+            {
+              "name": "Value destroyer identification commenced",
+              "description": "Value destroyer identification has commenced, cataloging processes that are complicated, bureaucratic, or not customer-supporting.",
+              "seq": 7
+            },
+            {
+              "name": "Contextual variety initially assessed",
+              "description": "Initial assessment of contextual variety in customer usage patterns has been conducted following the Ng et al. IoT framework.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Journey-Mapped",
+          "description": "End-to-end customer journeys are understood and optimized.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Complete journey maps documented",
+              "description": "Complete customer journey maps document all touchpoints, pain points, emotional responses, and moments of truth across the full interaction lifecycle.",
+              "seq": 1
+            },
+            {
+              "name": "Teams organized around journeys",
+              "description": "Cross-functional teams are organized around customer journeys rather than internal departmental boundaries.",
+              "seq": 2
+            },
+            {
+              "name": "Value destroyers identified",
+              "description": "Value destroyers are identified and prioritized for systematic elimination.",
+              "seq": 3
+            },
+            {
+              "name": "Service design methodology applied",
+              "description": "Service design methodology is applied to reimagine customer interactions from the customer perspective.",
+              "seq": 4
+            },
+            {
+              "name": "Proactive needs anticipation",
+              "description": "The organization proactively anticipates customer needs using data analytics rather than exclusively reacting to reported issues.",
+              "seq": 5
+            },
+            {
+              "name": "Value destroyer elimination ongoing",
+              "description": "Value destroyer elimination is treated as an ongoing discipline with prioritized remediation backlog.",
+              "seq": 6
+            },
+            {
+              "name": "Platform versus tailoring strategy evaluated",
+              "description": "The choice between platform strategy for standardized delivery and tailoring strategy for customized delivery has been evaluated based on contextual variety analysis.",
+              "seq": 7
+            },
+            {
+              "name": "Real-time journey analytics active",
+              "description": "Customer journey analytics enable real-time identification of experience failures at moments of truth.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Experience-Designed",
+          "description": "Customer experiences are deliberately designed for excellence.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Human-centered design embedded",
+              "description": "Human-centered design practices are embedded in all product and service development processes as a standard methodology.",
+              "seq": 1
+            },
+            {
+              "name": "DFV balance explicit",
+              "description": "Customer experience design explicitly balances desirability, feasibility, and viability.",
+              "seq": 2
+            },
+            {
+              "name": "Personalization capabilities active",
+              "description": "Personalization capabilities tailor experiences to individual customer contexts, preferences, and usage patterns using data analytics and AI.",
+              "seq": 3
+            },
+            {
+              "name": "Omnichannel consistency achieved",
+              "description": "Omnichannel consistency ensures seamless customer experience across all interaction channels.",
+              "seq": 4
+            },
+            {
+              "name": "Employee experience designed",
+              "description": "Employee experience design ensures that internal processes, tools, and working conditions enable staff to deliver exceptional customer outcomes.",
+              "seq": 5
+            },
+            {
+              "name": "Design thinking co-creation workshops active",
+              "description": "Design thinking workshops bring cross-functional teams together to co-create solutions with customers as active participants.",
+              "seq": 6
+            },
+            {
+              "name": "Product-service system digital capabilities embedded",
+              "description": "Product-service system design embeds digital capabilities including IoT sensors, cloud analytics, and predictive algorithms into product experiences.",
+              "seq": 7
+            },
+            {
+              "name": "Innovation trio applied systematically",
+              "description": "The innovation trio of desirability, feasibility, and viability is applied systematically to all experience design decisions.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Outcome-Oriented",
+          "description": "Value delivery is measured by customer outcomes.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Outcome metrics replace output metrics",
+              "description": "Customer success metrics replace traditional output metrics as primary performance indicators across the organization.",
+              "seq": 1
+            },
+            {
+              "name": "Outcome guarantees in delivery",
+              "description": "Service delivery models guarantee outcomes rather than merely providing products or services, with accountability for customer results.",
+              "seq": 2
+            },
+            {
+              "name": "Outcome-based pricing active",
+              "description": "Outcome-based pricing aligns organizational revenue with customer value realization, creating shared incentives for success.",
+              "seq": 3
+            },
+            {
+              "name": "Real-time product-in-use data",
+              "description": "Real-time product-in-use data from IoT sensors, usage analytics, and digital monitoring enables proactive intervention before customer issues occur.",
+              "seq": 4
+            },
+            {
+              "name": "Watermelon effect eliminated",
+              "description": "The watermelon effect is eliminated through transparent alignment between organizational metrics and customer results.",
+              "seq": 5
+            },
+            {
+              "name": "Outcome readiness diagnostics active",
+              "description": "Outcome readiness diagnostics assess data availability, operational influence, and ecosystem alignment before outcome commitments.",
+              "seq": 6
+            },
+            {
+              "name": "Risk and reward frameworks aligned",
+              "description": "Risk and reward frameworks align provider and customer incentives following the Rolls-Royce model.",
+              "seq": 7
+            },
+            {
+              "name": "Predictive intervention capabilities operational",
+              "description": "Predictive maintenance and proactive intervention capabilities prevent service failures before customer impact.",
+              "seq": 8
+            }
+          ]
+        },
+        {
+          "name": "Co-Created",
+          "description": "Value is continuously co-created with customers as active partners.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Customers as value co-creators",
+              "description": "Customers are recognized as co-creators of value rather than passive recipients of products or services, aligned with service-dominant logic foundational axioms.",
+              "seq": 1
+            },
+            {
+              "name": "Platform-based multi-party value",
+              "description": "Platform-based interactions enable customers to create value for each other and for the organization through multi-party value generation.",
+              "seq": 2
+            },
+            {
+              "name": "Value-in-use analytics drive adaptation",
+              "description": "Value-in-use analytics drive continuous adaptation of offerings to individual customer contexts.",
+              "seq": 3
+            },
+            {
+              "name": "Systematic co-creation mechanisms",
+              "description": "Customer participation in product design, testing, and continuous improvement is systematically enabled through structured co-creation mechanisms.",
+              "seq": 4
+            },
+            {
+              "name": "Ecosystem-wide co-creation",
+              "description": "Co-creation capabilities extend across the ecosystem, enabling multi-party value generation involving the organization, customers, partners, and complementors.",
+              "seq": 5
+            },
+            {
+              "name": "SDL axioms operationalized",
+              "description": "All five service-dominant logic axioms are operationalized: service as fundamental basis of exchange, value co-created by multiple actors, all actors as resource integrators, value phenomenologically determined by beneficiary, and co-creation coordinated through institutions.",
+              "seq": 6
+            },
+            {
+              "name": "IoT contextual variety sensing active",
+              "description": "IoT contextual variety sensing enables real-time adaptation of value delivery to individual customer circumstances and objectives.",
+              "seq": 7
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Customer Value Delivery Context and Rationale",
+          "description": "Why service-dominant logic demands restructuring how organizations design, deliver, and measure value.",
+          "narrativeTypeName": "Essay",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Service-dominant logic establishes that value is not embedded in products during manufacture but co-created dynamically with the customer during actual use. This paradigm shift from value-in-exchange to value-in-use demands fundamental restructuring of how organizations design, deliver, and measure value."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Body",
+              "context": "Human-centered design methodology places the customer journey at the center of development, identifying pain points and translating them into service innovations. Value destroyers including processes that are complicated, bureaucratic, or internally focused rather than customer-supporting must be systematically eliminated. The watermelon effect reveals the gap between output metrics and outcome reality. Servitization enables the transition from product sales to outcome guarantees, exemplified by Rolls-Royce Power-by-the-Hour. IoT sensors and predictive analytics provide visibility into product-in-use behavior, enabling proactive intervention. Ng et al. demonstrate that digital technology enables response to contextual variety in customer usage, shifting strategy from standardized platform delivery to contextual tailoring. Outcome-based pricing aligns revenue with customer value realization, creating virtuous investment cycles."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Conclusion",
+              "context": "Mature value delivery recognizes customers as co-creators of value through platform-enabled interactions. Value-in-use analytics drive continuous adaptation, and co-creation capabilities extend across the ecosystem enabling multi-party value generation aligned with all five axioms of service-dominant logic."
+            }
+          ],
+          "citationNames": [
+            "Vargo and Lusch (2016)",
+            "Ng et al. (2015)",
+            "Neely (2008)"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Digital Transformation Strategy Document",
+      "description": "Strategic plan articulating digital vision, pathway choices, investment roadmap, and transformation success metrics.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial Vision",
+          "description": "High-level statement of digital ambition and rationale.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Executive summary with competitive evidence",
+              "description": "Executive summary articulates digital transformation urgency with competitive evidence.",
+              "seq": 1
+            },
+            {
+              "name": "Competitive landscape assessment",
+              "description": "Preliminary competitive landscape assessment identifies platform disruptors.",
+              "seq": 2
+            },
+            {
+              "name": "Future state described",
+              "description": "Desired future state described without detailed implementation planning.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Emerging"
+            }
+          ]
+        },
+        {
+          "name": "Strategic Framework",
+          "description": "Structured plan with pathway choices and governance.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Pathway choice documented",
+              "description": "Explicit strategic choice between customer engagement and digitized solutions pathways documented.",
+              "seq": 1
+            },
+            {
+              "name": "Capability classification completed",
+              "description": "Focus and Leverage classification of organizational capabilities completed.",
+              "seq": 2
+            },
+            {
+              "name": "Investment roadmap established",
+              "description": "Multi-year investment roadmap with phase gates and resource allocation established.",
+              "seq": 3
+            },
+            {
+              "name": "Governance structure specified",
+              "description": "Governance structure defining transformation leadership accountability specified.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Defined"
+            }
+          ]
+        },
+        {
+          "name": "Integrated Execution Plan",
+          "description": "Detailed execution roadmap with metrics and risk management.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Business unit execution plans aligned",
+              "description": "Business unit-level execution plans aligned to enterprise strategy with accountable owners.",
+              "seq": 1
+            },
+            {
+              "name": "KPIs linked to business outcomes",
+              "description": "KPIs linking digital initiatives to business outcomes through investment readiness metrics.",
+              "seq": 2
+            },
+            {
+              "name": "Risk register comprehensive",
+              "description": "Risk register addressing technology, organizational, and market execution risks.",
+              "seq": 3
+            },
+            {
+              "name": "Portfolio management framework active",
+              "description": "Portfolio management framework balancing exploitation and exploration investments.",
+              "seq": 4
+            },
+            {
+              "name": "Ecosystem partnership strategy defined",
+              "description": "Ecosystem partnership strategy defining external collaboration requirements.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Integrated"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Strategy Document Evolution",
+          "description": "How the strategy document progresses through three levels of maturity.",
+          "narrativeTypeName": "ABT Micro-Narratives",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Every digital transformation requires a strategy document translating ambition into actionable plans with measurable outcomes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Most strategy documents remain aspirational wish lists disconnected from operational execution, lacking explicit pathway choices and portfolio governance."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Progress the strategy document through three levels: initial vision establishing urgency, strategic framework making explicit choices, and integrated execution plan linking every initiative to business outcomes."
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Business Model Portfolio",
+      "description": "Collection of business model designs at different lifecycle stages with evaluation and innovation governance.",
+      "levelsOfDetail": [
+        {
+          "name": "Current State Map",
+          "description": "Documented nine-element canvas of the existing model.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Canvas maps all nine elements",
+              "description": "Business Model Canvas maps all nine elements for current operating model.",
+              "seq": 1
+            },
+            {
+              "name": "Revenue baseline established",
+              "description": "Revenue stream and cost structure baseline established.",
+              "seq": 2
+            },
+            {
+              "name": "Platform competitive position assessed",
+              "description": "Pipeline versus platform competitive position assessed.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Business Model",
+              "stateName": "Exploring"
+            }
+          ]
+        },
+        {
+          "name": "Alternative Designs",
+          "description": "Multiple prototyped models evaluated against innovation trio.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Alternatives prototyped with hypotheses",
+              "description": "Multiple model alternatives prototyped with documented assumptions and hypotheses.",
+              "seq": 1
+            },
+            {
+              "name": "DFV assessment completed",
+              "description": "Desirability, feasibility, and viability assessment completed for each alternative.",
+              "seq": 2
+            },
+            {
+              "name": "PSS archetypes evaluated",
+              "description": "Product-service system archetypes evaluated across the Tukker continuum.",
+              "seq": 3
+            },
+            {
+              "name": "Revenue options analyzed",
+              "description": "Platform, subscription, and outcome-based revenue options analyzed.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Business Model",
+              "stateName": "Designing"
+            }
+          ]
+        },
+        {
+          "name": "Active Innovation Portfolio",
+          "description": "Tracked portfolio with readiness metrics and lifecycle governance.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Portfolio tracked with readiness levels",
+              "description": "Portfolio tracked across explore, experiment, and scale stages with innovation readiness levels.",
+              "seq": 1
+            },
+            {
+              "name": "Anti-pattern monitoring active",
+              "description": "Anti-pattern monitoring flags Theatre, Tourism, Inquisition, Ghetto, and Fatigue signals.",
+              "seq": 2
+            },
+            {
+              "name": "Transition management documented",
+              "description": "Cannibalization and transition management strategies documented.",
+              "seq": 3
+            },
+            {
+              "name": "Triple-bottom-line impact assessed",
+              "description": "Triple-bottom-line impact assessment for each active model.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Business Model",
+              "stateName": "Scaling"
+            },
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Adaptive"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Customer Journey Map",
+      "description": "Visual representation of end-to-end customer experience across touchpoints and interaction channels.",
+      "levelsOfDetail": [
+        {
+          "name": "Journey Outline",
+          "description": "High-level mapping of primary customer pathway.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Major touchpoints identified",
+              "description": "Major touchpoints and interaction stages identified for primary customer segment.",
+              "seq": 1
+            },
+            {
+              "name": "Key pain points documented",
+              "description": "Key pain points and moments of truth documented from customer perspective.",
+              "seq": 2
+            },
+            {
+              "name": "Emotional journey mapped",
+              "description": "Current-state emotional journey mapped against functional journey.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Feedback-Informed"
+            }
+          ]
+        },
+        {
+          "name": "Detailed Journey Analysis",
+          "description": "Comprehensive journey analysis with value destroyer identification.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Multiple segment journeys mapped",
+              "description": "Multiple customer segment journeys mapped with persona-specific variations.",
+              "seq": 1
+            },
+            {
+              "name": "Cross-channel patterns documented",
+              "description": "Cross-channel interaction patterns documented with consistency assessment.",
+              "seq": 2
+            },
+            {
+              "name": "Value destroyer elimination roadmap",
+              "description": "Value destroyer identification with prioritized elimination roadmap.",
+              "seq": 3
+            },
+            {
+              "name": "Outcome metrics per journey stage",
+              "description": "Outcome metrics mapped to each journey stage linking activity to customer results.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Journey-Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Dynamic Journey Model",
+          "description": "Real-time journey analytics enabling continuous optimization.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Real-time analytics tracking",
+              "description": "Real-time journey analytics tracking experience across all digital touchpoints.",
+              "seq": 1
+            },
+            {
+              "name": "Predictive journey models",
+              "description": "Predictive models identifying at-risk customer journeys before failure.",
+              "seq": 2
+            },
+            {
+              "name": "Personalization engine active",
+              "description": "Personalization engine adapting design to individual customer context.",
+              "seq": 3
+            },
+            {
+              "name": "Co-creation mechanisms enabled",
+              "description": "Co-creation mechanisms enabling customers to shape their own experience.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Co-Created"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Servitization Transition Plan",
+      "description": "Strategic plan for transitioning from product-centric to outcome-based service delivery models.",
+      "levelsOfDetail": [
+        {
+          "name": "Opportunity Assessment",
+          "description": "Evaluation of servitization potential and customer readiness.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Customer outcome analysis completed",
+              "description": "Customer outcome and jobs-to-be-done analysis completed for key product lines.",
+              "seq": 1
+            },
+            {
+              "name": "Servitization continuum positioning evaluated",
+              "description": "Servitization continuum positioning evaluated from product-oriented to result-oriented.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive benchmarking completed",
+              "description": "Competitive benchmarking of servitized offerings in target market completed.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Business Model",
+              "stateName": "Exploring"
+            },
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Feedback-Informed"
+            }
+          ]
+        },
+        {
+          "name": "Transition Roadmap",
+          "description": "Phased plan for product-service system development.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "PSS design specified",
+              "description": "Product-service system design with IoT, data, and service layer specifications.",
+              "seq": 1
+            },
+            {
+              "name": "Pricing model transition planned",
+              "description": "Pricing model transition plan from cost-plus to outcome-based.",
+              "seq": 2
+            },
+            {
+              "name": "Supply chain realignment planned",
+              "description": "Supply chain realignment for service-oriented operations.",
+              "seq": 3
+            },
+            {
+              "name": "Risk distribution framework designed",
+              "description": "Risk distribution framework across provider and customer.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Business Model",
+              "stateName": "Piloting"
+            },
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Outcome-Oriented"
+            }
+          ]
+        },
+        {
+          "name": "Outcome Operating Model",
+          "description": "Mature outcome-based model with continuous optimization.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Outcome-based contracts operational",
+              "description": "Outcome-based contract templates with shared accountability frameworks.",
+              "seq": 1
+            },
+            {
+              "name": "Predictive maintenance operational",
+              "description": "Predictive maintenance and proactive intervention capabilities operational.",
+              "seq": 2
+            },
+            {
+              "name": "Product-in-use analytics active",
+              "description": "Continuous improvement driven by product-in-use data analytics.",
+              "seq": 3
+            },
+            {
+              "name": "Ecosystem orchestration operational",
+              "description": "Ecosystem orchestration enabling multi-party outcome delivery.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Business Model",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Co-Created"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Outcome-Based Contract Template",
+      "description": "Standard contract framework linking payment and accountability to measurable customer outcome achievement.",
+      "levelsOfDetail": [
+        {
+          "name": "Service Agreement",
+          "description": "Basic service contract with performance indicators.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Service level specifications defined",
+              "description": "Service level specifications with measurable performance targets.",
+              "seq": 1
+            },
+            {
+              "name": "Reporting requirements defined",
+              "description": "Reporting requirements defining frequency and content of reviews.",
+              "seq": 2
+            },
+            {
+              "name": "Remediation procedures established",
+              "description": "Remediation procedures for service level failures.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Journey-Mapped"
+            }
+          ]
+        },
+        {
+          "name": "Outcome Contract",
+          "description": "Contract linking payment to verified outcome achievement.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Outcome definition agreed",
+              "description": "Outcome definition with measurable success criteria agreed by both parties.",
+              "seq": 1
+            },
+            {
+              "name": "Risk and reward mechanisms designed",
+              "description": "Risk and reward sharing mechanisms aligning provider and customer incentives.",
+              "seq": 2
+            },
+            {
+              "name": "Performance measurement defined",
+              "description": "Performance measurement methodology with independent verification.",
+              "seq": 3
+            },
+            {
+              "name": "Contract adaptation mechanisms included",
+              "description": "Contract adaptation mechanisms for changing customer requirements.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Outcome-Oriented"
+            },
+            {
+              "alphaName": "Business Model",
+              "stateName": "Piloting"
+            }
+          ]
+        },
+        {
+          "name": "Ecosystem Contract",
+          "description": "Multi-party agreement spanning ecosystem participants.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Multi-party accountability framework",
+              "description": "Multi-party accountability framework distributing outcome responsibility across providers.",
+              "seq": 1
+            },
+            {
+              "name": "Data sharing provisions established",
+              "description": "Data sharing provisions enabling cross-party performance optimization.",
+              "seq": 2
+            },
+            {
+              "name": "Innovation incentives included",
+              "description": "Innovation incentives rewarding continuous improvement in delivery.",
+              "seq": 3
+            },
+            {
+              "name": "Dispute resolution mechanisms defined",
+              "description": "Dispute resolution mechanisms for complex multi-party evaluation.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Co-Created"
+            },
+            {
+              "alphaName": "Business Model",
+              "stateName": "Scaling"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Digital Maturity Assessment",
+      "description": "Diagnostic tool evaluating organizational digital transformation progress across strategic dimensions.",
+      "levelsOfDetail": [
+        {
+          "name": "Baseline Score",
+          "description": "Initial maturity assessment across core dimensions.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Self-assessment completed",
+              "description": "Self-assessment against five maturity dimensions completed.",
+              "seq": 1
+            },
+            {
+              "name": "Industry benchmarks compared",
+              "description": "Comparison against industry benchmarks and digital-native reference points.",
+              "seq": 2
+            },
+            {
+              "name": "Priority areas identified",
+              "description": "Priority improvement areas identified for immediate attention.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Emerging"
+            }
+          ]
+        },
+        {
+          "name": "Detailed Analysis",
+          "description": "Comprehensive maturity with gap analysis and roadmap.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Detailed scoring with evidence",
+              "description": "Detailed scoring across each strategic concern with evidence-based ratings.",
+              "seq": 1
+            },
+            {
+              "name": "Capability gap analysis mapped",
+              "description": "Capability gap analysis mapped to strategic digital requirements.",
+              "seq": 2
+            },
+            {
+              "name": "Improvement roadmap sequenced",
+              "description": "Maturity improvement roadmap with sequenced interventions and milestones.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Defined"
+            }
+          ]
+        },
+        {
+          "name": "Continuous Monitoring",
+          "description": "Ongoing maturity tracking with predictive modeling.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Automated assessment integrated",
+              "description": "Automated maturity assessment integrated into operational dashboards.",
+              "seq": 1
+            },
+            {
+              "name": "Leading indicators predicting trajectory",
+              "description": "Leading indicators predicting maturity trajectory and stall risks.",
+              "seq": 2
+            },
+            {
+              "name": "Benchmark evolution tracked",
+              "description": "Benchmark evolution tracking progress relative to industry advancement.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Adaptive"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Ecosystem Partnership Portfolio",
+      "description": "Managed portfolio of external partnerships enabling ecosystem value creation and strategic collaboration.",
+      "levelsOfDetail": [
+        {
+          "name": "Partner Inventory",
+          "description": "Catalog of current and potential ecosystem relationships.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Current partner inventory documented",
+              "description": "Current partner inventory with relationship type and strategic importance.",
+              "seq": 1
+            },
+            {
+              "name": "Ecosystem gap analysis completed",
+              "description": "Ecosystem gap analysis identifying missing capability or market coverage.",
+              "seq": 2
+            },
+            {
+              "name": "Partnership pipeline prioritized",
+              "description": "Partnership opportunity pipeline prioritized by strategic alignment.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Business Model",
+              "stateName": "Designing"
+            }
+          ]
+        },
+        {
+          "name": "Partnership Operating Model",
+          "description": "Structured management with governance and value tracking.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Partner governance frameworks established",
+              "description": "Partner onboarding, governance, and performance management frameworks.",
+              "seq": 1
+            },
+            {
+              "name": "Joint value creation plans active",
+              "description": "Joint value creation plans with shared metrics and accountability.",
+              "seq": 2
+            },
+            {
+              "name": "Data sharing agreements in place",
+              "description": "Data sharing agreements protecting mutual interests.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Business Model",
+              "stateName": "Scaling"
+            },
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Integrated"
+            }
+          ]
+        },
+        {
+          "name": "Ecosystem Orchestration",
+          "description": "Dynamic ecosystem management for multi-party value creation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Ecosystem health monitoring active",
+              "description": "Ecosystem health monitoring tracking participant satisfaction and value distribution.",
+              "seq": 1
+            },
+            {
+              "name": "Open innovation mechanisms operational",
+              "description": "Open innovation mechanisms attracting external contributions.",
+              "seq": 2
+            },
+            {
+              "name": "Ecosystem strategic alignment ensured",
+              "description": "Ecosystem-wide strategic alignment ensuring collective competitiveness.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Business Model",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Co-Created"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Chief Digital Officer",
+      "description": "Senior executive leading enterprise-wide digital transformation strategy, execution, and organizational alignment.",
+      "competencies": [
+        {
+          "competencyName": "Strategic Thinking",
+          "competencyLevelName": "Innovating"
+        },
+        {
+          "competencyName": "Business Model and Service Design",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Organizational Change Leadership",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Digital Literacy",
+          "competencyLevelName": "Adapts"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Digital Strategy",
+          "Business Model Innovation"
+        ],
+        "lifecycleTags": [
+          "Strategy",
+          "Assessment"
+        ],
+        "organizationalTags": [
+          "Enterprise Leadership"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Digital Strategist",
+      "description": "Strategy professional translating market intelligence into digital transformation priorities and investment decisions.",
+      "competencies": [
+        {
+          "competencyName": "Strategic Thinking",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Business Model and Service Design",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Innovation and Experimentation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Digital Literacy",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Digital Strategy",
+          "Platform Economics"
+        ],
+        "lifecycleTags": [
+          "Strategy"
+        ],
+        "organizationalTags": [
+          "Enterprise Leadership"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Customer Value Architect",
+      "description": "Design professional integrating customer experience, servitization strategy, and outcome-based delivery design.",
+      "competencies": [
+        {
+          "competencyName": "Customer and Experience Design",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Business Model and Service Design",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Digital Literacy",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Customer Value",
+          "Servitization"
+        ],
+        "lifecycleTags": [
+          "Foundation",
+          "Delivery"
+        ],
+        "organizationalTags": [
+          "Customer"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Strategy and Value Team",
+      "description": "Cross-functional team directing strategic transformation, business model innovation, and customer value design.",
+      "personaNames": [
+        "Chief Digital Officer",
+        "Digital Strategist",
+        "Customer Value Architect"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Enterprise Leadership",
+          "Strategy",
+          "Customer"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Assess Digital Maturity",
+      "description": "Evaluate organizational digital transformation progress across strategic, operational, and cultural dimensions.",
+      "activitySpaceName": "Formulate Transformation Strategy",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Digital Strategy",
+          "stateName": "Emerging"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Digital Maturity Assessment",
+          "levelOfDetailName": "Baseline Score"
+        },
+        {
+          "workProductName": "Digital Transformation Strategy Document",
+          "levelOfDetailName": "Initial Vision"
+        }
+      ],
+      "requiredCompetencies": [
+        "Strategic Thinking",
+        "Digital Literacy"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Strategic Thinking",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Digital Literacy",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "assess-maturity-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Assess Digital Maturity Technique",
+          "description": "How to evaluate organizational digital transformation progress.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Maturity assessment evaluates organizational progress across five dimensions: digitization progress, digital process modeling, digital value analysis, digital business model innovation, and digital organizational redesign."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Use both quantitative metrics and qualitative evidence combining self-assessment questionnaires with independent evaluation. Score each dimension against the progressive state framework. Compare against digital-native benchmarks. Apply the Five LEO challenges analysis to identify cultural inertia, technical debt, innovation theatre, skills deficit, and leadership alignment barriers."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Organizations frequently overestimate their data maturity. Avoid conflating data collection capability with data-driven decision-making. Resist the temptation to overrate capabilities or ignore uncomfortable findings."
+            }
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Formulate Digital Strategy",
+      "description": "Define organizational digital vision, strategic priorities, pathway choices, and transformation investment roadmap.",
+      "activitySpaceName": "Formulate Transformation Strategy",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Digital Strategy",
+          "stateName": "Defined"
+        },
+        {
+          "alphaName": "Business Model",
+          "stateName": "Exploring"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Digital Transformation Strategy Document",
+          "levelOfDetailName": "Strategic Framework"
+        },
+        {
+          "workProductName": "Business Model Portfolio",
+          "levelOfDetailName": "Current State Map"
+        }
+      ],
+      "requiredCompetencies": [
+        "Strategic Thinking",
+        "Digital Literacy"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Strategic Thinking",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Digital Literacy",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "formulate-strategy-activity-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Formulate Digital Strategy Technique",
+          "description": "How to formulate a coherent digital strategy with explicit pathway choices.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Strategy formulation begins with comprehensive competitive landscape assessment, identifies disruption threats, and produces a formal strategy with explicit pathway choices and dynamic capabilities development plan."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Distinguish between digitization, digitalization, and transformation. Apply the Focus and Leverage framework to classify capabilities. Make the explicit choice between customer engagement and digitized solutions pathways. Develop a dual transformation approach balancing core repositioning with new venture creation. Assess dynamic capabilities across sensing, seizing, and transforming clusters. Apply the Furr and Shipilov framework to determine strategic entry mode."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Attempting to pursue both customer engagement and digitized solutions simultaneously leads to strategic dilution. Avoid treating digital strategy as an IT project. Do not leap to advanced capabilities without establishing necessary prerequisites."
+            }
+          ],
+          "citationNames": [
+            "Teece (2007)",
+            "Ross (2014)",
+            "Furr and Shipilov (2019)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Integrate Strategy Across Functions",
+      "description": "Embed digital strategy into all business units with traceable execution plans and portfolio governance.",
+      "activitySpaceName": "Formulate Transformation Strategy",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Digital Strategy",
+          "stateName": "Integrated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Digital Transformation Strategy Document",
+          "levelOfDetailName": "Integrated Execution Plan"
+        },
+        {
+          "workProductName": "Digital Maturity Assessment",
+          "levelOfDetailName": "Detailed Analysis"
+        }
+      ],
+      "requiredCompetencies": [
+        "Strategic Thinking",
+        "Organizational Change Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Strategic Thinking",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Organizational Change Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "integrate-strategy-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Integrate Strategy Technique",
+          "description": "How to embed strategy across business functions with traceable execution.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Strategy integration ensures every business unit translates enterprise direction into local execution plans with accountable owners and traceable investment-to-outcome linkages."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Establish cross-functional alignment mechanisms connecting strategy to operational execution continuously. Implement portfolio management explicitly balancing exploitation and exploration. Manage ecosystem partnerships as strategic capability extensions. Apply organizational ambidexterity mechanisms to balance current model optimization with new venture exploration."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid annual planning cycles that cannot match market velocity. Do not treat ecosystem partnerships as transactional vendor relationships. Resist allowing portfolio management to become dominated by exploitation at the expense of exploration."
+            }
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Embed Adaptive Strategy Capabilities",
+      "description": "Develop continuous strategic planning with real-time sensing and embedded dynamic capabilities.",
+      "activitySpaceName": "Formulate Transformation Strategy",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Digital Strategy",
+          "stateName": "Adaptive"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Digital Maturity Assessment",
+          "levelOfDetailName": "Continuous Monitoring"
+        },
+        {
+          "workProductName": "Digital Transformation Strategy Document",
+          "levelOfDetailName": "Integrated Execution Plan"
+        }
+      ],
+      "requiredCompetencies": [
+        "Strategic Thinking",
+        "Innovation and Experimentation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Strategic Thinking",
+          "competencyLevelName": "Innovating"
+        },
+        {
+          "competencyName": "Innovation and Experimentation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "adaptive-strategy-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Embed Adaptive Strategy Technique",
+          "description": "How to embed dynamic capabilities in organizational routines for continuous strategy evolution.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Adaptive strategy embeds sensing, seizing, and transforming capabilities in organizational routines so strategic evolution operates continuously rather than periodically."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Implement real-time market sensing including competitive intelligence, technology scanning, and customer signal analysis. Transition strategic planning from annual cycles to continuous operation adapting within weeks. Develop scenario planning addressing multiple future states. Embed dynamic capabilities in organizational routines rather than depending on individual leaders."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid making dynamic capabilities dependent on specific senior leaders. Do not confuse strategic agility with lack of strategic commitment. Ensure evidence-based pivots rather than reactive oscillation."
+            }
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Map Current Business Model",
+      "description": "Document the existing business model using the Business Model Canvas and assess platform disruption exposure.",
+      "activitySpaceName": "Design Value Models",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Business Model",
+          "stateName": "Exploring"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Business Model Portfolio",
+          "levelOfDetailName": "Current State Map"
+        },
+        {
+          "workProductName": "Servitization Transition Plan",
+          "levelOfDetailName": "Opportunity Assessment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Business Model and Service Design",
+        "Strategic Thinking"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Business Model and Service Design",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Strategic Thinking",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "map-model-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Map Current Business Model Technique",
+          "description": "How to document the existing business model and assess disruption exposure.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Business model mapping creates a structured representation of how the organization currently creates, delivers, and captures value, establishing the baseline for innovation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Map all nine Business Model Canvas elements for the current operating model. Quantify pipeline versus platform competitive exposure. Conduct jobs-to-be-done analysis identifying customer outcomes distinct from product features. Evaluate the servitization continuum positioning. Assess data monetization potential and ecosystem partnership value."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid mapping only the idealized business model rather than the actual one. Do not underestimate the performance differential of platform competitors."
+            }
+          ],
+          "citationNames": [
+            "Osterwalder (2010)",
+            "Parker et al. (2016)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Design Business Model Alternatives",
+      "description": "Prototype alternative value creation mechanisms using structured design methodology and product-service system analysis.",
+      "activitySpaceName": "Design Value Models",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Business Model",
+          "stateName": "Designing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Business Model Portfolio",
+          "levelOfDetailName": "Alternative Designs"
+        },
+        {
+          "workProductName": "Ecosystem Partnership Portfolio",
+          "levelOfDetailName": "Partner Inventory"
+        }
+      ],
+      "requiredCompetencies": [
+        "Business Model and Service Design",
+        "Innovation and Experimentation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Business Model and Service Design",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Innovation and Experimentation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "design-alternatives-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Design Business Model Alternatives Technique",
+          "description": "How to prototype and evaluate alternative business models.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Business model design creates multiple prototypes evaluated against desirability, feasibility, and viability, applying the full spectrum from platform economics through servitization."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Develop multiple prototypes simultaneously. Evaluate each against the innovation trio. Systematically assess all eight Tukker product-service system archetypes. Design platform pricing strategies with subsidy and money side identification. Assess ecosystem partner incentive alignment. Monitor for the five destructive innovation anti-patterns. Apply Experiment and Scale methodology to convert innovation from fixed-cost to variable-cost capability."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Do not select business models based on technology capability alone, as Edison, Xerox, and EMI demonstrate. Avoid Innovation Theatre celebrating activities without commercial value. Do not isolate innovation teams from mainstream operations."
+            }
+          ],
+          "citationNames": [
+            "Osterwalder (2010)",
+            "Teece (2010)",
+            "Tukker (2004)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Pilot Business Model Experiments",
+      "description": "Test new business models with real customers through lean startup experimentation with clear pivot-or-persevere criteria.",
+      "activitySpaceName": "Design Value Models",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Business Model",
+          "stateName": "Piloting"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Business Model Portfolio",
+          "levelOfDetailName": "Alternative Designs"
+        },
+        {
+          "workProductName": "Outcome-Based Contract Template",
+          "levelOfDetailName": "Outcome Contract"
+        }
+      ],
+      "requiredCompetencies": [
+        "Business Model and Service Design",
+        "Innovation and Experimentation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Business Model and Service Design",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Innovation and Experimentation",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "pilot-experiments-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Pilot Business Model Experiments Technique",
+          "description": "How to test business model hypotheses with real customers using lean startup principles.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Business model piloting tests hypotheses with real customers using lean startup principles, governing investment through Innovation Readiness Level metrics."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Deploy minimum viable products to test model hypotheses. Track hypotheses systematically with clear metrics governing continuation, pivot, or termination. Ensure pilot teams operate with sufficient autonomy from legacy processes. Apply Horizon 3 team principles: small groups of five or fewer, physically separated, using Business Model Canvas and Customer Development interviews. Manage the servitization paradox U-shaped profitability curve with explicit margin recovery milestones."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid indefinite investment in unviable models by enforcing kill metrics. Do not constrain pilot teams with legacy processes. Distinguish B2B from B2C servitization dynamics as consumer expectations differ fundamentally."
+            }
+          ],
+          "citationNames": [
+            "Blank (2015)",
+            "Neely (2008)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Scale Validated Business Models",
+      "description": "Scale validated models across the organization with adapted capabilities, managed cannibalization, and ecosystem partnerships.",
+      "activitySpaceName": "Design Value Models",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Business Model",
+          "stateName": "Scaling"
+        },
+        {
+          "alphaName": "Business Model",
+          "stateName": "Evolving"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Business Model Portfolio",
+          "levelOfDetailName": "Active Innovation Portfolio"
+        },
+        {
+          "workProductName": "Ecosystem Partnership Portfolio",
+          "levelOfDetailName": "Partnership Operating Model"
+        }
+      ],
+      "requiredCompetencies": [
+        "Business Model and Service Design",
+        "Strategic Thinking"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Business Model and Service Design",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Strategic Thinking",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "scale-models-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Scale Validated Business Models Technique",
+          "description": "How to scale validated business models from discovery to execution phase.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Scaling transitions validated business models from startup-phase discovery to execution-phase optimization across broader markets."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Adapt organizational capabilities including talent, technology, and processes for the new model. Strategically manage cannibalization of existing revenue streams as intentional transition. Establish ecosystem partnerships with governance and value sharing frameworks. Realign supply chain to operate on outcome-based terms. Develop front-line service delivery competencies: flexibility, relationship-building, service-centricity, authenticity, technical adeptness, and resilience."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Resist protecting existing revenue streams at the expense of model innovation. Do not absorb all performance risk internally. Ensure Horizon 1 managers are incentivized to adopt innovations from Horizons 2 and 3."
+            }
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Map Customer Journeys",
+      "description": "Document end-to-end customer experiences identifying touchpoints, pain points, and value-destroying processes.",
+      "activitySpaceName": "Design Customer Experiences",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Customer Value Delivery",
+          "stateName": "Feedback-Informed"
+        },
+        {
+          "alphaName": "Customer Value Delivery",
+          "stateName": "Journey-Mapped"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Customer Journey Map",
+          "levelOfDetailName": "Journey Outline"
+        },
+        {
+          "workProductName": "Customer Journey Map",
+          "levelOfDetailName": "Detailed Journey Analysis"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer and Experience Design",
+        "Digital Literacy"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer and Experience Design",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Digital Literacy",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "map-journeys-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Map Customer Journeys Technique",
+          "description": "How to document end-to-end customer experiences and identify value destroyers.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Journey mapping creates a comprehensive visual representation of the customer experience, revealing pain points and moments of truth invisible from internal organizational perspectives."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Begin with empathetic customer research through observation, interviews, and behavioral data analysis. Map all touchpoints, emotional responses, and moments of truth across the complete lifecycle. Identify value destroyers including processes that are complicated, bureaucratic, or internally focused rather than customer-supporting. Distinguish between outputs and outcomes at each journey stage. Apply contextual variety analysis following the Ng et al. framework to assess whether platform or tailoring strategy is appropriate."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid mapping from the organizational perspective rather than the customer perspective. Do not assume a single journey fits all customer segments. Do not treat value destroyer elimination as a one-time initiative."
+            }
+          ],
+          "citationNames": [
+            "Vargo and Lusch (2016)",
+            "Ng et al. (2015)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Design Customer Experiences",
+      "description": "Apply human-centered design methodology to create compelling, outcome-oriented experiences balancing desirability, feasibility, and viability.",
+      "activitySpaceName": "Design Customer Experiences",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Customer Value Delivery",
+          "stateName": "Experience-Designed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Customer Journey Map",
+          "levelOfDetailName": "Detailed Journey Analysis"
+        },
+        {
+          "workProductName": "Servitization Transition Plan",
+          "levelOfDetailName": "Opportunity Assessment"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer and Experience Design",
+        "Business Model and Service Design"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer and Experience Design",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Business Model and Service Design",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "design-experiences-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Design Customer Experiences Technique",
+          "description": "How to apply human-centered design to create compelling customer interactions.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Experience design creates deliberate, emotionally and functionally excellent customer interactions using human-centered design practices embedded in development processes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Embed human-centered design in all product and service development. Balance desirability, feasibility, and viability for every design decision. Build personalization capabilities tailoring experiences to individual contexts using data analytics. Achieve omnichannel consistency across all interaction channels. Design employee experience to enable exceptional customer outcomes. Conduct design thinking workshops bringing cross-functional teams together with customers as co-creators."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid designing experiences based on internal assumptions rather than customer research. Do not optimize for feasibility at the expense of desirability. Ensure employee experience design supports customer outcome delivery."
+            }
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement Outcome-Based Delivery",
+      "description": "Design and deploy service agreements linking payment and accountability to verified customer outcome achievement.",
+      "activitySpaceName": "Design Customer Experiences",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Customer Value Delivery",
+          "stateName": "Outcome-Oriented"
+        },
+        {
+          "alphaName": "Business Model",
+          "stateName": "Piloting"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Outcome-Based Contract Template",
+          "levelOfDetailName": "Outcome Contract"
+        },
+        {
+          "workProductName": "Servitization Transition Plan",
+          "levelOfDetailName": "Transition Roadmap"
+        }
+      ],
+      "requiredCompetencies": [
+        "Business Model and Service Design",
+        "Customer and Experience Design"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Business Model and Service Design",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Customer and Experience Design",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "outcome-delivery-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Implement Outcome-Based Delivery Technique",
+          "description": "How to design and deploy outcome-based service delivery models.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Outcome-based delivery aligns organizational revenue with customer value realization, transitioning from output-based metrics to outcome guarantees."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Define desired customer outcomes in measurable terms agreed by both parties. Design risk and reward frameworks aligning incentives following the Rolls-Royce model. Conduct outcome readiness diagnostics assessing data availability, operational influence, and ecosystem alignment. Deploy IoT monitoring, predictive analytics, and AI-driven intervention for continuous optimization. Calibrate pricing using historical data and predictive modeling through the servitization paradox transition period."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Do not proxy outcomes through activity metrics. Avoid absorbing all performance risk internally. Ensure the watermelon effect is eliminated through transparent outcome-to-metric alignment."
+            }
+          ],
+          "citationNames": [
+            "Neely (2013)",
+            "Magowan (2019)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Enable Value Co-Creation",
+      "description": "Establish platform-mediated, context-responsive mechanisms enabling customers to co-create value as active partners.",
+      "activitySpaceName": "Design Customer Experiences",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Customer Value Delivery",
+          "stateName": "Co-Created"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Customer Journey Map",
+          "levelOfDetailName": "Dynamic Journey Model"
+        },
+        {
+          "workProductName": "Servitization Transition Plan",
+          "levelOfDetailName": "Outcome Operating Model"
+        },
+        {
+          "workProductName": "Ecosystem Partnership Portfolio",
+          "levelOfDetailName": "Ecosystem Orchestration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer and Experience Design",
+        "Business Model and Service Design"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer and Experience Design",
+          "competencyLevelName": "Innovating"
+        },
+        {
+          "competencyName": "Business Model and Service Design",
+          "competencyLevelName": "Adapts"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "co-creation-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Enable Value Co-Creation Technique",
+          "description": "How to operationalize service-dominant logic for multi-party value creation.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Value co-creation operationalizes service-dominant logic, recognizing customers as active value creators through platform-enabled, ecosystem-wide interactions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Operationalize all five service-dominant logic axioms in delivery design. Build platform-based interactions enabling multi-party value generation. Deploy value-in-use analytics driving continuous adaptation to individual customer contexts. Systematically enable customer participation in design, testing, and improvement. Extend co-creation capabilities across the ecosystem involving partners and complementors."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid treating co-creation as marketing rhetoric without genuine customer empowerment. Do not deploy co-creation mechanisms without addressing power asymmetries. Ensure data generated through co-creation interactions is governed ethically."
+            }
+          ],
+          "citationNames": [
+            "Vargo and Lusch (2016)",
+            "Ng et al. (2015)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Build Ecosystem Partnerships",
+      "description": "Establish and manage strategic partnerships enabling platform, innovation, and service ecosystem value creation.",
+      "activitySpaceName": "Design Value Models",
+      "focusName": "Strategy and Value",
+      "contributesTo": [
+        {
+          "alphaName": "Business Model",
+          "stateName": "Scaling"
+        },
+        {
+          "alphaName": "Digital Strategy",
+          "stateName": "Integrated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Ecosystem Partnership Portfolio",
+          "levelOfDetailName": "Partnership Operating Model"
+        },
+        {
+          "workProductName": "Ecosystem Partnership Portfolio",
+          "levelOfDetailName": "Ecosystem Orchestration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Strategic Thinking",
+        "Business Model and Service Design"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Strategic Thinking",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Business Model and Service Design",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Strategy and Value Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "build-partnerships-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Build Ecosystem Partnerships Technique",
+          "description": "How to establish and manage strategic ecosystem partnerships.",
+          "narrativeTypeName": "Technique",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Overview",
+              "context": "Ecosystem partnership development maps the value network to identify capability gaps and collaboration opportunities, building mutual value through shared innovation and data exchange."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Technique",
+              "context": "Map the value network distinguishing transactional supplier relationships from strategic ecosystem partnerships. Streamline partner onboarding through standardized technical integration and governance. Monitor ecosystem health tracking participant growth, interaction quality, and value distribution fairness. Design coopetition arrangements for non-differentiating capability sharing. Build integrative capabilities for orchestration across ecosystem participants."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Common Pitfalls",
+              "context": "Avoid extracting excessive value from partners as this undermines ecosystem sustainability. Do not treat all partnerships identically but distinguish strategic ecosystem investments from commodity vendor relationships."
+            }
+          ],
+          "citationNames": [
+            "Helfat and Raubitschek (2018)",
+            "Benzell et al. (2017)"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Strategic Value Evolution",
+      "description": "Coordinated progression from reactive strategy through validated business models to co-created customer value.",
+      "narrativeTypeName": "Digital Transformation Journey",
+      "patternViews": [
+        {
+          "name": "Sense and Strategize",
+          "description": "Assess maturity, analyze competition, and establish strategic awareness.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Emerging"
+            },
+            {
+              "alphaName": "Business Model",
+              "stateName": "Exploring"
+            },
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Feedback-Informed"
+            }
+          ],
+          "activities": [
+            "Assess Digital Maturity",
+            "Map Current Business Model",
+            "Map Customer Journeys"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Sense and Strategize",
+              "context": "The organization recognizes digital disruption as a strategic imperative, assesses maturity across five dimensions, maps the current business model, and begins understanding customer journeys and value-destroying processes."
+            }
+          ]
+        },
+        {
+          "name": "Translate and Map",
+          "description": "Formalize strategy, design business model alternatives, and map journeys.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Defined"
+            },
+            {
+              "alphaName": "Business Model",
+              "stateName": "Designing"
+            },
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Journey-Mapped"
+            }
+          ],
+          "activities": [
+            "Formulate Digital Strategy",
+            "Design Business Model Alternatives",
+            "Map Customer Journeys"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 2,
+              "narrativeElementName": "Translate and Map",
+              "context": "Strategic intent crystallizes into formal strategy with pathway choices. Business model alternatives are prototyped across platform, subscription, and servitization patterns. Customer journeys are comprehensively mapped with value destroyers prioritized for elimination."
+            }
+          ]
+        },
+        {
+          "name": "Co-Create the Runway",
+          "description": "Pilot business models, design experiences, and build partnerships.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Integrated"
+            },
+            {
+              "alphaName": "Business Model",
+              "stateName": "Piloting"
+            },
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Experience-Designed"
+            }
+          ],
+          "activities": [
+            "Integrate Strategy Across Functions",
+            "Pilot Business Model Experiments",
+            "Design Customer Experiences",
+            "Build Ecosystem Partnerships"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 3,
+              "narrativeElementName": "Co-Create the Runway",
+              "context": "Strategy is embedded across all business functions. Business model experiments run with real customers using lean startup principles. Customer experiences are redesigned using human-centered methods balancing desirability, feasibility, and viability. Ecosystem partnerships establish mutual value creation."
+            }
+          ]
+        },
+        {
+          "name": "Deliver and Emerge",
+          "description": "Scale models, implement outcome-based delivery, and achieve adaptive strategy.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Adaptive"
+            },
+            {
+              "alphaName": "Business Model",
+              "stateName": "Scaling"
+            },
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Outcome-Oriented"
+            }
+          ],
+          "activities": [
+            "Embed Adaptive Strategy Capabilities",
+            "Scale Validated Business Models",
+            "Implement Outcome-Based Delivery"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 4,
+              "narrativeElementName": "Deliver and Emerge",
+              "context": "Dynamic capabilities for sensing, seizing, and transforming become organizational routines. Validated business models scale across the enterprise with managed cannibalization. Outcome-based delivery aligns revenue with customer value realization through IoT monitoring and predictive analytics."
+            }
+          ]
+        },
+        {
+          "name": "Feedback and Refactor",
+          "description": "Evolve business models continuously and achieve value co-creation.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Business Model",
+              "stateName": "Evolving"
+            },
+            {
+              "alphaName": "Customer Value Delivery",
+              "stateName": "Co-Created"
+            },
+            {
+              "alphaName": "Digital Strategy",
+              "stateName": "Adaptive"
+            }
+          ],
+          "activities": [
+            "Scale Validated Business Models",
+            "Enable Value Co-Creation"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 5,
+              "narrativeElementName": "Feedback and Refactor",
+              "context": "Business model innovation operates as a continuous dynamic capability with a portfolio at multiple lifecycle stages. Value is co-created with customers as active partners through platform-enabled, context-responsive interactions aligned with service-dominant logic. The organization re-enters the cycle at a higher level of strategic capability."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Business Model",
+      "aliasName": "Business Model Innovation"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Formulate Transformation Strategy",
+      "aliasName": "Sense, Seize, and Transform"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Design Value Models",
+      "aliasName": "Business Model Design and Servitization"
+    },
+    {
+      "practiceElementType": "Competency",
+      "practiceElementName": "Business Model and Service Design",
+      "aliasName": "Business Model Design"
+    },
+    {
+      "practiceElementType": "Competency",
+      "practiceElementName": "Customer and Experience Design",
+      "aliasName": "Customer Experience Design"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Digital Transformation Essentials",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

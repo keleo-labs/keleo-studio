@@ -1,0 +1,337 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "red-hat-ai",
+    "version": "1.0.0",
+    "description": "red-hat-ai",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/red-hat-ai.json",
+      "documentType": "method",
+      "documentName": "Red Hat AI",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Enterprise AI inference and model optimization methodology for Kubernetes platforms, enabling ML engineers to optimize production models and platform engineers to deploy scalable inference infrastructure.",
+        "tags": {
+          "domainTags": [
+            "AI/ML",
+            "Platform Engineering",
+            "Container Platforms",
+            "Model Optimization",
+            "Inference Serving"
+          ],
+          "lifecycleTags": [
+            "Model Development",
+            "Platform Deployment",
+            "Production Operations",
+            "Performance Optimization"
+          ],
+          "organizationalTags": [
+            "ML Engineering",
+            "Platform Engineering",
+            "SRE",
+            "AI Infrastructure"
+          ]
+        },
+        "keywords": [],
+        "elementCount": 382,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": ""
+      }
+    },
+    {
+      "path": "documents/idp-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "IDP Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "A foundational baseline practice for Internal Developer Platforms that establishes the universal concerns, activity spaces, competencies, and narrative frameworks governing how organizations design, build, operate, and evolve developer-centric platform capabilities.",
+        "tags": {
+          "domainTags": [
+            "Platform Engineering",
+            "Developer Experience",
+            "DevOps",
+            "Site Reliability Engineering",
+            "Security",
+            "FinOps",
+            "Cloud Native"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Maturity",
+            "Optimization",
+            "Evolution"
+          ],
+          "organizationalTags": [
+            "Platform Team",
+            "Engineering",
+            "Security",
+            "Finance"
+          ]
+        },
+        "keywords": [
+          "internal-developer-platform",
+          "platform-engineering",
+          "developer-experience",
+          "cognitive-load",
+          "self-service",
+          "golden-paths",
+          "devops",
+          "site-reliability",
+          "team-topologies",
+          "platform-as-product"
+        ],
+        "elementCount": 469,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-13T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/optimize-ai-models-for-production-inference.json",
+      "documentType": "practice",
+      "documentName": "Optimize AI Models for Production Inference",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Prepare large language models for production deployment through quantization, validation, and performance optimization.",
+        "tags": {
+          "domainTags": [
+            "Machine Learning",
+            "Model Engineering",
+            "AI Infrastructure"
+          ],
+          "lifecycleTags": [
+            "Development",
+            "Optimization",
+            "Validation"
+          ],
+          "organizationalTags": [
+            "ML Engineering",
+            "Data Science"
+          ]
+        },
+        "keywords": [
+          "AI",
+          "LLM",
+          "machine learning",
+          "quantization",
+          "compression",
+          "sparsity",
+          "INT4",
+          "INT8",
+          "FP8",
+          "NVFP4",
+          "model optimization",
+          "vLLM",
+          "safetensors",
+          "AWQ",
+          "GPTQ",
+          "SparseGPT",
+          "LLM Compressor"
+        ],
+        "elementCount": 82,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-06-23"
+      }
+    },
+    {
+      "path": "documents/deploy-and-scale-ai-inference-on-kubernetes.json",
+      "documentType": "practice",
+      "documentName": "Deploy and Scale AI Inference on Kubernetes",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Build and operate enterprise-grade LLM inference infrastructure on Kubernetes platforms.",
+        "tags": {
+          "domainTags": [
+            "AI Infrastructure",
+            "Kubernetes",
+            "GPU Computing",
+            "Inference",
+            "Platform Engineering"
+          ],
+          "lifecycleTags": [
+            "Deployment",
+            "Operations",
+            "Scaling",
+            "Integration"
+          ],
+          "organizationalTags": [
+            "Platform Engineering",
+            "SRE",
+            "ML Engineering"
+          ]
+        },
+        "keywords": [
+          "inference",
+          "serving",
+          "distributed",
+          "llm-d",
+          "vLLM",
+          "KServe",
+          "Kubernetes",
+          "OpenShift",
+          "Istio",
+          "GPU",
+          "TPU",
+          "accelerator",
+          "scaling",
+          "Helm",
+          "KV cache",
+          "prefill-decode",
+          "endpoint picker",
+          "LLMInferenceService"
+        ],
+        "elementCount": 298,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-06-23"
+      }
+    },
+    {
+      "path": "documents/platform-adoption-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Platform Adoption Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "The Platform Adoption Essentials baseline establishes the universal foundation for platform transformations, extending the Project Essentials baseline with platform-specific concerns across the three Areas of Concern.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "platform",
+          "adoption",
+          "kernel"
+        ],
+        "elementCount": 125,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2023-10-25T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/project-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Project Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "The Project Essentials baseline establishes the universal foundation for project management, organized into three areas of concern: Value, Solution, and Endeavor.",
+        "tags": {
+          "domainTags": [
+            "Project Management",
+            "Agile",
+            "Governance",
+            "Stakeholder Management",
+            "Team Management"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Execution",
+            "Closure",
+            "Benefits Realization"
+          ],
+          "organizationalTags": [
+            "Project Team",
+            "PMO",
+            "Governance Board",
+            "Stakeholder Community"
+          ]
+        },
+        "keywords": [
+          "project management",
+          "agile",
+          "PMBOK",
+          "Essence",
+          "SMART objectives",
+          "team",
+          "stakeholders",
+          "way of working"
+        ],
+        "elementCount": 455,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    },
+    {
+      "path": "documents/observability.json",
+      "documentType": "practice",
+      "documentName": "Observability",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Comprehensive monitoring, logging, and tracing for operational visibility and decision-making.",
+        "tags": {
+          "domainTags": [
+            "Observability",
+            "Monitoring",
+            "SRE",
+            "Operations"
+          ],
+          "lifecycleTags": [
+            "Operate",
+            "Optimize"
+          ],
+          "organizationalTags": [
+            "SRE",
+            "Platform Engineering",
+            "Operations"
+          ]
+        },
+        "keywords": [
+          "prometheus",
+          "grafana",
+          "alertmanager",
+          "opentelemetry",
+          "OTEL",
+          "tempo",
+          "loki",
+          "logging operator",
+          "cluster observability operator",
+          "COO",
+          "SLI",
+          "SLO",
+          "error budget",
+          "distributed tracing",
+          "metrics",
+          "alerting",
+          "PrometheusRule",
+          "ServiceMonitor",
+          "ClusterLogForwarder"
+        ],
+        "elementCount": 170,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-14"
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "packageName": "Application Development",
+      "versionRange": "^2.0.1"
+    },
+    {
+      "packageName": "Platform Operations",
+      "versionRange": "^2.0.1"
+    },
+    {
+      "packageName": "Security & Compliance",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

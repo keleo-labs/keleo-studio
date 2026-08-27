@@ -1,0 +1,330 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "red-hat-ansible-foundations",
+    "version": "1.0.0",
+    "description": "red-hat-ansible-foundations",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/red-hat-ansible-foundations.json",
+      "documentType": "method",
+      "documentName": "Red Hat Ansible Foundations",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Enterprise automation platform methodology for Red Hat Ansible Automation Platform 2.7 spanning platform infrastructure, content lifecycle management, event-driven operations, and governance analytics across the complete automation lifecycle.",
+        "tags": {
+          "domainTags": [
+            "Analytics",
+            "Architecture",
+            "Content Management",
+            "DevOps",
+            "Event-Driven Architecture",
+            "FinOps",
+            "Governance",
+            "Infrastructure",
+            "Infrastructure as Code",
+            "Operations",
+            "Security",
+            "Service Management",
+            "Site Reliability Engineering"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Governance",
+            "Operations",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Content Development Team",
+            "Finance",
+            "Leadership",
+            "Operations",
+            "Platform Team",
+            "SRE Team",
+            "Security Team"
+          ]
+        },
+        "keywords": [],
+        "elementCount": 875,
+        "associatedBaselineName": "Infrastructure Automation Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": ""
+      }
+    },
+    {
+      "path": "documents/infrastructure-automation-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Infrastructure Automation Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Domain adaptation of Platform Adoption Essentials for infrastructure automation and Infrastructure as Code (IaC) practices. Provides vendor-agnostic terminology mapping and extends the baseline with managed asset lifecycle and governance concerns.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "infrastructure automation",
+          "infrastructure as code",
+          "IaC",
+          "configuration management",
+          "desired state",
+          "drift detection",
+          "idempotency",
+          "convergence"
+        ],
+        "elementCount": 550,
+        "associatedBaselineName": "Infrastructure Automation Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-11T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/platform-foundation.json",
+      "documentType": "practice",
+      "documentName": "Platform Foundation",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Deploy and operate platform gateway, automation controller, execution environments, automation mesh, and dynamic inventory infrastructure.",
+        "tags": {
+          "domainTags": [
+            "Infrastructure",
+            "Architecture",
+            "DevOps"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Platform Team"
+          ]
+        },
+        "keywords": [
+          "ansible",
+          "automation platform",
+          "platform gateway",
+          "automation controller",
+          "execution environments",
+          "automation mesh",
+          "dynamic inventory",
+          "containerized deployment",
+          "hybrid cloud",
+          "AAP",
+          "rootless podman"
+        ],
+        "elementCount": 185,
+        "associatedBaselineName": "Infrastructure Automation Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    },
+    {
+      "path": "documents/ansible-content-management.json",
+      "documentType": "practice",
+      "documentName": "Ansible Content Management",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Develop, certify, version, and distribute ansible content collections through automation hub, centralized content catalog, and development workspaces with GitOps-driven platform configuration.",
+        "tags": {
+          "domainTags": [
+            "DevOps",
+            "Content Management",
+            "Infrastructure as Code"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Content Development Team",
+            "Platform Team"
+          ]
+        },
+        "keywords": [
+          "ansible collections",
+          "automation hub",
+          "content lifecycle",
+          "GitOps",
+          "development workspaces",
+          "content catalog",
+          "content certification",
+          "version control",
+          "configuration as code",
+          "ansible-creator"
+        ],
+        "elementCount": 151,
+        "associatedBaselineName": "Infrastructure Automation Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    },
+    {
+      "path": "documents/event-driven-operations.json",
+      "documentType": "practice",
+      "documentName": "Event-Driven Operations",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Implement reactive automation using event rulebooks and decision environments to enable self-healing infrastructure operations with reduced MTTR.",
+        "tags": {
+          "domainTags": [
+            "Event-Driven Architecture",
+            "Operations",
+            "Site Reliability Engineering"
+          ],
+          "lifecycleTags": [
+            "Optimization",
+            "Operations"
+          ],
+          "organizationalTags": [
+            "SRE Team",
+            "Operations"
+          ]
+        },
+        "keywords": [
+          "event-driven",
+          "EDA",
+          "rulebooks",
+          "self-healing",
+          "remediation",
+          "event sources",
+          "decision environments",
+          "reactive automation",
+          "MTTR",
+          "event correlation"
+        ],
+        "elementCount": 195,
+        "associatedBaselineName": "Infrastructure Automation Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    },
+    {
+      "path": "documents/governance-and-analytics.json",
+      "documentType": "practice",
+      "documentName": "Governance and Analytics",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Establish RBAC governance through platform gateway, deploy analytics with customizable ROI metrics, implement self-service portal, and configure OIDC/Vault credential security for the Ansible Automation Platform.",
+        "tags": {
+          "domainTags": [
+            "Governance",
+            "Security",
+            "Analytics",
+            "FinOps",
+            "Service Management"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Optimization",
+            "Governance"
+          ],
+          "organizationalTags": [
+            "Platform Team",
+            "Security Team",
+            "Finance",
+            "Leadership"
+          ]
+        },
+        "keywords": [
+          "RBAC",
+          "governance",
+          "analytics",
+          "ROI",
+          "credential security",
+          "OIDC",
+          "vault",
+          "self-service portal",
+          "organizational structure",
+          "compliance",
+          "audit",
+          "chargeback"
+        ],
+        "elementCount": 340,
+        "associatedBaselineName": "Infrastructure Automation Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    },
+    {
+      "path": "documents/platform-adoption-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Platform Adoption Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "The Platform Adoption Essentials baseline establishes the universal foundation for platform transformations, extending the Project Essentials baseline with platform-specific concerns across the three Areas of Concern.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "platform",
+          "adoption",
+          "kernel"
+        ],
+        "elementCount": 125,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2023-10-25T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/project-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Project Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "The Project Essentials baseline establishes the universal foundation for project management, organized into three areas of concern: Value, Solution, and Endeavor.",
+        "tags": {
+          "domainTags": [
+            "Project Management",
+            "Agile",
+            "Governance",
+            "Stakeholder Management",
+            "Team Management"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Execution",
+            "Closure",
+            "Benefits Realization"
+          ],
+          "organizationalTags": [
+            "Project Team",
+            "PMO",
+            "Governance Board",
+            "Stakeholder Community"
+          ]
+        },
+        "keywords": [
+          "project management",
+          "agile",
+          "PMBOK",
+          "Essence",
+          "SMART objectives",
+          "team",
+          "stakeholders",
+          "way of working"
+        ],
+        "elementCount": 455,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    }
+  ]
+}

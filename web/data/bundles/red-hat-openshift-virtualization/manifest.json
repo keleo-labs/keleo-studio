@@ -1,0 +1,239 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "red-hat-openshift-virtualization",
+    "version": "1.0.0",
+    "description": "red-hat-openshift-virtualization",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/red-hat-openshift-virtualization.json",
+      "documentType": "practice",
+      "documentName": "Red Hat OpenShift Virtualization",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.2",
+        "description": "Run and manage virtual machines alongside containers on OpenShift using Kubernetes-native tooling and KubeVirt operators.",
+        "tags": {
+          "domainTags": [
+            "Virtualization",
+            "Infrastructure",
+            "Migration"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Migration",
+            "Operations"
+          ],
+          "organizationalTags": [
+            "Platform Team",
+            "Operations"
+          ]
+        },
+        "keywords": [
+          "kubevirt",
+          "openshift virtualization",
+          "virtual machine",
+          "KVM",
+          "CDI",
+          "containerized data importer",
+          "virt-handler",
+          "virt-controller",
+          "HyperConverged",
+          "live migration",
+          "MTV",
+          "migration toolkit",
+          "QEMU",
+          "virtctl",
+          "data volume",
+          "SR-IOV",
+          "multus",
+          "vGPU",
+          "mediated devices",
+          "OADP"
+        ],
+        "elementCount": 272,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-23"
+      }
+    },
+    {
+      "path": "documents/idp-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "IDP Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "A foundational baseline practice for Internal Developer Platforms that establishes the universal concerns, activity spaces, competencies, and narrative frameworks governing how organizations design, build, operate, and evolve developer-centric platform capabilities.",
+        "tags": {
+          "domainTags": [
+            "Platform Engineering",
+            "Developer Experience",
+            "DevOps",
+            "Site Reliability Engineering",
+            "Security",
+            "FinOps",
+            "Cloud Native"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Maturity",
+            "Optimization",
+            "Evolution"
+          ],
+          "organizationalTags": [
+            "Platform Team",
+            "Engineering",
+            "Security",
+            "Finance"
+          ]
+        },
+        "keywords": [
+          "internal-developer-platform",
+          "platform-engineering",
+          "developer-experience",
+          "cognitive-load",
+          "self-service",
+          "golden-paths",
+          "devops",
+          "site-reliability",
+          "team-topologies",
+          "platform-as-product"
+        ],
+        "elementCount": 469,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-13T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/platform-adoption-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Platform Adoption Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "The Platform Adoption Essentials baseline establishes the universal foundation for platform transformations, extending the Project Essentials baseline with platform-specific concerns across the three Areas of Concern.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "platform",
+          "adoption",
+          "kernel"
+        ],
+        "elementCount": 125,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2023-10-25T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/platform-operations.json",
+      "documentType": "practice",
+      "documentName": "Platform Operations",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "OpenShift cluster lifecycle management and SRE-driven operational excellence.",
+        "tags": {
+          "domainTags": [
+            "Platform Engineering",
+            "SRE",
+            "Infrastructure",
+            "GitOps",
+            "FinOps"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Operations",
+            "Optimization",
+            "Lifecycle Management"
+          ],
+          "organizationalTags": [
+            "Platform Engineering",
+            "SRE",
+            "Infrastructure"
+          ]
+        },
+        "keywords": [
+          "OCP",
+          "openshift",
+          "kubernetes",
+          "k8s",
+          "cluster",
+          "operator",
+          "CRD",
+          "custom resource",
+          "etcd",
+          "ArgoCD",
+          "GitOps",
+          "Argo CD",
+          "ApplicationSet",
+          "ODF",
+          "OpenShift Data Foundation",
+          "PVC",
+          "StorageClass",
+          "ClusterAutoscaler",
+          "MachineSet"
+        ],
+        "elementCount": 176,
+        "associatedBaselineName": "IDP Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-14"
+      }
+    },
+    {
+      "path": "documents/project-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Project Essentials",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "The Project Essentials baseline establishes the universal foundation for project management, organized into three areas of concern: Value, Solution, and Endeavor.",
+        "tags": {
+          "domainTags": [
+            "Project Management",
+            "Agile",
+            "Governance",
+            "Stakeholder Management",
+            "Team Management"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Execution",
+            "Closure",
+            "Benefits Realization"
+          ],
+          "organizationalTags": [
+            "Project Team",
+            "PMO",
+            "Governance Board",
+            "Stakeholder Community"
+          ]
+        },
+        "keywords": [
+          "project management",
+          "agile",
+          "PMBOK",
+          "Essence",
+          "SMART objectives",
+          "team",
+          "stakeholders",
+          "way of working"
+        ],
+        "elementCount": 455,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    }
+  ]
+}

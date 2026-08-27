@@ -1,0 +1,2097 @@
+{
+  "name": "Modernize Infrastructure",
+  "description": "Positions Red Hat for infrastructure modernization deals through the Modernize Infrastructure Customer Lens and orchestration of infrastructure-focused TDPs.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceDependencyNames": [
+    "Sales Play Framework",
+    "Server Cloud OS TDP",
+    "Virtualization TDP",
+    "Container Management TDP"
+  ],
+  "tags": {
+    "domainTags": [
+      "Infrastructure Modernization",
+      "Hybrid Cloud",
+      "VM Migration",
+      "Virtualization"
+    ],
+    "lifecycleTags": [
+      "Discovery",
+      "Validation",
+      "Proposal"
+    ],
+    "organizationalTags": [
+      "Field Sales",
+      "Technical Sales",
+      "Infrastructure Specialist Sales"
+    ]
+  },
+  "keywords": [
+    "infrastructure-modernization",
+    "vm-migration",
+    "hybrid-cloud",
+    "virtualization",
+    "legacy-modernization",
+    "cost-reduction",
+    "workload-portability",
+    "rhel",
+    "openshift-virtualization",
+    "server-consolidation"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.11",
+  "citations": [
+    {
+      "name": "Modernize Infrastructure Sales Play",
+      "description": "Complete Sales Play documentation for infrastructure modernization covering Customer Lens, persona frameworks, value drivers, and TDP alignment for the Modernize Infrastructure market theme.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com",
+      "kind": "citation"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//",
+      "kind": "citation"
+    },
+    {
+      "name": "Sales Play Revamp",
+      "description": "Documentation of the sales play framework restructuring including three-level hierarchy and bidirectional navigation design.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//",
+      "kind": "citation"
+    },
+    {
+      "name": "Virtualization Migration Solution",
+      "description": "Architecture guide presenting the VMware-exit story with a clear modernization and migration path. Supports migrating and modernizing VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/54-virtualization-migration-solution",
+      "kind": "citation"
+    },
+    {
+      "name": "Mission Critical Application Platform",
+      "description": "Architecture guide for application modernization conversations demonstrating improved reliability after modernization. Supports scalability and high availability.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/51-mission-critical-platform",
+      "kind": "citation"
+    },
+    {
+      "name": "Adopting Cloud for Application Workloads",
+      "description": "Architecture guide focusing on workload portability and compliance management through automation. Supports standardizing and automating OS across the hybrid cloud and workload portability on a multi-hybrid cloud.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/2-adopting-cloud-for-application-workloads",
+      "kind": "citation"
+    },
+    {
+      "name": "Hybrid Multicloud Management with GitOps",
+      "description": "Architecture guide presenting GitOps as the approach to equally manage workloads regardless of the infrastructure they run on. Supports workload portability in a multi-hybrid cloud.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/8-hybrid-multicloud-management-with-gitops",
+      "kind": "citation"
+    },
+    {
+      "name": "Virtual Machine Management with GitOps",
+      "description": "Architecture guide showing how the full lifecycle of VMs can be automated just as any other workload. Supports workload portability in a multi-hybrid cloud, scalability and high availability.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/113-virtual-machine-management-gitops",
+      "kind": "citation"
+    },
+    {
+      "name": "Virtualization Migration Solution Demo",
+      "description": "Interactive video demo providing a straightforward modernization before/after story highlighting the VMware to OpenShift Virtualization path. Supports migrating and modernizing VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/64-migrate-vm-demo",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat OpenShift Virtualization Demo",
+      "description": "Interactive video demo focused on consolidation and cost-efficiency, simplifying operations and moving off legacy virtualization. Supports migrating and modernizing VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/57-openshift-virtualization-demo",
+      "kind": "citation"
+    },
+    {
+      "name": "Migrate VMs from VMware to Red Hat OpenShift",
+      "description": "Interactive video demo emphasizing a clean migration workflow from VMware to OpenShift. Supports migrating and modernizing VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/84-migrate-vms-vmware-openshift-demo",
+      "kind": "citation"
+    },
+    {
+      "name": "Some Reasons to Migrate to OpenShift Virtualization",
+      "description": "Interactive experience providing a clear explainer on why to move off legacy virtualization, covering cost, consistency, and simpler operations. Supports migrating and modernizing VMs.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/102-migrate-to-openshift-virtualization",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat OpenShift Service on AWS (ROSA)",
+      "description": "Interactive experience for teams modernizing apps and infrastructure into cloud-managed OpenShift.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/87-red-hat-openshift-service-aws-rosa",
+      "kind": "citation"
+    }
+  ],
+  "assets": [
+    {
+      "name": "modernize-infrastructure-play-icon",
+      "description": "Visual icon representing the infrastructure modernization sales play concept.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-server",
+      "fontWeight": "900"
+    },
+    {
+      "name": "modernize-infrastructure-play-alpha-icon",
+      "description": "Visual icon representing the infrastructure modernization play positioning lifecycle.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-building",
+      "fontWeight": "900"
+    }
+  ],
+  "assetNames": [
+    {
+      "assetName": "modernize-infrastructure-play-icon",
+      "type": "icon"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Modernize Infrastructure",
+      "description": "Tracks the positioning lifecycle of the Modernize Infrastructure play from initial customer lens application through deal advancement.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "orchestrates",
+          "alphaName": "Technical Decision Point",
+          "direction": "outgoing",
+          "description": "The play orchestrates three infrastructure-focused TDPs (Server/Cloud OS, Virtualization, Container Management) into a coherent modernization stack."
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Competitive Position",
+          "direction": "outgoing",
+          "description": "The play leverages competitive positioning against hyperscaler lock-in and proprietary virtualization vendors to differentiate Red Hat's open hybrid cloud approach."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "modernize-infrastructure-play-alpha-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Selected",
+          "description": "Infrastructure modernization situation understood through play's lens.",
+          "seq": 1,
+          "contributesToState": "Selected",
+          "background": {
+            "given": [
+              "Seller has completed Modernize Infrastructure play awareness training",
+              "Customer account has been identified as having infrastructure modernization or VM migration initiatives"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Pain identified from infrastructure modernization taxonomy",
+              "description": "Pain identified from infrastructure modernization taxonomy (legacy maintenance costs, rising VM/cloud costs, compliance drift, vendor lock-in).",
+              "seq": 1
+            },
+            {
+              "name": "Desired outcomes mapped to play outcome framework",
+              "description": "Desired outcomes mapped to play outcome framework (standardize infrastructure, reduce costs, improve security, increase flexibility).",
+              "seq": 2
+            },
+            {
+              "name": "Business impact quantified using play impact categories",
+              "description": "Business impact quantified using play impact categories (faster innovation, lower total cost, reduced risk, greater flexibility).",
+              "seq": 3
+            },
+            {
+              "name": "Customer references matched by industry and modernization type",
+              "description": "Customer references matched by industry and modernization type (CAE, Ford, Emirates NBD, Suncorp).",
+              "seq": 4
+            },
+            {
+              "name": "Infrastructure portfolio assessed",
+              "description": "Infrastructure portfolio assessed including VM count, cloud footprint, and legacy proportion.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Activated",
+          "description": "Infrastructure decision-makers engaged with tailored messaging.",
+          "seq": 2,
+          "contributesToState": "Activated",
+          "background": {
+            "given": [
+              "Customer Lens has been applied with infrastructure pain and outcomes identified",
+              "At least one target persona has been identified in the account"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "CIO/Head of IT Strategy engaged",
+              "description": "CIO/Head of IT Strategy engaged on legacy cost reduction and innovation funding reallocation.",
+              "seq": 1
+            },
+            {
+              "name": "VP Infrastructure/IT Operations engaged",
+              "description": "VP Infrastructure/IT Operations engaged on VM and cloud cost optimization and operational simplification.",
+              "seq": 2
+            },
+            {
+              "name": "CTO/Head of Platform Engineering engaged",
+              "description": "CTO/Head of Platform Engineering engaged on scalable architecture and cloud spend control.",
+              "seq": 3
+            },
+            {
+              "name": "Persona-specific discovery questions asked",
+              "description": "Persona-specific discovery questions asked and responses documented.",
+              "seq": 4
+            },
+            {
+              "name": "Current reality validated against play challenge taxonomy",
+              "description": "Current reality validated against play challenge taxonomy (budget consumed by legacy maintenance, skills gaps, rising complexity).",
+              "seq": 5
+            },
+            {
+              "name": "Champion identified among engaged infrastructure decision-makers",
+              "description": "Champion identified among engaged infrastructure decision-makers.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Executing",
+          "description": "Infrastructure TDPs identified and aligned to customer modernization landscape.",
+          "seq": 3,
+          "contributesToState": "Executing",
+          "background": {
+            "given": [
+              "At least one infrastructure persona is engaged with validated pain points",
+              "Customer's technology decision landscape has been explored"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Server/Cloud OS tactics aligned to customer needs",
+              "description": "Server/Cloud OS tactics aligned to customer needs (standardize OS, migrate to cloud, deploy new apps on RHEL).",
+              "seq": 1
+            },
+            {
+              "name": "Virtualization tactics aligned to VM migration requirements",
+              "description": "Virtualization tactics aligned to VM migration and modernization requirements.",
+              "seq": 2
+            },
+            {
+              "name": "Container Management tactics aligned if containerization in scope",
+              "description": "Container Management tactics aligned if containerization is in scope for the customer.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-TDP infrastructure solution narrative connects layers",
+              "description": "Multi-TDP infrastructure solution narrative connects OS standardization, VM migration, and container management layers.",
+              "seq": 4
+            },
+            {
+              "name": "Migration pathway defined",
+              "description": "Migration pathway defined covering VM consolidation, cloud migration, and containerization roadmap.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Measured",
+          "description": "Red Hat's infrastructure modernization value articulated through value driver framework.",
+          "seq": 4,
+          "contributesToState": "Measured",
+          "background": {
+            "given": [
+              "TDP alignment is established with relevant infrastructure technology areas identified",
+              "Customer has expressed interest in understanding Red Hat's specific infrastructure value"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Cost value driver quantified",
+              "description": "Cost value driver quantified (reduced VM licensing costs, cloud spend optimization, infrastructure consolidation savings).",
+              "seq": 1
+            },
+            {
+              "name": "Complexity value driver demonstrated",
+              "description": "Complexity value driver demonstrated (consistent user and operational experience across all footprints, unified hybrid management).",
+              "seq": 2
+            },
+            {
+              "name": "Choice value driver positioned",
+              "description": "Choice value driver positioned (open-source foundation, no vendor lock-in, workload portability across on-premise and cloud).",
+              "seq": 3
+            },
+            {
+              "name": "Customer reference stories shared",
+              "description": "Customer reference stories shared matching customer's industry and modernization scale (Emirates NBD 9K VMs, CAE hybrid multicloud).",
+              "seq": 4
+            },
+            {
+              "name": "Business case constructed with infrastructure metrics",
+              "description": "Business case constructed with infrastructure cost reduction and migration metrics.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Customer engagement has progressed to active infrastructure evaluation or proposal.",
+          "seq": 5,
+          "contributesToState": "Optimized",
+          "background": {
+            "given": [
+              "Value proposition resonates with at least one infrastructure champion",
+              "Infrastructure modernization business case has been presented"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Next steps agreed",
+              "description": "Next steps agreed (migration assessment workshop, infrastructure POC, or phased migration plan).",
+              "seq": 1
+            },
+            {
+              "name": "VM migration and modernization pathways presented",
+              "description": "VM migration and modernization pathways presented with clear milestones and risk mitigation.",
+              "seq": 2
+            },
+            {
+              "name": "Deal registered and pipeline attributed",
+              "description": "Deal registered and pipeline attributed to Modernize Infrastructure play.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive positioning defended",
+              "description": "Competitive positioning defended against hyperscaler native services and proprietary virtualization alternatives.",
+              "seq": 4
+            },
+            {
+              "name": "Assessment and migration services aligned",
+              "description": "Assessment and migration services aligned to customer's modernization timeline.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Modernize Infrastructure Play Context and Rationale",
+          "description": "Why the Modernize Infrastructure play matters within the three-level go-to-market framework.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Enterprise infrastructure organizations face a converging set of pressures -- legacy systems consuming 60-80% of IT budgets, rising virtualization costs from proprietary vendors implementing aggressive licensing changes, security compliance drift across fragmented hybrid environments, and vendor lock-in preventing workload flexibility across deployment targets."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The Modernize Infrastructure play must equip sellers to diagnose infrastructure pain points, engage CIO/VP Infrastructure/CTO personas with tailored discovery, align three infrastructure TDPs (Server/Cloud OS, Virtualization, Container Management) to the customer's modernization landscape, and articulate value through infrastructure-specific cost, complexity, and choice drivers."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Sellers apply the infrastructure Customer Lens to assess VM inventory, cloud footprint, and legacy proportion. They engage infrastructure decision-makers with persona-specific discovery questions, construct multi-TDP solution narratives connecting OS standardization through VM migration to container adoption, and present phased modernization journeys substantiated by customer references like Emirates NBD and CAE."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Structured infrastructure play execution creates multi-TDP deal opportunities where OS standardization leads to virtualization migration and container adoption, generating expansion revenue and deepening technology adoption across the customer's infrastructure stack."
+            }
+          ],
+          "citationNames": [
+            "Modernize Infrastructure Sales Play",
+            "Sales Plays, TDPs and Sales Tactics",
+            "Virtualization Migration Solution",
+            "Mission Critical Application Platform",
+            "Adopting Cloud for Application Workloads",
+            "Hybrid Multicloud Management with GitOps",
+            "Virtual Machine Management with GitOps",
+            "Virtualization Migration Solution Demo",
+            "Red Hat OpenShift Virtualization Demo",
+            "Migrate VMs from VMware to Red Hat OpenShift",
+            "Some Reasons to Migrate to OpenShift Virtualization",
+            "Red Hat OpenShift Service on AWS (ROSA)"
+          ]
+        },
+        {
+          "name": "Modernize Infrastructure Practice Intent",
+          "description": "The end-to-end narrative of the infrastructure modernization sales play from customer discovery through deal advancement and expansion.",
+          "narrativeTypeName": "Sales Engagement Journey",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "Enterprise customers face a convergence of infrastructure challenges -- aging legacy systems consuming maintenance budgets, rising virtualization and cloud costs from proprietary vendors, security and compliance drift across fragmented environments, and vendor lock-in limiting workload flexibility. The Modernize Infrastructure play equips sellers with a structured Customer Lens to diagnose these pain points and map them to desired outcomes around cost reduction, risk mitigation, and operational flexibility."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Validate",
+              "context": "The play validates Red Hat's infrastructure modernization positioning through a three-TDP technology stack -- Server/Cloud OS for OS standardization and cloud migration, Virtualization for VM migration and consolidation, and Container Management for modern workload deployment. This layered approach creates a phased modernization journey that addresses immediate migration needs while establishing a path to cloud-native operations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Propose",
+              "context": "Value articulation centers on three infrastructure-specific value drivers -- Cost (reduced VM and cloud spend through consolidation and open-source economics), Complexity (consistent user and operational experience across all footprints), and Choice (workload portability across on-premise, cloud, and edge without vendor lock-in). Customer references like Emirates NBD (9,000+ VMs migrated) and CAE (standardized hybrid multicloud) substantiate each driver."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Negotiate",
+              "context": "Infrastructure modernization deals progress through migration assessment workshops, proof-of-concept deployments, and phased migration plans that reduce risk and demonstrate value incrementally. The three-TDP alignment enables sellers to present a comprehensive infrastructure transformation while allowing customers to adopt components at their own pace."
+            },
+            {
+              "seq": 5,
+              "narrativeElementName": "Close",
+              "context": "Deal advancement integrates infrastructure assessment services, migration tooling, and partner ecosystem solutions into a commercially structured modernization program. Pipeline attribution to the Modernize Infrastructure play enables measurement of infrastructure-focused go-to-market effectiveness."
+            },
+            {
+              "seq": 6,
+              "narrativeElementName": "Expand",
+              "context": "Successful infrastructure modernization creates expansion pathways -- OS standardization leads to virtualization migration, which leads to container adoption, creating a natural multi-TDP expansion motion. Performance measurement across the three infrastructure TDPs identifies which modernization pathways generate the highest expansion rates."
+            }
+          ],
+          "citationNames": [
+            "Modernize Infrastructure Sales Play"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Play",
+      "kind": "alpha"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Infrastructure Modernization Playbook",
+      "description": "Execution guide for infrastructure modernization positioning covering Customer Lens, personas, and TDP alignment.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Basic infrastructure pain, outcomes, and business impact.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Infrastructure pain points listed",
+              "description": "Infrastructure pain points listed (legacy costs, VM/cloud costs, compliance drift, vendor lock-in).",
+              "seq": 1
+            },
+            {
+              "name": "Desired outcomes stated",
+              "description": "Desired outcomes stated (standardize infrastructure, reduce costs, improve security, increase flexibility).",
+              "seq": 2
+            },
+            {
+              "name": "Business impact categories identified",
+              "description": "Business impact categories identified (faster innovation, lower total cost, reduced risk, greater flexibility).",
+              "seq": 3
+            },
+            {
+              "name": "Infrastructure customer references listed",
+              "description": "Infrastructure customer references listed by industry and modernization type.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Selected"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Structured playbook with infrastructure persona profiles and discovery questions.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "CIO/IT Strategy persona profiled",
+              "description": "CIO/IT Strategy persona profiled with infrastructure-specific priorities and discovery questions.",
+              "seq": 1
+            },
+            {
+              "name": "VP Infrastructure/IT Ops persona profiled",
+              "description": "VP Infrastructure/IT Ops persona profiled with VM cost and operational complexity focus.",
+              "seq": 2
+            },
+            {
+              "name": "CTO/Platform Engineering persona profiled",
+              "description": "CTO/Platform Engineering persona profiled with scalable architecture and cloud spend priorities.",
+              "seq": 3
+            },
+            {
+              "name": "Infrastructure customer references matched to persona pain points",
+              "description": "Infrastructure customer references matched to persona pain points and industries.",
+              "seq": 4
+            },
+            {
+              "name": "Infrastructure value drivers structured",
+              "description": "Infrastructure value drivers structured with capability-to-benefit narratives.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Activated"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive",
+          "description": "Complete guide with infrastructure TDP alignment and tactic navigation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Three-TDP tactic alignment populated",
+              "description": "Server/Cloud OS, Virtualization, and Container Management TDP-tactic alignment populated.",
+              "seq": 1
+            },
+            {
+              "name": "Multi-TDP infrastructure solution narrative documented",
+              "description": "Multi-TDP infrastructure solution narrative documented (OS to VM to container journey).",
+              "seq": 2
+            },
+            {
+              "name": "Infrastructure competitive positioning integrated",
+              "description": "Infrastructure competitive positioning integrated per TDP area.",
+              "seq": 3
+            },
+            {
+              "name": "Assessment and migration services documented",
+              "description": "Assessment and migration services documented with engagement models.",
+              "seq": 4
+            },
+            {
+              "name": "Campaign alignment and CRM integration guidance included",
+              "description": "Campaign alignment and CRM integration guidance for infrastructure play included.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Executing"
+            },
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Measured"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Data-driven playbook with infrastructure performance metrics and best practices.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Infrastructure play pipeline KPIs tracked",
+              "description": "Infrastructure play pipeline KPIs tracked and analyzed.",
+              "seq": 1
+            },
+            {
+              "name": "Infrastructure TDP-tactic combination effectiveness data integrated",
+              "description": "Infrastructure TDP-tactic combination effectiveness data integrated.",
+              "seq": 2
+            },
+            {
+              "name": "Top performer infrastructure selling best practices codified",
+              "description": "Top performer infrastructure selling best practices codified.",
+              "seq": 3
+            },
+            {
+              "name": "Migration pathway effectiveness analytics operational",
+              "description": "Migration and modernization pathway effectiveness analytics operational.",
+              "seq": 4
+            },
+            {
+              "name": "Continuous optimization recommendations included",
+              "description": "Continuous optimization recommendations for infrastructure play included.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "mapsTo": "Sales Play Execution Guide",
+      "kind": "workProduct"
+    },
+    {
+      "name": "Infrastructure Customer Reference Package",
+      "description": "Curated infrastructure modernization customer success stories matched to infrastructure personas and challenges.",
+      "levelsOfDetail": [
+        {
+          "name": "Reference List",
+          "description": "Basic list of infrastructure modernization references with outcomes.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Infrastructure customer names listed",
+              "description": "Infrastructure customer names listed with industry and modernization type.",
+              "seq": 1
+            },
+            {
+              "name": "One-line outcome summary per reference",
+              "description": "One-line outcome summary per reference (CAE: hybrid multicloud, Ford: stability, Emirates NBD: 9K VMs, Suncorp: compliance).",
+              "seq": 2
+            },
+            {
+              "name": "Geographic region and infrastructure scale noted",
+              "description": "Geographic region and infrastructure scale noted per reference.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Selected"
+            }
+          ]
+        },
+        {
+          "name": "Structured Reference Package",
+          "description": "Organized infrastructure references with detailed case studies.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Full infrastructure case studies with STAR narrative structure",
+              "description": "Full infrastructure case studies with STAR narrative structure.",
+              "seq": 1
+            },
+            {
+              "name": "References organized by modernization type",
+              "description": "References organized by modernization type (VM migration, OS standardization, hybrid cloud, compliance).",
+              "seq": 2
+            },
+            {
+              "name": "Quantified infrastructure outcomes highlighted",
+              "description": "Quantified infrastructure outcomes highlighted (VM count migrated, cost savings, compliance improvements).",
+              "seq": 3
+            },
+            {
+              "name": "Suggested usage context mapped",
+              "description": "Suggested usage context mapped to infrastructure personas and TDP areas.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Activated"
+            },
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Measured"
+            }
+          ]
+        },
+        {
+          "name": "Persona-Matched Reference Package",
+          "description": "References mapped to infrastructure personas and decision criteria.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "References matched to infrastructure personas",
+              "description": "References matched to CIO (cost reduction), VP Infra (operational simplification), and CTO (architecture) personas.",
+              "seq": 1
+            },
+            {
+              "name": "Presentation-ready reference slides prepared",
+              "description": "Presentation-ready reference slides for infrastructure decision-makers.",
+              "seq": 2
+            },
+            {
+              "name": "Reference customer willingness noted",
+              "description": "Reference customer willingness for infrastructure-specific calls and site visits noted.",
+              "seq": 3
+            },
+            {
+              "name": "Infrastructure benchmark data compiled",
+              "description": "Infrastructure benchmark data compiled (migration timelines, cost savings, uptime improvements).",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Measured"
+            },
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Infrastructure Dashboard",
+      "description": "Analytics artifact tracking infrastructure modernization play pipeline, conversion, and adoption metrics.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic",
+          "description": "Simple pipeline and activity tracking for infrastructure play.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Infrastructure play pipeline generated tracked",
+              "description": "Infrastructure play pipeline generated tracked.",
+              "seq": 1
+            },
+            {
+              "name": "Seller adoption of infrastructure play content monitored",
+              "description": "Seller adoption of infrastructure play content monitored.",
+              "seq": 2
+            },
+            {
+              "name": "Infrastructure content usage metrics captured",
+              "description": "Infrastructure content usage metrics captured across three TDPs.",
+              "seq": 3
+            },
+            {
+              "name": "Basic win/loss tracking implemented",
+              "description": "Basic win/loss tracking for infrastructure-attributed deals implemented.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Optimized"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Level",
+          "description": "Dashboard tracking infrastructure metrics across play, TDP, and tactic levels.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Play-level infrastructure metrics tracked",
+              "description": "Play-level: infrastructure pipeline, win rate, deal size, migration scope metrics.",
+              "seq": 1
+            },
+            {
+              "name": "TDP-level technology win rates tracked",
+              "description": "TDP-level: Server/Cloud OS, Virtualization, Container Management technology win rates.",
+              "seq": 2
+            },
+            {
+              "name": "Tactic-level infrastructure metrics tracked",
+              "description": "Tactic-level: infrastructure tactic engagement rate, conversion, and attributed pipeline.",
+              "seq": 3
+            },
+            {
+              "name": "Cohort analysis by region and modernization type",
+              "description": "Cohort analysis by region and infrastructure modernization type.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Optimized"
+            }
+          ]
+        },
+        {
+          "name": "Correlated",
+          "description": "Dashboard with cross-level infrastructure correlation and trend analysis.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Infrastructure TDP-tactic combination effectiveness analysis",
+              "description": "Infrastructure TDP-tactic combination effectiveness analysis (which infrastructure pathways convert best).",
+              "seq": 1
+            },
+            {
+              "name": "Phased modernization pattern analytics",
+              "description": "Phased modernization pattern analytics (OS to VM to container adoption rates).",
+              "seq": 2
+            },
+            {
+              "name": "Infrastructure competitive outcome tracking",
+              "description": "Infrastructure competitive outcome tracking by competitor type (hyperscalers, proprietary virtualization).",
+              "seq": 3
+            },
+            {
+              "name": "Seller readiness impact on infrastructure play performance",
+              "description": "Seller readiness impact on infrastructure play performance metrics.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Optimized"
+            }
+          ]
+        },
+        {
+          "name": "Predictive",
+          "description": "Infrastructure modernization performance dashboard with predictive analytics for pipeline forecasting and play optimization.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Predictive Infrastructure Analytics",
+              "description": "Dashboard incorporates predictive models for infrastructure modernization pipeline forecasting.",
+              "seq": 1
+            },
+            {
+              "name": "Automated Modernization Optimization",
+              "description": "System generates data-driven recommendations for infrastructure modernization play improvement.",
+              "seq": 2
+            },
+            {
+              "name": "Cross-TDP Infrastructure Correlation",
+              "description": "Dashboard correlates play performance across Server Cloud OS, Virtualization, and Container Management TDP metrics.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "mapsTo": "Play Performance Dashboard",
+      "kind": "workProduct"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Infrastructure Play Lead",
+      "description": "Senior seller responsible for orchestrating Modernize Infrastructure play execution.",
+      "competencies": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Infrastructure Modernization",
+          "Hybrid Cloud"
+        ],
+        "lifecycleTags": [
+          "Discovery",
+          "Validation",
+          "Proposal"
+        ],
+        "organizationalTags": [
+          "Field Sales",
+          "Account Management"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Infrastructure TDP Specialist",
+      "description": "Technology domain expert for infrastructure TDPs including Server/Cloud OS, Virtualization, and Container Management.",
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Infrastructure Modernization",
+          "VM Migration",
+          "Virtualization",
+          "Container Management"
+        ],
+        "lifecycleTags": [
+          "Technical Validation",
+          "Demonstration",
+          "Proof of Value"
+        ],
+        "organizationalTags": [
+          "Technical Sales",
+          "Specialist Sales"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Infrastructure Play Execution Team",
+      "description": "Cross-functional team executing the Modernize Infrastructure play combining play strategy and infrastructure TDP expertise.",
+      "personaNames": [
+        "Infrastructure Play Lead",
+        "Infrastructure TDP Specialist"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Field Sales",
+          "Technical Sales",
+          "Customer Engagement"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Apply Infrastructure Customer Lens",
+      "description": "Use the Modernize Infrastructure Customer Lens to diagnose customer infrastructure pain and outcomes.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Customer account has been identified with infrastructure modernization or VM migration initiatives",
+          "Seller has access to Modernize Infrastructure play content and Customer Lens framework"
+        ]
+      },
+      "test": {
+        "name": "Infrastructure Customer Lens application verification",
+        "description": "Verify that infrastructure pain diagnosis is complete and documented.",
+        "when": [
+          "A new infrastructure modernization opportunity is identified in account research",
+          "Account research reveals customer priorities aligned with infrastructure modernization themes"
+        ],
+        "then": [
+          "Customer infrastructure pain is classified using play's taxonomy (legacy costs, VM/cloud costs, compliance drift, lock-in)",
+          "Business impact is quantified using infrastructure-specific categories",
+          "Industry-relevant infrastructure customer references are identified for sharing"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Modernize Infrastructure",
+          "stateName": "Selected"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Initial"
+        },
+        {
+          "workProductName": "Infrastructure Customer Reference Package",
+          "levelOfDetailName": "Reference List"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "involves": [
+        "Infrastructure Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Apply Infrastructure Customer Lens",
+          "description": "Technique guidance for applying the infrastructure Customer Lens to diagnose customer pain.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "The seller begins an infrastructure modernization engagement by applying the play's structured Customer Lens, which organizes the customer's infrastructure world into four categories -- pain points, desired outcomes, business impact, and real-world examples from comparable infrastructure transformations."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The seller maps customer-stated and observed infrastructure challenges to the play's pain taxonomy, connects priorities to outcome categories, and quantifies business impact using the play's infrastructure-specific framework. Customer references are matched by industry, scale, and modernization type."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Apply the Customer Lens during initial account research and discovery conversations. Assess the customer's infrastructure portfolio including VM count, cloud footprint, and legacy proportion. Document which infrastructure pain points resonate most strongly and where gaps exist for further discovery."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A documented infrastructure Customer Lens analysis that feeds persona engagement and TDP alignment activities, with quantified business impact and matched customer references ready for sharing."
+            }
+          ],
+          "citationNames": [
+            "Modernize Infrastructure Sales Play"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Engage Infrastructure Decision-Makers",
+      "description": "Initiate and develop relationships with infrastructure decision-makers using persona-tailored discovery and messaging.",
+      "activitySpaceName": "Discover Customer Needs",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Customer Lens has been applied with infrastructure pain and outcomes identified",
+          "At least one target infrastructure persona has been identified in the account"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Modernize Infrastructure Play",
+            "stateName": "Selected"
+          }
+        ]
+      },
+      "test": {
+        "name": "Infrastructure persona engagement verification",
+        "description": "Verify that key infrastructure decision-makers are engaged with tailored messaging.",
+        "when": [
+          "Discovery identifies individuals matching infrastructure persona profiles (CIO, VP Infra, CTO)"
+        ],
+        "then": [
+          "Persona-specific discovery questions generate productive responses about infrastructure challenges",
+          "Current reality is validated against play's infrastructure challenge taxonomy",
+          "A champion is identified among engaged infrastructure decision-makers"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Modernize Infrastructure",
+          "stateName": "Activated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Relationship Building"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Relationship Building",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Infrastructure Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Engage Infrastructure Decision-Makers",
+          "description": "Technique guidance for persona-tailored infrastructure discovery.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "The Modernize Infrastructure play defines three key infrastructure personas, each with distinct priorities -- CIO/Head of IT Strategy focused on legacy cost reduction and innovation funding, VP Infrastructure/IT Operations focused on VM and cloud cost optimization, and CTO/Head of Platform Engineering focused on scalable architecture and cloud spend control."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Prepare persona-specific call plans using infrastructure discovery questions. Research individuals using available tools. Lead with discovery questions from the play rather than product pitches, listening for language that maps to infrastructure current reality descriptions."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Engage each persona with tailored infrastructure messaging. Validate budget consumption by legacy maintenance, skills gaps in modern infrastructure, and rising operational complexity. Sequence conversations starting with the technical influencer, validating with the infrastructure sponsor, and engaging the economic buyer with quantified infrastructure cost arguments."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Multi-stakeholder engagement pattern established with documented persona responses, validated infrastructure pain points, and an identified champion among infrastructure decision-makers."
+            }
+          ],
+          "citationNames": [
+            "Modernize Infrastructure Sales Play"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Align Infrastructure TDPs to Customer Technology Decisions",
+      "description": "Map the customer's infrastructure evaluation landscape to Server/Cloud OS, Virtualization, and Container Management TDPs.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Persona engagement has revealed specific infrastructure technology decisions the customer is making",
+          "The three infrastructure TDPs and their tactic structures are understood"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Modernize Infrastructure Play",
+            "stateName": "Activated"
+          }
+        ]
+      },
+      "test": {
+        "name": "Infrastructure TDP alignment verification",
+        "description": "Verify that infrastructure TDPs are aligned to customer technology decisions.",
+        "when": [
+          "Customer conversations identify technology areas matching infrastructure TDP domains (OS, virtualization, containers)"
+        ],
+        "then": [
+          "Server/Cloud OS tactics are matched to customer OS standardization and cloud migration needs",
+          "Virtualization tactics are matched to VM migration and consolidation requirements",
+          "Container Management tactics are aligned if containerization is in the customer's roadmap",
+          "A phased infrastructure modernization narrative connects the three TDP layers"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Modernize Infrastructure",
+          "stateName": "Executing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Comprehensive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Infrastructure Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Align Infrastructure TDPs",
+          "description": "Technique guidance for mapping customer technology decisions to infrastructure TDPs.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "The Modernize Infrastructure play is powered by three TDPs that form a layered infrastructure modernization stack. Server/Cloud OS provides OS standardization and cloud migration. Virtualization provides VM migration and consolidation. Container Management provides modern workload deployment."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Assess the customer's infrastructure technology decision landscape against the play's three-TDP alignment. Determine which TDPs are relevant based on the customer's active decisions, timelines, and evaluation scope."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Navigate the TDP-to-tactic alignment for each relevant infrastructure area. For a customer struggling with VM sprawl, align Virtualization tactics. For OS fragmentation, align Server/Cloud OS tactics. Construct the multi-TDP narrative as a phased modernization journey -- OS standardization leads to VM migration leads to container adoption."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "An infrastructure TDP alignment map with prioritized technology areas, matched tactics, and a multi-TDP solution narrative presenting a phased modernization journey for the customer."
+            }
+          ],
+          "citationNames": [
+            "Modernize Infrastructure Sales Play",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Articulate Infrastructure Modernization Value",
+      "description": "Construct and present Red Hat's infrastructure value proposition using cost, complexity, and choice value drivers.",
+      "activitySpaceName": "Articulate Business Value",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Infrastructure TDP alignment is established with relevant technology areas identified",
+          "Customer has expressed interest in understanding Red Hat's infrastructure value proposition"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Modernize Infrastructure Play",
+            "stateName": "Executing"
+          }
+        ]
+      },
+      "test": {
+        "name": "Infrastructure value articulation verification",
+        "description": "Verify that infrastructure value drivers are articulated with domain-specific evidence.",
+        "when": [
+          "Discovery transitions to value articulation and the customer requests specific infrastructure value justification"
+        ],
+        "then": [
+          "Cost driver is quantified with infrastructure-specific savings (VM licensing reduction, cloud spend optimization, consolidation)",
+          "Complexity driver demonstrates consistent operational experience across all footprints",
+          "Choice driver positions open-source workload portability against vendor lock-in",
+          "Infrastructure customer references substantiate each value driver claim"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Modernize Infrastructure",
+          "stateName": "Measured"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Comprehensive"
+        },
+        {
+          "workProductName": "Infrastructure Customer Reference Package",
+          "levelOfDetailName": "Structured Reference Package"
+        }
+      ],
+      "requiredCompetencies": [
+        "Value Articulation",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Infrastructure Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Articulate Infrastructure Modernization Value",
+          "description": "Technique guidance for presenting infrastructure value drivers with evidence.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "The Modernize Infrastructure play structures Red Hat's infrastructure advantage around three value drivers tailored to infrastructure modernization -- Cost addresses VM licensing reduction, cloud spend optimization, and infrastructure consolidation savings. Complexity addresses consistent user and operational experience across on-premise, cloud, and edge footprints. Choice addresses open-source foundation, workload portability, and freedom from vendor lock-in."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Customize each infrastructure value driver with customer-specific data from discovery. Quantify cost savings using the customer's current VM licensing costs, cloud spend, and maintenance budget data. Demonstrate complexity reduction through unified hybrid management."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Present infrastructure value drivers with supporting customer references -- Emirates NBD migrated 9,000+ VMs demonstrating cost value, CAE standardized hybrid multicloud demonstrating complexity reduction, Suncorp achieved multicloud compliance demonstrating choice and risk reduction. Build toward a quantified infrastructure business case."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A compelling infrastructure value proposition connecting three value drivers with domain-specific evidence and a quantified business case for infrastructure modernization."
+            }
+          ],
+          "citationNames": [
+            "Modernize Infrastructure Sales Play"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Execute Infrastructure Multi-TDP Solution Engagement",
+      "description": "Construct and deliver the three-TDP infrastructure modernization solution narrative connecting OS, virtualization, and container layers.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Customer's infrastructure needs span multiple technology domains within the play",
+          "TDP alignment has identified 2+ relevant infrastructure technology areas"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Modernize Infrastructure Play",
+            "stateName": "Executing"
+          }
+        ]
+      },
+      "test": {
+        "name": "Infrastructure multi-TDP engagement verification",
+        "description": "Verify that the phased infrastructure modernization narrative is coherent and compelling.",
+        "when": [
+          "TDP alignment identifies multiple relevant infrastructure technology areas for the customer"
+        ],
+        "then": [
+          "Server/Cloud OS, Virtualization, and Container Management TDPs are connected in a phased modernization journey",
+          "Cross-TDP dependencies are mapped for the customer's infrastructure environment",
+          "A multi-product infrastructure solution architecture is presented"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Modernize Infrastructure",
+          "stateName": "Executing"
+        },
+        {
+          "alphaName": "Modernize Infrastructure",
+          "stateName": "Measured"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Comprehensive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Value Articulation",
+        "Deal Orchestration"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Infrastructure Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Execute Infrastructure Multi-TDP Solution Engagement",
+          "description": "Technique guidance for constructing phased multi-TDP infrastructure narratives.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Infrastructure modernization engagements frequently span multiple technology domains -- a customer migrating from proprietary virtualization needs OS standardization, VM migration tooling, and a path to containerized workloads for future applications."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Construct a layered infrastructure solution narrative connecting Server/Cloud OS (OS standardization and cloud migration), Virtualization (VM migration and consolidation), and Container Management (modern workload deployment) into a phased modernization journey."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Present the phased modernization journey -- standardize on RHEL across infrastructure (Server/Cloud OS), migrate existing VMs from proprietary hypervisors (Virtualization), and adopt containers for new and modernized workloads (Container Management). Coordinate infrastructure TDP specialists for technology-specific depth in each area."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A coherent multi-TDP infrastructure solution architecture that presents modernization as a managed journey with clear phases, enabling the customer to adopt components at their own pace while maintaining a clear path to full infrastructure modernization."
+            }
+          ],
+          "citationNames": [
+            "Modernize Infrastructure Sales Play",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Advance Infrastructure Modernization Deal",
+      "description": "Convert validated infrastructure value into deal commitment with migration assessment, services alignment, and next steps.",
+      "activitySpaceName": "Manage the Deal",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Infrastructure value proposition has been articulated and resonates with at least one champion",
+          "Infrastructure modernization business case has been constructed with cost and migration metrics"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Modernize Infrastructure Play",
+            "stateName": "Measured"
+          }
+        ]
+      },
+      "test": {
+        "name": "Infrastructure deal advancement verification",
+        "description": "Verify that infrastructure engagement has progressed to active evaluation.",
+        "when": [
+          "Customer expresses interest in next steps after infrastructure value presentation"
+        ],
+        "then": [
+          "Concrete next steps are agreed (migration assessment, infrastructure workshop, or proof of concept)",
+          "Deal is registered with pipeline attributed to Modernize Infrastructure play",
+          "Competitive positioning is defended against hyperscaler and virtualization alternatives"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Modernize Infrastructure",
+          "stateName": "Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Comprehensive"
+        },
+        {
+          "workProductName": "Infrastructure Customer Reference Package",
+          "levelOfDetailName": "Persona-Matched Reference Package"
+        },
+        {
+          "workProductName": "Infrastructure Dashboard",
+          "levelOfDetailName": "Basic"
+        }
+      ],
+      "requiredCompetencies": [
+        "Deal Orchestration",
+        "Value Articulation",
+        "Competitive Intelligence"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Infrastructure Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Advance Infrastructure Modernization Deal",
+          "description": "Technique guidance for converting infrastructure value into deal commitment.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Infrastructure modernization deals require conversion of validated value into concrete next steps that manage the customer's migration risk while demonstrating incremental value."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Secure agreement on next steps -- migration assessment workshops to quantify VM inventory and migration complexity, infrastructure POCs to validate technology fit, or phased migration plans with clear milestones and fallback options."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Present VM migration and modernization pathways with risk mitigation. Defend competitive positioning against hyperscaler native services and proprietary virtualization alternatives. Align assessment and migration services to the customer's modernization timeline. Register deal and attribute pipeline to the Modernize Infrastructure play."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Customer engagement progresses to active infrastructure evaluation with agreed next steps, registered deal, and services alignment -- creating a structured path from assessment through migration to full infrastructure modernization."
+            }
+          ],
+          "citationNames": [
+            "Modernize Infrastructure Sales Play"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Measure Infrastructure Play Performance",
+      "description": "Track infrastructure play performance metrics and use analytics to optimize infrastructure modernization effectiveness.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "Infrastructure play has been activated and field execution is generating measurable data",
+          "Infrastructure performance measurement infrastructure is operational"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "Modernize Infrastructure Play",
+            "stateName": "Optimized"
+          }
+        ]
+      },
+      "test": {
+        "name": "Infrastructure play performance measurement verification",
+        "description": "Verify that infrastructure play metrics are tracked and optimization insights are generated.",
+        "when": [
+          "Infrastructure play has been in field execution for at least one measurement cycle"
+        ],
+        "then": [
+          "Infrastructure pipeline, win rate, and deal size metrics are tracked",
+          "Infrastructure TDP-tactic combination effectiveness is analyzed",
+          "Optimization recommendations are generated for infrastructure play content and positioning"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Modernize Infrastructure",
+          "stateName": "Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Infrastructure Dashboard",
+          "levelOfDetailName": "Multi-Level"
+        },
+        {
+          "workProductName": "Infrastructure Dashboard",
+          "levelOfDetailName": "Correlated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Infrastructure Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "How to Measure Infrastructure Play Performance",
+          "description": "Technique guidance for tracking and optimizing infrastructure play metrics.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Infrastructure play effectiveness requires multi-level performance tracking across play-level pipeline metrics, infrastructure TDP win rates, and tactic-level conversion data."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement infrastructure-specific performance measurement covering pipeline generated by play, technology win rates for Server/Cloud OS, Virtualization, and Container Management, and tactic engagement and conversion rates for infrastructure challenge conversations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Conduct cross-level correlation analysis to identify which infrastructure TDP-tactic combinations drive the highest conversion rates. Analyze phased modernization adoption patterns (OS to VM to container) to understand expansion pathways. Track competitive outcomes against hyperscalers and proprietary virtualization vendors."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Data-driven optimization of infrastructure play content, competitive positioning, and seller enablement based on multi-level performance analytics and cross-TDP correlation insights."
+            }
+          ],
+          "citationNames": [
+            "Modernize Infrastructure Sales Play"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Infrastructure Modernization Sales Lifecycle",
+      "description": "End-to-end lifecycle coordinating infrastructure modernization play execution from customer lens through deal advancement.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Initial conditions before infrastructure play execution.",
+          "seq": 0,
+          "alphaStates": [],
+          "activities": [],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "Before engaging customers on infrastructure modernization, sellers must complete infrastructure play awareness training, review the Customer Lens framework, and understand the three-TDP infrastructure stack and its positioning content."
+            }
+          ]
+        },
+        {
+          "name": "Discovery",
+          "description": "Apply Customer Lens and engage infrastructure personas.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Selected"
+            },
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Activated"
+            }
+          ],
+          "activities": [
+            "Apply Infrastructure Customer Lens",
+            "Engage Infrastructure Decision-Makers"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The seller applies the infrastructure Customer Lens to diagnose the customer's infrastructure pain -- legacy costs, rising VM expenses, compliance drift, and vendor lock-in. Infrastructure decision-makers (CIO, VP Infrastructure, CTO) are engaged with persona-tailored discovery questions to validate pain and identify champions."
+            }
+          ]
+        },
+        {
+          "name": "Technology Alignment",
+          "description": "Map customer's infrastructure decisions to TDPs and construct phased modernization narrative.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Executing"
+            }
+          ],
+          "activities": [
+            "Align Infrastructure TDPs to Customer Technology Decisions",
+            "Execute Infrastructure Multi-TDP Solution Engagement"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Validate",
+              "context": "The seller maps the customer's infrastructure technology decisions to Server/Cloud OS, Virtualization, and Container Management TDPs. A phased modernization narrative is constructed connecting OS standardization through VM migration to container adoption, creating a coherent infrastructure transformation story."
+            }
+          ]
+        },
+        {
+          "name": "Value and Validation",
+          "description": "Articulate infrastructure value through cost, complexity, and choice drivers.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Measured"
+            }
+          ],
+          "activities": [
+            "Articulate Infrastructure Modernization Value"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Propose",
+              "context": "The seller presents Red Hat's infrastructure value through three domain-specific drivers -- cost reduction through VM consolidation and open-source economics, complexity reduction through consistent hybrid management, and choice preservation through workload portability. Customer references (Emirates NBD, CAE, Suncorp) substantiate each value claim with infrastructure-specific evidence."
+            }
+          ]
+        },
+        {
+          "name": "Deal Advancement",
+          "description": "Convert validated infrastructure value into deal commitment.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Modernize Infrastructure",
+              "stateName": "Optimized"
+            }
+          ],
+          "activities": [
+            "Advance Infrastructure Modernization Deal",
+            "Measure Infrastructure Play Performance"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Close",
+              "context": "The seller converts validated infrastructure value into concrete next steps -- migration assessment workshops, infrastructure POCs, or phased migration plans. Deals are registered with pipeline attributed to the Modernize Infrastructure play, and performance measurement tracks infrastructure-specific conversion and expansion rates."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Expand",
+              "context": "Successful infrastructure modernization creates natural expansion -- OS standardization leads to virtualization migration leads to container adoption, generating multi-TDP expansion revenue and deepening technology adoption across the customer's infrastructure stack."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Technical Decision Point",
+      "aliasName": "TDP"
+    }
+  ],
+  "kind": "practice",
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Server Cloud OS TDP",
+      "versionRange": "^1.0.9"
+    },
+    {
+      "documentName": "Virtualization TDP",
+      "versionRange": "^1.0.9"
+    },
+    {
+      "documentName": "Container Management TDP",
+      "versionRange": "^1.0.9"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard Modernize Infrastructure",
+      "description": "Reference Modernize Infrastructure play instance with customer-facing and qualification materials",
+      "alphaName": "Modernize Infrastructure",
+      "stateName": "Activated",
+      "links": [
+        {
+          "name": "Modernize Infrastructure Sales Play Hub Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DC3q74qgbTRcXGfG7Rg88hpcTRVj"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Standard Infrastructure Modernization Playbook",
+          "description": "Standard instance of Infrastructure Modernization Playbook with curated enablement content",
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Comprehensive",
+          "links": [
+            {
+              "name": "Customer Facing Deck - Modernize Infrastructure (Source)",
+              "uri": "https://docs.google.com/presentation/d/1XYOs3vQOiPJqMla1T5gS7lUt3s2ll6oy-BYg9MUJySM/edit"
+            },
+            {
+              "name": "Customer Facing Deck - Modernize Infrastructure",
+              "uri": "https://saleshub.redhat.com/Link/Content/DC8bd4mDJPfC8GCDQJ4BdhX8fXbG"
+            },
+            {
+              "name": "Personas and Discovery Questions - Modernize Infrastructure (Source)",
+              "uri": "https://docs.google.com/presentation/d/1yPMWgAepDZUJWFrFsh8v9l-nvoEiNZ4TXdmT4ytiT50/edit"
+            },
+            {
+              "name": "Personas and Discovery Questions - Modernize Infrastructure",
+              "uri": "https://saleshub.redhat.com/Link/Content/DC6QdTJCBgHgpGTMhcRm2hbTBCB8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Red Hat Go-to-Market Framework",
+      "description": "Framework documentation defining the three-level go-to-market structure (Sales Plays, TDPs, Sales Tactics) and the play revamp that positions Modernize Infrastructure within the broader sales motion.",
+      "alphaName": "Modernize Infrastructure",
+      "stateName": "Selected",
+      "links": [
+        {
+          "name": "Sales Plays, TDPs and Sales Tactics",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//"
+        },
+        {
+          "name": "Sales Play Revamp",
+          "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Modernize Infrastructure Framework Overview",
+          "description": "Initial playbook content showing how the Modernize Infrastructure play fits within the three-level go-to-market hierarchy.",
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Initial",
+          "links": [
+            {
+              "name": "Sales Plays, TDPs and Sales Tactics",
+              "uri": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Modernize Infrastructure Play Guide",
+      "description": "Complete Sales Play documentation for infrastructure modernization covering Customer Lens, persona frameworks, value drivers, and TDP alignment.",
+      "alphaName": "Modernize Infrastructure",
+      "stateName": "Activated",
+      "links": [
+        {
+          "name": "Modernize Infrastructure Sales Play",
+          "uri": "https://saleshub.redhat.com"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Modernize Infrastructure Execution Guide",
+          "description": "Comprehensive playbook with customer lens application, persona-tailored messaging, and TDP alignment for infrastructure modernization engagements.",
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Comprehensive",
+          "links": [
+            {
+              "name": "Modernize Infrastructure Sales Play",
+              "uri": "https://saleshub.redhat.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "VMware Migration and Modernization",
+      "description": "Architecture guides and interactive demos covering the VMware-exit story with clear migration paths from legacy virtualization to OpenShift Virtualization, including cost, consistency, and operational simplicity.",
+      "alphaName": "Modernize Infrastructure",
+      "stateName": "Executing",
+      "links": [
+        {
+          "name": "Virtualization Migration Solution Architecture Guide",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/54-virtualization-migration-solution"
+        },
+        {
+          "name": "Virtualization Migration Solution Demo",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/64-migrate-vm-demo"
+        },
+        {
+          "name": "Red Hat OpenShift Virtualization Demo",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/57-openshift-virtualization-demo"
+        },
+        {
+          "name": "Migrate VMs from VMware to Red Hat OpenShift Demo",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/84-migrate-vms-vmware-openshift-demo"
+        },
+        {
+          "name": "Some Reasons to Migrate to OpenShift Virtualization",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/102-migrate-to-openshift-virtualization"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "VMware Migration Content Suite",
+          "description": "Comprehensive collection of migration architecture patterns and interactive demonstrations covering the complete VMware to OpenShift Virtualization migration journey.",
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Comprehensive",
+          "links": [
+            {
+              "name": "Virtualization Migration Solution Architecture Guide",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/54-virtualization-migration-solution"
+            },
+            {
+              "name": "Virtualization Migration Solution Demo",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/64-migrate-vm-demo"
+            },
+            {
+              "name": "Some Reasons to Migrate to OpenShift Virtualization",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/102-migrate-to-openshift-virtualization"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mission Critical Platform Modernization",
+      "description": "Architecture guide demonstrating improved reliability after infrastructure modernization for mission-critical application platforms with high availability and scalability.",
+      "alphaName": "Modernize Infrastructure",
+      "stateName": "Executing",
+      "links": [
+        {
+          "name": "Mission Critical Application Platform Architecture Guide",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/51-mission-critical-platform"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Mission Critical Platform Modernization Guide",
+          "description": "Structured architecture pattern for modernizing mission-critical infrastructure with improved reliability, scalability, and high availability.",
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Structured",
+          "links": [
+            {
+              "name": "Mission Critical Application Platform Architecture Guide",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/51-mission-critical-platform"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cloud Workload Portability",
+      "description": "Architecture guides covering workload portability and compliance management through automation, GitOps-based hybrid multicloud management, and automated VM lifecycle management across hybrid cloud environments.",
+      "alphaName": "Modernize Infrastructure",
+      "stateName": "Executing",
+      "links": [
+        {
+          "name": "Adopting Cloud for Application Workloads",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/2-adopting-cloud-for-application-workloads"
+        },
+        {
+          "name": "Hybrid Multicloud Management with GitOps",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/8-hybrid-multicloud-management-with-gitops"
+        },
+        {
+          "name": "Virtual Machine Management with GitOps",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/113-virtual-machine-management-gitops"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Cloud Portability Architecture Guides",
+          "description": "Structured architecture patterns for workload portability, GitOps-based hybrid cloud management, and automated VM lifecycle across multi-hybrid cloud.",
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Structured",
+          "links": [
+            {
+              "name": "Adopting Cloud for Application Workloads",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/2-adopting-cloud-for-application-workloads"
+            },
+            {
+              "name": "Hybrid Multicloud Management with GitOps",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/8-hybrid-multicloud-management-with-gitops"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cloud-Managed OpenShift Infrastructure",
+      "description": "Interactive experience for teams modernizing applications and infrastructure into cloud-managed OpenShift through Red Hat OpenShift Service on AWS (ROSA).",
+      "alphaName": "Modernize Infrastructure",
+      "stateName": "Executing",
+      "links": [
+        {
+          "name": "Red Hat OpenShift Service on AWS (ROSA)",
+          "uri": "https://www.redhat.com/architect/portfolio/detail/87-red-hat-openshift-service-aws-rosa"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "ROSA Cloud Infrastructure Experience",
+          "description": "Structured interactive experience demonstrating cloud-managed OpenShift infrastructure modernization path on AWS.",
+          "workProductName": "Infrastructure Modernization Playbook",
+          "levelOfDetailName": "Structured",
+          "links": [
+            {
+              "name": "Red Hat OpenShift Service on AWS (ROSA)",
+              "uri": "https://www.redhat.com/architect/portfolio/detail/87-red-hat-openshift-service-aws-rosa"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

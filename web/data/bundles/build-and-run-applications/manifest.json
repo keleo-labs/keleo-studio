@@ -1,0 +1,292 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "build-and-run-applications",
+    "version": "1.0.0",
+    "description": "build-and-run-applications",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/build-and-run-applications.json",
+      "documentType": "practice",
+      "documentName": "Build and Run Applications",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.10",
+        "description": "Positions Red Hat for application modernization and developer productivity deals through the Build and Run Applications Customer Lens and orchestration of app-focused TDPs.",
+        "tags": {
+          "domainTags": [
+            "Application Modernization",
+            "Cloud-Native Development",
+            "Platform Engineering",
+            "Developer Productivity"
+          ],
+          "lifecycleTags": [
+            "Discovery",
+            "Validation",
+            "Proposal"
+          ],
+          "organizationalTags": [
+            "Field Sales",
+            "Technical Sales",
+            "Developer Advocacy"
+          ]
+        },
+        "keywords": [
+          "application-modernization",
+          "cloud-native",
+          "developer-productivity",
+          "platform-engineering",
+          "ci-cd",
+          "app-delivery",
+          "legacy-migration",
+          "container-platform",
+          "devex",
+          "build-run"
+        ],
+        "elementCount": 62,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    },
+    {
+      "path": "documents/red-hat-sales-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Red Hat Sales Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "A foundational baseline practice defining the core ontology for enterprise technology sales, encompassing customer value articulation, solution alignment, and sales execution lifecycle management.",
+        "tags": {
+          "domainTags": [
+            "Enterprise Sales",
+            "Subscription Economics",
+            "Value Selling",
+            "Solution Architecture",
+            "Customer Success",
+            "Competitive Intelligence",
+            "Sales Enablement"
+          ],
+          "lifecycleTags": [
+            "Discovery",
+            "Validation",
+            "Proposal",
+            "Negotiation",
+            "Closing",
+            "Renewal",
+            "Expansion"
+          ],
+          "organizationalTags": [
+            "Field Sales",
+            "Technical Sales",
+            "Sales Operations",
+            "Customer Success",
+            "Partner Channel",
+            "Sales Enablement",
+            "Go-to-Market Strategy"
+          ]
+        },
+        "keywords": [
+          "enterprise-sales",
+          "subscription-economics",
+          "value-selling",
+          "consultative-selling",
+          "pipeline-management",
+          "customer-success",
+          "competitive-positioning",
+          "solution-architecture",
+          "sales-enablement",
+          "go-to-market"
+        ],
+        "elementCount": 434,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/sales-play-framework.json",
+      "documentType": "practice",
+      "documentName": "Sales Play Framework",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.2",
+        "description": "A comprehensive practice for designing, executing, and optimizing the three-level go-to-market framework connecting Sales Plays, Technical Decision Points, and Sales Tactics into a coherent selling system.",
+        "tags": {
+          "domainTags": [
+            "Go-to-Market Strategy",
+            "Sales Enablement",
+            "Competitive Intelligence",
+            "Technical Sales"
+          ],
+          "lifecycleTags": [
+            "Discovery",
+            "Activation",
+            "Execution",
+            "Measurement",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Go-to-Market Strategy",
+            "Sales Enablement",
+            "Product Marketing",
+            "Field Sales",
+            "Sales Operations"
+          ]
+        },
+        "keywords": [
+          "sales-play",
+          "technical-decision-point",
+          "sales-tactic",
+          "go-to-market",
+          "three-level-framework",
+          "competitive-positioning",
+          "customer-engagement",
+          "framework-alignment",
+          "play-optimization"
+        ],
+        "elementCount": 174,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    },
+    {
+      "path": "documents/app-platform-tdp.json",
+      "documentType": "practice",
+      "documentName": "App Platform TDP",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.8",
+        "description": "Provides developer platform positioning with three tactics covering app optimization, developer experience/platform engineering, and secure software supply chain.",
+        "tags": {
+          "domainTags": [
+            "Application Platform",
+            "Developer Experience",
+            "Platform Engineering",
+            "Software Supply Chain",
+            "Application Modernization"
+          ],
+          "lifecycleTags": [
+            "Technical Validation",
+            "Platform Design",
+            "Developer Onboarding"
+          ],
+          "organizationalTags": [
+            "Technical Sales",
+            "Solution Architecture",
+            "Developer Advocacy"
+          ]
+        },
+        "keywords": [
+          "application-platform",
+          "developer-experience",
+          "platform-engineering",
+          "software-supply-chain",
+          "openshift",
+          "application-modernization",
+          "internal-developer-platform",
+          "CI-CD",
+          "container-platform",
+          "developer-productivity"
+        ],
+        "elementCount": 180,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    },
+    {
+      "path": "documents/ai-platform-tdp.json",
+      "documentType": "practice",
+      "documentName": "AI Platform TDP",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.6",
+        "description": "Provides AI/ML platform technical positioning with five tactics covering inference, sovereign AI, production AI, agentic AI, and NVIDIA partnership solutions.",
+        "tags": {
+          "domainTags": [
+            "AI/ML Platform",
+            "Model Serving",
+            "AI Infrastructure",
+            "GenAI"
+          ],
+          "lifecycleTags": [
+            "Technical Validation",
+            "Platform Design",
+            "Production Deployment"
+          ],
+          "organizationalTags": [
+            "Technical Sales",
+            "AI/ML Specialists",
+            "Solution Architects"
+          ]
+        },
+        "keywords": [
+          "ai-platform",
+          "model-serving",
+          "inference",
+          "sovereign-ai",
+          "production-ai",
+          "agentic-ai",
+          "nvidia-ai-factory",
+          "mlops",
+          "gpu-infrastructure",
+          "ai-positioning"
+        ],
+        "elementCount": 229,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    },
+    {
+      "path": "documents/automation-tdp.json",
+      "documentType": "practice",
+      "documentName": "Automation TDP",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.8",
+        "description": "Provides Ansible Automation Platform positioning with four tactics covering enterprise automation, IT ops optimization, AIOps, and network automation.",
+        "tags": {
+          "domainTags": [
+            "IT Automation",
+            "Infrastructure as Code",
+            "AIOps",
+            "Network Automation"
+          ],
+          "lifecycleTags": [
+            "Technical Validation",
+            "Positioning",
+            "Execution"
+          ],
+          "organizationalTags": [
+            "Technical Sales",
+            "Solution Architects",
+            "Automation Specialists"
+          ]
+        },
+        "keywords": [
+          "automation",
+          "ansible",
+          "ansible-automation-platform",
+          "event-driven-automation",
+          "network-automation",
+          "aiops",
+          "infrastructure-as-code",
+          "it-operations",
+          "enterprise-automation",
+          "tdp"
+        ],
+        "elementCount": 212,
+        "associatedBaselineName": "Red Hat Sales Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-08-06"
+      }
+    }
+  ]
+}

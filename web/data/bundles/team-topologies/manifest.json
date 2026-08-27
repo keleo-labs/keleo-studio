@@ -1,0 +1,231 @@
+{
+  "schemaVersion": "2.0.0",
+  "package": {
+    "name": "team-topologies",
+    "version": "1.0.0",
+    "description": "team-topologies",
+    "authors": [
+      "Keleo"
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/team-topologies.json",
+      "documentType": "method",
+      "documentName": "Team Topologies",
+      "entryPoint": true,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Organizational design methodology enabling fast flow through team types, interaction modes, cognitive load management, and continuous organizational sensing.",
+        "tags": {
+          "domainTags": [
+            "Organizational Design",
+            "Platform Engineering",
+            "DevOps"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Evolution",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Executive Leadership",
+            "Platform Team",
+            "Stream-Aligned Team",
+            "Enabling Team"
+          ]
+        },
+        "keywords": [],
+        "elementCount": 273,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": ""
+      }
+    },
+    {
+      "path": "documents/platform-adoption-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Platform Adoption Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "2.0.1",
+        "description": "The Platform Adoption Essentials baseline establishes the universal foundation for platform transformations, extending the Project Essentials baseline with platform-specific concerns across the three Areas of Concern.",
+        "tags": {
+          "domainTags": [],
+          "lifecycleTags": [],
+          "organizationalTags": []
+        },
+        "keywords": [
+          "platform",
+          "adoption",
+          "kernel"
+        ],
+        "elementCount": 125,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2023-10-25T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/team-structure-cognitive-load.json",
+      "documentType": "practice",
+      "documentName": "Team Structure & Cognitive Load",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Team design framework focused on cognitive load management, team types, and interaction modes to enable fast flow through intentional organizational structure.",
+        "tags": {
+          "domainTags": [
+            "Organizational Design",
+            "Team Effectiveness",
+            "Platform Engineering"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Evolution"
+          ],
+          "organizationalTags": [
+            "Executive Leadership",
+            "Platform Team",
+            "Stream-Aligned Team",
+            "Enabling Team"
+          ]
+        },
+        "keywords": [
+          "team topology",
+          "cognitive load",
+          "team types",
+          "team structure",
+          "stream-aligned team",
+          "platform team",
+          "enabling team",
+          "complicated subsystem team",
+          "interaction modes",
+          "team API",
+          "organizational design",
+          "team effectiveness"
+        ],
+        "elementCount": 199,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-10"
+      }
+    },
+    {
+      "path": "documents/organizational-evolution-sensing.json",
+      "documentType": "practice",
+      "documentName": "Organizational Evolution & Sensing",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Organizational design framework enabling continuous topology adaptation through sensing mechanisms and platform as product approach.",
+        "tags": {
+          "domainTags": [
+            "Organizational Design",
+            "Platform Engineering"
+          ],
+          "lifecycleTags": [
+            "Evolution",
+            "Optimization"
+          ],
+          "organizationalTags": [
+            "Executive Leadership",
+            "Platform Team"
+          ]
+        },
+        "keywords": [
+          "organizational sensing",
+          "organizational change",
+          "cognitive load",
+          "platform as product",
+          "organizational evolution",
+          "cybernetic feedback"
+        ],
+        "elementCount": 71,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-10T00:00:00Z"
+      }
+    },
+    {
+      "path": "documents/team-topologies-lifecycle.json",
+      "documentType": "practice",
+      "documentName": "Team Topologies Lifecycle",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.1",
+        "description": "Orchestration practice coordinating team structure design with organizational evolution through Team Topologies patterns and terminology unification.",
+        "tags": {
+          "domainTags": [
+            "Organizational Design",
+            "Platform Engineering"
+          ],
+          "lifecycleTags": [
+            "Adoption",
+            "Evolution"
+          ],
+          "organizationalTags": [
+            "Executive Leadership"
+          ]
+        },
+        "keywords": [
+          "team topology lifecycle",
+          "organizational evolution",
+          "topology coordination",
+          "TVP adoption",
+          "interaction patterns"
+        ],
+        "elementCount": 0,
+        "associatedBaselineName": "Platform Adoption Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-10"
+      }
+    },
+    {
+      "path": "documents/project-essentials.json",
+      "documentType": "practiceBaseline",
+      "documentName": "Project Essentials",
+      "entryPoint": false,
+      "meta": {
+        "documentVersion": "1.0.3",
+        "description": "The Project Essentials baseline establishes the universal foundation for project management, organized into three areas of concern: Value, Solution, and Endeavor.",
+        "tags": {
+          "domainTags": [
+            "Project Management",
+            "Agile",
+            "Governance",
+            "Stakeholder Management",
+            "Team Management"
+          ],
+          "lifecycleTags": [
+            "Initiation",
+            "Planning",
+            "Execution",
+            "Closure",
+            "Benefits Realization"
+          ],
+          "organizationalTags": [
+            "Project Team",
+            "PMO",
+            "Governance Board",
+            "Stakeholder Community"
+          ]
+        },
+        "keywords": [
+          "project management",
+          "agile",
+          "PMBOK",
+          "Essence",
+          "SMART objectives",
+          "team",
+          "stakeholders",
+          "way of working"
+        ],
+        "elementCount": 455,
+        "associatedBaselineName": "Project Essentials",
+        "updatedAt": "2026-08-16",
+        "createdAt": "2026-07-24"
+      }
+    }
+  ]
+}

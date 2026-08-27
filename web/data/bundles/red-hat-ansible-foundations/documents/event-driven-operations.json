@@ -1,0 +1,2879 @@
+{
+  "kind": "practice",
+  "name": "Event-Driven Operations",
+  "description": "Implement reactive automation using event rulebooks and decision environments to enable self-healing infrastructure operations with reduced MTTR.",
+  "baselinePracticeName": "Infrastructure Automation Essentials",
+  "tags": {
+    "domainTags": [
+      "Event-Driven Architecture",
+      "Operations",
+      "Site Reliability Engineering"
+    ],
+    "lifecycleTags": [
+      "Optimization",
+      "Operations"
+    ],
+    "organizationalTags": [
+      "SRE Team",
+      "Operations"
+    ]
+  },
+  "keywords": [
+    "event-driven",
+    "EDA",
+    "rulebooks",
+    "self-healing",
+    "remediation",
+    "event sources",
+    "decision environments",
+    "reactive automation",
+    "MTTR",
+    "event correlation"
+  ],
+  "authors": [
+    "Red Hat Ansible Foundations Practice Team"
+  ],
+  "createdAt": "2026-07-24",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.1",
+  "narratives": [
+    {
+      "name": "Transforming Manual Incident Response into Self-Healing Infrastructure Operations",
+      "description": "How event-driven automation transforms reactive manual operations into proactive self-healing infrastructure management.",
+      "narrativeTypeName": "The STAR Format",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Situation",
+          "context": "Organizations managing infrastructure at scale face constant alerts from monitoring systems, requiring operations teams to manually assess each incident, determine the appropriate remediation playbook, and execute corrective actions -- a process measured in minutes to hours that does not scale."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Task",
+          "context": "The operations team must connect infrastructure event streams to automation decisions, author conditional rulebooks that match event patterns to remediation actions, and build custom decision environments packaging specialized event source plugins -- progressively moving from simple webhook triggers to sophisticated stateful event correlation."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Action",
+          "context": "Event-Driven Ansible integrates monitoring systems, message queues, and cloud provider event buses through EDA controller rulebook activations that continuously process events using the Drools decision framework, with in-flight event persistence ensuring no events are lost during controller restarts, while custom decision environments package the specific plugins and dependencies required for each event domain."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Result",
+          "context": "Self-healing operations auto-remediate common incident patterns with documented success rates exceeding eighty percent, escalation rules trigger human intervention only for complex or novel events, and post-incident reports are generated automatically -- reducing MTTR from hours to seconds while freeing operations teams to focus on strategic reliability improvements."
+        }
+      ],
+      "citationNames": [
+        "Using Automation Decisions",
+        "Event-Driven Ansible",
+        "What is an Ansible Rulebook?",
+        "Getting Started with Event-Driven Ansible"
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "Using Automation Decisions",
+      "description": "Official documentation for configuring and operating Event-Driven Ansible automation decisions in AAP 2.7.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/",
+      "kind": "citation"
+    },
+    {
+      "name": "Event-Driven Ansible",
+      "description": "Product overview page describing Event-Driven Ansible capabilities for reactive infrastructure automation.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Technologies",
+      "url": "https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible",
+      "kind": "citation"
+    },
+    {
+      "name": "What is an Ansible Rulebook?",
+      "description": "Explanation of Ansible rulebook structure, syntax, and event-to-action mapping concepts.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Topics",
+      "url": "https://www.redhat.com/en/topics/automation/what-is-an-ansible-rulebook",
+      "kind": "citation"
+    },
+    {
+      "name": "Getting Started with Event-Driven Ansible",
+      "description": "Tutorial guide for initial Event-Driven Ansible setup, rulebook creation, and decision environment configuration in AAP 2.7.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/",
+      "kind": "citation"
+    },
+    {
+      "name": "Red Hat Ansible Automation Platform Product Page",
+      "description": "Overview of the complete Ansible Automation Platform including event-driven automation capabilities.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Technologies",
+      "url": "https://www.redhat.com/en/technologies/management/ansible/",
+      "kind": "citation"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Platform Asset",
+      "description": "The individual reusable automation code units -- modules, roles, collections, cookbooks, formulas, providers -- that practitioners create, publish, and compose to automate specific infrastructure patterns. These are the codified building blocks of infrastructure automation, analogous to software libraries in application development.",
+      "focusName": "Solution",
+      "states": [
+        {
+          "name": "Identified",
+          "description": "The need for a specific automation artifact is identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Recurring infrastructure pattern identified that warrants codification as a reusable module",
+              "description": "Recurring infrastructure pattern identified that warrants codification as a reusable module",
+              "seq": 1
+            },
+            {
+              "name": "Organizational requirement for standardized automation of a specific resource type documented",
+              "description": "Organizational requirement for standardized automation of a specific resource type documented",
+              "seq": 2
+            },
+            {
+              "name": "Existing community modules evaluated for suitability (Terraform Registry, Ansible Galaxy, Puppet Forge)",
+              "description": "Existing community modules evaluated for suitability (Terraform Registry, Ansible Galaxy, Puppet Forge)",
+              "seq": 3
+            },
+            {
+              "name": "Build-vs-reuse decision documented with rationale",
+              "description": "Build-vs-reuse decision documented with rationale",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Specified",
+          "description": "The automation artifact's interface, dependencies, and expected behaviors are defined.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Input variables, output values, and default parameters explicitly defined",
+              "description": "Input variables, output values, and default parameters explicitly defined",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies on other modules, providers, or platform versions declared",
+              "description": "Dependencies on other modules, providers, or platform versions declared",
+              "seq": 2
+            },
+            {
+              "name": "Supported platforms and cloud providers documented",
+              "description": "Supported platforms and cloud providers documented",
+              "seq": 3
+            },
+            {
+              "name": "Expected behaviors and edge cases specified with acceptance criteria",
+              "description": "Expected behaviors and edge cases specified with acceptance criteria",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "The automation artifact is developed, tested, and published.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Automation code authored following organizational coding standards",
+              "description": "Automation code authored following organizational coding standards",
+              "seq": 1
+            },
+            {
+              "name": "Unit and integration tests passing (Terratest, Molecule, InSpec, Test Kitchen)",
+              "description": "Unit and integration tests passing (Terratest, Molecule, InSpec, Test Kitchen)",
+              "seq": 2
+            },
+            {
+              "name": "Artifact published to module registry (private or public)",
+              "description": "Artifact published to module registry (private or public)",
+              "seq": 3
+            },
+            {
+              "name": "Version tagged and release notes documented",
+              "description": "Version tagged and release notes documented",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Integrated",
+          "description": "The automation artifact is successfully integrated into automation workflows.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Artifact integrated into consuming team codebases and CI/CD pipelines",
+              "description": "Artifact integrated into consuming team codebases and CI/CD pipelines",
+              "seq": 1
+            },
+            {
+              "name": "Compatibility with organizational standards validated (naming, tagging, security)",
+              "description": "Compatibility with organizational standards validated (naming, tagging, security)",
+              "seq": 2
+            },
+            {
+              "name": "Integration tests passing in target environments",
+              "description": "Integration tests passing in target environments",
+              "seq": 3
+            },
+            {
+              "name": "Consumer documentation updated with integration examples",
+              "description": "Consumer documentation updated with integration examples",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Operational",
+          "description": "The automation artifact is in active use across multiple teams and projects.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Usage metrics collected (download counts, deployment frequency, consuming teams)",
+              "description": "Usage metrics collected (download counts, deployment frequency, consuming teams)",
+              "seq": 1
+            },
+            {
+              "name": "Issue tracking and bug reporting workflow established",
+              "description": "Issue tracking and bug reporting workflow established",
+              "seq": 2
+            },
+            {
+              "name": "Version management and backward compatibility policy in place",
+              "description": "Version management and backward compatibility policy in place",
+              "seq": 3
+            },
+            {
+              "name": "Support channel available for consuming teams",
+              "description": "Support channel available for consuming teams",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Value Yielding",
+          "description": "The automation artifact demonstrably delivers measurable organizational value.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Adoption metrics prove value (reduced provisioning time, eliminated errors, enforced standards)",
+              "description": "Adoption metrics prove value (reduced provisioning time, eliminated errors, enforced standards)",
+              "seq": 1
+            },
+            {
+              "name": "Artifact actively reduces toil across multiple teams",
+              "description": "Artifact actively reduces toil across multiple teams",
+              "seq": 2
+            },
+            {
+              "name": "ROI quantified through operational metrics",
+              "description": "ROI quantified through operational metrics",
+              "seq": 3
+            },
+            {
+              "name": "Artifact recognized as organizational standard for its infrastructure pattern",
+              "description": "Artifact recognized as organizational standard for its infrastructure pattern",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Retiring",
+          "description": "The automation artifact is being deprecated and replaced.",
+          "seq": 7,
+          "checklist": [
+            {
+              "name": "Successor artifact identified and validated as replacement",
+              "description": "Successor artifact identified and validated as replacement",
+              "seq": 1
+            },
+            {
+              "name": "Consumer migration plan communicated with timeline and guidance",
+              "description": "Consumer migration plan communicated with timeline and guidance",
+              "seq": 2
+            },
+            {
+              "name": "Deprecation warnings added to artifact documentation and registry listing",
+              "description": "Deprecation warnings added to artifact documentation and registry listing",
+              "seq": 3
+            },
+            {
+              "name": "Retired artifact archived after all consumers migrated",
+              "description": "Retired artifact archived after all consumers migrated",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "relatesTo": [
+        {
+          "alphaName": "Platform Value And Economics",
+          "relationship": "realizes",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Opportunity",
+          "relationship": "addresses",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform",
+          "relationship": "consumes",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Managed Asset",
+          "relationship": "defines",
+          "direction": "outgoing"
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Asset Governance",
+      "description": "The portfolio-level maturity of how managed assets are governed across the infrastructure estate. Tracks the organizational journey from ad-hoc, manual infrastructure management to fully autonomous, self-healing operations. Explicitly NOT about individual asset lifecycle (that is Managed Asset) -- this is about the maturity and sophistication of the governance system applied across the entire infrastructure portfolio.",
+      "focusName": "Endeavor",
+      "states": [
+        {
+          "name": "Unmanaged",
+          "description": "Infrastructure exists but is not under IaC control.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Resources provisioned manually, through ad-hoc scripts, or via cloud console click-ops",
+              "description": "Resources provisioned manually, through ad-hoc scripts, or via cloud console click-ops",
+              "seq": 1
+            },
+            {
+              "name": "No comprehensive inventory of infrastructure assets exists",
+              "description": "No comprehensive inventory of infrastructure assets exists",
+              "seq": 2
+            },
+            {
+              "name": "No defined ownership or lifecycle management for infrastructure resources",
+              "description": "No defined ownership or lifecycle management for infrastructure resources",
+              "seq": 3
+            },
+            {
+              "name": "Shadow IT and zombie resources are common and untracked",
+              "description": "Shadow IT and zombie resources are common and untracked",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Inventoried",
+          "description": "Assets cataloged with attributes and metadata captured.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Discovery tools active and scanning infrastructure estate (cloud APIs, network scans, CMDB agents)",
+              "description": "Discovery tools active and scanning infrastructure estate (cloud APIs, network scans, CMDB agents)",
+              "seq": 1
+            },
+            {
+              "name": "Resource ownership assigned with basic metadata recorded (type, location, cost, owner, creation date)",
+              "description": "Resource ownership assigned with basic metadata recorded (type, location, cost, owner, creation date)",
+              "seq": 2
+            },
+            {
+              "name": "Coverage gap analysis quantifies percentage of infrastructure under management",
+              "description": "Coverage gap analysis quantifies percentage of infrastructure under management",
+              "seq": 3
+            },
+            {
+              "name": "The organization can reliably answer What infrastructure do we have?",
+              "description": "The organization can reliably answer What infrastructure do we have?",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Codified",
+          "description": "Desired state declared in IaC for all significant managed assets.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Significant majority of infrastructure defined in version-controlled automation code",
+              "description": "Significant majority of infrastructure defined in version-controlled automation code",
+              "seq": 1
+            },
+            {
+              "name": "New resources provisioned through code by default (IaC-first policy)",
+              "description": "New resources provisioned through code by default (IaC-first policy)",
+              "seq": 2
+            },
+            {
+              "name": "Existing resources progressively imported into state management",
+              "description": "Existing resources progressively imported into state management",
+              "seq": 3
+            },
+            {
+              "name": "Infrastructure code serves as the authoritative source of truth for configuration",
+              "description": "Infrastructure code serves as the authoritative source of truth for configuration",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Converged",
+          "description": "Actual state matches desired state across the infrastructure portfolio.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Drift detection runs on defined schedules (hourly for volatile, daily for stable environments)",
+              "description": "Drift detection runs on defined schedules (hourly for volatile, daily for stable environments)",
+              "seq": 1
+            },
+            {
+              "name": "Deviations identified, classified by severity, and remediated through defined workflows",
+              "description": "Deviations identified, classified by severity, and remediated through defined workflows",
+              "seq": 2
+            },
+            {
+              "name": "Reconciliation windows collect drift events for batched review and remediation",
+              "description": "Reconciliation windows collect drift events for batched review and remediation",
+              "seq": 3
+            },
+            {
+              "name": "Gap between declared and actual state systematically minimized across the estate",
+              "description": "Gap between declared and actual state systematically minimized across the estate",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Governed",
+          "description": "Policy-as-Code enforced across the entire infrastructure estate.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Every change evaluated against codified organizational, security, and compliance policies",
+              "description": "Every change evaluated against codified organizational, security, and compliance policies",
+              "seq": 1
+            },
+            {
+              "name": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory)",
+              "description": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory)",
+              "seq": 2
+            },
+            {
+              "name": "Automated compliance reporting generates evidence for audits",
+              "description": "Automated compliance reporting generates evidence for audits",
+              "seq": 3
+            },
+            {
+              "name": "Cost governance, security baselines, and regulatory requirements machine-enforced via OPA/Sentinel/Kyverno",
+              "description": "Cost governance, security baselines, and regulatory requirements machine-enforced via OPA/Sentinel/Kyverno",
+              "seq": 4
+            }
+          ]
+        },
+        {
+          "name": "Self-Healing",
+          "description": "Auto-remediation active with autonomous convergence within defined boundaries.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "AI-driven anomaly detection identifies emerging problems before they cause incidents",
+              "description": "AI-driven anomaly detection identifies emerging problems before they cause incidents",
+              "seq": 1
+            },
+            {
+              "name": "Automated remediation resolves known failure patterns (tiered: auto-fix low-risk, auto-ticket medium-risk, page-human high-risk)",
+              "description": "Automated remediation resolves known failure patterns (tiered: auto-fix low-risk, auto-ticket medium-risk, page-human high-risk)",
+              "seq": 2
+            },
+            {
+              "name": "Predictive maintenance anticipates and prevents failures proactively",
+              "description": "Predictive maintenance anticipates and prevents failures proactively",
+              "seq": 3
+            },
+            {
+              "name": "Event-driven correction and zero-touch operations are the norm within defined operational boundaries",
+              "description": "Event-driven correction and zero-touch operations are the norm within defined operational boundaries",
+              "seq": 4
+            }
+          ]
+        }
+      ],
+      "relatesTo": [
+        {
+          "alphaName": "Platform Governance",
+          "relationship": "extends",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Managed Asset",
+          "relationship": "governed by",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Platform Risk And Compliance",
+          "relationship": "enforces",
+          "direction": "outgoing"
+        },
+        {
+          "alphaName": "Way Of Working",
+          "relationship": "informed by",
+          "direction": "incoming"
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Managed Asset",
+      "description": "An individual infrastructure resource -- a server, virtual machine, container, network device, cloud resource, database, DNS record, certificate, or any other discrete infrastructure component -- tracked through its complete lifecycle from discovery through decommissioning. Represents the thing being managed by the automation system, as opposed to the automation system itself (Platform) or the automation code used to manage it (Platform Asset).",
+      "focusName": "Solution",
+      "states": [
+        {
+          "name": "Discovered",
+          "description": "Asset identified in the environment through automated or manual discovery.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Asset identified through cloud provider API enumeration, network scanning, CMDB integration, or manual inventory",
+              "description": "Asset identified through cloud provider API enumeration, network scanning, CMDB integration, or manual inventory",
+              "seq": 1
+            },
+            {
+              "name": "Resource metadata captured (type, location, owner, approximate cost, current configuration)",
+              "description": "Resource metadata captured (type, location, owner, approximate cost, current configuration)",
+              "seq": 2
+            },
+            {
+              "name": "Asset registered in infrastructure inventory or CMDB",
+              "description": "Asset registered in infrastructure inventory or CMDB",
+              "seq": 3
+            },
+            {
+              "name": "Ownership assigned and accountability established",
+              "description": "Ownership assigned and accountability established",
+              "seq": 4
+            },
+            {
+              "name": "EDA Monitoring Candidates Identified",
+              "description": "Infrastructure assets identified as candidates for event-driven monitoring and remediation.",
+              "seq": 5
+            },
+            {
+              "name": "Monitoring Systems Cataloged",
+              "description": "Existing monitoring systems cataloged with event output formats documented.",
+              "seq": 6
+            },
+            {
+              "name": "Alert Categories Mapped",
+              "description": "Alert categories mapped to potential automated remediation actions.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Defined",
+          "description": "Desired state formally declared in automation code.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "IaC definition written (Terraform resource block, Ansible playbook task, Puppet resource declaration, Chef resource, Salt state)",
+              "description": "IaC definition written (Terraform resource block, Ansible playbook task, Puppet resource declaration, Chef resource, Salt state)",
+              "seq": 1
+            },
+            {
+              "name": "Parameters specified and dependencies declared",
+              "description": "Parameters specified and dependencies declared",
+              "seq": 2
+            },
+            {
+              "name": "Resource relationship to other managed assets codified in automation code",
+              "description": "Resource relationship to other managed assets codified in automation code",
+              "seq": 3
+            },
+            {
+              "name": "Code exists in version control and has been peer-reviewed",
+              "description": "Code exists in version control and has been peer-reviewed",
+              "seq": 4
+            },
+            {
+              "name": "Event Source Subscriptions Defined",
+              "description": "Event source subscriptions defined linking asset monitoring alerts to EDA controller.",
+              "seq": 5
+            },
+            {
+              "name": "Remediation Playbooks Authored",
+              "description": "Remediation playbooks authored for common failure modes of each asset type.",
+              "seq": 6
+            },
+            {
+              "name": "Expected Event Attributes Documented",
+              "description": "Expected event payload attributes documented for condition matching in rulebooks.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Provisioned",
+          "description": "Asset created or brought under automation management per its code definition.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Initial provisioning executed (terraform apply, ansible-playbook, puppet agent) or existing resource imported (terraform import)",
+              "description": "Initial provisioning executed (terraform apply, ansible-playbook, puppet agent) or existing resource imported (terraform import)",
+              "seq": 1
+            },
+            {
+              "name": "Post-provisioning verification confirms resource matches declared state",
+              "description": "Post-provisioning verification confirms resource matches declared state",
+              "seq": 2
+            },
+            {
+              "name": "Resource tagged with standard metadata (owner, cost center, environment, automation-managed)",
+              "description": "Resource tagged with standard metadata (owner, cost center, environment, automation-managed)",
+              "seq": 3
+            },
+            {
+              "name": "State tracking updated to include this resource (state file, CMDB, inventory)",
+              "description": "State tracking updated to include this resource (state file, CMDB, inventory)",
+              "seq": 4
+            },
+            {
+              "name": "Monitoring Agents Deployed",
+              "description": "Monitoring agents deployed on managed assets generating events for EDA consumption.",
+              "seq": 5
+            },
+            {
+              "name": "Alert Delivery Endpoints Configured",
+              "description": "Webhook or message queue endpoints configured for asset alert delivery.",
+              "seq": 6
+            },
+            {
+              "name": "Initial Rulebook Activations Tested",
+              "description": "Initial rulebook activations tested with synthetic events simulating asset failure scenarios.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Operational",
+          "description": "Asset healthy and serving its intended purpose under automation management.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Monitoring active with SLI/SLO tracking for this resource",
+              "description": "Monitoring active with SLI/SLO tracking for this resource",
+              "seq": 1
+            },
+            {
+              "name": "Drift detection enabled with scheduled enforcement cycles",
+              "description": "Drift detection enabled with scheduled enforcement cycles",
+              "seq": 2
+            },
+            {
+              "name": "Resource integrated into observability systems (metrics, logs, traces)",
+              "description": "Resource integrated into observability systems (metrics, logs, traces)",
+              "seq": 3
+            },
+            {
+              "name": "Operational health metrics (availability, performance, utilization) collected and evaluated",
+              "description": "Operational health metrics (availability, performance, utilization) collected and evaluated",
+              "seq": 4
+            },
+            {
+              "name": "Rulebook Activations Processing Events",
+              "description": "Rulebook activations continuously processing events from operational managed assets.",
+              "seq": 5
+            },
+            {
+              "name": "Automated Remediation Executing",
+              "description": "Automated remediation executing for routine asset health events without human intervention.",
+              "seq": 6
+            },
+            {
+              "name": "Event Correlation Tracks Related Events",
+              "description": "Event correlation tracks related asset events preventing duplicate remediation actions.",
+              "seq": 7
+            },
+            {
+              "name": "Remediation Verification Confirms Resolution",
+              "description": "Remediation verification steps confirm successful resolution before closing incidents.",
+              "seq": 8
+            },
+            {
+              "name": "Post-Remediation Telemetry Validates Health",
+              "description": "Post-remediation telemetry validates asset returned to healthy operational state.",
+              "seq": 9
+            }
+          ]
+        },
+        {
+          "name": "Scaling",
+          "description": "Asset adapting to demand through automated or planned scaling mechanisms.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Auto-scaling policies active and responding to load metrics (for cloud-native assets)",
+              "description": "Auto-scaling policies active and responding to load metrics (for cloud-native assets)",
+              "seq": 1
+            },
+            {
+              "name": "Horizontal or vertical scaling triggered by defined thresholds",
+              "description": "Horizontal or vertical scaling triggered by defined thresholds",
+              "seq": 2
+            },
+            {
+              "name": "Capacity planning documented with growth projections (for static assets)",
+              "description": "Capacity planning documented with growth projections (for static assets)",
+              "seq": 3
+            },
+            {
+              "name": "Scaling events logged and correlated with demand metrics",
+              "description": "Scaling events logged and correlated with demand metrics",
+              "seq": 4
+            },
+            {
+              "name": "Auto-Scaling Events Processed",
+              "description": "Auto-scaling events processed by rulebooks triggering capacity adjustment playbooks.",
+              "seq": 5
+            },
+            {
+              "name": "Threshold-Based Scaling Patterns Detected",
+              "description": "Threshold-based event correlation detects scaling patterns across asset fleet.",
+              "seq": 6
+            },
+            {
+              "name": "Scaling Actions Validated with Rollback",
+              "description": "Event-driven scaling actions validated with rollback capability on failure.",
+              "seq": 7
+            }
+          ]
+        },
+        {
+          "name": "Decommissioning",
+          "description": "Asset being systematically retired or destroyed.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "Workloads drained and connections terminated gracefully",
+              "description": "Workloads drained and connections terminated gracefully",
+              "seq": 1
+            },
+            {
+              "name": "Dependencies updated in automation code (references removed, DNS records modified)",
+              "description": "Dependencies updated in automation code (references removed, DNS records modified)",
+              "seq": 2
+            },
+            {
+              "name": "Resource destroyed through automation (terraform destroy, puppet node deactivate) or physically decommissioned",
+              "description": "Resource destroyed through automation (terraform destroy, puppet node deactivate) or physically decommissioned",
+              "seq": 3
+            },
+            {
+              "name": "State file cleaned up and resource removed from inventory, monitoring, and cost tracking",
+              "description": "State file cleaned up and resource removed from inventory, monitoring, and cost tracking",
+              "seq": 4
+            },
+            {
+              "name": "Post-decommissioning verification confirms complete removal",
+              "description": "Post-decommissioning verification confirms complete removal",
+              "seq": 5
+            },
+            {
+              "name": "Event Subscriptions Removed",
+              "description": "Event subscriptions for decommissioned assets removed preventing orphaned event processing.",
+              "seq": 6
+            },
+            {
+              "name": "Rulebook Activations Updated",
+              "description": "Rulebook activations updated to exclude decommissioned asset event sources.",
+              "seq": 7
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Managed Infrastructure as EDA Remediation Targets",
+          "description": "How event-driven automation acts on managed infrastructure assets to achieve self-healing operations.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Managed infrastructure assets -- servers, VMs, containers, network devices, cloud resources -- generate continuous streams of monitoring events indicating health, performance, and compliance status."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "When these assets experience failures, performance degradation, or configuration drift, operations teams must manually interpret alerts and execute remediation playbooks, creating response delays that scale linearly with the number of managed assets."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Event-Driven Ansible connects managed asset monitoring to automated remediation through rulebook activations that match event patterns to corrective actions, transforming managed assets from passive monitoring targets into actively self-healing infrastructure components."
+            }
+          ],
+          "citationNames": [
+            "Event-Driven Ansible",
+            "Using Automation Decisions"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Event Rulebook",
+      "description": "Conditional automation logic defining event source subscriptions and event-to-action mappings using the Drools decision framework.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Asset",
+      "relatesTo": [
+        {
+          "relationship": "remediates",
+          "alphaName": "Managed Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "executes within",
+          "alphaName": "Decision Environment",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Asset Governance",
+          "direction": "incoming"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "event-rulebook-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Basic Event Matching",
+          "description": "Simple rulebooks match single event types and trigger playbooks.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Single Event Source Defined",
+              "description": "Rulebook defines single event source with one or two conditional rules.",
+              "seq": 1
+            },
+            {
+              "name": "Basic Equality Matching",
+              "description": "Condition logic uses basic equality matching on event payload attributes.",
+              "seq": 2
+            },
+            {
+              "name": "Action Successfully Launches",
+              "description": "Action successfully launches job template or runs playbook on event match.",
+              "seq": 3
+            },
+            {
+              "name": "Development Environment Testing Complete",
+              "description": "Rulebook tested in development environment with synthetic events.",
+              "seq": 4
+            },
+            {
+              "name": "Rulebook Activation Running",
+              "description": "Rulebook activation deployed to EDA controller running continuously.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Multi-Condition Logic",
+          "description": "Rulebooks implement complex conditional branching and filtering.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Multiple Conditions with Logical Operators",
+              "description": "Rules use multiple conditions with AND/OR logical operators.",
+              "seq": 1
+            },
+            {
+              "name": "Event Attributes Extracted as Variables",
+              "description": "Event payload attributes extracted and passed as extra_vars to job templates.",
+              "seq": 2
+            },
+            {
+              "name": "Severity-Based Action Branching",
+              "description": "Distinct actions triggered based on event severity, type, or source.",
+              "seq": 3
+            },
+            {
+              "name": "Rule Priority Ordering Configured",
+              "description": "Rule priority and ordering ensures correct execution sequence.",
+              "seq": 4
+            },
+            {
+              "name": "Rulebook Parameterization Enabled",
+              "description": "Rulebook variables enable parameterization without code changes.",
+              "seq": 5
+            },
+            {
+              "name": "Jinja2 Filters Transform Event Data",
+              "description": "Jinja2 filters transform event data before action execution.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Event Correlation",
+          "description": "Stateful rulebooks correlate related events before triggering.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Event Sequence Tracking Active",
+              "description": "Stateful rulebooks track event sequences over configurable time windows.",
+              "seq": 1
+            },
+            {
+              "name": "Threshold-Based Triggers Configured",
+              "description": "Threshold-based triggers fire only after N events within specified timeframe.",
+              "seq": 2
+            },
+            {
+              "name": "Duplicate Suppression Active",
+              "description": "Event suppression prevents duplicate remediation actions using group_by_attributes.",
+              "seq": 3
+            },
+            {
+              "name": "Context Preservation Enabled",
+              "description": "Context preservation passes accumulated event data to downstream actions.",
+              "seq": 4
+            },
+            {
+              "name": "Correlation Patterns Documented",
+              "description": "Correlation patterns documented with real-world incident examples.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Simplified Event Routing",
+          "description": "Advanced routing directs events to specialized activations.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Event Streams Partitioned",
+              "description": "Event routing rules partition event streams by category, severity, or tenant.",
+              "seq": 1
+            },
+            {
+              "name": "Independent Domain Activations",
+              "description": "Multiple rulebook activations handle distinct event domains independently.",
+              "seq": 2
+            },
+            {
+              "name": "Dynamic Routing Adjusts",
+              "description": "Dynamic routing adjusts based on event metadata or runtime conditions.",
+              "seq": 3
+            },
+            {
+              "name": "Event Enrichment Queries External APIs",
+              "description": "Event enrichment queries external APIs adding context before rule evaluation.",
+              "seq": 4
+            },
+            {
+              "name": "Processing Latency Optimized",
+              "description": "Performance optimization minimizes latency from event receipt to action trigger.",
+              "seq": 5
+            },
+            {
+              "name": "Event Chaining via post_event",
+              "description": "Event chaining uses post_event to trigger downstream rulebook processing.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Building Intelligent Event Automation from Simple Triggers to Correlated Responses",
+          "description": "How event rulebooks progress from basic event matching to sophisticated stateful correlation with optimized routing.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Infrastructure monitoring systems generate thousands of events daily across compute, network, storage, and application domains, each requiring assessment and potential corrective action that operations teams cannot address at scale through manual processes."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The operations team must author YAML rulebooks defining event sources, conditional rules using the Drools framework, and automated actions that progressively evolve from simple webhook triggers to multi-condition logic, stateful event correlation, and optimized event routing across specialized activations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Rulebook development begins with basic event matching against single sources, advances to multi-condition logic extracting event attributes as variables with severity-based action branching, then implements stateful correlation tracking event sequences over time windows with threshold-based triggers and event suppression, and finally optimizes routing across multiple specialized activations with event enrichment and chaining via post_event."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Mature event rulebooks reduce mean time to remediation from hours to seconds for common incident patterns, with correlation logic preventing alert storms from triggering duplicate actions and routing ensuring each event domain is handled by specialized, purpose-built rulebook activations."
+            }
+          ],
+          "citationNames": [
+            "What is an Ansible Rulebook?",
+            "Getting Started with Event-Driven Ansible",
+            "Using Automation Decisions"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Decision Environment",
+      "description": "Container runtime packaging ansible-core with event source plugins and Python dependencies for EDA controller execution.",
+      "focusName": "Solution",
+      "contributesTo": "Platform",
+      "relatesTo": [
+        {
+          "relationship": "provides runtime for",
+          "alphaName": "Event Rulebook",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Asset Governance",
+          "direction": "incoming"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "decision-environment-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Default Runtime",
+          "description": "Default decision environment used without customization.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Default DE Deployed",
+              "description": "Default decision environment deployed supporting common event sources.",
+              "seq": 1
+            },
+            {
+              "name": "Common Sources Referenced",
+              "description": "Rulebook activations reference default DE for webhook, Kafka, and AWS events.",
+              "seq": 2
+            },
+            {
+              "name": "Limitations Identified",
+              "description": "Limitations identified for specialized event sources requiring custom plugins.",
+              "seq": 3
+            },
+            {
+              "name": "Default DE Version Documented",
+              "description": "Default DE version documented and tracked for upgrade planning.",
+              "seq": 4
+            },
+            {
+              "name": "EDA Controller Configured",
+              "description": "EDA controller configured with default DE as baseline runtime.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Custom Runtime",
+          "description": "Custom DE adds specialized event source plugins and dependencies.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "DE Definition File Specifies Plugins",
+              "description": "DE definition file specifies additional event source plugins and Python dependencies.",
+              "seq": 1
+            },
+            {
+              "name": "Build Pipeline Creates Image",
+              "description": "Build pipeline creates DE container image via Dockerfile or ansible-builder.",
+              "seq": 2
+            },
+            {
+              "name": "Custom DE Published to Registry",
+              "description": "Custom DE published to container registry accessible by EDA controller.",
+              "seq": 3
+            },
+            {
+              "name": "Custom CA Certificates Included",
+              "description": "Custom CA certificates included for enterprise TLS requirements.",
+              "seq": 4
+            },
+            {
+              "name": "Activations Reference Custom DE",
+              "description": "Rulebook activations reference custom DE for specialized event processing.",
+              "seq": 5
+            },
+            {
+              "name": "Build Reproducibility Validated",
+              "description": "Build reproducibility validated ensuring consistent DE images across environments.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Validated Runtime",
+          "description": "DE validated for performance and reliability under load.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Load Testing Validates Performance",
+              "description": "Load testing validates DE handles expected event volume without degradation.",
+              "seq": 1
+            },
+            {
+              "name": "Resource Profiling Complete",
+              "description": "Memory and CPU profiling identifies resource optimization opportunities.",
+              "seq": 2
+            },
+            {
+              "name": "Multiple DE Variants Support Categories",
+              "description": "Multiple DE variants support different event source categories.",
+              "seq": 3
+            },
+            {
+              "name": "Versioning Enables Rollback",
+              "description": "Versioning enables rollback of problematic DE changes without disruption.",
+              "seq": 4
+            },
+            {
+              "name": "Integration Testing Confirms Compatibility",
+              "description": "Integration testing confirms DE compatibility with all referenced rulebooks.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Governed Catalog",
+          "description": "Catalog of approved DEs with lifecycle management.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Security Scanning Validates Images",
+              "description": "Security scanning validates DE container images against vulnerability policies.",
+              "seq": 1
+            },
+            {
+              "name": "Usage Analytics Identify Active DEs",
+              "description": "Usage analytics identify active versus stale decision environments.",
+              "seq": 2
+            },
+            {
+              "name": "Lifecycle Policy Documents Timelines",
+              "description": "Lifecycle policy documents support and end-of-life timelines for each DE.",
+              "seq": 3
+            },
+            {
+              "name": "Automated Rebuild on Updates",
+              "description": "Automated rebuild triggered on dependency security updates.",
+              "seq": 4
+            },
+            {
+              "name": "Approval Workflow Enforced",
+              "description": "Approval workflow enforced before new DE images enter production catalog.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Purpose-Built Python Runtimes for Event Processing at Scale",
+          "description": "How decision environments evolve from default containers to governed catalogs of validated, purpose-built runtimes.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Event-Driven Ansible requires container runtimes -- decision environments -- that package ansible-core with the specific event source plugins and Python dependencies needed for each event processing domain."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "The default decision environment supports only common event sources, and organizations integrating specialized monitoring systems or cloud provider event buses must build and maintain their own decision environment images with appropriate plugins, certificates, and dependency chains."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Organizations establish a governed catalog of purpose-built decision environments -- each validated for performance, scanned for security vulnerabilities, and maintained with automated rebuild pipelines -- ensuring every rulebook activation has access to a reliable, approved runtime tailored to its specific event processing requirements."
+            }
+          ],
+          "citationNames": [
+            "Using Automation Decisions",
+            "Getting Started with Event-Driven Ansible"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "alphaInstances": [
+    {
+      "name": "Infrastructure Alert Rulebook Activation",
+      "description": "Rulebook activation processing compute, storage, and network alerts from Prometheus and Alertmanager.",
+      "alphaName": "Event Rulebook"
+    },
+    {
+      "name": "Security Incident Rulebook Activation",
+      "description": "Rulebook activation processing SIEM alerts and triggering incident response playbooks.",
+      "alphaName": "Event Rulebook"
+    },
+    {
+      "name": "Application Performance Rulebook Activation",
+      "description": "Rulebook activation reacting to APM anomalies by scaling resources or restarting services.",
+      "alphaName": "Event Rulebook"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Rulebook Definition",
+      "description": "YAML document defining event sources, conditional rules, and automation actions for event-driven processing.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic Rule",
+          "description": "Simple rulebook matching single event type.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Single Event Source and Rule Defined",
+              "description": "Rulebook defines one event source and one conditional rule.",
+              "seq": 1
+            },
+            {
+              "name": "Basic Equality Condition",
+              "description": "Condition uses basic equality matching on event attributes.",
+              "seq": 2
+            },
+            {
+              "name": "Action Launches Automation",
+              "description": "Action launches job template or runs playbook on match.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Event Rulebook",
+              "stateName": "Basic Event Matching"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Provisioned"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Condition Logic",
+          "description": "Rulebook with complex conditional branching and filtering.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "AND/OR Condition Logic Implemented",
+              "description": "Multiple rules with AND/OR condition logic implemented.",
+              "seq": 1
+            },
+            {
+              "name": "Event Attributes Extracted as Variables",
+              "description": "Event attributes extracted as variables passed to actions.",
+              "seq": 2
+            },
+            {
+              "name": "Severity-Based Actions Configured",
+              "description": "Distinct actions configured for different event severities.",
+              "seq": 3
+            },
+            {
+              "name": "Rule Priority Ensures Order",
+              "description": "Rule priority ensures correct execution order.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Event Rulebook",
+              "stateName": "Multi-Condition Logic"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Integrated"
+            }
+          ]
+        },
+        {
+          "name": "Stateful Correlation",
+          "description": "Rulebook maintains state correlating related events.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Time Window Tracking Active",
+              "description": "Event sequences tracked over configurable time windows.",
+              "seq": 1
+            },
+            {
+              "name": "Threshold Triggers Configured",
+              "description": "Threshold-based triggers fire after N events within timeframe.",
+              "seq": 2
+            },
+            {
+              "name": "Duplicate Suppression Prevents Duplication",
+              "description": "Event suppression prevents duplicate remediation actions.",
+              "seq": 3
+            },
+            {
+              "name": "Context Accumulation for Downstream",
+              "description": "Context preservation accumulates data for downstream actions.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Event Rulebook",
+              "stateName": "Event Correlation"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Converged"
+            }
+          ]
+        },
+        {
+          "name": "Production-Hardened Rulebook",
+          "description": "Comprehensive rulebook with error handling and optimization.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Error Handling with Fallback Logic",
+              "description": "Error handling gracefully manages action failures with fallback logic.",
+              "seq": 1
+            },
+            {
+              "name": "Processing Latency Minimized",
+              "description": "Performance optimization minimizes event processing latency.",
+              "seq": 2
+            },
+            {
+              "name": "Testing Suite Validates Behavior",
+              "description": "Testing suite validates rulebook behavior with synthetic events.",
+              "seq": 3
+            },
+            {
+              "name": "Documentation Explains Patterns",
+              "description": "Documentation explains correlation patterns and expected behavior.",
+              "seq": 4
+            },
+            {
+              "name": "Versioning Supports Rollback",
+              "description": "Versioning supports rollback of problematic rulebook changes.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Event Rulebook",
+              "stateName": "Simplified Event Routing"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Value Yielding"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Self-Healing"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Evolving Rulebook Definitions from Simple Triggers to Production-Hardened Logic",
+          "description": "How rulebook definition artifacts mature from basic event matching to production-grade stateful correlation with error handling.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Operations teams need codified event-to-action mappings that translate infrastructure monitoring signals into automated remediation workflows."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Develop YAML rulebook definitions that progressively incorporate multi-condition logic, stateful event correlation, and production hardening with error handling and versioned rollback capability."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Begin with single-source basic rules, add AND/OR logic with severity-based branching and variable extraction, implement stateful correlation with time windows and threshold triggers using group_by_attributes, and harden with error handling, performance optimization, and automated testing suites."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Production-hardened rulebook definitions deliver reliable automated remediation at scale with documented behavior, synthetic test validation, and versioned rollback capability."
+            }
+          ],
+          "citationNames": [
+            "What is an Ansible Rulebook?"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Decision Environment Definition",
+      "description": "Container image specification packaging event source plugins and Python dependencies for EDA controller runtime.",
+      "levelsOfDetail": [
+        {
+          "name": "Default Specification",
+          "description": "Documentation of default DE capabilities and limitations.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Default DE Capabilities Documented",
+              "description": "Default DE capabilities documented for common event sources.",
+              "seq": 1
+            },
+            {
+              "name": "Supported Plugins Listed",
+              "description": "Supported event source plugins listed with version information.",
+              "seq": 2
+            },
+            {
+              "name": "Limitations Identified",
+              "description": "Limitations identified for specialized integration requirements.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Decision Environment",
+              "stateName": "Default Runtime"
+            }
+          ]
+        },
+        {
+          "name": "Custom Build Specification",
+          "description": "DE definition file with custom plugins and build instructions.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Plugin Dependencies Specified",
+              "description": "DE definition file specifies event source plugins and dependencies.",
+              "seq": 1
+            },
+            {
+              "name": "Build Pipeline Documented",
+              "description": "Build pipeline documented using Dockerfile or ansible-builder.",
+              "seq": 2
+            },
+            {
+              "name": "TLS Configuration Included",
+              "description": "Custom CA certificates and TLS configuration included.",
+              "seq": 3
+            },
+            {
+              "name": "Registry Publishing Instructions",
+              "description": "Container registry publishing instructions documented.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Decision Environment",
+              "stateName": "Custom Runtime"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Specified"
+            }
+          ]
+        },
+        {
+          "name": "Validated Configuration",
+          "description": "Performance-tested DE with documented resource requirements.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Load Testing Results Documented",
+              "description": "Load testing results document event throughput capacity.",
+              "seq": 1
+            },
+            {
+              "name": "Resource Profiles Specified",
+              "description": "Resource profiles specify memory and CPU requirements.",
+              "seq": 2
+            },
+            {
+              "name": "Compatibility Matrix Listed",
+              "description": "Compatibility matrix lists validated rulebook combinations.",
+              "seq": 3
+            },
+            {
+              "name": "Rollback Procedures Documented",
+              "description": "Versioning and rollback procedures documented.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Decision Environment",
+              "stateName": "Validated Runtime"
+            },
+            {
+              "alphaName": "Decision Environment",
+              "stateName": "Validated Runtime"
+            }
+          ]
+        },
+        {
+          "name": "Governed Catalog Entry",
+          "description": "Approved DE image with security scanning and lifecycle policy.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Security Scan Results Clean",
+              "description": "Security scan results documented with no critical vulnerabilities.",
+              "seq": 1
+            },
+            {
+              "name": "Usage Analytics Tracked",
+              "description": "Usage analytics tracked for adoption monitoring.",
+              "seq": 2
+            },
+            {
+              "name": "Lifecycle Policy Specifies Timeline",
+              "description": "Lifecycle policy specifies support timeline and EOL date.",
+              "seq": 3
+            },
+            {
+              "name": "Automated Rebuild Pipeline Configured",
+              "description": "Automated rebuild pipeline configured for dependency updates.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Decision Environment",
+              "stateName": "Governed Catalog"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Governed"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Container Runtime Specifications for Reliable Event Processing",
+          "description": "How decision environment definitions mature from default specifications to governed catalog entries with security scanning.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "EDA controller requires container runtimes specified through definition files that declare event source plugin dependencies, Python packages, and enterprise certificates."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Default decision environments support only common event sources, and organizations integrating specialized monitoring infrastructure must maintain custom DE specifications with appropriate build pipelines and security validation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Organizations establish governed DE catalog entries with security scanning, performance validation, lifecycle policies, and automated rebuild pipelines ensuring every rulebook activation references an approved, up-to-date container runtime."
+            }
+          ],
+          "citationNames": [
+            "Using Automation Decisions"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "workProductInstances": [
+    {
+      "name": "Infrastructure Alert Rulebook",
+      "description": "Rulebook definition responding to compute, storage, and network alerts from Prometheus and Alertmanager.",
+      "workProductName": "Rulebook Definition"
+    },
+    {
+      "name": "Security Incident Rulebook",
+      "description": "Rulebook definition processing SIEM alerts and triggering incident response playbooks.",
+      "workProductName": "Rulebook Definition"
+    },
+    {
+      "name": "Application Performance Rulebook",
+      "description": "Rulebook definition reacting to APM anomalies with resource scaling and service restart actions.",
+      "workProductName": "Rulebook Definition"
+    }
+  ],
+  "personas": [
+    {
+      "name": "SRE / Operations Engineer",
+      "description": "Implements event-driven operations and manages production automation workloads ensuring reliability.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Operations",
+          "Site Reliability Engineering"
+        ],
+        "lifecycleTags": [
+          "Operations",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "SRE Team",
+          "Operations"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Platform Engineer",
+      "description": "Builds and operates the event-driven automation platform infrastructure.",
+      "competencies": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Site Reliability Engineering Team",
+      "description": "Operations team implementing event-driven automation and ensuring platform reliability.",
+      "personaNames": [
+        "SRE / Operations Engineer"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "SRE Team",
+          "Operations"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Platform Engineering Team",
+      "description": "Cross-functional team responsible for the event-driven automation platform.",
+      "personaNames": [
+        "SRE / Operations Engineer",
+        "Platform Engineer"
+      ],
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Scope Event-Driven Automation Requirements",
+      "description": "Evaluate infrastructure event streams and define event-driven automation requirements.",
+      "activitySpaceName": "Define Platform Capabilities",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Identified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Rulebook Definition",
+          "levelOfDetailName": "Basic Rule"
+        },
+        {
+          "workProductName": "Decision Environment Definition",
+          "levelOfDetailName": "Default Specification"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "involves": [
+        "Site Reliability Engineering Team",
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Identifying Event-Driven Automation Opportunities Across Infrastructure Domains",
+          "description": "How to evaluate infrastructure monitoring systems and identify candidates for event-driven automation.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Operations teams face a growing volume of infrastructure alerts that require manual assessment and remediation, and must determine which event categories and infrastructure domains are candidates for automated event-driven responses."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Evaluate existing monitoring systems and alert categories across compute, network, storage, security, and application domains to identify event sources suitable for EDA integration, assess event volume and latency requirements, and determine whether default or custom decision environments are needed."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Catalog existing monitoring systems and their event output formats, map alert categories to potential automated remediation actions, quantify event volume and response latency requirements, and assess the default decision environment capabilities against specialized plugin needs for each event source type."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Documented event-driven automation requirements including prioritized event source integrations, identified decision environment customization needs, and a phased implementation roadmap starting with low-risk, high-value event categories."
+            }
+          ],
+          "citationNames": [
+            "Event-Driven Ansible",
+            "Using Automation Decisions"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Event Source Integrations",
+      "description": "Integrate infrastructure event streams with EDA controller for reactive automation.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Event Rulebook",
+          "stateName": "Basic Event Matching"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Integrated"
+        },
+        {
+          "alphaName": "Managed Asset",
+          "stateName": "Defined"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Rulebook Definition",
+          "levelOfDetailName": "Basic Rule"
+        },
+        {
+          "workProductName": "Decision Environment Definition",
+          "levelOfDetailName": "Default Specification"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Platform Security And Compliance Enforcement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Site Reliability Engineering Team",
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Connecting Infrastructure Monitoring to Automated Event Processing",
+          "description": "How to select, configure, and validate event source integrations from monitoring systems to EDA controller.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Infrastructure monitoring systems -- Prometheus Alertmanager, Datadog, Splunk, cloud provider event buses, and message queues -- generate continuous streams of alerts that must be connected to the EDA controller for automated processing."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Select and configure event source integrations matching infrastructure telemetry systems, implementing appropriate authentication, network isolation, and payload transformation for each source type."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Configure webhook event sources with TLS termination and authentication, set up Kafka consumers with SASL authentication and consumer group settings, subscribe to cloud provider event buses with appropriate IAM permissions, and establish pull-based sources for polling-based monitoring, validating event delivery with controlled injection testing."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Infrastructure event streams reliably deliver monitoring data to EDA controller rulebook activations with validated authentication, network isolation, and rate limiting preventing unauthorized access and event flooding."
+            }
+          ],
+          "citationNames": [
+            "Using Automation Decisions",
+            "Event-Driven Ansible"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Author Event Automation Rulebooks",
+      "description": "Create conditional automation logic mapping infrastructure events to remediation actions.",
+      "activitySpaceName": "Integrate Toolchain Services",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Event Rulebook",
+          "stateName": "Multi-Condition Logic"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Provisioned"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Rulebook Definition",
+          "levelOfDetailName": "Multi-Condition Logic"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Site Reliability Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Authoring Conditional Event-to-Action Mappings with Multi-Condition Logic",
+          "description": "How to author YAML rulebooks with conditional logic, severity-based branching, and variable extraction.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Connected event sources deliver infrastructure alerts to the EDA controller, but these events require conditional logic that maps different event types, severities, and contexts to appropriate remediation actions with variable extraction and priority ordering."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Author YAML rulebooks defining event sources, conditional rules using the Drools framework with AND/OR logic, severity-based action branching, extra_vars extraction, and rule priority ordering to ensure correct execution sequences."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Define rulebook structure with sources and rules sections, implement condition matching using dot notation for nested event attributes with boolean operators, configure actions with variable substitution passing event context, test locally using ansible-rulebook CLI against synthetic event payloads, and deploy to EDA controller as rulebook activations."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Rulebooks with multi-condition logic reliably match diverse event patterns and trigger appropriate remediation actions with full event context passed to downstream automation workflows through extra_vars."
+            }
+          ],
+          "citationNames": [
+            "What is an Ansible Rulebook?",
+            "Getting Started with Event-Driven Ansible"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Provision Default Decision Environment",
+      "description": "Deploy default Red Hat decision environment for basic event processing capability.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Decision Environment",
+          "stateName": "Default Runtime"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Decision Environment Definition",
+          "levelOfDetailName": "Default Specification"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Establishing Baseline Event Processing Runtime Capability",
+          "description": "How to deploy and validate the default decision environment for initial event processing.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "EDA controller requires a decision environment container runtime to execute rulebook activations, and Red Hat provides a default DE supporting common event sources including webhook, Kafka, and AWS events."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "The default DE must be properly deployed and validated before teams can begin developing rulebook activations, and its limitations for specialized event sources must be documented to inform custom DE planning."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Deploy the default decision environment to EDA controller, validate it supports the initial target event sources, document its capabilities and limitations, and configure it as the baseline runtime for initial rulebook activation development."
+            }
+          ],
+          "citationNames": [
+            "Using Automation Decisions"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Build Custom Decision Environments",
+      "description": "Create custom decision environment container images with specialized event source plugins.",
+      "activitySpaceName": "Architect and Build the Foundation",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Decision Environment",
+          "stateName": "Custom Runtime"
+        },
+        {
+          "alphaName": "Platform Asset",
+          "stateName": "Specified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Decision Environment Definition",
+          "levelOfDetailName": "Custom Build Specification"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Platform Security And Compliance Enforcement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Packaging Specialized Event Source Plugins into Custom Container Runtimes",
+          "description": "How to build custom decision environment container images for specialized event processing domains.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations integrating specialized monitoring systems, cloud provider event buses, or custom event sources discover that the default decision environment lacks the specific plugins and Python dependencies required for their event processing domains."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Build custom decision environment container images that package the necessary event source plugins, Python dependencies, and enterprise TLS certificates required by each event processing domain."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Create DE definition files specifying event source plugins and dependencies, build container images using Dockerfile or ansible-builder, include custom CA certificates for enterprise TLS requirements, publish custom DEs to container registry accessible by EDA controller, and validate rulebook activations reference the correct custom DE."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Custom decision environments provide specialized runtimes for each event processing domain with validated plugin dependencies, enterprise TLS certificates, and reproducible builds published to container registry."
+            }
+          ],
+          "citationNames": [
+            "Using Automation Decisions",
+            "Getting Started with Event-Driven Ansible"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement Stateful Event Correlation",
+      "description": "Develop stateful rulebooks correlating related events over time windows.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Event Rulebook",
+          "stateName": "Event Correlation"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Converged"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Rulebook Definition",
+          "levelOfDetailName": "Stateful Correlation"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Site Reliability Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Correlating Multi-Source Events for Intelligent Remediation Decisions",
+          "description": "How to implement stateful event correlation using throttle and multiple-event patterns.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Simple event-to-action mappings trigger remediation for individual events, but infrastructure incidents often manifest as cascading alerts across multiple sources that require correlated analysis to determine root cause and appropriate response."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement stateful event correlation using throttle and multiple-event patterns that track event sequences over configurable time windows, applying threshold-based triggers and suppressing duplicate remediation actions."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Implement throttle mechanisms using group_by_attributes to aggregate events from the same source with once_within suppression windows, develop multi-event correlation using all/any conditions with time-bounded windows, preserve accumulated context passing correlated data to downstream remediation actions, and document correlation patterns with real-world incident examples."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Stateful event correlation prevents alert storm cascades from triggering duplicate remediation actions, identifies genuine incident patterns requiring automated response, and provides accumulated context to downstream remediation playbooks enabling more targeted corrective actions."
+            }
+          ],
+          "citationNames": [
+            "What is an Ansible Rulebook?",
+            "Using Automation Decisions"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Deploy Rulebook Activations for Managed Assets",
+      "description": "Deploy and operate rulebook activations targeting managed infrastructure for automated remediation.",
+      "activitySpaceName": "Operate Managed Assets",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Managed Asset",
+          "stateName": "Operational"
+        },
+        {
+          "alphaName": "Event Rulebook",
+          "stateName": "Simplified Event Routing"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Codified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Rulebook Definition",
+          "levelOfDetailName": "Production-Hardened Rulebook"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Site Reliability Engineering Team"
+      ],
+      "assetNames": [
+        {
+          "assetName": "managed-asset-remediation-icon",
+          "type": "icon"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Operating Event-Driven Remediation Across Managed Infrastructure Assets",
+          "description": "How to deploy production rulebook activations for continuous managed asset monitoring and remediation.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Managed infrastructure assets -- servers, VMs, containers, network devices, and cloud resources -- generate operational events indicating health issues, performance degradation, or configuration drift that require automated corrective action."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Deploy production rulebook activations that continuously monitor managed asset events, route events to appropriate specialized activations by infrastructure domain, and execute remediation playbooks targeting affected assets with verification steps confirming successful resolution."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Deploy rulebook activations to EDA controller configured for managed asset monitoring domains, implement event routing partitioning event streams by asset category and severity, activate in-flight event persistence ensuring no events are lost during controller maintenance, and configure remediation verification steps that validate affected assets have returned to healthy state."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Managed infrastructure assets receive continuous automated monitoring and remediation through rulebook activations, with event routing ensuring each infrastructure domain is handled by specialized activations and in-flight persistence guaranteeing reliable event processing during controller maintenance windows."
+            }
+          ],
+          "citationNames": [
+            "Using Automation Decisions",
+            "Event-Driven Ansible"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Validate Decision Environment Performance",
+      "description": "Test and optimize decision environment performance under production event volumes.",
+      "activitySpaceName": "Operate and Evolve the System",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Decision Environment",
+          "stateName": "Validated Runtime"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Decision Environment Definition",
+          "levelOfDetailName": "Validated Configuration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team",
+        "Site Reliability Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Validating Event Processing Runtime Capacity Under Production Load",
+          "description": "How to validate decision environment performance and establish resource profiles.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Custom decision environments are deployed to EDA controller handling production event streams, and their performance characteristics determine the overall reliability and latency of event-driven automation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Without systematic load testing and resource profiling, decision environments may fail under production event volumes, exhibit memory leaks during long-running activations, or introduce unacceptable latency between event receipt and action execution."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Validate each decision environment with load testing simulating expected event volumes, profile memory and CPU utilization to identify optimization opportunities, document resource requirements and capacity limits, and establish versioning with rollback procedures enabling rapid recovery from problematic DE deployments."
+            }
+          ],
+          "citationNames": [
+            "Using Automation Decisions"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement Self-Healing Event Remediation",
+      "description": "Establish autonomous event-driven remediation with escalation rules and post-incident reporting.",
+      "activitySpaceName": "Enable Autonomous Operations",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Self-Healing"
+        },
+        {
+          "alphaName": "Managed Asset",
+          "stateName": "Scaling"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Rulebook Definition",
+          "levelOfDetailName": "Production-Hardened Rulebook"
+        }
+      ],
+      "requiredCompetencies": [
+        "Site Reliability",
+        "Engineering",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Site Reliability Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Achieving Autonomous Infrastructure Remediation Within Governed Boundaries",
+          "description": "How to establish self-healing operations with escalation rules and automated post-incident reporting.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Event-driven automation has progressed from basic event matching to sophisticated correlation, and the organization is ready to trust automated systems to handle the majority of operational incidents autonomously while maintaining appropriate human oversight for complex scenarios."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Establish self-healing operations where auto-remediation handles common incident patterns with documented success rates exceeding eighty percent, escalation rules trigger human intervention for complex or novel events, and post-incident reports are generated automatically."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Configure auto-remediation workflows for well-understood incident patterns with verification steps confirming successful resolution, implement escalation rules that route complex events to on-call engineers with full event context, enable automated post-incident reporting generating timeline reconstructions from event processing logs, and ensure in-flight event persistence prevents event loss during controller maintenance."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Self-healing infrastructure operations reduce MTTR from hours to seconds for common incident patterns, freeing operations teams from routine firefighting to focus on strategic reliability improvements, while escalation rules and post-incident reporting maintain organizational visibility and continuous improvement."
+            }
+          ],
+          "citationNames": [
+            "Event-Driven Ansible",
+            "Using Automation Decisions"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Govern Decision Environment Lifecycle",
+      "description": "Establish governed catalog of approved decision environments with security scanning.",
+      "activitySpaceName": "Enforce Asset Compliance",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Decision Environment",
+          "stateName": "Governed Catalog"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Governed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Decision Environment Definition",
+          "levelOfDetailName": "Governed Catalog Entry"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Platform Engineering Team"
+      ],
+      "narratives": [
+        {
+          "name": "Governing Decision Environment Images Through Security and Lifecycle Policies",
+          "description": "How to establish governed catalogs with security validation and lifecycle management.",
+          "narrativeTypeName": "Micro-Narratives (ABT)",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "And (Context)",
+              "context": "Organizations operating multiple custom decision environments across different event processing domains need consistent security validation, lifecycle management, and change control for these container images."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "But (Conflict)",
+              "context": "Without governance, decision environments proliferate without security scanning, accumulate unpatched dependencies, and lack clear ownership or lifecycle policies, creating operational risk in the event processing infrastructure."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Therefore (Resolution)",
+              "context": "Establish a governed catalog of approved decision environments with automated security scanning, usage analytics, lifecycle policies documenting support timelines, automated rebuild pipelines for dependency updates, and approval workflows before new DEs enter the production catalog."
+            }
+          ],
+          "citationNames": [
+            "Using Automation Decisions"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Event-Driven Operations Lifecycle",
+      "description": "Progressive implementation of reactive automation from event source integration to self-healing operations.",
+      "narrativeTypeName": "Design-Build-Run-Optimize",
+      "assetNames": [
+        {
+          "assetName": "eda-lifecycle-diagram",
+          "type": "diagram"
+        }
+      ],
+      "patternViews": [
+        {
+          "name": "Preparation",
+          "description": "Platform deployed with default EDA capabilities ready.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Decision Environment",
+              "stateName": "Default Runtime"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Unmanaged"
+            },
+            {
+              "alphaName": "Event Rulebook",
+              "stateName": "Basic Event Matching"
+            },
+            {
+              "alphaName": "Managed Asset",
+              "stateName": "Discovered"
+            },
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Identified"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Infrastructure Alert Rulebook Activation",
+              "description": "Rulebook activation processing compute, storage, and network alerts from Prometheus and Alertmanager.",
+              "alphaName": "Event Rulebook",
+              "stateName": "Basic Event Matching",
+              "evidenceBy": [
+                {
+                  "name": "Infrastructure Alert Rulebook",
+                  "description": "Rulebook definition responding to compute, storage, and network alerts from Prometheus and Alertmanager.",
+                  "workProductName": "Rulebook Definition",
+                  "levelOfDetailName": "Basic Rule"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Provision Default Decision Environment",
+            "Scope Event-Driven Automation Requirements"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "The operations team assesses infrastructure monitoring systems and event output formats, identifies high-value candidates for event-driven automation, and provisions the default decision environment to establish baseline event processing capability on the EDA controller."
+            }
+          ]
+        },
+        {
+          "name": "Event Integration",
+          "description": "Connect event sources and author initial rulebooks.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Integrated"
+            },
+            {
+              "alphaName": "Event Rulebook",
+              "stateName": "Basic Event Matching"
+            },
+            {
+              "alphaName": "Managed Asset",
+              "stateName": "Defined"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Inventoried"
+            },
+            {
+              "alphaName": "Decision Environment",
+              "stateName": "Default Runtime"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Infrastructure Alert Rulebook Activation",
+              "description": "Rulebook activation processing compute, storage, and network alerts from Prometheus and Alertmanager.",
+              "alphaName": "Event Rulebook",
+              "stateName": "Basic Event Matching",
+              "evidenceBy": [
+                {
+                  "name": "Infrastructure Alert Rulebook",
+                  "description": "Rulebook definition responding to compute, storage, and network alerts from Prometheus and Alertmanager.",
+                  "workProductName": "Rulebook Definition",
+                  "levelOfDetailName": "Basic Rule"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Configure Event Source Integrations"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Design",
+              "context": "Infrastructure event sources -- Prometheus Alertmanager webhooks, Kafka message topics, cloud provider event buses -- are connected to the EDA controller with appropriate authentication and network isolation, and initial rulebooks are authored matching common alert patterns to existing remediation playbooks."
+            }
+          ]
+        },
+        {
+          "name": "Rulebook Engineering",
+          "description": "Build sophisticated rulebooks and custom decision environments.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Provisioned"
+            },
+            {
+              "alphaName": "Event Rulebook",
+              "stateName": "Multi-Condition Logic"
+            },
+            {
+              "alphaName": "Decision Environment",
+              "stateName": "Custom Runtime"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Codified"
+            },
+            {
+              "alphaName": "Managed Asset",
+              "stateName": "Defined"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Infrastructure Alert Rulebook Activation",
+              "description": "Rulebook activation processing compute, storage, and network alerts from Prometheus and Alertmanager.",
+              "alphaName": "Event Rulebook",
+              "stateName": "Multi-Condition Logic",
+              "evidenceBy": [
+                {
+                  "name": "Infrastructure Alert Rulebook",
+                  "description": "Rulebook definition responding to compute, storage, and network alerts from Prometheus and Alertmanager.",
+                  "workProductName": "Rulebook Definition",
+                  "levelOfDetailName": "Multi-Condition Logic"
+                }
+              ]
+            },
+            {
+              "name": "Security Incident Rulebook Activation",
+              "description": "Rulebook activation processing SIEM alerts and triggering incident response playbooks.",
+              "alphaName": "Event Rulebook",
+              "stateName": "Basic Event Matching",
+              "evidenceBy": [
+                {
+                  "name": "Security Incident Rulebook",
+                  "description": "Rulebook definition processing SIEM alerts and triggering incident response playbooks.",
+                  "workProductName": "Rulebook Definition",
+                  "levelOfDetailName": "Basic Rule"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Author Event Automation Rulebooks",
+            "Build Custom Decision Environments"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Build",
+              "context": "The team advances from basic event matching to multi-condition rulebooks with severity-based branching, variable extraction, and rule prioritization, while building custom decision environments packaging specialized event source plugins for monitoring domains that exceed the default DE capabilities."
+            }
+          ]
+        },
+        {
+          "name": "Production Operations",
+          "description": "Deploy EDA for operational managed asset remediation.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Operational"
+            },
+            {
+              "alphaName": "Event Rulebook",
+              "stateName": "Event Correlation"
+            },
+            {
+              "alphaName": "Decision Environment",
+              "stateName": "Validated Runtime"
+            },
+            {
+              "alphaName": "Managed Asset",
+              "stateName": "Operational"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Converged"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Infrastructure Alert Rulebook Activation",
+              "description": "Rulebook activation processing compute, storage, and network alerts from Prometheus and Alertmanager.",
+              "alphaName": "Event Rulebook",
+              "stateName": "Event Correlation",
+              "evidenceBy": [
+                {
+                  "name": "Infrastructure Alert Rulebook",
+                  "description": "Rulebook definition responding to compute, storage, and network alerts from Prometheus and Alertmanager.",
+                  "workProductName": "Rulebook Definition",
+                  "levelOfDetailName": "Stateful Correlation"
+                }
+              ]
+            },
+            {
+              "name": "Security Incident Rulebook Activation",
+              "description": "Rulebook activation processing SIEM alerts and triggering incident response playbooks.",
+              "alphaName": "Event Rulebook",
+              "stateName": "Multi-Condition Logic",
+              "evidenceBy": [
+                {
+                  "name": "Security Incident Rulebook",
+                  "description": "Rulebook definition processing SIEM alerts and triggering incident response playbooks.",
+                  "workProductName": "Rulebook Definition",
+                  "levelOfDetailName": "Multi-Condition Logic"
+                }
+              ]
+            },
+            {
+              "name": "Application Performance Rulebook Activation",
+              "description": "Rulebook activation reacting to APM anomalies by scaling resources or restarting services.",
+              "alphaName": "Event Rulebook",
+              "stateName": "Basic Event Matching",
+              "evidenceBy": [
+                {
+                  "name": "Application Performance Rulebook",
+                  "description": "Rulebook definition reacting to APM anomalies with resource scaling and service restart actions.",
+                  "workProductName": "Rulebook Definition",
+                  "levelOfDetailName": "Basic Rule"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Implement Stateful Event Correlation",
+            "Deploy Rulebook Activations for Managed Assets",
+            "Validate Decision Environment Performance"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Run",
+              "context": "Validated decision environments and production-ready rulebooks with stateful event correlation are deployed to EDA controller as continuous activations, processing events from managed infrastructure assets with in-flight persistence ensuring reliability during controller maintenance, while event correlation prevents alert storms from triggering duplicate remediation actions."
+            }
+          ]
+        },
+        {
+          "name": "Autonomous Operations",
+          "description": "Self-healing event remediation with governed environments.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Asset",
+              "stateName": "Value Yielding"
+            },
+            {
+              "alphaName": "Event Rulebook",
+              "stateName": "Simplified Event Routing"
+            },
+            {
+              "alphaName": "Decision Environment",
+              "stateName": "Governed Catalog"
+            },
+            {
+              "alphaName": "Managed Asset",
+              "stateName": "Scaling"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Self-Healing"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Infrastructure Alert Rulebook Activation",
+              "description": "Rulebook activation processing compute, storage, and network alerts from Prometheus and Alertmanager.",
+              "alphaName": "Event Rulebook",
+              "stateName": "Simplified Event Routing",
+              "evidenceBy": [
+                {
+                  "name": "Infrastructure Alert Rulebook",
+                  "description": "Rulebook definition responding to compute, storage, and network alerts from Prometheus and Alertmanager.",
+                  "workProductName": "Rulebook Definition",
+                  "levelOfDetailName": "Production-Hardened Rulebook"
+                }
+              ]
+            },
+            {
+              "name": "Security Incident Rulebook Activation",
+              "description": "Rulebook activation processing SIEM alerts and triggering incident response playbooks.",
+              "alphaName": "Event Rulebook",
+              "stateName": "Event Correlation",
+              "evidenceBy": [
+                {
+                  "name": "Security Incident Rulebook",
+                  "description": "Rulebook definition processing SIEM alerts and triggering incident response playbooks.",
+                  "workProductName": "Rulebook Definition",
+                  "levelOfDetailName": "Stateful Correlation"
+                }
+              ]
+            },
+            {
+              "name": "Application Performance Rulebook Activation",
+              "description": "Rulebook activation reacting to APM anomalies by scaling resources or restarting services.",
+              "alphaName": "Event Rulebook",
+              "stateName": "Multi-Condition Logic",
+              "evidenceBy": [
+                {
+                  "name": "Application Performance Rulebook",
+                  "description": "Rulebook definition reacting to APM anomalies with resource scaling and service restart actions.",
+                  "workProductName": "Rulebook Definition",
+                  "levelOfDetailName": "Multi-Condition Logic"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Implement Self-Healing Event Remediation",
+            "Govern Decision Environment Lifecycle"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Optimize",
+              "context": "Self-healing operations auto-remediate common incident patterns with success rates exceeding eighty percent while governed decision environment catalogs ensure every rulebook activation references approved, security-scanned container runtimes, and event routing optimization distributes processing across specialized activations that scale autonomously with event volume."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Asset",
+      "aliasName": "Automation Artifact"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform",
+      "aliasName": "Automation Platform"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Event Rulebook",
+      "aliasName": "Ansible Rulebook"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Decision Environment",
+      "aliasName": "DE"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Operate and Evolve the System",
+      "aliasName": "Enforce and Remediate"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Integrate Toolchain Services",
+      "aliasName": "Integrate Automation Artifacts"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Architect and Build the Foundation",
+      "aliasName": "Define Automation Foundation"
+    },
+    {
+      "practiceElementType": "Competency",
+      "practiceElementName": "Engineering",
+      "aliasName": "Automation Engineering"
+    },
+    {
+      "practiceElementType": "Competency",
+      "practiceElementName": "Site Reliability",
+      "aliasName": "Infrastructure Reliability"
+    }
+  ],
+  "assets": [
+    {
+      "name": "event-rulebook-icon",
+      "description": "Visual icon representing event rulebook automation artifacts.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-bolt",
+      "fontWeight": "900"
+    },
+    {
+      "name": "decision-environment-icon",
+      "description": "Visual icon representing decision environment container runtime.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-box",
+      "fontWeight": "900"
+    },
+    {
+      "name": "eda-lifecycle-diagram",
+      "description": "Event-driven operations lifecycle showing progression from manual operations to self-healing automation.",
+      "type": "diagram",
+      "path": "assets/diagrams/eda-operations-lifecycle.svg",
+      "mimeType": "image/svg+xml"
+    },
+    {
+      "name": "managed-asset-remediation-icon",
+      "description": "Visual icon representing managed asset remediation through event-driven automation.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-wrench",
+      "fontWeight": "900"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Infrastructure Automation Essentials",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

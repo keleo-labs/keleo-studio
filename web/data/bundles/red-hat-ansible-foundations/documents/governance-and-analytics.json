@@ -1,0 +1,4474 @@
+{
+  "kind": "practice",
+  "name": "Governance and Analytics",
+  "description": "Establish RBAC governance through platform gateway, deploy analytics with customizable ROI metrics, implement self-service portal, and configure OIDC/Vault credential security for the Ansible Automation Platform.",
+  "baselinePracticeName": "Infrastructure Automation Essentials",
+  "practiceDependencyNames": [
+    "Platform Foundation"
+  ],
+  "tags": {
+    "domainTags": [
+      "Governance",
+      "Security",
+      "Analytics",
+      "FinOps",
+      "Service Management"
+    ],
+    "lifecycleTags": [
+      "Adoption",
+      "Optimization",
+      "Governance"
+    ],
+    "organizationalTags": [
+      "Platform Team",
+      "Security Team",
+      "Finance",
+      "Leadership"
+    ]
+  },
+  "keywords": [
+    "RBAC",
+    "governance",
+    "analytics",
+    "ROI",
+    "credential security",
+    "OIDC",
+    "vault",
+    "self-service portal",
+    "organizational structure",
+    "compliance",
+    "audit",
+    "chargeback"
+  ],
+  "authors": [
+    "Red Hat Ansible Foundations Practice Team"
+  ],
+  "createdAt": "2026-07-24",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.1",
+  "narratives": [
+    {
+      "name": "Governance Journey from Basic Access Control to Autonomous Compliance",
+      "description": "Progressive governance implementation through RBAC, analytics, credential security, and self-service portal capabilities.",
+      "narrativeTypeName": "Crawl-Walk-Run",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Crawl",
+          "context": "Organizations begin their governance journey by establishing basic organizational boundaries and team-based permissions through the platform gateway, configuring initial analytics dashboards to capture job execution telemetry, and storing credentials locally within the automation controller database with standard encryption."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Walk",
+          "context": "Governance matures as team administrators gain delegated authority to manage their own membership and permissions, analytics quantify ROI through customizable metrics and savings projections, the self-service portal publishes approved automation services with approval workflows and ITSM integration, and external vault systems provide dynamic credential retrieval at job execution time."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Run",
+          "context": "Advanced governance reaches full maturity with custom RBAC roles enforcing organization-specific permission boundaries, zero-trust credential operations using OIDC-issued short-lived JWT tokens scoped to individual job executions, business intelligence integration feeding automation analytics into enterprise reporting tools, and a self-service marketplace enabling autonomous automation consumption across the enterprise with comprehensive audit and compliance reporting."
+        }
+      ],
+      "citationNames": [
+        "RBAC Enhancements in Red Hat Ansible Automation Platform 2.5",
+        "Automation Analytics and Insights",
+        "Measuring Business Impact with Dashboard and Analytics",
+        "Automating Secrets Management with HashiCorp Vault and Red Hat Ansible Automation Platform",
+        "What's New in Ansible Automation Platform 2.7",
+        "Self-Service Automation Portal - AAP 2.7",
+        "OIDC Identity Provider for HashiCorp Vault - AAP 2.7",
+        "Getting Started with Automation Analytics",
+        "Platform Gateway Architecture - AAP 2.7"
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "name": "RBAC Enhancements in Red Hat Ansible Automation Platform 2.5",
+      "description": "Overview of role-based access control improvements in AAP 2.5 including team administrator delegation and organization-level permissions.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2025",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/role-based-access-control-enhancements-red-hat-ansible-automation-platform-25",
+      "kind": "citation"
+    },
+    {
+      "name": "Automation Analytics and Insights",
+      "description": "Product overview of automation analytics capabilities for measuring operational efficiency and business impact.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Technologies",
+      "url": "https://www.redhat.com/en/technologies/management/ansible/automation-analytics-insights",
+      "kind": "citation"
+    },
+    {
+      "name": "Measuring Business Impact with Dashboard and Analytics",
+      "description": "Guide to using automation dashboard and analytics for quantifying ROI and business value from automation initiatives.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2025",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-measuring-business-impact-dashboard-and-analytics",
+      "kind": "citation"
+    },
+    {
+      "name": "Automating Secrets Management with HashiCorp Vault and Red Hat Ansible Automation Platform",
+      "description": "Architecture and implementation guide for integrating HashiCorp Vault with AAP for automated secrets management.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2025",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/automating-secrets-management-hashicorp-vault-and-red-hat-ansible-automation-platform",
+      "kind": "citation"
+    },
+    {
+      "name": "What's New in Ansible Automation Platform 2.7",
+      "description": "Comprehensive overview of new features in AAP 2.7 including OIDC Identity Provider, Self-Service Portal, and integrated dashboard.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/",
+      "kind": "citation"
+    },
+    {
+      "name": "Self-Service Automation Portal - AAP 2.7",
+      "description": "Documentation for the self-service automation portal providing governed ordering and ITSM integration.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/",
+      "kind": "citation"
+    },
+    {
+      "name": "OIDC Identity Provider for HashiCorp Vault - AAP 2.7",
+      "description": "Technical documentation for configuring AAP as an OIDC identity provider for HashiCorp Vault enabling short-lived credential issuance.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/",
+      "kind": "citation"
+    },
+    {
+      "name": "Getting Started with Automation Analytics",
+      "description": "Introductory guide to deploying and configuring automation analytics for operational visibility.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2025",
+      "source": "Red Hat Blog",
+      "url": "https://www.redhat.com/en/blog/getting-started-with-automation-analytics",
+      "kind": "citation"
+    },
+    {
+      "name": "Platform Gateway Architecture - AAP 2.7",
+      "description": "Architecture documentation for the platform gateway including RBAC centralization and API routing.",
+      "authors": [
+        "Red Hat, Inc."
+      ],
+      "date": "2026",
+      "source": "Red Hat Documentation",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/",
+      "kind": "citation"
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Platform Governance",
+      "description": "The automated controls, policies, and guardrails that constrain how infrastructure automation is used. Encompasses Policy-as-Code frameworks (OPA/Rego, Sentinel, Kyverno), role-based access controls, approval workflows for infrastructure changes, audit logging, change management automation, and compliance reporting mechanisms.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "governance-rbac-model-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Scoped",
+          "description": "The need for automation governance is recognized and initial scope defined.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Governance domains identified (security, cost, compliance, naming, blast radius, change management)",
+              "description": "Governance domains identified (security, cost, compliance, naming, blast radius, change management)",
+              "seq": 1
+            },
+            {
+              "name": "Initial governance scope defined based on organizational risk appetite",
+              "description": "Initial governance scope defined based on organizational risk appetite",
+              "seq": 2
+            },
+            {
+              "name": "Governance stakeholders identified (security, compliance, operations, management)",
+              "description": "Governance stakeholders identified (security, compliance, operations, management)",
+              "seq": 3
+            },
+            {
+              "name": "Governance framework selection initiated (OPA/Rego, Sentinel, Kyverno, custom)",
+              "description": "Governance framework selection initiated (OPA/Rego, Sentinel, Kyverno, custom)",
+              "seq": 4
+            },
+            {
+              "name": "Governance domains identified",
+              "description": "Governance domains identified (security, cost, compliance, naming, blast radius, change management).",
+              "seq": 5
+            },
+            {
+              "name": "Initial governance scope defined",
+              "description": "Initial governance scope defined based on organizational risk appetite.",
+              "seq": 6
+            },
+            {
+              "name": "Governance stakeholders identified",
+              "description": "Governance stakeholders identified (security, compliance, operations, management).",
+              "seq": 7
+            },
+            {
+              "name": "Governance framework selection initiated",
+              "description": "Governance framework selection initiated (OPA/Rego, Sentinel, Kyverno, custom).",
+              "seq": 8
+            },
+            {
+              "name": "Initial RBAC scope defined with platform gateway",
+              "description": "Initial RBAC scope defined with platform gateway as centralized access control point.",
+              "seq": 9
+            },
+            {
+              "name": "Organizations mapped to business units",
+              "description": "Organizations mapped to business units or regulatory boundaries with naming standards.",
+              "seq": 10
+            },
+            {
+              "name": "Default organization configured",
+              "description": "Default organization configured with system administrator permissions documented.",
+              "seq": 11
+            },
+            {
+              "name": "Permission request workflow requirements gathered",
+              "description": "Permission request workflow requirements gathered from stakeholder teams.",
+              "seq": 12
+            },
+            {
+              "name": "Governance gap analysis completed",
+              "description": "Governance gap analysis identifies which assets lack RBAC coverage.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Documented",
+          "description": "Governance policies are codified and documented.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Policies codified as Policy-as-Code rules (OPA Rego, Sentinel, Kyverno YAML)",
+              "description": "Policies codified as Policy-as-Code rules (OPA Rego, Sentinel, Kyverno YAML)",
+              "seq": 1
+            },
+            {
+              "name": "Policies version-controlled in dedicated repository with peer review",
+              "description": "Policies version-controlled in dedicated repository with peer review",
+              "seq": 2
+            },
+            {
+              "name": "Policy documentation published with rationale, scope, and enforcement level",
+              "description": "Policy documentation published with rationale, scope, and enforcement level",
+              "seq": 3
+            },
+            {
+              "name": "Policies deployed in advisory mode for initial data gathering and false positive identification",
+              "description": "Policies deployed in advisory mode for initial data gathering and false positive identification",
+              "seq": 4
+            },
+            {
+              "name": "Policies codified as Policy-as-Code rules",
+              "description": "Policies codified as Policy-as-Code rules (OPA Rego, Sentinel, Kyverno YAML).",
+              "seq": 5
+            },
+            {
+              "name": "Policies version-controlled with peer review",
+              "description": "Policies version-controlled in dedicated repository with peer review.",
+              "seq": 6
+            },
+            {
+              "name": "Policy documentation published",
+              "description": "Policy documentation published with rationale, scope, and enforcement level.",
+              "seq": 7
+            },
+            {
+              "name": "Policies deployed in advisory mode",
+              "description": "Policies deployed in advisory mode for initial data gathering and false positive identification.",
+              "seq": 8
+            },
+            {
+              "name": "RBAC model documented with role assignments",
+              "description": "RBAC model documented with organizations, teams, and built-in role assignments (Admin, Execute, Use, Read).",
+              "seq": 9
+            },
+            {
+              "name": "Team-based permission inheritance implemented",
+              "description": "Team-based permission inheritance model implemented through platform gateway.",
+              "seq": 10
+            },
+            {
+              "name": "Identity provider group mapping configured",
+              "description": "Identity provider group mapping configured (LDAP groups, SAML attributes, OIDC claims) to automate team membership.",
+              "seq": 11
+            },
+            {
+              "name": "Team administrator delegation model documented",
+              "description": "Team administrator delegation model documented with scope boundaries.",
+              "seq": 12
+            },
+            {
+              "name": "Custom role governance documents approved",
+              "description": "Custom role governance documents approved use cases and permission boundaries per organization.",
+              "seq": 13
+            },
+            {
+              "name": "RBAC policies codified per asset type",
+              "description": "RBAC policies codified per asset type (inventories, credentials, job templates, projects).",
+              "seq": 14
+            }
+          ]
+        },
+        {
+          "name": "Audited",
+          "description": "Governance policies are actively enforced and audited.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Policies actively enforced in CI/CD pipelines with violations blocked or flagged by severity",
+              "description": "Policies actively enforced in CI/CD pipelines with violations blocked or flagged by severity",
+              "seq": 1
+            },
+            {
+              "name": "Every infrastructure change evaluated against codified policies before deployment",
+              "description": "Every infrastructure change evaluated against codified policies before deployment",
+              "seq": 2
+            },
+            {
+              "name": "Compliance evidence automatically generated for audit purposes",
+              "description": "Compliance evidence automatically generated for audit purposes",
+              "seq": 3
+            },
+            {
+              "name": "Policy effectiveness metrics tracked (violation rates, false positives, overrides)",
+              "description": "Policy effectiveness metrics tracked (violation rates, false positives, overrides)",
+              "seq": 4
+            },
+            {
+              "name": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory)",
+              "description": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory)",
+              "seq": 5
+            },
+            {
+              "name": "Policies actively enforced in CI/CD pipelines",
+              "description": "Policies actively enforced in CI/CD pipelines with violations blocked or flagged by severity.",
+              "seq": 6
+            },
+            {
+              "name": "Every infrastructure change evaluated against policies",
+              "description": "Every infrastructure change evaluated against codified policies before deployment.",
+              "seq": 7
+            },
+            {
+              "name": "Compliance evidence automatically generated",
+              "description": "Compliance evidence automatically generated for audit purposes.",
+              "seq": 8
+            },
+            {
+              "name": "Policy effectiveness metrics tracked",
+              "description": "Policy effectiveness metrics tracked (violation rates, false positives, overrides).",
+              "seq": 9
+            },
+            {
+              "name": "Graduated enforcement applied",
+              "description": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory).",
+              "seq": 10
+            },
+            {
+              "name": "RBAC audit logs forwarded to SIEM",
+              "description": "RBAC audit logs forwarded to centralized SIEM via platform gateway audit stream integrations.",
+              "seq": 11
+            },
+            {
+              "name": "Automated permission reviews identify overprivileged users",
+              "description": "Automated permission reviews identify overprivileged users and stale access.",
+              "seq": 12
+            },
+            {
+              "name": "Custom RBAC roles enforce organization-specific permissions",
+              "description": "Custom RBAC roles enforcing organization-specific permission sets across controller, hub, and EDA.",
+              "seq": 13
+            },
+            {
+              "name": "Organization-level Add permissions enable self-service",
+              "description": "Organization-level Add permissions enable self-service resource creation with creator-as-admin.",
+              "seq": 14
+            },
+            {
+              "name": "Compliance reports demonstrate RBAC policy adherence",
+              "description": "Compliance reports demonstrate RBAC policy adherence and permission access patterns.",
+              "seq": 15
+            },
+            {
+              "name": "Asset-level RBAC enforcement validated",
+              "description": "Asset-level RBAC enforcement validated across all governed asset types.",
+              "seq": 16
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "RBAC Governance Maturity Through Platform Gateway",
+          "description": "Progressive governance from centralized administration to fully delegated self-service with custom roles.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Governance begins with a centralized administration model where system administrators manually configure users and permissions through the platform gateway, establishing foundational organizational boundaries and identifying which teams need access to which automation resources."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "As the platform matures, team-based permissions replace individual assignments, team administrators gain delegated authority to manage their own membership, and identity provider integration automates team membership through LDAP group mapping or OIDC claims, significantly reducing administrative overhead while maintaining control."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Fully mature governance features custom RBAC roles with organization-specific permission sets, self-service resource creation governed by organizational boundaries, and comprehensive audit reporting that tracks permission assignments and access patterns across all platform services with automated compliance validation."
+            }
+          ],
+          "citationNames": [
+            "RBAC Enhancements in Red Hat Ansible Automation Platform 2.5",
+            "Platform Gateway Architecture - AAP 2.7"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Platform Value And Economics",
+      "description": "The financial and outcome-based justification and accounting for infrastructure automation investment. Encompasses ROI modeling, TCO analysis comparing manual vs. automated operations, FinOps integration, cost avoidance calculations, operational efficiency metrics, and chargeback/showback models.",
+      "focusName": "Value",
+      "assetNames": [
+        {
+          "assetName": "analytics-dashboard-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Modeled",
+          "description": "Financial needs and potential values of automation investment are recognized.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Initial cost-benefit analysis includes tooling costs, training investment, and projected savings",
+              "description": "Initial cost-benefit analysis includes tooling costs, training investment, and projected savings",
+              "seq": 1
+            },
+            {
+              "name": "Cost of current manual operations quantified (labor hours, error remediation, downtime costs)",
+              "description": "Cost of current manual operations quantified (labor hours, error remediation, downtime costs)",
+              "seq": 2
+            },
+            {
+              "name": "Projected savings from automation modeled (reduced MTTR, eliminated errors, faster provisioning)",
+              "description": "Projected savings from automation modeled (reduced MTTR, eliminated errors, faster provisioning)",
+              "seq": 3
+            },
+            {
+              "name": "Financial model includes both direct costs and opportunity costs of delayed automation",
+              "description": "Financial model includes both direct costs and opportunity costs of delayed automation",
+              "seq": 4
+            },
+            {
+              "name": "Initial cost-benefit analysis completed",
+              "description": "Initial cost-benefit analysis includes tooling costs, training investment, and projected savings.",
+              "seq": 5
+            },
+            {
+              "name": "Cost of manual operations quantified",
+              "description": "Cost of current manual operations quantified (labor hours, error remediation, downtime costs).",
+              "seq": 6
+            },
+            {
+              "name": "Projected savings from automation modeled",
+              "description": "Projected savings from automation modeled (reduced MTTR, eliminated errors, faster provisioning).",
+              "seq": 7
+            },
+            {
+              "name": "Financial model includes opportunity costs",
+              "description": "Financial model includes both direct costs and opportunity costs of delayed automation.",
+              "seq": 8
+            },
+            {
+              "name": "Baseline job execution metrics established",
+              "description": "Baseline job execution metrics established with controller UI job history (30-day retention).",
+              "seq": 9
+            },
+            {
+              "name": "Manual time estimates documented per job type",
+              "description": "Manual time estimates documented per job type for time-savings calculation baseline.",
+              "seq": 10
+            },
+            {
+              "name": "Initial success and failure rate baselines captured",
+              "description": "Initial success rate and failure rate baselines captured from controller dashboard.",
+              "seq": 11
+            },
+            {
+              "name": "Analytics deployment model selected",
+              "description": "Analytics deployment model selected (integrated dashboard within platform vs cloud-based Hybrid Cloud Console).",
+              "seq": 12
+            },
+            {
+              "name": "Key metric categories identified",
+              "description": "Key metric categories identified (time savings, cost avoidance, adoption rate, success rate).",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Allocated",
+          "description": "Costs and benefits are logically modeled with chargeback/showback mechanisms.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Budget formally allocated for automation platform infrastructure, tooling licenses, and training",
+              "description": "Budget formally allocated for automation platform infrastructure, tooling licenses, and training",
+              "seq": 1
+            },
+            {
+              "name": "Chargeback or showback model defined for automation services consumed by teams",
+              "description": "Chargeback or showback model defined for automation services consumed by teams",
+              "seq": 2
+            },
+            {
+              "name": "FinOps practices integrated for infrastructure cost optimization and resource right-sizing",
+              "description": "FinOps practices integrated for infrastructure cost optimization and resource right-sizing",
+              "seq": 3
+            },
+            {
+              "name": "Cost allocation tags defined and enforced through automation policies",
+              "description": "Cost allocation tags defined and enforced through automation policies",
+              "seq": 4
+            },
+            {
+              "name": "Budget formally allocated for automation platform",
+              "description": "Budget formally allocated for automation platform infrastructure, tooling licenses, and training.",
+              "seq": 5
+            },
+            {
+              "name": "Chargeback or showback model defined",
+              "description": "Chargeback or showback model defined for automation services consumed by teams.",
+              "seq": 6
+            },
+            {
+              "name": "FinOps practices integrated",
+              "description": "FinOps practices integrated for infrastructure cost optimization and resource right-sizing.",
+              "seq": 7
+            },
+            {
+              "name": "Cost allocation tags defined and enforced",
+              "description": "Cost allocation tags defined and enforced through automation policies.",
+              "seq": 8
+            },
+            {
+              "name": "Automation dashboard deployed and integrated",
+              "description": "Automation dashboard deployed or integrated within platform aggregating telemetry from multiple controllers.",
+              "seq": 9
+            },
+            {
+              "name": "Organization-wide execution trends operational",
+              "description": "Organization-wide view of job execution trends and success rates operational.",
+              "seq": 10
+            },
+            {
+              "name": "Template-level performance metrics identify bottlenecks",
+              "description": "Template-level performance metrics identify bottlenecks and high-failure job templates.",
+              "seq": 11
+            },
+            {
+              "name": "Customizable ROI metrics configured",
+              "description": "Customizable ROI metrics configured for organizational reporting requirements (AAP 2.7).",
+              "seq": 12
+            },
+            {
+              "name": "Cost allocation tags implemented for chargeback",
+              "description": "Cost allocation tags implemented for chargeback or showback by organization and team.",
+              "seq": 13
+            },
+            {
+              "name": "PDF snapshots and CSV export enabled",
+              "description": "PDF snapshots and CSV export enabled for executive reporting workflows.",
+              "seq": 14
+            }
+          ]
+        },
+        {
+          "name": "Sustained",
+          "description": "The economic model is approved and validated by actual operational data.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "ROI demonstrated through measurable metrics (reduced MTTR, fewer incidents, faster provisioning)",
+              "description": "ROI demonstrated through measurable metrics (reduced MTTR, fewer incidents, faster provisioning)",
+              "seq": 1
+            },
+            {
+              "name": "Ongoing operational costs are within projected budget with positive net benefit",
+              "description": "Ongoing operational costs are within projected budget with positive net benefit",
+              "seq": 2
+            },
+            {
+              "name": "Financial reporting automated through infrastructure cost dashboards and alerts",
+              "description": "Financial reporting automated through infrastructure cost dashboards and alerts",
+              "seq": 3
+            },
+            {
+              "name": "Economic model reviewed and approved for continued investment by finance and management",
+              "description": "Economic model reviewed and approved for continued investment by finance and management",
+              "seq": 4
+            },
+            {
+              "name": "ROI demonstrated through measurable metrics",
+              "description": "ROI demonstrated through measurable metrics (reduced MTTR, fewer incidents, faster provisioning).",
+              "seq": 5
+            },
+            {
+              "name": "Ongoing operational costs within projected budget",
+              "description": "Ongoing operational costs are within projected budget with positive net benefit.",
+              "seq": 6
+            },
+            {
+              "name": "Financial reporting automated through dashboards",
+              "description": "Financial reporting automated through infrastructure cost dashboards and alerts.",
+              "seq": 7
+            },
+            {
+              "name": "Economic model reviewed and approved",
+              "description": "Economic model reviewed and approved for continued investment by finance and management.",
+              "seq": 8
+            },
+            {
+              "name": "Time savings metrics calculate hours automated",
+              "description": "Time savings metrics calculate hours automated per job type using labor cost models.",
+              "seq": 9
+            },
+            {
+              "name": "Savings planner projections forecast ROI",
+              "description": "Savings planner projections forecast ROI for proposed automation initiatives.",
+              "seq": 10
+            },
+            {
+              "name": "Analytics API feeds data to enterprise BI tools",
+              "description": "Analytics API feeds data to enterprise BI tools (Tableau, Power BI, Splunk) for custom dashboards.",
+              "seq": 11
+            },
+            {
+              "name": "Anomaly detection alerts on unusual patterns",
+              "description": "Anomaly detection alerts on unusual failure patterns or performance degradation.",
+              "seq": 12
+            },
+            {
+              "name": "Long-term trend analysis supports strategic planning",
+              "description": "Long-term trend analysis supports strategic planning and capacity forecasting.",
+              "seq": 13
+            },
+            {
+              "name": "Cross-organizational benchmarking identifies best practices",
+              "description": "Cross-organizational benchmarking identifies best practices and optimization opportunities.",
+              "seq": 14
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Quantifying Automation Value Through Progressive Analytics",
+          "description": "How automation analytics progresses from basic metrics to sustained business intelligence integration.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations investing in automation platforms need quantifiable evidence that their investment delivers measurable business value, but many lack the analytics infrastructure to move beyond anecdotal success stories and manual spreadsheet reporting."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Establish a comprehensive measurement framework that captures job execution telemetry across multiple controllers, calculates time savings using organizational labor cost models, and presents customizable ROI metrics for both technical and executive stakeholders."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Deploy automation analytics integrated within the platform (AAP 2.7), configure customizable ROI metrics with organizational labor rates, establish savings planner projections, and integrate analytics data with enterprise BI tools through the analytics API."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Organizations achieve sustained, data-driven investment validation with automated ROI reporting, executive-ready dashboards, anomaly detection alerting, and cross-organizational benchmarking that continuously identifies improvement opportunities."
+            }
+          ],
+          "citationNames": [
+            "Automation Analytics and Insights",
+            "Measuring Business Impact with Dashboard and Analytics",
+            "Getting Started with Automation Analytics"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Team",
+      "description": "The group of individuals responsible for the infrastructure automation system's success. Team structures may follow centralized, federated, platform team, or embedded models. Key roles include Automation Engineer, Infrastructure Architect, Site Reliability Engineer, Security/Compliance Engineer, and Platform Engineer.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "team-governance-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Seeded",
+          "description": "Initial automation team members are identified.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Core team roles identified (Automation Engineer, Infrastructure Architect, SRE)",
+              "description": "Core team roles identified (Automation Engineer, Infrastructure Architect, SRE)",
+              "seq": 1
+            },
+            {
+              "name": "Initial team members recruited or assigned with relevant IaC skills",
+              "description": "Initial team members recruited or assigned with relevant IaC skills",
+              "seq": 2
+            },
+            {
+              "name": "Team charter drafted with mission, scope, and responsibilities",
+              "description": "Team charter drafted with mission, scope, and responsibilities",
+              "seq": 3
+            },
+            {
+              "name": "Reporting structure and stakeholder relationships defined",
+              "description": "Reporting structure and stakeholder relationships defined",
+              "seq": 4
+            },
+            {
+              "name": "Core team roles identified",
+              "description": "Core team roles identified (Automation Engineer, Infrastructure Architect, SRE).",
+              "seq": 5
+            },
+            {
+              "name": "Initial team members recruited or assigned",
+              "description": "Initial team members recruited or assigned with relevant IaC skills.",
+              "seq": 6
+            },
+            {
+              "name": "Team charter drafted",
+              "description": "Team charter drafted with mission, scope, and responsibilities.",
+              "seq": 7
+            },
+            {
+              "name": "Governance roles identified",
+              "description": "Governance roles identified (automation governance lead, security engineer, business analyst).",
+              "seq": 8
+            },
+            {
+              "name": "Team-to-organization mapping planned",
+              "description": "Team-to-organization mapping planned aligning AAP organizations to business unit ownership.",
+              "seq": 9
+            },
+            {
+              "name": "Initial RBAC requirements gathered",
+              "description": "Initial RBAC requirements gathered from prospective team leads.",
+              "seq": 10
+            },
+            {
+              "name": "Credential access requirements documented",
+              "description": "Credential access requirements documented per team boundary.",
+              "seq": 11
+            },
+            {
+              "name": "Analytics access roles identified",
+              "description": "Analytics access roles identified for governance and reporting stakeholders.",
+              "seq": 12
+            }
+          ]
+        },
+        {
+          "name": "Formed",
+          "description": "The automation team structure is established.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Team structure defined (centralized platform team, federated, embedded, or hybrid model)",
+              "description": "Team structure defined (centralized platform team, federated, embedded, or hybrid model)",
+              "seq": 1
+            },
+            {
+              "name": "Roles and responsibilities documented for each team member",
+              "description": "Roles and responsibilities documented for each team member",
+              "seq": 2
+            },
+            {
+              "name": "Communication channels established (Slack, standup cadence, documentation wiki)",
+              "description": "Communication channels established (Slack, standup cadence, documentation wiki)",
+              "seq": 3
+            },
+            {
+              "name": "Interaction modes with consuming teams defined (X-as-a-Service, collaboration, facilitation)",
+              "description": "Interaction modes with consuming teams defined (X-as-a-Service, collaboration, facilitation)",
+              "seq": 4
+            },
+            {
+              "name": "Team structure defined",
+              "description": "Team structure defined (centralized platform team, federated, embedded, or hybrid model).",
+              "seq": 5
+            },
+            {
+              "name": "Roles and responsibilities documented",
+              "description": "Roles and responsibilities documented for each team member.",
+              "seq": 6
+            },
+            {
+              "name": "Communication channels established",
+              "description": "Communication channels established (Slack, standup cadence, documentation wiki).",
+              "seq": 7
+            },
+            {
+              "name": "Interaction modes with consuming teams defined",
+              "description": "Interaction modes with consuming teams defined (X-as-a-Service, collaboration, facilitation).",
+              "seq": 8
+            },
+            {
+              "name": "AAP organizations created with team boundaries",
+              "description": "AAP organizations created separating business units or functional areas with team boundaries.",
+              "seq": 9
+            },
+            {
+              "name": "Teams defined within organizations",
+              "description": "Teams defined within organizations with descriptive names reflecting functional responsibilities.",
+              "seq": 10
+            },
+            {
+              "name": "Users assigned to teams with role-based permissions",
+              "description": "Users assigned to teams with role-based permissions inherited automatically through gateway.",
+              "seq": 11
+            },
+            {
+              "name": "Identity provider group mapping automates membership",
+              "description": "Identity provider group mapping automates team membership based on LDAP groups or OIDC claims.",
+              "seq": 12
+            },
+            {
+              "name": "Resource-level RBAC assignments completed",
+              "description": "Resource-level RBAC assignments completed for inventories, credentials, and templates per team.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Collaborating",
+          "description": "Automation team members work together effectively.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Code review practices established and consistently followed",
+              "description": "Code review practices established and consistently followed",
+              "seq": 1
+            },
+            {
+              "name": "Knowledge sharing sessions (pair programming, brown bags, internal tech talks) regular",
+              "description": "Knowledge sharing sessions (pair programming, brown bags, internal tech talks) regular",
+              "seq": 2
+            },
+            {
+              "name": "Cross-functional collaboration with security, operations, and development teams effective",
+              "description": "Cross-functional collaboration with security, operations, and development teams effective",
+              "seq": 3
+            },
+            {
+              "name": "Team norms and working agreements documented and followed",
+              "description": "Team norms and working agreements documented and followed",
+              "seq": 4
+            },
+            {
+              "name": "Code review practices established",
+              "description": "Code review practices established and consistently followed.",
+              "seq": 5
+            },
+            {
+              "name": "Knowledge sharing sessions regular",
+              "description": "Knowledge sharing sessions (pair programming, brown bags, internal tech talks) regular.",
+              "seq": 6
+            },
+            {
+              "name": "Cross-functional collaboration effective",
+              "description": "Cross-functional collaboration with security, operations, and development teams effective.",
+              "seq": 7
+            },
+            {
+              "name": "Team norms and working agreements documented",
+              "description": "Team norms and working agreements documented and followed.",
+              "seq": 8
+            },
+            {
+              "name": "Team administrators manage permissions independently",
+              "description": "Team administrators manage membership and resource permissions independently without system admin involvement.",
+              "seq": 9
+            },
+            {
+              "name": "Cross-team collaboration patterns established",
+              "description": "Cross-team collaboration patterns established for shared resources (inventories, credentials, projects).",
+              "seq": 10
+            },
+            {
+              "name": "Organization administrators oversee multiple teams with org-wide visibility and governance.",
+              "description": "Organization administrators oversee multiple teams with org-wide visibility and governance.",
+              "seq": 11
+            },
+            {
+              "name": "Shared credential access governed with audit logging",
+              "description": "Shared credential access governed through team-level permission grants with audit logging.",
+              "seq": 12
+            },
+            {
+              "name": "Cross-team analytics visibility enabled",
+              "description": "Cross-team analytics visibility enables collaborative performance optimization.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Performing",
+          "description": "The automation team consistently delivers value at a sustainable pace.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Team delivery velocity predictable and meeting commitments",
+              "description": "Team delivery velocity predictable and meeting commitments",
+              "seq": 1
+            },
+            {
+              "name": "Team autonomously handles complex automation challenges without external escalation",
+              "description": "Team autonomously handles complex automation challenges without external escalation",
+              "seq": 2
+            },
+            {
+              "name": "Continuous improvement culture embedded with regular retrospectives and action items",
+              "description": "Continuous improvement culture embedded with regular retrospectives and action items",
+              "seq": 3
+            },
+            {
+              "name": "Team members developing T-shaped skills across automation domains",
+              "description": "Team members developing T-shaped skills across automation domains",
+              "seq": 4
+            },
+            {
+              "name": "Team delivery velocity predictable",
+              "description": "Team delivery velocity predictable and meeting commitments.",
+              "seq": 5
+            },
+            {
+              "name": "Team autonomously handles complex challenges",
+              "description": "Team autonomously handles complex automation challenges without external escalation.",
+              "seq": 6
+            },
+            {
+              "name": "Continuous improvement culture embedded",
+              "description": "Continuous improvement culture embedded with regular retrospectives and action items.",
+              "seq": 7
+            },
+            {
+              "name": "Team members developing T-shaped skills",
+              "description": "Team members developing T-shaped skills across automation domains.",
+              "seq": 8
+            },
+            {
+              "name": "Self-service permission request workflows operational",
+              "description": "Self-service permission request workflows enable rapid onboarding of new team members.",
+              "seq": 9
+            },
+            {
+              "name": "Custom roles tailored to team-specific needs",
+              "description": "Custom roles tailored to team-specific needs reduce permission friction without compromising governance.",
+              "seq": 10
+            },
+            {
+              "name": "Team utilization metrics inform capacity planning",
+              "description": "Team utilization metrics from analytics dashboard inform capacity planning and investment decisions.",
+              "seq": 11
+            },
+            {
+              "name": "Portal-based service delivery enables cross-boundary automation",
+              "description": "Portal-based service delivery enables teams to publish and consume automation across organizational boundaries.",
+              "seq": 12
+            },
+            {
+              "name": "Team-level ROI metrics demonstrate value",
+              "description": "Team-level ROI metrics demonstrate individual team contribution to organizational value.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Adjourned",
+          "description": "The automation team is disbanded or repurposed.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Knowledge transfer completed to successor teams or documentation",
+              "description": "Knowledge transfer completed to successor teams or documentation",
+              "seq": 1
+            },
+            {
+              "name": "Automation platform ownership transitioned with documented runbooks",
+              "description": "Automation platform ownership transitioned with documented runbooks",
+              "seq": 2
+            },
+            {
+              "name": "Team members reassigned with career development considerations",
+              "description": "Team members reassigned with career development considerations",
+              "seq": 3
+            },
+            {
+              "name": "Lessons learned documented for organizational benefit",
+              "description": "Lessons learned documented for organizational benefit",
+              "seq": 4
+            },
+            {
+              "name": "Knowledge transfer completed",
+              "description": "Knowledge transfer completed to successor teams or documentation.",
+              "seq": 5
+            },
+            {
+              "name": "Automation platform ownership transitioned",
+              "description": "Automation platform ownership transitioned with documented runbooks.",
+              "seq": 6
+            },
+            {
+              "name": "Team members reassigned",
+              "description": "Team members reassigned with career development considerations.",
+              "seq": 7
+            },
+            {
+              "name": "Lessons learned documented",
+              "description": "Lessons learned documented for organizational benefit.",
+              "seq": 8
+            },
+            {
+              "name": "Team permissions reviewed and deactivated",
+              "description": "Team permissions reviewed and deactivated through platform gateway upon team dissolution.",
+              "seq": 9
+            },
+            {
+              "name": "Credential access revoked and vault policies updated",
+              "description": "Credential access revoked and vault policies updated to remove team-based access grants.",
+              "seq": 10
+            },
+            {
+              "name": "Team analytics data archived",
+              "description": "Team analytics data archived for historical reporting and trend analysis.",
+              "seq": 11
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Mapping Organizational Structure to Platform Permissions",
+          "description": "How AAP organization and team hierarchy enables delegated governance.",
+          "narrativeTypeName": "Essay Narrative",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Introduction",
+              "context": "Effective automation governance requires mapping organizational structures into the platform's permission model so that teams can operate autonomously within clear boundaries, and the AAP organization and team hierarchy provides the structural foundation for this delegation model."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Defining Key Concepts",
+              "context": "AAP organizations provide top-level logical isolation where each business unit or functional area operates with independent teams, resources, and administrators, while teams within organizations group users sharing common permissions with role inheritance automatically applying to all members."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Presenting Evidence",
+              "context": "Organizations implementing delegated team administration with self-service permission workflows achieve significantly faster onboarding and higher user satisfaction compared to centralized administration models, while maintaining equivalent or better security posture through automated permission reviews and audit logging."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Conclusion",
+              "context": "The team-to-organization mapping approach in AAP enables a governance model that balances organizational control with team autonomy, scaling from simple centralized administration to fully delegated self-service as governance maturity progresses."
+            }
+          ],
+          "citationNames": [
+            "RBAC Enhancements in Red Hat Ansible Automation Platform 2.5"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Asset Governance",
+      "description": "The portfolio-level maturity of how managed assets are governed across the infrastructure estate. Tracks the organizational journey from ad-hoc, manual infrastructure management to fully autonomous, self-healing operations. Explicitly NOT about individual asset lifecycle (that is Managed Asset) -- this is about the maturity and sophistication of the governance system applied across the entire infrastructure portfolio.",
+      "focusName": "Endeavor",
+      "assetNames": [
+        {
+          "assetName": "asset-governance-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Unmanaged",
+          "description": "Infrastructure exists but is not under IaC control.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Resources provisioned manually, through ad-hoc scripts, or via cloud console click-ops",
+              "description": "Resources provisioned manually, through ad-hoc scripts, or via cloud console click-ops",
+              "seq": 1
+            },
+            {
+              "name": "No comprehensive inventory of infrastructure assets exists",
+              "description": "No comprehensive inventory of infrastructure assets exists",
+              "seq": 2
+            },
+            {
+              "name": "No defined ownership or lifecycle management for infrastructure resources",
+              "description": "No defined ownership or lifecycle management for infrastructure resources",
+              "seq": 3
+            },
+            {
+              "name": "Shadow IT and zombie resources are common and untracked",
+              "description": "Shadow IT and zombie resources are common and untracked",
+              "seq": 4
+            },
+            {
+              "name": "Resources provisioned manually or ad-hoc",
+              "description": "Resources provisioned manually, through ad-hoc scripts, or via cloud console click-ops.",
+              "seq": 5
+            },
+            {
+              "name": "No comprehensive inventory of infrastructure assets",
+              "description": "No comprehensive inventory of infrastructure assets exists.",
+              "seq": 6
+            },
+            {
+              "name": "No defined ownership or lifecycle management",
+              "description": "No defined ownership or lifecycle management for infrastructure resources.",
+              "seq": 7
+            },
+            {
+              "name": "Shadow IT and zombie resources untracked",
+              "description": "Shadow IT and zombie resources are common and untracked.",
+              "seq": 8
+            },
+            {
+              "name": "Automation jobs launched ad-hoc without approval",
+              "description": "Automation jobs launched ad-hoc by individuals with no organizational approval workflow.",
+              "seq": 9
+            },
+            {
+              "name": "Credentials stored locally without vault integration",
+              "description": "Credentials stored locally in controller database without external vault integration.",
+              "seq": 10
+            },
+            {
+              "name": "No inventory governance or standardized grouping",
+              "description": "No inventory governance or standardized host grouping across teams.",
+              "seq": 11
+            },
+            {
+              "name": "No centralized analytics or governance visibility",
+              "description": "No centralized analytics or governance visibility across automation estate.",
+              "seq": 12
+            },
+            {
+              "name": "Permission assignments are ad-hoc",
+              "description": "Permission assignments are ad-hoc with no documented RBAC model.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Inventoried",
+          "description": "Assets cataloged with attributes and metadata captured.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Discovery tools active and scanning infrastructure estate (cloud APIs, network scans, CMDB agents)",
+              "description": "Discovery tools active and scanning infrastructure estate (cloud APIs, network scans, CMDB agents)",
+              "seq": 1
+            },
+            {
+              "name": "Resource ownership assigned with basic metadata recorded (type, location, cost, owner, creation date)",
+              "description": "Resource ownership assigned with basic metadata recorded (type, location, cost, owner, creation date)",
+              "seq": 2
+            },
+            {
+              "name": "Coverage gap analysis quantifies percentage of infrastructure under management",
+              "description": "Coverage gap analysis quantifies percentage of infrastructure under management",
+              "seq": 3
+            },
+            {
+              "name": "The organization can reliably answer What infrastructure do we have?",
+              "description": "The organization can reliably answer What infrastructure do we have?",
+              "seq": 4
+            },
+            {
+              "name": "Discovery tools active scanning infrastructure",
+              "description": "Discovery tools active and scanning infrastructure estate (cloud APIs, network scans, CMDB agents).",
+              "seq": 5
+            },
+            {
+              "name": "Resource ownership assigned with metadata",
+              "description": "Resource ownership assigned with basic metadata recorded (type, location, cost, owner, creation date).",
+              "seq": 6
+            },
+            {
+              "name": "Coverage gap analysis quantifies managed percentage",
+              "description": "Coverage gap analysis quantifies percentage of infrastructure under management.",
+              "seq": 7
+            },
+            {
+              "name": "Organization can answer what infrastructure exists",
+              "description": "The organization can reliably answer What infrastructure do we have?",
+              "seq": 8
+            },
+            {
+              "name": "Dynamic inventory sources configured",
+              "description": "Dynamic inventory sources configured discovering managed hosts from cloud providers and CMDBs.",
+              "seq": 9
+            },
+            {
+              "name": "RBAC policies define team inventory access",
+              "description": "RBAC policies define which teams can view, use, or administer which inventory sources.",
+              "seq": 10
+            },
+            {
+              "name": "Credential types cataloged with ownership",
+              "description": "Credential types cataloged with ownership and rotation status tracked per credential.",
+              "seq": 11
+            },
+            {
+              "name": "Asset coverage gap analysis quantifies AAP-managed percentage",
+              "description": "Asset coverage gap analysis quantifies percentage of infrastructure managed through AAP.",
+              "seq": 12
+            },
+            {
+              "name": "Analytics dashboard provides initial visibility",
+              "description": "Analytics dashboard provides initial visibility into asset coverage and job execution metrics.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Codified",
+          "description": "Desired state declared in IaC for all significant managed assets.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Significant majority of infrastructure defined in version-controlled automation code",
+              "description": "Significant majority of infrastructure defined in version-controlled automation code",
+              "seq": 1
+            },
+            {
+              "name": "New resources provisioned through code by default (IaC-first policy)",
+              "description": "New resources provisioned through code by default (IaC-first policy)",
+              "seq": 2
+            },
+            {
+              "name": "Existing resources progressively imported into state management",
+              "description": "Existing resources progressively imported into state management",
+              "seq": 3
+            },
+            {
+              "name": "Infrastructure code serves as the authoritative source of truth for configuration",
+              "description": "Infrastructure code serves as the authoritative source of truth for configuration",
+              "seq": 4
+            },
+            {
+              "name": "Significant majority of infrastructure defined in code",
+              "description": "Significant majority of infrastructure defined in version-controlled automation code.",
+              "seq": 5
+            },
+            {
+              "name": "New resources provisioned through code by default",
+              "description": "New resources provisioned through code by default (IaC-first policy).",
+              "seq": 6
+            },
+            {
+              "name": "Existing resources progressively imported",
+              "description": "Existing resources progressively imported into state management.",
+              "seq": 7
+            },
+            {
+              "name": "Infrastructure code serves as source of truth",
+              "description": "Infrastructure code serves as the authoritative source of truth for configuration.",
+              "seq": 8
+            },
+            {
+              "name": "Job templates and workflows defined as code",
+              "description": "Job templates and workflows defined as code through GitOps configuration repository.",
+              "seq": 9
+            },
+            {
+              "name": "Credential management codified with vault lookup",
+              "description": "Credential management codified with external vault lookup plugins for dynamic retrieval.",
+              "seq": 10
+            },
+            {
+              "name": "RBAC model codified in version-controlled configuration",
+              "description": "RBAC model codified in version-controlled configuration files applied through platform gateway.",
+              "seq": 11
+            },
+            {
+              "name": "Inventory source sync schedules defined declaratively",
+              "description": "Inventory source sync schedules and constructed group logic defined declaratively.",
+              "seq": 12
+            },
+            {
+              "name": "Governance policies expressed as code",
+              "description": "Governance policies expressed as code with automated enforcement through CI/CD.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Converged",
+          "description": "Actual state matches desired state across the infrastructure portfolio.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Drift detection runs on defined schedules (hourly for volatile, daily for stable environments)",
+              "description": "Drift detection runs on defined schedules (hourly for volatile, daily for stable environments)",
+              "seq": 1
+            },
+            {
+              "name": "Deviations identified, classified by severity, and remediated through defined workflows",
+              "description": "Deviations identified, classified by severity, and remediated through defined workflows",
+              "seq": 2
+            },
+            {
+              "name": "Reconciliation windows collect drift events for batched review and remediation",
+              "description": "Reconciliation windows collect drift events for batched review and remediation",
+              "seq": 3
+            },
+            {
+              "name": "Gap between declared and actual state systematically minimized across the estate",
+              "description": "Gap between declared and actual state systematically minimized across the estate",
+              "seq": 4
+            },
+            {
+              "name": "Drift detection runs on defined schedules",
+              "description": "Drift detection runs on defined schedules (hourly for volatile, daily for stable environments).",
+              "seq": 5
+            },
+            {
+              "name": "Deviations identified and remediated",
+              "description": "Deviations identified, classified by severity, and remediated through defined workflows.",
+              "seq": 6
+            },
+            {
+              "name": "Reconciliation windows collect drift events",
+              "description": "Reconciliation windows collect drift events for batched review and remediation.",
+              "seq": 7
+            },
+            {
+              "name": "Gap between declared and actual state minimized",
+              "description": "Gap between declared and actual state systematically minimized across the estate.",
+              "seq": 8
+            },
+            {
+              "name": "GitOps drift detection identifies unauthorized changes",
+              "description": "GitOps drift detection identifies unauthorized changes to RBAC, job templates, and credentials.",
+              "seq": 9
+            },
+            {
+              "name": "Credential rotation compliance tracked",
+              "description": "Credential rotation compliance tracked against defined cadences (90 days service accounts, 30 days API tokens).",
+              "seq": 10
+            },
+            {
+              "name": "Analytics dashboard monitors governance compliance metrics across all organizations.",
+              "description": "Analytics dashboard monitors governance compliance metrics across all organizations.",
+              "seq": 11
+            },
+            {
+              "name": "Self-service portal orders enforce approved configurations",
+              "description": "Self-service portal orders enforce approved configurations preventing ungoverned provisioning.",
+              "seq": 12
+            },
+            {
+              "name": "Convergence metrics reported with trend analysis",
+              "description": "Convergence metrics reported through automation analytics with trend analysis.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Governed",
+          "description": "Policy-as-Code enforced across the entire infrastructure estate.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "Every change evaluated against codified organizational, security, and compliance policies",
+              "description": "Every change evaluated against codified organizational, security, and compliance policies",
+              "seq": 1
+            },
+            {
+              "name": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory)",
+              "description": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory)",
+              "seq": 2
+            },
+            {
+              "name": "Automated compliance reporting generates evidence for audits",
+              "description": "Automated compliance reporting generates evidence for audits",
+              "seq": 3
+            },
+            {
+              "name": "Cost governance, security baselines, and regulatory requirements machine-enforced via OPA/Sentinel/Kyverno",
+              "description": "Cost governance, security baselines, and regulatory requirements machine-enforced via OPA/Sentinel/Kyverno",
+              "seq": 4
+            },
+            {
+              "name": "Every change evaluated against codified policies",
+              "description": "Every change evaluated against codified organizational, security, and compliance policies.",
+              "seq": 5
+            },
+            {
+              "name": "Graduated enforcement applied",
+              "description": "Graduated enforcement applied (advisory, soft-mandatory, hard-mandatory).",
+              "seq": 6
+            },
+            {
+              "name": "Automated compliance reporting generates evidence",
+              "description": "Automated compliance reporting generates evidence for audits.",
+              "seq": 7
+            },
+            {
+              "name": "Cost governance and security baselines machine-enforced",
+              "description": "Cost governance, security baselines, and regulatory requirements machine-enforced via OPA/Sentinel/Kyverno.",
+              "seq": 8
+            },
+            {
+              "name": "OIDC-issued JWT tokens enforce just-in-time access",
+              "description": "OIDC-issued short-lived JWT tokens enforce just-in-time credential access scoped per job execution.",
+              "seq": 9
+            },
+            {
+              "name": "Custom RBAC roles define tailored permission sets",
+              "description": "Custom RBAC roles define tailored permission sets enforced across controller, hub, and EDA controller.",
+              "seq": 10
+            },
+            {
+              "name": "Automated compliance reports demonstrate RBAC adherence",
+              "description": "Automated compliance reports demonstrate RBAC policy adherence and credential access patterns.",
+              "seq": 11
+            },
+            {
+              "name": "Self-service portal governance enforces approval chains",
+              "description": "Self-service portal governance enforces approval chains and ITSM integration for all changes.",
+              "seq": 12
+            },
+            {
+              "name": "Analytics data feeds enterprise BI tools",
+              "description": "Analytics data feeds enterprise BI tools providing cross-organizational governance visibility.",
+              "seq": 13
+            }
+          ]
+        },
+        {
+          "name": "Self-Healing",
+          "description": "Auto-remediation active with autonomous convergence within defined boundaries.",
+          "seq": 6,
+          "checklist": [
+            {
+              "name": "AI-driven anomaly detection identifies emerging problems before they cause incidents",
+              "description": "AI-driven anomaly detection identifies emerging problems before they cause incidents",
+              "seq": 1
+            },
+            {
+              "name": "Automated remediation resolves known failure patterns (tiered: auto-fix low-risk, auto-ticket medium-risk, page-human high-risk)",
+              "description": "Automated remediation resolves known failure patterns (tiered: auto-fix low-risk, auto-ticket medium-risk, page-human high-risk)",
+              "seq": 2
+            },
+            {
+              "name": "Predictive maintenance anticipates and prevents failures proactively",
+              "description": "Predictive maintenance anticipates and prevents failures proactively",
+              "seq": 3
+            },
+            {
+              "name": "Event-driven correction and zero-touch operations are the norm within defined operational boundaries",
+              "description": "Event-driven correction and zero-touch operations are the norm within defined operational boundaries",
+              "seq": 4
+            },
+            {
+              "name": "AI-driven anomaly detection identifies emerging problems",
+              "description": "AI-driven anomaly detection identifies emerging problems before they cause incidents.",
+              "seq": 5
+            },
+            {
+              "name": "Automated remediation resolves known failure patterns",
+              "description": "Automated remediation resolves known failure patterns (tiered: auto-fix low-risk, auto-ticket medium-risk, page-human high-risk).",
+              "seq": 6
+            },
+            {
+              "name": "Predictive maintenance anticipates failures",
+              "description": "Predictive maintenance anticipates and prevents failures proactively.",
+              "seq": 7
+            },
+            {
+              "name": "Event-driven correction and zero-touch operations",
+              "description": "Event-driven correction and zero-touch operations are the norm within defined operational boundaries.",
+              "seq": 8
+            },
+            {
+              "name": "Anomaly detection identifies unusual credential access",
+              "description": "Anomaly detection identifies unusual credential access patterns and triggers automated investigation.",
+              "seq": 9
+            },
+            {
+              "name": "Automated permission reviews revoke overprivileged access",
+              "description": "Automated permission reviews revoke overprivileged access based on usage analytics.",
+              "seq": 10
+            },
+            {
+              "name": "GitOps reconciliation corrects unauthorized drift",
+              "description": "GitOps reconciliation automatically corrects unauthorized RBAC and configuration drift.",
+              "seq": 11
+            },
+            {
+              "name": "Event-driven automation responds to governance violations",
+              "description": "Event-driven automation responds to governance violations with immediate remediation actions.",
+              "seq": 12
+            },
+            {
+              "name": "Self-healing governance operates within boundaries",
+              "description": "Self-healing governance operates within defined boundaries with comprehensive audit trails.",
+              "seq": 13
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Asset Governance Maturity Through RBAC, Credentials, and Analytics",
+          "description": "Progressive governance maturity from unmanaged assets to self-healing operations.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Asset governance begins with inventorying what automation resources exist across the organization, cataloging credential types and their ownership, and establishing basic RBAC policies that define which teams can access which inventories and job templates through the platform gateway."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "Governance matures as organizations codify their RBAC model and credential management in version-controlled configuration, implement drift detection to identify unauthorized changes, track credential rotation compliance, and use analytics dashboards to monitor governance metrics across all AAP organizations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "Fully governed operations feature OIDC-issued short-lived credentials enforcing zero-trust access, automated compliance reporting feeding enterprise BI tools, self-healing governance that detects anomalies and automatically remediates unauthorized changes, and event-driven responses to governance violations within defined operational boundaries."
+            }
+          ],
+          "citationNames": [
+            "OIDC Identity Provider for HashiCorp Vault - AAP 2.7",
+            "RBAC Enhancements in Red Hat Ansible Automation Platform 2.5"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Automation Credential Security",
+      "description": "Encrypted credential lifecycle from local storage through zero-trust operations.",
+      "focusName": "Value",
+      "contributesTo": "Platform Risk And Compliance",
+      "relatesTo": [
+        {
+          "relationship": "governs access to",
+          "alphaName": "Managed Asset",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "governed by",
+          "alphaName": "Platform Governance",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "enforces",
+          "alphaName": "Asset Governance",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "credential-security-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Local Storage",
+          "description": "Credentials stored in controller database with encryption.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Credentials created with encrypted database storage",
+              "description": "Credentials created in automation controller with encrypted database storage.",
+              "seq": 1
+            },
+            {
+              "name": "Credential types configured for target infrastructure",
+              "description": "Credential types configured for target infrastructure (SSH, cloud providers, vault).",
+              "seq": 2
+            },
+            {
+              "name": "Runtime injection delivers credentials securely",
+              "description": "Runtime injection delivers credentials to playbooks without exposure in job output logs.",
+              "seq": 3
+            },
+            {
+              "name": "No external vault integration",
+              "description": "No external vault integration; all secrets managed within controller database.",
+              "seq": 4
+            },
+            {
+              "name": "Credential access restricted by RBAC",
+              "description": "Credential access restricted by RBAC through platform gateway authentication.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "External Vault Connected",
+          "description": "Credentials retrieved from external vault at job execution.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "External vault configured as credential source",
+              "description": "HashiCorp Vault, CyberArk, or Azure Key Vault configured as credential source.",
+              "seq": 1
+            },
+            {
+              "name": "Credential lookup plugins retrieve secrets dynamically",
+              "description": "Credential lookup plugins retrieve secrets dynamically at job launch time.",
+              "seq": 2
+            },
+            {
+              "name": "Vault authentication configured",
+              "description": "Vault authentication configured (AppRole, token, Kubernetes auth method).",
+              "seq": 3
+            },
+            {
+              "name": "Credential rotation managed by vault system",
+              "description": "Credential rotation managed by vault system without automation controller changes required.",
+              "seq": 4
+            },
+            {
+              "name": "Audit trail tracks credential access",
+              "description": "Audit trail tracks credential access through vault logging and SIEM integration.",
+              "seq": 5
+            },
+            {
+              "name": "Custom credential types map vault paths",
+              "description": "Custom credential types map vault secret paths to job template variables.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "OIDC Token Issuance",
+          "description": "AAP issues job-scoped JWT tokens with automatic revocation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "AAP configured as OIDC identity provider",
+              "description": "AAP configured as OIDC identity provider for HashiCorp Vault through platform gateway.",
+              "seq": 1
+            },
+            {
+              "name": "Short-lived JWT tokens issued per job execution",
+              "description": "Short-lived JWT tokens issued per job execution scoped to job ID, user, and organization.",
+              "seq": 2
+            },
+            {
+              "name": "Tokens auto-revoke after job execution",
+              "description": "Tokens auto-revoke after job execution completes eliminating persistent credential exposure.",
+              "seq": 3
+            },
+            {
+              "name": "Vault policies validate OIDC claims",
+              "description": "Vault policies validate OIDC claims restricting secret access by job context.",
+              "seq": 4
+            },
+            {
+              "name": "No long-lived credentials stored in controller",
+              "description": "No long-lived credentials stored in controller reducing breach exposure window.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Zero-Trust Operations",
+          "description": "All credential access governed by just-in-time policies.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "All production credentials via OIDC/Vault",
+              "description": "All production credentials retrieved via OIDC/Vault integration with no persistent secrets.",
+              "seq": 1
+            },
+            {
+              "name": "Credential rotation automated across all types",
+              "description": "Credential rotation automated across all vault-managed secret types within defined cadences.",
+              "seq": 2
+            },
+            {
+              "name": "Compliance reports demonstrate credential access patterns",
+              "description": "Compliance reports demonstrate credential access patterns and policy adherence for auditors.",
+              "seq": 3
+            },
+            {
+              "name": "Anomaly detection alerts on unusual access",
+              "description": "Anomaly detection alerts on unusual credential access patterns triggering investigation.",
+              "seq": 4
+            },
+            {
+              "name": "Break-glass procedures documented and tested",
+              "description": "Break-glass procedures documented and tested for emergency credential access.",
+              "seq": 5
+            },
+            {
+              "name": "Content signing validates integrity end-to-end",
+              "description": "Content signing validates collection and container image integrity end-to-end.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "From Persistent Secrets to Zero-Trust Credential Operations",
+          "description": "Progressive elimination of credential exposure through vault integration and OIDC token issuance.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Enterprise automation platforms manage hundreds of credentials granting access to production infrastructure, cloud APIs, and databases, creating significant security exposure when long-lived secrets are stored in platform databases or shared across jobs without proper scoping."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Progressively eliminate persistent credential storage by implementing external vault integration with dynamic credential retrieval, and ultimately achieve zero-trust credential operations where every job receives uniquely scoped, short-lived tokens that automatically expire after execution completes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Configure OIDC Identity Provider on AAP gateway issuing JWT tokens scoped to individual job executions with claims identifying job ID, user, and organization, then configure HashiCorp Vault policies that validate these claims to restrict secret access by job context."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Zero-trust credential operations eliminate persistent secret storage, reduce breach exposure windows from months to minutes, provide comprehensive audit trails for compliance reporting, and enable anomaly detection to identify unusual credential access patterns automatically."
+            }
+          ],
+          "citationNames": [
+            "Automating Secrets Management with HashiCorp Vault and Red Hat Ansible Automation Platform",
+            "OIDC Identity Provider for HashiCorp Vault - AAP 2.7"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    },
+    {
+      "name": "Automation Service Portal",
+      "description": "User-facing portal for discovering and ordering approved automation services.",
+      "focusName": "Solution",
+      "contributesTo": "Platform Consumption Interface",
+      "relatesTo": [
+        {
+          "relationship": "governed by",
+          "alphaName": "Platform Governance",
+          "direction": "incoming"
+        },
+        {
+          "relationship": "demonstrates ROI for",
+          "alphaName": "Platform Value And Economics",
+          "direction": "outgoing"
+        },
+        {
+          "relationship": "drives adoption through",
+          "alphaName": "Stakeholders",
+          "direction": "outgoing"
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "self-service-portal-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Direct Access",
+          "description": "Users launch automation directly from controller UI.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "All automation users have controller login credentials",
+              "description": "All automation users have controller login credentials via platform gateway.",
+              "seq": 1
+            },
+            {
+              "name": "No approval workflow implemented",
+              "description": "No approval workflow or governance layer implemented for job launches.",
+              "seq": 2
+            },
+            {
+              "name": "Job template proliferation with inconsistent naming",
+              "description": "Job template proliferation with inconsistent naming and organization.",
+              "seq": 3
+            },
+            {
+              "name": "ITSM integration nonexistent",
+              "description": "ITSM integration nonexistent; change requests created manually outside platform.",
+              "seq": 4
+            },
+            {
+              "name": "No standardized service catalog",
+              "description": "No standardized service catalog or discoverability mechanism for automation.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Portal Published",
+          "description": "Self-service portal exposes approved templates in user-friendly interface.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Self-service portal deployed and accessible",
+              "description": "Self-service portal deployed on RHEL 9/10 or OpenShift accessible to automation consumers.",
+              "seq": 1
+            },
+            {
+              "name": "Portfolios created organizing automation services",
+              "description": "Portfolios created organizing automation services by domain or functional area.",
+              "seq": 2
+            },
+            {
+              "name": "Job template surveys converted to order forms",
+              "description": "Job template surveys converted to portal order forms with input validation rules.",
+              "seq": 3
+            },
+            {
+              "name": "Service descriptions and documentation published",
+              "description": "Service descriptions and documentation published improving discoverability.",
+              "seq": 4
+            },
+            {
+              "name": "Basic order history tracking provides visibility",
+              "description": "Basic order history tracking provides requester visibility into submission status.",
+              "seq": 5
+            },
+            {
+              "name": "Portal access integrated with platform gateway",
+              "description": "Portal access integrated with platform gateway authentication and RBAC.",
+              "seq": 6
+            }
+          ]
+        },
+        {
+          "name": "Governed Ordering",
+          "description": "Approval workflows and ITSM integration enforce change management.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Order processes define approval chains",
+              "description": "Order processes define approval chains for different service categories and risk levels.",
+              "seq": 1
+            },
+            {
+              "name": "ServiceNow integration creates change requests",
+              "description": "ServiceNow integration creates change requests automatically on order submission.",
+              "seq": 2
+            },
+            {
+              "name": "Variable substitution passes survey data to ITSM",
+              "description": "Variable substitution passes survey data to ITSM tickets and job template parameters.",
+              "seq": 3
+            },
+            {
+              "name": "Approval notifications route to stakeholders",
+              "description": "Approval notifications route to appropriate stakeholders based on service type.",
+              "seq": 4
+            },
+            {
+              "name": "Order status synchronized bidirectionally",
+              "description": "Order status synchronized bidirectionally between portal and ITSM system.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Automation Marketplace",
+          "description": "Portal serves as enterprise marketplace with analytics.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Service catalog includes 50+ approved services",
+              "description": "Service catalog includes 50+ approved automation services spanning multiple domains.",
+              "seq": 1
+            },
+            {
+              "name": "Usage analytics identify optimization opportunities",
+              "description": "Usage analytics identify popular services and optimization opportunities.",
+              "seq": 2
+            },
+            {
+              "name": "Self-service ordering reduces helpdesk tickets",
+              "description": "Self-service ordering measurably reduces helpdesk tickets and accelerates fulfillment.",
+              "seq": 3
+            },
+            {
+              "name": "Catalog administrators manage portfolios independently",
+              "description": "Catalog administrators (non-platform-engineers) manage portfolios and service visibility.",
+              "seq": 4
+            },
+            {
+              "name": "Continuous improvement process reviews order patterns",
+              "description": "Continuous improvement process reviews order patterns and service quality metrics.",
+              "seq": 5
+            },
+            {
+              "name": "Cost allocation tags enable chargeback models",
+              "description": "Cost allocation tags enable chargeback or showback models per service ordered.",
+              "seq": 6
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "From Controller Access to Enterprise Automation Marketplace",
+          "description": "Progressive self-service portal maturity from direct controller access to governed marketplace.",
+          "narrativeTypeName": "The Three-Act Structure & StoryBrand",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Act I: The Hero and the Problem",
+              "context": "Automation consumers face friction when they must navigate the automation controller directly to launch jobs, dealing with confusing job template names, unclear parameter requirements, and no approval workflow, leading to ungoverned automation execution and compliance risk."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Act II: The Guide and the Plan",
+              "context": "The platform team deploys a self-service automation portal that curates approved services into organized portfolios with clear descriptions, converts job template surveys into intuitive order forms with validation, and implements approval workflows with ServiceNow integration."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Act III: Call to Action and Success",
+              "context": "Organizations adopt the portal as their enterprise automation marketplace with 50+ approved services, catalog administrators managing portfolios independently, and usage analytics driving continuous improvement while self-service ordering demonstrates platform value through cost allocation and chargeback."
+            }
+          ],
+          "citationNames": [
+            "Self-Service Automation Portal - AAP 2.7",
+            "What's New in Ansible Automation Platform 2.7"
+          ]
+        }
+      ],
+      "kind": "alpha"
+    }
+  ],
+  "alphaInstances": [
+    {
+      "name": "Governance Organizations",
+      "description": "AAP organizational units mapped to business units establishing permission isolation for RBAC governance.",
+      "alphaName": "Team"
+    },
+    {
+      "name": "Governance-Tracked Assets",
+      "description": "The collective infrastructure assets governed through AAP RBAC, credential security, and analytics.",
+      "alphaName": "Asset Governance"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "RBAC Policy Document",
+      "description": "Authorization model documenting organizations, teams, roles, and permissions.",
+      "levelsOfDetail": [
+        {
+          "name": "Default Permissions",
+          "description": "Users manually assigned individual permissions.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "All users in single default organization",
+              "description": "All users in single default organization with individual permission grants.",
+              "seq": 1
+            },
+            {
+              "name": "Resource-specific permissions documented per user",
+              "description": "Resource-specific permissions documented per user.",
+              "seq": 2
+            },
+            {
+              "name": "No team structure or role inheritance",
+              "description": "No team structure or role inheritance implemented.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Governance",
+              "stateName": "Scoped"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Unmanaged"
+            }
+          ]
+        },
+        {
+          "name": "Team-Based RBAC",
+          "description": "Teams defined with inherited role assignments.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Organizations separate business units",
+              "description": "Organizations separate business units or functional areas with naming standards.",
+              "seq": 1
+            },
+            {
+              "name": "Teams created with documented membership criteria",
+              "description": "Teams created with descriptive names and documented membership criteria.",
+              "seq": 2
+            },
+            {
+              "name": "Built-in roles applied consistently",
+              "description": "Built-in roles (Admin, Execute, Use, Read) applied consistently to resources.",
+              "seq": 3
+            },
+            {
+              "name": "Identity provider group mapping documented",
+              "description": "Identity provider group mapping documented for automated membership.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Governance",
+              "stateName": "Documented"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Inventoried"
+            }
+          ]
+        },
+        {
+          "name": "Delegated Administration",
+          "description": "Team administrators manage permissions independently.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Team admin role assigned with scope boundaries",
+              "description": "Team admin role assigned to designated leads with documented scope boundaries.",
+              "seq": 1
+            },
+            {
+              "name": "Organization administrators oversee org-wide teams",
+              "description": "Organization administrators oversee org-wide teams with governance visibility.",
+              "seq": 2
+            },
+            {
+              "name": "Self-service permission workflows operational",
+              "description": "Self-service permission workflows documented and operational.",
+              "seq": 3
+            },
+            {
+              "name": "Custom role governance documents approved",
+              "description": "Custom role governance documents approved with use cases and permission boundaries.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Governance",
+              "stateName": "Documented"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Codified"
+            }
+          ]
+        },
+        {
+          "name": "Custom Roles and Governance",
+          "description": "Organization-specific custom roles with audit compliance.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Custom roles define tailored permission sets",
+              "description": "Custom roles define tailored permission sets per organizational requirements.",
+              "seq": 1
+            },
+            {
+              "name": "Organization-level Add permissions enable governed creation",
+              "description": "Organization-level Add permissions enable governed self-service resource creation.",
+              "seq": 2
+            },
+            {
+              "name": "Automated permission reviews identify overprivileged access",
+              "description": "Automated permission reviews identify overprivileged access and stale grants.",
+              "seq": 3
+            },
+            {
+              "name": "Audit reports track permission changes",
+              "description": "Audit reports track permission changes and resource access patterns.",
+              "seq": 4
+            },
+            {
+              "name": "Compliance validation ensures policy adherence",
+              "description": "Compliance validation ensures role definitions meet organizational security policy.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Governance",
+              "stateName": "Audited"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Governed"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "RBAC Policy Document Maturity Progression",
+          "description": "Progressive maturity of the authorization model from individual permissions to custom roles.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "The RBAC policy document begins as a simple record of individual user permissions in the default organization, providing basic visibility into who has access to what automation resources."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "The document matures into a structured authorization model defining organizations, teams, role assignments, and delegation boundaries, with identity provider mapping enabling automated team membership management."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "At full maturity the document encompasses custom role definitions, comprehensive audit trails, automated permission review findings, and compliance validation reports demonstrating adherence to organizational security policies."
+            }
+          ],
+          "citationNames": [
+            "RBAC Enhancements in Red Hat Ansible Automation Platform 2.5"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Automation Value Report",
+      "description": "Visualization and analysis of automation metrics quantifying business impact.",
+      "levelsOfDetail": [
+        {
+          "name": "Job History Export",
+          "description": "Recent job execution data with basic metrics.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Controller UI job history exported",
+              "description": "Controller UI job history exported covering 30-day retention period.",
+              "seq": 1
+            },
+            {
+              "name": "Basic filtering by job template and status",
+              "description": "Basic filtering by job template and execution status applied.",
+              "seq": 2
+            },
+            {
+              "name": "Manual export to spreadsheets for analysis",
+              "description": "Manual export to spreadsheets for ad-hoc analysis.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Value And Economics",
+              "stateName": "Modeled"
+            }
+          ]
+        },
+        {
+          "name": "Integrated Dashboard",
+          "description": "Dashboard aggregating metrics across platform services.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Automation dashboard integrated within platform",
+              "description": "Automation dashboard integrated within platform UI (AAP 2.7) or cloud-based analytics deployed.",
+              "seq": 1
+            },
+            {
+              "name": "Organization-wide success and failure trends",
+              "description": "Organization-wide success rate and failure trend views operational.",
+              "seq": 2
+            },
+            {
+              "name": "Template-level performance metrics available",
+              "description": "Template-level performance metrics identifying bottlenecks.",
+              "seq": 3
+            },
+            {
+              "name": "User activity reports tracking adoption",
+              "description": "User activity reports tracking adoption and utilization by team.",
+              "seq": 4
+            },
+            {
+              "name": "PDF snapshots and CSV export capabilities",
+              "description": "PDF snapshots and CSV export capabilities for reporting workflows.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Value And Economics",
+              "stateName": "Allocated"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Inventoried"
+            }
+          ]
+        },
+        {
+          "name": "ROI Analytics",
+          "description": "Business metrics with customizable ROI calculations.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Time savings calculated per job type",
+              "description": "Time savings calculated per job type using organizational labor cost models.",
+              "seq": 1
+            },
+            {
+              "name": "Customizable ROI metrics configured",
+              "description": "Customizable ROI metrics configured per organizational reporting requirements.",
+              "seq": 2
+            },
+            {
+              "name": "Savings planner projections forecast value",
+              "description": "Savings planner projections forecast value for proposed automation initiatives.",
+              "seq": 3
+            },
+            {
+              "name": "Trend analysis demonstrates improvement trajectory",
+              "description": "Trend analysis demonstrates improvement trajectory over defined time periods.",
+              "seq": 4
+            },
+            {
+              "name": "Module usage analytics inform content priorities",
+              "description": "Module usage analytics inform content development priority decisions.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Value And Economics",
+              "stateName": "Sustained"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Converged"
+            }
+          ]
+        },
+        {
+          "name": "Business Intelligence Integration",
+          "description": "Analytics data integrated with enterprise BI tools.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "API integration feeds data to BI platforms",
+              "description": "API integration feeds data to Tableau, Power BI, or Splunk for custom dashboards.",
+              "seq": 1
+            },
+            {
+              "name": "Custom dashboards combine automation and business KPIs",
+              "description": "Custom dashboards combine automation metrics with business KPIs.",
+              "seq": 2
+            },
+            {
+              "name": "Anomaly detection alerts configured",
+              "description": "Anomaly detection alerts configured for unusual patterns and performance degradation.",
+              "seq": 3
+            },
+            {
+              "name": "Long-term trend analysis supports planning",
+              "description": "Long-term trend analysis supports strategic planning and capacity forecasting.",
+              "seq": 4
+            },
+            {
+              "name": "Cross-organizational benchmarking identifies best practices",
+              "description": "Cross-organizational benchmarking identifies best practices across teams.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Platform Value And Economics",
+              "stateName": "Sustained"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Governed"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Analytics Maturity from Job History to Business Intelligence",
+          "description": "Progressive analytics capability from basic metrics to enterprise BI integration.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Leadership needs evidence that automation platform investment delivers measurable business value, but teams rely on manual spreadsheet exports from controller job history with no aggregated view or ROI calculations."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Build an analytics reporting capability that progresses from basic job tracking through integrated dashboards to comprehensive BI integration with customizable ROI metrics, savings projections, and cross-organizational benchmarking."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Deploy integrated automation dashboard, configure customizable ROI metrics using labor cost models and savings planner projections, establish API feeds to enterprise BI tools, and implement anomaly detection with automated alerting."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Sustained business intelligence integration provides executive-ready ROI reporting, cross-organizational performance benchmarking, and predictive analytics supporting strategic investment decisions for automation program expansion."
+            }
+          ],
+          "citationNames": [
+            "Measuring Business Impact with Dashboard and Analytics",
+            "Automation Analytics and Insights"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Credential Security Architecture",
+      "description": "Documentation of credential management from local storage through zero-trust operations.",
+      "levelsOfDetail": [
+        {
+          "name": "Credential Inventory",
+          "description": "Catalog of credential types and storage locations.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "All credential types inventoried",
+              "description": "All credential types inventoried (SSH keys, cloud API tokens, database passwords, service accounts).",
+              "seq": 1
+            },
+            {
+              "name": "Current storage locations documented",
+              "description": "Current storage locations documented (controller database, external vault, manual).",
+              "seq": 2
+            },
+            {
+              "name": "Rotation compliance status assessed",
+              "description": "Rotation compliance status assessed against recommended cadences.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "Local Storage"
+            },
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "Local Storage"
+            }
+          ]
+        },
+        {
+          "name": "Vault Integration Guide",
+          "description": "Configuration documentation for external vault connectivity.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Vault server configuration documented",
+              "description": "Vault server configuration documented (URL, authentication method, secret paths).",
+              "seq": 1
+            },
+            {
+              "name": "Custom credential types mapping vault paths",
+              "description": "Custom credential types mapping vault paths to job template variables defined.",
+              "seq": 2
+            },
+            {
+              "name": "Credential lookup plugin configuration validated",
+              "description": "Credential lookup plugin configuration tested and validated.",
+              "seq": 3
+            },
+            {
+              "name": "Audit logging integration verified",
+              "description": "Audit logging integration verified between vault and SIEM.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "External Vault Connected"
+            },
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "External Vault Connected"
+            }
+          ]
+        },
+        {
+          "name": "OIDC Configuration Reference",
+          "description": "OIDC Identity Provider and Vault policy configuration.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "AAP OIDC provider configuration documented",
+              "description": "AAP OIDC provider configuration documented with signing keys and token lifetime policies.",
+              "seq": 1
+            },
+            {
+              "name": "Vault JWT auth method configured",
+              "description": "Vault JWT auth method configured trusting AAP as identity provider.",
+              "seq": 2
+            },
+            {
+              "name": "Vault policies mapping OIDC claims documented",
+              "description": "Vault policies mapping OIDC claims to secret access paths documented.",
+              "seq": 3
+            },
+            {
+              "name": "End-to-end flow validated",
+              "description": "End-to-end flow validated (job launch, JWT issuance, secret retrieval, auto-revocation).",
+              "seq": 4
+            },
+            {
+              "name": "Token scoping rules documented",
+              "description": "Token scoping rules documented (job ID, user, organization claims).",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "OIDC Token Issuance"
+            },
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "OIDC Token Issuance"
+            }
+          ]
+        },
+        {
+          "name": "Zero-Trust Operations Runbook",
+          "description": "Comprehensive zero-trust credential operations with compliance.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "All production credential paths migrated",
+              "description": "All production credential paths migrated to OIDC/Vault with no persistent secrets.",
+              "seq": 1
+            },
+            {
+              "name": "Automated rotation schedules documented and validated",
+              "description": "Automated rotation schedules documented and validated for all secret types.",
+              "seq": 2
+            },
+            {
+              "name": "Compliance reporting templates generate evidence",
+              "description": "Compliance reporting templates generate audit-ready evidence.",
+              "seq": 3
+            },
+            {
+              "name": "Anomaly detection rules defined and alerting configured",
+              "description": "Anomaly detection rules defined and alerting configured.",
+              "seq": 4
+            },
+            {
+              "name": "Break-glass procedures documented and tested",
+              "description": "Break-glass procedures documented, tested, and accessible to authorized personnel.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "Zero-Trust Operations"
+            },
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "OIDC Token Issuance"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Governed"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Credential Security Architecture Maturity",
+          "description": "Progressive credential security from inventory through zero-trust operations.",
+          "narrativeTypeName": "Crawl-Walk-Run",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Begin by inventorying all credential types across the automation estate, documenting their current storage locations and rotation status, and establishing a baseline understanding of credential security posture."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Walk",
+              "context": "Document the external vault integration architecture including credential lookup configurations, OIDC identity provider setup, and vault policies that scope secret access by job context, with validated end-to-end credential retrieval workflows."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Run",
+              "context": "The complete zero-trust operations runbook covers all production credential migration paths, automated rotation schedules, compliance evidence generation, anomaly detection rules, and tested break-glass procedures for emergency access."
+            }
+          ],
+          "citationNames": [
+            "Automating Secrets Management with HashiCorp Vault and Red Hat Ansible Automation Platform",
+            "OIDC Identity Provider for HashiCorp Vault - AAP 2.7"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    },
+    {
+      "name": "Service Portal Configuration",
+      "description": "Configuration and catalog documentation for the self-service automation portal.",
+      "levelsOfDetail": [
+        {
+          "name": "Portal Deployment Guide",
+          "description": "Installation and initial configuration documentation.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Portal deployment configuration documented",
+              "description": "Portal deployment configuration documented (RHEL 9/10 or OpenShift target).",
+              "seq": 1
+            },
+            {
+              "name": "Platform gateway integration configured",
+              "description": "Platform gateway integration configured for authentication routing.",
+              "seq": 2
+            },
+            {
+              "name": "Initial portfolio structure planned",
+              "description": "Initial portfolio structure planned organizing services by domain.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Service Portal",
+              "stateName": "Portal Published"
+            },
+            {
+              "alphaName": "Automation Service Portal",
+              "stateName": "Portal Published"
+            }
+          ]
+        },
+        {
+          "name": "Service Catalog",
+          "description": "Organized catalog of approved automation services.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Portfolios created with categorized services",
+              "description": "Portfolios created with categorized automation services and descriptions.",
+              "seq": 1
+            },
+            {
+              "name": "Order forms configured with validation",
+              "description": "Order forms configured with input validation and survey parameter mapping.",
+              "seq": 2
+            },
+            {
+              "name": "Service documentation published for discovery",
+              "description": "Service documentation published for consumer self-service discovery.",
+              "seq": 3
+            },
+            {
+              "name": "Approval workflow definitions documented",
+              "description": "Approval workflow definitions documented per service category.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Service Portal",
+              "stateName": "Governed Ordering"
+            },
+            {
+              "alphaName": "Automation Service Portal",
+              "stateName": "Governed Ordering"
+            }
+          ]
+        },
+        {
+          "name": "Marketplace Operations Guide",
+          "description": "Comprehensive marketplace with analytics and optimization.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "Catalog administration guide for non-engineers",
+              "description": "Catalog administration guide for non-engineer portfolio managers.",
+              "seq": 1
+            },
+            {
+              "name": "Usage analytics dashboards configured",
+              "description": "Usage analytics dashboards configured for service optimization.",
+              "seq": 2
+            },
+            {
+              "name": "ITSM integration procedures documented",
+              "description": "ITSM integration procedures documented (ServiceNow bidirectional sync).",
+              "seq": 3
+            },
+            {
+              "name": "Cost allocation and chargeback model documented",
+              "description": "Cost allocation and chargeback model configuration documented.",
+              "seq": 4
+            },
+            {
+              "name": "Continuous improvement process defined",
+              "description": "Continuous improvement process for service quality reviews defined.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Automation Service Portal",
+              "stateName": "Automation Marketplace"
+            },
+            {
+              "alphaName": "Automation Service Portal",
+              "stateName": "Automation Marketplace"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Governed"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Service Portal Configuration Maturity",
+          "description": "Progressive portal configuration from deployment to marketplace operations.",
+          "narrativeTypeName": "The Three-Act Structure & StoryBrand",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Act I: The Hero and the Problem",
+              "context": "Automation consumers struggle to find, understand, and correctly use automation services when their only option is navigating the controller directly, leading to service request tickets, misconfigured job launches, and governance gaps."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Act II: The Guide and the Plan",
+              "context": "The platform team creates a service portal configuration organizing approved services into intuitive portfolios, converting complex job template parameters into validated order forms, and implementing approval workflows ensuring every service request passes through governance gates."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Act III: Call to Action and Success",
+              "context": "The fully configured marketplace enables catalog administrators to manage services independently, usage analytics drive continuous service improvement, and ITSM integration ensures complete change management compliance."
+            }
+          ],
+          "citationNames": [
+            "Self-Service Automation Portal - AAP 2.7"
+          ]
+        }
+      ],
+      "kind": "workProduct"
+    }
+  ],
+  "workProductInstances": [
+    {
+      "name": "Platform RBAC Baseline",
+      "description": "Initial RBAC configuration documenting default permissions and organizational structure.",
+      "workProductName": "RBAC Policy Document"
+    },
+    {
+      "name": "Enterprise RBAC Model",
+      "description": "Comprehensive RBAC model with custom roles, delegation, and audit compliance.",
+      "workProductName": "RBAC Policy Document"
+    },
+    {
+      "name": "Executive ROI Dashboard",
+      "description": "Executive-level dashboard combining time savings, cost avoidance, and adoption metrics.",
+      "workProductName": "Automation Value Report"
+    },
+    {
+      "name": "Vault Integration Architecture",
+      "description": "Architecture documentation for HashiCorp Vault integration with OIDC credential issuance.",
+      "workProductName": "Credential Security Architecture"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Automation Governance Lead",
+      "description": "Defines RBAC policies through platform gateway and oversees analytics and value reporting.",
+      "competencies": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Governance",
+          "Strategy"
+        ],
+        "lifecycleTags": [
+          "Governance",
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Platform Team",
+          "Leadership"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Security Engineer",
+      "description": "Implements credential security with OIDC/Vault integration and ensures automation compliance.",
+      "competencies": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Security",
+          "Compliance"
+        ],
+        "lifecycleTags": [
+          "Governance"
+        ],
+        "organizationalTags": [
+          "Security Team"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Business Analyst",
+      "description": "Analyzes automation metrics and quantifies ROI for executive reporting.",
+      "competencies": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Platform Strategic Alignment",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Analytics",
+          "FinOps"
+        ],
+        "lifecycleTags": [
+          "Optimization"
+        ],
+        "organizationalTags": [
+          "Finance",
+          "Business Analytics"
+        ]
+      },
+      "kind": "persona"
+    },
+    {
+      "name": "Organization Administrator",
+      "description": "Manages AAP organization-level settings, team oversight, and delegation boundaries.",
+      "competencies": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Governance"
+        ],
+        "lifecycleTags": [
+          "Adoption",
+          "Governance"
+        ],
+        "organizationalTags": [
+          "Platform Team"
+        ]
+      },
+      "kind": "persona"
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Governance Team",
+      "description": "Cross-functional team responsible for RBAC governance, credential security, and compliance.",
+      "personaNames": [
+        "Automation Governance Lead",
+        "Security Engineer",
+        "Organization Administrator"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Platform Team",
+          "Security Team"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Security and Compliance Team",
+      "description": "Security professionals governing credential management and vault integration.",
+      "personaNames": [
+        "Security Engineer",
+        "Automation Governance Lead"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Security Team"
+        ]
+      },
+      "kind": "personaGroup"
+    },
+    {
+      "name": "Business Analytics Team",
+      "description": "Analysts measuring automation value using customizable ROI metrics.",
+      "personaNames": [
+        "Business Analyst"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Finance",
+          "Business Analytics"
+        ]
+      },
+      "kind": "personaGroup"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Design RBAC Organizational Model",
+      "description": "Map business units to AAP organizations and define team permission inheritance.",
+      "activitySpaceName": "Support the Team",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Governance",
+          "stateName": "Scoped"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Seeded"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Unmanaged"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "RBAC Policy Document",
+          "levelOfDetailName": "Default Permissions"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Governance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Designing RBAC Organizational Model for AAP",
+          "description": "Translating business unit structure into platform RBAC model.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations deploying AAP need to translate their business unit structure into the platform's RBAC model before users can be granted appropriate access, but without careful planning the permission model becomes an administrative bottleneck or a security gap."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Design an organizational mapping that aligns AAP organizations to business units or regulatory boundaries, defines team structures within each organization, and establishes the initial permission model that will scale from basic administration to delegated self-service."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Analyze the organizational chart to identify natural isolation boundaries, create AAP organizations for each major business unit, define teams reflecting functional roles within each organization, and document the permission model including which built-in roles apply to which resource types per team."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A documented RBAC organizational model provides the foundation for team-based permission inheritance, enabling subsequent delegation and self-service configuration while maintaining governance visibility through platform gateway."
+            }
+          ],
+          "citationNames": [
+            "RBAC Enhancements in Red Hat Ansible Automation Platform 2.5"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement Gateway RBAC Policies",
+      "description": "Configure organizations, teams, roles, and identity provider integration through gateway.",
+      "activitySpaceName": "Implement Policy-as-Code",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Governance",
+          "stateName": "Documented"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Formed"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Inventoried"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "RBAC Policy Document",
+          "levelOfDetailName": "Team-Based RBAC"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Governance Team",
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Implementing Gateway RBAC Policies",
+          "description": "Configuring team-based RBAC through the platform gateway.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "The RBAC organizational model has been designed but not yet implemented, and users still rely on system administrators for all permission management through the platform gateway, creating bottlenecks for onboarding and resource access."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement the designed RBAC model by creating organizations and teams in AAP through the platform gateway, configuring identity provider group mapping for automated membership, and applying role-based permissions across controller, hub, and EDA controller."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Create organizations specifying names and default execution environments, define teams within each organization, configure LDAP/SAML/OIDC group mapping to automate team membership, apply built-in roles (Admin, Execute, Use, Read) to resources per team, and validate permission inheritance through end-to-end testing."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Team-based RBAC policies are operational through platform gateway with automated membership via identity provider integration, reducing administrative overhead while establishing consistent access control across all platform services."
+            }
+          ],
+          "citationNames": [
+            "Platform Gateway Architecture - AAP 2.7",
+            "RBAC Enhancements in Red Hat Ansible Automation Platform 2.5"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Enable Delegated Team Administration",
+      "description": "Assign team administrator roles and configure self-service permission management.",
+      "activitySpaceName": "Implement Policy-as-Code",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Governance",
+          "stateName": "Documented"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Collaborating"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Codified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "RBAC Policy Document",
+          "levelOfDetailName": "Delegated Administration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Leadership"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Leadership",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Governance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Enabling Delegated Team Administration",
+          "description": "Transitioning from centralized to delegated team-level permission management.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Team-based RBAC is operational but all team membership and permission changes still require system administrator involvement, creating a bottleneck as the number of teams and users grows."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Enable team leads to independently manage their own team membership and resource permissions within defined boundaries, while organization administrators maintain cross-team governance oversight."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Assign team administrator roles to designated team leads, configure organization-level administrator roles for cross-team oversight, document delegation boundaries specifying what team admins can and cannot modify, and establish self-service permission request workflows."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Delegated administration reduces system administrator workload, accelerates team onboarding, and enables teams to self-manage their permission model within governance boundaries enforced by the platform gateway."
+            }
+          ],
+          "citationNames": [
+            "RBAC Enhancements in Red Hat Ansible Automation Platform 2.5"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Enforce Custom RBAC and Audit Compliance",
+      "description": "Create custom roles, automated permission reviews, and compliance reporting.",
+      "activitySpaceName": "Enforce Asset Compliance",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Governance",
+          "stateName": "Audited"
+        },
+        {
+          "alphaName": "Team",
+          "stateName": "Performing"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Governed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "RBAC Policy Document",
+          "levelOfDetailName": "Custom Roles and Governance"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Governance Team",
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Enforcing Custom RBAC and Audit Compliance",
+          "description": "Advanced RBAC governance with custom roles and automated compliance monitoring.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations with mature RBAC models need custom roles beyond built-in permissions, along with automated detection of overprivileged access and comprehensive audit reporting for compliance requirements."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement custom RBAC roles, configure organization-level self-service resource creation, establish automated permission reviews, and deploy audit reporting that tracks permission assignments and access patterns."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Create custom roles defining tailored permission sets per organization, configure organization-level Add permissions for governed self-service, implement automated scripts identifying overprivileged users and stale access, and configure SIEM integration forwarding RBAC audit logs from platform gateway."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Comprehensive RBAC governance with custom roles, automated compliance monitoring, and audit-ready reporting demonstrates policy adherence across all platform services and enables proactive identification of permission risks."
+            }
+          ],
+          "citationNames": [
+            "RBAC Enhancements in Red Hat Ansible Automation Platform 2.5",
+            "Platform Gateway Architecture - AAP 2.7"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Deploy Integrated Analytics Dashboard",
+      "description": "Configure integrated automation dashboard aggregating telemetry from controllers.",
+      "activitySpaceName": "Monitor Value Realization",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Value And Economics",
+          "stateName": "Allocated"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Inventoried"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Value Report",
+          "levelOfDetailName": "Integrated Dashboard"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Business Analytics Team",
+        "Governance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Deploying Integrated Analytics Dashboard",
+          "description": "Establishing centralized automation analytics with aggregated telemetry.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations have automation controllers running production workloads but rely on manual exports from individual controller dashboards to track job execution metrics, providing no aggregated view across the enterprise."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Deploy the integrated automation dashboard within the platform (AAP 2.7) to aggregate telemetry from all controllers, providing organization-wide visibility into job execution trends, template performance, and user activity."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Activate analytics data collection within platform settings with hourly collection schedule and 90-day retention, configure access control through platform gateway authentication, verify multi-controller aggregation, and customize dashboard views for operations and executive stakeholders."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Centralized dashboard provides organization-wide visibility into automation performance with template-level metrics, user activity reports, and export capabilities supporting executive reporting workflows."
+            }
+          ],
+          "citationNames": [
+            "Getting Started with Automation Analytics",
+            "What's New in Ansible Automation Platform 2.7"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure ROI Metrics and Savings Projections",
+      "description": "Configure customizable ROI metrics with labor cost models and savings projections.",
+      "activitySpaceName": "Manage Platform Economics",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Value And Economics",
+          "stateName": "Sustained"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Converged"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Value Report",
+          "levelOfDetailName": "ROI Analytics"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Strategic Alignment",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Strategic Alignment",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Business Analytics Team",
+        "Governance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Configuring ROI Metrics and Savings Projections",
+          "description": "Translating operational metrics into business value through customizable ROI calculations.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "The integrated dashboard provides operational metrics but leadership requires business-oriented ROI calculations demonstrating the financial value of automation investment in terms they can use for budget decisions."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Configure customizable ROI metrics that translate job execution telemetry into financial value using organizational labor rates, infrastructure cost models, and time savings calculations."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Input organizational labor rates and infrastructure costs into ROI metric configurations, configure time savings calculations per job type based on estimated manual task duration, set up savings planner projections for proposed initiatives, and establish trend analysis tracking improvement trajectories."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Customizable ROI metrics provide sustained value demonstration with savings projections, trend analysis, and module usage analytics that inform content development priorities and strategic investment decisions."
+            }
+          ],
+          "citationNames": [
+            "Measuring Business Impact with Dashboard and Analytics",
+            "Automation Analytics and Insights"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Integrate Analytics with Enterprise BI Tools",
+      "description": "Feed analytics data to enterprise BI tools and configure anomaly detection.",
+      "activitySpaceName": "Monitor Value Realization",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Platform Value And Economics",
+          "stateName": "Sustained"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Governed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Value Report",
+          "levelOfDetailName": "Business Intelligence Integration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Strategic Alignment",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Strategic Alignment",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Business Analytics Team"
+      ],
+      "narratives": [
+        {
+          "name": "Integrating Analytics with Enterprise BI Tools",
+          "description": "Connecting automation analytics to enterprise business intelligence platforms.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Automation ROI metrics exist within the platform dashboard but leadership requires integration with enterprise BI tools to combine automation metrics with broader business KPIs."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Establish analytics API integration with enterprise BI platforms, configure automated data extraction, build custom dashboards combining automation and business metrics, and implement anomaly detection."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Configure analytics API feeds to Tableau, Power BI, or Splunk through scheduled ETL processes, build custom dashboards combining automation time savings with business outcome KPIs, implement anomaly detection alerting, and establish cross-organizational benchmarking."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Enterprise BI integration provides executive-ready reporting combining automation value with business outcomes, automated anomaly detection enables proactive governance, and cross-organizational benchmarking drives continuous improvement."
+            }
+          ],
+          "citationNames": [
+            "Measuring Business Impact with Dashboard and Analytics"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Vault Credential Integration",
+      "description": "Implement external vault connectivity with credential lookup plugins.",
+      "activitySpaceName": "Establish Secure Guardrails",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Credential Security",
+          "stateName": "External Vault Connected"
+        },
+        {
+          "alphaName": "Automation Credential Security",
+          "stateName": "External Vault Connected"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Codified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Credential Security Architecture",
+          "levelOfDetailName": "Vault Integration Guide"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team",
+        "Governance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Configuring Vault Credential Integration",
+          "description": "Implementing external vault connectivity for dynamic credential retrieval.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Credentials stored in the automation controller database create security risk from persistent secret exposure, and manual credential rotation introduces human error and compliance gaps."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Integrate external vault systems (HashiCorp Vault, CyberArk, Azure Key Vault) to provide dynamic credential retrieval at job execution time, eliminating persistent secret storage."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Configure credential type in controller specifying Vault server URL and authentication method, create custom credential types mapping vault paths to job template variables, test credential injection by launching job templates, and configure audit logging through vault."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Dynamic credential retrieval from external vault systems eliminates persistent secret storage, enables vault-managed rotation without controller changes, and provides comprehensive audit trails for compliance reporting."
+            }
+          ],
+          "citationNames": [
+            "Automating Secrets Management with HashiCorp Vault and Red Hat Ansible Automation Platform"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Implement OIDC Credential Issuance",
+      "description": "Configure AAP as OIDC identity provider for HashiCorp Vault enabling JWT tokens.",
+      "activitySpaceName": "Establish Secure Guardrails",
+      "focusName": "Solution",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Credential Security",
+          "stateName": "OIDC Token Issuance"
+        },
+        {
+          "alphaName": "Automation Credential Security",
+          "stateName": "OIDC Token Issuance"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Governed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Credential Security Architecture",
+          "levelOfDetailName": "OIDC Configuration Reference"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Engineering"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Implementing OIDC Credential Issuance",
+          "description": "Configuring AAP as OIDC identity provider for zero-trust credential operations.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "External vault integration retrieves secrets dynamically but still relies on long-lived authentication credentials stored in the controller to authenticate to the vault, creating a residual security exposure window."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Eliminate all long-lived credentials by configuring AAP as a native OIDC identity provider that issues short-lived, job-scoped JWT tokens for vault authentication with automatic revocation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Configure AAP gateway as OIDC issuer with signing keys and token lifetime policies, configure HashiCorp Vault JWT auth method trusting AAP as identity provider, create vault policies mapping OIDC claims to secret access paths, and validate end-to-end flow."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "OIDC-based credential issuance eliminates all persistent credential storage, reduces breach exposure windows from months to minutes, and provides fine-grained audit trails linking every secret access to a specific job, user, and organization."
+            }
+          ],
+          "citationNames": [
+            "OIDC Identity Provider for HashiCorp Vault - AAP 2.7",
+            "Automating Secrets Management with HashiCorp Vault and Red Hat Ansible Automation Platform"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Deploy Self-Service Automation Portal",
+      "description": "Deploy and configure self-service portal with portfolios and order forms.",
+      "activitySpaceName": "Understand Stakeholder Needs",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Service Portal",
+          "stateName": "Portal Published"
+        },
+        {
+          "alphaName": "Automation Service Portal",
+          "stateName": "Portal Published"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Inventoried"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Service Portal Configuration",
+          "levelOfDetailName": "Portal Deployment Guide"
+        }
+      ],
+      "requiredCompetencies": [
+        "Engineering",
+        "Stakeholder Representation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Engineering",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Governance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Deploying Self-Service Automation Portal",
+          "description": "Establishing governed self-service access to automation services.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Automation consumers access the platform through the controller UI directly, requiring controller credentials and knowledge of job template names, creating friction that limits adoption and prevents governance oversight."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Deploy a self-service automation portal providing a curated, user-friendly interface for discovering and ordering approved automation services with documentation, input validation, and organizational context."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Deploy the self-service portal on RHEL 9/10 or OpenShift with platform gateway authentication, create portfolios organizing services by domain, convert job template surveys to portal order forms with input validation, and publish service descriptions improving discoverability."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Self-service portal provides governed access to automation services through an intuitive interface, enabling consumers to discover and order approved automation without direct controller access while maintaining visibility through order tracking."
+            }
+          ],
+          "citationNames": [
+            "Self-Service Automation Portal - AAP 2.7"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Configure Portal Governance and ITSM Integration",
+      "description": "Implement approval workflows with ServiceNow integration and cost allocation.",
+      "activitySpaceName": "Understand Stakeholder Needs",
+      "focusName": "Value",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Service Portal",
+          "stateName": "Governed Ordering"
+        },
+        {
+          "alphaName": "Automation Service Portal",
+          "stateName": "Automation Marketplace"
+        },
+        {
+          "alphaName": "Automation Service Portal",
+          "stateName": "Governed Ordering"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Governed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Service Portal Configuration",
+          "levelOfDetailName": "Service Catalog"
+        },
+        {
+          "workProductName": "Service Portal Configuration",
+          "levelOfDetailName": "Marketplace Operations Guide"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Stakeholder Representation",
+        "Management"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Stakeholder Representation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Management",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Governance Team",
+        "Business Analytics Team"
+      ],
+      "narratives": [
+        {
+          "name": "Configuring Portal Governance and ITSM Integration",
+          "description": "Establishing approval workflows and marketplace operations.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "The self-service portal provides a user-friendly interface but lacks governance controls including approval workflows for sensitive operations, ITSM integration for change management, and cost allocation for chargeback."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement approval workflows routing orders to stakeholders based on risk level, integrate with ServiceNow for automated change request creation, and configure cost allocation tags for organizational chargeback."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Define order processes with approval chains per service category, configure ServiceNow integration for automated change request creation and variable substitution, establish catalog administrator roles for non-engineers, implement usage analytics dashboards, and configure cost allocation tags."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "The portal functions as an enterprise automation marketplace with governed ordering enforcing change management compliance, ServiceNow integration providing bidirectional ITSM synchronization, and cost allocation enabling organizational accountability."
+            }
+          ],
+          "citationNames": [
+            "Self-Service Automation Portal - AAP 2.7",
+            "What's New in Ansible Automation Platform 2.7"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Assess Governance Maturity Baseline",
+      "description": "Evaluate current asset governance maturity against the six-level progression.",
+      "activitySpaceName": "Assess Asset Governance Maturity",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Inventoried"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Codified"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Automation Value Report",
+          "levelOfDetailName": "Integrated Dashboard"
+        }
+      ],
+      "requiredCompetencies": [
+        "Analysis",
+        "Platform Security And Compliance Enforcement"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Governance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Assessing Governance Maturity Baseline",
+          "description": "Systematic assessment of asset governance maturity across the AAP estate.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations need to understand their current asset governance maturity to identify gaps and prioritize improvements across RBAC, credential management, analytics, and self-service capabilities."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Conduct a systematic assessment of asset governance maturity across the AAP estate, evaluating RBAC coverage, credential management practices, analytics instrumentation, and self-service portal adoption."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Inventory all managed automation assets and their RBAC coverage, assess credential management practices against recommended rotation cadences, evaluate analytics instrumentation completeness, and review self-service portal adoption metrics."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A comprehensive governance maturity assessment identifies the organization's current maturity level and prioritizes improvement actions to advance through governance states."
+            }
+          ],
+          "citationNames": [
+            "What's New in Ansible Automation Platform 2.7"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Inventory Credential Security Posture",
+      "description": "Assess credential management maturity and identify vault migration targets.",
+      "activitySpaceName": "Assess Asset Governance Maturity",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Credential Security",
+          "stateName": "Local Storage"
+        },
+        {
+          "alphaName": "Automation Credential Security",
+          "stateName": "Local Storage"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Inventoried"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Credential Security Architecture",
+          "levelOfDetailName": "Credential Inventory"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Analysis"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Analysis",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Inventorying Credential Security Posture",
+          "description": "Comprehensive credential inventory establishing security posture baseline.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Organizations beginning their credential security journey need a clear picture of their credential landscape before planning vault integration and OIDC migration."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Conduct a comprehensive inventory of all credential types, documenting storage locations, rotation status, and identifying which credentials are suitable for OIDC/Vault migration."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Inventory all credential types (SSH keys, cloud API tokens, database passwords, service accounts), document storage locations, assess rotation compliance against recommended cadences, and classify credentials by migration readiness."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A comprehensive credential inventory provides the baseline for credential security maturation, identifying quick wins for vault migration and establishing rotation compliance metrics."
+            }
+          ],
+          "citationNames": [
+            "Automating Secrets Management with HashiCorp Vault and Red Hat Ansible Automation Platform"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Establish Zero-Trust Credential Operations",
+      "description": "Migrate all production credentials to OIDC/Vault with anomaly detection.",
+      "activitySpaceName": "Enforce Asset Compliance",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Automation Credential Security",
+          "stateName": "Zero-Trust Operations"
+        },
+        {
+          "alphaName": "Automation Credential Security",
+          "stateName": "OIDC Token Issuance"
+        },
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Governed"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Credential Security Architecture",
+          "levelOfDetailName": "Zero-Trust Operations Runbook"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Establishing Zero-Trust Credential Operations",
+          "description": "Completing the migration to fully zero-trust credential management.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "OIDC credential issuance is operational for critical workflows but some credential types remain outside the zero-trust model, and compliance reporting requires manual evidence collection."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Complete the migration of all production credentials to OIDC/Vault integration, implement anomaly detection for credential access patterns, and establish automated compliance reporting."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Migrate remaining production credential paths to OIDC/Vault with no persistent secrets, configure automated rotation schedules, implement anomaly detection rules, document and test break-glass procedures, and deploy automated compliance reporting templates."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Zero-trust credential operations are fully established with no persistent secrets, automated anomaly detection providing continuous monitoring, and compliance reports generating machine-readable audit evidence."
+            }
+          ],
+          "citationNames": [
+            "OIDC Identity Provider for HashiCorp Vault - AAP 2.7"
+          ]
+        }
+      ],
+      "kind": "activity"
+    },
+    {
+      "name": "Automate Governance Remediation",
+      "description": "Implement automated detection and remediation of governance violations.",
+      "activitySpaceName": "Enable Autonomous Operations",
+      "focusName": "Endeavor",
+      "contributesTo": [
+        {
+          "alphaName": "Asset Governance",
+          "stateName": "Self-Healing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "RBAC Policy Document",
+          "levelOfDetailName": "Custom Roles and Governance"
+        },
+        {
+          "workProductName": "Automation Value Report",
+          "levelOfDetailName": "Business Intelligence Integration"
+        }
+      ],
+      "requiredCompetencies": [
+        "Platform Security And Compliance Enforcement",
+        "Site Reliability"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Platform Security And Compliance Enforcement",
+          "competencyLevelName": "Adapts"
+        },
+        {
+          "competencyName": "Site Reliability",
+          "competencyLevelName": "Masters"
+        }
+      ],
+      "involves": [
+        "Security and Compliance Team",
+        "Governance Team"
+      ],
+      "narratives": [
+        {
+          "name": "Automating Governance Remediation",
+          "description": "Self-healing governance through automated detection and remediation.",
+          "narrativeTypeName": "The STAR Format",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Governance violations including unauthorized RBAC changes, credential rotation lapses, and configuration drift are detected through monitoring but require manual investigation and remediation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement automated governance remediation that detects violations through event-driven monitoring, classifies them by severity, and either auto-remediates or escalates with documented investigation procedures."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Configure anomaly detection rules for credential access patterns and RBAC changes, implement GitOps reconciliation for unauthorized configuration drift, establish tiered remediation workflows, and integrate with audit logging for compliance evidence."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Self-healing governance operates within defined boundaries with automated remediation for known violation patterns, event-driven responses to anomalies, and comprehensive audit trails demonstrating continuous compliance enforcement."
+            }
+          ],
+          "citationNames": [
+            "OIDC Identity Provider for HashiCorp Vault - AAP 2.7"
+          ]
+        }
+      ],
+      "kind": "activity"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Governance Maturity Journey",
+      "description": "Progressive governance implementation from basic access control to autonomous compliance.",
+      "narrativeTypeName": "Crawl-Walk-Run",
+      "patternViews": [
+        {
+          "name": "Foundation",
+          "description": "Platform deployed with initial governance scope defined.",
+          "seq": 0,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Governance",
+              "stateName": "Scoped"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Seeded"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Unmanaged"
+            },
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "Local Storage"
+            },
+            {
+              "alphaName": "Automation Service Portal",
+              "stateName": "Direct Access"
+            },
+            {
+              "alphaName": "Platform Value And Economics",
+              "stateName": "Modeled"
+            }
+          ],
+          "activities": [
+            "Design RBAC Organizational Model",
+            "Inventory Credential Security Posture"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "The governance journey begins by assessing the current state of access control, credential management, and analytics, establishing the organizational structure that maps to AAP organizations and teams, and identifying governance gaps across the automation estate."
+            }
+          ]
+        },
+        {
+          "name": "Basic Access Control",
+          "description": "Organizations, teams, and RBAC policies established through gateway.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Governance",
+              "stateName": "Documented"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Formed"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Inventoried"
+            },
+            {
+              "alphaName": "Platform Value And Economics",
+              "stateName": "Allocated"
+            },
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "Local Storage"
+            },
+            {
+              "alphaName": "Automation Service Portal",
+              "stateName": "Direct Access"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Governance Organizations",
+              "description": "AAP organizational units with team-based RBAC established.",
+              "alphaName": "Team",
+              "stateName": "Formed",
+              "evidenceBy": [
+                {
+                  "name": "Platform RBAC Baseline",
+                  "description": "Initial RBAC configuration documenting default permissions and organizational structure.",
+                  "workProductName": "RBAC Policy Document",
+                  "levelOfDetailName": "Team-Based RBAC"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Implement Gateway RBAC Policies",
+            "Deploy Integrated Analytics Dashboard",
+            "Assess Governance Maturity Baseline"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Crawl",
+              "context": "Teams form within AAP organizations with role-based permissions inherited through the platform gateway, analytics dashboards aggregate job execution telemetry across controllers, and governance maturity assessment establishes a baseline for improvement tracking."
+            }
+          ]
+        },
+        {
+          "name": "Delegated Administration and Analytics",
+          "description": "Team delegation, vault integration, portal deployment, and ROI quantification.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Governance",
+              "stateName": "Documented"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Collaborating"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Codified"
+            },
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "External Vault Connected"
+            },
+            {
+              "alphaName": "Platform Value And Economics",
+              "stateName": "Sustained"
+            },
+            {
+              "alphaName": "Automation Service Portal",
+              "stateName": "Portal Published"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Governance-Tracked Assets",
+              "description": "Infrastructure assets with codified governance through AAP.",
+              "alphaName": "Asset Governance",
+              "stateName": "Codified",
+              "evidenceBy": [
+                {
+                  "name": "Enterprise RBAC Model",
+                  "description": "Comprehensive RBAC model with custom roles, delegation, and audit compliance.",
+                  "workProductName": "RBAC Policy Document",
+                  "levelOfDetailName": "Delegated Administration"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Enable Delegated Team Administration",
+            "Configure Vault Credential Integration",
+            "Configure ROI Metrics and Savings Projections",
+            "Deploy Self-Service Automation Portal"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Walk",
+              "context": "Governance matures as team administrators gain delegated authority, external vault integration replaces local credential storage, the self-service portal provides governed access to automation services, and customizable ROI metrics quantify business value."
+            }
+          ]
+        },
+        {
+          "name": "Portal and Zero-Trust Governance",
+          "description": "ITSM integration, OIDC credentials, and comprehensive audit compliance.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Governance",
+              "stateName": "Audited"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Governed"
+            },
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "OIDC Token Issuance"
+            },
+            {
+              "alphaName": "Automation Service Portal",
+              "stateName": "Governed Ordering"
+            },
+            {
+              "alphaName": "Platform Value And Economics",
+              "stateName": "Sustained"
+            }
+          ],
+          "alphaInstances": [
+            {
+              "name": "Governance-Tracked Assets",
+              "description": "Infrastructure assets with full governance enforcement.",
+              "alphaName": "Asset Governance",
+              "stateName": "Governed",
+              "evidenceBy": [
+                {
+                  "name": "Enterprise RBAC Model",
+                  "description": "Comprehensive RBAC model with custom roles, delegation, and audit compliance.",
+                  "workProductName": "RBAC Policy Document",
+                  "levelOfDetailName": "Custom Roles and Governance"
+                },
+                {
+                  "name": "Vault Integration Architecture",
+                  "description": "Architecture documentation for HashiCorp Vault integration with OIDC credential issuance.",
+                  "workProductName": "Credential Security Architecture",
+                  "levelOfDetailName": "OIDC Configuration Reference"
+                }
+              ]
+            }
+          ],
+          "activities": [
+            "Enforce Custom RBAC and Audit Compliance",
+            "Implement OIDC Credential Issuance",
+            "Configure Portal Governance and ITSM Integration",
+            "Integrate Analytics with Enterprise BI Tools",
+            "Establish Zero-Trust Credential Operations"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Run",
+              "context": "Advanced governance features custom RBAC roles with comprehensive audit compliance, OIDC-issued short-lived credentials achieving zero-trust operations, the self-service portal enforcing approval workflows with ITSM integration, and enterprise BI integration providing cross-organizational visibility."
+            }
+          ]
+        },
+        {
+          "name": "Autonomous Governance",
+          "description": "Self-healing governance with automated remediation and marketplace operations.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Platform Governance",
+              "stateName": "Audited"
+            },
+            {
+              "alphaName": "Team",
+              "stateName": "Performing"
+            },
+            {
+              "alphaName": "Asset Governance",
+              "stateName": "Self-Healing"
+            },
+            {
+              "alphaName": "Automation Credential Security",
+              "stateName": "Zero-Trust Operations"
+            },
+            {
+              "alphaName": "Automation Service Portal",
+              "stateName": "Automation Marketplace"
+            },
+            {
+              "alphaName": "Platform Value And Economics",
+              "stateName": "Sustained"
+            }
+          ],
+          "activities": [
+            "Automate Governance Remediation"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Run",
+              "context": "Fully mature governance operates autonomously with self-healing remediation for violations, zero-trust credential operations across the entire estate, the portal serving as an enterprise automation marketplace, and event-driven automation responding to anomalies within defined operational boundaries."
+            }
+          ]
+        }
+      ],
+      "kind": "pattern"
+    }
+  ],
+  "practiceElementAliases": [
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Governance",
+      "aliasName": "Automation Governance"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Value And Economics",
+      "aliasName": "Automation Value And Economics"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Risk And Compliance",
+      "aliasName": "Automation Risk And Compliance"
+    },
+    {
+      "practiceElementType": "Alpha",
+      "practiceElementName": "Platform Consumption Interface",
+      "aliasName": "Automation Interface"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Implement Policy-as-Code",
+      "aliasName": "Implement Automation Policy"
+    },
+    {
+      "practiceElementType": "ActivitySpace",
+      "practiceElementName": "Establish Secure Guardrails",
+      "aliasName": "Establish Automation Guardrails"
+    },
+    {
+      "practiceElementType": "Competency",
+      "practiceElementName": "Engineering",
+      "aliasName": "Automation Engineering"
+    }
+  ],
+  "assets": [
+    {
+      "name": "governance-rbac-model-icon",
+      "description": "Icon representing RBAC and organizational governance for the automation platform.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-user-shield",
+      "fontWeight": "900"
+    },
+    {
+      "name": "analytics-dashboard-icon",
+      "description": "Icon representing analytics dashboards and value measurement metrics.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-chart-line",
+      "fontWeight": "900"
+    },
+    {
+      "name": "credential-security-icon",
+      "description": "Icon representing credential and vault security management.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-key",
+      "fontWeight": "900"
+    },
+    {
+      "name": "self-service-portal-icon",
+      "description": "Icon representing the self-service automation portal and service catalog.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-store",
+      "fontWeight": "900"
+    },
+    {
+      "name": "asset-governance-icon",
+      "description": "Icon representing asset governance and compliance enforcement across the infrastructure estate.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gavel",
+      "fontWeight": "900"
+    },
+    {
+      "name": "team-governance-icon",
+      "description": "Icon representing team organizational structure and delegation model.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-users-gear",
+      "fontWeight": "900"
+    }
+  ],
+  "schemaVersion": "2.0.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Infrastructure Automation Essentials",
+      "versionRange": "^1.0.1"
+    },
+    {
+      "documentName": "Platform Foundation",
+      "versionRange": "^1.0.1"
+    }
+  ]
+}

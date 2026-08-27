@@ -11,7 +11,7 @@ import {
 } from "@patternfly/react-core";
 import { TrashIcon, SyncIcon, GripVerticalIcon } from "@patternfly/react-icons";
 import type { LibraryRootKind } from "@/lib/library/classify";
-import { rootKindExtension } from "@/lib/library/classify";
+import { rootKindExtension, storageKindForLibraryRootKind } from "@/lib/library/classify";
 import {
   baselineForMethodFromLibraryBody,
   methodFromLibraryBody,
@@ -57,6 +57,23 @@ function parseDragPayload(dt: DataTransfer): LibraryDragPayload | null {
   return null;
 }
 
+/**
+ * Compute a workspace version from a source version.
+ * First workspace save: `1.2.3-workspace.1`
+ * Subsequent saves: increment the workspace number.
+ */
+function nextWorkspaceVersion(sourceVersion: string | null, currentVersion: string | null): string {
+  if (currentVersion) {
+    const wsMatch = currentVersion.match(/^(.+)-workspace\.(\d+)$/);
+    if (wsMatch) {
+      return `${wsMatch[1]}-workspace.${Number(wsMatch[2]) + 1}`;
+    }
+  }
+  const base = sourceVersion || "0.0.0";
+  const baseWithoutWs = base.replace(/-workspace\.\d+$/, "");
+  return `${baseWithoutWs}-workspace.1`;
+}
+
 function bundleAwareDocUrl(id: string): string {
   if (id.startsWith("bundle:")) {
     const ref = id.slice(7);
@@ -99,7 +116,7 @@ async function fetchLibraryRowsDualSource(): Promise<LibraryRow[]> {
       rows.push({
         id: `bundle:${entry.activeBundleSlug}/${entry.activeDocumentPath}`,
         title: entry.name,
-        kind: entry.documentType,
+        kind: storageKindForLibraryRootKind(entry.documentType),
         createdAt: "",
         updatedAt: "",
         libraryRootKind: entry.documentType,
@@ -391,6 +408,8 @@ export function MethodBuilderClient() {
   // Load narrative types from baseline practice via API
   const { narrativeTypes } = useBaselineNarrativeTypes(baselineSlot?.libraryId);
 
+  const [sourceVersion, setSourceVersion] = useState<string | null>(null);
+
   const [saveOpen, setSaveOpen] = useState(false);
   const [saveBusy, setSaveBusy] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -437,6 +456,7 @@ export function MethodBuilderClient() {
     setMethodName("");
     setMethodDescription("");
     setMethodTags({});
+    setSourceVersion(null);
     setBaselineSlot(null);
     setPracticeSlots([]);
     setMethodNarratives([]);
@@ -464,6 +484,9 @@ export function MethodBuilderClient() {
       setMethodDescription(String(m.description ?? ""));
 
       const methodRec = m as Record<string, unknown>;
+      const rawVersion = typeof methodRec.version === "string" ? methodRec.version.trim() : null;
+      setSourceVersion(rawVersion);
+
       if (methodRec.tags && typeof methodRec.tags === "object" && !Array.isArray(methodRec.tags)) {
         setMethodTags(methodRec.tags as Record<string, unknown>);
       } else {
@@ -834,16 +857,49 @@ export function MethodBuilderClient() {
     }
     setSaveBusy(true);
     setSaveError(null);
-    const isUpdate = Boolean(editingDocumentId);
+
+    const isBundleSource = Boolean(editingDocumentId) && editingDocumentId!.startsWith("bundle:");
+    const isFlatStoreUpdate = Boolean(editingDocumentId) && !isBundleSource;
+
+    // For bundle sources, look for an existing workspace copy by name to avoid duplicates
+    let existingWorkspaceId: string | null = null;
+    let existingWorkspaceVersion: string | null = null;
+    if (isBundleSource) {
+      const name = methodName.trim();
+      const match = library.find(
+        (r) => !r.id.startsWith("bundle:") && r.displayName === name,
+      );
+      if (match) {
+        existingWorkspaceId = match.id;
+        // Fetch the existing workspace document to get its current version
+        try {
+          const wsRes = await fetch(`/api/documents/${encodeURIComponent(match.id)}`, { cache: "no-store" });
+          if (wsRes.ok) {
+            const wsDoc = (await wsRes.json()) as { body?: Record<string, unknown> };
+            existingWorkspaceVersion = typeof wsDoc.body?.version === "string" ? wsDoc.body.version : null;
+          }
+        } catch { /* proceed without version info */ }
+      }
+    }
+
+    const willUpdate = isFlatStoreUpdate || existingWorkspaceId !== null;
+    const targetId = isFlatStoreUpdate ? editingDocumentId! : existingWorkspaceId;
+
+    // Compute workspace version for bundle-sourced saves
+    const payloadWithVersion = { ...methodPayload };
+    if (isBundleSource) {
+      payloadWithVersion.version = nextWorkspaceVersion(sourceVersion, existingWorkspaceVersion);
+    }
+
     try {
-      const res = isUpdate
-        ? await fetch(`/api/documents/${encodeURIComponent(editingDocumentId!)}`, {
+      const res = willUpdate
+        ? await fetch(`/api/documents/${encodeURIComponent(targetId!)}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               title: methodName.trim(),
               kind: "method",
-              body: methodPayload,
+              body: payloadWithVersion,
             }),
           })
         : await fetch("/api/documents", {
@@ -852,7 +908,7 @@ export function MethodBuilderClient() {
             body: JSON.stringify({
               title: methodName.trim(),
               kind: "method",
-              body: methodPayload,
+              body: payloadWithVersion,
             }),
           });
       if (!res.ok) {
@@ -861,7 +917,6 @@ export function MethodBuilderClient() {
           const j = JSON.parse(msg) as { error?: string; issues?: Array<{ path: string; message: string }> };
           if (j?.error) {
             msg = j.error;
-            // If there are detailed validation issues, append them
             if (j.issues && j.issues.length > 0) {
               msg += "\n\nValidation errors:\n" + j.issues.map(issue =>
                 `  ${issue.path || "(root)"}: ${issue.message}`
@@ -877,13 +932,20 @@ export function MethodBuilderClient() {
       setSaveOpen(false);
       setComposeError(null);
       let newDocId: string | undefined;
-      if (!isUpdate) {
+      if (!willUpdate) {
         const created = (await res.json()) as { id?: string };
         newDocId = created?.id;
       }
+      // Update sourceVersion to the workspace version we just saved
+      if (isBundleSource) {
+        setSourceVersion(payloadWithVersion.version as string);
+      }
       await loadLibrary();
-      if (!isUpdate && newDocId) {
-        router.replace(`/method-builder?libraryId=${encodeURIComponent(newDocId)}`);
+      // Redirect to the flat-store copy so subsequent saves update in place
+      const redirectId = newDocId || (isBundleSource ? existingWorkspaceId : null);
+      if (redirectId) {
+        setEditingDocumentId(redirectId);
+        router.replace(`/method-builder?libraryId=${encodeURIComponent(redirectId)}`);
       }
     } catch (err) {
       setSaveError(err instanceof Error ? err.message : "Save failed");

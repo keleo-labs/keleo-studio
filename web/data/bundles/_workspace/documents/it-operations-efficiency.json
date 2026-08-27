@@ -1,0 +1,1671 @@
+{
+  "kind": "practice",
+  "name": "IT Operations Efficiency",
+  "description": "Positions Red Hat for IT operations optimization deals through the IT Operations Customer Lens and orchestration of operations-focused TDPs.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceDependencyNames": [
+    "Sales Play Framework",
+    "Server Cloud OS TDP",
+    "Automation TDP",
+    "Virtualization TDP"
+  ],
+  "tags": {
+    "domainTags": [
+      "IT Operations",
+      "Automation",
+      "Infrastructure Management",
+      "Operational Efficiency"
+    ],
+    "lifecycleTags": [
+      "Discovery",
+      "Validation",
+      "Proposal"
+    ],
+    "organizationalTags": [
+      "Field Sales",
+      "Technical Sales",
+      "Automation Specialist Sales"
+    ]
+  },
+  "keywords": [
+    "it-operations",
+    "automation",
+    "operational-efficiency",
+    "infrastructure-management",
+    "day-2-operations",
+    "cost-reduction",
+    "tool-sprawl",
+    "RHEL",
+    "ansible",
+    "virtualization-migration"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.8",
+  "assetNames": [
+    {
+      "assetName": "it-ops-efficiency-play-icon",
+      "type": "icon"
+    }
+  ],
+  "citations": [
+    {
+      "name": "IT Operations Efficiency Sales Play",
+      "description": "Complete Sales Play for IT operations optimization covering Customer Lens, persona frameworks, value drivers, TDP alignment, and content architecture.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCmg3BCfRjPfB8MXG3gR3q9fW9jd"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//"
+    },
+    {
+      "name": "Automation TDP",
+      "description": "Complete TDP example showing seller credentials, customer wins, and What to Say/Share/Show content organized by audience type for the automation technology domain.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf58ce9aa5-5d91-46f8-97fc-e4471fc8b4e8//"
+    },
+    {
+      "name": "Virtualization TDP",
+      "description": "TDP example demonstrating technology domain-specific positioning including competitive displacement and migration narratives.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flfa5871978-1e94-4455-a170-ed562efdc9fb//"
+    },
+    {
+      "name": "Optimize and Modernize IT Ops Sales Tactic",
+      "description": "Sales Tactic example showing customer challenge framing, audience-segmented content, and bidirectional TDP alignment for IT operations optimization.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf5b7cd00e-3654-4a0d-8e8a-141a97206810//"
+    },
+    {
+      "name": "Server/Cloud OS TDP",
+      "description": "TDP providing seller credentials, audience-segmented content, and customer wins for the server and cloud operating system technology domain.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCm3Pd773g2JgGhTp4GDRFBPqGJj"
+    },
+    {
+      "name": "Self-Healing Infrastructure",
+      "description": "Architecture guide demonstrating reduced manual troubleshooting through self-healing patterns. Supports expanding automation, simplifying Day-2 operations, and accelerating incident response.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/17-self-healing-infrastructure"
+    },
+    {
+      "name": "SCADA Interface Modernisation",
+      "description": "Architecture guide providing a real-world example of cleaning up operational complexity by reducing manual steps for operators. Supports simplifying deployments and Day-2 operations.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/33-scada-interface-modernisation"
+    },
+    {
+      "name": "Mission Critical Application Platform",
+      "description": "Architecture guide showing how platform management is streamlined and highly simplified through automation at scale, with intensive virtualization for optimal resource usage. Supports expanding automation, simplifying Day-2 operations, accelerating incident response, and optimizing cost and utilization.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/51-mission-critical-platform"
+    },
+    {
+      "name": "Event-Driven Ansible with Event Streams",
+      "description": "Interactive video demo demonstrating automated fixes based on simple rules for operations automation.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/80-event-driven-ansible-event-streams-demo"
+    },
+    {
+      "name": "Automate in Minutes: Red Hat Ansible on AWS",
+      "description": "Interactive video demo helpful when cloud teams want automation, showing how to reduce operational burden for teams.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/77-automate-in-minutes-red-hat-ansible-aws-demo"
+    },
+    {
+      "name": "Ansible Automation Platform and Red Hat Insights",
+      "description": "Interactive video demo demonstrating proactive risk detection — find issues early, fix faster. Supports simplifying Day-2 operations and accelerating incident response.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/79-ansible-insights-vulnerability-remediation-demo"
+    }
+  ],
+  "assets": [
+    {
+      "name": "it-ops-efficiency-play-icon",
+      "description": "Visual icon representing the IT operations efficiency sales play concept.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-gears",
+      "fontWeight": "900"
+    },
+    {
+      "name": "it-ops-customer-reference-icon",
+      "description": "Visual icon representing IT operations customer evidence and reference materials.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-file-circle-check",
+      "fontWeight": "900"
+    },
+    {
+      "name": "it-ops-playbook-icon",
+      "description": "Visual icon representing the IT operations execution playbook.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-book-open-reader",
+      "fontWeight": "900"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "IT Operations Efficiency Practice Intent",
+      "description": "The end-to-end narrative of the IT Operations Efficiency play from operational pain discovery through deal advancement and optimization.",
+      "narrativeTypeName": "Customer Success Story",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Situation",
+          "context": "Enterprise IT operations teams struggle with manual repetitive tasks, tool sprawl across automation domains, rising infrastructure costs, and reactive incident response that consumes capacity meant for innovation."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Task",
+          "context": "Sellers must position Red Hat as the trusted open hybrid platform for simplifying deployments, expanding automation, and unifying day-2 operations across datacenter, cloud, and edge -- connecting three TDPs (Server/Cloud OS, Automation, Virtualization) into a coherent operations management stack."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Action",
+          "context": "The IT Operations Efficiency play provides a structured Customer Lens for operations pain, persona-specific engagement frameworks for CIO/IT Operations, VP/Infrastructure, and Dir/Platform Engineering, and value driver articulation around freed capacity (Cost), standardized operations (Complexity), and open automation (Choice) -- backed by customer references like Ensono (21,000+ hours reallocated) and Ulta Beauty (weeks to hours)."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Result",
+          "context": "Sellers who execute the IT Operations Efficiency play generate pipeline aligned to operations optimization themes, articulate consistent competitive positioning against proprietary operations management alternatives, and advance deals through structured multi-TDP solution engagements that demonstrate unified operations value."
+        }
+      ],
+      "citationNames": [
+        "IT Operations Efficiency Sales Play",
+        "Sales Plays, TDPs and Sales Tactics",
+        "Optimize and Modernize IT Ops Sales Tactic"
+      ]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "IT Operations Efficiency",
+      "description": "Tracks the IT operations efficiency play's positioning lifecycle from customer lens application through deal advancement.",
+      "focusName": "Sales Execution",
+      "assetNames": [
+        {
+          "assetName": "it-ops-efficiency-play-icon",
+          "type": "icon"
+        }
+      ],
+      "relatesTo": [
+        {
+          "relationship": "orchestrates",
+          "alphaName": "Technical Decision Point",
+          "direction": "outgoing",
+          "description": "The IT Ops play orchestrates three TDPs (Server/Cloud OS, Automation, Virtualization) into a unified operations management solution stack."
+        },
+        {
+          "relationship": "depends on",
+          "alphaName": "Competitive Position",
+          "direction": "outgoing",
+          "description": "IT operations positioning requires competitive differentiation against proprietary operations management alternatives."
+        }
+      ],
+      "states": [
+        {
+          "name": "Selected",
+          "description": "IT Operations customer situation understood through the play's structured lens.",
+          "seq": 1,
+          "contributesToState": "Selected",
+          "background": {
+            "given": [
+              "Seller has completed IT Operations Efficiency play awareness training",
+              "Customer account has been identified as having IT operations optimization or automation initiatives"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Operational pain taxonomy applied",
+              "description": "Operational pain taxonomy applied identifying manual tasks, tool sprawl, rising costs, or limited visibility as primary challenges.",
+              "seq": 1
+            },
+            {
+              "name": "Desired outcomes mapped",
+              "description": "Desired outcomes mapped to standardize automation, reduce manual work, improve governance, or optimize costs.",
+              "seq": 2
+            },
+            {
+              "name": "Business impact quantified",
+              "description": "Business impact quantified using freed capacity, lower cost, reduced risk, or faster response categories.",
+              "seq": 3
+            },
+            {
+              "name": "Customer examples identified",
+              "description": "Industry-relevant customer examples identified from the play's reference library (Ensono, Ulta Beauty, CAE).",
+              "seq": 4
+            },
+            {
+              "name": "Operational maturity assessed",
+              "description": "Operational maturity level assessed across a reactive-standardized-automated-optimized continuum.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Activated",
+          "description": "IT operations decision-makers engaged with tailored messaging and discovery questions.",
+          "seq": 2,
+          "contributesToState": "Activated",
+          "background": {
+            "given": [
+              "Customer Lens has been applied with operational pain and desired outcomes identified",
+              "At least one target persona has been identified in the account"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "CIO or Head of IT Operations engaged",
+              "description": "CIO or Head of IT Operations engaged on cost reduction and operational consistency priorities.",
+              "seq": 1
+            },
+            {
+              "name": "VP or Director of Infrastructure engaged",
+              "description": "VP or Director of Infrastructure engaged on simplifying operations and reducing tool sprawl.",
+              "seq": 2
+            },
+            {
+              "name": "Director of Platform Engineering engaged",
+              "description": "Director of Platform Engineering engaged on scaling operations without increasing headcount.",
+              "seq": 3
+            },
+            {
+              "name": "Discovery questions documented",
+              "description": "Persona-specific discovery questions asked and responses documented against the play's questioning framework.",
+              "seq": 4
+            },
+            {
+              "name": "Current reality validated",
+              "description": "Current reality validated including rising OPEX, firefighting versus strategic work balance, and compliance gaps.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Executing",
+          "description": "Relevant TDPs identified and aligned to customer's IT operations solution requirements.",
+          "seq": 3,
+          "contributesToState": "Executing",
+          "background": {
+            "given": [
+              "At least one IT operations persona has been engaged with discovery completed"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Server/Cloud OS tactics aligned",
+              "description": "Server/Cloud OS tactics aligned to customer's OS standardization and management needs.",
+              "seq": 1
+            },
+            {
+              "name": "Automation tactics aligned",
+              "description": "Automation tactics aligned including automate at scale, optimize IT ops, AIOps, and network automation options.",
+              "seq": 2
+            },
+            {
+              "name": "Virtualization tactics aligned",
+              "description": "Virtualization tactics aligned if VM modernization or migration is relevant to the customer.",
+              "seq": 3
+            },
+            {
+              "name": "Multi-TDP solution narrative constructed",
+              "description": "Multi-TDP solution narrative connects OS foundation, automation platform, and operational management into a unified stack.",
+              "seq": 4
+            },
+            {
+              "name": "Competitive positioning prepared",
+              "description": "Competitive positioning prepared for IT operations management alternatives at play and TDP levels.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Measured",
+          "description": "Red Hat's IT operations value articulated through the three-pillar value driver framework.",
+          "seq": 4,
+          "contributesToState": "Measured",
+          "background": {
+            "given": [
+              "TDP alignment is established and the customer has expressed interest in understanding specific IT ops value"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Cost and capacity value driver quantified",
+              "description": "Cost and capacity value driver quantified showing standardized operations, automated tasks, and freed teams for innovation.",
+              "seq": 1
+            },
+            {
+              "name": "Security and consistency demonstrated",
+              "description": "Security and operational consistency demonstrated through policy-driven automation, standardized baselines, and governance.",
+              "seq": 2
+            },
+            {
+              "name": "Visibility and resilience shown",
+              "description": "Visibility, speed, and resilience shown through event-driven automation, unified management, and reduced MTTR.",
+              "seq": 3
+            },
+            {
+              "name": "Customer reference evidence shared",
+              "description": "Customer reference evidence shared matching the customer's industry and operational challenge profile.",
+              "seq": 4
+            },
+            {
+              "name": "Business case constructed",
+              "description": "Business case constructed with operational efficiency metrics connecting all three value drivers.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Customer engagement progressed to active evaluation with next steps agreed.",
+          "seq": 5,
+          "contributesToState": "Optimized",
+          "background": {
+            "given": [
+              "Value proposition resonates and the customer sees clear operational improvement potential"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Next steps agreed",
+              "description": "Next steps agreed including automation assessment, operations workshop, or proof of value engagement.",
+              "seq": 1
+            },
+            {
+              "name": "Services offerings aligned",
+              "description": "Services offerings aligned to IT operations efficiency themes and documented for the engagement.",
+              "seq": 2
+            },
+            {
+              "name": "Deal registered",
+              "description": "Deal registered and pipeline attributed to the IT Operations Efficiency play.",
+              "seq": 3
+            },
+            {
+              "name": "Campaign alignment confirmed",
+              "description": "Campaign alignment confirmed across relevant geographies (Americas Commercial, Enterprise, EMEA, APAC).",
+              "seq": 4
+            },
+            {
+              "name": "Content engagement tracked",
+              "description": "Content engagement tracked and sharing analytics active for shared materials.",
+              "seq": 5
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "IT Operations Efficiency Play Context and Rationale",
+          "description": "Why the IT Operations Efficiency Play alpha matters within the sales play framework.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "IT operations teams face mounting pressure as infrastructure sprawls across datacenter, cloud, and edge while manual processes consume capacity intended for strategic initiatives. Tool sprawl across automation domains creates inconsistent practices, rising operational costs, and limited visibility into operations health."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The IT Operations Efficiency play must enable sellers to position Red Hat's operations management stack -- RHEL for standardized OS foundation, Ansible for unified automation, and OpenShift Virtualization for legacy modernization -- as a coherent solution to operational complexity."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Sellers apply the Customer Lens to map operational pain (manual tasks, tool sprawl, rising costs, limited visibility), engage three key personas with tailored discovery questions, align three TDPs to the customer's technology decisions, and articulate value through freed capacity, standardized operations, and open automation narratives backed by quantified customer references."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Organizations that adopt the IT operations efficiency approach reallocate thousands of hours from manual operations to innovation (Ensono: 21,000+ hours), compress deployment timelines from weeks to hours (Ulta Beauty), and establish secure automated operations (CAE), generating measurable pipeline for Red Hat's operations management portfolio."
+            }
+          ],
+          "citationNames": [
+            "IT Operations Efficiency Sales Play",
+            "Sales Plays, TDPs and Sales Tactics",
+            "Optimize and Modernize IT Ops Sales Tactic",
+            "Self-Healing Infrastructure",
+            "SCADA Interface Modernisation",
+            "Mission Critical Application Platform",
+            "Event-Driven Ansible with Event Streams",
+            "Automate in Minutes: Red Hat Ansible on AWS",
+            "Ansible Automation Platform and Red Hat Insights"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Play"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "IT Operations Playbook",
+      "description": "Play-specific execution guide covering IT operations Customer Lens, operations personas, value drivers, and 3-TDP alignment.",
+      "assetNames": [
+        {
+          "assetName": "it-ops-playbook-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Basic IT operations pain, outcomes, and impact documentation.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Pain points listed",
+              "description": "IT operations pain points listed with descriptions of manual tasks, tool sprawl, rising costs, and limited visibility.",
+              "seq": 1
+            },
+            {
+              "name": "Desired outcomes stated",
+              "description": "Desired outcomes stated covering standardized automation, reduced manual work, improved governance, and cost optimization.",
+              "seq": 2
+            },
+            {
+              "name": "Business impact categories identified",
+              "description": "Business impact categories identified including freed capacity, lower cost, reduced risk, and faster incident response.",
+              "seq": 3
+            },
+            {
+              "name": "Reference customer examples listed",
+              "description": "Reference customer examples listed with Ensono, Ulta Beauty, and CAE as anchors.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Selected"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Structured playbook with IT ops persona profiles and discovery questions.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Personas profiled",
+              "description": "Three key IT ops personas profiled: CIO/Head IT Operations, VP/Dir Infrastructure, Dir Platform Engineering.",
+              "seq": 1
+            },
+            {
+              "name": "Discovery questions documented",
+              "description": "Persona-specific discovery questions documented targeting operational pain, automation maturity, and tool sprawl.",
+              "seq": 2
+            },
+            {
+              "name": "Value drivers structured",
+              "description": "Value drivers structured with IT ops capability-to-benefit narratives for freed capacity, consistency, and visibility.",
+              "seq": 3
+            },
+            {
+              "name": "Customer references matched",
+              "description": "Customer references matched to personas and operational challenge profiles.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Activated"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive",
+          "description": "Complete execution guide with 3-TDP operations stack alignment and tactic navigation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "TDP-to-tactic alignment populated",
+              "description": "Server/Cloud OS, Automation, and Virtualization TDP-to-tactic alignment populated and navigable.",
+              "seq": 1
+            },
+            {
+              "name": "Content organized by audience",
+              "description": "What to Say/Share/Show content organized by audience for IT operations scenarios.",
+              "seq": 2
+            },
+            {
+              "name": "Competitive positioning integrated",
+              "description": "Competitive positioning integrated for IT operations management alternatives at play and TDP levels.",
+              "seq": 3
+            },
+            {
+              "name": "Services and partner solutions documented",
+              "description": "Services and partner solutions for IT operations efficiency documented.",
+              "seq": 4
+            },
+            {
+              "name": "Campaign alignment guidance included",
+              "description": "Campaign alignment and CRM integration guidance included for IT operations pipeline attribution.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Data-driven IT ops playbook with performance metrics and operational best practices.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Play-level KPIs tracked",
+              "description": "IT operations play-level KPIs tracked and analyzed including operations-specific pipeline metrics.",
+              "seq": 1
+            },
+            {
+              "name": "TDP-tactic effectiveness data integrated",
+              "description": "TDP-tactic combination effectiveness data integrated for the three-TDP operations stack.",
+              "seq": 2
+            },
+            {
+              "name": "Top performer best practices codified",
+              "description": "Top performer best practices for IT operations selling codified and shared.",
+              "seq": 3
+            },
+            {
+              "name": "Predictive indicators operational",
+              "description": "Predictive performance indicators operational for IT operations pipeline forecasting.",
+              "seq": 4
+            },
+            {
+              "name": "Optimization recommendations included",
+              "description": "Continuous optimization recommendations included based on operations-focused engagement analytics.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ],
+      "mapsTo": "Sales Play Execution Guide"
+    },
+    {
+      "name": "IT Operations Customer Reference Package",
+      "description": "Curated collection of IT operations customer success stories matched to operations personas and challenges.",
+      "assetNames": [
+        {
+          "assetName": "it-ops-customer-reference-icon",
+          "type": "icon"
+        }
+      ],
+      "levelsOfDetail": [
+        {
+          "name": "Operations Reference List",
+          "description": "Basic list of IT operations customer references with outcomes.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Customer names listed",
+              "description": "IT operations customer names listed with industry classification and geographic region.",
+              "seq": 1
+            },
+            {
+              "name": "Outcome summaries provided",
+              "description": "One-line operational outcome summary per reference (hours saved, deployment acceleration, cost reduction).",
+              "seq": 2
+            },
+            {
+              "name": "Sharing permissions documented",
+              "description": "Reference willingness status and sharing permissions documented.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Selected"
+            }
+          ]
+        },
+        {
+          "name": "Structured Operations References",
+          "description": "Organized references with detailed case studies and quantified outcomes.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Full case studies documented",
+              "description": "Full case studies with STAR narrative structure for key IT ops references (Ensono, Ulta Beauty, CAE).",
+              "seq": 1
+            },
+            {
+              "name": "References organized by challenge type",
+              "description": "References organized by operational challenge type (automation, standardization, migration, AIOps).",
+              "seq": 2
+            },
+            {
+              "name": "Quantified outcomes highlighted",
+              "description": "Quantified outcomes highlighted per reference including hours saved, deployment time reduction, and cost avoidance.",
+              "seq": 3
+            },
+            {
+              "name": "Usage context mapped",
+              "description": "Suggested usage context for each reference mapped to IT operations personas and challenges.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Measured"
+            }
+          ]
+        },
+        {
+          "name": "Persona-Matched Operations References",
+          "description": "References mapped to IT operations target personas and decision criteria.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "References matched to persona pain points",
+              "description": "References matched to specific IT ops persona pain points for CIO/IT Ops, VP/Infrastructure, and Dir/Platform Engineering.",
+              "seq": 1
+            },
+            {
+              "name": "Presentation-ready slides prepared",
+              "description": "Presentation-ready reference slides prepared for each IT operations persona.",
+              "seq": 2
+            },
+            {
+              "name": "Reference willingness documented",
+              "description": "Reference customer willingness for calls, visits, and video testimonials documented.",
+              "seq": 3
+            },
+            {
+              "name": "Benchmark data compiled",
+              "description": "Industry benchmark data from IT operations references compiled for business case support.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Optimized"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "IT Operations Dashboard",
+      "description": "Multi-level analytics artifact tracking IT operations play pipeline, TDP conversion, and tactic engagement metrics.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic",
+          "description": "Simple IT operations pipeline and activity tracking.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Play-attributed pipeline tracked",
+              "description": "IT Operations Efficiency play-attributed pipeline tracked against targets.",
+              "seq": 1
+            },
+            {
+              "name": "Seller adoption count monitored",
+              "description": "Seller adoption count monitored for IT operations play content.",
+              "seq": 2
+            },
+            {
+              "name": "Content usage metrics captured",
+              "description": "IT ops content usage metrics captured across Server/Cloud OS, Automation, and Virtualization TDPs.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Measured"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Level",
+          "description": "Dashboard tracking IT operations metrics across play, TDP, and tactic levels.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Play-level metrics tracked",
+              "description": "Play-level IT ops metrics tracked including operations pipeline, win rate, deal size, and cycle time.",
+              "seq": 1
+            },
+            {
+              "name": "TDP-level metrics tracked",
+              "description": "TDP-level metrics tracked for Server/Cloud OS, Automation, and Virtualization win rates and proof activities.",
+              "seq": 2
+            },
+            {
+              "name": "Tactic-level metrics tracked",
+              "description": "Tactic-level metrics tracked for IT ops tactics including engagement rate and conversion to qualified opportunity.",
+              "seq": 3
+            },
+            {
+              "name": "Cohort analysis performed",
+              "description": "Cohort analysis by region, segment, and seller experience for IT operations engagements.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Optimized"
+            }
+          ]
+        },
+        {
+          "name": "Correlated",
+          "description": "Dashboard with cross-level correlation identifying high-performing IT ops TDP-tactic combinations.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "TDP combination effectiveness analyzed",
+              "description": "Three-TDP combination effectiveness analyzed for the operations stack.",
+              "seq": 1
+            },
+            {
+              "name": "Navigation pattern analytics generated",
+              "description": "Operations-specific framework navigation pattern analytics generated.",
+              "seq": 2
+            },
+            {
+              "name": "Predictive pipeline forecasting operational",
+              "description": "Predictive IT operations pipeline forecasting operational.",
+              "seq": 3
+            },
+            {
+              "name": "Content effectiveness correlated",
+              "description": "Operations content effectiveness correlated to deal outcomes.",
+              "seq": 4
+            },
+            {
+              "name": "Seller readiness impact quantified",
+              "description": "IT ops seller readiness impact on performance metrics quantified.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Optimized"
+            }
+          ]
+        },
+        {
+          "name": "Predictive",
+          "description": "IT operations performance dashboard with predictive analytics for operational efficiency forecasting and play optimization.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Predictive Operations Analytics",
+              "description": "Dashboard incorporates predictive models for IT operations efficiency pipeline forecasting.",
+              "seq": 1
+            },
+            {
+              "name": "Automated Operations Optimization",
+              "description": "System generates data-driven recommendations for IT operations play improvement.",
+              "seq": 2
+            },
+            {
+              "name": "Cross-TDP Operations Correlation",
+              "description": "Dashboard correlates IT operations play performance across Server Cloud OS, Automation, and Virtualization TDP metrics.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "mapsTo": "Play Performance Dashboard"
+    }
+  ],
+  "personas": [
+    {
+      "name": "IT Operations Play Lead",
+      "description": "Senior seller orchestrating IT Operations Efficiency play execution across accounts with operations optimization initiatives.",
+      "competencies": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "IT Operations",
+          "Automation",
+          "Infrastructure Management"
+        ],
+        "lifecycleTags": [
+          "Discovery",
+          "Validation",
+          "Proposal"
+        ],
+        "organizationalTags": [
+          "Field Sales",
+          "Account Management"
+        ]
+      }
+    },
+    {
+      "name": "IT Operations TDP Specialist",
+      "description": "Technology domain expert for Server/Cloud OS, Automation, or Virtualization TDPs within IT operations engagements.",
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "IT Operations",
+          "Technical Sales",
+          "Solution Architecture"
+        ],
+        "lifecycleTags": [
+          "Technical Validation",
+          "Demonstration",
+          "Proof of Value"
+        ],
+        "organizationalTags": [
+          "Technical Sales",
+          "Specialist Sales"
+        ]
+      }
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "IT Operations Play Execution Team",
+      "description": "Cross-functional team executing the IT Operations Efficiency play combining play strategy and operations-focused TDP expertise.",
+      "personaNames": [
+        "IT Operations Play Lead",
+        "IT Operations TDP Specialist"
+      ],
+      "tags": {
+        "domainTags": [],
+        "lifecycleTags": [],
+        "organizationalTags": [
+          "Field Sales",
+          "Customer Engagement"
+        ]
+      }
+    }
+  ],
+  "activities": [
+    {
+      "name": "Apply IT Operations Customer Lens",
+      "description": "Use the IT Operations Efficiency play's Customer Lens framework to identify and articulate customer operational pain.",
+      "activitySpaceName": "Discover Customer Needs",
+      "focusName": "Customer Value",
+      "background": {
+        "given": [
+          "Customer account research reveals IT operations optimization or automation strategic initiatives",
+          "IT Operations Efficiency play content is available and reviewed"
+        ]
+      },
+      "test": {
+        "name": "IT Operations Customer Lens verification",
+        "description": "Verifies that Customer Lens application correctly maps the customer's IT operations situation.",
+        "given": [
+          "Customer's IT operations teams spend excessive time on manual, repetitive operational tasks"
+        ],
+        "when": [
+          "The seller applies the Customer Lens identifying the customer's specific operations efficiency pain from the play's pain taxonomy"
+        ],
+        "then": [
+          "Customer's operational pain is classified against the play's taxonomy (manual tasks, tool sprawl, rising costs, limited visibility)",
+          "Business impact is quantified using the play's freed capacity, lower cost, reduced risk, and faster response categories",
+          "Industry-relevant customer reference examples are identified for sharing"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "IT Operations Efficiency",
+          "stateName": "Selected"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "IT Operations Playbook",
+          "levelOfDetailName": "Initial"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "involves": [
+        "IT Operations Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Apply IT Operations Customer Lens Technique",
+          "description": "How to apply the IT Operations Customer Lens framework for structured operations pain discovery.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "IT operations customer engagements require a structured approach to identifying and articulating operational pain because operations challenges are often diffuse, spanning multiple domains (infrastructure, automation, monitoring, security) and affecting multiple organizational layers simultaneously."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The IT Operations Customer Lens structures discovery around four pain categories (manual tasks, tool sprawl, rising costs, limited visibility), four desired outcomes (standardize automation, reduce manual work, improve governance, optimize costs), and four business impact dimensions (freed capacity, lower cost, reduced risk, faster response). Reference examples (Ensono, Ulta Beauty, CAE) anchor each category with quantified outcomes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers who apply the IT Operations Customer Lens systematically discover operational pain points that connect to Red Hat's three-TDP operations stack, establishing relevance before positioning specific technology solutions."
+            }
+          ],
+          "citationNames": [
+            "IT Operations Efficiency Sales Play",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Engage IT Operations Personas",
+      "description": "Initiate and develop relationships with IT operations decision-makers using play-specific persona profiles and discovery questions.",
+      "activitySpaceName": "Discover Customer Needs",
+      "focusName": "Customer Value",
+      "background": {
+        "given": [
+          "IT Operations Customer Lens has been applied and at least one target persona has been identified"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "IT Operations Efficiency Play",
+            "stateName": "Selected"
+          }
+        ]
+      },
+      "test": {
+        "name": "IT operations persona engagement verification",
+        "description": "Verifies effective engagement of IT operations decision-makers using play-provided persona frameworks.",
+        "given": [
+          "IT Operations Customer Lens analysis has identified operational pain and desired outcomes"
+        ],
+        "when": [
+          "Seller prepares persona-specific call plans using the play's IT operations questioning framework"
+        ],
+        "then": [
+          "Each engaged persona's operational priorities are documented against the play's persona profile",
+          "Champion identification begins among engaged operations personas",
+          "Multi-stakeholder engagement pattern is established across CIO/IT Ops, VP/Infrastructure, and Dir/Platform Engineering levels"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "IT Operations Efficiency",
+          "stateName": "Activated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "IT Operations Playbook",
+          "levelOfDetailName": "Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Relationship Building"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Relationship Building",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "IT Operations Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Engage IT Operations Personas Technique",
+          "description": "How to engage IT operations decision-makers using structured persona profiles.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "IT operations decision-makers span multiple organizational levels with different priorities -- CIOs focus on cost reduction and operational consistency, VPs of Infrastructure focus on simplifying operations and reducing tool sprawl, and Directors of Platform Engineering focus on scaling operations without increasing headcount. A single message does not resonate across all three levels."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The IT Operations Efficiency play profiles three key personas with structured engagement frameworks. Each profile includes what they care about, their current reality, the impacts of inaction, specific discovery questions, and what wins them over. Sellers sequence conversations from technical influencer through business sponsor to economic buyer."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Multi-persona engagement across operations leadership creates alignment on the operational pain narrative and builds the coalition needed to advance operations optimization deals through the customer's decision process."
+            }
+          ],
+          "citationNames": [
+            "IT Operations Efficiency Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Align IT Operations TDP Stack",
+      "description": "Map the customer's IT operations technology landscape to the three-TDP operations stack and construct a unified solution narrative.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Solution Alignment",
+      "background": {
+        "given": [
+          "Persona engagement has revealed specific IT operations technology decisions the customer is making or evaluating"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "IT Operations Efficiency Play",
+            "stateName": "Activated"
+          }
+        ]
+      },
+      "test": {
+        "name": "IT operations TDP alignment verification",
+        "description": "Verifies that the three-TDP operations stack is correctly aligned to the customer's infrastructure and automation decisions.",
+        "given": [
+          "Customer conversations have identified technology areas matching Server/Cloud OS, Automation, or Virtualization TDP domains"
+        ],
+        "when": [
+          "Seller reviews the customer's technology decision landscape against the play's three-TDP alignment section"
+        ],
+        "then": [
+          "Server/Cloud OS, Automation, and Virtualization TDPs are individually assessed for relevance with tactics selected",
+          "Multi-TDP solution narrative connects standardized infrastructure, operational automation, and legacy modernization",
+          "Cross-TDP dependencies are mapped showing how OS standardization enables automation which enables operations optimization"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "IT Operations Efficiency",
+          "stateName": "Executing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "IT Operations Playbook",
+          "levelOfDetailName": "Comprehensive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery",
+        "Deal Orchestration"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "IT Operations Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Align IT Operations TDP Stack Technique",
+          "description": "How to align the three-TDP operations stack to customer technology decisions.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "IT operations optimization spans multiple technology domains that must be presented as a coherent solution rather than disconnected product pitches. Customers evaluating operations improvements need to understand how OS standardization, automation, and virtualization modernization work together."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The IT Operations Efficiency play defines a layered operations stack: Server/Cloud OS (standardized infrastructure foundation) feeds into Automation (operational automation across domains) which connects to Virtualization (legacy modernization and migration). Each TDP's tactics are aligned to specific customer operational challenges, and bidirectional navigation enables sellers to move between technology depth and customer challenge framing."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Multi-TDP operations stack alignment enables sellers to present a unified operations management approach rather than three separate product conversations, increasing deal size and solution coherence."
+            }
+          ],
+          "citationNames": [
+            "IT Operations Efficiency Sales Play",
+            "Automation TDP",
+            "Server/Cloud OS TDP"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Articulate IT Operations Value",
+      "description": "Construct and present Red Hat's IT operations value proposition using the play's three-pillar value driver framework with operations-specific evidence.",
+      "activitySpaceName": "Articulate Business Value",
+      "focusName": "Customer Value",
+      "background": {
+        "given": [
+          "TDP alignment is established and the customer has expressed interest in understanding Red Hat's specific operations value"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "IT Operations Efficiency Play",
+            "stateName": "Executing"
+          }
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "IT Operations Efficiency",
+          "stateName": "Measured"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "IT Operations Playbook",
+          "levelOfDetailName": "Comprehensive"
+        },
+        {
+          "workProductName": "IT Operations Customer Reference Package",
+          "levelOfDetailName": "Structured Operations References"
+        }
+      ],
+      "requiredCompetencies": [
+        "Value Articulation",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "IT Operations Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Articulate IT Operations Value Technique",
+          "description": "How to articulate IT operations value through the three-pillar value driver framework.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "IT operations value articulation requires connecting technology capabilities to operational outcomes that resonate with the customer's specific operational challenges. Generic value statements fail because operations leaders demand quantified evidence of capacity recovery, cost reduction, and operational improvement."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The IT operations value driver framework structures Red Hat's advantage around three pillars: Cost (standardize operations and automate repetitive tasks, reducing operational overhead -- Ensono: 21,000+ hours reallocated annually), Complexity (consistent operations across datacenter, cloud, and edge with unified automation and policy-driven governance), and Choice (open-source automation that avoids vendor lock-in with community-driven innovation and multi-vendor integration)."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Operations-specific value articulation with quantified customer references creates business cases that advance deals because operations leaders see concrete evidence of outcomes matching their stated priorities."
+            }
+          ],
+          "citationNames": [
+            "IT Operations Efficiency Sales Play",
+            "Optimize and Modernize IT Ops Sales Tactic"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Advance IT Operations Deal",
+      "description": "Convert validated IT operations value into deal commitment with agreed next steps and pipeline attribution.",
+      "activitySpaceName": "Manage the Deal",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "IT operations value proposition resonates and the customer sees operational improvement potential"
+        ],
+        "alphaStates": [
+          {
+            "alphaName": "IT Operations Efficiency Play",
+            "stateName": "Measured"
+          }
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "IT Operations Efficiency",
+          "stateName": "Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "IT Operations Customer Reference Package",
+          "levelOfDetailName": "Persona-Matched Operations References"
+        },
+        {
+          "workProductName": "IT Operations Dashboard",
+          "levelOfDetailName": "Basic"
+        }
+      ],
+      "requiredCompetencies": [
+        "Deal Orchestration",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "IT Operations Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Advance IT Operations Deal Technique",
+          "description": "How to convert IT operations value discussions into pipeline with structured deal advancement.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Converting IT operations value discussions into pipeline requires structured next steps that maintain engagement momentum. Operations optimization deals compete for budget and attention with other strategic initiatives, requiring clear progression from value acknowledgement to active evaluation."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "Deal advancement follows a structured path: agree on next steps (automation assessment, operations workshop, proof of value), align Red Hat Services offerings to IT operations themes, register the deal with IT Operations Efficiency play attribution, confirm campaign alignment, and activate content engagement tracking."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Structured deal advancement ensures IT operations opportunities are captured in the pipeline with clear attribution, enabling performance measurement and resource allocation for the IT Operations Efficiency play."
+            }
+          ],
+          "citationNames": [
+            "IT Operations Efficiency Sales Play",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Measure IT Operations Play Performance",
+      "description": "Track multi-level performance metrics for the IT Operations Efficiency play across play, TDP, and tactic levels.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "background": {
+        "given": [
+          "IT Operations Efficiency play has been activated and field execution is generating measurable data",
+          "CRM integration captures IT ops play attribution on opportunities"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "IT Operations Efficiency",
+          "stateName": "Measured"
+        },
+        {
+          "alphaName": "IT Operations Efficiency",
+          "stateName": "Optimized"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "IT Operations Dashboard",
+          "levelOfDetailName": "Multi-Level"
+        },
+        {
+          "workProductName": "IT Operations Dashboard",
+          "levelOfDetailName": "Correlated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement",
+        "Deal Orchestration"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "IT Operations Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Measure IT Operations Play Performance Technique",
+          "description": "How to track and analyze IT operations play performance across three framework levels.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "IT operations play performance must be measured across the specific three-TDP operations stack (Server/Cloud OS, Automation, Virtualization) to understand which technology combinations drive the highest operations pipeline value. Generic framework measurement misses IT ops-specific patterns."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "IT operations measurement tracks play-level metrics (operations pipeline, win rate, deal size), TDP-level metrics (Server/Cloud OS, Automation, Virtualization individual win rates and proof activities), and tactic-level metrics (operations tactic engagement and conversion rates). Cross-level correlation identifies which TDP-tactic combinations produce the best IT operations outcomes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "IT operations-specific performance analytics enable targeted optimization of the operations play, including content refresh for underperforming tactics, enablement reinforcement for low-proficiency TDP areas, and alignment adjustment for the three-TDP operations stack."
+            }
+          ],
+          "citationNames": [
+            "IT Operations Efficiency Sales Play",
+            "Sales Plays, TDPs and Sales Tactics"
+          ]
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "IT Operations Play Execution Lifecycle",
+      "description": "End-to-end lifecycle coordinating IT operations play engagement from Customer Lens application through deal advancement.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Initial conditions before IT operations play execution begins.",
+          "seq": 0,
+          "alphaStates": [],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The IT operations play lifecycle begins when market signals identify operational efficiency as a customer priority. Account research reveals IT operations optimization or automation initiatives, and the seller's IT ops play awareness training provides the foundation to recognize and pursue the opportunity."
+            }
+          ]
+        },
+        {
+          "name": "Discovery",
+          "description": "Apply IT Operations Customer Lens and engage operations personas.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Selected"
+            },
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Activated"
+            }
+          ],
+          "activities": [
+            "Apply IT Operations Customer Lens",
+            "Engage IT Operations Personas"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Validate",
+              "context": "Discovery validates the IT operations opportunity by applying the Customer Lens to map operational pain, engaging CIO/IT Operations, VP/Infrastructure, and Dir/Platform Engineering personas with tailored discovery questions, and confirming that the customer's operational challenges align with the play's three-TDP operations stack positioning."
+            }
+          ]
+        },
+        {
+          "name": "Technology Alignment",
+          "description": "Map customer's operations technology decisions to the three-TDP stack.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Executing"
+            }
+          ],
+          "activities": [
+            "Align IT Operations TDP Stack"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Propose",
+              "context": "Technology alignment maps the customer's infrastructure and automation decision landscape to the Server/Cloud OS, Automation, and Virtualization TDPs. The unified operations stack narrative -- standardized infrastructure feeding automated operations enabling legacy modernization -- is constructed and proposed as a coherent solution approach."
+            }
+          ]
+        },
+        {
+          "name": "Value and Advancement",
+          "description": "Articulate IT operations value and advance the deal.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Measured"
+            },
+            {
+              "alphaName": "IT Operations Efficiency",
+              "stateName": "Optimized"
+            }
+          ],
+          "activities": [
+            "Articulate IT Operations Value",
+            "Advance IT Operations Deal",
+            "Measure IT Operations Play Performance"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Negotiate",
+              "context": "Value articulation presents Red Hat's IT operations advantage through freed capacity, standardized operations, and open automation value drivers with quantified customer evidence. Deal advancement converts validated value into pipeline with services alignment, campaign attribution, and agreed next steps."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Close",
+              "context": "The IT operations deal closes with clear attribution to the play and measurement infrastructure capturing pipeline generation, TDP win rates, and tactic conversion for the operations portfolio."
+            }
+          ]
+        },
+        {
+          "name": "Optimization",
+          "description": "Performance data drives IT operations play refinement.",
+          "seq": 4,
+          "alphaStates": [],
+          "activities": [
+            "Measure IT Operations Play Performance"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Expand",
+              "context": "IT operations play optimization uses multi-level performance data to refine the Customer Lens, update persona engagement frameworks, adjust TDP-tactic alignment, and refresh value driver evidence. Expert sellers contribute field-generated insights that drive framework evolution, and coaching sellers elevate organizational IT operations readiness."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "1.4.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.0"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.0"
+    },
+    {
+      "documentName": "Server Cloud OS TDP",
+      "versionRange": "^1.0.7"
+    },
+    {
+      "documentName": "Automation TDP",
+      "versionRange": "^1.0.7"
+    },
+    {
+      "documentName": "Virtualization TDP",
+      "versionRange": "^1.0.7"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard IT Operations Efficiency",
+      "description": "Reference IT Operations Efficiency play instance with customer-facing and qualification materials",
+      "alphaName": "IT Operations Efficiency",
+      "stateName": "Activated",
+      "links": [
+        {
+          "name": "IT Operations Efficiency Sales Play Hub Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DCmg3BCfRjPfB8MXG3gR3q9fW9jd"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Standard IT Operations Execution Playbook",
+          "description": "Standard instance of IT Operations Execution Playbook with curated enablement content",
+          "workProductName": "IT Operations Playbook",
+          "levelOfDetailName": "Comprehensive",
+          "links": [
+            {
+              "name": "Customer Facing Intro Pitch Deck IT Operations Efficiency (Source)",
+              "uri": "https://docs.google.com/presentation/d/1S-QmVAYO7JUJhEuL4-8rG0vdvBhJLSDHSPFSfA3YRhg/edit"
+            },
+            {
+              "name": "Customer Facing Intro Pitch Deck IT Operations Efficiency",
+              "uri": "https://saleshub.redhat.com/Link/Content/DC8B7W4gJPdW4GHQQ83H7gDd3mVj"
+            },
+            {
+              "name": "Persona and Discovery Questions IT Operations Efficiency (Source)",
+              "uri": "https://docs.google.com/presentation/d/1SGKgHMFHTCLzA2FHillqGMaeU3gxG0QvTjZ6qZsz3yk/edit"
+            },
+            {
+              "name": "Persona and Discovery Questions IT Operations Efficiency",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCPHcTbd9QTM4GHT4CGmjpBgqJ6j"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

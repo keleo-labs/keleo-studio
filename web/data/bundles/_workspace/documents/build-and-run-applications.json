@@ -1,0 +1,1964 @@
+{
+  "name": "Build and Run Applications",
+  "description": "Positions Red Hat for application modernization and developer productivity deals through the Build and Run Applications Customer Lens and orchestration of app-focused TDPs.",
+  "baselinePracticeName": "Red Hat Sales Essentials",
+  "practiceDependencyNames": [
+    "Sales Play Framework",
+    "App Platform TDP",
+    "AI Platform TDP",
+    "Automation TDP"
+  ],
+  "tags": {
+    "domainTags": [
+      "Application Modernization",
+      "Cloud-Native Development",
+      "Platform Engineering",
+      "Developer Productivity"
+    ],
+    "lifecycleTags": [
+      "Discovery",
+      "Validation",
+      "Proposal"
+    ],
+    "organizationalTags": [
+      "Field Sales",
+      "Technical Sales",
+      "Developer Advocacy"
+    ]
+  },
+  "keywords": [
+    "application-modernization",
+    "cloud-native",
+    "developer-productivity",
+    "platform-engineering",
+    "ci-cd",
+    "app-delivery",
+    "legacy-migration",
+    "container-platform",
+    "devex",
+    "build-run"
+  ],
+  "authors": [
+    "Red Hat Sales Enablement"
+  ],
+  "createdAt": "2026-08-06",
+  "updatedAt": "2026-08-16",
+  "version": "1.0.8",
+  "citations": [
+    {
+      "name": "Build and Run Applications Sales Play",
+      "description": "Complete Sales Play for application modernization and developer productivity including Customer Lens, persona frameworks, value drivers, and TDP alignment.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DC6gmDb7XBm2jGfHWR4XMCXFm6MV"
+    },
+    {
+      "name": "Sales Plays, TDPs and Sales Tactics",
+      "description": "Framework documentation defining the three-level go-to-market structure connecting Sales Plays, Technical Decision Points, and Sales Tactics.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf0eaa8281-8773-4f38-80c3-236b80300dfd//"
+    },
+    {
+      "name": "Application Platform TDP",
+      "description": "TDP covering the application platform technology domain including OpenShift, developer experience, and platform engineering capabilities.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCh88j3md62BjGTP48Jc3gPTJDbj"
+    },
+    {
+      "name": "AI Platform TDP",
+      "description": "TDP covering the AI platform technology domain including model serving, training infrastructure, and AI workload management.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCGp7297MBFqdG2PWFCdjCgfWhcB"
+    },
+    {
+      "name": "Automation TDP",
+      "description": "TDP covering the automation technology domain including infrastructure automation, event-driven automation, and network automation.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/Link/Content/DCW8JcgpRWc4389M4pcV7BpRR3p8"
+    },
+    {
+      "name": "Sales Play Revamp",
+      "description": "Documentation of the sales play framework restructuring including three-level hierarchy and bidirectional navigation design.",
+      "authors": [
+        "Red Hat Sales Enablement"
+      ],
+      "date": "2026",
+      "source": "Red Hat Sales Hub (Seismic)",
+      "url": "https://saleshub.redhat.com/apps/doccenter/1d1918e9-b5b0-4428-b8fc-87e02ad44156/doc/%25252Fdd04d516a5-19b3-48c9-e01a-d2bf52939de4%25252FdfMmNhNDhiYjktYzE1Ny00ZjgyLWJlYjUtNTdhY2NjZmY5Y2Rh%25252CPT0%25253D%25252CUGFnZSBSSFNI%25252Flf1b1919a6-895e-4e10-bffa-c188a2759d5a//"
+    },
+    {
+      "name": "Building Your Cloud Native Apps",
+      "description": "Architecture guide providing a simple introduction to modern app development with consistent development workflows. Supports building and extending on an app foundation.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/4-building-your-cloud-native-applications"
+    },
+    {
+      "name": "Event-Driven Sentiment Analysis with Kafka and AI/ML",
+      "description": "Architecture guide providing a clear example of adding AI to applications as an AI-enabled application pattern. Supports building and extending on an app foundation.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/50-event-driven-sentiment-analysis-kafka-aiml"
+    },
+    {
+      "name": "Mission Critical Application Platform",
+      "description": "Architecture guide demonstrating how deploying new components instead of just patching older ones makes it easy and fast to update and upgrade. Supports simplifying IT service delivery.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/51-mission-critical-platform"
+    },
+    {
+      "name": "Self-Service Provisioning with Red Hat Developer Hub",
+      "description": "Interactive video demo showing developer productivity and faster onboarding through self-service provisioning. Supports delivering a self-service developer experience.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/73-self-service-provisioning-developer-hub-demo"
+    },
+    {
+      "name": "Self-Service Provisioning App Capabilities with Developer Hub",
+      "description": "Interactive experience presenting the platform-engineering story that developers immediately understand. Supports delivering a self-service developer experience.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/112-self-service-provisioning-rhdh-platform-engineering-interactive-experience"
+    },
+    {
+      "name": "Self-Service Provisioning for Data Scientists",
+      "description": "Interactive experience showing how data scientists can also benefit from self-service capabilities. Supports delivering a self-service developer experience.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/74-self-service-provisioning-data-scientists-demo"
+    },
+    {
+      "name": "Red Hat Developer Hub: Faster Onboarding, Faster Innovation",
+      "description": "Interactive experience demonstrating how developers ship faster with consistent development workflows. Supports delivering a self-service developer experience.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/119-red-hat-developer-hub-faster-onboarding-interactive-experience"
+    },
+    {
+      "name": "Red Hat Enterprise Linux Demo",
+      "description": "Interactive video demo showing how to migrate to RHEL and update its version to always be supported. Supports cost optimization and efficiency.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/59-red-hat-enterprise-linux-demo"
+    },
+    {
+      "name": "Red Hat OpenShift Container Platform Demo",
+      "description": "Interactive video demo providing a good foundation for app teams with developer workflow as a focus area. Supports building and extending on an app foundation.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/58-openshift-demo"
+    },
+    {
+      "name": "Red Hat Trusted Application Pipeline Demo",
+      "description": "Interactive video demo of the Trusted Application Pipeline for secure application development and DevOps. Supports secure AppDev and DevOps.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/66-red-hat-trusted-application-pipeline-demo"
+    },
+    {
+      "name": "Trusted Application Pipeline for AI Applications",
+      "description": "Interactive video demo showing how developers can quickly create AI apps using CI/CD pipelines and templates. Supports secure AppDev and DevOps.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/69-trusted-application-pipeline-ai-demo"
+    },
+    {
+      "name": "Confidential Containers on ARO",
+      "description": "Interactive video demo of confidential containers on Azure Red Hat OpenShift. Supports secure AppDev and DevOps.",
+      "authors": [
+        "Red Hat"
+      ],
+      "date": "2026",
+      "source": "Red Hat Architect Portfolio",
+      "url": "https://www.redhat.com/architect/portfolio/detail/120-confidential-containers-aro-demo"
+    }
+  ],
+  "assets": [
+    {
+      "name": "build-run-play-icon",
+      "description": "Visual icon representing the Build and Run Applications sales play concept.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-code",
+      "fontWeight": "900"
+    },
+    {
+      "name": "app-modernization-icon",
+      "description": "Visual icon representing application modernization and legacy migration concerns.",
+      "type": "font-character",
+      "fontFamily": "Font Awesome 6 Free",
+      "fontCharacter": "fa-arrows-rotate",
+      "fontWeight": "900"
+    }
+  ],
+  "assetNames": [
+    {
+      "assetName": "build-run-play-icon",
+      "type": "icon"
+    }
+  ],
+  "narratives": [
+    {
+      "name": "Build and Run Applications Practice Intent",
+      "description": "The end-to-end narrative of how the Build and Run Applications play progresses from customer discovery through deal expansion.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "narrativeContexts": [
+        {
+          "seq": 1,
+          "narrativeElementName": "Discover",
+          "context": "Enterprise customers face mounting legacy application costs, fragmented development toolchains, and slow release cycles that constrain business agility. The Build and Run Applications play equips sellers to identify these pain points through a structured Customer Lens covering application portfolio assessment, developer productivity barriers, and CI/CD maturity gaps."
+        },
+        {
+          "seq": 2,
+          "narrativeElementName": "Validate",
+          "context": "Validation centers on mapping the customer's application landscape to a three-TDP solution stack -- App Platform for developer experience and platform engineering, AI Platform for intelligent application capabilities, and Automation for CI/CD and operational efficiency. Real-world evidence from Vodafone, Lloyds Banking Group, and stc Group substantiates the value proposition."
+        },
+        {
+          "seq": 3,
+          "narrativeElementName": "Propose",
+          "context": "The value proposition is structured around three drivers: Cost (reduced legacy maintenance and technical debt), Complexity (simplified CI/CD with trusted software supply chain), and Choice (portable applications across any environment). Sellers construct quantified business cases connecting release velocity, developer productivity, and platform flexibility to measurable business outcomes."
+        },
+        {
+          "seq": 4,
+          "narrativeElementName": "Negotiate",
+          "context": "Deal advancement leverages the multi-TDP app delivery stack to demonstrate comprehensive coverage of the customer's application modernization journey -- from legacy migration through cloud-native development to operational automation. Services and partner solutions align to the customer's modernization timeline."
+        },
+        {
+          "seq": 5,
+          "narrativeElementName": "Close",
+          "context": "Closing integrates technical validation results, quantified business impact, and customer reference evidence into a cohesive proposal that addresses both technical and business decision-maker requirements."
+        },
+        {
+          "seq": 6,
+          "narrativeElementName": "Expand",
+          "context": "Post-sale engagement tracks application modernization outcomes against pre-sale commitments, using demonstrated results to expand platform adoption across additional application portfolios, business units, and deployment environments."
+        }
+      ],
+      "citationNames": [
+        "Build and Run Applications Sales Play",
+        "Sales Plays, TDPs and Sales Tactics"
+      ]
+    }
+  ],
+  "alphas": [
+    {
+      "name": "Build and Run Applications",
+      "description": "Tracks the positioning lifecycle for application modernization and developer productivity deals through the Build and Run Applications Customer Lens.",
+      "focusName": "Sales Execution",
+      "relatesTo": [
+        {
+          "relationship": "orchestrates",
+          "alphaName": "Technical Decision Point",
+          "direction": "outgoing",
+          "description": "The Build and Run play orchestrates three TDPs (App Platform, AI Platform, Automation) into a coherent application delivery solution stack."
+        },
+        {
+          "relationship": "uses",
+          "alphaName": "Competitive Position",
+          "direction": "outgoing",
+          "description": "The play leverages competitive positioning against container platform, cloud-native, and legacy application management alternatives."
+        }
+      ],
+      "assetNames": [
+        {
+          "assetName": "app-modernization-icon",
+          "type": "icon"
+        }
+      ],
+      "states": [
+        {
+          "name": "Selected",
+          "description": "The Build and Run customer situation is understood through the play's structured lens.",
+          "seq": 1,
+          "contributesToState": "Selected",
+          "background": {
+            "given": [
+              "Seller has completed Build and Run Applications play awareness training",
+              "Customer account has application modernization or developer productivity initiatives"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Application landscape assessed",
+              "description": "Customer's application landscape assessed covering legacy proportion, cloud-native adoption level, and microservices maturity.",
+              "seq": 1
+            },
+            {
+              "name": "Primary pain identified",
+              "description": "Primary pain identified from the play's pain taxonomy covering legacy costs, toolchain complexity, developer productivity, and security/governance.",
+              "seq": 2
+            },
+            {
+              "name": "Desired outcomes mapped",
+              "description": "Desired outcomes mapped to the play's outcome framework covering modernize legacy apps, increase dev productivity, simplify CI/CD, and improve security.",
+              "seq": 3
+            },
+            {
+              "name": "Business impact quantified",
+              "description": "Business impact quantified using the play's impact categories covering faster time-to-market, productivity gains, scalability, and resilience.",
+              "seq": 4
+            },
+            {
+              "name": "Customer references identified",
+              "description": "Industry-relevant customer references identified from Vodafone, Lloyds Banking Group, stc Group, or sector-matched alternatives.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Activated",
+          "description": "The Build and Run Applications play content, enablement materials, and TDP alignment have been deployed and personas are engaged.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "CIO/Head of IT Strategy engaged",
+              "description": "CIO/Head of IT Strategy engaged on modernization versus new application development balance.",
+              "seq": 1
+            },
+            {
+              "name": "VP Applications/Line of Business engaged",
+              "description": "VP Applications/Line of Business engaged on faster feature delivery and developer satisfaction.",
+              "seq": 2
+            },
+            {
+              "name": "CTO/Platform Engineering engaged",
+              "description": "CTO/Platform Engineering engaged on building a scalable self-service developer platform.",
+              "seq": 3
+            },
+            {
+              "name": "Persona current reality validated",
+              "description": "Persona-specific current reality validated covering legacy costs, infrastructure complexity, snowflake environments, and developer toil.",
+              "seq": 4
+            },
+            {
+              "name": "Discovery questions documented",
+              "description": "Discovery questions asked per persona with responses documented.",
+              "seq": 5
+            },
+            {
+              "name": "Champion identified",
+              "description": "Champion identified among engaged personas.",
+              "seq": 6
+            },
+            {
+              "name": "Applicable TDPs identified",
+              "description": "Applicable TDPs identified from App Platform, AI Platform, and Automation.",
+              "seq": 7
+            },
+            {
+              "name": "Application Platform tactics aligned",
+              "description": "Application Platform tactics aligned covering optimize traditional apps, DevX and platform engineering, and secure supply chain.",
+              "seq": 8
+            },
+            {
+              "name": "AI Platform tactics aligned",
+              "description": "AI Platform tactics aligned if AI workloads are relevant to the customer's app strategy.",
+              "seq": 9
+            },
+            {
+              "name": "Automation tactics aligned",
+              "description": "Automation tactics aligned for CI/CD pipeline and operational efficiency.",
+              "seq": 10
+            },
+            {
+              "name": "Multi-TDP solution narrative constructed",
+              "description": "Multi-TDP app delivery solution narrative connects modernization, development, and operations layers.",
+              "seq": 11
+            },
+            {
+              "name": "Competitive alternatives assessed",
+              "description": "Competitive alternatives assessed using TDP-level competitive intelligence.",
+              "seq": 12
+            }
+          ],
+          "contributesToState": "Activated",
+          "background": {
+            "given": [
+              "Customer Lens has been applied with validated pain and outcomes",
+              "At least one target persona has been identified in the account",
+              "At least one persona is engaged with validated challenges"
+            ]
+          }
+        },
+        {
+          "name": "Executing",
+          "description": "Red Hat's application modernization value articulated through the value driver framework.",
+          "seq": 3,
+          "contributesToState": "Executing",
+          "background": {
+            "given": [
+              "TDP alignment is established with relevant technology areas identified"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Cost value driver quantified",
+              "description": "Cost value driver quantified covering reduced legacy maintenance, technical debt elimination, and unified platform efficiency.",
+              "seq": 1
+            },
+            {
+              "name": "Complexity value driver demonstrated",
+              "description": "Complexity value driver demonstrated covering simplified CI/CD, trusted software supply chain, consistent infrastructure, and vulnerability scanning.",
+              "seq": 2
+            },
+            {
+              "name": "Choice value driver positioned",
+              "description": "Choice value driver positioned covering portable applications, open hybrid cloud, any-environment deployment, and no vendor lock-in.",
+              "seq": 3
+            },
+            {
+              "name": "Customer reference evidence shared",
+              "description": "Customer reference evidence shared matching customer's industry and scale such as Vodafone 30% faster TTM and Lloyds 3000 apps migrated.",
+              "seq": 4
+            },
+            {
+              "name": "Business case constructed",
+              "description": "Business case constructed with release velocity, developer productivity, and platform flexibility metrics.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Measured",
+          "description": "Customer engagement progressed to active evaluation or proposal stage.",
+          "seq": 4,
+          "contributesToState": "Measured",
+          "background": {
+            "given": [
+              "Value proposition resonates with at least one identified champion"
+            ]
+          },
+          "checklist": [
+            {
+              "name": "Next steps agreed",
+              "description": "Next steps agreed covering technical workshop, platform demo, migration assessment, or proof of value.",
+              "seq": 1
+            },
+            {
+              "name": "Content engagement tracked",
+              "description": "Content engagement tracking shows active customer interaction with shared materials.",
+              "seq": 2
+            },
+            {
+              "name": "Deal registered",
+              "description": "Deal registered and pipeline attributed to Build and Run Applications play.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive positioning defended",
+              "description": "Competitive positioning defended against container platform, cloud-native, and PaaS alternatives.",
+              "seq": 4
+            },
+            {
+              "name": "Services and partners aligned",
+              "description": "Services and partner solutions aligned to customer's application modernization journey.",
+              "seq": 5
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Build and Run Applications play strategy and content are continuously refined based on performance data and application modernization trends.",
+          "seq": 5,
+          "checklist": [
+            {
+              "name": "App Modernization TDP Content Refresh",
+              "description": "Application platform TDP content refreshed with latest analyst recognitions, customer modernization wins, and competitive positioning updates.",
+              "seq": 1
+            },
+            {
+              "name": "App Tactic Performance Optimization",
+              "description": "Underperforming application tactics redesigned based on engagement data, conversion metrics, and evolving customer modernization maturity.",
+              "seq": 2
+            },
+            {
+              "name": "App Framework Alignment Refinement",
+              "description": "Framework alignment refined with new application TDP-tactic mappings added and ineffective modernization connections retired.",
+              "seq": 3
+            },
+            {
+              "name": "App Selling Best Practice Codification",
+              "description": "Cross-level best practices from top application modernization sellers codified and shared as recommended selling motions.",
+              "seq": 4
+            },
+            {
+              "name": "App Market Intelligence Integration",
+              "description": "Predictive analytics and application market intelligence enable forward-looking play performance forecasting and early warning indicators.",
+              "seq": 5
+            }
+          ],
+          "contributesToState": "Optimized"
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Build and Run Applications Play Context and Rationale",
+          "description": "Why the Build and Run Applications Play alpha matters within the sales play framework.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Enterprise customers face a growing tension between legacy application portfolios consuming maintenance budgets and the demand for faster delivery of new cloud-native applications. Fragmented development toolchains, inconsistent CI/CD practices, and security governance gaps across distributed application estates create complexity that constrains developer productivity and business agility."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "The Build and Run Applications play must enable sellers to apply a structured Customer Lens that assesses the customer's application portfolio, identifies developer productivity barriers, and maps desired outcomes to a three-TDP app delivery solution stack spanning App Platform, AI Platform, and Automation."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Sellers apply the Customer Lens to assess the customer's app landscape, engage CIO, VP Applications, and CTO/Platform Engineering personas with tailored discovery, align the three-TDP stack to the customer's technology decisions, and articulate value through Cost, Complexity, and Choice drivers with quantified customer reference evidence."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Structured play execution produces qualified pipeline attributed to application modernization themes, with customer engagements progressing through technical validation of the app delivery platform stack to commercial proposals backed by evidence from customers like Vodafone, Lloyds Banking Group, and stc Group."
+            }
+          ],
+          "citationNames": [
+            "Build and Run Applications Sales Play",
+            "Sales Plays, TDPs and Sales Tactics",
+            "Building Your Cloud Native Apps",
+            "Event-Driven Sentiment Analysis with Kafka and AI/ML",
+            "Mission Critical Application Platform",
+            "Self-Service Provisioning with Red Hat Developer Hub",
+            "Self-Service Provisioning App Capabilities with Developer Hub",
+            "Self-Service Provisioning for Data Scientists",
+            "Red Hat Developer Hub: Faster Onboarding, Faster Innovation",
+            "Red Hat Enterprise Linux Demo",
+            "Red Hat OpenShift Container Platform Demo",
+            "Red Hat Trusted Application Pipeline Demo",
+            "Trusted Application Pipeline for AI Applications",
+            "Confidential Containers on ARO"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Play"
+    }
+  ],
+  "workProducts": [
+    {
+      "name": "Build and Run Playbook",
+      "description": "Execution guide for the Build and Run Applications play covering app modernization Customer Lens, personas, value drivers, and TDP alignment.",
+      "levelsOfDetail": [
+        {
+          "name": "Initial",
+          "description": "Basic app modernization pain, outcomes, and impact documentation.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Pain points documented",
+              "description": "Customer application pain points documented covering legacy costs, toolchain complexity, developer productivity, and security/governance.",
+              "seq": 1
+            },
+            {
+              "name": "Desired outcomes stated",
+              "description": "Desired outcomes stated covering modernize legacy apps, increase dev productivity, simplify CI/CD, and improve security.",
+              "seq": 2
+            },
+            {
+              "name": "Impact categories identified",
+              "description": "Business impact categories identified covering faster time-to-market, productivity gains, scalability, and resilience.",
+              "seq": 3
+            },
+            {
+              "name": "Customer references listed",
+              "description": "App modernization customer reference examples listed covering Vodafone, Lloyds Banking, and stc Group.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Selected"
+            }
+          ]
+        },
+        {
+          "name": "Structured",
+          "description": "Structured playbook with app modernization persona profiles and discovery questions.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "CIO profile documented",
+              "description": "CIO/Head IT Strategy profiled with modernization balance priorities, current reality, and discovery questions.",
+              "seq": 1
+            },
+            {
+              "name": "VP Applications profile documented",
+              "description": "VP Applications/LOB profiled with feature delivery speed priorities, developer satisfaction concerns, and discovery questions.",
+              "seq": 2
+            },
+            {
+              "name": "CTO profile documented",
+              "description": "CTO/Platform Engineering profiled with self-service developer platform priorities, snowflake environment concerns, and discovery questions.",
+              "seq": 3
+            },
+            {
+              "name": "Value drivers structured",
+              "description": "Value drivers structured with app-specific capability-to-benefit narratives covering Cost, Complexity, and Choice.",
+              "seq": 4
+            },
+            {
+              "name": "References matched to personas",
+              "description": "Customer references matched to app modernization personas and industries.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Activated"
+            }
+          ]
+        },
+        {
+          "name": "Comprehensive",
+          "description": "Complete app delivery execution guide with three-TDP alignment and tactic navigation.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "TDP alignment matrix populated",
+              "description": "App Platform, AI Platform, and Automation TDP alignment matrix populated.",
+              "seq": 1
+            },
+            {
+              "name": "App Platform tactics documented",
+              "description": "App Platform tactics documented covering optimize traditional apps, DevX and platform engineering, and secure supply chain.",
+              "seq": 2
+            },
+            {
+              "name": "Multi-TDP narrative documented",
+              "description": "Multi-TDP app delivery solution narrative documented covering modernization, development, and operations layers.",
+              "seq": 3
+            },
+            {
+              "name": "Competitive positioning integrated",
+              "description": "Competitive positioning integrated for container platform and cloud-native alternatives.",
+              "seq": 4
+            },
+            {
+              "name": "Services and partners documented",
+              "description": "Services and partner solutions documented for app modernization.",
+              "seq": 5
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Activated"
+            },
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "Optimized",
+          "description": "Data-driven app delivery playbook with performance metrics and best practices.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Play metrics tracked",
+              "description": "Build and Run play pipeline generation, win rate, and deal size metrics tracked.",
+              "seq": 1
+            },
+            {
+              "name": "TDP-tactic effectiveness integrated",
+              "description": "App-specific TDP-tactic combination effectiveness data integrated.",
+              "seq": 2
+            },
+            {
+              "name": "Best practices codified",
+              "description": "Top performer best practices for app modernization selling codified.",
+              "seq": 3
+            },
+            {
+              "name": "Optimization recommendations included",
+              "description": "Continuous optimization recommendations for app delivery positioning included.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Measured"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Build and Run Applications Playbook Context",
+          "description": "Why the Build and Run Applications Playbook is essential for structured app modernization selling.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Sellers need structured guidance for engaging customers on application modernization topics spanning legacy migration, cloud-native development, platform engineering, and CI/CD optimization -- a breadth of concerns that ad hoc preparation cannot consistently address."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Build and Run Applications Playbook progresses from Customer Lens summary through persona-enriched profiles to a TDP-aligned execution guide connecting App Platform, AI Platform, and Automation into a coherent app delivery solution narrative."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers equipped with the complete playbook execute structured app modernization engagements with consistent messaging, persona-relevant discovery, and evidence-backed value articulation."
+            }
+          ],
+          "citationNames": [
+            "Build and Run Applications Sales Play"
+          ]
+        }
+      ],
+      "mapsTo": "Sales Play Execution Guide"
+    },
+    {
+      "name": "App Modernization Customer Reference Package",
+      "description": "Curated collection of application modernization customer success stories and evidence matched to Build and Run play personas and value drivers.",
+      "levelsOfDetail": [
+        {
+          "name": "Reference List",
+          "description": "Basic list of app modernization customer references with outcomes.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Customer names with industry listed",
+              "description": "Customer names with industry classification (telco, financial services, etc.) listed.",
+              "seq": 1
+            },
+            {
+              "name": "Outcome summaries documented",
+              "description": "App modernization outcome summaries documented such as Vodafone 30% faster TTM and Lloyds 3000 apps migrated.",
+              "seq": 2
+            },
+            {
+              "name": "Region and scale noted",
+              "description": "Geographic region and deployment scale noted.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Selected"
+            }
+          ]
+        },
+        {
+          "name": "Structured Reference Package",
+          "description": "Organized app modernization references with detailed case studies.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Full case studies documented",
+              "description": "Full case studies with STAR narrative structure (Situation, Task, Action, Result) documented.",
+              "seq": 1
+            },
+            {
+              "name": "References organized by type",
+              "description": "References organized by modernization type covering legacy migration, cloud-native, and platform engineering.",
+              "seq": 2
+            },
+            {
+              "name": "Quantified outcomes highlighted",
+              "description": "Quantified outcomes highlighted covering time-to-market, throughput, cost reduction, and apps migrated.",
+              "seq": 3
+            },
+            {
+              "name": "Usage context mapped",
+              "description": "Suggested usage context for each reference mapped to play personas.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Activated"
+            },
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Executing"
+            }
+          ]
+        },
+        {
+          "name": "Persona-Matched Reference Package",
+          "description": "References mapped to app modernization target personas and decision criteria.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "References matched to personas",
+              "description": "References matched to CIO modernization-balance, VP feature-delivery, and CTO platform-engineering perspectives.",
+              "seq": 1
+            },
+            {
+              "name": "Presentation-ready materials prepared",
+              "description": "Presentation-ready reference materials for each persona type prepared.",
+              "seq": 2
+            },
+            {
+              "name": "Reference willingness documented",
+              "description": "Reference customer willingness for calls or site visits documented.",
+              "seq": 3
+            },
+            {
+              "name": "Industry benchmarks compiled",
+              "description": "Industry benchmark data from app modernization references compiled.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Measured"
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "App Modernization Customer Reference Package Context",
+          "description": "Why curated app modernization customer evidence is essential for credible selling.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Application modernization claims require substantiation through real-world evidence from comparable organizations, industries, and deployment scales -- generic product messaging does not convince CIOs and CTOs evaluating platform investments."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The App Modernization Customer Reference Package curates evidence from Vodafone, Lloyds Banking Group, stc Group, and other customers, organized by modernization type, persona relevance, and quantified outcomes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Sellers deploy credible, persona-matched customer evidence that substantiates value driver claims and accelerates deal progression through social proof."
+            }
+          ],
+          "citationNames": [
+            "Build and Run Applications Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Build and Run Dashboard",
+      "description": "Analytics artifact tracking pipeline, conversion, and adoption metrics for the Build and Run Applications play.",
+      "levelsOfDetail": [
+        {
+          "name": "Basic",
+          "description": "Simple pipeline and activity tracking for Build and Run play.",
+          "seq": 1,
+          "checklist": [
+            {
+              "name": "Pipeline tracked",
+              "description": "Pipeline generated attributed to Build and Run play tracked.",
+              "seq": 1
+            },
+            {
+              "name": "Seller adoption monitored",
+              "description": "Seller adoption count for Build and Run play monitored.",
+              "seq": 2
+            },
+            {
+              "name": "Content usage captured",
+              "description": "App modernization content usage metrics captured.",
+              "seq": 3
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Measured"
+            }
+          ]
+        },
+        {
+          "name": "Multi-Level",
+          "description": "Dashboard tracking metrics across play, TDP, and tactic levels for app delivery.",
+          "seq": 2,
+          "checklist": [
+            {
+              "name": "Play-level metrics tracked",
+              "description": "Play-level metrics covering pipeline, win rate, deal size, and cycle time for Build and Run tracked.",
+              "seq": 1
+            },
+            {
+              "name": "TDP-level metrics tracked",
+              "description": "TDP-level metrics covering App Platform, AI Platform, and Automation win rates and competitive outcomes tracked.",
+              "seq": 2
+            },
+            {
+              "name": "Tactic-level metrics tracked",
+              "description": "Tactic-level metrics covering app modernization engagement rates and conversion by tactic tracked.",
+              "seq": 3
+            },
+            {
+              "name": "Cohort analysis available",
+              "description": "Cohort analysis by region, segment, and seller experience for app modernization available.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Measured"
+            }
+          ]
+        },
+        {
+          "name": "Correlated",
+          "description": "Dashboard with cross-level correlation and predictive analytics for app delivery.",
+          "seq": 3,
+          "checklist": [
+            {
+              "name": "TDP-tactic combination analysis available",
+              "description": "TDP-tactic combination effectiveness analysis for app delivery stack available.",
+              "seq": 1
+            },
+            {
+              "name": "Navigation pattern analytics available",
+              "description": "Framework navigation pattern analytics for Build and Run engagements available.",
+              "seq": 2
+            },
+            {
+              "name": "Predictive forecasting operational",
+              "description": "Predictive pipeline forecasting for app modernization deals operational.",
+              "seq": 3
+            },
+            {
+              "name": "Readiness impact measured",
+              "description": "Seller readiness impact on Build and Run performance metrics measured.",
+              "seq": 4
+            }
+          ],
+          "contributesTo": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Measured"
+            }
+          ]
+        },
+        {
+          "name": "Predictive",
+          "description": "Build and run applications performance dashboard with predictive analytics for pipeline forecasting and play optimization.",
+          "seq": 4,
+          "checklist": [
+            {
+              "name": "Predictive Pipeline Analytics",
+              "description": "Dashboard incorporates predictive models for application modernization pipeline forecasting.",
+              "seq": 1
+            },
+            {
+              "name": "Automated Play Optimization",
+              "description": "System generates data-driven recommendations for build and run play improvement.",
+              "seq": 2
+            },
+            {
+              "name": "Cross-TDP Performance Correlation",
+              "description": "Dashboard correlates play performance across App Platform, AI Platform, and Automation TDP metrics.",
+              "seq": 3
+            }
+          ]
+        }
+      ],
+      "narratives": [
+        {
+          "name": "Build and Run Performance Dashboard Context",
+          "description": "Why play-specific performance tracking is essential for data-driven optimization.",
+          "narrativeTypeName": "Value Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Problem",
+              "context": "Without play-specific performance tracking, app modernization pipeline attribution, TDP effectiveness, and tactic conversion remain opaque, preventing data-driven optimization of the Build and Run selling motion."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Solution",
+              "context": "The Build and Run Performance Dashboard tracks metrics across play, TDP, and tactic levels with cross-level correlation analysis identifying which app delivery TDP-tactic combinations drive highest outcomes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Outcome",
+              "context": "Data-driven optimization sustains Build and Run play effectiveness through evidence-based content refresh, tactic redesign, and seller enablement targeting."
+            }
+          ],
+          "citationNames": [
+            "Build and Run Applications Sales Play",
+            "Sales Play Revamp"
+          ]
+        }
+      ],
+      "mapsTo": "Play Performance Dashboard"
+    }
+  ],
+  "personas": [
+    {
+      "name": "App Modernization Sales Lead",
+      "description": "Senior seller orchestrating Build and Run Applications play execution with app modernization domain expertise.",
+      "competencies": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Application Modernization",
+          "Cloud-Native Development",
+          "Go-to-Market Strategy"
+        ],
+        "lifecycleTags": [
+          "Discovery",
+          "Validation",
+          "Proposal"
+        ],
+        "organizationalTags": [
+          "Field Sales",
+          "Account Management"
+        ]
+      }
+    },
+    {
+      "name": "App Platform TDP Specialist",
+      "description": "Technology specialist providing deep App Platform, AI Platform, and Automation TDP positioning for application modernization engagements.",
+      "competencies": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "tags": {
+        "domainTags": [
+          "Application Platform",
+          "Container Management",
+          "Developer Experience",
+          "CI/CD"
+        ],
+        "lifecycleTags": [
+          "Technical Validation",
+          "Demonstration",
+          "Proof of Value"
+        ],
+        "organizationalTags": [
+          "Technical Sales",
+          "Specialist Sales"
+        ]
+      }
+    }
+  ],
+  "personaGroups": [
+    {
+      "name": "Build and Run Play Execution Team",
+      "description": "Cross-functional team executing the Build and Run Applications play combining app modernization strategy, TDP technology depth, and customer engagement.",
+      "personaNames": [
+        "App Modernization Sales Lead",
+        "App Platform TDP Specialist"
+      ],
+      "tags": {
+        "organizationalTags": [
+          "Field Sales",
+          "Customer Engagement",
+          "Application Modernization"
+        ]
+      }
+    }
+  ],
+  "activities": [
+    {
+      "name": "Apply Build and Run Customer Lens",
+      "description": "Use the Build and Run Customer Lens to assess the customer's application landscape, developer productivity barriers, and modernization priorities.",
+      "activitySpaceName": "Discover Customer Needs",
+      "focusName": "Sales Execution",
+      "test": {
+        "name": "Build and Run Customer Lens application",
+        "description": "Verify effective application of the Build and Run Customer Lens framework.",
+        "given": [
+          "The seller has reviewed the Build and Run play's Customer Lens documentation",
+          "Account research has identified app modernization or developer productivity initiatives"
+        ],
+        "when": [
+          "The seller conducts initial discovery applying the app modernization pain taxonomy"
+        ],
+        "then": [
+          "Customer's application portfolio is assessed (legacy proportion, cloud-native adoption, microservices maturity)",
+          "Pain is mapped to the play's four categories (legacy costs, toolchain complexity, developer productivity, security/governance)",
+          "Business impact is quantified using the play's framework (faster TTM, productivity gains, scalability, resilience)"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Build and Run Applications",
+          "stateName": "Selected"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Build and Run Playbook",
+          "levelOfDetailName": "Initial"
+        },
+        {
+          "workProductName": "App Modernization Customer Reference Package",
+          "levelOfDetailName": "Reference List"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Basic"
+        }
+      ],
+      "involves": [
+        "Build and Run Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Apply Build and Run Customer Lens Technique",
+          "description": "How to effectively apply the Build and Run Customer Lens for app modernization discovery.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "The seller encounters a customer with application modernization needs but must quickly assess which specific pain points resonate most strongly."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Apply the Build and Run Customer Lens to categorize the customer's application landscape, identify primary pains from the play's taxonomy, and map desired outcomes."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Review the play's Customer Lens documentation, apply the pain taxonomy during discovery, quantify business impact using the play's framework, and identify industry-relevant customer references from Vodafone, Lloyds Banking Group, or stc Group."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A documented Customer Lens analysis for the account with quantified business impact and matched customer references, providing the foundation for persona engagement and TDP alignment."
+            }
+          ],
+          "citationNames": [
+            "Build and Run Applications Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Engage App Modernization Personas",
+      "description": "Initiate relationships with app modernization decision-makers using Build and Run persona profiles and discovery questions.",
+      "activitySpaceName": "Manage Customer Relationships",
+      "focusName": "Sales Execution",
+      "test": {
+        "name": "App modernization persona engagement",
+        "description": "Verify effective persona-specific engagement for application decision-makers.",
+        "given": [
+          "Customer Lens has identified app modernization pain and outcomes",
+          "Target personas have been identified in the account"
+        ],
+        "when": [
+          "The seller initiates persona-specific discovery conversations"
+        ],
+        "then": [
+          "Each engaged persona's current reality is validated against the play's challenge taxonomy",
+          "Discovery question responses are documented per persona",
+          "A champion is identified among engaged personas"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Build and Run Applications",
+          "stateName": "Activated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Build and Run Playbook",
+          "levelOfDetailName": "Structured"
+        }
+      ],
+      "requiredCompetencies": [
+        "Customer Discovery",
+        "Relationship Building"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Relationship Building",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Build and Run Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Engage App Modernization Personas Technique",
+          "description": "How to effectively engage application modernization decision-makers with persona-tailored approaches.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Application modernization decisions involve multiple stakeholders with distinct priorities -- the CIO balances modernization investment with operational stability, the VP Applications demands faster feature delivery, and the CTO/Platform Engineering seeks a scalable self-service developer platform."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Engage each persona using the Build and Run play's structured profiles, applying persona-specific discovery questions to validate pain points and build multi-stakeholder engagement."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Lead with discovery questions from the play rather than product pitches. Validate current reality against the play's challenge descriptions. Build multi-persona engagement by sequencing from technical influencer through business sponsor to economic buyer."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Multi-stakeholder engagement established with documented persona-specific discovery responses, validated pain points, and an identified champion for the app modernization initiative."
+            }
+          ],
+          "citationNames": [
+            "Build and Run Applications Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Align App Delivery TDPs",
+      "description": "Map the customer's application technology decisions to App Platform, AI Platform, and Automation TDPs and construct a multi-TDP app delivery solution narrative.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "test": {
+        "name": "App delivery TDP alignment",
+        "description": "Verify effective alignment of app-focused TDPs to customer technology decisions.",
+        "given": [
+          "At least one app modernization persona is engaged with validated challenges",
+          "Customer's technology decision landscape is understood"
+        ],
+        "when": [
+          "The seller reviews the customer's app technology decisions against the three powering TDPs"
+        ],
+        "then": [
+          "Applicable TDPs are identified and prioritized (App Platform, AI Platform, Automation)",
+          "Relevant tactics are matched per TDP area (e.g., DevX and platform engineering, secure supply chain)",
+          "A multi-TDP app delivery solution narrative is constructed connecting modernization, development, and operations"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Build and Run Applications",
+          "stateName": "Activated"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Build and Run Playbook",
+          "levelOfDetailName": "Comprehensive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Customer Discovery"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Customer Discovery",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Build and Run Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Align App Delivery TDPs Technique",
+          "description": "How to align app-focused TDPs to customer technology decisions for a coherent solution narrative.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Customers evaluating application modernization face technology decisions spanning container platforms, developer experience tooling, AI-enhanced development, CI/CD automation, and software supply chain security."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Map the customer's specific technology evaluation areas to the three TDPs powering the Build and Run play, identifying the most relevant tactics for each technology decision."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Review the customer's app technology landscape against the Build and Run TDP alignment. Construct a layered solution narrative: App Platform (developer platform and container management), AI Platform (AI-enhanced development capabilities), Automation (CI/CD pipeline and operational automation). Navigate TDP-to-tactic alignment for each area."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A multi-TDP app delivery solution narrative connects the customer's specific technology decisions to a coherent platform stack, with relevant tactics identified for each technology area."
+            }
+          ],
+          "citationNames": [
+            "Build and Run Applications Sales Play",
+            "Application Platform TDP"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Articulate App Modernization Value",
+      "description": "Construct and present Red Hat's application modernization value proposition using Cost, Complexity, and Choice value drivers with app-specific evidence.",
+      "activitySpaceName": "Articulate Business Value",
+      "focusName": "Sales Execution",
+      "test": {
+        "name": "App modernization value articulation",
+        "description": "Verify effective articulation of app modernization value through the three-driver framework.",
+        "given": [
+          "TDP alignment is established with relevant app technology areas identified",
+          "Customer pain and desired outcomes are documented through the Customer Lens"
+        ],
+        "when": [
+          "The seller presents the value proposition to app modernization decision-makers"
+        ],
+        "then": [
+          "Cost driver is quantified with app-specific evidence (reduced legacy maintenance, technical debt elimination)",
+          "Complexity driver is demonstrated (simplified CI/CD, trusted supply chain, consistent infrastructure)",
+          "Choice driver is positioned (portable apps, open hybrid cloud, no vendor lock-in)",
+          "Customer reference evidence is shared matching industry and scale"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Build and Run Applications",
+          "stateName": "Executing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Build and Run Playbook",
+          "levelOfDetailName": "Comprehensive"
+        },
+        {
+          "workProductName": "App Modernization Customer Reference Package",
+          "levelOfDetailName": "Structured Reference Package"
+        }
+      ],
+      "requiredCompetencies": [
+        "Value Articulation",
+        "Technical Positioning"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Build and Run Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Articulate App Modernization Value Technique",
+          "description": "How to present compelling app modernization value through the three-driver framework.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Application modernization investments require quantified value arguments that resonate with both technical and business decision-makers evaluating container platforms, developer experience tools, and CI/CD modernization approaches."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Articulate Red Hat's app modernization value through the three-pillar framework with domain-specific evidence for each value driver."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Quantify Cost value (reduced legacy maintenance, unified platform efficiency). Demonstrate Complexity value (simplified CI/CD with trusted software supply chain, vulnerability scanning). Position Choice value (portable applications across any environment). Substantiate with customer evidence -- Vodafone 30% faster TTM, Lloyds Banking 3,000+ apps migrated with 30% CPU reduction, stc Group 50% improved throughput."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "A quantified business case connecting release velocity, developer productivity, and platform flexibility to measurable business outcomes, supported by industry-relevant customer evidence."
+            }
+          ],
+          "citationNames": [
+            "Build and Run Applications Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Execute App Delivery Solution Engagement",
+      "description": "Construct and deliver multi-TDP app delivery solution narratives combining App Platform, AI Platform, and Automation into a modern application delivery platform.",
+      "activitySpaceName": "Position the Solution",
+      "focusName": "Sales Execution",
+      "test": {
+        "name": "App delivery multi-TDP engagement",
+        "description": "Verify effective construction and delivery of multi-TDP app delivery solution narratives.",
+        "given": [
+          "TDP alignment has identified 2+ relevant TDPs from the app delivery stack",
+          "Customer needs span multiple app technology domains"
+        ],
+        "when": [
+          "The seller coordinates with TDP specialists to present the integrated app delivery platform"
+        ],
+        "then": [
+          "Multi-TDP solution narrative connects App Platform (developer platform), AI Platform (AI-enhanced development), and Automation (CI/CD and operations)",
+          "Cross-TDP dependencies are mapped for the customer's specific application environment",
+          "Multi-product solution architecture is presented as a modern application delivery platform"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Build and Run Applications",
+          "stateName": "Activated"
+        },
+        {
+          "alphaName": "Build and Run Applications",
+          "stateName": "Executing"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Build and Run Playbook",
+          "levelOfDetailName": "Comprehensive"
+        }
+      ],
+      "requiredCompetencies": [
+        "Technical Positioning",
+        "Value Articulation",
+        "Deal Orchestration"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Technical Positioning",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Build and Run Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Execute App Delivery Solution Engagement Technique",
+          "description": "How to construct and deliver integrated multi-TDP app delivery solution narratives.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "Complex app modernization engagements span multiple technology domains -- container platform, developer experience, AI-enhanced development, CI/CD automation, and operational management."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Construct a layered app delivery solution narrative connecting App Platform, AI Platform, and Automation into a coherent modern application delivery platform."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Connect App Platform (developer platform, container management, DevX) with AI Platform (AI-enhanced development, intelligent application capabilities) and Automation (CI/CD pipeline, operational efficiency). Coordinate across TDP specialists for technology depth in each domain. Present as an integrated app delivery platform rather than disconnected products."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "The customer sees a unified modern application delivery platform vision connecting their modernization, development, and operations needs through a coherent multi-TDP solution architecture."
+            }
+          ],
+          "citationNames": [
+            "Build and Run Applications Sales Play",
+            "Application Platform TDP"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Advance Build and Run Deal",
+      "description": "Convert validated app modernization value into deal commitment by securing next steps, defending competitive positioning, and aligning services.",
+      "activitySpaceName": "Manage the Deal",
+      "focusName": "Sales Execution",
+      "test": {
+        "name": "Build and Run deal advancement",
+        "description": "Verify effective deal advancement for app modernization engagements.",
+        "given": [
+          "Value proposition resonates with at least one champion",
+          "Competitive positioning has been established for container/cloud-native alternatives"
+        ],
+        "when": [
+          "The seller proposes next steps and commercial engagement"
+        ],
+        "then": [
+          "Customer agrees to next steps (technical workshop, platform demo, migration assessment, or POV)",
+          "Deal is registered with pipeline attributed to Build and Run Applications play",
+          "Services and partner solutions are aligned to the customer's modernization timeline"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Build and Run Applications",
+          "stateName": "Measured"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Build and Run Dashboard",
+          "levelOfDetailName": "Basic"
+        },
+        {
+          "workProductName": "App Modernization Customer Reference Package",
+          "levelOfDetailName": "Persona-Matched Reference Package"
+        }
+      ],
+      "requiredCompetencies": [
+        "Deal Orchestration",
+        "Value Articulation",
+        "Competitive Intelligence"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Deal Orchestration",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        },
+        {
+          "competencyName": "Competitive Intelligence",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Build and Run Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Advance Build and Run Deal Technique",
+          "description": "How to convert validated app modernization value into deal commitment.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "The app modernization engagement has reached the point where value has been articulated and validated, but converting validated interest into commercial commitment requires structured deal advancement."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Convert validated app modernization value into deal commitment by securing next steps, defending competitive positioning against container/cloud-native alternatives, and aligning services to the customer's timeline."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Propose specific next steps (technical workshop, platform demo, migration assessment, or proof of value). Register the deal with pipeline attributed to the Build and Run play. Defend competitive positioning with TDP-level evidence. Align Red Hat services and partner solutions to the modernization journey."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Deal registered and advancing through the pipeline with agreed next steps, competitive positioning defended, and services aligned to the customer's application modernization roadmap."
+            }
+          ],
+          "citationNames": [
+            "Build and Run Applications Sales Play"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Measure Build and Run Play Performance",
+      "description": "Track multi-level performance metrics for the Build and Run Applications play and use analytics to optimize app modernization selling effectiveness.",
+      "activitySpaceName": "Execute the Sales Play",
+      "focusName": "Sales Execution",
+      "test": {
+        "name": "Build and Run performance measurement",
+        "description": "Verify effective multi-level performance measurement for the Build and Run play.",
+        "given": [
+          "Build and Run play has been activated and field execution is generating data",
+          "Measurement infrastructure is operational"
+        ],
+        "when": [
+          "Performance review cadence triggers analysis of Build and Run play metrics"
+        ],
+        "then": [
+          "Play-level metrics are tracked (pipeline, win rate, deal size, seller adoption)",
+          "TDP-level metrics are tracked for App Platform, AI Platform, and Automation",
+          "Cross-level correlation identifies which app TDP-tactic combinations drive highest conversion"
+        ]
+      },
+      "contributesTo": [
+        {
+          "alphaName": "Build and Run Applications",
+          "stateName": "Measured"
+        }
+      ],
+      "worksOn": [
+        {
+          "workProductName": "Build and Run Dashboard",
+          "levelOfDetailName": "Multi-Level"
+        },
+        {
+          "workProductName": "Build and Run Dashboard",
+          "levelOfDetailName": "Correlated"
+        }
+      ],
+      "requiredCompetencies": [
+        "Sales Enablement",
+        "Value Articulation"
+      ],
+      "recommendedCompetencyLevels": [
+        {
+          "competencyName": "Sales Enablement",
+          "competencyLevelName": "Masters"
+        },
+        {
+          "competencyName": "Value Articulation",
+          "competencyLevelName": "Applies"
+        }
+      ],
+      "involves": [
+        "Build and Run Play Execution Team"
+      ],
+      "narratives": [
+        {
+          "name": "Measure Build and Run Play Performance Technique",
+          "description": "How to implement multi-level performance measurement for the Build and Run play.",
+          "narrativeTypeName": "Customer Success Story",
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Situation",
+              "context": "The Build and Run play is generating field data across play, TDP, and tactic levels but insights require systematic analysis to optimize app modernization selling effectiveness."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Task",
+              "context": "Implement multi-level performance measurement for the Build and Run play and conduct cross-level correlation analysis to identify the most effective app delivery selling motions."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Action",
+              "context": "Track pipeline, win rates, and adoption at the play level. Monitor App Platform, AI Platform, and Automation TDP-specific metrics. Analyze which app TDP-tactic combinations produce the highest conversion. Perform cohort analysis by region, segment, and seller experience."
+            },
+            {
+              "seq": 4,
+              "narrativeElementName": "Result",
+              "context": "Data-driven insights enable optimization of the Build and Run play through TDP content refresh, tactic redesign, and targeted seller enablement based on performance evidence."
+            }
+          ],
+          "citationNames": [
+            "Build and Run Applications Sales Play",
+            "Sales Play Revamp"
+          ]
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Build and Run Applications Sales Play Lifecycle",
+      "description": "End-to-end lifecycle coordinating how the Build and Run Applications play progresses from customer lens application through deal advancement.",
+      "narrativeTypeName": "Sales Engagement Journey",
+      "patternViews": [
+        {
+          "name": "Prerequisites",
+          "description": "Initial conditions before Build and Run play execution begins.",
+          "seq": 0,
+          "alphaStates": [],
+          "activities": [],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "Before engaging customers on application modernization, sellers must complete Build and Run play awareness training covering the Customer Lens, three target personas, value drivers, and the three-TDP app delivery stack (App Platform, AI Platform, Automation)."
+            }
+          ]
+        },
+        {
+          "name": "Discovery",
+          "description": "Apply app modernization Customer Lens and engage decision-maker personas.",
+          "seq": 1,
+          "alphaStates": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Selected"
+            },
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Activated"
+            }
+          ],
+          "activities": [
+            "Apply Build and Run Customer Lens",
+            "Engage App Modernization Personas"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Discover",
+              "context": "The seller applies the Build and Run Customer Lens to assess the customer's application landscape, identifying legacy proportion, cloud-native adoption level, and developer productivity barriers. Persona-specific engagement with CIO, VP Applications, and CTO/Platform Engineering validates pain points and builds multi-stakeholder engagement."
+            }
+          ]
+        },
+        {
+          "name": "Technology Alignment",
+          "description": "Map customer's app technology decisions to TDPs and construct app delivery solution narrative.",
+          "seq": 2,
+          "alphaStates": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Activated"
+            }
+          ],
+          "activities": [
+            "Align App Delivery TDPs",
+            "Execute App Delivery Solution Engagement"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Validate",
+              "context": "The customer's technology decisions are mapped to App Platform, AI Platform, and Automation TDPs. A multi-TDP app delivery solution narrative connects modernization (legacy migration), development (DevX and platform engineering), and operations (CI/CD automation) into a coherent platform stack."
+            }
+          ]
+        },
+        {
+          "name": "Value and Validation",
+          "description": "Articulate app modernization value through the three-driver framework and validate technology fit.",
+          "seq": 3,
+          "alphaStates": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Executing"
+            }
+          ],
+          "activities": [
+            "Articulate App Modernization Value"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Propose",
+              "context": "The value proposition is structured through Cost (reduced legacy maintenance, technical debt elimination), Complexity (simplified CI/CD, trusted software supply chain), and Choice (portable applications, open hybrid cloud). Customer evidence from Vodafone, Lloyds Banking Group, and stc Group substantiates each value driver with quantified outcomes."
+            }
+          ]
+        },
+        {
+          "name": "Deal Advancement",
+          "description": "Convert validated app modernization value into deal commitment and pipeline attribution.",
+          "seq": 4,
+          "alphaStates": [
+            {
+              "alphaName": "Build and Run Applications",
+              "stateName": "Measured"
+            }
+          ],
+          "activities": [
+            "Advance Build and Run Deal",
+            "Measure Build and Run Play Performance"
+          ],
+          "narrativeContexts": [
+            {
+              "seq": 1,
+              "narrativeElementName": "Negotiate",
+              "context": "Validated app modernization value is converted into commercial commitment through agreed next steps (technical workshop, platform demo, migration assessment, or proof of value). Competitive positioning is defended against container platform and cloud-native alternatives. Services and partner solutions align to the customer's modernization timeline."
+            },
+            {
+              "seq": 2,
+              "narrativeElementName": "Close",
+              "context": "The deal is registered with pipeline attributed to the Build and Run Applications play. Content engagement tracking, multi-stakeholder buy-in, and competitive differentiation provide the evidence base for the commercial decision."
+            },
+            {
+              "seq": 3,
+              "narrativeElementName": "Expand",
+              "context": "Post-sale engagement tracks app modernization outcomes against pre-sale commitments. Performance measurement feeds back into play optimization, with Build and Run-specific TDP-tactic combination analysis identifying the most effective app delivery selling motions."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "practiceElementAliases": [],
+  "kind": "practice",
+  "schemaVersion": "1.4.0",
+  "dependencyVersions": [
+    {
+      "documentName": "Red Hat Sales Essentials",
+      "versionRange": "^1.0.0"
+    },
+    {
+      "documentName": "Sales Play Framework",
+      "versionRange": "^1.0.0"
+    },
+    {
+      "documentName": "App Platform TDP",
+      "versionRange": "^1.0.7"
+    },
+    {
+      "documentName": "AI Platform TDP",
+      "versionRange": "^1.0.5"
+    },
+    {
+      "documentName": "Automation TDP",
+      "versionRange": "^1.0.7"
+    }
+  ],
+  "references": [
+    {
+      "name": "Standard Build and Run Applications",
+      "description": "Reference Build and Run Applications play instance with customer-facing and qualification materials",
+      "alphaName": "Build and Run Applications",
+      "stateName": "Activated",
+      "links": [
+        {
+          "name": "Build and Run Applications Sales Play Hub Page",
+          "uri": "https://saleshub.redhat.com/Link/Content/DC6gmDb7XBm2jGfHWR4XMCXFm6MV"
+        }
+      ],
+      "evidenceBy": [
+        {
+          "name": "Standard Build and Run Applications Playbook",
+          "description": "Standard instance of Build and Run Applications Playbook with curated enablement content",
+          "workProductName": "Build and Run Playbook",
+          "levelOfDetailName": "Comprehensive",
+          "links": [
+            {
+              "name": "Customer Facing Deck Build & Run Apps (Source)",
+              "uri": "https://docs.google.com/presentation/d/19LUvQbimLtojv3yxjlsqVPiD6zDEjbSDu8BuhcGo_LM/edit"
+            },
+            {
+              "name": "Customer Facing Deck Build & Run Apps",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCjmh4cjp396V8hC9cBHQQg2CCP3"
+            },
+            {
+              "name": "Personas and Discovery Questions Build and Run Apps (Source)",
+              "uri": "https://docs.google.com/presentation/d/1xFuYSDh_asoPkPlcJAq7iNMPZ5sc944Oc_zefUk7v-8/edit"
+            },
+            {
+              "name": "Personas and Discovery Questions Build and Run Apps",
+              "uri": "https://saleshub.redhat.com/Link/Content/DCj7P3Rc3BDMQ8TQc2HMWCVXPC43"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
