@@ -2,7 +2,7 @@
   "kind": "practiceBaseline",
   "name": "Platform Adoption Essentials",
   "description": "The Platform Adoption Essentials baseline establishes the universal foundation for platform transformations, extending the Project Essentials baseline with platform-specific concerns across the three Areas of Concern.",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "authors": [
     "Kernel Authors"
   ],
@@ -1287,11 +1287,37 @@
       "fontWeight": "900"
     }
   ],
-  "schemaVersion": "2.0.0",
+  "schemaVersion": "2.5.0",
   "dependencyVersions": [
     {
       "documentName": "Project Essentials",
       "versionRange": "^1.0.3"
+    }
+  ],
+  "patternGroups": [
+    {
+      "name": "Core Lifecycles",
+      "description": "Primary end-to-end lifecycle patterns coordinating the main value stream from initiation through completion or retirement.",
+      "entries": [],
+      "seq": 0
+    },
+    {
+      "name": "Maturity Progressions",
+      "description": "Patterns tracking incremental capability growth along a maturity axis, measuring depth of practice adoption rather than progress through lifecycle stages.",
+      "entries": [],
+      "seq": 1
+    },
+    {
+      "name": "Optimisation Cycles",
+      "description": "Iterative improvement patterns that refine existing capabilities through structured feedback loops and continuous learning.",
+      "entries": [],
+      "seq": 2
+    },
+    {
+      "name": "Governance & Compliance",
+      "description": "Patterns coordinating oversight, risk management, policy enforcement, and stakeholder accountability across the engagement lifecycle.",
+      "entries": [],
+      "seq": 3
     }
   ]
 }
