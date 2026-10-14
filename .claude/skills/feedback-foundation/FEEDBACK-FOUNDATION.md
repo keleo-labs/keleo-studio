@@ -67,7 +67,21 @@ is handled. Every other project only ever reads its own tracker.
 `public` drives sanitisation, not the forge. An internal tracker takes the full detail —
 it is already behind the firewall, and stripping it there loses information for nothing.
 
-Practice and method content issues route to keleo-pgen-llm under `component:content`.
+### Practice content is never published
+
+**Defects in generated practices, methods and baselines get no issue at all**, on any
+tracker. The keleo-pgen-llm tracker is for the project — its skills, prompts and
+utilities, which are public code. The practices it generates are not public, and
+sanitising such an issue does not help: the subject of a practice is itself the thing
+being withheld, so what survives the scrub says nothing useful anyway.
+
+Those rows stay in the register, are worked from it, and get Issue State
+`Not Published`. `forge-issues.py` refuses the `practice-content` project outright
+rather than letting a caller route one by mistake.
+
+The question to ask of a row is not "which document was this seen in?" but "what has to
+change?" A row observed in a practice whose fix is in a prompt or a utility is a
+keleo-pgen-llm issue and is published. A row whose fix is in the practice JSON is not.
 
 ---
 
@@ -108,9 +122,10 @@ For each register row with Status `New` and no Issue URL:
    than filing again. Otherwise create.
 6. **Write back** Issue URL and Issue State to columns U and V.
 
-Rows that must not be published at all — because no useful statement survives
-sanitisation — get Issue State `Not Published` and a reason in Resolution Summary.
-Record the decision; do not leave the row looking unprocessed.
+Rows that must not be published get Issue State `Not Published` and a reason in
+Resolution Summary. Two cases reach this: practice content, which is never published,
+and a row where no useful statement survives sanitisation. Record the decision either
+way; do not leave the row looking unprocessed.
 
 **Human approval is mandatory before the first publication run**, and any run that would
 create more than five issues shows `--dry-run` output first.
