@@ -1,0 +1,40 @@
+# Findings accepted in history, by fingerprint (commit:file:rule:line).
+#
+# Every entry below is the same thing: an absolute /Users/<name>/ path in a
+# commit that predates this scanner. No credential, no third-party data -- a
+# non-portable path that also names whose machine it came from. All of them are
+# already corrected at HEAD; they survive only because rewriting published
+# history a second time to delete them would cost more than it buys.
+#
+# A fingerprint pins the finding to one commit, file, rule and line, so these
+# entries silence exactly these occurrences. The same path appearing anywhere
+# new still fails the scan.
+#
+# These fingerprints carry commit SHAs, so any future history rewrite
+# invalidates them and they must be regenerated against the new history.
+#
+# Do not add a credential here. A live secret in history is rotated and purged,
+# never ignored.
+5ede0c650e1a62a795730cace11647a1202da054:.claude/settings.json:personal-home-path:7
+5ede0c650e1a62a795730cace11647a1202da054:.claude/settings.json:personal-home-path:8
+5ede0c650e1a62a795730cace11647a1202da054:.claude/settings.json:personal-home-path:9
+687c8d4b8cd9990a271b158c23fe2dfcffa79c42:.claude/settings.local.json:personal-home-path:44
+9aaab6e9fb817aa0e266e5d6412721b9b36a6b57:SOUL.md:personal-home-path:175
+ee76ff1b466d74a5faafffed27695bde18eb6bcd:docs/ASSETS.md:personal-home-path:145
+ee76ff1b466d74a5faafffed27695bde18eb6bcd:docs/ASSETS.md:personal-home-path:149
+ee76ff1b466d74a5faafffed27695bde18eb6bcd:docs/ASSETS.md:personal-home-path:153
+ee76ff1b466d74a5faafffed27695bde18eb6bcd:docs/ASSETS.md:personal-home-path:157
+ee76ff1b466d74a5faafffed27695bde18eb6bcd:docs/ASSETS.md:personal-home-path:260
+ee76ff1b466d74a5faafffed27695bde18eb6bcd:docs/ASSETS.md:personal-home-path:261
+ee76ff1b466d74a5faafffed27695bde18eb6bcd:docs/ASSETS.md:personal-home-path:262
+ee76ff1b466d74a5faafffed27695bde18eb6bcd:docs/ASSETS.md:personal-home-path:263
+ee76ff1b466d74a5faafffed27695bde18eb6bcd:docs/ASSETS.md:personal-home-path:264
+ee76ff1b466d74a5faafffed27695bde18eb6bcd:docs/ASSETS.md:personal-home-path:265
+f35aacd2d1fe079fd5f1e389a89da1ee5cf73f8d:.claude/settings.json:personal-home-path:7
+f35aacd2d1fe079fd5f1e389a89da1ee5cf73f8d:.claude/settings.json:personal-home-path:8
+f35aacd2d1fe079fd5f1e389a89da1ee5cf73f8d:.claude/settings.json:personal-home-path:9
+f35aacd2d1fe079fd5f1e389a89da1ee5cf73f8d:.claude/settings.local.json:personal-home-path:17
+f35aacd2d1fe079fd5f1e389a89da1ee5cf73f8d:.claude/settings.local.json:personal-home-path:27
+f35aacd2d1fe079fd5f1e389a89da1ee5cf73f8d:.claude/settings.local.json:personal-home-path:39
+f35aacd2d1fe079fd5f1e389a89da1ee5cf73f8d:.claude/settings.local.json:personal-home-path:43
+f35aacd2d1fe079fd5f1e389a89da1ee5cf73f8d:.claude/settings.local.json:personal-home-path:44
