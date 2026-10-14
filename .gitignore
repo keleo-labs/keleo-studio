@@ -6,7 +6,9 @@ web/data/documents/*.json
 
 docs/API_OPTIMIZATION_SUMMARY.md
 
-.claude/
+.claude/*
+# Skills are project assets and ship with a clone; local settings and state do not.
+!.claude/skills/
 
 # Build outputs
 .next/

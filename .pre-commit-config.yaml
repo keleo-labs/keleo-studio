@@ -1,0 +1,45 @@
+# Secret-scanning hooks. Install both stages after cloning:
+#   pre-commit install --hook-type pre-commit --hook-type pre-push
+#
+# Fast checks run at commit. The one slow check -- trufflehog's verified scan,
+# which calls provider APIs to find out whether a credential is still live --
+# runs at pre-push, the last point before anything leaves this machine.
+
+default_install_hook_types: [pre-commit, pre-push]
+
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+        name: gitleaks (credentials, personal paths, PII)
+        stages: [pre-commit]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+        stages: [pre-commit]
+      - id: detect-private-key
+        stages: [pre-commit]
+      - id: check-json
+        stages: [pre-commit]
+      - id: check-yaml
+        stages: [pre-commit]
+      - id: end-of-file-fixer
+        stages: [pre-commit]
+      - id: mixed-line-ending
+        args: [--fix=lf]
+        stages: [pre-commit]
+
+  - repo: local
+    hooks:
+      # Scans only what this push adds. CI scans full history, which is what
+      # catches a secret committed before these hooks existed.
+      - id: trufflehog-verified
+        name: trufflehog (confirm no live credential is being pushed)
+        entry: trufflehog git file://. --since-commit HEAD --only-verified --fail --no-update
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
