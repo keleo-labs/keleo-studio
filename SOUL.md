@@ -275,7 +275,7 @@ Problem: Narratives editor needs narrative types from baseline practice
 
 ## References
 
-- Project README: `/Users/eseymour/code/keleo-studio/README.md`
+- Project README: `/README.md`
 - Type definitions: `/web/src/lib/types.ts`
 - JSON Schema: `/web/public/language.schema.json`
 - Merge algorithm: `/web/src/lib/methodMerge/compositePracticeFromMethod.ts`

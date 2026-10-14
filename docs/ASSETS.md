@@ -142,19 +142,19 @@ The system detects:
 
 ### Visualizations
 
-1. **Kanban Pattern Board** ([KanbanPatternBoardPF](cci:7://file:///Users/eseymour/code/keleo-studio/web/src/components/KanbanPatternBoardPF.tsx:0:0-0:0))
+1. **Kanban Pattern Board** (component removed)
    - Alpha swim lane headers (left of alpha name)
    - Work product swim lane headers (left of work product name)
 
-2. **Topology Diagram** ([TopologyDiagram](cci:7://file:///Users/eseymour/code/keleo-studio/web/src/components/TopologyDiagram.tsx:0:0-0:0))
+2. **Topology Diagram** (component removed)
    - Compound node headers (top-left corner)
    - Alpha and work product cards
 
-3. **Sankey Flow Diagram** ([SankeyFlowDiagram](cci:7://file:///Users/eseymour/code/keleo-studio/web/src/components/SankeyFlowDiagram.tsx:0:0-0:0))
+3. **Sankey Flow Diagram** ([SankeyFlowDiagram](../web/src/components/visualizations/diagrams/SankeyFlowDiagram.tsx))
    - Node labels (left of text)
    - Alpha state and work product nodes
 
-4. **Progressive Flow Diagram** ([ProgressiveFlowDiagram](cci:7://file:///Users/eseymour/code/keleo-studio/web/src/components/ProgressiveFlowDiagram.tsx:0:0-0:0))
+4. **Progressive Flow Diagram** ([ProgressiveFlowDiagram](../web/src/components/visualizations/diagrams/ProgressiveFlowDiagram.tsx))
    - Alpha state nodes (top-left corner)
 
 ## Example: Complete Asset Configuration
@@ -257,9 +257,9 @@ Provide your own icon font by specifying `fontUrl`:
 
 ## Implementation Details
 
-- **Font loader**: [fontLoader.ts](cci:7://file:///Users/eseymour/code/keleo-studio/web/src/lib/fontLoader.ts:0:0-0:0)
-- **Asset utilities**: [assetUtils.ts](cci:7://file:///Users/eseymour/code/keleo-studio/web/src/lib/assetUtils.ts:0:0-0:0)
-- **Icon components**: [IconAsset.tsx](cci:7://file:///Users/eseymour/code/keleo-studio/web/src/components/IconAsset.tsx:0:0-0:0)
-- **SVG rendering**: [renderIconInSvg.ts](cci:7://file:///Users/eseymour/code/keleo-studio/web/src/lib/renderIconInSvg.ts:0:0-0:0)
-- **Type definitions**: [types.ts](cci:7://file:///Users/eseymour/code/keleo-studio/web/src/lib/types.ts:0:0-0:0)
-- **JSON Schema**: [language.schema.json](cci:7://file:///Users/eseymour/code/keleo-studio/web/public/language.schema.json:0:0-0:0)
+- **Font loader**: [fontLoader.ts](../web/src/lib/display/fontLoader.ts)
+- **Asset utilities**: [assets.ts](../web/src/lib/display/assets.ts)
+- **Icon components**: [IconAsset.tsx](../web/src/components/common/IconAsset.tsx)
+- **SVG rendering**: [renderIconInSvg.ts](../web/src/lib/display/renderIconInSvg.ts)
+- **Type definitions**: [types.ts](../web/src/lib/types.ts)
+- **JSON Schema**: [language.schema.json](../web/public/language.schema.json)
