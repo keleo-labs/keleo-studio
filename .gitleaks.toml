@@ -1,0 +1,82 @@
+# gitleaks configuration.
+#
+# The default rule set covers the credential formats worth covering -- GitHub,
+# Slack, AWS, Google, JWT, private keys -- and is better maintained than
+# anything written by hand here. It is extended, never replaced.
+#
+# The rules below cover what the defaults structurally cannot: data that is
+# damaging without being a credential, and detail that quietly identifies the
+# author. Add an org-specific rule whenever a scan misses something real.
+
+title = "secret scan"
+
+[extend]
+useDefault = true
+
+# --- Personal and customer data ----------------------------------------------
+# Email addresses are the rule that catches PII. A file of customer records is
+# not a credential, so no secret scanner flags it by default, and it is usually
+# the most damaging thing that can reach a repository.
+
+[[rules]]
+id = "email-address"
+description = "Email address (personal or customer data)"
+regex = '''\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b'''
+keywords = ["@"]
+tags = ["pii"]
+
+  [rules.allowlist]
+  regexTarget = "match"
+  regexes = [
+    # Documentation placeholders.
+    '''@example\.(com|org|net)\b''',
+    '''@(yourdomain|domain|company|acme)\.''',
+    # Package manifest and commit trailer fields, not correspondence.
+    '''\bnoreply@''',
+    # Add your own domain's shared aliases here -- never individual addresses.
+  ]
+
+# --- Machine-specific detail -------------------------------------------------
+# Not secrets, but they make a file non-portable and identify whose laptop it
+# came from. Covers both macOS (/Users/) and Linux (/home/).
+
+[[rules]]
+id = "personal-home-path"
+description = "Absolute home directory path -- use $HOME or ~ instead"
+regex = '''/(Users|home)/[a-z][a-z0-9._-]{1,30}/'''
+keywords = ["/Users/", "/home/"]
+tags = ["portability", "pii"]
+
+  [rules.allowlist]
+  regexTarget = "match"
+  regexes = [
+    '''/(Users|home)/(you|me|user|username|your-?name|example|runner)/''',
+  ]
+
+# --- Org-specific rules ------------------------------------------------------
+# Template. Copy this block for any credential shape the defaults miss. The
+# example is a Salesforce session id, which always begins with the org id and
+# is absent from the default set.
+#
+# [[rules]]
+# id = "salesforce-session-id"
+# description = "Salesforce session id or access token"
+# regex = '''\b00D[A-Za-z0-9]{12,}'''
+# keywords = ["00D"]
+# tags = ["credential", "salesforce"]
+
+# --- Global allowlist --------------------------------------------------------
+# Paths that cannot carry a real secret. Keep this list short and justified:
+# every entry is a place the scanner no longer looks.
+
+[allowlist]
+description = "Paths that cannot carry a real secret"
+paths = [
+  '''\.gitleaks\.toml$''',          # this file names the patterns it hunts for
+  '''(^|/)SECURITY\.md$''',         # documents leak classes by example
+  '''(^|/)CONTRIBUTING\.md$''',
+  '''(^|/)\.env\.example$''',       # empty values by definition
+  '''(^|/)package-lock\.json$''',
+  '''(^|/)yarn\.lock$''',
+  '''\.pdf$''',                     # binary; entropy rules misfire constantly
+]
