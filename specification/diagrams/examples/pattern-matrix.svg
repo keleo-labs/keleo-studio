@@ -1,27 +1,337 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="180" height="704" viewBox="0 0 180 704">
-<rect width="180" height="704" fill="#fafafa" rx="4"/>
-<rect x="10" y="70" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="100" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Opportunity</text>
-<rect x="10" y="122" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="152" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Stakeholders</text>
-<rect x="10" y="174" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="204" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Objectives</text>
-<rect x="10" y="226" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="256" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Deliverable</text>
-<rect x="10" y="278" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="308" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Work</text>
-<rect x="10" y="330" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="360" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Team</text>
-<rect x="10" y="382" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="412" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Way Of Working</text>
-<rect x="10" y="434" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="464" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Backlog</text>
-<rect x="10" y="486" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="516" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Team Agreement</text>
-<rect x="10" y="538" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="568" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Sprint</text>
-<rect x="10" y="590" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="620" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Definition of Done</text>
-<rect x="10" y="642" width="160" height="52" fill="#ffffff" stroke="#d2d2d2" stroke-width="0.5"/>
-<text x="18" y="672" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Team Agreement</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1150" height="1003" viewBox="0 0 1150 1003">
+<rect width="1150" height="1003" fill="#fafafa" rx="4"/>
+<text x="20" y="26" font-family="sans-serif" font-size="16" font-weight="700" fill="#151515">Adaptive Programme Lifecycle</text>
+<text x="20" y="40" font-family="sans-serif" font-size="10" fill="#6a6e73">Overarching lifecycle orchestrating all 19 alphas across the programme journey.</text>
+<g transform="translate(0, 42)">
+<rect x="230" y="20" width="150" height="20" rx="3" fill="rgba(0,102,204,0.06)" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="238" y="34" font-family="sans-serif" font-size="9" font-weight="600" fill="#6a6e73" letter-spacing="0.08em">PREREQUISITES</text>
+<rect x="380" y="20" width="750" height="20" rx="3" fill="rgba(0,102,204,0.06)" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="388" y="34" font-family="sans-serif" font-size="9" font-weight="600" fill="#6a6e73" letter-spacing="0.08em">LIFECYCLE PHASE</text>
+<rect x="231" y="52" width="148" height="48" rx="4" fill="rgba(0,102,204,0.06)" stroke="#0066cc" stroke-width="1"/>
+<text x="238" y="67" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Identify and</text>
+<text x="238" y="79" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Envision</text>
+<circle cx="368" cy="64" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="368" y="67" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">1</text>
+<rect x="381" y="52" width="148" height="48" rx="4" fill="rgba(0,102,204,0.06)" stroke="#0066cc" stroke-width="1"/>
+<text x="388" y="67" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Define and</text>
+<text x="388" y="79" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Organize</text>
+<circle cx="518" cy="64" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="518" y="67" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">2</text>
+<rect x="531" y="52" width="148" height="48" rx="4" fill="rgba(0,102,204,0.06)" stroke="#0066cc" stroke-width="1"/>
+<text x="538" y="67" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Plan and</text>
+<text x="538" y="79" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Mobilize</text>
+<circle cx="668" cy="64" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="668" y="67" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">3</text>
+<rect x="681" y="52" width="148" height="48" rx="4" fill="rgba(0,102,204,0.06)" stroke="#0066cc" stroke-width="1"/>
+<text x="688" y="67" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Execute and</text>
+<text x="688" y="79" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Integrate</text>
+<circle cx="818" cy="64" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="818" y="67" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">4</text>
+<rect x="831" y="52" width="148" height="48" rx="4" fill="rgba(0,102,204,0.06)" stroke="#0066cc" stroke-width="1"/>
+<text x="838" y="67" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Realize and</text>
+<text x="838" y="79" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Adapt</text>
+<circle cx="968" cy="64" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="968" y="67" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">5</text>
+<rect x="981" y="52" width="148" height="48" rx="4" fill="rgba(0,102,204,0.06)" stroke="#0066cc" stroke-width="1"/>
+<text x="988" y="67" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Transition and</text>
+<text x="988" y="79" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Sustain</text>
+<circle cx="1118" cy="64" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="1118" y="67" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">6</text>
+<line x1="905" y1="100" x2="905" y2="124" stroke="#8476d1" stroke-width="1.5"/>
+<line x1="905" y1="124" x2="605" y2="124" stroke="#8476d1" stroke-width="1.5"/>
+<line x1="605" y1="124" x2="605" y2="100" stroke="#8476d1" stroke-width="1.5"/>
+<line x1="605" y1="100" x2="608.15" y2="107" stroke="#8476d1" stroke-width="1.5"/>
+<line x1="605" y1="100" x2="601.85" y2="107" stroke="#8476d1" stroke-width="1.5"/>
+<text x="755" y="136" font-family="sans-serif" font-size="9" fill="#8476d1" text-anchor="middle">[Further tranches remain in the progr…]</text>
+<circle cx="854.6" cy="133" r="6.5" fill="#ffffff" stroke="#8476d1" stroke-width="1"/><text x="854.6" y="136" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">7</text>
+<rect x="20" y="150" width="1110" height="24" fill="#f7f7f7"/>
+<text x="26" y="166" font-family="sans-serif" font-size="9" font-weight="600" fill="#6a6e73" letter-spacing="0.08em">VALUE</text>
+<rect x="20" y="324" width="1110" height="24" fill="#f7f7f7"/>
+<text x="26" y="340" font-family="sans-serif" font-size="9" font-weight="600" fill="#6a6e73" letter-spacing="0.08em">SOLUTION</text>
+<rect x="20" y="468" width="1110" height="24" fill="#f7f7f7"/>
+<text x="26" y="484" font-family="sans-serif" font-size="9" font-weight="600" fill="#6a6e73" letter-spacing="0.08em">ENDEAVOR</text>
+<rect x="20" y="642" width="1110" height="24" fill="#f7f7f7"/>
+<text x="26" y="658" font-family="sans-serif" font-size="9" font-weight="600" fill="#6a6e73" letter-spacing="0.08em">COORDINATION</text>
+<text x="26" y="192" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Opportunity</text>
+<line x1="20" y1="174" x2="1130" y2="174" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="40" y="222" font-family="sans-serif" font-size="10" font-weight="400" fill="#6a6e73">└ Strategic Investment T…</text>
+<line x1="20" y1="204" x2="1130" y2="204" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="26" y="252" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Stakeholders</text>
+<line x1="20" y1="234" x2="1130" y2="234" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="26" y="282" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Benefits</text>
+<line x1="20" y1="264" x2="1130" y2="264" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="40" y="312" font-family="sans-serif" font-size="10" font-weight="400" fill="#6a6e73">└ Benefits Dependency Map</text>
+<line x1="20" y1="294" x2="1130" y2="294" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="26" y="366" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Objectives</text>
+<line x1="20" y1="348" x2="1130" y2="348" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="40" y="396" font-family="sans-serif" font-size="10" font-weight="400" fill="#6a6e73">└ Architectural Runway</text>
+<line x1="20" y1="378" x2="1130" y2="378" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="26" y="426" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Deliverable</text>
+<line x1="20" y1="408" x2="1130" y2="408" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="40" y="456" font-family="sans-serif" font-size="10" font-weight="400" fill="#6a6e73">└ Programme Increment</text>
+<line x1="20" y1="438" x2="1130" y2="438" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="26" y="510" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Work</text>
+<line x1="20" y1="492" x2="1130" y2="492" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="26" y="540" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Team</text>
+<line x1="20" y1="522" x2="1130" y2="522" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="40" y="570" font-family="sans-serif" font-size="10" font-weight="400" fill="#6a6e73">└ Agile Release Train</text>
+<line x1="20" y1="552" x2="1130" y2="552" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="26" y="600" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Way Of Working</text>
+<line x1="20" y1="582" x2="1130" y2="582" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="40" y="630" font-family="sans-serif" font-size="10" font-weight="400" fill="#6a6e73">└ Community of Practice</text>
+<line x1="20" y1="612" x2="1130" y2="612" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="26" y="684" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Programme</text>
+<line x1="20" y1="666" x2="1130" y2="666" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="40" y="714" font-family="sans-serif" font-size="10" font-weight="400" fill="#6a6e73">└ Cross-Project Dependen…</text>
+<line x1="20" y1="696" x2="1130" y2="696" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="26" y="744" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Roadmap</text>
+<line x1="20" y1="726" x2="1130" y2="726" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="40" y="774" font-family="sans-serif" font-size="10" font-weight="400" fill="#6a6e73">└ Tranche</text>
+<line x1="20" y1="756" x2="1130" y2="756" stroke="#e8e8e8" stroke-width="0.5"/>
+<text x="26" y="804" font-family="sans-serif" font-size="10" font-weight="600" fill="#151515">Programme Governance</text>
+<line x1="20" y1="786" x2="1130" y2="786" stroke="#e8e8e8" stroke-width="0.5"/>
+<rect x="234" y="178" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="190" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Initiated</text>
+<rect x="384" y="178" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="190" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Determined</text>
+<rect x="534" y="178" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="190" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Value Establish…</text>
+<rect x="684" y="178" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="190" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Viable</text>
+<rect x="834" y="178" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="190" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Addressed</text>
+<rect x="984" y="178" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="190" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Benefit Accrued</text>
+<rect x="234" y="208" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="220" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Hypothesized</text>
+<rect x="384" y="208" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="220" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Evidenced</text>
+<rect x="534" y="208" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="220" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Validated</text>
+<rect x="684" y="208" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="220" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Funded</text>
+<rect x="834" y="208" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="220" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Confirmed</text>
+<rect x="984" y="208" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="220" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Evolved</text>
+<rect x="234" y="238" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="250" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Recognized</text>
+<rect x="384" y="238" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="250" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Represented</text>
+<rect x="534" y="238" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="250" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Involved</text>
+<rect x="684" y="238" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="250" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">In Agreement</text>
+<rect x="834" y="238" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="250" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Satisfied for D…</text>
+<rect x="984" y="238" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="250" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Satisfied in Use</text>
+<rect x="234" y="268" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="280" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Identified</text>
+<rect x="384" y="268" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="280" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Mapped</text>
+<rect x="534" y="268" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="280" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Planned</text>
+<rect x="684" y="268" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="280" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Emerging</text>
+<rect x="834" y="268" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="280" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Realized</text>
+<rect x="984" y="268" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="280" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Sustained</text>
+<rect x="234" y="298" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="310" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Initiated</text>
+<rect x="384" y="298" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="310" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Structured</text>
+<rect x="534" y="298" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="310" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Baselined</text>
+<rect x="684" y="298" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="310" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Tracking</text>
+<rect x="834" y="298" width="142" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+<text x="905" y="310" font-family="sans-serif" font-size="9" fill="#adb5bd" text-anchor="middle">Tracking</text>
+<rect x="984" y="298" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="310" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Optimized</text>
+<rect x="234" y="352" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="364" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Identified</text>
+<rect x="384" y="352" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="364" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Articulated</text>
+<rect x="534" y="352" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="364" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Prioritized</text>
+<rect x="684" y="352" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="364" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Agreed</text>
+<rect x="834" y="352" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="364" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Achieved</text>
+<rect x="984" y="352" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="364" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Evaluated</text>
+<rect x="234" y="382" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="394" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Assessed</text>
+<rect x="384" y="382" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="394" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Designed</text>
+<rect x="534" y="382" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="394" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Provisioned</text>
+<rect x="684" y="382" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="394" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Extending</text>
+<rect x="834" y="382" width="142" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+<text x="905" y="394" font-family="sans-serif" font-size="9" fill="#adb5bd" text-anchor="middle">Extending</text>
+<rect x="984" y="382" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="394" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Optimized</text>
+<rect x="234" y="412" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="424" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Envisioned</text>
+<rect x="384" y="412" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="424" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Shaped</text>
+<rect x="534" y="412" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="424" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Demonstrable</text>
+<rect x="684" y="412" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="424" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Usable</text>
+<rect x="834" y="412" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="424" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Operational</text>
+<rect x="984" y="412" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="424" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Retired</text>
+<rect x="234" y="442" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="454" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Envisioned</text>
+<rect x="384" y="442" width="142" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+<text x="455" y="454" font-family="sans-serif" font-size="9" fill="#adb5bd" text-anchor="middle">Envisioned</text>
+<rect x="534" y="442" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="454" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Planned</text>
+<rect x="684" y="442" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="454" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Executing</text>
+<rect x="834" y="442" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="454" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Integrated</text>
+<rect x="984" y="442" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="454" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Evaluated</text>
+<rect x="234" y="496" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="508" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Initiated</text>
+<rect x="384" y="496" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="508" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Prepared</text>
+<rect x="534" y="496" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="508" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Started</text>
+<rect x="684" y="496" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="508" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Under Control</text>
+<rect x="834" y="496" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="508" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Concluded</text>
+<rect x="984" y="496" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="508" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Closed</text>
+<rect x="234" y="526" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="538" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Seeded</text>
+<rect x="384" y="526" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="538" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Formed</text>
+<rect x="534" y="526" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="538" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Collaborating</text>
+<rect x="684" y="526" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="538" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Performing</text>
+<rect x="834" y="526" width="142" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+<text x="905" y="538" font-family="sans-serif" font-size="9" fill="#adb5bd" text-anchor="middle">Performing</text>
+<rect x="984" y="526" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="538" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Adjourned</text>
+<rect x="234" y="556" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="568" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Conceived</text>
+<rect x="384" y="556" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="568" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Formed</text>
+<rect x="534" y="556" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="568" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Launching</text>
+<rect x="684" y="556" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="568" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Performing</text>
+<rect x="834" y="556" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="568" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Evolving</text>
+<rect x="984" y="556" width="142" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+<text x="1055" y="568" font-family="sans-serif" font-size="9" fill="#adb5bd" text-anchor="middle">Evolving</text>
+<rect x="234" y="586" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="598" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Principles Esta…</text>
+<rect x="384" y="586" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="598" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Foundation Esta…</text>
+<rect x="534" y="586" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="598" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">In Use</text>
+<rect x="684" y="586" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="598" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">In Place</text>
+<rect x="834" y="586" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="598" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Working Well</text>
+<rect x="984" y="586" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="598" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Retired</text>
+<rect x="234" y="616" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="628" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Identified</text>
+<rect x="384" y="616" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="628" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Chartered</text>
+<rect x="534" y="616" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="628" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Active</text>
+<rect x="684" y="616" width="142" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+<text x="755" y="628" font-family="sans-serif" font-size="9" fill="#adb5bd" text-anchor="middle">Active</text>
+<rect x="834" y="616" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="628" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Embedded</text>
+<rect x="984" y="616" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="628" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Self-Sustaining</text>
+<rect x="234" y="670" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="682" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Conceived</text>
+<rect x="384" y="670" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="682" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Defined</text>
+<rect x="534" y="670" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="682" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Organized</text>
+<rect x="684" y="670" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="682" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Delivering</text>
+<rect x="834" y="670" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="682" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Transitioning</text>
+<rect x="984" y="670" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="682" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Closed</text>
+<rect x="234" y="700" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="712" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Surfaced</text>
+<rect x="384" y="700" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="712" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Analyzed</text>
+<rect x="534" y="700" width="142" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+<text x="605" y="712" font-family="sans-serif" font-size="9" fill="#adb5bd" text-anchor="middle">Analyzed</text>
+<rect x="684" y="700" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="712" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Managed</text>
+<rect x="834" y="700" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="712" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Minimized</text>
+<rect x="984" y="700" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="712" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Optimized</text>
+<rect x="234" y="730" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="742" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Envisioned</text>
+<rect x="384" y="730" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="742" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Structured</text>
+<rect x="534" y="730" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="742" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Executing</text>
+<rect x="684" y="730" width="142" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+<text x="755" y="742" font-family="sans-serif" font-size="9" fill="#adb5bd" text-anchor="middle">Executing</text>
+<rect x="834" y="730" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="742" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Adapting</text>
+<rect x="984" y="730" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="742" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Fulfilled</text>
+<rect x="234" y="760" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="772" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Scoped</text>
+<rect x="384" y="760" width="142" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+<text x="455" y="772" font-family="sans-serif" font-size="9" fill="#adb5bd" text-anchor="middle">Scoped</text>
+<rect x="534" y="760" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="605" y="772" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Mobilized</text>
+<rect x="684" y="760" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="772" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Delivering</text>
+<rect x="834" y="760" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="772" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Reviewed</text>
+<rect x="984" y="760" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="772" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Transitioned</text>
+<rect x="234" y="790" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="305" y="802" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Mandated</text>
+<rect x="384" y="790" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="455" y="802" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Established</text>
+<rect x="534" y="790" width="142" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+<text x="605" y="802" font-family="sans-serif" font-size="9" fill="#adb5bd" text-anchor="middle">Established</text>
+<rect x="684" y="790" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="755" y="802" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Operating</text>
+<rect x="834" y="790" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="905" y="802" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Optimized</text>
+<rect x="984" y="790" width="142" height="18" rx="9" fill="#ffffff" stroke="#d2d2d2" stroke-width="1"/>
+<text x="1055" y="802" font-family="sans-serif" font-size="9" fill="#151515" text-anchor="middle">Transitioned</text>
+<line x1="230" y1="150" x2="230" y2="816" stroke="#e8e8e8" stroke-width="0.5"/>
+<line x1="380" y1="150" x2="380" y2="816" stroke="#e8e8e8" stroke-width="0.5"/>
+<line x1="530" y1="150" x2="530" y2="816" stroke="#e8e8e8" stroke-width="0.5"/>
+<line x1="680" y1="150" x2="680" y2="816" stroke="#e8e8e8" stroke-width="0.5"/>
+<line x1="830" y1="150" x2="830" y2="816" stroke="#e8e8e8" stroke-width="0.5"/>
+<line x1="980" y1="150" x2="980" y2="816" stroke="#e8e8e8" stroke-width="0.5"/>
+<line x1="20" y1="816" x2="1130" y2="816" stroke="#d2d2d2" stroke-width="1"/>
+<circle cx="27" cy="836" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="27" y="839" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">1</text>
+<text x="40" y="840" font-family="sans-serif" font-size="9" fill="#6a6e73">Identify and Envision · Prerequisites: A strategic opportunity requiring coordinated multi-project delivery has been identified with an executive sponsor engaged, an initial investment hypothesis articulated, and portfo…</text>
+<circle cx="27" cy="851" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="27" y="854" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">2</text>
+<text x="40" y="855" font-family="sans-serif" font-size="9" fill="#6a6e73">Define and Organize · Lifecycle Phase: The programme is formally defined with a comprehensive business case, governance structures established, the team-of-teams designed with ART or equivalent structure formed, benefit…</text>
+<circle cx="27" cy="866" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="27" y="869" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">3</text>
+<text x="40" y="870" font-family="sans-serif" font-size="9" fill="#6a6e73">Plan and Mobilize · Lifecycle Phase: The programme becomes operationally active with the first tranche mobilized, teams beginning coordinated work through the ART or equivalent delivery structure, the first programme …</text>
+<circle cx="27" cy="881" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="27" y="884" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">4</text>
+<text x="40" y="885" font-family="sans-serif" font-size="9" fill="#6a6e73">Execute and Integrate · Lifecycle Phase: The programme is in full coordinated delivery with programme increments executing on cadence, teams performing with mature coordination mechanisms, dependencies actively managed an…</text>
+<circle cx="27" cy="896" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="27" y="899" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">5</text>
+<text x="40" y="900" font-family="sans-serif" font-size="9" fill="#6a6e73">Realize and Adapt · Lifecycle Phase: The programme enters the realization phase where the majority of planned benefits are confirmed as achieved, the investment thesis is validated through measurable delivery outcomes…</text>
+<circle cx="27" cy="911" r="6.5" fill="#ffffff" stroke="#0066cc" stroke-width="1"/><text x="27" y="914" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">6</text>
+<text x="40" y="915" font-family="sans-serif" font-size="9" fill="#6a6e73">Transition and Sustain · Lifecycle Phase: The programme formally transitions and closes with realized benefits embedded in operational management through sustainment plans, governance structures dissolved with practices do…</text>
+<circle cx="27" cy="926" r="6.5" fill="#ffffff" stroke="#8476d1" stroke-width="1"/><text x="27" y="929" font-family="sans-serif" font-size="8" font-weight="600" fill="#6a6e73" text-anchor="middle">7</text>
+<text x="40" y="930" font-family="sans-serif" font-size="9" fill="#6a6e73">Realize and Adapt → Plan and Mobilize: the tranche has been reviewed against its exit criteria · governance makes an informed decision about programme continuation on the tranche's results · resources released from the …</text>
+</g>
 </svg>
