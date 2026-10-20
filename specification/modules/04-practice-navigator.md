@@ -146,6 +146,7 @@ Two-column layout:
   - Variants (collapsible) -- Alpha variants with icons and descriptions.
 
 - **Full width (below columns):**
+  - Alpha State Flow -- An activity diagram of the state progression, rendered above the table (see "Alpha State Table" below).
   - Alpha State Table -- A tabular progression view (see "Alpha State Table" below).
 
 #### Activity Space
@@ -412,10 +413,15 @@ The navigator wraps its content in an alias provider that reads `practiceElement
 
 ![Alpha state table showing states as columns with numbered colour circles, description, contributing activities, work products, and checklist rows](../wireframes/navigator-alpha-state-table.svg)
 
-A full-width table rendered below the alpha's narrative content. Structure:
+A full-width figure and table rendered below the alpha's narrative content, under one "Maturity model" heading.
+
+**Alpha State Flow figure**, above the table. The state progression as an activity diagram — start marker, a box per state in sequence, end marker — scrolling horizontally when the model is wider than the panel rather than shrinking below a readable size. Clicking a state box sets it as the secondary selection. A cyclical model (a state declaring `loopsBackTo`) additionally draws a decision after the state that closes the cycle, a return edge to the state it re-enters, the loop's guard as the edge label, and a one-time/recurring divider where the cycle re-enters after a prefix state. Unresolvable loop edges are dropped and reported as warnings beneath the figure. Layout is specified in [Alpha State Flow](../diagrams/alpha-state-flow.md).
+
+**Table structure:**
 - **Columns:** One per state, sorted by sequence number.
-- **Rows:** State name tiles (with numbered colour circles), description, activities that contribute to this state, work products whose LOD contributes to this state, and checklist items.
-- **Interaction:** Cells are clickable, setting the clicked element as the secondary selection.
+- **Rows:** State name tiles (with numbered colour circles), description, Repeats, background prerequisites, activities that contribute to this state, work products whose LOD contributes to this state, and checklist items.
+- **Repeats row:** Present only when a state declares `loopsBackTo`. The closing state's cell carries a `↻ back to <state>` pill, the loop description, and the condition as Given/When/Then; the state the cycle re-enters is marked "the cycle returns here"; other cells show an em dash. The closing state's tile carries a `↻` badge and the re-entered state's tile a `⤶` marker, both titled with the other end of the edge.
+- **Interaction:** Cells are clickable, setting the clicked element as the secondary selection. The Repeats pill selects the state the cycle returns to.
 
 ### Work Product LOD Table
 

@@ -1,7 +1,7 @@
 # Diagram System
 
 ## Overview
-Keleo Studio includes seven diagram types, each split into a data/layout module (pure functions, no rendering dependencies) and one or more renderers (interactive and static). This separation ensures the same layout algorithm serves both the interactive navigator and the static site export.
+Keleo Studio includes eight diagram types, each split into a data/layout module (pure functions, no rendering dependencies) and one or more renderers (interactive and static). This separation ensures the same layout algorithm serves both the interactive navigator and the static site export.
 
 ## Architecture
 - Data/layout modules: compute positions, dimensions, and edge paths from domain data
@@ -25,6 +25,7 @@ Keleo Studio includes seven diagram types, each split into a data/layout module 
 5. [Radar Chart](./radar-chart.md) — Alpha coverage polar chart
 6. [Sankey Flow](./sankey-flow.md) — Activity→work product→alpha state flows
 7. [Alpha Contributes](./alpha-contributes.md) — Alpha contribution hierarchy layout
+8. [Alpha State Flow](./alpha-state-flow.md) — An alpha's states as an activity diagram, with cyclical models' return edges
 
 ## Example Diagrams
 
@@ -40,5 +41,6 @@ The [examples/](./examples/) directory contains SVG examples generated from the 
 | [radar-chart.svg](./examples/radar-chart.svg) | Radar chart (alpha coverage across Value/Solution/Endeavor focuses) |
 | [sankey-flow.svg](./examples/sankey-flow.svg) | Sankey flow (activities → work products → alpha states) |
 | [alpha-contributes.svg](./examples/alpha-contributes.svg) | Alpha contributes (contribution hierarchy per focus swimlane) |
+| [alpha-state-flow.svg](./examples/alpha-state-flow.svg) | Alpha state flow (ART states, with the return edge that closes the cycle) |
 
-To regenerate: `cd web && npx tsx ../scripts/generate-example-diagrams.ts`
+To regenerate: `cd web && npx tsx ../scripts/generate-example-diagrams.ts`. The alpha state flow example comes from this repository instead: `node utils/render-state-flow-diagram.mjs <practice.json> --all`.
