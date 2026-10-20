@@ -1,192 +1,132 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" width="1000" height="440">
-  <rect width="1000" height="440" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="1000" height="520">
+  <rect width="1000" height="520" fill="#ffffff"/>
+
+  <defs>
+    <marker id="pmx-arrow" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0, 7 2.5, 0 5" fill="#8476d1"/></marker>
+  </defs>
 
   <!-- Title -->
-  <text x="16" y="28" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">Pattern Table</text>
-  <text x="16" y="44" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Matrix view below pattern instance lists. Alpha names and states are clickable.</text>
+  <text x="16" y="28" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#333333">Pattern Matrix</text>
+  <text x="16" y="44" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Phases across, concerns down. Rendered below the pattern instance lists, under &#8220;Phases and concerns&#8221;.</text>
 
-  <!-- Table container -->
-  <rect x="16" y="56" width="968" height="360" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
+  <rect x="16" y="56" width="968" height="410" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="4"/>
 
-  <!-- Two-row header -->
-  <!-- Header row 1: Root alpha groups -->
-  <rect x="17" y="57" width="120" height="52" fill="#f0f0f0" rx="4"/>
-  <text x="77" y="88" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#999999" text-anchor="middle">Pattern View</text>
+  <!-- Narrative strips: one per narrative element, spanning the phases that name it -->
+  <rect x="208" y="70" width="364" height="18" rx="3" fill="#eaf2fb" stroke="#dde7f2" stroke-width="0.5"/>
+  <text x="216" y="83" font-family="system-ui, sans-serif" font-size="8" font-weight="600" fill="#999999" letter-spacing="0.08em">SHAPING</text>
+  <rect x="578" y="70" width="364" height="18" rx="3" fill="#eaf2fb" stroke="#dde7f2" stroke-width="0.5"/>
+  <text x="586" y="83" font-family="system-ui, sans-serif" font-size="8" font-weight="600" fill="#999999" letter-spacing="0.08em">DELIVERING</text>
 
-  <!-- Root Alpha: Requirements (spans 2 columns) -->
-  <rect x="138" y="57" width="300" height="26" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="0"/>
-  <text x="288" y="75" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#4a90d9" text-anchor="middle" text-decoration="underline" cursor="pointer">Requirements</text>
+  <!-- Phase headers. The glyph marks a narrative context carried in the footnotes below. -->
+  <rect x="208" y="100" width="179" height="44" rx="4" fill="#f4f8fd" stroke="#4a90d9" stroke-width="1"/>
+  <text x="216" y="116" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333">Inception</text>
+  <text x="216" y="130" font-family="system-ui, sans-serif" font-size="8" fill="#999999">What this phase is for&#8230;</text>
+  <circle cx="373" cy="113" r="6.5" fill="#ffffff" stroke="#4a90d9" stroke-width="1"/>
+  <text x="373" y="116" font-family="system-ui, sans-serif" font-size="7" font-weight="600" fill="#999999" text-anchor="middle">1</text>
+  <rect x="393" y="100" width="179" height="44" rx="4" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="401" y="116" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#4a90d9">Elaboration</text>
+  <text x="401" y="130" font-family="system-ui, sans-serif" font-size="8" fill="#999999">What this phase is for&#8230;</text>
+  <circle cx="558" cy="113" r="6.5" fill="#ffffff" stroke="#4a90d9" stroke-width="1"/>
+  <text x="558" y="116" font-family="system-ui, sans-serif" font-size="7" font-weight="600" fill="#999999" text-anchor="middle">2</text>
+  <rect x="578" y="100" width="179" height="44" rx="4" fill="#f4f8fd" stroke="#4a90d9" stroke-width="1"/>
+  <text x="586" y="116" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333">Construction</text>
+  <text x="586" y="130" font-family="system-ui, sans-serif" font-size="8" fill="#999999">What this phase is for&#8230;</text>
+  <circle cx="743" cy="113" r="6.5" fill="#ffffff" stroke="#4a90d9" stroke-width="1"/>
+  <text x="743" y="116" font-family="system-ui, sans-serif" font-size="7" font-weight="600" fill="#999999" text-anchor="middle">3</text>
+  <rect x="763" y="100" width="179" height="44" rx="4" fill="#f4f8fd" stroke="#4a90d9" stroke-width="1"/>
+  <text x="771" y="116" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333">Transition</text>
+  <text x="771" y="130" font-family="system-ui, sans-serif" font-size="8" fill="#999999">What this phase is for&#8230;</text>
+  <circle cx="928" cy="113" r="6.5" fill="#ffffff" stroke="#4a90d9" stroke-width="1"/>
+  <text x="928" y="116" font-family="system-ui, sans-serif" font-size="7" font-weight="600" fill="#999999" text-anchor="middle">4</text>
 
-  <!-- Root Alpha: Software System (spans 2 columns) -->
-  <rect x="439" y="57" width="300" height="26" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="0"/>
-  <text x="589" y="75" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#4a90d9" text-anchor="middle" text-decoration="underline" cursor="pointer">Software System</text>
+  <!-- Loop channel: PatternView.loopsBackTo, drawn between the headers and the grid -->
+  <path d="M 852.5 144 L 852.5 168 L 482.5 168 L 482.5 144" fill="none" stroke="#8476d1" stroke-width="1.5" marker-end="url(#pmx-arrow)"/>
+  <text x="667.5" y="181" font-family="system-ui, sans-serif" font-size="9" fill="#8476d1" text-anchor="middle">[more increments remain]</text>
+  <circle cx="743.5" cy="178" r="6.5" fill="#ffffff" stroke="#8476d1" stroke-width="1"/>
+  <text x="743.5" y="181" font-family="system-ui, sans-serif" font-size="7" font-weight="600" fill="#999999" text-anchor="middle">5</text>
 
-  <!-- Root Alpha: Team (spans 1 column) -->
-  <rect x="740" y="57" width="243" height="26" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="0"/>
-  <text x="862" y="75" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#4a90d9" text-anchor="middle" text-decoration="underline" cursor="pointer">Team</text>
+  <!-- Grid: focus bands, each root concern followed by the contributors indented beneath -->
+  <rect x="17" y="194" width="966" height="20" fill="#e8e8e8"/>
+  <text x="24" y="208" font-family="system-ui, sans-serif" font-size="8" font-weight="600" fill="#999999" letter-spacing="0.08em">VALUE</text>
+  <line x1="16" y1="214" x2="984" y2="214" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="24" y="231" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#333333">Opportunity</text>
+  <rect x="212" y="218" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="297.5" y="231" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Identified</text>
+  <rect x="397" y="218" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="482.5" y="231" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Solution Needed</text>
+  <rect x="582" y="218" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="667.5" y="231" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Value Established</text>
+  <rect x="767" y="218" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="852.5" y="231" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Addressed</text>
+  <line x1="16" y1="240" x2="984" y2="240" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="24" y="257" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#333333">Stakeholders</text>
+  <rect x="212" y="244" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="297.5" y="257" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Recognized</text>
+  <rect x="397" y="244" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="482.5" y="257" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Involved</text>
+  <rect x="582" y="244" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="667.5" y="257" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">In Agreement</text>
+  <rect x="767" y="244" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="852.5" y="257" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Satisfied</text>
+  <rect x="17" y="266" width="966" height="20" fill="#e8e8e8"/>
+  <text x="24" y="280" font-family="system-ui, sans-serif" font-size="8" font-weight="600" fill="#999999" letter-spacing="0.08em">SOLUTION</text>
+  <line x1="16" y1="286" x2="984" y2="286" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="24" y="303" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#333333">Requirements</text>
+  <rect x="212" y="290" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="297.5" y="303" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Conceived</text>
+  <rect x="397" y="290" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="482.5" y="303" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Bounded</text>
+  <rect x="582" y="290" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="667.5" y="303" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Coherent</text>
+  <rect x="767" y="290" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="852.5" y="303" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Fulfilled</text>
+  <line x1="16" y1="312" x2="984" y2="312" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="38" y="329" font-family="system-ui, sans-serif" font-size="10" fill="#999999">&#9492; Feature Set</text>
+  <text x="297.5" y="329" font-family="system-ui, sans-serif" font-size="10" fill="#cccccc" text-anchor="middle">&#183;</text>
+  <rect x="397" y="316" width="169" height="18" rx="9" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="482.5" y="329" font-family="system-ui, sans-serif" font-size="9" font-weight="600" fill="#4a90d9" text-anchor="middle">Shaped</text>
+  <rect x="582" y="316" width="169" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+  <text x="667.5" y="329" font-family="system-ui, sans-serif" font-size="9" fill="#bbbbbb" text-anchor="middle">Shaped</text>
+  <rect x="767" y="316" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="852.5" y="329" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Accepted</text>
+  <rect x="17" y="338" width="966" height="20" fill="#e8e8e8"/>
+  <text x="24" y="352" font-family="system-ui, sans-serif" font-size="8" font-weight="600" fill="#999999" letter-spacing="0.08em">ENDEAVOR</text>
+  <line x1="16" y1="358" x2="984" y2="358" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="24" y="375" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#333333">Work</text>
+  <rect x="212" y="362" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="297.5" y="375" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Initiated</text>
+  <rect x="397" y="362" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="482.5" y="375" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Prepared</text>
+  <rect x="582" y="362" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="667.5" y="375" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Under Control</text>
+  <rect x="767" y="362" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="852.5" y="375" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Closed</text>
+  <line x1="16" y1="384" x2="984" y2="384" stroke="#e0e0e0" stroke-width="0.5"/>
+  <text x="24" y="401" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#333333">Team</text>
+  <rect x="212" y="388" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="297.5" y="401" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Seeded</text>
+  <rect x="397" y="388" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="482.5" y="401" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Formed</text>
+  <rect x="582" y="388" width="169" height="18" rx="9" fill="#ffffff" stroke="#dddddd" stroke-width="1"/>
+  <text x="667.5" y="401" font-family="system-ui, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Performing</text>
+  <rect x="767" y="388" width="169" height="18" rx="9" fill="#f7f7f7" stroke="#e8e8e8" stroke-width="1"/>
+  <text x="852.5" y="401" font-family="system-ui, sans-serif" font-size="9" fill="#bbbbbb" text-anchor="middle">Performing</text>
+  <line x1="16" y1="410" x2="984" y2="410" stroke="#cccccc" stroke-width="1"/>
+  <line x1="202" y1="194" x2="202" y2="410" stroke="#e8e8e8" stroke-width="0.5"/>
+  <line x1="387" y1="194" x2="387" y2="410" stroke="#e8e8e8" stroke-width="0.5"/>
+  <line x1="572" y1="194" x2="572" y2="410" stroke="#e8e8e8" stroke-width="0.5"/>
+  <line x1="757" y1="194" x2="757" y2="410" stroke="#e8e8e8" stroke-width="0.5"/>
 
-  <!-- Header row 2: Individual alphas -->
-  <rect x="138" y="84" width="149" height="25" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="0"/>
-  <text x="212" y="101" font-family="system-ui, sans-serif" font-size="11" fill="#4a90d9" text-anchor="middle" text-decoration="underline" cursor="pointer">Stakeholder Need</text>
-
-  <rect x="288" y="84" width="150" height="25" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="0"/>
-  <text x="363" y="101" font-family="system-ui, sans-serif" font-size="11" fill="#4a90d9" text-anchor="middle" text-decoration="underline" cursor="pointer">Feature Set</text>
-
-  <rect x="439" y="84" width="149" height="25" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="0"/>
-  <text x="513" y="101" font-family="system-ui, sans-serif" font-size="11" fill="#4a90d9" text-anchor="middle" text-decoration="underline" cursor="pointer">Architecture</text>
-
-  <rect x="589" y="84" width="150" height="25" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="0"/>
-  <text x="664" y="101" font-family="system-ui, sans-serif" font-size="11" fill="#4a90d9" text-anchor="middle" text-decoration="underline" cursor="pointer">Deployment</text>
-
-  <rect x="740" y="84" width="121" height="25" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="0"/>
-  <text x="800" y="101" font-family="system-ui, sans-serif" font-size="11" fill="#4a90d9" text-anchor="middle" text-decoration="underline" cursor="pointer">Way of Working</text>
-
-  <rect x="862" y="84" width="121" height="25" fill="#f0f0f0" stroke="#cccccc" stroke-width="1" rx="0"/>
-  <text x="922" y="101" font-family="system-ui, sans-serif" font-size="11" fill="#4a90d9" text-anchor="middle" text-decoration="underline" cursor="pointer">Collaboration</text>
-
-  <!-- Header divider -->
-  <line x1="16" y1="110" x2="984" y2="110" stroke="#cccccc" stroke-width="1"/>
-
-  <!-- Row 1: Phase 1 (Inception) -->
-  <rect x="24" y="118" width="112" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
-  <text x="80" y="148" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333" text-anchor="middle">Inception</text>
-  <text x="80" y="162" font-family="system-ui, sans-serif" font-size="9" fill="#999999" text-anchor="middle">(Phase 1)</text>
-
-  <!-- State cells for Phase 1 -->
-  <rect x="144" y="118" width="137" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="190" cy="151" r="11" fill="#c5ddf5"/>
-  <text x="190" y="155" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">1</text>
-  <text x="208" y="155" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Recognized</text>
-
-  <rect x="282" y="118" width="150" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="328" cy="151" r="11" fill="#c5ddf5"/>
-  <text x="328" y="155" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">1</text>
-  <text x="346" y="155" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Conceived</text>
-
-  <rect x="433" y="118" width="149" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="479" cy="151" r="11" fill="#c5ddf5"/>
-  <text x="479" y="155" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">1</text>
-  <text x="497" y="155" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Selected</text>
-
-  <rect x="583" y="118" width="150" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <text x="658" y="155" font-family="system-ui, sans-serif" font-size="10" fill="#999999" text-anchor="middle">--</text>
-
-  <rect x="734" y="118" width="121" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="772" cy="151" r="11" fill="#c5ddf5"/>
-  <text x="772" y="155" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">1</text>
-  <text x="790" y="155" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Seeded</text>
-
-  <rect x="856" y="118" width="121" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="894" cy="151" r="11" fill="#c5ddf5"/>
-  <text x="894" y="155" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">1</text>
-  <text x="912" y="155" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Formed</text>
-
-  <!-- Row 2: Phase 2 (Elaboration) -->
-  <rect x="24" y="192" width="112" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
-  <text x="80" y="222" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333" text-anchor="middle">Elaboration</text>
-  <text x="80" y="236" font-family="system-ui, sans-serif" font-size="9" fill="#999999" text-anchor="middle">(Phase 2)</text>
-
-  <rect x="144" y="192" width="137" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="190" cy="225" r="11" fill="#9dc4ed"/>
-  <text x="190" y="229" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">2</text>
-  <text x="208" y="229" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Bounded</text>
-
-  <rect x="282" y="192" width="150" height="66" fill="#e3f0ff" stroke="#4a90d9" stroke-width="2" rx="0"/>
-  <circle cx="328" cy="225" r="11" fill="#9dc4ed"/>
-  <text x="328" y="229" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">2</text>
-  <text x="346" y="229" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9" font-weight="bold">Prioritised</text>
-
-  <rect x="433" y="192" width="149" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="479" cy="225" r="11" fill="#9dc4ed"/>
-  <text x="479" y="229" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">2</text>
-  <text x="497" y="229" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Demonstrated</text>
-
-  <rect x="583" y="192" width="150" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="629" cy="225" r="11" fill="#c5ddf5"/>
-  <text x="629" y="229" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">1</text>
-  <text x="647" y="229" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Planned</text>
-
-  <rect x="734" y="192" width="121" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="772" cy="225" r="11" fill="#9dc4ed"/>
-  <text x="772" y="229" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">2</text>
-  <text x="790" y="229" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">In Use</text>
-
-  <rect x="856" y="192" width="121" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="894" cy="225" r="11" fill="#9dc4ed"/>
-  <text x="894" y="229" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">2</text>
-  <text x="912" y="229" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Collaborating</text>
-
-  <!-- Row 3: Phase 3 (Construction) -->
-  <rect x="24" y="266" width="112" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
-  <text x="80" y="296" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333" text-anchor="middle">Construction</text>
-  <text x="80" y="310" font-family="system-ui, sans-serif" font-size="9" fill="#999999" text-anchor="middle">(Phase 3)</text>
-
-  <rect x="144" y="266" width="137" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="190" cy="299" r="11" fill="#6fa8e0"/>
-  <text x="190" y="303" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
-  <text x="208" y="303" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Coherent</text>
-
-  <rect x="282" y="266" width="150" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="328" cy="299" r="11" fill="#6fa8e0"/>
-  <text x="328" y="303" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
-  <text x="346" y="303" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Verified</text>
-
-  <rect x="433" y="266" width="149" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="479" cy="299" r="11" fill="#6fa8e0"/>
-  <text x="479" y="303" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
-  <text x="497" y="303" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Usable</text>
-
-  <rect x="583" y="266" width="150" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="629" cy="299" r="11" fill="#9dc4ed"/>
-  <text x="629" y="303" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#333333" text-anchor="middle">2</text>
-  <text x="647" y="303" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Deployed</text>
-
-  <rect x="734" y="266" width="121" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="772" cy="299" r="11" fill="#6fa8e0"/>
-  <text x="772" y="303" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
-  <text x="790" y="303" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">In Place</text>
-
-  <rect x="856" y="266" width="121" height="66" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="894" cy="299" r="11" fill="#4a90d9"/>
-  <text x="894" y="303" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
-  <text x="912" y="303" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Performing</text>
-
-  <!-- Row 4: Phase 4 (Transition) -->
-  <rect x="24" y="340" width="112" height="58" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="4"/>
-  <text x="80" y="366" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#333333" text-anchor="middle">Transition</text>
-  <text x="80" y="380" font-family="system-ui, sans-serif" font-size="9" fill="#999999" text-anchor="middle">(Phase 4)</text>
-
-  <rect x="144" y="340" width="137" height="58" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="190" cy="369" r="11" fill="#4a90d9"/>
-  <text x="190" y="373" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
-  <text x="208" y="373" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Acceptable</text>
-
-  <rect x="282" y="340" width="150" height="58" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="328" cy="369" r="11" fill="#4a90d9"/>
-  <text x="328" y="373" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
-  <text x="346" y="373" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Validated</text>
-
-  <rect x="433" y="340" width="149" height="58" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="479" cy="369" r="11" fill="#4a90d9"/>
-  <text x="479" y="373" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
-  <text x="497" y="373" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Ready</text>
-
-  <rect x="583" y="340" width="150" height="58" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="629" cy="369" r="11" fill="#6fa8e0"/>
-  <text x="629" y="373" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
-  <text x="647" y="373" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Operational</text>
-
-  <rect x="734" y="340" width="121" height="58" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="772" cy="369" r="11" fill="#4a90d9"/>
-  <text x="772" y="373" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
-  <text x="790" y="373" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Working Well</text>
-
-  <rect x="856" y="340" width="121" height="58" fill="#ffffff" stroke="#dddddd" stroke-width="1" rx="0"/>
-  <circle cx="894" cy="369" r="11" fill="#2c6cb0"/>
-  <text x="894" y="373" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
-  <text x="912" y="373" font-family="system-ui, sans-serif" font-size="10" fill="#4a90d9">Adjourned</text>
+  <!-- Footnotes: narrative context paragraphs and loop conditions -->
+  <circle cx="24" cy="426" r="6.5" fill="#ffffff" stroke="#4a90d9" stroke-width="1"/>
+  <text x="24" y="429" font-family="system-ui, sans-serif" font-size="7" font-weight="600" fill="#999999" text-anchor="middle">1</text>
+  <text x="38" y="430" font-family="system-ui, sans-serif" font-size="9" fill="#999999">Inception &#183; Shaping: the narrative context paragraph for this phase&#8230;</text>
+  <circle cx="24" cy="440" r="6.5" fill="#ffffff" stroke="#8476d1" stroke-width="1"/>
+  <text x="24" y="443" font-family="system-ui, sans-serif" font-size="7" font-weight="600" fill="#999999" text-anchor="middle">5</text>
+  <text x="38" y="444" font-family="system-ui, sans-serif" font-size="9" fill="#999999">Transition &#8594; Elaboration: Given the release objective is not met, When the increment review completes, Then&#8230;</text>
 
   <!-- Annotation -->
-  <text x="16" y="426" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Root alpha names in first header row span their contributing alphas. State names and alpha names are clickable (blue, underlined).</text>
-  <text x="16" y="438" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Feature Set / Elaboration cell shown as selected (blue border). "--" indicates no state reached for that alpha in that phase.</text>
+  <text x="16" y="486" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">Column headers select the pattern view; row labels select the concern; state cells select alphaName::stateName. Elaboration / Feature Set shown as selected.</text>
+  <text x="16" y="498" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">A muted cell is a state carried over unchanged from the previous phase; it is still named and still clickable. &#183; marks a phase that declares nothing for that concern.</text>
+  <text x="16" y="510" font-family="system-ui, sans-serif" font-size="10" fill="#999999" font-style="italic">The loop channel, its guard and the narrative strips appear only when the pattern declares them.</text>
 </svg>

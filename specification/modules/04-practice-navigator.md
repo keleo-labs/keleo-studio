@@ -188,7 +188,7 @@ Two-column layout:
 
 - Concern instances (collapsible) -- Alpha instance names with descriptions.
 - Work product instances (collapsible) -- Work product instance names with descriptions.
-- Pattern Table (full width) -- A matrix view (see "Pattern Table" below).
+- Pattern Matrix (full width) -- The phases and concerns figure (see "Pattern Matrix" below).
 
 #### Persona Group
 
@@ -432,12 +432,16 @@ A full-width table rendered below the work product's narrative content. Structur
 - **Rows:** LOD name tiles, description, prerequisites, contributes-to references, developed-by activities, and checklist items.
 - **Interaction:** Cells are clickable, setting the clicked element as the secondary selection.
 
-### Pattern Table
+### Pattern Matrix
 
-![Pattern table matrix with root alphas spanning child alpha columns, pattern views as rows, and state tiles in cells](../wireframes/navigator-pattern-table.svg)
+![Pattern matrix with pattern views as columns, alphas as rows grouped into focus bands, a loop channel below the headers, and state cells in the grid](../wireframes/navigator-pattern-table.svg)
 
-A matrix view rendered below the pattern's instance lists. Structure:
-- **Rows:** Pattern views (stages of the pattern).
-- **Column groups:** Alpha hierarchies. Root alphas span their contributing alphas as a two-row header -- root alpha in the first header row, individual alphas in the second.
-- **Cells:** Show the states reached by each alpha in each pattern view.
-- **Interaction:** Alpha names and states are clickable, opening the secondary panel. Alpha clicks use the "alpha" mode context for auto-mode switching.
+A full-width figure rendered below the pattern's instance lists, under the heading "Phases and concerns". It replaces the pattern table, which ran the other way up and so had no columns for a `loopsBackTo` arc to span. Layout is specified in [Pattern Matrix](../diagrams/pattern-matrix.md).
+
+- **Columns:** Pattern views, in `seq` order. Each header carries the view name, its description, and a footnote glyph where the view has a narrative context.
+- **Rows:** Alphas the pattern references, grouped into focus bands, each root followed by its contributors indented beneath. Focus bands are suppressed when every row falls in one focus.
+- **Cells:** The state each concern is asked to reach in that phase. A state carried over unchanged from the previous column is muted; a phase that declares nothing for a concern shows a faint gap mark.
+- **Loop channel:** Between the headers and the grid, one orthogonal return edge per view declaring `loopsBackTo`, labelled with its guard, nested by span where a pattern declares more than one.
+- **Narrative strips:** Above the headers, one per narrative element, spanning the views whose narrative contexts name it.
+- **Below the figure:** A legend, numbered footnotes carrying the narrative context paragraphs and loop conditions, and any resolution warnings.
+- **Interaction:** Clicking a column header selects the pattern view; a row label selects the alpha; a state cell selects `alphaName::stateName`. All three open the secondary panel.
