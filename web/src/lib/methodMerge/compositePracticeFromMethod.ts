@@ -787,6 +787,30 @@ function mergeKeyedPracticeOverlayRows(base: any[] | undefined, over: any[] | un
   return [...byName.values()];
 }
 
+function templatePayload(value: any): any {
+  if (Array.isArray(value)) return value.map(templatePayload);
+  if (!isPlainRecord(value)) return value;
+  const metadata = new Set(["tags", "narratives", "assetNames", "specificityName", "specificity", "suppressed", "contributingPatternName"]);
+  if (!("metricId" in value)) metadata.add("description");
+  return Object.fromEntries(Object.entries(value)
+    .filter(([key]) => !metadata.has(key))
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([key, nested]) => [key, templatePayload(nested)]));
+}
+
+function mergeProjectCreationTemplates(base: any[] | undefined, over: any[] | undefined): any[] {
+  const templates = new Map<string, any>();
+  for (const template of [...(base ?? []), ...(over ?? [])]) {
+    const key = JSON.stringify([template.name, template.version]);
+    const existing = templates.get(key);
+    if (existing && JSON.stringify(templatePayload(existing)) !== JSON.stringify(templatePayload(template))) {
+      throw new Error(`Conflicting project creation template ${template.name}@${template.version}`);
+    }
+    if (!existing) templates.set(key, clone(template));
+  }
+  return [...templates.values()];
+}
+
 type ActSlot = Map<string, any>;
 
 type SpaceSlot = { space: any; activities: ActSlot };
@@ -1511,6 +1535,8 @@ function mergeSecondaryBaselineKernel(acc: ExtensionMergeAccumulator, secondary:
     (sdoc.personaGroups ?? []) as any[],
   );
   acc.out.patterns = mergePatterns(acc.out.patterns as any, (sdoc.patterns ?? []) as any[]);
+  acc.out.outcomes = mergeKeyedPracticeOverlayRows(acc.out.outcomes as any[], (sdoc.outcomes ?? []) as any[]);
+  acc.out.projectCreationTemplates = mergeProjectCreationTemplates(acc.out.projectCreationTemplates as any[], (sdoc.projectCreationTemplates ?? []) as any[]);
   const mergedSecondaryAi = mergeKeyedPracticeOverlayRows(
     Array.isArray(acc.out.alphaInstances) ? (acc.out.alphaInstances as any[]) : [],
     Array.isArray(sdoc.alphaInstances) ? (sdoc.alphaInstances as any[]) : [],
@@ -1601,6 +1627,8 @@ function mergeOneExtensionPracticeOntoOut(acc: ExtensionMergeAccumulator, overla
     ((overlayPractice as any).personaGroups ?? []) as any[],
   );
   acc.out.patterns = mergePatterns(acc.out.patterns as any, (overlayPractice.patterns ?? []) as any[], overlayPractice.name);
+  acc.out.outcomes = mergeKeyedPracticeOverlayRows(acc.out.outcomes as any[], (overlayPractice as any).outcomes ?? []);
+  acc.out.projectCreationTemplates = mergeProjectCreationTemplates(acc.out.projectCreationTemplates as any[], (overlayPractice as any).projectCreationTemplates ?? []);
   const mergedExtAi = mergeKeyedPracticeOverlayRows(
     Array.isArray(acc.out.alphaInstances) ? (acc.out.alphaInstances as any[]) : [],
     Array.isArray((overlayPractice as any).alphaInstances) ? ((overlayPractice as any).alphaInstances as any[]) : [],
@@ -1790,6 +1818,8 @@ export function compositePracticeFromMethod(method: Method, library?: LibraryLoo
     practiceDependencyNames: uniqStrings(((method as any).practiceDependencyNames ?? []) as string[]),
     workProducts: mergeWorkProducts(mergeWorkProducts([], addSourcePracticeNameToElements(baselineWorkProducts, baselinePracticeName)), methodWorkProducts),
     patterns: mergePatterns(mergePatterns([], addSourcePracticeNameToElements(baselinePatterns, baselinePracticeName)), methodPatterns),
+    outcomes: mergeKeyedPracticeOverlayRows(baselineDoc.outcomes as any[], methodDoc.outcomes as any[]),
+    projectCreationTemplates: mergeProjectCreationTemplates(baselineDoc.projectCreationTemplates as any[], methodDoc.projectCreationTemplates as any[]),
     personas: mergePersonas(mergePersonas([], baselinePersonas), methodPersonas),
     personaGroups: mergePersonaGroups(mergePersonaGroups([], baselinePersonaGroups), methodPersonaGroups),
     alphaInstances: mergeKeyedPracticeOverlayRows([], baselineAlphaInstances),

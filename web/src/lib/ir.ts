@@ -26,6 +26,13 @@ export function asBaselineDocument(doc: any): PracticeBaseline | null {
   if (doc.baselinePractice && typeof doc.baselinePractice === "object") {
     return (doc as Method).baselinePractice;
   }
+  if (doc.kind === "practiceBaseline") {
+    return {
+      focuses: [], alphas: [], activitySpaces: [], competencies: [], authors: [],
+      createdAt: "", updatedAt: "", version: "", keywords: [],
+      ...doc,
+    } as PracticeBaseline;
+  }
   // Kernel-shaped documents with their own alphas + focuses and no practice
   // dependencies are baselines in their own right — preserve the document name
   // even when baselinePracticeName references a parent baseline.
