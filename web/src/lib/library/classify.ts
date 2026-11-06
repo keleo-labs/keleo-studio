@@ -110,6 +110,7 @@ export function isStandaloneBaselinePracticeArtifact(body: unknown): boolean {
   if (merges) return false;
   const alphaList = Array.isArray(o.alphas) ? o.alphas : [];
   const focusList = Array.isArray(o.focuses) ? o.focuses : [];
+  if (o.kind === "practiceBaseline") return true;
   return alphaList.length > 0 && focusList.length > 0 && !hasNonemptyPracticeDependencies(o);
 }
 
